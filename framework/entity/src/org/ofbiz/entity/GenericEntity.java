@@ -344,7 +344,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     public String getPkShortValueString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (ModelField curPk: this.getModelEntity().getPkFieldsUnmodifiable()) {
             if (sb.length() > 0) {
                 sb.append("::");
@@ -999,7 +999,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      */
     public void writeXmlText(PrintWriter writer, String prefix) {
         int indent = 4;
-        StringBuffer indentStrBuf = new StringBuffer();
+        StringBuilder indentStrBuf = new StringBuilder();
         for (int i = 0; i < indent; i++) indentStrBuf.append(' ');
         String indentString = indentStrBuf.toString();
 

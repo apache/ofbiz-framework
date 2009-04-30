@@ -613,7 +613,7 @@ public class StringUtil {
      * @return the converted string
      */
     public static String collapseCharacter(String str, char c) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         char last = str.charAt(0);
 
         for (int i = 0; i < str.length(); i++) {

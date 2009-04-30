@@ -85,7 +85,7 @@ public abstract class AbtractAuthorization implements Authorization {
                        	
 		// split the permission string; so we can walk up the levels
 		String[] permSplit = expandedPermission.split(":");
-		StringBuffer joined = new StringBuffer();
+		StringBuilder joined = new StringBuilder();
 		int index = 1;
 		
 		if (permSplit != null && permSplit.length > 1) {

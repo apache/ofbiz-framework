@@ -2322,7 +2322,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
         if (UtilValidate.isNotEmpty(modelFormField.getHeaderLink())) {
-            StringBuffer targetBuffer = new StringBuffer();
+            StringBuilder targetBuffer = new StringBuilder();
             FlexibleStringExpander target = FlexibleStringExpander.getInstance(modelFormField.getHeaderLink());
             String fullTarget = target.expandString(context);
             targetBuffer.append(fullTarget);

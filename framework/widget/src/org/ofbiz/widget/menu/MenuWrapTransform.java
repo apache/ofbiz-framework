@@ -73,7 +73,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
     public Writer getWriter(final Writer out, Map args) {
         Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);

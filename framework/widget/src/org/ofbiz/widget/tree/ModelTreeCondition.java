@@ -325,7 +325,7 @@ public class ModelTreeCondition {
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
-                StringBuffer fullString = new StringBuffer();
+                StringBuilder fullString = new StringBuilder();
                 for (Object message: messages) {
                     fullString.append((String) message);
                 }
@@ -375,7 +375,7 @@ public class ModelTreeCondition {
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldVal.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
 
-                StringBuffer fullString = new StringBuffer();
+                StringBuilder fullString = new StringBuilder();
                 for (Object message: messages) {
                     fullString.append((String) message);
                 }

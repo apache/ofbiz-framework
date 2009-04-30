@@ -158,7 +158,7 @@ public class FlexibleLocation {
             return "";
         }
 
-        StringBuffer strippedSoFar = new StringBuffer(location);
+        StringBuilder strippedSoFar = new StringBuilder(location);
 
         // first take care of the colon and everything before it
         int colonIndex = strippedSoFar.indexOf(":");
