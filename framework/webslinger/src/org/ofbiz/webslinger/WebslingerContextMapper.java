@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.SecurityFactory;
+import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -82,13 +83,16 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         request.setAttribute("servletContext", context);
         Object delegator = context.getAttribute("delegator");
         Object dispatcher = context.getAttribute("dispatcher");
+        Object authz = context.getAttribute("authz");
         Object security = context.getAttribute("security");
         request.setAttribute("delegator", delegator);
         request.setAttribute("dispatcher", dispatcher);
+        request.setAttribute("authz", authz);
         request.setAttribute("security", security);
         // FIXME!!! These next two are a hack until proper fake/wrapped session support is done in webslinger
         servletContext.setAttribute("delegator", delegator);
         servletContext.setAttribute("dispatcher", dispatcher);
+        servletContext.setAttribute("authz", authz);
         servletContext.setAttribute("security", security);
     }
 
@@ -97,6 +101,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         GenericDelegator delegator = GenericDelegator.getGenericDelegator(ofbizLayout.delegatorName);
         context.setAttribute("delegator", delegator);
         context.setAttribute("dispatcher", createLocalDispatcher(context, layout.getTarget(), delegator));
+        context.setAttribute("authz", AuthorizationFactory.getInstance(delegator));
         context.setAttribute("security", SecurityFactory.getInstance(delegator));
     }
 
