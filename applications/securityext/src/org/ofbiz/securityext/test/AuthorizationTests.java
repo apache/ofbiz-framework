@@ -13,8 +13,12 @@ public class AuthorizationTests extends OFBizTestCase {
     private static final String module = AuthorizationTests.class.getName();
     protected Authorization security;
     
-    public AuthorizationTests(String name) throws SecurityConfigurationException {
+    public AuthorizationTests(String name) {
         super(name);
+    }
+    
+    @Override
+    public void setUp() throws SecurityConfigurationException {
         security = AuthorizationFactory.getInstance(delegator);
     }
                    
