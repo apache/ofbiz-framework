@@ -125,9 +125,11 @@ public abstract class AbtractAuthorization implements Authorization {
         }
         
         // set the tracking values on thread local
+        boolean initialCall = false;
         if (UtilValidate.isEmpty(threadUid)) {
             origPermission.set(permission);
             uid.set(userId);
+            initialCall = true;
         }
                        	
 		// split the permission string; so we can walk up the levels
@@ -171,7 +173,7 @@ public abstract class AbtractAuthorization implements Authorization {
     		
     		// finally check dynamic permission (outside the loop)
     		String threadPerm = origPermission.get();
-    		if (!permission.equals(threadPerm)) {
+    		if (initialCall || !permission.equals(threadPerm)) {
         		if (hasDynamicPermission(userId, expandedPermission, context)) {
         		    // permission granted
         		    handleAutoGrantPermissions(userId, expandedPermission, context);
@@ -206,5 +208,15 @@ public abstract class AbtractAuthorization implements Authorization {
             }
             autoGrant.set(granted);            
         }
+	}
+	
+	/**
+	 * Used to clear the values set in ThreadLocal
+	 * -- needed when thread pools are used which do not handle clearing between requests
+	 */
+	public static void clearThreadLocal() {
+	    origPermission.remove();
+        autoGrant.remove();
+        uid.remove();        
 	}
 }
