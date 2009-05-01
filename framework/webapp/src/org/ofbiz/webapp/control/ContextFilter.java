@@ -54,6 +54,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
+import org.ofbiz.security.authz.AbtractAuthorization;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.GenericDispatcher;
@@ -129,6 +130,9 @@ public class ContextFilter implements Filter {
             Thread.currentThread().setContextClassLoader(localCachedClassLoader);
         }
 
+        // reset thread local security; used when thread pools don't clear 
+        AbtractAuthorization.clearThreadLocal();
+        
         // set the webSiteId in the session
         httpRequest.getSession().setAttribute("webSiteId", config.getServletContext().getAttribute("webSiteId"));
 

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.security.SecurityConfigurationException;
+import org.ofbiz.security.authz.AbtractAuthorization;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.testtools.OFBizTestCase;
@@ -11,7 +12,7 @@ import org.ofbiz.service.testtools.OFBizTestCase;
 public class AuthorizationTests extends OFBizTestCase {
 
     private static final String module = AuthorizationTests.class.getName();
-    protected Authorization security;
+    protected Authorization security = null;
     
     public AuthorizationTests(String name) {
         super(name);
@@ -19,7 +20,10 @@ public class AuthorizationTests extends OFBizTestCase {
     
     @Override
     public void setUp() throws SecurityConfigurationException {
-        security = AuthorizationFactory.getInstance(delegator);
+        if (security == null) {
+            security = AuthorizationFactory.getInstance(delegator);
+        }
+        AbtractAuthorization.clearThreadLocal();
     }
                    
     public void testBasicAdminPermission() throws Exception {
