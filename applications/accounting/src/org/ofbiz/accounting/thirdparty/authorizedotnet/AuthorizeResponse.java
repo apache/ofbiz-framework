@@ -24,7 +24,7 @@ import java.util.*;
 public class AuthorizeResponse {
 
     private String rawResp = null;
-    private List response = new ArrayList();
+    private List<String> response = new ArrayList<String>();
     private String respCode = "";
     private String reasonCode = "";
     private String reasonText = "";
@@ -93,7 +93,7 @@ public class AuthorizeResponse {
     }
 
     private void setApproval() {
-        String rc = (String)response.get(RESPONSE_CODE);
+        String rc = response.get(RESPONSE_CODE);
 
         if (rc.equals("1")) {
             this.respCode = APPROVED;
@@ -107,8 +107,8 @@ public class AuthorizeResponse {
             this.respCode = ERROR;
         }
 
-        this.reasonCode = (String)response.get(RESPONSE_REASON_CODE);
-        this.reasonText = (String)response.get(RESPONSE_REASON_TEXT);
+        this.reasonCode = response.get(RESPONSE_REASON_CODE);
+        this.reasonText = response.get(RESPONSE_REASON_TEXT);
 
     }
 
@@ -144,18 +144,16 @@ public class AuthorizeResponse {
         if (posNum < 1 || posNum > maxPos) {
             return "unknown_field";
         }
-        else {
-            return (String)response.get(posNum);
-        }
+        return response.get(posNum);
     }
 
     public String getRawResponse() {
         return this.rawResp;
     }
 
-    private List splitResp(String r, String delim) {
+    private List<String> splitResp(String r, String delim) {
         int s1=0, s2=-1;
-        List out = new ArrayList(40);
+        List<String> out = new ArrayList<String>(40);
         out.add("empty");
         while (true) {
             s2 = r.indexOf(delim, s1);
@@ -175,6 +173,7 @@ public class AuthorizeResponse {
         return out;
     }
 
+    @Override
     public String toString() {
         return response.toString();
     }
