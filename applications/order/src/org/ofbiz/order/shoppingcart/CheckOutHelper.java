@@ -566,6 +566,7 @@ public class CheckOutHelper {
         }
         String orderId = this.cart.getOrderId();
         String supplierPartyId = (String) this.cart.getAttribute("supplierPartyId");
+        String originOrderId = (String) this.cart.getAttribute("originOrderId");
 
         this.cart.clearAllItemStatus();
 
@@ -586,6 +587,7 @@ public class CheckOutHelper {
         context.put("userLogin", userLogin);
         context.put("visitId", visitId);
         context.put("webSiteId", webSiteId);
+        context.put("originOrderId", originOrderId);
 
         // need the partyId; don't use userLogin in case of an order via order mgr
         String partyId = this.cart.getPartyId();

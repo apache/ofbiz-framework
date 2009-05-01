@@ -305,4 +305,11 @@ under the License.
         <attribute name="returnHeaderTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="statusItems" type="List" mode="OUT" optional="false"/>
     </service>
+
+    <service name="createExchangeOrderAssoc" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="createExchangeOrderAssoc">
+        <description>Associate exchange order with original order in OrderItemAssoc entity</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="originOrderId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

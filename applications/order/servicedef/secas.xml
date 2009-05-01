@@ -242,6 +242,10 @@ under the License.
     <eca service="processRefundReturn" event="commit">
         <action service="checkReturnComplete" mode="sync"/>
     </eca>
+    <eca service="storeOrder" event="commit">
+        <condition field-name="originOrderId" operator="is-not-empty"/>
+        <action service="createExchangeOrderAssoc" mode="sync"/>
+    </eca>
 
     <!-- ShoppingList ECAs -->
     <eca service="createShoppingList" event="in-validate">

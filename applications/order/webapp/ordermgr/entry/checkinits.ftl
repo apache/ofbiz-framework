@@ -44,6 +44,7 @@ under the License.
   </div>
   <div class="screenlet-body">
       <form method="post" name="salesentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
+      <input type="hidden" name="originOrderId" value="${parameters.originOrderId?if_exists}"/>
       <input type="hidden" name="finalizeMode" value="type"/>
       <input type="hidden" name="orderMode" value="SALES_ORDER"/>
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">

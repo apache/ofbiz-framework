@@ -68,6 +68,7 @@ under the License.
     <OrderItemAssocType description="Drop Shipment" hasTable="N" orderItemAssocTypeId="DROP_SHIPMENT" parentTypeId=""/>
     <OrderItemAssocType description="Return Replacement" hasTable="N" orderItemAssocTypeId="REPLACEMENT" parentTypeId=""/>
     <OrderItemAssocType description="New Version" hasTable="N" orderItemAssocTypeId="NEW_VERSION" parentTypeId=""/>
+    <OrderItemAssocType description="Exchange Order" hasTable="N" orderItemAssocTypeId="EXCHANGE" parentTypeId=""/>
 
     <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N" parentTypeId=""/>
     <Enumeration description="Web Channel" enumCode="WEB_CHANNEL" enumId="WEB_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>

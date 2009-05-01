@@ -2098,6 +2098,9 @@
         <value xml:lang="zh">为询价创建请求</value>
         <value xml:lang="zh_CN">为报价建立请求</value>
     </property>
+    <property key="OrderCreateExchangeOrder">
+        <value xml:lang="en">Create Exchange Order</value>
+    </property>
     <property key="OrderCreateNewReturn">
         <value xml:lang="de">Neue Retoure erstellen</value>
         <value xml:lang="en">Create new return</value>

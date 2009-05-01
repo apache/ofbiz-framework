@@ -1453,6 +1453,8 @@ public class ShoppingCartEvents {
         // set party info
         String partyId = request.getParameter("supplierPartyId");
         cart.setAttribute("supplierPartyId", partyId);
+        String originOrderId = request.getParameter("originOrderId");
+        cart.setAttribute("originOrderId", originOrderId);
 
         if (!UtilValidate.isEmpty(request.getParameter("partyId"))) {
             partyId = request.getParameter("partyId");
