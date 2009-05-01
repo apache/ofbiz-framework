@@ -287,7 +287,7 @@ public class InvoiceWorker {
 
     public static GenericValue getInvoiceAddressByType(GenericValue invoice, String contactMechPurposeTypeId) {
         GenericDelegator delegator = invoice.getDelegator();
-        List locations = null;
+        List<GenericValue> locations = null;
         // first try InvoiceContactMech to see if we can find the address needed
         try {
             locations = invoice.getRelated("InvoiceContactMech", UtilMisc.toMap("contactMechPurposeTypeId", contactMechPurposeTypeId), null);
@@ -324,12 +324,12 @@ public class InvoiceWorker {
         GenericValue contactMech = null;
         if (UtilValidate.isNotEmpty(locations)) {
             try {
-                contactMech = ((GenericValue) locations.get(0)).getRelatedOne("ContactMech");
+                contactMech = locations.get(0).getRelatedOne("ContactMech");
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Trouble getting Contact for contactMechId: " + contactMech.getString("contactMechId"), module);
+                Debug.logError(e, "Trouble getting Contact for contactMechId: " + locations.get(0).getString("contactMechId"), module);
             }
 
-            if (contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS"))    {
+            if (contactMech != null && contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS"))    {
                 try {
                     postalAddress = contactMech.getRelatedOne("PostalAddress");
                     return postalAddress;
@@ -532,9 +532,9 @@ public class InvoiceWorker {
                 party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyId")));
             }
             if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
-                otherCurrencyUomId = new String(party.getString("baseCurrencyUomId"));
+                otherCurrencyUomId = party.getString("baseCurrencyUomId");
             } else {
-                otherCurrencyUomId = new String(UtilProperties.getPropertyValue("general", "currency.uom.id.default"));
+                otherCurrencyUomId = UtilProperties.getPropertyValue("general", "currency.uom.id.default");
             }
             if (otherCurrencyUomId == null) {
                 otherCurrencyUomId = "USD"; // final default

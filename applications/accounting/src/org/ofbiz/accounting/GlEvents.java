@@ -18,35 +18,32 @@
  *******************************************************************************/
 package org.ofbiz.accounting;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.math.BigDecimal;
-import java.util.Map;
-import java.util.List;
-import java.util.Iterator;
-
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.webapp.event.EventHandlerException;
 
 public class GlEvents {
 
 public static final String module = GlEvents.class.getName();
-public static String createReconcileAccount(HttpServletRequest request,HttpServletResponse response) {
+public static String createReconcileAccount(HttpServletRequest request, HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
     final GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
     GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-    Map ctx = UtilHttp.getParameterMap(request);
+    Map<String, Object> ctx = UtilHttp.getParameterMap(request);
     String acctgTransId;
     String acctgTransEntrySeqId;
     String glAccountId = null;
@@ -67,21 +64,16 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
         acctgTransEntrySeqId = (String) ctx.get("acctgTransEntrySeqId" + suffix);
         organizationPartyId = (String) ctx.get("organizationPartyId" + suffix);
         glAccountId = (String) ctx.get("glAccountId" + suffix);
-        GenericValue acctgTransEntry;
         try {
-            List acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
-            if (acctgTransEntries.size() > 0) {
-                Iterator acctgTransEntryItr = acctgTransEntries.iterator();
-                while (acctgTransEntryItr.hasNext()) {  //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
-                    acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
-                    debitCreditFlag = (String) acctgTransEntry.getString("debitCreditFlag");
+            List<GenericValue> acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
+                for (GenericValue acctgTransEntry : acctgTransEntries) {  //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
+                    debitCreditFlag = acctgTransEntry.getString("debitCreditFlag");
                     if ("D".equalsIgnoreCase(debitCreditFlag)) {
                         amount = amount.add(acctgTransEntry.getBigDecimal("amount")); //for debit
                     } else {
-                          amount = amount.subtract(acctgTransEntry.getBigDecimal("amount")); //for credit
+                        amount = amount.subtract(acctgTransEntry.getBigDecimal("amount")); //for credit
                     }
                 }
-            }
             reconciledBalance = reconciledBalance.add(amount);  //total balance per glAccountId
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -89,8 +81,8 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
         }
 
     }
-    Map fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId", glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance", reconciledBalance, "userLogin", userLogin);
-    Map glReconResult = null;
+    Map<String, Object> fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId", glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance", reconciledBalance, "userLogin", userLogin);
+    Map<String, Object> glReconResult = null;
     try {
         glReconResult = dispatcher.runSync("createGlReconciliation", fieldMap); //create GlReconciliation for the glAccountId
         if (ServiceUtil.isError(glReconResult)) {
@@ -110,27 +102,22 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
         }
         acctgTransId = (String) ctx.get("acctgTransId" + suffix);
         acctgTransEntrySeqId = (String) ctx.get("acctgTransEntrySeqId" + suffix);
-        GenericValue acctgTransEntry;
         try {
-            List acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
-            if (acctgTransEntries.size() > 0) {
-                Iterator acctgTransEntryItr = acctgTransEntries.iterator();
-                while (acctgTransEntryItr.hasNext()) {
-                    acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
-                    reconciledAmount = acctgTransEntry.getString("amount");
-                    acctgTransId = acctgTransEntry.getString("acctgTransId");
-                    acctgTransEntrySeqId = acctgTransEntry.getString("acctgTransEntrySeqId");
-                    Map glReconEntryMap = UtilMisc.toMap("glReconciliationId", glReconciliationId, "acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId, "reconciledAmount", reconciledAmount, "userLogin", userLogin);
-                    Map glReconEntryResult = null;
-                    try {
-                        glReconEntryResult = dispatcher.runSync("createGlReconciliationEntry", glReconEntryMap);
-                        if (ServiceUtil.isError(glReconEntryResult)) {
-                            return "error";
-                        }
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
+            List<GenericValue> acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
+            for (GenericValue acctgTransEntry : acctgTransEntries) {
+                reconciledAmount = acctgTransEntry.getString("amount");
+                acctgTransId = acctgTransEntry.getString("acctgTransId");
+                acctgTransEntrySeqId = acctgTransEntry.getString("acctgTransEntrySeqId");
+                Map<String, Object> glReconEntryMap = UtilMisc.toMap("glReconciliationId", glReconciliationId, "acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId, "reconciledAmount", reconciledAmount, "userLogin", userLogin);
+                Map<String, Object> glReconEntryResult = null;
+                try {
+                    glReconEntryResult = dispatcher.runSync("createGlReconciliationEntry", glReconEntryMap);
+                    if (ServiceUtil.isError(glReconEntryResult)) {
                         return "error";
                     }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return "error";
                 }
             }
         } catch (GenericEntityException e) {
