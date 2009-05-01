@@ -44,7 +44,7 @@ public class FinAccountProductServices {
 
     public static final String module = FinAccountProductServices.class.getName();
 
-    public static Map<String, Object> createPartyFinAccountFromPurchase(DispatchContext dctx, Map<String, Object> context) {
+    public static Map createPartyFinAccountFromPurchase(DispatchContext dctx, Map context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -68,7 +68,7 @@ public class FinAccountProductServices {
         String productId = orderItem.getString("productId");
         GenericValue featureAndAppl;
         try {
-            List<GenericValue> featureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
+            List featureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
                     "productFeatureTypeId", "TYPE", "productFeatureApplTypeId", "STANDARD_FEATURE"));
             featureAndAppls = EntityUtil.filterByDate(featureAndAppls);
             featureAndAppl = EntityUtil.getFirst(featureAndAppls);
@@ -129,11 +129,13 @@ public class FinAccountProductServices {
         }
 
         // payment method info
-        List<GenericValue> payPrefs = orh.getPaymentPreferences();
+        List payPrefs = orh.getPaymentPreferences();
         String paymentMethodId = null;
         if (payPrefs != null) {
-            for (GenericValue pref : payPrefs) {
+            Iterator i = payPrefs.iterator();
+            while (i.hasNext()) {
                 // needs to be a CC or EFT account
+                GenericValue pref = (GenericValue) i.next();
                 String type = pref.getString("paymentMethodTypeId");
                 if ("CREDIT_CARD".equals(type) || "EFT_ACCOUNT".equals(type)) {
                     paymentMethodId = pref.getString("paymentMethodId");
@@ -162,14 +164,14 @@ public class FinAccountProductServices {
         }
 
         // create the context for FSE
-        Map<String, Object> expContext = FastMap.newInstance();
+        Map expContext = FastMap.newInstance();
         expContext.put("orderHeader", orderHeader);
         expContext.put("orderItem", orderItem);
         expContext.put("party", party);
         expContext.put("person", person);
         expContext.put("partyGroup", partyGroup);
 
-        // expand the name field to dynamically add information
+        // expand the name field to dynamicly add information
         FlexibleStringExpander exp = FlexibleStringExpander.getInstance(finAccountName);
         finAccountName = exp.expandString(expContext);
 
@@ -179,7 +181,7 @@ public class FinAccountProductServices {
         BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
         // create the financial account
-        Map<String, Object> createCtx = FastMap.newInstance();
+        Map createCtx = FastMap.newInstance();
         String finAccountId;
 
         createCtx.put("finAccountTypeId", finAccountTypeId);
@@ -196,7 +198,7 @@ public class FinAccountProductServices {
             createCtx.put("replenishPaymentId", paymentMethodId);
         }
 
-        Map<String, Object> createResp;
+        Map createResp;
         try {
             createResp = dispatcher.runSync("createFinAccountForStore", createCtx);
         } catch (GenericServiceException e) {
@@ -206,18 +208,18 @@ public class FinAccountProductServices {
         if (ServiceUtil.isError(createResp)) {
             Debug.logFatal(ServiceUtil.getErrorMessage(createResp), module);
             return createResp;
+        } else {
+            finAccountId = (String) createResp.get("finAccountId");
         }
-        
-        finAccountId = (String) createResp.get("finAccountId");
 
         // create the owner role
-        Map<String, Object> roleCtx = FastMap.newInstance();
+        Map roleCtx = FastMap.newInstance();
         roleCtx.put("partyId", partyId);
         roleCtx.put("roleTypeId", "OWNER");
         roleCtx.put("finAccountId", finAccountId);
         roleCtx.put("userLogin", userLogin);
         roleCtx.put("fromDate", UtilDateTime.nowTimestamp());
-        Map<String, Object> roleResp;
+        Map roleResp;
         try {
             roleResp = dispatcher.runSync("createFinAccountRole", roleCtx);
         } catch (GenericServiceException e) {
@@ -230,7 +232,7 @@ public class FinAccountProductServices {
         }
 
         // create the initial deposit
-        Map<String, Object> depositCtx = FastMap.newInstance();
+        Map depositCtx = FastMap.newInstance();
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("currency", currency);
@@ -241,7 +243,7 @@ public class FinAccountProductServices {
         depositCtx.put("reasonEnumId", "FATR_IDEPOSIT");
         depositCtx.put("userLogin", userLogin);
 
-        Map<String, Object> depositResp;
+        Map depositResp;
         try {
             depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
         } catch (GenericServiceException e) {
@@ -253,7 +255,7 @@ public class FinAccountProductServices {
             return depositResp;
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("finAccountId", finAccountId);
         return result;
     }
