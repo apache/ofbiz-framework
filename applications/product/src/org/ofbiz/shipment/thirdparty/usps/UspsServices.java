@@ -37,6 +37,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.ofbiz.base.util.Base64;
@@ -168,8 +169,8 @@ public class UspsServices {
             packageElement.setAttribute("ID", String.valueOf(li.nextIndex() - 1)); // use zero-based index (see examples)
 
             UtilXml.addChildElementValue(packageElement, "Service", serviceCode, requestDocument);
-            UtilXml.addChildElementValue(packageElement, "ZipOrigination", originationZip.substring(0,5), requestDocument);
-            UtilXml.addChildElementValue(packageElement, "ZipDestination", destinationZip.substring(0,5), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "ZipOrigination", StringUtils.substring(originationZip, 0, 5), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "ZipDestination", StringUtils.substring(destinationZip, 0, 5), requestDocument);
 
             BigDecimal weightPounds = packageWeight.setScale(0, BigDecimal.ROUND_FLOOR);
             // for Parcel post, the weight must be at least 1 lb
