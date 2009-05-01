@@ -117,7 +117,9 @@ import org.ofbiz.base.util.UtilDateTime;
  * <tr><td><code>str:startsWith(String, String)</code></td><td>Returns <code>true</code> if this string starts with the specified prefix.</td></tr>
  * <tr><td><code>str:endstring(String, int)</code></td><td>Returns a new string that is a substring of this string. The substring begins with the character at the specified index and extends to the end of this string.</td></tr>
  * <tr><td><code>str:substring(String, int, int)</code></td><td>Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex-beginIndex.</td></tr>
+ * <tr><td><code>str:toLowerCase(String)</code></td><td>Converts all of the characters in this String to lower case using the rules of the default locale.</td></tr>
  * <tr><td><code>str:toString(Object)</code></td><td>Converts <code>Object</code> to a <code>String</code> - bypassing localization.</td></tr>
+ * <tr><td><code>str:toUpperCase(String)</code></td><td>Converts all of the characters in this String to upper case using the rules of the default locale.</td></tr>
  * <tr><td><code>str:trim(String)</code></td><td>Returns a copy of the string, with leading and trailing whitespace omitted.</td></tr>
  * <tr><td colspan="2"><b><code>sys:</code> maps to <code>java.lang.System</code></b></td></tr>
  * <tr><td><code>sys:getenv(String)</code></td><td>Gets the value of the specified environment variable.</td></tr>
@@ -133,16 +135,16 @@ import org.ofbiz.base.util.UtilDateTime;
 public class UelFunctions {
 
     public static final String module = UelFunctions.class.getName();
-    protected static final FunctionMapper functionMapper = new Functions();
+    protected static final Functions functionMapper = new Functions();
 
     /** Returns a <code>FunctionMapper</code> instance.
      * @return <code>FunctionMapper</code> instance
      */
-    public static FunctionMapper getFunctionMapper() {
+    protected static FunctionMapper getFunctionMapper() {
         return functionMapper;
     }
 
-    protected static class Functions extends FunctionMapper {
+    public static class Functions extends FunctionMapper {
         protected final Map<String, Method> functionMap = FastMap.newInstance();
         public Functions() {
             try {
@@ -222,6 +224,8 @@ public class UelFunctions {
                 this.functionMap.put("str:endstring", UelFunctions.class.getMethod("endString", String.class, int.class));
                 this.functionMap.put("str:substring", UelFunctions.class.getMethod("subString", String.class, int.class, int.class));
                 this.functionMap.put("str:toString", UelFunctions.class.getMethod("toString", Object.class));
+                this.functionMap.put("str:toLowerCase", UelFunctions.class.getMethod("toLowerCase", String.class));
+                this.functionMap.put("str:toUpperCase", UelFunctions.class.getMethod("toUpperCase", String.class));
                 this.functionMap.put("str:trim", UelFunctions.class.getMethod("trim", String.class));
                 this.functionMap.put("sys:getenv", UelFunctions.class.getMethod("sysGetEnv", String.class));
                 this.functionMap.put("sys:getProperty", UelFunctions.class.getMethod("sysGetProp", String.class));
@@ -230,18 +234,18 @@ public class UelFunctions {
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
                 this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
             } catch (Exception e) {
-                Debug.logWarning("Error while initializing UelFunctions.Functions instance: " + e, module);
+                Debug.logError("Error while initializing UelFunctions.Functions instance: " + e, module);
             }
             Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
-        }
-        public void setFunction(String prefix, String localName, Method method) {
-            synchronized(this) {
-                functionMap.put(prefix + ":" + localName, method);
-            }
         }
         public Method resolveFunction(String prefix, String localName) {
             return functionMap.get(prefix + ":" + localName);
         }
+    }
+
+    /** Add a function to OFBiz's built-in UEL functions. */
+    public static synchronized void setFunction(String prefix, String localName, Method method) {
+        functionMapper.functionMap.put(prefix + ":" + localName, method);
     }
 
     public static String dateString(Timestamp stamp, TimeZone timeZone, Locale locale) {
@@ -352,6 +356,20 @@ public class UelFunctions {
     public static String trim(String str) {
         try {
             return str.trim();
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String toLowerCase(String str) {
+        try {
+            return str.toLowerCase();
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String toUpperCase(String str) {
+        try {
+            return str.toUpperCase();
         } catch (Exception e) {}
         return null;
     }
