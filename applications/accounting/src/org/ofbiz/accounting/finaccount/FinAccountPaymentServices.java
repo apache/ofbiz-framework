@@ -19,36 +19,33 @@
 
 package org.ofbiz.accounting.finaccount;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.ofbiz.accounting.payment.PaymentGatewayServices;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.finaccount.FinAccountHelper;
+import org.ofbiz.base.util.*;
 import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.order.finaccount.FinAccountHelper;
+import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
+
+import java.util.Map;
+import java.util.List;
+import java.util.Set;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import javolution.util.FastMap;
+import javolution.util.FastList;
 
 /**
  * FinAccountPaymentServices - Financial account used as payment method
@@ -57,8 +54,8 @@ public class FinAccountPaymentServices {
 
     public static final String module = FinAccountPaymentServices.class.getName();
 
-    // base payment integration services
-    public static Map<String, Object> finAccountPreAuth(DispatchContext dctx, Map<String, Object> context) {
+    // base payment intergration services
+    public static Map finAccountPreAuth(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -73,7 +70,7 @@ public class FinAccountPaymentServices {
         // check for an existing auth trans and cancel it
         GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
         if (authTrans != null) {
-            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTrans.get("referenceNum"));
+            Map input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTrans.get("referenceNum"));
             try {
                 dispatcher.runSync("expireFinAccountAuth", input);
             } catch (GenericServiceException e) {
@@ -126,7 +123,7 @@ public class FinAccountPaymentServices {
 
         try {
             // fin the store requires a pin number; validate the PIN with the code
-            Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
+            Map findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
             GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", findProductStoreFinActSettingMap);
 
             if (finAccountSettings == null) {
@@ -147,7 +144,7 @@ public class FinAccountPaymentServices {
                 // validate the PIN if the store requires it
                 if ("Y".equals(finAccountSettings.getString("requirePinCode"))) {
                     if (!FinAccountHelper.validatePin(delegator, finAccountCode, finAccountPin)) {
-                        Map<String, Object> result = ServiceUtil.returnSuccess();
+                        Map result = ServiceUtil.returnSuccess();
                         result.put("authMessage", "Financial account PIN/CODE combination not found");
                         result.put("authResult", Boolean.FALSE);
                         result.put("processAmount", amount);
@@ -162,7 +159,7 @@ public class FinAccountPaymentServices {
 
             // check for expiration date
             if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
-                Map<String, Object> result = ServiceUtil.returnSuccess();
+                Map result = ServiceUtil.returnSuccess();
                 result.put("authMessage", "Account has expired as of " + finAccount.getTimestamp("thruDate"));
                 result.put("authResult", Boolean.FALSE);
                 result.put("processAmount", amount);
@@ -180,7 +177,7 @@ public class FinAccountPaymentServices {
                 statusId = finAccount.getString("statusId");
 
                 if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED".equals(statusId)) {
-                    Map<String, Object> result = ServiceUtil.returnSuccess();
+                    Map result = ServiceUtil.returnSuccess();
                     if ("FNACT_NEGPENDREPL".equals(statusId)) {
                         result.put("authMessage", "Account is currently negative and pending replenishment");
                     } else if ("FNACT_MANFROZEN".equals(statusId)) {
@@ -211,7 +208,7 @@ public class FinAccountPaymentServices {
             }
 
 
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             String authMessage = null;
             Boolean processResult;
             String refNum;
@@ -231,14 +228,15 @@ public class FinAccountPaymentServices {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), new Long(30)); // default 30 days for an auth
                 }
 
-                Map<String, Object> tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId,
+                Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId,
                         "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
 
                 if (ServiceUtil.isError(tmpResult)) {
                     return tmpResult;
+                } else {
+                    refNum = (String) tmpResult.get("finAccountAuthId");
+                    processResult = Boolean.TRUE;
                 }
-                refNum = (String) tmpResult.get("finAccountAuthId");
-                processResult = Boolean.TRUE;
 
                 // refresh the account
                 finAccount.refresh();
@@ -268,7 +266,7 @@ public class FinAccountPaymentServices {
         }
     }
 
-    public static Map<String, Object> finAccountReleaseAuth(DispatchContext dctx, Map<String, Object> context) {
+    public static Map finAccountReleaseAuth(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -283,10 +281,10 @@ public class FinAccountPaymentServices {
                 return ServiceUtil.returnError(err + " Could not find authorization transaction.");
             }
 
-            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
-            Map<String, Object> serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
+            Map input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
+            Map serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
 
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
             result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
             result.put("releaseResult", Boolean.TRUE);
@@ -303,7 +301,7 @@ public class FinAccountPaymentServices {
         }
     }
 
-    public static Map<String, Object> finAccountCapture(DispatchContext dctx, Map<String, Object> context) {
+    public static Map finAccountCapture(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -369,10 +367,10 @@ public class FinAccountPaymentServices {
         }
 
         // BIG NOTE: make sure the expireFinAccountAuth and finAccountWithdraw services are done in the SAME TRANSACTION
-        //(i.e. no require-new-transaction in either of them AND no running async)
+        //(ie no require-new-transaction in either of them AND no running async)
 
         // cancel the authorization before doing the withdraw to avoid problems with way negative available amount on account; should happen in same transaction to avoid conflict problems
-        Map<String, Object> releaseResult;
+        Map releaseResult;
         try {
             releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
         } catch (GenericServiceException e) {
@@ -384,7 +382,7 @@ public class FinAccountPaymentServices {
         }
 
         // build the withdraw context
-        Map<String, Object> withdrawCtx = FastMap.newInstance();
+        Map withdrawCtx = FastMap.newInstance();
         withdrawCtx.put("finAccountId", finAccountId);
         withdrawCtx.put("productStoreId", productStoreId);
         withdrawCtx.put("currency", currency);
@@ -396,7 +394,7 @@ public class FinAccountPaymentServices {
         withdrawCtx.put("userLogin", userLogin);
 
         // call the withdraw service
-        Map<String, Object> withdrawResp;
+        Map withdrawResp;
         try {
             withdrawResp = dispatcher.runSync("finAccountWithdraw", withdrawCtx);
         } catch (GenericServiceException e) {
@@ -408,7 +406,7 @@ public class FinAccountPaymentServices {
         }
 
         // create the capture response
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         Boolean processResult = (Boolean) withdrawResp.get("processResult");
         BigDecimal withdrawAmount = (BigDecimal) withdrawResp.get("amount");
         String referenceNum = (String) withdrawResp.get("referenceNum");
@@ -421,7 +419,7 @@ public class FinAccountPaymentServices {
         return result;
     }
 
-    public static Map<String, Object> finAccountRefund(DispatchContext dctx, Map<String, Object> context) {
+    public static Map finAccountRefund(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -456,7 +454,7 @@ public class FinAccountPaymentServices {
         }
 
         // call the deposit service
-        Map<String, Object> depositCtx = FastMap.newInstance();
+        Map depositCtx = FastMap.newInstance();
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("isRefund", Boolean.TRUE);
@@ -467,7 +465,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("reasonEnumId", "FATR_REFUND");
         depositCtx.put("userLogin", userLogin);
 
-        Map<String, Object> depositResp;
+        Map depositResp;
         try {
             depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
         } catch (GenericServiceException e) {
@@ -479,7 +477,7 @@ public class FinAccountPaymentServices {
         }
 
         // create the refund response
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         Boolean processResult = (Boolean) depositResp.get("processResult");
         BigDecimal depositAmount = (BigDecimal) depositResp.get("amount");
         String referenceNum = (String) depositResp.get("referenceNum");
@@ -493,7 +491,7 @@ public class FinAccountPaymentServices {
     }
 
     // base account transaction services
-    public static Map<String, Object> finAccountWithdraw(DispatchContext dctx, Map<String, Object> context) {
+    public static Map finAccountWithdraw(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -572,7 +570,7 @@ public class FinAccountPaymentServices {
             balance = FinAccountHelper.ZERO;
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("previousBalance", previousBalance);
         result.put("balance", balance);
         result.put("amount", amount);
@@ -582,7 +580,7 @@ public class FinAccountPaymentServices {
     }
 
     // base deposit service
-    public static Map<String, Object> finAccountDeposit(DispatchContext dctx, Map<String, Object> context) {
+    public static Map finAccountDeposit(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -651,7 +649,7 @@ public class FinAccountPaymentServices {
             if (actualBalance.compareTo(BigDecimal.ZERO) < 0) {
                 // balance went below zero, set negative pending replenishment status so that no more auths or captures will go through until it is replenished
                 try {
-                    Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
+                    Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
                     dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
@@ -660,7 +658,7 @@ public class FinAccountPaymentServices {
             }
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("previousBalance", previousBalance);
         result.put("balance", actualBalance);
         result.put("amount", amount);
@@ -670,7 +668,7 @@ public class FinAccountPaymentServices {
     }
 
     // auto-replenish service (deposit)
-    public static Map<String, Object> finAccountReplenish(DispatchContext dctx, Map<String, Object> context) {
+    public static Map finAccountReplenish(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -716,7 +714,7 @@ public class FinAccountPaymentServices {
 
         // get the product store settings
         GenericValue finAccountSettings;
-        Map<String, Object> psfasFindMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
+        Map psfasFindMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
             finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", psfasFindMap);
         } catch (GenericEntityException e) {
@@ -755,7 +753,7 @@ public class FinAccountPaymentServices {
         // configure rollback service to set status to Negative Pending Replenishment
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
-                Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
+                Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
                 dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
@@ -804,15 +802,15 @@ public class FinAccountPaymentServices {
         }
 
         // hit the payment method for the amount to replenish
-        Map<String, Object> orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount);
-        Map<String, Object> replOrderCtx = FastMap.newInstance();
+        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount);
+        Map replOrderCtx = FastMap.newInstance();
         replOrderCtx.put("productStoreId", productStoreId);
         replOrderCtx.put("paymentMethodId", paymentMethod.getString("paymentMethodId"));
         replOrderCtx.put("currency", currency);
         replOrderCtx.put("partyId", ownerPartyId);
         replOrderCtx.put("itemMap", orderItemMap);
         replOrderCtx.put("userLogin", userLogin);
-        Map<String, Object> replResp;
+        Map replResp;
         try {
             replResp = dispatcher.runSync("createSimpleNonProductSalesOrder", replOrderCtx);
         } catch (GenericServiceException e) {
@@ -825,7 +823,7 @@ public class FinAccountPaymentServices {
         String orderId = (String) replResp.get("orderId");
 
         // create the deposit
-        Map<String, Object> depositCtx = FastMap.newInstance();
+        Map depositCtx = FastMap.newInstance();
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("currency", currency);
@@ -836,7 +834,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("reasonEnumId", "FATR_REPLENISH");
         depositCtx.put("userLogin", userLogin);
         try {
-            Map<String, Object> depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
+            Map depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
             if (ServiceUtil.isError(depositResp)) {
                 return depositResp;
             }
@@ -848,7 +846,7 @@ public class FinAccountPaymentServices {
         // say we are in good standing again
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
-                Map<String, Object> ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
+                Map ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
                 if (ServiceUtil.isError(ufaResp)) {
                     return ufaResp;
                 }
@@ -866,13 +864,13 @@ public class FinAccountPaymentServices {
         opts.setMaxRows(1);
         opts.setFetchSize(1);
 
-        List<EntityExpr> exprs = FastList.newInstance();
+        List exprs = FastList.newInstance();
         exprs.add(EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"));
         exprs.add(EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId));
         exprs.add(EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null));
-        List<String> orderBy = UtilMisc.toList("-transactionDate");
+        List orderBy = UtilMisc.toList("-transactionDate");
 
-        List<GenericValue> transList = null;
+        List transList = null;
         try {
             transList = delegator.findList("FinAccountTrans", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, opts, false);
         } catch (GenericEntityException e) {
@@ -942,7 +940,7 @@ public class FinAccountPaymentServices {
 
         // payment amount should always be positive; adjustments may
         // create the payment for the transaction
-        Map<String, Object> paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
+        Map paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
         paymentCtx.put("paymentMethodTypeId", paymentMethodType);
         paymentCtx.put("partyIdTo", partyIdTo);
         paymentCtx.put("partyIdFrom", partyIdFrom);
@@ -953,7 +951,7 @@ public class FinAccountPaymentServices {
         paymentCtx.put("paymentRefNum", Long.toString(UtilDateTime.nowTimestamp().getTime()));
 
         String paymentId;
-        Map<String, Object> payResult;
+        Map payResult;
         try {
             payResult = dispatcher.runSync("createPayment", paymentCtx);
         } catch (GenericServiceException e) {
@@ -964,11 +962,12 @@ public class FinAccountPaymentServices {
         }
         if (ServiceUtil.isError(payResult)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(payResult));
+        } else {
+            paymentId = (String) payResult.get("paymentId");
         }
-        paymentId = (String) payResult.get("paymentId");
 
         // create the initial transaction
-        Map<String, Object> transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
+        Map transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
         transCtx.put("finAccountId", finAccountId);
         transCtx.put("partyId", partyId);
         transCtx.put("orderId", orderId);
@@ -978,7 +977,8 @@ public class FinAccountPaymentServices {
         transCtx.put("userLogin", userLogin);
         transCtx.put("paymentId", paymentId);
 
-        Map<String, Object> transResult;
+        Map transResult;
+        String txId;
         try {
             transResult = dispatcher.runSync("createFinAccountTrans", transCtx);
         } catch (GenericServiceException e) {
@@ -989,8 +989,10 @@ public class FinAccountPaymentServices {
         }
         if (ServiceUtil.isError(transResult)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(transResult));
+        } else {
+            txId = (String) transResult.get("finAccountTransId");
         }
 
-        return (String) transResult.get("finAccountTransId");
+        return txId;
     }
 }
