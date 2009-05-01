@@ -37,7 +37,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.authz.da.DynamicAccessFactory;
 import org.ofbiz.security.authz.da.DynamicAccessHandler;
 
-public class EntityAuthorization extends AbtractAuthorization {
+public class EntityAuthorization extends AbstractAuthorization {
 
     private static final String module = EntityAuthorization.class.getName();
     

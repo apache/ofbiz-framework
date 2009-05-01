@@ -30,9 +30,9 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 
-public abstract class AbtractAuthorization implements Authorization {
+public abstract class AbstractAuthorization implements Authorization {
 	
-    private static final String module = AbtractAuthorization.class.getName();
+    private static final String module = AbstractAuthorization.class.getName();
     
 	/**
 	 * Used to manage Auto-Grant permissions for the current "request"
