@@ -27,6 +27,14 @@ under the License.
 </div>
 <div>
     <a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>" class="buttontext">PDF</a>
+    <#if returnId?exists>
+      <#assign returnItems = delegator.findByAnd("ReturnItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("returnId", returnId, "returnTypeId", "RTN_REFUND"))/>
+      <#if returnItems?has_content>
+        <#assign orderId = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
+        <#assign partyId = "${(returnHeader.fromPartyId)?if_exists}"/>
+        <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId?if_exists}&originOrderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId?if_exists}</a>
+      </#if>
+    </#if>
 </div>
 <#else>
   <h1>${uiLabelMap.OrderCreateNewReturn}</h1>

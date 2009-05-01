@@ -254,11 +254,12 @@ under the License.
                   <#assign linkedOrderItemSeqId = linkedOrderItem.toOrderItemSeqId>
                   <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("ToOrderItem")>
                   <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
+                  <#assign description = linkedOrderItem.getRelatedOne("OrderItemAssocType").getString("description")/>
                   <tr>
                     <td>&nbsp;</td>
                     <td colspan="6">
                       <div>
-                        <span class="label">${uiLabelMap.OrderLinkedToOrderItem}</span>&nbsp;(${linkedOrderItem.orderItemAssocTypeId})
+                        <span class="label">${uiLabelMap.OrderLinkedToOrderItem}</span>&nbsp;(${description?if_exists})
                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
                       </div>
                     </td>
@@ -271,11 +272,12 @@ under the License.
                   <#assign linkedOrderItemSeqId = linkedOrderItem.orderItemSeqId>
                   <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("FromOrderItem")>
                   <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
+                  <#assign description = linkedOrderItem.getRelatedOne("OrderItemAssocType").getString("description")/>
                   <tr>
                     <td>&nbsp;</td>
                     <td colspan="6">
                       <div>
-                        <span class="label">${uiLabelMap.OrderLinkedFromOrderItem}</span>&nbsp;${linkedOrderItem.orderItemAssocTypeId})
+                        <span class="label">${uiLabelMap.OrderLinkedFromOrderItem}</span>&nbsp;(${description?if_exists})
                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
                       </div>
                     </td>
