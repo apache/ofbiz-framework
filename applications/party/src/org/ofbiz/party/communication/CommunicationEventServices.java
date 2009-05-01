@@ -474,7 +474,7 @@ public class CommunicationEventServices {
         String contactMechIdFrom = null;
         String contactMechIdTo = null;
 
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             String contentTypeRaw = message.getContentType();
             int idx = contentTypeRaw.indexOf(";");
@@ -512,7 +512,7 @@ public class CommunicationEventServices {
             }
 
             // make sure this isn't a duplicate
-            List commEvents;
+            List<GenericValue> commEvents;
             try {
                 commEvents = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId));
             } catch (GenericEntityException e) {
@@ -528,14 +528,14 @@ public class CommunicationEventServices {
 
 
             // get the related partId's
-            List toParties = buildListOfPartyInfoFromEmailAddresses(addressesTo, userLogin, dispatcher);
-            List ccParties = buildListOfPartyInfoFromEmailAddresses(addressesCC, userLogin, dispatcher);
-            List bccParties = buildListOfPartyInfoFromEmailAddresses(addressesBCC, userLogin, dispatcher);
+            List<Map<String, Object>> toParties = buildListOfPartyInfoFromEmailAddresses(addressesTo, userLogin, dispatcher);
+            List<Map<String, Object>> ccParties = buildListOfPartyInfoFromEmailAddresses(addressesCC, userLogin, dispatcher);
+            List<Map<String, Object>> bccParties = buildListOfPartyInfoFromEmailAddresses(addressesBCC, userLogin, dispatcher);
 
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             if (!toParties.isEmpty()) {
-                Iterator itr = toParties.iterator();
-                Map firstAddressTo = (Map) itr.next();
+                Iterator<Map<String, Object>> itr = toParties.iterator();
+                Map<String, Object> firstAddressTo = itr.next();
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
@@ -569,7 +569,7 @@ public class CommunicationEventServices {
             partyIdFrom = (String)result.get("partyId");
             contactMechIdFrom = (String)result.get("contactMechId");
 
-            Map commEventMap = FastMap.newInstance();
+            Map<String, Object> commEventMap = FastMap.newInstance();
             commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
             commEventMap.put("messageId", messageId);
@@ -601,7 +601,7 @@ public class CommunicationEventServices {
             if (inReplyTo != null && inReplyTo[0] != null) {
                 GenericValue parentCommEvent = null;
                 try {
-                    List events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0]));
+                    List<GenericValue> events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0]));
                     parentCommEvent = EntityUtil.getFirst(events);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
@@ -616,10 +616,10 @@ public class CommunicationEventServices {
             }
 
             // Retrieve all the addresses from the email
-            Set emailAddressesFrom = new TreeSet();
-            Set emailAddressesTo = new TreeSet();
-            Set emailAddressesCC = new TreeSet();
-            Set emailAddressesBCC = new TreeSet();
+            Set<String> emailAddressesFrom = new TreeSet<String>();
+            Set<String> emailAddressesTo = new TreeSet<String>();
+            Set<String> emailAddressesCC = new TreeSet<String>();
+            Set<String> emailAddressesBCC = new TreeSet<String>();
             for (int x = 0 ; x < addressesFrom.length ; x++) {
                 emailAddressesFrom.add(((InternetAddress) addressesFrom[x]).getAddress());
             }
@@ -683,13 +683,13 @@ public class CommunicationEventServices {
             commEventMap.put("userLogin", userLogin);
 
             // Populate the CommunicationEvent.headerString field with the email headers
-            String headerString = "";
+            StringBuilder headerString = new StringBuilder();
             Enumeration headerLines = message.getAllHeaderLines();
             while (headerLines.hasMoreElements()) {
-                headerString += System.getProperty("line.separator");
-                headerString += headerLines.nextElement();
+                headerString.append(System.getProperty("line.separator"));
+                headerString.append(headerLines.nextElement());
             }
-            commEventMap.put("headerString", headerString);
+            commEventMap.put("headerString", headerString.toString());
 
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
@@ -705,7 +705,7 @@ public class CommunicationEventServices {
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, ccParties, "CC");
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, bccParties, "BCC");
 
-            Map results = ServiceUtil.returnSuccess();
+            Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("communicationEventId", communicationEventId);
             results.put("statusId", commEventMap.get("statusId"));
             return results;
@@ -724,18 +724,18 @@ public class CommunicationEventServices {
         }
     }
 
-    private static void createCommEventRoles(GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher, String communicationEventId, List parties, String roleTypeId) {
+    private static void createCommEventRoles(GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher, String communicationEventId, List<Map<String, Object>> parties, String roleTypeId) {
         // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
         // check and see if this role was already created and ignore if true
         try {
-            Iterator it = parties.iterator();
+            Iterator<Map<String, Object>> it = parties.iterator();
             while (it.hasNext()) {
-                Map result = (Map) it.next();
+                Map<String, Object> result = it.next();
                 String partyId = (String) result.get("partyId");
                 GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole",
                         UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId));
                 if (commEventRole == null) {
-                    Map input = UtilMisc.toMap("communicationEventId", communicationEventId,
+                    Map<String, Object> input = UtilMisc.toMap("communicationEventId", communicationEventId,
                             "partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin,
                             "contactMechId", (String) result.get("contactMechId"),
                             "statusId", "COM_ROLE_CREATED");
@@ -752,10 +752,10 @@ public class CommunicationEventServices {
     /*
      * Helper method to retrieve the party information from the first email address of the Address[] specified.
      */
-    private static Map getParyInfoFromEmailAddress(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
+    private static Map<String, Object> getParyInfoFromEmailAddress(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;
-        Map map = null;
-        Map result = null;
+        Map<String, Object> map = null;
+        Map<String, Object> result = null;
 
         if (addresses == null) {
             return null;
@@ -781,22 +781,20 @@ public class CommunicationEventServices {
     /*
      * Calls findPartyFromEmailAddress service and returns a List of the results for the array of addresses
      */
-    private static List buildListOfPartyInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
+    private static List<Map<String, Object>> buildListOfPartyInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;
-        Address addr = null;
         Map map = null;
-        Map result = null;
-        List tempResults = FastList.newInstance();
+        Map<String, Object> result = null;
+        List<Map<String, Object>> tempResults = FastList.newInstance();
 
         if (addresses != null) {
-            for (int i = 0; i < addresses.length; i++) {
-                addr = addresses[i];
+            for (Address addr: addresses) {
                 if (addr instanceof InternetAddress) {
                     emailAddress = (InternetAddress)addr;
 
                     if (!UtilValidate.isEmpty(emailAddress)) {
                         result = dispatcher.runSync("findPartyFromEmailAddress",
-                                UtilMisc.<String, Object>toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
+                                UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
                         if (result.get("partyId") != null) {
                             tempResults.add(result);
                         }
@@ -808,7 +806,7 @@ public class CommunicationEventServices {
     }
 
     public static String contentIndex = "";
-    private static Map addMessageBody( Map commEventMap, Multipart multipart) throws MessagingException, IOException {
+    private static Map<String, Object> addMessageBody( Map<String, Object> commEventMap, Multipart multipart) throws MessagingException, IOException {
         try {
             int multipartCount = multipart.getCount();
             for (int i=0; i < multipartCount  && i < 10; i++) {
@@ -863,7 +861,7 @@ public class CommunicationEventServices {
 
     public static int addAttachmentsToCommEvent(Multipart messageContent, String subject, String communicationEventId, LocalDispatcher dispatcher, GenericValue userLogin)
         throws MessagingException, IOException, GenericServiceException {
-        Map commEventMap = FastMap.newInstance();
+        Map<String, Object> commEventMap = FastMap.newInstance();
         commEventMap.put("communicationEventId", communicationEventId);
         commEventMap.put("contentTypeId", "DOCUMENT");
         commEventMap.put("mimeTypeId", "text/html");
@@ -877,7 +875,7 @@ public class CommunicationEventServices {
     }
     private static String currentIndex = "";
     private static int attachmentCount = 0;
-    private static int addMultipartAttachementToComm(Multipart multipart, Map commEventMap, String subject, LocalDispatcher dispatcher, GenericValue userLogin)
+    private static int addMultipartAttachementToComm(Multipart multipart, Map<String, Object> commEventMap, String subject, LocalDispatcher dispatcher, GenericValue userLogin)
     throws MessagingException, IOException, GenericServiceException {
         try {
             int multipartCount = multipart.getCount();
