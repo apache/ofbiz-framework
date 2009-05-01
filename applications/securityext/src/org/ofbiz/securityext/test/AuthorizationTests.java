@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.security.SecurityConfigurationException;
-import org.ofbiz.security.authz.AbtractAuthorization;
+import org.ofbiz.security.authz.AbstractAuthorization;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.testtools.OFBizTestCase;
@@ -23,7 +23,7 @@ public class AuthorizationTests extends OFBizTestCase {
         if (security == null) {
             security = AuthorizationFactory.getInstance(delegator);
         }
-        AbtractAuthorization.clearThreadLocal();
+        AbstractAuthorization.clearThreadLocal();
     }
                    
     public void testBasicAdminPermission() throws Exception {
