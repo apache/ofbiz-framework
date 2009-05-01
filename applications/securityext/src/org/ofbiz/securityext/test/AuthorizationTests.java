@@ -3,7 +3,6 @@ package org.ofbiz.securityext.test;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.security.authz.AuthorizationFactory;
@@ -12,12 +11,10 @@ import org.ofbiz.service.testtools.OFBizTestCase;
 public class AuthorizationTests extends OFBizTestCase {
 
     private static final String module = AuthorizationTests.class.getName();
-    protected GenericDelegator delegator;
     protected Authorization security;
     
     public AuthorizationTests(String name) throws SecurityConfigurationException {
         super(name);
-        delegator = GenericDelegator.getGenericDelegator("default"); 
         security = AuthorizationFactory.getInstance(delegator);
     }
                    
