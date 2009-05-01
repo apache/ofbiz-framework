@@ -140,11 +140,11 @@ public class UelFunctions {
     /** Returns a <code>FunctionMapper</code> instance.
      * @return <code>FunctionMapper</code> instance
      */
-    protected static FunctionMapper getFunctionMapper() {
+    public static FunctionMapper getFunctionMapper() {
         return functionMapper;
     }
 
-    public static class Functions extends FunctionMapper {
+    protected static class Functions extends FunctionMapper {
         protected final Map<String, Method> functionMap = FastMap.newInstance();
         public Functions() {
             try {
