@@ -461,7 +461,7 @@ under the License.
         <log level="info" message="====================Update a request test case=========================================="/>
         <set field="updateRequestMap.custRequestId" from-field="requestMap.custRequestId"/>
         <set field="updateRequestMap.custRequestTypeId" value="RF_INFO"/>
-        <set field="updateRequestMap.statusId" value="CRQ_COMPLETED"/>
+        <set field="updateRequestMap.statusId" value="CRQ_ACCEPTED"/>
         <set field="updateRequestMap.priority" value="2L" type="Long"/>
         <set field="updateRequestMap.fromPartyId" value="admin"/>
         <entity-one entity-name="UserLogin" value-field="updateRequestMap.userLogin">
