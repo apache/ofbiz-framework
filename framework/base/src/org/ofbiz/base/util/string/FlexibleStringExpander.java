@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import javax.el.*;
 
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.*;
@@ -356,8 +357,12 @@ public class FlexibleStringExpander implements Serializable {
                     String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
                     buffer.append(UtilFormatOut.formatCurrency(new BigDecimal(obj.toString()), currencyCode, locale));
                 }
+            } catch (PropertyNotFoundException e) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Error evaluating expression: " + e, module);
+                }
             } catch (Exception e) {
-                Debug.logVerbose("Error evaluating expression: " + e, module);
+                Debug.logError("Error evaluating expression: " + e, module);
             }
         }
     }
@@ -389,8 +394,12 @@ public class FlexibleStringExpander implements Serializable {
                 if (obj != null) {
                     buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
                 }
+            } catch (PropertyNotFoundException e) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Error evaluating expression: " + e, module);
+                }
             } catch (Exception e) {
-                Debug.logVerbose("Error evaluating expression: " + e, module);
+                Debug.logError("Error evaluating expression: " + e, module);
             }
         }
     }
@@ -400,14 +409,18 @@ public class FlexibleStringExpander implements Serializable {
         protected final String bracketedOriginal;
         protected VarElem(String original) {
             this.original = original;
-            this.bracketedOriginal = openBracket + original + closeBracket;
+            this.bracketedOriginal = openBracket + UelUtil.prepareExpression(original) + closeBracket;
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = null;
             try {
                 obj = UelUtil.evaluate(context, this.bracketedOriginal);
+            } catch (PropertyNotFoundException e) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Error evaluating expression " + this.original + ": " + e, module);
+                }
             } catch (Exception e) {
-                Debug.logVerbose("Error evaluating expression: " + e, module);
+                Debug.logError("Error evaluating expression " + this.original + ": " + e, module);
             }
             if (obj == null) {
                 if (this.original.startsWith("env.")) {
