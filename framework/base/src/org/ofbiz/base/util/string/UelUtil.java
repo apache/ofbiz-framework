@@ -41,6 +41,7 @@ public class UelUtil {
             add(new ExtendedMapResolver(false));
             add(new ExtendedListResolver(false));
             add(new ArrayELResolver(false));
+            add(new NodeELResolver()); // Below the most common but must be kept above BeanELResolver
             add(new ResourceBundleELResolver());
             add(new BeanELResolver(false));
         }
