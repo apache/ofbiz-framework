@@ -28,6 +28,8 @@ import java.text.ParseException;
 import java.util.*;
 import java.nio.*;
 
+import org.w3c.dom.Node;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -978,6 +980,14 @@ public class ObjectType {
                 return buffer;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
+            }
+        } else if (obj instanceof Node) {
+            Node node = (Node) obj;
+            String nodeValue =  node.getTextContent();
+            if ("String".equals(type) || "java.lang.String".equals(type)) {
+                return nodeValue;
+            } else {
+                return simpleTypeConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
             }
         } else {
             // we can pretty much always do a conversion to a String, so do that here

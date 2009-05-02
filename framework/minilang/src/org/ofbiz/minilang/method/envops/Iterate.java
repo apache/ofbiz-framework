@@ -34,6 +34,8 @@ import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Process sub-operations for each entry in the list
@@ -101,7 +103,7 @@ public class Iterate extends MethodOperation {
                 }
                 return false;
             }
-        } else {
+        } else if (objList instanceof Iterable) {
             Collection<Object> theList = UtilGenerics.checkList(objList);
 
             if (theList == null) {
@@ -114,6 +116,17 @@ public class Iterate extends MethodOperation {
             }
 
             for (Object theEntry: theList) {
+                entryAcsr.put(methodContext, theEntry);
+
+                if (!SimpleMethod.runSubOps(subOps, methodContext)) {
+                    // only return here if it returns false, otherwise just carry on
+                    return false;
+                }
+            }
+        } else if (objList instanceof NodeList) {
+            NodeList theList = (NodeList) objList;
+            for (int i = 0; i < theList.getLength(); i++) {
+                Node theEntry = theList.item(i);
                 entryAcsr.put(methodContext, theEntry);
 
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {
