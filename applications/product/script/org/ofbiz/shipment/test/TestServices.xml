@@ -59,6 +59,7 @@ under the License.
 
         <log level="info" message="=====packBulkItemsResponseMap=======${packBulkItemsResponseMap}======"/>
 
+        <set field="completePackInMap.orderId" value="DEMO10090"/>
         <set field="completePackInMap.packingSession" from-field="packingSession"/>
         <set field="completePackInMap.handlingInstructions" value="Handle with care"/>
         <set field="completePackInMap.pickerPartyId" value="DemoCustomer"/>
