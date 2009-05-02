@@ -266,7 +266,7 @@ under the License.
                 </td>
                 </#if>
                 <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
-                  <td align='right'><a href="<@ofbizUrl>removeReturnItem?returnId=${item.returnId}&returnItemSeqId=${item.returnItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
+                  <td align='right'><a href='javascript:document.removeReturnItem_${item_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a>
                 <#else>
                   <td>&nbsp;</td>
                 </#if>
@@ -312,6 +312,14 @@ under the License.
         </form>
 
         </table>
+        <#if returnItems?has_content>
+          <#list returnItems as item>
+            <form name="removeReturnItem_${item_index}" method="post" action="<@ofbizUrl>removeReturnItem</@ofbizUrl>">
+              <input type="hidden" name="returnId" value="${item.returnId}"/>
+              <input type="hidden" name="returnItemSeqId" value="${item.returnItemSeqId}"/>
+            </form>
+          </#list>
+        </#if>
         <#if (returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED") && (rowCount > 0)>
         <br/>
         <form name="acceptReturn" method="post" action="<@ofbizUrl>/updateReturn</@ofbizUrl>">
