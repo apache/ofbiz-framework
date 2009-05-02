@@ -1,0 +1,363 @@
+/***********************************************
+APACHE OPEN FOR BUSINESS
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+***********************************************/
+
+/***********************************************
+Reset
+***********************************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    border:0; 
+    margin:0; 
+    outline:0; 
+    padding:0; 
+    background:transparent; 
+    vertical-align: baseline;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content:''; 
+    content: none;
+}
+
+a, address, body, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+a img {
+    border: none;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/***********************************************
+General Styles
+***********************************************/
+body {
+	background: url(../images/page.png) top left repeat-x #f3f4f4; 
+	color: #000; 
+	font: .75em/1.5em Verdana, Arial, Helvetica, sans-serif;
+}
+html>body {font-size: 12px;}
+
+img {display: inline-block; vertical-align: bottom;}
+
+a {
+	background:#E7EFF5;
+	text-decoration: none; 
+	color:#699BC9;
+	height:22px;
+	display:block;
+	line-height:10px;
+	padding:15px 0 0 10px;
+	font-size:11px;
+}
+a:hover {
+	color: #486a8a;
+	text-decoration: none;
+}
+
+
+/***********************************************
+Tables
+***********************************************/
+table {border-collapse: collapse; border-spacing: 0; margin: 0; width:100%}
+caption {text-align: left;}
+th, td {padding: .25em .5em;}
+tbody td, tbody th {}
+tfoot {font-style: italic;}
+
+/***********************************************
+Forms
+***********************************************/
+fieldset {clear: both;}
+legend {padding: 0 0 1.286em; font-size: 1.167em; font-weight: 700;}
+fieldset fieldset legend {padding: 0 0 1.5em; font-size: 1em;}
+* html legend {margin-left: -7px;}
+*+html legend {margin-left: -7px;}
+
+form .field, form .buttons {clear: both; margin: 0 0 1.5em;}
+form .field label {display: block;}
+form ul.fields li {list-style-type: none; margin: 0;}
+form ul.inline li, form ul.inline label {display: inline;}
+form ul.inline li {padding: 0 .75em 0 0;}
+
+input.radio, input.checkbox {vertical-align: top;}
+label, button, input.submit, input.image {cursor: pointer;}
+* html input.radio, * html input.checkbox {vertical-align: middle;}
+*+html input.radio, *+html input.checkbox {vertical-align: middle;}
+
+textarea {overflow: auto;}
+
+* html button {margin: 0 .34em 0 0;}
+*+html button {margin: 0 .34em 0 0;}
+
+form.horizontal .field {padding-left: 150px;}
+form.horizontal .field label {display: inline; float: left; width: 140px; margin-left: -150px;}
+
+input[type="text"],input[type="password"] {
+	border: #ddd solid 2px;
+	font-size: 1.1em;
+	margin:5px 5px 5px 5px;
+	padding:2px 4px;
+	width:250px;
+}
+
+input[type="submit"],input[type="button"],input[type="reset"] {
+	background-color: #ffffff;
+	border: #ddd solid 2px;
+    color: #444;
+	font-weight:bold;
+	line-height:1.8em;
+	margin:5px 5px 2px 5px;
+	padding:2px 4px;
+	text-transform:uppercase;
+}
+
+input[type="submit"]:hover {
+	color: #444;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.label {
+	font-weight:bold;
+	margin:0 4px 0 0;
+	text-align:right;
+	white-space:nowrap;
+	width:1%;
+}
+
+input:focus,textarea:focus { border: 2px solid #6E2723; }
+input.focused, textarea.focused { border: 2px solid #6E2723; }
+
+/***********************************************
+Layout
+***********************************************/
+html, body, #wrap {height: 100%;}
+
+body > #wrap {height: auto; min-height: 100%;}
+
+body {
+	text-align:center;
+	overflow:hidden;
+}
+
+#wrap {
+	margin: 0;
+	
+}
+
+#header {
+    display:none;
+}
+
+#app-navigation{
+	display:none;
+}
+
+.contentarea {
+	margin-left: -200px;
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	width: 400px;
+	height: 300px;
+	overflow: visible;
+}
+
+#column-container {
+	width:400px;
+	margin:0 auto;
+	padding:100px 0 0 0;
+	background:url(../images/login-logo.gif) center  20px no-repeat;
+}
+
+#content-main-section {
+	background:#fff;
+	border:5px solid #f1f1f1;
+	padding:0px;
+}
+
+.screenlet-title-bar {
+	background:#094460;
+	color:#fff;
+	padding:10px 0 10px 0;
+	text-transform:uppercase;
+}
+
+.screenlet-body {
+	padding:10px;
+}
+
+#footer {
+    display:none;
+}
+
+/***********************************************
+Clear Fix
+***********************************************/
+.clearfix:after {
+    content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix { display: block; }
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+
+/*NOTE .clear deprecated, clear floats automatically using .clearfix instead of using extra div */
+.clear {
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+/*********************************************** 
+ Alerts
+***********************************************/
+.humanMsg {
+    letter-spacing: -1px;
+    position: fixed;
+    top: 130px;
+    left: 25%;
+    width: 50%;
+    text-align: center;
+    z-index: 100000;
+}
+
+.humanMsg p {
+    padding: .3em;
+    display: inline;
+}
+
+.humanMsg a {
+    display: none;
+}
+.eventMessage {
+    background:#e5f7e3 url(../images/check.gif) no-repeat;
+    background-position:7px 7px;
+    border:4px solid #c5e1c8;
+    font-weight:700;
+    color:#005e20;
+    padding:20px 8px 20px 28px;
+    text-transform:uppercase;
+}
+
+.errorMessage {
+    background:#ffebeb url(../images/x.gif) no-repeat;
+    background-position:7px 7px;
+    border:4px solid #f5c1c2;
+    font-weight:700;
+    color:#9e0b0f;
+    padding:8px 8px 8px 28px;
+    text-transform:uppercase;
+}
+
+.content-messages {
+    width:400px;
+    position:absolute;
+    top:40%;
+    left:50%;
+    margin-left:-200px;
+    z-index:9999;
+}
+
+#close{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    cursor:pointer;
+}
+
+.modal-overlay{
+    top: 0;
+    left: 0;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1000000;
+    background: #000;
+    filter:alpha(opacity=70);
+    -moz-opacity:0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+}
+.modal-window{
+    top: 20px;
+    left: 25%;
+    position: absolute;
+    width: 50%;
+    z-index: 1000001;
+    background: #EAEAEA;
+    border: solid 5px #ddd;
+    padding: 5px;
+}
+span#modal-close-btn{
+    color: red;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.DEBUG {
+	color: #808080;
+}
+
+.WARN {
+	color: #0000ff;
+	font-weight: bold;
+}
+
+.INFO {
+	color: #008000;
+}
+
+.ERROR {
+	border: 0.2em solid #ff0000;
+	color: #ff0000;
+	font-weight: bold;
+}
