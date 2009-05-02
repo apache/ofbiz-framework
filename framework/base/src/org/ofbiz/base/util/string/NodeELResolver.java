@@ -20,6 +20,7 @@ package org.ofbiz.base.util.string;
 
 import java.beans.FeatureDescriptor;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.el.CompositeELResolver;
 import javax.el.ELContext;
@@ -30,6 +31,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import javolution.util.FastList;
 
 import org.apache.xerces.dom.NodeImpl;
 import org.ofbiz.base.util.Debug;
@@ -100,13 +103,16 @@ public class NodeELResolver extends ELResolver {
                 } else if (nodeList.getLength() == 1) { 
                     result = nodeList.item(0);
                 } else {
-                    result = nodeList;
+                    List<Node> newList = FastList.newInstance();
+                    for (int i = 0; i < nodeList.getLength(); i++) {
+                        newList.add(nodeList.item(i));
+                    }
+                    result = newList;
                 }
                 context.setPropertyResolved(true);
             } catch (XPathExpressionException e) {
                 Debug.logError("An error occurred during XPath expression evaluation, error was: " + e, module);
             }
-
         }
         return result;
     }
