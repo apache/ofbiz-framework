@@ -138,7 +138,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
                 Debug.logVerbose("UEL exception while getting value: " + e + ", original = " + this.original, module);
             }
         } catch (Exception e) {
-            Debug.logInfo("UEL exception while getting value: " + e + ", original = " + this.original, module);
+            Debug.logError("UEL exception while getting value: " + e + ", original = " + this.original, module);
         }
         return UtilGenerics.<T>cast(obj);
     }
@@ -161,7 +161,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         try {
             UelUtil.setValue(base, getExpression(base), value == null ? Object.class : value.getClass(), value);
         } catch (Exception e) {
-            Debug.logInfo("UEL exception while setting value: " + e + ", original = " + this.original, module);
+            Debug.logError("UEL exception while setting value: " + e + ", original = " + this.original, module);
         }
     }
 
@@ -181,7 +181,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
             Map<String, Object> writableMap = UtilGenerics.cast(base);
             UelUtil.removeValue(writableMap, getExpression(base));
         } catch (Exception e) {
-            Debug.logInfo("UEL exception while removing value: " + e + ", original = " + this.original, module);
+            Debug.logError("UEL exception while removing value: " + e + ", original = " + this.original, module);
         }
         return object;
     }

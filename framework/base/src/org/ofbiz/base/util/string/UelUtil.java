@@ -135,19 +135,51 @@ public class UelUtil {
          */
         public ValueExpression resolveVariable(String variable) {
             Object obj = null;
-            //Object obj = this.variables.get(variable);
+            String createObjectType = null;
+            String name = variable;
+            if (variable.contains("$")) {
+                if (variable.endsWith("$string")) {
+                    name = variable.substring(0, variable.length() - 7);
+                    createObjectType = "string";
+                } else if (variable.endsWith("$boolean")) {
+                    name = variable.substring(0, variable.length() - 8);
+                    createObjectType = "boolean";
+                } else if (variable.endsWith("$integer")) {
+                    name = variable.substring(0, variable.length() - 8);
+                    createObjectType = "integer";
+                } else if (variable.endsWith("$long")) {
+                    name = variable.substring(0, variable.length() - 5);
+                    createObjectType = "long";
+                } else if (variable.endsWith("$double")) {
+                    name = variable.substring(0, variable.length() - 7);
+                    createObjectType = "double";
+                }
+            }
             if (this.variables instanceof LocalizedMap) {
                 Locale locale = UtilMisc.ensureLocale(this.variables.get("locale"));
-                Object localizedObj = ((LocalizedMap) this.variables).get(variable, locale);
+                Object localizedObj = ((LocalizedMap<?>) this.variables).get(name, locale);
                 if (localizedObj == null) {
-                    localizedObj = this.variables.get(variable);
+                    localizedObj = this.variables.get(name);
                 }
                 obj = localizedObj;
             } else {
-                obj = this.variables.get(variable);
+                obj = this.variables.get(name);
             }
             if (obj != null) {
                 return new BasicValueExpression(obj);
+            }
+            if (createObjectType != null) {
+                if ("string".equals(createObjectType)) {
+                    return new BasicValueExpression("");
+                } else if ("boolean".equals(createObjectType)) {
+                    return new BasicValueExpression(Boolean.FALSE);
+                } else if ("integer".equals(createObjectType)) {
+                    return new BasicValueExpression(Integer.valueOf(0));
+                } else if ("long".equals(createObjectType)) {
+                    return new BasicValueExpression(Long.valueOf(0));
+                } else if ("double".equals(createObjectType)) {
+                    return new BasicValueExpression(Double.valueOf(0));
+                }
             }
             return null;
         }
@@ -334,23 +366,41 @@ public class UelUtil {
         }
     }
 
-    /** Prepares an expression for evaluation by UEL. The OFBiz syntax is
+    /** Prepares an expression for evaluation by UEL.<p>The OFBiz syntax is
      * converted to UEL-compatible syntax and the resulting expression is
-     * returned.
+     * returned. OFBiz syntax provides special forms of common operators to make
+     * it easier to embed UEL expressions in XML:
+     * <table border="1" cellpadding="2">
+     * <tr><td><strong>@gt</strong></td><td>&gt;</td></tr>
+     * <tr><td><strong>@lt</strong></td><td>&lt;</td></tr>
+     * <tr><td><strong>@lteq</strong></td><td>&lt;=</td></tr>
+     * <tr><td><strong>@gteq</strong></td><td>&gt;=</td></tr>
+     * <tr><td><strong>@or</strong></td><td>||</td></tr>
+     * <tr><td><strong>@and</strong></td><td>&amp;&amp;</td></tr>
+     * </table></p>
      * @param expression Expression to be converted
      * @return Converted expression
      */
     public static String prepareExpression(String expression) {
         String result = expression;
-        int openBrace = expression.indexOf("[+");
-        int closeBrace = (openBrace == -1 ? -1 : expression.indexOf(']', openBrace));
+        result = result.replace("[]", "['add']");
+        if (result.contains("@")) {
+            // TODO: create a static Pattern instance and use a Matcher
+            result = result.replace("@or", "||");
+            result = result.replace("@and", "&&");
+            result = result.replace("@lteq", "<=");
+            result = result.replace("@gteq", ">=");
+            result = result.replace("@lt", "<");
+            result = result.replace("@gt", ">");
+        }
+        int openBrace = result.indexOf("[+");
+        int closeBrace = (openBrace == -1 ? -1 : result.indexOf(']', openBrace));
         if (closeBrace != -1) {
-            String base = expression.substring(0, openBrace);
-            String property = expression.substring(openBrace+2, closeBrace).trim();
-            String end = expression.substring(closeBrace + 1);
+            String base = result.substring(0, openBrace);
+            String property = result.substring(openBrace+2, closeBrace).trim();
+            String end = result.substring(closeBrace + 1);
             result = base + "['insert@" + property + "']" + end;
         }
-        result = result.replace("[]", "['add']");
         return result;
     }
 }
