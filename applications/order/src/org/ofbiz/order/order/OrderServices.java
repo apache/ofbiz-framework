@@ -2495,7 +2495,7 @@ public class OrderServices {
         }
         templateData.put("assignments", assignments);
 
-        StringBuffer emailList = new StringBuffer();
+        StringBuilder emailList = new StringBuilder();
         if (assignedToEmails != null) {
             Iterator aei = assignedToEmails.iterator();
             while (aei.hasNext()) {

@@ -614,7 +614,7 @@ public class OrderReadHelper {
         if (orderStatusList == null || orderStatusList.size() == 0) return "";
 
         Iterator orderStatusIter = orderStatusList.iterator();
-        StringBuffer orderStatusString = new StringBuffer(50);
+        StringBuilder orderStatusString = new StringBuilder(50);
 
         try {
             boolean isCurrent = true;
@@ -1245,7 +1245,7 @@ public class OrderReadHelper {
             Debug.logWarning(e, "Problems getting order contact mechs", module);
         }
 
-        StringBuffer emails = new StringBuffer();
+        StringBuilder emails = new StringBuilder();
         if (orderContactMechs != null) {
             Iterator oci = orderContactMechs.iterator();
             while (oci.hasNext()) {

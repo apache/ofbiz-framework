@@ -1070,7 +1070,7 @@ public class ShoppingCartEvents {
      */
     private static String processResult(Map result, HttpServletRequest request) {
         //Check for errors
-        StringBuffer errMsg = new StringBuffer();
+        StringBuilder errMsg = new StringBuilder();
         if (result.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
             List errorMsgs = (List)result.get(ModelService.ERROR_MESSAGE_LIST);
             Iterator iterator = errorMsgs.iterator();

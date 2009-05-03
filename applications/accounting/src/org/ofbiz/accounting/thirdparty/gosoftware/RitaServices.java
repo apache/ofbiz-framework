@@ -396,18 +396,18 @@ public class RitaServices {
             String mname = creditCard.getString("middleNameOnCard");
             String lname = creditCard.getString("lastNameOnCard");
             String sufix = creditCard.getString("suffixOnCard");
-            StringBuffer name = new StringBuffer();
+            StringBuilder name = new StringBuilder();
             if (UtilValidate.isNotEmpty(title)) {
-                name.append(title + " ");
+                name.append(title).append(" ");
             }
             if (UtilValidate.isNotEmpty(fname)) {
-                name.append(fname + " ");
+                name.append(fname).append(" ");
             }
             if (UtilValidate.isNotEmpty(mname)) {
-                name.append(mname + " ");
+                name.append(mname).append(" ");
             }
             if (UtilValidate.isNotEmpty(lname)) {
-                name.append(lname + " ");
+                name.append(lname).append(" ");
             }
             if (UtilValidate.isNotEmpty(sufix)) {
                 name.append(sufix);

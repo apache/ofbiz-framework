@@ -97,7 +97,7 @@ public class PaymentMethodServices {
         String expMonth = (String) context.get("expMonth");
         String expYear = (String) context.get("expYear");
 
-        StringBuffer expDate = new StringBuffer();
+        StringBuilder expDate = new StringBuilder();
         expDate.append(expMonth);
         expDate.append("/");
         expDate.append(expYear);

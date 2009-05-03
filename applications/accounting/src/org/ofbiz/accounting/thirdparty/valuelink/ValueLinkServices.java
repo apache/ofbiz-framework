@@ -104,18 +104,18 @@ public class ValueLinkServices {
         }
 
         // setup the output
-        StringBuffer buf = new StringBuffer();
-        buf.append("======== Begin Test String (" + testString.length() + ") ========\n");
-        buf.append(testString + "\n");
+        StringBuilder buf = new StringBuilder();
+        buf.append("======== Begin Test String (").append(testString.length()).append(") ========\n");
+        buf.append(testString).append("\n");
         buf.append("======== End Test String ========\n\n");
 
-        buf.append("======== Begin Test Bytes (" + testBytes.length + ") ========\n");
-        buf.append(StringUtil.toHexString(testBytes) + "\n");
+        buf.append("======== Begin Test Bytes (").append(testBytes.length).append(") ========\n");
+        buf.append(StringUtil.toHexString(testBytes)).append("\n");
         buf.append("======== End Test Bytes ========\n\n");
 
-        buf.append("======== Begin Test Bytes " + desc + " (" + testEncryption.length + ") ========\n");
-        buf.append(StringUtil.toHexString(testEncryption) + "\n");
-        buf.append("======== End Test Bytes " + desc + " ========\n\n");
+        buf.append("======== Begin Test Bytes ").append(desc).append(" (").append(testEncryption.length).append(") ========\n");
+        buf.append(StringUtil.toHexString(testEncryption)).append("\n");
+        buf.append("======== End Test Bytes ").append(desc).append(" ========\n\n");
 
         String output = buf.toString();
         Debug.log(":: KEK Test Output ::\n\n" + output, module);

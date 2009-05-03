@@ -106,11 +106,11 @@ public class FinAccountHelper {
          // keep generating new account codes until a unique one is found
          Random r = new Random();
          boolean foundUniqueNewCode = false;
-         StringBuffer newAccountCode = null;
+         StringBuilder newAccountCode = null;
          long count = 0;
 
          while (!foundUniqueNewCode) {
-             newAccountCode = new StringBuffer(codeLength);
+             newAccountCode = new StringBuilder(codeLength);
              for (int i = 0; i < codeLength; i++) {
                  newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
              }

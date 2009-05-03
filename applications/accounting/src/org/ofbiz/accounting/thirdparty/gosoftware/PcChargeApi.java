@@ -191,7 +191,7 @@ public class PcChargeApi {
             ps.print(this.toString());
             ps.flush();
 
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             int size;
             while ((size = dis.read(readBuffer)) > -1) {
                 buf.append(new String(readBuffer, 0, size));

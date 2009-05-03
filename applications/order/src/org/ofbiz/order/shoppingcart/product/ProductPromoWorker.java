@@ -589,7 +589,7 @@ public class ProductPromoWorker {
         if (productPromo == null) {
             return "";
         }
-        StringBuffer promoDescBuf = new StringBuffer();
+        StringBuilder promoDescBuf = new StringBuilder();
         List productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
         Iterator promoRulesIter = productPromoRules.iterator();
         while (promoRulesIter != null && promoRulesIter.hasNext()) {

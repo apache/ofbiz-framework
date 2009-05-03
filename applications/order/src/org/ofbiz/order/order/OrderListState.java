@@ -250,7 +250,7 @@ public class OrderListState {
     }
 
     public String toString() {
-        StringBuffer buff = new StringBuffer("OrderListState:\n\t");
+        StringBuilder buff = new StringBuilder("OrderListState:\n\t");
         buff.append("viewIndex=").append(viewIndex).append(", viewSize=").append(viewSize).append("\n\t");
         buff.append(getOrderStatusState().toString()).append("\n\t");
         buff.append(getOrderTypeState().toString()).append("\n\t");

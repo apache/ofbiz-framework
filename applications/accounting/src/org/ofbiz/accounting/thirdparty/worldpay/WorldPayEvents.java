@@ -116,9 +116,9 @@ public class WorldPayEvents {
         }
 
         // build an address string
-        StringBuffer address = null;
+        StringBuilder address = null;
         if (contactAddress != null) {
-            address = new StringBuffer();
+            address = new StringBuilder();
             if (contactAddress.get("address1") != null) {
                 address.append(contactAddress.getString("address1").trim());
             }

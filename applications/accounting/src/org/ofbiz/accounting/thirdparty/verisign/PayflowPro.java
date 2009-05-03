@@ -134,7 +134,7 @@ public class PayflowPro {
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, configString, context);
         
         // get the base params
-        StringBuffer params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
 
         // parse the context parameters
         params.append("&").append(parseContext(data));
@@ -198,7 +198,7 @@ public class PayflowPro {
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, configString, context);
 
         // get the base params
-        StringBuffer params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
 
         // parse the context parameters
         params.append("&").append(parseContext(data));
@@ -260,7 +260,7 @@ public class PayflowPro {
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, configString, context);
 
         // get the base params
-        StringBuffer params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
 
         // parse the context parameters
         params.append("&").append(parseContext(data));
@@ -319,7 +319,7 @@ public class PayflowPro {
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, configString, context);
 
         // get the base params
-        StringBuffer params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, configString);
 
         // parse the context parameters
         params.append("&").append(parseContext(data));
@@ -558,7 +558,7 @@ public class PayflowPro {
     }
 
     private static String parseContext(Map<String, ? extends Object> context) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         Set<String> keySet = context.keySet();
         Iterator<String> i = keySet.iterator();
 
@@ -589,8 +589,8 @@ public class PayflowPro {
         return buf.toString();
     }
 
-    private static StringBuffer makeBaseParams(GenericDelegator delegator, String paymentGatewayConfigId, String resource) {
-        StringBuffer buf = new StringBuffer();
+    private static StringBuilder makeBaseParams(GenericDelegator delegator, String paymentGatewayConfigId, String resource) {
+        StringBuilder buf = new StringBuilder();
 
         try {
             buf.append("PARTNER=");

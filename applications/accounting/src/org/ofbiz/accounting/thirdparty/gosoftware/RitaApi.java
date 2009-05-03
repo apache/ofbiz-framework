@@ -149,7 +149,7 @@ public class RitaApi {
     }
 
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         Iterator i = document.entrySet().iterator();
         while (i.hasNext()) {
             Map.Entry entry = (Map.Entry) i.next();
