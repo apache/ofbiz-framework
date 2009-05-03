@@ -34,7 +34,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="access:example"/>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">

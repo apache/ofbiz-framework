@@ -34,7 +34,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="access:example"/>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
@@ -68,7 +68,7 @@ under the License.
     <screen name="ListExampleFormOnly">
         <section>
             <condition>
-                <if-has-permission permission="access:example"/>
+                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
             </condition>
             <actions>
                 <!-- NOTE: these are needed because this may be run as a top level screen and would have no decorator -->
@@ -84,7 +84,7 @@ under the License.
     <screen name="CreateExampleFormOnly">
         <section>
             <condition>
-                <if-has-permission permission="access:example"/>
+                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
             </condition>
             <actions>
                 <!-- these are only needed so that when bsh evaluates use-when attributes these will exist and not cause an error -->
