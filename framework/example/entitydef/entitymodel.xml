@@ -55,16 +55,12 @@ under the License.
         <field name="exampleDate" type="date-time"></field>
         <field name="anotherDate" type="date-time"></field>
         <field name="anotherText" type="long-varchar"></field>
-        <field name="createdByUser" type="id-vlong-ne"></field>
         <prim-key field="exampleId"/>
         <relation type="one" fk-name="EXMPL_TYP" rel-entity-name="ExampleType">
             <key-map field-name="exampleTypeId"/>
         </relation>
         <relation type="one" fk-name="EXMPL_STTS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
-        </relation>
-        <relation type="one" fk-name="EXMPL_USER" rel-entity-name="UserLogin">
-            <key-map field-name="createdByUser" rel-field-name="userLoginId"/>
         </relation>
     </entity>
     <entity entity-name="ExampleItem" package-name="org.ofbiz.example.example" title="Example Item Entity" default-resource-name="ExampleEntityLabels">

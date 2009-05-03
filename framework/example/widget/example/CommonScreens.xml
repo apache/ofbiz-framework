@@ -71,7 +71,7 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <if-has-permission permission="access:example"/>
+                                    <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                                     <not><if-empty field="example"/></not>
                                 </and>
                             </condition>
@@ -82,9 +82,9 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for access:example permission -->
+                            <!-- do check for EXAMPLE, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="access:example"/>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -135,7 +135,7 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <if-has-permission permission="access:example"/>
+                                    <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                                     <not><if-empty field="exampleFeature"/></not>
                                 </and>
                             </condition>
@@ -148,7 +148,7 @@ under the License.
                         <section>
                             <!-- do check for EXAMPLE, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="access:example"/>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
