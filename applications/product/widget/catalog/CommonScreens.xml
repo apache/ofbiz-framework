@@ -229,7 +229,7 @@ under the License.
     <screen name="leftbar">
         <section>
             <widgets>
-                <container style="left">
+                <container style="left" id="leftSection">
                     <include-screen name="keywordsearchbox"/>
                     <include-screen name="sidecatalogs"/>
                     <include-screen name="sidedeepcategory"/>
