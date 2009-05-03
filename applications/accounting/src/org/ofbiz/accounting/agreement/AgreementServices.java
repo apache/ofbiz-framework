@@ -169,7 +169,7 @@ public class AgreementServices {
                             "currencyUomId", agreementItem.getString("currencyUomId"),
                             "productId", productId);
                     if (days >= 0) {
-                        partyCommissionResult.put("days", new Long(days));
+                        partyCommissionResult.put("days", Long.valueOf(days));
                     }
                     commissions.add(partyCommissionResult);
                 }

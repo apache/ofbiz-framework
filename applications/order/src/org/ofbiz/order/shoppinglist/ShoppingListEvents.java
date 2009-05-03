@@ -136,7 +136,7 @@ public class ShoppingListEvents {
         for (int i = 0; i < items.length; i++) {
             Integer cartIdInt = null;
             try {
-                cartIdInt = new Integer(items[i]);
+                cartIdInt = Integer.valueOf(items[i]);
             } catch (Exception e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderIllegalCharacterInSelectedItemField", cart.getLocale()), module);
             }

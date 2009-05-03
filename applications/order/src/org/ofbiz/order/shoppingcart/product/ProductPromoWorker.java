@@ -459,7 +459,7 @@ public class ProductPromoWorker {
             }
             long perCustomerThisOrder = useLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perCustomerThisOrder) {
-                candidateUseLimit = new Long(perCustomerThisOrder);
+                candidateUseLimit = Long.valueOf(perCustomerThisOrder);
             }
         }
 
@@ -475,7 +475,7 @@ public class ProductPromoWorker {
             long productPromoUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             long perPromotionThisOrder = useLimitPerPromotion.longValue() - productPromoUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perPromotionThisOrder) {
-                candidateUseLimit = new Long(perPromotionThisOrder);
+                candidateUseLimit = Long.valueOf(perPromotionThisOrder);
             }
         }
 
@@ -503,7 +503,7 @@ public class ProductPromoWorker {
             }
             long perCustomerThisOrder = codeUseLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCustomerThisOrder) {
-                codeUseLimit = new Long(perCustomerThisOrder);
+                codeUseLimit = Long.valueOf(perCustomerThisOrder);
             }
         }
 
@@ -517,7 +517,7 @@ public class ProductPromoWorker {
             long productPromoCodeUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             long perCodeThisOrder = codeUseLimitPerCode.longValue() - productPromoCodeUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCodeThisOrder) {
-                codeUseLimit = new Long(perCodeThisOrder);
+                codeUseLimit = Long.valueOf(perCodeThisOrder);
             }
         }
 
@@ -815,10 +815,10 @@ public class ProductPromoWorker {
             if (amountNeeded.compareTo(BigDecimal.ZERO) > 0) {
                 // failed, reset the entire rule, ie including all other conditions that might have been done before
                 cart.resetPromoRuleUse(productPromoCond.getString("productPromoId"), productPromoCond.getString("productPromoRuleId"));
-                compareBase = new Integer(-1);
+                compareBase = Integer.valueOf(-1);
             } else {
                 // we got it, the conditions are in place...
-                compareBase = new Integer(0);
+                compareBase = Integer.valueOf(0);
                 // NOTE: don't confirm promo rule use here, wait until actions are complete for the rule to do that
             }
         } else if ("PPIP_PRODUCT_TOTAL".equals(inputParamEnumId)) {
@@ -848,7 +848,7 @@ public class ProductPromoWorker {
 
             // Debug.logInfo("Doing Amount Not Counted Cond with Value after finding applicable cart lines: " + amountNeeded, module);
 
-            compareBase = new Integer(amountAvailable.compareTo(amountNeeded));
+            compareBase = Integer.valueOf(amountAvailable.compareTo(amountNeeded));
         } else if ("PPIP_PRODUCT_QUANT".equals(inputParamEnumId)) {
             // for this type of promo force the operatorEnumId = PPC_EQ, effectively ignore that setting because the comparison is implied in the code
             operatorEnumId = "PPC_EQ";
@@ -879,10 +879,10 @@ public class ProductPromoWorker {
             if (quantityNeeded.compareTo(BigDecimal.ZERO) > 0) {
                 // failed, reset the entire rule, ie including all other conditions that might have been done before
                 cart.resetPromoRuleUse(productPromoCond.getString("productPromoId"), productPromoCond.getString("productPromoRuleId"));
-                compareBase = new Integer(-1);
+                compareBase = Integer.valueOf(-1);
             } else {
                 // we got it, the conditions are in place...
-                compareBase = new Integer(0);
+                compareBase = Integer.valueOf(0);
                 // NOTE: don't confirm rpomo rule use here, wait until actions are complete for the rule to do that
             }
 
@@ -892,7 +892,7 @@ public class ProductPromoWorker {
 
             if (candidateProductId == null) {
                 // if null, then it's not in the cart
-                compareBase = new Integer(1);
+                compareBase = Integer.valueOf(1);
             } else {
                 // Debug.logInfo("Testing to see if productId \"" + candidateProductId + "\" is in the cart", module);
                 List productCartItems = cart.findAllCartItems(candidateProductId);
@@ -906,10 +906,10 @@ public class ProductPromoWorker {
 
                 if (productCartItems.size() > 0) {
                     //Debug.logError("Item with productId \"" + candidateProductId + "\" IS in the cart", module);
-                    compareBase = new Integer(0);
+                    compareBase = Integer.valueOf(0);
                 } else {
                     //Debug.logError("Item with productId \"" + candidateProductId + "\" IS NOT in the cart", module);
-                    compareBase = new Integer(1);
+                    compareBase = Integer.valueOf(1);
                 }
             }
         } else if ("PPIP_CATEGORY_ID_IC".equals(inputParamEnumId)) {
@@ -924,7 +924,7 @@ public class ProductPromoWorker {
                 }
             }
 
-            compareBase = new Integer(1);
+            compareBase = Integer.valueOf(1);
             // NOTE: this technique is efficient for a smaller number of items in the cart, if there are a lot of lines
             //in the cart then a non-cached query with a set of productIds using the IN operator would be better
             Iterator productIdIter = productIds.iterator();
@@ -938,7 +938,7 @@ public class ProductPromoWorker {
                 if (UtilValidate.isNotEmpty(productCategoryMembers)) {
                     // if any product is in category, set true and break
                     // then 0 (equals), otherwise 1 (not equals)
-                    compareBase = new Integer(0);
+                    compareBase = Integer.valueOf(0);
                     break;
                 }
             }
@@ -952,17 +952,17 @@ public class ProductPromoWorker {
             compareBase = acctDays.compareTo(new BigDecimal(condValue));
         } else if ("PPIP_PARTY_ID".equals(inputParamEnumId)) {
             if (partyId != null) {
-                compareBase = new Integer(partyId.compareTo(condValue));
+                compareBase = Integer.valueOf(partyId.compareTo(condValue));
             } else {
-                compareBase = new Integer(1);
+                compareBase = Integer.valueOf(1);
             }
         } else if ("PPIP_PARTY_GRP_MEM".equals(inputParamEnumId)) {
             if (UtilValidate.isEmpty(partyId)) {
-                compareBase = new Integer(1);
+                compareBase = Integer.valueOf(1);
             } else {
                 String groupPartyId = condValue;
                 if (partyId.equals(groupPartyId)) {
-                    compareBase = new Integer(0);
+                    compareBase = Integer.valueOf(0);
                 } else {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
                     List partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
@@ -970,15 +970,15 @@ public class ProductPromoWorker {
                     partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, true);
                     // then 0 (equals), otherwise 1 (not equals)
                     if (UtilValidate.isNotEmpty(partyRelationshipList)) {
-                        compareBase = new Integer(0);
+                        compareBase = Integer.valueOf(0);
                     } else {
-                        compareBase = new Integer(1);
+                        compareBase = Integer.valueOf(1);
                     }
                 }
             }
         } else if ("PPIP_PARTY_CLASS".equals(inputParamEnumId)) {
             if (UtilValidate.isEmpty(partyId)) {
-                compareBase = new Integer(1);
+                compareBase = Integer.valueOf(1);
             } else {
                 String partyClassificationGroupId = condValue;
                 // find any PartyClassification
@@ -987,9 +987,9 @@ public class ProductPromoWorker {
                 partyClassificationList = EntityUtil.filterByDate(partyClassificationList, true);
                 // then 0 (equals), otherwise 1 (not equals)
                 if (UtilValidate.isNotEmpty(partyClassificationList)) {
-                    compareBase = new Integer(0);
+                    compareBase = Integer.valueOf(0);
                 } else {
-                    compareBase = new Integer(1);
+                    compareBase = Integer.valueOf(1);
                 }
             }
         } else if ("PPIP_ROLE_TYPE".equals(inputParamEnumId)) {
@@ -1000,17 +1000,17 @@ public class ProductPromoWorker {
 
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyRole != null) {
-                    compareBase = new Integer(0);
+                    compareBase = Integer.valueOf(0);
                 } else {
-                    compareBase = new Integer(1);
+                    compareBase = Integer.valueOf(1);
                 }
             } else {
-                compareBase = new Integer(1);
+                compareBase = Integer.valueOf(1);
             }
         } else if ("PPIP_ORDER_TOTAL".equals(inputParamEnumId)) {
             BigDecimal orderSubTotal = cart.getSubTotalForPromotions();
             if (Debug.verboseOn()) Debug.logVerbose("Doing order total compare: orderSubTotal=" + orderSubTotal, module);
-            compareBase = new Integer(orderSubTotal.compareTo(new BigDecimal(condValue)));
+            compareBase = Integer.valueOf(orderSubTotal.compareTo(new BigDecimal(condValue)));
         } else if ("PPIP_ORST_HIST".equals(inputParamEnumId)) {
             // description="Order sub-total X in last Y Months"
             if (partyId != null && userLogin != null) {
@@ -1019,7 +1019,7 @@ public class ProductPromoWorker {
                 if (otherValue != null) {
                     monthsToInclude = Integer.parseInt(condValue);
                 }
-                Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER", "statusId", "ORDER_COMPLETED", "monthsToInclude", new Integer(monthsToInclude), "userLogin", userLogin);
+                Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER", "statusId", "ORDER_COMPLETED", "monthsToInclude", Integer.valueOf(monthsToInclude), "userLogin", userLogin);
                 try {
                     Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
                     if (ServiceUtil.isError(result)) {
@@ -1028,7 +1028,7 @@ public class ProductPromoWorker {
                     } else {
                         BigDecimal orderSubTotal = (BigDecimal) result.get("totalSubRemainingAmount");
                         if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module);
-                        compareBase = new Integer(orderSubTotal.compareTo(new BigDecimal(condValue)));
+                        compareBase = Integer.valueOf(orderSubTotal.compareTo(new BigDecimal(condValue)));
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);
@@ -1048,7 +1048,7 @@ public class ProductPromoWorker {
                         "roleTypeId", "PLACING_CUSTOMER",
                         "orderTypeId", "SALES_ORDER",
                         "statusId", "ORDER_COMPLETED",
-                        "monthsToInclude", new Integer(monthsToInclude),
+                        "monthsToInclude", Integer.valueOf(monthsToInclude),
                         "userLogin", userLogin);
                 try {
                     Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
@@ -1058,7 +1058,7 @@ public class ProductPromoWorker {
                     } else {
                         BigDecimal orderSubTotal = (BigDecimal) result.get("totalSubRemainingAmount");
                         if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module);
-                        compareBase = new Integer(orderSubTotal.compareTo(new BigDecimal((condValue))));
+                        compareBase = Integer.valueOf(orderSubTotal.compareTo(new BigDecimal((condValue))));
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);
@@ -1094,7 +1094,7 @@ public class ProductPromoWorker {
                     } else {
                         Double orderSubTotal = (Double) result.get("totalSubRemainingAmount");
                         if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for last year.", module);
-                        compareBase = new Integer(orderSubTotal.compareTo(Double.valueOf(condValue)));
+                        compareBase = Integer.valueOf(orderSubTotal.compareTo(Double.valueOf(condValue)));
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);
@@ -1104,7 +1104,7 @@ public class ProductPromoWorker {
                 return false;
             }
         } else if ("PPIP_RECURRENCE".equals(inputParamEnumId)) {
-            compareBase = new Integer(1);
+            compareBase = Integer.valueOf(1);
             GenericValue recurrenceInfo = delegator.findByPrimaryKeyCache("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue));
             if (recurrenceInfo != null) {
                 RecurrenceInfo recurrence = null;
@@ -1117,7 +1117,7 @@ public class ProductPromoWorker {
                 // check the current recurrence
                 if (recurrence != null) {
                     if (recurrence.isValidCurrent()) {
-                        compareBase = new Integer(0);
+                        compareBase = Integer.valueOf(0);
                     }
                 }
             }
@@ -1572,7 +1572,7 @@ public class ProductPromoWorker {
                     if (productPromoAction.getString("productPromoId").equals(checkOrderAdjustment.get("productPromoId")) &&
                         productPromoAction.getString("productPromoRuleId").equals(checkOrderAdjustment.get("productPromoRuleId")) &&
                         productPromoAction.getString("productPromoActionSeqId").equals(checkOrderAdjustment.get("productPromoActionSeqId"))) {
-                        return new Integer(i);
+                        return Integer.valueOf(i);
                     }
                 }
             }
@@ -1621,7 +1621,7 @@ public class ProductPromoWorker {
             if (productPromoAction.getString("productPromoId").equals(checkOrderAdjustment.get("productPromoId")) &&
                 productPromoAction.getString("productPromoRuleId").equals(checkOrderAdjustment.get("productPromoRuleId")) &&
                 productPromoAction.getString("productPromoActionSeqId").equals(checkOrderAdjustment.get("productPromoActionSeqId"))) {
-                return new Integer(i);
+                return Integer.valueOf(i);
             }
         }
         return null;

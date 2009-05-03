@@ -245,7 +245,7 @@ public class TechDataServices {
         }
         result.put("capacity",capacity);
         result.put("startTime",startTime);
-        result.put("moveDay",new Integer(moveDay));
+        result.put("moveDay",Integer.valueOf(moveDay));
         return result;
     }
     /** Used to to request the remain capacity available for dateFrom in a TechDataCalenda,
@@ -399,7 +399,7 @@ public class TechDataServices {
         }
         result.put("capacity",capacity);
         result.put("startTime",startTime);
-        result.put("moveDay",new Integer(moveDay));
+        result.put("moveDay",Integer.valueOf(moveDay));
         return result;
     }
     /** Used to request the remaining capacity available for dateFrom in a TechDataCalenda,
@@ -457,7 +457,7 @@ public class TechDataServices {
         Time startTime = (Time) position.get("startTime");
         int moveDay = ((Integer) position.get("moveDay")).intValue();
         Double capacity = (Double) position.get("capacity");
-        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayEnd(dateFrom, new Long(moveDay));
+        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayEnd(dateFrom, Long.valueOf(moveDay));
         Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.after(endAvailablePeriod) ) {
             dateTo = endAvailablePeriod;

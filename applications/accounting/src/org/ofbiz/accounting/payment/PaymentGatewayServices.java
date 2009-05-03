@@ -129,11 +129,11 @@ public class PaymentGatewayServices {
         // get the process attempts so far
         Long procAttempt = orderPaymentPreference.getLong("processAttempt");
         if (procAttempt == null) {
-            procAttempt = new Long(0);
+            procAttempt = Long.valueOf(0);
         }
         
         // update the process attempt count
-        orderPaymentPreference.set("processAttempt", new Long(procAttempt.longValue() + 1));
+        orderPaymentPreference.set("processAttempt", Long.valueOf(procAttempt.longValue() + 1));
         try {
             orderPaymentPreference.store();
             orderPaymentPreference.refresh();
@@ -1879,18 +1879,18 @@ public class PaymentGatewayServices {
                 if (creditCard != null) {
                     Long consecutiveFailedAuths = creditCard.getLong("consecutiveFailedAuths");
                     if (consecutiveFailedAuths == null) {
-                        creditCard.set("consecutiveFailedAuths", new Long(1));
+                        creditCard.set("consecutiveFailedAuths", Long.valueOf(1));
                     } else {
-                        creditCard.set("consecutiveFailedAuths", new Long(consecutiveFailedAuths.longValue() + 1));
+                        creditCard.set("consecutiveFailedAuths", Long.valueOf(consecutiveFailedAuths.longValue() + 1));
                     }
                     creditCard.set("lastFailedAuthDate", nowTimestamp);
 
                     if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) {
                         Long consecutiveFailedNsf = creditCard.getLong("consecutiveFailedNsf");
                         if (consecutiveFailedNsf == null) {
-                            creditCard.set("consecutiveFailedNsf", new Long(1));
+                            creditCard.set("consecutiveFailedNsf", Long.valueOf(1));
                         } else {
-                            creditCard.set("consecutiveFailedNsf", new Long(consecutiveFailedNsf.longValue() + 1));
+                            creditCard.set("consecutiveFailedNsf", Long.valueOf(consecutiveFailedNsf.longValue() + 1));
                         }
                         creditCard.set("lastFailedNsfDate", nowTimestamp);
                     }
@@ -1901,9 +1901,9 @@ public class PaymentGatewayServices {
             // auth was successful, to clear out any failed auth or nsf info
             if (authResult.booleanValue()) {
                 if ((creditCard != null) && (creditCard.get("lastFailedAuthDate") != null)) {
-                    creditCard.set("consecutiveFailedAuths", new Long(0));
+                    creditCard.set("consecutiveFailedAuths", Long.valueOf(0));
                     creditCard.set("lastFailedAuthDate", null);
-                    creditCard.set("consecutiveFailedNsf", new Long(0));
+                    creditCard.set("consecutiveFailedNsf", Long.valueOf(0));
                     creditCard.set("lastFailedNsfDate", null);
                     creditCard.store();
                 }
@@ -2563,7 +2563,7 @@ public class PaymentGatewayServices {
 
         // get a list of all payment prefs still pending
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
-                EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, new Long(0)));
+                EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, Long.valueOf(0)));
 
         EntityListIterator eli = null;
         try {
@@ -2927,7 +2927,7 @@ public class PaymentGatewayServices {
         String transactionType = (String) context.get("transactionType");
         String referenceCode = (String) context.get("referenceCode");
         if (referenceCode == null) {
-            referenceCode = new Long(System.currentTimeMillis()).toString();
+            referenceCode = Long.valueOf(System.currentTimeMillis()).toString();
         }
         // Get the OrderPaymentPreference
         GenericValue paymentPref = null;

@@ -153,7 +153,7 @@ public class ValueLinkServices {
         Map request = vl.getInitialRequestMap(context);
         request.put("Interface", "Encrypt");
         request.put("EncryptKey", mwkHex);
-        request.put("EncryptID", new Long(vl.getWorkingKeyIndex().longValue() + 1));
+        request.put("EncryptID", Long.valueOf(vl.getWorkingKeyIndex().longValue() + 1));
 
         // send the request
         Map response = null;

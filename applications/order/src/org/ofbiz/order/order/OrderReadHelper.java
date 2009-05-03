@@ -1229,7 +1229,7 @@ public class OrderReadHelper {
         itemInfo.put("quantity", getOrderItemQuantity(item));
         itemInfo.put("weight", this.getItemWeight(item));
         itemInfo.put("size",  this.getItemSize(item));
-        itemInfo.put("piecesIncluded", new Long(this.getItemPiecesIncluded(item)));
+        itemInfo.put("piecesIncluded", Long.valueOf(this.getItemPiecesIncluded(item)));
         itemInfo.put("featureSet", this.getItemFeatureSet(item));
         return itemInfo;
     }

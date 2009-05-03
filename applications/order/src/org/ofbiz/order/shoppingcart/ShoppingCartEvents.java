@@ -1189,7 +1189,7 @@ public class ShoppingCartEvents {
             return "error";
         }
         if (termDays != null) {
-            termDays = new Long(termDaysStr);
+            termDays = Long.valueOf(termDaysStr);
         }
         if ((termIndex != null) && (!"-1".equals(termIndex)) && (UtilValidate.isInteger(termIndex))) {
             cartHelper.removeOrderTerm(Integer.parseInt(termIndex));
