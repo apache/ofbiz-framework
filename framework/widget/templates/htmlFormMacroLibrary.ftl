@@ -28,7 +28,7 @@ under the License.
         <span <#if idName?has_content>id="${idName}"</#if> <@renderClass class alert />><#t/>
     </#if>
     <#if description?has_content>
-        ${description}<#t/>
+        ${description?replace("\n", "<br/>")}<#t/>
     <#else>
         &nbsp;<#t/>
     </#if>

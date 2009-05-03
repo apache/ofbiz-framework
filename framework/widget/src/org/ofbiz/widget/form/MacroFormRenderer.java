@@ -173,9 +173,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         	idName += "_" + modelForm.getRowCount();
         }
         String description = displayField.getDescription(context);
-        // FIXME: this is only valid for html and should be moved outside of this class
-        // Replace new lines with <br/>
-        description = description.replaceAll("\n", "<br/>");
 
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
         boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
