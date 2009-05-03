@@ -360,26 +360,26 @@ public class ModelMenu extends ModelWidget {
                             EntityOperator.AND);
                     portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
                     if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                    	String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
-                    	// replace with private pages
-                    	for (GenericValue portalPage : portalPages) {
-                    		cond = EntityCondition.makeCondition(UtilMisc.toList(
-                    				EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                    				EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
-                    				EntityOperator.AND);
-                    		List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                    		if (UtilValidate.isNotEmpty(privatePortalPages)) {
-                    			portalPages.remove(portalPage);
-                    			portalPages.add(privatePortalPages.get(0));
-                    		}
-                    	}
-                    	// add any other created private pages
-                    	cond = EntityCondition.makeCondition(UtilMisc.toList(
-                    			EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                    			EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
-                    			EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
-                    			EntityOperator.AND);
-                    	portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
+                        String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                        // replace with private pages
+                        for (GenericValue portalPage : portalPages) {
+                            cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                    EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                                    EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
+                                    EntityOperator.AND);
+                            List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                            if (UtilValidate.isNotEmpty(privatePortalPages)) {
+                                portalPages.remove(portalPage);
+                                portalPages.add(privatePortalPages.get(0));
+                            }
+                        }
+                        // add any other created private pages
+                        cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                                EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
+                                EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
+                                EntityOperator.AND);
+                        portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
                     }
                     portalPages = EntityUtil.orderBy(portalPages, UtilMisc.toList("sequenceNum"));
                 } catch (GenericEntityException e) {
@@ -387,11 +387,13 @@ public class ModelMenu extends ModelWidget {
                 }
                 for (GenericValue portalPage : portalPages) {
                     if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-                        item.setName(portalPage.getString("portalPageId"));
-                        item.setTitle(portalPage.getString("portalPageName"));
-                        item.link = new Link(item);
-                        item.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId") + "&parentPortalPageId=" + parentPortalPageId);
-                        item.renderMenuItemString(writer, context, menuStringRenderer);
+                        ModelMenuItem localItem = new ModelMenuItem(item.getModelMenu());
+                        localItem.name =  portalPage.getString("portalPageId");
+                        localItem.setTitle(portalPage.getString("portalPageName"));
+                        localItem.link = new Link(item);
+                        localItem.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId") + "&parentPortalPageId=" + parentPortalPageId);
+                        localItem.link.setText(portalPage.getString("portalPageName"));
+                        localItem.renderMenuItemString(writer, context, menuStringRenderer);
                     }
                 }
             } else {
