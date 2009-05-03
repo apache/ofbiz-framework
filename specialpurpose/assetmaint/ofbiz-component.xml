@@ -26,7 +26,6 @@
 
     <!-- place the config directory on the classpath to access configuration files -->
     <classpath type="dir" location="config"/>
-    <classpath type="dir" location="script"/>
 
     <!-- load single or multiple external libraries -->
     <classpath type="jar" location="build/lib/*"/>
