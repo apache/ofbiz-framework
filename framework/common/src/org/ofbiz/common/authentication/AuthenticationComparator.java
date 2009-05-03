@@ -28,7 +28,7 @@ import org.ofbiz.common.authentication.api.Authenticator;
  *
  * Used to sort Authenticators by weight
  */
-public class AuthenticationComparator implements Comparator {
+public class AuthenticationComparator implements Comparator<Authenticator> {
 
     /**
      * Compares its two arguments for order.  Returns a negative integer,
@@ -62,9 +62,7 @@ public class AuthenticationComparator implements Comparator {
      * @throws ClassCastException if the arguments' types prevent them from
      *                            being compared by this Comparator.
      */    
-    public int compare(Object o1, Object o2) {
-        Authenticator a1 = (Authenticator) o1;
-        Authenticator a2 = (Authenticator) o2;
+    public int compare(Authenticator a1, Authenticator a2) {
         if (a1.getWeight() < a2.getWeight()) {
             return -1;
         } else if (a1.getWeight() > a2.getWeight()) {

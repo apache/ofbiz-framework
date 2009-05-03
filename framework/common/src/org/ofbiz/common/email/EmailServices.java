@@ -97,7 +97,7 @@ public class EmailServices {
         String subject = (String) context.get("subject");
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
-        List bodyParts = (List) context.get("bodyParts");
+        List<Map<String, Object>> bodyParts = UtilGenerics.checkList(context.get("bodyParts"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         results.put("partyId", partyId);
@@ -234,9 +234,7 @@ public class EmailServices {
                 // BodyParts contain a list of Maps items containing content(String) and type(String) of the attachement
                 MimeMultipart mp = new MimeMultipart();
                 Debug.logInfo(bodyParts.size() + " multiparts found",module);
-                Iterator bodyPartIter = bodyParts.iterator();
-                while (bodyPartIter.hasNext()) {
-                    Map bodyPart = (Map) bodyPartIter.next();
+                for (Map<String, Object> bodyPart: bodyParts) {
                     Object bodyPartContent = bodyPart.get("content");
                     MimeBodyPart mbp = new MimeBodyPart();
 
@@ -451,11 +449,11 @@ public class EmailServices {
                 List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
                 if (bodyText != null) {
                     bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
-                    bodyParts.add(UtilMisc.toMap("content", bodyText, "type", "text/html"));
+                    bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", "text/html"));
                 } else {
-                    bodyParts.add(UtilMisc.toMap("content", bodyWriter.toString(), "type", "text/html"));
+                    bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", "text/html"));
                 }
-                bodyParts.add(UtilMisc.toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", attachmentName));
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", attachmentName));
                 serviceContext.put("bodyParts", bodyParts);
             } catch (GeneralException ge) {
                 String errMsg = "Error rendering PDF attachment for email: " + ge.toString();

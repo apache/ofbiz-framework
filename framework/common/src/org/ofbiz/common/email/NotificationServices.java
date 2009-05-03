@@ -128,7 +128,7 @@ public class NotificationServices {
 
             if (body == null) {
                 // prepare the body of the notification email
-                Map bodyResult = prepareNotification(ctx, context);
+                Map<String, Object> bodyResult = prepareNotification(ctx, context);
 
                 // ensure the body was generated successfully
                 if (bodyResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
