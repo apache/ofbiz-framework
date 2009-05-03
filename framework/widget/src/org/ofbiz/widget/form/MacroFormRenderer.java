@@ -18,13 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.widget.form;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -39,9 +36,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ofbiz.base.location.FlexibleLocation;
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
@@ -54,10 +51,6 @@ import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.widget.fo.FoScreenRenderer;
-import org.ofbiz.widget.form.FormStringRenderer;
-import org.ofbiz.widget.form.ModelForm;
-import org.ofbiz.widget.form.ModelFormField;
 import org.ofbiz.widget.form.ModelFormField.CheckField;
 import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
@@ -79,8 +72,6 @@ import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
 import org.ofbiz.widget.screen.ModelScreenWidget;
-
-import javolution.util.FastList;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
@@ -499,16 +490,16 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (shortDateInput) {
             //size = maxlength = 15;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDate");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
         } else if ("time".equals(dateTimeField.getType())) {
             size = maxlength = 8;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
             }
         } else {
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
             }
         }
 
@@ -532,7 +523,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String compositeType = "";
         // search for a localized label for the icon
         if (uiLabelMap != null) {
-            localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
+            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
         }
 
         if (!"time".equals(dateTimeField.getType())) {
@@ -716,8 +707,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         int count = 0;
         StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
         while (optionValueIter.hasNext()) {
-            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter
-                    .next();
+            ModelFormField.OptionValue optionValue = optionValueIter.next();
             if (options.length() > 1) {
                 options.append(",");
             }
@@ -871,10 +861,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
-        Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         items.append("[");
-        while (optionValueIter.hasNext()) {
-            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+        for (ModelFormField.OptionValue optionValue : allOptionValues) {
             if (items.length() >1) {
                 items.append(",");
             }
@@ -931,10 +919,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         String noCurrentSelectedKey = radioField.getNoCurrentSelectedKey(context);
-        Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         items.append("[");
-        while (optionValueIter.hasNext()) {
-            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+        for (ModelFormField.OptionValue optionValue : allOptionValues) {
             if (items.length() >1) {
                 items.append(",");
             }
@@ -1188,7 +1174,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         //FIXME copy from HtmlFormRenderer.java
         Iterator<ModelFormField> submitFields = modelForm.getMultiSubmitFields().iterator();
         while (submitFields.hasNext()) {
-            ModelFormField submitField = (ModelFormField) submitFields.next();
+            ModelFormField submitField = submitFields.next();
             if (submitField != null) {
 
                 // Threw this in that as a hack to keep the submit button from expanding the first field
@@ -1713,16 +1699,16 @@ public class MacroFormRenderer implements FormStringRenderer {
         if ("date".equals(dateType)) {
             size = maxlength = 10;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDate");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
         } else if ("time".equals(dateFindField.getType())) {
             size = maxlength = 8;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
             }
         } else {
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
             }
         }
 
@@ -1733,7 +1719,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         // search for a localized label for the icon
         if (uiLabelMap != null) {
-            localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
+            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
         }
         String formName = "";
         String defaultDateTimeString = "";
@@ -1956,7 +1942,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            pageLabel = (String) uiLabelMap.get("CommonPage");
+            pageLabel = uiLabelMap.get("CommonPage");
             Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize));
             commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
         }
@@ -1970,7 +1956,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         // strip legacy viewIndex/viewSize params from the query string
         String queryString = UtilHttp.stripViewParamsFromQueryString(str, "" + paginatorNumber);
 
-        // strip parametrized index/size params from the query string
+        // strip parameterized index/size params from the query string
         HashSet<String> paramNames = new HashSet<String>();
         paramNames.add(viewIndexParam);
         paramNames.add(viewSizeParam);
@@ -2267,9 +2253,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             width = Integer.toString(imageField.getWidth());
         }
 
-        if (height != null) {
-            height = Integer.toString(imageField.getHeight());
-        }
+        height = Integer.toString(imageField.getHeight());
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
