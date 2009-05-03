@@ -42,6 +42,7 @@ import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.axis.server.AxisServer;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.DispatchContext;
@@ -187,7 +188,7 @@ public class SOAPEventHandler implements EventHandler {
         List<Object> bodies = null;
 
         try {
-            bodies = reqEnv.getBodyElements();
+            bodies = UtilGenerics.checkList(reqEnv.getBodyElements());
         } catch (AxisFault e) {
             sendError(response, e);
             throw new EventHandlerException(e.getMessage(), e);
@@ -203,7 +204,7 @@ public class SOAPEventHandler implements EventHandler {
                 String serviceName = body.getMethodName();
                 List<RPCParam> params = null;
                 try {
-                    params = body.getParams();
+                    params = UtilGenerics.checkList(body.getParams());
                 } catch (Exception e) {
                     sendError(response, e);
                     throw new EventHandlerException(e.getMessage(), e);

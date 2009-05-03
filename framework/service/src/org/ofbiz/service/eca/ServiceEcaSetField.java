@@ -20,6 +20,7 @@
 package org.ofbiz.service.eca;
 
 import org.w3c.dom.Element;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -69,7 +70,7 @@ public class ServiceEcaSetField {
             // check if target is a map and create/get from contaxt
             Map<String, Object> valueMap = null;
             if (UtilValidate.isNotEmpty(this.mapName) && context.containsKey(this.mapName)) {
-                valueMap = (Map<String, Object>) context.get(mapName);
+                valueMap = UtilGenerics.checkMap(context.get(mapName));
             } else {
                 valueMap = FastMap.newInstance();
             }

@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.apache.bsf.BSFException;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -48,7 +49,7 @@ public class WebslingerBSFServiceEngine extends GenericAsyncEngine {
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Object[] params = new Object[] { dispatcher.getLocalContext(localName), context };
         try {
-            return (Map) WebslingerContainer.runEvent(modelService.engineName, modelService.location, paramNames, paramTypes, params);
+            return UtilGenerics.checkMap(WebslingerContainer.runEvent(modelService.engineName, modelService.location, paramNames, paramTypes, params));
         } catch (IOException e) {
             throw (GenericServiceException) new GenericServiceException(e.getMessage()).initCause(e);
         } catch (BSFException e) {

@@ -873,7 +873,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         }
 
-        List allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
         Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         items.append("[");
         while (optionValueIter.hasNext()) {
@@ -918,7 +918,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        List allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String className = "";
         String alert = "false";

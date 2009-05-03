@@ -211,7 +211,7 @@ public class ModelTree extends ModelWidget {
      *   use the same tree definitions for many types of tree UIs
      */
     public void renderTreeString(StringBuffer buf, Map<String, Object> context, TreeStringRenderer treeStringRenderer) throws GeneralException {
-        Map<String, Object> parameters = (Map<String, Object>) context.get("parameters");
+        Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
         setWidgetBoundaryComments(context);
 
         ModelNode node = (ModelNode)nodeMap.get(rootNodeName);
