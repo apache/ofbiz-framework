@@ -19,15 +19,14 @@
 package org.ofbiz.common;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -67,10 +66,10 @@ public class FindServices {
 
     public static final String module = FindServices.class.getName();
 
-    public static HashMap<String, EntityOperator> entityOperators;
+    public static Map<String, EntityOperator> entityOperators;
 
     static {
-        entityOperators = new HashMap<String, EntityOperator>();
+        entityOperators = FastMap.newInstance();
         entityOperators.put("and", EntityOperator.AND);
         entityOperators.put("between", EntityOperator.BETWEEN);
         entityOperators.put("equals", EntityOperator.EQUALS);
@@ -95,7 +94,7 @@ public class FindServices {
      * @param inputFields     Input parameters run thru UtilHttp.getParameterMap
      * @return a map with field name and operator
      */
-    public static HashMap<String, HashMap<String, HashMap<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
+    public static Map<String, Map<String, Map<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
         //    fld0 or fld1,  and, then, "op" or "value"
@@ -110,7 +109,7 @@ public class FindServices {
         // Note that "normalizedFields" will contain values other than those
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
-        HashMap<String, HashMap<String, HashMap<String, Object>>> normalizedFields = new HashMap<String, HashMap<String, HashMap<String, Object>>>();
+        Map<String, Map<String, Map<String, Object>>> normalizedFields = FastMap.newInstance();
         //StringBuffer queryStringBuf = new StringBuffer();
         for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
@@ -120,8 +119,8 @@ public class FindServices {
                                                         // If it is an "op" field, it will be "equals", "greaterThan", etc.
             int iPos = -1;
             int iPos2 = -1;
-            HashMap<String, HashMap<String, Object>> subMap = null;
-            HashMap<String, Object> subMap2 = null;
+            Map<String, Map<String, Object>> subMap = null;
+            Map<String, Object> subMap2 = null;
             String fieldMode = null;
 
             fieldValue = inputFields.get(fieldNameRaw);
@@ -182,19 +181,19 @@ public class FindServices {
             }
             subMap = normalizedFields.get(fieldNameRoot);
             if (subMap == null) {
-                subMap = new HashMap<String, HashMap<String, Object>>();
+                subMap = FastMap.newInstance();
                 normalizedFields.put(fieldNameRoot, subMap);
             }
             subMap2 = subMap.get(fieldPair);
             if (subMap2 == null) {
-                subMap2 = new HashMap<String, Object>();
+                subMap2 = FastMap.newInstance();
                 subMap.put(fieldPair, subMap2);
             }
             subMap2.put(fieldMode, fieldValue);
 
             List<Object[]> origList = origValueMap.get(fieldNameRoot);
             if (origList == null) {
-                origList = new ArrayList<Object[]>();
+                origList = FastList.newInstance();
                 origValueMap.put(fieldNameRoot, origList);
             }
             Object [] origValues = {fieldNameRaw, fieldValue};
@@ -212,14 +211,14 @@ public class FindServices {
      * @param normalizedFields     list of field the user have populated
      * @return a arrayList usable to create an entityCondition
      */
-    public static ArrayList<EntityCondition> createCondition(ModelEntity modelEntity, HashMap<String, HashMap<String, HashMap<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, GenericDelegator delegator, Map<String, ?> context) {
-        HashMap<String, HashMap<String, Object>> subMap = null;
-        HashMap<String, Object> subMap2 = null;
+    public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, GenericDelegator delegator, Map<String, ?> context) {
+        Map<String, Map<String, Object>> subMap = null;
+        Map<String, Object> subMap2 = null;
         EntityOperator fieldOp = null;
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityExpr cond = null;
-        ArrayList<EntityCondition> tmpList = new ArrayList<EntityCondition>();
+        List<EntityCondition> tmpList = FastList.newInstance();
         String opString = null;
         String ignoreCase = null;
         int count = 0;
@@ -275,7 +274,7 @@ public class FindServices {
                     // Set up so next part finds ending conditions for same day
                     subMap2 = subMap.get("fld1");
                     if (subMap2 == null) {
-                        subMap2 = new HashMap<String, Object>();
+                        subMap2 = FastMap.newInstance();
                         subMap.put("fld1", subMap2);
                     }
                     String endOfDay = dayStart(timeStampString, 1);
@@ -482,7 +481,7 @@ public class FindServices {
         // parameters run thru UtilHttp.getParameterMap
         Map<String, Object> queryStringMap = FastMap.newInstance();
         Map<String, List<Object[]>> origValueMap = FastMap.newInstance();
-        HashMap<String, HashMap<String, HashMap<String, Object>>> normalizedFields = prepareField(inputFields, queryStringMap, origValueMap);
+        Map<String, Map<String, Map<String, Object>>> normalizedFields = prepareField(inputFields, queryStringMap, origValueMap);
 
         // Now use only the values that correspond to entity fields to build
         //   an EntityConditionList
@@ -491,7 +490,7 @@ public class FindServices {
         GenericValue entityValue = delegator.makeValue(entityName, FastMap.newInstance());
 
         ModelEntity modelEntity = entityValue.getModelEntity();
-        ArrayList<EntityCondition> tmpList = createCondition(modelEntity, normalizedFields, queryStringMap, origValueMap, delegator, context);
+        List<EntityCondition> tmpList = createCondition(modelEntity, normalizedFields, queryStringMap, origValueMap, delegator, context);
 
         /* the filter by date condition should only be added when there are other conditions or when
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become
@@ -585,7 +584,7 @@ public class FindServices {
         return retValue;
     }
 
-    public static HashMap<String, Object> buildReducedQueryString(Map<String, ?> inputFields, String entityName, GenericDelegator delegator) {
+    public static Map<String, Object> buildReducedQueryString(Map<String, ?> inputFields, String entityName, GenericDelegator delegator) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
         //    fld0 or fld1,  and, then, "op" or "value"
@@ -601,7 +600,7 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
-        HashMap<String, Object> normalizedFields = new HashMap<String, Object>();
+        Map<String, Object> normalizedFields = FastMap.newInstance();
         //StringBuffer queryStringBuf = new StringBuffer();
         for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
