@@ -1263,7 +1263,7 @@ public class ProductSearch {
                     GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", featureId));
                     GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOneCache("ProductFeatureType");
                     if (productFeatureType == null) {
-                        infoOut.append(UtilProperties.getMessage(resource, "ProductFeature", locale)+": ");
+                        infoOut.append(UtilProperties.getMessage(resource, "ProductFeature", locale)).append(": ");
                     } else {
                         infoOut.append(productFeatureType.getString("description"));
                         infoOut.append(": ");

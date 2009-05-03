@@ -384,7 +384,7 @@ public class BOMNode {
         }
         sb.append(product.get("productId"));
         sb.append(" - ");
-        sb.append("" + quantity);
+        sb.append(quantity);
         GenericValue oneChild = null;
         BOMNode oneChildNode = null;
         depth++;

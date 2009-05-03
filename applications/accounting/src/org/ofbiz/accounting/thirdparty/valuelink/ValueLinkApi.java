@@ -359,37 +359,37 @@ public class ValueLinkApi {
             BigInteger y = publicKey.getY();
             byte[] yBytes = y.toByteArray();
             String yHex = StringUtil.toHexString(yBytes);
-            buf.append("======== Begin Public Key (Y @ " + yBytes.length + " / " + yHex.length() + ") ========\n");
-            buf.append(yHex + "\n");
+            buf.append("======== Begin Public Key (Y @ ").append(yBytes.length).append(" / ").append(yHex.length()).append(") ========\n");
+            buf.append(yHex).append("\n");
             buf.append("======== End Public Key ========\n\n");
 
             // private key (just X)
             BigInteger x = privateKey.getX();
             byte[] xBytes = x.toByteArray();
             String xHex = StringUtil.toHexString(xBytes);
-            buf.append("======== Begin Private Key (X @ " + xBytes.length + " / " + xHex.length() + ") ========\n");
-            buf.append(xHex + "\n");
+            buf.append("======== Begin Private Key (X @ ").append(xBytes.length).append(" / ").append(xHex.length()).append(") ========\n");
+            buf.append(xHex).append("\n");
             buf.append("======== End Private Key ========\n\n");
 
             // private key (full)
             byte[] privateBytes = privateKey.getEncoded();
             String privateHex = StringUtil.toHexString(privateBytes);
-            buf.append("======== Begin Private Key (Full @ " + privateBytes.length + " / " + privateHex.length() + ") ========\n");
-            buf.append(privateHex + "\n");
+            buf.append("======== Begin Private Key (Full @ ").append(privateBytes.length).append(" / ").append(privateHex.length()).append(") ========\n");
+            buf.append(privateHex).append("\n");
             buf.append("======== End Private Key ========\n\n");
         }
 
         if (kekBytes != null) {
-            buf.append("======== Begin KEK (" + kekBytes.length + ") ========\n");
-            buf.append(StringUtil.toHexString(kekBytes) + "\n");
+            buf.append("======== Begin KEK (").append(kekBytes.length).append(") ========\n");
+            buf.append(StringUtil.toHexString(kekBytes)).append("\n");
             buf.append("======== End KEK ========\n\n");
 
-            buf.append("======== Begin KEK (DES) (" + loadKekBytes.length + ") ========\n");
-            buf.append(StringUtil.toHexString(loadKekBytes) + "\n");
+            buf.append("======== Begin KEK (DES) (").append(loadKekBytes.length).append(") ========\n");
+            buf.append(StringUtil.toHexString(loadKekBytes)).append("\n");
             buf.append("======== End KEK (DES) ========\n\n");
 
-            buf.append("======== Begin KEK Test (" + kekTestC.length + ") ========\n");
-            buf.append(StringUtil.toHexString(kekTestC) + "\n");
+            buf.append("======== Begin KEK Test (").append(kekTestC.length).append(") ========\n");
+            buf.append(StringUtil.toHexString(kekTestC)).append("\n");
             buf.append("======== End KEK Test ========\n\n");
         } else {
             Debug.logError("KEK came back empty", module);
