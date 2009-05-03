@@ -20,7 +20,6 @@
 package org.ofbiz.entity.condition;
 
 import java.util.List;
-import java.util.EnumMap;
 import java.util.Map;
 
 import javolution.context.ObjectFactory;
