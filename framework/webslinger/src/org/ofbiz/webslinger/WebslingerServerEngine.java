@@ -24,6 +24,7 @@ import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
@@ -49,7 +50,7 @@ public class WebslingerServerEngine extends GenericAsyncEngine {
         try {
             GenericValue found = EntityUtil.getFirst(delegator.findByAndCache("WebslingerLayout", UtilMisc.toMap("webslingerServerId", modelService.location)));
             if (found == null) throw new GenericServiceException("Couldn't find server mapping for(" + modelService.location + ")");
-            return (Map<String, Object>) WebslingerServletContext.invokeInVM(found.getString("hostName"), 8080, modelService.invoke, context);
+            return UtilGenerics.checkMap(WebslingerServletContext.invokeInVM(found.getString("hostName"), 8080, modelService.invoke, context));
         } catch (RuntimeException e) {
             throw e;
         } catch (GenericServiceException e) {

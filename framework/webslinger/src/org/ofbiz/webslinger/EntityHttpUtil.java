@@ -54,7 +54,7 @@ public class EntityHttpUtil {
 
     public static GenericValue makeValidValue(String entityName, boolean includePks, HttpServletRequest request) throws GeneralException {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        GenericValue value = delegator.makeValue(entityName, (Map) null);
+        GenericValue value = delegator.makeValue(entityName);
         ModelEntity model = value.getModelEntity();
         Iterator<ModelField> it = includePks ? model.getFieldsIterator() : model.getNopksIterator();
         Locale locale = UtilHttp.getLocale(request);

@@ -126,7 +126,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         Cache cache = delegator.getCache();
         Set<String> suffixes;
         synchronized (WebslingerContextMapper.class) {
-            suffixes = (Set<String>) cache.get("WebslingerHostSuffix", null, "WebslingerContextMapper.Suffixes");
+            suffixes = cache.get("WebslingerHostSuffix", null, "WebslingerContextMapper.Suffixes");
             if (suffixes == null) {
                 suffixes = new HashSet<String>();
                 for (GenericValue value: delegator.findList("WebslingerHostSuffix", null, null, null, null, false)) {

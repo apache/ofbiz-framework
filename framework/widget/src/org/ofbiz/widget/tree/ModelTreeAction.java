@@ -297,7 +297,8 @@ public abstract class ModelTreeAction {
                         List<? extends Map<String, ? extends Object>> lst = UtilGenerics.checkList(result.get(resultMapListName));
                         if (lst != null) {
                             if (lst instanceof ListIterator) {
-                                this.modelSubNode.setListIterator((ListIterator) lst);
+                                ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(lst);
+                                this.modelSubNode.setListIterator(listIt);
                             } else {
                                 this.modelSubNode.setListIterator(lst.listIterator());
                             }
