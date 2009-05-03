@@ -16,30 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<#-- TODO: Remove embedded style during UI refactor -->
-<style type="text/css">
-.webToolList {
-list-style-type: none;
-margin-left: 1em;
-}
-.webToolList li {
-padding: 0 1em 0 1em;
-}
-.webToolList h3 {
-padding: 1em 0 0 0;
-margin-left: -1em;
-}
-.webToolList li a {
-color: #000099;
-font-weight: bold;
-text-decoration: none;
-}
-.webToolList li a:hover {
-text-decoration: underline;
-}
-</style>
-
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>

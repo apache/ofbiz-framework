@@ -141,108 +141,28 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="h1">${uiLabelMap.BusinessIntelligenceIntegratedFramework}</label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote1}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote2}
-                                ${uiLabelMap.BusinessIntelligenceNote3}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote4}
-                                ${uiLabelMap.BusinessIntelligenceNote5}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote6}
-                                ${uiLabelMap.BusinessIntelligenceNote7}
-                                ${uiLabelMap.BusinessIntelligenceNote8}
-                                ${uiLabelMap.BusinessIntelligenceNote9}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote10}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote11}
-                                ${uiLabelMap.BusinessIntelligenceNote12}
-                            </label>
-                        </container>
-                        <container>
-                            <label style="h3">
-                                ${uiLabelMap.BusinessIntelligenceCurrentStatus}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote13}
-                                ${uiLabelMap.BusinessIntelligenceNote14}
-                                ${uiLabelMap.BusinessIntelligenceNote15}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote16}
-                                ${uiLabelMap.BusinessIntelligenceNote17}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote18}
-                            </label>
-                        </container>
-                        <container>
-                            <label style="h3">
-                                ${uiLabelMap.BusinessIntelligenceQuickStartGuide}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote19}
-                                ${uiLabelMap.BusinessIntelligenceNote20}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote21}
-                                ${uiLabelMap.BusinessIntelligenceNote22}
-                                ${uiLabelMap.BusinessIntelligenceNote23}
-                                ${uiLabelMap.BusinessIntelligenceNote24}
-                                ${uiLabelMap.BusinessIntelligenceNote25}
-                            </label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote26}
-                                ${uiLabelMap.BusinessIntelligenceNote27}
-                                ${uiLabelMap.BusinessIntelligenceNote28}
-                            </label>
-                        </container>
-                        <container>
-                            <link target="quickInitDataWarehouse" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext">
-                                <parameter param-name="fromDate"/>
-                                <parameter param-name="thruDate"/>
-                            </link>
-                            <label> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
-                        </container>
-                        <container>
-                            <label>
-                                ${uiLabelMap.BusinessIntelligenceNote29}
-                                ${uiLabelMap.BusinessIntelligenceNote30}
-                                ${uiLabelMap.BusinessIntelligenceNote31}
-                            </label>
+                        <container style="screenlet">
+                        	<container>
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://bi/webapp/bi/main.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                            <container style="screenlet-body">
+                            	<link target="quickInitDataWarehouse" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext">
+                                	<parameter param-name="fromDate"/>
+                                	<parameter param-name="thruDate"/>
+                            	</link>
+                            	<label style="note"> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
+                            	<label style="note">
+                                	${uiLabelMap.BusinessIntelligenceNote29}
+                                	${uiLabelMap.BusinessIntelligenceNote30}
+                                	${uiLabelMap.BusinessIntelligenceNote31}
+                            	</label>
+                        	</container> 
                         </container>
                     </decorator-section>
                 </decorator-screen>

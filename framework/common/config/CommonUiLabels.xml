@@ -564,6 +564,19 @@
         <value xml:lang="zh">任何网站</value>
         <value xml:lang="zh_CN">任意网站</value>
     </property>
+    <property key="CommonApplications">
+        <value xml:lang="de">Anwendungen</value>
+        <value xml:lang="en">Applications</value>
+        <value xml:lang="es">Aplicaciones</value>
+        <value xml:lang="fr">Applications</value>
+        <value xml:lang="hi_IN">एप्प्लिकेशन्स</value>
+        <value xml:lang="it">Applicazioni</value>
+        <value xml:lang="nl">Toepassingen</value>
+        <value xml:lang="pt">Aplicações</value>
+        <value xml:lang="ru">Применения</value>
+        <value xml:lang="zh">应用</value>
+        <value xml:lang="zh_CN">應用</value>
+    </property>
     <property key="CommonApply">
         <value xml:lang="ar">تطبيق</value>
         <value xml:lang="de">Anwenden</value>
@@ -4857,6 +4870,19 @@
         <value xml:lang="zh">上一个</value>
         <value xml:lang="zh_CN">前</value>
     </property>
+    <property key="CommonPrimaryApps">
+        <value xml:lang="de">Primäranwendungen</value>
+        <value xml:lang="en">Primary Apps</value>
+        <value xml:lang="es">Apps primario</value>
+        <value xml:lang="fr">Applications principales</value>
+        <value xml:lang="hi_IN">प्राथमिक एप्प्लिकेशन्स</value>
+        <value xml:lang="it">Apps primario</value>
+        <value xml:lang="nl">Primaire Apps</value>
+        <value xml:lang="pt">Apps preliminar</value>
+        <value xml:lang="ru">Основные применения</value>
+        <value xml:lang="zh">主要应用</value>
+        <value xml:lang="zh_CN">主要應用</value>
+    </property>
     <property key="CommonPrint">
         <value xml:lang="ar">نسخ</value>
         <value xml:lang="de">Drucken</value>
@@ -5581,6 +5607,19 @@
         <value xml:lang="ru">Во-вторых</value>
         <value xml:lang="th">ในลำดับที่สอง</value>
         <value xml:lang="zh">每秒</value>
+    </property>
+    <property key="CommonSecondaryApps">
+        <value xml:lang="de">Sekundäranwendungen</value>
+        <value xml:lang="en">Secondary Apps</value>
+        <value xml:lang="es">Apps secundario</value>
+        <value xml:lang="fr">Applications secondaires</value>
+        <value xml:lang="hi_IN">द्वितीयक एप्प्लिकेशन्स</value>
+        <value xml:lang="it">Apps secondario</value>
+        <value xml:lang="nl">Secundaire Apps</value>
+        <value xml:lang="pt">Apps secundário</value>
+        <value xml:lang="ru">Вторичные применения</value>
+        <value xml:lang="zh">附属应用</value>
+        <value xml:lang="zh_CN">附屬應用</value>
     </property>
     <property key="CommonSecondly">
         <value xml:lang="ar">ثانيا</value>
