@@ -833,7 +833,7 @@ public class ProductionRunServices {
             if (theTask.get("actualMilliSeconds") == null) {
                 Double autoMillis = null;
                 if (theTask.get("estimatedMilliSeconds") != null) {
-                    autoMillis = new Double(quantityProduced.doubleValue() * theTask.getDouble("estimatedMilliSeconds"));
+                    autoMillis = Double.valueOf(quantityProduced.doubleValue() * theTask.getDouble("estimatedMilliSeconds"));
                 }
                 serviceContext.put("actualMilliSeconds", autoMillis);
             }
@@ -1898,10 +1898,10 @@ public class ProductionRunServices {
             addQuantityRejected = BigDecimal.ZERO;
         }
         if (addSetupTime == null) {
-            addSetupTime = new Double(0);
+            addSetupTime = Double.valueOf(0);
         }
         if (addTaskTime == null) {
-            addTaskTime = new Double(0);
+            addTaskTime = Double.valueOf(0);
         }
         if (comments == null) {
             comments = "";
@@ -1933,11 +1933,11 @@ public class ProductionRunServices {
 
         Double actualMilliSeconds = theTask.getDouble("actualMilliSeconds");
         if (actualMilliSeconds == null) {
-            actualMilliSeconds = new Double(0);
+            actualMilliSeconds = Double.valueOf(0);
         }
         Double actualSetupMillis = theTask.getDouble("actualSetupMillis");
         if (actualSetupMillis == null) {
-            actualSetupMillis = new Double(0);
+            actualSetupMillis = Double.valueOf(0);
         }
 
         BigDecimal quantityProduced = theTask.getBigDecimal("quantityProduced");
@@ -2003,7 +2003,7 @@ public class ProductionRunServices {
             String timeEntryId = delegator.getNextSeqId("TimeEntry");
             Map timeEntryFields = UtilMisc.toMap("timeEntryId", timeEntryId,
                                                  "workEffortId", workEffortId);
-            Double totalTime = new Double(addSetupTime.doubleValue() + addTaskTime.doubleValue());
+            Double totalTime = Double.valueOf(addSetupTime.doubleValue() + addTaskTime.doubleValue());
             timeEntryFields.put("partyId", partyId);
             timeEntryFields.put("fromDate", fromDate);
             timeEntryFields.put("thruDate", toDate);
@@ -2018,8 +2018,8 @@ public class ProductionRunServices {
             Map serviceContext = new HashMap();
             serviceContext.clear();
             serviceContext.put("workEffortId", workEffortId);
-            serviceContext.put("actualMilliSeconds", new Double(totalMillis));
-            serviceContext.put("actualSetupMillis", new Double(totalSetupMillis));
+            serviceContext.put("actualMilliSeconds", Double.valueOf(totalMillis));
+            serviceContext.put("actualSetupMillis", Double.valueOf(totalSetupMillis));
             serviceContext.put("quantityProduced", totalQuantityProduced);
             serviceContext.put("quantityRejected", totalQuantityRejected);
             serviceContext.put("userLogin", userLogin);

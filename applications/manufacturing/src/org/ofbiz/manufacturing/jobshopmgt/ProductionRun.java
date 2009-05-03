@@ -276,7 +276,7 @@ public class ProductionRun {
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;
-        return recalculateEstimatedCompletionDate(new Long(0), estimatedStartDate);
+        return recalculateEstimatedCompletionDate(Long.valueOf(0), estimatedStartDate);
     }
     /**
      * get the productionRunName property.

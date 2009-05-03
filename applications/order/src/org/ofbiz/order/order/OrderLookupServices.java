@@ -530,15 +530,15 @@ public class OrderLookupServices {
         // format the param list
         String paramString = StringUtil.join(paramList, "&amp;");
 
-        result.put("highIndex", new Integer(highIndex));
-        result.put("lowIndex", new Integer(lowIndex));
+        result.put("highIndex", Integer.valueOf(highIndex));
+        result.put("lowIndex", Integer.valueOf(lowIndex));
         result.put("viewIndex", viewIndex);
         result.put("viewSize", viewSize);
         result.put("showAll", showAll);
 
         result.put("paramList", (paramString != null? paramString: ""));
         result.put("orderList", orderList);
-        result.put("orderListSize", new Integer(orderCount));
+        result.put("orderListSize", Integer.valueOf(orderCount));
 
         return result;
     }

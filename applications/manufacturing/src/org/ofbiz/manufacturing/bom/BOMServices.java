@@ -107,7 +107,7 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error running max depth algorithm: " + gee.getMessage());
         }
-        result.put("depth", new Long(maxDepth));
+        result.put("depth", Long.valueOf(maxDepth));
 
         return result;
     }
@@ -159,7 +159,7 @@ public class BOMServices {
                 }
             }
             if (virtualMaxDepth > llc.intValue()) {
-                llc = new Long(virtualMaxDepth);
+                llc = Long.valueOf(virtualMaxDepth);
             }
             product.set("billOfMaterialLevel", llc);
             product.store();
@@ -176,7 +176,7 @@ public class BOMServices {
                         lev = oneProduct.getLong("billOfMaterialLevel").intValue();
                     }
                     if (lev < oneNode.getDepth()) {
-                        oneProduct.set("billOfMaterialLevel", new Long(oneNode.getDepth()));
+                        oneProduct.set("billOfMaterialLevel", Long.valueOf(oneNode.getDepth()));
                         oneProduct.store();
                     }
                 }
@@ -213,7 +213,7 @@ public class BOMServices {
         try {
             List products = delegator.findList("Product", null, null, UtilMisc.toList("isVirtual DESC"), null, false);
             Iterator productsIt = products.iterator();
-            Long zero = new Long(0);
+            Long zero = Long.valueOf(0);
             List allProducts = new ArrayList();
             while (productsIt.hasNext()) {
                 GenericValue product = (GenericValue)productsIt.next();
@@ -294,7 +294,7 @@ public class BOMServices {
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
         if (type == null) {
-            type = new Integer(0);
+            type = Integer.valueOf(0);
         }
 
         Date fromDate = null;
@@ -584,7 +584,7 @@ public class BOMServices {
                         BOMNode component = (BOMNode)productsInPackages.get(j);
                         HashMap boxTypeContentMap = new HashMap();
                         boxTypeContentMap.put("content", orderShipmentReadMap);
-                        boxTypeContentMap.put("componentIndex", new Integer(j));
+                        boxTypeContentMap.put("componentIndex", Integer.valueOf(j));
                         GenericValue product = component.getProduct();
                         String boxTypeId = product.getString("shipmentBoxTypeId");
                         if (boxTypeId != null) {

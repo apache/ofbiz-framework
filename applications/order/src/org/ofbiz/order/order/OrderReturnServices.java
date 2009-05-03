@@ -405,7 +405,7 @@ public class OrderReturnServices {
                 ), EntityOperator.AND);
             /*
             EntityConditionList havingConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("quantityIssued", EntityOperator.GREATER_THAN, new Double(0))
+                    EntityCondition.makeCondition("quantityIssued", EntityOperator.GREATER_THAN, Double.valueOf(0))
                 ), EntityOperator.AND);
              */
             List orderItemQuantitiesIssued = null;

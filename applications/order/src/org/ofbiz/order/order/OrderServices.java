@@ -4153,7 +4153,7 @@ public class OrderServices {
                 paymentParams.put("paymentTypeId", "CUSTOMER_REFUND"); // JLR 17/7/4 from a suggestion of Si cf. https://issues.apache.org/jira/browse/OFBIZ-828#action_12483045
                 paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId")); // JLR 20/7/4 Finally reverted for now, I prefer to see an amount in payment, even negative
                 paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
-                paymentParams.put("amount", new Double(Math.abs(maxAmount)));
+                paymentParams.put("amount", Double.valueOf(Math.abs(maxAmount)));
                 paymentParams.put("statusId", "PMNT_RECEIVED");
                 paymentParams.put("effectiveDate", UtilDateTime.nowTimestamp());
                 paymentParams.put("partyIdFrom", payToPartyId);
@@ -5064,7 +5064,7 @@ public class OrderServices {
                             Debug.logWarning("Don't know anything about useTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", module);
                         }
 
-                        endDate.add(field, new Integer(subscription.getString("canclAutmExtTime")).intValue());
+                        endDate.add(field, Integer.valueOf(subscription.getString("canclAutmExtTime")).intValue());
                     }
 
                     Calendar endDateSubscription = Calendar.getInstance();

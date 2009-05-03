@@ -99,7 +99,7 @@ public class TaxwareUTL {
         // make the header file
         Record header = outHead.makeRecord("outHead");
 
-        header.set("NUMBER_RECORDS", new Long(outItem.getRecords().size()));
+        header.set("NUMBER_RECORDS", Long.valueOf(outItem.getRecords().size()));
         header.set("PROCESS_INDICATOR", "1");
         outHead.addRecord(header);
 
@@ -166,9 +166,9 @@ public class TaxwareUTL {
             else
                 record.set("COMMODITY_PRODUCT_CODE", "DEFAULT");
             record.set("PART_NUMBER", product.get("productId"));
-            record.set("LINE_ITEM_AMOUNT", new Double(linePrice));
+            record.set("LINE_ITEM_AMOUNT", Double.valueOf(linePrice));
             if (itemShipping > 0)
-                record.set("FREIGHT_AMOUNT", new Double(itemShipping));
+                record.set("FREIGHT_AMOUNT", Double.valueOf(itemShipping));
         }
         records.add(record);
     }*/

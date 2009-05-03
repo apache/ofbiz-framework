@@ -170,7 +170,7 @@ public class ProposedOrder {
                          * This is a work in progress
                         GenericValue routingTask = null;
                         try {
-                            Map timeInMap = UtilMisc.toMap("taskId", routingTaskAssoc.getString("workEffortIdTo"), "quantity", new Double(quantity), "userLogin", userLogin);
+                            Map timeInMap = UtilMisc.toMap("taskId", routingTaskAssoc.getString("workEffortIdTo"), "quantity", Double.valueOf(quantity), "userLogin", userLogin);
                             Map timeOutMap = dispatcher.runSync("getEstimatedTaskTime", timeInMap);
                             routingTask = (GenericValue)timeOutMap.get("routing");
                         } catch (GenericServiceException gse) {

@@ -1043,7 +1043,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     Map supplierProductsResult = null;
                     try {
                         supplierProductsResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.toMap("productId", _product.getString("productId"),
-                                                                                                                 "quantity", new Double(quantity),
+                                                                                                                 "quantity", Double.valueOf(quantity),
                                                                                                                  "currencyUomId", cart.getCurrency(),
                                                                                                                  "canDropShip", "Y",
                                                                                                                  "userLogin", cart.getUserLogin()));
@@ -1858,7 +1858,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         itemInfo.put("productId", this.getProductId());
         itemInfo.put("weight", this.getWeight());
         itemInfo.put("size", this.getSize());
-        itemInfo.put("piecesIncluded", new Long(this.getPiecesIncluded()));
+        itemInfo.put("piecesIncluded", Long.valueOf(this.getPiecesIncluded()));
         itemInfo.put("featureSet", this.getFeatureSet());
         GenericValue product = getProduct();
         if (product != null) {

@@ -823,7 +823,7 @@ public class WorkEffortServices {
                                 } else {
                                     newReminderDateTime = temporalExpression.next(cal).getTime();
                                 }
-                                reminder.set("currentCount", new Long(currentCount + 1));
+                                reminder.set("currentCount", Long.valueOf(currentCount + 1));
                                 reminder.set("reminderDateTime", new Timestamp(newReminderDateTime.getTime()));
                                 reminder.store();
                             }
@@ -855,7 +855,7 @@ public class WorkEffortServices {
                             TimeDuration duration = TimeDuration.fromLong(repeatInterval);
                             duration.addToCalendar(cal);
                             reminderDateTime = cal.getTime();
-                            reminder.set("currentCount", new Long(currentCount + 1));
+                            reminder.set("currentCount", Long.valueOf(currentCount + 1));
                             reminder.set("reminderDateTime", new Timestamp(reminderDateTime.getTime()));
                             reminder.store();
                         }

@@ -519,12 +519,12 @@ public class ShoppingCart implements Serializable {
             //GenericValue productSupplier = null;
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
-                 return this.addItem(0, ShoppingCartItem.makePurchaseOrderItem(new Integer(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate));
+                 return this.addItem(0, ShoppingCartItem.makePurchaseOrderItem(Integer.valueOf(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate));
             } else {
                 throw new CartItemModifyException("SupplierProduct not found");
             }
         } else {
-            return this.addItem(0, ShoppingCartItem.makeItem(new Integer(0), productId, selectedAmount, quantity, null,
+            return this.addItem(0, ShoppingCartItem.makeItem(Integer.valueOf(0), productId, selectedAmount, quantity, null,
                     reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
                     features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
                     this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE));
@@ -538,7 +538,7 @@ public class ShoppingCart implements Serializable {
     public int addNonProductItem(String itemType, String description, String categoryId, BigDecimal price, BigDecimal quantity,
             Map attributes, String prodCatalogId, String itemGroupNumber, LocalDispatcher dispatcher) throws CartItemModifyException {
         ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
-        return this.addItem(0, ShoppingCartItem.makeItem(new Integer(0), itemType, description, categoryId, price, null, quantity, attributes, prodCatalogId, itemGroup, dispatcher, this, Boolean.TRUE));
+        return this.addItem(0, ShoppingCartItem.makeItem(Integer.valueOf(0), itemType, description, categoryId, price, null, quantity, attributes, prodCatalogId, itemGroup, dispatcher, this, Boolean.TRUE));
     }
 
     /** Add an item to the shopping cart. */
@@ -1927,7 +1927,7 @@ public class ShoppingCart implements Serializable {
                 CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) csi.shipItemInfo.get(item);
                 if (csii != null) {
                     if (this.checkShipItemInfo(csi, csii)) {
-                        shipGroups.put(new Integer(i), csii.quantity);
+                        shipGroups.put(Integer.valueOf(i), csii.quantity);
                     }
                 }
             }
@@ -3513,7 +3513,7 @@ public class ShoppingCart implements Serializable {
                     /*
                     if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(this.getShipmentMethodTypeId())) &&
                         (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(this.getCarrierPartyId()))) {
-                        Double shippingAmount = new Double(OrderReadHelper.calcOrderAdjustment(orderAdjustment, new BigDecimal(getSubTotal())).negate().doubleValue());
+                        Double shippingAmount = Double.valueOf(OrderReadHelper.calcOrderAdjustment(orderAdjustment, new BigDecimal(getSubTotal())).negate().doubleValue());
                         // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
                         GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
                                 UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
@@ -3556,7 +3556,7 @@ public class ShoppingCart implements Serializable {
                             /*
                             if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(item.getShipmentMethodTypeId())) &&
                                 (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(item.getCarrierPartyId()))) {
-                                Double shippingAmount = new Double(OrderReadHelper.calcItemAdjustment(orderAdjustment, new BigDecimal(item.getQuantity()), new BigDecimal(item.getItemSubTotal())).negate().doubleValue());
+                                Double shippingAmount = Double.valueOf(OrderReadHelper.calcItemAdjustment(orderAdjustment, new BigDecimal(item.getQuantity()), new BigDecimal(item.getItemSubTotal())).negate().doubleValue());
                                 // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
                                 GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
                                         UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
@@ -3997,7 +3997,7 @@ public class ShoppingCart implements Serializable {
             CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
             if ((csi.supplierPartyId == null && supplierPartyId == null) ||
                 (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
-                    shipGroups.put(new Integer(i), csi);
+                    shipGroups.put(Integer.valueOf(i), csi);
             }
         }
         return shipGroups;
@@ -4113,7 +4113,7 @@ public class ShoppingCart implements Serializable {
                 if (! supplierCartItems.containsKey(cartItem)) supplierCartItems.put(cartItem, new HashMap());
                 Map cartItemGroupQuantities = (Map) supplierCartItems.get(cartItem);
 
-                cartItemGroupQuantities.put(new Integer(shipGroupIndex), dropShipQuantity);
+                cartItemGroupQuantities.put(Integer.valueOf(shipGroupIndex), dropShipQuantity);
             }
         }
 
