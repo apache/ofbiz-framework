@@ -29,6 +29,7 @@ import junit.framework.TestSuite;
 import org.apache.commons.lang.RandomStringUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -152,7 +153,7 @@ public class ModelTestSuite {
     private void prepareTest(Test test)
     {
         if (test instanceof TestSuite) {
-            Enumeration<Test> subTests = ((TestSuite) test).tests();
+            Enumeration<Test> subTests = UtilGenerics.cast(((TestSuite) test).tests());
             while (subTests.hasMoreElements()) {
                 prepareTest(subTests.nextElement());
             }
