@@ -22,7 +22,6 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
-    <classpath type="dir" location="script"/>
     <classpath type="jar" location="build/lib/*"/>
 
     <service-resource type="model" loader="main" location="servicedef/services_hhfacility.xml"/>

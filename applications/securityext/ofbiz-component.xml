@@ -24,7 +24,6 @@ under the License.
     <resource-loader name="main" type="component"/>
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
-    <classpath type="dir" location="script"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/UserDemoData.xml"/>
     <!-- NOTE: comment this line out to ensure no resetting of passwords -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PasswordSecurityData.xml"/>
