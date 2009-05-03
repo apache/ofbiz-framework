@@ -69,6 +69,8 @@ public class AuthenticationComparator implements Comparator {
             return -1;
         } else if (a1.getWeight() > a2.getWeight()) {
             return 1;
+        } else if (!a1.getClass().equals(a2.getClass())) {
+            return -1;
         } else {
             return a1.getClass().getName().compareTo(a2.getClass().getName());
         }
