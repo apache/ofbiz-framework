@@ -21,6 +21,7 @@ package org.ofbiz.entity.cache;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
@@ -62,16 +63,16 @@ public class Cache {
         return entityListCache.get(entityName, condition, orderBy);
     }
 
-    public Object get(String entityName, EntityCondition condition, String name) {
-        return entityObjectCache.get(entityName, condition, name);
+    public <T> T get(String entityName, EntityCondition condition, String name) {
+        return UtilGenerics.<T>cast(entityObjectCache.get(entityName, condition, name));
     }
 
     public List<GenericValue> put(String entityName, EntityCondition condition, List<String> orderBy, List<GenericValue> entities) {
         return entityListCache.put(entityName, condition, orderBy, entities);
     }
 
-    public Object put(String entityName, EntityCondition condition, String name, Object value) {
-        return entityObjectCache.put(entityName, condition, name, value);
+    public <T> T put(String entityName, EntityCondition condition, String name, T value) {
+        return UtilGenerics.<T>cast(entityObjectCache.put(entityName, condition, name, value));
     }
 
     public GenericValue put(GenericValue entity) {
@@ -104,8 +105,8 @@ public class Cache {
         entityObjectCache.remove(entityName, condition);
     }
 
-    public Object remove(String entityName, EntityCondition condition, String name) {
-        return entityObjectCache.remove(entityName, condition, name);
+    public <T> T remove(String entityName, EntityCondition condition, String name) {
+        return UtilGenerics.<T>cast(entityObjectCache.remove(entityName, condition, name));
     }
 
     public GenericValue remove(GenericEntity entity) {
