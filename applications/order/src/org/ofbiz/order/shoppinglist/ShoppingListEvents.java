@@ -254,7 +254,7 @@ public class ShoppingListEvents {
         Map shoppingListSurveyInfo = getItemSurveyInfos(shoppingListItems);
 
         // add the items
-        StringBuffer eventMessage = new StringBuffer();
+        StringBuilder eventMessage = new StringBuilder();
         Iterator i = shoppingListItems.iterator();
         while (i.hasNext()) {
             GenericValue shoppingListItem = (GenericValue) i.next();

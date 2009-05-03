@@ -1796,7 +1796,7 @@ public class OrderReturnServices {
         }
 
         // create a return message AND create ReturnItemResponse record(s)
-        StringBuffer successMessage = new StringBuffer();
+        StringBuilder successMessage = new StringBuilder();
         if (createdOrderIds.size() > 0) {
             successMessage.append("The following new orders have been created : ");
             Iterator i = createdOrderIds.iterator();

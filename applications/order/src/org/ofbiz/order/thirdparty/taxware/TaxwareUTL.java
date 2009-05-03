@@ -107,7 +107,7 @@ public class TaxwareUTL {
 
         try {
             // add the header
-            StringBuffer outBuffer = new StringBuffer();
+            StringBuilder outBuffer = new StringBuilder();
 
             outBuffer.append(outHead.writeDataFile());
 
@@ -136,7 +136,7 @@ public class TaxwareUTL {
 
             outItem.writeDataFile("TaxwareTest.in");
 
-            StringBuffer retBuffer = taxCalc(outBuffer);
+            StringBuilder retBuffer = taxCalc(outBuffer);
 
             // make the return data file
             returnCode = processOutFile(retBuffer);
@@ -253,8 +253,8 @@ public class TaxwareUTL {
         }
     }
 
-    private StringBuffer taxCalc(StringBuffer outBuffer) throws DataFileException, TaxwareException {
-        StringBuffer inBuffer = new StringBuffer();
+    private StringBuilder taxCalc(StringBuilder outBuffer) throws DataFileException, TaxwareException {
+        StringBuilder inBuffer = new StringBuilder();
         int result = callTaxware(outBuffer.toString(), inBuffer);
 
         if (Debug.verboseOn()) Debug.logVerbose("Taxware Return: " + result, module);
@@ -266,7 +266,7 @@ public class TaxwareUTL {
         return inBuffer;
     }
 
-    private int callTaxware(String inString, StringBuffer outBuffer) throws TaxwareException {
+    private int callTaxware(String inString, StringBuilder outBuffer) throws TaxwareException {
         try {
             return taxcommon.CalculateTax(inString, outBuffer);
         } catch (Exception e) {
@@ -283,7 +283,7 @@ public class TaxwareUTL {
             throw new TaxwareException("No items have been defined.");
     }
 
-    private int processOutFile(StringBuffer retBuffer) throws DataFileException, TaxwareException {
+    private int processOutFile(StringBuilder retBuffer) throws DataFileException, TaxwareException {
         DataFile retHead = createDataFile("TaxwareInHead");
         DataFile retItem = createDataFile("TaxwareInItem");
         String headStr = retBuffer.toString().substring(0, 283);
