@@ -296,17 +296,17 @@ public class ShoppingListEvents {
                 }
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
-                eventMessage.append(errMsg + "\n");
+                eventMessage.append(errMsg).append("\n");
             } catch (CartItemModifyException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsAddingItemFromListToCart", cart.getLocale()));
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
-                eventMessage.append(errMsg + "\n");
+                eventMessage.append(errMsg).append("\n");
             } catch (ItemNotFoundException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProductNotFound", cart.getLocale()));
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
-                eventMessage.append(errMsg + "\n");
+                eventMessage.append(errMsg).append("\n");
             }
         }
 

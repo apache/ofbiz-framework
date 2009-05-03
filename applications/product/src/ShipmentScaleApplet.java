@@ -133,7 +133,7 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
                         } else {
                             inputBuffer.append((char)newData);
                         }
-                        //inputBuffer.append("(" + newData + ")");
+                        //inputBuffer.append("(").append(newData).append(")");
                     }
 
                     } catch (IOException ex) {
