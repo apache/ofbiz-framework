@@ -25,32 +25,32 @@ under the License.
     <version>1.0</version>
 
     <!-- Authorize.NET Implementations -->
-    <service name="AIMCCAuth" engine="java"
+    <service name="aimCCAuth" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuth">
         <description>Authorize.NET Payment Authorization</description>
         <implements service="ccAuthInterface"/>
     </service>
-    <service name="AIMCCAuthCapture" engine="java"
+    <service name="aimCCAuthCapture" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuthCapture">
         <description>Authorize.NET Payment Authorize and Capture service</description>
         <implements service="ccAuthInterface"/>
     </service>
-    <service name="AIMCCCapture" engine="java"
+    <service name="aimCCCapture" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCapture">
         <description>Authorize.NET Payment Capture Service</description>
         <implements service="ccCaptureInterface"/>
     </service>
-    <service name="AIMCCRelease" engine="java"
+    <service name="aimCCRelease" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRelease">
         <description>Authorize.NET Payment Release Service - NOT IMPLEMENTED YET</description>
         <implements service="paymentReleaseInterface"/>
     </service>
-    <service name="AIMCCRefund" engine="java"
+    <service name="aimCCRefund" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRefund">
         <description>Authorize.NET Payment Refund Service</description>
         <implements service="paymentRefundInterface"/>
     </service>
-    <service name="AIMCCCredit" engine="java"
+    <service name="aimCCCredit" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCredit">
         <description>Authorize.NET Credit Service - NOT IMPLEMENTED YET</description>
         <implements service="ccCreditInterface"/>

@@ -42,14 +42,14 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PaymentGatewayConfig"/>
-                <field-map field-name="orderBy" value="description DESC"/>
+                <field-map field-name="orderBy" value="description"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="PaymentGatewayConfig" default-field-type="display"/>
-        <field name="paymentGatewayConfigId" widget-style="buttontext" title="${uiLabelMap.AccountingPaymentGatewayConfigId}">
-          <hyperlink description="${paymentGatewayConfigId}" target="EditPaymentGatewayConfig?paymentGatewayConfigId=${paymentGatewayConfigId}"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}">
+            <hyperlink description="${description}" target="EditPaymentGatewayConfig?paymentGatewayConfigId=${paymentGatewayConfigId}"/>
         </field>
-        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"/>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
             <display-entity entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId" description="${description}"/>
         </field>
@@ -60,6 +60,61 @@ under the License.
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text size="60" maxlength="60"/></field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
             <display-entity entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId" description="${description}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="EditPaymentGatewayConfigAuthorizeNet" type="single" target="UpdatePaymentGatewayConfigAuthorizeNet" default-map-name="paymentGatewayAuthorizeNet" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PaymentGatewayAuthorizeNet" default-field-type="edit"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="transactionUrl" title="${uiLabelMap.AccountingAuthorizeNetTransactionUrl}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="apiVersion" title="${uiLabelMap.AccountingAuthorizeNetApiVersion}">
+            <text size="10" maxlength="10"/>
+        </field>
+        <field name="delimitedData" title="${uiLabelMap.AccountingAuthorizeNetDelimitedData}">
+            <drop-down>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="delimiterChar" title="${uiLabelMap.AccountingAuthorizeNetDelimiterChar}">
+            <text size="1" maxlength="1"/>
+        </field>
+        <field name="method" title="${uiLabelMap.AccountingAuthorizeNetMethod}">
+            <drop-down>
+                <option key="CC" description="${uiLabelMap.AccountingAuthorizeNetMethodCC}"/>
+            </drop-down>
+        </field>
+        <field name="emailCustomer" title="${uiLabelMap.AccountingAuthorizeNetEmailCustomer}">
+            <drop-down>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="emailMerchant" title="${uiLabelMap.AccountingAuthorizeNetEmailMerchant}">
+            <drop-down>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="testMode" title="${uiLabelMap.AccountingAuthorizeNetTestMode}">
+            <drop-down>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="relayResponse" title="${uiLabelMap.AccountingAuthorizeNetRelayResponse}">
+            <drop-down>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="tranKey" title="${uiLabelMap.AccountingAuthorizeNetTransKey}">
+            <text size="60" maxlength="60"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
@@ -218,10 +273,10 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="PaymentGatewayConfigType" default-field-type="display"/>
-        <field name="paymentGatewayConfigTypeId" widget-style="buttontext" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
-          <hyperlink description="${paymentGatewayConfigTypeId}" target="EditPaymentGatewayConfigType?paymentGatewayConfigTypeId=${paymentGatewayConfigTypeId}"/>
+        <field name="paymentGatewayConfigTypeId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeDescription}">
+            <hyperlink description="${description}" target="EditPaymentGatewayConfigType?paymentGatewayConfigTypeId=${paymentGatewayConfigTypeId}"/>
         </field>
-        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeDescription}"/>
     </form>
     
     <form name="EditPaymentGatewayConfigType" type="single" target="UpdatePaymentGatewayConfigType" default-map-name="paymentGatewayConfigType" header-row-style="header-row" default-table-style="basic-table">

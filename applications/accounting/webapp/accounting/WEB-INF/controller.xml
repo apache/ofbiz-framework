@@ -421,6 +421,12 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
+    <request-map uri="UpdatePaymentGatewayConfigAuthorizeNet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGatewayConfigAuthorizeNet"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
+    </request-map>
     <request-map uri="UpdatePaymentGatewayConfigClearCommerce">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePaymentGatewayConfigClearCommerce"/>

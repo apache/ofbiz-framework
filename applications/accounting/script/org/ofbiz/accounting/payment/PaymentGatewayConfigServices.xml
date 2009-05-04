@@ -26,6 +26,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
+    <simple-method method-name="updatePaymentGatewayConfigAuthorizeNet" short-description="Update Payment Gateway Config Authorize Dot Net">
+        <entity-one entity-name="PaymentGatewayAuthorizeNet" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
     <simple-method method-name="updatePaymentGatewayConfigClearCommerce" short-description="Update Payment Gateway Config Clear Commerce">
         <entity-one entity-name="PaymentGatewayClearCommerce" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
