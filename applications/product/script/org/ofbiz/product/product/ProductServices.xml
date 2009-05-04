@@ -52,7 +52,7 @@ under the License.
             <set field="newEntity.isVirtual" value="N"/>
         </if-empty>
         <if-empty field="newEntity.billOfMaterialLevel">
-            <set field="newEntity.billOfMaterialLevel" value="0" type="Integer"/>
+            <set field="newEntity.billOfMaterialLevel" value="0" type="Long"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
