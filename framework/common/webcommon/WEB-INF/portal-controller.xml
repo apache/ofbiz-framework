@@ -37,10 +37,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddPortlet"/>
     </request-map>
-    <request-map uri="EditPortlet">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPortlet"/>
-    </request-map>
     <request-map uri="createPortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPortalPagePortlet"/>
@@ -124,5 +120,4 @@ under the License.
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
     <view-map name="AddPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
-    <view-map name="EditPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortlet"/>
 </site-conf>
