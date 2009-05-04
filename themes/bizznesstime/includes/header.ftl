@@ -23,7 +23,7 @@ under the License.
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
     <#assign langDir = "rtl">
 </#if>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="${docLangAttr}" dir="${langDir}">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="${docLangAttr}" lang="${docLangAttr}" dir="${langDir}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Language" content="en" />
