@@ -208,6 +208,14 @@ under the License.
             <order-by field-name="sequenceId"/>
         </entity-condition>
         <if-empty field="resourceList">
+            <!-- if not found use the good old initial ofbiz theme so the system will at least start up and will be usable -->
+            <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
+                <condition-expr field-name="visualThemeId" value="FLAT_GREY"/>
+                <order-by field-name="resourceTypeEnumId"/>
+                <order-by field-name="sequenceId"/>
+            </entity-condition>
+        </if-empty>
+        <if-empty field="resourceList">
             <add-error><fail-property property="CommonVisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>
         </if-empty>
