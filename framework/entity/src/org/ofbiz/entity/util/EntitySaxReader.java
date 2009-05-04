@@ -24,32 +24,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.dom.NodeModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateHashModel;
 import javolution.text.CharArray;
 import javolution.text.Text;
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.xml.sax.XMLReaderImpl;
 import javolution.xml.sax.Attributes;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
+import javolution.xml.sax.XMLReaderImpl;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -59,6 +49,18 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.dom.NodeModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateHashModel;
 
 /**
  * SAX XML Parser Content Handler for Entity Engine XML files
@@ -315,7 +317,12 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         }
         if ("entity-engine-transform-xml".equals(fullNameString)) {
             // transform file & parse it, then return
-            URL templateUrl = UtilURL.fromResource(templatePath.toString());
+            URL templateUrl = null;
+            try {
+                templateUrl = FlexibleLocation.resolveLocation(templatePath.toString());
+            } catch (MalformedURLException e2) {
+                throw new SAXException("Could not find transform template with resource path: " + templatePath);
+            }
 
             if (templateUrl == null) {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
