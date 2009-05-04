@@ -724,7 +724,7 @@ under the License.
     <request-map uri="addContentToCommEvent">
         <security https="true" auth="true"/>
         <event type="simple" invoke="addContentToCommEvent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
-        <response name="success" type="request" value="NewCommunicationEvent"/>
+        <response name="success" type="request" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="addAttachmentEmail">
