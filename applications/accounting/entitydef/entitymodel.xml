@@ -2991,6 +2991,29 @@ under the License.
         <key-map field-name="paymentGatewayConfigTypeId" rel-field-name="paymentGatewayConfigTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayAuthorizeNet"
+            package-name="org.ofbiz.accounting.payment"
+            title="Authorize Dot Net Payment Gateway Configuration">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="transactionUrl" type="value"><description>Transaction URL</description></field>
+      <field name="certificateAlias" type="value"><description>Certificate Alias</description></field>
+      <field name="apiVersion" type="short-varchar"><description>Target Authorize Dot Net API version</description></field>
+      <field name="delimitedData" type="short-varchar"><description>Delimited data (TRUE|FALSE)</description></field>
+      <field name="delimiterChar" type="short-varchar"><description>Delimited Character - the delimiter to use in the response</description></field>
+      <field name="method" type="short-varchar"><description>Method - CC for credit card processing</description></field>
+      <field name="emailCustomer" type="short-varchar"><description>Email Customer? - if should send an email to the customer for each transaction (TRUE|FALSE)</description></field>
+      <field name="emailMerchant" type="short-varchar"><description>Email Merchant? - if should send email to the merchant for each transaction (TRUE|FALSE)</description></field>
+      <field name="testMode" type="short-varchar"><description>Test Mode - forces the url property to the test url and adds more logging info to the logs (TRUE|FALSE)</description></field>
+      <field name="relayResponse" type="short-varchar"><description>Relay Response? - if should relay the reposnse to a different server (TRUE|FALSE)</description></field>
+      <field name="tranKey" type="value" encrypt="true"><description>Transaction Key</description></field>
+      <field name="userId" type="value"><description>Username - your authorize.net userid</description></field>
+      <field name="pwd" type="value" encrypt="true"><description>Password - your authorize.net password</description></field>
+      <field name="transDescription" type="value"><description>Default Transaction Description</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGAN_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
     <entity entity-name="PaymentGatewayCyberSource"
             package-name="org.ofbiz.accounting.payment"
             title="CyberSource Payment Gateway Configuration">

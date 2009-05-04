@@ -666,6 +666,10 @@ under the License.
     <PaymentType description="POS Paid In" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="POS_PAID_IN"/>
 
     <!-- Payment Gateway Config -->
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" paymentGatewayConfigTypeId="AUTHORIZE_NET" description="Authorize Dot Net Config"/>
+    <PaymentGatewayAuthorizeNet paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" transactionUrl="https://certification.authorize.net/gateway/transact.dll" certificateAlias="certification.authorize.net-1" apiVersion="3.1" delimitedData="TRUE" delimiterChar="|" method="CC" emailCustomer="FALSE" emailMerchant="FALSE" testMode="TRUE" relayResponse="FALSE" tranKey="" userId="" pwd="" transDescription="OFBizAuthNet"/>
+    
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="CYBERSOURCE" hasTable="N" description="CyberSource Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="CYBERSOURCE_CONFIG" paymentGatewayConfigTypeId="CYBERSOURCE" description="CyberSource Config"/>
     <PaymentGatewayCyberSource paymentGatewayConfigId="CYBERSOURCE_CONFIG" merchantId="[MerchantID]" apiVersion="1.43" production="false" keysDir="${sys:getProperty('ofbiz.home')}/applications/accounting/icskeys" keysFile="merchantID.p12" logEnabled="true" logDir="${sys:getProperty('ofbiz.home')}/runtime/logs" logFile="cybersource.log" logSize="10" merchantDescr="Some Nice Web Store" merchantContact="" autoBill="false" enableDav="N" fraudScore="N" ignoreAvs="false" disableBillAvs="Y" avsDeclineCodes=""/>
@@ -705,8 +709,8 @@ under the License.
     <CustomMethod customMethodId="CC_AUTH_TEST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessor" description="CC Test authorize"/>
     <CustomMethod customMethodId="CC_AUTH_CAPTURE_TST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessorWithCapture" description="CC Test authorize and capture"/>
     <CustomMethod customMethodId="CC_AUTH_RANDOM_TEST" customMethodTypeId="CC_AUTH" customMethodName="testRandomAuthorize" description="CC Test random authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_AIM" customMethodTypeId="CC_AUTH" customMethodName="AIMCCAuth" description="CC Authorize dot net authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_CAPTURE_AIM" customMethodTypeId="CC_AUTH" customMethodName="AIMCCAuthCapture" description="CC Authorize dot net authorize and capture"/>
+    <CustomMethod customMethodId="CC_AUTH_AIM" customMethodTypeId="CC_AUTH" customMethodName="aimCCAuth" description="CC Authorize dot net authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_CAPTURE_AIM" customMethodTypeId="CC_AUTH" customMethodName="aimCCAuthCapture" description="CC Authorize dot net authorize and capture"/>
     <CustomMethod customMethodId="CC_AUTH_CLEARCOMMERC" customMethodTypeId="CC_AUTH" customMethodName="clearCommerceCCAuth" description="CC Clear Commerce authorize"/>
     <CustomMethod customMethodId="CC_AUTH_CLEARCOM_REP" customMethodTypeId="CC_AUTH" customMethodName="clearCommerceCCReport" description="CC Clear Commerce authorize reporting facility"/>
     <CustomMethod customMethodId="CC_AUTH_CYBERSOURCE" customMethodTypeId="CC_AUTH" customMethodName="cyberSourceCCAuth" description="CC CyberSource authorize"/>
@@ -726,7 +730,7 @@ under the License.
     <CustomMethod customMethodId="CC_CAPTURE_TEST" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCapture" description="CC Test capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_REAUTH" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCaptureWithReAuth" description="CC Test reauth capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_ALWAYSDEC" customMethodTypeId="CC_CAPTURE" customMethodName="testCCProcessorCaptureAlwaysDecline" description="CC Always decline capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_AIM" customMethodTypeId="CC_CAPTURE" customMethodName="AIMCCCapture" description="CC Authorize dot net capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_AIM" customMethodTypeId="CC_CAPTURE" customMethodName="aimCCCapture" description="CC Authorize dot net capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_CLEARCOMM" customMethodTypeId="CC_CAPTURE" customMethodName="clearCommerceCCCapture" description="CC Clear Commerce capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_CYBERSOUR" customMethodTypeId="CC_CAPTURE" customMethodName="cyberSourceCCCapture" description="CC CyberSource capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_PAYFLOW" customMethodTypeId="CC_CAPTURE" customMethodName="payflowCCCapture" description="CC Payflow Pro capture"/>
@@ -736,7 +740,7 @@ under the License.
     
     <CustomMethod customMethodId="CC_REFUND_TEST" customMethodTypeId="CC_REFUND" customMethodName="testCCRefund" description="CC Test refund"/>
     <CustomMethod customMethodId="CC_REFUND_TEST_FAIL" customMethodTypeId="CC_REFUND" customMethodName="testCCRefundFailure" description="CC Test refund failure"/>
-    <CustomMethod customMethodId="CC_REFUND_AIM" customMethodTypeId="CC_REFUND" customMethodName="AIMCCRefund" description="CC Authorize dot net refund"/>
+    <CustomMethod customMethodId="CC_REFUND_AIM" customMethodTypeId="CC_REFUND" customMethodName="aimCCRefund" description="CC Authorize dot net refund"/>
     <CustomMethod customMethodId="CC_REFUND_CLEARCOMME" customMethodTypeId="CC_REFUND" customMethodName="clearCommerceCCRefund" description="CC Clear Commerce refund"/>
     <CustomMethod customMethodId="CC_REFUND_CYBERSOURC" customMethodTypeId="CC_REFUND" customMethodName="cyberSourceCCRefund" description="CC CyberSource refund"/>
     <CustomMethod customMethodId="CC_REFUND_PAYFLOW" customMethodTypeId="CC_REFUND" customMethodName="payflowCCRefund" description="CC Payflow Pro refund"/>
@@ -745,7 +749,7 @@ under the License.
     <CustomMethod customMethodId="CC_REFUND_RITA_REMOT" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefundRemote" description="CC RiTA remote refund"/>
     
     <CustomMethod customMethodId="CC_RELEASE_TEST" customMethodTypeId="CC_RELEASE" customMethodName="testCCRelease" description="CC Test release"/>
-    <CustomMethod customMethodId="CC_RELEASE_AIM" customMethodTypeId="CC_RELEASE" customMethodName="AIMCCRelease" description="CC Authorize dot net release"/>
+    <CustomMethod customMethodId="CC_RELEASE_AIM" customMethodTypeId="CC_RELEASE" customMethodName="aimCCRelease" description="CC Authorize dot net release"/>
     <CustomMethod customMethodId="CC_RELEASE_CLEARCOMM" customMethodTypeId="CC_RELEASE" customMethodName="clearCommerceCCRelease" description="CC Clear Commerce release"/>
     <CustomMethod customMethodId="CC_RELEASE_CYBERSOUR" customMethodTypeId="CC_RELEASE" customMethodName="cyberSourceCCRelease" description="CC CyberSource release"/>
     <CustomMethod customMethodId="CC_RELEASE_PAYFLOW" customMethodTypeId="CC_RELEASE" customMethodName="payflowCCVoid" description="CC Payflow Pro release"/>
@@ -753,7 +757,7 @@ under the License.
     <CustomMethod customMethodId="CC_RELEASE_RITA" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCRelease" description="CC RiTA release"/>
     <CustomMethod customMethodId="CC_RELEASE_RITA_REMO" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCReleaseRemote" description="CC RiTA remote release"/>
     
-    <CustomMethod customMethodId="CC_CREDIT_AIM" customMethodTypeId="CC_CREDIT" customMethodName="AIMCCCredit" description="CC Authorize dot net credit"/>
+    <CustomMethod customMethodId="CC_CREDIT_AIM" customMethodTypeId="CC_CREDIT" customMethodName="aimCCCredit" description="CC Authorize dot net credit"/>
     <CustomMethod customMethodId="CC_CREDIT_CLEARCOMME" customMethodTypeId="CC_CREDIT" customMethodName="clearCommerceCCCredit" description="CC Clear Commerce credit"/>
     <CustomMethod customMethodId="CC_CREDIT_CYBERSOURC" customMethodTypeId="CC_CREDIT" customMethodName="cyberSourceCCCredit" description="CC CyberSource credit"/>
     <CustomMethod customMethodId="CC_CREDIT_RITA" customMethodTypeId="CC_CREDIT" customMethodName="ritaCCCreditRefund" description="CC RiTA credit"/>

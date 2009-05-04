@@ -31,6 +31,12 @@ under the License.
         <auto-attributes entity-name="PaymentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
     </service>
     
+    <service name="updatePaymentGatewayConfigAuthorizeNet" engine="simple" location="org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigAuthorizeNet">
+        <description>Update Payment Gateway Config Authorize Dot Net</description>
+        <auto-attributes entity-name="PaymentGatewayAuthorizeNet" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="PaymentGatewayAuthorizeNet" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
     <service name="updatePaymentGatewayConfigClearCommerce" engine="simple" location="org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigClearCommerce">
         <description>Update Payment Gateway Config Clear Commerce</description>
         <auto-attributes entity-name="PaymentGatewayClearCommerce" include="pk" mode="IN" optional="false"/>

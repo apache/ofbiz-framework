@@ -980,6 +980,50 @@
         <value xml:lang="th">มอบอำนาจ</value>
         <value xml:lang="zh">授权</value>
     </property>
+    <property key="AccountingAuthorizeNetApiVersion">
+        <value xml:lang="en">Authorize Dot Net API Version</value>
+        <value xml:lang="it">Versione API Authorize Dot Net</value>
+    </property>
+    <property key="AccountingAuthorizeNetDelimiterChar">
+        <value xml:lang="en">Delimited Char</value>
+        <value xml:lang="it">Carattere delimitatore</value>
+    </property>
+    <property key="AccountingAuthorizeNetDelimitedData">
+        <value xml:lang="en">Delimited Data</value>
+        <value xml:lang="it">Dati delimitati da un carattere</value>
+    </property>
+    <property key="AccountingAuthorizeNetEmailCustomer">
+        <value xml:lang="en">Email to Customer</value>
+        <value xml:lang="it">Email al cliente</value>
+    </property>
+    <property key="AccountingAuthorizeNetEmailMerchant">
+        <value xml:lang="en">Email to Merchant</value>
+        <value xml:lang="it">Email al negoziante</value>
+    </property>
+    <property key="AccountingAuthorizeNetMethod">
+        <value xml:lang="en">Method (only CC supported)</value>
+        <value xml:lang="it">Metodo (solo Carta di credito supportata)</value>
+    </property>
+    <property key="AccountingAuthorizeNetMethodCC">
+        <value xml:lang="en">CC</value>
+        <value xml:lang="it">Carta di credito</value>
+    </property>
+    <property key="AccountingAuthorizeNetRelayResponse">
+        <value xml:lang="en">Relay Response</value>
+        <value xml:lang="it">Trasmettere risposta</value>
+    </property>
+    <property key="AccountingAuthorizeNetTestMode">
+        <value xml:lang="en">Test Mode</value>
+        <value xml:lang="it">Modalità di test</value>
+    </property>
+    <property key="AccountingAuthorizeNetTransKey">
+        <value xml:lang="en">Transaction Key</value>
+        <value xml:lang="it">Chiave Transazione</value>
+    </property>
+    <property key="AccountingAuthorizeNetTransactionUrl">
+        <value xml:lang="en">Transaction URL</value>
+        <value xml:lang="it">URL Transazione</value>
+    </property>
     <property key="AccountingAvailableInternalOrganizations">
         <value xml:lang="ar">المؤسسات الداخلية المتوفرة</value>
         <value xml:lang="de">Verfügbare interne Organisationen</value>
@@ -10960,6 +11004,10 @@
     <property key="PageTitleUpdatePaymentGatewayConfigType">
         <value xml:lang="en">Update Payment Gateway Config Type</value>
         <value xml:lang="it">Aggiorna tipo configurazione gateway pagamento</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigAuthorizeNet">
+        <value xml:lang="en">Update Payment Gateway Config Authorize Dot Net</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento Authorize Dot Net</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigClearCommerce">
         <value xml:lang="en">Update Payment Gateway Config Clear Commerce</value>
