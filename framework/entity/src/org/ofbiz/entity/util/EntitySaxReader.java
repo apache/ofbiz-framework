@@ -320,8 +320,8 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
             URL templateUrl = null;
             try {
                 templateUrl = FlexibleLocation.resolveLocation(templatePath.toString());
-            } catch (MalformedURLException e2) {
-                throw new SAXException("Could not find transform template with resource path: " + templatePath);
+            } catch (MalformedURLException e) {
+                throw new SAXException("Could not find transform template with resource path [" + templatePath + "]; error was: " + e.toString());
             }
 
             if (templateUrl == null) {
