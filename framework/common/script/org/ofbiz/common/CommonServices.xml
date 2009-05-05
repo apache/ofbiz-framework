@@ -209,6 +209,7 @@ under the License.
         </entity-condition>
         <if-empty field="resourceList">
             <!-- if not found use the good old initial ofbiz theme so the system will at least start up and will be usable -->
+            <log level="error" message="Could not find the '${visualThemeId}' theme, reverting back to the good old OFBiz theme..."></log>
             <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
                 <condition-expr field-name="visualThemeId" value="FLAT_GREY"/>
                 <order-by field-name="resourceTypeEnumId"/>
