@@ -41,6 +41,7 @@ under the License.
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="OUT" optional="false"/>
+        <override name="textData" allow-html="safe"/>
     </service>
 
     <service name="updateCommContentDataResource" engine="simple"

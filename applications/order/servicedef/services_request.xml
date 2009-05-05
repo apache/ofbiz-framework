@@ -167,6 +167,7 @@ under the License.
         <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
+        <override name="content" allow-html="safe"/>
     </service>
 
     <!-- custRequest content services -->
