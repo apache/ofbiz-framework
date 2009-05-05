@@ -95,14 +95,14 @@ under the License.
     <!-- Simple method to create a person, its role and basic contact mechs -->
     <simple-method method-name="createPersonRoleAndContactMechs" short-description="Creates a person, role and contactMechs">
         <call-map-processor processor-name="person" in-map-name="parameters" out-map-name="personContext"
-            xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"/>
+            xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"/>
 
         <call-map-processor processor-name="postalAddress" in-map-name="parameters" out-map-name="postalAddressContext"
-            xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
+            xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
 
         <if-not-empty field="parameters.contactNumber">
             <call-map-processor processor-name="telecomNumber" in-map-name="parameters" out-map-name="telecomNumberContext"
-                xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
+                xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
         </if-not-empty>
 
         <if-not-empty field="parameters.emailAddress">
@@ -138,14 +138,14 @@ under the License.
     <!-- Simple method to create a party group, its role and basic contact mechs -->
     <simple-method method-name="createPartyGroupRoleAndContactMechs" short-description="Creates a party group, role and contactMechs">
         <call-map-processor processor-name="partyGroup" in-map-name="parameters" out-map-name="partyGroupContext"
-            xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"/>
+            xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"/>
 
         <call-map-processor processor-name="postalAddress" in-map-name="parameters" out-map-name="postalAddressContext"
-            xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
+            xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
 
         <if-not-empty field="parameters.contactNumber">
             <call-map-processor processor-name="telecomNumber" in-map-name="parameters" out-map-name="telecomNumberContext"
-                xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
+                xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
         </if-not-empty>
 
         <if-not-empty field="parameters.emailAddress">
