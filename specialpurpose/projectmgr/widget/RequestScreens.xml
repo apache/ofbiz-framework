@@ -113,9 +113,6 @@ under the License.
                             <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
                                 <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-                            <platform-specific>
-                                <html><html-template location="component://projectmgr/webapp/projectmgr/request/overViewRequestItems.ftl"/></html>
-                            </platform-specific>
                         </container>
                         <container style="righthalf">
                             <platform-specific>
@@ -137,6 +134,10 @@ under the License.
                                 <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                         </container>
+                        <container style="clear"/>
+                        <platform-specific>
+                            <html><html-template location="component://projectmgr/webapp/projectmgr/request/overViewRequestItems.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

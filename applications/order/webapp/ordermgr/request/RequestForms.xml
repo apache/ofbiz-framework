@@ -121,7 +121,7 @@ under the License.
                 <parameter param-name="custRequestItemSeqId"/>
             </hyperlink>
         </field>
-        <field name="story"></field>
+        <field name="story"><textarea read-only="true"/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
