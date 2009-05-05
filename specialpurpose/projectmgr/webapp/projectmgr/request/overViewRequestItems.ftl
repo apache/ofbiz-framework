@@ -33,7 +33,7 @@ under the License.
            </td>
            <td>
            </td>
-        </tr>
+       </tr>
 	<#list custRequestItems as custRequestItemList>
 	<#if custRequestItemList.custRequestItemSeqId?has_content>
 	   <tr class="header-row">
@@ -50,7 +50,7 @@ under the License.
             </td>
             <td colspan="2">
               <#if custRequestItemList.story?has_content>
-              ${custRequestItemList.story}
+                <textarea readonly="readonly" rows="15" cols="72">${custRequestItemList.story}</textarea>
               </#if>
             </td>
             <td>
