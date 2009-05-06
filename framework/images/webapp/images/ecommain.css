@@ -50,7 +50,7 @@ list-style: none;
 
 
 a, a:visited {
-color: #000099;
+color: #1C334D;
 font-weight: bold;
 }
 
@@ -96,7 +96,7 @@ input[type="submit"], input[type="button"],
 input[type="reset"] {
 font-size: 8pt;
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 background: white;
 border: #999999 solid 1px;
 margin: 2px;
@@ -120,7 +120,7 @@ margin: 2px;
 }
 
 h1, .h1 {
-color: #000099;
+color: #1C334D;
 font-size: 12pt;
 font-weight: bold;
 }
@@ -224,7 +224,7 @@ text-decoration: none;
 }
 #welcome-message a {
 text-decoration: none;
-color: #000099;
+color: #1C334D;
 }
 #welcome-message a:hover {
 color: black;
@@ -233,12 +233,12 @@ text-decoration: underline;
 #company-name {
 font-size: 12pt;
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 white-space: nowrap;
 }
 #company-subtitle {
 font-size: 6pt;
-color: #330099;
+color: #1C334D;
 white-space: nowrap;
 }
 
@@ -248,7 +248,7 @@ text-decoration: none;
 }
 #microcart a {
 text-decoration: none;
-color: #000099;
+color: #1C334D;
 }
 #microcart a:hover {
 color: black;
@@ -288,7 +288,7 @@ border-left: 1px solid #FFFFFF;
 #ecom-header-bar ul li a {
 font-weight: bold;
 text-decoration: none;
-color: #000099;
+color: #1C334D;
 }
 #ecom-header-bar ul li:hover a {
 color: black;
@@ -364,7 +364,7 @@ height:auto !important;
 height:1%
 }
 #ecom-mainarea .screenlet-header {
-background: #000099;
+background: #1C334D;
 padding-top: 1px;
 padding-bottom: 3px;
 padding-right: 4px;
@@ -458,7 +458,7 @@ border-width: 1px 1px 1px 1px;
 }
 
 .boxtop {
-background: #000099;
+background: #1C334D;
 padding-top: 1px;
 padding-bottom: 1px;
 padding-right: 4px;
@@ -504,18 +504,18 @@ margin-left: 10px;
 
 .browsecategorytext {
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 padding-left: 10px;
 background:url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
 }
 
 A.browsecategorybutton {
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 }
 
 A.browsecategorybutton:hover {
-color: #000099;
+color: #1C334D;
 }
 
 .browsecategorybuttondisabled {
@@ -532,7 +532,7 @@ padding: 1px 4px 1px 4px;
 }
 
 A.buttontext {
-color: #000099;
+color: #1C334D;
 }
 
 A.buttontext:hover {
@@ -541,7 +541,7 @@ color: red;
 
 A.linktext {
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 }
 
 A.linktext:hover {
@@ -643,7 +643,7 @@ margin: 2px 2px 2px 2px;
 padding: 1px 4px 1px 4px;
 }
 A.buttontextbig {
-color: #000099;
+color: #1C334D;
 }
 .buttontextbigdisabled {
 color: #CCCCCC;
@@ -669,7 +669,7 @@ color: black;
 a.headersmalllink {
 font-size: 8pt;
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 }
 a.headersmalllink:hover {
 color: red;
@@ -685,7 +685,7 @@ color: red;
 .eventMessage {
 font-size: 8pt;
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 }
 
 .ontab {
@@ -712,7 +712,7 @@ border-width: 3px;
 
 a.offlnk {
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 padding: 2px;
 }
 
@@ -747,7 +747,7 @@ margin: 2px;
 .smallSubmit {
 font-size: 8pt;
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 background: white;
 border: #999999 solid 1px;
 margin: 2px;
@@ -756,7 +756,7 @@ margin: 2px;
 .mediumSubmit,.largeSubmit,.loginButton {
 font-size: 10pt;
 font-weight: bold;
-color: #000099;
+color: #1C334D;
 background: white;
 border: #999999 solid 1px;
 margin: 2px;
