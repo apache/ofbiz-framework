@@ -122,13 +122,21 @@ public class CatalogUrlServlet extends HttpServlet {
             CategoryWorker.setTrail(request, trail);
             categoryId = pathElements.get(pathElements.size() - 1);
         }
-
         if (categoryId != null) {
             request.setAttribute("productCategoryId", categoryId);
         }
-        // setup the data and forward the request
+
+        String rootCategoryId = null;
+        if (pathElements.size() >= 1) {
+            rootCategoryId = pathElements.get(0);
+        }
+        if (rootCategoryId != null) {
+            request.setAttribute("rootCategoryId", rootCategoryId);
+        }
+
         if (productId != null) {
             request.setAttribute("product_id", productId);
+            request.setAttribute("productId", productId);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/" + CONTROL_MOUNT_POINT + "/" + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
