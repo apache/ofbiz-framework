@@ -455,7 +455,11 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="use-when" type="xs:string">
-            <xs:annotation><xs:documentation>Used to specify a condition that must be true to use this field; the condition should be written using the Java syntax and can operate on values in the form context; if this is used the field will only be put on the field list, and not in the field map meaning that values for this field cannot be overridden.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>
+                Used to specify a condition that must be true to use this field; the condition should be written using the 
+                Java syntax and can operate on values in the form context; conditional fields are evaluated in reverse 
+                order so the last field defined that evaluates to true is the one that is rendered.
+            </xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute name="encode-output" default="true">
             <xs:annotation><xs:documentation>
