@@ -145,11 +145,13 @@ public class ModelForm extends ModelWidget {
      */
     protected List<ModelFormField> fieldList = FastList.newInstance();
 
-    /** This Map is keyed with the field name and has a ModelFormField for the value; fields
-     * with conditions will not be put in this Map so field definition overrides for fields
-     * with conditions is not possible.
+    /** This Map is keyed with the field name and has a ModelFormField for the value.
      */
     protected Map<String, ModelFormField> fieldMap = FastMap.newInstance();
+    
+    /** Keeps track of conditional fields to help ensure that only one is rendered
+     */
+    protected Set<String> useWhenFields = FastSet.newInstance();
 
     /** This is a list of FieldGroups in the order they were created.
      * Can also include Banner objects.
@@ -293,6 +295,8 @@ public class ModelForm extends ModelWidget {
                 this.onSubmitUpdateAreas = parent.onSubmitUpdateAreas;
                 this.onPaginateUpdateAreas = parent.onPaginateUpdateAreas;
                 this.altRowStyles = parent.altRowStyles;
+                
+                this.useWhenFields = parent.useWhenFields;
 
                 //these are done below in a special way...
                 //this.fieldList = parent.fieldList;
@@ -596,12 +600,13 @@ public class ModelForm extends ModelWidget {
      * @return The same ModelFormField, or if merged with an existing field, the existing field.
      */
     public ModelFormField addUpdateField(ModelFormField modelFormField) {
-        if (!modelFormField.isUseWhenEmpty()) {
+        if (!modelFormField.isUseWhenEmpty() || useWhenFields.contains(modelFormField.getName())) {
+            useWhenFields.add(modelFormField.getName());
             // is a conditional field, add to the List but don't worry about the Map
             //for adding to list, see if there is another field with that name in the list and if so, put it before that one
             boolean inserted = false;
             for (int i = 0; i < this.fieldList.size(); i++) {
-                ModelFormField curField = (ModelFormField) this.fieldList.get(i);
+                ModelFormField curField = this.fieldList.get(i);
                 if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
                     this.fieldList.add(i, modelFormField);
                     inserted = true;
@@ -615,7 +620,7 @@ public class ModelForm extends ModelWidget {
         } else {
 
             // not a conditional field, see if a named field exists in Map
-            ModelFormField existingField = (ModelFormField) this.fieldMap.get(modelFormField.getName());
+            ModelFormField existingField = this.fieldMap.get(modelFormField.getName());
             if (existingField != null) {
                 // does exist, update the field by doing a merge/override
                 existingField.mergeOverrideModelFormField(modelFormField);
@@ -848,7 +853,7 @@ public class ModelForm extends ModelWidget {
         // Check to see if there is a field, same name and same use-when (could come from extended form)
         for (int j = 0; j < tempFieldList.size(); j++) {
             ModelFormField modelFormField = (ModelFormField) tempFieldList.get(j);
-            if (!modelFormField.isUseWhenEmpty()) {
+            if (this.useWhenFields.contains(modelFormField.getName())) {
                 boolean shouldUse1 = modelFormField.shouldUse(context);
                 for (int i = j+1; i < tempFieldList.size(); i++) {
                     ModelFormField curField = (ModelFormField) tempFieldList.get(i);
