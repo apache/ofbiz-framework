@@ -145,10 +145,10 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
         try {
             results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "From", fromDate, null, assocTypes, null, Boolean.TRUE, contentAssocPredicateId, orderBy);
-        } catch (MiniLangException e2) {
-            throw new RuntimeException(e2.getMessage());
+        } catch (MiniLangException e) {
+            throw new RuntimeException(e.getMessage(), e);
         } catch (GenericEntityException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e.getMessage(), e);
         }
         List longList = (List) results.get("entityList");
         templateRoot.put("entityList", longList);
