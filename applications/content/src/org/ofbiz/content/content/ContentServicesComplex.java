@@ -310,7 +310,7 @@ public class ContentServicesComplex {
                 contentAssocDataResourceView = delegator.makeValue(viewName);
                 contentAssocDataResourceView.setAllFields(content, true, null, null);
             }
-            SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, FastList.newInstance(), locale);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, FastList.newInstance(), locale);
             //if (Debug.infoOn()) Debug.logInfo("contentAssoc:" + contentAssoc, module);
             //contentAssocDataResourceView.setAllFields(contentAssoc, false, null, null);
             String dataResourceId = content.getString("dataResourceId");
@@ -320,7 +320,7 @@ public class ContentServicesComplex {
             //if (Debug.infoOn()) Debug.logInfo("contentAssocDataResourceView:" + contentAssocDataResourceView, module);
             if (dataResource != null) {
                 //contentAssocDataResourceView.setAllFields(dataResource, false, null, null);
-                SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceView, FastList.newInstance(), locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceView, FastList.newInstance(), locale);
             }
             //if (Debug.infoOn()) Debug.logInfo("contentAssocDataResourceView:" + contentAssocDataResourceView, module);
             contentAssocDataResourceList.add(contentAssocDataResourceView);
