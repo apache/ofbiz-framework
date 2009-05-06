@@ -25,9 +25,8 @@ under the License.
 <#else>
   <#assign focusName = true>
 </#if>
-
 <center>
-  <div class="screenlet login-screenlet" style="width: 22%; margin-left: 5px; text-align: center;">
+  <div class="screenlet login-screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.CommonRegistered}</h3>
     </div>
@@ -35,7 +34,7 @@ under the License.
       <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
         <table class="basic-table" cellspacing="0">
           <tr>
-            <td class="label" style="width: 31%;">${uiLabelMap.CommonUsername}</td>
+            <td class="label">${uiLabelMap.CommonUsername}</td>
             <td><input type="text" name="USERNAME" value="${username}" size="20"/></td>
           </tr>
           <tr>
@@ -51,7 +50,6 @@ under the License.
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
         <br/>
         <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
-        <br/>
         <a href="<@ofbizUrl>newRegisterLogin</@ofbizUrl>">${uiLabelMap.MyPortalNewRegistration}</a>
       </form>
     </div>
