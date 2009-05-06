@@ -48,6 +48,9 @@ under the License.
     </form>
     <form name="AddWorkEffortCommEvent" default-map-name="communicationEvent" target="createWorkEffortCommEvent" title="" type="single" extends="EditCommEvent"
         extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="communicationEvent"/>
+        </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="description"><textarea/></field>
         <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
