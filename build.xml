@@ -506,6 +506,9 @@ under the License.
         <copy file="${basedir}/framework/resources/templates/services.xml" tofile="${basedir}/hot-deploy/${component-name}/servicedef/services.xml">
             <filterset refid="replacePlaceholders"/>
         </copy>
+        <copy file="${basedir}/framework/resources/templates/Tests.xml" tofile="${basedir}/hot-deploy/${component-name}/testdef/${component-resource-name}Tests.xml">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
         <copy file="${basedir}/framework/resources/templates/UiLabels.xml" tofile="${basedir}/hot-deploy/${component-name}/config/${component-resource-name}UiLabels.xml">
             <filterset refid="replacePlaceholders"/>
         </copy>
