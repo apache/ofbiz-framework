@@ -54,8 +54,8 @@ under the License.
         <alt-target use-when="exampleFeature==null" target="createExampleFeature"/>
         <auto-fields-service service-name="updateExampleFeature"/>
         <field use-when="exampleFeature!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="exampleFeature==null&amp;&amp;exampleFeatureId==null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><ignored/></field>
-        <field use-when="exampleFeature==null&amp;&amp;exampleFeatureId!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleFeatureId}]" also-hidden="false"/></field>
+        <field use-when="exampleFeature==null @and exampleFeatureId==null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><ignored/></field>
+        <field use-when="exampleFeature==null @and exampleFeatureId!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleFeatureId}]" also-hidden="false"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="featureSourceEnumId" title="${uiLabelMap.ExampleFeatureSource}">
             <drop-down allow-empty="false">
