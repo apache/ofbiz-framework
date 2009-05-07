@@ -25,7 +25,9 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -51,7 +53,6 @@ public final class BshUtil {
      * Evaluate a BSH condition or expression
      * @param expression The expression to evaluate
      * @param context The context to use in evaluation (re-written)
-     * @see <a href="StringUtil.html#convertOperatorSubstitutions(java.lang.String)">StringUtil.convertOperatorSubstitutions(java.lang.String)</a>
      * @return Object The result of the evaluation
      * @throws EvalError
      */
@@ -61,17 +62,19 @@ public final class BshUtil {
             Debug.logError("BSH Evaluation error. Empty expression", module);
             return null;
         }
-        if (Debug.verboseOn()) {
+
+        if (Debug.verboseOn())
             Debug.logVerbose("Evaluating -- " + expression, module);
+        if (Debug.verboseOn())
             Debug.logVerbose("Using Context -- " + context, module);
-        }
+
         try {
             Interpreter bsh = makeInterpreter(context);
             // evaluate the expression
-            o = bsh.eval(StringUtil.convertOperatorSubstitutions(expression));
-            if (Debug.verboseOn()) {
+            o = bsh.eval(expression);
+            if (Debug.verboseOn())
                 Debug.logVerbose("Evaluated to -- " + o, module);
-            }
+
             // read back the context info
             NameSpace ns = bsh.getNameSpace();
             String[] varNames = ns.getVariableNames();
