@@ -1931,7 +1931,7 @@ public class ModelForm extends ModelWidget {
             Iterator altTargetIter = this.altTargets.iterator();
             while (altTargetIter.hasNext()) {
                 AltTarget altTarget = (AltTarget) altTargetIter.next();
-                Object retVal = bsh.eval(altTarget.useWhen);
+                Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(altTarget.useWhen));
                 boolean condTrue = false;
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
@@ -2607,7 +2607,7 @@ public class ModelForm extends ModelWidget {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
             for (AltRowStyle altRowStyle : this.altRowStyles) {
-                Object retVal = bsh.eval(altRowStyle.useWhen);
+                Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(altRowStyle.useWhen));
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;

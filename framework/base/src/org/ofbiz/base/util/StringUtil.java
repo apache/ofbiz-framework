@@ -500,11 +500,14 @@ public class StringUtil {
      */
     public static String convertOperatorSubstitutions(String expression) {
         String result = expression;
-        if (result != null && result.contains("@")) {
+        if (result != null && (result.contains("@") || result.contains("'"))) {
             Set<String> keys = substitionPatternMap.keySet();
             for (String replacement : keys) {
                 Pattern pattern = substitionPatternMap.get(replacement);
                 result = pattern.matcher(result).replaceAll(replacement);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Converted " + expression + " to " + result, module);
             }
         }
         return result;
