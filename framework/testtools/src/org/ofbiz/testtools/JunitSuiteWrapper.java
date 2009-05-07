@@ -62,7 +62,6 @@ public class JunitSuiteWrapper {
             } catch (GenericConfigException e) {
                 String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
                 Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
             }
         }
     }
