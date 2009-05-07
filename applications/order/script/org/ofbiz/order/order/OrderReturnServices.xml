@@ -919,6 +919,12 @@ under the License.
         </if-compare>    
     </simple-method>    
     
+    <simple-method method-name="processReplaceImmediatelyReturn" short-description="Process the replacements in a immediate return">
+        <set field="inMap.returnId" from-field="parameters.returnId"/>
+        <set field="inMap.returnTypeId" value="RTN_REPLACE_IMMEDIAT"/>
+        <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
+    </simple-method> 
+
     <simple-method method-name="createReturnItemShipment" short-description="Create a ReturnItemShipment">
         <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItemShipment"/></check-permission>
         <check-errors/>

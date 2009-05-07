@@ -247,6 +247,11 @@ under the License.
         <description>Process the replacements in a repair return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="processReplaceImmediatelyReturn" engine="simple" auth="true"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="processReplaceImmediatelyReturn">
+        <description>Process the replacements in a Immediate Return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="processSubscriptionReturn" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="processSubscriptionReturn">
         <description>Process subscription changes from a return</description>
