@@ -1454,6 +1454,10 @@ under the License.
         <make-value entity-name="WorkEffortSurveyAppl" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="nowTimeStamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
+        </if-empty>        
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWorkEffortSurveyAppl" short-description="Update WorkEffortSurvey">
