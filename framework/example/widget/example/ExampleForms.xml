@@ -52,8 +52,8 @@ under the License.
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>
-        <alt-row-style use-when="'EXST_APPROVED'.equals(statusId)" style="Validate"/>
-        <alt-row-style use-when="'EXST_CANCELLED'.equals(statusId)" style="Warn"/>
+        <alt-row-style use-when="&quot;EXST_APPROVED&quot;.equals(statusId)" style="Validate"/>
+        <alt-row-style use-when="&quot;EXST_CANCELLED&quot;.equals(statusId)" style="Warn"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleId}" target="EditExample">
                 <parameter param-name="exampleId"/>
@@ -139,7 +139,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="displayAnotherText" use-when="example!=null @and example.get('anotherText')!=null">
+        <field name="displayAnotherText" use-when="example!=null @and example.get(&quot;anotherText&quot;)!=null">
             <display description="${example.anotherText}"/>
         </field>
         <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>

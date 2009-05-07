@@ -74,7 +74,6 @@ public class StringUtil {
         substitutionPatternMap.put(">=", Pattern.compile("@gteq", Pattern.LITERAL));
         substitutionPatternMap.put("<", Pattern.compile("@lt", Pattern.LITERAL));
         substitutionPatternMap.put(">", Pattern.compile("@gt", Pattern.LITERAL));
-        substitutionPatternMap.put("\"", Pattern.compile("'", Pattern.LITERAL));
     }
 
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
@@ -493,7 +492,6 @@ public class StringUtil {
      * <tr><td><strong>@gteq</strong></td><td>&gt;=</td></tr>
      * <tr><td><strong>@lt</strong></td><td>&lt;</td></tr>
      * <tr><td><strong>@lteq</strong></td><td>&lt;=</td></tr>
-     * <tr><td><strong>'</strong></td><td>&quot;</td></tr>
      * </table></p>
      * @param expression The <code>String</code> to convert
      * @return The converted <code>String</code>
