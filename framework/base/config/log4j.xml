@@ -25,7 +25,7 @@
     <appender name="async" class="org.apache.log4j.AsyncAppender">
         <param name="locationInfo" value="true"/>
         <param name="blocking" value="false"/>
-        <param name="bufferSize" value="128"/>
+        <param name="bufferSize" value="256"/>
         <appender-ref ref="stdout"/>
         <appender-ref ref="ofbiz-file"/>
         <appender-ref ref="ofbiz-html"/>
