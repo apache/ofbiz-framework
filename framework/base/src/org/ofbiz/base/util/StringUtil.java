@@ -56,7 +56,7 @@ import org.owasp.esapi.reference.DefaultValidator;
 public class StringUtil {
 
     public static final String module = StringUtil.class.getName();
-    protected static final Map<String, Pattern> substitionPatternMap;
+    protected static final Map<String, Pattern> substitutionPatternMap;
 
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
     public static final boolean esapiCanonicalizeStrict = false;
@@ -67,14 +67,14 @@ public class StringUtil {
         List<Codec> codecList = Arrays.asList(new HTMLEntityCodec(), new PercentCodec());
         defaultWebEncoder = new DefaultEncoder(codecList);
         defaultWebValidator = new DefaultValidator();
-        substitionPatternMap = FastMap.newInstance();
-        substitionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
-        substitionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
-        substitionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
-        substitionPatternMap.put(">=", Pattern.compile("@gteq", Pattern.LITERAL));
-        substitionPatternMap.put("<", Pattern.compile("@lt", Pattern.LITERAL));
-        substitionPatternMap.put(">", Pattern.compile("@gt", Pattern.LITERAL));
-        substitionPatternMap.put("\"", Pattern.compile("'", Pattern.LITERAL));
+        substitutionPatternMap = FastMap.newInstance();
+        substitutionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
+        substitutionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
+        substitutionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
+        substitutionPatternMap.put(">=", Pattern.compile("@gteq", Pattern.LITERAL));
+        substitutionPatternMap.put("<", Pattern.compile("@lt", Pattern.LITERAL));
+        substitutionPatternMap.put(">", Pattern.compile("@gt", Pattern.LITERAL));
+        substitutionPatternMap.put("\"", Pattern.compile("'", Pattern.LITERAL));
     }
 
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
@@ -501,10 +501,9 @@ public class StringUtil {
     public static String convertOperatorSubstitutions(String expression) {
         String result = expression;
         if (result != null && (result.contains("@") || result.contains("'"))) {
-            Set<String> keys = substitionPatternMap.keySet();
-            for (String replacement : keys) {
-                Pattern pattern = substitionPatternMap.get(replacement);
-                result = pattern.matcher(result).replaceAll(replacement);
+            for (Map.Entry<String, Pattern> entry: substitutionPatternMap.entrySet()) {
+                Pattern pattern = entry.getValue();
+                result = pattern.matcher(result).replaceAll(entry.getKey());
             }
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Converted " + expression + " to " + result, module);
