@@ -2404,7 +2404,7 @@ public class ModelFormField {
                         context.put("bshInterpreter", bsh);
                     }
 
-                    Object retVal = bsh.eval(useWhen);
+                    Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhen));
 
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
