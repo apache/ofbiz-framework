@@ -141,6 +141,7 @@ public class TestRunContainer implements Container {
             xml.endTestSuite(test);
 
             // display the results
+            Debug.log("[JUNIT] Results for test suite: " + suite.getName());
             Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
                     results.failureCount() + " # Errors: " + results.errorCount(), module);
             if (Debug.importantOn()) {
