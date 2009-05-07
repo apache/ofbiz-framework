@@ -30,11 +30,14 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.location.ComponentLocationResolver;
 
 import org.apache.commons.io.FileUtils;
 
@@ -51,6 +54,14 @@ public class FileUtil {
     }
 
     public static File getFile(File root, String path) {
+        if (path.startsWith("component://")) {
+            try {
+                path = ComponentLocationResolver.getBaseLocation(path).toString();
+            } catch (MalformedURLException e) {
+                Debug.logError(e, module);
+                return null;
+            }
+        }
         String fileNameSeparator = ("\\".equals(File.separator)? "\\" + File.separator: File.separator);
         return new File(root, path.replaceAll("/+|\\\\+", fileNameSeparator));
     }
