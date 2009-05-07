@@ -266,4 +266,4 @@ under the License.
 </div>
 </#if>
 <br/>
-<span class="tooltip">${uiLabelMap.CommonNote} : ${uiLabelMap.ProductRedExplanation}</span>
+<span class="tooltip">${uiLabelMap.CommonNote} : ${StringUtil.wrapString(uiLabelMap.ProductRedExplanation)}</span>
