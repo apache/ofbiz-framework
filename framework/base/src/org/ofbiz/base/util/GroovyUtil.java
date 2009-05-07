@@ -65,6 +65,7 @@ public class GroovyUtil {
      * Evaluate a Groovy condition or expression
      * @param expression The expression to evaluate
      * @param context The context to use in evaluation (re-written)
+     * @see <a href="StringUtil.html#convertOperatorSubstitutions(java.lang.String)">StringUtil.convertOperatorSubstitutions(java.lang.String)</a>
      * @return Object The result of the evaluation
      * @throws CompilationFailedException
      */
@@ -75,28 +76,23 @@ public class GroovyUtil {
             Debug.logError("Groovy Evaluation error. Empty expression", module);
             return null;
         }
-
-        if (Debug.verboseOn())
+        if (Debug.verboseOn()) {
             Debug.logVerbose("Evaluating -- " + expression, module);
-        if (Debug.verboseOn())
             Debug.logVerbose("Using Context -- " + context, module);
-
+        }
         try {
             GroovyShell shell = new GroovyShell(getBinding(context));
-            o = shell.evaluate(expression);
-
-            if (Debug.verboseOn())
+            o = shell.evaluate(StringUtil.convertOperatorSubstitutions(expression));
+            if (Debug.verboseOn()) {
                 Debug.logVerbose("Evaluated to -- " + o, module);
-
+            }
             // read back the context info
             Binding binding = shell.getContext();
             context.putAll(binding.getVariables());
-
         } catch (CompilationFailedException e) {
             Debug.logError(e, "Groovy Evaluation error.", module);
             throw e;
         }
-
         return o;
     }
 
