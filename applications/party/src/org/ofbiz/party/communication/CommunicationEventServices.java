@@ -31,8 +31,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.Header;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
@@ -945,5 +949,116 @@ public class CommunicationEventServices {
             Debug.logError(e, module);
         }
         return attachmentCount;
+    }
+    
+    /*
+     * Service to process incoming email and look for a bounce message. If the email is indeed a bounce message
+     * the CommunicationEvent will be updated with the proper COM_BOUNCED status.     
+     */
+    public static Map<String,Object> processBouncedMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Debug.logInfo("Running process bounced message check...", module);
+        MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
+        MimeMessage message = wrapper.getMessage();
+        
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        
+        try {
+            Object content = message.getContent();
+            if (content instanceof Multipart) {
+                Multipart mp = (Multipart) content;
+                int parts = mp.getCount();
+                
+                if (parts >= 3) { // it must have all three parts in order to process correctly
+                    
+                    // get the second part (delivery report)
+                    BodyPart part2 = mp.getBodyPart(1); // index 1 should be the second part 
+                    String contentType = part2.getContentType();                    
+                    if (contentType != null && "message/delivery-status".equalsIgnoreCase(contentType)) {
+                        Debug.logInfo("Delivery status report part found; processing...", module);
+                        
+                        // message is only available as an input stream; read the stream
+                        InputStream insPart2 = (InputStream) part2.getInputStream();
+                        int part2Size = part2.getSize();
+                        byte[] part2Bytes = new byte[part2Size];
+                        insPart2.read(part2Bytes, 0, part2Size);
+                        String part2Text = new String(part2Bytes);
+                        
+                        // find the "Action" element and obtain its value (looking for "failed")
+                        Pattern p2 = Pattern.compile("^Action: (.*)$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+                        Matcher m2 = p2.matcher(part2Text);
+                        String action = null;
+                        if (m2.find()) {
+                            action = m2.group(1);                            
+                        }
+                                               
+                        if (action != null && "failed".equalsIgnoreCase(action)) {
+                            // message bounced -- get the original message
+                            BodyPart part3 = mp.getBodyPart(2); // index 2 should be the third part
+                            
+                            // read part 3 message
+                            InputStream insPart3 = (InputStream) part3.getInputStream();
+                            int part3Size = part3.getSize();
+                            byte[] part3Bytes = new byte[part3Size];
+                            insPart3.read(part3Bytes, 0, part3Size);
+                            String part3Text = new String(part3Bytes);
+                            
+                            // find the "Message-Id" element and obtain its value (looking for "failed")
+                            Pattern p3 = Pattern.compile("^Message-Id: (.*)$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+                            Matcher m3 = p3.matcher(part3Text);
+                            String messageId = null;
+                            if (m3.find()) {
+                                messageId = m3.group(1);                            
+                            }
+                            
+                            // find the matching communication event
+                            if (messageId != null) {
+                                List<GenericValue> values;
+                                try {
+                                    values = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId));
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e, module);
+                                    return ServiceUtil.returnError(e.getMessage());
+                                }
+                                if (values != null && values.size() > 0) {
+                                    // there should be only one; unique key
+                                    GenericValue value = values.get(0);
+                                    
+                                    // update the communication event status
+                                    Map<String,Object> updateCtx = FastMap.newInstance();
+                                    updateCtx.put("communicationEventId", value.getString("communicationEventId"));
+                                    updateCtx.put("statusId", "COM_BOUNCED");
+                                    updateCtx.put("userLogin", context.get("userLogin"));
+                                    Map<String,Object> result;
+                                    try {
+                                        result = dispatcher.runSync("updateCommunicationEvent", updateCtx);
+                                    } catch (GenericServiceException e) {
+                                        Debug.logError(e, module);
+                                        return ServiceUtil.returnError(e.getMessage());
+                                    }
+                                    if (ServiceUtil.isError(result)) {
+                                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                    }
+                                } else {
+                                    if (Debug.infoOn()) {
+                                        Debug.logInfo("Unable to find communication event with the matching messageId : " + messageId, module);
+                                    }
+                                }
+                            } else {
+                                Debug.logWarning("No message ID attached to part", module);                                
+                            }
+                        }
+                    }                                                                             
+                } 
+            }
+        } catch (MessagingException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        
+        return ServiceUtil.returnSuccess();
     }
 }
