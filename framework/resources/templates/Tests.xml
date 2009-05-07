@@ -1,4 +1,4 @@
-<test-suite suite-name="accountingtests"
+<test-suite suite-name="@component-resource-name@tests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
