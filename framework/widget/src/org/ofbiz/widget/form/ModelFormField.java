@@ -1131,7 +1131,7 @@ public class ModelFormField {
         } else {
             try {
                 Interpreter bsh = this.modelForm.getBshInterpreter(context);
-                Object retVal = bsh.eval(useWhenStr);
+                Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhenStr));
                 boolean condTrue = false;
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {

@@ -56,6 +56,7 @@ import org.owasp.esapi.reference.DefaultValidator;
 public class StringUtil {
 
     public static final String module = StringUtil.class.getName();
+    protected static final Map<String, Pattern> substitionPatternMap;
 
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
     public static final boolean esapiCanonicalizeStrict = false;
@@ -66,6 +67,14 @@ public class StringUtil {
         List<Codec> codecList = Arrays.asList(new HTMLEntityCodec(), new PercentCodec());
         defaultWebEncoder = new DefaultEncoder(codecList);
         defaultWebValidator = new DefaultValidator();
+        substitionPatternMap = FastMap.newInstance();
+        substitionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
+        substitionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
+        substitionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
+        substitionPatternMap.put(">=", Pattern.compile("@gteq", Pattern.LITERAL));
+        substitionPatternMap.put("<", Pattern.compile("@lt", Pattern.LITERAL));
+        substitionPatternMap.put(">", Pattern.compile("@gt", Pattern.LITERAL));
+        substitionPatternMap.put("\"", Pattern.compile("'", Pattern.LITERAL));
     }
 
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
@@ -472,6 +481,33 @@ public class StringUtil {
             outStrBfr.insert(0, '0');
         }
         return outStrBfr.toString();
+    }
+
+    /** Converts operator substitutions (@and, @or, etc) back to their original form.
+     * <p>OFBiz script syntax provides special forms of common operators to make
+     * it easier to embed logical expressions in XML:
+     * <table border="1" cellpadding="2">
+     * <tr><td><strong>@and</strong></td><td>&amp;&amp;</td></tr>
+     * <tr><td><strong>@or</strong></td><td>||</td></tr>
+     * <tr><td><strong>@gt</strong></td><td>&gt;</td></tr>
+     * <tr><td><strong>@gteq</strong></td><td>&gt;=</td></tr>
+     * <tr><td><strong>@lt</strong></td><td>&lt;</td></tr>
+     * <tr><td><strong>@lteq</strong></td><td>&lt;=</td></tr>
+     * <tr><td><strong>'</strong></td><td>&quot;</td></tr>
+     * </table></p>
+     * @param expression The <code>String</code> to convert
+     * @return The converted <code>String</code>
+     */
+    public static String convertOperatorSubstitutions(String expression) {
+        String result = expression;
+        if (result != null && result.contains("@")) {
+            Set<String> keys = substitionPatternMap.keySet();
+            for (String replacement : keys) {
+                Pattern pattern = substitionPatternMap.get(replacement);
+                result = pattern.matcher(result).replaceAll(replacement);
+            }
+        }
+        return result;
     }
 
     /**

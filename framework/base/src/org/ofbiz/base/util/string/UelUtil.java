@@ -27,6 +27,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.LocalizedMap;
@@ -368,31 +369,14 @@ public class UelUtil {
 
     /** Prepares an expression for evaluation by UEL.<p>The OFBiz syntax is
      * converted to UEL-compatible syntax and the resulting expression is
-     * returned. OFBiz syntax provides special forms of common operators to make
-     * it easier to embed UEL expressions in XML:
-     * <table border="1" cellpadding="2">
-     * <tr><td><strong>@gt</strong></td><td>&gt;</td></tr>
-     * <tr><td><strong>@lt</strong></td><td>&lt;</td></tr>
-     * <tr><td><strong>@lteq</strong></td><td>&lt;=</td></tr>
-     * <tr><td><strong>@gteq</strong></td><td>&gt;=</td></tr>
-     * <tr><td><strong>@or</strong></td><td>||</td></tr>
-     * <tr><td><strong>@and</strong></td><td>&amp;&amp;</td></tr>
-     * </table></p>
+     * returned.</p>
+     * @see <a href="StringUtil.html#convertOperatorSubstitutions(java.lang.String)">StringUtil.convertOperatorSubstitutions(java.lang.String)</a>
      * @param expression Expression to be converted
      * @return Converted expression
      */
     public static String prepareExpression(String expression) {
-        String result = expression;
+        String result = StringUtil.convertOperatorSubstitutions(expression);
         result = result.replace("[]", "['add']");
-        if (result.contains("@")) {
-            // TODO: create a static Pattern instance and use a Matcher
-            result = result.replace("@or", "||");
-            result = result.replace("@and", "&&");
-            result = result.replace("@lteq", "<=");
-            result = result.replace("@gteq", ">=");
-            result = result.replace("@lt", "<");
-            result = result.replace("@gt", ">");
-        }
         int openBrace = result.indexOf("[+");
         int closeBrace = (openBrace == -1 ? -1 : result.indexOf(']', openBrace));
         if (closeBrace != -1) {
