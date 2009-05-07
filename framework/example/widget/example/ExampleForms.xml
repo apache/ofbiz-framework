@@ -52,8 +52,8 @@ under the License.
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>
-        <alt-row-style use-when="&quot;EXST_APPROVED&quot;.equals(statusId)" style="Validate"/>
-        <alt-row-style use-when="&quot;EXST_CANCELLED&quot;.equals(statusId)" style="Warn"/>
+        <alt-row-style use-when="'EXST_APPROVED'.equals(statusId)" style="Validate"/>
+        <alt-row-style use-when="'EXST_CANCELLED'.equals(statusId)" style="Warn"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleId}" target="EditExample">
                 <parameter param-name="exampleId"/>
@@ -103,8 +103,8 @@ under the License.
         <alt-target use-when="example==null" target="createExample"/>
         <auto-fields-service service-name="updateExample"/>
         <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="example==null&amp;&amp;exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
-        <field use-when="example==null&amp;&amp;exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
+        <field use-when="example==null @and exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
+        <field use-when="example==null @and exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId">
             <drop-down allow-empty="false">
                 <!-- this is a neat feature, but not good for the type because the user would have to know the possible types in order to enter at least the first letter, so leaving it out by default; just uncomment to enable: <auto-complete/> -->
@@ -139,7 +139,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="displayAnotherText" use-when="example!=null&amp;&amp;example.get(&quot;anotherText&quot;)!=null">
+        <field name="displayAnotherText" use-when="example!=null @and example.get('anotherText')!=null">
             <display description="${example.anotherText}"/>
         </field>
         <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
