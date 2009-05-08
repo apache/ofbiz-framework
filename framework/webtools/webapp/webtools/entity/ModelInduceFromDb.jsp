@@ -30,7 +30,10 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
     <input type=SUBMIT value='Induce!'>
 </form>
 It's the datasource name. It doesn't need to be associated with a
- delegator, just defined in entityengine.xml.
+ delegator, just defined in entityengine.xml.<br>
+   <b> Use the browser to view the source and see the entities that were created.</b>
+
+
 
 
 
@@ -54,7 +57,7 @@ ERRORS:
       if(newEntList != null) {
         String title = "Entity of an Apache Open For Business Project (Apache OFBiz) Component";
         String description = "None";
-        String copyright = "Copyright 2001-2008 The Apache Software Foundation";
+        String copyright = "Copyright 2001-2009 The Apache Software Foundation";
         String author = "None";
         String version = "1.0";
 %><?xml version="1.0" encoding="UTF-8"?>
@@ -143,3 +146,4 @@ else {
   %>ERROR: You do not have permission to use this page (ENTITY_MAINT needed)<%
 }
 %>
+
