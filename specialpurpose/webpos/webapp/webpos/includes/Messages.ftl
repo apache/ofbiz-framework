@@ -39,11 +39,11 @@ under the License.
 <#if (errorMessage?has_content || errorMessageList?has_content)>
   <div class="errorPosMessage">
     <#if errorMessage?has_content>
-      <p>${StringUtil.wrapString(errorMessage)}</p>
+      <p>${errorMessage}</p>
     </#if>
     <#if errorMessageList?has_content>
       <#list errorMessageList as errorMsg>
-        <p>${StringUtil.wrapString(errorMsg)}</p>
+        <p>${errorMsg}</p>
       </#list>
     </#if>
   </div>
@@ -53,11 +53,11 @@ under the License.
 <#if (eventMessage?has_content || eventMessageList?has_content)>
   <div class="errorPosMessage">
     <#if eventMessage?has_content>
-      <p>${StringUtil.wrapString(eventMessage)}</p>
+      <p>${eventMessage}</p>
     </#if>
     <#if eventMessageList?has_content>
       <#list eventMessageList as eventMsg>
-        <p>${StringUtil.wrapString(eventMsg)}</p>
+        <p>${eventMsg}</p>
       </#list>
     </#if>
   </div>
