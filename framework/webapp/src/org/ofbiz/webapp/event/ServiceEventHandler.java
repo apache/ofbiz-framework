@@ -399,11 +399,10 @@ public class ServiceEventHandler implements EventHandler {
                     + requestMap.uri + "] with an event that calls service ["
                     + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body "
                     + "(a form field) instead of the request URL."
-                    + "\n\nMoreover it would be kind if you could create a Jira sub-task of https://issues.apache.org/jira/browse/OFBIZ-2330 "
-                    + "\n(check before if a sub-task for this error does not exist)."
-                    + "\nIf you are not sure how to create a Jira issue "
-                    + "please have a look before at http://docs.ofbiz.org/x/r."
-                    + "\n\nThank you in advance for your help.";
+                    + " Moreover it would be kind if you could create a Jira sub-task of https://issues.apache.org/jira/browse/OFBIZ-2330 "
+                    + "(check before if a sub-task for this error does not exist)."
+                    + " If you are not sure how to create a Jira issue please have a look before at http://docs.ofbiz.org/x/r."
+                    + " Thank you in advance for your help.";
                 Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
 
                 // the default here is true, so anything but N/n is true
