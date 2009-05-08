@@ -25,7 +25,7 @@ under the License.
 </div>
 <br/>
 <div id="footer" align="center">
-  <div>Copyright (c) 2001-2008 The Apache Software Foundation - <a href="http://www.apache.org/" class="tabletext" target="_blank">www.apache.org</a></div>
+  <div>Copyright (c) 2001-2009 The Apache Software Foundation - <a href="http://www.apache.org/" class="tabletext" target="_blank">www.apache.org</a></div>
 </div>
 <br/>
 
