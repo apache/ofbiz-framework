@@ -27,7 +27,21 @@ under the License.
     <eca service="updatePartyEmailAddress" event="return">
         <action service="updatePartyEmailContactListParty" mode="sync"/>
     </eca>
-
+    
+    <!--  update contact list communication status -->
+    <eca service="updateCommunicationEvent" event="commit">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action mode="sync" service="updateCommStatusFromCommEvent"/>
+    </eca>
+    
+    <!--  update contact list party for bounced messages -->
+    <eca service="updateContactListCommStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_BOUNCED"/>
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <set field-name="statusId" value="CLPT_INVALID"/>
+        <action service="updateContactListParty" mode="sync"/>
+    </eca>
+            
     <!-- quick add functions which pass a contactListId as well -->
     <eca service="createLead" event="commit">
         <condition field-name="contactListId" operator="is-not-empty"/>
