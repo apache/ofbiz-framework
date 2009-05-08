@@ -142,8 +142,9 @@ under the License.
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactListParty" auth="true">
         <description>Update Party to ContactList Join</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>        
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePartyEmailContactListParty" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updatePartyEmailContactListParty" auth="true">
@@ -166,6 +167,7 @@ under the License.
             <exclude field-name="setByUserLoginId"/>
         </auto-attributes>
         <override name="statusId" optional="false"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="sendContactListPartyVerifyEmail" engine="simple" max-retry="3"
         location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartyVerifyEmail" auth="true">
@@ -173,7 +175,19 @@ under the License.
         <auto-attributes entity-name="ContactListParty" include="pk" mode="IN" optional="false"/>
     </service>
 
-
+    <!--  ContactList Comm Status Services -->
+    <service name="updateContactListCommStatus" engine="simple" default-entity-name="ContactListCommStatus"
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactListCommStatus">
+        <auto-attributes include="all" mode="IN" optional="false"/>
+        <override name="partyId" optional="true"/>
+        <override name="messageId" allow-html="any" optional="true"/>
+    </service>
+    <service name="updateCommStatusFromCommEvent" engine="simple"
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateCommStatusFromCommEvent">
+        <attribute name="communicationEventId" type="String" mode="IN"/>
+        <attribute name="statusId" type="String" mode="IN"/>        
+    </service> 
+    
     <!-- TrackingCode Services -->
     <service name="createTrackingCode" default-entity-name="TrackingCode" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCode" auth="true">

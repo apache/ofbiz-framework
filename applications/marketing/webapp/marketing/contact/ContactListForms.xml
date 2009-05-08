@@ -503,7 +503,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="contactMechId"><display-entity entity-name="ContactMech" description="${infoString}"/></field>
+        <field name="contactMechId" title="${uiLabelMap.CommonEmailTo}"><display-entity entity-name="ContactMech" description="${infoString}"/></field>
         <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
     </form>    

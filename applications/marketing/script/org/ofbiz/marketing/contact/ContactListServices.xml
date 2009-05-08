@@ -127,6 +127,19 @@ under the License.
         </if>
         <check-errors/>
 
+        <!--  if fromDate is not found; look up the latest record -->
+        <if-empty field="parameters.fromDate">
+             <entity-condition entity-name="ContactListPartyStatus" list="lookupList">
+                 <condition-list combine="and"> 
+                     <condition-expr field-name="contactListId" from-field="parameters.contactListId"/>
+                     <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                 </condition-list>
+                 <order-by field-name="-statusDate"/>
+             </entity-condition>
+             <first-from-list entry="lastRecord" list="lookupList"/> 
+             <set field="parameters.fromDate" from-field="lastRecord.fromDate"/>             
+        </if-empty>
+        
         <entity-one entity-name="ContactList" value-field="contactList"/>
         <call-simple-method method-name="inlineCheckContactListMechType"/>
         <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
@@ -172,10 +185,10 @@ under the License.
         </if>
         <check-errors/>
 
-        <make-value entity-name="ContactListPartyStatus" value-field="newEntity"/>
+        <make-value entity-name="ContactListPartyStatus" value-field="newEntity"/>                
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
+        
         <now-timestamp field="newEntity.statusDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.setByUserLoginId"/>
 
@@ -215,7 +228,8 @@ under the License.
             </then>
         </else-if>
         </if>
-
+        
+        <log level="info" message="Wrote record : ${newEntity}"/>
         <create-value value-field="newEntity"/>
     </simple-method>
 
@@ -281,4 +295,29 @@ under the License.
             </else>
         </if>
     </simple-method>
+    
+    <simple-method method-name="updateContactListCommStatus" short-description="Update ContactList Communication Status">        
+        <entity-one entity-name="ContactListCommStatus" value-field="lookedUpValue" auto-field-map="true"/>
+        <if-empty field="lookedUpValue">
+             <make-value entity-name="ContactListCommStatus" value-field="lookedUpValue"/>
+             <set-pk-fields map="parameters" value-field="lookedUpValue"/>
+             <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+             <create-value value-field="lookedUpValue"/>
+             <else>
+                 <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+                 <store-value value-field="lookedUpValue"/> 
+             </else>
+        </if-empty>                 
+    </simple-method>
+    
+    <simple-method method-name="updateCommStatusFromCommEvent" short-description="Update ContactList Comm Status from CommunicationEvent">
+        <entity-and list="clcs" entity-name="ContactListCommStatus">
+            <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+        </entity-and>
+        <iterate entry="commStatus" list="clcs">
+            <set-service-fields service-name="updateContactListCommStatus" to-map="updateStatusCtx" map="commStatus"/>
+            <set field="updateStatusCtx.statusId" from-field="parameters.statusId"/>
+            <call-service service-name="updateContactListCommStatus" in-map-name="updateStatusCtx"/>
+        </iterate>                
+    </simple-method>       
 </simple-methods>
