@@ -749,7 +749,7 @@ public class ShoppingCartHelper {
                                     // if, on a purchase order, the quantity has changed, get the new SupplierProduct entity for this quantity level.
                                     if (cart.getOrderType().equals("PURCHASE_ORDER")) {
                                         oldQuantity = item.getQuantity();
-                                        if (oldQuantity != quantity) {
+                                        if (oldQuantity.compareTo(quantity) != 0) {
                                             // save the old description and price, in case the user wants to change those as well
                                             oldDescription = item.getName();
                                             oldPrice = item.getBasePrice();
