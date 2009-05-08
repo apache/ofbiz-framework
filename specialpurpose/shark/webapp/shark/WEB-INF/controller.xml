@@ -21,7 +21,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <description>Shark Workflow Manager Component Site Configuration File</description>
-    <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
+    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
     <errorpage>/error/error.jsp</errorpage>
 
     <!-- event handlers -->
