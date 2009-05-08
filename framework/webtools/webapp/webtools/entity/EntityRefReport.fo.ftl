@@ -70,7 +70,7 @@ under the License.
 
         <#-- footer -->
         <fo:static-content flow-name="xsl-region-after">
-            <fo:block text-align="center" border-top="thin solid black">Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation</fo:block>
+            <fo:block text-align="center" border-top="thin solid black">Copyright (c) 2001-2009 The Apache Software Foundation</fo:block>
             <fo:block text-align="center">${uiLabelMap.CommonPage} <fo:page-number/></fo:block>
         </fo:static-content>
 
