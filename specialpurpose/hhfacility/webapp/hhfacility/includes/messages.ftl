@@ -37,14 +37,14 @@ under the License.
 
 <#-- display the error messages -->
 <#if (errorMessage?has_content || errorMessageList?has_content)>
-  <div class="errorMessage">${uiLabelMap.CommonFollowingErrorsOccurred}:</div><br/>
+  <div class="errorMessage">Errors Occurred:</div><br/>
   <ul>
     <#if errorMessage?has_content>
-      <li class="errorMessage">${StringUtil.wrapString(errorMessage)}</li>
+      <li class="errorMessage">${errorMessage}</li>
     </#if>
     <#if errorMessageList?has_content>
       <#list errorMessageList as errorMsg>
-        <li class="errorMessage">${StringUtil.wrapString(errorMsg)}</li>
+        <li class="errorMessage">${errorMsg}</li>
       </#list>
     </#if>
   </ul>
@@ -53,14 +53,14 @@ under the License.
 
 <#-- display the event messages -->
 <#if (eventMessage?has_content || eventMessageList?has_content)>
-  <div class="eventMessage">${uiLabelMap.CommonFollowingOccurred}:</div><br/>
+  <div class="eventMessage">Events:</div><br/>
   <ul>
     <#if eventMessage?has_content>
-      <li class="eventMessage">${StringUtil.wrapString(eventMessage)}</li>
+      <li class="eventMessage">${eventMessage}</li>
     </#if>
     <#if eventMessageList?has_content>
       <#list eventMessageList as eventMsg>
-        <li class="eventMessage">${StringUtil.wrapString(eventMsg)}</li>
+        <li class="eventMessage">${eventMsg}</li>
       </#list>
     </#if>
   </ul>
