@@ -463,6 +463,7 @@
         <attribute mode="IN" name="forceElectronicText" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
+        <override name="textData" allow-html="safe"/>
     </service>
 
     <service name="persistDataResourceAndData" engine="java"
