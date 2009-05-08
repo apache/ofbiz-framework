@@ -291,7 +291,8 @@ public class CommunicationEventServices {
                         // No attempt has been made previously to send to this address, so create a record to reflect
                         //  the beginning of the current attempt
                         Map<String, String> newContactListCommStatusRecordMap = UtilMisc.makeMapWritable(contactListCommStatusRecordMap);
-                        newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS");
+                        newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS"); 
+                        newContactListCommStatusRecordMap.put("partyId", partyId);
                         contactListCommStatusRecord = delegator.create("ContactListCommStatus", newContactListCommStatusRecordMap);
                     } else if (contactListCommStatusRecord.get("statusId") != null && contactListCommStatusRecord.getString("statusId").equals("COM_COMPLETE")) {
 
@@ -331,6 +332,9 @@ public class CommunicationEventServices {
                             errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult));
                             continue;
                         }
+                    } else {
+                        String messageId = (String) tmpResult.get("messageId");
+                        contactListCommStatusRecord.set("messageId", messageId);
                     }
 
                     if ("Y".equals(contactList.get("singleUse"))) {
@@ -978,12 +982,15 @@ public class CommunicationEventServices {
                         Debug.logInfo("Delivery status report part found; processing...", module);
                         
                         // message is only available as an input stream; read the stream
-                        InputStream insPart2 = (InputStream) part2.getInputStream();
-                        int part2Size = part2.getSize();
-                        byte[] part2Bytes = new byte[part2Size];
-                        insPart2.read(part2Bytes, 0, part2Size);
-                        String part2Text = new String(part2Bytes);
-                        
+                        InputStream insPart2 = (InputStream) part2.getInputStream(); 
+                        StringBuilder p2Builder = new StringBuilder();
+                        byte[] p2Buf = new byte[4096];
+                        for (int n; (n = insPart2.read(p2Buf)) != -1;) {
+                            p2Builder.append(new String(p2Buf, 0, n));
+                        }                            
+                        String part2Text = p2Builder.toString();
+                        Debug.logInfo("Part 2 Content :\n\n" + part2Text, module);
+                                                                       
                         // find the "Action" element and obtain its value (looking for "failed")
                         Pattern p2 = Pattern.compile("^Action: (.*)$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
                         Matcher m2 = p2.matcher(part2Text);
@@ -997,17 +1004,21 @@ public class CommunicationEventServices {
                             BodyPart part3 = mp.getBodyPart(2); // index 2 should be the third part
                             
                             // read part 3 message
-                            InputStream insPart3 = (InputStream) part3.getInputStream();
-                            int part3Size = part3.getSize();
-                            byte[] part3Bytes = new byte[part3Size];
-                            insPart3.read(part3Bytes, 0, part3Size);
-                            String part3Text = new String(part3Bytes);
+                            InputStream insPart3 = (InputStream) part3.getInputStream(); 
+                            StringBuilder p3Builder = new StringBuilder();
+                            byte[] p3Buf = new byte[4096];
+                            for (int n; (n = insPart3.read(p3Buf)) != -1;) {
+                                p3Builder.append(new String(p3Buf, 0, n));
+                            }                            
+                            String part3Text = p3Builder.toString();
+                            Debug.logInfo("Part 3 Content :\n\n" + part3Text, module);
                             
                             // find the "Message-Id" element and obtain its value (looking for "failed")
                             Pattern p3 = Pattern.compile("^Message-Id: (.*)$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
                             Matcher m3 = p3.matcher(part3Text);
                             String messageId = null;
                             if (m3.find()) {
+                                Debug.logInfo("Found message-id : " + m3.group(), module);
                                 messageId = m3.group(1);                            
                             }
                             
@@ -1041,7 +1052,41 @@ public class CommunicationEventServices {
                                     }
                                 } else {
                                     if (Debug.infoOn()) {
-                                        Debug.logInfo("Unable to find communication event with the matching messageId : " + messageId, module);
+                                        Debug.logInfo("Unable to find CommunicationEvent with the matching messageId : " + messageId, module);
+                                    }
+                                    
+                                    // no communication events found for that message ID; possible this is a NEWSLETTER
+                                    try {
+                                        values = delegator.findByAnd("ContactListCommStatus", UtilMisc.toMap("messageId", messageId));
+                                    } catch (GenericEntityException e) {
+                                        Debug.logError(e, module);
+                                        return ServiceUtil.returnError(e.getMessage());
+                                    }
+                                    if (values != null && values.size() > 0) {
+                                        // there should be only one; unique key
+                                        GenericValue value = values.get(0);
+                                        
+                                        Map<String,Object> updateCtx = FastMap.newInstance();
+                                        updateCtx.put("communicationEventId", value.getString("communicationEventId"));
+                                        updateCtx.put("contactListId", value.getString("contactListId"));
+                                        updateCtx.put("contactMechId", value.getString("contactMechId"));
+                                        updateCtx.put("partyId", value.getString("partyId"));
+                                        updateCtx.put("statusId", "COM_BOUNCED");
+                                        updateCtx.put("userLogin", context.get("userLogin"));
+                                        Map<String,Object> result;
+                                        try {
+                                            result = dispatcher.runSync("updateContactListCommStatus", updateCtx);
+                                        } catch (GenericServiceException e) {
+                                            Debug.logError(e, module);
+                                            return ServiceUtil.returnError(e.getMessage());
+                                        }
+                                        if (ServiceUtil.isError(result)) {
+                                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                        }
+                                    } else {
+                                        if (Debug.infoOn()) {
+                                            Debug.logInfo("Unable to find ContactListCommStatus with the matching messageId : " + messageId, module);
+                                        }
                                     }
                                 }
                             } else {
