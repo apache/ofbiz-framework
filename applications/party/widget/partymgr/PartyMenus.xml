@@ -327,7 +327,8 @@
             <condition>
                 <if-compare field="parameters.all" operator="equals" value="true"/>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}" >
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
                 <parameter param-name="all" value="false"/>
             </link>
         </menu-item>
@@ -338,8 +339,9 @@
                     <if-empty field="parameters.all"/>
                 </or>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}" >
-                <parameter param-name="all" value="true"/>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+                    <parameter param-name="all" value="true"/>
             </link>
         </menu-item>
     </menu>
