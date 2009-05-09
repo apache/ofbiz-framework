@@ -76,10 +76,7 @@ under the License.
     <target name="clean-xtra">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
-        </delete>        
-        <delete >
-            <fileset dir="runtime/tempfiles/captcha/" includes="**/*.jpg"/>
-        </delete>        
+        </delete>
     </target>
 
     <target name="clean-catalina">
