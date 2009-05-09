@@ -51,12 +51,30 @@
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
     </property>
+    <property key="ProductErrorAllOrderItemsAreNotPacked">
+        <value xml:lang="en">ERROR: All order items are not packed</value>
+    </property>
+    <property key="ProductErrorAllOrderItemsAreNotVerified">
+        <value xml:lang="en">ERROR: All order items are not verified</value>
+    </property>
     <property key="ProductErrorInventoryItemLabelIdNotFound">
         <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
         <value xml:lang="it">Errore riga etichetta inventario non trovata</value>
     </property>
+    <property key="ProductErrorIssueItemDidNotReturnAValidShipmentItemSeqId">
+        <value xml:lang="en">ERROR: Issue item did not return a valid shipmentItemSeqId</value>
+    </property>
+    <property key="ProductErrorNoInventoryReservationsAvailableCannotVerifyThisItem">
+        <value xml:lang="en">ERROR: No inventory reservations available; cannot pick this item</value>
+    </property>
     <property key="ProductErrorNoShipGroupSequenceIdFoundCannotProcess">
         <value xml:lang="en">ERROR: No ship group sequence Id found cannot process</value>
+    </property>
+    <property key="ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem">
+        <value xml:lang="en">ERROR: Not enough inventory reservation available; cannot verify the item</value>
+    </property>
+    <property key="ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity">
+        <value xml:lang="en">ERROR: No valid order item found for product [${productId}] with quantity [${quantity}]</value>
     </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>

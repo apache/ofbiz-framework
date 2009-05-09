@@ -209,13 +209,13 @@ under the License.
                 <#assign readyToVerify = verifyPickSession.getReadyToVerifyQuantity(orderId,orderItemSeqId)>
                 <#assign orderItemQuantity = orderItem.getBigDecimal("quantity")>
                 <#assign verifiedQuantity = 0.000000>
-                <#assign shipments = delegator.findByAnd("Shipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"))>
+                <#assign shipments = delegator.findByAnd("Shipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"))/>
                 <#if (shipments?has_content)>
                   <#list shipments as shipment>
-                    <#assign orderShipments = shipment.getRelatedByAnd("OrderShipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", "${orderId}", "orderItemSeqId", orderItemSeqId))>
-                    <#if orderShipments?has_content>
-                      <#list orderShipments as orderShipment>
-                        <#assign verifiedQuantity = verifiedQuantity + orderShipment.getBigDecimal("quantity")>
+                    <#assign itemIssuances = delegator.findByAnd("ItemIssuance", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItemSeqId))/>
+                    <#if itemIssuances?has_content>
+                      <#list itemIssuances as itemIssuance>
+                        <#assign verifiedQuantity = verifiedQuantity + itemIssuance.getBigDecimal("quantity")>
                       </#list>
                     </#if>
                   </#list>
@@ -294,20 +294,24 @@ under the License.
               <tr class="header-row">
                 <td>${uiLabelMap.ProductItem} #</td>
                 <td>${uiLabelMap.ProductProductId}</td>
-                <td align="right">${uiLabelMap.ProductVerify}&nbsp;${uiLabelMap.CommonQty}</td>
+                <td>${uiLabelMap.ProductInventoryItem} #</td>
+                <td align="right">${uiLabelMap.ProductVerified}&nbsp;${uiLabelMap.CommonQty}</td>
                 <td>&nbsp;</td>
               </tr>
               <#list pickRows as pickRow>
                 <#if (pickRow.getOrderId()?if_exists).equals(orderId)>
                   <tr>
-                    <td>${pickRow.getOrderSeqId()?if_exists}</td>
+                    <td>${pickRow.getOrderItemSeqId()?if_exists}</td>
                     <td>${pickRow.getProductId()?if_exists}</td>
+                    <td>${pickRow.getInventoryItemId()?if_exists}</td>
                     <td align="right">${pickRow.getReadyToVerifyQty()?if_exists}</td>
                   </tr>
                 </#if>
               </#list>
             </table>
-            <input type="submit" value="${uiLabelMap.ProductComplete}"/>
+            <div align="right">
+              <a href="javascript:document.completePickForm.submit()" class="buttontext">${uiLabelMap.ProductComplete}</a>
+            </div>
           </div>
         </div>
       </#if>

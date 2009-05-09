@@ -135,6 +135,8 @@ if (orderId) {
         context.orderReadHelper = orh;
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
         context.orderItemShipGroup = orderItemShipGroup;
+        orderItems = orh.getOrderItems();
+        context.orderItems = orderItems;
 
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {

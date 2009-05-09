@@ -19,20 +19,33 @@
 package org.ofbiz.shipment.packing;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 public class PackingServices {
 
     public static final String module = PackingServices.class.getName();
+    private static BigDecimal ZERO = BigDecimal.ZERO;
 
     public static Map<String, Object> addPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
         PackingSession session = (PackingSession) context.get("packingSession");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String orderId = (String) context.get("orderId");
@@ -50,23 +63,61 @@ public class PackingServices {
         session.setPickerPartyId(pickerPartyId);
 
         if (quantity == null) {
-            quantity = BigDecimal.ONE;
+            quantity = ZERO;
         }
 
         Debug.log("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
 
         if (weight == null) {
             Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module);
-            weight = BigDecimal.ZERO;
+            weight = ZERO;
         }
 
+        List<String> orderItemSeqIds = FastList.newInstance();
+        BigDecimal qtyToPack = ZERO;
+        BigDecimal qtyToPacked = ZERO;
+        BigDecimal packedQuantity = ZERO;
+        BigDecimal readyToPackQty = ZERO;
+        int counter = 0;
         try {
-            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            // check if entered product is ordered product or not
+            if (UtilValidate.isNotEmpty(productId)) {
+                List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "productId", productId));
+                if (UtilValidate.isNotEmpty(orderItems)) {
+                    for (GenericValue orderItem : orderItems) {
+                        counter++;
+                        if (quantity.compareTo(ZERO) > 0) {
+                            BigDecimal orderedQuantity = orderItem.getBigDecimal("quantity");
+                            List<GenericValue> shipments = delegator.findByAnd("Shipment", UtilMisc.toMap("primaryOrderId", orderId , "statusId", "SHIPMENT_PACKED"));
+                            for(GenericValue shipment : shipments) {
+                                List<GenericValue> itemIssuances = shipment.getRelatedByAnd("ItemIssuance" , UtilMisc.toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
+                                for(GenericValue itemIssuance : itemIssuances) {
+                                    packedQuantity = packedQuantity.add(itemIssuance.getBigDecimal("quantity"));
+                                }
+                            }
+                            qtyToPack = orderedQuantity.subtract(packedQuantity);
+                            if (qtyToPack.compareTo(quantity) > -1) {
+                                readyToPackQty = session.getPackedQuantity(orderId, orderItem.getString("orderItemSeqId"), shipGroupSeqId, productId);
+                                qtyToPacked =  orderedQuantity.subtract(readyToPackQty);
+                                if (qtyToPacked.compareTo(quantity) > -1) {
+                                    session.addOrIncreaseLine(orderId, orderItem.getString("orderItemSeqId"), shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
+                                    counter--;
+                                    break;
+                                } else if (orderItems.size() == counter) {
+                                    throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
+                                }
+                            } else if (orderItems.size() == counter) {
+                                throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
+                            }
+                        }
+                    }
+                } else {
+                    throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
+                }
+            }
+        } catch (Exception ex) {
+            return ServiceUtil.returnError(ex.getMessage());
         }
-
         return ServiceUtil.returnSuccess();
     }
 
@@ -269,6 +320,7 @@ public class PackingServices {
 
     public static Map<String, Object> completePack(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
+        Locale locale = (Locale) context.get("locale");
 
         // set the instructions -- will clear out previous if now null
         String orderId = (String) context.get("orderId");
@@ -293,7 +345,7 @@ public class PackingServices {
         }
 
         try {
-            shipmentId = session.complete(force, orderId);
+            shipmentId = session.complete(force, orderId, locale);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());

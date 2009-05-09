@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -34,6 +35,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -71,6 +73,7 @@ public class PackingSession implements java.io.Serializable {
 
     private transient GenericDelegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
+    private static BigDecimal ZERO = BigDecimal.ZERO;
 
     public PackingSession(LocalDispatcher dispatcher, GenericValue userLogin, String facilityId, String binId, String orderId, String shipGrp) {
         this._dispatcher = dispatcher;
@@ -129,7 +132,7 @@ public class PackingSession implements java.io.Serializable {
         invLookup.put("orderId", orderId);
         invLookup.put("orderItemSeqId", orderItemSeqId);
         invLookup.put("shipGroupSeqId", shipGroupSeqId);
-        List<GenericValue> reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup, UtilMisc.toList("quantity DESC"));
+        List<GenericValue> reservations = this.getDelegator().findByAnd("ItemIssuance", invLookup, UtilMisc.toList("quantity DESC"));
 
         // no reservations we cannot add this item
         if (UtilValidate.isEmpty(reservations)) {
@@ -626,7 +629,7 @@ public class PackingSession implements java.io.Serializable {
         this.runEvents(PackingEvent.EVENT_CODE_CLEAR);
     }
 
-    public String complete(boolean force, String orderId) throws GeneralException {
+    public String complete(boolean force, String orderId, Locale locale) throws GeneralException {
         // clear out empty lines
         // this.checkEmptyLines(); // removing, this seems to be causeing issues -  mja
 
@@ -635,9 +638,7 @@ public class PackingSession implements java.io.Serializable {
             return "EMPTY";
         }
 
-        this.checkPackedQty(orderId);
-        // check for errors
-        this.checkReservations(force);
+        this.checkPackedQty(orderId, locale);
         // set the status to 0
         this.status = 0;
         // create the shipment
@@ -648,7 +649,7 @@ public class PackingSession implements java.io.Serializable {
         // create the packages
         this.createPackages();
         // issue the items
-        this.issueItemsToShipment();
+        this.changeOrderItemStatus(orderId, shipmentId);
         // assign items to packages
         this.applyItemsToPackages();
         // update ShipmentRouteSegments with total weight and weightUomId
@@ -663,24 +664,22 @@ public class PackingSession implements java.io.Serializable {
         return this.shipmentId;
     }
 
-    protected void checkPackedQty(String orderId) throws GeneralException {
-        int counter = 0;
-        List<GenericValue> orderItems = null;
-        for (PackingSessionLine line : this.getLines()) {
-            orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
-            for (GenericValue orderItem : orderItems) {
-                if (orderId.equals(line.getOrderId())) {
-                    if ((orderItem.get("orderItemSeqId")).equals(line.getOrderItemSeqId())) {
-                        BigDecimal packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
-                        if ((packedQty.compareTo(orderItem.getBigDecimal("quantity"))) == 0 ) {
-                            counter++;
-                        }
-                    }
-                }
-            }
+    protected void checkPackedQty(String orderId, Locale locale) throws GeneralException {
+
+        BigDecimal packedQty = ZERO;
+        BigDecimal orderedQty = ZERO;
+
+        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+        for (GenericValue orderItem : orderItems) {
+            orderedQty = orderedQty.add(orderItem.getBigDecimal("quantity"));
         }
-        if (((this.getLines().size()) != (orderItems.size())) || (counter != (orderItems.size()))) {
-            throw new GeneralException("All order items are not packed");
+
+        for (PackingSessionLine line : this.getLines()) {
+            packedQty = packedQty.add(line.getQuantity());
+        }
+
+        if (orderedQty.compareTo(packedQty) != 0 ) {
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorAllOrderItemsAreNotPacked", locale));
         }
     }
 
@@ -775,6 +774,32 @@ public class PackingSession implements java.io.Serializable {
 
                 line.issueItemToShipment(shipmentId, picklistBinId, userLogin, totalPacked, getDispatcher());
                 processedLines.add(line);
+            }
+        }
+    }
+
+    protected void changeOrderItemStatus(String orderId, String shipmentId) throws GeneralException {
+        List<GenericValue> shipmentItems = this.getDelegator().findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
+        for (GenericValue shipmentItem : shipmentItems) {
+            for (PackingSessionLine line : this.getLines()) {
+                if (orderId.equals(line.getOrderId()) && shipmentItem.getString("productId").equals(line.getProductId())) {
+                    line.setShipmentItemSeqId(shipmentItem.getString("shipmentItemSeqId"));
+                }
+            }
+        }
+        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+        for (GenericValue orderItem : orderItems) {
+            List orderItemShipGrpInvReserves = orderItem.getRelated("OrderItemShipGrpInvRes");
+            if (UtilValidate.isEmpty(orderItemShipGrpInvReserves)) {
+                Map<String, Object> orderItemStatusMap = FastMap.newInstance();
+                orderItemStatusMap.put("orderId", orderId);
+                orderItemStatusMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                orderItemStatusMap.put("userLogin", userLogin);
+                orderItemStatusMap.put("statusId", "ITEM_COMPLETED");
+                Map<String, Object> orderItemStatusResp = this.getDispatcher().runSync("changeOrderItemStatus", orderItemStatusMap);
+                if (ServiceUtil.isError(orderItemStatusResp)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(orderItemStatusResp));
+                }
             }
         }
     }

@@ -22,12 +22,15 @@ package org.ofbiz.shipment.verify;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -40,11 +43,13 @@ public class VerifyPickSession implements Serializable {
     protected GenericValue userLogin = null;
     protected String dispatcherName = null;
     protected String delegatorName = null;
-    protected int rowItems = 1;
+    protected String picklistBinId = null;
+    protected String facilityId = null;
     protected List<VerifyPickSessionRow> pickRows = null;
 
     private transient GenericDelegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
+    private static BigDecimal ZERO = BigDecimal.ZERO;
 
     public VerifyPickSession() {
     }
@@ -72,42 +77,169 @@ public class VerifyPickSession implements Serializable {
         return _delegator;
     }
 
-    public void createRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, String facilityId, GenericValue orderItem) {
-        int rowItem = this.getRowNo();
-        int counter = 1;
-        BigDecimal readyToVerify = null;
-        if (rowItem > 1) {
-            List<VerifyPickSessionRow> rows = this.getPickRows();
-            for (VerifyPickSessionRow row : rows) {
-                counter++;
-                if ((orderId.equals(row.getOrderId())) && (orderItemSeqId.equals(row.getOrderSeqId()))) {
-                    readyToVerify = quantity.add(row.getReadyToVerifyQty());
-                    row.setReadyToVerifyQty(readyToVerify);
-                    break;
-                } else if (counter == rowItem) {
-                    this.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, facilityId, orderItem, rowItem);
+    public void createRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, Locale locale) throws GeneralException {
+
+        if (orderItemSeqId == null && productId != null) {
+            orderItemSeqId = this.findOrderItemSeqId(productId, orderId, shipGroupSeqId, quantity, locale);
+        }
+
+        // get the reservations for the item
+        Map<String, Object> inventoryLookupMap = FastMap.newInstance();
+        inventoryLookupMap.put("orderId", orderId);
+        inventoryLookupMap.put("orderItemSeqId", orderItemSeqId);
+        inventoryLookupMap.put("shipGroupSeqId", shipGroupSeqId);
+        List<GenericValue> reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", inventoryLookupMap, UtilMisc.toList("quantity DESC"));
+
+        // no reservations we cannot add this item
+        if (UtilValidate.isEmpty(reservations)) {
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoInventoryReservationsAvailableCannotVerifyThisItem", locale));
+        }
+
+        if (reservations.size() == 1) {
+            GenericValue reservation = EntityUtil.getFirst(reservations);
+            int checkCode = this.checkRowForAdd(reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity);
+            this.createVerifyPickRow(checkCode, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, locale);
+        } else {
+            // more than one reservation found
+            Map<GenericValue, BigDecimal> reserveQtyMap = FastMap.newInstance();
+            BigDecimal qtyRemain = quantity;
+
+            for (GenericValue reservation : reservations) {
+                if (qtyRemain.compareTo(ZERO) > 0) {
+                    if (!productId.equals(reservation.getRelatedOne("InventoryItem").getString("productId"))) {
+                        continue;
+                    }
+                    BigDecimal reservedQty = reservation.getBigDecimal("quantity");
+                    BigDecimal resVerifiedQty = this.getVerifiedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, reservation.getString("inventoryItemId"));
+                    if (resVerifiedQty.compareTo(reservedQty) >= 0) {
+                        continue;
+                    } else {
+                        reservedQty = reservedQty.subtract(resVerifiedQty);
+                    }
+                    BigDecimal thisQty = reservedQty.compareTo(qtyRemain) > 0 ? qtyRemain : reservedQty;
+                    int thisCheck = this.checkRowForAdd(reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty);
+                    switch (thisCheck) {
+                        case 2:
+                            // new verify pick row will be created
+                            reserveQtyMap.put(reservation, thisQty);
+                            qtyRemain = qtyRemain.subtract(thisQty);
+                            break;
+                        case 1:
+                            // existing verify pick row has been updated
+                            qtyRemain = qtyRemain.subtract(thisQty);
+                            break;
+                        case 0:
+                            //doing nothing
+                            break;
+                    }
                 }
             }
-        } else {
-            this.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, facilityId, orderItem, rowItem);
+            if (qtyRemain.compareTo(ZERO) == 0) {
+                for (Map.Entry<GenericValue, BigDecimal> entry : reserveQtyMap.entrySet()) {
+                    GenericValue reservation = entry.getKey();
+                    BigDecimal qty = entry.getValue();
+                    this.createVerifyPickRow(2, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, qty, locale);
+                }
+            } else {
+                throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem", locale));
+            }
         }
     }
 
-    public void createRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, String facilityId, GenericValue orderItem, int rowItem) {
-        pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, facilityId, orderItem, rowItem));
-        this.setRowNo();
+    protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity, Locale locale) throws GeneralException {
+
+        Map<String, Object> orderItemLookupMap = FastMap.newInstance();
+        orderItemLookupMap.put("orderId", orderId);
+        orderItemLookupMap.put("productId", productId);
+        orderItemLookupMap.put("statusId", "ITEM_APPROVED");
+        orderItemLookupMap.put("shipGroupSeqId", shipGroupSeqId);
+
+        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItemAndShipGroupAssoc", orderItemLookupMap);
+
+        String orderItemSeqId = null;
+        if (orderItems != null) {
+            for (GenericValue orderItem : orderItems) {
+                // get the reservations for the item
+                Map<String, Object> inventoryLookupMap = FastMap.newInstance();
+                inventoryLookupMap.put("orderId", orderId);
+                inventoryLookupMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                inventoryLookupMap.put("shipGroupSeqId", shipGroupSeqId);
+                List<GenericValue> reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", inventoryLookupMap);
+                for (GenericValue reservation : reservations) {
+                    BigDecimal qty = reservation.getBigDecimal("quantity");
+                    if (quantity.compareTo(qty) <= 0) {
+                        orderItemSeqId = orderItem.getString("orderItemSeqId");
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (orderItemSeqId != null) {
+            return orderItemSeqId;
+        } else {
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
+        }
     }
 
-    public int getRowNo() {
-        return this.rowItems;
+    protected int checkRowForAdd(GenericValue reservation, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity) {
+        // check to see if the reservation can hold the requested quantity amount
+        String inventoryItemId = reservation.getString("inventoryItemId");
+        BigDecimal resQty = reservation.getBigDecimal("quantity");
+        VerifyPickSessionRow pickRow = this.getPickRow(orderId, orderItemSeqId, shipGroupSeqId, productId, inventoryItemId);
+
+        if (pickRow == null) {
+            if (resQty.compareTo(quantity) < 0) {
+                return 0;
+            } else {
+                return 2;
+            }
+        } else {
+            BigDecimal newQty = pickRow.getReadyToVerifyQty().add(quantity);
+            if (resQty.compareTo(newQty) < 0) {
+                return 0;
+            } else {
+                pickRow.setReadyToVerifyQty(newQty);
+                return 1;
+            }
+        }
+    }
+
+    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, Locale locale) throws GeneralException {
+        // process the result; add new item if necessary
+        switch (checkCode) {
+            case 0:
+                // not enough reserved
+                throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem", locale));
+            case 1:
+                // we're all good to go; quantity already updated
+                break;
+            case 2:
+                // need to create a new item
+                String inventoryItemId = res.getString("inventoryItemId");
+                pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, inventoryItemId, quantity));
+                break;
+        }
     }
 
     public GenericValue getUserLogin() {
         return this.userLogin;
     }
 
-    public void setRowNo() {
-        this.rowItems = (this.getRowNo()) + 1;
+    public void setFacilityId(String facilityId) {
+        this.facilityId = facilityId;
+    }
+
+    public String getFacilityId() {
+        return this.facilityId;
+    }
+
+    public void setPicklistBinId(String setPicklistBinId) {
+        this.picklistBinId = setPicklistBinId;
+    }
+
+    public String getPicklistBinId() {
+        return this.picklistBinId;
     }
 
     public List<VerifyPickSessionRow> getPickRows() {
@@ -127,28 +259,45 @@ public class VerifyPickSession implements Serializable {
     public BigDecimal getReadyToVerifyQuantity(String orderId, String orderSeqId) throws GeneralException {
         BigDecimal readyToVerifyQty = BigDecimal.ZERO;
         for (VerifyPickSessionRow line: this.getPickRows()) {
-            if ((orderId.equals(line.getOrderId())) && (orderSeqId.equals(line.getOrderSeqId()))) {
+            if ((orderId.equals(line.getOrderId())) && (orderSeqId.equals(line.getOrderItemSeqId()))) {
                 readyToVerifyQty = readyToVerifyQty.add(line.getReadyToVerifyQty());
             }
         }
         return readyToVerifyQty;
     }
 
-    public void clearAllRows() {
-        this.pickRows.clear();
-        this.rowItems = 1;
+    public VerifyPickSessionRow getPickRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId) {
+        for (VerifyPickSessionRow line : this.getPickRows(orderId)) {
+            if (orderItemSeqId.equals(line.getOrderItemSeqId()) && shipGroupSeqId.equals(line.getShipGroupSeqId()) 
+                    && productId.equals(line.getProductId()) && inventoryItemId.equals(line.getInventoryItemId())) {
+                return line; 
+            }
+        }
+        return null;
     }
 
-    public String complete(String orderId) throws GeneralException {
-        String shipmentItemSeqId = null;
+    public BigDecimal getVerifiedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId) {
+        BigDecimal total = ZERO;
+        for (VerifyPickSessionRow pickRow : this.getPickRows(orderId)) {
+            if (orderItemSeqId.equals(pickRow.getOrderItemSeqId()) && shipGroupSeqId.equals(pickRow.getShipGroupSeqId()) && productId.equals(pickRow.getProductId())) {
+                if (inventoryItemId == null || inventoryItemId.equals(pickRow.getInventoryItemId())) {
+                    total = total.add(pickRow.getReadyToVerifyQty());
+                }
+            }
+        }
+        return total;
+    }
+
+    public void clearAllRows() {
+        this.pickRows.clear();
+    }
+
+    public String complete(String orderId, Locale locale) throws GeneralException {
         String invoiceId = null;
         String invoiceItemSeqId = null;
-        this.checkVerifiedQty(orderId);
+        this.checkVerifiedQty(orderId, locale);
         String shipmentId = this.createShipment((this.getPickRows(orderId)).get(0));
-        for (VerifyPickSessionRow line: this.getPickRows(orderId)) {
-            shipmentItemSeqId = this.createShipmentItem(line,shipmentId);
-            line.setShipmentItemSeqId(shipmentItemSeqId);
-        }
+        this.issueItemsToShipment(shipmentId, locale);
         invoiceId = this.createInvoice(orderId);
         for (VerifyPickSessionRow line: this.getPickRows(orderId)) {
             invoiceItemSeqId = this.createInvoiceItem(line, invoiceId, shipmentId);
@@ -157,27 +306,49 @@ public class VerifyPickSession implements Serializable {
         return shipmentId;
     }
 
-    protected void checkVerifiedQty(String orderId) throws GeneralException {
-        int counter = 0;
-        List<GenericValue> orderItems = null;
-        for (VerifyPickSessionRow line : this.getPickRows(orderId)) {
-            orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
-            for (GenericValue orderItem : orderItems) {
-                if ((orderItem.get("orderItemSeqId")).equals(line.getOrderSeqId())) {
-                    if (((line.getReadyToVerifyQty()).compareTo(orderItem.getBigDecimal("quantity"))) == 0 ) {
-                        counter++;
-                    }
-                }
+    protected void checkVerifiedQty(String orderId, Locale locale) throws GeneralException {
+
+        BigDecimal verifiedQty = ZERO;
+        BigDecimal orderedQty = ZERO;
+
+        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+        for (GenericValue orderItem : orderItems) {
+            orderedQty = orderedQty.add(orderItem.getBigDecimal("quantity"));
+        }
+
+        for (VerifyPickSessionRow pickRow : this.getPickRows(orderId)) {
+            verifiedQty = verifiedQty.add(pickRow.getReadyToVerifyQty());
+        }
+
+        if (orderedQty.compareTo(verifiedQty) != 0 ) {
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorAllOrderItemsAreNotVerified", locale));
+        }
+    }
+
+    protected void issueItemsToShipment(String shipmentId, Locale locale) throws GeneralException {
+        List<VerifyPickSessionRow> processedRows = FastList.newInstance();
+        for (VerifyPickSessionRow pickRow : this.getPickRows()) {
+            if (this.checkLine(processedRows, pickRow)) {
+                BigDecimal totalVerifiedQty = this.getVerifiedQuantity(pickRow.getOrderId(),  pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId(), pickRow.getProductId(), pickRow.getInventoryItemId());
+                pickRow.issueItemToShipment(shipmentId, picklistBinId, userLogin, totalVerifiedQty, getDispatcher(), locale);
+                processedRows.add(pickRow);
             }
         }
-        if (counter != (orderItems.size())) {
-            throw new GeneralException("All order items are not verified");
+    }
+
+    protected boolean checkLine(List<VerifyPickSessionRow> processedRows, VerifyPickSessionRow pickrow) {
+        for (VerifyPickSessionRow processedRow : processedRows) {
+            if (pickrow.isSameItem(processedRow)) {
+                pickrow.setShipmentItemSeqId(processedRow.getShipmentItemSeqId());
+                return false;
+            }
         }
+        return true;
     }
 
     protected String createShipment(VerifyPickSessionRow line) throws GeneralException {
         Map<String, Object> newShipment = FastMap.newInstance();
-        newShipment.put("originFacilityId", line.getFacilityId());
+        newShipment.put("originFacilityId", facilityId);
         newShipment.put("primaryShipGroupSeqId", line.getShipGroupSeqId());
         newShipment.put("primaryOrderId", line.getOrderId());
         newShipment.put("shipmentTypeId", "OUTGOING_SHIPMENT");
@@ -189,31 +360,6 @@ public class VerifyPickSession implements Serializable {
         }
         String shipmentId = (String) newShipResp.get("shipmentId");
         return shipmentId;
-    }
-
-    protected String createShipmentItem(VerifyPickSessionRow line,String shipmentId) throws GeneralException {
-        Map<String, Object> newShipmentItem = FastMap.newInstance();
-        newShipmentItem.put("shipmentId", shipmentId);
-        newShipmentItem.put("productId", line.getProductId());
-        newShipmentItem.put("userLogin", this.getUserLogin());
-        newShipmentItem.put("quantity", line.getReadyToVerifyQty());
-        Map<String, Object> newShipItem = this.getDispatcher().runSync("createShipmentItem", newShipmentItem);
-        if (ServiceUtil.isError(newShipItem)) {
-            throw new GeneralException(ServiceUtil.getErrorMessage(newShipItem));
-        }
-        String shipmentItemSeqId = (String) newShipItem.get("shipmentItemSeqId");
-        Map<String, Object> newOrderShipment = FastMap.newInstance();
-        newOrderShipment.put("shipmentId", shipmentId);
-        newOrderShipment.put("shipmentItemSeqId", shipmentItemSeqId);
-        newOrderShipment.put("orderId", line.getOrderId());
-        newOrderShipment.put("orderItemSeqId", line.getOrderSeqId());
-        newOrderShipment.put("quantity", line.getReadyToVerifyQty());
-        newOrderShipment.put("userLogin", this.getUserLogin());
-        Map<String, Object> newOrderShip = this.getDispatcher().runSync("createOrderShipment", newOrderShipment);
-        if (ServiceUtil.isError(newOrderShip)) {
-            throw new GeneralException(ServiceUtil.getErrorMessage(newOrderShip));
-        }
-        return shipmentItemSeqId;
     }
 
     protected String createInvoice(String orderId) throws GeneralException {
