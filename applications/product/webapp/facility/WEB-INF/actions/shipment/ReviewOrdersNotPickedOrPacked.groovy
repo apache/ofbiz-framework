@@ -19,23 +19,19 @@
 
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 
-orderHeaders = delegator.findList("OrderHeader", null, null, null, null, false);
+condList = [];
+condList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
+condList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+condList.add(EntityCondition.makeCondition("pickSheetPrintedDate", EntityOperator.NOT_EQUAL, null));
+cond = EntityCondition.makeCondition(condList, EntityOperator.AND);
+orderHeaders = delegator.findList("OrderHeader", cond, null, null, null, false);
 orders = [];
-
 orderHeaders.each { orderHeader ->
-    if (orderHeader.pickSheetPrintedDate) {
-        orderShipments = delegator.findList("Shipment", EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderHeader.orderId), null, null, null, false);
-        if (orderShipments) {
-            orderShipments.each { orderShipment ->
-                if (orderShipment.statusId == "SHIPMENT_INPUT" || orderShipment.statusId == "SHIPMENT_SCHEDULED") {
-                    orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : orderHeader.pickSheetPrintedDate]);
-                }
-            }
-        }
-        else {
-            orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : orderHeader.pickSheetPrintedDate]);
-        }
+    itemIssuanceList = delegator.findByAnd("ItemIssuance", [orderId : orderHeader.orderId]);
+    if (!itemIssuanceList) {
+        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : orderHeader.pickSheetPrintedDate]);
     }
 }
 context.orders = orders;
