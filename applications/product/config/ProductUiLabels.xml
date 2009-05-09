@@ -16448,7 +16448,7 @@
         <value xml:lang="th">(คุณต้องสร้างกลุ่มถึงการเปลี่ยนแปลงนี้อีกครั้ง)</value>
         <value xml:lang="zh">(要修改这个，你必须重新创建关联。)</value>
     </property>
-    <property key="ProductRedExplanation">
+    <property key="ProductHighlightedExplanation">
         <value xml:lang="de"> Datum/Zeit Angaben sind rot markiert wenn die aktuelle Zeit vor dem Von Datum oder nach dem Bis Datum ist. Wenn das Von Datum rot ist, ist die Zuordnung noch nicht aktiv; falls das Bis Datum rot ist, ist die Zuordnung abgelaufen (und sollte vermutlich gelöscht werden).</value>
         <value xml:lang="en"> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is red, association has not started yet; if Thru Date is red, association has expired (and should probably be deleted).</value>
         <value xml:lang="es"> entrades de fecha/hora indican que la hora actual es anterior a la Fecha de Inicio o después de la Fecha de Fin. Si la fecha de inicio es red, la asociación no ha comenzado aún; si la fecha de fin es red, la asociación ha expirado (y probablemente debe ser eliminada).</value>
