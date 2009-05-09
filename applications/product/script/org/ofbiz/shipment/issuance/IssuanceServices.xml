@@ -241,6 +241,16 @@ under the License.
         <if-compare value="0" operator="equals" field="orderItemShipGrpInvRes.quantity" type="BigDecimal">
             <!-- if none left reserved, remove OIIR -->
             <remove-value value-field="orderItemShipGrpInvRes"/>
+            <if-compare field="shipment.statusId" operator="not-equals" value="SHIPMENT_PICKED">
+                <!-- if there are no more OIIRs for the orderItem, set the orderItem.statusId to ITEM_COMPLETED -->
+                <get-related value-field="orderItem" relation-name="OrderItemShipGrpInvRes" list="otherOiirs"/>
+                <if-empty field="otherOiirs">
+                    <set value="ITEM_COMPLETED" field="changeOrderItemStatusMap.statusId"/>
+                    <set from-field="orderItem.orderId" field="changeOrderItemStatusMap.orderId"/>
+                    <set from-field="orderItem.orderItemSeqId" field="changeOrderItemStatusMap.orderItemSeqId"/>
+                    <call-service service-name="changeOrderItemStatus" in-map-name="changeOrderItemStatusMap"/>
+                </if-empty>
+            </if-compare>
         <else>
             <store-value value-field="orderItemShipGrpInvRes"/>
         </else>
