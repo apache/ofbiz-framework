@@ -235,8 +235,7 @@ under the License.
                     </#if>
 
                     <!-- auto grid form -->
-                    <#assign itemInfos = packingSession.getItemInfos()?if_exists>
-                    <#if showInput != "N" && hideGrid != "Y" && itemInfos?has_content>
+                    <#if showInput != "N" && hideGrid != "Y" && orderItems?has_content>
                         <br/>
                         <form name="multiPackForm" method="post" action="<@ofbizUrl>ProcessBulkPackOrder</@ofbizUrl>">
                             <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
@@ -259,15 +258,26 @@ under the License.
                                     <td align="center">${uiLabelMap.ProductPackage}</td>
                                     <td align="right">&nbsp;<b>*</b>&nbsp;${uiLabelMap.ProductPackages}</td>
                                 </tr>
-                                <#if (itemInfos?has_content)>
+                                <#if orderItems?has_content>
                                     <#assign rowKey = 1>
-                                    <#list itemInfos as itemInfo>
+                                    <#list orderItems as orderItem>
                                     <#-- <#list itemInfos as orderItem>  -->
-                                        <#assign orderItem = itemInfo.orderItem/>
-                                        <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)?if_exists>
-                                        <#assign orderItemQuantity = itemInfo.quantity/>
+                                        <#assign shippedQuantity = 0.000000>
+                                        <#assign orderItemQuantity = orderItem.getBigDecimal("quantity")/>
+                                        <#assign shipments = delegator.findByAnd("Shipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PACKED"))>
+                                        <#if (shipments?has_content)>
+                                          <#list shipments as shipment>
+                                            <#assign itemIssuances = shipment.getRelatedByAnd("ItemIssuance", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", "${orderId}", "orderItemSeqId", orderItemSeqId))>
+                                            <#if itemIssuances?has_content>
+                                              <#list itemIssuances as itemIssuance>
+                                                <#assign shippedQuantity = shippedQuantity + itemIssuance.getBigDecimal("quantity")>
+                                              </#list>
+                                            </#if>
+                                          </#list>
+                                        </#if>
+                                        <#assign orderItemQuantity = orderItemQuantity.subtract(shippedQuantity)>
                                         <#assign orderProduct = orderItem.getRelatedOne("Product")?if_exists/>
-                                        <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)?if_exists/>
+                                        <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, orderItem.productId)?if_exists/>
                                     <#--
                                         <#if orderItem.cancelQuantity?exists>
                                             <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
@@ -275,7 +285,7 @@ under the License.
                                             <#assign orderItemQuantity = orderItem.quantity>
                                         </#if>
                                     -->
-                                        <#assign inputQty = orderItemQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)>
+                                        <#assign inputQty = orderItemQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, orderItem.productId)>
                                         <tr>
                                             <td><input type="checkbox" name="sel_${rowKey}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
                                             <td>${orderItem.orderItemSeqId}</td>
@@ -292,8 +302,8 @@ under the License.
                                                 </#if>
                                             </td>
                                             <td align="right">${orderItemQuantity}</td>
-                                            <td align="right">${shippedQuantity?default(0)}</td>
-                                            <td align="right">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)}</td>
+                                            <td align="right">${shippedQuantity}</td>
+                                            <td align="right">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, orderItem.productId)}</td>
                                             <td>&nbsp;</td>
                                             <td align="center">
                                                 <input type="text" size="7" name="qty_${rowKey}" value="${inputQty}">
@@ -321,7 +331,7 @@ under the License.
                                             <td align="right">
                                                 <input type="text" size="7" name="numPackages_${rowKey}" value="1">
                                             </td>
-                                            <input type="hidden" name="prd_${rowKey}" value="${itemInfo.productId?if_exists}"/>
+                                            <input type="hidden" name="prd_${rowKey}" value="${orderItem.productId?if_exists}"/>
                                             <input type="hidden" name="ite_${rowKey}" value="${orderItem.orderItemSeqId}"/>
                                         </tr>
                                         <#assign rowKey = rowKey + 1>

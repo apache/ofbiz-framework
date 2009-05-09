@@ -21,8 +21,17 @@ package org.ofbiz.shipment.verify;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Locale;
+import java.util.Map;
+import javolution.util.FastMap;
 
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 public class VerifyPickSessionRow implements Serializable {
 
@@ -30,25 +39,22 @@ public class VerifyPickSessionRow implements Serializable {
     protected String orderItemSeqId = null;
     protected String shipGroupSeqId = null;
     protected String productId = null;
-    protected String facilityId = null;
+    protected String inventoryItemId = null;
     protected BigDecimal readyToVerifyQty = BigDecimal.ZERO;
     protected GenericValue orderItem = null;
-    protected int rowItem = 0;
     protected String shipmentItemSeqId = null;
     protected String invoiceItemSeqId = null;
 
     public VerifyPickSessionRow() {
     }
 
-    public VerifyPickSessionRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, String facilityId, GenericValue orderItem, int rowItem) {
+    public VerifyPickSessionRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, BigDecimal quantity) {
         this.orderId = orderId;
         this.orderItemSeqId = orderItemSeqId;
         this.shipGroupSeqId = shipGroupSeqId;
         this.productId = productId;
         this.readyToVerifyQty = quantity;
-        this.facilityId = facilityId;
-        this.orderItem = orderItem;
-        this.rowItem = rowItem;
+        this.inventoryItemId = inventoryItemId;
         this.shipmentItemSeqId = null;
         this.invoiceItemSeqId = null;
     }
@@ -57,7 +63,7 @@ public class VerifyPickSessionRow implements Serializable {
         return this.orderId;
     }
 
-    public String getOrderSeqId() {
+    public String getOrderItemSeqId() {
         return this.orderItemSeqId;
     }
 
@@ -69,8 +75,8 @@ public class VerifyPickSessionRow implements Serializable {
         return this.productId;
     }
 
-    public String getFacilityId() {
-        return this.facilityId;
+    public String getInventoryItemId() {
+        return this.inventoryItemId;
     }
 
     public BigDecimal getReadyToVerifyQty() {
@@ -100,4 +106,68 @@ public class VerifyPickSessionRow implements Serializable {
     public GenericValue getOrderItem() {
         return this.orderItem;
     }
+
+    public boolean isSameItem(VerifyPickSessionRow line) {
+        if (this.getInventoryItemId().equals(line.getInventoryItemId()) && this.getOrderItemSeqId().equals(line.getOrderItemSeqId())
+                && this.getOrderId().equals(line.getOrderId()) && this.getShipGroupSeqId().equals(line.getShipGroupSeqId())) {
+            return true;
+        }
+        return false;
+    }
+
+    protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, BigDecimal quantity, LocalDispatcher dispatcher, Locale locale) throws GeneralException {
+
+        if (quantity == null) {
+            quantity = this.getReadyToVerifyQty();
+        }
+
+        Map<String, Object> issueOrderItemMap = FastMap.newInstance();
+        issueOrderItemMap.put("shipmentId", shipmentId);
+        issueOrderItemMap.put("orderId", this.getOrderId());
+        issueOrderItemMap.put("orderItemSeqId", this.getOrderItemSeqId());
+        issueOrderItemMap.put("shipGroupSeqId", this.getShipGroupSeqId());
+        issueOrderItemMap.put("inventoryItemId", this.getInventoryItemId());
+        issueOrderItemMap.put("quantity", quantity);
+        issueOrderItemMap.put("userLogin", userLogin);
+
+        Map<String, Object> issueOrderItemResp = dispatcher.runSync("issueOrderItemShipGrpInvResToShipment", issueOrderItemMap);
+        if (ServiceUtil.isError(issueOrderItemResp)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(issueOrderItemResp));
+        }
+
+        String shipmentItemSeqId = (String) issueOrderItemResp.get("shipmentItemSeqId");
+        if (shipmentItemSeqId == null) {
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorIssueItemDidNotReturnAValidShipmentItemSeqId", locale));
+        } else {
+            this.setShipmentItemSeqId(shipmentItemSeqId);
+        }
+
+        if (picklistBinId != null) {
+            // find the pick list item
+            GenericDelegator delegator = dispatcher.getDelegator();
+            Map<String, Object> picklistItemMap = FastMap.newInstance();
+            picklistItemMap.put("picklistBinId", picklistBinId);
+            picklistItemMap.put("orderId", this.getOrderId());
+            picklistItemMap.put("orderItemSeqId", this.getOrderItemSeqId());
+            picklistItemMap.put("shipGroupSeqId", this.getShipGroupSeqId());
+            picklistItemMap.put("inventoryItemId", this.getInventoryItemId());
+
+            GenericValue picklistItem = delegator.findOne("PicklistItem", picklistItemMap, true);
+            if (UtilValidate.isNotEmpty(picklistItem)) {
+                BigDecimal itemQty = picklistItem.getBigDecimal("quantity");
+                if (itemQty.compareTo(quantity) == 0) {
+                    // set to complete
+                    picklistItemMap.put("itemStatusId", "PICKITEM_COMPLETED");
+                } else {
+                    picklistItemMap.put("itemStatusId", "PICKITEM_CANCELLED");
+                }
+                picklistItemMap.put("userLogin", userLogin);
+                Map<String, Object> picklistItemResp = dispatcher.runSync("updatePicklistItem", picklistItemMap);
+                if (ServiceUtil.isError(picklistItemResp)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(picklistItemResp));
+                }
+            }
+        }
+    }
+
 }

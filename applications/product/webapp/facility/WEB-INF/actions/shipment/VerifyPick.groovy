@@ -53,6 +53,7 @@ if (facilityId) {
     facility = delegator.findOne("Facility", [facilityId : facilityId], false);
     context.facility = facility;
 }
+verifyPickSession.setFacilityId(facilityId);
 orderId = parameters.orderId;
 shipGroupSeqId = parameters.shipGroupSeqId;
 
@@ -70,6 +71,7 @@ if (picklistBinId) {
     if (picklistBin) {
         orderId = picklistBin.primaryOrderId;
         shipGroupSeqId = picklistBin.primaryShipGroupSeqId;
+        verifyPickSession.setPicklistBinId(picklistBinId);
     }
 }
 

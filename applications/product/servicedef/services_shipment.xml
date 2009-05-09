@@ -487,7 +487,7 @@ under the License.
             location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">
         <description>Pack Single Item</description>
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
