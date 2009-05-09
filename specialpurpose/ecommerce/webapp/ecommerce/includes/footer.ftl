@@ -26,7 +26,7 @@ under the License.
   </div>
   <br/>
   <div class="tabletext" align="center">
-    <div class="tabletext">Copyright (c) 2001-2009 The Apache Software Foundation - <a href="http://www.apache.org" class="tabletext" target="_blank">www.apache.org</a></div>
+    <div class="tabletext">Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" class="tabletext" target="_blank">www.apache.org</a></div>
     <div class="tabletext">Powered by <a href="http://ofbiz.apache.org" class="tabletext" target="_blank">Apache OFBiz</a></div>
   </div>
   <br/>
