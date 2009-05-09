@@ -384,6 +384,9 @@ public class FlexibleStringExpander implements Serializable {
             for (StrElem elem : this.strElems) {
                 elem.append(expr, context, timeZone, locale);
             }
+            if (expr.length() == 0) {
+                return;
+            }
             if (expr.length() > this.hint) {
                 synchronized(this) {
                     this.hint = expr.length();
