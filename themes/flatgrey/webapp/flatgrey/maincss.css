@@ -2119,3 +2119,11 @@ font-weight: bold;
 .manage-portal-column-toolbar #column-width {
 float: right;
 }
+
+/***********************************************
+Webtools
+***********************************************/
+.webToolList h3 {
+  margin:0.75em 0 0.09em 0;
+  text-transform:uppercase;
+}
