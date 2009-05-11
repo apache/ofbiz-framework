@@ -18,29 +18,30 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.InputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.sql.Timestamp;
-import javax.el.*;
+
+import javax.el.FunctionMapper;
 
 import javolution.util.FastMap;
 
+import org.cyberneko.html.parsers.DOMParser;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilXml;
-
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /** Implements Unified Expression Language functions.
@@ -139,7 +140,9 @@ import org.w3c.dom.Node;
  * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
  * <tr><td><code>util:urlExists(String)</code></td><td>Returns <code>true</code> if the specified URL exists.</td></tr>
  * <tr><td colspan="2"><b><code>dom:</code> contains <code>org.w3c.dom.*</code> functions</b></td></tr>
+ * <tr><td><code>dom:readHtmlDocument(String)</code></td><td>Reads an HTML file and returns a <code>org.w3c.dom.Document</code> instance.</td></tr>
  * <tr><td><code>dom:readXmlDocument(String)</code></td><td>Reads an XML file and returns a <code>org.w3c.dom.Document</code> instance.</td></tr>
+ * <tr><td><code>dom:toXmlString(Node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</code></td><td>Returns a <code>org.w3c.dom.Node</code> as an XML <code>String</code>.</td></tr>
  * <tr><td><code>dom:writeXmlDocument(String, Node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</code></td><td>Writes a <code>org.w3c.dom.Node</code> to an XML file and returns <code>true</code> if successful.</td></tr>
  * </table>
  */
@@ -244,7 +247,9 @@ public class UelFunctions {
                 this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
                 this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
+                this.functionMap.put("dom:readHtmlDocument", UelFunctions.class.getMethod("readHtmlDocument", String.class));
                 this.functionMap.put("dom:readXmlDocument", UelFunctions.class.getMethod("readXmlDocument", String.class));
+                this.functionMap.put("dom:toXmlString", UelFunctions.class.getMethod("toXmlString", Node.class, String.class, boolean.class, boolean.class, int.class));
                 this.functionMap.put("dom:writeXmlDocument", UelFunctions.class.getMethod("writeXmlDocument", String.class, Node.class, String.class, boolean.class, boolean.class, int.class));
             } catch (Exception e) {
                 Debug.logError(e, "Error while initializing UelFunctions.Functions instance", module);
@@ -418,6 +423,24 @@ public class UelFunctions {
         return result;
     }
 
+    public static Document readHtmlDocument(String str) {
+        Document document = null;
+        try {
+            URL url = FlexibleLocation.resolveLocation(str);
+            if (url != null) {
+                DOMParser parser = new DOMParser();
+                parser.setFeature("http://xml.org/sax/features/namespaces", false);
+                parser.parse(url.toExternalForm());
+                document = parser.getDocument();
+            } else {
+                Debug.logError("Unable to locate HTML document " + str, module);
+            }
+        } catch (Exception e) {
+            Debug.logError(e, "Error while reading HTML document " + str, module);
+        }
+        return document;
+    }
+
     public static Document readXmlDocument(String str) {
         Document document = null;
         try {
@@ -436,33 +459,31 @@ public class UelFunctions {
     }
 
     public static boolean writeXmlDocument(String str, Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
-        Element element = null;
-        if (node instanceof Document) {
-            element = ((Document) node).getDocumentElement();
-        } else {
-            try {
-                element = (Element) node;
-            } catch (Exception e) {}
-        }
-        if (element != null) {
-            try {
-                File file = FileUtil.getFile(str);
-                if (file != null) {
-                    FileOutputStream os = new FileOutputStream(file);
-                    UtilXml.writeXmlDocument(element, os, encoding, omitXmlDeclaration, indent, indentAmount);
-                    os.close();
-                    return true;
-                } else {
-                    Debug.logError("Unable to create XML document " + str, module);
-                }
-            } catch (Exception e) {
-                Debug.logError(e, "Error while writing XML document " + str, module);
+        try {
+            File file = FileUtil.getFile(str);
+            if (file != null) {
+                FileOutputStream os = new FileOutputStream(file);
+                UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
+                os.close();
+                return true;
+            } else {
+                Debug.logError("Unable to create XML document " + str, module);
             }
-        } else {
-            Debug.logError("Error while writing XML document " + str +
-                    ": Node is not an instance of Document or Element - " +
-                    node.getClass().getName(), module);
+        } catch (Exception e) {
+            Debug.logError(e, "Error while writing XML document " + str, module);
         }
         return false;
+    }
+
+    public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
+            os.close();
+            return os.toString();
+        } catch (Exception e) {
+            Debug.logError(e, "Error while creating XML String ", module);
+        }
+        return null;
     }
 }
