@@ -64,9 +64,15 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-header">
         <div class="boxlink">
-            <a href="<@ofbizUrl>createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCreateCustRequestFromShoppingList}</a>
-            <a href="<@ofbizUrl>createQuoteFromShoppingList?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCreateQuoteFromShoppingList}</a>
-            <a href="javascript:document.updateList.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
+          <form name= "createCustRequestFromShoppingList" method= "post" action= "<@ofbizUrl>createCustRequestFromShoppingList</@ofbizUrl>">
+            <input type= "hidden" name= "shoppingListId" value= "${shoppingList.shoppingListId}"/>
+            <a href='javascript:document.createCustRequestFromShoppingList.submit()'><div class='submenutext'>${uiLabelMap.OrderCreateCustRequestFromShoppingList}</div></a>
+          </form>
+          <form name="createQuoteFromShoppingList" method="post" action="<@ofbizUrl>createQuoteFromShoppingList</@ofbizUrl>">
+            <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}"/>
+            <a href='javascript:document.createQuoteFromShoppingList.submit()'><div class='submenutext'>${uiLabelMap.OrderCreateQuoteFromShoppingList}</div></a>
+          </form>
+          <a href="javascript:document.updateList.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingListDetail} - ${shoppingList.listName}</div>
     </div>
