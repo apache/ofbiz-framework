@@ -76,7 +76,17 @@ under the License.
                       (${uiLabelMap.CommonSince}:${partyContactMechPurpose.fromDate.toString()})
                       <#if partyContactMechPurpose.thruDate?has_content>(${uiLabelMap.CommonExpire}: ${partyContactMechPurpose.thruDate.toString()}</#if>
                     </td>
-                    <td class="button-col"><a href="<@ofbizUrl>deletePartyContactMechPurpose?partyId=${partyId}&contactMechId=${contactMechId}&contactMechPurposeTypeId=${partyContactMechPurpose.contactMechPurposeTypeId}&fromDate=${partyContactMechPurpose.fromDate.toString()}&DONE_PAGE=${donePage?replace("=","%3d")}&useValues=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonDelete}</a></td>
+                    <td class="button-col">
+                      <form name="deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}" method="POST" action="<@ofbizUrl>deletePartyContactMechPurpose</@ofbizUrl>" >
+                         <input type="hidden" name="partyId" value="${partyId}" />
+                         <input type="hidden" name="contactMechId" value="${contactMechId}" />
+                         <input type="hidden" name="contactMechPurposeTypeId" value="${partyContactMechPurpose.contactMechPurposeTypeId}" />
+                         <input type="hidden" name="fromDate" value="${partyContactMechPurpose.fromDate.toString()}" />
+                         <input type="hidden" name="DONE_PAGE" value="${donePage?replace("=","%3d")}" />
+                         <input type="hidden" name="useValues" value="true" />
+                         <a href="javascript:document.deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a> 
+                       </form>
+                    </td>
                   </tr>
                 </#list>
               </#if>
