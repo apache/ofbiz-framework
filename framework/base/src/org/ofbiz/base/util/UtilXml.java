@@ -184,23 +184,23 @@ public class UtilXml {
         return transformerFactory.newTransformer(new StreamSource(bis));
     }
 
-    /** Serializes a DOM <code>Element</code> to an <code>OutputStream</code>
+    /** Serializes a DOM <code>Node</code> to an <code>OutputStream</code>
      * using JAXP TrAX.
      * @param transformer A <code>Transformer</code> instance
-     * @param element The <code>Element</code> to serialize
+     * @param element The <code>Node</code> to serialize
      * @param os The <code>OutputStream</code> to serialize to
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerException
      */
-    public static void transformDomDocument(Transformer transformer, Element element, OutputStream os) throws TransformerException {
-        DOMSource source = new DOMSource(element);
+    public static void transformDomDocument(Transformer transformer, Node node, OutputStream os) throws TransformerException {
+        DOMSource source = new DOMSource(node);
         StreamResult result = new StreamResult(os);
         transformer.transform(source, result);
     }
 
-    /** Serializes a DOM <code>Element</code> to an <code>OutputStream</code>
+    /** Serializes a DOM <code>Node</code> to an <code>OutputStream</code>
      * using JAXP TrAX.
-     * @param element The <code>Element</code> to serialize
+     * @param element The <code>Node</code> to serialize
      * @param os The <code>OutputStream</code> to serialize to
      * @param encoding Optional encoding, defaults to UTF-8
      * @param omitXmlDeclaration If <code>true</code> the xml declaration
@@ -211,9 +211,9 @@ public class UtilXml {
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerException
      */
-    public static void writeXmlDocument(Element element, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerException {
+    public static void writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerException {
         Transformer transformer = createOutputTransformer(encoding, omitXmlDeclaration, indent, indentAmount);
-        transformDomDocument(transformer, element, os);
+        transformDomDocument(transformer, node, os);
     }
 
     // ------------------------------------ //
