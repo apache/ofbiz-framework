@@ -304,6 +304,7 @@ public class ShoppingCartServices {
             for (GenericValue item : orderItems) {
                 // get the next item sequence id
                 String orderItemSeqId = item.getString("orderItemSeqId");
+                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -671,6 +672,7 @@ public class ShoppingCartServices {
             for(GenericValue quoteItem : quoteItems) {
                 // get the next item sequence id
                 String orderItemSeqId = quoteItem.getString("quoteItemSeqId");
+                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -857,6 +859,7 @@ public class ShoppingCartServices {
             for(GenericValue shoppingListItem : shoppingListItems) {
                 // get the next item sequence id
                 String orderItemSeqId = shoppingListItem.getString("shoppingListItemSeqId");
+                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
