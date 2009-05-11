@@ -214,8 +214,10 @@ under the License.
               ${uiLabelMap.CommonUpdate}</a>&nbsp;</div>
             </td>
             <td align="right" valign="top" width="1%" nowrap>
-              <div><a href="<@ofbizUrl>deleteContactMech/viewprofile?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="buttontext">
-              ${uiLabelMap.CommonExpire}</a>&nbsp;&nbsp;</div>
+              <form name= "deleteContactMech_${contactMech.contactMechId}" method= "post" action= "<@ofbizUrl>deleteContactMech</@ofbizUrl>">
+                <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}"/>
+                <a href='javascript:document.deleteContactMech_${contactMech.contactMechId}.submit()' class='buttontext'>${uiLabelMap.CommonExpire}</a>
+              </form>
             </td>
           </tr>
       </#list>
