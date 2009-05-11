@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="EcommerceANew">
+        <value xml:lang="da">en ny</value>
         <value xml:lang="de">Ein neues</value>
         <value xml:lang="en">a new</value>
         <value xml:lang="fr">un nouvel</value>
@@ -27,11 +28,13 @@
         <value xml:lang="th">ใหม่</value>
     </property>
     <property key="EcommerceAccountInformation">
+        <value xml:lang="da">Konto information</value>
         <value xml:lang="en">Account Information</value>
         <value xml:lang="fr">Information sur le compte</value>
         <value xml:lang="it">Informazioni utente</value>
     </property>
     <property key="EcommerceAccountLogin">
+        <value xml:lang="da">Deres konto login er:</value>
         <value xml:lang="de">Ihre Benutzeranmeldung ist:</value>
         <value xml:lang="en">Your account login is:</value>
         <value xml:lang="es">Usuario</value>
@@ -47,6 +50,7 @@
     </property>
     <property key="EcommerceActive">
         <value xml:lang="cs">Váš E-mail</value>
+        <value xml:lang="da">Aktiv</value>
         <value xml:lang="de">Aktiv</value>
         <value xml:lang="en">Active</value>
         <value xml:lang="es">Activo</value>
@@ -62,6 +66,7 @@
     </property>
     <property key="EcommerceAddChildListsToCart">
         <value xml:lang="cs">Přidejte tento seznam a další seznam(-y) do košíku</value>
+        <value xml:lang="da">Læg denne liste samt underliste(r) i indkøbskurven</value>
         <value xml:lang="de">Fügen Sie diese Liste mit Unterliste(n) zum Warenkorb hinzu</value>
         <value xml:lang="en">Add This List And Child List(s) To Cart</value>
         <value xml:lang="en_GB">Add This List And Child List(s) To basket</value>
@@ -79,6 +84,7 @@
     </property>
     <property key="EcommerceAddListToCart">
         <value xml:lang="cs">Přidat seznam do košíku</value>
+        <value xml:lang="da">Læg liste i indkøbskurven</value>
         <value xml:lang="de">Liste zum Warenkorb hinzufügen</value>
         <value xml:lang="en">Add List To Cart</value>
         <value xml:lang="en_GB">Add List To basket</value>
@@ -95,12 +101,14 @@
         <value xml:lang="zh">把列表放入购物车</value>
     </property>
     <property key="EcommerceAddNewAddress">
+        <value xml:lang="da">Tilføj ny adresse</value>
         <value xml:lang="de">Neue Adresse hinzufügen</value>
         <value xml:lang="en">Add New Address</value>
         <value xml:lang="fr">Ajouter une nouvelle adresse</value>
         <value xml:lang="it">Aggiungi nuovo indirizzo</value>
     </property>
     <property key="EcommerceAddNewDigitalProduct">
+        <value xml:lang="da">Tilføj nyt digitalt produkt</value>
         <value xml:lang="de">Neues digitales Produkt hinzufügen</value>
         <value xml:lang="en">Add New Digital Product</value>
         <value xml:lang="fr">Ajouter le nouvel article numérique</value>
@@ -112,6 +120,7 @@
         <value xml:lang="zh">新建数字产品</value>
     </property>
     <property key="EcommerceAddResponseFor">
+        <value xml:lang="da">Tilføj svar til</value>
         <value xml:lang="de">Antwort hinzufügen für</value>
         <value xml:lang="en">Add Response For</value>
         <value xml:lang="es">Añadir respuesta para</value>
@@ -127,6 +136,7 @@
     </property>
     <property key="EcommerceAddSelectedtoList">
         <value xml:lang="cs">Přidat vybrané do seznamu</value>
+        <value xml:lang="da">Tilføj udvalgte til listen</value>
         <value xml:lang="de">Ausgewählte Artikel in Liste aufnehmen</value>
         <value xml:lang="en">Add Selected to List</value>
         <value xml:lang="es">Añadir lo seleccionado a la lista</value>
@@ -141,12 +151,14 @@
         <value xml:lang="zh">把选中的添加到列表中</value>
     </property>
     <property key="EcommerceAdditionalAddresses">
+        <value xml:lang="da">Ekstra adresser</value>
         <value xml:lang="de">Zusätzliche Adressen</value>
         <value xml:lang="en">Additional Addresses</value>
         <value xml:lang="fr">Adresses additionelles</value>
         <value xml:lang="it">Indirizzi aggiuntivi</value>
     </property>
     <property key="EcommerceAddressBook">
+        <value xml:lang="da">Adressebog</value>
         <value xml:lang="de">Adressbuch</value>
         <value xml:lang="en">Address Book</value>
         <value xml:lang="fr">Carnet d'adresses</value>
@@ -154,6 +166,7 @@
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
+        <value xml:lang="da">Justering</value>
         <value xml:lang="de">Anpassung</value>
         <value xml:lang="en">Adjustment</value>
         <value xml:lang="es">Ajuste</value>
@@ -170,6 +183,7 @@
     </property>
     <property key="EcommerceAdjustments">
         <value xml:lang="cs">Úpravy</value>
+        <value xml:lang="da">Justeringer</value>
         <value xml:lang="de">Anpassungen</value>
         <value xml:lang="en">Adjustments</value>
         <value xml:lang="es">Ajustes</value>
@@ -186,6 +200,7 @@
     </property>
     <property key="EcommerceAlwaysViewCartAfterAddingAnItem">
         <value xml:lang="cs">Vždy se podívat do košíku, pokud byla přidána další položka</value>
+        <value xml:lang="da">Check altid indkøbskurven når der er lagt en ny vare i den</value>
         <value xml:lang="de">Immer den Warenkorb prüfen, wenn ein neuer Artikel hineingelegt wurde.</value>
         <value xml:lang="en">Always View Cart After Adding An Item</value>
         <value xml:lang="en_GB">Always view basket after adding an item</value>
@@ -201,6 +216,7 @@
         <value xml:lang="zh">总是在添加一个明细后浏览购物车</value>
     </property>
     <property key="EcommerceArticleInformation">
+        <value xml:lang="da">Vareinformation</value>
         <value xml:lang="de">Artikelinformationen</value>
         <value xml:lang="en">Article Information</value>
         <value xml:lang="es">Información del artículo</value>
@@ -215,6 +231,7 @@
         <value xml:lang="zh">文章信息</value>
     </property>
     <property key="EcommerceAssignItems">
+        <value xml:lang="da">Tildel emne</value>
         <value xml:lang="en">Assign Items</value>
         <value xml:lang="es">Asignar ítems</value>
         <value xml:lang="fr">Affecter les articles</value>
@@ -227,6 +244,7 @@
         <value xml:lang="zh">分配明细</value>
     </property>
     <property key="EcommerceBeSureToIncludeYourOrderNb">
+        <value xml:lang="da">Husk at inkludere din ordre</value>
         <value xml:lang="en">Be sure to include your order #</value>
         <value xml:lang="es">Asegurese de incluir la Orden #</value>
         <value xml:lang="fr">Soyez sûr(e) d'inclure votre n° de commande</value>
@@ -240,97 +258,116 @@
         <value xml:lang="zh">确信包括了你的订单 #</value>
     </property>
     <property key="EcommerceBlogAddResponse">
+        <value xml:lang="da">Tilføj et svar</value>
         <value xml:lang="en">Add a response:</value>
         <value xml:lang="fr">Ajouter une réponse : </value>
         <value xml:lang="it">Aggiungi una risposta:</value>
     </property>
     <property key="EcommerceBlogAddResponseMessage">
+        <value xml:lang="da">De skal være logget på for at tilføje et svar</value>
         <value xml:lang="en">You must be logged in to add a response.</value>
         <value xml:lang="fr">Vous devez être connecté(e) pour pouvoir ajouter une réponse : </value>
         <value xml:lang="it">Devi essere autenticato per aggiungere una risposta.</value>
     </property>
     <property key="EcommerceBlogAddThread">
+        <value xml:lang="da">Tilføj en tråd</value>
         <value xml:lang="en">Add a thread:</value>
         <value xml:lang="fr">Ajouter un fil de discussion : </value>
         <value xml:lang="it">Aggiungi una discussione:</value>
     </property>
     <property key="EcommerceBlogArticle">
+        <value xml:lang="da">Artikel</value>
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
     </property>
     <property key="EcommerceBlogContentNotFound">
+        <value xml:lang="da">Kan ikke finde blog indhold!</value>   
         <value xml:lang="en">Unable to find Blog content!</value>
         <value xml:lang="fr">Impossible de trouver le contenu du blog !</value>
         <value xml:lang="it">Non è possibile trovare il contenuto Blog!</value>
     </property>
     <property key="EcommerceBlogEditComments">
+        <value xml:lang="da">De skal være logget på for at kunne redigere kommentarer.</value>
         <value xml:lang="en">You must be logged in in order to edit comments.</value>
         <value xml:lang="fr">Vous devez être connecté(e) pour pouvoir modifier les commentaires.</value>
         <value xml:lang="it">Devi essere autenticato per poter aggiornare un commento.</value>
     </property>
     <property key="EcommerceBlogEntryId">
+        <value xml:lang="da">Blog indlæg id</value>
         <value xml:lang="en">Blog entry Id</value>
         <value xml:lang="fr">Réf. de note de blog</value>
         <value xml:lang="it">Voce blog</value>
     </property>
     <property key="EcommerceBlogFullMessage">
+        <value xml:lang="da">Fuld besked</value>
         <value xml:lang="en">Full message</value>
         <value xml:lang="fr">Message complet</value>
         <value xml:lang="it">Messaggio completo</value>
     </property>
     <property key="EcommerceBlogLatestResponses">
+        <value xml:lang="da">Sidste svar</value>
         <value xml:lang="en">Latest Responses</value>
         <value xml:lang="fr">Dernière réponse</value>
         <value xml:lang="it">Ultime risposte</value>
     </property>
     <property key="EcommerceBlogMessageTree">
+        <value xml:lang="da">Besked træstruktur</value>
         <value xml:lang="en">Message tree</value>
         <value xml:lang="fr">Arborescence de messages</value>
         <value xml:lang="it">Albero messaggi</value>
     </property>
     <property key="EcommerceBlogPostedOn">
+        <value xml:lang="da">Sendt til</value>
         <value xml:lang="en">Posted on</value>
         <value xml:lang="fr">Envoyé le </value>
         <value xml:lang="it">Inviato il</value>
     </property>
     <property key="EcommerceBlogPostComments">
+        <value xml:lang="da">De skal være logget på samt vise en publiceret meddelelse for at kunne tilføje kommentarer.</value>
         <value xml:lang="en">You must be logged in and viewing a published record in order to post comments.</value>
         <value xml:lang="fr">Vous devez être connecté(e) et entrain de visualiser un commentaire afinf de pouvoir envoyer les votres</value>
         <value xml:lang="it">Devi essere autenticato e visualizzare un record pubblicato per poter inviare un commento.</value>
     </property>
     <property key="EcommerceBlogPreview">
+        <value xml:lang="da">Vis</value>
         <value xml:lang="en">Preview</value>
         <value xml:lang="fr">Visionner</value>
         <value xml:lang="it">Anteprima</value>
     </property>
     <property key="EcommerceBlogPublish">
+        <value xml:lang="da">Publicer</value>
         <value xml:lang="en">Publish</value>
         <value xml:lang="fr">Publier</value>
         <value xml:lang="it">Pubblica</value>
     </property>
     <property key="EcommerceBlogTopCenter">
+        <value xml:lang="da">Midt for i toppen</value>
         <value xml:lang="en">Top Center</value>
         <value xml:lang="fr">En haut au centre</value>
         <value xml:lang="it">Alto al centro</value>
     </property>
     <property key="EcommerceBlogTopLeft">
+        <value xml:lang="da">Til venstre i toppen</value>
         <value xml:lang="en">Top Left</value>
         <value xml:lang="fr">En haut à gauche</value>
         <value xml:lang="it">Alto a sinistra</value>
     </property>
     <property key="EcommerceBlogViewArticle">
+        <value xml:lang="da">Vis blog artikel</value>
         <value xml:lang="en">View Blog Article</value>
         <value xml:lang="fr">Voir l'article du blog</value>
         <value xml:lang="it">Mostra articolo blog</value>
     </property>
     <property key="EcommerceBronze">
+        <value xml:lang="da">Bronze</value>
         <value xml:lang="en">Bronze</value>
         <value xml:lang="fr">Bronze</value>
         <value xml:lang="it">Bronzo</value>
     </property>
     <property key="EcommerceCartHas">
         <value xml:lang="cs">Košík má</value>
+        <value xml:lang="da">Indkøbskurven indeholder</value>
         <value xml:lang="de">Der Warenkorb enthält</value>
         <value xml:lang="en">Cart has</value>
         <value xml:lang="en_GB">Basket has</value>
@@ -348,6 +385,7 @@
     </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
+        <value xml:lang="da">Indkøbskurv total</value>
         <value xml:lang="de">Gesamtsumme</value>
         <value xml:lang="en">Cart Total</value>
         <value xml:lang="en_GB">Basket Total</value>
@@ -365,6 +403,7 @@
     </property>
     <property key="EcommerceChangePaymentInfo">
         <value xml:lang="cs">naposledy vybraná položka</value>
+        <value xml:lang="da">Ret betalingsinformation</value>
         <value xml:lang="de">Zahlungsinformation ändern</value>
         <value xml:lang="en">Change Payment Info</value>
         <value xml:lang="es">Cambiar información de pago</value>
@@ -380,6 +419,7 @@
     </property>
     <property key="EcommerceChangeShippingAddress">
         <value xml:lang="cs">naposledy vybraná položka</value>
+        <value xml:lang="da">Ret forsendelsesadresse</value>
         <value xml:lang="de">Versandadresse ändern</value>
         <value xml:lang="en">Change Shipping Address</value>
         <value xml:lang="en_GB">Change Delivery Address</value>
@@ -395,6 +435,7 @@
         <value xml:lang="zh">修改货运地址</value>
     </property>
     <property key="EcommerceChangeShippingOptions">
+        <value xml:lang="da">Ret forsendelsesmuligheder</value>
         <value xml:lang="en">Change Shipping Options</value>
         <value xml:lang="es">Cambie las opciones de envío</value>
         <value xml:lang="fr">Changez les options d'expédition</value>
@@ -407,6 +448,7 @@
         <value xml:lang="zh">修改货运选项</value>
     </property>
     <property key="EcommerceCheckBalance">
+        <value xml:lang="da">Kontrollér saldo</value>
         <value xml:lang="de">Kontostand prüfen</value>
         <value xml:lang="en">Check Balance</value>
         <value xml:lang="fr">Vérifier le solde</value>
@@ -419,6 +461,7 @@
     </property>
     <property key="EcommerceChildListTotalPrice">
         <value xml:lang="cs">Celková cena následujícího seznamu</value>
+        <value xml:lang="da">Total pris for underliste</value>
         <value xml:lang="de">Gesamtpreis Unterliste(n)</value>
         <value xml:lang="en">Child List Total Price</value>
         <value xml:lang="es">Mostrar total</value>
@@ -434,6 +477,7 @@
     </property>
     <property key="EcommerceChildShoppingList">
         <value xml:lang="cs">Následující nákupní seznamy</value>
+        <value xml:lang="da">Underindkøbsliste</value>
         <value xml:lang="de">Untereinkaufslisten</value>
         <value xml:lang="en">Child Shopping List</value>
         <value xml:lang="es">Listas de compras hijas</value>
@@ -448,12 +492,14 @@
         <value xml:lang="zh">子购物列表</value>
     </property>
     <property key="EcommerceClickHereToEdit">
+        <value xml:lang="da">Klik her for at redigere</value>
         <value xml:lang="de">Hier klicken um zu Bearbeiten</value>
         <value xml:lang="en">Click here to edit</value>
         <value xml:lang="fr">Cliquez-ici pour modifier</value>
         <value xml:lang="it">Clicca qui per aggiornare</value>
     </property>
     <property key="EcommerceCompleted">
+        <value xml:lang="da">Afsluttet</value>
         <value xml:lang="de">Abgeschlossen</value>
         <value xml:lang="en">Completed</value>
         <value xml:lang="es">Completado</value>
@@ -468,6 +514,7 @@
         <value xml:lang="zh">完成了 - 谢谢您！</value>
     </property>
     <property key="EcommerceContentFor">
+        <value xml:lang="da">Indhold for</value>
         <value xml:lang="de">Inhalt für</value>
         <value xml:lang="en">Content For</value>
         <value xml:lang="es">Contenido para</value>
@@ -482,6 +529,7 @@
         <value xml:lang="zh">内容用于</value>
     </property>
     <property key="EcommerceContentInformation">
+        <value xml:lang="da">Indholdsinformation</value>
         <value xml:lang="de">Inhalt Information</value>
         <value xml:lang="en">Content Information</value>
         <value xml:lang="es">Información del contenido</value>
@@ -496,6 +544,7 @@
         <value xml:lang="zh">内容信息</value>
     </property>
     <property key="EcommerceContentName">
+        <value xml:lang="da">Indholdsnavn</value>
         <value xml:lang="de">Inhalt Name</value>
         <value xml:lang="en">Content Name</value>
         <value xml:lang="es">Nombre del contenido</value>
@@ -511,6 +560,7 @@
     </property>
     <property key="EcommerceContinueShopping">
         <value xml:lang="cs">Pokračovat v nákupu</value>
+        <value xml:lang="da">Fortsæt med at handle</value>
         <value xml:lang="de">Einkauf fortsetzen</value>
         <value xml:lang="en">Continue Shopping</value>
         <value xml:lang="es">Continuar comprando</value>
@@ -526,12 +576,14 @@
         <value xml:lang="zh">继续购物</value>
     </property>
     <property key="EcommerceContinueToStep">
+        <value xml:lang="da">Fortsæt til trin</value>
         <value xml:lang="de">Fortfahren mit Schritt</value>
         <value xml:lang="en">Continue to step</value>
         <value xml:lang="fr">Continuer (prochaine étape)</value>
         <value xml:lang="it">Continua al passo</value>
     </property>
     <property key="EcommerceDataResourceId">
+        <value xml:lang="da">Dataresurse Id</value>
         <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Resource Id</value>
         <value xml:lang="es">Código de Data Resource</value>
@@ -546,12 +598,14 @@
         <value xml:lang="zh">数据资源标识</value>
     </property>
     <property key="EcommerceDefaultAddresses">
+        <value xml:lang="da">Standard adresse</value>
         <value xml:lang="de">Standard Adressen</value>
         <value xml:lang="en">Default Addresses</value>
         <value xml:lang="fr">Adresses par défaut</value>
         <value xml:lang="it">Indirizzo di default</value>
     </property>
     <property key="EcommerceDefaultShipmentMethod">
+        <value xml:lang="da">Standard forsendelsesmetode</value>
         <value xml:lang="de">Standard Versandmethode</value>
         <value xml:lang="en">Default Shipment Method</value>
         <value xml:lang="es">Método de envío por defecto</value>
@@ -565,6 +619,7 @@
         <value xml:lang="zh">缺省货运方法</value>
     </property>
     <property key="EcommerceDefaultShipmentMethodMsg">
+        <value xml:lang="da">Vælg venligst din standard forsendelsesadresse; vælg dernæst en standard forsendelsesmetode</value>
         <value xml:lang="de">Bitte wählen Sie Ihre Standard Lieferadresse; danach wählen Sie eine Standard Versandmethode.</value>
         <value xml:lang="en">Please select your default shipping address; then select a default shipping method.</value>
         <value xml:lang="es">Favor seleccionar su dirección por defecto; luego seleccionar el método de envío por defecto</value>
@@ -579,6 +634,7 @@
         <value xml:lang="zh">请选择你的缺省货运地址；然后选择一个缺省的货运方法。</value>
     </property>
     <property key="EcommerceDigitalAddFromMyFiles">
+        <value xml:lang="da">Tilføj digitalt fra mine filer</value>
         <value xml:lang="de">Digitales hinzufügen von Meine Dateien</value>
         <value xml:lang="en">Digital Add From My Files</value>
         <value xml:lang="fr">Ajout numérique depuis mes fichiers</value>
@@ -590,6 +646,7 @@
         <value xml:lang="zh">从我的文件添加</value>
     </property>
     <property key="EcommerceDigitalNewProduct">
+        <value xml:lang="da">Nyt digitalt produkt</value>
         <value xml:lang="de">Neues digitales Produkt</value>
         <value xml:lang="en">Digital New Product</value>
         <value xml:lang="fr">Nouvel article numérique</value>
@@ -601,6 +658,7 @@
         <value xml:lang="zh">新建数字产品</value>
     </property>
     <property key="EcommerceDigitalProductFiles">
+        <value xml:lang="da">Digitale produktfiler</value>
         <value xml:lang="de">Digitales Produkt Dateien</value>
         <value xml:lang="en">Digital Product Files</value>
         <value xml:lang="fr">Fichiers d'article numérique</value>
@@ -612,6 +670,7 @@
         <value xml:lang="zh">数字产品文件</value>
     </property>
     <property key="EcommerceDigitalProductPurchaseHistoryCommission">
+        <value xml:lang="da">Historik over kommission for indkøb af digitale produkter</value>
         <value xml:lang="de">Historie über Kommissionen digitale Produkteinkäufe</value>
         <value xml:lang="en">Digital Product Purchase History Commission</value>
         <value xml:lang="fr">Historique des commissions sur l'achat d'articles(s) numérique(s)</value>
@@ -623,6 +682,7 @@
         <value xml:lang="zh">数字产品购买历史记录和佣金</value>
     </property>
     <property key="EcommerceDigitalProductUpload">
+        <value xml:lang="da">Upload af digitalt produkt</value>
         <value xml:lang="de">Digitales Produkt hochladen</value>
         <value xml:lang="en">Digital Product Upload</value>
         <value xml:lang="es">carga de productos digitales</value>
@@ -635,6 +695,7 @@
         <value xml:lang="zh">数字产品上传</value>
     </property>
     <property key="EcommerceDownloadNotFound">
+        <value xml:lang="da">Download ikke fundet</value>
         <value xml:lang="de">Datei zum Herunterladen nicht gefunden</value>
         <value xml:lang="en">Download Not Found</value>
         <value xml:lang="es">No se encontraron archivos descargables</value>
@@ -647,6 +708,7 @@
         <value xml:lang="zh">没有找到下载文件</value>
     </property>
     <property key="EcommerceDownloadsAvailableTitle">
+        <value xml:lang="da">Titel for tilgængelige downloads</value>
         <value xml:lang="de">Folgende Dateien sind zum Herunterladen verfügbar</value>
         <value xml:lang="en">Downloads Available Title </value>
         <value xml:lang="es">Descargar los archivos disponibles</value>
@@ -659,17 +721,20 @@
         <value xml:lang="zh">可用的下载文件</value>
     </property>
     <property key="EcommerceEditProfile">
+        <value xml:lang="da">Redigér profil</value>
         <value xml:lang="de">Profil bearbeiten</value>
         <value xml:lang="en">Edit Profile</value>
         <value xml:lang="fr">Modifier le profil</value>
         <value xml:lang="it">Aggiorna profilo</value>
     </property>
     <property key="EcommerceEditThisComment">
+        <value xml:lang="da">Redigér denne kommentar</value>
         <value xml:lang="en">Edit this comment</value>
         <value xml:lang="fr">Modifier ce commentaire</value>
         <value xml:lang="it">Aggiorna questo commento</value>
     </property>
     <property key="EcommerceEmptyBody">
+        <value xml:lang="da">Tekst ikke udfyldt</value>
         <value xml:lang="de">Leerer Meldungstext</value>
         <value xml:lang="en">Empty Body</value>
         <value xml:lang="es">Contenido vacío</value>
@@ -685,6 +750,7 @@
     </property>
     <property key="EcommerceEmptyCart">
         <value xml:lang="cs">Vyprázdnit koš</value>
+        <value xml:lang="da">Tøm indkøbskurven</value>
         <value xml:lang="de">Warenkorb leeren</value>
         <value xml:lang="en">Empty Cart</value>
         <value xml:lang="en_GB">Empty basket</value>
@@ -701,12 +767,14 @@
         <value xml:lang="zh">清空购物车</value>
     </property>
     <property key="EcommerceEnterPromoCode">
+        <value xml:lang="da">Indtast kode for reklamefremstød</value>
         <value xml:lang="de">Aktionscode angeben</value>
         <value xml:lang="en">Enter Promo Code</value>
         <value xml:lang="fr">Saisissez votre code de promotion</value>
         <value xml:lang="it">Inserire codice promozione</value>
     </property>
     <property key="EcommerceEnterQueryParameters">
+        <value xml:lang="da">Indtast parametre til forespørgsel</value>
         <value xml:lang="de">Abfrageparameter angeben</value>
         <value xml:lang="en">Enter Query Parameters</value>
         <value xml:lang="es">Ingrese parámetros de búsqueda</value>
@@ -721,6 +789,7 @@
         <value xml:lang="zh">输入查询参数</value>
     </property>
     <property key="EcommerceEstimateNextOrderDate">
+        <value xml:lang="da">Næste anslåede ordredato</value>
         <value xml:lang="de">Nächstes Auftragsdatum schätzen</value>
         <value xml:lang="en">Estimate Next Order Date</value>
         <value xml:lang="es">Fecha siguiente de orden estimada</value>
@@ -735,6 +804,7 @@
         <value xml:lang="zh">预计下一个订单日期</value>
     </property>
     <property key="EcommerceEvery3rd">
+        <value xml:lang="da">Hver tredje</value>
         <value xml:lang="de">Jeder Dritte</value>
         <value xml:lang="en">Every 3rd</value>
         <value xml:lang="es">Cada 3</value>
@@ -749,6 +819,7 @@
         <value xml:lang="zh">每3天</value>
     </property>
     <property key="EcommerceEvery6th">
+        <value xml:lang="da">Hver sjette</value>
         <value xml:lang="de">Jeder Sechste</value>
         <value xml:lang="en">Every 6th</value>
         <value xml:lang="es">Cada 6</value>
@@ -763,6 +834,7 @@
         <value xml:lang="zh">每6天</value>
     </property>
     <property key="EcommerceEvery9th">
+        <value xml:lang="da">Hver niende</value>
         <value xml:lang="de">Jeder Neunte</value>
         <value xml:lang="en">Every 9th</value>
         <value xml:lang="es">Cada 9</value>
@@ -777,6 +849,7 @@
         <value xml:lang="zh">每9天</value>
     </property>
     <property key="EcommerceEveryDay">
+        <value xml:lang="da">Hver dag</value>
         <value xml:lang="de">Jeden Tag</value>
         <value xml:lang="en">Every Day</value>
         <value xml:lang="es">Todos los días</value>
@@ -791,6 +864,7 @@
         <value xml:lang="zh">每天</value>
     </property>
     <property key="EcommerceEveryOther">
+        <value xml:lang="da">Hver anden</value>
         <value xml:lang="de">Jeden zweiten</value>
         <value xml:lang="en">Every Other</value>
         <value xml:lang="es">Todo lo otro</value>
@@ -805,6 +879,7 @@
         <value xml:lang="zh">隔天</value>
     </property>
     <property key="EcommerceExemptAmount">
+        <value xml:lang="da">Undtaget beløb</value>
         <value xml:lang="de">Freibetrag</value>
         <value xml:lang="en">Exempt Amount</value>
         <value xml:lang="es">Cantidad exenta</value>
@@ -821,6 +896,7 @@
     <property key="EcommerceFactoids">
         <value xml:lang="ar">أتعرف؟</value>
         <value xml:lang="cs">Věděli jste ?</value>
+        <value xml:lang="da">Vidste De?</value>
         <value xml:lang="de">Wussten Sie schon?</value>
         <value xml:lang="en">Did you know?</value>
         <value xml:lang="es">¿Sabía usted?</value>
@@ -834,6 +910,7 @@
         <value xml:lang="zh">你知道吗？</value>
     </property>
     <property key="EcommerceFileManager">
+        <value xml:lang="da">Filhåndtering</value>
         <value xml:lang="de">Dateiverwaltung</value>
         <value xml:lang="en">File Manager</value>
         <value xml:lang="es">Administrador de archivos</value>
@@ -848,6 +925,7 @@
         <value xml:lang="zh">文件管理</value>
     </property>
     <property key="EcommerceFollowingMessage">
+        <value xml:lang="da">har anmodet, sender vi Dem dette link med følgende besked:</value>
         <value xml:lang="de">hat verlangt, das wir Ihnen diesen Link zusammen mit der folgenden Meldung zusenden:</value>
         <value xml:lang="en">has requested we send you this link with the following message:</value>
         <value xml:lang="es">ha pedido que le enviemos el siguiente mensaje :</value>
@@ -861,6 +939,7 @@
         <value xml:lang="zh">要求我们发送给你这个带有下列消息的链接：</value>
     </property>
     <property key="EcommerceFromParentArticle">
+        <value xml:lang="da">Fra overordnet artikel</value>
         <value xml:lang="de">Vom übergeordneten Artikel</value>
         <value xml:lang="en">From Parent Article</value>
         <value xml:lang="es">De artículo padre</value>
@@ -875,6 +954,7 @@
         <value xml:lang="zh">来自上级文章</value>
     </property>
     <property key="EcommerceFromSite">
+        <value xml:lang="da">Fra side:</value>
         <value xml:lang="de">Von Seite:</value>
         <value xml:lang="en">From Site</value>
         <value xml:lang="es">De sitio :</value>
@@ -889,10 +969,12 @@
         <value xml:lang="zh">来自站点：</value>
     </property>
     <property key="EcommerceGeneratedDescription">
+        <value xml:lang="da">Generel beskrivelse:</value>
         <value xml:lang="en">Generated Description:</value>
         <value xml:lang="fr">Description générée : </value>
     </property>
     <property key="EcommerceGiftAmount">
+        <value xml:lang="da">Gavebeløb:</value>
         <value xml:lang="de">Gutschein Betrag:</value>
         <value xml:lang="en">Gift Amount:</value>
         <value xml:lang="es">Cantidad de regalo :</value>
@@ -907,6 +989,7 @@
         <value xml:lang="zh">礼品金额     :</value>
     </property>
     <property key="EcommerceGiftCardFrom">
+        <value xml:lang="da">Gavekort fra</value>
         <value xml:lang="de">Gutschein von</value>
         <value xml:lang="en">Gift Card From</value>
         <value xml:lang="es">Certificado de regalo</value>
@@ -921,6 +1004,7 @@
         <value xml:lang="zh">礼品卡来自</value>
     </property>
     <property key="EcommerceGiftCardNewBalance">
+        <value xml:lang="da">Ny saldo for gavekort</value>
         <value xml:lang="de">Gutschein neuer Kontostand</value>
         <value xml:lang="en">Gift Card New Balance</value>
         <value xml:lang="es">El nuevo balance es :</value>
@@ -935,6 +1019,7 @@
         <value xml:lang="zh">新的余额是：</value>
     </property>
     <property key="EcommerceGiftCardRefunded">
+        <value xml:lang="da">Gavekortet er refunderet</value>
         <value xml:lang="de">Gutschein zurückerstattet</value>
         <value xml:lang="en">Gift Card Refunded</value>
         <value xml:lang="es">Su orden ha sido marcada para ser reembolsada</value>
@@ -949,6 +1034,7 @@
         <value xml:lang="zh">你的订单已经标记为退款。</value>
     </property>
     <property key="EcommerceGiftCardReloadFailed">
+        <value xml:lang="da">Genindlæsning af gavekort mislykkedes</value>
         <value xml:lang="de">Aufladen Gutschein fehlgeschlagen</value>
         <value xml:lang="en">Gift Card Reload Failed</value>
         <value xml:lang="es">Recarga de certificado de regalo fallida. El código del error es:</value>
@@ -963,6 +1049,7 @@
         <value xml:lang="zh">礼品卡充值过程失败，响应码为：</value>
     </property>
     <property key="EcommerceGiftCardReloaded">
+        <value xml:lang="da">Gavekort er genindlæst</value>
         <value xml:lang="de">Gutschein aufgeladen</value>
         <value xml:lang="en">Gift Card Reloaded</value>
         <value xml:lang="es">ha sido recargada.</value>
@@ -977,6 +1064,7 @@
         <value xml:lang="zh">已经充值了。</value>
     </property>
     <property key="EcommerceGiftWrapAllItems">
+        <value xml:lang="da">Indpak alle varer i gavepapir</value>
         <value xml:lang="de">Alle Positionen mit Geschenkverpackung</value>
         <value xml:lang="en">Gift Wrap All Items</value>
         <value xml:lang="es">Empaquetar todos los items</value>
@@ -992,6 +1080,7 @@
     </property>
     <property key="EcommerceGoToList">
         <value xml:lang="cs">Jdi na seznam</value>
+        <value xml:lang="da">Hop til liste</value>
         <value xml:lang="de">Zur Liste</value>
         <value xml:lang="en">GoToList</value>
         <value xml:lang="es">Ir a la lista</value>
@@ -1007,6 +1096,7 @@
         <value xml:lang="zh">转到列表</value>
     </property>
     <property key="EcommerceGold">
+        <value xml:lang="da">Guld</value>
         <value xml:lang="de">Gold</value>
         <value xml:lang="en">Gold</value>
         <value xml:lang="es">Oro</value>
@@ -1021,6 +1111,7 @@
         <value xml:lang="zh">金牌</value>
     </property>
     <property key="EcommerceHighToLow">
+        <value xml:lang="da">Høj til lav</value>
         <value xml:lang="de">Absteigend (Hoch zu Tief)</value>
         <value xml:lang="en">High To Low</value>
         <value xml:lang="es">de mayor a menor</value>
@@ -1035,6 +1126,7 @@
         <value xml:lang="zh">从高到低</value>
     </property>
     <property key="EcommerceImage">
+        <value xml:lang="da">Billede</value>
         <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="es">Imagen</value>
@@ -1049,6 +1141,7 @@
         <value xml:lang="zh">图像</value>
     </property>
     <property key="EcommerceImageCenteredAbove">
+        <value xml:lang="da">Billede centreret ovenfor</value>
         <value xml:lang="de">Bild zentriert oben</value>
         <value xml:lang="en">Image Centered Above</value>
         <value xml:lang="es">Imagen centrada</value>
@@ -1063,6 +1156,7 @@
         <value xml:lang="zh">图像居中顶对齐</value>
     </property>
     <property key="EcommerceImageCenteredAboveFile">
+        <value xml:lang="da">Billede centreret over fil</value>
         <value xml:lang="de">Bild zentriert über Datei</value>
         <value xml:lang="en">Image Centered Above File</value>
         <value xml:lang="es">Imagen centrada desde archivo</value>
@@ -1077,6 +1171,7 @@
         <value xml:lang="zh">图像居中顶对齐来自文件</value>
     </property>
     <property key="EcommerceImageFileName">
+        <value xml:lang="da">Filnavn for billede</value>
         <value xml:lang="de">Bild Dateiname</value>
         <value xml:lang="en">Image File Name</value>
         <value xml:lang="es">Nombre de la imagen</value>
@@ -1091,6 +1186,7 @@
         <value xml:lang="zh">图像文件名</value>
     </property>
     <property key="EcommerceImageInformation">
+        <value xml:lang="da">Billedinformation</value>
         <value xml:lang="de">Bild Informationen</value>
         <value xml:lang="en">Image Information</value>
         <value xml:lang="es">Información de la imagen</value>
@@ -1105,6 +1201,7 @@
         <value xml:lang="zh">图像信息</value>
     </property>
     <property key="EcommerceImageLeft">
+        <value xml:lang="da">Billede til venstre, tekst flyder rundtom</value>
         <value xml:lang="de">Bild links, Text fliesst drumherum.</value>
         <value xml:lang="en">Image left, text flows around.</value>
         <value xml:lang="es">Imagen a la izquierda</value>
@@ -1119,6 +1216,7 @@
         <value xml:lang="zh">图像居左、文字环绕。</value>
     </property>
     <property key="EcommerceInResponseTo">
+        <value xml:lang="da">Som svar på</value>
         <value xml:lang="de">Als Antwort auf</value>
         <value xml:lang="en">In Response To</value>
         <value xml:lang="es">En respuesta a :</value>
@@ -1133,6 +1231,7 @@
         <value xml:lang="zh">回答：</value>
     </property>
     <property key="EcommerceIsDefault">
+        <value xml:lang="da">Er standard</value>
         <value xml:lang="de">Ist Standard</value>
         <value xml:lang="en">Is Default</value>
         <value xml:lang="es">es default</value>
@@ -1148,6 +1247,7 @@
     </property>
     <property key="EcommerceItemTotal">
         <value xml:lang="cs">Položka celkem</value>
+        <value xml:lang="da">Vare total</value>
         <value xml:lang="de">Gesamtsumme</value>
         <value xml:lang="en">Item Total</value>
         <value xml:lang="es">Total</value>
@@ -1164,6 +1264,7 @@
     </property>
     <property key="EcommerceItemsfromShopingList">
         <value xml:lang="cs">Položky z nákupního seznamu; aktualizovat počty ze stránky sezamu</value>
+        <value xml:lang="da">Varer fra indkøbsliste</value>
         <value xml:lang="de">Artikel von einer Einkaufsliste; Mengen auf der Listenseite aktualisieren</value>
         <value xml:lang="en">Items from Shoping List</value>
         <value xml:lang="es">Items de la lista de compras, actualizar cantidades desde la página de listas</value>
@@ -1180,6 +1281,7 @@
     </property>
     <property key="EcommerceLastCategories">
         <value xml:lang="cs">Poslední kategorie</value>
+        <value xml:lang="da">Seneste kategorier</value>
         <value xml:lang="de">Letzte Kategorien</value>
         <value xml:lang="en">Last Categories</value>
         <value xml:lang="es">Últimas categorías</value>
@@ -1194,6 +1296,7 @@
         <value xml:lang="zh">最近浏览的分类</value>
     </property>
     <property key="EcommerceLastContent">
+        <value xml:lang="da">Seneste indhold</value>
         <value xml:lang="de">Letzter Inhalt</value>
         <value xml:lang="en">Last Content</value>
         <value xml:lang="es">Último contenido</value>
@@ -1209,6 +1312,7 @@
     </property>
     <property key="EcommerceLastProducts">
         <value xml:lang="cs">Poslední výrobky</value>
+        <value xml:lang="da">Seneste produkter</value>
         <value xml:lang="de">Letzte Produkte</value>
         <value xml:lang="en">Last Products</value>
         <value xml:lang="es">Últimos productos</value>
@@ -1224,6 +1328,7 @@
     </property>
     <property key="EcommerceLastViewed">
         <value xml:lang="cs">Naposledy prohlížená položka</value>
+        <value xml:lang="da">Sidst set</value>
         <value xml:lang="de">Zuletzt angesehen</value>
         <value xml:lang="en">Last Viewed</value>
         <value xml:lang="es">Últimos vistos</value>
@@ -1239,6 +1344,7 @@
         <value xml:lang="zh">最近浏览</value>
     </property>
     <property key="EcommerceLength">
+        <value xml:lang="da">Længde</value>
         <value xml:lang="de">Länge</value>
         <value xml:lang="en">Length</value>
         <value xml:lang="es">Longitud</value>
@@ -1253,6 +1359,7 @@
         <value xml:lang="zh">长度</value>
     </property>
     <property key="EcommerceLinkCards">
+        <value xml:lang="da">Sammenkæd kort</value>
         <value xml:lang="de">Karten verknüpfen</value>
         <value xml:lang="en">Link Cards</value>
         <value xml:lang="fr">Connecter les cartes</value>
@@ -1265,6 +1372,7 @@
     </property>
     <property key="EcommerceListDoesNotBelong">
         <value xml:lang="cs">Nepatří Vám, prosíme vyzkoušejte to znovu</value>
+        <value xml:lang="da">Listen tilhører ikke Dem</value>
         <value xml:lang="de">gehört nicht zu Ihnen, bitte versuchen Sie es erneut</value>
         <value xml:lang="en">List Does Not Belong</value>
         <value xml:lang="es">no le corresponde, por favor intente nuevamente.</value>
@@ -1281,6 +1389,7 @@
     </property>
     <property key="EcommerceListItems">
         <value xml:lang="cs">Položky nákupního seznamu</value>
+        <value xml:lang="da">Vis varer</value>
         <value xml:lang="de">Artikel auf der Einkaufsliste</value>
         <value xml:lang="en">List Items</value>
         <value xml:lang="es">Items de lista de compras</value>
@@ -1297,6 +1406,7 @@
     </property>
     <property key="EcommerceListItemsTotalPrice">
         <value xml:lang="de">Gesamtpreis dieser Artikelliste</value>
+        <value xml:lang="da">Vis total pris for varer</value>
         <value xml:lang="en">List Items Total Price</value>
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Prix total de la liste d'articles</value>
@@ -1312,6 +1422,7 @@
     </property>
     <property key="EcommerceListName">
         <value xml:lang="cs">Jméno seznamu</value>
+        <value xml:lang="da">Listenavn</value>
         <value xml:lang="de">Listenname</value>
         <value xml:lang="en">List Name</value>
         <value xml:lang="es">Nombre de la lista</value>
@@ -1327,6 +1438,7 @@
         <value xml:lang="zh">列表名称</value>
     </property>
     <property key="EcommerceListNote">
+        <value xml:lang="da">BEMÆRK: Når De abonnerer på på en E-mail kontaktliste vil de modtage en E-mail med en opt-in verifikationskode og et link for at verificere Deres abonnement. Som et alternativ til linket, kan De indtaste deres opt-in kode her.</value>
         <value xml:lang="de">ANMERKUNG: Wenn Sie eine E-Mail Kontaktliste abonnieren erhalten Sie eine E-Mail mit einem Opt-In Überprüfungscode und einem Link zur Überprüfung Ihres Abonnementes. Als Alternative zum Überprüfungslink können Sie den Opt-In Überprüfungscode hier eingeben.</value>
         <value xml:lang="en">NOTE: When you subscribe to an email contact list you will receive an email with an opt-in verification code and a link to verify your subscription. As an alternative to the link you can enter your opt-in verify code here.</value>
         <value xml:lang="es">NOTA:Al suscribirse a una lista, recivirá correo con una opción de verificación de subscripción y un link a la verificación de la misma. Como alternativa al link, puede ingresar el código de verificación aquí</value>
@@ -1339,11 +1451,13 @@
         <value xml:lang="zh">注意：当你注册一个电子邮件联系列表，你会收到一个带有验证码和一个链接的电子邮件以便验证你的电子邮件有效。作为那个链接的替代方式，你可以在这里输入你的验证码。</value>
     </property>
     <property key="EcommerceLocation">
+        <value xml:lang="da">Placering</value>
         <value xml:lang="en">Location</value>
         <value xml:lang="fr">Emplacement</value>
         <value xml:lang="it">Luogo</value>
     </property>
     <property key="EcommerceLoggedToPost">
+        <value xml:lang="da">(De skal være logget på for at kunne skrive)</value>
         <value xml:lang="de">(Sie müssen angemeldet sein um Nachrichten zu schreiben)</value>
         <value xml:lang="en">(You must be logged in to post)</value>
         <value xml:lang="es">(Debe loguearse para ejecutar la función que desea)</value>
@@ -1357,6 +1471,7 @@
         <value xml:lang="zh">(你必须登录才能留言)</value>
     </property>
     <property key="EcommerceLongSubject">
+        <value xml:lang="da">Langt emne</value>
         <value xml:lang="de">Thema lang</value>
         <value xml:lang="en">Long Subject</value>
         <value xml:lang="es">Título largo</value>
@@ -1371,6 +1486,7 @@
         <value xml:lang="zh">长主题</value>
     </property>
     <property key="EcommerceLosePassword">
+        <value xml:lang="da">Hvis De skulle miste Deres kodeord, kan De til enhver tid anmode om et nyt.</value>
         <value xml:lang="de">Falls Sie Ihr Passwort vergessen können Sie jederzeit ein neues beantragen.</value>
         <value xml:lang="en">If you ever lose your password, you can request a new one at any time.</value>
         <value xml:lang="es">Si perdió su password, puede solicitarlo otra vez las veces que desee.</value>
@@ -1385,6 +1501,7 @@
         <value xml:lang="zh">如果你丢了你的密码，你能随时得到一个新的。</value>
     </property>
     <property key="EcommerceLowToHigh">
+        <value xml:lang="da">Lav til høj</value>
         <value xml:lang="de">Aufsteigend (Tief zu Hoch)</value>
         <value xml:lang="en">Low To High</value>
         <value xml:lang="es">De menor a mayor</value>
@@ -1399,6 +1516,7 @@
         <value xml:lang="zh">从低到高</value>
     </property>
     <property key="EcommerceLoyaltyPoints">
+        <value xml:lang="da">Loyalitetspoint</value>
         <value xml:lang="de">Treuepunkte</value>
         <value xml:lang="en">Loyalty Points</value>
         <value xml:lang="es">Puntos de calidad</value>
@@ -1413,12 +1531,14 @@
         <value xml:lang="zh">忠诚度点数</value>
     </property>
     <property key="EcommerceManageAddresses">
+        <value xml:lang="da">Vedligehold adresse</value>
         <value xml:lang="de">Adressen verwalten</value>
         <value xml:lang="en">Manage Addresses</value>
         <value xml:lang="fr">Gérer les adresses</value>
         <value xml:lang="it">Gestione indirizzi</value>
     </property>
     <property key="EcommerceMessage1">
+        <value xml:lang="da">Beklager, det lader til at det angivne produkt ID</value>
         <value xml:lang="de">Bedaure, es scheint als ob die angegebene Produkt ID</value>
         <value xml:lang="en">Sorry, it appears that the specified product ID</value>
         <value xml:lang="fr">Désolé, il semble que l'article spécifié</value>
@@ -1430,6 +1550,7 @@
         <value xml:lang="zh">对不起，指定的产品标识</value>
     </property>
     <property key="EcommerceMessage2">
+        <value xml:lang="da">ikke tilhører Dem.</value>
         <value xml:lang="de">nicht zu Ihnen gehört.</value>
         <value xml:lang="en">does not belong to you.</value>
         <value xml:lang="fr">ne vous appartient pas</value>
@@ -1441,6 +1562,7 @@
         <value xml:lang="zh">不属于你。</value>
     </property>
     <property key="EcommerceMessage3">
+        <value xml:lang="da">Vælg en ny fakturaadresse</value>
         <value xml:lang="de">Neue Rechnungsadresse auswählen:</value>
         <value xml:lang="en">Select a New Billing Address:</value>
         <value xml:lang="fr">Sélectionnez une nouvelle adresse de facturation</value>
@@ -1452,6 +1574,7 @@
         <value xml:lang="zh">选择一个新的寄账单地址：</value>
     </property>
     <property key="EcommerceMessageListForForum">
+        <value xml:lang="da">Vedligehold forumliste</value>
         <value xml:lang="de">Meldungsliste für Forum</value>
         <value xml:lang="en">Message List For Forum</value>
         <value xml:lang="fr">Liste de messages du forum</value>
@@ -1463,6 +1586,7 @@
         <value xml:lang="zh">消息列表——论坛：</value>
     </property>
     <property key="EcommerceMessagePleaseSelectPaymentMethod">
+        <value xml:lang="da">Vælg venligst betalingsform</value>
         <value xml:lang="de">Bitte wählen Sie eine Zahlungsmethode</value>
         <value xml:lang="en">Please Select Payment Method</value>
         <value xml:lang="fr">SVP, sélectionnez un moyen de paiement</value>
@@ -1471,6 +1595,7 @@
         <value xml:lang="th">กรุณาเลือกวิธีการชำระเงิน</value>
     </property>
     <property key="EcommerceMessagePleaseSelectShippingMethod">
+        <value xml:lang="da">Vælg venligst leveringsmetode</value>
         <value xml:lang="de">Bitte wählen Sie eine Versandmethode</value>
         <value xml:lang="en">Please Select Shipping Method</value>
         <value xml:lang="fr">SVP, sélectionnez une méthode d'expédition</value>
@@ -1479,6 +1604,7 @@
         <value xml:lang="th">กรุณาเลือกวิธีการขนส่งสินค้า</value>
     </property>
     <property key="EcommerceMonths">
+        <value xml:lang="da">Måneder</value>
         <value xml:lang="de">Monate</value>
         <value xml:lang="en">Months</value>
         <value xml:lang="es">Meses</value>
@@ -1493,24 +1619,28 @@
         <value xml:lang="zh">月</value>
     </property>
     <property key="EcommerceMyAccount">
+        <value xml:lang="da">Min konto</value>
         <value xml:lang="de">Mein Konto</value>
         <value xml:lang="en">My Account</value>
         <value xml:lang="fr">Mon compte</value>
         <value xml:lang="it">Il mio account</value>
     </property>
     <property key="EcommerceMyDefaultBillingAddress">
+        <value xml:lang="da">Gør dette til min standard fakturaadresse</value>
         <value xml:lang="de">Diese Adresse als Standard Rechnungsadresse verwenden</value>
         <value xml:lang="en">Make this my default billing address</value>
         <value xml:lang="fr">Faites de ceci mon adresse de facturation par défaut</value>
         <value xml:lang="it">Imposta come indirizzo di fatturazione predefinito</value>
     </property>
     <property key="EcommerceMyDefaultShippingAddress">
+        <value xml:lang="da">Gør dette til min standard leveringsadresse</value>
         <value xml:lang="de">Diese Adresse als Standard Lieferadresse verwenden</value>
         <value xml:lang="en">Make this my default shipping address</value>
         <value xml:lang="fr">Faites de ceci mon adresse d'expédition par défaut</value>
         <value xml:lang="it">Imposta come indirizzo di spedizione predefinito</value>
     </property>
     <property key="EcommerceNbrOfDays">
+        <value xml:lang="da">Antal dage</value>
         <value xml:lang="de">Anzahl Tage</value>
         <value xml:lang="en">Nbr Of Days</value>
         <value xml:lang="es">Número de días</value>
@@ -1525,6 +1655,7 @@
         <value xml:lang="zh">天数</value>
     </property>
     <property key="EcommerceNbrOfPersons">
+        <value xml:lang="da">Antal personer</value>
         <value xml:lang="de">Anzahl Personen</value>
         <value xml:lang="en">Nbr Of Persons</value>
         <value xml:lang="es">Número de personas</value>
@@ -1539,6 +1670,7 @@
         <value xml:lang="zh">人数</value>
     </property>
     <property key="EcommerceNestedContent">
+        <value xml:lang="da">Underopdelt indhold</value>
         <value xml:lang="de">Verschachtelter Inhalt</value>
         <value xml:lang="en">Nested Content</value>
         <value xml:lang="es">Contenido incluido</value>
@@ -1553,6 +1685,7 @@
         <value xml:lang="zh">嵌套的内容</value>
     </property>
     <property key="EcommerceNewCreditCard">
+        <value xml:lang="da">Nyt kreditkort</value>
         <value xml:lang="de">Neue Kreditkarte</value>
         <value xml:lang="en">New Credit Card </value>
         <value xml:lang="es">Nueva tarjeta de crédito</value>
@@ -1567,6 +1700,7 @@
         <value xml:lang="zh">新建信用卡</value>
     </property>
     <property key="EcommerceNewEFTAccount">
+        <value xml:lang="da">Ny bankkonto</value>
         <value xml:lang="de">Neues Bankkonto</value>
         <value xml:lang="en">New EFT Account</value>
         <value xml:lang="es">Nueva cuenta EFT</value>
@@ -1581,6 +1715,7 @@
         <value xml:lang="zh">新建电子资金转账账户</value>
     </property>
     <property key="EcommerceNewListSubscription">
+        <value xml:lang="da">Nyt listeabonnement</value>
         <value xml:lang="de">Neue Liste abonnieren</value>
         <value xml:lang="en">New List Subscription</value>
         <value xml:lang="es">Nueva lista de subscripción</value>
@@ -1592,18 +1727,21 @@
         <value xml:lang="zh">新注册列表</value>
     </property>
     <property key="EcommerceNewPasswordMssgEncryptionOff">
+        <value xml:lang="da">Deres adgangskode er:</value>
         <value xml:lang="de">Ihr Passwort ist: </value>
         <value xml:lang="en">Your password is :- </value>
         <value xml:lang="fr">Votre mot de passe est : </value>
         <value xml:lang="it">La tua password è :- </value>
     </property>
     <property key="EcommerceNewPasswordMssgEncryptionOn">
+        <value xml:lang="da">Deres nye adgangskode er :- </value>
         <value xml:lang="de">Ihr neues Passwort ist : </value>
         <value xml:lang="en">Your new password is :- </value>
         <value xml:lang="fr">Votre nouveau mot de passe est : </value>
         <value xml:lang="it">La nuova password è :- </value>
     </property>
     <property key="EcommerceNoDigitalProductsFound">
+        <value xml:lang="da">Der er ikke fundet nogen digitale produkter</value>
         <value xml:lang="de">Keine digitalen Produkte gefunden</value>
         <value xml:lang="en">No Digital Products Found</value>
         <value xml:lang="fr">Aucun article numérique trouvé</value>
@@ -1615,6 +1753,7 @@
         <value xml:lang="zh">没有找到数字产品</value>
     </property>
     <property key="EcommerceNoFiles">
+        <value xml:lang="da">Ingen filer</value>
         <value xml:lang="de">Keine Dateien</value>
         <value xml:lang="en">No Files</value>
         <value xml:lang="es">No hay archivos</value>
@@ -1629,6 +1768,7 @@
         <value xml:lang="zh">你没有文件。</value>
     </property>
     <property key="EcommerceNoGiftWrap">
+        <value xml:lang="da">Ingen gavepapir</value>
         <value xml:lang="de">Keine Geschenkverpackung</value>
         <value xml:lang="en">No Gift Wrap</value>
         <value xml:lang="es">Nuevo regalo</value>
@@ -1643,6 +1783,7 @@
         <value xml:lang="zh">没有礼品包装</value>
     </property>
     <property key="EcommerceNoMessages">
+        <value xml:lang="da">Ingen meddelelser</value>
         <value xml:lang="de">Keine Meldungen</value>
         <value xml:lang="en">No Messages</value>
         <value xml:lang="es">No hay mensajes</value>
@@ -1657,6 +1798,7 @@
         <value xml:lang="zh">没有属于你的消息</value>
     </property>
     <property key="EcommerceNoPROMOTIONCategory">
+        <value xml:lang="da">Ingen kategori for reklamefremstød</value>
         <value xml:lang="de">Keine Aktionskategorie</value>
         <value xml:lang="en">No PROMOTION Category</value>
         <value xml:lang="es">No hay promociones en el catálogo</value>
@@ -1672,6 +1814,7 @@
     </property>
     <property key="EcommerceNoParent">
         <value xml:lang="cs">Žádný předchůdce</value>
+        <value xml:lang="da">Ingen forgænger</value>
         <value xml:lang="de">Kein Vorgänger</value>
         <value xml:lang="en">No Parent</value>
         <value xml:lang="es">No hay padre</value>
@@ -1686,6 +1829,7 @@
         <value xml:lang="zh">没有上一级</value>
     </property>
     <property key="EcommerceNoProductStore">
+        <value xml:lang="da">Ingen varelager</value>
         <value xml:lang="de">Kein Laden</value>
         <value xml:lang="en">No Product Store</value>
         <value xml:lang="es">No hay tienda asociada a este sitio web, revise su configuración</value>
@@ -1699,6 +1843,7 @@
         <value xml:lang="zh">这个站点没有产品店铺；请检查设置。</value>
     </property>
     <property key="EcommerceNoRecordsFound">
+        <value xml:lang="da">Der er ikke fundet nogen registreringer</value>
         <value xml:lang="de">Keine Datensätze gefunden</value>
         <value xml:lang="en">No Records Found</value>
         <value xml:lang="es">No se encontraron registros</value>
@@ -1714,6 +1859,7 @@
     </property>
     <property key="EcommerceNoShoppingListsCreate">
         <value xml:lang="cs">Nelze vybrat žádný nákupní seznam, založte nový</value>
+        <value xml:lang="da">Ingen indkøbslister kan vælges, opret en ny</value>
         <value xml:lang="de">Es gibt noch keine Einkaufslisten, legen Sie eine neue an</value>
         <value xml:lang="en">No shopping lists to select, create a new one</value>
         <value xml:lang="es">No hay lista de compras, cree una nueva</value>
@@ -1729,6 +1875,7 @@
         <value xml:lang="zh">没有可选的购物列表，请新建一个</value>
     </property>
     <property key="EcommerceNoSubject">
+        <value xml:lang="da">Ingen emne</value>
         <value xml:lang="de">Kein Thema</value>
         <value xml:lang="en">No Subject</value>
         <value xml:lang="es">No hay tema</value>
@@ -1743,6 +1890,7 @@
         <value xml:lang="zh">没有主题</value>
     </property>
     <property key="EcommerceNotCompleted">
+        <value xml:lang="da">Ikke afsluttet</value>
         <value xml:lang="de">Nicht vollständig</value>
         <value xml:lang="en">Not Completed</value>
         <value xml:lang="es">Incompleto</value>
@@ -1757,12 +1905,14 @@
         <value xml:lang="zh">未完成</value>
     </property>
     <property key="EcommerceNotExists">
+        <value xml:lang="da">Findes ikke</value>
         <value xml:lang="de">Existiert nicht</value>
         <value xml:lang="en">Not Exists</value>
         <value xml:lang="fr">N'existe pas</value>
         <value xml:lang="it">Non esiste</value>
     </property>
     <property key="EcommerceNotYetKnown">
+        <value xml:lang="da">Endnu ikke kendt</value>
         <value xml:lang="de">Noch nicht bekannt</value>
         <value xml:lang="en">Not Yet Known</value>
         <value xml:lang="fr">Pas encore connu</value>
@@ -1774,6 +1924,7 @@
         <value xml:lang="zh">未知</value>
     </property>
     <property key="EcommerceOnePageCheckout">
+        <value xml:lang="da">Check ud på enkelt side</value>
         <value xml:lang="de">Bezahlvorgang auf einer Seite</value>
         <value xml:lang="en">One Page Checkout</value>
         <value xml:lang="fr">Paiement sur une seule page</value>
@@ -1781,6 +1932,7 @@
     </property>
     <property key="EcommerceOrderConfirmation">
         <value xml:lang="cs">Potvrzení objednávky</value>
+        <value xml:lang="da">Ordrebekræftelse</value>
         <value xml:lang="de">Bestellbestätigung</value>
         <value xml:lang="en">Order Confirmation</value>
         <value xml:lang="es">Confirmación de Compra</value>
@@ -1796,6 +1948,7 @@
     </property>
     <property key="EcommerceOrderHistory">
         <value xml:lang="cs">Statistika objednávek</value>
+        <value xml:lang="da">Ordrehistorik</value>
         <value xml:lang="de">Bestellhistorie</value>
         <value xml:lang="en">Order History</value>
         <value xml:lang="es">Historial de Compras</value>
@@ -1811,6 +1964,7 @@
         <value xml:lang="zh">订单历史记录</value>
     </property>
     <property key="EcommerceOrderInLast">
+        <value xml:lang="da">Seneste ordre(r)</value>
         <value xml:lang="de">Aufträge in den letzten</value>
         <value xml:lang="en">order(s) in the last</value>
         <value xml:lang="es">orden(s) en los últimos</value>
@@ -1825,6 +1979,7 @@
         <value xml:lang="zh">上次的订单</value>
     </property>
     <property key="EcommerceOrderNotActive">
+        <value xml:lang="da">Ordren er ikke aktiv</value>
         <value xml:lang="de">Auftrag nicht aktiv</value>
         <value xml:lang="en">Order Not Active</value>
         <value xml:lang="fr">Commande non active</value>
@@ -1832,6 +1987,7 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้าไม่ทำงาน</value>
     </property>
     <property key="EcommerceOwningDepartment">
+        <value xml:lang="da">Ejende afdeling</value>
         <value xml:lang="de">Besitzende Abteilung</value>
         <value xml:lang="en">Owning Department</value>
         <value xml:lang="es">Servicio de propiedades</value>
@@ -1846,6 +2002,7 @@
     </property>
     <property key="EcommerceParentList">
         <value xml:lang="cs">Seznam předchůdců</value>
+        <value xml:lang="da">Hovedliste</value>
         <value xml:lang="de">Hauptliste</value>
         <value xml:lang="en">Parent List</value>
         <value xml:lang="es">Lista padre</value>
@@ -1860,6 +2017,7 @@
         <value xml:lang="zh">上一级列表</value>
     </property>
     <property key="EcommercePassword">
+        <value xml:lang="da">Med kodeordet du valgte under registrering.</value>
         <value xml:lang="de">Mit dem Passwort das Sie während der Registrierung angegeben haben.</value>
         <value xml:lang="en">With the password you set during registration.</value>
         <value xml:lang="es">Password</value>
@@ -1874,6 +2032,7 @@
         <value xml:lang="zh">使用你注册时设置的密码。</value>
     </property>
     <property key="EcommercePasswordIs">
+        <value xml:lang="da">kodeord er</value>
         <value xml:lang="de">Passwort ist</value>
         <value xml:lang="en">password is</value>
         <value xml:lang="fr">mot de passe est</value>
@@ -1881,6 +2040,7 @@
         <value xml:lang="th">รหัสผ่านคือ</value>
     </property>
     <property key="EcommercePasswordSentToYou">
+        <value xml:lang="da">kodeord er sendt til Dem</value>
         <value xml:lang="de">Passwort das Ihnen zugesendet wurde</value>
         <value xml:lang="en">password sent to you</value>
         <value xml:lang="fr">mot de passe qui vous a été envoyé</value>
@@ -1888,12 +2048,14 @@
         <value xml:lang="th">ส่งรหัสผ่านถึงคุณ</value>
     </property>
     <property key="EcommercePleaseWait">
+        <value xml:lang="da">Vent venligst</value>
         <value xml:lang="de">Bitte warten</value>
         <value xml:lang="en">Please wait</value>
         <value xml:lang="fr">Attendez SVP</value>
         <value xml:lang="it">Attendere prego</value>
     </property>
     <property key="EcommercePointsFrom">
+        <value xml:lang="da">point fra</value>
         <value xml:lang="de">Punkte von</value>
         <value xml:lang="en">Points From</value>
         <value xml:lang="es">puntos de</value>
@@ -1909,6 +2071,7 @@
     </property>
     <property key="EcommercePostAnonymous">
         <value xml:lang="cs">oznámit anonymně</value>
+        <value xml:lang="da">Send anonymt</value>
         <value xml:lang="de">Anonym schicken</value>
         <value xml:lang="en">Post Anonymous</value>
         <value xml:lang="es">Publicar anónimo</value>
@@ -1925,6 +2088,7 @@
     </property>
     <property key="EcommercePrice">
         <value xml:lang="cs">Cena</value>
+        <value xml:lang="da">Pris</value>
         <value xml:lang="de">Preis</value>
         <value xml:lang="en">Price</value>
         <value xml:lang="es">Precio</value>
@@ -1940,23 +2104,27 @@
         <value xml:lang="zh">价格</value>
     </property>
     <property key="EcommercePrimaryBillingAddress">
+        <value xml:lang="da">Primær faktureringsadresse</value>
         <value xml:lang="de">Haupt Rechnungsadresse</value>
         <value xml:lang="en">Primary Billing Address</value>
         <value xml:lang="fr">Adresse de facturation principale</value>
         <value xml:lang="it">Indirizzo primario di fatturazione</value>
     </property>
     <property key="EcommercePrimaryShippingAddress">
+        <value xml:lang="da">Primær leveringsadresse</value>
         <value xml:lang="de">Haupt Lieferadresse</value>
         <value xml:lang="en">Primary Shipping Address</value>
         <value xml:lang="fr">Adresse d'expédition principale</value>
         <value xml:lang="it">Indirizzo primario di spedizione</value>
     </property>
     <property key="EcommerceProductNotConfigured">
+        <value xml:lang="da">Produktet er ikke konfigureret</value>
         <value xml:lang="en">Product not configured</value>
         <value xml:lang="fr">Article non configuré</value>
         <value xml:lang="it">Prodotto non configurato</value>
     </property>
     <property key="EcommerceProductNumber">
+        <value xml:lang="da">Produktnummer</value>
         <value xml:lang="de">Produktnummer</value>
         <value xml:lang="en">Product Number</value>
         <value xml:lang="es">Producto</value>
@@ -1972,6 +2140,7 @@
     </property>
     <property key="EcommercePromotionalItems">
         <value xml:lang="cs">Reklamní položka; množství nelze změnit</value>
+        <value xml:lang="da">Reklameartikler</value>
         <value xml:lang="de">Werbeartikel; Mengen können nicht geändert werden</value>
         <value xml:lang="en">Promotional Items</value>
         <value xml:lang="es">Artículos promocionales</value>
@@ -1988,6 +2157,7 @@
     </property>
     <property key="EcommercePublic">
         <value xml:lang="cs">veřejný</value>
+        <value xml:lang="da">Offentlig</value>
         <value xml:lang="de">Öffentlich</value>
         <value xml:lang="en">Public</value>
         <value xml:lang="es">Público</value>
@@ -2003,6 +2173,7 @@
         <value xml:lang="zh">公开</value>
     </property>
     <property key="EcommerceQuoteHistory">
+        <value xml:lang="da">Tilbudshistorik</value>
         <value xml:lang="de">Angebot Historie</value>
         <value xml:lang="en">Quote History</value>
         <value xml:lang="fr">Historique des devis</value>
@@ -2014,6 +2185,7 @@
         <value xml:lang="zh">询价历史记录</value>
     </property>
     <property key="EcommerceRate">
+        <value xml:lang="da">Hyppighed</value>    
         <value xml:lang="de">Steuern</value>
         <value xml:lang="en">Rate</value>
         <value xml:lang="es">Tasa</value>
@@ -2029,6 +2201,7 @@
     </property>
     <property key="EcommerceRating">
         <value xml:lang="cs">Hodnocení (1-5; 5 je velmi dobré)</value>
+        <value xml:lang="da">Estimat</value>
         <value xml:lang="de">Bewertung (1-5; 5 entspricht sehr gut)</value>
         <value xml:lang="en">Estimation</value>
         <value xml:lang="es">Voto (de 1 a 5)</value>
@@ -2044,6 +2217,7 @@
         <value xml:lang="zh">评级 (1-5; 5最好)</value>
     </property>
     <property key="EcommerceRead">
+        <value xml:lang="da">Læse</value>
         <value xml:lang="de">Lesen</value>
         <value xml:lang="en">Read</value>
         <value xml:lang="es">Leer</value>
@@ -2056,6 +2230,7 @@
         <value xml:lang="zh">读取</value>
     </property>
     <property key="EcommerceReadMessage">
+        <value xml:lang="da">Læs besked</value>
         <value xml:lang="de">Meldungen lesen</value>
         <value xml:lang="en">Read Message</value>
         <value xml:lang="fr">Lire le message</value>
@@ -2068,6 +2243,7 @@
     </property>
     <property key="EcommerceRecalculateCart">
         <value xml:lang="cs">Přepočítat košík</value>
+        <value xml:lang="da">Genberegn indkøbskurv</value>
         <value xml:lang="de">Neuberechnung der Gesamtsumme</value>
         <value xml:lang="en">Recalculate Cart</value>
         <value xml:lang="en_GB">Recalculate basket</value>
@@ -2084,6 +2260,7 @@
         <value xml:lang="zh">重新计算购物车</value>
     </property>
     <property key="EcommerceRecurrence">
+        <value xml:lang="da">Gentagelse</value>
         <value xml:lang="de">Wiederholung</value>
         <value xml:lang="en">Recurrence</value>
         <value xml:lang="es">Recurrencia</value>
@@ -2097,12 +2274,14 @@
         <value xml:lang="zh">重新操作</value>
     </property>
     <property key="EcommerceRegister">
+        <value xml:lang="da">Registrer</value>
         <value xml:lang="en">Register</value>
         <value xml:lang="fr">S'enregistrer</value>
         <value xml:lang="it">Registrati</value>
     </property>
     <property key="EcommerceRemoveSelected">
         <value xml:lang="cs">Zrušit výběr</value>
+        <value xml:lang="da">Fjern valgte</value>
         <value xml:lang="de">Ausgewählte Artikel entfernen</value>
         <value xml:lang="en">Remove Selected </value>
         <value xml:lang="es">Remover seleccionados</value>
@@ -2119,6 +2298,7 @@
     </property>
     <property key="EcommerceReplaceWithVariation">
         <value xml:lang="cs">Nahradit změnou</value>
+        <value xml:lang="da">Erstat med variant</value>
         <value xml:lang="de">Durch Variante ersetzen</value>
         <value xml:lang="en">Replace With Variation</value>
         <value xml:lang="es">Reemplazar con variantes</value>
@@ -2134,6 +2314,7 @@
         <value xml:lang="zh">替换为选择</value>
     </property>
     <property key="EcommerceRequestHistory">
+        <value xml:lang="da">Forespørgselshistorik</value>
         <value xml:lang="de">Anfrage Historie</value>
         <value xml:lang="en">Request History</value>
         <value xml:lang="fr">Historique des demandes</value>
@@ -2145,6 +2326,7 @@
         <value xml:lang="zh">请求历史记录</value>
     </property>
     <property key="EcommerceRespond">
+        <value xml:lang="da">Svar</value>
         <value xml:lang="de">Antworten</value>
         <value xml:lang="en">Respond</value>
         <value xml:lang="es">Responder</value>
@@ -2159,6 +2341,7 @@
         <value xml:lang="zh">回答</value>
     </property>
     <property key="EcommerceResponses">
+        <value xml:lang="da">Svar</value>
         <value xml:lang="de">Antworten</value>
         <value xml:lang="en">Responses</value>
         <value xml:lang="es">Respuestas</value>
@@ -2173,6 +2356,7 @@
         <value xml:lang="zh">回答：</value>
     </property>
     <property key="EcommerceReturnRequest">
+        <value xml:lang="da">Returforespørgsel</value>
         <value xml:lang="de">Retourenanfrage stellen für folgende Positionen:</value>
         <value xml:lang="en">Return Request</value>
         <value xml:lang="es">Su orden de devolución para los siguientes items :</value>
@@ -2187,6 +2371,7 @@
         <value xml:lang="zh">你对下列明细的退货请求：</value>
     </property>
     <property key="EcommerceReturnRequestAccepted">
+        <value xml:lang="da">Returforespørgsel er accepteret</value>
         <value xml:lang="de">Retourenanfrage genehmigt. Retoure Nr. </value>
         <value xml:lang="en">Return Request Accepted</value>
         <value xml:lang="es">Ha sido aceptado. Su autorización de devolución es #</value>
@@ -2201,6 +2386,7 @@
         <value xml:lang="zh">已被接受。你的退货授权是 #</value>
     </property>
     <property key="EcommerceReturnRequestCancelled">
+        <value xml:lang="da">Returforespørgsel er annulleret</value>
         <value xml:lang="de">Retourenanfrage abgebrochen</value>
         <value xml:lang="en">Return Request Cancelled</value>
         <value xml:lang="es">ha sido cancelado</value>
@@ -2215,6 +2401,7 @@
         <value xml:lang="zh">已被取消。</value>
     </property>
     <property key="EcommerceReturnRequestCompleted">
+        <value xml:lang="da">Returforespørgsel er afsluttet</value>
         <value xml:lang="de">Retourenanfrage abgeschlossen</value>
         <value xml:lang="en">Return Request Completed</value>
         <value xml:lang="es">Ha sido recibido y completado</value>
@@ -2229,6 +2416,7 @@
         <value xml:lang="zh">已被接收和完成。</value>
     </property>
     <property key="EcommerceReturnRequestNb">
+        <value xml:lang="da">Returforespørgsel nr.</value>
         <value xml:lang="de">Retourenanfrage Nr.</value>
         <value xml:lang="en">Return Request Nb</value>
         <value xml:lang="es">Pediddo de devolución #</value>
@@ -2243,6 +2431,7 @@
         <value xml:lang="zh">你的退货请求 #</value>
     </property>
     <property key="EcommerceSearchNumber">
+        <value xml:lang="da">Søgnings nr.</value>
         <value xml:lang="de">Suche Nr.</value>
         <value xml:lang="en">Search Number</value>
         <value xml:lang="es">Buscar #</value>
@@ -2257,6 +2446,7 @@
         <value xml:lang="zh">搜索 #</value>
     </property>
     <property key="EcommerceSeeStorePoliciesHere">
+        <value xml:lang="da">Læs forretningsbetingelser her</value>
         <value xml:lang="de">Siehe Allgemeine Geschäftsbedingungen hier</value>
         <value xml:lang="en">See Store Policies Here</value>
         <value xml:lang="fr">Conditions générales</value>
@@ -2264,6 +2454,7 @@
         <value xml:lang="th">ดูหลักการเก็บข้อมูลที่นี่</value>
     </property>
     <property key="EcommerceSelectFrequency">
+        <value xml:lang="da">Vælg hyppighed</value>
         <value xml:lang="de">Frequenz wählen</value>
         <value xml:lang="en">Select Frequency</value>
         <value xml:lang="es">Seleccione frecuencia</value>
@@ -2277,6 +2468,7 @@
         <value xml:lang="zh">选择频率</value>
     </property>
     <property key="EcommerceSelectInterval">
+        <value xml:lang="da">Vælg interval</value>
         <value xml:lang="de">Intervall wählen</value>
         <value xml:lang="en">Select Interval</value>
         <value xml:lang="es">Seleccione intervalo</value>
@@ -2291,6 +2483,7 @@
         <value xml:lang="zh">选择间隔</value>
     </property>
     <property key="EcommerceSelectedGiftWrap">
+        <value xml:lang="da">Vælg gavepapir</value>
         <value xml:lang="de">Ausgewählte Geschenkverpackung</value>
         <value xml:lang="en">Selected Gift Wrap</value>
         <value xml:lang="es">La evoltura no está permitida para todos los artíclos. Los artículos disponibles han sido seleccionados, la orden permanece sin cambios.</value>
@@ -2305,6 +2498,7 @@
         <value xml:lang="zh">所选的礼品包装无法对全部明细使用。这些选中的明细是可用的，其它没有改变。</value>
     </property>
     <property key="EcommerceSentDate">
+        <value xml:lang="da">Afsendt dato</value>
         <value xml:lang="de">Versendet Datum</value>
         <value xml:lang="en">Sent Date</value>
         <value xml:lang="es">Fecha de Envío</value>
@@ -2319,6 +2513,7 @@
         <value xml:lang="zh">已发送日期</value>
     </property>
     <property key="EcommerceSetDefault">
+        <value xml:lang="da">Vælg standard</value>
         <value xml:lang="de">als Standard wählen</value>
         <value xml:lang="en">Set Default</value>
         <value xml:lang="es">por Defecto</value>
@@ -2333,6 +2528,7 @@
         <value xml:lang="zh">设为缺省值</value>
     </property>
     <property key="EcommerceShipmentItems">
+        <value xml:lang="da">Varer til forsendelse</value>
         <value xml:lang="de">Lieferpositionen</value>
         <value xml:lang="en">Shipment Items</value>
         <value xml:lang="fr">Articles en expédition</value>
@@ -2341,6 +2537,7 @@
     </property>
     <property key="EcommerceShoppingListDetail">
         <value xml:lang="cs">Detailní přehled nákupu</value>
+        <value xml:lang="da">Indkøbsliste detaljer</value>
         <value xml:lang="de">Einkaufsliste, detail</value>
         <value xml:lang="en">Shopping List Detail</value>
         <value xml:lang="es">Detalle de la Lista de Compra</value>
@@ -2357,6 +2554,7 @@
     </property>
     <property key="EcommerceShoppingListEmpty">
         <value xml:lang="cs">Váš nákupní seznam je prázdný</value>
+        <value xml:lang="da">Indkøbsliste er tom</value>
         <value xml:lang="de">Ihre Einkaufsliste ist leer</value>
         <value xml:lang="en">Shopping List Empty</value>
         <value xml:lang="es">Su Lista de Compra está vacía</value>
@@ -2373,6 +2571,7 @@
     </property>
     <property key="EcommerceShoppingListError">
         <value xml:lang="cs">Chyba: vybraný nákupní seznam (s</value>
+        <value xml:lang="da">Fejl ved indkøbsliste</value>
         <value xml:lang="de">FEHLER: Die spezifizierte Einkaufsliste (mit</value>
         <value xml:lang="en">Shopping List Error</value>
         <value xml:lang="es">ERROR: La Lista de Compra especificada (con</value>
@@ -2389,6 +2588,7 @@
     </property>
     <property key="EcommerceShoppingListPriceTotals">
         <value xml:lang="cs">Celková cena nákupního seznamu</value>
+        <value xml:lang="da">Total beløb for indkøbsliste</value>
         <value xml:lang="de">Gesamtsumme der Einkaufsliste</value>
         <value xml:lang="en">Shopping List Price Totals</value>
         <value xml:lang="es">Precio Total de la Lista de Compra</value>
@@ -2405,6 +2605,7 @@
     </property>
     <property key="EcommerceShoppingListReorder">
         <value xml:lang="cs">Nákupní seznam - info o opak.objednávce</value>
+        <value xml:lang="da">Sortér indkøbsliste</value>
         <value xml:lang="de">Einkaufsliste neu sortieren</value>
         <value xml:lang="en">Shopping List Reorder</value>
         <value xml:lang="es">Lasta de compra, información de re-orden</value>
@@ -2420,6 +2621,7 @@
     </property>
     <property key="EcommerceShoppingLists">
         <value xml:lang="cs">Nákupní seznamy</value>
+        <value xml:lang="da">Indkøbslister</value>
         <value xml:lang="de">Einkaufslisten</value>
         <value xml:lang="en">Shopping Lists</value>
         <value xml:lang="es">Listas de Compra</value>
@@ -2435,11 +2637,13 @@
         <value xml:lang="zh">购物 列表</value>
     </property>
     <property key="EcommerceShortName">
+        <value xml:lang="da">Kaldenavn</value>
         <value xml:lang="en">Short Name</value>
         <value xml:lang="fr">Nom court</value>
         <value xml:lang="it">Nome corto</value>
     </property>
     <property key="EcommerceShortSubject">
+        <value xml:lang="da">Forkortet emne</value>
         <value xml:lang="de">Thema Kurz</value>
         <value xml:lang="en">Short Subject</value>
         <value xml:lang="es">Asunto corto</value>
@@ -2454,6 +2658,7 @@
         <value xml:lang="zh">简短标题</value>
     </property>
     <property key="EcommerceSignUpForContactList">
+        <value xml:lang="da">Tilmeld til kontaktliste</value>
         <value xml:lang="de">Anmelden für Kontaktliste</value>
         <value xml:lang="en">Sign Up For Contact List</value>
         <value xml:lang="fr">S'inscrire à la liste de contacts</value>
@@ -2461,6 +2666,7 @@
         <value xml:lang="th">ข่าวสาร</value>
     </property>
     <property key="EcommerceSignUpForContactListComments">
+        <value xml:lang="da">Tilmeld til kontaktliste kommentarer</value>
         <value xml:lang="de">Anmelden für Kontaktliste Kommentare</value>
         <value xml:lang="en">Sign Up For Contact List Comments</value>
         <value xml:lang="fr">S'inscrire aux commentaires de la liste de contacts</value>
@@ -2468,6 +2674,7 @@
         <value xml:lang="th">ถ้าคุณสนใจในข่าวสารให้คุณกรอกที่อยู่อีเมลข้างล่างนี้และลงทะเบียน :</value>
     </property>
     <property key="EcommerceSignUpForContactListLogIn">
+        <value xml:lang="da">Tilmeld til kontaktliste login</value>
         <value xml:lang="de">Identifizieren für Anmeldung Kontaktliste</value>
         <value xml:lang="en">Sign Up For Contact List LogIn</value>
         <value xml:lang="fr">S'identifier pour s'inscrire au bulletin d'information</value>
@@ -2475,6 +2682,7 @@
         <value xml:lang="th">ถ้าคุณสนใจข่าวสารกรุณาลอกอินเข้าสู่ระบบและลงทะเบียน:</value>
     </property>
     <property key="EcommerceSilver">
+        <value xml:lang="da">Sølv</value>
         <value xml:lang="de">Silber</value>
         <value xml:lang="en">Silver</value>
         <value xml:lang="es">Plata</value>
@@ -2489,11 +2697,13 @@
         <value xml:lang="zh">银牌</value>
     </property>
     <property key="EcommerceSorryDigitalProductUploadNotEnabled">
+        <value xml:lang="da">Beklager, upload af digitale produkter er ikke aktiveret</value>
         <value xml:lang="en">Sorry, digital product upload is not enabled.</value>
         <value xml:lang="fr">Désolé, article numérique non accessible</value>
         <value xml:lang="it">Spiacente, l'upload di prodotti digitali non è abilitato.</value>
     </property>
     <property key="EcommerceStartDate">
+        <value xml:lang="da">Start</value>
         <value xml:lang="de">Startdatum</value>
         <value xml:lang="en">Start</value>
         <value xml:lang="es">Fecha Inicio</value>
@@ -2508,6 +2718,7 @@
         <value xml:lang="zh">开始 日期</value>
     </property>
     <property key="EcommerceStartdate">
+        <value xml:lang="da">Start dato</value>
         <value xml:lang="de">Startdatum</value>
         <value xml:lang="en">Start date</value>
         <value xml:lang="es">Fecha Inicio</value>
@@ -2522,12 +2733,14 @@
         <value xml:lang="zh">开始日期</value>
     </property>
     <property key="EcommerceStep">
+        <value xml:lang="da">Skridt</value>
         <value xml:lang="de">Schritt</value>
         <value xml:lang="en">Step</value>
         <value xml:lang="fr">Etape</value>
         <value xml:lang="it">Passo</value>
     </property>
     <property key="EcommerceSubject">
+        <value xml:lang="da">Emne</value>
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Subject</value>
         <value xml:lang="es">Asunto</value>
@@ -2542,6 +2755,7 @@
         <value xml:lang="zh">主题</value>
     </property>
     <property key="EcommerceSubscribe">
+        <value xml:lang="da">Abonnér</value>
         <value xml:lang="de">Abonnieren</value>
         <value xml:lang="en">Subscribe</value>
         <value xml:lang="es">Subscricir</value>
@@ -2553,11 +2767,13 @@
         <value xml:lang="zh">注册</value>
     </property>
     <property key="EcommerceSubscriptionVerifyEmail">
+        <value xml:lang="da">E-mail bekræftelse på abonnement</value>
         <value xml:lang="en">Subscription Verify Email</value>
         <value xml:lang="fr">Vérification d'adresse couriel pour subscription</value>
         <value xml:lang="it">Sottiscrivi verifica email</value>
     </property>
     <property key="EcommerceSummary">
+        <value xml:lang="da">Resumé</value>
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
         <value xml:lang="es">Resumen</value>
@@ -2572,6 +2788,7 @@
         <value xml:lang="zh">摘要</value>
     </property>
     <property key="EcommerceSummaryInformation">
+        <value xml:lang="da">Resumé information</value>
         <value xml:lang="de">Zusammenfassung Information</value>
         <value xml:lang="en">Summary Information</value>
         <value xml:lang="es">Resumen de Información</value>
@@ -2586,6 +2803,7 @@
         <value xml:lang="zh">摘要信息</value>
     </property>
     <property key="EcommerceSurveys">
+        <value xml:lang="da">Rundspørger</value>
         <value xml:lang="de">Befragungen</value>
         <value xml:lang="en">Surveys</value>
         <value xml:lang="es">Encuestas</value>
@@ -2600,6 +2818,7 @@
         <value xml:lang="zh">调查</value>
     </property>
     <property key="EcommerceTakeSurvey">
+        <value xml:lang="da">Foretag rundspørge</value>
         <value xml:lang="de">An Befragung teilnehmen</value>
         <value xml:lang="en">Take Survey</value>
         <value xml:lang="es">Tome la Encuesta</value>
@@ -2614,6 +2833,7 @@
         <value xml:lang="zh">填写调查</value>
     </property>
     <property key="EcommerceTellAFriend">
+        <value xml:lang="da">Fortæl det til en ven</value>
         <value xml:lang="de">Einem Freund mitteilen</value>
         <value xml:lang="en">Tell A Friend</value>
         <value xml:lang="es">Dile-a-un-Amigo</value>
@@ -2628,6 +2848,7 @@
         <value xml:lang="zh">告诉朋友</value>
     </property>
     <property key="EcommerceTellAFriendSorry">
+        <value xml:lang="da">Sig undskyld til en ven</value>
         <value xml:lang="de">Leider können Sie diese Seite nicht einem Freund mitteilen. Wählen Sie eine andere Kategorie oder ein anderes Produkt.</value>
         <value xml:lang="en">Tell A Friend Sorry</value>
         <value xml:lang="es">Disculpe, no puede enviar esta página a un amigo. Selecciones otra categoría o producto</value>
@@ -2642,6 +2863,7 @@
         <value xml:lang="zh">对不起，你不能把这个页面发送给朋友。请从一个分类或产品中进行选择。</value>
     </property>
     <property key="EcommerceTextOnly">
+        <value xml:lang="da">Kun tekst</value>
         <value xml:lang="de">Nur Text</value>
         <value xml:lang="en">Text Only </value>
         <value xml:lang="es">Solo texto</value>
@@ -2656,6 +2878,7 @@
         <value xml:lang="zh">纯文本</value>
     </property>
     <property key="EcommerceThankForRegistering">
+        <value xml:lang="da">Tak for registreringen</value>
         <value xml:lang="de">Vielen Dank für die Registrierung</value>
         <value xml:lang="en">Thank For Registering</value>
         <value xml:lang="es">Gracias por registrarse</value>
@@ -2670,6 +2893,7 @@
         <value xml:lang="zh">谢谢你注册，</value>
     </property>
     <property key="EcommerceThankYou">
+        <value xml:lang="da">Mange tak</value>
         <value xml:lang="de">Vielen Dank</value>
         <value xml:lang="en">Thank You</value>
         <value xml:lang="es">Gracias</value>
@@ -2684,6 +2908,7 @@
         <value xml:lang="zh">谢谢你</value>
     </property>
     <property key="EcommerceThisEmailIsInResponseToYourRequestToHave">
+        <value xml:lang="da">Denne E-mail er et svar på Deres forespørgsel for at få</value>
         <value xml:lang="de">Dieses E-Mail ist eine Antwort auf Ihre Anfrage zu </value>
         <value xml:lang="en">This email is in response to your request to have</value>
         <value xml:lang="fr">Ce courriel en réponse à votre demande d'obtenir</value>
@@ -2691,6 +2916,7 @@
         <value xml:lang="th">คำร้องของคุณมีการตอบในอีเมลนี้</value>
     </property>
     <property key="EcommerceToOrderCreateCustRequestFromCart">
+        <value xml:lang="da">For at bestille, opret kundeanmodning fra indkøbskurv</value>
         <value xml:lang="de">um einen Auftrag zu erstellen machen Sie eine Anfrage über den Warenkorb</value>
         <value xml:lang="en">To Order Create CustRequest From Cart</value>
         <value xml:lang="es">Para pedir genere una petición desde el carro de compra</value>
@@ -2706,6 +2932,7 @@
     </property>
     <property key="EcommerceTotalPrice">
         <value xml:lang="cs">Cena celkem</value>
+        <value xml:lang="da">Total pris</value>
         <value xml:lang="de">Gesamtpreis</value>
         <value xml:lang="en">Total Price</value>
         <value xml:lang="es">Precio Total</value>
@@ -2722,6 +2949,7 @@
     </property>
     <property key="EcommerceUnitPrice">
         <value xml:lang="cs">Jednotková cena</value>
+        <value xml:lang="da">Enhedspris</value>
         <value xml:lang="de">Einzelpreis</value>
         <value xml:lang="en">Unit Price</value>
         <value xml:lang="es">Precio Unidad</value>
@@ -2738,6 +2966,7 @@
     </property>
     <property key="EcommerceUnsubscribe">
         <value xml:lang="de">Abonnement beenden</value>
+        <value xml:lang="da">Anuller abonnement</value>
         <value xml:lang="en">Unsubscribe</value>
         <value xml:lang="es">des-Subscribir</value>
         <value xml:lang="fr">Se désinscrire</value>
@@ -2748,6 +2977,7 @@
         <value xml:lang="zh">注销</value>
     </property>
     <property key="EcommerceUnsupportedQuestionType">
+        <value xml:lang="da">Spørgsmålstypen er ikke understøttet</value>
         <value xml:lang="de">Nicht unterstützter Fragetyp</value>
         <value xml:lang="en">Unsupported Question Type</value>
         <value xml:lang="es">Tipo de pregunta no soportada</value>
@@ -2762,6 +2992,7 @@
         <value xml:lang="zh">不支持的问题类型</value>
     </property>
     <property key="EcommerceUpdateDigitalProduct">
+        <value xml:lang="da">Opdatér digitalt produkt</value>
         <value xml:lang="de">Digitales Produkt aktualisieren</value>
         <value xml:lang="en">Update Digital Product</value>
         <value xml:lang="fr">Mise à jour de l'article numérique</value>
@@ -2773,6 +3004,7 @@
         <value xml:lang="zh">更新数字产品</value>
     </property>
     <property key="EcommerceUpdateSurvey">
+        <value xml:lang="da">Opdatér rundspørge</value>
         <value xml:lang="de">Befragung aktualisieren</value>
         <value xml:lang="en">Update Survey</value>
         <value xml:lang="es">Actualizar Encuesta</value>
@@ -2787,6 +3019,7 @@
         <value xml:lang="zh">更新调查</value>
     </property>
     <property key="EcommerceUploadNewFile">
+        <value xml:lang="da">Upload ny fil</value>
         <value xml:lang="de">Neue Datei hochladen</value>
         <value xml:lang="en">Upload New File</value>
         <value xml:lang="es">Subir nuevo archivo</value>
@@ -2800,6 +3033,7 @@
         <value xml:lang="zh">上传新文件</value>
     </property>
     <property key="EcommerceUseEmailAddress">
+        <value xml:lang="da">Anvend E-mail adresse</value>
         <value xml:lang="de">E-Mail Adresse verwenden</value>
         <value xml:lang="en">Use Email Address</value>
         <value xml:lang="es">Usar dirección de correo</value>
@@ -2815,6 +3049,7 @@
     </property>
     <property key="EcommerceVariationToCart">
         <value xml:lang="cs">Změny do košíku</value>
+        <value xml:lang="da">Variant til indkøbskurv</value>
         <value xml:lang="de">von Variante in den Warenkorb</value>
         <value xml:lang="en">Variation To Cart</value>
         <value xml:lang="en_GB">of Variation to basket</value>
@@ -2831,6 +3066,7 @@
         <value xml:lang="zh">的选择到购物车</value>
     </property>
     <property key="EcommerceVerifySubscription">
+        <value xml:lang="da">Bekræft abonnement</value>
         <value xml:lang="de">Abonnement prüfn</value>
         <value xml:lang="en">Verify Subscription</value>
         <value xml:lang="es">Verificar subscripción</value>
@@ -2842,6 +3078,7 @@
         <value xml:lang="zh">验证注册</value>
     </property>
     <property key="EcommerceViewAll">
+        <value xml:lang="da">Vis alle</value>
         <value xml:lang="de">Alle anzeigen</value>
         <value xml:lang="en">View All</value>
         <value xml:lang="es">Ver todo</value>
@@ -2856,6 +3093,7 @@
         <value xml:lang="zh">浏览全部</value>
     </property>
     <property key="EcommerceViewList">
+        <value xml:lang="da">Vis liste</value>
         <value xml:lang="de">Liste anzeigen</value>
         <value xml:lang="en">View List</value>
         <value xml:lang="es">Ver lista</value>
@@ -2870,6 +3108,7 @@
         <value xml:lang="zh">浏览列表</value>
     </property>
     <property key="EcommerceViewReceivedOnly">
+        <value xml:lang="da">Vis kun modtagede</value>
         <value xml:lang="de">Nur erhaltene Anzeigen</value>
         <value xml:lang="en">View Received Only </value>
         <value xml:lang="es">Ver mensajes recibidos</value>
@@ -2884,6 +3123,7 @@
         <value xml:lang="zh">浏览已收到的消息</value>
     </property>
     <property key="EcommerceViewSent">
+        <value xml:lang="da">Vis afsendte</value>
         <value xml:lang="de">Gesendete Anzeigen</value>
         <value xml:lang="en">View Sent</value>
         <value xml:lang="es">Ver enviado y recibido</value>
@@ -2898,11 +3138,13 @@
         <value xml:lang="zh">浏览已发送和已接收</value>
     </property>
     <property key="EcommerceYourGiftCardReloaded">
+        <value xml:lang="da">Deres genindlæste gavekort har</value>
         <value xml:lang="en">Your Gift Card Reloaded Have</value>
         <value xml:lang="fr">Votre carte cadeau est rechargée</value>
         <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
     </property>
     <property key="EcommerceYouHave">
+        <value xml:lang="da">De har</value>
         <value xml:lang="de">Sie haben</value>
         <value xml:lang="en">You Have</value>
         <value xml:lang="es">Usted tiene</value>
@@ -2917,6 +3159,7 @@
         <value xml:lang="zh">你有</value>
     </property>
     <property key="EcommerceYouHaveBeenSent">
+        <value xml:lang="da">Sendt til Dem</value>
         <value xml:lang="de">Sie haben erhalten </value>
         <value xml:lang="en">You Have Been Sent</value>
         <value xml:lang="es">Ha sido enviado un</value>
@@ -2932,6 +3175,7 @@
     </property>
     <property key="EcommerceYouMightAlsoIntrested">
         <value xml:lang="cs">Měli byste také zájem o</value>
+        <value xml:lang="da">De er måske også interesseret i</value>
         <value xml:lang="de">Vielleicht sind Sie auch interessiert an</value>
         <value xml:lang="en">You Might Also Intrested</value>
         <value xml:lang="es">Puede estar también interesado en</value>
@@ -2948,6 +3192,7 @@
     </property>
     <property key="EcommerceYouMightLike">
         <value xml:lang="cs">Přáli byste si</value>
+        <value xml:lang="da">De synes måske om</value>
         <value xml:lang="de">Vielleicht mögen Sie</value>
         <value xml:lang="en">You Might Like</value>
         <value xml:lang="es">Puede ser que le guste</value>
@@ -2963,6 +3208,7 @@
         <value xml:lang="zh">你可能会喜欢</value>
     </property>
     <property key="EcommerceYour">
+        <value xml:lang="da">Deres</value>
         <value xml:lang="de">Ihr</value>
         <value xml:lang="en">your</value>
         <value xml:lang="fr">Votre</value>
@@ -2970,6 +3216,7 @@
         <value xml:lang="th">ของคุณ</value>
     </property>
     <property key="EcommerceYourCardNumber">
+        <value xml:lang="da">Deres kortnummer</value>
         <value xml:lang="de">Ihre Kartennummer:</value>
         <value xml:lang="en">Your Card Number</value>
         <value xml:lang="es">Su # de tarjeta:</value>
@@ -2984,6 +3231,7 @@
         <value xml:lang="zh">你的卡号：</value>
     </property>
     <property key="EcommerceYourGiftCard">
+        <value xml:lang="da">Deres gavekort</value>
         <value xml:lang="de">Ihr Gutschein</value>
         <value xml:lang="en">Your Gift Card </value>
         <value xml:lang="es">Su tarjeta de regalo:</value>
@@ -2998,6 +3246,7 @@
         <value xml:lang="zh">你的礼品卡：</value>
     </property>
     <property key="EcommerceYourPinNumber">
+        <value xml:lang="da">Deres PIN kode</value>
         <value xml:lang="de">Ihre Pin-Nummer</value>
         <value xml:lang="en">Your Pin Number</value>
         <value xml:lang="es">Su número Pin</value>
@@ -3013,6 +3262,7 @@
     </property>
     <property key="EcommerceYourShoppingCartEmpty">
         <value xml:lang="cs">Váš košík je prázdný</value>
+        <value xml:lang="da">Deres indkøbskurv er tom</value>
         <value xml:lang="de">Ihr Warenkorb ist leer</value>
         <value xml:lang="en">Your Shopping Cart Empty</value>
         <value xml:lang="en_GB">Your shopping basket is empty</value>
@@ -3029,6 +3279,7 @@
         <value xml:lang="zh">你的购物车是空的</value>
     </property>
     <property key="PageTitleAddResponse">
+        <value xml:lang="da">Tilføj svar</value>
         <value xml:lang="de">Antwort hinzufügen</value>
         <value xml:lang="en">Add Response</value>
         <value xml:lang="es">Añadir Respuesta</value>
@@ -3043,6 +3294,7 @@
         <value xml:lang="zh">添加回答</value>
     </property>
     <property key="PageTitleAdditionalInfo">
+        <value xml:lang="da">Yderligere information</value>
         <value xml:lang="de">Zusätzliche Informationen</value>
         <value xml:lang="en">Additional Info</value>
         <value xml:lang="es">Información Adicional</value>
@@ -3057,6 +3309,7 @@
         <value xml:lang="zh">附加信息</value>
     </property>
     <property key="PageTitleBillingInformation">
+        <value xml:lang="da">Fakturainformation</value>
         <value xml:lang="de">Rechnungstellung Informationen</value>
         <value xml:lang="en">Billing Information</value>
         <value xml:lang="es">Información de Facturación</value>
@@ -3072,6 +3325,7 @@
     </property>
     <property key="PageTitleCategoryPage">
         <value xml:lang="cs">kategorie strana</value>
+        <value xml:lang="da">Kategori side</value>
         <value xml:lang="de">Kategorie Seite</value>
         <value xml:lang="en">Category Page</value>
         <value xml:lang="es">Página de Categoría</value>
@@ -3088,6 +3342,7 @@
     </property>
     <property key="PageTitleChangePassword">
         <value xml:lang="cs">Změnit heslo</value>
+        <value xml:lang="da">Skift kodeord</value>
         <value xml:lang="de">Passwort ändern</value>
         <value xml:lang="en">Change Password</value>
         <value xml:lang="es">Cambiar Contraseña</value>
@@ -3104,6 +3359,7 @@
     </property>
     <property key="PageTitleCheckoutOptions">
         <value xml:lang="cs">Možnosti objednání</value>
+        <value xml:lang="da">Muligheder for udcheckning</value>
         <value xml:lang="de">Bestelloptionen</value>
         <value xml:lang="en">Checkout Options</value>
         <value xml:lang="es">Opciones De la Comprobación</value>
@@ -3119,6 +3375,7 @@
     </property>
     <property key="PageTitleCheckoutReview">
         <value xml:lang="cs">Ověřování objednávky</value>
+        <value xml:lang="da">Gennemse udcheckning</value>
         <value xml:lang="de">Bestellüberprüfung</value>
         <value xml:lang="en">Checkout Review</value>
         <value xml:lang="es">Revisión De la Comprobación</value>
@@ -3133,6 +3390,7 @@
         <value xml:lang="zh">结账浏览</value>
     </property>
     <property key="PageTitleContentPage">
+        <value xml:lang="da">Indholdsside</value>
         <value xml:lang="de">Inhalt Seite</value>
         <value xml:lang="en">Content Page</value>
         <value xml:lang="es">Página de contenido</value>
@@ -3146,6 +3404,7 @@
         <value xml:lang="zh">内容页面</value>
     </property>
     <property key="PageTitleDigitalProductEdit">
+        <value xml:lang="da">Ret mit digitale produkt</value>
         <value xml:lang="de">Mein digitales Produkt bearbeiten</value>
         <value xml:lang="en">Edit My Digital Product</value>
         <value xml:lang="es">Modificar mis productos digitales</value>
@@ -3158,6 +3417,7 @@
         <value xml:lang="zh">编辑我的数字产品</value>
     </property>
     <property key="PageTitleDigitalProductList">
+        <value xml:lang="da">Vis mine digitale produkter</value>
         <value xml:lang="de">Liste Meiner digitalen Produkte</value>
         <value xml:lang="en">List My Digital Products</value>
         <value xml:lang="es">Mi lista de productos digitales</value>
@@ -3170,6 +3430,7 @@
         <value xml:lang="zh">列出我的数字产品</value>
     </property>
     <property key="PageTitleEditAddContent">
+        <value xml:lang="da">Ret/tilføj indhold</value>
         <value xml:lang="de">Bearbeiten/Hinzufügen Inhalt</value>
         <value xml:lang="en">Edit/Add Content</value>
         <value xml:lang="es">Añadir/Editar contenido</value>
@@ -3183,6 +3444,7 @@
         <value xml:lang="zh">编辑/添加内容</value>
     </property>
     <property key="PageTitleEditAddImage">
+        <value xml:lang="da">Ret/tilføj billede</value>
         <value xml:lang="de">Bearbeiten/Hinzufügen Bild</value>
         <value xml:lang="en">Edit/Add Image</value>
         <value xml:lang="es">Añadir/Editar Imágen</value>
@@ -3198,6 +3460,7 @@
     </property>
     <property key="PageTitleEditContactMechanism">
         <value xml:lang="cs">Upravit nastavení kontaktu</value>
+        <value xml:lang="da">Ret kontaktmuligheder</value>
         <value xml:lang="de">Kontaktmechanismus bearbeiten</value>
         <value xml:lang="en">Edit Contact Mechanism</value>
         <value xml:lang="es">Modificar Mecanismo de Contacto</value>
@@ -3212,6 +3475,7 @@
         <value xml:lang="zh">编辑联系方式</value>
     </property>
     <property key="PageTitleEditEFTAccount">
+        <value xml:lang="da">Ret bankforbindelse</value>
         <value xml:lang="de">Bankverbindung bearbeiten</value>
         <value xml:lang="en">Edit EFT Account</value>
         <value xml:lang="es">Modificar Cuenta de EFT</value>
@@ -3227,6 +3491,7 @@
         <value xml:lang="zh">编辑电子资金转账账户</value>
     </property>
     <property key="PageTitleEditForumContentInfo">
+        <value xml:lang="da">Ret information for forumindhold</value>
         <value xml:lang="de">Forum Inhalt Informationen bearbeiten</value>
         <value xml:lang="en">Edit Forum Content Info</value>
         <value xml:lang="es">Modificar información de contenido del fóro</value>
@@ -3241,6 +3506,7 @@
     </property>
     <property key="PageTitleEditPerson">
         <value xml:lang="cs">Upravit osobu</value>
+        <value xml:lang="da">Ret person</value>
         <value xml:lang="de">Person bearbeiten</value>
         <value xml:lang="en">Edit Person</value>
         <value xml:lang="es">Modificar la Persona</value>
@@ -3256,6 +3522,7 @@
         <value xml:lang="zh">编辑个人</value>
     </property>
     <property key="PageTitleForumArticle">
+        <value xml:lang="da">Forum artikel</value>
         <value xml:lang="de">Forum Artikel</value>
         <value xml:lang="en">Forum Article</value>
         <value xml:lang="es">Artículo de Foro</value>
@@ -3269,6 +3536,7 @@
         <value xml:lang="zh">论坛文章</value>
     </property>
     <property key="PageTitleForumResponse">
+        <value xml:lang="da">Forum svar</value>
         <value xml:lang="de">Forum Antwort</value>
         <value xml:lang="en">Forum Response</value>
         <value xml:lang="es">Respuesta de foro</value>
@@ -3282,6 +3550,7 @@
         <value xml:lang="zh">论坛回答</value>
     </property>
     <property key="PageTitleForumSummary">
+        <value xml:lang="da">Forum sammenfatning</value>
         <value xml:lang="de">Forum Zusammenfassung</value>
         <value xml:lang="en">Forum Summary</value>
         <value xml:lang="es">Resumen de fóro</value>
@@ -3295,6 +3564,7 @@
         <value xml:lang="zh">论坛摘要</value>
     </property>
     <property key="PageTitleGiftCardBalance">
+        <value xml:lang="da">Gavekort saldo</value>
         <value xml:lang="de">Gutschein Kontostand</value>
         <value xml:lang="en">Gift Card Balance</value>
         <value xml:lang="es">Balance de Tarjeta de Regalo</value>
@@ -3309,6 +3579,7 @@
         <value xml:lang="zh">礼品卡余额</value>
     </property>
     <property key="PageTitleGiftCardLink">
+        <value xml:lang="da">Gavekort link</value>
         <value xml:lang="de">Gutschein Link</value>
         <value xml:lang="en">Gift Card Link</value>
         <value xml:lang="es">Enlace aTarjeta de Regalo</value>
@@ -3324,6 +3595,7 @@
     </property>
     <property key="PageTitleLastViewProducts">
         <value xml:lang="cs">předchozí náhled výrobku</value>
+        <value xml:lang="da">Sidst viste produkter</value>
         <value xml:lang="de">Kürzlich betrachtete Produkte</value>
         <value xml:lang="en">Last View Products</value>
         <value xml:lang="es">Última vista de artículo</value>
@@ -3339,6 +3611,7 @@
         <value xml:lang="zh">上次浏览的产品</value>
     </property>
     <property key="PageTitleListQuotes">
+        <value xml:lang="da">Vis tilbud</value>
         <value xml:lang="de">Liste Angebote</value>
         <value xml:lang="en">List Quotes</value>
         <value xml:lang="fr">Liste des devis</value>
@@ -3346,6 +3619,7 @@
         <value xml:lang="th">อ้างอิงการทำรายการ</value>
     </property>
     <property key="PageTitleListRequests">
+        <value xml:lang="da">Vis forespørgsler</value>
         <value xml:lang="de">Liste Anfragen</value>
         <value xml:lang="en">List Requests</value>
         <value xml:lang="fr">Liste des demandes</value>
@@ -3353,6 +3627,7 @@
         <value xml:lang="th">รายการคำร้อง</value>
     </property>
     <property key="PageTitleMessageDetail">
+        <value xml:lang="da">Detaljer for besked</value>
         <value xml:lang="de">Meldung Detail</value>
         <value xml:lang="en">Message Detail</value>
         <value xml:lang="es">Detalle de mensajes</value>
@@ -3367,6 +3642,7 @@
         <value xml:lang="zh">消息详细</value>
     </property>
     <property key="PageTitleMessageList">
+        <value xml:lang="da">Besked liste</value>
         <value xml:lang="de">Liste Meldungen</value>
         <value xml:lang="en">Message List</value>
         <value xml:lang="es">Lista de mensajes</value>
@@ -3382,6 +3658,7 @@
     </property>
     <property key="PageTitleNewCustomer">
         <value xml:lang="cs">nový zákazník</value>
+        <value xml:lang="da">Ny kunde</value>
         <value xml:lang="de">Neuer Kunde</value>
         <value xml:lang="en">New Customer</value>
         <value xml:lang="es">Cliente Nuevo</value>
@@ -3397,6 +3674,7 @@
         <value xml:lang="zh">新客户</value>
     </property>
     <property key="PageTitleNewMessage">
+        <value xml:lang="da">Ny besked</value>
         <value xml:lang="de">Neue Meldung</value>
         <value xml:lang="en">New Message</value>
         <value xml:lang="es">Nuevo mensaje</value>
@@ -3411,6 +3689,7 @@
         <value xml:lang="zh">新消息</value>
     </property>
     <property key="PageTitleOrderBackorderNotice">
+        <value xml:lang="da">Bestil returordre notits</value>
         <value xml:lang="de">Auftragsrückstand Bekanntmachung</value>
         <value xml:lang="en">Order Backorder Notice</value>
         <value xml:lang="fr">Confirmation du retour de commande</value>
@@ -3418,6 +3697,7 @@
         <value xml:lang="th">พบว่าไม่สามรถส่งสินค้าตามรายการสั่งซื้อได้ในขณะนั้นเนื่องจากสินค้าหมด</value>
     </property>
     <property key="PageTitleOrderChangeNotice">
+        <value xml:lang="da">Ordreændring notits</value>
         <value xml:lang="de">Auftragsänderung Bekanntmachung</value>
         <value xml:lang="en">Order Change Notice</value>
         <value xml:lang="fr">Confirmation du changement de votre commande</value>
@@ -3425,6 +3705,7 @@
         <value xml:lang="th">พบว่ามีการเปลี่ยนแปลงรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="PageTitleOrderCompleteNotice">
+        <value xml:lang="da">Ordreafslutnings notits</value>
         <value xml:lang="de">Auftragsabschluss Bekanntmachung</value>
         <value xml:lang="en">Order Complete Notice</value>
         <value xml:lang="fr">Confirmation de fin de commande</value>
@@ -3436,6 +3717,7 @@
         <value xml:lang="zh">订单完成提示</value>
     </property>
     <property key="PageTitleOrderConfirmation">
+        <value xml:lang="da">Ordrebekræftelse</value>
         <value xml:lang="de">Auftragsbestätigung</value>
         <value xml:lang="en">Order Confirmation</value>
         <value xml:lang="es">Confirmación de Orden</value>
@@ -3449,6 +3731,7 @@
         <value xml:lang="zh">订单确认</value>
     </property>
     <property key="PageTitleOrderConfirmationNotice">
+        <value xml:lang="da">Ordrebekræftelse notits</value>
         <value xml:lang="de">Auftragsbestätigung Bekanntmachung</value>
         <value xml:lang="en">Order Confirmation Notice</value>
         <value xml:lang="fr">Avis de confirmation de commande</value>
@@ -3456,6 +3739,7 @@
     </property>
     <property key="PageTitleOrderHistory">
         <value xml:lang="cs">Statistika objednávek</value>
+        <value xml:lang="da">Ordrehistorik</value>
         <value xml:lang="de">Bestellhistorie</value>
         <value xml:lang="en">Order History</value>
         <value xml:lang="es">Historial de Compra</value>
@@ -3471,6 +3755,7 @@
         <value xml:lang="zh">订单历史记录</value>
     </property>
     <property key="PageTitleOrderPaymentRetryNotice">
+        <value xml:lang="da">Betaling notits ved gentagne forsøg</value>
         <value xml:lang="de">Bezahlung erneuter Versuch Bekanntmachung</value>
         <value xml:lang="en">Payment Retry Notice</value>
         <value xml:lang="fr">Nouvel essai de paiement</value>
@@ -3479,6 +3764,7 @@
     </property>
     <property key="PageTitleOrderStatus">
         <value xml:lang="cs">Status objednávek</value>
+        <value xml:lang="da">Ordrestatus</value>
         <value xml:lang="de">Bestellstatus</value>
         <value xml:lang="en">Order Status</value>
         <value xml:lang="es">Estado de la Compra</value>
@@ -3495,6 +3781,7 @@
     </property>
     <property key="PageTitleOrderSummary">
         <value xml:lang="cs">Shrnutí objednávky - děkujeme za Vaši objednávku !</value>
+        <value xml:lang="da">Ordreresumé - Tak for Deres ordre</value>
         <value xml:lang="de">Bestellzusammenfassung - Vielen Dank für Ihre Bestellung!</value>
         <value xml:lang="en">Order Summary - Thank you for your order!</value>
         <value xml:lang="es">Resumen de la Compra - Grácias por su compra!</value>
@@ -3511,6 +3798,7 @@
     </property>
     <property key="PageTitleProductPage">
         <value xml:lang="cs">Výrobek - stránka</value>
+        <value xml:lang="da">Produktside</value>
         <value xml:lang="de">Produkt Seite</value>
         <value xml:lang="en">Product Page</value>
         <value xml:lang="es">Página de Productos</value>
@@ -3527,6 +3815,7 @@
     </property>
     <property key="PageTitleProductReview">
         <value xml:lang="cs">Výrobek - přehled</value>
+        <value xml:lang="da">Produktgennemgang</value>
         <value xml:lang="de">Produktbewertung</value>
         <value xml:lang="en">Product Review</value>
         <value xml:lang="es">Revisión de Productos</value>
@@ -3541,6 +3830,7 @@
         <value xml:lang="zh">产品浏览</value>
     </property>
     <property key="PageTitleProfileSurvey">
+        <value xml:lang="da">Profil rundspørge</value>
         <value xml:lang="de">Profil Befragung</value>
         <value xml:lang="en">Profile Survey</value>
         <value xml:lang="es">Encuesta de Perfíl</value>
@@ -3555,6 +3845,7 @@
     </property>
     <property key="PageTitleQuickAdd">
         <value xml:lang="cs">Zrychlené zadání</value>
+        <value xml:lang="da">Tilføj hurtigt</value>
         <value xml:lang="de">Schnelleingabe</value>
         <value xml:lang="en">Quick Add</value>
         <value xml:lang="es">Añadir Rápido</value>
@@ -3571,6 +3862,7 @@
     </property>
     <property key="PageTitleRequestReturn">
         <value xml:lang="cs">Odpověď na poptávku</value>
+        <value xml:lang="da">Anmod om returnering</value>
         <value xml:lang="de">Anfrageantwort</value>
         <value xml:lang="en">Request Return</value>
         <value xml:lang="es">Solicitud de devolución</value>
@@ -3585,6 +3877,7 @@
         <value xml:lang="zh">请求退货</value>
     </property>
     <property key="PageTitleSearchSites">
+        <value xml:lang="da">Søg på sider</value>
         <value xml:lang="de">Seiten suchen</value>
         <value xml:lang="en">Search Sites</value>
         <value xml:lang="es">Buscar Sitios</value>
@@ -3599,6 +3892,7 @@
         <value xml:lang="zh">搜索站点</value>
     </property>
     <property key="PageTitleSentMessages">
+        <value xml:lang="da">Afsendte beskeder</value>
         <value xml:lang="de">Gesendete Meldungen</value>
         <value xml:lang="en">Sent Messages</value>
         <value xml:lang="es">Mensajes enviados</value>
@@ -3613,6 +3907,7 @@
         <value xml:lang="zh">发送消息</value>
     </property>
     <property key="PageTitleShipmentCompleteNotice">
+        <value xml:lang="da">Forsendelse afsluttet notits</value>
         <value xml:lang="de">Lieferung abgeschlossen Bekanntmachung</value>
         <value xml:lang="en">Shipment Complete Notice</value>
         <value xml:lang="fr">Avis de Livraison</value>
@@ -3620,6 +3915,7 @@
         <value xml:lang="th">การชำระเงินเสร็จสมบูรณ์แล้ว</value>
     </property>
     <property key="PageTitleShippingInformation">
+        <value xml:lang="da">Forsendelses information</value>
         <value xml:lang="de">Versandinformationen</value>
         <value xml:lang="en">Shipping Information</value>
         <value xml:lang="es">Información de envñio</value>
@@ -3634,6 +3930,7 @@
         <value xml:lang="zh">送货信息</value>
     </property>
     <property key="PageTitleShippingOptions">
+        <value xml:lang="da">Forsendelses muligheder</value>
         <value xml:lang="de">Versand Einstellungen</value>
         <value xml:lang="en">Shipping Options</value>
         <value xml:lang="es">Opciones de envío</value>
@@ -3648,6 +3945,7 @@
         <value xml:lang="zh">送货选项</value>
     </property>
     <property key="PageTitleShoppingCart">
+        <value xml:lang="da">Indkøbskurv</value>
         <value xml:lang="cs">Nákupní košík</value>
         <value xml:lang="de">Warenkorb</value>
         <value xml:lang="en">Shopping Cart</value>
@@ -3665,6 +3963,7 @@
         <value xml:lang="zh">购物车</value>
     </property>
     <property key="PageTitleSplitItemsForShipping">
+        <value xml:lang="da">Opdel varer til forsendelse</value>
         <value xml:lang="de">Positionen aufteilen für Versand</value>
         <value xml:lang="en">Split Items For Shipping</value>
         <value xml:lang="es">Dividir Artículos para envío</value>
@@ -3678,6 +3977,7 @@
         <value xml:lang="zh">为送货分拆明细</value>
     </property>
     <property key="PageTitleViewBlog">
+        <value xml:lang="da">Vis blog</value>
         <value xml:lang="de">Blog anzeigen</value>
         <value xml:lang="en">View Blog</value>
         <value xml:lang="es">Ver blog</value>
@@ -3691,6 +3991,7 @@
         <value xml:lang="zh">浏览博客</value>
     </property>
     <property key="PageTitleViewContent">
+        <value xml:lang="da">Vis indhold</value>
         <value xml:lang="de">Inhalt anzeigen</value>
         <value xml:lang="en">View Content</value>
         <value xml:lang="es">Ver Contenido</value>
@@ -3705,6 +4006,7 @@
     </property>
     <property key="PageTitleViewProfile">
         <value xml:lang="cs">Náhled profilu</value>
+        <value xml:lang="da">Vis profil</value>
         <value xml:lang="de">Profil ansehen</value>
         <value xml:lang="en">View Profile</value>
         <value xml:lang="es">Ver perfil</value>
@@ -3719,6 +4021,7 @@
         <value xml:lang="zh">浏览简介</value>
     </property>
     <property key="PageTitleViewQuote">
+        <value xml:lang="da">Vis tilbud</value>
         <value xml:lang="en">View Quote</value>
         <value xml:lang="it">Mostra preventivo</value>
     </property>
