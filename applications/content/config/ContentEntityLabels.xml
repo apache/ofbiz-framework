@@ -996,7 +996,7 @@
     <property key="ContentType.description.WEB_SITE_PUB_PT">
         <value xml:lang="de">Veröffentlichungsort</value>
         <value xml:lang="en">Publish Point</value>
-        <value xml:lang="fr">Publier le point</value>
+        <value xml:lang="fr">Point de publication</value>
         <value xml:lang="it">Punto Pubblico</value>
         <value xml:lang="ro">Punct Public</value>
         <value xml:lang="th">ความคิดเห็นที่ลงประกาศ</value>
