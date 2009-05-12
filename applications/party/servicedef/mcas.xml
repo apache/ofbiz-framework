@@ -21,6 +21,9 @@ under the License.
 <service-mca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-mca.xsd">
 
+    <mca mail-rule-name="logIncomingMessage">
+        <action service="logIncomingMessage" mode="sync"/>
+    </mca>
     <mca mail-rule-name="processBouncedMessage">
         <action service="processBouncedMessage" mode="sync"/>
     </mca>
