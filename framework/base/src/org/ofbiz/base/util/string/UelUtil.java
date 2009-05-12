@@ -142,6 +142,9 @@ public class UelUtil {
                 if (variable.endsWith("$string")) {
                     name = variable.substring(0, variable.length() - 7);
                     createObjectType = "string";
+                } else if (variable.endsWith("$null")) {
+                    name = variable.substring(0, variable.length() - 5);
+                    createObjectType = "null";
                 } else if (variable.endsWith("$boolean")) {
                     name = variable.substring(0, variable.length() - 8);
                     createObjectType = "boolean";
@@ -172,6 +175,8 @@ public class UelUtil {
             if (createObjectType != null) {
                 if ("string".equals(createObjectType)) {
                     return new BasicValueExpression("");
+                } else if ("null".equals(createObjectType)) {
+                    return new BasicValueExpression(null);
                 } else if ("boolean".equals(createObjectType)) {
                     return new BasicValueExpression(Boolean.FALSE);
                 } else if ("integer".equals(createObjectType)) {
@@ -202,6 +207,9 @@ public class UelUtil {
             }
             try {
                 BasicValueExpression other = (BasicValueExpression) obj;
+                if (this.object == other.object) {
+                    return true;
+                }
                 return this.object.equals(other.object);
             } catch (Exception e) {}
             return false;
