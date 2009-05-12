@@ -3770,6 +3770,9 @@
         <value xml:lang="zh">手工促销</value>
         <value xml:lang="zh_CN">人工促销</value>
     </property>
+    <property key="OrderMarkViewed">
+        <value xml:lang="en">Mark Viewed</value>
+    </property>
     <property key="OrderMethod">
         <value xml:lang="cs">Způsob</value>
         <value xml:lang="de">Methode</value>
@@ -9491,6 +9494,9 @@
         <value xml:lang="th">แสดงหรือแก้ไขข้อมูลตารางการส่ง</value>
         <value xml:lang="zh">浏览/编辑交货计划信息</value>
         <value xml:lang="zh_CN">查看编辑发货计划</value>
+    </property>
+    <property key="OrderViewed">
+        <value xml:lang="en">Viewed</value>
     </property>
     <property key="OrderViewImage">
         <value xml:lang="de">Bild anzeigen</value>

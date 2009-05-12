@@ -1468,6 +1468,14 @@ under the License.
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
+
+    <request-map uri="markOrderViewed">
+        <security https="true" auth="true"/>
+        <event type="jsonservice" invoke="updateOrderHeader"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+
     <!-- Lookup request mappings -->
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
