@@ -42,6 +42,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
+        <override name="custRequestName" allow-html="safe"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
@@ -73,12 +74,14 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="custRequestItemSeqId" optional="true"/>
+        <override name="story" allow-html="safe"/>
     </service>
     <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
         <description>Update a CustRequestItem record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="story" allow-html="safe"/>
     </service>
     <service name="copyCustRequestItem" default-entity-name="CustRequestItem" engine="simple"
                 location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="copyCustRequestItem" auth="true">
@@ -168,6 +171,7 @@ under the License.
         <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
         <override name="content" allow-html="safe"/>
+        <override name="custRequestName" allow-html="safe"/>
     </service>
 
     <!-- custRequest content services -->
