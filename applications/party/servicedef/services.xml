@@ -1177,4 +1177,10 @@ under the License.
             location="org.ofbiz.party.communication.CommunicationEventServices" invoke="processBouncedMessage">
         <implements service="mailProcessInterface"/>
     </service>
+    
+    <!--  log incoming message MCA -->
+    <service name="logIncomingMessage" engine="java" 
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="logIncomingMessage">
+        <implements service="mailProcessInterface"/>
+    </service>    
 </services>
