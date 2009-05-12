@@ -236,7 +236,36 @@ under the License.
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
                   </td>
                 </tr>
+                <tr><td colspan="3"><hr/></td></tr>
               </form>
+            </#if>
+            <#if orderHeader.isViewed?has_content && orderHeader.isViewed == "Y">
+            <tr>
+              <td class="label">${uiLabelMap.OrderViewed}</td>
+              <td width="5%"></td>
+              <td valign="top" width="80%">
+                ${uiLabelMap.CommonYes}
+              </td>
+            </tr>
+            <#else>
+            <tr id="isViewed">
+              <td class="label">${uiLabelMap.OrderMarkViewed}</td>
+              <td width="5%"></td>
+              <td valign="top" width="80%">
+                <form id="orderViewed">
+                  <input type="checkbox" name="checkViewed" onclick="javascript:markOrderViewed();"/>
+                  <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                  <input type="hidden" name="isViewed" value="Y"/>
+                </form>
+              </td>
+            </tr>
+            <tr id="viewed" style="display: none;">
+              <td class="label">${uiLabelMap.OrderViewed}</td>
+              <td width="5%"></td>
+              <td valign="top" width="80%">
+                ${uiLabelMap.CommonYes}
+              </td>
+            </tr>
             </#if>
         </table>
     </div>
