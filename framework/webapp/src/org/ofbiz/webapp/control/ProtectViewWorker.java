@@ -75,31 +75,32 @@ public class ProtectViewWorker {
                     // Is this login/view couple already tarpitted ? (ie denied access to view for login for a period of time)
                     List<GenericValue> tarpittedLoginViews = delegator.findByAnd("TarpittedLoginView",
                             UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
+                    String  viewNameUserLoginId = viewNameId + userLoginId;
                     if (UtilValidate.isNotEmpty(tarpittedLoginViews)) {
                         GenericValue tarpittedLoginView = tarpittedLoginViews.get(0);
                         Long tarpitReleaseDateTime = (Long) tarpittedLoginView.get("tarpitReleaseDateTime");
                         if (now < tarpitReleaseDateTime) {
                             String tarpittedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.tarpitted_message", UtilHttp.getLocale(request));
                             // reset since now protected by the tarpit duration
-                            hitsByViewAccessed.put(viewNameId, new Long(0));
+                            hitsByViewAccessed.put(viewNameUserLoginId, new Long(0));
                             return ":_protect_:" + tarpittedMessage;
                         }
                     }
                     GenericValue protectedView = protectedViews.get(0);
                     // 1st hit ?
-                    if (UtilValidate.isEmpty(hitsByViewAccessed.get(viewNameId))) {
-                        hitsByViewAccessed.put(viewNameId, one);
-                        Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
-                        durationByViewAccessed.put(viewNameId, now + maxHitsDuration);
+                    Long curMaxHits = (Long) hitsByViewAccessed.get(viewNameUserLoginId);
+                    if (UtilValidate.isEmpty(curMaxHits)) {
+                        hitsByViewAccessed.put(viewNameUserLoginId, one);
+                        Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000; 
+                        durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
                     } else {
-                        Long maxHits = protectedView.getLong("maxHits");
-                        Long maxDuration = (Long) durationByViewAccessed.get(viewNameId);
-                        Long newMaxHits = (Long) hitsByViewAccessed.get(viewNameId) + one;
-                        hitsByViewAccessed.put(viewNameId, newMaxHits);
+                        Long maxDuration = (Long) durationByViewAccessed.get(viewNameUserLoginId);
+                        Long newMaxHits = (Long) curMaxHits + one;
+                        hitsByViewAccessed.put(viewNameUserLoginId, newMaxHits);
                         // Are we in a period of time where we need to check if there was too much hits ?
                         if (now < maxDuration) {
-                            // Too much hits ?
-                            if (newMaxHits > maxHits) { // yes : block and set tarpitReleaseDateTime
+                            // Check if over the max hit count...
+                            if (newMaxHits > protectedView.getLong("maxHits")) { // yes : block and set tarpitReleaseDateTime
                                 String blockedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.blocked_message", UtilHttp.getLocale(request));
                                 returnValue = ":_protect_:" + blockedMessage;
 
@@ -117,15 +118,15 @@ public class ProtectViewWorker {
                                 }
                             }
                         } else {
-                            // The period of time is revolved, we begin a new one.
+                            // The tarpit period is over, begin a new one.
                             // Actually it's not a discrete process but we do as it was...
-                            // We don't need precision here, a theft will be catch anyway !
+                            // We don't need precision here, a theft will be caught anyway !
                             // We could also take an average of hits in the last x periods of time as initial value,
-                            // but it would does not make much more sense.
-                            // Of course for this to works well the tarpitting period must be long enough...
-                            hitsByViewAccessed.put(viewNameId, one);
+                            // but it does not make any more sense.
+                            // Of course for this to work well the tarpitting period must be long enough...
+                            hitsByViewAccessed.put(viewNameUserLoginId, one);
                             Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
-                            durationByViewAccessed.put(viewNameId, now + maxHitsDuration);
+                            durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
                         }
                     }
                 }
