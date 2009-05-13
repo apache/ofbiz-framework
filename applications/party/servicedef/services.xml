@@ -833,7 +833,7 @@ under the License.
 
     <service name="sendEmailToContactList" engine="java"
             location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendEmailToContactList" auth="true"
-            use-transaction="false" max-retry="3">  <!-- Individual emails will be wrapped in their own transactions -->
+            use-transaction="true" transaction-timeout="300" max-retry="3">  <!-- Individual emails will be wrapped in their own transactions -->
             <description>Send emails to members of a contact list, wrapping each email in its own transaction and tagging each member
                 that has been sent, so if the whole effort is aborted, it can start over from the middle.  The max-retry is important because if this service is
                 and some emails cannot sent, it will start again later and try again</description>
