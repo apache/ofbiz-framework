@@ -1144,6 +1144,26 @@ under the License.
                                 </screenlet>
                             </widgets>
                         </section>
+                        <section>
+                            <actions>
+                                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/BillingAccounts.groovy"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingBillingAccount}">
+                                    <include-form name="PartyBillingAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <actions>
+                                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHeader.groovy"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.OrderOrderReturns}">
+                                    <include-form name="PartyReturns" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

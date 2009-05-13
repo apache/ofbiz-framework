@@ -1013,4 +1013,16 @@ under the License.
 
         <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
+    <form name="PartyBillingAccount" type="list" list-name="billingAccounts" default-table-style="basic-table hover-bar">
+        <field name="billingAccountId"><display/></field>
+        <field name="accountLimit"><display type="currency"/></field>
+        <field name="accountBalance"><display type="currency"/></field>
+        <field name="description"><display/></field>
+    </form>
+    <form name="PartyReturns" type="list" list-name="returnList" default-table-style="basic-table hover-bar">
+        <field name="returnId"><display/></field>
+        <field name="statusId"><display/></field>
+        <field name="fromPartyId"><display/></field>
+        <field name="toPartyId"><display/></field>
+    </form>
 </forms>
