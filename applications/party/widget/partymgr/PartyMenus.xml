@@ -208,7 +208,7 @@
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
-            <link target="/ordermgr/control/searchorders" url-mode="inter-app">
+            <link target="/ordermgr/control/searchorders" url-mode="inter-app" link-type="hidden-form">
                 <parameter param-name="lookupFlag" value="Y"/>
                 <parameter param-name="hideFields" value="Y"/>
                 <parameter param-name="partyId"/>
