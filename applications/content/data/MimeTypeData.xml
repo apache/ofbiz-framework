@@ -34,6 +34,7 @@ under the License.
 
     <!-- application mime types -->
     <MimeType mimeTypeId="application/octet-stream" description="Arbitrary Binary Data"/>
+    <MimeType mimeTypeId="application/pkcs7-signature" description="PKCS7 Signature"/>
     <MimeType mimeTypeId="application/postscript" description="Postsctipt Application/Script"/>
     <MimeType mimeTypeId="application/zip" description="ZIP Data"/>
     <MimeType mimeTypeId="application/pdf" description="Adobe Portable Document Format (PDF)"/>
