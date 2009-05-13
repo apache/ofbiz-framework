@@ -42,7 +42,7 @@
         <auto-fields-service service-name="updateProductStore" map-name=""/>
 
         <field use-when="productStore!=null" name="productStoreId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
-        <field name="productStoreId"><ignored/></field>
+        <field name="productStoreId"><hidden/></field>
 
         <field name="primaryStoreGroupId">
             <drop-down allow-empty="true">
