@@ -792,18 +792,30 @@ under the License.
             be of type EMAIL_COMMUNICATION. Will look for a contactMechIdTo to send the emails</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="storeEmailAsCommunication" engine="java"
-        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="storeEmailAsCommunication" auth="true">
-        <description>Store email as a communication event with the status COM_COMPLETE and current timestamp as datetimeStarted and datetimeEnded.
-            The communication event will be from the party of the userLogin to the party of the partyId parameter.
-            It is meant to run a SECA after a sendMail to record outgoing emails.</description>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        
+    <!--  email to communication event ECA services -->
+    <service name="createCommEventFromEmail" engine="java"
+        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="createCommEventFromEmail" auth="true">
+        <description>
+                Creates a CommunicationEvent record based on information before running a sendMail service (to be used via ECA)
+        </description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>        
         <attribute name="subject" type="String" mode="IN" optional="false"/>
-        <attribute name="body" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="sendFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="sendTo" type="String" mode="IN" optional="false"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
-        <attribute name="emailType" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="OUT"/>
     </service>
+    <service name="updateCommEventAfterEmail" engine="java"
+        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="updateCommEventAfterEmail" auth="true">
+        <description>
+                Updates a CommunicationEvent record after running a sendMail service (to be used via ECA)
+        </description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>        
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN" optional="false"/>        
+    </service>
+    
     <service name="storeIncomingEmail" engine="java"
         location="org.ofbiz.party.communication.CommunicationEventServices" invoke="storeIncomingEmail" auth="true">
         <description>
