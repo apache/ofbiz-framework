@@ -37,6 +37,7 @@ under the License.
     <!--  update contact list party for bounced messages -->
     <eca service="updateContactListCommStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="COM_BOUNCED"/>
+        <condition field-name="contactMechId" operator="is-not-empty"/>
         <condition field-name="partyId" operator="is-not-empty"/>
         <set field-name="statusId" value="CLPT_INVALID"/>
         <action service="updateContactListParty" mode="sync"/>

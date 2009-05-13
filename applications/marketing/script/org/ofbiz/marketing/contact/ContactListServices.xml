@@ -311,13 +311,18 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateCommStatusFromCommEvent" short-description="Update ContactList Comm Status from CommunicationEvent">
-        <entity-and list="clcs" entity-name="ContactListCommStatus">
-            <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
-        </entity-and>
-        <iterate entry="commStatus" list="clcs">
-            <set-service-fields service-name="updateContactListCommStatus" to-map="updateStatusCtx" map="commStatus"/>
-            <set field="updateStatusCtx.statusId" from-field="parameters.statusId"/>
-            <call-service service-name="updateContactListCommStatus" in-map-name="updateStatusCtx"/>
-        </iterate>                
+        <entity-one entity-name="CommunicationEvent" value-field="commEvent"/> 
+        <if-not-empty field="commEvent">
+            <entity-and list="clcs" entity-name="ContactListCommStatus">
+                <field-map field-name="communicationEventId" from-field="commEvent.parentCommEventId"/>
+                <field-map field-name="partyId" from-field="commEvent.partyIdTo"/>
+                <field-map field-name="contactMechId" from-field="commEvent.contactMechIdTo"/>
+            </entity-and>
+            <iterate entry="commStatus" list="clcs">
+                <set-service-fields service-name="updateContactListCommStatus" to-map="updateStatusCtx" map="commStatus"/>
+                <set field="updateStatusCtx.statusId" from-field="parameters.statusId"/>
+                <call-service service-name="updateContactListCommStatus" in-map-name="updateStatusCtx"/>
+            </iterate>
+        </if-not-empty>                                       
     </simple-method>       
 </simple-methods>
