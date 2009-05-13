@@ -294,6 +294,7 @@ public class LoginEvents {
         serviceContext.put("sendBcc", productStoreEmail.get("bccAddress"));
         serviceContext.put("contentType", productStoreEmail.get("contentType"));
         serviceContext.put("sendTo", emails.toString());
+        serviceContext.put("partyId", party.getString("partyId"));
 
         try {
             Map<String, Object> result = dispatcher.runSync("sendMailFromScreen", serviceContext);
