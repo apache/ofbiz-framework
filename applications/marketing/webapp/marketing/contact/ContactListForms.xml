@@ -163,6 +163,7 @@ under the License.
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
      </form>
 
     <form name="FindContactListParties" type="single" target="ListContactListParties" title=""

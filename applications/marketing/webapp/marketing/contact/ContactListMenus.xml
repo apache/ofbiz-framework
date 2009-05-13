@@ -63,6 +63,7 @@ under the License.
             </condition>
             <link target="updateContactListCommEvent" link-type="hidden-form">                
                 <parameter param-name="communicationEventId"/>
+                <parameter param-name="contactListId"/>
                 <parameter param-name="statusId" value="COM_IN_PROGRESS"/>                
             </link>
         </menu-item>        

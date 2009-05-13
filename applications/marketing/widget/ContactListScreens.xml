@@ -167,9 +167,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContactListParty"/>
                 <set field="contactListTabButtonItem" value="ContactListParty"/>
                 <set field="labelTitleProperty" value="PageTitleEditContactListParty"/>
-
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
+                
                 <set field="contactListId" from-field="parameters.contactListId"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListParties?contactListId=${contactListId}"/>
+                
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
@@ -229,9 +230,9 @@ under the License.
                 <!-- parameters for pagination -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
-
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
+                
                 <set field="contactListId" from-field="parameters.contactListId"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListParties?contactListId=${contactListId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
@@ -269,7 +270,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleFindContactListParty"/>
 
                 <set field="contactListId" from-field="parameters.contactListId"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/EditContactList?contactListId=${contactListId}"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListParties?contactListId=${contactListId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
@@ -307,7 +308,7 @@ under the License.
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitleEditContactListCommEvent"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListCommEvents?contactListId=${parameters.contactListId}"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="ContactList" value-field="contactList"/>
@@ -360,7 +361,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListCommEvents?contactListId=${parameters.contactListId}"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
             </actions>
             <widgets>
@@ -398,7 +399,7 @@ under the License.
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitleFindContactListCommEvents"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListCommEvents?contactListId=${parameters.contactListId}"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
             </actions>
             <widgets>
