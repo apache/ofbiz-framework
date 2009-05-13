@@ -34,6 +34,7 @@ under the License.
         <if-not-empty field="emailTemplateSetting">
             <set field="emailParams.bodyScreenUri" from-field="emailTemplateSetting.bodyScreenLocation"/>
             <set field="emailParams.xslfoAttachScreenLocation" from-field="emailTemplateSetting.xslfoAttachScreenLocation"/>
+            <set field="emailParams.partyId" from-field="parameters.partyIdTo"/>
             <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
             <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>
             <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
