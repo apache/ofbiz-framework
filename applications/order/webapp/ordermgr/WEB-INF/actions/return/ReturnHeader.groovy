@@ -20,6 +20,8 @@
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.party.contact.*;
 
 
@@ -36,6 +38,21 @@ if (returnId) {
 
         context.currentStatus = returnHeader.getRelatedOneCache("StatusItem");
     }
+} else {
+    partyId = parameters.partyId;
+    returnHeaders = delegator.findList("ReturnHeader", EntityCondition.makeCondition("fromPartyId", EntityOperator.EQUALS, partyId), null, null, null, false);
+    returnList = [];
+    returnHeaders.each { returnHeader ->
+        returnMap = [:];
+        returnMap.returnId = returnHeader.returnId;
+        statusItem = returnHeader.getRelatedOne("StatusItem");
+        returnMap.statusId = statusItem.description;
+        returnMap.fromPartyId = returnHeader.fromPartyId;
+        returnMap.toPartyId = returnHeader.toPartyId;
+        
+        returnList.add(returnMap);
+    }
+    context.returnList = returnList;
 }
 context.returnHeader = returnHeader;
 context.returnId = returnId;
