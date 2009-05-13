@@ -1289,7 +1289,7 @@ div.screenlet-body {
 
 .screenlet-title-bar ul a:hover {
 	color: #ffffff;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 .screenlet-title-bar ul .disabled {
