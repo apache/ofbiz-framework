@@ -936,6 +936,16 @@ under the License.
         <set field="inMap.returnTypeId" value="RTN_REPLACE_IMMEDIAT"/>
         <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
     </simple-method> 
+    <simple-method method-name="processRefundOnlyReturn" short-description="Process the refund in a return">
+        <set field="inMap.returnId" from-field="parameters.returnId"/>
+        <set field="inMap.returnTypeId" value="RTN_REFUND"/>
+        <call-service service-name="processRefundReturn" in-map-name="inMap"/>
+    </simple-method> 
+    <simple-method method-name="processRefundImmediatelyReturn" short-description="Process the Immediate refund in a return">
+        <set field="inMap.returnId" from-field="parameters.returnId"/>
+        <set field="inMap.returnTypeId" value="RTN_REFUND_IMMEDIATE"/>
+        <call-service service-name="processRefundReturn" in-map-name="inMap"/>
+    </simple-method> 
 
     <simple-method method-name="createReturnItemShipment" short-description="Create a ReturnItemShipment">
         <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItemShipment"/></check-permission>

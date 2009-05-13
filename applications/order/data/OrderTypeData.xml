@@ -330,6 +330,7 @@ under the License.
     <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement"/>
     <ReturnType sequenceId="06" returnTypeId="RTN_WAIT_REPLACE_RES" description="Wait Replacement Reserved"/>
     <ReturnType sequenceId="07" returnTypeId="RTN_REPLACE_IMMEDIAT" description="Replace Immediately"/>
+    <ReturnType sequenceId="08" returnTypeId="RTN_REFUND_IMMEDIATE" description="Refund immediately"/>
 
     <WorkReqFulfType description="Implements" workReqFulfTypeId="WRF_IMPLEMENTS"/>
     <WorkReqFulfType description="Fixes" workReqFulfTypeId="WRF_FIXES"/>

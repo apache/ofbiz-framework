@@ -853,6 +853,7 @@ public class OrderReturnServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String returnId = (String) context.get("returnId");
+        String returnTypeId = (String) context.get("returnTypeId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
@@ -861,14 +862,14 @@ public class OrderReturnServices {
         try {
             returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
             if (returnHeader != null) {
-                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_REFUND"));
+                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
 
-        BigDecimal adjustments = getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_REFUND"));
+        BigDecimal adjustments = getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", returnTypeId));
 
         if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
             Map itemsByOrder = new HashMap();
@@ -886,7 +887,7 @@ public class OrderReturnServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
 
-            groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId, "RTN_REFUND");
+            groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId, returnTypeId);
 
             // process each one by order
             Set itemSet = itemsByOrder.entrySet();

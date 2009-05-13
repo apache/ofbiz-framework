@@ -220,6 +220,7 @@ under the License.
             location="org.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturn">
         <description>Process the refunds in a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnTypeId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processReplacementReturn" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="processReplacementReturn">
@@ -250,6 +251,16 @@ under the License.
     <service name="processReplaceImmediatelyReturn" engine="simple" auth="true"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="processReplaceImmediatelyReturn">
         <description>Process the replacements in a Immediate Return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="processRefundOnlyReturn" engine="simple"  auth="true"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="processRefundOnlyReturn">
+        <description>Process the Refund in a return</description>    
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="processRefundImmediatelyReturn" engine="simple"  auth="true"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="processRefundImmediatelyReturn">
+        <description>Process the Immediate Refund in a return</description>    
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processSubscriptionReturn" engine="java" auth="true"
