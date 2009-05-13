@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
 import org.ofbiz.party.contact.ContactMechWorker;
 
 parentCommEventId = parameters.parentCommEventId;
@@ -45,7 +46,7 @@ if (parentCommEventId) {
         }
         parameters.contactMechIdFrom = parentEvent.contactMechIdTo;
 
-        parameters.partyIdFrom = userLogin.partyId;
+        parameters.partyIdFrom = parentEvent.partyIdTo;
         parameters.partyIdTo = parentEvent.partyIdFrom;
         parameters.statusId = "COM_IN_PROGRESS";
 

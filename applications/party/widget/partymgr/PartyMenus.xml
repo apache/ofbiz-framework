@@ -309,6 +309,7 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
@@ -319,6 +320,7 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
@@ -358,6 +360,7 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
@@ -371,6 +374,7 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
@@ -381,7 +385,7 @@
                     <not><if-empty field="communicationEvent"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
@@ -389,12 +393,13 @@
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
                 <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
                 <parameter param-name="partyIdTo" from-field="communicationEvent.partyIdFrom"/>
             </link>
         </menu-item>
-        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}(${partyId})">
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
@@ -406,6 +411,7 @@
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
                 <parameter param-name="originalCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>

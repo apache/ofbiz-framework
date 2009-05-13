@@ -385,7 +385,7 @@ under the License.
                                         <if-empty field="communicationEvent"/>
                                     </condition>
                                     <widgets>
-                                        <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${parameters.communicationEventId}">
+                                        <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${parameters.communicationEventId} ${uiLabelMap.CommonFrom} ${communicationEvent.partyIdFrom}">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
                                         </screenlet>
                                     </widgets>
@@ -426,7 +426,7 @@ under the License.
                                     </widgets>
                                     <fail-widgets>
                                         <container style="lefthalf">
-                                            <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId}">
+                                            <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId} ${uiLabelMap.CommonFrom} ${communicationEvent.partyIdFrom}">
                                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditInternalNote"/>
                                             </screenlet>
                                         </container>
@@ -819,8 +819,7 @@ under the License.
             <actions>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="internalNotesOnly" from-field="internalNotesOnly" default-value="true"/>
-                <set field="partyId" from-field="parameters.partyId" default-value="${communicationPartyId}"/>
-                <set field="partyId" from-field="partyId" default-value="${userLogin.partyId}"/>
+                <set field="partyId" from-field="communicationPartyId" default-value="${userLogin.partyId}"/>
                 <set field="all" from-field="parameters.all"/>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
                     <condition-list combine="and">
@@ -850,10 +849,9 @@ under the License.
                 </entity-condition>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEventDraft">
                     <condition-list combine="and">
-                        <condition-expr field-name="statusId" operator="equals"
-                            value="COM_PENDING"/>
-                        <condition-expr field-name="partyId" operator="equals"
-                            value="${partyId}"/>
+                        <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
+                        <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="ORIGINATOR"/>
                     </condition-list>
                     <order-by field-name="-entryDate"/>
                 </entity-condition>
