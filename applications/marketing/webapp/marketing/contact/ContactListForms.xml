@@ -184,17 +184,18 @@ under the License.
         <field name="preferredContactMechId" title="${uiLabelMap.MarketingContactListPreferredContactMech}">
             <lookup target-form-name="LookupContactMech" target-parameter="partyId"/>
         </field>
-
+        <field name="hideExpired"><check all-checked="true"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListContactListParties" type="list"  title="" list-name="listIt" paginate-target="ListContactListParties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
+        <actions>                   
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="filterByDate" from-field="parameters.hideExpired"/>
                 <field-map field-name="orderBy" value="partyId"/>
-                <field-map field-name="entityName" value="ContactListParty"/>
-            </service>
+                <field-map field-name="entityName" value="ContactListParty"/>                
+            </service>            
         </actions>
 
         <field name="contactListId"><hidden/></field>
@@ -210,6 +211,15 @@ under the License.
                 <parameter param-name="contactListId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="expireLink" title=" " widget-style="buttontext">            
+            <hyperlink target="updateContactListParty/ListContactListParties" description="${uiLabelMap.CommonExpire}"  link-type="hidden-form" also-hidden="false">                
+                <parameter param-name="contactListId"/>                
+                <parameter param-name="partyId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="donePage"/>                
+                <parameter param-name="thruDate" value="${nowTimestamp}"/>
             </hyperlink>
         </field>
     </form>
