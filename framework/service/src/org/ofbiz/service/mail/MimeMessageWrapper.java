@@ -122,6 +122,24 @@ public class MimeMessageWrapper implements java.io.Serializable {
         return message;
     }
     
+    public String getFirstHeader(String header) {
+        String[] headers = getHeader(header);
+        if (headers != null && headers.length > 0) {
+            return headers[0];
+        } else {
+            return null;
+        }
+    }
+    public String[] getHeader(String header) {
+        MimeMessage message = getMessage();
+        try {
+            return message.getHeader(header);
+        } catch (MessagingException e) {
+            Debug.logError(e, module);
+            return null;
+        }
+    }
+    
     public Address[] getFrom() {
         MimeMessage message = getMessage();
         try {
@@ -235,14 +253,16 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 String idx = Integer.toString(i);
                 if (subPartCount > 0) {
                     for (int si = 0; si < subPartCount; si++) {
-                        String sidx = idx + "." + Integer.toString(si);
-                        if (getPartDisposition(sidx) != null && getPartDisposition(sidx).equals(Part.ATTACHMENT)) {
-                            attachments.add(sidx);
+                        String sidx = idx + "." + Integer.toString(si);                        
+                        if (getPartDisposition(sidx) != null && (getPartDisposition(sidx).equals(Part.ATTACHMENT) ||
+                                getPartDisposition(sidx).equals(Part.INLINE))) {
+                            attachments.add(sidx);                        
                         }
                     }
-                } else {
-                    if (getPartDisposition(idx) != null && getPartDisposition(idx).equals(Part.ATTACHMENT)) {
-                        attachments.add(idx);
+                } else {                    
+                    if (getPartDisposition(idx) != null && (getPartDisposition(idx).equals(Part.ATTACHMENT) ||
+                            getPartDisposition(idx).equals(Part.INLINE))) {
+                        attachments.add(idx);                    
                     }
                 }
             }
@@ -268,8 +288,10 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 if (subPartCount > 0) {
                     for (int si = 0; si < subPartCount; si++) {
                         String sidx = idx + "." + Integer.toString(si);
-                        if (getPartDisposition(sidx) == null || getPartDisposition(sidx).equals(Part.INLINE)) {
-                            body.append(getPartText(sidx)).append("\n");    
+                        if (getPartContentType(sidx) != null && getPartContentType(sidx).toLowerCase().startsWith("text")) {
+                            if (getPartDisposition(sidx) == null || getPartDisposition(sidx).equals(Part.INLINE)) {
+                                body.append(getPartText(sidx)).append("\n");    
+                            }
                         }
                     }
                 } else {
@@ -283,6 +305,36 @@ public class MimeMessageWrapper implements java.io.Serializable {
             }
             return body.toString();
         }        
+    }
+    
+    public String getMessageBodyContentType() {
+        String contentType = getContentType();
+        if (contentType != null && contentType.toLowerCase().startsWith("text")) {
+            return contentType;
+        } else {
+            for (int i = 0; i < getMainPartCount(); i++) {
+                int subPartCount = getSubPartCount(i);
+                String idx = Integer.toString(i);
+                if (subPartCount > 0) {
+                    for (int si = 0; si < subPartCount; si++) {
+                        String sidx = idx + "." + Integer.toString(si);
+                        if (getPartContentType(sidx) != null && getPartContentType(sidx).toLowerCase().startsWith("text")) {
+                            if (getPartDisposition(sidx) == null || getPartDisposition(sidx).equals(Part.INLINE)) {
+                                return getPartContentType(sidx);  
+                            }
+                        }
+                    }
+                } else {
+                    if (getPartContentType(idx) != null && getPartContentType(idx).toLowerCase().startsWith("text")) {
+                        // make sure the part isn't an attachment
+                        if (getPartDisposition(idx) == null || getPartDisposition(idx).equals(Part.INLINE)) {
+                            return getPartContentType(idx);                      
+                        }
+                    }
+                }
+            }
+        }
+        return "text/html";
     }
     
     public String getMessageRawText() {
@@ -482,7 +534,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         byte[] buffer = new byte[4096];
         try {            
             for (int n; (n = stream.read(buffer)) != -1;) {
-                baos.write(n);
+                baos.write(buffer, 0, n);
             }
         } catch (IOException e) {
             Debug.logError(e, module);
