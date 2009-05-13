@@ -483,8 +483,10 @@ public class CommunicationEventServices {
                                                         
         Map<String, Object> commEventMap = FastMap.newInstance();
         commEventMap.put("communicationEventId", communicationEventId);
+        commEventMap.put("subject", wrapper.getSubject());
         commEventMap.put("statusId", "COM_COMPLETE");
         commEventMap.put("datetimeEnded", UtilDateTime.nowTimestamp());
+        commEventMap.put("entryDate", wrapper.getSentDate());
         commEventMap.put("messageId", wrapper.getMessageId());
         commEventMap.put("userLogin", userLogin);
         commEventMap.put("content", wrapper.getMessageBody());
