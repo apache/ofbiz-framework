@@ -191,6 +191,7 @@ under the License.
         <action service="processCrossShipReplacementReturn" mode="sync"/>
         <action service="createTrackingCodeOrderReturns" mode="sync" run-as-user="system"/>
         <action service="sendReturnAcceptNotification" mode="async" persist="true"/>
+        <action service="processRefundImmediatelyReturn" mode="sync"/>
     </eca>
 
     <eca service="updateReturnHeader" event="commit">
@@ -200,14 +201,14 @@ under the License.
         <action service="processWaitReplacementReservedReturn" mode="sync"/>
         <action service="processRepairReplacementReturn" mode="sync"/>
         <action service="processCreditReturn" mode="sync"/>
-        <action service="processRefundReturn" mode="sync"/>
+        <action service="processRefundOnlyReturn" mode="sync"/>
     </eca>
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
         <action service="processWaitReplacementReturn" mode="sync"/>
         <action service="processRepairReplacementReturn" mode="sync"/>
         <action service="processCreditReturn" mode="sync"/>
-        <action service="processRefundReturn" mode="sync"/>
+        <action service="processRefundOnlyReturn" mode="sync"/>
     </eca>
 
     <eca service="updateReturnHeader" event="commit">
