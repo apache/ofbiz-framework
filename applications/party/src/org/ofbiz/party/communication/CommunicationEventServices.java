@@ -467,12 +467,13 @@ public class CommunicationEventServices {
      * @param context
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static Map<String, Object> storeIncomingEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
-        MimeMessage message = wrapper.getMessage();
+        
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyIdTo = null;
@@ -484,17 +485,17 @@ public class CommunicationEventServices {
 
         Map<String, Object> result = null;
         try {
-            String contentTypeRaw = message.getContentType();
+            String contentTypeRaw = wrapper.getContentType();
             int idx = contentTypeRaw.indexOf(";");
             if (idx == -1) idx = contentTypeRaw.length();
             contentType = contentTypeRaw.substring(0, idx);
             if (contentType == null || contentType.equals("")) contentType = "text/html";
             contentType = contentType.toLowerCase();
-            Address[] addressesFrom = message.getFrom();
-            Address[] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
-            Address[] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
-            Address[] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
-            String messageId = message.getMessageID();
+            Address[] addressesFrom = wrapper.getFrom();
+            Address[] addressesTo = wrapper.getTo();
+            Address[] addressesCC = wrapper.getCc();
+            Address[] addressesBCC = wrapper.getBcc();
+            String messageId = wrapper.getMessageId();
 
             String aboutThisEmail = "message [" + messageId + "] from [" +
                 (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + "] to [" +
@@ -505,8 +506,8 @@ public class CommunicationEventServices {
             String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
             String configHeaderValue = UtilProperties.getPropertyValue("general.properties", "mail.spam.value");
             //          only execute when config file has been set && header variable found
-            if (!spamHeaderName.equals("N") && message.getHeader(spamHeaderName) != null && message.getHeader(spamHeaderName).length > 0) {
-                String msgHeaderValue = message.getHeader(spamHeaderName)[0];
+            if (!spamHeaderName.equals("N") && wrapper.getHeader(spamHeaderName) != null && wrapper.getHeader(spamHeaderName).length > 0) {
+                String msgHeaderValue = wrapper.getHeader(spamHeaderName)[0];
                 if (msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
                     return ServiceUtil.returnSuccess(" Message Ignored: detected by external spam checker");
@@ -548,9 +549,8 @@ public class CommunicationEventServices {
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
 
-            String deliveredTo = null;
-            if (message.getHeader("Delivered-To") != null) {
-                deliveredTo = message.getHeader("Delivered-To")[0];
+            String deliveredTo = wrapper.getFirstHeader("Delivered-To");
+            if (deliveredTo != null) {                
                 // check if started with the domain name if yes remove including the dash.
                 String dn = deliveredTo.substring(deliveredTo.indexOf("@")+1, deliveredTo.length());
                 if (deliveredTo.startsWith(dn)) {
@@ -582,30 +582,30 @@ public class CommunicationEventServices {
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
             commEventMap.put("messageId", messageId);
 
-            String subject = message.getSubject();
+            String subject = wrapper.getSubject();
             commEventMap.put("subject", subject);
 
             // Set sent and received dates
             commEventMap.put("entryDate", nowTimestamp);
-            commEventMap.put("datetimeStarted", UtilDateTime.toTimestamp(message.getSentDate()));
-            commEventMap.put("datetimeEnded", UtilDateTime.toTimestamp(message.getReceivedDate()));
+            commEventMap.put("datetimeStarted", UtilDateTime.toTimestamp(wrapper.getSentDate()));
+            commEventMap.put("datetimeEnded", UtilDateTime.toTimestamp(wrapper.getReceivedDate()));
 
             // default role types (_NA_)
             commEventMap.put("roleTypeIdFrom", "_NA_");
             commEventMap.put("roleTypeIdTo", "_NA_");
 
             // get the content(type) part
-            Object messageContent = message.getContent();
-            if (contentType.startsWith("text")) {
-                commEventMap.put("content", messageContent);
-                commEventMap.put("contentMimeTypeId", contentType);
-            } else if (messageContent instanceof Multipart) {
-                contentIndex = "";
-                commEventMap = addMessageBody(commEventMap, (Multipart) messageContent);
+            String messageBodyContentType = wrapper.getMessageBodyContentType();
+            if (messageBodyContentType.indexOf(";") > -1) {
+                messageBodyContentType = messageBodyContentType.substring(0, messageBodyContentType.indexOf(";"));
             }
+            String messageBody = wrapper.getMessageBody();
+                        
+            commEventMap.put("content", messageBody);
+            commEventMap.put("contentMimeTypeId", messageBodyContentType.toLowerCase());            
 
             // check for for a reply to communication event (using in-reply-to the parent messageID)
-            String[] inReplyTo = message.getHeader("In-Reply-To");
+            String[] inReplyTo = wrapper.getHeader("In-Reply-To");
             if (inReplyTo != null && inReplyTo[0] != null) {
                 GenericValue parentCommEvent = null;
                 try {
@@ -692,7 +692,7 @@ public class CommunicationEventServices {
 
             // Populate the CommunicationEvent.headerString field with the email headers
             StringBuilder headerString = new StringBuilder();
-            Enumeration headerLines = message.getAllHeaderLines();
+            Enumeration headerLines = wrapper.getMessage().getAllHeaderLines();
             while (headerLines.hasMoreElements()) {
                 headerString.append(System.getProperty("line.separator"));
                 headerString.append(headerLines.nextElement());
@@ -702,12 +702,52 @@ public class CommunicationEventServices {
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
 
-            if (messageContent instanceof Multipart) {
-                Debug.logInfo("===message has attachments=====", module);
-                int attachmentCount = addAttachmentsToCommEvent((Multipart) messageContent, subject, communicationEventId, dispatcher, userLogin);
-                if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
+            // handle the attachments
+            List<String> attachmentIndexes = wrapper.getAttachmentIndexes();
+            if (attachmentIndexes.size() > 0) {
+                Debug.logInfo("=== message has attachments [" + attachmentIndexes.size() + "] =====", module);
+                for (String attachmentIdx : attachmentIndexes) {
+                    Map<String, Object> attachmentMap = FastMap.newInstance();
+                    attachmentMap.put("communicationEventId", communicationEventId);
+                    attachmentMap.put("contentTypeId", "DOCUMENT");
+                    attachmentMap.put("mimeTypeId", "text/html");
+                    attachmentMap.put("userLogin", userLogin);
+                    if (subject != null && subject.length() > 80) {
+                        subject = subject.substring(0,80); // make sure not too big for database field. (20 characters for filename)
+                    }
+                    
+                    String attFileName = wrapper.getPartFilename(attachmentIdx);
+                    String attContentType = wrapper.getPartContentType(attachmentIdx);
+                    if (attContentType != null && attContentType.indexOf(";") > -1) {
+                        attContentType = attContentType.toLowerCase().substring(0, attContentType.indexOf(";"));
+                    }                    
+                    
+                    if (!UtilValidate.isEmpty(attFileName)) {
+                        attachmentMap.put("contentName", attFileName);
+                        attachmentMap.put("description", subject + "-" + attachmentIdx);
+                    } else {
+                        attachmentMap.put("contentName", subject + "-" + attachmentIdx);
+                    }
+                    
+                    attachmentMap.put("drMimeTypeId", attContentType);
+                    if (attContentType.startsWith("text")) {
+                        String text = wrapper.getPartText(attachmentIdx);
+                        attachmentMap.put("drDataResourceTypeId", "ELECTRONIC_TEXT");
+                        attachmentMap.put("textData", text);
+                    } else {
+                        ByteBuffer data = wrapper.getPartByteBuffer(attachmentIdx);                        
+                        if (Debug.infoOn()) Debug.logInfo("Binary attachment size: " + data.limit(), module);
+                        attachmentMap.put("drDataResourceName", attFileName);
+                        attachmentMap.put("imageData", data);
+                        attachmentMap.put("drDataResourceTypeId", "IMAGE_OBJECT"); // TODO: why always use IMAGE
+                        attachmentMap.put("_imageData_contentType", attContentType);
+                    }
+                    
+                    // save the content
+                    dispatcher.runSync("createCommContentDataResource", attachmentMap);                    
+                }
             }
-
+            
             // For all addresses create a CommunicationEventRoles
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, toParties, "ADDRESSEE");
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, ccParties, "CC");
@@ -722,10 +762,7 @@ public class CommunicationEventServices {
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        } catch (IOException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());        
         } catch (Exception e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -813,148 +850,6 @@ public class CommunicationEventServices {
         return tempResults;
     }
 
-    public static String contentIndex = "";
-    private static Map<String, Object> addMessageBody( Map<String, Object> commEventMap, Multipart multipart) throws MessagingException, IOException {
-        try {
-            int multipartCount = multipart.getCount();
-            for (int i=0; i < multipartCount  && i < 10; i++) {
-                Part part = multipart.getBodyPart(i);
-                String thisContentTypeRaw = part.getContentType();
-                String content = null;
-                int idx2 = thisContentTypeRaw.indexOf(";");
-                if (idx2 == -1) {
-                    idx2 = thisContentTypeRaw.length();
-                }
-                String thisContentType = thisContentTypeRaw.substring(0, idx2);
-                if (thisContentType == null || thisContentType.equals("")) thisContentType = "text/html";
-                thisContentType = thisContentType.toLowerCase();
-                String disposition = part.getDisposition();
-
-                if (thisContentType.startsWith("multipart") || thisContentType.startsWith("Multipart")) {
-                    contentIndex = contentIndex.concat("." + i);
-                    return addMessageBody(commEventMap, (Multipart) part.getContent());
-                }
-                // See this case where the disposition of the inline text is null
-                else if ((disposition == null) && (i == 0) && thisContentType.startsWith("text")) {
-                    content = (String)part.getContent();
-                    if (UtilValidate.isNotEmpty(content)) {
-                        contentIndex = contentIndex.concat("." + i);
-                        commEventMap.put("content", content);
-                        commEventMap.put("contentMimeTypeId", thisContentType);
-                        return commEventMap;
-                    }
-                } else if ((disposition != null)
-                        && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
-                        && thisContentType.startsWith("text")) {
-                    contentIndex = contentIndex.concat("." + i);
-                    commEventMap.put("content", part.getContent());
-                    commEventMap.put("contentMimeTypeId", thisContentType);
-                    return commEventMap;
-                }
-            }
-            return commEventMap;
-        } catch (MessagingException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        } catch (IOException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-    }
-
-    public String getForwardedField(MimeMessage message) {
-        String fieldValue = null;
-        return fieldValue;
-    }
-
-    public static int addAttachmentsToCommEvent(Multipart messageContent, String subject, String communicationEventId, LocalDispatcher dispatcher, GenericValue userLogin)
-        throws MessagingException, IOException, GenericServiceException {
-        Map<String, Object> commEventMap = FastMap.newInstance();
-        commEventMap.put("communicationEventId", communicationEventId);
-        commEventMap.put("contentTypeId", "DOCUMENT");
-        commEventMap.put("mimeTypeId", "text/html");
-        commEventMap.put("userLogin", userLogin);
-        if (subject != null && subject.length() > 80) {
-            subject = subject.substring(0,80); // make sure not too big for database field. (20 characters for filename)
-        }
-        currentIndex = "";
-        attachmentCount = 0;
-        return addMultipartAttachementToComm(messageContent, commEventMap, subject, dispatcher, userLogin);
-    }
-    private static String currentIndex = "";
-    private static int attachmentCount = 0;
-    private static int addMultipartAttachementToComm(Multipart multipart, Map<String, Object> commEventMap, String subject, LocalDispatcher dispatcher, GenericValue userLogin)
-    throws MessagingException, IOException, GenericServiceException {
-        try {
-            int multipartCount = multipart.getCount();
-            // Debug.logInfo(currentIndex + "====number of attachments: " + multipartCount, module);
-            for (int i=0; i < multipartCount; i++) {
-                // Debug.logInfo(currentIndex + "====processing attachment: " + i, module);
-                Part part = multipart.getBodyPart(i);
-                String thisContentTypeRaw = part.getContentType();
-                // Debug.logInfo("====thisContentTypeRaw: " + thisContentTypeRaw, module);
-                int idx2 = thisContentTypeRaw.indexOf(";");
-                if (idx2 == -1) idx2 = thisContentTypeRaw.length();
-                String thisContentType = thisContentTypeRaw.substring(0, idx2);
-                String disposition = part.getDisposition();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if (part instanceof Multipart) {
-                    currentIndex = currentIndex.concat("." + i);
-                    // Debug.logInfo("=====attachment contain attachment, index:" + currentIndex, module);
-                    return addMultipartAttachementToComm((Multipart) part.getContent(), commEventMap, subject, dispatcher, userLogin);
-                }
-                // Debug.logInfo("=====attachment not contains attachment, index:" + currentIndex, module);
-                // Debug.logInfo("=====check for currentIndex(" + currentIndex  + ") against master contentIndex(" + EmailServices.contentIndex + ")", module);
-                if (currentIndex.concat("." + i).equals(CommunicationEventServices.contentIndex)) continue;
-
-                // The first test should not pass, because if it exists, it should be the bodyContentIndex part
-                // Debug.logInfo("====check for disposition: " + disposition + " contentType: '" + thisContentType + "' variable i:" + i, module);
-                if ((disposition == null && thisContentType.startsWith("text"))
-                        || ((disposition != null)
-                                && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
-                                ) )
-                {
-                    String attFileName = part.getFileName();
-                    Debug.logInfo("===processing attachment: " + attFileName, module);
-                    if (!UtilValidate.isEmpty(attFileName)) {
-                           commEventMap.put("contentName", attFileName);
-                           commEventMap.put("description", subject + "-" + attachmentCount);
-                    } else {
-                        commEventMap.put("contentName", subject + "-" + attachmentCount);
-                    }
-                    commEventMap.put("drMimeTypeId", thisContentType);
-                    if (thisContentType.startsWith("text")) {
-                        String content = (String)part.getContent();
-                        commEventMap.put("drDataResourceTypeId", "ELECTRONIC_TEXT");
-                        commEventMap.put("textData", content);
-                    } else {
-                        InputStream is = part.getInputStream();
-                        int c;
-                        while ((c = is.read()) > -1) {
-                            baos.write(c);
-                        }
-                        ByteBuffer imageData = ByteBuffer.wrap(baos.toByteArray());
-                        int len = imageData.limit();
-                        if (Debug.infoOn()) Debug.logInfo("imageData length: " + len, module);
-                        commEventMap.put("drDataResourceName", part.getFileName());
-                        commEventMap.put("imageData", imageData);
-                        commEventMap.put("drDataResourceTypeId", "IMAGE_OBJECT");
-                        commEventMap.put("_imageData_contentType", thisContentType);
-                    }
-                    dispatcher.runSync("createCommContentDataResource", commEventMap);
-                    attachmentCount++;
-                }
-            }
-        } catch (MessagingException e) {
-            Debug.logError(e, module);
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-        }
-        return attachmentCount;
-    }
-    
     /*
      * Service to process incoming email and look for a bounce message. If the email is indeed a bounce message
      * the CommunicationEvent will be updated with the proper COM_BOUNCED status.     
