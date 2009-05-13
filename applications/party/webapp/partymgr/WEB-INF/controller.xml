@@ -693,8 +693,8 @@ under the License.
     <request-map uri="setCommunicationEventRoleStatus">
         <security https="true" auth="true"/>
         <event type="service" invoke="setCommunicationEventRoleStatus"/>
-        <response name="success" type="view-last"/>
-        <response name="error" type="view-last"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view-home"/>
     </request-map>
     <request-map uri="MyCommunicationEvents">
         <security https="true" auth="true"/>
@@ -714,12 +714,12 @@ under the License.
     </request-map>
     <request-map uri="EditCommunicationEvent">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditCommunicationEvent" save-current-view="true"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="ViewCommunicationEvent">
         <security https="true" auth="true"/>
         <event  type="simple" invoke="setCommEventToRead" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
-        <response name="success" type="view" value="ViewCommunicationEvent" save-last-view="true"/>
+        <response name="success" type="view" value="ViewCommunicationEvent"/>
     </request-map>
     <request-map uri="addContentToCommEvent">
         <security https="true" auth="true"/>

@@ -22,7 +22,6 @@ import java.lang.*;
 import java.lang.String;
 import org.ofbiz.base.util.*;
 
-
 originalCommEventId = parameters.originalCommEventId;
 
 if (originalCommEventId) {
@@ -33,7 +32,7 @@ if (originalCommEventId) {
         parameters.origCommEventId = orgEventId;
         parameters.originalCommEventId = originalCommEventId;
         parameters.contactMechIdFrom = originalEvent.contactMechIdTo;
-        parameters.partyIdFrom = userLogin.partyId;
+        parameters.partyIdFrom = communicationEvent.partyIdTo;
         parameters.statusId = "COM_IN_PROGRESS";
 
         parameters.subject = "FW: " + originalEvent.subject;

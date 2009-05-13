@@ -22,7 +22,6 @@ under the License.
 
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
-        <field name="donePage" ><hidden value="${parameters.donePage}"/></field>
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="parentCommEventId" position="2">
             <lookup target-form-name="LookupCommEvent">
@@ -126,7 +125,7 @@ under the License.
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
-                    <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
+                    <condition-expr field-name="partyId" value="${communicationEvent.partyIdFrom}"/>
                     <condition-expr field-name="contactFromDate" operator="less-equals" from-field="nowDate"/>
                     <condition-list combine="or">
                         <condition-expr field-name="contactThruDate" from-field="null"/>
@@ -149,7 +148,7 @@ under the License.
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
-        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="partyIdFrom"><hidden/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
             <drop-down>
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
@@ -180,7 +179,7 @@ under the License.
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="statusId"><hidden value="COM_PENDING"/></field>
-        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <drop-down>
                 <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
@@ -783,16 +782,7 @@ under the License.
     </form>
 
     <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" target="deleteCommunicationEvent"
-        use-row-submit="true" header-row-style="header-row-2">
-        <actions>
-            <entity-condition entity-name="CommunicationEvent" list="commEvents">
-                <condition-list combine="and">
-                    <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
-                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
-                </condition-list>
-                <order-by field-name="-lastUpdatedStamp"/>
-            </entity-condition>
-        </actions>
+        use-row-submit="true" header-row-style="header-row-2" list-name="commEventDraft">
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
