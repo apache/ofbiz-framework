@@ -99,6 +99,8 @@ public class EmailServices {
         }
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
+        subject = FlexibleStringExpander.expandString(subject, context);
+        
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
         List<Map<String, Object>> bodyParts = UtilGenerics.checkList(context.get("bodyParts"));
@@ -108,6 +110,7 @@ public class EmailServices {
         results.put("partyId", partyId);
         results.put("subject", subject);
         if (UtilValidate.isNotEmpty(body)) {
+            body = FlexibleStringExpander.expandString(body, context);
             results.put("body", body);
         }
         if (UtilValidate.isNotEmpty(bodyParts)) {
@@ -385,6 +388,7 @@ public class EmailServices {
         if (partyId == null) {
             partyId = (String) bodyParameters.get("partyId");
         }
+        bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
         if (UtilValidate.isNotEmpty(webSiteId)) {
             NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         }
@@ -515,6 +519,7 @@ public class EmailServices {
         // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
         String subject = (String) serviceContext.remove("subject");
         subject = FlexibleStringExpander.expandString(subject, screenContext, locale);
+        Debug.logInfo("Expanded email subject to: " + subject, module);
         serviceContext.put("subject", subject);
         serviceContext.put("partyId", partyId);
 
