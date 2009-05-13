@@ -31,7 +31,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Security;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -52,7 +51,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
 import javolution.util.FastList;
-
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
@@ -68,8 +66,10 @@ import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.mail.MimeMessageWrapper;
 import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
@@ -93,6 +93,10 @@ public class EmailServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
+        String communicationEventId = (String) context.get("communicationEventId");
+        if (communicationEventId != null) {
+            Debug.logInfo("SendMail Running, for communicationEventId : " + communicationEventId, module);
+        }
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
         String partyId = (String) context.get("partyId");
@@ -100,6 +104,7 @@ public class EmailServices {
         List<Map<String, Object>> bodyParts = UtilGenerics.checkList(context.get("bodyParts"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
+        results.put("communicationEventId", communicationEventId);
         results.put("partyId", partyId);
         results.put("subject", subject);
         if (UtilValidate.isNotEmpty(body)) {
@@ -286,6 +291,7 @@ public class EmailServices {
                 trans.connect(sendVia, authUser, authPass);
             }
             trans.sendMessage(mail, mail.getAllRecipients());
+            results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             results.put("messageId", mail.getMessageID());
             trans.close();
         } catch (SendFailedException e) {
@@ -310,12 +316,14 @@ public class EmailServices {
      *@param rcontext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {
-        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
+    public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {        
         // pretty simple, get the content and then call the sendMail method below
-        String bodyUrl = (String) context.remove("bodyUrl");
-        Map<String, Object> bodyUrlParameters = UtilGenerics.checkMap(context.remove("bodyUrlParameters"));
+        Map<String, Object> sendMailContext = UtilMisc.makeMapWritable(rcontext);
+        String bodyUrl = (String) sendMailContext.remove("bodyUrl");
+        Map<String, Object> bodyUrlParameters = UtilGenerics.checkMap(sendMailContext.remove("bodyUrlParameters"));
 
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        
         URL url = null;
 
         try {
@@ -334,12 +342,18 @@ public class EmailServices {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError("Error getting content: " + e.toString());
         }
-
-        context.put("body", body);
-        Map<String, Object> result = sendMail(ctx, context);
-
-        result.put("body", body);
-        return result;
+                
+        sendMailContext.put("body", body);
+        Map<String, Object> sendMailResult;
+        try {
+            sendMailResult = dispatcher.runSync("sendMail", sendMailContext);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        
+        // just return the same result; it contains all necessary information
+        return sendMailResult;
     }
 
     /**
@@ -367,7 +381,10 @@ public class EmailServices {
         } else {
             locale = (Locale) bodyParameters.get("locale");
         }
-        String partyId = (String) bodyParameters.get("partyId");
+        String partyId = (String) serviceContext.get("partyId");
+        if (partyId == null) {
+            partyId = (String) bodyParameters.get("partyId");
+        }
         if (UtilValidate.isNotEmpty(webSiteId)) {
             NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         }
@@ -504,17 +521,23 @@ public class EmailServices {
         if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map<String, Object> sendMailResult;
         try {
             if (isMultiPart) {
-                dispatcher.runSync("sendMailMultiPart", serviceContext);
+                sendMailResult = dispatcher.runSync("sendMailMultiPart", serviceContext);
             } else {
-                dispatcher.runSync("sendMail", serviceContext);
+                sendMailResult = dispatcher.runSync("sendMail", serviceContext);
             }
         } catch (Exception e) {
             String errMsg = "Error send email :" + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
+        if (ServiceUtil.isError(sendMailResult)) {
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendMailResult));
+        }
+        
+        result.put("messageWrapper", sendMailResult.get("messageWrapper"));
         result.put("body", bodyWriter.toString());
         return result;
     }

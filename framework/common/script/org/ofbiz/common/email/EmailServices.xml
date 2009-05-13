@@ -43,6 +43,7 @@ under the License.
             <!-- copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc -->
             <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
+                <result-to-result result-name="messageWrapper"/>
                 <result-to-result result-name="body"/>
             </call-service>
             <else>
