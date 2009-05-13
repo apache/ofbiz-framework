@@ -237,6 +237,25 @@ under the License.
         <field name="subject"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><display/></field>
         <field name="note" title="${uiLabelMap.CommonNote}"><display/></field>
+        
+        <sort-order>
+            <field-group collapsible="false" initially-collapsed="false">
+                <sort-field name="communicationEventId"/>
+                <sort-field name="communicationEventTypeId"/>
+                <sort-field name="messageId"/>
+                <sort-field name="partyIdFrom"/>
+                <sort-field name="partyIdTo"/>
+                <sort-field name="statusId"/>
+                <sort-field name="lastUpdatedStamp"/>                
+                <sort-field name="datetimeStarted"/>
+                <sort-field name="datetimeEnded"/>
+                <sort-field name="subject"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="true">                               
+                <sort-field name="content"/>
+                <sort-field name="note"/>                
+            </field-group>
+        </sort-order>
     </form>
 
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
@@ -270,6 +289,28 @@ under the License.
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="contentMimeTypeId" use-when="&quot;my&quot;==void"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" read-only="true"/></field>
+        
+        <sort-order>
+            <field-group collapsible="false" initially-collapsed="false">
+                <sort-field name="communicationEventId"/>
+                <sort-field name="partyIdFrom"/>
+                <sort-field name="partyIdTo"/>
+                <sort-field name="statusId"/>
+                <sort-field name="contactMechTypeId"/>
+                <sort-field name="contactMechIdFrom"/>
+                <sort-field name="contactMechIdTo"/>
+                <sort-field name="roleTypeIdFrom"/>
+                <sort-field name="roleTypeIdTo"/>
+                <sort-field name="datetimeStarted"/>
+                <sort-field name="datetimeEnded"/>
+                <sort-field name="subject"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="true">               
+                <sort-field name="contentMimeTypeId"/>
+                <sort-field name="content"/>
+                <sort-field name="note"/>                
+            </field-group>
+        </sort-order>
     </form>
 
     <form name="findCommEvents" type="single" target="FindCommunicationEvents" paginate="true" focus-field-name="submitButton"
