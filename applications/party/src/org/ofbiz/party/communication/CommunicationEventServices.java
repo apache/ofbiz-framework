@@ -19,6 +19,10 @@
 
 package org.ofbiz.party.communication;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Enumeration;
@@ -34,12 +38,17 @@ import java.util.regex.Pattern;
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -938,8 +947,7 @@ public class CommunicationEventServices {
      * Calls findPartyFromEmailAddress service and returns a List of the results for the array of addresses
      */
     private static List<Map<String, Object>> buildListOfPartyInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
-        InternetAddress emailAddress = null;
-        Map map = null;
+        InternetAddress emailAddress = null;        
         Map<String, Object> result = null;
         List<Map<String, Object>> tempResults = FastList.newInstance();
 
@@ -1114,5 +1122,51 @@ public class CommunicationEventServices {
                         
         return ServiceUtil.returnSuccess();
         
+    }
+    
+    /*
+     * Event which marks a communication event as read, and returns a 1px image to the browser/mail client
+     */
+    public static String markCommunicationAsRead(HttpServletRequest request, HttpServletResponse response) {        
+        String communicationEventId = null;        
+        
+        // pull the communication event from path info, so we can hide the process from the user
+        String pathInfo = request.getPathInfo();
+        String[] pathParsed = pathInfo.split("/", 3);
+        if (pathParsed != null && pathParsed.length > 2) {
+            pathInfo = pathParsed[2];
+        } else {
+            pathInfo = null;
+        }
+        if (pathInfo != null & pathInfo.indexOf("/") > -1) {
+            pathParsed = pathInfo.split("/");
+            communicationEventId = pathParsed[0];            
+        }
+                
+        // update the communication event
+        if (communicationEventId != null) {
+            Debug.logInfo("Marking communicationEventId [" + communicationEventId + "] from path info : " + request.getPathInfo() + " as read.", module);
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+            try {                
+                dispatcher.runAsync("markCommEventRead", UtilMisc.toMap("communicationEventId", communicationEventId));                
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);            
+            }
+        }
+        
+        // return the 1px image (spacer.gif)
+        URL imageUrl;
+        try {
+            imageUrl = FlexibleLocation.resolveLocation("component://images/webapp/images/spacer.gif");
+            InputStream imageStream = imageUrl.openStream();
+            UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);            
+        } catch (MalformedURLException e) {
+            Debug.logError(e, module);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        }
+                
+        // return null to not return any view
+        return null;
     }
 }

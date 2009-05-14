@@ -311,13 +311,16 @@ under the License.
     <StatusItem description="Bounced" sequenceId="50" statusCode="BOUNCED" statusId="COM_BOUNCED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="COM_CANCELLED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_PENDING" transitionName="Set Pending"/>
+    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_READ" transitionName="Mark Read"/>
+    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress"/>
     <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress"/>
     <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
+    <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
+    <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_RESOLVED" transitionName="Resolve"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_REFERRED" transitionName="Refer"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
