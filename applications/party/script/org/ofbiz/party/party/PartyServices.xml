@@ -658,17 +658,30 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getPartyEmail" short-description="Get the email of the party">
-        <set field="findMap.partyId" from-field="parameters.partyId"/>
-        <set field="findMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <find-by-and entity-name="PartyAndContactMech" map="findMap" list="emailAddressesAll"/>
-        <if-empty field="emailAddressesAll">
-            <set field="findMap.contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
-            <find-by-and entity-name="PartyAndContactMech" map="findMap" list="emailAddressesAll"/>
+        <!-- first try to find primary email Address when not found get other email -->
+        <entity-and entity-name="PartyContactMechPurpose" list="emailAddresses" filter-by-date="true">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="contactMechPurposeTypeId" from-field="PRIMARY_EMAIL"/>
+        </entity-and>
+        <!-- any other email -->
+        <if-empty field="emailAddresses">
+            <entity-and entity-name="PartyAndContactMech" list="emailAddresses" filter-by-date="true">
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+            </entity-and>
+        </if-empty> 
+        <!-- any other electronic address -->
+        <if-empty field="emailAddresses">
+            <entity-and entity-name="PartyAndContactMech" list="emailAddresses" filter-by-date="true">
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
+            </entity-and>
         </if-empty>
-        <now-date-to-env field="fromDate"/>
-        <filter-list-by-date list="emailAddressesAll" from-field-name="fromDate" to-list="emailAddresses"/>
-        <first-from-list entry="emailAddress" list="emailAddresses"/>
-        <field-to-result field="emailAddress.infoString" result-name="emailAddress"/>
+        <if-not-empty field="emailAddresses">
+            <first-from-list entry="emailAddress" list="emailAddresses"/>
+            <field-to-result field="emailAddress.infoString" result-name="emailAddress"/>
+            <field-to-result field="emailAddress.contactMechId" result-name="contactMechId"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="getPartyTelephone" short-description="Get the telephone number of the party">
