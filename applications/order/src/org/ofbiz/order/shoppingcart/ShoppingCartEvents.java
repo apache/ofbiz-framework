@@ -1166,12 +1166,15 @@ public class ShoppingCartEvents {
 
         BigDecimal termValue = null;
         Long termDays = null;
+        Boolean checkTermValueAndDays = true;
 
         if (termValueStr.trim().equals("")) {
             termValue = null;
+            checkTermValueAndDays = false;
         }
         if (termDaysStr.trim().equals("")) {
             termDays = null;
+            checkTermValueAndDays = false;
         }
         if (UtilValidate.isEmpty(termTypeId)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermTypeIsRequired", locale));
@@ -1181,14 +1184,14 @@ public class ShoppingCartEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermValueError", UtilMisc.toMap("orderTermValue",UtilValidate.isSignedFloatMsg), locale));
             return "error";
         }
-        if (termValue != null) {
+        if (checkTermValueAndDays) {
             termValue = new BigDecimal(termValueStr);
         }
         if (!UtilValidate.isInteger(termDaysStr)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays",UtilValidate.isLongMsg), locale));
             return "error";
         }
-        if (termDays != null) {
+        if (checkTermValueAndDays) {
             termDays = Long.valueOf(termDaysStr);
         }
         if ((termIndex != null) && (!"-1".equals(termIndex)) && (UtilValidate.isInteger(termIndex))) {
