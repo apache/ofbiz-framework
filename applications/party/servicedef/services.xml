@@ -922,6 +922,7 @@ under the License.
         <description>Get the main party Email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="emailAddress" type="String" mode="OUT" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="getPartyTelephone" engine="simple"

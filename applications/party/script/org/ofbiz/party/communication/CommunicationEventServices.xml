@@ -33,8 +33,20 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
-        <!-- create basic info for communication event -->
-        <make-value value-field="newEntity" entity-name="CommunicationEvent"/>
+        <!-- check for forward -->
+        <if-not-empty field="parameters.origCommEventId">
+            <entity-one entity-name="CommunicationEvent" value-field="newEntity">
+                <field-map field-name="communicationEventId" from-field="parameters.origCommEventId"/>
+            </entity-one>
+            <clear-field field="newEntity.communicationEventId"/>
+            <clear-field field="newEntity.partyIdFrom"/>
+            <clear-field field="newEntity.partyIdTo"/>
+            <set field="newEntity.subject" value="Forw: ${newEntity.subject}"/>
+            <else><!-- if not create empty one -->
+                <make-value value-field="newEntity" entity-name="CommunicationEvent"/>
+            </else>
+        </if-not-empty>
+        
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="parameters.communicationEventId">
@@ -44,8 +56,8 @@ under the License.
             </else>
         </if-empty>
         <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
-        
-        <!-- check for reply or forward -->
+
+        <!-- check for reply -->
         <if-not-empty field="parameters.parentCommEventId">
             <entity-one entity-name="CommunicationEvent" value-field="parentCommEvent">
                 <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
@@ -55,32 +67,34 @@ under the License.
             </entity-one>
             
             <if-compare-field field="parentCommEvent.partyIdFrom" operator="equals" to-field="parameters.partyIdTo">
-                <!-- concider this as a reply -->
                 <set field="newEntity.partyIdTo" from-field="parentCommEvent.partyIdFrom"/>
             </if-compare-field>
+            
+            <set field="newEntity.subject" value="RE: ${parentCommEvent.subject}"/>
 
             <set field="newEntity.content" value="${groovy:
                 def localContent = parentCommEvent.content;
-                if (!localContent || localContent.indexOf(&quot;\n&quot;,0) == -1) return(&quot;&quot;);
+                if (!localContent) return(&quot;&quot;);
 
                 resultLine = &quot;\n\n\n&quot; 
                     + (partyNameView.firstName!=null?partyNameView.firstName:&quot;&quot;) 
                     + &quot; &quot; 
                     + (partyNameView.middleName!=null?partyNameView.middleName+&quot; &quot;:&quot;&quot;) 
                     + &quot; &quot; 
-                    + (partyNameView.lastName!=null?partyNameView.lastName:&quot; &quot;) 
+                    + (partyNameView.lastName!=null?partyNameView.lastName:&quot;&quot;) 
+                    + (partyNameView.groupName!=null?partyNameView.groupName:&quot;&quot;) 
                     + &quot; wrote:&quot;;
-                resultLine += &quot;\n\n\n\n\n -------------------------------------------------------------------- &quot;;
-                resultLine += &quot;\n&gt; &quot; + localContent.substring(0, localContent.indexOf(&quot;\n&quot;,0));
+                resultLine += &quot;\n -------------------------------------------------------------------- &quot;;
+                resultLine += &quot;\n&gt; &quot; + localContent.substring(0, localContent.indexOf(&quot;\n&quot;,0) == -1 ? localContent.length() : localContent.indexOf(&quot;\n&quot;,0));
                 startChar = localContent.indexOf(&quot;\n&quot;,0);
                 while(startChar != -1 &amp;&amp; (startChar = localContent.indexOf(&quot;\n&quot;,startChar) + 1) != 0)
                     resultLine += &quot;\n&gt; &quot; + localContent.substring(startChar, localContent.indexOf(&quot;\n&quot;,startChar)==-1 ? localContent.length() : localContent.indexOf(&quot;\n&quot;,startChar));
                 return(resultLine);
                 }"/>
 
-            <!-- set rolestatus from original email to completed if logged-on userId can be found -->
+            <!-- set rolestatus from original email to completed -->
             <entity-and list="roles" entity-name="CommunicationEventRole">
-                <field-map field-name="communicationEventId" from-field="parentCommEvent.parentCommEventId"/>
+                <field-map field-name="communicationEventId" from-field="parentCommEvent.communicationEventId"/>
                 <field-map field-name="partyId" from-field="parentCommEvent.partyIdTo"/>
             </entity-and>
             <if-not-empty field="roles">
@@ -110,6 +124,16 @@ under the License.
                 <set field="newEntity.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>
         </if-empty>
+
+        <!-- if partyId provided but no contactMechIdTo get emailAddress -->
+        <if-not-empty field="parameters.partyIdTo">
+            <if-empty field="parameters.contactMechIdTo">
+                <set field="getEmail.partyId" from-field="parameters.partyIdTo"/>
+                <call-service service-name="getPartyEmail" in-map-name="getEmail">
+                    <result-to-field result-name="contacMechId" field="newEntity.ContactMechIdTo"/>
+                </call-service>
+            </if-empty>
+        </if-not-empty>
 
         <now-timestamp field="newEntity.entryDate"/>
         <create-value value-field="newEntity"/>

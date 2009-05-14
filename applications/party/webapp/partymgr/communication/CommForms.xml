@@ -172,6 +172,7 @@ under the License.
     </form>
     <form name="EditInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
         </actions>
         <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
@@ -179,19 +180,20 @@ under the License.
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="statusId"><hidden value="COM_PENDING"/></field>
+        <field name="datetimeStarted"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <drop-down>
                 <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
             </drop-down>
         </field>
-        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
+        <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
         <field name="send" title=" " position="1" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true"
                 target-type="plain" description="${uiLabelMap.CommonSend}"
-                target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETE'),(document.EditInternalNote.submit())"/>
+                target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETE'),(document.EditInternalNote.datetimeStarted.value='${nowDate}'),(document.EditInternalNote.submit())"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.submit())"/>

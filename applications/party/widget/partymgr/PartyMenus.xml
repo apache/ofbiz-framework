@@ -392,14 +392,14 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
-                <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
-                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="parentCommEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
                 <parameter param-name="partyIdTo" from-field="communicationEvent.partyIdFrom"/>
             </link>
         </menu-item>
-        <menu-item name="forward" title="${uiLabelMap.PartyForward}(${partyId})">
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
@@ -410,8 +410,8 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
-                <parameter param-name="originalCommEventId" from-field="parameters.communicationEventId"/>
-                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="origCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
