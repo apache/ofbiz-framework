@@ -1182,7 +1182,7 @@ under the License.
     </request-map>
 
     <!--  external communication event; mark as read using 1px image request -->
-    <request-map uri="ceimages">
+    <request-map uri="ceimages" track-serverhit="false" track-visit="false">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.party.communication.CommunicationEventServices" invoke="markCommunicationAsRead"/>
         <response name="success" type="none"/>

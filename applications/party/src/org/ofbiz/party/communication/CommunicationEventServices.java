@@ -342,6 +342,7 @@ public class CommunicationEventServices {
                         String thisCommEventId = (String) tmpResult.get("communicationEventId");
                         GenericValue thisCommEvent = delegator.findOne("CommunicationEvent", false, "communicationEventId", thisCommEventId);                        
                         if (thisCommEvent != null) {
+                            thisCommEvent.set("contactListId", contactListId);
                             thisCommEvent.set("parentCommEventId", communicationEventId);
                             thisCommEvent.store();                            
                         }
