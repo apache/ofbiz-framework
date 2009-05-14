@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -96,7 +96,7 @@ under the License.
         <menu-item name="ApproveRequirements" title="${uiLabelMap.OrderApproveRequirements}">
             <link target="ApproveRequirements"/>
         </menu-item>
-        <menu-item name="ApprovedProductRequirementsByVendor" title="${uiLabelMap.OrderApprovedProductRequirementsByVendor}">
+        <menu-item name="ApprovedProductRequirementsByVendor" title="${uiLabelMap.PageTitleFindApprovedRequirementsBySupplier}">
             <link target="ApprovedProductRequirementsByVendor"/>
         </menu-item>
         <menu-item name="ApprovedProductRequirements" title="${uiLabelMap.OrderApprovedProductRequirements}">

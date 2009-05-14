@@ -238,7 +238,7 @@ under the License.
     <screen name="ApprovedProductRequirementsByVendor">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindApprovedRequirementsByVendor"/>
+                <set field="titleProperty" value="PageTitleFindApprovedRequirementsBySupplier"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApprovedProductRequirementsByVendor"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -251,7 +251,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindApprovedRequirementsByVendor}"/>
+                                    <label text="${uiLabelMap.PageTitleFindApprovedRequirementsBySupplier}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">

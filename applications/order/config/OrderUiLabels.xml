@@ -1439,15 +1439,6 @@
         <value xml:lang="th">ปรับปรุงคำร้องสินค้า</value>
         <value xml:lang="zh">已批准的产品需求</value>
     </property>
-    <property key="OrderApprovedProductRequirementsByVendor">
-        <value xml:lang="de">Bedarf nach Lieferant bestätigen</value>
-        <value xml:lang="en">Approved Requirements By vendor</value>
-        <value xml:lang="es">Aprobados requisitos por proveedor</value>
-        <value xml:lang="fr">Besoins approuvées par le vendeur</value>
-        <value xml:lang="it">Fabbisogni Per Fornitore Approvati</value>
-        <value xml:lang="ru">Утвержденные вендором требования</value>
-        <value xml:lang="th">ปรับปรุงคำร้องโดยผู้จำหน่าย</value>
-    </property>
     <property key="OrderAuthService">
         <value xml:lang="en">Auth Service</value>
         <value xml:lang="es">Servicio de autentificación</value>
@@ -9848,9 +9839,9 @@
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Prodotto</value>
         <value xml:lang="th">ค้นหาสินค้าที่ต้องการอนุมัติ</value>
     </property>
-    <property key="PageTitleFindApprovedRequirementsByVendor">
+    <property key="PageTitleFindApprovedRequirementsBySupplier">
         <value xml:lang="de">Genehmigten Bedarf pro Lieferant suchen</value>
-        <value xml:lang="en">Find Approved Requirements By Vendor</value>
+        <value xml:lang="en">Find Approved Requirements By Supplier</value>
         <value xml:lang="es">Encontrar requisitos aprobados por proveedor</value>
         <value xml:lang="fr">Chercher les besoins approuvés par le vendeur</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Fornitore</value>
