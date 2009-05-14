@@ -502,4 +502,47 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="DefaultOptOutScreen">
+        <section>            
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="Opt-Out Results"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <label text="You have been successfully removed from the ${contactList.contactListName} mailing list!"/>                                            
+                                        </container>                                        
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="OptOutResponse">
+        <section>
+            <actions>
+                <service service-name="optOutOfListFromCommEvent" result-map="optOutResult"/>                
+                <entity-one value-field="contactList" entity-name="ContactList">
+                    <field-map from-field="optOutResult.contactListId" field-name="contactListId"/>                    
+                </entity-one>
+                <set field="contactListId" from-field="contactList.contactListId"/>
+                <set field="screenName" from-field="contactList.optOutScreen" default-value="component://marketing/widget/ContactListScreens.xml#DefaultOptOutScreen"/>
+            </actions>
+            <widgets>
+                <include-screen name="${screenName}" share-scope="true"/>                
+            </widgets>
+        </section>
+    </screen>
 </screens>

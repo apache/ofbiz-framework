@@ -228,8 +228,7 @@ under the License.
             </then>
         </else-if>
         </if>
-        
-        <log level="info" message="Wrote record : ${newEntity}"/>
+                
         <create-value value-field="newEntity"/>
     </simple-method>
 
@@ -294,6 +293,35 @@ under the License.
                 <log level="warning" message="WARNING: Not sending subscription verify email because verifyEmail* settings are missing on the ContactList record: ${contactList}"/>
             </else>
         </if>
+    </simple-method>
+    
+    <!-- service to use in contact list communications to handle opt-out links based on the communication event sent -->
+    <simple-method method-name="optOutOfListFromCommEvent" short-description="Contact List Opt Out From Communication Event" login-required="false">
+        <entity-one value-field="commEvent" entity-name="CommunicationEvent"/>
+        <if>
+            <condition>
+                <and>                    
+                    <not><if-empty field="commEvent"/></not>
+                    <not><if-empty field="commEvent.contactListId"/></not>
+                    <not><if-empty field="commEvent.partyIdTo"/></not>
+                    <not><if-empty field="commEvent.contactMechIdTo"/></not>
+                </and>
+            </condition>
+            <then>
+                <now-timestamp field="nowTimestamp"/>
+                <entity-and list="contactListPartyList" entity-name="ContactListParty">
+                    <field-map field-name="contactListId" from-field="commEvent.contactListId"/>
+                    <field-map field-name="preferredContactMechId" from-field="commEvent.contactMechIdTo"/>
+                    <field-map field-name="partyId" from-field="commEvent.partyIdTo"/>                    
+                </entity-and>
+                <filter-list-by-date list="contactListPartyList"/>
+                <iterate entry="contactListParty" list="contactListPartyList">
+                    <set field="contactListParty.thruDate" from-field="nowTimestamp"/>
+                    <store-value value-field="contactListParty"/>
+                </iterate>                                
+            </then>
+        </if>
+        <field-to-result field="commEvent.contactListId" result-name="contactListId"/>        
     </simple-method>
     
     <simple-method method-name="updateContactListCommStatus" short-description="Update ContactList Communication Status">        
