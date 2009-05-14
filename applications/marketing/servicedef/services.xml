@@ -174,6 +174,12 @@ under the License.
         <description>Send ContactListParty Verify Email</description>
         <auto-attributes entity-name="ContactListParty" include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="optOutOfListFromCommEvent" engine="simple"
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="optOutOfListFromCommEvent" auth="false">
+        <description>Uses the communication event infromation to locate the contact list party information and removes the contact from the list</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactListId" type="String" mode="OUT" optional="true"/>
+    </service>
 
     <!--  ContactList Comm Status Services -->
     <service name="updateContactListCommStatus" engine="simple" default-entity-name="ContactListCommStatus"

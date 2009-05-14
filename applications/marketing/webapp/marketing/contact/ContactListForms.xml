@@ -74,7 +74,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-
+        <field name="optOutScreen"><text size="60"/></field>
+        
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
