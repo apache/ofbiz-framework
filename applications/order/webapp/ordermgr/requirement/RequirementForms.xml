@@ -260,7 +260,7 @@ under the License.
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="billToCustomerPartyId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRole" key-field-name="partyId" description="${partyId}">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-options>
@@ -276,7 +276,7 @@ under the License.
         </field>
         <field name="unassignedRequirements"><check/></field>
         <field name="facilityId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" description="${facilityId}"/>
             </drop-down>
         </field>
