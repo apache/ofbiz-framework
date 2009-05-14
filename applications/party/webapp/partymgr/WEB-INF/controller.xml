@@ -1181,6 +1181,12 @@ under the License.
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
+    <!--  external communication event; mark as read using 1px image request -->
+    <request-map uri="ceimages">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.party.communication.CommunicationEventServices" invoke="markCommunicationAsRead"/>
+        <response name="success" type="none"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

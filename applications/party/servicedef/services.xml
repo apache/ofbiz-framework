@@ -776,13 +776,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
     </service>
     <service name="markCommEventRead" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="true">
-        <description>Marks a communication event as read if in the entered/pending status</description>
+            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="false">
+        <description>Marks a communication event as read</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="markMessageRead" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="true">
-        <description>Marks a communication event as read if in the entered/pending status</description>
+            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="false">
+        <description>Marks a communication event as read</description>
         <attribute name="messageId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="sendCommEventAsEmail" engine="java"
