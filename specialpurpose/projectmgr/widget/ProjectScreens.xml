@@ -535,7 +535,7 @@ under the License.
             <actions>
                 <entity-condition entity-name="WorkEffortPartyAssignView" list="clientAssigns" distinct="true" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="workEffortId" from-field="parameters.projectId" operator="equals"/>
+                        <condition-expr field-name="workEffortId" from-field="projectId" operator="equals"/>
                         <condition-expr field-name="roleTypeId" value="CLIENT%" operator="like"/>
                         <condition-expr field-name="roleTypeId" value="CLIENT_BILLING" operator="not-equals"/>
                     </condition-list>
@@ -551,7 +551,7 @@ under the License.
                 </entity-condition>
                 <entity-condition entity-name="WorkEffortPartyAssignView" list="companyAssigns" distinct="true" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="workEffortId" from-field="parameters.projectId" operator="equals"/>
+                        <condition-expr field-name="workEffortId" from-field="projectId" operator="equals"/>
                         <condition-list combine="or">
                             <condition-expr field-name="roleTypeId" value="INTERNAL_ORGANIZATIO" operator="equals"/>
                             <condition-expr field-name="roleTypeId" value="CLIENT_BILLING" operator="equals"/>
