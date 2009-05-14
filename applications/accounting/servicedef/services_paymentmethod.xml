@@ -267,6 +267,7 @@ under the License.
         <description>Releases all payment authorizations for an order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="releaseOrderPaymentPreference" engine="java"

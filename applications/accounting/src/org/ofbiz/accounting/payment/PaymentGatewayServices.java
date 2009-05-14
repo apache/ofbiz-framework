@@ -672,22 +672,23 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
         Map<String, Object> result = ServiceUtil.returnSuccess();
+        String orderId = "";
         // Get the OrderPaymentPreference
         GenericValue paymentPref = null;
         try {
-            paymentPref = delegator.findOne("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+            if (orderPaymentPreferenceId != null) {
+                paymentPref = delegator.findOne("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+                orderId = paymentPref.getString("orderId");
+            }
+            else {
+                orderId =  (String) context.get("orderId");
+            }
         } catch ( GenericEntityException e ) {
             String errMsg = "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + orderPaymentPreferenceId;
             Debug.logWarning(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        // Error if no OrderPaymentPreference was found
-        if (paymentPref == null) {
-            String errMsg = "Could not find OrderPaymentPreference with orderPaymentPreferenceId: " + orderPaymentPreferenceId;
-            Debug.logWarning(errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        }
-        String orderId = paymentPref.getString("orderId");
+
         // get the payment preferences
         List<GenericValue> paymentPrefs = null;
         try {
