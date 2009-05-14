@@ -22,18 +22,18 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
 
     <service name="ConvertOfbizCartToGoogle" engine="simple" invoke="ConvertOfbizCartToGoogle"
-        location="component://googleCheckout/script/org/ofbiz/googleCheckout/ShoppingCartServices.xml">
+        location="component://googlecheckout/script/org/ofbiz/googleCheckout/ShoppingCartServices.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="googleCart" mode="OUT" type="Map" optional="false"/>
         <attribute name="flowSupport" mode="OUT" type="Map" optional="false"/>
         <attribute name="sendInitialAuthDetails" mode="OUT" type="Boolean" optional="false"/>
     </service>
     <service name="createXMLOutput" engine="simple" invoke="createXMLOutput"
-        location="component://googleCheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
+        location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
     </service>
     <service name="transmitRequest" engine="simple" invoke="transmitRequest"
-        location="component://googleCheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
+        location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="redirect" mode="OUT" type="String" optional="false"/>
     </service>
