@@ -124,7 +124,7 @@
             <drop-down allow-empty="true" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="requirementMethodEnumId">
-            <drop-down allow-empty="true" no-current-selected-key="PRODRQM_ATP">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="PROD_REQ_METHOD"/>
                     <entity-order-by field-name="sequenceId"/>
