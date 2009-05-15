@@ -376,7 +376,7 @@ under the License.
         </row-actions>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
-            <hyperlink description="${subject}" target="View${my}CommunicationEvent">
+            <hyperlink description="${subject}" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
