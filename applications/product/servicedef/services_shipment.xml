@@ -558,6 +558,51 @@ under the License.
         <attribute name="packageSeqId" type="Integer" mode="IN" optional="false"/>
     </service>
 
+    <service name="weightPackage" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="weightPackage" auth="true">
+        <description>Set the dimension and weight of packages in the ShipmentPackage entity</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packageWeight" type="String" mode="IN" optional="true"/>
+        <attribute name="packageLength" type="String" mode="IN" optional="true"/>
+        <attribute name="packageWidth" type="String" mode="IN" optional="true"/>
+        <attribute name="packageHeight" type="String" mode="IN" optional="true"/>
+        <attribute name="packageSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentBoxTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="weightPackageSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="dimensionSavedInSession" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="completePackage" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="completePackage" auth="true">
+        <description>Complete the packging and set the shipment to packed</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingContactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentCostEstimateForShipGroup" type="String" mode="IN" optional="true"/>
+        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="showWarningForm" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="holdShipment" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="holdShipment" auth="true">
+        <description>Shipment will remains in PICKED sataus and dimension and weight will save in the ShipmentPackage entity</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="completePack" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true">
         <description>Complete the packaging set the shipment to PACKED</description>
@@ -570,6 +615,7 @@ under the License.
         <attribute name="additionalShippingCharge" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
         <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
+        <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
         <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>

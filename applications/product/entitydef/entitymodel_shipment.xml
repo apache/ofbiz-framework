@@ -1019,6 +1019,10 @@ under the License.
       <field name="shipmentPackageSeqId" type="id-ne"></field>
       <field name="shipmentBoxTypeId" type="id"></field>
       <field name="dateCreated" type="date-time"></field>
+      <field name="length" type="fixed-point"><description>This field store the length of package</description></field>
+      <field name="height" type="fixed-point"><description>This field store the height of package</description></field>
+      <field name="width" type="fixed-point"><description>This field store the width of package</description></field>
+      <field name="dimensionUomId" type="id"><description>This field store the unit of measurement of dimension (length, width and height)</description></field>
       <field name="weight" type="fixed-point"></field>
       <field name="weightUomId" type="id"></field>
       <field name="insuredValue" type="currency-amount"></field>
@@ -1032,6 +1036,9 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="CarrierShipmentBoxType">
         <key-map field-name="shipmentBoxTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKG_DUOM" title="Dimension" rel-entity-name="Uom">
+        <key-map field-name="dimensionUomId" rel-field-name="uomId"/>
       </relation>
       <relation type="one" fk-name="SHPKG_WUOM" title="Weight" rel-entity-name="Uom">
         <key-map field-name="weightUomId" rel-field-name="uomId"/>
