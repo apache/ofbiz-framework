@@ -1011,7 +1011,7 @@ public class OrderReturnServices {
                  * Then group these refund amounts and orderPaymentPreferences by paymentMethodTypeId.  That is,
                  * the intent is to get the refundable amounts per orderPaymentPreference, grouped by payment method type.
                  */
-                Map prefSplitMap = new HashMap() ;
+                Map prefSplitMap = new HashMap();
                 Iterator oppit = orderPayPrefs.iterator();
                 while (oppit.hasNext()) {
                     GenericValue orderPayPref = (GenericValue) oppit.next();
@@ -1019,11 +1019,11 @@ public class OrderReturnServices {
                     String orderPayPrefKey = orderPayPref.getString("paymentMethodId") != null ? orderPayPref.getString("paymentMethodId") : orderPayPref.getString("paymentMethodTypeId");
 
                     // See how much we can refund to the payment method
-                    BigDecimal orderPayPrefReceivedTotal = ZERO ;
+                    BigDecimal orderPayPrefReceivedTotal = ZERO;
                     if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
                         orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add((BigDecimal)receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
-                    BigDecimal orderPayPrefRefundedTotal = ZERO ;
+                    BigDecimal orderPayPrefRefundedTotal = ZERO;
                     if (refundedTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
                         orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add((BigDecimal)refundedTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
@@ -1132,7 +1132,7 @@ public class OrderReturnServices {
                                         continue;
                                     }
                                     paymentId = (String) serviceResult.get("paymentId");
-                                    returnItemStatusId = "RETURN_MAN_REFUND";    // however, in this case we hsould flag it as a manual refund
+                                    returnItemStatusId = "RETURN_MAN_REFUND";    // however, in this case we should flag it as a manual refund
                                 } catch (GenericServiceException e) {
                                     return ServiceUtil.returnError(e.getMessage());
                                 }
