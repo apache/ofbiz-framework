@@ -45,8 +45,11 @@ under the License.
                     </td>
                     <td align="center">&nbsp;
                         <#if (productPromoConds.size() == 0 && productPromoActions.size() == 0)>
-                            <a href="<@ofbizUrl>deleteProductPromoRule?productPromoId=${(productPromoRule.productPromoId)?if_exists}&productPromoRuleId=${(productPromoRule.productPromoRuleId)?if_exists}</@ofbizUrl>" class="buttontext">
-                            ${uiLabelMap.CommonDelete}</a>
+                            <form name="deleteProductPromoRule_${productPromoRule_index}" method="post" action="<@ofbizUrl>deleteProductPromoRule</@ofbizUrl>">
+                                <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)?if_exists}">
+                                <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)?if_exists}">
+                                <a href="javascript:document.deleteProductPromoRule_${productPromoRule_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                            </form>
                         </#if>
                     </td>
                 </tr>
@@ -109,8 +112,15 @@ under the License.
                                             - ${(condApplEnumeration.get("description",locale))?default(condProductPromoCategory.productPromoApplEnumId)}
                                             - ${uiLabelMap.ProductSubCats}? ${condProductPromoCategory.includeSubCategories?default("N")}
                                             - ${uiLabelMap.CommonAnd} ${uiLabelMap.CommonGroup}: ${condProductPromoCategory.andGroupId}
-                                            <a href="<@ofbizUrl>deleteProductPromoCategory?productPromoId=${(condProductPromoCategory.productPromoId)?if_exists}&productPromoRuleId=${(condProductPromoCategory.productPromoRuleId)?if_exists}&productPromoActionSeqId=${(condProductPromoCategory.productPromoActionSeqId)?if_exists}&productPromoCondSeqId=${(condProductPromoCategory.productPromoCondSeqId)?if_exists}&productCategoryId=${(condProductPromoCategory.productCategoryId)?if_exists}&andGroupId=${(condProductPromoCategory.andGroupId)?if_exists}</@ofbizUrl>" class="buttontext">
-                                            ${uiLabelMap.CommonDelete}</a>
+                                            <form name="deleteProductPromoCategory_${productPromoRule_index}_${condProductPromoCategory_index}_${productPromoCond_index}" method="post" action="<@ofbizUrl>deleteProductPromoCategory</@ofbizUrl>">
+                                                <input type="hidden" name="productPromoId" value="${(condProductPromoCategory.productPromoId)?if_exists}">
+                                                <input type="hidden" name="productPromoRuleId" value="${(condProductPromoCategory.productPromoRuleId)?if_exists}">
+                                                <input type="hidden" name="productPromoActionSeqId" value="${(condProductPromoCategory.productPromoActionSeqId)?if_exists}">
+                                                <input type="hidden" name="productPromoCondSeqId" value="${(condProductPromoCategory.productPromoCondSeqId)?if_exists}">
+                                                <input type="hidden" name="productCategoryId" value="${(condProductPromoCategory.productCategoryId)?if_exists}">
+                                                <input type="hidden" name="andGroupId" value="${(condProductPromoCategory.andGroupId)?if_exists}">
+                                                <a href="javascript:document.deleteProductPromoCategory_${productPromoRule_index}_${condProductPromoCategory_index}_${productPromoCond_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                            </form>    
                                         </div>
                                     </#list>
                                     <div>
@@ -143,8 +153,14 @@ under the License.
                                         <div>
                                             ${(condProduct.internalName)?if_exists} [${condProductPromoProduct.productId}]
                                             - ${(condApplEnumeration.get("description",locale))?default(condProductPromoProduct.productPromoApplEnumId)}
-                                            <a href="<@ofbizUrl>deleteProductPromoProduct?productPromoId=${(condProductPromoProduct.productPromoId)?if_exists}&productPromoRuleId=${(condProductPromoProduct.productPromoRuleId)?if_exists}&productPromoActionSeqId=${(condProductPromoProduct.productPromoActionSeqId)?if_exists}&productPromoCondSeqId=${(condProductPromoProduct.productPromoCondSeqId)?if_exists}&productId=${(condProductPromoProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">
-                                            ${uiLabelMap.CommonDelete}</a>
+                                            <form name="deleteProductPromoProduct_${productPromoRule_index}_${productPromoCond_index}_${condProductPromoProduct_index}" method="post" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>">
+                                                <input type="hidden" name="productPromoId" value="${(condProductPromoProduct.productPromoId)?if_exists}">
+                                                <input type="hidden" name="productPromoRuleId" value="${(condProductPromoProduct.productPromoRuleId)?if_exists}">
+                                                <input type="hidden" name="productPromoActionSeqId" value="${(condProductPromoProduct.productPromoActionSeqId)?if_exists}">
+                                                <input type="hidden" name="productPromoCondSeqId" value="${(condProductPromoProduct.productPromoCondSeqId)?if_exists}">
+                                                <input type="hidden" name="productId" value="${(condProductPromoProduct.productId)?if_exists}">
+                                                <a href="javascript:document.deleteProductPromoProduct_${productPromoRule_index}_${productPromoCond_index}_${condProductPromoProduct_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                            </form>    
                                         </div>
                                     </#list>
                                     <div>
@@ -164,8 +180,12 @@ under the License.
                                     </div>
                                 </td>
                                 <td align="center">
-                                    <a href="<@ofbizUrl>deleteProductPromoCond?productPromoId=${(productPromoCond.productPromoId)?if_exists}&productPromoRuleId=${(productPromoCond.productPromoRuleId)?if_exists}&productPromoCondSeqId=${(productPromoCond.productPromoCondSeqId)?if_exists}</@ofbizUrl>" class="buttontext">
-                                    ${uiLabelMap.CommonDelete}</a>
+                                    <form name="deleteProductPromoCond_${productPromoRule_index}_${productPromoCond_index}" method="post" action="<@ofbizUrl>deleteProductPromoCond</@ofbizUrl>">
+                                        <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)?if_exists}">
+                                        <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)?if_exists}">
+                                        <input type="hidden" name="productPromoCondSeqId" value="${(productPromoCond.productPromoCondSeqId)?if_exists}">
+                                        <a href="javascript:document.deleteProductPromoCond_${productPromoRule_index}_${productPromoCond_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                    </form>    
                                 </td>
                             </tr>
                         </#list>
@@ -238,8 +258,15 @@ under the License.
                                             - ${(actionApplEnumeration.get("description",locale))?default(actionProductPromoCategory.productPromoApplEnumId)}
                                             - ${uiLabelMap.ProductSubCats}? ${actionProductPromoCategory.includeSubCategories?default("N")}
                                             - ${uiLabelMap.CommonAnd} ${uiLabelMap.CommonGroup}: ${actionProductPromoCategory.andGroupId}
-                                            <a href="<@ofbizUrl>deleteProductPromoCategory?productPromoId=${(actionProductPromoCategory.productPromoId)?if_exists}&productPromoRuleId=${(actionProductPromoCategory.productPromoRuleId)?if_exists}&productPromoCondSeqId=${(actionProductPromoCategory.productPromoCondSeqId)?if_exists}&productPromoActionSeqId=${(actionProductPromoCategory.productPromoActionSeqId)?if_exists}&productCategoryId=${(actionProductPromoCategory.productCategoryId)?if_exists}&andGroupId=${(actionProductPromoCategory.andGroupId)?if_exists}</@ofbizUrl>" class="buttontext">
-                                            ${uiLabelMap.CommonDelete}</a>
+                                            <form name="deleteProductPromoCategory_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoCategory_index}" action="<@ofbizUrl>deleteProductPromoCategory</@ofbizUrl>" method="post">
+                                                <input type="hidden" name="productPromoId" value="${(actionProductPromoCategory.productPromoId)?if_exists}">
+                                                <input type="hidden" name="productPromoRuleId" value="${(actionProductPromoCategory.productPromoRuleId)?if_exists}">
+                                                <input type="hidden" name="productPromoCondSeqId" value="${(actionProductPromoCategory.productPromoCondSeqId)?if_exists}">
+                                                <input type="hidden" name="productPromoActionSeqId" value="${(actionProductPromoCategory.productPromoActionSeqId)?if_exists}">
+                                                <input type="hidden" name="productCategoryId" value="${(actionProductPromoCategory.productCategoryId)?if_exists}">
+                                                <input type="hidden" name="andGroupId" value="${(actionProductPromoCategory.andGroupId)?if_exists}">
+                                                <a href="javascript:document.deleteProductPromoCategory_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoCategory_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                            </form>    
                                         </div>
                                     </#list>
                                     <div>
@@ -272,8 +299,14 @@ under the License.
                                         <div>
                                             ${(actionProduct.internalName)?if_exists} [${actionProductPromoProduct.productId}]
                                             - ${(actionApplEnumeration.get("description",locale))?default(actionProductPromoProduct.productPromoApplEnumId)}
-                                            <a href="<@ofbizUrl>deleteProductPromoProduct?productPromoId=${(actionProductPromoProduct.productPromoId)?if_exists}&productPromoRuleId=${(actionProductPromoProduct.productPromoRuleId)?if_exists}&productPromoCondSeqId=${(actionProductPromoProduct.productPromoCondSeqId)?if_exists}&productPromoActionSeqId=${(actionProductPromoProduct.productPromoActionSeqId)?if_exists}&productId=${(actionProductPromoProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">
-                                            ${uiLabelMap.CommonDelete}</a>
+                                            <form name="deleteProductPromoProduct_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoProduct_index}" method="post" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>"> 
+                                                <input type="hidden" name="productPromoId" value="${(actionProductPromoProduct.productPromoId)?if_exists}">
+                                                <input type="hidden" name="productPromoRuleId" value="${(actionProductPromoProduct.productPromoRuleId)?if_exists}">
+                                                <input type="hidden" name="productPromoCondSeqId" value="${(actionProductPromoProduct.productPromoCondSeqId)?if_exists}">
+                                                <input type="hidden" name="productPromoActionSeqId" value="${(actionProductPromoProduct.productPromoActionSeqId)?if_exists}">
+                                                <input type="hidden" name="productId" value="${(actionProductPromoProduct.productId)?if_exists}">
+                                                <a href="javascript:document.deleteProductPromoProduct_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoProduct_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                            </form>    
                                         </div>
                                     </#list>
                                     <div>
@@ -293,8 +326,12 @@ under the License.
                                     </div>
                                 </td>
                                 <td align="center">
-                                    <a href="<@ofbizUrl>deleteProductPromoAction?productPromoId=${(productPromoAction.productPromoId)?if_exists}&productPromoRuleId=${(productPromoAction.productPromoRuleId)?if_exists}&productPromoActionSeqId=${(productPromoAction.productPromoActionSeqId)?if_exists}</@ofbizUrl>" class="buttontext">
-                                    ${uiLabelMap.CommonDelete}</a>
+                                    <form name="deleteProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" method="post" action="<@ofbizUrl>deleteProductPromoAction</@ofbizUrl>">
+                                        <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)?if_exists}">
+                                        <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)?if_exists}">
+                                        <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)?if_exists}">
+                                        <a href="javascript:document.deleteProductPromoAction_${productPromoRule_index}_${productPromoAction_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                    </form>
                                 </td>
                             </tr>
                         </#list>
@@ -357,8 +394,15 @@ under the License.
                 - ${(promoApplEnumeration.get("description",locale))?default(promoProductPromoCategory.productPromoApplEnumId)}
                 - ${uiLabelMap.ProductSubCats}? ${promoProductPromoCategory.includeSubCategories?default("N")}
                 - ${uiLabelMap.CommonAnd} ${uiLabelMap.CommonGroup}: ${promoProductPromoCategory.andGroupId}
-                <a href="<@ofbizUrl>deleteProductPromoCategory?productPromoId=${(promoProductPromoCategory.productPromoId)?if_exists}&productPromoRuleId=${(promoProductPromoCategory.productPromoRuleId)?if_exists}&productPromoActionSeqId=${(promoProductPromoCategory.productPromoActionSeqId)?if_exists}&productPromoCondSeqId=${(promoProductPromoCategory.productPromoCondSeqId)?if_exists}&productCategoryId=${(promoProductPromoCategory.productCategoryId)?if_exists}&andGroupId=${(promoProductPromoCategory.andGroupId)?if_exists}</@ofbizUrl>" class="buttontext">
-                ${uiLabelMap.CommonDelete}</a>
+                <form name="deleteProductPromoCategory_${promoProductPromoCategory_index}" method="post" action="<@ofbizUrl>deleteProductPromoCategory</@ofbizUrl>">
+                    <input type="hidden" name="productPromoId" value="${(promoProductPromoCategory.productPromoId)?if_exists}">
+                    <input type="hidden" name="productPromoRuleId" value="${(promoProductPromoCategory.productPromoRuleId)?if_exists}">
+                    <input type="hidden" name="productPromoActionSeqId" value="${(promoProductPromoCategory.productPromoActionSeqId)?if_exists}">
+                    <input type="hidden" name="productPromoCondSeqId" value="${(promoProductPromoCategory.productPromoCondSeqId)?if_exists}">
+                    <input type="hidden" name="productCategoryId" value="${(promoProductPromoCategory.productCategoryId)?if_exists}">
+                    <input type="hidden" name="andGroupId" value="${(promoProductPromoCategory.andGroupId)?if_exists}">
+                    <a href="javascript:document.deleteProductPromoCategory_${promoProductPromoCategory_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                </form>    
             </div>
             </#list>
             <div>
@@ -396,8 +440,14 @@ under the License.
                 <div>
                     ${(promoProduct.internalName)?if_exists} [${promoProductPromoProduct.productId}]
                     - ${(promoApplEnumeration.get("description",locale))?default(promoProductPromoProduct.productPromoApplEnumId)}
-                    <a href="<@ofbizUrl>deleteProductPromoProduct?productPromoId=${(promoProductPromoProduct.productPromoId)?if_exists}&productPromoRuleId=${(promoProductPromoProduct.productPromoRuleId)?if_exists}&productPromoActionSeqId=${(promoProductPromoProduct.productPromoActionSeqId)?if_exists}&productPromoCondSeqId=${(promoProductPromoProduct.productPromoCondSeqId)?if_exists}&productId=${(promoProductPromoProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">
-                    ${uiLabelMap.CommonDelete}</a>
+                    <form name="deleteProductPromoProduct_${promoProductPromoProduct_index}" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>" method="post">
+                        <input type="hidden" name="productPromoId" value="${(promoProductPromoProduct.productPromoId)?if_exists}">
+                        <input type="hidden" name="productPromoRuleId" value="${(promoProductPromoProduct.productPromoRuleId)?if_exists}">
+                        <input type="hidden" name="productPromoActionSeqId" value="${(promoProductPromoProduct.productPromoActionSeqId)?if_exists}">
+                        <input type="hidden" name="productPromoCondSeqId" value="${(promoProductPromoProduct.productPromoCondSeqId)?if_exists}">
+                        <input type="hidden" name="productId" value="${(promoProductPromoProduct.productId)?if_exists}">
+                        <a href="javascript:document.deleteProductPromoProduct_${promoProductPromoProduct_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                    </form>
                 </div>
             </#list>
             <div>
