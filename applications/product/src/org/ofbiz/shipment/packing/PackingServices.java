@@ -400,7 +400,7 @@ public class PackingServices {
         String shipmentCostEstimateForShipGroup = (String) context.get("shipmentCostEstimateForShipGroup");
         BigDecimal estimatedShipCost = new BigDecimal(shipmentCostEstimateForShipGroup);
 
-        BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost.actual_over_estimated_percent_allowed", "10"));
+        BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
 
         Map<String, Object> response = FastMap.newInstance();
         BigDecimal diffInShipCostInPerc = ZERO;
