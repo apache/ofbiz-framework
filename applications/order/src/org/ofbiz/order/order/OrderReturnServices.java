@@ -22,6 +22,8 @@ package org.ofbiz.order.order;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -300,7 +302,64 @@ public class OrderReturnServices {
     public static Map sendReturnCancelNotification(DispatchContext dctx, Map context) {
         return sendReturnNotificationScreen(dctx, context, "PRDS_RTN_CANCEL");
     }
-
+    
+    // cancel replacement order if return not received within 30 days and send notification
+    public static Map<String,Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        List<GenericValue> returnHeaders = null;
+        try {
+            returnHeaders = delegator.findList("ReturnHeader", EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "RETURN_ACCEPTED"), EntityOperator.AND, 
+                    EntityCondition.makeCondition("returnHeaderTypeId", EntityOperator.EQUALS, "CUSTOMER_RETURN")), null, UtilMisc.toList("entryDate"), null, false);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem getting Return headers", module);
+        }
+        for (GenericValue returnHeader : returnHeaders) {
+            String returnId = returnHeader.getString("returnId");
+            Timestamp entryDate = returnHeader.getTimestamp("entryDate");
+            String daysTillCancelStr = UtilProperties.getPropertyValue("order.properties", "daysTillCancelReplacementOrder", "30");
+            int daysTillCancel = 0;
+            try {
+                daysTillCancel = Integer.parseInt(daysTillCancelStr);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, "Unable to get daysTillCancel", module);
+            }
+            if (daysTillCancel > 0) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(entryDate.getTime());
+                cal.add(Calendar.DAY_OF_YEAR, daysTillCancel);
+                Date cancelDate = cal.getTime();
+                Date nowDate = new Date();
+                if (cancelDate.equals(nowDate) || nowDate.after(cancelDate)) {
+                    try {
+                        List<GenericValue> returnItems = delegator.findList("ReturnItem", EntityCondition.makeCondition(
+                                EntityCondition.makeCondition("returnId", EntityOperator.EQUALS, returnId), EntityOperator.AND, 
+                                EntityCondition.makeCondition("returnTypeId", EntityOperator.EQUALS, "RTN_WAIT_REPLACE_RES")), null, UtilMisc.toList("createdStamp"), null, false);
+                        for (GenericValue returnItem : returnItems) {
+                            GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse");
+                            if (returnItemResponse != null) {
+                                String replacementOrderId = returnItemResponse.getString("replacementOrderId");
+                                Map svcCtx = UtilMisc.toMap("orderId", replacementOrderId, "userLogin", userLogin);
+                                GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", replacementOrderId), false);
+                                if ("ORDER_HOLD".equals(orderHeader.getString("statusId"))) {
+                                    try {
+                                        dispatcher.runSync("cancelOrderItem", svcCtx);
+                                    } catch (GenericServiceException e) {
+                                        Debug.logError(e, "Problem calling service cancelOrderItem: " + svcCtx, module);
+                                    }
+                                }
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);;
+                    }
+                }
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
     // get the returnable quantiy for an order item
     public static Map getReturnableQuantity(DispatchContext dctx, Map context) {
         GenericValue orderItem = (GenericValue) context.get("orderItem");

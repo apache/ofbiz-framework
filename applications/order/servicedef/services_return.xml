@@ -209,6 +209,10 @@ under the License.
         <description>Send a notification that a return has been cancelled</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="autoCancelReplacementOrders" engine="java" max-retry="3" transaction-timeout="36000"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="autoCancelReplacementOrders">
+        <description>Automatic cancellation of replacement order if return is not received within 30 days</description>
+    </service>
 
     <!-- return processing services -->
     <service name="processCreditReturn" engine="java" auth="true"
