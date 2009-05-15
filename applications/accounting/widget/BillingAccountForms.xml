@@ -36,7 +36,7 @@ under the License.
         <field name="thruDate"><display/></field>
     </form>
 
-    <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccountAndRole"
+    <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink description="${billingAccountId}" target="EditBillingAccount">
@@ -46,10 +46,11 @@ under the License.
         <field name="accountLimit">
             <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
+        <field name="accountBalance"><display type="currency"/></field>
         <field name="description"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
-        <field name="partyId"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display description="${parameters.partyId}"/></field>
         <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
     </form>
 

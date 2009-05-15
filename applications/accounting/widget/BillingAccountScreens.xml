@@ -82,9 +82,8 @@ under the License.
                             <fail-widgets>
                                 <section>
                                     <actions>
-                                        <entity-condition entity-name="BillingAccountAndRole" list="billingAccounts">
-                                            <condition-expr field-name="partyId" from-field="parameters.partyId"/>
-                                        </entity-condition>
+                                        <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/BillingAccounts.groovy"/>
+                                        <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
                                     </actions>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleFindBillingAccount}">
