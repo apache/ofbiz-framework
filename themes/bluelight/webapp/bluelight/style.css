@@ -437,6 +437,7 @@ A IMG.imageborder {
 }
 
 #messages-container {
+position:relative;
 background-color: #FFFFFF;
 margin: 0 7px 0 7px;
 padding-bottom: 1em;
