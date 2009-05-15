@@ -228,6 +228,7 @@ under the License.
                             <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId}"/>
                             <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                             <input type="hidden" name="hideGrid" value="${hideGrid}"/>
+                            <input type="hidden" name="showCompletePackForm" value="Y"/>
                             <table cellpadding="2" cellspacing="0" class="basic-table">
                                 <tr>
                                     <td>
@@ -258,6 +259,7 @@ under the License.
                             <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}">
                             <input type="hidden" name="originFacilityId" value="${facilityId?if_exists}">
                             <input type="hidden" name="hideGrid" value="${hideGrid}"/>
+                            <input type="hidden" name="showCompletePackForm" value="Y"/>
                             <table class="basic-table" cellspacing='0'>
                                 <tr class="header-row">
                                     <td>&nbsp;</td>
@@ -478,7 +480,7 @@ under the License.
                             <#assign currentIndex = Static["java.lang.Integer"].parseInt(currentIndex?default("0"))/>
                             <input type="hidden" name="currentIndex" value="${(currentIndex + 1)}"/>
                             <input type="hidden" name="weightPackageSeqId" value="${currentPackageSeqId}"/>
-                            <#if weightPackageSeqIds.size() == packageSeqIds.size()>
+                            <#if weightPackageSeqIds.size() == packageSeqIds.size() && "N" == requestParameters.showCompletePackForm?default("Y")>
                               <hr>
                               <div align="right">
                                 <#assign buttonName = "${uiLabelMap.ProductComplete}"/>
@@ -495,6 +497,7 @@ under the License.
                     <form name="completePackageForm" method="post" action="<@ofbizUrl>completePackage</@ofbizUrl>">
                       <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                       <input type="hidden" name="showWeightPackageForm" value="Y"/>
+                      <input type="hidden" name="showCompletePackForm" value="N"/>
                       <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
                       <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                       <input type="hidden" name="forceComplete" value="${forceComplete?default('false')}"/>
