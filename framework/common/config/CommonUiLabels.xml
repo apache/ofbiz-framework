@@ -1833,6 +1833,10 @@
         <value xml:lang="zh">详细</value>
         <value xml:lang="zh_CN">细节</value>
     </property>
+    <property key="CommonDimension">
+        <value xml:lang="en">Dimension</value>
+        <value xml:lang="fr">Dimension</value>
+    </property>
     <property key="CommonDisabled">
         <value xml:lang="ar">غير شغال</value>
         <value xml:lang="de">Deaktiviert</value>
@@ -3308,6 +3312,10 @@
     <property key="CommonLatitude">
         <value xml:lang="en">Latitude: </value>
         <value xml:lang="fr">Latitude : </value>
+    </property>
+    <property key="CommonLength">
+        <value xml:lang="en">Length</value>
+        <value xml:lang="fr">Longueur</value>
     </property>
     <property key="CommonLessThan">
         <value xml:lang="de">weniger als</value>
