@@ -86,6 +86,50 @@ if (!packSession) {
 }
 packSession.clearItemInfos();
 
+showWarningForm = parameters.showWarningForm;
+if (!showWarningForm) {
+    showWarningForm = false;
+}
+context.showWarningForm = showWarningForm;
+
+currentIndex = parameters.currentIndex;
+if (!currentIndex) {
+    currentIndex = "0";
+}
+dimensionSavedInSession = parameters.dimensionSavedInSession;
+if (!dimensionSavedInSession) {
+    if ("0" != currentIndex) {
+        currentIndex = Integer.toString((Integer.parseInt(currentIndex) - 1));
+    }
+}
+context.currentIndex = currentIndex;
+
+if (packSession) {
+    packageSeqIds = packSession.getPackageSeqIds();
+    index = Integer.parseInt(currentIndex);
+    if (packageSeqIds && (packageSeqIds.size() > index)) {
+        packageSequenceId = packageSeqIds.get(index);
+        context.packageSequenceId = packageSequenceId;
+    } else {
+        context.packageSequenceId = "0";
+    }
+}
+
+packageSeqIds = packSession.getPackageSeqIds();
+if (packageSeqIds) {
+    weightPackageSeqIds = [];
+    packageSeqIds.each { packageSeqId ->
+        weightPackageSeqId = packSession.getWeightPackageSeqId(packageSeqId);
+        if (weightPackageSeqId > -1) {
+            weightPackageSeqIds.add(weightPackageSeqId);
+        }
+    }
+    context.weightPackageSeqIds = weightPackageSeqIds;
+}
+
+shipmentBoxTypes = delegator.findList("ShipmentBoxType", null, null, ["description"], null, true);
+context.shipmentBoxTypes = shipmentBoxTypes;
+
 // picklist based packing information
 picklistBinId = parameters.picklistBinId;
 // see if the bin ID is already set
@@ -170,6 +214,15 @@ if (orderId) {
         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderIdNotFound", [orderId : orderId], locale));
     }
 }
+
+defaultDimensionUomId = null;
+if (facility) {
+    defaultDimensionUomId = facility.defaultDimensionUomId;
+}
+if (!defaultDimensionUomId) {
+    defaultDimensionUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.dimension.uom", "LEN_in");
+}
+context.defaultDimensionUomId = defaultDimensionUomId;
 
 // Try to get the defaultWeightUomId first from the facility, then from the shipment properties, and finally defaulting to kilos
 defaultWeightUomId = null;

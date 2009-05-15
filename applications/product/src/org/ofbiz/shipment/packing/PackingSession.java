@@ -61,6 +61,7 @@ public class PackingSession implements java.io.Serializable {
     protected String facilityId = null;
     protected String shipmentId = null;
     protected String instructions = null;
+    protected String dimensionUomId = null;
     protected String weightUomId = null;
     protected String invoiceId = null;
     protected BigDecimal additionalShippingCharge = null;
@@ -387,6 +388,16 @@ public class PackingSession implements java.io.Serializable {
         return this.packLines;
     }
 
+    public PackingSessionLine getLine(int packageSeqId) {
+        PackingSessionLine packLine = null;
+        for (PackingSessionLine line : this.getLines()) {
+            if ((line.getPackageSeq()) == packageSeqId) {
+                packLine = line;
+            }
+        }
+        return packLine;
+    }
+
     public int nextPackageSeq() {
         return ++packageSeq;
     }
@@ -623,6 +634,7 @@ public class PackingSession implements java.io.Serializable {
         this.primaryShipGrp = null;
         this.additionalShippingCharge = null;
         if (this.packageWeights != null) this.packageWeights.clear();
+        this.dimensionUomId = null;
         this.weightUomId = null;
         this.packageSeq = 1;
         this.status = 1;
@@ -817,12 +829,17 @@ public class PackingSession implements java.io.Serializable {
 
     protected void createPackages() throws GeneralException {
         for (int i = 0; i < packageSeq; i++) {
+            PackingSessionLine line = this.getLine(i+1);
             String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(i+1, 5);
 
             Map<String, Object> pkgCtx = FastMap.newInstance();
             pkgCtx.put("shipmentId", shipmentId);
             pkgCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-            //pkgCtx.put("shipmentBoxTypeId", "");
+            pkgCtx.put("length", line.getLength());
+            pkgCtx.put("width", line.getWidth());
+            pkgCtx.put("height", line.getHeight());
+            pkgCtx.put("dimensionUomId", getDimensionUomId());
+            pkgCtx.put("shipmentBoxTypeId", line.getShipmentBoxTypeId());
             pkgCtx.put("weight", getPackageWeight(i+1));
             pkgCtx.put("weightUomId", getWeightUomId());
             pkgCtx.put("userLogin", userLogin);
@@ -977,6 +994,14 @@ public class PackingSession implements java.io.Serializable {
         this.weightUomId = weightUomId;
     }
 
+    public String getDimensionUomId() {
+        return dimensionUomId;
+    }
+
+    public void setDimensionUomId(String dimensionUomId) {
+        this.dimensionUomId = dimensionUomId;
+    }
+
     public List<Integer> getPackageSeqIds() {
         Set<Integer> packageSeqIds = new TreeSet<Integer>();
         if (! UtilValidate.isEmpty(this.getLines())) {
@@ -1010,6 +1035,140 @@ public class PackingSession implements java.io.Serializable {
         BigDecimal packageWeight = getPackageWeight(packageSeqId);
         BigDecimal newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : weight.add(packageWeight);
         setPackageWeight(packageSeqId, newPackageWeight);
+    }
+
+    public void setPackageLength(String packageSeqId, String packageLength) {
+        if (UtilValidate.isNotEmpty(packageSeqId)) {
+            PackingSessionLine packLine = this.getLine(Integer.parseInt(packageSeqId));
+            if (UtilValidate.isNotEmpty(packageLength)) {
+                packLine.setLength(new BigDecimal(packageLength));
+            }
+        }
+    }
+
+    public BigDecimal getPackageLength(int packageSeqId) {
+        BigDecimal packageLength = null;
+        PackingSessionLine packLine = this.getLine(packageSeqId);
+        if (UtilValidate.isNotEmpty(packLine)) {
+            packageLength = packLine.getLength();
+        }
+        return packageLength;
+    }
+
+    public void setPackageWidth(String packageSeqId, String packageWidth) {
+        if (UtilValidate.isNotEmpty(packageSeqId)) {
+            PackingSessionLine packLine = this.getLine(Integer.parseInt(packageSeqId));
+            if (UtilValidate.isNotEmpty(packageWidth)) {
+                packLine.setWidth(new BigDecimal(packageWidth));
+            }
+        }
+    }
+
+    public BigDecimal getPackageWidth(int packageSeqId) {
+        BigDecimal packageWidth = null;
+        PackingSessionLine packLine = this.getLine(packageSeqId);
+        if (UtilValidate.isNotEmpty(packLine)) {
+            packageWidth = packLine.getWidth();
+        }
+        return packageWidth;
+    }
+
+    public void setPackageHeight(String packageSeqId, String packageHeight) {
+        if (UtilValidate.isNotEmpty(packageSeqId)) {
+            PackingSessionLine packLine = this.getLine(Integer.parseInt(packageSeqId));
+            if (UtilValidate.isNotEmpty(packageHeight)) {
+                packLine.setHeight(new BigDecimal(packageHeight));
+            }
+        }
+    }
+
+    public BigDecimal getPackageHeight(int packageSeqId) {
+        BigDecimal packageHeight = null;
+        PackingSessionLine packLine = this.getLine(packageSeqId);
+        if (UtilValidate.isNotEmpty(packLine)) {
+            packageHeight = packLine.getHeight();
+        }
+        return packageHeight;
+    }
+
+    public void setShipmentBoxTypeId(String packageSeqId, String shipmentBoxTypeId) {
+        if (UtilValidate.isNotEmpty(packageSeqId)) {
+            PackingSessionLine packLine = this.getLine(Integer.parseInt(packageSeqId));
+            if (UtilValidate.isNotEmpty(shipmentBoxTypeId)) {
+                packLine.setShipmentBoxTypeId(shipmentBoxTypeId);
+            }
+        }
+    }
+
+    public String getShipmentBoxTypeId(int packageSeqId) {
+        String shipmentBoxTypeId = null;
+        PackingSessionLine packLine = this.getLine(packageSeqId);
+        if (UtilValidate.isNotEmpty(packLine)) {
+            shipmentBoxTypeId = packLine.getShipmentBoxTypeId();
+        }
+        return shipmentBoxTypeId;
+    }
+
+    public void setWeightPackageSeqId(String packageSeqId, String weightPackageSeqId) {
+        if (UtilValidate.isNotEmpty(packageSeqId)) {
+            PackingSessionLine packLine = this.getLine(Integer.parseInt(packageSeqId));
+            if (UtilValidate.isNotEmpty(weightPackageSeqId)) {
+                packLine.setWeightPackageSeqId(weightPackageSeqId);
+            }
+        }
+    }
+
+    public int getWeightPackageSeqId(int packageSeqId) {
+        int weightPackageSeqId = -1;
+        if (UtilValidate.isNotEmpty(this.getLine(packageSeqId))) {
+            if (UtilValidate.isNotEmpty(this.getLine(packageSeqId).getWeightPackageSeqId()))
+                weightPackageSeqId = Integer.parseInt(this.getLine(packageSeqId).getWeightPackageSeqId());
+        }
+        return weightPackageSeqId;
+    }
+
+    protected void createPackages(String shipmentId) throws GeneralException {
+        List<GenericValue> shipmentPackageRouteSegs = this.getDelegator().findByAnd("ShipmentPackageRouteSeg", UtilMisc.toMap("shipmentId", shipmentId));
+        if (UtilValidate.isNotEmpty(shipmentPackageRouteSegs)) {
+            for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
+                shipmentPackageRouteSeg.remove();
+            }
+        }
+        List<GenericValue> shipmentPackages = this.getDelegator().findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId));
+        if (UtilValidate.isNotEmpty(shipmentPackages)) {
+            for (GenericValue shipmentPackage : shipmentPackages) {
+                shipmentPackage.remove();
+            }
+        }
+        for (int i = 0; i < packageSeq; i++) {
+            PackingSessionLine line = this.getLine(i+1);
+            String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(i+1, 5);
+            Map<String, Object> shipmentPackageCtx = FastMap.newInstance();
+            shipmentPackageCtx.put("shipmentId", shipmentId);
+            shipmentPackageCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
+            shipmentPackageCtx.put("length", line.getLength());
+            shipmentPackageCtx.put("width", line.getWidth());
+            shipmentPackageCtx.put("height", line.getHeight());
+            shipmentPackageCtx.put("dimensionUomId", getDimensionUomId());
+            shipmentPackageCtx.put("shipmentBoxTypeId", line.getShipmentBoxTypeId());
+            shipmentPackageCtx.put("weight", getPackageWeight(i+1));
+            shipmentPackageCtx.put("weightUomId", getWeightUomId());
+            shipmentPackageCtx.put("userLogin", userLogin);
+            Map<String, Object> shipmentPackageResult = this.getDispatcher().runSync("createShipmentPackage", shipmentPackageCtx);
+            if (ServiceUtil.isError(shipmentPackageResult)) {
+                throw new GeneralException(ServiceUtil.getErrorMessage(shipmentPackageResult));
+            }
+        }
+    }
+
+    public void setDimensionAndShipmentBoxType(String packageSeqId) {
+        if (UtilValidate.isNotEmpty(packageSeqId)) {
+            PackingSessionLine packLine = this.getLine(Integer.parseInt(packageSeqId));
+            packLine.setLength(null);
+            packLine.setWidth(null);
+            packLine.setHeight(null);
+            packLine.setShipmentBoxTypeId(null);
+        }
     }
 
     class ItemDisplay extends AbstractMap {

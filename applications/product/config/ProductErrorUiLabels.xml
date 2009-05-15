@@ -57,6 +57,15 @@
     <property key="ProductErrorAllOrderItemsAreNotVerified">
         <value xml:lang="en">ERROR: All order items are not verified</value>
     </property>
+    <property key="ProductErrorEnteredBothDimensionAndPackageInputBoxField">
+        <value xml:lang="en">ERROR: Entered Dimension and Package input box, both the fields cannot be processed together (should enter one of them)</value>
+    </property>
+    <property key="ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete">
+        <value xml:lang="en">ERROR: No items currently set to be shipped cannot complete</value>
+    </property>
+    <property key="ProductErrorNotEnteredAllFieldsInDimension">
+        <value xml:lang="en">ERROR: Not entered all fields (length, width and height) in Dimension</value>
+    </property>
     <property key="ProductErrorInventoryItemLabelIdNotFound">
         <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
         <value xml:lang="it">Errore riga etichetta inventario non trovata</value>

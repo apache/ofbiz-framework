@@ -956,6 +956,7 @@ under the License.
         <field name="openedDate" type="date-time"></field>
         <field name="closedDate" type="date-time"></field>
         <field name="description" type="description"></field>
+        <field name="defaultDimensionUomId" type="id"><description>This field store the unit of measurement of dimension (length, width and height)</description></field>
         <field name="defaultWeightUomId" type="id"></field>
         <field name="geoPointId" type="id"></field>
         <prim-key field="facilityId"/>
@@ -974,7 +975,10 @@ under the License.
         <relation type="one" fk-name="FAC_INVITM_TYPE" title="Default" rel-entity-name="InventoryItemType">
             <key-map field-name="defaultInventoryItemTypeId" rel-field-name="inventoryItemTypeId"/>
         </relation>
-        <relation type="one" fk-name="FAC_DEF_UOM" rel-entity-name="Uom">
+        <relation type="one" fk-name="FAC_DEF_DUOM" title="Dimension" rel-entity-name="Uom">
+            <key-map field-name="defaultDimensionUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="FAC_DEF_WUOM" title="Weight" rel-entity-name="Uom">
             <key-map field-name="defaultWeightUomId" rel-field-name="uomId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="ProductStore">

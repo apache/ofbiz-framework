@@ -73,6 +73,9 @@
     <property key="FacilityGroupName">
         <value xml:lang="en">Group Name</value>
     </property>
+    <property key="FacilityHoldShipment">
+        <value xml:lang="en">Hold Shipment</value>
+    </property>
     <property key="FacilityInventory">
         <value xml:lang="de">Inventar</value>
         <value xml:lang="en">Inventory</value>
@@ -129,6 +132,9 @@
     <property key="FacilitySelectOptionsToGroupBy">
         <value xml:lang="en">Select Options To Group</value>
     </property>
+    <property key="FacilityShip">
+        <value xml:lang="en">Ship</value>
+    </property>
     <property key="FacilityShipAvailable">
         <value xml:lang="de">Bitte liefern Sie meine bestellten Artikel sobald sie verfügbar sind (Sie dürfen zusätzliche Lieferungskosten  erheben).</value>
         <value xml:lang="en">Please ship items I ordered as they become available (you may incur additional shipping charges).</value>
@@ -141,6 +147,9 @@
         <value xml:lang="th">Please ship items I ordered as they become available (you may incur additional shipping charges).</value>
         <value xml:lang="zh">当我订的明细有货时请送货 (你可能要支付额外的运费)。</value>
         <value xml:lang="zh_CN">当所订商品个别项可用时即刻发货（不是一起发货，你可能需要另付发货费用）。</value>
+    </property>
+    <property key="FacilityShipmentCreatedAndMarkedAsPacked">
+        <value xml:lang="en">Shipment #${shipmentId} created and marked as packed</value>
     </property>
     <property key="FacilityShipOnceOrAvailable">
         <value xml:lang="de">Alles zusammen liefern oder 'sobald etwas verfügbar'?</value>
@@ -219,6 +228,9 @@
         <value xml:lang="th">กรุณารอจนกระทั่งอ่านรายการสั่งซื้อทั้งหมดก่อนการขนส่งสินค้า</value>
         <value xml:lang="zh">请等待整个订单都有货时再送货。</value>
         <value xml:lang="zh_CN">等待直到整个订单完成后发货。</value>
+    </property>
+    <property key="FacilityWarningMessageThereIsMuchDifferenceInShippingCharges">
+        <value xml:lang="en">There is much difference in shipping charges</value>
     </property>
     <property key="FormFieldTitle_abbrev">
         <value xml:lang="de">Abkürzung</value>
@@ -14266,6 +14278,9 @@
         <value xml:lang="th">แพคเกจ</value>
         <value xml:lang="zh">包装</value>
     </property>
+    <property key="ProductPackageInputBox">
+        <value xml:lang="en">Package input box</value>
+    </property>
     <property key="ProductPackageQty">
         <value xml:lang="de">Anzahl Pakete</value>
         <value xml:lang="en">Package Qty</value>
@@ -18026,6 +18041,9 @@
         <value xml:lang="th">รหัสประเภทการขนส่ง</value>
         <value xml:lang="zh">货运类型标识</value>
     </property>
+    <property key="ProductShipmentUomAbbreviation_LEN_in">
+        <value xml:lang="en">in</value>
+    </property>
     <property key="ProductShipmentUomAbbreviation_WT_kg">
         <value xml:lang="de">kg</value>
         <value xml:lang="en">kg</value>
@@ -20008,6 +20026,9 @@
         <value xml:lang="it">Intervallo peso</value>
         <value xml:lang="ru">Весовой порог</value>
         <value xml:lang="th">รหัสน้ำหนักที่เปิดเผย</value>
+    </property>
+    <property key="ProductWeightPackageOnly">
+        <value xml:lang="en">Weight Package Only</value>
     </property>
     <property key="ProductWeightTitle1">
         <value xml:lang="en">Weight charge</value>
