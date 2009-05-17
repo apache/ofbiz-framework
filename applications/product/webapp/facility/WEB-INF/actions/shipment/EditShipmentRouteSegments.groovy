@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.*
+import org.ofbiz.entity.condition.EntityCondition;
 
 shipmentId = request.getParameter("shipmentId");
 if (!shipmentId) {
@@ -25,7 +26,7 @@ if (!shipmentId) {
 }
 
 shipment = null;
-if (!shipmentId) {
+if (shipmentId) {
     shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 }
 
