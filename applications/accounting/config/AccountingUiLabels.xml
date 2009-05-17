@@ -7932,7 +7932,7 @@
     <property key="FormFieldTitle_amountToApply">
         <value xml:lang="ar">المبلغ للتطبيق</value>
         <value xml:lang="de">zuzuweisender Betrag</value>
-        <value xml:lang="en">Amount to Apply</value>
+        <value xml:lang="en">Outstanding amount</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="fr">Montant à allouer</value>
         <value xml:lang="it">Importo Da Applicare</value>

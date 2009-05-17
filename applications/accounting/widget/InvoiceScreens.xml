@@ -646,7 +646,7 @@ under the License.
                         <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>
                         <condition-list combine="or">
                             <condition-expr field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_SEND"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_SENT"/>
                             <condition-expr field-name="statusId" operator="equals" value="INVOICE_READY"/>
                             <condition-expr field-name="statusId" operator="equals" value="INVOICE_PAID"/>
                         </condition-list>

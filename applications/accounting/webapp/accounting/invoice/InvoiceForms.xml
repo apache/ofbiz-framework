@@ -629,7 +629,6 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyIdFrom"><ignored/></field>
         <field name="partyIdTo"><ignored/></field>
-        <field name="amountToApply"><ignored/></field>
     </form>
 
 </forms>
