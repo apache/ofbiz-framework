@@ -19,6 +19,7 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.component.ComponentConfig;
 
 if (parameters.communicationEventId) {
     communicationEventRoles = delegator.findByAnd("CommunicationEventAndRole",
@@ -35,4 +36,6 @@ if (parameters.communicationEventId) {
     if (communicationEventRoles) {
         context.myCommunicationEventRole = communicationEventRoles.get(0);
     }
+    
+    context.projectMgrExists = ComponentConfig.componentExists("projectmgr");
 }

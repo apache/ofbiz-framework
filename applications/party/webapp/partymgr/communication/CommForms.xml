@@ -292,7 +292,7 @@ under the License.
         <field name="subject"><display/></field>
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="contentMimeTypeId" use-when="&quot;my&quot;==void"><display/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" read-only="true"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="60" rows="10" read-only="true"/></field>
         
         <sort-order>
             <field-group collapsible="false" initially-collapsed="false">

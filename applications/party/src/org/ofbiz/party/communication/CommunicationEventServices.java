@@ -1109,6 +1109,7 @@ public class CommunicationEventServices {
         Debug.logInfo("-- Number of parts       : " + wrapper.getMainPartCount(), module);
         Debug.logInfo("-- Number of attachments : " + wrapper.getAttachmentIndexes().size(), module);
         Debug.logInfo("-- Message ID            : " + wrapper.getMessageId(), module);
+        Debug.logInfo("-- CommunicationEventId  : " + context.get("communicationEventId"), module);
                 
         Debug.logInfo("### MESSAGE ###\n\n" + wrapper.getMessageBody(), module);
                 

@@ -43,6 +43,7 @@ under the License.
         <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
         <override name="custRequestName" allow-html="safe"/>
+        <override name="story" allow-html="safe"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
