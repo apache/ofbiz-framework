@@ -767,7 +767,7 @@ under the License.
         <security https="false"/>
         <event type="java" path="org.ofbiz.accounting.thirdparty.paypal.PayPalEvents" invoke="payPalIPN"/>
         <response name="success" type="none"/>
-        <response name="error" type="view" value="checkoutreview"/>
+        <response name="error" type="none"/>
     </request-map>
     <request-map uri="payPalCancel">
         <security https="true"/>
