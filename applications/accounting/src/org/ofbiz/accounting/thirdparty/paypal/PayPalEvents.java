@@ -137,7 +137,6 @@ public class PayPalEvents {
         if (UtilValidate.isEmpty(redirectUrl)
             || UtilValidate.isEmpty(notifyUrl)
             || UtilValidate.isEmpty(returnUrl)
-            || UtilValidate.isEmpty(cancelReturnUrl)
             || UtilValidate.isEmpty(imageUrl)
             || UtilValidate.isEmpty(payPalAccount) ) {
             Debug.logError("Payment properties is not configured properly, some notify URL from PayPal is not correctly defined!", module);
@@ -155,7 +154,7 @@ public class PayPalEvents {
         parameters.put("custom", userLogin.getString("userLoginId"));
         parameters.put("amount", orderTotal);
         parameters.put("return", returnUrl);
-        parameters.put("cancel_return", cancelReturnUrl);
+        if (UtilValidate.isNotEmpty(cancelReturnUrl)) parameters.put("cancel_return", cancelReturnUrl);
         parameters.put("notify_url", notifyUrl);
         parameters.put("image_url", imageUrl);
         parameters.put("no_note", "1");        // no notes allowed in paypal (not passed back)
@@ -265,7 +264,7 @@ public class PayPalEvents {
         GenericValue userLogin = null;
         String userLoginId = request.getParameter("custom");
         if (userLoginId == null)
-            userLoginId = "admin";
+            userLoginId = "system";
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
         } catch (GenericEntityException e) {
