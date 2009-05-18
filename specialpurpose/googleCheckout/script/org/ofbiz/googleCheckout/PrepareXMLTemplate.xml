@@ -102,13 +102,13 @@
         <create-object class-name="org.ofbiz.widget.html.HtmlScreenRenderer" field="xhtmlStringRenderer"></create-object>
         <!-- create screen renderer -->
         <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field="screens">
-            <field field="XMLWriter" type="java.io.Writer"/>
+            <field field="XMLWriter" type="java.lang.Appendable"/>
             <field field="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
             <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
         </create-object>
         <set field="xscreenContext.screens" from-field="screens"/>
         <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field="xscreens">
-            <field field="XMLWriter" type="java.io.Writer"/>
+            <field field="XMLWriter" type="java.lang.Appendable"/>
             <field field="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
             <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
         </create-object>
