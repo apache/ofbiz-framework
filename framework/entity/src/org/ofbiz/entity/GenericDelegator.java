@@ -1072,7 +1072,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return int representing number of rows effected by this operation
      */
     public int removeByAnd(String entityName, Object... fields) throws GenericEntityException {
@@ -1081,7 +1081,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return int representing number of rows effected by this operation
      */
     public int removeByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -1091,7 +1091,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@param doCacheClear boolean that specifies whether to clear cache entries for this value to be removed
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return int representing number of rows effected by this operation
      */
     public int removeByAnd(String entityName, boolean doCacheClear, Object... fields) throws GenericEntityException {
@@ -1100,7 +1100,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@param doCacheClear boolean that specifies whether to clear cache entries for this value to be removed
      *@return int representing number of rows effected by this operation
      */
@@ -1569,7 +1569,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Find a Generic Entity by its Primary Key
      * NOTE 20080502: 6 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return The GenericValue corresponding to the primaryKey
      */
     public GenericValue findOne(String entityName, boolean useCache, Object... fields) throws GenericEntityException {
@@ -1578,7 +1578,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Find a Generic Entity by its Primary Key
      * NOTE 20080502: 6 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return The GenericValue corresponding to the primaryKey
      */
     public GenericValue findOne(String entityName, Map<String, ? extends Object> fields, boolean useCache) throws GenericEntityException {
@@ -1669,7 +1669,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Find a Generic Entity by its Primary Key
      * NOTE 20080502: 21 references; all changed to findOne
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return The GenericValue corresponding to the primaryKey
      *@deprecated Use findOne() instead
      */
@@ -1680,7 +1680,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Find a Generic Entity by its Primary Key
      * NOTE 20080502: 550 references (20080503 521 left); needs to be deprecated, should use findOne instead, but lots of stuff to replace!
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return The GenericValue corresponding to the primaryKey
      */
     public GenericValue findByPrimaryKey(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -1701,7 +1701,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Find a CACHED Generic Entity by its Primary Key
      * NOTE 20080502: 2 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return The GenericValue corresponding to the primaryKey
      */
     public GenericValue findByPrimaryKeyCache(String entityName, Object... fields) throws GenericEntityException {
@@ -1711,7 +1711,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Find a CACHED Generic Entity by its Primary Key
      * NOTE 20080502: 218 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return The GenericValue corresponding to the primaryKey
      */
     public GenericValue findByPrimaryKeyCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -1988,7 +1988,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND)
      * NOTE 20080502: 1 references
      * @param entityName The Name of the Entity as defined in the entity XML file
-     * @param fields The fields of the named entity to query by with their corresponging values
+     * @param fields The fields of the named entity to query by with their corresponding values
      * @return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAnd(String entityName, Object... fields) throws GenericEntityException {
@@ -1998,7 +1998,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND)
      * NOTE 20080502: 264 references
      * @param entityName The Name of the Entity as defined in the entity XML file
-     * @param fields The fields of the named entity to query by with their corresponging values
+     * @param fields The fields of the named entity to query by with their corresponding values
      * @return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -2009,7 +2009,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
      * NOTE 20080502: 0 references
      * @param entityName The Name of the Entity as defined in the entity XML file
-     * @param fields The fields of the named entity to query by with their corresponging values
+     * @param fields The fields of the named entity to query by with their corresponding values
      * @return List of GenericValue instances that match the query
      *@deprecated Use findList() instead
      */
@@ -2021,7 +2021,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
      * NOTE 20080502: 1 references; all changed to findList
      * @param entityName The Name of the Entity as defined in the entity XML file
-     * @param fields The fields of the named entity to query by with their corresponging values
+     * @param fields The fields of the named entity to query by with their corresponding values
      * @return List of GenericValue instances that match the query
      *@deprecated Use findList() instead
      */
@@ -2033,7 +2033,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND)
      * NOTE 20080502: 72 references
      * @param entityName The Name of the Entity as defined in the entity XML file
-     * @param fields The fields of the named entity to query by with their corresponging values
+     * @param fields The fields of the named entity to query by with their corresponding values
      * @param orderBy The fields of the named entity to order the query by;
      *      optionally add a " ASC" for ascending or " DESC" for descending
      * @return List of GenericValue instances that match the query
@@ -2046,7 +2046,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
      * NOTE 20080502: 1 references; all changed to findList
      * @param entityName The Name of the Entity as defined in the entity XML file
-     * @param fields The fields of the named entity to query by with their corresponging values
+     * @param fields The fields of the named entity to query by with their corresponding values
      * @param orderBy The fields of the named entity to order the query by;
      *      optionally add a " ASC" for ascending or " DESC" for descending
      * @return List of GenericValue instances that match the query
@@ -2060,7 +2060,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND), looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
      * NOTE 20080502: 0 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return List of GenericValue instances that match the query
      *@deprecated Use findList() instead
      */
@@ -2071,7 +2071,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND), looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
      * NOTE 20080502: 91 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAndCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -2081,7 +2081,7 @@ public class GenericDelegator implements DelegatorInterface {
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND), looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
      * NOTE 20080502: 56 references
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
      *@return List of GenericValue instances that match the query
      */
@@ -2807,7 +2807,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     /** Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd, or All
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      */
     public void clearCacheLine(String entityName, Object... fields) {
         clearCacheLine(entityName, UtilMisc.<String, Object>toMap(fields));
@@ -2815,7 +2815,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     /** Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd, or All
      *@param entityName The Name of the Entity as defined in the entity XML file
-     *@param fields The fields of the named entity to query by with their corresponging values
+     *@param fields The fields of the named entity to query by with their corresponding values
      */
     public void clearCacheLine(String entityName, Map<String, ? extends Object> fields) {
         // if no fields passed, do the all cache quickly and return
