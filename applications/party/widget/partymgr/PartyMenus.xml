@@ -423,9 +423,25 @@
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
                     <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                    <if-compare field="projectMgrExists" operator="equals" value="false"/> 
                 </and>
             </condition>
             <link target="editRequestFromCommEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="my" from-field="parameters.my"/>
+            </link>
+        </menu-item>
+        <menu-item name="createRequestFromCommEvent1" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                    <if-compare field="projectMgrExists" operator="equals" value="true"/> 
+                </and>
+            </condition>
+            <link target="/projectmgr/control/newrequest" url-mode="inter-app">
                 <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
                 <parameter param-name="my" from-field="parameters.my"/>
             </link>

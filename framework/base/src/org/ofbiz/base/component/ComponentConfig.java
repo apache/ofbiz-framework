@@ -86,6 +86,15 @@ public class ComponentConfig {
         return componentConfig;
     }
 
+    public static Boolean componentExists(String componentName) {
+    	ComponentConfig componentConfig = componentConfigs.get(componentName);
+    	if (componentConfig == null) {
+    		return Boolean.FALSE;
+    	} else {
+    		return Boolean.TRUE;
+    	}
+    }
+    
     public static Collection<ComponentConfig> getAllComponents() {
         Collection<ComponentConfig> values = componentConfigs.values();
         if (values != null) {

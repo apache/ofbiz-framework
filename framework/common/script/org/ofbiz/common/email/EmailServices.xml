@@ -22,12 +22,24 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="sendMailFromTemplateSetting" short-description="Send Mail from Email Template Setting">
         <!-- if partyIdTo provided but no emailAddress, get it from the partyContactMech -->
+        <if-empty field="parameters.sendTo">
+            <if-empty field="parameters.partyIdTo">
+                <log level="error" message="PartyId or SendTo should be specified!"></log>
+                <add-error><fail-message message="PartyId or Email Address (sendTo) should be specified!"/></add-error>
+            <check-errors/>
+            </if-empty>
+        </if-empty>
         <if-not-empty field="parameters.partyIdTo">
             <if-empty field="parameters.sendTo">
                 <set field="getEmail.partyId" from-field="parameters.partyIdTo"/>
                 <call-service service-name="getPartyEmail" in-map-name="getEmail">
                     <result-to-field result-name="emailAddress" field="parameters.sendTo"/>
                 </call-service>
+                <if-empty field="parameters.sendTo">
+                    <log level="error" message="PartyId: ${parameters.partyIdTo} has no valid email address!"></log>
+                    <add-error><fail-message message="PartyId: ${parameters.partyIdTo} has no valid email address!"/></add-error>
+                    <check-errors/>
+                </if-empty>
             </if-empty>
         </if-not-empty>
         <entity-one entity-name="EmailTemplateSetting" value-field="emailTemplateSetting"/>

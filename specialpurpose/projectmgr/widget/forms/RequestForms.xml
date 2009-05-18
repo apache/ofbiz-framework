@@ -30,7 +30,8 @@ under the License.
     </form>
     <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
         extends="EditSmallCustRequest" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
-        <field name="description" parameter-name="story" use-when="custRequest==null"><textarea cols="60" rows="12"/></field>
+        <field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field>
+        <field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field>
         <field name="workEffortName"><hidden value="${custRequestName}"/></field>
         <field name="workEffortId"><hidden value="${custRequestId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
