@@ -62,6 +62,40 @@ function runAction() {
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
+<#if parameters.hideFields?has_content>
+<form name='lookupandhidefields${requestParameters.hideFields}' method="POST" action="<@ofbizUrl>searchorders</@ofbizUrl>">
+  <#if parameters.hideFields?default("N")=='Y'>
+    <input type="hidden" name="hideFields" value="N"/>
+  <#else>
+    <input type='hidden' name='hideFields' value='Y'/>
+  </#if>
+  <input type="hidden" name="viewSize" value="${viewSize}"/>
+  <input type="hidden" name="viewIndex" value="${viewIndex}"/>
+  <input type='hidden' name='correspondingPoId' value='${requestParameters.correspondingPoId?if_exists}'/>
+  <input type='hidden' name='internalCode' value='${requestParameters.internalCode?if_exists}'/>
+  <input type='hidden' name='productId' value='${requestParameters.productId?if_exists}'/>
+  <input type='hidden' name='inventoryItemId' value='${requestParameters.inventoryItemId?if_exists}'/>
+  <input type='hidden' name='serialNumber' value='${requestParameters.serialNumber?if_exists}'/>
+  <input type='hidden' name='softIdentifier' value='${requestParameters.softIdentifier?if_exists}'/>
+  <input type='hidden' name='partyId' value='${requestParameters.partyId?if_exists}'/>
+  <input type='hidden' name='userLoginId' value='${requestParameters.userLoginId?if_exists}'/>
+  <input type='hidden' name='billingAccountId' value='${requestParameters.billingAccountId?if_exists}'/>
+  <input type='hidden' name='createdBy' value='${requestParameters.createdBy?if_exists}'/>
+  <input type='hidden' name='minDate' value='${requestParameters.minDate?if_exists}'/>
+  <input type='hidden' name='maxDate' value='${requestParameters.maxDate?if_exists}'/>
+  <input type='hidden' name='roleTypeId' value="${requestParameters.roleTypeId?if_exists}"/>
+  <input type='hidden' name='orderTypeId' value='${requestParameters.orderTypeId?if_exists}'/>
+  <input type='hidden' name='salesChannelEnumId' value='${requestParameters.salesChannelEnumId?if_exists}'/>
+  <input type='hidden' name='productStoreId' value='${requestParameters.productStoreId?if_exists}'/>
+  <input type='hidden' name='orderWebSiteId' value='${requestParameters.orderWebSiteId?if_exists}'/>
+  <input type='hidden' name='orderStatusId' value='${requestParameters.orderStatusId?if_exists}'/>
+  <input type='hidden' name='hasBackOrders' value='${requestParameters.hasBackOrders?if_exists}'/>
+  <input type='hidden' name='filterInventoryProblems' value='${requestParameters.filterInventoryProblems?if_exists}'/>
+  <input type='hidden' name='filterPartiallyReceivedPOs' value='${requestParameters.filterPartiallyReceivedPOs?if_exists}'/>
+  <input type='hidden' name='filterPOsOpenPastTheirETA' value='${requestParameters.filterPOsOpenPastTheirETA?if_exists}'/>
+  <input type='hidden' name='filterPOsWithRejectedItems' value='${requestParameters.filterPOsWithRejectedItems?if_exists}'/>
+</form>
+</#if>
 <form method="post" name="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
 <input type="hidden" name="lookupFlag" value="Y"/>
 <input type="hidden" name="hideFields" value="Y"/>
@@ -73,9 +107,9 @@ function runAction() {
     <ul>
       <li class="h3">${uiLabelMap.OrderFindOrder}</li>
       <#if requestParameters.hideFields?default("N") == "Y">
-        <li><a href="<@ofbizUrl>searchorders?hideFields=N&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
+        <li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
-        <#if orderList?exists><li><a href="<@ofbizUrl>searchorders?hideFields=Y&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <#if orderList?exists><li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
         <li><a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${uiLabelMap.PartyLookupParty}</a></li>
         <li><a href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
       </#if>
