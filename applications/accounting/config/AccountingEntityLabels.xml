@@ -2414,14 +2414,14 @@
         <value xml:lang="zh">离线支付</value>
     </property>
     <property key="PaymentMethodType.description.EXT_PAYPAL">
-        <value xml:lang="de">Paypal-Konto</value>
-        <value xml:lang="en">Paypal</value>
-        <value xml:lang="fr">Paypal</value>
-        <value xml:lang="it">Paypal</value>
-        <value xml:lang="nl">Paypal</value>
-        <value xml:lang="ro">Paypal</value>
-        <value xml:lang="ru">Paypal</value>
-        <value xml:lang="th">Paypal</value>
+        <value xml:lang="de">PayPal-Konto</value>
+        <value xml:lang="en">PayPal</value>
+        <value xml:lang="fr">PayPal</value>
+        <value xml:lang="it">PayPal</value>
+        <value xml:lang="nl">PayPal</value>
+        <value xml:lang="ro">PayPal</value>
+        <value xml:lang="ru">PayPal</value>
+        <value xml:lang="th">PayPal</value>
         <value xml:lang="zh">贝宝</value>
     </property>
     <property key="PaymentMethodType.description.EXT_WORLDPAY">
