@@ -1060,4 +1060,44 @@ under the License.
             </else>
         </if>
     </simple-method>
+    
+    <simple-method method-name="addProductsBackToCategory" short-description="When one or more product is received directly through receive inventory or refund return then add these product(s) back to category, if they does not have any active category">
+        <if-not-empty field="parameters.inventoryItemId">
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+            <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
+                <field-map field-name="productId" from-field="inventoryItem.productId"/>
+                <order-by field-name="-thruDate"/>
+            </entity-and>
+            <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
+            <if-empty field="pcms">
+                <first-from-list list="productCategoryMembers" entry="pcm"/>
+                <clear-field field="pcm.thruDate"/>
+                <set-service-fields service-name="updateProductToCategory" map="pcm" to-map="updateProductToCategoryMap"/>
+                <call-service service-name="updateProductToCategory" in-map-name="updateProductToCategoryMap"/>
+            </if-empty>
+        <else>
+            <if-not-empty field="parameters.returnId">
+                <entity-and entity-name="ReturnItem" list="returnItems">
+                    <field-map field-name="returnId" from-field="parameters.returnId"/>
+                    <field-map field-name="returnTypeId" value="RTN_REFUND"/>
+                </entity-and>
+                <if-not-empty field="returnItems">
+                    <iterate list="returnItems" entry="returnItem">
+                        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
+                            <field-map field-name="productId" from-field="returnItem.productId"/>
+                            <order-by field-name="-thruDate"/>
+                        </entity-and>
+                        <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
+                        <if-empty field="pcms">
+                            <first-from-list list="productCategoryMembers" entry="pcm"/>
+                            <clear-field field="pcm.thruDate"/>
+                            <set-service-fields service-name="updateProductToCategory" map="pcm" to-map="updateProductToCategoryMap"/>
+                            <call-service service-name="updateProductToCategory" in-map-name="updateProductToCategoryMap"/>
+                        </if-empty>
+                    </iterate>
+                </if-not-empty>
+            </if-not-empty>       
+        </else>    
+        </if-not-empty>
+    </simple-method>    
 </simple-methods>
