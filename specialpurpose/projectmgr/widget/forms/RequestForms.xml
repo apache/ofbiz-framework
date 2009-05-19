@@ -28,8 +28,9 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
+    <form name="EditCustRequest" type="single" target="createrequest" title="Request" default-map-name="custRequest"
         extends="EditSmallCustRequest" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <alt-target use-when="custRequest!=null" target="updateRequest"/>
         <field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field>
         <field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field>
         <field name="workEffortName"><hidden value="${custRequestName}"/></field>
@@ -37,6 +38,7 @@ under the License.
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
+        <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
         <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
