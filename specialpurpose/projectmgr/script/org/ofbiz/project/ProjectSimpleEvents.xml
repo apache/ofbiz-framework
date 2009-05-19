@@ -21,10 +21,19 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="CreateCustRequestAndAssignTaskToPerson" short-description="">
         <set field="parameters.statusId" value="CRQ_ACCEPTED"/><!-- entered by employee, should only enter accepted customer requests -->
-        <set-service-fields service-name="createCustRequest" map="parameters" to-map="eventCreateCust"/>
-        <call-service service-name="createCustRequest" in-map-name="eventCreateCust">
-            <result-to-field result-name="custRequestId" field="custRequestId"/>
-        </call-service>
+        <if-not-empty field="parameters.communicationEventId">
+            <set-service-fields service-name="createCustRequestFromCommEvent" map="parameters" to-map="eventCreateCust"/>
+            <call-service service-name="createCustRequestFromCommEvent" in-map-name="eventCreateCust">
+                <result-to-field result-name="custRequestId"/>
+            </call-service>
+            <else>
+                <set-service-fields service-name="createCustRequest" map="parameters" to-map="eventCreateCust"/>
+                <call-service service-name="createCustRequest" in-map-name="eventCreateCust">
+                    <result-to-field result-name="custRequestId"/>
+                </call-service>
+            </else>
+        </if-not-empty>
+        <set field="eventMessage" value="Customer request: ${custRequestId} created"/>
         <if-not-empty field="parameters.workEffortParentId">
             <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createTask"/>
             <set field="createTask.custRequestId" from-field="custRequestId"/>
@@ -32,6 +41,7 @@
             <call-service service-name="createWorkEffort" in-map-name="createTask" >
                 <result-to-field result-name="workEffortId" field="workEffortId"/>
             </call-service>
+            <set field="eventMessage" value="${eventMessage} and attached to task: ${workEffortId}"/>
             <set field="updCust.statusId" value="CRQ_REVIEWED"/>
             <set field="updCust.custRequestId" from-field="custRequestId"/>
             <call-service service-name="updateCustRequest" in-map-name="updCust"/>
@@ -41,8 +51,10 @@
                 <set field="assignParty.roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="assignParty.statusId" value="PAS_ASSIGNED"/>
                 <call-service service-name="assignPartyToWorkEffort" in-map-name="assignParty"/>
+                <set field="eventMessage" value="${eventMessage} and assigned to party: ${parameters.partyId}"/>
             </if-not-empty>
         </if-not-empty>
+        <set field="_event_message_" from-field="eventMessage"/>
     </simple-method>
     <simple-method method-name="acceptRequestAndConnectToTask" short-description="Accept a customer request and connect to an existing task">
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>

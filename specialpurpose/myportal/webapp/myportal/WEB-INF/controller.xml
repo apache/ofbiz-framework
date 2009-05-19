@@ -26,9 +26,9 @@
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
     <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>
-    <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
-
+    <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>
+    
     <description>Show personal information in the system</description>
 
     <request-map uri="main">
