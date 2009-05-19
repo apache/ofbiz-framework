@@ -332,4 +332,11 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="originOrderId" type="String" mode="IN" optional="false"/>
     </service>
+
+    <service name="addProductsBackToCategory" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="addProductsBackToCategory">
+        <description>Add product(s) back to category if it has no active category</description>
+        <attribute name="returnId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+    </service>
 </services>

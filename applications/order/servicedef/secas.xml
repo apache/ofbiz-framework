@@ -45,11 +45,13 @@ under the License.
     </eca>
     <eca service="receiveInventoryProduct" event="commit">
         <condition field-name="facilityId" operator="is-not-empty"/>
+        <action service="addProductsBackToCategory" mode="sync"/>
         <action service="setUnitPriceAsLastPrice" mode="sync"/>
     </eca>
     <eca service="receiveInventoryProduct" event="commit">
         <condition field-name="facilityId" operator="is-not-empty"/>
         <condition field-name="orderId" operator="is-not-empty"/>
+        <action service="addProductsBackToCategory" mode="sync"/>
         <action service="updatePoOnReceiveInventory" mode="sync"/>
     </eca>
     <eca service="changeOrderItemStatus" event="commit">
@@ -197,6 +199,7 @@ under the License.
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="RETURN_RECEIVED"/>
+        <action service="addProductsBackToCategory" mode="sync"/>
         <action service="processWaitReplacementReturn" mode="sync"/>
         <action service="processWaitReplacementReservedReturn" mode="sync"/>
         <action service="processRepairReplacementReturn" mode="sync"/>
@@ -205,6 +208,7 @@ under the License.
     </eca>
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
+        <action service="addProductsBackToCategory" mode="sync"/>
         <action service="processWaitReplacementReturn" mode="sync"/>
         <action service="processRepairReplacementReturn" mode="sync"/>
         <action service="processCreditReturn" mode="sync"/>
