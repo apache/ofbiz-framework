@@ -81,7 +81,7 @@ under the License.
                 <div><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></div>
                 <div><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></div>
                 <div><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with belog using screen decorator</a></div>
-                <div><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></div>
+                <!-- <div> <a href="{thisContent.content.CMSS_DEMO_TPL_DATA.link}" Demo Page with an xml resource formatted with a template ftl resource </a> </div>  FIXME : commented for now (and $ removed) : not working -->
             </div>
             ]]></textData>
     </ElectronicText>
