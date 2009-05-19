@@ -26,6 +26,14 @@
             <call-service service-name="createCustRequestFromCommEvent" in-map-name="eventCreateCust">
                 <result-to-field result-name="custRequestId"/>
             </call-service>
+            <!-- set the status of all participants to complete so not somebody else will also create a customer request -->
+            <entity-and entity-name="CommunicationEventRole" list="commRoles">
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </entity-and>
+            <iterate entry="commRole" list="commRoles">
+                <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
+                <store-value value-field="commRole"/>
+            </iterate>
             <else>
                 <set-service-fields service-name="createCustRequest" map="parameters" to-map="eventCreateCust"/>
                 <call-service service-name="createCustRequest" in-map-name="eventCreateCust">
