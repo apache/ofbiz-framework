@@ -68,24 +68,27 @@ under the License.
         <set field="groupByNoOfOrderItems" from-field="parameters.groupByNoOfOrderItems"/>
         <set field="groupByWarehouseArea" from-field="parameters.groupByWarehouseArea"/>
         <now-timestamp field="nowTimestamp"/>
-
-        <if-empty field="parameters.orderHeaderList">
-            <log level="info" message="No order header list found in parameters; finding orders to pick."/>
-
-            <entity-condition entity-name="OrderHeader" list="orderHeaderList">
-                <condition-list combine="and">
-                    <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
-                    <condition-expr field-name="statusId" value="ORDER_APPROVED"/>
-                    <condition-expr field-name="isRushOrder" from-field="parameters.isRushOrder" ignore-if-empty="true"/>
-                </condition-list>
-                <order-by field-name="+orderDate"/><!-- oldest first -->
-            </entity-condition>
+        <if-not-empty field="parameters.orderId">
+            <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
+            <field-to-list field="orderHeader" list="orderHeaderList"/>
         <else>
-            <set from-field="parameters.orderHeaderList" field="orderHeaderList"/>
-            <log level="info" message="Found orderHeaderList in parameters; using: ${orderHeaderList}"/>
+            <if-empty field="parameters.orderHeaderList">
+                <log level="info" message="No order header list found in parameters; finding orders to pick."/>
+                <entity-condition entity-name="OrderHeader" list="orderHeaderList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+                        <condition-expr field-name="statusId" value="ORDER_APPROVED"/>
+                        <condition-expr field-name="isRushOrder" from-field="parameters.isRushOrder" ignore-if-empty="true"/>
+                    </condition-list>
+                    <order-by field-name="+orderDate"/><!-- oldest first -->
+                </entity-condition>
+            <else>
+                <set from-field="parameters.orderHeaderList" field="orderHeaderList"/>
+                <log level="info" message="Found orderHeaderList in parameters; using: ${orderHeaderList}"/>
+            </else>
+            </if-empty>
         </else>
-        </if-empty>
-
+        </if-not-empty>
         <set field="maxNumberOfOrders" type="Long" from-field="parameters.maxNumberOfOrders" set-if-empty="true"/>
         <set field="numberSoFar" type="Long" value="0"/>
         <iterate entry="orderHeader" list="orderHeaderList">

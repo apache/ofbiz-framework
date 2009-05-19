@@ -45,6 +45,7 @@ under the License.
         <attribute name="groupByNoOfOrderItems" type="String" mode="IN" optional="true"/>
         <attribute name="groupByWarehouseArea" type="String" mode="IN" optional="true"/>
         <attribute name="groupByShippingMethod" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Persisted Picklist Services -->
@@ -71,6 +72,7 @@ under the License.
         <attribute name="groupByWarehouseArea" type="String" mode="IN" optional="true"/>
         <attribute name="groupByShippingMethod" type="String" mode="IN" optional="true"/>
         <attribute name="pickMoveInfoList" type="List" mode="OUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="getPicklistDisplayInfo" engine="simple"
