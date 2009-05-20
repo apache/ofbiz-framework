@@ -10228,5 +10228,14 @@
         <value xml:lang="th">ชื่อโปรเจค</value>
         <value xml:lang="zh">项目名称</value>
     </property>
+    <property key="OrderOnlyInclude">
+        <value xml:lang="en">Only Include</value>
+    </property>
+    <property key="OrderDoNotInclude">
+        <value xml:lang="en">Do Not Include</value>
+    </property>
+    <property key="OrderShipToCountry">
+        <value xml:lang="en">Ship to Country</value>
+    </property>
 
 </resource>
