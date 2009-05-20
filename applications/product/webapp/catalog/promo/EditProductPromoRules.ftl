@@ -98,7 +98,27 @@ under the License.
                                             </#list>
                                         </select>
                                         <input type="text" size="25" name="condValue" value="${(productPromoCond.condValue)?if_exists}">
-                                        ${uiLabelMap.CommonOther}:<input type="text" size="10" name="otherValue" value="${(productPromoCond.otherValue)?if_exists}">
+                                        <#assign otherValue = productPromoCond.otherValue?if_exists>
+                                        <label>${uiLabelMap.CommonOther}:</label><input type="text" size="10" name="otherValue" <#if otherValue?has_content && !otherValue.contains("@")> value="${(productPromoCond.otherValue)?if_exists}"</#if> >
+                                        <#if otherValue?has_content && otherValue.contains("@")>
+                                            <#assign carrierShippingMethod = productPromoCond.otherValue?if_exists>
+                                        </#if>
+                                        <#if carrierShippingMethod?has_content>
+                                            <#assign carrierParty = carrierShippingMethod.substring(0, carrierShippingMethod.indexOf("@"))>
+                                            <#assign shippingMethodTypeId = carrierShippingMethod.substring(carrierShippingMethod.indexOf("@")+1)>
+                                            <#assign description = (delegator.findOne("ShipmentMethodType", {"shipmentMethodTypeId":shippingMethodTypeId}, false)).description>
+                                        <#else>
+                                            <#assign description = "">
+                                        </#if>
+                                        <label>${uiLabelMap.OrderSelectShippingMethod}:</label>
+                                        <select name = "carrierShipmentMethod">
+                                            <option value = "${productPromoCond.carrierShippingMethod?if_exists}">${carrierParty?if_exists}&nbsp;${description}</option>
+                                            <option value = "">&nbsp;</option>
+                                            <#list carrierShipmentMethods as carrierShipmentMethod>
+                                                <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType")>
+                                                <option value = "${carrierShipmentMethod.partyId?if_exists}@${carrierShipmentMethod.shipmentMethodTypeId?if_exists}">${carrierShipmentMethod.partyId?if_exists}&nbsp;${shipmentMethodType.get("description")?if_exists}</option>
+                                            </#list>
+                                        </select>
                                         <input type="submit" value="${uiLabelMap.CommonUpdate}">
                                     </form>
                                     <#-- ======================= Categories ======================== -->
@@ -207,6 +227,14 @@ under the License.
                                         </select>
                                         <input type="text" size="25" name="condValue">
                                         ${uiLabelMap.CommonOther}:<input type="text" size="10" name="otherValue">
+                                        <label>${uiLabelMap.OrderSelectShippingMethod}:</label>
+                                        <select name = "carrierShipmentMethod">
+                                            <option value = "">--${uiLabelMap.OrderSelectShippingMethod}--</option>
+                                            <#list carrierShipmentMethods as carrierShipmentMethod>
+                                                <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType")>
+                                                <option value = "${carrierShipmentMethod.partyId?if_exists}@${carrierShipmentMethod.shipmentMethodTypeId?if_exists}">${carrierShipmentMethod.partyId?if_exists}&nbsp;${shipmentMethodType.get("description")?if_exists}</option>
+                                            </#list>
+                                        </select>
                                         <input type="submit" value="${uiLabelMap.CommonCreate}">
                                     </form>
                                 </td>

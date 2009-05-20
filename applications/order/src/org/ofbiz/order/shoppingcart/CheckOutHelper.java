@@ -53,6 +53,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -407,6 +408,7 @@ public class CheckOutHelper {
                 shippingTotal = BigDecimal.ZERO;
             }
             cart.setItemShipGroupEstimate(shippingTotal, 0);
+            ProductPromoWorker.doPromotions(cart, dispatcher);
 
             //Recalc tax before setting payment
             try {

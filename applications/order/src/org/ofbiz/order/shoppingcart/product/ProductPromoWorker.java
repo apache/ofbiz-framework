@@ -763,7 +763,12 @@ public class ProductPromoWorker {
         String otherValue = productPromoCond.getString("otherValue");
         String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
         String operatorEnumId = productPromoCond.getString("operatorEnumId");
+        String shippingMethod = "";
 
+        if (otherValue != null && otherValue.contains("@")) {
+            shippingMethod = otherValue.substring(otherValue.indexOf("@")+1);
+            otherValue = "";
+        }
         String partyId = cart.getPartyId();
         GenericValue userLogin = cart.getUserLogin();
         if (userLogin == null) {
@@ -1121,6 +1126,10 @@ public class ProductPromoWorker {
                     }
                 }
             }
+        } else if ("PPIP_ORDER_SHIPTOTAL".equals(inputParamEnumId) && shippingMethod.equals(cart.getShipmentMethodTypeId())) {
+            BigDecimal orderTotalShipping = cart.getTotalShipping();
+            if (Debug.verboseOn()) { Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module); }
+            compareBase = new Integer(orderTotalShipping.compareTo(new BigDecimal(condValue)));
         } else {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondInputParameterLhs", UtilMisc.toMap("inputParamEnumId",productPromoCond.getString("inputParamEnumId")), cart.getLocale()), module);
             return false;
@@ -1493,6 +1502,14 @@ public class ProductPromoWorker {
                         actionResultInfo.totalDiscountAmount = amount;
                     }
                 }
+            }
+        } else if ("PROMO_SHIP_CHARGE".equals(productPromoActionEnumId)) {
+            BigDecimal percentage = (productPromoAction.get("amount") == null ? BigDecimal.ZERO : (productPromoAction.getBigDecimal("amount").movePointLeft(2))).negate();
+            BigDecimal amount = cart.getTotalShipping().multiply(percentage);
+            if (amount.compareTo(BigDecimal.ZERO) != 0) {
+                doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator);
+                actionResultInfo.ranAction = true;
+                actionResultInfo.totalDiscountAmount = amount;
             }
         } else {
             Debug.logError("An un-supported productPromoActionType was used: " + productPromoActionEnumId + ", not performing any action", module);
