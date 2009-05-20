@@ -177,7 +177,7 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen name="Common${parameters.my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="commOverview"/>
                     </decorator-section>
@@ -370,7 +370,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="Common${parameters.my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section><!-- Email -->
                             <condition>
@@ -473,7 +473,7 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen name="Common${parameters.my}CommunicationEventDecorator"
+                <decorator-screen name="Common${my}CommunicationEventDecorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet  title="${uiLabelMap.PartyEditCustomerRequest}">
