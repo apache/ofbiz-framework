@@ -77,7 +77,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="routing"/></not>
+                                        <not><if-empty field="routingTask"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
