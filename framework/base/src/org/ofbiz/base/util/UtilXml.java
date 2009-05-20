@@ -348,8 +348,12 @@ public class UtilXml {
             Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", module);
             return null;
         }
-        return readXmlDocument(url.openStream(), validate, url.toString());
+        InputStream is = url.openStream();
+        Document document = readXmlDocument(url.openStream(), validate, url.toString());
+        is.close();
+        return document;
     }
+
 
     /**
      * @deprecated
