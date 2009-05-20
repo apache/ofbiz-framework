@@ -29,6 +29,7 @@ import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -463,6 +464,54 @@ public class OrderLookupServices {
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, null));
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, BigDecimal.ZERO));
                 conditions.add(EntityCondition.makeCondition(orExpr, EntityOperator.OR));
+            }
+        }
+
+        //Get all orders according to specific ship to country with "Only Include" or "Do not Include".
+        String country = (String) context.get("country");
+        String includeCountry = (String) context.get("includeCountry");
+        if (UtilValidate.isNotEmpty(country) && UtilValidate.isNotEmpty(includeCountry)) {
+            paramList.add("country=" + country);
+            paramList.add("includeCountry=" + includeCountry);
+            boolean hasRecord = false;
+            List orExprs = FastList.newInstance();
+            EntityCondition condition = null;
+            List<GenericValue> postalAddresses = null;
+            List<GenericValue> orderContactMechs = null;
+            try {
+                EntityConditionList andExprs = null;
+                condition = EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "SHIPPING_LOCATION");
+                orderContactMechs = delegator.findList("OrderContactMech", condition, null, null, null, false);
+                if (UtilValidate.isNotEmpty(orderContactMechs)) {
+                    for (GenericValue orderContactMech : orderContactMechs) {
+                        if ("Y".equals(includeCountry)) {
+                            andExprs = EntityCondition.makeCondition( UtilMisc.toList(
+                                    EntityCondition.makeCondition("contactMechId", orderContactMech.get("contactMechId")),
+                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, country)
+                                    ), EntityOperator.AND);
+                        }
+                        else {
+                            andExprs = EntityCondition.makeCondition( UtilMisc.toList(
+                                    EntityCondition.makeCondition("contactMechId", orderContactMech.get("contactMechId")),
+                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, country)
+                                    ), EntityOperator.AND);
+                        }
+                        postalAddresses = delegator.findList("PostalAddress", andExprs, null, null, null, false);
+                        if (UtilValidate.isNotEmpty(postalAddresses)) {
+                            GenericValue postalAddress = EntityUtil.getFirst(postalAddresses);
+                            if (UtilValidate.isNotEmpty(postalAddress)) {
+                                orExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderContactMech.get("orderId")));
+                                hasRecord = true;
+                            }
+                        }
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            EntityCondition shipCountryFilter = EntityCondition.makeCondition(orExprs,  EntityOperator.OR);
+            if (hasRecord) {
+                conditions.add(shipCountryFilter);
             }
         }
 

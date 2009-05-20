@@ -375,6 +375,19 @@ function runAction() {
                   </table>
                 </td>
               </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.OrderShipToCountry}</td>
+                <td width='5%'>&nbsp;</td>
+                <td align='left'>
+                    <select name="country">
+                      ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                    </select>
+                    <select name="includeCountry">
+                      <option value="Y">${uiLabelMap.OrderOnlyInclude}</option>
+                      <option value="N">${uiLabelMap.OrderDoNotInclude}</option>
+                    </select>
+                </td>
+              </tr>
               <tr><td colspan="3"><hr/></td></tr>
               <tr>
                 <td width='25%' align='right'>&nbsp;</td>
