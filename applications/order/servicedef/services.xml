@@ -798,6 +798,10 @@ under the License.
         <attribute name="filterPOsWithRejectedItems" type="String" mode="IN" optional="true"/>
         <attribute name="filterPOsOpenPastTheirETA" type="String" mode="IN" optional="true"/>
         <attribute name="filterPartiallyReceivedPOs" type="String" mode="IN" optional="true"/>
+        
+        <!-- ship to country fields -->
+        <attribute name="country" type="String" mode="IN" optional="true"/>
+        <attribute name="includeCountry" type="String" mode="IN" optional="true"/>        
 
         <!-- view and page fields -->
         <attribute name="viewIndex" type="Integer" mode="INOUT" optional="false"/>
@@ -818,10 +822,6 @@ under the License.
         <attribute name="paramList" type="String" mode="OUT" optional="false"/>
         <attribute name="orderList" type="List" mode="OUT" optional="false"/>
         <attribute name="orderListSize" type="Integer" mode="OUT" optional="false"/>
-
-        <!-- ship to country fields -->
-        <attribute name="country" type="String" mode="IN" optional="true"/>
-        <attribute name="includeCountry" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="checkOrderIsOnBackOrder" engine="simple" auth="false"
