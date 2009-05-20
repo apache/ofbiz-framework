@@ -56,33 +56,65 @@ under the License.
                         <container style="h1">
                             <label text="${uiLabelMap.MarketingReports}"/>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
+                        <container style="lefthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="TrackingCodeReportOptions" location="component://marketing/widget/ReportForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </container>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="TrackingCodeReportOptions" location="component://marketing/widget/ReportForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingCampaignReportTitle}"/>
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.MarketingEmailStatusReport}"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="EmailStatusOptions" location="component://marketing/widget/ReportForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </container>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="MarketingCampaignOptions" location="component://marketing/widget/ReportForms.xml"/>
-                                    </widgets>
-                                </section>
+                        </container> 
+                        <container style="righthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.MarketingCampaignReportTitle}"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="MarketingCampaignOptions" location="component://marketing/widget/ReportForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container>
                             </container>
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.MarketingPartyStatusReport}"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="PartyStatusOptions" location="component://marketing/widget/ReportForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container>
+                            </container> 
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -146,6 +178,72 @@ under the License.
                                 <section>
                                     <widgets>
                                         <include-form name="MarketCampaignReport" location="component://marketing/widget/ReportForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>    
+    <screen name= "EmailStatusReport">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.MarketingEmailStatusReport}"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <set field="statusId" from-field="parameters.statusId" type="String"/> 
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom" type="String"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo" type="String"/>
+                <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/EmailStatusReport.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonMarketReportDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"> 
+                                <container style="h3">
+                                    <label text="${uiLabelMap.MarketingEmailStatusReport}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EmailStatusReport" location="component://marketing/widget/ReportForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name= "PartyStatusReport">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.MarketingPartyStatusReport}"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <set field="statusDate" from-field="parameters.statusDate" type="Timestamp"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <set field="contactListId" from-field="parameters.contactListId" type="String"/>
+                <set field="statusId" from-field="parameters.statusId" type="String"/>
+                <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/PartyStatusReport.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonMarketReportDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.MarketingPartyStatusReport}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="PartyStatusReport" location="component://marketing/widget/ReportForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
