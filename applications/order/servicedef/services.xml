@@ -820,8 +820,8 @@ under the License.
         <attribute name="orderListSize" type="Integer" mode="OUT" optional="false"/>
 
         <!-- ship to country fields -->
-        <attribute name="country" type="String" mode="INOUT" optional="true"/>
-        <attribute name="includeCountry" type="String" mode="INOUT" optional="true"/>
+        <attribute name="country" type="String" mode="IN" optional="true"/>
+        <attribute name="includeCountry" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="checkOrderIsOnBackOrder" engine="simple" auth="false"
