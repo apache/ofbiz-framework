@@ -103,7 +103,7 @@ public class ModelWidget implements Serializable {
     /**
      * Returns true if widget boundary comments are enabled. Widget boundary comments are
      * enabled by setting widgetVerbose true in the parameters Map, or by setting
-     * widget.verbose=true in debug.properties.
+     * widget.verbose=true in widget.properties.
      * @param parameters Optional parameters Map
      */
     public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> parameters) {
