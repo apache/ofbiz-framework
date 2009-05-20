@@ -164,6 +164,7 @@ under the License.
                 <set field="tabButtonItem" value="EditProductPromoRules"/>
                 <set field="labelTitleProperty" value="ProductRules"/>
 
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
 
@@ -193,6 +194,9 @@ under the License.
                 <entity-condition entity-name="Enumeration" list="inputParamEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_IN_PARAM"/>
                     <order-by field-name="sequenceId"/>
+                </entity-condition>
+                <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods" use-cache="true">
+                    <order-by field-name="shipmentMethodTypeId"/>
                 </entity-condition>
                 <entity-condition entity-name="Enumeration" list="condOperEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_COND"/>

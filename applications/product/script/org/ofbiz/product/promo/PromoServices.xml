@@ -251,6 +251,9 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductPromoCond"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-not-empty field="parameters.carrierShipmentMethod">
+            <set field="newEntity.otherValue" from-field="parameters.carrierShipmentMethod"/>
+        </if-not-empty>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="productPromoCondSeqId" numeric-padding="2"/>
         <field-to-result field="newEntity.productPromoCondSeqId" result-name="productPromoCondSeqId"/>
@@ -266,6 +269,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPromoCond" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <if-not-empty field="parameters.carrierShipmentMethod">
+            <set field="lookedUpValue.otherValue" from-field="parameters.carrierShipmentMethod"/>
+        </if-not-empty>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCond" short-description="Delete an ProductPromoCond">

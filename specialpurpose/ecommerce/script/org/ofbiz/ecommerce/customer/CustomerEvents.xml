@@ -1149,6 +1149,10 @@ under the License.
             parameters.put("cartGrandTotal", cartGrandTotal);
 
         ]]></call-bsh>
+        <call-class-method method-name="doPromotions" class-name="org.ofbiz.order.shoppingcart.product.ProductPromoWorker">
+            <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        </call-class-method>
         <field-to-request field="parameters.shippingTotal" request-name="shippingTotal"/>
         <field-to-request field="parameters.cartGrandTotal" request-name="cartGrandTotal"/>
         <field-to-request field="parameters.totalSalesTax" request-name="totalSalesTax"/>

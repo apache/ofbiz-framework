@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 
 /**
  * ShippingEvents - Events used for processing shipping fees
@@ -84,6 +85,7 @@ public class ShippingEvents {
             cart.setItemShipGroupEstimate(shippingTotal, i);
         }
 
+        ProductPromoWorker.doPromotions(cart, dispatcher);
         // all done
         return "success";
     }

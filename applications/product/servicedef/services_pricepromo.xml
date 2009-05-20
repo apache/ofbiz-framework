@@ -273,6 +273,7 @@ under the License.
         <description>Create a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
         <override name="productPromoCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
@@ -280,6 +281,7 @@ under the License.
         <description>Update a ProductPromo</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
                 location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCond" auth="true">
