@@ -451,6 +451,9 @@
         <value xml:lang="th">ข้อมูลแถว</value>
         <value xml:lang="zh">日期范围</value>
     </property>
+    <property key="MarketingEmailStatusReport">
+        <value xml:lang="en">Email Status Report</value>
+    </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
@@ -513,6 +516,9 @@
         <value xml:lang="ro">Cod Campanie Parinte</value>
         <value xml:lang="th">รหัสกลุ่มผู้วางแผน</value>
         <value xml:lang="zh">上级攻势标识</value>
+    </property>
+    <property key="MarketingPartyStatusReport">
+        <value xml:lang="en">Party Status Report</value>
     </property>
     <property key="MarketingReports">
         <value xml:lang="de">Berichte</value>

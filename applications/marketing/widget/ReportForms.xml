@@ -65,6 +65,64 @@ under the License.
         </field>
     </form>
 
+    <form name="EmailStatusOptions" type="single" target="EmailStatusReport" 
+            header-row-style="header-row" default-table-style="basic-table">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.CommonDate}&lt;)">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.FormFieldTitle_partyIdTo}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.FormFieldTitle_fromPartyId}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.PartyStatus}">
+            <drop-down allow-empty="true">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun} ${uiLabelMap.MarketingEmailStatusReport}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="PartyStatusOptions" type="single" target="PartyStatusReport" 
+            header-row-style="header-row" default-table-style="basic-table">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="statusDate" title="${uiLabelMap.PartyStatus} (${uiLabelMap.CommonDate}&gt;=)">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.CommonDate}&lt;)">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="contactListId" title="${uiLabelMap.PartyContactLists}">
+            <drop-down allow-empty="true">
+                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
+                <entity-options entity-name="ContactList" description="${contactListName}">
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.PartyStatus}">
+            <drop-down allow-empty="true">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="CONTACTLST_PARTY"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun} ${uiLabelMap.MarketingPartyStatusReport}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
     <form name="TrackingCodeReport" list-name="trackingCodeVisitAndOrders" target="" title="${uiLabelMap.MarketingTrackingCodeReportTitle}" type="list" paginate-target="TrackingCodeReport"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCode}">
@@ -85,5 +143,32 @@ under the License.
         <field name="orders" title="${uiLabelMap.MarketingOrders}"><display/></field>
         <field name="orderAmount" title="${uiLabelMap.MarketingOrderAmount}"><display/></field>
         <field name="conversionRate" title="${uiLabelMap.MarketingConversionRate}"><display/></field>
+    </form>
+
+    <form name="EmailStatusReport" title="${uiLabelMap.MarketingEmailStatusReport}" type="list" list-name="commStatausList" target="" paginate-target="EmailStatusReport"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            <row-actions>
+                <entity-one entity-name="CommunicationEventType" value-field="communicationEventType"/>
+                <entity-one entity-name="StatusItem" value-field="statusItem"/>
+            </row-actions>
+        <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}"><display/></field> 
+        <field name="communicationEventTypeId" title="${uiLabelMap.MarketingContactListCommEventTypeId}"><display description="${communicationEventType.description}"/></field>
+        <field name="statusId" title="${uiLabelMap.PartyStatus}"><display description="${statusItem.description}"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.FormFieldTitle_toPartyId}"><display/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.FormFieldTitle_fromPartyId}"><display/></field>
+        <field name="entryDate" title="${uiLabelMap.PartyEnteredDate}"><display/></field>
+        <field name="subject" title="${uiLabelMap.PartySubject}"><display/></field>
+    </form>
+
+    <form name="PartyStatusReport" title="${uiLabelMap.MarketingPartyStatusReport}" type="list" list-name="partyStatusLists" target="" paginate-target="PartyStatusReport"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            <row-actions>
+                <entity-one entity-name="StatusItem" value-field="statusItem"/>
+            </row-actions>
+        <field name="contactListId" title="${uiLabelMap.MarketingContactList}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="statusDate" title="${uiLabelMap.PartyStatus} ${uiLabelMap.CommonDate}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.PartyStatus}"><display description="${statusItem.description}"/></field>
     </form>
 </forms>

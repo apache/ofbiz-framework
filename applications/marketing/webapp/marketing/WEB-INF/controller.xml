@@ -373,6 +373,15 @@ under the License.
         <response name="success" type="view" value="MarketingCampaignReport"/>
     </request-map>
 
+    <request-map uri="EmailStatusReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EmailStatusReport"/>
+    </request-map>
+    <request-map uri="PartyStatusReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PartyStatusReport"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -431,5 +440,7 @@ under the License.
 
     <view-map name="TrackingCodeReport" type="screen" page="component://marketing/widget/MarketingReportScreens.xml#TrackingCodeReport"/>
     <view-map name="MarketingCampaignReport" type="screen" page="component://marketing/widget/MarketingReportScreens.xml#MarketingCampaignReport"/>
-    <!-- end of view mappings -->
+    <view-map name="EmailStatusReport" type="screen" page="component://marketing/widget/MarketingReportScreens.xml#EmailStatusReport"/>
+    <view-map name="PartyStatusReport" type="screen" page="component://marketing/widget/MarketingReportScreens.xml#PartyStatusReport"/>
+<!-- end of view mappings -->
 </site-conf>
