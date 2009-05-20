@@ -349,7 +349,7 @@ public class UtilXml {
             return null;
         }
         InputStream is = url.openStream();
-        Document document = readXmlDocument(url.openStream(), validate, url.toString());
+        Document document = readXmlDocument(is, validate, url.toString());
         is.close();
         return document;
     }
