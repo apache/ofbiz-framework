@@ -41,6 +41,14 @@ under the License.
     <StatusItem description="Not verified" sequenceId="01" statusCode="NOT_VERIFIED" statusId="PQV_NOT_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Verified" sequenceId="02" statusCode="VERIFIED" statusId="PQV_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
 
+    <StatusType statusTypeId="IJP_STATUS" description="Internal Job Posting Status"/>
+    <StatusItem statusId="IJP_APPROVED" statusTypeId="IJP_STATUS"  description="Approved"/>
+    <StatusItem statusId="IJP_REJECTED" statusTypeId="IJP_STATUS"  description="Rejected"/>
+    
+    <StatusType statusTypeId="RELOCATION_STATUS" description="Relocation Status"/>
+    <StatusItem statusId="STATUS_PENDING" statusTypeId="RELOCATION_STATUS" description="Pending"/>
+    <StatusItem statusId="STATUS_RELOCATED" statusTypeId="RELOCATION_STATUS"  description="Relocated"/>
+
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
     <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
     <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
@@ -64,6 +72,17 @@ under the License.
     <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
     <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
 
+    <PartyQualType partyQualTypeId="B.Tech" parentTypeId="DEGREE" description="Bachelor of Technology"/>
+    <PartyQualType partyQualTypeId="MBA" parentTypeId="DEGREE" description="Masters of business administration"/>
+    <PartyQualType partyQualTypeId="MSC" parentTypeId="DEGREE" description="Masters of Science"/>
+    <PartyQualType partyQualTypeId="BSC" parentTypeId="DEGREE" description="Bachelor of Science"/>
+        
+    <EnumerationType description="Interview Rating" enumTypeId="INTR_RATNG" hasTable="N" parentTypeId=""/>
+    <Enumeration description="A (above 75%)" enumCode="RATING_A" enumId="INTR_RATNG_A" sequenceId="01" enumTypeId="INTR_RATNG"/>
+    <Enumeration description="B (60-75%)" enumCode="RATING_B" enumId="INTR_RATNG_B" sequenceId="02" enumTypeId="INTR_RATNG"/>
+    <Enumeration description="C (45-60%)" enumCode="RATING_C" enumId="INTR_RATNG_C" sequenceId="03" enumTypeId="INTR_RATNG"/>
+    <Enumeration description="D (below 40%)" enumCode="RATING_D" enumId="INTR_RATNG_D" sequenceId="04" enumTypeId="INTR_RATNG"/>
+
     <EmploymentAppSourceType description="NewsPaper" hasTable="N" parentTypeId="" employmentAppSourceTypeId="NEWS_PAPER"/>
     <EmploymentAppSourceType description="PersonalReferal" hasTable="N" parentTypeId="" employmentAppSourceTypeId="PER_REF"/>
     <EmploymentAppSourceType description="Internet" hasTable="N" parentTypeId="" employmentAppSourceTypeId="INTERNET"/>
@@ -82,5 +101,9 @@ under the License.
     <EmplLeaveType description="Casual" hasTable="N" parentTypeId="" leaveTypeId="CASUAL"/>
 
     <WebSite webSiteId="HR" siteName="Human Resource Manager" visualThemeSetId="BACKOFFICE"/>
+        
+    <EnumerationType description="Job Posting Types" enumTypeId="JOB_POSTING" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Internal Job Posting" enumCode="POSTING_INTR" enumId="JOB_POSTING_INTR" sequenceId="01" enumTypeId="JOB_POSTING"/>
+    <Enumeration description="External Job Posting" enumCode="POSTING_INTR" enumId="JOB_POSTING_EXTR" sequenceId="02" enumTypeId="JOB_POSTING"/>
 
 </entity-engine-xml>

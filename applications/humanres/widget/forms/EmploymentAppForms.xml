@@ -97,6 +97,8 @@ under the License.
             <lookup target-form-name="LookupPartyName"/>
         </field>
         <field name="referredByPartyId" use-when="referredByPartyId!=null"><hidden/></field>
+        <field name="approverPartyId"><hidden/></field>
+        <field name="jobRequisitionId"><hidden/></field>
          <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

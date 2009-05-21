@@ -729,4 +729,91 @@
         <first-from-list entry="rateAmount" list="rateAmounts"/>
         <field-to-result field="rateAmount" result-name="emplPositionRateAmount"/>
     </simple-method>
+    
+    <simple-method method-name="createJobRequisition" short-description="Create Job Requisition">
+        <make-value entity-name="JobRequisition" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <sequenced-id sequence-name="JobRequisition" field="newEntity.jobRequisitionId"/>
+        <field-to-result field="newEntity.jobRequisitionId" result-name="jobRequisitionId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateJobRequisition" short-description="Update Job Requisition">
+        <entity-one entity-name="JobRequisition" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteJobRequisition" short-description="Delete Job Requisition">
+        <entity-one entity-name="JobRequisition" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createInternalJobPosting" short-description="Create Internal Job Posting">
+        <make-value entity-name="EmploymentApp" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <sequenced-id sequence-name="EmploymentApp" field="newEntity.applicationId"/>
+        <field-to-result field="newEntity.applicationId" result-name="applicationId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateInternalJobPosting" short-description="Update Internal Job Posting">
+        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteInternalJobPosting" short-description="Delete Internal Job Posting">
+        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createJobInterview" short-description="Create Job Interview">
+        <make-value entity-name="JobInterview" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <sequenced-id sequence-name="JobInterview" field="newEntity.jobInterviewId"/>
+        <field-to-result field="newEntity.jobInterviewId" result-name="jobInterviewId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateJobInterview" short-description="Update Job Interview">
+        <entity-one entity-name="JobInterview" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteJobInterview" short-description="Delete Job Interview">
+        <entity-one entity-name="JobInterview" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createJobInterviewType" short-description="Create Job Interview Type">
+        <make-value entity-name="JobInterviewType" value-field="newEntity" />
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="parameters.jobInterviewTypeId">
+            <sequenced-id sequence-name="JobInterviewType" field="newEntity.jobInterviewTypeId"/>
+        <else>
+            <set from-field="parameters.jobInterviewTypeId" field="newEntity.jobInterviewTypeId"/>
+        </else>
+        </if-empty>
+        <field-to-result field="newEntity.jobInterviewTypeId" result-name="jobInterviewTypeId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateJobInterviewType" short-description="Update Interview Type">
+        <entity-one entity-name="JobInterviewType" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteJobInterviewType" short-description="Delete Interview Type">
+        <entity-one entity-name="JobInterviewType" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+        
+    <simple-method method-name="updateApprovalStatus" short-description="Update Approval Status">
+        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

@@ -1752,4 +1752,85 @@
         <value xml:lang="it">Mostra corsi persona</value>
         <value xml:lang="zh">查看个人培训</value>
     </property>
+    <property key="HumanResAddJobInterviewType">
+        <value xml:lang="en">Add Job Interview Type</value>
+    </property>
+    <property key="HumanResEditApprovalStatus">
+        <value xml:lang="en">Edit Approval Status</value>
+    </property>
+    <property key="HumanResEditJobInterview">
+        <value xml:lang="en">Edit Job Interview</value>
+    </property>
+    <property key="HumanResEditJobRequisition">
+        <value xml:lang="en">Edit Job Requisition</value>
+    </property>
+    <property key="HumanResIJPStatus">
+        <value xml:lang="en">IJP Status</value>
+    </property>
+    <property key="HumanResInternalJobPosting">
+        <value xml:lang="en">Internal Job Posting</value>
+    </property>
+    <property key="HumanResJobInterview">
+        <value xml:lang="en">Job Interview</value>
+    </property>
+    <property key="HumanResApproval">
+        <value xml:lang="en">Approval</value>
+    </property>
+    <property key="HumanResRelocation">
+        <value xml:lang="en">Relocation</value>
+    </property>
+    <property key="HumanResJobInterviewType">
+        <value xml:lang="en">Job Interview Type</value>
+    </property>
+    <property key="HumanResJobRequisition">
+        <value xml:lang="en">Job Requisition</value>
+    </property>
+    <property key="LookupJobInterview">
+        <value xml:lang="en">LookUp Job Interview</value>
+    </property>
+    <property key="LookupJobReq">
+        <value xml:lang="en">LookUp Job Requisition</value>
+    </property>
+    <property key="HumanResNewInternalJobPosting">
+        <value xml:lang="en">New Internal Job Posting</value>
+    </property>
+    <property key="HumanResNewJobInterview">
+        <value xml:lang="en">New Job Interview</value>
+    </property>
+    <property key="HumanResNewJobRequisition">
+        <value xml:lang="en">New Job Requisition</value>
+    </property>
+    <property key="HumanResRecruitment">
+        <value xml:lang="en">Recruitment</value>
+    </property>
+    <property key="PageTitleEditApprovalStatus">
+        <value xml:lang="en">Edit Approval Status</value>
+    </property>
+    <property key="PageTitleEditJobRequisition">
+        <value xml:lang="en">Edit JobRequisition</value>
+    </property>
+    <property key="PageTitleEditInternalJobPosting">
+        <value xml:lang="en">Edit Internal JobPosting</value>
+    </property>
+    <property key="PageTitleEditJobInterview">
+        <value xml:lang="en">Edit Interview</value>
+    </property>
+    <property key="PageTitleEditJobInterviewType">
+        <value xml:lang="en">Edit Job Interview Type</value>
+    </property>
+    <property key="PageTitleFindApprovals">
+        <value xml:lang="en">Find Approvals</value>
+    </property>
+    <property key="PageTitleFindInternalJobPosting">
+        <value xml:lang="en">Find Internal Job Posting</value>
+    </property>
+    <property key="PageTitleFindJobInterviewDetails">
+        <value xml:lang="en">Find Interview Details</value>
+    </property>
+    <property key="PageTitleFindJobRequisition">
+        <value xml:lang="en">Find Job Requisition</value>
+    </property>
+     <property key="PageTitleFindRelocationDetails">
+        <value xml:lang="en">Find Relocation Details</value>
+    </property>
 </resource>
