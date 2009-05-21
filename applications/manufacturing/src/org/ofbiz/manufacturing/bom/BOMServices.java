@@ -412,7 +412,7 @@ public class BOMServices {
             Map componentMap = new HashMap();
             BOMNode node = (BOMNode)componentsIt.next();
             componentMap.put("product", node.getProduct());
-            componentMap.put("quantity", node);
+            componentMap.put("quantity", node.getQuantity());
             componentsMap.add(componentMap);
         }
         result.put("componentsMap", componentsMap);
