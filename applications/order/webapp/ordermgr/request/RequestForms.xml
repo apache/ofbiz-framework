@@ -82,7 +82,7 @@ under the License.
     </form>
 
     <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestName">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">

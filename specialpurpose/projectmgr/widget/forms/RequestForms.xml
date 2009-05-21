@@ -134,11 +134,12 @@ under the License.
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
     </form>
     <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="createdDate"/>
             <entity-and entity-name="WorkEffortCustRequestView" list="requests">
                 <field-map field-name="statusId" value="CRQ_REVIEWED"/>
-                <order-by field-name="createdDate"/>
+                <order-by field-name="${parameters.sortField}"/>
             </entity-and>
         </actions>
         <row-actions>
@@ -151,7 +152,7 @@ under the License.
                 <parameter param-name="custRequestId"/>
             </hyperlink>
          </field>
-        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult">
+        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult" sort-field="true">
             <hyperlink target="projectView" description="${sResult.projectName} [${sResult.projectId}]">
                 <parameter param-name="projectId" from-field="sResult.projectId"/>
             </hyperlink>
@@ -164,9 +165,9 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
-        <field name="priority"><display/></field>
-        <field name="createdDate"><display type="date"/></field>
-        <field name="fromPartyId">
+        <field name="priority" sort-field="true"><display/></field>
+        <field name="createdDate" sort-field="true"><display type="date"/></field>
+        <field name="fromPartyId" sort-field="true">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink target="viewprofile" description="[${fromPartyId}]">
                     <parameter param-name="partyId" from-field="fromPartyId"/>
