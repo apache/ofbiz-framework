@@ -1261,6 +1261,9 @@
         <value xml:lang="zh">地址</value>
         <value xml:lang="zh_CN">地址</value>
     </property>
+    <property key="OrderAddressVerification">
+        <value xml:lang="en">Address Verification (AVS)</value>
+    </property>
     <property key="OrderAdjustment">
         <value xml:lang="de">Anpassung</value>
         <value xml:lang="en">Adjustment</value>
