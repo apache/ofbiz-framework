@@ -485,14 +485,12 @@ public class OrderLookupServices {
             EntityConditionList exprs = null;
             if ("Y".equals(includeCountry)) {
                 exprs = EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
-                        EntityCondition.makeCondition("countryGeoId", countryGeoId)
-                        ), EntityOperator.AND);                
+                            EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
+                            EntityCondition.makeCondition("countryGeoId", countryGeoId)), EntityOperator.AND);
             } else {
                 exprs = EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
-                        EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)
-                        ), EntityOperator.AND); 
+                            EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
+                            EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)), EntityOperator.AND);
             }
             conditions.add(exprs);
         }
