@@ -96,6 +96,10 @@ function runAction() {
   <input type='hidden' name='filterPOsWithRejectedItems' value='${requestParameters.filterPOsWithRejectedItems?if_exists}'/>
   <input type='hidden' name='countryGeoId' value='${requestParameters.countryGeoId?if_exists}'/>
   <input type='hidden' name='includeCountry' value='${requestParameters.includeCountry?if_exists}'/>
+  <input type='hidden' name='isViewed' value='${requestParameters.isViewed?if_exists}'/>
+  <input type='hidden' name='shipmentMethod' value='${requestParameters.shipmentMethod?if_exists}'/>
+  <input type='hidden' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult?if_exists}'/>
+  <input type='hidden' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult?if_exists}'/>
 </form>
 </#if>
 <form method="post" name="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
@@ -298,6 +302,49 @@ function runAction() {
                     <option value="Y">${uiLabelMap.CommonOnly}</option>
                   </select>
                 </td>
+              </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.OrderSelectShippingMethod}</td>
+                <td width='5%'>&nbsp;</td>
+                <td align='left'>
+                  <select name="shipmentMethod">
+                    <#if currentCarrierShipmentMethod?has_content>
+                      <#assign currentShipmentMethodType = currentCarrierShipmentMethod.getRelatedOne("ShipmentMethodType")>
+                      <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">${currentCarrierShipmentMethod.partyId?if_exists} ${currentShipmentMethodType.description?if_exists}</option>
+                      <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">---</option>
+                    </#if>
+                    <option value="">${uiLabelMap.OrderSelectShippingMethod}</option>
+                    <#list carrierShipmentMethods as carrierShipmentMethod>
+                      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType")> 
+                      <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId?if_exists} ${shipmentMethodType.description?if_exists}</option>
+                    </#list>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.OrderViewed}</td>
+                <td width='5%'>&nbsp;</td>
+                <td align='left'>
+                  <select name="isViewed">
+                    <#if requestParameters.isViewed?has_content>
+                      <#assign isViewed = requestParameters.isViewed>
+                      <option value="${isViewed}"><#if "Y" == isViewed>${uiLabelMap.CommonYes}<#elseif "N" == isViewed>${uiLabelMap.CommonNo}</#if></option>
+                    </#if>
+                    <option value=""></option>
+                    <option value="Y">${uiLabelMap.CommonYes}</option>
+                    <option value="N">${uiLabelMap.CommonNo}</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.OrderAddressVerification}</td>
+                <td width='5%'>&nbsp;</td>
+                <td align='left'><input type='text' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult?if_exists}'/></td>
+              </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.OrderScore}</td>
+                <td width='5%'>&nbsp;</td>
+                <td align='left'><input type='text' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult?if_exists}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonDateFilter}</td>

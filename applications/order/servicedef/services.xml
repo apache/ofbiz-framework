@@ -798,7 +798,12 @@ under the License.
         <attribute name="filterPOsWithRejectedItems" type="String" mode="IN" optional="true"/>
         <attribute name="filterPOsOpenPastTheirETA" type="String" mode="IN" optional="true"/>
         <attribute name="filterPartiallyReceivedPOs" type="String" mode="IN" optional="true"/>
-        
+
+        <attribute name="isViewed" type="String" mode="IN" optional="true"/> <!-- show orders with viewed Y/N -->
+        <attribute name="shipmentMethod" type="String" mode="IN" optional="true"/>
+        <attribute name="gatewayAvsResult" type="String" mode="IN" optional="true"/>
+        <attribute name="gatewayScoreResult" type="String" mode="IN" optional="true"/>
+
         <!-- ship to country fields -->
         <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="includeCountry" type="String" mode="IN" optional="true"/>        
