@@ -96,16 +96,9 @@ under the License.
 
     <screen name="CommonCommunicationEventDecorator">
         <section>
-            <actions>
-                <entity-one entity-name="CommunicationEvent" value-field="commEvent">
-                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
-                </entity-one>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/>
-            </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonMyCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <!--include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="MyCommSubTabBar"/-->
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -119,7 +112,6 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-field="commEvent">
                     <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                 </entity-one>
-                <!--script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/-->
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
