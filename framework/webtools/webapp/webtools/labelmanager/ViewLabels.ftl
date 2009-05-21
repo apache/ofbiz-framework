@@ -17,10 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet-body">
-  <form name= "SaveLabelsToXmlFile" method= "post" action= "<@ofbizUrl>SaveLabelsToXmlFile</@ofbizUrl>">
-      <input type= "hidden" name= "fileName" value= "${parameters.labelFileName?if_exists}">
-      <a href="javascript:document.SaveLabelsToXmlFile.submit()" class="buttontext">${uiLabelMap.WebtoolsLabelManagerUpdateFile}</a>
-  </form>
   <table class="basic-table hover-bar" cellspacing="3">
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>
