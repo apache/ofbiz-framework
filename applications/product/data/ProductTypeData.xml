@@ -80,6 +80,8 @@ under the License.
     <Enumeration description="Damaged" enumCode="VAR_DAMAGED" enumId="VAR_DAMAGED" sequenceId="04" enumTypeId="IID_REASON"/>
     <Enumeration description="Sample (Giveaway)" enumCode="VAR_SAMPLE" enumId="VAR_SAMPLE" sequenceId="05" enumTypeId="IID_REASON"/>
     <Enumeration description="Integration" enumCode="VAR_INTEGR" enumId="VAR_INTEGR" sequenceId="06" enumTypeId="IID_REASON"/>
+    <Enumeration description="Mis-shipped Item Ordered (+)" enumCode="VAR_MISSHIP_ORDERED" enumId="VAR_MISSHIP_ORDERED" sequenceId="07" enumTypeId="IID_REASON"/>
+    <Enumeration description="Mis-shipped Item Shipped (-)" enumCode="VAR_MISSHIP_SHIPPED" enumId="VAR_MISSHIP_SHIPPED" sequenceId="08" enumTypeId="IID_REASON"/>
 
     <EnumerationType description="Product Store Payment Service Type" enumTypeId="PRDS_PAYSVC" hasTable="N" parentTypeId=""/>
     <Enumeration description="Payment Authorization Service" enumCode="PAY_AUTH" enumId="PRDS_PAY_AUTH" sequenceId="01" enumTypeId="PRDS_PAYSVC"/>
