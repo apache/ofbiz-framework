@@ -1196,6 +1196,9 @@
         <value xml:lang="en">to Order</value>
         <value xml:lang="it">all'ordine</value>
     </property>
+    <property key="OrderNewShippingAddress">
+        <value xml:lang="en">New Shipping Address</value>
+    </property> 
     <property key="OrderAddToCart">
         <value xml:lang="cs">přidat do košíku</value>
         <value xml:lang="de">In den Warenkorb legen</value>

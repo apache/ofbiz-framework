@@ -192,6 +192,7 @@ under the License.
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
+                        <a class="buttontext" id="newShippingAddress" href="javascript:void(0);">${uiLabelMap.OrderAddShippingAddress}</a>
                     </td>
                 </tr>
                 </#if>
@@ -203,6 +204,63 @@ under the License.
             </#if>
       </table>
       </form>
+      <div id="newShippingAddressForm" class="popup" style="display: none;">
+        <form id="addShippingAddress" name="addShippingAddress" method="post" action="addShippingAddress">
+          <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+          <input type="hidden" name="partyId" value="${partyId?if_exists}"/>
+          <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId?if_exists}"/>
+          <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId?if_exists}"/>
+          <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+          <div class="form-row">
+            <label for="address1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-address1" style="display: none" class="custom-advice">(required)</span></label>
+            <div class="form-field"><input type="text" class="required" name="shipToAddress1" id="address1" value="" size="30" maxlength="30"></div>
+          </div>
+          <div class="form-row">
+            <label for="address2">${uiLabelMap.PartyAddressLine2}</label>
+            <div class="form-field"><input type="text" name="shipToAddress2" value="" size="30" maxlength="30"></div>
+          </div>
+          <div class="form-row">
+            <label for="city">${uiLabelMap.PartyCity}* <span id="advice-required-city" style="display: none" class="custom-advice">(required)</span></label>
+            <div class="form-field"><input type="text" class="required" name="shipToCity" id="city" value="" size="30" maxlength="30"></div>
+          </div>
+          <div class="form-row">
+            <label for="postalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-postalCode" style="display: none" class="custom-advice">(required)</span></label>
+            <div class="form-field"><input type="text" class="required" name="shipToPostalCode" id="postalCode" value="" size="30" maxlength="10"></div>
+          </div>
+          <div class="form-row">
+            <label for="country">${uiLabelMap.PartyCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
+            <div class="form-field">
+              <select name="shipToCountryGeoId" id="countryGeoId" class="required" style="width: 70%">
+                <#if countryGeoId??>
+                  <option value="${countryGeoId}">${countryGeoId}</option>
+                </#if>
+                ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+              </select>
+            </div>
+          </div>
+          <div id="states" class="form-row">
+            <label for="state">${uiLabelMap.PartyState}* <span id="advice-required-stateProvinceGeoId" style="display: none" class="custom-advice">(required)</span></label>
+            <div class="form-field">
+              <select name="shipToStateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
+                <#if stateProvinceGeoId?has_content>
+                  <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
+                <#else>
+                  <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+                </#if>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <input id="submitAddShippingAddress" type="button" value="${uiLabelMap.CommonSubmit}"/>
+            <form action="">
+              <input class="popup_closebox buttontext" type="button" value="${uiLabelMap.CommonClose}"/>
+            </form>
+          </div>
+        </form>
+      </div>
+      <script language="JavaScript" type="text/javascript">
+        new Popup('newShippingAddressForm', 'newShippingAddress', {modal: true, position: 'center', trigger: 'click'})
+      </script>
       <table width="100%" border="0" cellpadding="1" cellspacing="0">
         <#if shipGroup.supplierPartyId?has_content>
           <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shipGroup.supplierPartyId))?if_exists />
