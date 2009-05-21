@@ -188,4 +188,24 @@
             </widgets>
         </section>
     </screen>
+    <screen name="EditJobInterviewType">
+        <section>                        
+            <actions>
+                <set field="tabButtonItem" value="JobInterviewType"/>
+                <set field="titleProperty" value="PageTitleEditJobInterviewType"/>
+                <set field="jobInterviewTypeId" from-field="parameters.jobInterviewTypeId"/>
+                <entity-one entity-name="JobInterviewType" value-field="interviewType" />
+            </actions>            
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
+                        <screenlet id="AddJobInterviewTypePanel" title="${uiLabelMap.HumanResAddJobInterviewType}" collapsible="true">
+                            <include-form name="AddJobInterviewType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
+                        </screenlet> 
+                        <include-form name="ListJobInterviewType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen>
 </screens>

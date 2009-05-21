@@ -728,4 +728,123 @@ under the License.
         <attribute name="emplPositionRateAmount" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
 
+    <service name="createJobRequisition" engine="simple" default-entity-name="JobRequisition"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createJobRequisition" auth="true">
+        <description>Create a new Job Requisition</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" entity-name="JobRequisition" include="pk" optional="true"/>
+        <auto-attributes mode="IN" entity-name="JobRequisition" include="nonpk" optional="true"/>
+        <override name="noOfResources" optional="false"/>
+        <override name="qualification" optional="false"/>
+        <override name="durationMonths" optional="false"/>
+        <override name="location" optional="false"/>
+    </service>
+    
+    <service name="updateJobRequisition" engine="simple" default-entity-name="JobRequisition"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateJobRequisition" auth="true">
+        <description>Update Job Requisition</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="noOfResources" optional="false"/>
+        <override name="durationMonths" optional="false"/>
+        <override name="location" optional="false"/>
+    </service>
+    
+    <service name="deleteJobRequisition" engine="simple" default-entity-name="JobRequisition"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteJobRequisition" auth="true">
+        <description>Delete a Job Requisition</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createInternalJobPosting" engine="simple" default-entity-name="EmploymentApp"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createInternalJobPosting" auth="true">
+        <description>Create a New Internal Job Posting</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" entity-name="EmploymentApp" include="pk" optional="true"/>
+        <auto-attributes mode="IN" entity-name="EmploymentApp" include="nonpk" optional="true"/>
+        <override name="applyingPartyId" optional="false"/>
+        <override name="approverPartyIdapproverPartyId" optional="false"/>
+        <override name="jobRequisitionId" optional="false"/>
+    </service>
+    
+    <service name="updateInternalJobPosting" engine="simple" default-entity-name="EmploymentApp"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateInternalJobPosting" auth="true">
+        <description>Update Internal Job Posting</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="applyingPartyId" optional="false"/>
+        <override name="approverPartyId" optional="false"/>
+        <override name="jobRequisitionId" optional="false"/>
+    </service>
+    
+    <service name="deleteInternalJobPosting" engine="simple" default-entity-name="EmploymentApp"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteInternalJobPosting" auth="true">
+        <description>Delete an Internal Job Posting</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createJobInterview" engine="simple" default-entity-name="JobInterview"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createJobInterview" auth="true">
+        <description>Create Job Interview</description>
+        <auto-attributes mode="INOUT" entity-name="JobInterview" include="pk"  optional="true"/>
+        <auto-attributes mode="IN" entity-name="JobInterview" include="nonpk" optional="true"/>
+        <override name="jobIntervieweePartyId" optional="false"/>
+        <override name="jobRequisitionId" optional="false"/>
+        <override name="jobInterviewerPartyId" optional="false"/>
+    </service>
+    
+    <service name="updateJobInterview" engine="simple" default-entity-name="JobInterview"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateJobInterview" auth="true">
+        <description>Update Job Interview</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="jobIntervieweePartyId" optional="false"/>
+        <override name="jobRequisitionId" optional="false"/>
+        <override name="jobInterviewTypeId" optional="false"/>
+    </service>
+    
+    <service name="deleteJobInterview" engine="simple" default-entity-name="JobInterview"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteJobInterview" auth="true">
+        <description>Delete Job Interview</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createJobInterviewType" engine="simple" default-entity-name="JobInterviewType"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createJobInterviewType" auth="true">
+        <description>Create a New Interview Type</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    
+    <service name="updateJobInterviewType" engine="simple" default-entity-name="JobInterviewType"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateJobInterviewType" auth="true">
+        <description>Update Interview Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    
+    <service name="deleteJobInterviewType" engine="simple" default-entity-name="JobInterviewType"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteJobInterviewType" auth="true">
+        <description>Delete Interview Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+        
+    <service name="updateApprovalStatus" engine="simple" default-entity-name="EmploymentApp"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateApprovalStatus" auth="true">
+        <description>Update Approval Status</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
 </services>

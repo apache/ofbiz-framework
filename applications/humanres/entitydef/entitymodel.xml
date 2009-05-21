@@ -376,6 +376,8 @@ under the License.
       <field name="applyingPartyId" type="id"></field>
       <field name="referredByPartyId" type="id"></field>
       <field name="applicationDate" type="date-time"></field>
+      <field name="approverPartyId" type="id"></field>
+      <field name="jobRequisitionId" type="id"></field>
       <prim-key field="applicationId"/>
       <relation type="one-nofk" fk-name="EMPLMNT_APP_POS" rel-entity-name="EmplPosition">
         <key-map field-name="emplPositionId"/>
@@ -391,6 +393,12 @@ under the License.
       </relation>
       <relation type="one-nofk" fk-name="EMPLMNT_APP_RBPTY" title="ReferredBy" rel-entity-name="Party">
         <key-map field-name="referredByPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="EMPLMNT_APP_APER" title="Approver" rel-entity-name="Party">
+          <key-map field-name="approverPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="EMPLMNT_APP_JBRQ" rel-entity-name="JobRequisition">
+          <key-map field-name="jobRequisitionId"/>
       </relation>
     </entity>
     <entity entity-name="EmploymentAppSourceType"
@@ -822,4 +830,88 @@ under the License.
     </view-link>
   </view-entity>
 
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.humanres.recruitment -->
+    <!-- ========================================================= -->
+    <entity entity-name="JobRequisition"
+            package-name="org.ofbiz.humanres.recruitment"
+            title="Entity for storing data about recruitment">
+        <field name="jobRequisitionId" type="id-ne"></field>
+        <field name="durationMonths" type="numeric"></field>
+        <field name="age" type="numeric"></field>
+        <field name="gender" type="indicator"></field>
+        <field name="experienceMonths" type="numeric"></field>
+        <field name="experienceYears" type="numeric"></field>
+        <field name="qualification" type="id-long"></field>
+        <field name="jobLocation" type="id"></field>
+        <field name="skillTypeId" type="id"></field>
+        <field name="noOfResources" type="numeric"></field>
+        <field name="jobPostingTypeId" type="id"></field>
+        <field name="jobRequisitionDate" type="date"></field>
+        <field name="examTypeId" type="id"></field>
+        <field name="requiredOnDate" type="date"></field>
+        <prim-key field="jobRequisitionId"/>
+        <relation type="one" fk-name="JOB_REQ_SKTYP" rel-entity-name="SkillType">
+            <key-map field-name="skillTypeId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_REQ_ENUMEXM" rel-entity-name="Enumeration">
+            <key-map field-name="examTypeId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_REQ_ENUMJBP" rel-entity-name="Enumeration">
+            <key-map field-name="jobPostingTypeId" rel-field-name="enumId"/>
+        </relation>
+    </entity>
+    <entity entity-name="JobInterview"
+            package-name="org.ofbiz.humanres.recruitment"
+            title="Entity for storing data about Interviews conducted">
+        <field name="jobInterviewId" type="id-ne"></field>
+        <field name="jobIntervieweePartyId" type="id"></field>
+        <field name="jobRequisitionId" type="id"></field>
+        <field name="jobInterviewerPartyId" type="id"></field>
+        <field name="jobInterviewTypeId" type="id"></field>
+        <field name="gradeSecuredEnumId" type="id"></field>
+        <field name="jobInterviewResult" type="id"></field>
+        <field name="jobInterviewDate" type="date"></field>
+        <prim-key field="jobInterviewId"/>
+        <relation type="one" fk-name="JOB_INTW_IEPR" title="Interviewee" rel-entity-name="Party">
+            <key-map field-name="jobIntervieweePartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_INTW_IRPR" title="Interviewer" rel-entity-name="Party">
+            <key-map field-name="jobInterviewerPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_INTW_INTYP" rel-entity-name="JobInterviewType">
+            <key-map field-name="jobInterviewTypeId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_INTW_JBREQ" rel-entity-name="JobRequisition">
+            <key-map field-name="jobRequisitionId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_INTW_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="gradeSecuredEnumId" rel-field-name="enumId"/>
+        </relation>
+    </entity>
+    <entity entity-name="JobInterviewType" 
+            package-name="org.ofbiz.humanres.recruitment"
+            title="Entity for storing data about Interview Types">
+        <field name="jobInterviewTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="jobInterviewTypeId"/>
+    </entity>
+    <view-entity entity-name="EmplPositionFulfillmentAndReportingStruct"
+            package-name="org.ofbiz.humanres.recruitment"
+            title="To view the employment details of employee">
+      <member-entity entity-alias="EMPPOS" entity-name="EmplPosition"/>
+      <member-entity entity-alias="EMPPOSFUL" entity-name="EmplPositionFulfillment"/>
+      <member-entity entity-alias="EMPPOSREPST" entity-name="EmplPositionReportingStruct"/>     
+      <alias entity-alias="EMPPOSFUL" name="partyId"/> 
+      <alias entity-alias="EMPPOSFUL" name="emplPositionId"/>
+      <alias entity-alias="EMPPOSREPST" name="emplPositionIdReportingTo"/>  
+      <alias entity-alias="EMPPOS" name="internalOrganisation" field="partyId"/>
+      <alias entity-alias="EMPPOSREPST" name="reportingDate" field="fromDate"/> 
+      <view-link entity-alias="EMPPOS" rel-entity-alias="EMPPOSFUL">
+        <key-map field-name="emplPositionId"/>
+      </view-link>
+      <view-link entity-alias="EMPPOSFUL" rel-entity-alias="EMPPOSREPST">
+        <key-map field-name="emplPositionId" rel-field-name="emplPositionIdManagedBy"/>
+      </view-link>
+    </view-entity>
 </entitymodel>

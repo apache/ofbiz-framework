@@ -27,6 +27,7 @@
         <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReviews"/></menu-item>
         <menu-item name="EmplSkills" title="${uiLabelMap.HumanResSkills}"><link target="FindPartySkills"/></menu-item>
         <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQuals"/></menu-item>
+        <menu-item name="Recruitment" title="${uiLabelMap.HumanResRecruitment}"><link target="FindJobRequisitions"/></menu-item>        
         <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApps"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResumes"/></menu-item>
@@ -165,6 +166,9 @@
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}">
             <link target="FindPayGrades"/>
         </menu-item>
+        <menu-item name="JobInterviewType" title="${uiLabelMap.HumanResJobInterviewType}">
+            <link target="EditJobInterviewType"/>
+        </menu-item>
     </menu>
 
     <menu name="EmployeeProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -235,4 +239,37 @@
             </link>
         </menu-item>
     </menu>
+    
+    <menu name="RecruitmentTypeMenu" type="simple" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        default-menu-item-name="JobRequisition">
+        <menu-item name="JobRequisition" title="${uiLabelMap.HumanResJobRequisition}">
+            <condition><if-has-permission permission="HUMANRES" action="_VIEW"/></condition>
+            <link target="FindJobRequisitions"/>
+        </menu-item>
+        <menu-item name="InternalJobPosting" title="${uiLabelMap.HumanResInternalJobPosting}">
+            <condition><if-has-permission permission="HUMANRES" action="_VIEW"/></condition>
+            <link target="FindInternalJobPosting"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="InternalJobPostingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        default-menu-item-name="InternalJobPosting" type="simple" menu-container-style="button-bar tab-bar" 
+        default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="InternalJobPosting" title="${uiLabelMap.HumanResInternalJobPosting}">
+            <link target="FindInternalJobPosting"/>
+        </menu-item>
+        <menu-item name="JobInterview" title="${uiLabelMap.HumanResJobInterview}">
+            <condition><if-has-permission permission="HUMANRES" action="_ADMIN"/></condition>
+            <link target="FindJobInterview"/>
+        </menu-item>
+        <menu-item name="Approval" title="${uiLabelMap.HumanResApproval}">
+            <condition><if-has-permission permission="HUMANRES" action="_APPROVE"/></condition>
+            <link target="FindApprovals"/>
+        </menu-item>
+        <menu-item name="Relocation" title="${uiLabelMap.HumanResRelocation}">
+            <condition><if-has-permission permission="HUMANRES" action="_ADMIN"/></condition>
+            <link target="FindRelocation"/>
+        </menu-item>
+    </menu>
+    
 </menus>

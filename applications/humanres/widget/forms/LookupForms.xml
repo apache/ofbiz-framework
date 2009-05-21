@@ -289,4 +289,41 @@ under the License.
         </field>
         <field name="description"><display/></field>
     </form>
+    <form name="LookupJobRequisition" type="single" target="LookupJobRequisition">
+        <field name="jobRequisitionId"><text-find/></field>
+        <field name="qualification"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="location"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="skillTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="SkillType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobPostingTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListLookupJobRequisition" type="list" list-name="listIt" paginate-target="LookupJobRequisition">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="JobRequisition"/>
+            </service>
+        </actions>
+        <field name="jobRequisitionId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${jobRequisitionId}" target="javascript:set_value('${jobRequisitionId}')"/>
+        </field>
+        <field name="jobPostingTypeId"><display/></field>
+        <field name="qualification"><display/></field>
+        <field name="skillTypeId"><display/></field>
+        <field name="location"><display/></field>
+    </form>
 </forms>

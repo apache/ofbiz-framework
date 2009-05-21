@@ -210,4 +210,24 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListJobInterviewType" type="multi" target="updateJobInterviewType" odd-row-style="alternate-row" header-row-style="header-row-2"
+        default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="JobInterviewType"><order-by field-name="jobInterviewTypeId"/></entity-condition>
+        </actions>
+        <field name="jobInterviewTypeId"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobInterviewType"> 
+                <parameter param-name="jobInterviewTypeId"/> 
+            </hyperlink>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddJobInterviewType" type="single" target="createJobInterviewType" header-row-style="header-row" default-table-style="basic-table">
+        <field name="jobInterviewTypeId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
 </forms>

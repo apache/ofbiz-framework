@@ -886,6 +886,119 @@ under the License.
         <response name="error" type="view" value="EditEmplLeaves"/>
     </request-map>
 
+    <!--====================Recruitment Requests===================================-->
+    <request-map uri="FindJobRequisitions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindJobRequisitions"/>
+    </request-map>
+    <request-map uri="EditJobRequisition">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditJobRequisition"/>
+    </request-map>
+    <request-map uri="createJobRequisition">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createJobRequisition"/>
+        <response name="success" type="view" value="EditJobRequisition"/>
+        <response name="error" type="view" value="EditJobRequisition"/>
+    </request-map>
+    <request-map uri="updateJobRequisition">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateJobRequisition"/>
+        <response name="success" type="request" value="EditJobRequisition"/>
+        <response name="error" type="view" value="EditJobRequisition"/>
+    </request-map>
+    <request-map uri="deleteJobRequisition">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteJobRequisition"/>
+        <response name="success" type="view" value="FindJobRequisitions"/>
+    </request-map>
+    <request-map uri="FindInternalJobPosting">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindInternalJobPosting"/>
+    </request-map>
+    <request-map uri="EditInternalJobPosting">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditInternalJobPosting"/>
+    </request-map>
+    <request-map uri="createInternalJobPosting">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInternalJobPosting"/>
+        <response name="success" type="view"  value="EditInternalJobPosting"/>
+        <response name="error" type="view"  value="EditInternalJobPosting"/>
+    </request-map>
+    <request-map uri="updateInternalJobPosting">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateInternalJobPosting"/>
+        <response name="success" type="view"  value="EditInternalJobPosting"/>
+        <response name="error" type="view"  value="EditInternalJobPosting"/>
+    </request-map>
+    <request-map uri="deleteInternalJobPosting">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteInternalJobPosting"/>
+        <response name="success" type="view" value="FindInternalJobPosting"/>
+    </request-map>
+    <request-map uri="FindJobInterview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindJobInterview"/>
+    </request-map>
+    <request-map uri="EditJobInterview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditJobInterview"/>
+    </request-map>
+    <request-map uri="createJobInterview">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createJobInterview"/>
+        <response name="success" type="view" value="EditJobInterview"/>
+        <response name="error" type="view" value="EditJobInterview"/>
+    </request-map>
+    <request-map uri="updateJobInterview">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateJobInterview"/>
+        <response name="success" type="request" value="EditJobInterview"/>
+    </request-map>
+    <request-map uri="deleteJobInterview">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteJobInterview"/>
+        <response name="success" type="view" value="FindJobInterview"/>
+    </request-map>
+    <request-map uri="FindApprovals">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindApprovals"/>
+    </request-map>
+    <request-map uri="EditApprovalStatus">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditApprovalStatus"/>
+    </request-map>
+    <request-map uri="updateApprovalStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateApprovalStatus"/>
+        <response name="success" type="view" value="EditApprovalStatus"/>
+        <response name="error" type="view" value="EditApprovalStatus"/>
+    </request-map>
+    <request-map uri="FindRelocation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindRelocation"/>
+    </request-map>
+    <request-map uri="EditJobInterviewType">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditJobInterviewType"/>
+    </request-map>
+    <request-map uri="createJobInterviewType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createJobInterviewType"/>
+        <response name="success" type="view" value="EditJobInterviewType"/>
+    </request-map>
+    <request-map uri="updateJobInterviewType">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateJobInterviewType"/>
+        <response name="success" type="request" value="EditJobInterviewType"/>
+    </request-map>
+    <request-map uri="deleteJobInterviewType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteJobInterviewType"/>
+        <response name="success" type="request" value="EditJobInterviewType"/>
+    </request-map>
+
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>
@@ -902,6 +1015,7 @@ under the License.
     <request-map uri="LookupPartyResume"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyResume"/></request-map>
     <request-map uri="LookupEmploymentApp"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmploymentApp"/></request-map>
     <request-map uri="LookupAgreement"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreement"/></request-map>
+    <request-map uri="LookupJobRequisition"><security auth="true" https="true"/><response name="success" type="view" value="LookupJobRequisition"/></request-map>
 
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupPayment"  type="screen" page="component://accounting/widget/LookupScreens.xml#LookupPayment"/>
@@ -918,6 +1032,7 @@ under the License.
     <view-map name="LookupPartyResume" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPartyResume"/>
     <view-map name="LookupEmploymentApp" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupEmploymentApp"/>
     <view-map name="LookupAgreement" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreement"/>
+    <view-map name="LookupJobRequisition" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupJobRequisition"/>
 
     <view-map name="main" type="screen" page="component://humanres/widget/CommonScreens.xml#Main"/>
 
@@ -993,4 +1108,16 @@ under the License.
     <view-map name="NewEmplLeave" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#NewEmplLeave"/>
     <view-map name="EditEmplLeaves" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaves"/>
     <view-map name="EditEmplLeaveTypes" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaveTypes"/>
+    
+    <!-- ==================Recruitment View Map===================== -->
+    <view-map name="FindJobRequisitions" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindJobRequisitions"/>
+    <view-map name="EditJobRequisition" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#EditJobRequisition"/>
+    <view-map name="FindInternalJobPosting" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindInternalJobPosting"/>
+    <view-map name="EditInternalJobPosting" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#EditInternalJobPosting"/>
+    <view-map name="FindJobInterview" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindJobInterview"/>
+    <view-map name="EditJobInterview" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#EditJobInterview"/>
+    <view-map name="FindApprovals" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindApprovals"/>
+    <view-map name="EditApprovalStatus" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#EditApprovalStatus"/>    
+    <view-map name="FindRelocation" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindRelocation"/>
+    <view-map name="EditJobInterviewType" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditJobInterviewType"/>
 </site-conf>

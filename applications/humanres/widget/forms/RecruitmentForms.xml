@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindJobRequisitions" type="single" target="FindJobRequisitions" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <actions>
+            <set field="jobRequisitionId" from-field="parameters.jobRequisitionId"/>
+        </actions>
+        <auto-fields-entity entity-name="JobRequisition" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
+        <field name="skillTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="SkillType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobPostingTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobLocation"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="examTypeId">
+             <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EXAM_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="gender"><hidden/></field>
+        <field name="age"><hidden/></field>
+        <field name="durationMonths"><hidden/></field>
+        <field name="noOfResources"><hidden/></field>
+        <field name="jobRequisitionDate"><hidden/></field>
+        <field name="requiredOnDate"><hidden/></field>
+        <field name="qualification"><hidden/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListJobRequisitions" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
+        paginate-target="FindJobRequisitions" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="entityName" value="JobRequisition"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+            </service>
+        </actions>
+        <field name="jobRequisitionId" widget-style="buttontext" use-when="hasAdminPermission">
+            <hyperlink target="EditJobRequisition" description="${jobRequisitionId}">
+                <parameter param-name="jobRequisitionId"/>
+            </hyperlink>
+        </field>
+        <field name="jobRequisitionId" use-when="!hasAdminPermission"><display/></field>
+        <field name="skillTypeId">
+            <display-entity entity-name="SkillType" description="${description}"/>
+        </field>
+        <field name="jobPostingTypeId"><display/></field>
+        <field name="examTypeId"><display/></field>
+        <field name="qualification"><display/></field>
+        <field name="jobLocation"><display/></field>
+        <field name="experienceYears"><display/></field>
+        <field name="experienceMonths"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobRequisition"> 
+                <parameter param-name="jobRequisitionId"/> 
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditJobRequisition" type="single" target="updateJobRequisition">
+        <alt-target use-when="jobRequisition==null" target="createJobRequisition"/>
+        <auto-fields-service service-name="updateJobRequisition" map-name="jobRequisition"/>
+        <field use-when="jobRequisition!=null" name="jobRequisitionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="jobRequisitionId" use-when="jobRequisition==null"><ignored/></field>
+        <field name="jobPostingTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="skillTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="SkillType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobLocation" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
+        <field name="age"></field>
+        <field name="noOfResources" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
+        <field name="gender">
+            <drop-down allow-empty="true">
+                <option key="M" description="${uiLabelMap.CommonMale}"/>
+                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+            </drop-down>
+        </field>
+        <field name="durationMonths" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
+        <field name="experienceMonths"></field>
+        <field name="experienceYears"></field>
+        <field name="qualification" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyQualType" key-field-name="partyQualTypeId" description="${description}">
+                    <entity-constraint name="parentTypeId" operator="equals" value="DEGREE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="examTypeId">
+             <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EXAM_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" use-when="jobRequisition==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="jobRequisition!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FindInternalJobPosting" target="FindInternalJobPosting" type="single" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="EmploymentApp" default-field-type="find"/>
+        <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
+        <field name="applyingPartyId" use-when="hasAdminPermission"><hidden/></field>
+        <field name="applyingPartyId" use-when=""><hidden value="${partyId}"/></field>
+        <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="IJP_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
+        <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="emplPositionId"><hidden/></field>
+        <field name="employmentAppSourceTypeId"><hidden/></field>
+        <field name="referredByPartyId"><hidden/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListInternalJobPosting" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
+        paginate-target="FindInternalJobPosting" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="entityName" value="EmploymentApp"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="EmploymentApp" default-field-type="display"/>
+        <field name="applicationId" widget-style="buttontext">
+            <hyperlink target="EditInternalJobPosting" description="${applicationId}">
+                <parameter param-name="applicationId"/>
+            </hyperlink>
+        </field>
+        <field name="applyingPartyId" field-name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${applyingPartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="applyingPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="approverPartyId" field-name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="approverPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteInternalJobPosting"> 
+                <parameter param-name="applicationId"/> 
+            </hyperlink>
+        </field>
+        <field name="emplPositionId"><hidden/></field>
+        <field name="employmentAppSourceTypeId"><hidden/></field>
+        <field name="referredByPartyId"><hidden/></field>
+    </form>
+    <form name="EditInternalJobPosting" type="single" target="updateInternalJobPosting">
+        <alt-target use-when="employmentApp==null" target="createInternalJobPosting"/>
+        <auto-fields-service service-name="updateInternalJobPosting" map-name="employmentApp"/>
+        <field name="applicationId" use-when="employmentApp==null"><hidden/></field>
+        <field name="applicationId" use-when="employmentApp!=null"><display/></field>
+        <field name="applyingPartyId"><hidden value="${partyId}"/></field>
+        <field name="approverPartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="jobRequisitionId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupJobRequisition"/></field>
+        <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><hidden value="IJP_CREATED"/></field>
+        <field name="emplPositionId"><hidden/></field>
+        <field name="employmentAppSourceTypeId"><hidden/></field>
+        <field name="referredByPartyId"><hidden/></field>
+        <field name="submitButton" use-when="employmentApp==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="employmentApp!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FindJobInterview" type="single" target="FindJobInterview" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="JobInterview" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="jobIntervieweePartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
+        <field name="jobInterviewerPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="jobInterviewTypeId">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="jobInterviewTypeId" description="${jobInterviewTypeId}" entity-name="JobInterviewType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobInterviewResult">
+            <drop-down allow-empty="true">
+                <option key="Pass" description="Pass"/>
+                <option key="Fail" description="Fail"/>
+            </drop-down>
+        </field>
+        <field name="gradeSecuredEnumId">
+             <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="INTR_RATNG"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListInterview" type="list" list-name="listIt" paginate-target="FindJobInterview" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="entityName" value="JobInterview"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="JobInterview" default-field-type="display"/>
+        <field name="jobInterviewId" widget-style="buttontext">
+            <hyperlink target="EditJobInterview" description="${jobInterviewId}">
+                <parameter param-name="jobInterviewId"/>
+            </hyperlink>
+        </field>
+        <field name="jobIntervieweePartyId" field-name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${jobIntervieweePartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="jobIntervieweePartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="jobInterviewerPartyId" field-name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${jobInterviewerPartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="jobInterviewerPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobInterview"> 
+                <parameter param-name="jobInterviewId"/> 
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditJobInterview" type="single" target="updateJobInterview">
+        <actions>
+            <entity-one entity-name="JobInterview" value-field="JobInterview"/>
+        </actions>
+        <alt-target use-when="JobInterview==null" target="createJobInterview"/>
+        <auto-fields-service service-name="updateJobInterview" map-name="JobInterview"/>
+        <field use-when="JobInterview!=null" name="jobInterviewId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="jobInterviewId" use-when="JobInterview==null"><ignored/></field>
+        <field name="jobIntervieweePartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="jobRequisitionId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupJobRequisition"/></field>
+        <field name="jobInterviewerPartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="gradeSecuredEnumId">
+             <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="INTR_RATNG"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobInterviewTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${jobInterviewTypeId}" entity-name="JobInterviewType">
+                    <entity-order-by field-name="jobInterviewTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobInterviewResult">
+            <drop-down allow-empty="false">
+                <option key="Pass" description="Pass"/>
+                <option key="Fail" description="Fail"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" use-when="JobInterview==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="JobInterview!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FindApprovals" target="FindApprovals" type="single" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="EmploymentApp" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
+        <field name="approverPartyId" use-when="!hasAdminPermission"><hidden value="${partyId}"/></field>
+        <field name="applyingPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="emplPositionId"><hidden/></field>
+        <field name="employmentAppSourceTypeId"><hidden/></field>
+        <field name="referredByPartyId"><hidden/></field>
+        <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="IJP_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListApprovals" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="entityName" value="EmploymentApp"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="EmploymentApp" default-field-type="display"/>
+        <field name="applyingPartyId" field-name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${applyingPartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="applyingPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="approverPartyId" field-name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="approverPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="UpdateStatus" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
+            <hyperlink target="EditApprovalStatus" description="${uiLabelMap.CommonUpdate}" > 
+                <parameter param-name="applicationId"/> 
+            </hyperlink>
+        </field>
+        <field name="emplPositionId"><hidden/></field>
+        <field name="employmentAppSourceTypeId"><hidden/></field>
+        <field name="referredByPartyId"><hidden/></field>
+    </form>
+    <form name="EditApprovalStatus" type="single" target="updateApprovalStatus" default-map-name="employmentApp">
+        <auto-fields-service service-name="updateApprovalStatus" map-name="employmentApp"/>
+        <field name="applicationId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="applicationId"><display/></field>
+        <field name="applyingPartyId"><display/></field>
+        <field name="jobRequisitionId"><display/></field>
+        <field name="approverPartyId"><display/></field>
+        <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="IJP_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="employmentApp!=null&amp;&amp;employmentApp.getString(&quot;statusId&quot;).equals(&quot;IJP_REJECTED&quot;)"><display></display></field>
+        <field name="emplPositionId"><hidden/></field>
+        <field name="employmentAppSourceTypeId"><hidden/></field>
+        <field name="referredByPartyId"><hidden/></field>
+        <field name="applicationDate"><hidden/></field>
+        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FindRelocation" type="single" target="FindRelocation" odd-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId" title="${uiLabelMap.HumanResEmployeePartyIdTo}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="emplPositionIdReportingTo"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="internalOrganisation">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="reportingDate"><date-find/></field>
+        <field name="location"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListRelocation" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2"
+        default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="EmplPositionFulfillmentAndReportingStruct"/>
+            </service>
+       </actions>
+        <field name="partyId" title="Employee Name">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">              
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView">
+                <parameter param-name="emplPositionId"/>
+            </hyperlink>
+        </field>
+        <field name="emplPositionIdReportingTo" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${emplPositionIdReportingTo}" target="emplPositionView">
+                <parameter param-name="emplPositionId" from-field="emplPositionIdReportingTo"/>
+            </hyperlink>
+        </field>
+        <field name="internalOrganisation"><display/></field>
+        <field name="reportingDate"><display/></field>
+        <field name="location">
+            <display description="${bsh:
+                import org.ofbiz.entity.GenericValue;
+                import org.ofbiz.base.util.UtilMisc;
+                import org.ofbiz.entity.util.EntityUtil;
+                GenericValue partyAndPostalAddress = EntityUtil.getFirst(delegator.findByAnd(&quot;PartyAndPostalAddress&quot;,UtilMisc.toMap(&quot;partyId&quot;,internalOrganisation)));
+                if(partyAndPostalAddress==null) return ;
+                if(partyAndPostalAddress!=null) city = partyAndPostalAddress.getString(&quot;city&quot;);
+                return city;
+                }"/>
+        </field>
+    </form>
+</forms>
