@@ -404,7 +404,7 @@
     </form>
     <form name="FindOrders" target="linkProjectOrder?projectId=${projectId}" type="single" title="Find and List Orders"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="orderId"><lookup target-form-name="/ordermgr/control/LookupOrderHeader"/></field>
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
