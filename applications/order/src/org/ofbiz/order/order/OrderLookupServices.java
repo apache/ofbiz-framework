@@ -468,10 +468,10 @@ public class OrderLookupServices {
         }
 
         //Get all orders according to specific ship to country with "Only Include" or "Do not Include".
-        String country = (String) context.get("country");
+        String countryGeoId = (String) context.get("countryGeoId");
         String includeCountry = (String) context.get("includeCountry");
-        if (UtilValidate.isNotEmpty(country) && UtilValidate.isNotEmpty(includeCountry)) {
-            paramList.add("country=" + country);
+        if (UtilValidate.isNotEmpty(countryGeoId) && UtilValidate.isNotEmpty(includeCountry)) {
+            paramList.add("countryGeoId=" + countryGeoId);
             paramList.add("includeCountry=" + includeCountry);
             boolean hasRecord = false;
             List orExprs = FastList.newInstance();
@@ -487,13 +487,13 @@ public class OrderLookupServices {
                         if ("Y".equals(includeCountry)) {
                             andExprs = EntityCondition.makeCondition( UtilMisc.toList(
                                     EntityCondition.makeCondition("contactMechId", orderContactMech.get("contactMechId")),
-                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, country)
+                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId)
                                     ), EntityOperator.AND);
                         }
                         else {
                             andExprs = EntityCondition.makeCondition( UtilMisc.toList(
                                     EntityCondition.makeCondition("contactMechId", orderContactMech.get("contactMechId")),
-                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, country)
+                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)
                                     ), EntityOperator.AND);
                         }
                         postalAddresses = delegator.findList("PostalAddress", andExprs, null, null, null, false);

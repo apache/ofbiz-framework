@@ -800,7 +800,7 @@ under the License.
         <attribute name="filterPartiallyReceivedPOs" type="String" mode="IN" optional="true"/>
         
         <!-- ship to country fields -->
-        <attribute name="country" type="String" mode="IN" optional="true"/>
+        <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="includeCountry" type="String" mode="IN" optional="true"/>        
 
         <!-- view and page fields -->
