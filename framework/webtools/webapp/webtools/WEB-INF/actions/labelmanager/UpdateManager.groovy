@@ -20,11 +20,12 @@
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.webtools.labelmanager.*;
 
-LabelManagerFactory.getLabelManagerFactory(delegator.getDelegatorName());
-context.labels = LabelManagerFactory.getLabels();
-context.localesFound = LabelManagerFactory.getLocalesFound();
-context.fileNamesFound = LabelManagerFactory.getFileNamesFound();
-context.componentNamesFound = LabelManagerFactory.getComponentNamesFound();
+LabelManagerFactory factory = LabelManagerFactory.getInstance();
+factory.findMatchingLabels(null, parameters.sourceFileName, parameters.sourceKey, null)
+context.labels = factory.getLabels();
+context.localesFound = factory.getLocalesFound();
+context.filesFound = factory.getFilesFound();
+context.componentNamesFound = factory.getComponentNamesFound();
 
 if (parameters.sourceKey && parameters.sourceFileName) {
     context.label = context.labels.get(parameters.sourceKey + LabelManagerFactory.keySeparator + parameters.sourceFileName);

@@ -1,27 +1,26 @@
 /*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.ofbiz.webtools.labelmanager;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +28,8 @@ import java.util.Set;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -48,25 +49,64 @@ public class SaveLabelsToXmlFile {
     private static final String module = SaveLabelsToXmlFile.class.getName();
 
     public static Map<String, Object> saveLabelsToXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Locale locale = (Locale)context.get("locale");
-        String labelFileName = (String)context.get("labelFileName");
+        Locale locale = (Locale) context.get("locale");
+        String fileName = (String) context.get("fileName");
+        if (UtilValidate.isEmpty(fileName)) {
+            Debug.logError("labelFileName cannot be empty", module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+        }
+        String key = (String) context.get("key");
+        String keyComment = (String) context.get("keyComment");
+        String update_label = (String) context.get("update_label");
+        String confirm = (String) context.get("confirm");
+        String removeLabel = (String) context.get("removeLabel");
+        List<String> localeNames = UtilGenerics.cast(context.get("localeNames"));
+        List<String> localeValues = UtilGenerics.cast(context.get("localeValues"));
+        List<String> localeComments = UtilGenerics.cast(context.get("localeComments"));
         String apacheLicenseText = null;
         try {
-            apacheLicenseText = getApacheLicenseText();
+            apacheLicenseText = FileUtil.readString("UTF-8", FileUtil.getFile("component://webtools/config/APACHE2_HEADER_FOR_XML"));
         } catch (IOException e) {
             Debug.logWarning(e, "Unable to read Apache License text file", module);
         }
         try {
-            LabelManagerFactory.getLabelManagerFactory(dctx.getDelegator().getDelegatorName());
-            Map<String, LabelInfo> labels = LabelManagerFactory.getLabels();
-            Map<String, String> fileNamesFound = LabelManagerFactory.getFileNamesFound();
-            Set<String> labelsList = LabelManagerFactory.getLabelsList();
-            Set<String> localesFound = LabelManagerFactory.getLocalesFound();
-            for (String fileName : fileNamesFound.keySet()) {
-                if (UtilValidate.isNotEmpty(labelFileName) && !(labelFileName.equalsIgnoreCase(fileName))) {
-                    continue;
+            LabelManagerFactory factory = LabelManagerFactory.getInstance();
+            LabelFile labelFile = factory.getLabelFile(fileName);
+            if (labelFile == null) {
+                Debug.logError("Invalid file name: " + fileName, module);
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+            }
+            synchronized(SaveLabelsToXmlFile.class) {
+                factory.findMatchingLabels(null, fileName, null, null);
+                Map<String, LabelInfo> labels = factory.getLabels();
+                Set<String> labelsList = factory.getLabelsList();
+                Set<String> localesFound = factory.getLocalesFound();
+                // Remove a Label
+                if (UtilValidate.isNotEmpty(removeLabel)) {
+                    labels.remove(key + LabelManagerFactory.keySeparator + fileName);
+                } else if (UtilValidate.isNotEmpty(confirm)) {
+                    LabelInfo label = labels.get(key + LabelManagerFactory.keySeparator + fileName);
+                    // Update a Label
+                    if (update_label.equalsIgnoreCase("Y")) {
+                        if (UtilValidate.isNotEmpty(label)) {
+                            factory.updateLabelValue(localeNames, localeValues, localeComments, label, key, keyComment, fileName);
+                        }
+                        // Insert a new Label
+                    } else {
+                        if (UtilValidate.isNotEmpty(label)) {
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelExisting", UtilMisc.toMap("key", key, "fileName", fileName), locale));
+                        } else {
+                            if (UtilValidate.isEmpty(key)) {
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelEmptyKey", locale));
+                            } else {
+                                int notEmptyLabels = factory.updateLabelValue(localeNames, localeValues, localeComments, null, key, keyComment, fileName);
+                                if (notEmptyLabels == 0) {
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsLabelManagerNewLabelEmpty", locale));
+                                }
+                            }
+                        }
+                    }
                 }
-                String uri = fileNamesFound.get(fileName);
                 Document resourceDocument = UtilXml.makeEmptyXmlDocument("resource");
                 Element resourceElem = resourceDocument.getDocumentElement();
                 resourceElem.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -90,7 +130,8 @@ public class SaveLabelsToXmlFile {
                         }
                         if (UtilValidate.isNotEmpty(valueString)) {
                             valueString = StringEscapeUtils.unescapeHtml(valueString);
-                            Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);;
+                            Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);
+                            ;
                             valueElem.setAttribute("xml:lang", localeFound);
                             if (valueString.trim().length() == 0) {
                                 valueElem.setAttribute("xml:space", "preserve");
@@ -102,10 +143,7 @@ public class SaveLabelsToXmlFile {
                             }
                         }
                     }
-                }
-                if (UtilValidate.isNotEmpty(uri)) {
-                    File outFile = new File(new URI(uri));
-                    FileOutputStream fos = new FileOutputStream(outFile);
+                    FileOutputStream fos = new FileOutputStream(labelFile.file);
                     try {
                         if (apacheLicenseText != null) {
                             fos.write(apacheLicenseText.getBytes());
@@ -113,7 +151,8 @@ public class SaveLabelsToXmlFile {
                         UtilXml.writeXmlDocument(resourceElem, fos, "UTF-8", !(apacheLicenseText == null), true, 4);
                     } finally {
                         fos.close();
-                        // clear cache to see immediately the new labels and translations in OFBiz
+                        // clear cache to see immediately the new labels and
+                        // translations in OFBiz
                         UtilCache.clearCache("properties.UtilPropertiesBundleCache");
                     }
                 }
@@ -123,16 +162,5 @@ public class SaveLabelsToXmlFile {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
         }
         return ServiceUtil.returnSuccess();
-    }
-    
-    public static String getApacheLicenseText() throws IOException {
-        String apacheLicenseText = null;
-        String basePath = System.getProperty("ofbiz.home");
-        if (UtilValidate.isNotEmpty(basePath)) {
-            String apacheLicenseFileName = basePath + "/framework/webtools/config/APACHE2_HEADER_FOR_XML";
-            File apacheLicenseFile = new File(apacheLicenseFileName);
-            apacheLicenseText = FileUtil.readString("UTF-8", apacheLicenseFile);
-        }
-        return apacheLicenseText;
     }
 }

@@ -16,25 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.net.URI;
-import org.ofbiz.base.util.*;
-import org.w3c.dom.*;
-import java.io.ByteArrayOutputStream;
-import org.apache.commons.lang.StringEscapeUtils;
+package org.ofbiz.webtools.labelmanager;
 
-fileString = "";
-if (parameters.fileName) {
-    file = new File(parameters.fileName);
-    if (parameters.fileName.endsWith(".xml")) {
-        Document document = UtilXml.readXmlDocument(file.toURL(), false);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        UtilXml.writeXmlDocument(document, os, "UTF-8", true, true, 4);
-        os.close();
-        fileString = os.toString();
-    } else {
-        fileString = FileUtil.readString("UTF-8", file);
+import java.io.File;
+
+public class LabelFile {
+    public static final String module = LabelFile.class.getName();
+
+    protected final boolean fileLoaded = false;;
+    protected final File file;
+    protected final String componentName;
+
+    protected LabelFile(File file, String componentName) {
+        this.file = file;
+        this.componentName = componentName;
     }
-    rows = fileString.split(System.getProperty("line.separator"));
-    context.rows = rows.size();
+
+    public File getFile() {
+        return this.file;
+    }
+
+    public String getFileName() {
+        return this.file.getName();
+    }
+
+    public String getFilePath() {
+        return this.file.getPath();
+    }
 }
-context.fileString = fileString;

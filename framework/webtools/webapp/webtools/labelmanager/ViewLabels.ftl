@@ -17,9 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet-body">
-  <a href="<@ofbizUrl>UpdateLabel?fileName=${parameters.labelFileName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerAddNew}</a>
   <form name= "SaveLabelsToXmlFile" method= "post" action= "<@ofbizUrl>SaveLabelsToXmlFile</@ofbizUrl>">
-      <input type= "hidden" name= "labelFileName" value= "${parameters.labelFileName?if_exists}">
+      <input type= "hidden" name= "fileName" value= "${parameters.labelFileName?if_exists}">
       <a href="javascript:document.SaveLabelsToXmlFile.submit()" class="buttontext">${uiLabelMap.WebtoolsLabelManagerUpdateFile}</a>
   </form>
   <table class="basic-table hover-bar" cellspacing="3">
@@ -57,10 +56,12 @@ under the License.
       <#list labelsList as labelList>
         <#assign label = labels.get(labelList)>
         <#assign labelKey = label.labelKey>
-        <#assign referenceNum = 0>
-        <#assign reference = references.get(labelKey)?if_exists>
-        <#if reference?exists && reference?has_content>
-          <#assign referenceNum = reference.size()>
+        <#if references?exists>
+          <#assign referenceNum = 0>
+          <#assign reference = references.get(labelKey)?if_exists>
+          <#if reference?exists && reference?has_content>
+            <#assign referenceNum = reference.size()>
+          </#if>
         </#if>
         <#assign showLabel = true>
         <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y"
@@ -94,7 +95,7 @@ under the License.
             <td>${rowNumber}</td>
             <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&sourceFileName=${label.fileName}&sourceKeyComment=${label.labelKeyComment?if_exists}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
-            <td align="center"><#if (referenceNum > 0)><a href="<@ofbizUrl>ViewReferences?sourceKey=${labelKey}</@ofbizUrl>">${referenceNum}</a><#else>${referenceNum}</#if></td>
+            <td><a href="<@ofbizUrl>ViewReferences?sourceKey=${labelKey}&labelFileName=${label.fileName}</@ofbizUrl>">${uiLabelMap.WebtoolsLabelManagerReferences}</a></td>
             <#list localesFound as localeFound>
               <#assign labelVal = label.getLabelValue(localeFound)?if_exists>
               <#assign showLocale = true>

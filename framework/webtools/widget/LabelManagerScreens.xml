@@ -20,27 +20,47 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="SearchLabels">
         <section>
             <condition>
                 <if-has-permission permission="LABEL_MANAGER_VIEW"/>
             </condition>
             <actions>
-                <set field="titleProperty" value="WebtoolsLabelManager"/>
+                <set field="titleProperty" value="WebtoolsLabelManagerFindLabels"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/LabelManager.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="SearchLabelsPanel" title="${uiLabelMap.WebtoolsLabelManagerSearchBy}" collapsible="true">
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/SearchLabels.ftl"/></html></platform-specific>
+                        <container style="h1">
+                            <label text="${uiLabelMap.WebtoolsLabelManagerFindLabels}"/>
+                        </container>
+                        <screenlet id="searchOptions" name="findScreenlet" collapsible="true" padded="false">
+                            <container style="screenlet-body">
+                                <container style="h2">
+                                    <label text="${uiLabelMap.CommonSearchOptions}"/>
+                                </container>
+                                <container id="search-options">
+                                    <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/SearchLabels.ftl"/></html></platform-specific>
+                                </container>
+                            </container>
                         </screenlet>
-                        <screenlet id="ViewLabelsPanel" title="${uiLabelMap.WebtoolsLabelManager}" collapsible="false">
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewLabels.ftl"/></html></platform-specific>
-                        </screenlet>
+                        <container style="screenlet">
+                            <container style="screenlet-body">
+                                <container style="h2">
+                                    <label text="${uiLabelMap.CommonSearchResults}"/>
+                                </container>
+                            </container>
+                            <container id="search-results">
+                                    <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewLabels.ftl"/></html></platform-specific>
+                            </container>
+                        </container>
+                        <!--
                         <screenlet id="ViewHardcodedLabelsPanel" title="${uiLabelMap.WebtoolsLabelManagerHardcoded}" collapsible="false">
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewHardcodedLabels.ftl"/></html></platform-specific>
                         </screenlet>
+                        -->
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -49,6 +69,7 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+
     <screen name="UpdateLabel">
         <section>
             <condition>
@@ -61,9 +82,10 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="UpdateLabelPanel" title="${uiLabelMap.WebtoolsLabelManagerUpdate}">
+                        <container style="h1">
+                            <label text="${uiLabelMap.WebtoolsLabelManagerAddNew}"/>
+                        </container>
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/UpdateLabel.ftl"/></html></platform-specific>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -72,6 +94,7 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+
     <screen name="ViewReferences">
         <section>
             <condition>
@@ -79,14 +102,12 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerViewReferences"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/LabelManager.groovy"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/ViewReferences.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ViewReferencesPanel" title="${uiLabelMap.WebtoolsLabelManagerViewReferences}">
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewReferences.ftl"/></html></platform-specific>
-                        </screenlet>
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewReferences.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -95,6 +116,7 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+
     <screen name="ViewFile">
         <section>
             <condition>
