@@ -46,9 +46,17 @@
         <response name="error" type="view" value="newRegisterLogin"/>
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
-
-
+    <request-map uri="reloadCaptchaImage">
+        <security https="true" auth="false"/>        
+        <response name="success" type="view" value="reloadCaptchaImage"/>
+    </request-map>
+    <request-map uri="reloadCaptchaCode">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="reloadCaptchaCode"/>
+    </request-map>   
     <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
-    <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>
+    <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>  
+    <view-map name="reloadCaptchaImage" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaImage"/>    
+    <view-map name="reloadCaptchaCode" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaCode"/>        
 </site-conf>

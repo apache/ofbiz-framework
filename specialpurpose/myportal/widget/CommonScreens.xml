@@ -153,6 +153,9 @@ under the License.
     <!--New Register Person-->
     <screen name="newRegisterLogin">
         <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -183,7 +186,10 @@ under the License.
                                                 <set field="idKey" from-field="parameters.ID_KEY"/>
                                             </actions>
                                             <widgets>
-                                                <include-form name="RegisterPerson" location="component://myportal/widget/MyPortalForms.xml"/>
+                                                <!--<include-form name="RegisterPerson" location="component://myportal/widget/MyPortalForms.xml"/>  -->
+                                                <platform-specific><html>
+                                                <html-template location="component://myportal/widget/RegisterPerson.ftl"/></html>
+                                                    </platform-specific> 
                                             </widgets>
                                         </section>
                                     </container>
@@ -208,4 +214,25 @@ under the License.
         </section>
     </screen>
 
+    <screen name="reloadCaptchaImage">
+        <section>
+            <actions>
+                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://myportal/widget/reloadCaptchaImage.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="reloadCaptchaCode">
+        <section>
+            <actions>
+                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://myportal/widget/reloadCaptchaCode.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
