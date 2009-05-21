@@ -467,52 +467,34 @@ public class OrderLookupServices {
             }
         }
 
-        //Get all orders according to specific ship to country with "Only Include" or "Do not Include".
+        // Get all orders according to specific ship to country with "Only Include" or "Do not Include".
         String countryGeoId = (String) context.get("countryGeoId");
         String includeCountry = (String) context.get("includeCountry");
         if (UtilValidate.isNotEmpty(countryGeoId) && UtilValidate.isNotEmpty(includeCountry)) {
             paramList.add("countryGeoId=" + countryGeoId);
             paramList.add("includeCountry=" + includeCountry);
-            boolean hasRecord = false;
-            List orExprs = FastList.newInstance();
-            EntityCondition condition = null;
-            List<GenericValue> postalAddresses = null;
-            List<GenericValue> orderContactMechs = null;
-            try {
-                EntityConditionList andExprs = null;
-                condition = EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "SHIPPING_LOCATION");
-                orderContactMechs = delegator.findList("OrderContactMech", condition, null, null, null, false);
-                if (UtilValidate.isNotEmpty(orderContactMechs)) {
-                    for (GenericValue orderContactMech : orderContactMechs) {
-                        if ("Y".equals(includeCountry)) {
-                            andExprs = EntityCondition.makeCondition( UtilMisc.toList(
-                                    EntityCondition.makeCondition("contactMechId", orderContactMech.get("contactMechId")),
-                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId)
-                                    ), EntityOperator.AND);
-                        }
-                        else {
-                            andExprs = EntityCondition.makeCondition( UtilMisc.toList(
-                                    EntityCondition.makeCondition("contactMechId", orderContactMech.get("contactMechId")),
-                                    EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)
-                                    ), EntityOperator.AND);
-                        }
-                        postalAddresses = delegator.findList("PostalAddress", andExprs, null, null, null, false);
-                        if (UtilValidate.isNotEmpty(postalAddresses)) {
-                            GenericValue postalAddress = EntityUtil.getFirst(postalAddresses);
-                            if (UtilValidate.isNotEmpty(postalAddress)) {
-                                orExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderContactMech.get("orderId")));
-                                hasRecord = true;
-                            }
-                        }
-                    }
-                }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+            // add condition to dynamic view
+            dve.addMemberEntity("OCM", "OrderContactMech");
+            dve.addMemberEntity("PA", "PostalAddress");
+            dve.addAlias("OCM", "contactMechId");
+            dve.addAlias("OCM", "contactMechPurposeTypeId");
+            dve.addAlias("PA", "countryGeoId");
+            dve.addViewLink("OH", "OCM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("orderId"));
+            dve.addViewLink("OCM", "PA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
+            
+            EntityConditionList exprs = null;
+            if ("Y".equals(includeCountry)) {
+                exprs = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
+                        EntityCondition.makeCondition("countryGeoId", countryGeoId)
+                        ), EntityOperator.AND);                
+            } else {
+                exprs = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
+                        EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)
+                        ), EntityOperator.AND); 
             }
-            EntityCondition shipCountryFilter = EntityCondition.makeCondition(orExprs,  EntityOperator.OR);
-            if (hasRecord) {
-                conditions.add(shipCountryFilter);
-            }
+            conditions.add(exprs);
         }
 
         // set distinct on so we only get one row per order
@@ -523,7 +505,7 @@ public class OrderLookupServices {
         if (conditions.size() > 0 || showAll.equalsIgnoreCase("Y")) {
             cond = EntityCondition.makeCondition(conditions, EntityOperator.AND);
         }
-
+        
         if (Debug.verboseOn()) {
             Debug.log("Find order query: " + cond.toString());
         }
