@@ -89,7 +89,9 @@ if (toPrintOrders) {
                     orderItems = orderReadHelper.getOrderItems();
                     orderAdjustments = orderReadHelper.getAdjustments();
                     orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
+                    context.orderHeaderAdjustments = orderHeaderAdjustments;
                     orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
+                    context.orderSubTotal = orderSubTotal;
                     otherAdjAmount = orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, true, false, false);
                     shippingAmount = orderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
                     shippingAmount = shippingAmount.add(orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));

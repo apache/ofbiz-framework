@@ -190,6 +190,16 @@ under the License.
                              <fo:table-column column-width="425pt"/>
                              <fo:table-column column-width="100pt"/>
                              <fo:table-body>
+                                 <#list orderHeaderAdjustments as orderHeaderAdjustment>
+                                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
+                                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
+                                     <#if adjustmentAmount != 0>
+                                         <fo:table-row>
+                                             <fo:table-cell><fo:block>${adjustmentType.get("description",locale)}:</fo:block></fo:table-cell>
+                                             <fo:table-cell><fo:block><@ofbizCurrency amount=adjustmentAmount isoCode=currencyUomId/></fo:block></fo:table-cell>
+                                         </fo:table-row>
+                                     </#if>
+                                 </#list>
                                  <#list orderChargeList as orderCharge>
                                      <#if orderCharge.get("${orderId}")?exists >
                                          <#assign charges = orderCharge.get("${orderId}")>
@@ -198,11 +208,11 @@ under the License.
                                              <fo:table-cell><fo:block><@ofbizCurrency amount=charges.orderSubTotal isoCode=currencyUomId/></fo:block></fo:table-cell>
                                          </fo:table-row>
                                          <fo:table-row>
-                                             <fo:table-cell><fo:block>${uiLabelMap.OrderSalesTax}:</fo:block></fo:table-cell>
+                                             <fo:table-cell><fo:block>${uiLabelMap.OrderTotalSalesTax}:</fo:block></fo:table-cell>
                                              <fo:table-cell><fo:block><@ofbizCurrency amount=charges.taxAmount isoCode=currencyUomId/></fo:block></fo:table-cell>
                                          </fo:table-row>
                                          <fo:table-row>
-                                             <fo:table-cell><fo:block>${uiLabelMap.OrderShippingAndHandling}:</fo:block></fo:table-cell>
+                                             <fo:table-cell><fo:block>${uiLabelMap.OrderTotalShippingAndHandling}:</fo:block></fo:table-cell>
                                              <fo:table-cell><fo:block><@ofbizCurrency amount=charges.shippingAmount isoCode=currencyUomId/></fo:block></fo:table-cell>
                                          </fo:table-row>
                                          <fo:table-row>
