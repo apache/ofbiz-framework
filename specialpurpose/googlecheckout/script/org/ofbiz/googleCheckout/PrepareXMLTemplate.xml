@@ -66,7 +66,7 @@
         <property-to-field resource="googleCheckout" property="basePostUrl" field="basePostUrl"/>
         <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
         <property-to-field resource="googleCheckout" property="request" field="request"/>
-        <set field="urlSpec" value="${basePostUrl}${merchantId}${request}"/>
+        <set field="urlSpec" value="${basePostUrl}${merchantId}"/>
         <create-object class-name="java.net.URL" field="url">
             <field field="urlSpec"/>
         </create-object>
