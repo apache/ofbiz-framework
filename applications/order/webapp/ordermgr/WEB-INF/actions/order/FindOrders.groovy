@@ -90,9 +90,9 @@ if (currentProductStoreId) {
 shipmentMethod = request.getParameter("shipmentMethod");
 if (shipmentMethod) {
     carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
-    ShippingMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
+    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
     if (carrierPartyId && shipmentMethodTypeId) {
-        currentCarrierShipmentMethod = delegator.findByAnd("CarrierShipmentMethod", [carrierPartyId : carrierPartyId, shipmentMethodTypeId : shipmentMethodTypeId]);
+        currentCarrierShipmentMethod = delegator.findByAnd("CarrierShipmentMethod", [partyId : carrierPartyId, shipmentMethodTypeId : shipmentMethodTypeId]);
         context.currentCarrierShipmentMethod = currentCarrierShipmentMethod;
     }
 }
