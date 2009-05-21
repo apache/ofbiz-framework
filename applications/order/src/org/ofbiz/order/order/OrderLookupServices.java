@@ -260,6 +260,55 @@ public class OrderLookupServices {
             }
         }
 
+        String isViewed = (String) context.get("isViewed");
+        if (UtilValidate.isNotEmpty(isViewed)) {
+            paramList.add("isViewed=" + isViewed);
+            conditions.add(makeExpr("isViewed", isViewed));
+        }
+
+        // Shipment Method
+        String shipmentMethod = (String) context.get("shipmentMethod");
+        if (UtilValidate.isNotEmpty(shipmentMethod)) {
+            String carrierPartyId = (String) shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
+            String ShippingMethodTypeId = (String) shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
+            dve.addMemberEntity("OISG", "OrderItemShipGroup");
+            dve.addAlias("OISG", "shipmentMethodTypeId");
+            dve.addAlias("OISG", "carrierPartyId");
+            dve.addViewLink("OH", "OISG", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("orderId", "orderId")));
+
+            if (UtilValidate.isNotEmpty(carrierPartyId )) {
+                paramList.add("carrierPartyId=" + carrierPartyId);
+                conditions.add(makeExpr("carrierPartyId", carrierPartyId));
+            }
+
+            if (UtilValidate.isNotEmpty(ShippingMethodTypeId)) {
+                paramList.add("ShippingMethodTypeId=" + ShippingMethodTypeId);
+                conditions.add(makeExpr("shipmentMethodTypeId", ShippingMethodTypeId));
+            }
+        }
+        // PaymentGatewayResponse
+        String gatewayAvsResult = (String) context.get("gatewayAvsResult");
+        String gatewayScoreResult = (String) context.get("gatewayScoreResult");
+        if (UtilValidate.isNotEmpty(gatewayAvsResult) || UtilValidate.isNotEmpty(gatewayScoreResult)) {
+            dve.addMemberEntity("OPP", "OrderPaymentPreference");
+            dve.addMemberEntity("PGR", "PaymentGatewayResponse");
+            dve.addAlias("OPP", "orderPaymentPreferenceId");
+            dve.addAlias("PGR", "gatewayAvsResult");
+            dve.addAlias("PGR", "gatewayScoreResult");
+            dve.addViewLink("OH", "OPP", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("orderId", "orderId")));
+            dve.addViewLink("OPP", "PGR", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("orderPaymentPreferenceId", "orderPaymentPreferenceId")));
+        }
+
+        if (UtilValidate.isNotEmpty(gatewayAvsResult)) {
+            paramList.add("gatewayAvsResult=" + gatewayAvsResult);
+            conditions.add(EntityCondition.makeCondition("gatewayAvsResult", gatewayAvsResult));
+        }
+
+        if (UtilValidate.isNotEmpty(gatewayScoreResult)) {
+            paramList.add("gatewayScoreResult=" + gatewayScoreResult);
+            conditions.add(EntityCondition.makeCondition("gatewayScoreResult", gatewayScoreResult));
+        }
+
         // add the role data to the view
         if (roleTypeList != null || partyId != null) {
             dve.addMemberEntity("OT", "OrderRole");
