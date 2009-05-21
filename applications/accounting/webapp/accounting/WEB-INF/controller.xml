@@ -451,6 +451,12 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
+    <request-map uri="UpdatePaymentGatewayConfigWorldPay">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGatewayConfigWorldPay"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
+    </request-map>
     <request-map uri="FindPaymentGatewayConfigTypes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindPaymentGatewayConfigTypes"/>

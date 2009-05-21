@@ -2425,15 +2425,15 @@
         <value xml:lang="zh">贝宝</value>
     </property>
     <property key="PaymentMethodType.description.EXT_WORLDPAY">
-        <value xml:lang="de">WorldPay-Konto</value>
-        <value xml:lang="en">WorldPay</value>
-        <value xml:lang="fr">WorldPay</value>
-        <value xml:lang="it">WorldPay</value>
-        <value xml:lang="nl">WorldPay</value>
-        <value xml:lang="ro">WorldPay</value>
-        <value xml:lang="ru">WorldPay</value>
-        <value xml:lang="th">WorldPay</value>
-        <value xml:lang="zh">WorldPay</value>
+        <value xml:lang="de">RBS WorldPay-Konto</value>
+        <value xml:lang="en">RBS WorldPay</value>
+        <value xml:lang="fr">RBS WorldPay</value>
+        <value xml:lang="it">RBS WorldPay</value>
+        <value xml:lang="nl">RBS WorldPay</value>
+        <value xml:lang="ro">RBS WorldPay</value>
+        <value xml:lang="ru">RBS WorldPay</value>
+        <value xml:lang="th">RBS WorldPay</value>
+        <value xml:lang="zh">RBS WorldPay</value>
     </property>
     <property key="PaymentMethodType.description.FIN_ACCOUNT">
         <value xml:lang="en">Financial Account</value>

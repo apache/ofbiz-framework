@@ -254,6 +254,62 @@ under the License.
         </field>
     </form>
     
+    <form name="EditPaymentGatewayConfigWorldPay" type="single" target="UpdatePaymentGatewayConfigWorldPay" default-map-name="paymentGatewayWorldPay" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PaymentGatewayWorldPay" default-field-type="edit"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="redirectUrl"><text size="60" maxlength="60"/></field>
+        <field name="instId" title="${uiLabelMap.AccountingWorldPayInstId}"><text size="10" maxlength="10"/></field>
+        <field name="authMode" title="${uiLabelMap.AccountingWorldPayAuthMode}">
+            <drop-down>
+                <option key="A" description="${uiLabelMap.AccountingWorldPayFullAuth}"/>
+                <option key="E" description="${uiLabelMap.AccountingWorldPayPreAuth}"/>
+            </drop-down>
+        </field>
+        <field name="fixContact" title="${uiLabelMap.AccountingWorldPayFixContact}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="hideContact" title="${uiLabelMap.AccountingWorldPayHideContact}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="hideCurrency" title="${uiLabelMap.AccountingWorldPayHideCurrency}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="langId" title="${uiLabelMap.AccountingWorldPayLangId}">
+            <text size="6" maxlength="6"/>
+        </field>
+        <field name="noLanguageMenu" title="${uiLabelMap.AccountingWorldPayNoLanguageMenu}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="withDelivery" title="${uiLabelMap.AccountingWorldPayWithDelivery}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="testMode" title="${uiLabelMap.AccountingWorldPayTestMode}">
+            <drop-down>
+                <option key="100" description="${uiLabelMap.AccountingWorldPayApprove}"/>
+                <option key="101" description="${uiLabelMap.AccountingWorldPayCancelled}"/>
+                <option key="0" description="${uiLabelMap.AccountingWorldPayLive}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
     <form name="FindPaymentGatewayConfigTypes" type="single" target="FindPaymentGatewayConfigTypes" header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>

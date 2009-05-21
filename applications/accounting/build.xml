@@ -47,7 +47,6 @@ under the License.
         <fileset dir="../product/build/lib" includes="*.jar"/>
         <fileset dir="../marketing/build/lib" includes="*.jar"/>
         <fileset dir="../order/build/lib" includes="*.jar"/>
-        <!-- <fileset dir="lib/worldpay" includes="*.jar"/> -->
         <!-- <fileset dir="lib/cybersource" includes="*.jar"/> -->
         <fileset dir="lib" includes="*.jar"/>
     </path>
@@ -61,7 +60,6 @@ under the License.
             <!-- exclude the payment processor packages; comment this out to not exclude if you have libs -->
             <exclude name="org/ofbiz/accounting/thirdparty/verisign/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/cybersource/**"/>
-            <exclude name="org/ofbiz/accounting/thirdparty/worldpay/**"/>
         </javac15>
     </target>
 

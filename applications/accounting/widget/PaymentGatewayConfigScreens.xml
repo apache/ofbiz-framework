@@ -100,6 +100,9 @@ under the License.
                 <entity-one entity-name="PaymentGatewayClearCommerce" value-field="paymentGatewayClearCommerce">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
+                <entity-one entity-name="PaymentGatewayWorldPay" value-field="paymentGatewayWorldPay">
+                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="GenericPaymentGatewayConfigDecorator">
@@ -217,6 +220,27 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <include-form name="EditPaymentGatewayConfigClearCommerce" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="paymentGatewayWorldPay"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigWorldPay}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditPaymentGatewayConfigWorldPay" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>

@@ -19,306 +19,518 @@
 package org.ofbiz.accounting.thirdparty.worldpay;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.product.catalog.CatalogWorker;
+import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-
-import com.worldpay.core.ArgumentException;
-import com.worldpay.protocols.http.HTTPURL;
-import com.worldpay.protocols.http.URLParameters;
-import com.worldpay.select.PurchaseToken;
-import com.worldpay.select.Select;
-import com.worldpay.select.SelectCurrency;
-import com.worldpay.select.SelectDefs;
-import com.worldpay.select.SelectException;
-import com.worldpay.util.Currency;
-import com.worldpay.util.CurrencyAmount;
+import org.ofbiz.service.ModelService;
 
 /**
- * WorldPay Select Pro Events/Services
+ * WorldPay Select Junior Integration Events/Services
  */
 public class WorldPayEvents {
-
+    
+    public static final String resource = "AccountingUiLabels";
+    public static final String resourceErr = "AccountingErrorUiLabels";
+    public static final String commonResource = "CommonUiLabels";
     public static final String module = WorldPayEvents.class.getName();
-
+    
     public static String worldPayRequest(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
+        Locale locale = UtilHttp.getLocale(request);
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-
-        // we need the websiteId for the correct properties file
-        String webSiteId = CatalogWorker.getWebSiteId(request);
-
         // get the orderId from the request, stored by previous event(s)
         String orderId = (String) request.getAttribute("orderId");
-
-        if (orderId == null) {
-            Debug.logError("Problems getting orderId, was not found in request", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>OrderID not found, please contact customer service.");
-            return "error";
-        }
-
-        // get the order header for total and other information
+        // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot not get OrderHeader from datasource", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting order information, please contact customer service.");
+            Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
             return "error";
         }
-
+        // get the order total
+        String orderTotal = orderHeader.getBigDecimal("grandTotal").toPlainString();
+        // get the product store
+        GenericValue productStore = ProductStoreWorker.getProductStore(request);
+        if (productStore == null) {
+            Debug.logError("ProductStore is null", module);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingMerchantConfiguration", locale));
+            return "error";
+        }
+        // get the payment properties file
+        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_WORLDPAY", null, true);
+        String configString = null;
+        String paymentGatewayConfigId = null;
+        if (paymentConfig != null) {
+            paymentGatewayConfigId = paymentConfig.getString("paymentGatewayConfigId");
+            configString = paymentConfig.getString("paymentPropertiesPath");
+        }
+        if (configString == null) {
+            configString = "payment.properties";
+        }
+        String redirectURL = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl", configString, "payment.worldpay.redirectUrl", "");
+        String instId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "instId", configString, "payment.worldpay.instId", "NONE");
+        String authMode = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "authMode", configString, "payment.worldpay.authMode", "A");
+        String fixContact = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "fixContact", configString, "payment.worldpay.fixContact", "N");
+        String hideContact = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hideContact", configString, "payment.worldpay.hideContact", "N");
+        String hideCurrency = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hideCurrency", configString, "payment.worldpay.hideCurrency", "N");
+        String langId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "langId", configString, "payment.worldpay.langId", "");
+        String noLanguageMenu = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "noLanguageMenu", configString, "payment.worldpay.noLanguageMenu", "N");
+        String withDelivery = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "withDelivery", configString, "payment.worldpay.withDelivery", "N");
+        String testMode = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "testMode", configString, "payment.worldpay.testMode", "100");
         // get the contact address to pass over
         GenericValue contactAddress = null;
+        GenericValue contactAddressShip = null;
+        List<GenericValue> addresses = null;
+        List<GenericValue> shippingAddresses = null;
         try {
-            List addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION"));
-            if (addresses.size() == 0)
-                addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION"));
+            addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION"));
+            shippingAddresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION"));
+            if (addresses.size() == 0) {
+                addresses = shippingAddresses;
+            }
             GenericValue contactMech = EntityUtil.getFirst(addresses);
-            contactAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMech.getString("contactMechId")));
+            contactAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMech.getString("contactMechId")), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order contact information", module);
         }
-
         // get the country geoID
         GenericValue countryGeo = null;
+        String country = "";
         if (contactAddress != null) {
             try {
                 countryGeo = contactAddress.getRelatedOne("CountryGeo");
+                if (countryGeo != null) {
+                    country = countryGeo.getString("geoCode");
+                }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Problems getting country geo entity", module);
             }
         }
-
         // string of customer's name
-        String name = null;
+        String name = "";
         if (contactAddress != null) {
             if (contactAddress.get("attnName") != null && contactAddress.getString("attnName").length() > 0)
                 name = contactAddress.getString("attnName");
             else if (contactAddress.get("toName") != null && contactAddress.getString("toName").length() > 0)
                 name = contactAddress.getString("toName");
         }
-
         // build an address string
-        StringBuilder address = null;
+        StringBuilder address = new StringBuilder();
+        String postalCode = "";
         if (contactAddress != null) {
-            address = new StringBuilder();
             if (contactAddress.get("address1") != null) {
                 address.append(contactAddress.getString("address1").trim());
             }
             if (contactAddress.get("address2") != null) {
-                if (address.length() > 0)
+                if (address.length() > 0) {
                     address.append("&#10;");
+                }
                 address.append(contactAddress.getString("address2").trim());
             }
             if (contactAddress.get("city") != null) {
-                if (address.length() > 0)
+                if (address.length() > 0) {
                     address.append("&#10;");
+                }
                 address.append(contactAddress.getString("city").trim());
             }
             if (contactAddress.get("stateProvinceGeoId") != null) {
-                if (contactAddress.get("city") != null)
+                if (contactAddress.get("city") != null) {
                     address.append(", ");
+                }
                 address.append(contactAddress.getString("stateProvinceGeoId").trim());
             }
+            if (contactAddress.get("postalCode") != null) {
+                postalCode = contactAddress.getString("postalCode");
+            }
         }
-
-        // get the telephone number to pass over
-        String phoneNumber = null;
-        GenericValue phoneContact = null;
-
         // get the email address to pass over
         String emailAddress = null;
         GenericValue emailContact = null;
         try {
-            List emails = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL"));
+            List<GenericValue> emails = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL"));
             GenericValue firstEmail = EntityUtil.getFirst(emails);
-            emailContact = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", firstEmail.getString("contactMechId")));
+            emailContact = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", firstEmail.getString("contactMechId")), false);
             emailAddress = emailContact.getString("infoString");
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order email address", module);
         }
-
-        // get the product store
-        GenericValue productStore = null;
-        try {
-            productStore = orderHeader.getRelatedOne("ProductStore");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get ProductStore from OrderHeader", module);
-
+        // build an shipping address string
+        StringBuilder shipAddress = new StringBuilder();
+        String shipPostalCode = "";
+        String shipName = "";
+        if (shippingAddresses != null) {
+            try {
+                GenericValue contactMechShip = EntityUtil.getFirst(shippingAddresses);
+                contactAddressShip = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMechShip.getString("contactMechId")), false);
+                if (UtilValidate.isNotEmpty(contactAddressShip)) {
+                    if (contactAddressShip.get("attnName") != null && contactAddressShip.getString("attnName").length() > 0) {
+                        shipName = contactAddressShip.getString("attnName");
+                    } else if (contactAddressShip.get("toName") != null && contactAddressShip.getString("toName").length() > 0) {
+                        shipName = contactAddressShip.getString("toName");
+                    }
+                    if (contactAddressShip.get("address1") != null) {
+                        shipAddress.append(contactAddressShip.getString("address1").trim());
+                    }
+                    if (contactAddressShip.get("address2") != null) {
+                        if (shipAddress.length() > 0) {
+                            shipAddress.append("&#10;");
+                        }
+                        shipAddress.append(contactAddressShip.getString("address2").trim());
+                    }
+                    if (contactAddressShip.get("city") != null) {
+                        if (shipAddress.length() > 0) {
+                            shipAddress.append("&#10;");
+                        }
+                        shipAddress.append(contactAddressShip.getString("city").trim());
+                    }
+                    if (contactAddressShip.get("stateProvinceGeoId") != null) {
+                        if (contactAddressShip.get("city") != null) {
+                            shipAddress.append(", ");
+                        }
+                        shipAddress.append(contactAddressShip.getString("stateProvinceGeoId").trim());
+                    }
+                    if (contactAddressShip.get("postalCode") != null) {
+                        shipPostalCode = contactAddressShip.getString("postalCode");
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Problems getting shipping address", module);
+            }
         }
-        if (productStore == null) {
-            Debug.logError("ProductStore is null", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting merchant configuration, please contact customer service.");
-            return "error";
-        }
-
-        // get the payment properties file
-        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_WORLDPAY", null, true);
-        String configString = null;
-        if (paymentConfig != null) {
-            configString = paymentConfig.getString("paymentPropertiesPath");
-        }
-
-        if (configString == null) {
-            configString = "payment.properties";
-        }
-
-        String instId = UtilProperties.getPropertyValue(configString, "payment.worldpay.instId", "NONE");
-        String authMode = UtilProperties.getPropertyValue(configString, "payment.worldpay.authMode", "A");
-        String testMode = UtilProperties.getPropertyValue(configString, "payment.worldpay.testMode", "100");
-        String fixContact = UtilProperties.getPropertyValue(configString, "payment.worldpay.fixContact", "N");
-        String hideContact = UtilProperties.getPropertyValue(configString, "payment.worldpay.hideContact", "N");
-        String confirmTemplate = UtilProperties.getPropertyValue(configString, "payment.worldpay.confirmTemplate", "");
-        String timeout = UtilProperties.getPropertyValue(configString, "payment.worldpay.timeout", "0");
+        // get the company name
         String company = UtilFormatOut.checkEmpty(productStore.getString("companyName"), "");
+        // get the currency
         String defCur = UtilFormatOut.checkEmpty(productStore.getString("defaultCurrencyUomId"), "USD");
-
         // order description
-        String description = "Order #" + orderId;
-        if (company != null && company.length() > 0)
-        description = description + " from " + company;
-
+        String description = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
+                                 (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         // check the instId - very important
         if (instId == null || instId.equals("NONE")) {
             Debug.logError("Worldpay InstId not found, cannot continue", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting merchant configuration, please contact customer service.");
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingInstId", locale));
             return "error";
         }
-
-        int instIdInt = 0;
         try {
-            instIdInt = Integer.parseInt(instId);
+            Integer.parseInt(instId);
         } catch (NumberFormatException nfe) {
             Debug.logError(nfe, "Problem converting instId string to integer", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting merchant configuration, please contact customer service.");
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingInstIdToInteger", locale));
             return "error";
         }
-
         // check the testMode
-        int testModeInt = -1;
         if (testMode != null) {
             try {
-                testModeInt = Integer.parseInt(testMode);
+                Integer.parseInt(testMode);
             } catch (NumberFormatException nfe) {
                 Debug.logWarning(nfe, "Problems getting the testMode value, setting to 0", module);
-                testModeInt = 0;
             }
         }
-
-        // create the purchase link
-        String purchaseURL = null;
-        HTTPURL link = null;
-        URLParameters linkParms = null;
+        // create the redirect string
+        Map<String, Object> parameters = FastMap.newInstance();
+        parameters.put("instId", instId);
+        parameters.put("cartId", orderId);
+        parameters.put("currency", defCur);
+        parameters.put("amount", orderTotal);
+        parameters.put("desc", description);
+        parameters.put("testMode", testMode);
+        parameters.put("authMode", authMode);
+        parameters.put("name", name);
+        parameters.put("address", address.toString());
+        parameters.put("country", country);
+        parameters.put("postcode", postalCode);
+        parameters.put("email", emailAddress);
+        if (UtilValidate.isNotEmpty(shipName)) {
+            parameters.put("M_shipping_name", shipName);
+            if (UtilValidate.isNotEmpty(shipAddress.toString())) {
+                parameters.put("M_shipping_address", shipAddress.toString());
+            }
+            if (UtilValidate.isNotEmpty(shipPostalCode)) {
+                parameters.put("M_shipping_postcode", shipPostalCode);
+            }
+        }
+        if ("Y".equals(fixContact)) {
+            parameters.put("fixContact", "");
+        }
+        if ("Y".equals(hideContact)) {
+            parameters.put("hideContact", "");
+        }
+        if ("Y".equals(hideCurrency)) {
+            parameters.put("hideCurrency", "");
+        }
+        if ("Y".equals(noLanguageMenu)) {
+            parameters.put("noLanguageMenu", "");
+        }
+        if ("Y".equals(withDelivery)) {
+            parameters.put("withDelivery", "");
+        }
+        if (UtilValidate.isNotEmpty(langId)) {
+            parameters.put("langId", langId);
+        }
+        // create the redirect URL
+        String encodedParameters = UtilHttp.urlEncodeArgs(parameters, false);
+        String redirectString = redirectURL + "?" + encodedParameters;
+        // redirect to WorldPay
         try {
-            purchaseURL = Select.getPurchaseURL();
-            link = new HTTPURL(purchaseURL);
-            linkParms = link.getParameters();
-        } catch (SelectException e) {
-            Debug.logError(e, "Problems creating the purchase url", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problem creating link to WorldPay, please contact customer service.");
-            return "error";
-        } catch (ArgumentException e) {
-            Debug.logError(e, "Problems creating HTTPURL link", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problem creating link to WorldPay, please contact customer service.");
-            return "error";
-        }
-
-        // create the currency amount
-        double orderTotal = orderHeader.getDouble("grandTotal").doubleValue();
-        CurrencyAmount currencyAmount = null;
-        try {
-            Currency currency = SelectCurrency.getInstanceByISOCode(defCur);
-            currencyAmount = new CurrencyAmount(orderTotal, currency);
-        } catch (ArgumentException ae) {
-            Debug.logError(ae, "Problems building CurrencyAmount", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Merchant Configuration Error, please contact customer service.");
-            return "error";
-        }
-
-        // create a purchase token
-        PurchaseToken token = null;
-        try {
-            token = new PurchaseToken(instIdInt, currencyAmount, orderId);
-        } catch (SelectException e) {
-            Debug.logError(e, "Cannot create purchase token", module);
-        } catch (ArgumentException e) {
-            Debug.logError(e, "Cannot create purchase token", module);
-        }
-        if (token == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems creating a purchase token, please contact customer service.");
-            return "error";
-        }
-
-        // set the auth/test modes
-        try {
-            token.setAuthorisationMode(authMode);
-        } catch (SelectException e) {
-            Debug.logWarning(e, "Problems setting the authorization mode", module);
-        }
-        token.setTestMode(testModeInt);
-
-        // set the token to the purchase link
-        try {
-            linkParms.setValue(SelectDefs.SEL_purchase, token.produce());
-        } catch (SelectException e) {
-            Debug.logError(e, "Problems producing token", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems producing purchase token, please contact customer service.");
-            return "error";
-        }
-
-        // set the customer data in the link
-        linkParms.setValue(SelectDefs.SEL_desc, description);
-        linkParms.setValue(SelectDefs.SEL_name, name != null ? name : "");
-        linkParms.setValue(SelectDefs.SEL_address, address != null ? address.toString() : "");
-        linkParms.setValue(SelectDefs.SEL_postcode, contactAddress != null ? contactAddress.getString("postalCode") : "");
-        linkParms.setValue(SelectDefs.SEL_country, countryGeo.getString("geoCode"));
-        linkParms.setValue(SelectDefs.SEL_tel, phoneNumber != null ? phoneNumber : "");
-        linkParms.setValue(SelectDefs.SEL_email, emailAddress != null ? emailAddress : "");
-
-        // set some optional data
-        if (fixContact != null && fixContact.toUpperCase().startsWith("Y")) {
-            linkParms.setValue(SelectDefs.SEL_fixContact, "Y");
-        }
-        if (hideContact != null && hideContact.toUpperCase().startsWith("Y")) {
-            linkParms.setValue("hideContact", "Y"); // why is this not in SelectDefs??
-        }
-
-        // now set some send-back parameters
-        linkParms.setValue("M_controlPath", (String)request.getAttribute("_CONTROL_PATH_"));
-        linkParms.setValue("M_userLoginId", userLogin.getString("userLoginId"));
-        linkParms.setValue("M_dispatchName", dispatcher.getName());
-        linkParms.setValue("M_delegatorName", delegator.getDelegatorName());
-        linkParms.setValue("M_webSiteId", webSiteId);
-        linkParms.setValue("M_localLocale", UtilHttp.getLocale(request).toString());
-        linkParms.setValue("M_confirmTemplate", confirmTemplate != null ? confirmTemplate : "");
-
-        // redirect to worldpay
-        try {
-            response.sendRedirect(link.produce());
+            response.sendRedirect(redirectString);
         } catch (IOException e) {
-            Debug.logError(e, "Problems redirecting to Worldpay", module);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>Problems connecting with WorldPay, please contact customer service.");
+            Debug.logError(e, "Problems redirecting to WorldPay", module);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsConnectingWithWorldPay", locale));
             return "error";
         }
-
         return "success";
     }
-
+    
+    /** WorldPay notification */
+    public static String worldPayNotify(HttpServletRequest request, HttpServletResponse response) {
+        Locale locale = UtilHttp.getLocale(request);
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
+        String orderId = request.getParameter("cartId");
+        Set<String> keySet = parametersMap.keySet();
+        Iterator<String> i = keySet.iterator();
+        while (i.hasNext()) {
+            String name = (String) i.next();
+            String value = request.getParameter(name);
+            Debug.logError("### Param: " + name + " => " + value, module);
+        }
+        // get the user
+        if (userLogin == null) {
+            String userLoginId = "system";
+            try {
+                userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Cannot get UserLogin for: " + userLoginId + "; cannot continue", module);
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingAuthenticationUser", locale));
+                return "error";
+            }
+        }
+        // get the order header
+        GenericValue orderHeader = null;
+        if (UtilValidate.isNotEmpty(orderId)) {
+            try {
+                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
+                return "error";
+            }
+        } else {
+            Debug.logError("WorldPay did not callback with a valid orderId!", module);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.noValidOrderIdReturned", locale));
+            return "error";
+        }
+        if (orderHeader == null) {
+            Debug.logError("Cannot get the order header for order: " + orderId, module);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
+            return "error";
+        }
+        // get the transaction status
+        String paymentStatus = request.getParameter("transStatus");
+        // attempt to start a transaction
+        boolean okay = true;
+        boolean beganTransaction = false;
+        try {
+            beganTransaction = TransactionUtil.begin();
+            // authorized
+            if ("Y".equals(paymentStatus)) {
+                okay = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
+            // cancelled
+            } else if ("C".equals(paymentStatus)) {
+                okay = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
+            }
+            if (okay) {
+                // set the payment preference
+                okay = setPaymentPreferences(delegator, dispatcher, userLogin, orderId, request);
+            }
+        } catch (Exception e) {
+            String errMsg = "Error handling WorldPay notification";
+            Debug.logError(e, errMsg, module);
+            try {
+                TransactionUtil.rollback(beganTransaction, errMsg, e);
+            } catch (GenericTransactionException gte2) {
+                Debug.logError(gte2, "Unable to rollback transaction", module);
+            }
+        } finally {
+            if (!okay) {
+                try {
+                    TransactionUtil.rollback(beganTransaction, "Failure in processing WorldPay callback", null);
+                } catch (GenericTransactionException gte) {
+                    Debug.logError(gte, "Unable to rollback transaction", module);
+                }
+            } else {
+                try {
+                    TransactionUtil.commit(beganTransaction);
+                } catch (GenericTransactionException gte) {
+                    Debug.logError(gte, "Unable to commit transaction", module);
+                }
+            }
+        }
+        if (okay) {
+            // attempt to release the offline hold on the order (workflow)
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
+            // call the email confirm service
+            Map<String, String> emailContext = UtilMisc.toMap("orderId", orderId, "userLogin", userLogin);
+            try {
+                dispatcher.runSync("sendOrderConfirmation", emailContext);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problems sending email confirmation", module);
+            }
+        }
+        return "success";
+    }
+    
+    private static boolean setPaymentPreferences(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
+        Debug.logVerbose("Setting payment preferences..", module);
+        List<GenericValue> paymentPrefs = null;
+        try {
+            Map<String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED");
+            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
+            return false;
+        }
+        if (paymentPrefs.size() > 0) {
+            Iterator<GenericValue> i = paymentPrefs.iterator();
+            while (i.hasNext()) {
+                GenericValue pref = (GenericValue) i.next();
+                boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
+                if (!okay) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    private static boolean setPaymentPreference(LocalDispatcher dispatcher, GenericValue userLogin, GenericValue paymentPreference, HttpServletRequest request) {
+        Locale locale = UtilHttp.getLocale(request);
+        String paymentStatus = request.getParameter("transStatus");
+        String paymentAmount = request.getParameter("authAmount");
+        Long paymentDate = new Long(request.getParameter("transTime"));
+        String transactionId = request.getParameter("transId");
+        String gatewayFlag = request.getParameter("rawAuthCode");
+        String avs = request.getParameter("AVS");
+        List<GenericValue> toStore = new LinkedList<GenericValue>();
+        java.sql.Timestamp authDate = null;
+        try {
+            authDate = new java.sql.Timestamp(paymentDate.longValue());
+        } catch (Exception e) {
+            Debug.logError(e, "Cannot create date from long: " + paymentDate, module);
+            authDate = UtilDateTime.nowTimestamp();
+        }
+        paymentPreference.set("maxAmount", new BigDecimal(paymentAmount));
+        if ("Y".equals(paymentStatus)) {
+            paymentPreference.set("statusId", "PAYMENT_RECEIVED");
+        } else if ("C".equals(paymentStatus)) {
+            paymentPreference.set("statusId", "PAYMENT_CANCELLED");
+        } else {
+            paymentPreference.set("statusId", "PAYMENT_NOT_RECEIVED");
+        }
+        toStore.add(paymentPreference);
+        GenericDelegator delegator = paymentPreference.getDelegator();
+        // create the PaymentGatewayResponse
+        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+        GenericValue response = delegator.makeValue("PaymentGatewayResponse");
+        response.set("paymentGatewayResponseId", responseId);
+        response.set("paymentServiceTypeEnumId", "PRDS_PAY_EXTERNAL");
+        response.set("orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
+        response.set("paymentMethodTypeId", paymentPreference.get("paymentMethodTypeId"));
+        response.set("paymentMethodId", paymentPreference.get("paymentMethodId"));
+        // set the auth info
+        response.set("amount", new BigDecimal(paymentAmount));
+        response.set("referenceNum", transactionId);
+        response.set("gatewayCode", paymentStatus);
+        response.set("gatewayFlag", gatewayFlag);
+        response.set("transactionDate", authDate);
+        response.set("gatewayAvsResult", avs);
+        response.set("gatewayCvResult", avs.substring(0, 1));
+        
+        toStore.add(response);
+        try {
+            delegator.storeAll(toStore);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot set payment preference/payment info", module);
+            return false;
+        }
+        // create a payment record too
+        Map<String, Object> results = null;
+        try {
+            String comment = UtilProperties.getMessage(resource, "AccountingPaymentReceiveViaWorldPay", locale);
+            results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
+                    "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "comments", comment));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
+            return false;
+        }
+        if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+            Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
+            request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));
+            return false;
+        }
+        return true;
+    }
+    
+    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+                                                       String resource, String parameterName) {
+        String returnValue = "";
+        if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
+            try {
+                GenericValue worldPay = delegator.findOne("PaymentGatewayWorldPay", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                if (UtilValidate.isNotEmpty(worldPay)) {
+                    Object worldPayField = worldPay.get(paymentGatewayConfigParameterName);
+                    if (worldPayField != null) {
+                        returnValue = worldPayField.toString().trim();
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        } else {
+            String value = UtilProperties.getPropertyValue(resource, parameterName);
+            if (value != null) {
+                returnValue = value.trim();
+            }
+        }
+        return returnValue;
+    }
+    
+    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+                                                       String resource, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
+        if (UtilValidate.isEmpty(returnValue)) {
+            returnValue = defaultValue;
+        }
+        return returnValue;
+    }
 }
