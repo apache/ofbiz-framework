@@ -441,7 +441,7 @@
                     <if-compare field="projectMgrExists" operator="equals" value="true"/> 
                 </and>
             </condition>
-            <link target="/projectmgr/control/newrequest" url-mode="inter-app">
+            <link target="newrequest">
                 <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
                 <parameter param-name="my" from-field="parameters.my"/>
             </link>

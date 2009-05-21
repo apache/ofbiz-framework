@@ -483,6 +483,10 @@
         <response name="success" type="view" value="Timesheet"/>
         <response name="error" type="view" value="Timesheet"/>
     </request-map>
+    <request-map uri="requestlist">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="RequestList" save-home-view="true"/>
+    </request-map>
     <request-map uri="EditTaskFromRequest">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskFromRequest"/>
