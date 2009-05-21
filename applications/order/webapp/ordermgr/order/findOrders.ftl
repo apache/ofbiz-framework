@@ -94,6 +94,8 @@ function runAction() {
   <input type='hidden' name='filterPartiallyReceivedPOs' value='${requestParameters.filterPartiallyReceivedPOs?if_exists}'/>
   <input type='hidden' name='filterPOsOpenPastTheirETA' value='${requestParameters.filterPOsOpenPastTheirETA?if_exists}'/>
   <input type='hidden' name='filterPOsWithRejectedItems' value='${requestParameters.filterPOsWithRejectedItems?if_exists}'/>
+  <input type='hidden' name='countryGeoId' value='${requestParameters.countryGeoId?if_exists}'/>
+  <input type='hidden' name='includeCountry' value='${requestParameters.includeCountry?if_exists}'/>
 </form>
 </#if>
 <form method="post" name="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
@@ -379,13 +381,24 @@ function runAction() {
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderShipToCountry}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                    <select name="country">
-                      ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-                    </select>
-                    <select name="includeCountry">
-                      <option value="Y">${uiLabelMap.OrderOnlyInclude}</option>
-                      <option value="N">${uiLabelMap.OrderDoNotInclude}</option>
-                    </select>
+                  <select name="countryGeoId">
+                    <#if requestParameters.countryGeoId?has_content>
+                        <#assign countryGeoId = requestParameters.countryGeoId>
+                        <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
+                        <option value="${countryGeoId}">${geo.geoName?if_exists}</option>
+                        <option value="${countryGeoId}">---</option>
+                    </#if>
+                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                  </select>
+                  <select name="includeCountry">
+                    <#if requestParameters.includeCountry?has_content>
+                       <#assign includeCountry = requestParameters.includeCountry>
+                       <option value="${includeCountry}"><#if "Y" == includeCountry>${uiLabelMap.OrderOnlyInclude}<#elseif "N" == includeCountry>${uiLabelMap.OrderDoNotInclude}</#if></option>
+                       <option value="${includeCountry}">---</option>
+                    </#if>  
+                    <option value="Y">${uiLabelMap.OrderOnlyInclude}</option>
+                    <option value="N">${uiLabelMap.OrderDoNotInclude}</option>
+                  </select>
                 </td>
               </tr>
               <tr><td colspan="3"><hr/></td></tr>
