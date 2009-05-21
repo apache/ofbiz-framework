@@ -109,7 +109,7 @@ under the License.
 
         <!-- set parameter of userLogin to userLoginContext Map -->
         <set field="userLoginContext.userLoginId" from-field="parameters.USERNAME"/>
-
+        
         <now-timestamp field="nowStamp"/>
         <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
         <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
@@ -172,20 +172,20 @@ under the License.
                 <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
                 <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
                 <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
-                <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
-
+                <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>    
+       
                 <!-- Create Customer Request to show new registration-->
                 <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
                 <set field="custRequest.fromPartyId" from-field="partyId"/>
                 <set field="custRequest.custRequestName" value="New user account created by registration"/>
                 <set field="custRequest.productStoreId" from-field="webSite.productStoreId"/>
+                <set field="custRequest.statusId" value="CRQ_SUBMITTED"/>
                 <call-service service-name="createCustRequest" in-map-name="custRequest">
                     <result-to-field result-name="custRequestId"/>
                 </call-service>
                 <set field="custRequestItem.custRequestId" from-field="custRequestId"/>
                 <set field="custRequestItem.story" from-field="parameters.whyWouldYouLikeToRegister"/>
-                <call-service service-name="createCustRequestItem" in-map-name="custRequestItem"/>
-
+                <call-service service-name="createCustRequestItem" in-map-name="custRequestItem"/>    
                 <!-- set field to request -->
                 <field-to-request field="partyId" request-name="partyId"/>
                 <field-to-request field="emailPurposeContext.contactMechId" request-name="contactMechId"/>

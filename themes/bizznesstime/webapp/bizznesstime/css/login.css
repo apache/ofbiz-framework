@@ -85,10 +85,10 @@ a {
 	background:#E7EFF5;
 	text-decoration: none; 
 	color:#699BC9;
-	height:22px;
+	height:18px;
 	display:block;
 	line-height:10px;
-	padding:15px 0 0 10px;
+	padding:5px 0 0px 0;
 	font-size:11px;
 }
 a:hover {
@@ -102,7 +102,10 @@ Tables
 ***********************************************/
 table {border-collapse: collapse; border-spacing: 0; margin: 0; width:100%}
 caption {text-align: left;}
-th, td {padding: .25em .5em;}
+th, td {padding: .10em .5em;}
+td #RegisterPerson_salutation,#RegisterPerson_middleName {
+    margin-right:12%;
+}
 tbody td, tbody th {}
 tfoot {font-style: italic;}
 
@@ -137,9 +140,16 @@ form.horizontal .field label {display: inline; float: left; width: 140px; margin
 input[type="text"],input[type="password"] {
 	border: #ddd solid 2px;
 	font-size: 1.1em;
-	margin:5px 5px 5px 5px;
 	padding:2px 4px;
 	width:250px;
+}
+
+input[type="password"] {
+    border: #ddd solid 2px;
+	font-size: 1.1em;
+	padding:2px 4px;
+	width:250px;
+	
 }
 
 input[type="submit"],input[type="button"],input[type="reset"] {
@@ -161,11 +171,12 @@ input[type="submit"]:hover {
 
 .label {
 	font-weight:bold;
-	margin:0 4px 0 0;
+	margin:0 0 0 0;
 	text-align:right;
 	white-space:nowrap;
-	width:1%;
+	width:40%;
 }
+
 
 input:focus,textarea:focus { border: 2px solid #6E2723; }
 input.focused, textarea.focused { border: 2px solid #6E2723; }
@@ -179,12 +190,11 @@ body > #wrap {height: auto; min-height: 100%;}
 
 body {
 	text-align:center;
-	overflow:hidden;
+
 }
 
 #wrap {
 	margin: 0;
-	
 }
 
 #header {
@@ -195,21 +205,13 @@ body {
 	display:none;
 }
 
-.contentarea {
-	margin-left: -200px;
-	position: absolute;
-	top: 15%;
-	left: 50%;
-	width: 400px;
-	height: 300px;
-	overflow: visible;
-}
+
 
 #column-container {
-	width:400px;
+	width:700px;
 	margin:0 auto;
-	padding:100px 0 0 0;
-	background:url(../images/login-logo.gif) center  20px no-repeat;
+	padding:70px 0 0 0;
+	background:url(../images/login-logo.gif) center  5px no-repeat;
 }
 
 #content-main-section {
@@ -226,7 +228,8 @@ body {
 }
 
 .screenlet-body {
-	padding:10px;
+	text-align:center;
+	padding:2px;
 }
 
 #footer {
@@ -336,7 +339,7 @@ html[xmlns] .clearfix { display: block; }
     border: solid 5px #ddd;
     padding: 5px;
 }
-span#modal-close-btn{
+span #modal-close-btn{
     color: red;
     position: absolute;
     right: 10px;
