@@ -449,20 +449,6 @@ under the License.
         <response name="success" type="view" value="UpdateLabel"/>
     </request-map>
 
-    <request-map uri="UpdateLabelKey">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateLabelKey"/>
-        <response name="success" type="view" value="SearchLabels"/>
-        <response name="error" type="view" value="UpdateLabel"/>
-    </request-map>
-
-    <request-map uri="UpdateAndSaveLabelKey">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateAndSaveLabelKey"/>
-        <response name="success" type="view" value="SearchLabels"/>
-        <response name="error" type="view" value="UpdateLabel"/>
-    </request-map>
-
     <request-map uri="ViewReferences">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewReferences"/>

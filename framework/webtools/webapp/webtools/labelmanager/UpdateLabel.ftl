@@ -18,19 +18,19 @@ under the License.
 -->
 <script language="JavaScript" type="text/javascript">
     function updateAndSaveLabel() {
-        document.UpdateLabelForm.action="<@ofbizUrl>UpdateAndSaveLabelKey</@ofbizUrl>";
+        document.UpdateLabelForm.action="<@ofbizUrl>SaveLabelsToXmlFile</@ofbizUrl>";
         document.UpdateLabelForm.submit();
     }
 </script>
 <div class="screenlet-body">
-    <form method="post" action="<@ofbizUrl>UpdateLabelKey</@ofbizUrl>" name="UpdateLabelForm">
+    <form method="post" action="<@ofbizUrl>SaveLabelsToXmlFile</@ofbizUrl>" name="UpdateLabelForm">
         <table class="basic-table" cellspacing="3">
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
             <tr>
-                <td align="right"><b>${uiLabelMap.WebtoolsLabelManagerKey}</b></td>
-                <td align="left">
+                <td class="label">${uiLabelMap.WebtoolsLabelManagerKey}</td>
+                <td>
                     <#if parameters.sourceKey?exists>
                         ${parameters.sourceKey}
                         <input type="hidden" name="key" value="${parameters.sourceKey}">
@@ -42,21 +42,21 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td align="right"><b>${uiLabelMap.WebtoolsLabelManagerKeyComment}</b></td>
-                <td align="left">
+                <td class="label">${uiLabelMap.WebtoolsLabelManagerKeyComment}</td>
+                <td>
                     <input type="text" name="keyComment" size="70" value="${parameters.sourceKeyComment?if_exists}">
                 </td>
             </tr>
             <tr>
-                <td align="right"><b>${uiLabelMap.WebtoolsLabelManagerFileName}</b></td>
-                <td align="left">
+                <td class="label">${uiLabelMap.WebtoolsLabelManagerFileName}</td>
+                <td>
                     <#if parameters.sourceFileName?exists>
                         ${parameters.sourceFileName}
                         <input type="hidden" name="fileName" value="${parameters.sourceFileName}">
                     <#else>
                         <select name="fileName">
-                            <#assign fileNames = fileNamesFound.keySet()>
-                            <#list fileNames as fileName>
+                            <#list filesFound as fileInfo>
+                              <#assign fileName = fileInfo.file.getName()/>
                               <option <#if parameters.fileName?exists && parameters.fileName == fileName>selected="selected"</#if> value="${fileName}">${fileName}</option>
                             </#list>
                         </select>
@@ -67,9 +67,8 @@ under the License.
                 <td colspan="2" align="center">
                     <input type="submit" value="${uiLabelMap.CommonBack}"/>
                     <#if parameters.sourceKey?exists>
-                        <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm"/>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
-                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
+                        <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     <#else>
                         <input type="submit" value="${uiLabelMap.CommonAdd}" name="confirm"/>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
@@ -99,13 +98,13 @@ under the License.
                             <#if "ar.iw"?contains(langAttr?substring(0, 2))>
                                 <#assign langDir = "rtl">
                             </#if>
-                            <td align="right" lang="${langAttr}" dir="${langDir}">
-                                <b>${locale.getDisplayName(locale)}</b>
+                            <td lang="${langAttr}" dir="${langDir}" class="label">
+                                ${locale.getDisplayName(locale)}
                             </td>
                         <#else>
-                            <td align="right"><b>${localeFound}</b></td>
+                            <td class="label">${localeFound}</td>
                         </#if>
-                        <td align="left">
+                        <td>
                             <input type="hidden" name="localeNames" value="${localeFound}">
                             <input type="text" name="localeValues" size="70" value="${labelValue?if_exists}">
                             <input type="text" name="localeComments" size="70" value="${labelComment?if_exists}">
@@ -117,9 +116,8 @@ under the License.
                 <td colspan="2" align="center">
                     <input type="submit" value="${uiLabelMap.CommonBack}"/>
                     <#if parameters.sourceKey?exists>
-                        <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm"/>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
-                        <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
+                        <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     <#else>
                         <input type="submit" value="${uiLabelMap.CommonAdd}" name="confirm"/>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerUpdateAndSave}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>

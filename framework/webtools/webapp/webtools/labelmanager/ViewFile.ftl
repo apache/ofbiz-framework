@@ -19,18 +19,18 @@ under the License.
 <div class="screenlet-body">
     <table class="basic-table" cellspacing="3">
         <tr>
-            <td colspan="2"><b>${uiLabelMap.WebtoolsLabelManagerKey}</b> ${parameters.sourceKey?if_exists}</td>
+            <td class="label">${uiLabelMap.WebtoolsLabelManagerKey}</td>
+            <td>${parameters.sourceKey?if_exists}</td>
         </tr>
         <tr>
-            <td colspan="2"><b>${uiLabelMap.WebtoolsLabelManagerFileName}</b> ${parameters.fileName?if_exists}</td>
+            <td class="label">${uiLabelMap.WebtoolsLabelManagerFileName}</td>
+            <td>${parameters.fileName?if_exists}</td>
         </tr>
         <tr>
             <td colspan="2">&nbsp;</td>
         </tr>
-        <#list rows as row>
-        <tr>
-            <td colspan="2">${row?if_exists}</td>
-        </tr>
-        </#list>
     </table>
+    <textarea rows="${rows}}" cols="150" disabled="disabled">
+${fileString}
+    </textarea>
 </div>

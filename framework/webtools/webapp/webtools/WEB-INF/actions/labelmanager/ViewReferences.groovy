@@ -22,7 +22,7 @@ import org.ofbiz.webtools.labelmanager.*;
 
 LabelManagerFactory factory = LabelManagerFactory.getInstance();
 context.factory = factory;
-factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.labelKey, parameters.labelLocaleName)
+factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.sourceKey, parameters.labelLocaleName)
 context.labels = factory.getLabels();
 context.labelsList = factory.getLabelsList();
 context.localesFound = factory.getLocalesFound();
@@ -31,9 +31,7 @@ context.componentNamesFound = factory.getComponentNamesFound();
 context.duplicatedLocalesLabels = factory.getDuplicatedLocalesLabels();
 context.duplicatedLocalesLabelsList = factory.getDuplicatedLocalesLabelsList();
 context.keySeparator = factory.keySeparator;
-if ("Y".equals(parameters.onlyNotUsedLabels)) {
-    LabelReferences refsObject = new LabelReferences(delegator, factory);
-    Map references = refsObject.getLabelReferences();
-    context.references = references;
-    context.referencesList = references.keySet();
-}
+LabelReferences refsObject = new LabelReferences(delegator, factory);
+Map references = refsObject.getLabelReferences();
+context.references = references;
+context.referencesList = references.keySet();

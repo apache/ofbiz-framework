@@ -16,14 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet-body">
-    <form method="post" action="<@ofbizUrl></@ofbizUrl>" name="ViewReferencesForm">
-        <table class="basic-table" cellspacing="3">
+<h1>${uiLabelMap.WebtoolsLabelManagerViewReferences}</h1>
+        <table class="basic-table" cellspacing="0">
             <tr>
-                <td colspan="2"><b>${uiLabelMap.WebtoolsLabelManagerKey}</b> ${parameters.sourceKey?if_exists}</td>
+                <td class="label">${uiLabelMap.WebtoolsLabelManagerKey}</td>
+                <td colspan="2">${parameters.sourceKey?if_exists}</td>
             </tr>
             <tr>
-                <td colspan="2">&nbsp;</td>
+                <td colspan="3">&nbsp;</td>
             </tr>
             <tr class="header-row">
                 <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>
@@ -33,15 +33,17 @@ under the License.
             <#if parameters.sourceKey?exists && parameters.sourceKey?has_content>
               <#assign rowNum = "2">
               <#assign rowNumber = 1>
+              <#assign totalRefs = 0/>
               <#assign reference = references.get(parameters.sourceKey)?if_exists>
               <#if reference?exists &&  reference?has_content>
                 <#assign entries = reference.entrySet()>
                 <#list entries as entry>
-                <tr>
+                  <tr <#if rowNum == "1">class="alternate-row"</#if>>
                     <td>${rowNumber}</td>
                     <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}&sourceKey=${parameters.sourceKey?if_exists}</@ofbizUrl>">${entry.getKey()}</a></td>
                     <td>${entry.getValue()}</td>
-                </tr>
+                  </tr>
+                  <#assign totalRefs = totalRefs + entry.getValue()/>
                 <#if rowNum == "2">
                   <#assign rowNum = "1">
                 <#else>
@@ -49,8 +51,11 @@ under the License.
                 </#if>
                 <#assign rowNumber = rowNumber + 1>
                 </#list>
+                  <tr <#if rowNum == "1">class="alternate-row"</#if>>
+                    <td>&nbsp;</td>
+                    <td><b>${uiLabelMap.CommonTotal}</b></td>
+                    <td>${totalRefs}</td>
+                  </tr>
               </#if>
             </#if>
         </table>
-    </form>
-</div>
