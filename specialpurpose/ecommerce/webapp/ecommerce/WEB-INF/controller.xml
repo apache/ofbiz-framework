@@ -756,6 +756,12 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="checkoutreview"/>
     </request-map>
+    <request-map uri="worldPayNotify">
+        <security https="false"/>
+        <event type="java" path="org.ofbiz.accounting.thirdparty.worldpay.WorldPayEvents" invoke="worldPayNotify"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="checkoutreview"/>
+    </request-map>
 
     <request-map uri="callPayPal">
         <security https="true" direct-request="false"/>

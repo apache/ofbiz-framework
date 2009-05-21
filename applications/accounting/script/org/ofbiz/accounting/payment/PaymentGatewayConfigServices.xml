@@ -56,6 +56,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
+    <simple-method method-name="updatePaymentGatewayConfigWorldPay" short-description="Update Payment Gateway Config RBS WorldPay">
+        <entity-one entity-name="PaymentGatewayWorldPay" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
     <simple-method method-name="updatePaymentGatewayConfigType" short-description="Update Payment Gateway Config Type">
         <entity-one entity-name="PaymentGatewayConfigType" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

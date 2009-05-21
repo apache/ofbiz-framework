@@ -6065,6 +6065,10 @@
         <value xml:lang="nl">Betaling via PayPal</value>
         <value xml:lang="th">Payment receive via PayPal</value>
     </property>
+    <property key="AccountingPaymentReceiveViaWorldPay">
+        <value xml:lang="en">Payment receive via WorldPay</value>
+        <value xml:lang="it">Pagamento ricevuto da WorldPay</value>
+    </property>
     <property key="AccountingPaymentRecordNotFound">
         <value xml:lang="en">Payment [${paymentId}] record not found....</value>
         <value xml:lang="es">Pago [${paymentId}] registro no encontrado....</value>
@@ -7527,6 +7531,62 @@
         <value xml:lang="ru">Кредитная карта: Visa/Mastercard/Amex/Discover</value>
         <value xml:lang="th">บัตรเครดิต: วีซ่า/มาสเตอร์การ์ด/Amex/ค้นหา</value>
         <value xml:lang="zh">信用卡：Visa/Mastercard/Amex/Discover</value>
+    </property>
+    <property key="AccountingWorldPayApprove">
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="it">Approva</value>
+    </property>
+    <property key="AccountingWorldPayAuthMode">
+        <value xml:lang="en">Authorization Mode</value>
+        <value xml:lang="it">Modalità autorizzazione</value>
+    </property>
+    <property key="AccountingWorldPayCancelled">
+        <value xml:lang="en">Cancelled</value>
+        <value xml:lang="it">Cancella</value>
+    </property>
+    <property key="AccountingWorldPayFixContact">
+        <value xml:lang="en">Contact details non-editable</value>
+        <value xml:lang="it">Dettagli contatto non-editabili</value>
+    </property>
+    <property key="AccountingWorldPayFullAuth">
+        <value xml:lang="en">Full-authorize</value>
+        <value xml:lang="it">Autorizzazione completa</value>
+    </property>
+    <property key="AccountingWorldPayInstId">
+        <value xml:lang="en">WorldPay instance Id</value>
+        <value xml:lang="it">Id Istanza WorldPay</value>
+    </property>
+    <property key="AccountingWorldPayHideContact">
+        <value xml:lang="en">Contact details to be hidden</value>
+        <value xml:lang="it">Dettagli contatto nascosti</value>
+    </property>
+    <property key="AccountingWorldPayHideCurrency">
+        <value xml:lang="en">Currency drop-down to be hidden</value>
+        <value xml:lang="it">Drop-down valuta nascosto</value>
+    </property>
+    <property key="AccountingWorldPayLangId">
+        <value xml:lang="en">Shopper language Id</value>
+        <value xml:lang="it">Id Lingua negozio</value>
+    </property>
+    <property key="AccountingWorldPayLive">
+        <value xml:lang="en">Live</value>
+        <value xml:lang="it">Produzione</value>
+    </property>
+    <property key="AccountingWorldPayNoLanguageMenu">
+        <value xml:lang="en">Suppress Language Menu</value>
+        <value xml:lang="it">Elimina menù lingua</value>
+    </property>
+    <property key="AccountingWorldPayPreAuth">
+        <value xml:lang="en">Pre-Auth</value>
+        <value xml:lang="it">Pre-Autorizzazione</value>
+    </property>
+    <property key="AccountingWorldPayTestMode">
+        <value xml:lang="en">Test Mode</value>
+        <value xml:lang="it">Modalità di test</value>
+    </property>
+    <property key="AccountingWorldPayWithDelivery">
+        <value xml:lang="en">Delivery Address Editable</value>
+        <value xml:lang="it">Indirizzo di spedizione editabile</value>
     </property>
     <property key="AcctgAssignGlAccount">
         <value xml:lang="ar">تعيين الحساب المحاسبي</value>
@@ -11024,6 +11084,10 @@
     <property key="PageTitleUpdatePaymentGatewayConfigPayPal">
         <value xml:lang="en">Update Payment Gateway Config PayPal</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento PayPal</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigWorldPay">
+        <value xml:lang="en">Update Payment Gateway Config RBS WorldPay</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento RBS WorldPay</value>
     </property>
     <property key="PageTitleViewAccountingTransaction">
         <value xml:lang="en">View Accounting Transaction</value>

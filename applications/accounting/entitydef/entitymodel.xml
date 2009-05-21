@@ -3105,6 +3105,25 @@ under the License.
         <key-map field-name="paymentGatewayConfigId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayWorldPay"
+            package-name="org.ofbiz.accounting.payment"
+            title="RBS WorldPay Payment Gateway Config">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="redirectUrl" type="value"><description>Redirect URL</description></field>
+      <field name="instId" type="value" encrypt="true"><description>Worldpay instance Id</description></field>
+      <field name="authMode" type="indicator"><description>Authorization Mode (A: Full-Auth / E: Pre-Auth)</description></field>
+      <field name="fixContact" type="indicator"><description>Will displace contact info on WorldPay in non-editable format</description></field>
+      <field name="hideContact" type="indicator"><description>Will hide the contact info completely</description></field>
+      <field name="hideCurrency" type="indicator"><description>This causes the currency drop down to be no hidden, so fixing the currency that the shopper must value purchase in</description></field>
+      <field name="langId" type="short-varchar"><description>The shopper's language choice, as a 2-character ISO 639 code, with optional regionalisation using 2-character country code separated by hyphen</description></field>
+      <field name="noLanguageMenu" type="indicator"><description>This suppresses the display of the language menu if noLanguageMenu no you have a choice of languages enabled for your value installation</description></field>
+      <field name="withDelivery" type="indicator"><description>Displays input fields for delivery address and withDelivery no mandate that they be filled in</description></field>
+      <field name="testMode" type="numeric"><description>Test Mode (100: approve / 101: cancelled / 0: Live Mode (no test)</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGWP_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
     <entity entity-name="PaymentGatewayRespMsg"
             package-name="org.ofbiz.accounting.payment"
             title="Payment Gateway Response Message">
