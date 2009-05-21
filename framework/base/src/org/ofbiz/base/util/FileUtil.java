@@ -214,6 +214,9 @@ public class FileUtil {
     public static void searchFiles(List<File> fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
         // Get filtered files in the current path
         File[] files = path.listFiles(filter);
+        if (files == null) {
+            return;
+        }
 
         // Process each filtered entry
         for (int i = 0; i < files.length; i++) {
@@ -299,6 +302,9 @@ public class FileUtil {
             }
 
             if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
+                if (stringsToFindInFile.size() == 0) {
+                    return true;
+                }
                 StringBuffer xmlFileBuffer = null;
                 try {
                     xmlFileBuffer = FileUtil.readTextFile(file, true);
