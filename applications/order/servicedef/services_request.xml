@@ -168,10 +168,10 @@ under the License.
         <description>Create a Customer request from a commEvent(email)</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="custRequestId" type="String" mode="INOUT"/>
+        <attribute name="custRequestId" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
         <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
-        <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
         <override name="content" allow-html="safe"/>
         <override name="custRequestName" allow-html="safe"/>
     </service>
