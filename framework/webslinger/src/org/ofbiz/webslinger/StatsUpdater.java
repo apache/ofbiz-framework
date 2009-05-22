@@ -32,8 +32,8 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 
-import org.webslinger.lang.ConcurrentCache;
-import org.webslinger.lang.ExecutionPool;
+import org.webslinger.cache.ConcurrentCache;
+import org.webslinger.concurrent.ExecutionPool;
 
 public class StatsUpdater {
     private static final Updater UPDATER = new Updater();
