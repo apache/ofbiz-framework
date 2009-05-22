@@ -1293,4 +1293,30 @@ under the License.
         </else>
         </if-empty>
     </simple-method>
+
+    <simple-method method-name="checkStockAvailability" short-description="Schedule service that check stock availability hourly. If a product is out of stock then it sets flag isOutOfStock on Product entity to Y else it sets it to N" >
+        <entity-condition entity-name="Product" list="products" use-cache="true">
+            <use-iterator/>
+        </entity-condition>
+        <iterate list="products" entry="product">
+            <set field="serviceInMap.productId" from-field="product.productId"/>
+            <call-service service-name="getProductInventoryAvailable" in-map-name="serviceInMap">
+                <result-to-field result-name="availableToPromiseTotal"/>
+            </call-service>
+            <if-compare field="availableToPromiseTotal" operator="less-equals" value="0" type="BigDecimal">
+                <set field="product.isOutOfStock" value="Y"/>
+            <else>
+                <set field="product.isOutOfStock" value="N"/>
+            </else>
+            </if-compare>
+            <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
+            <set-service-fields service-name="updateProduct" map="product" to-map="updateProductCtx"/>
+            <set-service-fields service-name="updateProduct" map="userLogin" to-map="updateProductCtx"/>            
+            <call-service service-name="updateProduct" in-map-name="updateProductCtx"/>
+            <clear-field field="product"/>
+            <clear-field field="updateProductCtx"/>
+        </iterate>
+    </simple-method>
 </simple-methods>
