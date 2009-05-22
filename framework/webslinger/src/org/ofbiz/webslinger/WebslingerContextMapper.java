@@ -41,8 +41,10 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceDispatcher;
+import org.ofbiz.service.DispatchContext;
+
 import org.webslinger.AbstractMappingWebslingerServletContextFactory;
 import org.webslinger.WebslingerServletContext;
 import org.webslinger.collections.CollectionUtil;
@@ -100,25 +102,32 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         OfbizLayout ofbizLayout = (OfbizLayout) layout;
         GenericDelegator delegator = GenericDelegator.getGenericDelegator(ofbizLayout.delegatorName);
         context.setAttribute("delegator", delegator);
-        context.setAttribute("dispatcher", createLocalDispatcher(context, layout.getTarget(), delegator));
+        context.setAttribute("dispatcher", new WebslingerGenericDispatcher(context, layout.getTarget(), delegator, globalReaderURLs));
         context.setAttribute("authz", AuthorizationFactory.getInstance(delegator));
         context.setAttribute("security", SecurityFactory.getInstance(delegator));
     }
 
-    protected LocalDispatcher createLocalDispatcher(WebslingerServletContext context, String name, GenericDelegator delegator) throws IOException {
-        ArrayList<URL> readerURLs = new ArrayList<URL>(globalReaderURLs);
-        String readerFiles = context.getInitParameter("serviceReaderUrls");
-        if (readerFiles != null) {
-            for (String reader: CollectionUtil.split(readerFiles, ";")) {
-                URL url =  context.getResource(reader);
-                if (url != null) readerURLs.add(url);
+    protected static final class WebslingerGenericDispatcher extends GenericDispatcher {
+        protected WebslingerGenericDispatcher(WebslingerServletContext context, String name, GenericDelegator delegator, List<URL> globalReaderURLs) throws IOException {
+            ArrayList<URL> readerURLs = new ArrayList<URL>(globalReaderURLs);
+            String readerFiles = context.getInitParameter("serviceReaderUrls");
+            if (readerFiles != null) {
+                for (String reader: CollectionUtil.split(readerFiles, ";")) {
+                    URL url =  context.getResource(reader);
+                    if (url != null) readerURLs.add(url);
+                }
             }
-        }
-        System.err.println(readerURLs);
-        try {
-            return GenericDispatcher.newInstance(name, delegator, readerURLs, true, true, true);
-        } catch (GenericServiceException e) {
-            throw (IOException) new IOException(e.getMessage()).initCause(e);
+            System.err.println(readerURLs);
+            this.dispatcher = new ServiceDispatcher(delegator, true, true, true) {
+            };
+            ClassLoader loader = null;
+            try {
+                loader = Thread.currentThread().getContextClassLoader();
+            } catch (SecurityException e) {
+                loader = WebslingerContextMapper.class.getClassLoader();
+            }
+            DispatchContext dc = new DispatchContext(name, readerURLs, loader, null);
+            init(name, delegator, dc);
         }
     }
 
