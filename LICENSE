@@ -102,7 +102,7 @@ ofbiz/trunk/framework/webslinger/lib/webslinger-20090312-2018a822aa51.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-catalina-20090312-2018a822aa51.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-ext-20090312-2018a822aa51.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-launcher-20090312-2018a822aa51.jar
-ofbiz/trunk/applications/content/lib/lucene-2.2.0.jar
+ofbiz/trunk/applications/content/lib/lucene-core-2.4.1.jar
 ofbiz/trunk/applications/content/lib/poi-3.2-FINAL-20081019.jar
 ==========================================================================
                                  Apache License
