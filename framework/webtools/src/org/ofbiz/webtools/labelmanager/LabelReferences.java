@@ -106,10 +106,12 @@ public class LabelReferences {
             String inFile = FileUtil.readString("UTF-8", file);
             if (inFile.contains("</forms>")) {
                 getLabelsFromFormWidgets(inFile, file);
+                findLabelKeyInElement(inFile, file.getPath(), "set");
                 continue;
             }
             if (inFile.contains("</screens>") || inFile.contains("</menus>") || inFile.contains("</trees>")) {
                 findUiLabelMapInFile(inFile, file.getPath());
+                findLabelKeyInElement(inFile, file.getPath(), "set");
                 continue;
             }
             
@@ -234,6 +236,7 @@ public class LabelReferences {
             for (File file : simpleMethodsFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
                 findUiLabelMapInFile(inFile, file.getPath());
+                findLabelKeyInElement(inFile, file.getPath(), "set");
                 findLabelKeyInElement(inFile, file.getPath(), "fail-property");
             }
         }
