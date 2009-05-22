@@ -192,7 +192,7 @@ under the License.
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
-                        <a class="buttontext" id="newShippingAddress" href="javascript:void(0);">${uiLabelMap.OrderAddShippingAddress}</a>
+                        <a class="buttontext" id="newShippingAddress" href="javascript:void(0);">${uiLabelMap.OrderNewShippingAddress}</a>
                     </td>
                 </tr>
                 </#if>
