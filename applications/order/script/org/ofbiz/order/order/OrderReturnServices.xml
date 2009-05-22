@@ -1070,7 +1070,7 @@ under the License.
             <!-- check whether this product is associated to any category, if not just skip -->
             <if-not-empty field="productCategoryMembers">
                 <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
-                <!-- check if this product is associated to any active category, if not found then activate the most recent expired category -->
+                <!-- check if this product is associated to any active category, if not found then activate the most recent inactive category -->
                 <if-empty field="pcms">
                     <first-from-list list="productCategoryMembers" entry="pcm"/>
                     <clear-field field="pcm.thruDate"/>
@@ -1092,7 +1092,7 @@ under the License.
                         <!-- check whether this product is associated to any category, if not just skip -->
                         <if-not-empty field="productCategoryMembers">
                             <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
-                            <!-- check if this product is associated to any active category, if not found then activate the most recent expired category -->
+                            <!-- check if this product is associated to any active category, if not found then activate the most recent inactive category -->
                             <if-empty field="pcms">
                                 <first-from-list list="productCategoryMembers" entry="pcm"/>
                                 <clear-field field="pcm.thruDate"/>
