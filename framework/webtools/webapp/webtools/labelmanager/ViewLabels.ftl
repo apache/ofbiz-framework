@@ -83,9 +83,6 @@ under the License.
         <#if showLabel && parameters.labelFileName?exists && parameters.labelFileName != "" && parameters.labelFileName != label.fileName>
           <#assign showLabel = false>
         </#if>
-        <#if showLabel && parameters.labelComponentName?exists && parameters.labelComponentName != "" && parameters.labelComponentName != label.componentName>
-          <#assign showLabel = false>
-        </#if>
         <#if showLabel == true>
           <tr <#if rowNum == "1">class="alternate-row"</#if>>
             <td>${rowNumber}</td>
