@@ -1060,23 +1060,24 @@ under the License.
             </else>
         </if>
     </simple-method>
-    
-    <simple-method method-name="addProductsBackToCategory" short-description="When one or more product is received directly through receive inventory or refund return then add these product(s) back to category, if they do not have any active category">
+
+    <simple-method method-name="addProductsBackToCategory" short-description="When one or more product is received directly through receive inventory or refund return then add these product(s) back to category, if they does not have any active category">
         <if-not-empty field="parameters.inventoryItemId">
             <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
-            <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
-                <field-map field-name="productId" from-field="inventoryItem.productId"/>
-                <order-by field-name="-thruDate"/>
-            </entity-and>
-            <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
-            <if-empty field="pcms">
-                <first-from-list list="productCategoryMembers" entry="pcm"/>
-                <if-not-empty field="pcm">
+            <get-related-one relation-name="Product" value-field="inventoryItem" to-value-field="product"/>
+            <set field="orderBy[]" value="-thruDate"/>
+            <get-related relation-name="ProductCategoryMember" value-field="product" list="productCategoryMembers" order-by-list="orderBy"/>
+            <!-- check whether this product is associated to any category, if not just skip -->
+            <if-not-empty field="productCategoryMembers">
+                <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
+                <!-- check if this product is associated to any active category, if not found then activate the most recent expired category -->
+                <if-empty field="pcms">
+                    <first-from-list list="productCategoryMembers" entry="pcm"/>
                     <clear-field field="pcm.thruDate"/>
                     <set-service-fields service-name="updateProductToCategory" map="pcm" to-map="updateProductToCategoryMap"/>
                     <call-service service-name="updateProductToCategory" in-map-name="updateProductToCategoryMap"/>
-                </if-not-empty>
-            </if-empty>
+                </if-empty>
+            </if-not-empty>
         <else>
             <if-not-empty field="parameters.returnId">
                 <entity-and entity-name="ReturnItem" list="returnItems">
@@ -1085,23 +1086,24 @@ under the License.
                 </entity-and>
                 <if-not-empty field="returnItems">
                     <iterate list="returnItems" entry="returnItem">
-                        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
-                            <field-map field-name="productId" from-field="returnItem.productId"/>
-                            <order-by field-name="-thruDate"/>
-                        </entity-and>
-                        <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
-                        <if-empty field="pcms">
-                            <first-from-list list="productCategoryMembers" entry="pcm"/>
-                            <if-not-empty field="pcm">
+                        <get-related-one relation-name="Product" value-field="returnItem" to-value-field="product"/>
+                        <set field="orderBy[]" value="-thruDate"/>
+                        <get-related relation-name="ProductCategoryMember" value-field="product" list="productCategoryMembers" order-by-list="orderBy"/>
+                        <!-- check whether this product is associated to any category, if not just skip -->
+                        <if-not-empty field="productCategoryMembers">
+                            <filter-list-by-date list="productCategoryMembers" to-list="pcms"/>
+                            <!-- check if this product is associated to any active category, if not found then activate the most recent expired category -->
+                            <if-empty field="pcms">
+                                <first-from-list list="productCategoryMembers" entry="pcm"/>
                                 <clear-field field="pcm.thruDate"/>
                                 <set-service-fields service-name="updateProductToCategory" map="pcm" to-map="updateProductToCategoryMap"/>
                                 <call-service service-name="updateProductToCategory" in-map-name="updateProductToCategoryMap"/>
-                            </if-not-empty>
-                        </if-empty>
+                            </if-empty>
+                        </if-not-empty>
                     </iterate>
                 </if-not-empty>
             </if-not-empty>
         </else>
         </if-not-empty>
-    </simple-method> 
+    </simple-method>
 </simple-methods>
