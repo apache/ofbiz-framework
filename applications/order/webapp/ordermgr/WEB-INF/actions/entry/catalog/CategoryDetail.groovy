@@ -59,7 +59,18 @@ if (context.orderByFields) {
 catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
 
 productCategory = catResult.productCategory;
-context.productCategoryMembers = catResult.productCategoryMembers;
+
+// Prevents out of stock product to be displayed on site
+productCategoryMembers = catResult.productCategoryMembers;
+productsInStock = [];
+productCategoryMembers.each { productCategoryMember ->
+    product = productCategoryMember.getRelatedOne("Product");
+    if ((!product.isOutOfStock) || ("N".equals(product.isOutOfStock))) {
+        productsInStock.add(productCategoryMember);
+    }
+}
+
+context.productCategoryMembers = productsInStock;
 context.productCategory = productCategory;
 context.viewIndex = catResult.viewIndex;
 context.viewSize = catResult.viewSize;

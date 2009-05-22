@@ -2589,6 +2589,7 @@ under the License.
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="inShippingBox" type="indicator"></field>
       <field name="defaultShipmentBoxTypeId" type="id"></field>
+      <field name="isOutOfStock" type="indicator"><description>This field defines whether the product is out of stock or not</description></field>
       <prim-key field="productId"/>
       <relation type="one" fk-name="PROD_TYPE" rel-entity-name="ProductType">
         <key-map field-name="productTypeId"/>

@@ -890,4 +890,9 @@ under the License.
        <attribute name="productId" type="String" mode="IN" optional="false"/>
        <attribute name="LocationList" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="checkStockAvailability" engine="simple"
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkStockAvailability">
+        <description>Schedule service that check stock availability hourly. If a product is out of stock then it sets flag isOutOfStock on Product entity to Y else it sets it to N</description>
+        <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>
