@@ -453,7 +453,8 @@ function runAction() {
                 <td width='25%' align='right'>&nbsp;</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                    <input type='checkbox' name='showAll' value='Y' onclick="javascript:lookupOrders(true);"/>&nbsp;${uiLabelMap.CommonShowAllRecords}
+                    <input type='checkbox' name='showAll' id="showAll" value='Y' onclick="javascript:lookupOrders(true);"/>
+                    <label for="showAll">${uiLabelMap.CommonShowAllRecords}</label>
                 </td>
               </tr>
             </table>
