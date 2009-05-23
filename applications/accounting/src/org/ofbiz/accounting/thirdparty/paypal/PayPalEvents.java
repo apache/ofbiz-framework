@@ -260,15 +260,12 @@ public class PayPalEvents {
             Debug.logError("###### PayPal did not verify this request, need investigation!", module);
         }
         
-        // get the user
+        // get the system user
         GenericValue userLogin = null;
-        String userLoginId = request.getParameter("custom");
-        if (userLoginId == null)
-            userLoginId = "system";
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot get UserLogin for: " + userLoginId + "; cannot continue", module);
+            Debug.logError(e, "Cannot get UserLogin for: system; cannot continue", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingAuthenticationUser", locale));
             return "error";
         }
