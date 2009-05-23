@@ -4123,10 +4123,14 @@ public class OrderServices {
             }
 
             // get the partyId billed to
-            OrderReadHelper orh = new OrderReadHelper(orderHeader);
-            GenericValue billToParty = orh.getBillToParty();
-            if (billToParty == null) {
-                return ServiceUtil.returnError("Failed to create Payment: cannot find the bill to customer party");
+            if (paymentFromId == null) {
+                OrderReadHelper orh = new OrderReadHelper(orderHeader);
+                GenericValue billToParty = orh.getBillToParty();
+                if (billToParty != null) {
+                    paymentFromId = billToParty.getString("partyId");
+                } else {
+                    paymentFromId = "_NA_";
+                }
             }
 
             // set the payToPartyId
@@ -4145,7 +4149,7 @@ public class OrderServices {
                 paymentParams.put("amount", maxAmount);
                 paymentParams.put("statusId", "PMNT_RECEIVED");
                 paymentParams.put("effectiveDate", UtilDateTime.nowTimestamp());
-                paymentParams.put("partyIdFrom", billToParty.getString("partyId"));
+                paymentParams.put("partyIdFrom", paymentFromId);
                 paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
                 paymentParams.put("partyIdTo", payToPartyId);
             /*}
@@ -4162,11 +4166,6 @@ public class OrderServices {
             }*/
             if (paymentRefNum != null) {
                 paymentParams.put("paymentRefNum", paymentRefNum);
-            }
-            if (paymentFromId != null) {
-                paymentParams.put("partyIdFrom", paymentFromId);
-            } else {
-                paymentParams.put("partyIdFrom", "_NA_");
             }
             if (comments != null) {
                 paymentParams.put("comments", comments);
