@@ -30,12 +30,11 @@ under the License.
     </form>
     <form name="EditCustRequest" type="single" target="createrequest" title="Request" default-map-name="custRequest"
         extends="EditSmallCustRequest" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
-        <alt-target use-when="custRequest!=null" target="updateRequest"/>
+        <alt-target use-when="custRequest!=null" target="updaterequest"/>
         <field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field>
         <field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field>
         <field name="workEffortName"><hidden value="${custRequestName}"/></field>
         <field name="workEffortId"><hidden value="${custRequestId}"/></field>
-        <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
         <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
@@ -133,14 +132,16 @@ under the License.
         </field>
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
     </form>
-    <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist"
+    <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="listIt" paginate-target="requestlist"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="createdDate"/>
-            <entity-and entity-name="WorkEffortCustRequestView" list="requests">
-                <field-map field-name="statusId" value="CRQ_REVIEWED"/>
-                <order-by field-name="${parameters.sortField}"/>
-            </entity-and>
+            <set field="parameters.statusId" value="CRQ_REVIEWED"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="WorkEffortCustRequestView"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+            </service>
         </actions>
         <row-actions>
             <service service-name="getProjectIdAndNameFromTask" result-map="sResult">
