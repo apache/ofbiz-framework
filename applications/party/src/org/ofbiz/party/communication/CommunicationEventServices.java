@@ -36,6 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.mail.Address;
+import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
@@ -634,11 +635,8 @@ public class CommunicationEventServices {
             }
             if (!commEvents.isEmpty()) {
                 Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
-                return ServiceUtil.returnSuccess(" Message Ignored: deplicate messageId");
-            } else {
-                Debug.logInfo("Persisting New Email: " + aboutThisEmail, module);
+                return ServiceUtil.returnSuccess(" Message Ignored: duplicate messageId");
             }
-
 
             // get the related partId's
             List<Map<String, Object>> toParties = buildListOfPartyInfoFromEmailAddresses(addressesTo, userLogin, dispatcher);
@@ -703,7 +701,21 @@ public class CommunicationEventServices {
             if (messageBodyContentType.indexOf(";") > -1) {
                 messageBodyContentType = messageBodyContentType.substring(0, messageBodyContentType.indexOf(";"));
             }
-            String messageBody = wrapper.getMessageBody();
+            
+            // select the plain text bodypart
+            String messageBody = null;
+            if (wrapper.getMainPartCount() > 1) {
+            	for (int ind=0; ind < wrapper.getMainPartCount(); ind++) {
+            		BodyPart p = wrapper.getPart(ind + "");
+            		if (p.getContentType().toLowerCase().indexOf("text/plain") > -1) {
+            			messageBody = (String) p.getContent();
+            		}
+            	}
+            }
+            
+            if (messageBody == null ) {
+            	messageBody = wrapper.getMessageBody();
+            }
                         
             commEventMap.put("content", messageBody);
             commEventMap.put("contentMimeTypeId", messageBodyContentType.toLowerCase());            
@@ -777,6 +789,7 @@ public class CommunicationEventServices {
 
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
+            Debug.logInfo("Persisting New Email: " + aboutThisEmail + " into CommunicationEventId: " + communicationEventId, module);
 
             // handle the attachments
             createAttachmentContent(dispatcher, wrapper, communicationEventId, userLogin);
