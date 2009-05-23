@@ -36,7 +36,7 @@ public class FieldString extends MethodString {
 
     public FieldString(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 
