@@ -124,7 +124,7 @@ function onClickShippingMethod(e) {
             <tr>
               <td colspan="2">
                 <div>
-                  <h2>${uiLabelMap.OrderIsThisGift}?</h2>
+                  <h2>${uiLabelMap.OrderIsThisGift}</h2>
                   <input type='radio' <#if shoppingCart.getIsGift()?default("Y") == "Y">checked</#if> name='is_gift' value='true'/><span class='tabletext'>${uiLabelMap.CommonYes}</span>
                   <input type='radio' <#if shoppingCart.getIsGift()?default("N") == "N">checked</#if> name='is_gift' value='false'/><span class='tabletext'>${uiLabelMap.CommonNo}</span>
                 </div>
