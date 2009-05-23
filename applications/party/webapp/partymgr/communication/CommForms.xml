@@ -758,6 +758,7 @@ under the License.
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyId"/>
                 <parameter param-name="my" value="My"/>
             </hyperlink>
         </field>
@@ -831,6 +832,7 @@ under the License.
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyId"/>
                 <parameter param-name="my"/>
             </hyperlink>
         </field>
