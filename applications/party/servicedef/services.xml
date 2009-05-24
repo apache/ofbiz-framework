@@ -677,9 +677,9 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <override name="headerString" allow-html="any"/>
-        <override name="content" allow-html="any"/>
-        <override name="messageId" allow-html="any"/>
-        <override name="subject" allow-html="any"/>
+        <override name="content" allow-html="safe"/>
+        <override name="messageId" allow-html="safe"/>
+        <override name="subject" allow-html="safe"/>
     </service>
     <service name="createCommunicationEvent" engine="simple"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
@@ -700,8 +700,9 @@ under the License.
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
-        <override name="messageId" allow-html="any"/>
-        <override name="content" allow-html="any"/>
+        <override name="messageId" allow-html="safe"/>
+        <override name="content" allow-html="safe"/>
+        <override name="subject" allow-html="safe"/>
     </service>
     <service name="deleteCommunicationEvent" engine="simple"
         location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">
