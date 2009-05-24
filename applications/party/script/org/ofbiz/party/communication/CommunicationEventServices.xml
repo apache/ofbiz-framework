@@ -69,9 +69,8 @@ under the License.
                     <field-map field-name="partyId" from-field="parentCommEvent.partyIdFrom"/>
                 </entity-one>
                 
-                <if-compare-field field="parentCommEvent.partyIdFrom" operator="equals" to-field="parameters.partyIdTo">
-                    <set field="newEntity.partyIdTo" from-field="parentCommEvent.partyIdFrom"/>
-                </if-compare-field>
+                <set field="newEntity.partyIdFrom" from-field="parameters.partyIdFrom" default-value="parameters.userLogin.partyId"/>
+                <set field="newEntity.partyIdTo" from-field="parentCommEvent.partyIdFrom"/>
                 
                 <set field="newEntity.subject" value="RE: ${parentCommEvent.subject}"/>
                 
