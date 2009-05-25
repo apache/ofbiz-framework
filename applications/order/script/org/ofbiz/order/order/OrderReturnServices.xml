@@ -531,19 +531,6 @@ under the License.
                 <!-- update the status for the item -->
                 <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
                 <store-value value-field="returnItem"/>
-
-                <!-- create status change history -->
-                <!-- TODO: this should be done with a createReturnStatus service call -->
-                <make-value entity-name="ReturnStatus" value-field="newReturnStatus"/>
-                <sequenced-id sequence-name="ReturnStatus" field="newReturnStatus.returnStatusId"/>
-
-                <set field="newReturnStatus.returnId" from-field="returnItem.returnItemSeqId"/>
-                <set field="newReturnStatus.returnId" from-field="returnItem.returnId"/>
-                <set field="newReturnStatus.statusId" from-field="returnItem.statusId"/>
-
-                <now-timestamp field="newReturnStatus.statusDatetime"/>
-
-                <create-value value-field="newReturnStatus"/>
             </if-compare-field>
 
             <!-- update the returnItem with at least receivedQuantity, and also statusId if applicable -->
@@ -583,16 +570,6 @@ under the License.
             <set field="returnHeaderCtx.statusId" value="RETURN_RECEIVED"/>
             <set from-field="returnHeader.returnId" field="returnHeaderCtx.returnId"/>
             <call-service service-name="updateReturnHeader" in-map-name="returnHeaderCtx"/>
-            <!-- create the status history -->
-            <make-value entity-name="ReturnStatus" value-field="newValue"/>
-            <sequenced-id sequence-name="ReturnStatus" field="newValue.returnStatusId"/>
-
-            <set field="newValue.returnId" from-field="returnHeader.returnId"/>
-            <set field="newValue.statusId" value="RETURN_RECEIVED"/>
-
-            <now-timestamp field="newValue.statusDatetime"/>
-
-            <create-value value-field="newValue"/>
         </if-compare>
 
         <!-- return the current return header status -->
@@ -1106,4 +1083,18 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="createReturnStatus" short-description="Create Return Status">
+        <entity-one value-field="returnHeader" entity-name="ReturnHeader">
+            <field-map field-name="returnId" from-field="parameters.returnId"/>
+        </entity-one>
+        <make-value entity-name="ReturnStatus" value-field="newEntity"/>
+        <sequenced-id sequence-name="ReturnStatus" field="newEntity.returnStatusId"/>
+        <set field="newEntity.returnId" from-field="parameters.returnId"/>
+        <set field="newEntity.statusId" from-field="returnHeader.statusId"/>
+        <set field="newEntity.changeByUserLoginId" from-field="userLogin.userLoginId"/>
+        <now-timestamp field="newEntity.statusDatetime"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
 </simple-methods>

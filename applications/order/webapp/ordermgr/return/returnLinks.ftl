@@ -22,10 +22,12 @@ under the License.
     <ul>
         <li<#if selected="OrderReturnHeader"> class="selected"</#if>><a href="<@ofbizUrl>returnMain?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHeader}</a></li>
         <li<#if selected="OrderReturnItems"> class="selected"</#if>><a href="<@ofbizUrl>returnItems?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnItems}</a></li>
+        <li<#if selected="OrderReturnHistory"> class="selected"</#if>><a href="<@ofbizUrl>ReturnHistory?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHistory}</a></li>
     </ul>
     <br/>
 </div>
 <div>
+    <#if selected != "OrderReturnHistory">
     <a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>" class="buttontext">PDF</a>
     <#if returnId?exists>
       <#assign returnItems = delegator.findByAnd("ReturnItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("returnId", returnId, "returnTypeId", "RTN_REFUND"))/>
@@ -34,6 +36,7 @@ under the License.
         <#assign partyId = "${(returnHeader.fromPartyId)?if_exists}"/>
         <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId?if_exists}&originOrderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId?if_exists}</a>
       </#if>
+    </#if>
     </#if>
 </div>
 <#else>
