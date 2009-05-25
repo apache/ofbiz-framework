@@ -540,7 +540,7 @@ public class ProductEvents {
         // go through each; need to remove? do it now
         boolean foundOneEqual = false;
         for (GenericValue typeUomProductFeatureAndAppl: typeUomProductFeatureAndApplList) {
-            if ((numberSpecified != null) && (numberSpecified.equals(typeUomProductFeatureAndAppl.getBigDecimal("numberSpecified")))) {
+            if ((numberSpecified != null) && (numberSpecified.compareTo(typeUomProductFeatureAndAppl.getBigDecimal("numberSpecified")) == 0)) {
                 foundOneEqual = true;
             } else {
                 // remove the PFA...

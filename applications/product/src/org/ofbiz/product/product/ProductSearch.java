@@ -1609,7 +1609,7 @@ public class ProductSearch {
                         return false;
                     }
                 } else {
-                    if (!this.lowPrice.equals(that.lowPrice)) {
+                    if (this.lowPrice.compareTo(that.lowPrice) != 0) {
                         return false;
                     }
                 }
@@ -1618,7 +1618,7 @@ public class ProductSearch {
                         return false;
                     }
                 } else {
-                    if (!this.highPrice.equals(that.highPrice)) {
+                    if (this.highPrice.compareTo(that.highPrice) != 0) {
                         return false;
                     }
                 }
