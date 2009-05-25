@@ -26,17 +26,17 @@ under the License.
         <menu-item name="Events" title="${uiLabelMap.SfaEvents}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
         <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
         <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
-        <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindOpportunity"/></menu-item>
+        <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindSalesOpportunity"/></menu-item>
     </menu>
 
     <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ViewOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
-            <link target="ViewOpportunity">
+        <menu-item name="ViewSalesOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
+            <link target="ViewSalesOpportunity">
                 <parameter param-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             </link>
         </menu-item>
-        <menu-item name="EditOpportunity" title="${uiLabelMap.SfaEditOpportunity}">
-            <link target="EditOpportunity">
+        <menu-item name="EditSalesOpportunity" title="${uiLabelMap.SfaEditOpportunity}">
+            <link target="EditSalesOpportunity">
                 <parameter param-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             </link>
         </menu-item>

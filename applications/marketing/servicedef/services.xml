@@ -388,22 +388,6 @@ under the License.
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
     </service>
 
-    <!-- opportunity service -->
-    <service name="createOpportunity" engine="simple" default-entity-name="SalesOpportunity"
-        location="component://marketing/script/org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="createOpportunity">
-        <description>Create an opportunity</description>
-        <auto-attributes mode="INOUT" include="pk" optional="true"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true">
-            <exclude field-name="createdByUserLogin"/>
-        </auto-attributes>
-    </service>
-    <service name="updateOpportunity" engine="simple" default-entity-name="SalesOpportunity"
-        location="component://marketing/script/org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="updateOpportunity">
-        <description>Update an opportnity</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-
     <!-- lead services -->
     <service name="createLead" engine="simple" location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
         <description>Create a Lead Person or Group</description>

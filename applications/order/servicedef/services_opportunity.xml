@@ -67,4 +67,42 @@ under the License.
         <description>Delete a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
+        <!-- opportunity service -->
+    <service name="createSalesOpportunity" engine="simple" default-entity-name="SalesOpportunity"
+        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunity">
+        <description>Create an sales opportunity</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true">
+            <exclude field-name="createdByUserLogin"/>
+        </auto-attributes>
+        <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="updateSalesOpportunity" engine="simple" default-entity-name="SalesOpportunity"
+        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesOpportunity">
+        <description>Update an sales opportunity</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="createSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
+        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityRole">
+        <description>Create sales opportunity role</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+    </service>
+    <service name="createSalesOpportunityAccountRole" engine="simple" default-entity-name="SalesOpportunityRole" 
+        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityAccountRole">
+        <description>Create sales opportunity account role</description>
+        <attribute name="accountPartyId" mode="IN" type="String"/>
+        <attribute name="salesOpportunityId" mode="IN" type="String"/>
+    </service>
+    <service name="findPartyInSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
+        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="findPartyInSalesOpportunityRole">
+        <description>find sales opportunity role party</description>
+        <attribute name="roleTypeId" mode="IN" type="String"/>
+        <attribute name="salesOpportunityId" mode="IN" type="String"/>
+        <attribute name="partyId" mode="OUT" type="String" optional="true"/>
+    </service>
+
+    
 </services>
