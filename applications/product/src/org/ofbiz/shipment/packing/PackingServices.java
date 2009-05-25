@@ -424,7 +424,11 @@ public class PackingServices {
                     newEstimatedShipCost = newEstimatedShipCost.add(shipment.getBigDecimal("additionalShippingCharge"));
                 }
             }
-            diffInShipCostInPerc = (((newEstimatedShipCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
+            if (estimatedShipCost.equals(ZERO)) {
+                diffInShipCostInPerc = newEstimatedShipCost;
+            } else {
+                diffInShipCostInPerc = (((newEstimatedShipCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
+            }
             if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
                 response.put("showWarningForm", true);
             } else {
