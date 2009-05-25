@@ -53,13 +53,13 @@
         <value xml:lang="en">03.1 Find</value>
     </property>
     <property key="ACCOUNTING_newPayment">
-        <value xml:lang="en">01 Create New Payment</value>
+        <value xml:lang="en">03.1.1 Create New Payment</value>
     </property>
     <property key="ACCOUNTING_FindSalesInvoicesByDueDate">
-        <value xml:lang="en">02 Find Sales Invoice by Due Date</value>
+        <value xml:lang="en">03.1.2 Find Sales Invoice by Due Date</value>
     </property>
     <property key="ACCOUNTING_FindPurchaseInvoicesByDueDate">
-        <value xml:lang="en">03 Find Purchase Invoice by Due Date</value>
+        <value xml:lang="en">03.1.3 Find Purchase Invoice by Due Date</value>
     </property>
     <property key="ACCOUNTING_paymentOverview">
         <value xml:lang="en">03.2 Overview</value>
@@ -82,163 +82,244 @@
     <property key="ACCOUNTING_ManualTransaction">
         <value xml:lang="en">04.4 Manual Electronic Transaction</value>
     </property>
+    <property key="ACCOUNTING_FindGatewayConfigurations">
+        <value xml:lang="en">05.1 Payment Gateway Config</value>
+    </property>
+    <property key="ACCOUNTING_FindGatewayConfigurationTypes">
+        <value xml:lang="en">05.2 Payment Gateway Config Types</value>
+    </property>
     <property key="ACCOUNTING_FindBillingAccount">
-        <value xml:lang="en">05 Billing Accounts</value>
+        <value xml:lang="en">06 Billing Accounts</value>
     </property>
     <property key="ACCOUNTING_EditBillingAccount">
-        <value xml:lang="en">05.1 Account</value>
+        <value xml:lang="en">06.1 Account</value>
     </property>
     <property key="ACCOUNTING_EditBillingAccountRoles">
-        <value xml:lang="en">05.2 Roles</value>
-    </property>
-    <property key="ACCOUNTING_EditBillingAccountTerms">
-        <value xml:lang="en">05.3 Terms</value>
-    </property>
-    <property key="ACCOUNTING_BillingAccountInvoices">
-        <value xml:lang="en">05.4 Invoices</value>
-    </property>
-    <property key="ACCOUNTING_BillingAccountPayments">
-        <value xml:lang="en">05.5 Payments</value>
-    </property>
-    <property key="ACCOUNTING_BillingAccountOrders">
-        <value xml:lang="en">05.6 Orders</value>
-    </property>
-    <property key="ACCOUNTING_FindFinAccount">
-        <value xml:lang="en">06 Financial Accounts</value>
-    </property>
-    <property key="ACCOUNTING_EditFinAccount">
-        <value xml:lang="en">06.1 Financial Account</value>
-    </property>
-    <property key="ACCOUNTING_EditFinAccountRoles">
         <value xml:lang="en">06.2 Roles</value>
     </property>
+    <property key="ACCOUNTING_EditBillingAccountTerms">
+        <value xml:lang="en">06.3 Terms</value>
+    </property>
+    <property key="ACCOUNTING_BillingAccountInvoices">
+        <value xml:lang="en">06.4 Invoices</value>
+    </property>
+    <property key="ACCOUNTING_BillingAccountPayments">
+        <value xml:lang="en">06.5 Payments</value>
+    </property>
+    <property key="ACCOUNTING_BillingAccountOrders">
+        <value xml:lang="en">06.6 Orders</value>
+    </property>
+    <property key="ACCOUNTING_FindFinAccount">
+        <value xml:lang="en">07 Financial Accounts</value>
+    </property>
+    <property key="ACCOUNTING_EditFinAccount">
+        <value xml:lang="en">07.1 Financial Account</value>
+    </property>
+    <property key="ACCOUNTING_EditFinAccountRoles">
+        <value xml:lang="en">07.2 Roles</value>
+    </property>
     <property key="ACCOUNTING_EditFinAccountTrans">
-        <value xml:lang="en">06.3 Transactions</value>
+        <value xml:lang="en">07.3 Transactions</value>
     </property>
     <property key="ACCOUNTING_EditFinAccountAuths">
-        <value xml:lang="en">06.4 Authorizations</value>
+        <value xml:lang="en">07.4 Authorizations</value>
     </property>
     <property key="ACCOUNTING_FindTaxAuthority">
-        <value xml:lang="en">07 Tax Authorities</value>
+        <value xml:lang="en">08 Tax Authorities</value>
     </property>
     <property key="ACCOUNTING_EditTaxAuthority">
-        <value xml:lang="en">07.1 Tax Authority</value>
+        <value xml:lang="en">08.1 Tax Authority</value>
     </property>
     <property key="ACCOUNTING_EditTaxAuthorityCategories">
-        <value xml:lang="en">07.2 Categories</value>
+        <value xml:lang="en">08.2 Categories</value>
     </property>
     <property key="ACCOUNTING_EditTaxAuthorityAssocs">
-        <value xml:lang="en">07.3 Assocs</value>
+        <value xml:lang="en">08.3 Assocs</value>
     </property>
     <property key="ACCOUNTING_EditTaxAuthorityGlAccounts">
-        <value xml:lang="en">07.4 GL Accounts</value>
+        <value xml:lang="en">08.4 GL Accounts</value>
     </property>
     <property key="ACCOUNTING_EditTaxAuthorityRateProducts">
-        <value xml:lang="en">07.5 Product Rates</value>
+        <value xml:lang="en">08.5 Product Rates</value>
     </property>
     <property key="ACCOUNTING_ListTaxAuthorityParties">
-        <value xml:lang="en">07.6 Parties</value>
+        <value xml:lang="en">08.6 Parties</value>
     </property>
     <property key="ACCOUNTING_FindAgreement">
-        <value xml:lang="en">08 Agreements</value>
+        <value xml:lang="en">09 Agreements</value>
     </property>
     <property key="ACCOUNTING_EditAgreement">
-        <value xml:lang="en">08.1 Agreement</value>
+        <value xml:lang="en">09.1 Agreement</value>
     </property>
     <property key="ACCOUNTING_EditAgreementTerms">
-        <value xml:lang="en">08.2 Agreement Terms</value>
+        <value xml:lang="en">09.2 Agreement Terms</value>
     </property>
     <property key="ACCOUNTING_ListAgreementItems">
-        <value xml:lang="en">08.3 Agreement Items</value>
+        <value xml:lang="en">09.3 Agreement Items</value>
     </property>
     <property key="ACCOUNTING_EditAgreementWorkEffortAppls">
-        <value xml:lang="en">08.4 Agreement Work Effort Appls</value>
+        <value xml:lang="en">09.4 Agreement Work Effort Appls</value>
     </property>
     <property key="ACCOUNTING_EditAgreementRoles">
-        <value xml:lang="en">08.5 Agreement Roles</value>
+        <value xml:lang="en">09.5 Agreement Roles</value>
     </property>
     <property key="ACCOUNTING_ListFixedAssets">
-        <value xml:lang="en">09 Fixed Assets</value>
+        <value xml:lang="en">10 Fixed Assets</value>
+    </property>
+    <property key="ACCOUNTING_EditFixedAsset">
+        <value xml:lang="en">10.1 Fixed Asset</value>
+    </property>
+    <property key="ACCOUNTING_FixedAssetChildren">
+        <value xml:lang="en">10.2 Children</value>
+    </property>
+    <property key="ACCOUNTING_ListFixedAssetProducts">
+        <value xml:lang="en">10.3 Products</value>
+    </property>
+    <property key="ACCOUNTING_FixedAssetDay">
+        <value xml:lang="en">10.4.1 Calendar Day</value>
+    </property>
+    <property key="ACCOUNTING_FixedAssetWeek">
+        <value xml:lang="en">10.4.2 Calendar Week</value>
+    </property>
+    <property key="ACCOUNTING_FixedAssetMonth">
+        <value xml:lang="en">10.4.3 Calendar Month</value>
+    </property>
+    <property key="ACCOUNTING_EditFixedAssetStdCosts">
+        <value xml:lang="en">10.5 Standard Costs</value>
+    </property>
+    <property key="ACCOUNTING_EditFixedAssetIdents">
+        <value xml:lang="en">10.6 Identifications</value>
+    </property>
+    <property key="ACCOUNTING_EditFixedAssetRegistrations">
+        <value xml:lang="en">10.7 Registrations</value>
+    </property>
+    <property key="ACCOUNTING_EditFixedAssetMeters">
+        <value xml:lang="en">10.8 Meter Readings</value>
+    </property>
+    <property key="ACCOUNTING_ListFixedAssetMaints">
+        <value xml:lang="en">10.9 Maintenances</value>
+    </property>
+    <property key="ACCOUNTING_EditPartyFixedAssetAssignments">
+        <value xml:lang="en">10.10 Assignments</value>
+    </property>
+    <property key="ACCOUNTING_ShowFixedAssetDepreciation">
+        <value xml:lang="en">10.11 Depreciation</value>
+    </property>
+    <property key="ACCOUNTING_FixedAssetGeoLocation">
+        <value xml:lang="en">10.12 Geolocation</value>
     </property>
     <property key="ACCOUNTING_FindGlobalGlAccount">
-        <value xml:lang="en">10.1 Chart of Accounts</value>
+        <value xml:lang="en">11.1 Chart of Accounts</value>
     </property>
     <property key="ACCOUNTING_GlAccountNavigate">
-        <value xml:lang="en">01 Navigate Accounts</value>
+        <value xml:lang="en">11.1.1 Navigate Accounts</value>
     </property>
     <property key="ACCOUNTING_AssignGlAccount">
-        <value xml:lang="en">02 Assign GL Account</value>
+        <value xml:lang="en">11.1.2 Assign GL Account</value>
+    </property>
+    <property key="ACCOUNTING_EditCustomTimePeriod">
+        <value xml:lang="en">11.2 Edit Custom Time Periods</value>
     </property>
     <property key="ACCOUNTING_EditCostCalcs">
-        <value xml:lang="en">10.2 Costs</value>
+        <value xml:lang="en">11.3 Costs</value>
     </property>
     <property key="ACCOUNTING_EditPaymentMethodType">
-        <value xml:lang="en">10.3 Payment Method Type</value>
+        <value xml:lang="en">11.4 Payment Method Type</value>
     </property>
     <property key="ACCOUNTING_EditInvoiceItemType">
-        <value xml:lang="en">10.4 Invoice Item Type</value>
+        <value xml:lang="en">11.5 Invoice Item Type</value>
     </property>
     <property key="ACCOUNTING_ViewRateAmounts">
-        <value xml:lang="en">10.5 Rates</value>
+        <value xml:lang="en">11.6 Rates</value>
     </property>
     <property key="ACCOUNTING_ListCompanies">
-        <value xml:lang="en">11 Organization GL Settings</value>
+        <value xml:lang="en">12 Organization GL Settings</value>
     </property>
     <property key="ACCOUNTING_PartyAcctgPreference">
-        <value xml:lang="en">01 Accounting Preferences</value>
+        <value xml:lang="en">12.1.1 Accounting Preferences</value>
     </property>
     <property key="ACCOUNTING_ListGlAccountOrganization">
-        <value xml:lang="en">02 Chart of Accounts</value>
+        <value xml:lang="en">12.1.2 Chart of Accounts</value>
     </property>
     <property key="ACCOUNTING_SetupGlJournals">
-        <value xml:lang="en">03 Journals</value>
-    </property>
-    <property key="ACCOUNTING_GlAccountDefaults">
-        <value xml:lang="en">04 GL Account Defaults</value>
+        <value xml:lang="en">12.1.3 Journals</value>
     </property>
     <property key="ACCOUNTING_GlAccountTypeDefaults">
-        <value xml:lang="en">04.1 GL Account Type Defaults</value>
+        <value xml:lang="en">12.1.4.1 GL Account Type Defaults</value>
     </property>
     <property key="ACCOUNTING_EditProductGlAccounts">
-        <value xml:lang="en">04.2 Product GL Accounts</value>
+        <value xml:lang="en">12.1.4.2 Product GL Accounts</value>
     </property>
     <property key="ACCOUNTING_EditProductCategoryGlAccounts">
-        <value xml:lang="en">04.3 Product Category GL Account</value>
+        <value xml:lang="en">12.1.4.3 Product Category GL Account</value>
     </property>
     <property key="ACCOUNTING_EditFinAccountTypeGlAccounts">
-        <value xml:lang="en">04.4 FinAccount Type - GL Account</value>
+        <value xml:lang="en">12.1.4.4 FinAccount Type - GL Account</value>
     </property>
     <property key="ACCOUNTING_GlAccountSalInvoice">
-        <value xml:lang="en">04.5 Sales Invoice</value>
+        <value xml:lang="en">12.1.4.5 Sales Invoice</value>
     </property>
     <property key="ACCOUNTING_GlAccountPurInvoice">
-        <value xml:lang="en">04.6 Purchase Invoice</value>
+        <value xml:lang="en">12.1.4.6 Purchase Invoice</value>
     </property>
     <property key="ACCOUNTING_GlAccountTypePaymentType">
-        <value xml:lang="en">04.7 Payment Type - GL Account Type Id</value>
+        <value xml:lang="en">12.1.4.7 Payment Type - GL Account Type Id</value>
     </property>
     <property key="ACCOUNTING_GlAccountNrPaymentMethod">
-        <value xml:lang="en">04.8 Payment Method Id - Gl Account Id</value>
+        <value xml:lang="en">12.1.4.8 Payment Method Id - Gl Account Id</value>
     </property>
     <property key="ACCOUNTING_EditVarianceReasonGlAccounts">
-        <value xml:lang="en">04.9 Variance Reason GL Accounts</value>
+        <value xml:lang="en">12.1.4.9 Variance Reason GL Accounts</value>
     </property>
     <property key="ACCOUNTING_EditCreditCardTypeGlAccounts">
-        <value xml:lang="en">04.10 Credit Card Type GL Account</value>
+        <value xml:lang="en">12.1.4.10 Credit Card Type GL Account</value>
     </property>
     <property key="ACCOUNTING_EditOrganizationTaxAuthorityGlAccounts">
-        <value xml:lang="en">04.11 Tax Authority GL Accounts</value>
+        <value xml:lang="en">12.1.4.11 Tax Authority GL Accounts</value>
     </property>
     <property key="ACCOUNTING_EditPartyGlAccount">
-        <value xml:lang="en">04.12 Party GL Accounts</value>
+        <value xml:lang="en">12.1.4.12 Party GL Accounts</value>
     </property>
     <property key="ACCOUNTING_TimePeriods">
-        <value xml:lang="en">05 Time Period</value>
+        <value xml:lang="en">12.1.5 Time Period</value>
     </property>
     <property key="ACCOUNTING_ViewFXConversions">
-        <value xml:lang="en">06 Foreign Exchange Rates</value>
+        <value xml:lang="en">12.1.6 Foreign Exchange Rates</value>
     </property>
     <property key="ACCOUNTING_PartyAccountsSummary">
-        <value xml:lang="en">11.2 Accounting</value>
+        <value xml:lang="en">12.2.1 Summary</value>
+    </property>
+    <property key="ACCOUNTING_FindGlAccountReconciliation">
+        <value xml:lang="en">12.2.2 Account Reconciliation</value>
+    </property>
+    <property key="ACCOUNTING_FindGlAccountReconciliations">
+        <value xml:lang="en">12.2.3 Account Reconciliations</value>
+    </property>
+    <property key="ACCOUNTING_FindAcctgTrans">
+        <value xml:lang="en">12.2.4 Accounting Transactions</value>
+    </property>
+    <property key="ACCOUNTING_FindAcctgTransEntries">
+        <value xml:lang="en">12.2.5 Accounting Transaction Entries</value>
+    </property>
+    <property key="ACCOUNTING_TrialBalance">
+        <value xml:lang="en">12.2.6.1 Trial Balance</value>
+    </property>
+    <property key="ACCOUNTING_IncomeStatement">
+        <value xml:lang="en">12.2.6.2 Income Statement</value>
+    </property>
+    <property key="ACCOUNTING_BalanceSheet">
+        <value xml:lang="en">12.2.6.3 Balance Sheet</value>
+    </property>
+    <property key="ACCOUNTING_ComparativeBalanceSheet">
+        <value xml:lang="en">12.2.6.4 Comparative Balance Sheet</value>
+    </property>
+    <property key="ACCOUNTING_TransactionTotals">
+        <value xml:lang="en">12.2.6.5 Transaction Totals</value>
+    </property>
+    <property key="ACCOUNTING_ListChecksToPrint">
+        <value xml:lang="en">12.2.7.1 Checks To Print</value>
+    </property>
+    <property key="ACCOUNTING_ListChecksToSend">
+        <value xml:lang="en">12.2.7.2 Mark Checks Sent</value>
     </property>
 </resource>

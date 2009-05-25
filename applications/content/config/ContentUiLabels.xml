@@ -846,7 +846,7 @@
     <property key="ContentMapKey">
         <value xml:lang="de">Zugriffsschlüssel (MapKey)</value>
         <value xml:lang="en">MapKey</value>
-        <value xml:lang="fr">Clef de carte</value>
+        <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
     </property>
