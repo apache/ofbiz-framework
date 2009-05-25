@@ -424,7 +424,7 @@ public class PackingServices {
                     newEstimatedShipCost = newEstimatedShipCost.add(shipment.getBigDecimal("additionalShippingCharge"));
                 }
             }
-            if (estimatedShipCost.equals(ZERO)) {
+            if (estimatedShipCost.compareTo(ZERO) == 0) {
                 diffInShipCostInPerc = newEstimatedShipCost;
             } else {
                 diffInShipCostInPerc = (((newEstimatedShipCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
