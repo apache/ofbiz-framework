@@ -659,10 +659,12 @@ under the License.
 
     <simple-method method-name="getPartyEmail" short-description="Get the email of the party">
         <!-- first try to find primary email Address when not found get other email -->
-        <entity-and entity-name="PartyContactMechPurpose" list="emailAddresses" filter-by-date="true">
+        <entity-and entity-name="PartyContactWithPurpose" list="emailAddressesPurposes">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="contactMechPurposeTypeId" from-field="PRIMARY_EMAIL"/>
         </entity-and>
+        <filter-list-by-date list="emailAddressesPurposes" to-list="emailAddressesPurposes1" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
+        <filter-list-by-date list="emailAddressesPurposes1" to-list="emailAddresses" from-field-name="contactFromDate" thru-field-name="contactThruDate"/>
         <!-- any other email -->
         <if-empty field="emailAddresses">
             <entity-and entity-name="PartyAndContactMech" list="emailAddresses" filter-by-date="true">
