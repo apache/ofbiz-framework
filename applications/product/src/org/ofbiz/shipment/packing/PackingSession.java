@@ -835,9 +835,9 @@ public class PackingSession implements java.io.Serializable {
             Map<String, Object> pkgCtx = FastMap.newInstance();
             pkgCtx.put("shipmentId", shipmentId);
             pkgCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-            pkgCtx.put("length", line.getLength());
-            pkgCtx.put("width", line.getWidth());
-            pkgCtx.put("height", line.getHeight());
+            pkgCtx.put("boxLength", line.getLength());
+            pkgCtx.put("boxWidth", line.getWidth());
+            pkgCtx.put("boxHeight", line.getHeight());
             pkgCtx.put("dimensionUomId", getDimensionUomId());
             pkgCtx.put("shipmentBoxTypeId", line.getShipmentBoxTypeId());
             pkgCtx.put("weight", getPackageWeight(i+1));
@@ -1146,9 +1146,9 @@ public class PackingSession implements java.io.Serializable {
             Map<String, Object> shipmentPackageCtx = FastMap.newInstance();
             shipmentPackageCtx.put("shipmentId", shipmentId);
             shipmentPackageCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-            shipmentPackageCtx.put("length", line.getLength());
-            shipmentPackageCtx.put("width", line.getWidth());
-            shipmentPackageCtx.put("height", line.getHeight());
+            shipmentPackageCtx.put("boxLength", line.getLength());
+            shipmentPackageCtx.put("boxWidth", line.getWidth());
+            shipmentPackageCtx.put("boxHeight", line.getHeight());
             shipmentPackageCtx.put("dimensionUomId", getDimensionUomId());
             shipmentPackageCtx.put("shipmentBoxTypeId", line.getShipmentBoxTypeId());
             shipmentPackageCtx.put("weight", getPackageWeight(i+1));
