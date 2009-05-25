@@ -1212,16 +1212,42 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <service service-name="printPickSheets"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PrintPickSheets.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <xsl-fo><html-template location="component://product/webapp/facility/facility/PrintPickSheets.fo.ftl"/></xsl-fo>
-                </platform-specific>
+                <section>
+                    <condition>
+                        <not><if-empty field="pickMoveInfoList"/></not>
+                    </condition>
+                    <actions>
+                        <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PrintPickSheets.groovy"/>
+                    </actions>
+                    <widgets>
+                        <section>
+                            <condition>
+                                <not><if-empty field="orderHeaderList"/></not>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <xsl-fo><html-template location="component://product/webapp/facility/facility/PrintPickSheets.fo.ftl"/></xsl-fo>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <platform-specific>
+                                    <xsl-fo><html-template location="component://product/webapp/facility/facility/NotReadyToPick.fo.ftl"/></xsl-fo>
+                                </platform-specific>
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                    <fail-widgets>
+                        <platform-specific>
+                            <xsl-fo><html-template location="component://product/webapp/facility/facility/NotReadyToPick.fo.ftl"/></xsl-fo>
+                        </platform-specific>
+                    </fail-widgets>
+                </section>
             </widgets>
-        </section>
-    </screen>
+         </section>
+     </screen>
     <screen name="ReviewOrdersNotPickedOrPacked">
         <section>
             <actions>

@@ -13970,6 +13970,9 @@
         <value xml:lang="th">รายการสั่งซื้อ</value>
         <value xml:lang="zh">订单明细</value>
     </property>
+    <property key="ProductOrderNotReadyForPickNeedStockMove">
+        <value xml:lang="en">Order not ready for picking, needs stock move</value>
+    </property>
     <property key="ProductOrderNumber">
         <value xml:lang="de">Auftragsnummer</value>
         <value xml:lang="en">Order Number</value>
