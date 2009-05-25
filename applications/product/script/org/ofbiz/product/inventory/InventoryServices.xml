@@ -1293,4 +1293,20 @@ under the License.
         </else>
         </if-empty>
     </simple-method>
+    <simple-method method-name="setLastInventoryCount" short-description="Schedule service that updates stock availability of products hourly">
+        <entity-condition entity-name="ProductFacility" list="productFacilities" use-cache="true">
+            <use-iterator/>
+        </entity-condition>
+        <iterate list="productFacilities" entry="productFacility">
+            <set field="serviceInMap.productId" from-field="productFacility.productId"/>
+            <call-service service-name="getProductInventoryAvailable" in-map-name="serviceInMap">
+                <result-to-field result-name="availableToPromiseTotal"/>
+            </call-service>
+            <set field="productFacility.lastInventoryCount" from-field="availableToPromiseTotal"/>
+            <set-service-fields service-name="updateProductFacility" map="productFacility" to-map="productFacilityCtx"/>
+            <call-service service-name="updateProductFacility" in-map-name="productFacilityCtx"/>
+            <clear-field field="productFacility"/>
+            <clear-field field="productFacilityCtx"/>
+        </iterate>
+    </simple-method>
 </simple-methods>

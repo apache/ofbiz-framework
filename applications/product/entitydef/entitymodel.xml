@@ -1289,6 +1289,7 @@ under the License.
         <field name="minimumStock" type="fixed-point"></field>
         <field name="reorderQuantity" type="fixed-point"></field>
         <field name="daysToShip" type="numeric"></field>
+        <field name="lastInventoryCount" type="fixed-point"><description>This field represents availableToPromiseTotal of a product at a certain point of time and is being updated regularly by a schedule service every hour</description></field>
         <prim-key field="productId"/>
         <prim-key field="facilityId"/>
         <relation type="one" fk-name="PROD_FAC_PROD" rel-entity-name="Product">
@@ -3606,6 +3607,7 @@ under the License.
       <field name="addToCartRemoveIncompat" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related to or from the product and with the PRODUCT_INCOMPATABLE type.</description></field>
       <field name="addToCartReplaceUpsell" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</description></field>
       <field name="splitPayPrefPerShpGrp" type="indicator"><description>Default N. If Y then before the order is stored the OrderPaymentPreference record will be split, one for each OrderItemShipGroup.</description></field>
+      <field name="showOutOfStockProducts" type="indicator"><description>Default Y. If N then out of stock products will not be displayed on site</description></field>
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>
