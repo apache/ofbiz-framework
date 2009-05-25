@@ -19,7 +19,7 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="MYPORTAL_main">
+    <property key="MYPORTAL_showPortalPage">
         <value xml:lang="en">My Portal</value>
     </property>
 </resource>
