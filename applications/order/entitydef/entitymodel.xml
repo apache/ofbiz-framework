@@ -490,10 +490,10 @@ under the License.
       <field name="shoppingListItemSeqId" type="id"></field>
       <field name="subscriptionId" type="id"></field>
       <field name="deploymentId" type="id"></field>
-      <field name="quantity" type="fixed-point"></field>
+      <field name="quantity" type="fixed-point" enable-audit-log="true"></field>
       <field name="cancelQuantity" type="fixed-point"></field>
       <field name="selectedAmount" type="fixed-point"></field>
-      <field name="unitPrice" type="currency-amount"></field>
+      <field name="unitPrice" type="currency-amount" enable-audit-log="true"></field>
       <field name="unitListPrice" type="currency-amount"></field>
       <field name="unitAverageCost" type="currency-amount"></field>
       <field name="unitRecurringPrice" type="currency-amount"></field>
@@ -514,6 +514,7 @@ under the License.
       <field name="cancelBackOrderDate" type="date-time"><description>Used to cancel all orders from suppliers when its in past</description></field>
       <field name="overrideGlAccountId" type="id"><description>Used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc.</description></field>
       <field name="salesOpportunityId" type="id-ne"></field>
+      <field name="changeByUserLoginId" type="id" enable-audit-log="true"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <relation type="one" fk-name="ORDER_ITEM_HDR" rel-entity-name="OrderHeader">
@@ -827,10 +828,10 @@ under the License.
             title="Order Item Ship Group">
       <field name="orderId" type="id-ne"></field>
       <field name="shipGroupSeqId" type="id-ne"></field>
-      <field name="shipmentMethodTypeId" type="id"></field>
+      <field name="shipmentMethodTypeId" type="id" enable-audit-log="true"></field>
       <field name="supplierPartyId" type="id"></field>
       <field name="vendorPartyId" type="id"><description>For use with multi-vendor stores, order will be split so that each ship group is associated with only one vendor (only if applicable)</description></field>
-      <field name="carrierPartyId" type="id"></field>
+      <field name="carrierPartyId" type="id" enable-audit-log="true"></field>
       <field name="carrierRoleTypeId" type="id"></field>
       <field name="facilityId" type="id"></field>
       <field name="contactMechId" type="id"></field>

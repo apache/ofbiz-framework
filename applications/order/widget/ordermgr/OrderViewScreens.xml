@@ -351,4 +351,89 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="OrderHistory">
+        <section>
+            <actions>
+                <set field="headerItem" value="findorders"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderHistory.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderViewDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.OrderOrderHistory} #${orderId}">
+                            <container>
+                                <link target="orderview?orderId=${orderId}" text="${uiLabelMap.OrderBackToOrder}" style="buttontext"/>
+                            </container>
+                            <container></container>
+                            <include-screen name="OrderShipmentMethodHistory"/>
+                            <include-screen name="OrderUnitPriceHistory"/>
+                            <include-screen name="OrderQuantityHistory"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="OrderShipmentMethodHistory">
+        <section>
+            <condition>
+                <not>
+                    <if-empty field="orderShipmentHistories"/>
+                </not>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.OrderShipmentMethodHistory}">
+                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="OrderShipmentMethodHistory"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <screenlet title="${uiLabelMap.OrderShipmentMethodHistory}">
+                    <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                </screenlet>
+            </fail-widgets>
+        </section>
+    </screen>
+
+    <screen name="OrderUnitPriceHistory">
+        <section>
+            <condition>
+                <not>
+                    <if-empty field="orderUnitPriceHistories"/>
+                </not>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.OrderUnitPriceHistory}">
+                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="OrderUnitPriceHistory"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <screenlet title="${uiLabelMap.OrderUnitPriceHistory}">
+                    <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                </screenlet>
+            </fail-widgets>
+        </section>
+    </screen>
+
+    <screen name="OrderQuantityHistory">
+        <section>
+            <condition>
+                <not>
+                    <if-empty field="orderUnitPriceHistories"/>
+                </not>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.OrderQuantityHistory}">
+                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="OrderQuantityHistory"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <screenlet title="${uiLabelMap.OrderQuantityHistory}">
+                    <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                </screenlet>
+            </fail-widgets>
+        </section>
+    </screen>
+
 </screens>

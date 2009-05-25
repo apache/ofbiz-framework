@@ -1499,6 +1499,9 @@
         <value xml:lang="th">AVS</value>
         <value xml:lang="zh">地址验证服务</value>
     </property>
+    <property key="OrderBackToOrder">
+        <value xml:lang="en">Back to order</value>
+    </property>
     <property key="OrderBackOrdered">
         <value xml:lang="de">Auftrag im Rückstand</value>
         <value xml:lang="en">Backordered</value>
@@ -3132,6 +3135,9 @@
         <value xml:lang="th">คุณน่าจะสนใจใน :</value>
         <value xml:lang="zh">你可能还会对下列产品感兴趣：</value>
         <value xml:lang="zh_CN">你可能也对这些感兴趣 :</value>
+    </property>
+    <property key="OrderHistoryNotAvailable">
+        <value xml:lang="en">History not available</value>
     </property>
     <property key="OrderHold">
         <value xml:lang="de">Auftrag anhalten</value>
@@ -4818,6 +4824,9 @@
         <value xml:lang="th">ข้อมูลหัวข้อรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单头信息</value>
         <value xml:lang="zh_CN">订单头信息</value>
+    </property>
+    <property key="OrderOrderHistory">
+        <value xml:lang="en">Order History</value>
     </property>
     <property key="OrderOrderId">
         <value xml:lang="de">Auftrag ID</value>
@@ -6668,6 +6677,9 @@
         <value xml:lang="ru">Отмен. кол.</value>
         <value xml:lang="th">รหัสจำนวนที่ยกเลิก</value>
         <value xml:lang="zh">取消的数量</value>
+    </property>
+    <property key="OrderQuantityHistory">
+        <value xml:lang="en">Item Quantity History</value>
     </property>
     <property key="OrderQuantityInShipGroup">
         <value xml:lang="de">In Gruppe</value>
@@ -8592,6 +8604,9 @@
         <value xml:lang="zh">运输信息</value>
         <value xml:lang="zh_CN">发货信息</value>
     </property>
+    <property key="OrderShipmentMethodHistory">
+        <value xml:lang="en">Shipment Method History</value>
+    </property>
     <property key="OrderShipmentReceived">
         <value xml:lang="de">Lieferung erhalten</value>
         <value xml:lang="en">Shipment Received</value>
@@ -9293,6 +9308,9 @@
         <value xml:lang="th">ราคาต่อหน่วย</value>
         <value xml:lang="zh">单价</value>
         <value xml:lang="zh_CN">单价</value>
+    </property>
+    <property key="OrderUnitPriceHistory">
+        <value xml:lang="en">Item Unit Price History</value>
     </property>
     <property key="OrderUnitPriceHT">
         <value xml:lang="de">Stückpreis ohne Steuern</value>

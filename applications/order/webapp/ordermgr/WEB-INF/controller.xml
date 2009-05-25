@@ -90,6 +90,10 @@ under the License.
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="SendConfirmationMail"/>
     </request-map>
+    <request-map uri="OrderHistory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="OrderHistory"/>
+    </request-map>
 
     <!-- Order Manager Mass Change Requests -->
     <request-map uri="massApproveOrders">
@@ -1565,6 +1569,7 @@ under the License.
     <view-map name="findorders" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderFindOrder"/>
     <view-map name="OrderDeliveryScheduleInfo" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderDeliveryScheduleInfo"/>
     <view-map name="orderview" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderView"/>
+    <view-map name="OrderHistory" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHistory"/>
     <view-map name="orderlist" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderListView"/>
     <view-map name="editorderitems" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderItemEdit"/>
     <view-map name="createnewnote" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderNewNote"/>

@@ -148,4 +148,30 @@ under the License.
             <submit/>
         </field>
     </form>
+
+    <form name="OrderShipmentMethodHistory" type="list" list-name="orderShipmentHistories"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="shipmentMethod"><display/></field>
+        <field name="changedDate"><display/></field>
+        <field name="changedByUser"><display/></field>
+    </form>
+
+    <form name="OrderUnitPriceHistory" type="list" list-name="orderUnitPriceHistories"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="productId"><display/></field>
+        <field name="oldValue"><display type="currency"/></field>
+        <field name="newValue"><display type="currency"/></field>
+        <field name="changedDate"><display/></field>
+        <field name="changedByUser"><display/></field>
+    </form>
+
+    <form name="OrderQuantityHistory" type="list" list-name="orderQuantityHistories"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="productId"><display/></field>
+        <field name="oldValue"><display/></field>
+        <field name="newValue"><display/></field>
+        <field name="changedDate"><display/></field>
+        <field name="changedByUser"><display/></field>
+    </form>
+
 </forms>
