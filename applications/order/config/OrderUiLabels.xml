@@ -6983,6 +6983,9 @@
         <value xml:lang="zh">在其它交付订单上</value>
         <value xml:lang="zh_CN">在其他订单中接收</value>
     </property>
+    <property key="OrderReceivedQtyHistory">
+        <value xml:lang="en">Received Quantity History</value>
+    </property>
     <property key="OrderReference">
         <value xml:lang="de">Referenz</value>
         <value xml:lang="en">Reference</value>
@@ -7663,6 +7666,9 @@
         <value xml:lang="zh">退货头</value>
         <value xml:lang="zh_CN">退货单</value>
     </property>
+    <property key="OrderReturnHistory">
+        <value xml:lang="en">Return History</value>
+    </property>
     <property key="OrderReturnId">
         <value xml:lang="de">Retoure ID</value>
         <value xml:lang="en">Return ID</value>
@@ -7785,6 +7791,9 @@
         <value xml:lang="th">คืนราคา</value>
         <value xml:lang="zh">退货价格</value>
     </property>
+    <property key="OrderReturnPriceHistory">
+        <value xml:lang="en">Return Price History</value>
+    </property>
     <property key="OrderReturnPriceNotIncludeTax">
         <value xml:lang="de">Preis enthält keine Steueranpassungen</value>
         <value xml:lang="en">Price not includes tax  adjustments</value>
@@ -7809,6 +7818,9 @@
         <value xml:lang="th">การกลับคืนจำนวน</value>
         <value xml:lang="zh">退货数量</value>
     </property>
+    <property key="OrderReturnQtyHistory">
+        <value xml:lang="en">Return Quantity History</value>
+    </property>
     <property key="OrderReturnReason">
         <value xml:lang="de">Grund</value>
         <value xml:lang="en">Reason</value>
@@ -7820,6 +7832,9 @@
         <value xml:lang="ru">Причина</value>
         <value xml:lang="th">เหตุผล</value>
         <value xml:lang="zh">原因</value>
+    </property>
+    <property key="OrderReturnReasonHistory">
+        <value xml:lang="en">Return Reason History</value>
     </property>
     <property key="OrderReturnReceive">
         <value xml:lang="de">Retoure entgegennehmen</value>
@@ -7934,6 +7949,9 @@
         <value xml:lang="ru">Тип</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">类型</value>
+    </property>
+    <property key="OrderReturnTypeHistory">
+        <value xml:lang="en">Return Type History</value>
     </property>
     <property key="OrderReturned">
         <value xml:lang="de">Zurückgesendet</value>

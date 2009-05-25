@@ -1531,6 +1531,11 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupProductCategory"/>
     </request-map>
+    
+    <request-map uri="ReturnHistory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReturnHistory"/>
+    </request-map>
 
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
     <!--
@@ -1712,5 +1717,6 @@ under the License.
     <view-map name="OrderPickSheetPDF" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PrintPickSheets.fo" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
+    <view-map name="ReturnHistory" type="screen" page="component://order/widget/ordermgr/OrderReturnScreens.xml#OrderReturnHistory"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -339,4 +339,9 @@ under the License.
         <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="createReturnStatus" default-entity-name="ReturnHeader" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnStatus">
+        <description>Create Return Status</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

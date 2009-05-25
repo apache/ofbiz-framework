@@ -176,6 +176,10 @@ under the License.
     </eca>
 
     <!-- Return ECAs -->
+
+    <eca service="createReturnHeader" event="commit">
+        <action service="createReturnStatus" mode="sync"/>
+    </eca>    
     <eca service="updateReturnHeader" event="commit">
         <action service="checkReturnComplete" mode="sync"/>
     </eca>
@@ -194,6 +198,7 @@ under the License.
         <action service="createTrackingCodeOrderReturns" mode="sync" run-as-user="system"/>
         <action service="sendReturnAcceptNotification" mode="async" persist="true"/>
         <action service="processRefundImmediatelyReturn" mode="sync"/>
+        <action service="createReturnStatus" mode="sync"/>
     </eca>
 
     <eca service="updateReturnHeader" event="commit">
@@ -205,6 +210,7 @@ under the License.
         <action service="processRepairReplacementReturn" mode="sync"/>
         <action service="processCreditReturn" mode="sync"/>
         <action service="processRefundOnlyReturn" mode="sync"/>
+        <action service="createReturnStatus" mode="sync"/>
     </eca>
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
@@ -220,16 +226,19 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="RETURN_COMPLETED"/>
         <action service="sendReturnCompleteNotification" mode="async" persist="true"/>
         <action service="processSubscriptionReturn" mode="sync"/>
+        <action service="createReturnStatus" mode="sync"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="RETURN_CANCELLED"/>
         <action service="cancelReturnItems" mode="sync"/>
+        <action service="createReturnStatus" mode="sync"/>
         <action service="sendReturnCancelNotification" mode="async" persist="true"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="SUP_RETURN_SHIPPED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="SUP_RETURN_SHIPPED"/>
+        <action service="createReturnStatus" mode="sync"/>
         <action service="processWaitReplacementReturn" mode="sync"/>
     </eca>
 

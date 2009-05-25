@@ -2413,10 +2413,10 @@ under the License.
             title="Return Item Entity">
         <field name="returnId" type="id-ne"></field>
         <field name="returnItemSeqId" type="id-ne"></field>
-        <field name="returnReasonId" type="id">
+        <field name="returnReasonId" type="id" enable-audit-log="true">
             <description>why item is returned: did not like, wrong item, damaged, etc. etc.</description>
         </field>
-        <field name="returnTypeId" type="id">
+        <field name="returnTypeId" type="id" enable-audit-log="true">
             <description>actually used for disbursement type: store credit, cash refund, exchange</description>
         </field>
         <field name="returnItemTypeId" type="id">
@@ -2430,9 +2430,9 @@ under the License.
         <field name="orderItemSeqId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="expectedItemStatus" type="id"></field>
-        <field name="returnQuantity" type="fixed-point"><description>promised by the customer</description></field>
-        <field name="receivedQuantity" type="fixed-point"><description>actually received from the customer</description></field>
-        <field name="returnPrice" type="currency-amount"></field>
+        <field name="returnQuantity" type="fixed-point" enable-audit-log="true"><description>promised by the customer</description></field>
+        <field name="receivedQuantity" type="fixed-point" enable-audit-log="true"><description>actually received from the customer</description></field>
+        <field name="returnPrice" type="currency-amount" enable-audit-log="true"></field>
         <field name="returnItemResponseId" type="id"></field>
         <prim-key field="returnId"/>
         <prim-key field="returnItemSeqId"/>
@@ -2550,6 +2550,7 @@ under the License.
         <field name="statusId" type="id"></field>
         <field name="returnId" type="id"></field>
         <field name="returnItemSeqId" type="id"></field>
+        <field name="changeByUserLoginId" type="id"></field>
         <field name="statusDatetime" type="date-time"></field>
         <prim-key field="returnStatusId"/>
         <relation type="one" fk-name="RTN_STTS_STTS" rel-entity-name="StatusItem">
@@ -2561,6 +2562,9 @@ under the License.
         <relation type="one-nofk" rel-entity-name="ReturnItem">
             <key-map field-name="returnId"/>
             <key-map field-name="returnItemSeqId"/>
+        </relation>
+        <relation type="one" fk-name="RS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+            <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
         </relation>
     </entity>
     <entity entity-name="ReturnType"

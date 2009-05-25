@@ -186,4 +186,197 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="OrderReturnHistory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderReturnHistory"/>
+                <set field="headerItem" value="return"/>
+                <set field="tabButtonItem" value="OrderReturnHistory"/>
+                <set field="returnId" from-field="parameters.returnId"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderReturnDecorator">
+                    <decorator-section name="body">
+                        <include-screen name="ReturnStatusHistory"/>
+                        <include-screen name="ReturnTypeHistory"/>
+                        <include-screen name="ReturnReasonHistory"/>
+                        <include-screen name="ReturnQuantityHistory"/>
+                        <include-screen name="ReceivedQuantityHistory"/>
+                        <include-screen name="ReturnPriceHistory"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ReturnStatusHistory">
+        <section>
+            <actions>
+                <entity-and entity-name="ReturnStatus" list="orderReturnStatusHistories">
+                    <field-map field-name="returnId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="orderReturnStatusHistories"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <screenlet id="ReturnStatusHistoryPanel" title="${uiLabelMap.OrderOrderReturn} ${uiLabelMap.CommonStatusHistory}" collapsible="true">
+                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnStatusHistory"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.OrderOrderReturn} ${uiLabelMap.CommonStatusHistory}">
+                            <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ReturnTypeHistory">
+        <section>
+            <actions>
+                <set field="entityField" value="returnTypeId"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="orderReturnItemHistories"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <screenlet id="ReturnTypeHistoryPanel" title="${uiLabelMap.OrderReturnTypeHistory}" collapsible="true">
+                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnTypeHistory"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.OrderReturnTypeHistory}">
+                            <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ReturnReasonHistory">
+        <section>
+            <actions>
+                <set field="entityField" value="returnReasonId"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="orderReturnItemHistories"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <screenlet id="ReturnReasonHistoryPanel" title="${uiLabelMap.OrderReturnReasonHistory}" collapsible="true">
+                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnReasonHistory"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.OrderReturnReasonHistory}">
+                            <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ReturnQuantityHistory">
+        <section>
+            <actions>
+                <set field="entityField" value="returnQuantity"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="orderReturnItemHistories"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <screenlet id="ReturnQuantityHistoryPanel" title="${uiLabelMap.OrderReturnQtyHistory}" collapsible="true">
+                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnAndReceivedQuantityHistory"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.OrderReturnQtyHistory}">
+                            <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ReceivedQuantityHistory">
+        <section>
+            <actions>
+                <set field="entityField" value="receivedQuantity"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="orderReturnItemHistories"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <screenlet id="ReceivedQuantityHistoryPanel" title="${uiLabelMap.OrderReceivedQtyHistory}" collapsible="true">
+                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnAndReceivedQuantityHistory"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.OrderReceivedQtyHistory}">
+                            <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ReturnPriceHistory">
+        <section>
+            <actions>
+                <set field="entityField" value="returnPrice"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="orderReturnItemHistories"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <screenlet id="ReturnPriceHistoryPanel" title="${uiLabelMap.OrderReturnPriceHistory}" collapsible="true">
+                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnPriceHistory"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.OrderReturnPriceHistory}">
+                            <label text="${uiLabelMap.OrderHistoryNotAvailable}"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
 </screens>
