@@ -133,7 +133,7 @@ under the License.
             <if-empty field="parameters.contactMechIdTo">
                 <set field="getEmail.partyId" from-field="parameters.partyIdTo"/>
                 <call-service service-name="getPartyEmail" in-map-name="getEmail">
-                    <result-to-field result-name="contacMechId" field="newEntity.ContactMechIdTo"/>
+                    <result-to-field result-name="contacMechId" field="newEntity.contactMechIdTo"/>
                 </call-service>
             </if-empty>
         </if-not-empty>
@@ -194,7 +194,6 @@ under the License.
     <simple-method method-name="updateCommunicationEvent"
         short-description="Update a CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
-        <log level="always" message="====Udating communication event: ${communicationEvent.communicationEventId} with subject: ${communicationEvent.subject}"></log>
         <if-compare-field to-field="parameters.statusId" operator="not-equals" field="event.statusId">
             <call-simple-method method-name="setCommunicationEventStatus"/>
         </if-compare-field>
@@ -212,69 +211,59 @@ under the License.
         <!-- if the from-party changed, change also the roles -->
         <if>
             <condition>
-                <or>
-                    <and>
-                        <not><if-empty field="parameters.partyIdFrom"/></not>
-                        <if-compare-field field="parameters.partyIdFrom" operator="not-equals" to-field="event.partyIdFrom"/>
-                    </and>
-                    <and>
-                        <not><if-empty field="parameters.contactMechIdFrom"/></not>
-                        <if-compare-field field="parameters.contactMechIdFrom" operator="not-equals" to-field="event.contactMechIdFrom"/>
-                    </and>
-                </or>
+                <and>
+                    <not><if-empty field="parameters.partyIdFrom"/></not>
+                    <if-compare-field field="parameters.partyIdFrom" operator="not-equals" to-field="event.partyIdFrom"/>
+                </and>
             </condition>
             <then>
                 <!-- updating partyId from old: -->
                 <entity-one entity-name="CommunicationEventRole" value-field="roleFrom">
                     <field-map field-name="communicationEventId" from-field="event.communicationEventId"/>
-                    <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
+                    <field-map field-name="partyId" from-field="event.partyIdFrom"/>
                     <field-map field-name="roleTypeId" value="ORIGINATOR"/>
                 </entity-one>
                 <if-not-empty field="roleFrom">
                     <remove-value value-field="roleFrom"/>
                 </if-not-empty>
                 <!-- add new role -->
-                <set field="newRoleFrom.communicationEventId" from-field="event.communicationEventId"/>
                 <set field="newRoleFrom.partyId" from-field="parameters.partyIdFrom"/>
+                <call-service service-name="getPartyEmail" in-map-name="newRoleFrom">
+                    <result-to-field result-name="contactMechId" field="newRoleFrom.contactMechId"/>
+                </call-service>
+                <set field="newRoleFrom.communicationEventId" from-field="event.communicationEventId"/>
                 <set field="newRoleFrom.roleTypeId" value="ORIGINATOR"/>
-                <set field="newRoleFrom.statusId" from-field="roleFrom.statusId"/>
-                <set field="newRoleFrom.contactMechId" from-field="parameters.contactMechIdFrom"/>
-                <call-service service-name="createCommunicationEventRole"
-                    in-map-name="newRoleFrom"/>
+                <call-service service-name="createCommunicationEventRole" in-map-name="newRoleFrom"/>
+                <set field="parameters.contactMechIdFrom" from-field="newRoleFrom.contactMechId"/>
             </then>
         </if>
         <!-- if the to-party changed, change also the roles -->
         <if>
             <condition>
-                <or>
-                    <and>
-                        <not><if-empty field="parameters.partyIdTo"/></not>
-                        <if-compare-field field="parameters.partyIdTo" operator="not-equals" to-field="event.partyIdTo"/>
-                    </and>
-                    <and>
-                        <not><if-empty field="parameters.contactMechIdTo"/></not>
-                        <if-compare-field field="parameters.contactMechIdTo" operator="not-equals" to-field="event.contactMechIdTo"/>
-                    </and>
-                </or>
+                <and>
+                    <not><if-empty field="parameters.partyIdTo"/></not>
+                    <if-compare-field field="parameters.partyIdTo" operator="not-equals" to-field="event.partyIdTo"/>
+                </and>
             </condition>
             <then>
                 <!-- check if role exist then delete old role -->
                 <entity-one entity-name="CommunicationEventRole" value-field="roleTo">
                     <field-map field-name="communicationEventId" from-field="event.communicationEventId"/>
-                    <field-map field-name="partyId" from-field="parameters.partyIdTo"/>
+                    <field-map field-name="partyId" from-field="event.partyIdTo"/>
                     <field-map field-name="roleTypeId" value="ADDRESSEE"/>
                 </entity-one>
                 <if-not-empty field="roleTo">
                     <remove-value value-field="roleTo"/>
                 </if-not-empty>
                 <!-- add new role -->
-                <set field="newRoleTo.communicationEventId" from-field="event.communicationEventId"/>
                 <set field="newRoleTo.partyId" from-field="parameters.partyIdTo"/>
+                <call-service service-name="getPartyEmail" in-map-name="newRoleTo">
+                    <result-to-field result-name="contactMechId" field="newRoleTo.contactMechId"/>
+                </call-service>
+                <set field="newRoleTo.communicationEventId" from-field="event.communicationEventId"/>
                 <set field="newRoleTo.roleTypeId" value="ADDRESSEE"/>
-                <set field="newRoleTo.statusId" from-field="roleTo.statusId"/>
-                <set field="newRoleTo.contactMechId" from-field="parameters.contactMechIdTo"/>
-                <call-service service-name="createCommunicationEventRole"
-                    in-map-name="newRoleTo"/>
+                <call-service service-name="createCommunicationEventRole" in-map-name="newRoleTo"/>
+                <set field="parameters.contactMechIdTo" from-field="newRoleTo.contactMechId"/>
             </then>
         </if>
         <set-nonpk-fields map="parameters" value-field="event"/>
