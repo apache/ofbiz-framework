@@ -360,4 +360,12 @@ under the License.
         <set field-name="emailTemplateSettingId" value="CUST_REQ_COMPLETED"/>
         <action service="sendMailFromTemplateSetting" mode="sync"/>
     </eca>
+    <eca service="createSalesOpportunity" event="commit">
+        <condition field-name="accountPartyId" operator="is-not-empty"/>
+        <action service="createSalesOpportunityAccountRole" mode="sync"/>
+    </eca>
+    <eca service="updateSalesOpportunity" event="commit">
+        <condition field-name="accountPartyId" operator="is-not-empty"/>
+        <action service="createSalesOpportunityAccountRole" mode="sync"/>
+    </eca>
 </service-eca>

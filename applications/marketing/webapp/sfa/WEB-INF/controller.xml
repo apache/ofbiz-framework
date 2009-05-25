@@ -30,30 +30,30 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    <!-- Opportunity Requests -->
-    <request-map uri="FindOpportunity">
+    <!-- Sales Opportunity Requests -->
+    <request-map uri="FindSalesOpportunity">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindOpportunity"/>
+        <response name="success" type="view" value="FindSalesOpportunity"/>
     </request-map>
-    <request-map uri="ViewOpportunity">
+    <request-map uri="ViewSalesOpportunity">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewOpportunity"/>
+        <response name="success" type="view" value="ViewSalesOpportunity"/>
     </request-map>
-    <request-map uri="EditOpportunity">
+    <request-map uri="EditSalesOpportunity">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditOpportunity"/>
+        <response name="success" type="view" value="EditSalesOpportunity"/>
     </request-map>
-    <request-map uri="createOpportunity">
+    <request-map uri="createSalesOpportunity">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createOpportunity"/>
-        <response name="success" type="view" value="ViewOpportunity"/>
-        <response name="error" type="view" value="EditOpportunity"/>
+        <event type="service" invoke="createSalesOpportunity"/>
+        <response name="success" type="view" value="ViewSalesOpportunity"/>
+        <response name="error" type="view" value="EditSalesOpportunity"/>
     </request-map>
-    <request-map uri="updateOpportunity">
+    <request-map uri="updateSalesOpportunity">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateOpportunity"/>
-        <response name="success" type="request" value="ViewOpportunity"/>
-        <response name="error" type="view" value="EditOpportunity"/>
+        <event type="service" invoke="updateSalesOpportunity"/>
+        <response name="success" type="request" value="ViewSalesOpportunity"/>
+        <response name="error" type="view" value="EditSalesOpportunity"/>
     </request-map>
 
     <!-- Account Entry Requests -->
@@ -230,9 +230,9 @@ under the License.
     <view-map name="main" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#main"/>
     <view-map name="viewprofile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewProfile"/>
 
-    <view-map name="FindOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindOpportunity"/>
-    <view-map name="ViewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#ViewOpportunity"/>
-    <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
+    <view-map name="FindSalesOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindSalesOpportunity"/>
+    <view-map name="ViewSalesOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#ViewSalesOpportunity"/>
+    <view-map name="EditSalesOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditSalesOpportunity"/>
 
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccount" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccount"/>

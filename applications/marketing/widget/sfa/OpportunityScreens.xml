@@ -21,7 +21,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="FindOpportunity">
+    <screen name="FindSalesOpportunity">
         <section>
             <actions>
                 <set field="titleProperty" value="SfaFindOpportunities"/>
@@ -39,8 +39,8 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="EditOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
-                                        <include-form name="FindOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                                        <container><link target="EditSalesOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                        <include-form name="FindSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -55,7 +55,7 @@ under the License.
                                 <container>
                                     <section>
                                         <widgets>
-                                            <include-form name="ListOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                                            <include-form name="ListSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                         </widgets>
                                     </section>
                                 </container>
@@ -67,13 +67,18 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditOpportunity">
+    <screen name="EditSalesOpportunity">
         <section>
             <actions>
                 <set field="titleProperty" value="SfaEditOpportunity"/>
-                <set field="tabButtonItem" value="EditOpportunity"/>
+                <set field="tabButtonItem" value="EditSalesOpportunity"/>
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
                 <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
+                <service service-name="findPartyInSalesOpportunityRole" result-map="findResult">
+                    <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                    <field-map field-name="roleTypeId" value="ACCOUNT"/>
+                </service>
+                <set field="accountPartyId" from-field="findResult.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -87,7 +92,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                                        <include-form name="EditSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -98,11 +103,11 @@ under the License.
         </section>
     </screen>
 
-    <screen name="ViewOpportunity">
+    <screen name="ViewSalesOpportunity">
         <section>
             <actions>
                 <set field="titleProperty" value="SfaOpportunityInfo"/>
-                <set field="tabButtonItem" value="ViewOpportunity"/>
+                <set field="tabButtonItem" value="ViewSalesOpportunity"/>
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
                 <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
             </actions>
@@ -118,7 +123,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="ViewOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                                        <include-form name="ViewSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
