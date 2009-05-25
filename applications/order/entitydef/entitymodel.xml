@@ -293,6 +293,39 @@ under the License.
         <key-map field-name="contactMechPurposeTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="OrderContent" package-name="org.ofbiz.order.order" title="Order Data Object Entity">
+        <field name="orderId" type="id-ne"></field>
+        <field name="orderItemSeqId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="orderContentTypeId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="contentId"/>
+        <prim-key field="orderId"/>
+        <prim-key field="orderItemSeqId"/>
+        <prim-key field="orderContentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="ORD_CNT_PROD" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one" fk-name="ORD_CNT_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="ORD_CNT_TYPE" rel-entity-name="OrderContentType">
+            <key-map field-name="orderContentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="OrderContentType" package-name="org.ofbiz.order.order" default-resource-name="OrderEntityLabels"
+        title="Order Content Type Entity">
+        <field name="orderContentTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="orderContentTypeId"/>
+        <relation type="one" fk-name="ORDCT_TYP_PARENT" title="Parent" rel-entity-name="OrderContentType">
+            <key-map field-name="parentTypeId" rel-field-name="orderContentTypeId"/>
+        </relation>
+    </entity>
     <entity entity-name="OrderDeliverySchedule"
             package-name="org.ofbiz.order.order"
             never-cache="true"
@@ -1049,6 +1082,18 @@ under the License.
         <index-field name="needsNsfRetry"/>
       </index>
     </entity>
+    <entity entity-name="OrderProductPromoCode" package-name="org.ofbiz.order.order" title="Order Product Promo Code Entity">
+        <field name="orderId" type="id-ne"></field>
+        <field name="productPromoCodeId" type="id-ne"></field>
+        <prim-key field="orderId"/>
+        <prim-key field="productPromoCodeId"/>
+        <relation type="one" fk-name="ORDER_PPCD_ORD" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_PPCD_PPC" rel-entity-name="ProductPromoCode">
+            <key-map field-name="productPromoCodeId"/>
+        </relation>
+    </entity>
     <entity entity-name="OrderRole"
             package-name="org.ofbiz.order.order"
             never-cache="true"
@@ -1257,43 +1302,6 @@ under the License.
       <relation type="one" fk-name="PROD_OITEM_ENOITM" title="Engagement" rel-entity-name="OrderItem">
         <key-map field-name="engagementId" rel-field-name="orderId"/>
         <key-map field-name="engagementItemSeqId" rel-field-name="orderItemSeqId"/>
-      </relation>
-    </entity>
-    <entity entity-name="OrderContent"
-            package-name="org.ofbiz.order.order"
-            title="Order Data Object Entity">
-      <field name="orderId" type="id-ne"></field>
-      <field name="orderItemSeqId" type="id-ne"></field>
-      <field name="contentId" type="id-ne"></field>
-      <field name="orderContentTypeId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="contentId"/>
-      <prim-key field="orderId"/>
-      <prim-key field="orderItemSeqId"/>
-      <prim-key field="orderContentTypeId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="ORD_CNT_PROD" rel-entity-name="OrderHeader">
-        <key-map field-name="orderId"/>
-      </relation>
-      <relation type="one" fk-name="ORD_CNT_CNT" rel-entity-name="Content">
-        <key-map field-name="contentId"/>
-      </relation>
-      <relation type="one" fk-name="ORD_CNT_TYPE" rel-entity-name="OrderContentType">
-        <key-map field-name="orderContentTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="OrderContentType"
-            package-name="org.ofbiz.order.order"
-            default-resource-name="OrderEntityLabels"
-            title="Order Content Type Entity">
-      <field name="orderContentTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id"></field>
-      <field name="hasTable" type="indicator"></field>
-      <field name="description" type="description"></field>
-      <prim-key field="orderContentTypeId"/>
-      <relation type="one" fk-name="ORDCT_TYP_PARENT" title="Parent" rel-entity-name="OrderContentType">
-        <key-map field-name="parentTypeId" rel-field-name="orderContentTypeId"/>
       </relation>
     </entity>
     <entity entity-name="WorkOrderItemFulfillment"
