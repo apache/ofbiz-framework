@@ -57,7 +57,7 @@ under the License.
         authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
         authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
         storeCreditValidDays="90"
-        visualThemeId="EC_DEFAULT" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
+        visualThemeId="EC_DEFAULT" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y" showOutOfStockProducts="Y"/>
 
     <!-- <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="testRandomAuthorize"/> -->
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>

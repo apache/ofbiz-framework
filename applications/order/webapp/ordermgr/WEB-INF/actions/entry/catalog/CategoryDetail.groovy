@@ -27,6 +27,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryContentWrapper;
+import org.ofbiz.product.store.ProductStoreWorker;
 
 productCategoryId = request.getAttribute("productCategoryId");
 context.productCategoryId = productCategoryId;
@@ -59,7 +60,26 @@ if (context.orderByFields) {
 catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
 
 productCategory = catResult.productCategory;
-context.productCategoryMembers = catResult.productCategoryMembers;
+productCategoryMembers = catResult.productCategoryMembers;
+
+// Prevents out of stock product to be displayed on site
+productStore = ProductStoreWorker.getProductStore(request);
+if(productStore) {
+    if("N".equals(productStore.showOutOfStockProducts)) {
+        productsInStock = [];
+        productCategoryMembers.each { productCategoryMember ->
+            productFacility = delegator.findOne("ProductFacility", [productId : productCategoryMember.productId, facilityId : productStore.inventoryFacilityId], true);
+            if(productFacility) {
+                if(productFacility.lastInventoryCount >= 1) {
+                    productsInStock.add(productCategoryMember);
+                }
+            }
+        }
+        context.productCategoryMembers = productsInStock;
+    } else {
+        context.productCategoryMembers = productCategoryMembers;
+    }
+}
 context.productCategory = productCategory;
 context.viewIndex = catResult.viewIndex;
 context.viewSize = catResult.viewSize;

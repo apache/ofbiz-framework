@@ -890,4 +890,9 @@ under the License.
        <attribute name="productId" type="String" mode="IN" optional="false"/>
        <attribute name="LocationList" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="setLastInventoryCount" engine="simple"
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="setLastInventoryCount">
+        <description>Schedule service that updates lastInventoryCount hourly for products available in facility</description>
+        <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>
