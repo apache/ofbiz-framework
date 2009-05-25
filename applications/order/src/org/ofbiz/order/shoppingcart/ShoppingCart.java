@@ -3458,6 +3458,7 @@ public class ShoppingCart implements Serializable {
                 orderItem.set("shipAfterDate", item.getShipAfterDate());
                 orderItem.set("estimatedShipDate", item.getEstimatedShipDate());
                 orderItem.set("cancelBackOrderDate", item.getCancelBackOrderDate());
+                orderItem.set("changeByUserLoginId", this.getUserLogin().get("userLoginId"));
 
                 String fromInventoryItemId = (String) item.getAttribute("fromInventoryItemId");
                 if (fromInventoryItemId != null) {

@@ -98,6 +98,7 @@ under the License.
           </#if>
           <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
         </#if>
+        <li><a href="<@ofbizUrl>OrderHistory?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOrderHistory}</a></li>
       </ul>
     </div>
   </div>
