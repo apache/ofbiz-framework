@@ -466,7 +466,7 @@ public class ProductionRunServices {
                 }
 
                 BigDecimal quantity = (BigDecimal) context.get("quantity");
-                if (quantity != null &&  ! quantity.equals(productionRun.getQuantity())) {
+                if (quantity != null &&  quantity.compareTo(productionRun.getQuantity()) != 0) {
                     productionRun.setQuantity(quantity);
                 }
 

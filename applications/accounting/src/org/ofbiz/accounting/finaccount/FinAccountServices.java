@@ -346,7 +346,7 @@ public class FinAccountServices {
             BigDecimal actualBalance = finAccount.getBigDecimal("actualBalance");
 
             // if they do not match, then there are outstanding authorizations which need to be settled first
-            if (!actualBalance.equals(availableBalance)) {
+            if (actualBalance.compareTo(availableBalance) != 0) {
                 return ServiceUtil.returnError("Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.");
             }
 

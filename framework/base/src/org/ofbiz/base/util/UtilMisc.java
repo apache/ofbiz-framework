@@ -285,7 +285,7 @@ public class UtilMisc {
             throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
         }
 
-        if (addNumber == null || ZERO_BD.equals(addNumber)) {
+        if (addNumber == null || ZERO_BD.compareTo(addNumber) == 0) {
             return currentNumber;
         }
         currentNumber = currentNumber.add(addNumber);
