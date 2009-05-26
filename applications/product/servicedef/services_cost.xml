@@ -72,6 +72,7 @@ under the License.
         <attribute mode="IN" name="productId" optional="true" type="String"/>
         <attribute mode="IN" name="routingId" optional="true" type="String"/>
         <attribute mode="OUT" name="taskCost" type="BigDecimal" optional="false"/>
+        <attribute mode="OUT" name="costsByType" type="Map" optional="true"/>
     </service>
     <service name="calculateProductCosts" engine="simple" auth="true"
                 location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductCosts">
