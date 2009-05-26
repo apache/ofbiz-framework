@@ -153,7 +153,7 @@ under the License.
     <view-link entity-alias="WEPH" rel-entity-alias="WET">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
-    <view-link entity-alias="WET" rel-entity-alias="WEPA">
+    <view-link entity-alias="WET" rel-entity-alias="WEPA" rel-optional="true"><!-- has to be true because all tasks should be should shown in the task findlist screen even when not connected to a party -->
       <key-map field-name="workEffortId"/>
     </view-link>
     <relation type="one-nofk" rel-entity-name="PartyNameView">

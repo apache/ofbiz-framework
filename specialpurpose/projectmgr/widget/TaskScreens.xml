@@ -166,9 +166,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet  title="${uiLabelMap.PageTitleFindTask}" collapsible="true" id="findTask">
-                            <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                        </screenlet>
                         <section>
                             <condition>
                                 <or>
@@ -176,11 +173,9 @@ under the License.
                                     <if-has-permission permission="PROJECTMGR_VIEW"/>
                                 </or>
                             </condition>
-                            <actions>
-                                <set field="entityName" value="ProjectAndPhaseAndTaskParty"/>
-                            </actions>
                             <widgets>
-                                <screenlet  title="${uiLabelMap.PageTitleListTaskSearchResult}" navigation-form-name="ListTasks">
+                                <screenlet  title="${uiLabelMap.PageTitleFindTask}" collapsible="true" id="findTask">
+                                    <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                     <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </screenlet>
                             </widgets>
