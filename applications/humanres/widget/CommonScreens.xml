@@ -85,14 +85,14 @@ under the License.
     <screen name="PartyGroupTreeLine">
         <section>
             <widgets>
-                <label text="${partyAndGroup.groupName}" style="tabletext"/>
+                <label text="${partyAndGroup.groupName}"/>
             </widgets>
         </section>
     </screen>
     <screen name="PartyPersonTreeLine">
         <section>
             <widgets>
-                <label text="${partyAndPerson.firstName} ${partyAndPerson.lastName}" style="tabletext"/>
+                <label text="${partyAndPerson.firstName} ${partyAndPerson.lastName}"/>
             </widgets>
         </section>
     </screen>
