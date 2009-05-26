@@ -112,10 +112,6 @@ under the License.
             <set value="COM_ENTERED" field="parameters.statusId"/>
         </if-empty>
 
-        <if-empty field="newEntity.partyIdFrom">
-            <set field="newEntity.partyIdFrom" from-field="userLogin.partyId"/>
-        </if-empty>
-
         <!-- if only contactMechId and no partyIdTo is provided for creation email address find the related party -->
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">
