@@ -125,7 +125,7 @@ under the License.
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
-                    <condition-expr field-name="partyId" value="${communicationEvent.partyIdFrom}"/>
+                    <condition-expr field-name="partyId" from-field="partyIdFrom"/>
                     <condition-expr field-name="contactFromDate" operator="less-equals" from-field="nowDate"/>
                     <condition-list combine="or">
                         <condition-expr field-name="contactThruDate" from-field="null"/>

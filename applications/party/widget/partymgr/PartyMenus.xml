@@ -360,7 +360,7 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
-                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
@@ -374,7 +374,7 @@
             </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
-                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
@@ -385,6 +385,7 @@
                     <not><if-empty field="communicationEvent"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                     <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${partyId}"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
@@ -561,11 +562,13 @@
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <link target="EditCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
             </link>
         </menu-item>
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <link target="EditCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
             </link>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">

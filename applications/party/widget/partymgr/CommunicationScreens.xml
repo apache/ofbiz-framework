@@ -364,10 +364,12 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication"/>
+                <set field="my" from-field="parameters.my" default-value=""/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="parameters.userLogin.partyId"/>
                 <set field="parameters.communicationEventTypeId" from-field="parameters.communicationEventTypeId" default-value="${communicationEvent.communicationEventTypeId}"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>
+                <!--script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/-->
             </actions>
             <widgets>
                 <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -385,13 +387,13 @@ under the License.
                                         <if-empty field="communicationEvent"/>
                                     </condition>
                                     <widgets>
-                                        <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${parameters.communicationEventId} ${uiLabelMap.CommonFrom} ${communicationEvent.partyIdFrom}">
+                                        <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${uiLabelMap.CommonFrom} ${parameters.partyIdFrom}">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
                                         <container style="lefthalf">
-                                            <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${parameters.communicationEventId}">
+                                            <screenlet title="${uiLabelMap.CommonFrom}: ${communicationEvent.partyIdFrom}, CommunicationEventId: ${communicationEvent.communicationEventId}">
                                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
                                             </screenlet>
                                         </container>
