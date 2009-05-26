@@ -514,7 +514,7 @@ under the License.
       <field name="cancelBackOrderDate" type="date-time"><description>Used to cancel all orders from suppliers when its in past</description></field>
       <field name="overrideGlAccountId" type="id"><description>Used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc.</description></field>
       <field name="salesOpportunityId" type="id-ne"></field>
-      <field name="changeByUserLoginId" type="id" enable-audit-log="true"></field>
+      <field name="changeByUserLoginId" type="id-vlong" enable-audit-log="true"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <relation type="one" fk-name="ORDER_ITEM_HDR" rel-entity-name="OrderHeader">
@@ -564,6 +564,9 @@ under the License.
       <relation type="one" fk-name="ORDER_ITEM_SLSOPP" rel-entity-name="SalesOpportunity" >
             <key-map field-name="salesOpportunityId"/>
       </relation>
+        <relation type="one" fk-name="ORDER_ITEM_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+            <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>      
       <index name="ORDITMEXT_ID_IDX">
         <index-field name="externalId"/>
       </index>
@@ -2550,7 +2553,7 @@ under the License.
         <field name="statusId" type="id"></field>
         <field name="returnId" type="id"></field>
         <field name="returnItemSeqId" type="id"></field>
-        <field name="changeByUserLoginId" type="id"></field>
+        <field name="changeByUserLoginId" type="id-vlong"></field>
         <field name="statusDatetime" type="date-time"></field>
         <prim-key field="returnStatusId"/>
         <relation type="one" fk-name="RTN_STTS_STTS" rel-entity-name="StatusItem">
@@ -2563,7 +2566,7 @@ under the License.
             <key-map field-name="returnId"/>
             <key-map field-name="returnItemSeqId"/>
         </relation>
-        <relation type="one" fk-name="RS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+        <relation type="one" fk-name="RTN_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
             <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
         </relation>
     </entity>
