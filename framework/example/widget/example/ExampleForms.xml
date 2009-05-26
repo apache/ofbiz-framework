@@ -73,7 +73,7 @@ under the License.
         <actions>
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
-        <field name="exampleName" title="${uiLabelMap.CommonName}" id-name="exampleName" widget-style="tabletext">
+        <field name="exampleName" title="${uiLabelMap.CommonName}" id-name="exampleName">
             <display>
                 <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
@@ -82,7 +82,7 @@ under the License.
                 </in-place-editor>
             </display>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}" id-name="description" widget-style="tabletext">
+        <field name="description" title="${uiLabelMap.CommonDescription}" id-name="description">
             <display>
                 <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
