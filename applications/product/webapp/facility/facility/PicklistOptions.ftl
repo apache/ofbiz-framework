@@ -88,7 +88,6 @@ under the License.
                 <#assign orderReadyToPickInfoListSizeTotal = 0>
                 <#assign orderNeedsStockMoveInfoListSizeTotal = 0>
                 <#assign alt_row = false>
-                <#assign seq = 0>
                 <#list pickMoveInfoList as pickMoveInfo>
                     <#assign groupName = pickMoveInfo.groupName?if_exists>
                     <#assign groupName1 = pickMoveInfo.groupName1?if_exists>
@@ -100,10 +99,9 @@ under the License.
                     <#assign orderNeedsStockMoveInfoListSize = (orderNeedsStockMoveInfoList.size())?default(0)>
                     <#assign orderReadyToPickInfoListSizeTotal = orderReadyToPickInfoListSizeTotal + orderReadyToPickInfoListSize>
                     <#assign orderNeedsStockMoveInfoListSizeTotal = orderNeedsStockMoveInfoListSizeTotal + orderNeedsStockMoveInfoListSize>
-                    <#assign seq = seq + 1>
                     <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                         <td>
-                            <form name= "viewGroupDetail_${seq}" action ="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
+                            <form name="viewGroupDetail_${pickMoveInfo_index}" action="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
                                 <input type ="hidden" name="viewDetail" value= "${groupName?if_exists}"/>
                                 <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
                                 <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
@@ -112,13 +110,13 @@ under the License.
                                 <table>
                                     <tr>
                                         <#if groupName1?has_content>
-                                            <td><a href="javascript:document.viewGroupDetail_${seq}.submit()" class="buttontext">${groupName1}</a></td>
+                                            <td><a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName1}</a></td>
                                         </#if>
                                         <#if groupName2?has_content>
-                                            <td><a href="javascript:document.viewGroupDetail_${seq}.submit()" class="buttontext">${groupName2}</a></td>
+                                            <td><a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName2}</a></td>
                                         </#if>
                                         <#if groupName3?has_content>
-                                            <td><a href="javascript:document.viewGroupDetail_${seq}.submit()" class="buttontext">${groupName3}</a></td>
+                                            <td><a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName3}</a></td>
                                         </#if>
                                     </tr>
                                </table>
