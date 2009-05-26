@@ -100,6 +100,7 @@ under the License.
     <screen name="CommonTaskDecorator">
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.groovy"/>
             </actions>
@@ -138,6 +139,9 @@ under the License.
     </screen>
     <screen name="CommonMyTaskDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="mytasks"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
