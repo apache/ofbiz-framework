@@ -77,6 +77,7 @@ under the License.
             <exclude field-name="createdByUserLogin"/>
         </auto-attributes>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
+        <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
     </service>
     <service name="updateSalesOpportunity" engine="simple" default-entity-name="SalesOpportunity"
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesOpportunity">
@@ -84,6 +85,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
+        <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
     </service>
     <service name="createSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityRole">
@@ -94,6 +96,12 @@ under the License.
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityAccountRole">
         <description>Create sales opportunity account role</description>
         <attribute name="accountPartyId" mode="IN" type="String"/>
+        <attribute name="salesOpportunityId" mode="IN" type="String"/>
+    </service>
+    <service name="createSalesOpportunityLeadRole" engine="simple" default-entity-name="SalesOpportunityRole" 
+        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityLeadRole">
+        <description>Create sales opportunity lead role</description>
+        <attribute name="leadPartyId" mode="IN" type="String"/>
         <attribute name="salesOpportunityId" mode="IN" type="String"/>
     </service>
     <service name="findPartyInSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
