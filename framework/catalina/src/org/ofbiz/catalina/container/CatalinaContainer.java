@@ -34,6 +34,7 @@ import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.container.ContainerConfig.Container.Property;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 
@@ -422,14 +423,23 @@ public class CatalinaContainer implements Container {
         } catch (Exception exc) {
             throw new ContainerException("Cluster configuration requires a valid replication-mode property: " + exc.getMessage());
         }
-        String mgrClassName = ContainerConfig.getPropertyValue(clusterProps, "manager-class", "org.apache.catalina.cluster.session.DeltaManager");
+        String mgrClassName = ContainerConfig.getPropertyValue(clusterProps, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
         //int debug = ContainerConfig.getPropertyValue(clusterProps, "debug", 0);
         // removed since 5.5.9? boolean expireSession = ContainerConfig.getPropertyValue(clusterProps, "expire-session", false);
         // removed since 5.5.9? boolean useDirty = ContainerConfig.getPropertyValue(clusterProps, "use-dirty", true);
 
         SimpleTcpCluster cluster = new SimpleTcpCluster();
         cluster.setClusterName(clusterProps.name);
-        cluster.setManagerClassName(mgrClassName);
+        Manager manager = null;
+        try {
+            manager = (Manager)Class.forName(mgrClassName).newInstance();
+        } catch(Exception exc) {
+            throw new ContainerException("Cluster configuration requires a valid manager-class property: " + exc.getMessage());
+        }
+        //cluster.setManagerClassName(mgrClassName);
+        //host.setManager(manager);
+        //cluster.registerManager(manager);
+        cluster.setManagerTemplate((org.apache.catalina.ha.ClusterManager)manager);
         //cluster.setDebug(debug);
         // removed since 5.5.9? cluster.setExpireSessionsOnShutdown(expireSession);
         // removed since 5.5.9? cluster.setUseDirtyFlag(useDirty);
@@ -510,8 +520,20 @@ public class CatalinaContainer implements Container {
         }
 
         // configure persistent sessions
-        Manager sessionMgr = new StandardManager();
+        Property clusterProp = clusterConfig.get(engine.getName());
 
+        Manager sessionMgr = null;
+        if (clusterProp != null) {
+            String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
+            try {
+                sessionMgr = (Manager)Class.forName(mgrClassName).newInstance();
+            } catch(Exception exc) {
+                throw new ContainerException("Cluster configuration requires a valid manager-class property: " + exc.getMessage());
+            }
+        } else {
+            sessionMgr = new StandardManager();
+        }
+        
         // create the web application context
         StandardContext context = (StandardContext) embedded.createContext(mount, location);
         context.setJ2EEApplication(J2EE_APP);
