@@ -737,7 +737,7 @@ under the License.
         <override name="noOfResources" optional="false"/>
         <override name="qualification" optional="false"/>
         <override name="durationMonths" optional="false"/>
-        <override name="location" optional="false"/>
+        <override name="jobLocation" optional="false"/>
     </service>
     
     <service name="updateJobRequisition" engine="simple" default-entity-name="JobRequisition"
@@ -748,7 +748,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="noOfResources" optional="false"/>
         <override name="durationMonths" optional="false"/>
-        <override name="location" optional="false"/>
+        <override name="jobLocation" optional="false"/>
     </service>
     
     <service name="deleteJobRequisition" engine="simple" default-entity-name="JobRequisition"
@@ -765,7 +765,7 @@ under the License.
         <auto-attributes mode="INOUT" entity-name="EmploymentApp" include="pk" optional="true"/>
         <auto-attributes mode="IN" entity-name="EmploymentApp" include="nonpk" optional="true"/>
         <override name="applyingPartyId" optional="false"/>
-        <override name="approverPartyIdapproverPartyId" optional="false"/>
+        <override name="approverPartyId" optional="false"/>
         <override name="jobRequisitionId" optional="false"/>
     </service>
     

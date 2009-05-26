@@ -300,7 +300,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="jobPostingTypeId">
+        <field name="jobPostingTypeEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
@@ -321,7 +321,7 @@ under the License.
         <field name="jobRequisitionId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${jobRequisitionId}" target="javascript:set_value('${jobRequisitionId}')"/>
         </field>
-        <field name="jobPostingTypeId"><display/></field>
+        <field name="jobPostingTypeEnumId"><display/></field>
         <field name="qualification"><display/></field>
         <field name="skillTypeId"><display/></field>
         <field name="location"><display/></field>
