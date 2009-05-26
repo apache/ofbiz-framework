@@ -632,9 +632,26 @@ public class ShoppingCartEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderCouldNotInitPurchaseOrder", locale));
             return "error";
         }
+        String orderId = request.getParameter("orderId_o_0");
+        // set the order id if supplied
+        if(UtilValidate.isNotEmpty(orderId)) {
+            GenericValue thisOrder = null;
+            try {
+                thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            } catch (GenericEntityException e) {
+                Debug.logError(e.getMessage(), module);
+            }
+            if (thisOrder == null) {
+                cart.setOrderId(orderId);
+            } else {
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderIdAlreadyExistsPleaseChooseAnother", locale));
+                return "error";
+            }
+        }
         cart.setBillToCustomerPartyId(billToCustomerPartyId);
         cart.setBillFromVendorPartyId(supplierPartyId);
         cart.setOrderPartyId(supplierPartyId);
+        cart.setOrderId(orderId);
         String agreementId = request.getParameter("agreementId_o_0");
         if (agreementId != null && agreementId.length() > 0) {
             ShoppingCartHelper sch = new ShoppingCartHelper(delegator, dispatcher, cart);
