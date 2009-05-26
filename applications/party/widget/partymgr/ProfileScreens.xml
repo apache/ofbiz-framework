@@ -524,7 +524,7 @@
         </section>
     </screen>
 
-    <screen name="AccountSalesOpportunities">
+    <screen name="PartySalesOpportunities">
         <section>
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>

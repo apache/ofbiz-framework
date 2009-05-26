@@ -299,7 +299,7 @@ under the License.
                                             <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="AccountSalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PartySalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -351,7 +351,7 @@ under the License.
                                                 <widgets>
                                                     <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                     <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                                    <include-screen name="AccountSalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="PartySalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
                                             </section>
                                         </container>
