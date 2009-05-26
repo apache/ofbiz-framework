@@ -274,7 +274,9 @@ float: right;
             <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
             <#if adjustmentAmount != 0>
-                <form name="updateOrderAdjustmentForm${orderAdjustmentId}" method="post" action="<@ofbizUrl>updateOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>">
+                <form name="updateOrderAdjustmentForm${orderAdjustmentId}" method="post" action="<@ofbizUrl>updateOrderAdjustment</@ofbizUrl>">
+                    <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId?if_exists}"/>
+                    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                     <table class="basic-table" cellspacing="0">
                         <tr>
                             <td class="align-text" width="55%">
@@ -290,7 +292,8 @@ float: right;
                             <td nowrap="nowrap" width="15%">
                                 <#if (allowPriceChange)>
                                     <input type="text" name="amount" size="6" value="<@ofbizAmount amount=adjustmentAmount/>"/>
-                                    <input class="smallSubmit" type="submit" value="${uiLabelMap.CommonUpdate}"/><a href="<@ofbizUrl>deleteOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                    <input class="smallSubmit" type="submit" value="${uiLabelMap.CommonUpdate}"/>
+                                    <a href="javascript:document.deleteOrderAdjustment${orderAdjustmentId}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                                 <#else>
                                     <@ofbizAmount amount=adjustmentAmount/>
                                 </#if>
@@ -298,13 +301,18 @@ float: right;
                         </tr>
                     </table>
                 </form>
+                <form name="deleteOrderAdjustment${orderAdjustmentId}" method="post" action="<@ofbizUrl>deleteOrderAdjustment</@ofbizUrl>">
+                    <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId?if_exists}"/>
+                    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                </form>
             </#if>
         </#list>
 
         <#-- add new adjustment -->
         <#if (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)) && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_REJECTED">
-            <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment?${paramString}</@ofbizUrl>">
+            <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment</@ofbizUrl>">
                 <input type="hidden" name="comments" value="Added manually by [${userLogin.userLoginId}]"/>
+                <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                 <table class="basic-table" cellspacing="0">
                     <tr><td colspan="3"><hr/></td></tr>
                     <tr>
