@@ -503,7 +503,7 @@ under the License.
                 <set field="tabButtonItem" value="custRequestContent"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-and entity-name="CustRequestAndContent" list="custRequstAndContents">
+                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
             </actions>
