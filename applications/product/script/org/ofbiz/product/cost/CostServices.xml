@@ -180,12 +180,12 @@ under the License.
         <set-service-fields service-name="getEstimatedTaskTime" map="parameters" to-map="inputMap"/>
         <set from-field="parameters.workEffortId" field="inputMap.taskId"/>
         <call-service service-name="getEstimatedTaskTime" in-map-name="inputMap">
-            <result-to-field result-name="estimatedTaskTime"/>
+            <result-to-field result-name="estimatedTaskTime" field="totalEstimatedTaskTime"/>
             <result-to-field result-name="setupTime"/>
         </call-service>
 
         <calculate field="estimatedTaskTime" decimal-scale="6">
-            <calcop field="estimatedTaskTime" operator="subtract">
+            <calcop field="totalEstimatedTaskTime" operator="subtract">
                 <calcop field="setupTime" operator="get"/>
             </calcop>
         </calculate>
@@ -222,7 +222,42 @@ under the License.
             </calcop>
         </calculate>
 
+        <!-- Now compute the costs derived from CostComponentCalc records associated with the task -->
+        <get-related relation-name="WorkEffortCostCalc" list="weccs" value-field="task"/>
+        <filter-list-by-date list="weccs"/>
+        <iterate entry="wecc" list="weccs">
+            <clear-field field="totalCostComponentCost"/>
+            <clear-field field="totalCostComponentTime"/>
+            <get-related-one relation-name="CostComponentCalc" to-value-field="costComponentCalc" value-field="wecc"/>
+            <get-related-one relation-name="CustomMethod" to-value-field="customMethod" value-field="costComponentCalc"/>
+            <if-empty field="customMethod">
+                <if-not-empty field="costComponentCalc.perMilliSecond">
+                    <if-compare operator="not-equals" value="0" field="costComponentCalc.perMilliSecond" type="BigDecimal">
+                        <calculate field="totalCostComponentTime" decimal-scale="6">
+                            <calcop field="totalEstimatedTaskTime" operator="divide">
+                                <calcop field="costComponentCalc.perMilliSecond" operator="get"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field="totalCostComponentCost" decimal-scale="6">
+                            <calcop field="totalCostComponentTime" operator="multiply">
+                                <calcop field="costComponentCalc.variableCost" operator="get"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field="totalCostComponentCost" decimal-scale="6">
+                            <calcop field="totalCostComponentCost" operator="add">
+                                <calcop field="costComponentCalc.fixedCost" operator="get"/>
+                            </calcop>
+                        </calculate>
+                        <set field="costsByType.${wecc.costComponentTypeId}" from-field="totalCostComponentCost"/>
+                    </if-compare>
+                </if-not-empty>
+            <else>
+                <!-- FIXME: formulas are still not supported for standard costs -->
+            </else>
+            </if-empty>
+        </iterate>
         <field-to-result field="taskCost"/>
+        <field-to-result field="costsByType"/>
     </simple-method>
 
     <!-- services to automatically generate cost information -->
@@ -296,12 +331,25 @@ under the License.
             <set from-field="routing.workEffortId" field="callSvcMap.routingId"/>
             <call-service service-name="getTaskCost" in-map-name="callSvcMap">
                 <result-to-field result-name="taskCost" field="taskCost"/>
+                <result-to-field result-name="costsByType" field="costsByType"/>
             </call-service>
             <calculate field="totalTaskCost" decimal-scale="6">
                 <calcop field="totalTaskCost" operator="add">
                     <calcop field="taskCost" operator="get"/>
                 </calcop>
             </calculate>
+            <iterate-map map="costsByType" key="costType" value="costAmount">
+                <if-not-empty field="totalCostsByType.${costType}">
+                    <calculate field="totalCostsByType.${costType}" decimal-scale="6">
+                        <calcop field="costAmount" operator="add">
+                            <calcop field="totalCostsByType.${costType}" operator="get"/>
+                        </calcop>
+                    </calculate>
+                <else>
+                    <set field="totalCostsByType.${costType}" from-field="costAmount"/>
+                </else>
+                </if-not-empty>
+            </iterate-map>
         </iterate>
 
         <calculate field="totalCost" decimal-scale="6">
@@ -331,7 +379,15 @@ under the License.
                 <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
             </if-compare>
         </if-not-empty>
-
+        <iterate-map map="totalCostsByType" key="costType" value="totalCostAmount">
+            <clear-field field="callSvcMap"/>
+            <set value="${parameters.costComponentTypePrefix}_${costType}" field="callSvcMap.costComponentTypeId"/>
+            <set from-field="parameters.productId" field="callSvcMap.productId"/>
+            <set from-field="parameters.currencyUomId" field="callSvcMap.costUomId"/>
+            <set from-field="totalCostAmount" field="callSvcMap.cost"/>
+            <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
+        </iterate-map>
+        
         <field-to-result field="totalCost"/>
     </simple-method>
     <simple-method method-name="calculateProductAverageCost" short-description="Calculate inventory average cost for a product">

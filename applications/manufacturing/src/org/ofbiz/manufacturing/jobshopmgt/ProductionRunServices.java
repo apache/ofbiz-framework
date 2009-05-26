@@ -1012,6 +1012,28 @@ public class ProductionRunServices {
                     dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                 }
             }
+            // Now get the cost information associated to the fixed asset and compute the costs
+            GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset");
+            if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
+                fixedAsset = routingTask.getRelatedOne("FixedAsset");
+            }
+            if (UtilValidate.isNotEmpty(fixedAsset)) {
+                List setupCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"));
+                GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
+                List usageCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"));
+                GenericValue usageCost = EntityUtil.getFirst(EntityUtil.filterByDate(usageCosts));
+                if (UtilValidate.isNotEmpty(setupCost) || UtilValidate.isNotEmpty(usageCost)) {
+                    String currencyUomId = (setupCost != null? setupCost.getString("amountUomId"): usageCost.getString("amountUomId"));
+                    BigDecimal fixedAssetCost = (setupCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualSetupMillis.doubleValue()))).add(usageCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualMilliSeconds.doubleValue()))).setScale(decimals, rounding);
+                    fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000)).setScale(decimals, rounding);
+                    // store the cost
+                    Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
+                    inMap.put("costComponentTypeId", "ACTUAL_ROUTE_COST");
+                    inMap.put("costUomId", currencyUomId);
+                    inMap.put("cost", fixedAssetCost);
+                    dispatcher.runSync("createCostComponent", inMap);
+                }
+            }
         } catch (Exception e) {
             return ServiceUtil.returnError("Unable to create routing costs for the production run task [" + productionRunTaskId + "]: " + e.getMessage());
         }
@@ -1876,8 +1898,8 @@ public class ProductionRunServices {
         Timestamp toDate = (Timestamp)context.get("toDate");
         BigDecimal addQuantityProduced = (BigDecimal)context.get("addQuantityProduced");
         BigDecimal addQuantityRejected = (BigDecimal)context.get("addQuantityRejected");
-        Double addSetupTime = (Double)context.get("addSetupTime");
-        Double addTaskTime = (Double)context.get("addTaskTime");
+        BigDecimal addSetupTime = (BigDecimal)context.get("addSetupTime");
+        BigDecimal addTaskTime = (BigDecimal)context.get("addTaskTime");
         String comments = (String)context.get("comments");
         Boolean issueRequiredComponents = (Boolean)context.get("issueRequiredComponents");
         Map componentsLocationMap = (Map)context.get("componentsLocationMap");
@@ -1898,10 +1920,10 @@ public class ProductionRunServices {
             addQuantityRejected = BigDecimal.ZERO;
         }
         if (addSetupTime == null) {
-            addSetupTime = Double.valueOf(0);
+            addSetupTime = BigDecimal.ZERO;
         }
         if (addTaskTime == null) {
-            addTaskTime = Double.valueOf(0);
+            addTaskTime = BigDecimal.ZERO;
         }
         if (comments == null) {
             comments = "";
