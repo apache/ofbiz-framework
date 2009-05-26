@@ -325,6 +325,7 @@ under the License.
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
         paginate-target="RequirementsForSupplier" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="orderId" id-name="orderId"><hidden/></field>
         <field name="billToCustomerPartyId"><hidden value="${parameters.billToCustomerPartyId}"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
@@ -358,8 +359,9 @@ under the License.
     </form>
     <form name="ApprovedProductRequirementsSubmit" type="single"
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="orderId" id-name="orderId_o_0"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.submit()"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.orderId_o_0.value=document.ApprovedProductRequirementsSubmit.orderId_o_0.value;document.ApprovedProductRequirements.submit()"/>
         </field>
     </form>
     <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"
