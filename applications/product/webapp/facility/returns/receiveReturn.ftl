@@ -160,7 +160,7 @@ under the License.
 
                           <td align="right" nowrap class="label">${uiLabelMap.ProductQtyReceived}</td>
                           <td align="right">
-                            <input type="text" name="quantityAccepted_o_${rowCount}" size="6" value="${returnItem.returnQuantity?string.number}">
+                            <input type="text" name="quantityAccepted_o_${rowCount}" size="6" value="${defaultQuantity?string.number}">
                           </td>
                         </tr>
                         <tr>
