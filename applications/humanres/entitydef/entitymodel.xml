@@ -846,19 +846,19 @@ under the License.
         <field name="jobLocation" type="id"></field>
         <field name="skillTypeId" type="id"></field>
         <field name="noOfResources" type="numeric"></field>
-        <field name="jobPostingTypeId" type="id"></field>
+        <field name="jobPostingTypeEnumId" type="id"></field>
         <field name="jobRequisitionDate" type="date"></field>
-        <field name="examTypeId" type="id"></field>
+        <field name="examTypeEnumId" type="id"></field>
         <field name="requiredOnDate" type="date"></field>
         <prim-key field="jobRequisitionId"/>
         <relation type="one" fk-name="JOB_REQ_SKTYP" rel-entity-name="SkillType">
             <key-map field-name="skillTypeId"/>
         </relation>
-        <relation type="one" fk-name="JOB_REQ_ENUMEXM" rel-entity-name="Enumeration">
-            <key-map field-name="examTypeId" rel-field-name="enumId"/>
+        <relation type="one" fk-name="JOB_REQ_ENUMEXM" title="ExamType" rel-entity-name="Enumeration">
+            <key-map field-name="examTypeEnumId" rel-field-name="enumId"/>
         </relation>
-        <relation type="one" fk-name="JOB_REQ_ENUMJBP" rel-entity-name="Enumeration">
-            <key-map field-name="jobPostingTypeId" rel-field-name="enumId"/>
+        <relation type="one" fk-name="JOB_REQ_ENUMJBP" title="JobPostingType" rel-entity-name="Enumeration">
+            <key-map field-name="jobPostingTypeEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
     <entity entity-name="JobInterview"

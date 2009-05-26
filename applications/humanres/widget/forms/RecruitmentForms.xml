@@ -43,7 +43,7 @@ under the License.
             </drop-down>
         </field>
         <field name="jobLocation"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="examTypeId">
+        <field name="examTypeEnumId">
              <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="EXAM_TYPE"/>
@@ -79,7 +79,7 @@ under the License.
             <display-entity entity-name="SkillType" description="${description}"/>
         </field>
         <field name="jobPostingTypeId"><display/></field>
-        <field name="examTypeId"><display/></field>
+        <field name="examTypeEnumId"><display/></field>
         <field name="qualification"><display/></field>
         <field name="jobLocation"><display/></field>
         <field name="experienceYears"><display/></field>
@@ -130,7 +130,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="examTypeId">
+        <field name="examTypeEnumId">
              <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="EXAM_TYPE"/>
