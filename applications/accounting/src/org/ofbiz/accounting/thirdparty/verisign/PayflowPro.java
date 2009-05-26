@@ -400,6 +400,7 @@ public class PayflowPro {
             Debug.logError(e, "Unable to parse response code; not a number!", module);
         }
 
+        result.put("authRefNum", parameters.get("PNREF"));
         if (codeInt == 0 && avsCheckOkay && cvv2CheckOkay) {
             result.put("authResult", Boolean.TRUE);
             result.put("authCode", parameters.get("AUTHCODE"));
@@ -426,7 +427,6 @@ public class PayflowPro {
         }
         result.put("cvCode", cvvCode);
         result.put("avsCode", avsCode);
-        result.put("authRefNum", parameters.get("PNREF"));
         result.put("authFlag", parameters.get("RESULT"));
         result.put("authMessage", parameters.get("RESPMSG"));
     }
