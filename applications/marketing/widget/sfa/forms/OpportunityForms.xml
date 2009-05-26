@@ -79,6 +79,7 @@ under the License.
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="30"/></field>
         
         <field name="accountPartyId" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="leadPartyId" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="typeEnumId" title="${uiLabelMap.SfaType}"></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="25"></text></field>
         <field name="typeEnumId" position="1" title="${uiLabelMap.SfaType}">

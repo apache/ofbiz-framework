@@ -139,14 +139,28 @@ This file contains basic services for SalesOpportunity and SalesForecast.
             <call-service service-name="createSalesOpportunityRole" in-map-name="salesOpportunityRole"/>
         </if-compare-field>
     </simple-method>
+    <simple-method method-name="createSalesOpportunityLeadRole" short-description="Create Sales Opportunity Lead Role">
+        <entity-and list="salesOpportunityRoles" entity-name="SalesOpportunityRole">
+            <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            <field-map field-name="roleTypeId" value="LEAD"/>
+        </entity-and>
+        <first-from-list entry="lookedUpValue" list="salesOpportunityRoles"/>
+        <if-compare-field operator="not-equals" field="lookedUpValue.partyId" to-field="parameters.leadPartyId">
+            <if-not-empty field="lookedUpValue">
+                <remove-value value-field="lookedUpValue"/>
+            </if-not-empty>
+            <set field="salesOpportunityRole.roleTypeId" value="LEAD"/>
+            <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            <set field="salesOpportunityRole.partyId" from-field="parameters.leadPartyId"/>
+            <call-service service-name="createSalesOpportunityRole" in-map-name="salesOpportunityRole"/>
+        </if-compare-field>
+    </simple-method>
     <simple-method method-name="findPartyInSalesOpportunityRole" short-description="find party in role specified by in parameter">
         <entity-and list="salesOpportunityRoles" entity-name="SalesOpportunityRole">
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
             <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
         </entity-and>
         <first-from-list entry="lookedUpValue" list="salesOpportunityRoles"/>
-        <log level="info" message="Some good message ${lookedUpValue.partyId}"></log>
-        
         <field-to-result field="lookedUpValue.partyId" result-name="partyId"/>
     </simple-method>
     
