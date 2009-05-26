@@ -232,7 +232,7 @@ under the License.
             <label for="country">${uiLabelMap.PartyCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
               <select name="shipToCountryGeoId" id="countryGeoId" class="required" style="width: 70%">
-                <#if countryGeoId??>
+                <#if countryGeoId?exists>
                   <option value="${countryGeoId}">${countryGeoId}</option>
                 </#if>
                 ${screens.render("component://common/widget/CommonScreens.xml#countries")}
