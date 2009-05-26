@@ -100,7 +100,7 @@ under the License.
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="findPartyInSalesOpportunityRole">
         <description>find sales opportunity role party</description>
         <attribute name="roleTypeId" mode="IN" type="String"/>
-        <attribute name="salesOpportunityId" mode="IN" type="String"/>
+        <attribute name="salesOpportunityId" mode="IN" type="String" optional="true"/>
         <attribute name="partyId" mode="OUT" type="String" optional="true"/>
     </service>
 
