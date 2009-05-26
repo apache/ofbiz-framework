@@ -524,4 +524,21 @@
         </section>
     </screen>
 
+    <screen name="AccountSalesOpportunities">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-and entity-name="SalesOpportunityAndRole" list="salesOpportunities">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                    <order-by field-name="salesOpportunityId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.OrderOpportunities}" >
+                    <include-form name="PartySalesOpportunities" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
