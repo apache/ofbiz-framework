@@ -121,7 +121,7 @@ under the License.
                 <property name="rep-valve-filter">
                     <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;</property-value>
                 </property>
-                <property name="manager-class" value="org.apache.catalina.cluster.session.DeltaManager"/>
+                <property name="manager-class" value="org.apache.catalina.ha.session.DeltaManager"/>
                 <property name="debug" value="5"/>
                 <property name="replication-mode" value="org.apache.catalina.tribes.transport.bio.PooledMultiSender"/>
                 <property name="tcp-listen-host" value="auto"/>
@@ -129,7 +129,7 @@ under the License.
                 <property name="tcp-sector-timeout" value="100"/>
                 <property name="tcp-thread-count" value="6"/>
                 <property name="mcast-bind-addr" value="192.168.2.1"/>
-                <property name="mcast-addr" value="224.0.0.1"/>
+                <property name="mcast-addr" value="228.0.0.4"/>
                 <property name="mcast-port" value="45564"/>
                 <property name="mcast-freq" value="500"/>
                 <property name="mcast-drop-time" value="3000"/>
