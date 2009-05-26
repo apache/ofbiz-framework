@@ -2904,6 +2904,17 @@ under the License.
         </relation>
     </entity>
 
+    <view-entity entity-name="SalesOpportunityAndRole" package-name="org.ofbiz.order.opportunity" title="SalesOpportunity And Role View Entity">
+      <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
+      <member-entity entity-alias="SR" entity-name="SalesOpportunityRole"/>
+      <alias-all entity-alias="SO"/>
+      <alias name="partyId" entity-alias="SR"/>
+      <alias name="roleTypeId" entity-alias="SR"/>
+      <view-link entity-alias="SO" rel-entity-alias="SR">
+        <key-map field-name="salesOpportunityId"/>
+      </view-link>
+    </view-entity>
+
     <entity entity-name="SalesOpportunityStage"
             package-name="org.ofbiz.order.opportunity"
             title="Describes stages of a sales opportunity with associated probability factors.">

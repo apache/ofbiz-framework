@@ -4625,6 +4625,11 @@
         <value xml:lang="th">ลักษณะการสั่งซื้อ</value>
         <value xml:lang="zh">订单选项</value>
     </property>
+    <property key="OrderOpportunities">
+        <value xml:lang="en">Opportunities</value>
+        <value xml:lang="fr">Opportunités</value>
+        <value xml:lang="it">Opportunità</value>
+    </property>
     <property key="OrderOrder">
         <value xml:lang="cs">Objednávka</value>
         <value xml:lang="de">Bestellung</value>
