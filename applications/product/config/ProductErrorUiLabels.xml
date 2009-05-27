@@ -94,6 +94,12 @@
     <property key="ProductNotInAnyLocation">
         <value xml:lang="en">This Product is not in any Location</value>
     </property>
+    <property key="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet">
+        <value xml:lang="en">The number of orders must not be empty. Please re-enter to print pick sheet.</value>
+    </property>
+    <property key="ProductNumberOfOrdersMustBeGreaterThenZeroToPrintPickSheet">
+        <value xml:lang="en">The number of orders must be greater then zero. Please re-enter to print pick sheet.</value>
+    </property>
     <property key="ProductRemoveCommunicationEventProductPermissionError">
         <value xml:lang="en">Remove Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore permesso durante la rimozione dell'evento comunicazione prodotto</value>
