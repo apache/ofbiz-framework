@@ -300,27 +300,22 @@ under the License.
     <StatusType description="Case" hasTable="N" parentTypeId="" statusTypeId="CASE_STATUS"/>
 
     <StatusType description="Communication Event" hasTable="N" parentTypeId="" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusItem description="Entered" sequenceId="01" statusCode="ENTERED" statusId="COM_ENTERED" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusItem description="Pending" sequenceId="02" statusCode="PENDING" statusId="COM_PENDING" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusItem description="Read" sequenceId="03" statusCode="READ" statusId="COM_READ" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusItem description="In-Progress" sequenceId="05" statusCode="IN_PROGRESS" statusId="COM_IN_PROGRESS" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusItem description="Unknown Party" sequenceId="07" statusCode="UNKNOWN_PARTY" statusId="COM_UNKNOWN_PARTY" statusTypeId="COM_EVENT_STATUS"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="COM_PENDING" statusTypeId="COM_EVENT_STATUS"/><!-- draft version, only visible by originator -->
+    <StatusItem description="Entered" sequenceId="02" statusCode="ENTERED" statusId="COM_ENTERED" statusTypeId="COM_EVENT_STATUS"/>
+    <!--StatusItem description="Read" sequenceId="03" statusCode="READ" statusId="COM_READ" statusTypeId="COM_EVENT_STATUS"/--><!-- the read status is maintained at the comm-role level; can be diffrent for all participants-->
+    <StatusItem description="In-Progress" sequenceId="05" statusCode="IN_PROGRESS" statusId="COM_IN_PROGRESS" statusTypeId="COM_EVENT_STATUS"/><!-- waiting to be sent -->
+    <StatusItem description="Unknown Party" sequenceId="07" statusCode="UNKNOWN_PARTY" statusId="COM_UNKNOWN_PARTY" statusTypeId="COM_EVENT_STATUS"/><!-- unknown incoming email address -->
     <StatusItem description="Closed" sequenceId="20" statusCode="COMPLETE" statusId="COM_COMPLETE" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Resolved" sequenceId="21" statusCode="RESOLVED" statusId="COM_RESOLVED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Referred" sequenceId="22" statusCode="REFERRED" statusId="COM_REFERRED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Bounced" sequenceId="50" statusCode="BOUNCED" statusId="COM_BOUNCED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="COM_CANCELLED" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_PENDING" transitionName="Set Pending"/>
-    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_READ" transitionName="Read"/>
+    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_PENDING" transitionName="Set Pending, only visible to originator"/>
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_READ" transitionName="Read"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress"/>
-    <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress"/>
-    <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_READ" transitionName="Read"/>
+    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_ENTERED" transitionName="Entered,visible to all participants"/>
+    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress, waiting to be send"/>
     <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
-    <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_RESOLVED" transitionName="Resolve"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_REFERRED" transitionName="Refer"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
@@ -330,7 +325,6 @@ under the License.
 
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_RESOLVED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
