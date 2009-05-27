@@ -16,12 +16,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#include "component://ecommerce/webapp/ecommerce/includes/headerHead.ftl" />
 
 <!-- Global IE fix to avoid layout crash when single word size wider than column width -->
 <!--[if IE]><style type="text/css"> body {word-wrap: break-word;}</style><![endif]-->
 
-<body>
   <div class="page-container">
     <div class="header">
       <div class="header-top">

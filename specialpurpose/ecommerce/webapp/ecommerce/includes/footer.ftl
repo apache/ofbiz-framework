@@ -31,5 +31,4 @@ under the License.
   </div>
   <br/>
   <div class="tabletext" align="center"><a href="<@ofbizUrl>policies</@ofbizUrl>">${uiLabelMap.EcommerceSeeStorePoliciesHere}</a></div>
-</body>
-</html>
+

@@ -31,5 +31,3 @@ under the License.
   </#if>
 </div>
 </div>
-</body>
-</html>
