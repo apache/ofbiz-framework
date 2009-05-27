@@ -620,7 +620,7 @@ under the License.
                 <entity-and entity-name="WorkEffortAndPartyAssign" list="parties">
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
-                    <order-by field-name="workEffortId"/>
+                    <order-by field-name="workEffortName"/>
                 </entity-and>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <service service-name="getProject" result-map="result">

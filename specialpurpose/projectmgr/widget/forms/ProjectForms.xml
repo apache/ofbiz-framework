@@ -714,6 +714,8 @@
                 <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
                     <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>
+                    <entity-constraint name="currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <entity-order-by field-name="workEffortName"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -871,11 +873,11 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="mimeTypeId" >
+        <!--field name="mimeTypeId" >
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
-        </field>
+        </field-->
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
         <field name="dataCategoryId" use-when="dataResource==null">
             <drop-down allow-empty="false">
