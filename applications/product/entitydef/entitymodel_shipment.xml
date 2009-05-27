@@ -1083,6 +1083,7 @@ under the License.
       <field name="labelIntlSignImage" type="blob"></field>
       <field name="labelHtml" type="very-long"></field>
       <field name="labelPrinted" type="indicator"></field> <!-- tracks if a label has been printed -->
+      <field name="internationalInvoice" type="blob"></field>
       <field name="packageTransportCost" type="currency-amount"></field>
       <field name="packageServiceCost" type="currency-amount"></field>
       <field name="packageOtherCost" type="currency-amount"></field>
