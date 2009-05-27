@@ -193,7 +193,7 @@ under the License.
         <field name="send" title=" " position="1" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true"
                 target-type="plain" description="${uiLabelMap.CommonSend}"
-                target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETE'),(document.EditInternalNote.datetimeStarted.value='${nowDate}'),(document.EditInternalNote.submit())"/>
+                target="javascript:(document.EditInternalNote.statusId.value='COM_ENTERED'),(document.EditInternalNote.datetimeStarted.value='${nowDate}'),(document.EditInternalNote.submit())"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.submit())"/>
