@@ -19,28 +19,6 @@ under the License.
 -->
 <entity-engine-xml>
 
-    <!-- allow admin and demo employee to read company EMail -->
-    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
-    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
-    <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
-    <PartyRelationship partyIdFrom="DemoEmployee" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
-
-    <!-- incoming customer request examples -->
-    <CustRequest custRequestId="9000" custRequestDate="2008-07-28 09:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer" priority="9" custRequestName="Customer Request Usage" description="Could you please advise us how to use the customer request facility within ofbiz?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
-    <CustRequestItem custRequestId="9000" custRequestItemSeqId="00001" story="This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request.This can be the longer story of an item on the customer request."/>
-    <CustRequest custRequestId="9001" custRequestDate="2008-07-21 11:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustAgent" priority="9" custRequestName="Hardware?" description="Please provide us with the hardware requirements of OFBiz" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
-    <CustRequest custRequestId="9002" custRequestDate="2008-07-19 18:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer2" priority="9" custRequestName="Customer Same company" description="This will contain a request from the same company?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
-    <!-- Employees assigned to handle these incoming customer requests-->
-    <CustRequestType custRequestTypeId="RF_SUPPORT" partyId="Company"/>
-    <PartyRole partyId="admin" roleTypeId="REQ_TAKER"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="admin" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so admin can hadle incoming cust request 'support' types -->
-    <PartyRole partyId="DemoEmployee" roleTypeId="REQ_TAKER"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoEmployee" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so DemoEmployee can hadle incoming cust request 'support' types -->
-
-    <!-- email from an unknown party -->
-    <CommunicationEvent communicationEventId="9000" communicationEventTypeId="AUTO_EMAIL_COMM" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@yahoo.com; Delivered-To: ofbiztest@yahoo.com; " fromString="mailinglist@antwebsystems.com" toString="ofbiztest@yahoo.com"/>
-    <PartyRole partyId="admin" roleTypeId="ADDRESSEE"/>
-    <CommunicationEventRole communicationEventId="9000" partyId="admin" roleTypeId="ADDRESSEE" contactMechId="admin" statusId="COM_ROLE_CREATED"/>
 
     <!-- myportal users -->
     <!-- demo customer read access to his own customer requests and related tasks including planning and actual hours-->
@@ -58,7 +36,5 @@ under the License.
     <!-- admin logins -->
     <UserLoginSecurityGroup groupId="MYPORTAL_EMPLOYEE" userLoginId="admin" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPORTAL_EMPLOYEE" userLoginId="demoadmin" fromDate="2000-01-01 00:00:00.0"/>
-
-    <EmailTemplateSetting emailTemplateSettingId="PARTY_REGISTER" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
 
 </entity-engine-xml>
