@@ -672,9 +672,18 @@ under the License.
 
     <!-- print pick sheet -->
     <simple-method method-name="printPickSheets" short-description="Print pick sheets for orders">
+        <if-empty field="parameters.maxNumberOfOrdersToPrint">
+            <add-error error-list-name="error_list"><fail-message message="Please specify the number of orders to print pick sheet"/></add-error>
+        <else>
+            <if-compare field="parameters.maxNumberOfOrdersToPrint" operator="less-equals" value="0" type="Long">
+                <add-error error-list-name="error_list"><fail-message message="Cannot specify negative value."/></add-error>
+            </if-compare>
+        </else>
+        </if-empty>
+        <check-errors/>
+
         <now-timestamp field="nowTimestamp"/>
         <set-service-fields service-name="findOrdersToPickMove" map="parameters" to-map="findOrdersToPickMoveMap"/>
-
         <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
             <result-to-field result-name="pickMoveInfoList"/>
         </call-service>
@@ -693,22 +702,15 @@ under the License.
             </iterate>
         </else>
         </if-not-empty>
-        <set field="printListCounter" value="0" type="Long"/>
+        <set field="counter" value="0" type="Long"/>
         <iterate list="toPrintList" entry="toPrint">
-            <if>
-                <condition>
-                    <or>
-                        <if-empty field="parameters.maxNumberOfOrdersToPrint"/>
-                        <if-compare-field field="printListCounter" operator="less" to-field="parameters.maxNumberOfOrdersToPrint" type="Long"/>
-                    </or>
-                </condition>
-                <then>
-                    <set field="orderHeaderMap.orderId" from-field="toPrint.orderHeader.orderId"/>
-                    <set field="orderHeaderMap.pickSheetPrintedDate" from-field="nowTimestamp"/>
-                    <call-service service-name="updateOrderHeader" in-map-name="orderHeaderMap"/>
-                    <set field="printListCounter" value="${printListCounter + 1}" type="Long"/>
-                </then>
-            </if>
+            <if-compare-field field="counter" operator="less" to-field="parameters.maxNumberOfOrdersToPrint" type="Long">
+                <set field="orderHeaderMap.orderId" from-field="toPrint.orderHeader.orderId"/>
+                <set field="orderHeaderMap.pickSheetPrintedDate" from-field="nowTimestamp"/>
+                <call-service service-name="updateOrderHeader" in-map-name="orderHeaderMap"/>
+                <set field="counter" value="${counter + 1}" type="Long"/>
+                <clear-field field="orderHeaderMap"/>
+            </if-compare-field>
         </iterate>
         <field-to-result field="pickMoveInfoList" result-name="pickMoveInfoList"/>
     </simple-method>
