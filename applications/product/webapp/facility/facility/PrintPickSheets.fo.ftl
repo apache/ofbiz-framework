@@ -157,8 +157,9 @@ under the License.
                                         <#list infoItems as infoItem>
                                             <fo:table-row>
                                                 <#assign orderItemShipGrpInvRes = infoItem.orderItemShipGrpInvRes>
-                                                <#assign orderProduct = orderItemShipGrpInvRes.getRelatedOne("OrderItem").getRelatedOne("Product")?if_exists>
-                                                <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(orderProduct.getRelated("SupplierProduct"))?if_exists>
+                                                <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem")>
+                                                <#assign product = orderItem.getRelatedOne("Product")>
+                                                <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct"))?if_exists>
                                                 <#assign inventoryItem = infoItem.inventoryItem>
                                                 <#if infoItem.facilityLocation?has_content>
                                                     <#assign facilityLocation = infoItem.facilityLocation>
@@ -166,8 +167,8 @@ under the License.
                                                 <#else>
                                                     <fo:table-cell><fo:block>  </fo:block></fo:table-cell>
                                                 </#if>
-                                                <fo:table-cell><fo:block font-size="10pt">${orderProduct.productId} </fo:block></fo:table-cell>
-                                                <fo:table-cell><fo:block font-size="10pt">${orderProduct.internalName?if_exists} </fo:block></fo:table-cell>
+                                                <fo:table-cell><fo:block font-size="10pt">${product.productId} </fo:block></fo:table-cell>
+                                                <fo:table-cell><fo:block font-size="10pt">${product.internalName?if_exists} </fo:block></fo:table-cell>
                                                 <#if supplierProduct?has_content >
                                                     <fo:table-cell><fo:block font-size="10pt">${supplierProduct.supplierProductId?if_exists} </fo:block></fo:table-cell>
                                                 <#else>
@@ -176,7 +177,7 @@ under the License.
                                                 <#assign quantity = Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantity}")/>
                                                 <#assign totalQty = totalQty + quantity>
                                                 <fo:table-cell><fo:block font-size="10pt">${orderItemShipGrpInvRes.quantity?if_exists} </fo:block></fo:table-cell>
-                                                <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=inventoryItem.unitCost isoCode=currencyUomId/></fo:block></fo:table-cell>
+                                                <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
                                          </#list>
                                      </#if>
