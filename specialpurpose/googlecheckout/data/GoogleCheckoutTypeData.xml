@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Enumeration description="Google Checkout Channel" enumCode="GC_CHANNEL" enumId="GC_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <PaymentMethodType description="Google Checkout" paymentMethodTypeId="EXT_GOOGLE_CHECKOUT"/>
+</entity-engine-xml>
