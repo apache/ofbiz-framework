@@ -187,7 +187,7 @@ public class UtilXml {
     /** Serializes a DOM <code>Node</code> to an <code>OutputStream</code>
      * using JAXP TrAX.
      * @param transformer A <code>Transformer</code> instance
-     * @param element The <code>Node</code> to serialize
+     * @param node The <code>Node</code> to serialize
      * @param os The <code>OutputStream</code> to serialize to
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerException
@@ -200,7 +200,7 @@ public class UtilXml {
 
     /** Serializes a DOM <code>Node</code> to an <code>OutputStream</code>
      * using JAXP TrAX.
-     * @param element The <code>Node</code> to serialize
+     * @param node The <code>Node</code> to serialize
      * @param os The <code>OutputStream</code> to serialize to
      * @param encoding Optional encoding, defaults to UTF-8
      * @param omitXmlDeclaration If <code>true</code> the xml declaration
