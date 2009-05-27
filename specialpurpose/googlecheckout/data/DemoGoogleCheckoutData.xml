@@ -19,7 +19,5 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <Enumeration description="Google Checkout Channel" enumCode="GC_CHANNEL" enumId="GC_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <PaymentMethodType description="Google Checkout" paymentMethodTypeId="EXT_GOOGLE_CHECKOUT"/>
-    <WebSite webSiteId="GOOGLECHECKOUT" siteName="Google Checkout Application" visualThemeSetId="BACKOFFICE"/>
+    <WebSite webSiteId="GOOGLECHECKOUT" productStoreId="9000" />
 </entity-engine-xml>

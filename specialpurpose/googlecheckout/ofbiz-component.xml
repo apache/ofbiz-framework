@@ -25,6 +25,17 @@
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="build/lib/*"/>
 
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GoogleCheckoutTypeData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoGoogleCheckoutData.xml"/>
+    
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    
+    <webapp name="googlecheckout"
+        title="GoogleCheckout"
+        server="default-server"
+        location="webapp/googlecheckout"
+        base-permission="OFBTOOLS,GOOGLECHECKOUT"
+        mount-point="/googlecheckout"
+        app-bar-display="false"/>
 
 </ofbiz-component>
