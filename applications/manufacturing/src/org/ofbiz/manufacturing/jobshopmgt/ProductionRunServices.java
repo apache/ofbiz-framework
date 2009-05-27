@@ -1025,7 +1025,7 @@ public class ProductionRunServices {
                 if (UtilValidate.isNotEmpty(setupCost) || UtilValidate.isNotEmpty(usageCost)) {
                     String currencyUomId = (setupCost != null? setupCost.getString("amountUomId"): usageCost.getString("amountUomId"));
                     BigDecimal fixedAssetCost = (setupCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualSetupMillis.doubleValue()))).add(usageCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualMilliSeconds.doubleValue()))).setScale(decimals, rounding);
-                    fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000)).setScale(decimals, rounding);
+                    fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000), decimals, rounding);
                     // store the cost
                     Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
                     inMap.put("costComponentTypeId", "ACTUAL_ROUTE_COST");
