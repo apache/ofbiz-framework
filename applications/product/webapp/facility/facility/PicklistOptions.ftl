@@ -146,7 +146,7 @@ under the License.
                         </td>
                         <td>
                             <#if orderReadyToPickInfoList?has_content>
-                                <form method="post" action="<@ofbizUrl>PrintPickSheets</@ofbizUrl>">
+                                <form method="post" action="<@ofbizUrl>printPickSheets</@ofbizUrl>">
                                     <input type="hidden" name="printGroupName" value="${groupName?if_exists}"/>
                                     <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                                     <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>

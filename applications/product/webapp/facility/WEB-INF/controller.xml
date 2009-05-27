@@ -647,9 +647,11 @@ under the License.
         <response name="success" type="view" value="PickMoveStock"/>
         <response name="error" type="view" value="PickMoveStock"/>
     </request-map>
-    <request-map uri="PrintPickSheets">
+    <request-map uri="printPickSheets">
         <security https="true" auth="true"/>
+        <event type="service" invoke="printPickSheets"/>
         <response name="success" type="view" value="PrintPickSheets.pdf"/>
+        <response name="error" type="view" value="PicklistOptions"/>
     </request-map>
     <request-map uri="ReviewOrdersNotPickedOrPacked">
         <security https="true" auth="true"/>

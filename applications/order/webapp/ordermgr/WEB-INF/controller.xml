@@ -1525,7 +1525,12 @@ under the License.
     <request-map uri="order.pdf"><security https="true" auth="true"/><response name="success" type="view" value="OrderPDF"/></request-map>
     <request-map uri="return.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ReturnPDF"/></request-map>
     <request-map uri="shipGroups.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ShipGroupsPDF"/></request-map>
-    <request-map uri="orderPickSheet.pdf"><security https="true" auth="true"/><response name="success" type="view" value="OrderPickSheetPDF"/></request-map>
+    <request-map uri="orderPickSheet.pdf">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="printPickSheets"/>
+        <response name="success" type="view" value="OrderPickSheetPDF"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
 
     <request-map uri="LookupProductCategory">
         <security auth="true" https="true"/>
