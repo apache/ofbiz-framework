@@ -74,6 +74,43 @@ under the License.
         <key-map field-name="orderId"/>
       </view-link>
     </view-entity>
+
+    <view-entity entity-name="OrderHeaderAndItemFacilityLocation"
+            package-name="org.ofbiz.order.order"
+           title="OrderHeader, OrderItemShipGrpInvRes, OrderItemShipGroup, InventoryItem and FacilityLocation View Entity">
+      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+      <member-entity entity-alias="OISGIR" entity-name="OrderItemShipGrpInvRes"/>
+      <member-entity entity-alias="OISG" entity-name="OrderItemShipGroup"/>
+      <member-entity entity-alias="II" entity-name="InventoryItem"/>
+      <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
+
+      <alias entity-alias="OH" name="orderId"/>
+      <alias entity-alias="OISGIR" name="orderItemSeqId"/>
+      <alias entity-alias="OISGIR" name="inventoryItemId"/>
+      <alias entity-alias="OISG" name="shipGroupSeqId"/>
+      <alias entity-alias="OISG" name="shipmentMethodTypeId"/>
+      <alias entity-alias="OISG" name="carrierPartyId"/>
+      <alias entity-alias="II" name="productId"/>
+      <alias entity-alias="II" name="facilityId"/>
+      <alias entity-alias="II" name="locationSeqId"/>
+      <alias entity-alias="FL" name="locationTypeEnumId"/>
+      <alias entity-alias="FL" name="areaId"/>
+      <view-link entity-alias="OH" rel-entity-alias="OISGIR">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OISGIR" rel-entity-alias="OISG">
+        <key-map field-name="orderId"/>
+        <key-map field-name="shipGroupSeqId"/>
+      </view-link>
+      <view-link entity-alias="OISGIR" rel-entity-alias="II">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
+      <view-link entity-alias="II" rel-entity-alias="FL">
+        <key-map field-name="facilityId"/>
+        <key-map field-name="locationSeqId"/>
+      </view-link>
+    </view-entity>
+
     <view-entity entity-name="OrderHeaderAndPaymentPref"
             package-name="org.ofbiz.order.order"
             never-cache="true"
@@ -1578,4 +1615,3 @@ under the License.
     </view-link>
   </view-entity>
 </entitymodel>
-

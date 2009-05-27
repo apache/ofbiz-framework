@@ -4623,39 +4623,4 @@ under the License.
       <key-map field-name="productId"/>
     </view-link>
   </view-entity>
-
-  <view-entity entity-name="OrderItemAndFacilityLocationView" package-name="org.ofbiz.product.facility" title="Order Item And Facility Location View Entity">
-    <member-entity entity-alias="SMT" entity-name="ShipmentMethodType"/>
-    <member-entity entity-alias="OISG" entity-name="OrderItemShipGroup"/>
-    <member-entity entity-alias="OI" entity-name="OrderItem"/>
-    <member-entity entity-alias="PFL" entity-name="ProductFacilityLocation"/>
-    <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
-    <alias entity-alias="OISG" name="orderId"/>
-    <alias entity-alias="OISG" name="shipGroupSeqId"/>
-    <alias entity-alias="OISG" name="shipmentMethodTypeId"/>
-    <alias entity-alias="OISG" name="carrierPartyId"/>
-    <alias entity-alias="OI" name="productId"/>
-    <alias entity-alias="OI" name="orderItemSeqId"/>
-    <alias entity-alias="PFL" name="locationSeqId"/>
-    <alias entity-alias="PFL" name="facilityId"/>
-    <alias entity-alias="FL" name="locationTypeEnumId"/>
-    <alias entity-alias="FL" name="areaId"/>
-    <view-link entity-alias="OI" rel-entity-alias="OISG">
-      <key-map field-name="orderId"/>
-    </view-link>
-    <view-link entity-alias="OISG" rel-entity-alias="SMT">
-      <key-map field-name="shipmentMethodTypeId"/>
-    </view-link>
-    <view-link entity-alias="OI" rel-entity-alias="PFL">
-      <key-map field-name="productId"/>
-    </view-link>
-    <view-link entity-alias="PFL" rel-entity-alias="FL">
-      <key-map field-name="facilityId"/>
-      <key-map field-name="locationSeqId"/>
-    </view-link>
-    <relation type="one-nofk" rel-entity-name="ShipmentMethodType">
-      <key-map field-name="shipmentMethodTypeId"/>
-    </relation>
-  </view-entity>
-
 </entitymodel>

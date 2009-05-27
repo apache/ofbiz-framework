@@ -103,7 +103,7 @@ under the License.
                 <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
             </entity-count>
 
-            <entity-condition entity-name="OrderItemAndFacilityLocationView" list="OrderItemAndFacilityLocationList" distinct="true">
+            <entity-condition entity-name="OrderHeaderAndItemFacilityLocation" list="OrderHeaderAndItemFacilityLocationList" distinct="true">
                 <condition-list combine="and">
                     <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
                     <condition-expr field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
@@ -115,7 +115,7 @@ under the License.
             <set field="groupName1"/>
             <set field="groupName2"/>
             <set field="groupName3"/>            
-            <iterate list="OrderItemAndFacilityLocationList" entry="OrderItemAndFacilityLocation">
+            <iterate list="OrderHeaderAndItemFacilityLocationList" entry="orderHeaderAndItemFacilityLocation">
                 <!-- set groupName for order according to the options selected by the user -->
                 <if>
                     <condition>
@@ -129,13 +129,13 @@ under the License.
                         </or>
                     </condition>
                     <then>
-                        <set field="groupName1" from-field="OrderItemAndFacilityLocation.shipmentMethodTypeId"/>
+                        <set field="groupName1" from-field="orderHeaderAndItemFacilityLocation.shipmentMethodTypeId"/>
                     </then>
                 </if>
 
                 <if-compare field="groupByWarehouseArea" operator="equals" value="Y">
-                    <set field="groupName2" from-field="OrderItemAndFacilityLocation.areaId"/>
-                    <set field="locationGroupName" from-field="OrderItemAndFacilityLocation.areaId"/>
+                    <set field="groupName2" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
+                    <set field="locationGroupName" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
                 </if-compare>
 
                 <if>
