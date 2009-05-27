@@ -219,6 +219,10 @@ public class EntityFinderUtil {
                     value = StringUtil.split((String)value, delim);
                 }
             }
+            
+            if(modelEntity.getField(fieldName) == null) {
+                throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + entityName + "]");
+            }
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
             if (!((operator == EntityOperator.IN || operator == EntityOperator.BETWEEN)
