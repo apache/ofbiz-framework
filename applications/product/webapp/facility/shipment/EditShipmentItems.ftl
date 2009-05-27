@@ -50,8 +50,12 @@ under the License.
                 <td colspan="2">${(product.internalName)?if_exists} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId?if_exists}" class="buttontext">${shipmentItem.productId?if_exists}</a></td>
                 <td>${shipmentItem.quantity?default("&nbsp;")}</td>
                 <td colspan="2">${shipmentItem.shipmentContentDescription?default("&nbsp;")}</td>
-                <td><a href="<@ofbizUrl>deleteShipmentItem?shipmentId=${shipmentId}&shipmentItemSeqId=${shipmentItem.shipmentItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+                <td><a href="javascript:document.deleteShipmentItem${shipmentItemData_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
             </tr>
+            <form name="deleteShipmentItem${shipmentItemData_index}" method="post" action="<@ofbizUrl>deleteShipmentItem</@ofbizUrl>">
+                <input type="hidden" name="shipmentId" value="${shipmentId}"/>
+                <input type="hidden" name="shipmentItemSeqId" value=${shipmentItem.shipmentItemSeqId}"/>
+            </form>
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
@@ -85,12 +89,17 @@ under the License.
                     <#else>
                     <td colspan="2">&nbsp;</td>
                     </#if>
-                    <td><a href="<@ofbizUrl>deleteShipmentItemPackageContent?shipmentId=${shipmentId}&shipmentItemSeqId=${shipmentPackageContent.shipmentItemSeqId}&shipmentPackageSeqId=${shipmentPackageContent.shipmentPackageSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+                    <td><a href="javascript:document.deleteShipmentItemPackageContent${shipmentItemData_index}${shipmentPackageContent_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
                 </tr>
+                <form name="deleteShipmentItemPackageContent${shipmentItemData_index}${shipmentPackageContent_index}" method="post" action="<@ofbizUrl>deleteShipmentItemPackageContent</@ofbizUrl>">
+                    <input type="hidden" name="shipmentId" value="${shipmentId}"/>
+                    <input type="hidden" name="shipmentItemSeqId" value=${shipmentPackageContent.shipmentItemSeqId}"/>
+                    <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackageContent.shipmentPackageSeqId}"/>
+                </form>
             </#list>
             <#if (totalQuantityToPackage > 0)>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                    <form action="<@ofbizUrl>createShipmentItemPackageContent</@ofbizUrl>" name="createShipmentPackageContentForm${shipmentItemData_index}">
+                    <form action="<@ofbizUrl>createShipmentItemPackageContent</@ofbizUrl>" method="post" name="createShipmentPackageContentForm${shipmentItemData_index}">
                     <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                     <input type="hidden" name="shipmentItemSeqId" value="${shipmentItem.shipmentItemSeqId}"/>
                     <td>&nbsp;</td>
@@ -119,7 +128,7 @@ under the License.
             <#assign alt_row = !alt_row>
         </#list>
         <tr>
-            <form action="<@ofbizUrl>createShipmentItem</@ofbizUrl>" name="createShipmentItemForm">
+            <form action="<@ofbizUrl>createShipmentItem</@ofbizUrl>" method="post" name="createShipmentItemForm">
                 <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                 <td><span class="label">${uiLabelMap.ProductNewItem}</span></td>
                 <td colspan="2"><span class="label">${uiLabelMap.ProductProductId}</span> <input type="text" name="productId" size="15" maxlength="20"/></td>
