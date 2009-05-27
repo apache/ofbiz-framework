@@ -89,6 +89,7 @@ under the License.
             <actions>
                 <!-- Do action here -->
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                <set field="headerItem" value="Opportunities"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
