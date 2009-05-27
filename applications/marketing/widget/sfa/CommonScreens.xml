@@ -293,6 +293,7 @@ under the License.
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
                                             <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
@@ -340,6 +341,7 @@ under the License.
                                                 </actions>
                                                 <widgets>
                                                     <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
                                                 </widgets>
                                             </section>
                                         </container>

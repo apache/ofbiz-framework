@@ -224,4 +224,21 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="LeadPartyDataSource">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-and entity-name="PartyDataSource" list="partyDataSources">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.SfaLeadSource}" >
+                    <include-form name="AddLeadPartyDataSource" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                    <include-form name="ViewLeadPartyDataSources" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

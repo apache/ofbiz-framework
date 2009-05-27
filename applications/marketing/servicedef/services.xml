@@ -408,7 +408,7 @@ under the License.
         <attribute name="numEmployees" type="String" mode="IN" optional="true"/>
         <attribute name="officeSiteName" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
-        <attribute name="leadSource" type="String" mode="IN" optional="true"/>
+        <attribute name="dataSourceId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="OUT"/>
         <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
         <attribute name="extension" type="String" mode="IN" optional="true"/>
