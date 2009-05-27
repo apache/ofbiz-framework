@@ -302,7 +302,7 @@ public class UtilXml {
     }
 
     /**
-     * @deprecated Use  <a href="#writeXmlDocument(org.w3c.dom.Element,%20java.io.OutputStream,%20java.lang.String,%20boolean,%20boolean,%20int)">writeXmlDocument(Element element, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</a>
+     * @deprecated Use  <a href="#writeXmlDocument(org.w3c.dom.Node,%20java.io.OutputStream,%20java.lang.String,%20boolean,%20boolean,%20int)">writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</a>
      */
     @SuppressWarnings("deprecation")
     public static void writeXmlDocument(OutputStream os, Element element, OutputFormat format) throws java.io.IOException {
