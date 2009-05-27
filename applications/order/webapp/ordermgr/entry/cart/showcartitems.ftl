@@ -250,7 +250,7 @@ under the License.
                     <#else>
                         <#assign price = cartLine.getBasePrice()>
                     </#if>
-                    <input size="6" type="text" name="price_${cartLineIndex}" value="${price}"/>
+                    <input size="8" type="text" name="price_${cartLineIndex}" value="<@ofbizAmount amount=price/>"/>
                 </#if>
               </div>
             </td>
