@@ -63,6 +63,20 @@ under the License.
     <Enumeration description="URL Parameter" enumCode="URL_PARAM" enumId="TKCDSRC_URL_PARAM" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>
 
     <DataSourceType dataSourceTypeId="LEAD_SOURCE" description="Lead Source"/>
+    <DataSource dataSourceId="OTHER" dataSourceTypeId="LEAD_SOURCE" description="Other"/>
+    <DataSource dataSourceId="COLD_CALL" dataSourceTypeId="LEAD_SOURCE" description="Cold Call"/>
+    <DataSource dataSourceId="EXISTING_CUSTOMER" dataSourceTypeId="LEAD_SOURCE" description="Existing Customer"/>
+    <DataSource dataSourceId="SELF_GENERATED" dataSourceTypeId="LEAD_SOURCE" description="Self Generated"/>
+    <DataSource dataSourceId="EMPLOYEE" dataSourceTypeId="LEAD_SOURCE" description="Employee"/>
+    <DataSource dataSourceId="PARTNER" dataSourceTypeId="LEAD_SOURCE" description="Partner"/>
+    <DataSource dataSourceId="PUBLIC_RELATIONS" dataSourceTypeId="LEAD_SOURCE" description="Public Relations"/>
+    <DataSource dataSourceId="DIRECT_MAIL" dataSourceTypeId="LEAD_SOURCE" description="Direct Mail"/>
+    <DataSource dataSourceId="CONFERENCE" dataSourceTypeId="LEAD_SOURCE" description="Conference"/>
+    <DataSource dataSourceId="TRADE_SHOW" dataSourceTypeId="LEAD_SOURCE" description="Trade Show"/>
+    <DataSource dataSourceId="WEB_SITE" dataSourceTypeId="LEAD_SOURCE" description="Web Site"/>
+    <DataSource dataSourceId="WORD_OF_MOUTH" dataSourceTypeId="LEAD_SOURCE" description="Word of Mouth"/>
+    <DataSource dataSourceId="EMAIL" dataSourceTypeId="LEAD_SOURCE" description="Email"/>
+    <DataSource dataSourceId="CAMPAIGN" dataSourceTypeId="LEAD_SOURCE" description="Campaign"/>
 
     <StatusType parentTypeId="PARTY_STATUS" hasTable="" statusTypeId="LEAD_STATUS" description="Lead Status"/>
     <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="LEAD_ASSIGNED" statusTypeId="LEAD_STATUS"/>

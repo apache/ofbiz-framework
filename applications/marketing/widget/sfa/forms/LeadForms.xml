@@ -78,7 +78,14 @@ under the License.
         <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
         <field name="leadSourceTitle" title="${uiLabelMap.SfaLeadSource}" title-area-style="group-label"><display/></field>
-        <field name="leadSource" title="${uiLabelMap.SfaLeadSource}"><text size="50" maxlength="60"/></field>
+        <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="DataSource" key-field-name="dataSourceId" description="${dataSourceId} - ${description}">
+                    <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
+                    <entity-order-by field-name="dataSourceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="contactListTitle" title="${uiLabelMap.MarketingContactList}" title-area-style="group-label"><display/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
             <drop-down allow-empty="true">
@@ -145,4 +152,27 @@ under the License.
         <field name="quickAdd"><hidden value="Y"/></field>
         <field name="submitButton"><submit/></field>
     </form>
+    <form name="AddLeadPartyDataSource" type="single" target="createLeadPartyDataSource">
+        <auto-fields-service service-name="createPartyDataSource"/>
+        <field name="partyId"><hidden/></field>
+        <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="DataSource" key-field-name="dataSourceId" description="${dataSourceId} - ${description}">
+                    <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
+                    <entity-order-by field-name="dataSourceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    <form name="ViewLeadPartyDataSources" type="list" list-name="partyDataSources" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <field name="partyId"><hidden/></field>
+        <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}">
+            <display-entity entity-name="DataSource"/>
+        </field>
+        <field name="fromDate"><display></display> </field>
+        
+    </form>
+    
 </forms>

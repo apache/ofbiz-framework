@@ -128,6 +128,11 @@ under the License.
         <event type="service" invoke="createLead"/>
         <response name="success" type="request" value="viewprofile"/>
     </request-map>
+    <request-map uri="createLeadPartyDataSource">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyDataSource"/>
+        <response name="success" type="request" value="viewprofile"/>
+    </request-map>
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
