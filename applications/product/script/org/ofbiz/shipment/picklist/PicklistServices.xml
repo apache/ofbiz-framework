@@ -673,10 +673,14 @@ under the License.
     <!-- print pick sheet -->
     <simple-method method-name="printPickSheets" short-description="Print pick sheets for orders">
         <if-empty field="parameters.maxNumberOfOrdersToPrint">
-            <add-error error-list-name="error_list"><fail-message message="Please specify the number of orders to print pick sheet"/></add-error>
+            <add-error error-list-name="error_list">
+                <fail-property property="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet" resource="ProductErrorUiLabels"/>
+            </add-error>
         <else>
             <if-compare field="parameters.maxNumberOfOrdersToPrint" operator="less-equals" value="0" type="Long">
-                <add-error error-list-name="error_list"><fail-message message="Cannot specify negative value."/></add-error>
+                <add-error error-list-name="error_list">
+                    <fail-property property="ProductNumberOfOrdersMustBeGreaterThenZeroToPrintPickSheet" resource="ProductErrorUiLabels"/>
+                </add-error>
             </if-compare>
         </else>
         </if-empty>
