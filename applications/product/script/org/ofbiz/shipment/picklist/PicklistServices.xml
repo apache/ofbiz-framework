@@ -716,7 +716,7 @@ under the License.
                 <clear-field field="orderHeaderMap"/>
             </if-compare-field>
         </iterate>
-        <field-to-result field="pickMoveInfoList" result-name="pickMoveInfoList"/>
+        <field-to-result field="pickMoveInfoList"/>
     </simple-method>
 
        <!-- Picklist -->
