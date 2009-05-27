@@ -17,33 +17,33 @@
 				    <tr>
 				    	<td class="label">    Salutation    </td>
 					    <td class="no-required">
-					    	<input type="text" autocomplete="off" id="RegisterPerson_salutation" maxlength="60" size="40" name="salutation"/>
+					    	<input type="text" autocomplete="off" id="RegisterPerson_salutation" maxlength="60" size="40" name="salutation" value="${requestParameters.salutation?if_exists}"/>
 					    </td>
 				    </tr>
 				    <tr>
 					    <td class="label">	First name    </td>
 					    <td>
-							<input type="text" autocomplete="off" id="RegisterPerson_firstName" maxlength="60" size="40" class="required false" name="firstName"/>
+							<input type="text" autocomplete="off" id="RegisterPerson_firstName" maxlength="60" size="40" class="required false" name="firstName" value="${requestParameters.firstName?if_exists}"/>
 							<span class="tooltip">Required</span>    
 						</td>
 				    </tr>
 				    <tr>
 					    <td class="label">		Middle Name    </td>
 					    <td class="no-required">
-							<input type="text" autocomplete="off" id="RegisterPerson_middleName" maxlength="60" size="40" name="middleName"/>
+							<input type="text" autocomplete="off" id="RegisterPerson_middleName" maxlength="60" size="40" name="middleName" value="${requestParameters.middleName?if_exists}"/>
 					    </td>
 				    </tr>
 				    <tr>
 					    <td class="label">		Last name    </td>
 					    <td>
-							<input type="text" autocomplete="off" id="RegisterPerson_lastName" maxlength="60" size="40" class="required false" name="lastName"/>
+							<input type="text" autocomplete="off" id="RegisterPerson_lastName" maxlength="60" size="40" class="required false" name="lastName" value="${requestParameters.lastName?if_exists}"/>
 							<span class="tooltip">Required</span>    
 						</td>
 			    	</tr>
 				    <tr>
 					    <td class="label">	Email    </td>
 					    <td>
-							<input type="text" autocomplete="off" id="RegisterPerson_USER_EMAIL" maxlength="250" size="60" class="required false" name="USER_EMAIL"/>
+							<input type="text" autocomplete="off" id="RegisterPerson_USER_EMAIL" maxlength="250" size="60" class="required false" name="USER_EMAIL" value="${requestParameters.USER_EMAIL?if_exists}"/>
 							<span class="tooltip">Required</span>    
 						</td>
 				    </tr>
@@ -54,21 +54,21 @@
 				    <tr>
 					    <td class="label">	Username    </td>
 					    <td>
-							<input type="text" autocomplete="off" id="RegisterPerson_USERNAME" maxlength="250" size="30" class="required false" name="USERNAME"/>
+							<input type="text" autocomplete="off" id="RegisterPerson_USERNAME" maxlength="250" size="30" class="required false" name="USERNAME" value="${requestParameters.USERNAME?if_exists}"/>
 							<span class="tooltip">Required</span>    
 						</td>
 				    </tr>
 				    <tr>
 				    	<td class="label">	Password    </td>
 					    <td>
-							<input type="password" id="RegisterPerson_PASSWORD" maxlength="250" size="15" name="PASSWORD" class="required false"/>
+							<input type="password" id="RegisterPerson_PASSWORD" maxlength="250" size="15" name="PASSWORD" class="required false" value="${requestParameters.PASSWORD?if_exists}"/>
 							<span class="tooltip">Required</span>    
 						</td>
 				    </tr>
 				    <tr>
 					    <td class="label">	Password    </td>
 					    <td>
-							<input type="password" id="RegisterPerson_CONFIRM_PASSWORD" maxlength="250" size="15" name="CONFIRM_PASSWORD" class="required false"/>
+							<input type="password" id="RegisterPerson_CONFIRM_PASSWORD" maxlength="250" size="15" name="CONFIRM_PASSWORD" class="required false" value="${requestParameters.CONFIRM_PASSWORD?if_exists}"/>
 							<span class="tooltip">* Confirm</span>    
 						</td>
 				    </tr>

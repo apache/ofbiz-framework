@@ -160,20 +160,25 @@ under the License.
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="storeEmailLookup.emailTemplateSettingId" value="PARTY_REGISTER"/>
                 <find-by-primary-key map="storeEmailLookup" entity-name="EmailTemplateSetting"  value-field="storeEmail"/>
-                <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
-                <set field="bodyParameters.person" from-field="person"/>
-                <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
-                <set field="emailParams.sendTo" from-field="emailContext.emailAddress"/>
-                <set field="emailParams.subject" from-field="storeEmail.subject"/>
-                <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
-                <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
-                <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
-                <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
-                <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
-                <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
-                <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
-                <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>    
-       
+                <if-not-empty field="storeEmail">
+                    <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
+                    <set field="bodyParameters.person" from-field="person"/>
+                    <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+                    <set field="emailParams.sendTo" from-field="emailContext.emailAddress"/>
+                    <set field="emailParams.subject" from-field="storeEmail.subject"/>
+                    <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+                    <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+                    <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+                    <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+                    <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+                    <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+                    <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
+                    <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                    <else>
+                        <log level="error" message="Email template ${storeEmailLookup.emailTemplateSettingId} not found in entity EmailTemplateSetting, no confirmation email sent"></log>
+                    </else>
+                </if-not-empty>
+                
                 <!-- Create Customer Request to show new registration-->
                 <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
                 <set field="custRequest.fromPartyId" from-field="partyId"/>
