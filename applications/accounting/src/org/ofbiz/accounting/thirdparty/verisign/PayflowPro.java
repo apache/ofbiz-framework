@@ -614,7 +614,7 @@ public class PayflowPro {
     private static PayflowAPI init(GenericDelegator delegator, String paymentGatewayConfigId, String resource, Map<String, ? extends Object> context) {
         // No more used
         // String certsPath = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certsPath", resource, "payment.verisign.certsPath", "pfcerts"), context);
-        String hostAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostAddress", resource, "payment.verisign.hostAddress", "test-payflow.verisign.com");
+        String hostAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostAddress", resource, "payment.verisign.hostAddress", "pilot-payflowpro.paypal.com");
         Integer hostPort = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostPort", resource, "payment.verisign.hostPort", "443"));
         Integer timeout = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "timeout", resource, "payment.verisign.timeout", "80"));
         String proxyAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "proxyAddress", resource, "payment.verisign.proxyAddress", "");
@@ -692,7 +692,7 @@ Invalid Processor information entered. Contact merchant bank to verify.
 from an unknown IP address. See VeriSign Manager online help for details on how
 to use Manager to update the allowed IP addresses.
 You are using a test (not active) account to submit a transaction to the live VeriSign
-servers. Change the URL from test-payflow.verisign.com to payflow.verisign.com.
+servers. Change the URL from pilot-payflowpro.paypal.com to payflowpro.paypal.com.
 2 Invalid tender type. Your merchant bank account does not support the following
 credit card type that was submitted.
 3 Invalid transaction type. Transaction type is not appropriate for this transaction. For
