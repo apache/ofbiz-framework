@@ -31,11 +31,11 @@ under the License.
     </#if>
     <#if shipmentId?has_content>
       <div>
-        ${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>/ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${shipmentId}</a>
+        <span class="label">${uiLabelMap.ProductShipmentId}</span><a href="<@ofbizUrl>/ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${shipmentId}</a>
       </div>
       <#if invoiceIds?exists && invoiceIds?has_content>
         <div>
-          <p>${uiLabelMap.AccountingInvoices}:</p>
+          <span class="label">${uiLabelMap.AccountingInvoices}:</span>
           <ul>
             <#list invoiceIds as invoiceId>
               <li>
