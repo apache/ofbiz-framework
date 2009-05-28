@@ -2167,7 +2167,7 @@ under the License.
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/GlSetupScreens.xml#PartyAcctgPreference"/>
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrganization"/>
     <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/GlSetupScreens.xml#SetupGlJournals"/>
-    <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ViewFXConversions"/>
+    <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ViewFXConversions"/>
     <view-map name="ViewRateAmounts" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ViewRateAmounts"/>
     <view-map name="GlAccountTypeDefaults" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountTypeDefaults"/>
     <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountPurInvoice"/>
