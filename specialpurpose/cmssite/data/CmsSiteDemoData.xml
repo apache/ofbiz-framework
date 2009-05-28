@@ -112,7 +112,7 @@ under the License.
     <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_2" contentAssocTypeId="SUB_CONTENT" mapKey="sub2" fromDate="2001-01-01 00:00:00"/>
     <!--  the following entries are used to override the default footer with a page specific one -->
     <DataResource dataResourceId="CMSS_DEMO_PAGE1_FTR" dataResourceTypeId="SHORT_TEXT" objectInfo="This is a page specific footer for Demo Page 1"/>
-    <Content contentId="CMSS_DEMO_PAGE1_FTR" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_2" dataResourceId="CMSS_DEMO_PAGE1_FTR"/>
+    <Content contentId="CMSS_DEMO_PAGE1_FTR" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page FTR" dataResourceId="CMSS_DEMO_PAGE1_FTR"/>
     <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_FTR" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
 
     <DataResource dataResourceId="CMSS_DEMO_SCREEN" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#testScreen"/>
