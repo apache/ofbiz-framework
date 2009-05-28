@@ -182,7 +182,7 @@ under the License.
                     </td>
                     <td>
                       <#if (orderReadyToPickInfoListSizeTotal > 0)>
-                        <form method="post" action="<@ofbizUrl>PrintPickSheets</@ofbizUrl>">
+                        <form method="post" action="<@ofbizUrl>printPickSheets</@ofbizUrl>">
                             <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                             <span class="label">${uiLabelMap.FormFieldTitle_printPickSheetFirst}</span>
                             <input type="text" size="4" name="maxNumberOfOrdersToPrint" value="20"/>
