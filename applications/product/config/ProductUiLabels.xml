@@ -13766,6 +13766,9 @@
         <value xml:lang="fr">nombre</value>
         <value xml:lang="it">numero</value>
     </property>
+    <property key="ProductNumberOfOrderItems">
+        <value xml:lang="en">Number of Order Items</value>
+    </property>
     <property key="ProductNumberQuantity">
         <value xml:lang="de">Nummer / Menge</value>
         <value xml:lang="en">Number / Quantity</value>
@@ -19935,6 +19938,9 @@
         <value xml:lang="ru">Подтверждение пустой поставки UPS</value>
         <value xml:lang="th">Void UPS Shipment Confirmation</value>
         <value xml:lang="zh">空UPS货运确认</value>
+    </property>
+    <property key="ProductWareHouseArea">
+        <value xml:lang="en">WareHouse Area</value>
     </property>
     <property key="ProductWarningOrderStatus">
         <value xml:lang="de">ACHTUNG: Auftragsstatus ist</value>
