@@ -144,7 +144,7 @@ under the License.
         </actions>
         <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
         <field name="communicationEventId"><hidden/></field>
-        <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
+        <field name="communicationEventTypeId"><hidden value="EMAIL_COMMUNICATION"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
@@ -154,8 +154,8 @@ under the License.
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
             </drop-down>
         </field>
-        <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
-            <lookup target-form-name="LookupPartyEmail" default-value="${parameters.contactMechIdTo}"/>
+        <field name="partyIdTo">
+            <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
@@ -217,9 +217,8 @@ under the License.
             </hyperlink>
         </field>
         <field name="communicationEventTypeId"><display-entity entity-name="CommunicationEventType" description="${description}"/></field>
-        <field name="contactListId"><display/></field>
-        <field name="messageId"><display/></field>
-        <field name="partyIdFrom" use-when="partyIdFrom!=void">
+        <field name="contactListId" use-when="communicationEvent.get(&quot;contactListId&quot;)!=null"><display/></field>
+        <field name="partyIdFrom" use-when="communicationEvent.get(&quot;partyIdFrom&quot;)!=null">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechFrom.infoString})">
                 <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                     <parameter param-name="partyIdFrom"/>
@@ -376,7 +375,7 @@ under the License.
         </row-actions>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent">
+            <hyperlink description="${subject}[${communicationEventId}]" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>

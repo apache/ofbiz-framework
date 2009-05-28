@@ -661,7 +661,7 @@ under the License.
         <!-- first try to find primary email Address when not found get other email -->
         <entity-and entity-name="PartyContactWithPurpose" list="emailAddressesPurposes">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
-            <field-map field-name="contactMechPurposeTypeId" from-field="PRIMARY_EMAIL"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
         </entity-and>
         <filter-list-by-date list="emailAddressesPurposes" to-list="emailAddressesPurposes1" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list="emailAddressesPurposes1" to-list="emailAddresses" from-field-name="contactFromDate" thru-field-name="contactThruDate"/>
