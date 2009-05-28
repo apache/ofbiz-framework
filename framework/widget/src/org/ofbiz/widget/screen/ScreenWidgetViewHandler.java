@@ -95,7 +95,9 @@ public class ScreenWidgetViewHandler extends AbstractViewHandler {
             FreeMarkerWorker.getSiteParameters(request, screens.getContext());
             screens.getContext().put("formStringRenderer", new HtmlFormRenderer(request, response));
             screens.getContext().put("simpleEncoder", StringUtil.htmlEncoder);
+            htmlScreenRenderer.renderScreenBegin(writer, screens.getContext());
             screens.render(page);
+            htmlScreenRenderer.renderScreenEnd(writer, screens.getContext());
         } catch (IOException e) {
             throw new ViewHandlerException("Error in the response writer/output stream: " + e.toString(), e);
         } catch (SAXException e) {
