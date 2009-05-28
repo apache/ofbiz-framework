@@ -54,7 +54,9 @@ under the License.
         </div>
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
-                <td>${uiLabelMap.FacilityGroupName}</td>
+                <td>${uiLabelMap.ProductShipmentMethod}</td>
+                <td>${uiLabelMap.ProductWareHouseArea}</td>
+                <td>${uiLabelMap.ProductNumberOfOrderItems}</td>
                 <td>${uiLabelMap.ProductReadyToPick}</td>
                 <td>${uiLabelMap.ProductNeedStockMove}</td>
                 <td>&nbsp;</td>
@@ -100,28 +102,28 @@ under the License.
                     <#assign orderReadyToPickInfoListSizeTotal = orderReadyToPickInfoListSizeTotal + orderReadyToPickInfoListSize>
                     <#assign orderNeedsStockMoveInfoListSizeTotal = orderNeedsStockMoveInfoListSizeTotal + orderNeedsStockMoveInfoListSize>
                     <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                        <td>
-                            <form name="viewGroupDetail_${pickMoveInfo_index}" action="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
-                                <input type ="hidden" name="viewDetail" value= "${groupName?if_exists}"/>
-                                <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
-                                <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
-                                <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
-                                <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
-                                <table>
-                                    <tr>
-                                        <#if groupName1?has_content>
-                                            <td><a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName1}</a></td>
-                                        </#if>
-                                        <#if groupName2?has_content>
-                                            <td><a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName2}</a></td>
-                                        </#if>
-                                        <#if groupName3?has_content>
-                                            <td><a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName3}</a></td>
-                                        </#if>
-                                    </tr>
-                               </table>
-                            </form>
-                        </td>
+                        <form name="viewGroupDetail_${pickMoveInfo_index}" action="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
+                            <input type ="hidden" name="viewDetail" value= "${groupName?if_exists}"/>
+                            <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
+                            <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
+                            <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
+                            <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                            <td>
+                                <#if groupName1?has_content>
+                                    <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName1}</a>
+                                </#if>
+                            </td>
+                            <td>
+                                <#if groupName2?has_content>
+                                    <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName2}</a>
+                                </#if>
+                            </td>
+                            <td>
+                                <#if groupName3?has_content>
+                                    <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName3}</a></td>
+                                </#if>
+                            </td>
+                        </form>
                         <td>${orderReadyToPickInfoListSize}</td>
                         <td>${orderNeedsStockMoveInfoListSize}</td>
                         <td>
@@ -166,6 +168,8 @@ under the License.
                 </#list>
                 <tr>
                     <th>${uiLabelMap.CommonAllMethods}</div></th>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                     <th>${orderReadyToPickInfoListSizeTotal}</div></th>
                     <th>${orderNeedsStockMoveInfoListSizeTotal}</div></th>
                     <td>
