@@ -37,4 +37,8 @@
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="redirect" mode="OUT" type="String" optional="false"/>
     </service>
+    <service name="connectToGoogleCheckoutServer" engine="simple" invoke="connectToGoogleCheckoutServer"
+        location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
+        <attribute name="conn" mode="OUT" type="java.net.HttpURLConnection" optional="false"/>
+    </service>
 </services>

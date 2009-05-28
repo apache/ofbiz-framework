@@ -24,7 +24,9 @@
 
     <simple-method method-name="transmitRequest" short-description="">
         <!-- Connect, there may be ofbiz HttpClient.java that may handle this well -->
-        <call-simple-method method-name="connectWithRedirectHack"/>
+        <call-service service-name="connectToGoogleCheckoutServer">
+            <result-to-field result-name="conn"/>
+        </call-service>
         <log level="info" message="step 1 done"/>
         <!-- Get the Content -->
         <call-simple-method method-name="createXMLOutput"/>
@@ -42,7 +44,7 @@
         <field-to-result field="redirect"/>
     </simple-method>
 <!-- Step 1 -->
-    <simple-method method-name="connectWithRedirectHack" short-description="">
+    <simple-method method-name="connectToGoogleCheckoutServer" short-description="create connection to Google Checkout server">
         <call-simple-method method-name="createRequestUrl"/>
         <call-simple-method method-name="getHttpAuth"/>
         <call-bsh><![CDATA[
@@ -60,6 +62,7 @@
             conn.connect();
         return org.ofbiz.base.util.UtilMisc.toMap("conn", conn);
         ]]></call-bsh>
+        <field-to-result field="conn"/>
     </simple-method>
     <simple-method method-name="createRequestUrl" short-description="">
         <!-- Setup Url spec -->
