@@ -107,7 +107,9 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             //screens.getContext().put("treeStringRenderer", treeStringRenderer);
             //screens.getContext().put("menuStringRenderer", menuStringRenderer);
             screens.getContext().put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
+            screenStringRenderer.renderScreenBegin(writer, screens.getContext());
             screens.render(page);
+            screenStringRenderer.renderScreenEnd(writer, screens.getContext());
             writer.flush();
         } catch (TemplateException e) {
             Debug.logError(e, "Error initializing screen renderer", module);
