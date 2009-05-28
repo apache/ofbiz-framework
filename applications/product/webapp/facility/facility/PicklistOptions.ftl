@@ -166,7 +166,7 @@ under the License.
                     <#-- toggle the row color -->
                     <#assign alt_row = !alt_row>
                 </#list>
-                <tr>
+                <tr<#if !alt_row> class="alternate-row"</#if>>
                     <th>${uiLabelMap.CommonAllMethods}</div></th>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
