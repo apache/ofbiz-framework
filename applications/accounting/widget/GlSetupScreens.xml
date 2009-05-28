@@ -224,36 +224,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Screen to view and manage foreign exchange conversions -->
-    <screen name="ViewFXConversions">
-        <section>
-            <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="AccountingFX"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
-                <set field="tabButtonItem" value="ViewFXConversions"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
-                    stored in UomConversion, we need to change the logic here -->
-                <entity-condition entity-name="UomConversionDated" list="conversions">
-                    <order-by field-name="uomId"/>
-                    <order-by field-name="uomIdTo"/>
-                    <order-by field-name="fromDate"/>
-                </entity-condition>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonAdminDecorator">
-                    <decorator-section name="body">
-                        <screenlet id="FxConversionPanel" title="${uiLabelMap.AccountingUpdateFX}" collapsible="true">
-                            <include-form name="updateFXConversion" location="component://accounting/widget/GlSetupForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListConversions" location="component://accounting/widget/GlSetupForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="SetupGlJournals">
         <section>
             <actions>

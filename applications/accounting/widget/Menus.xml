@@ -689,14 +689,6 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
-            <condition>
-                <if-service-permission service-name="acctgFxPermissionCheck" main-action="UPDATE"/>
-            </condition>
-            <link target="viewFXConversions">
-                <parameter param-name="organizationPartyId"/>
-            </link>
-        </menu-item>
     </menu>
     <menu name="PartyAdminAssignTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice">
@@ -795,6 +787,14 @@ under the License.
         </menu-item>
         <menu-item name="ViewRateAmounts" title="${uiLabelMap.AccountingRates}">
             <link target="viewRateAmounts"/>
+        </menu-item>
+        <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
+            <condition>
+                <if-service-permission service-name="acctgFxPermissionCheck" main-action="UPDATE"/>
+            </condition>
+            <link target="viewFXConversions">
+                <parameter param-name="organizationPartyId"/>
+            </link>
         </menu-item>
     </menu>
 
