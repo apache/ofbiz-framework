@@ -9161,7 +9161,7 @@
         <value xml:lang="zh_CN">其他调整总计</value>
     </property>
     <property key="OrderTotalNoOfItems">
-        <value xml:lang="en">Total No. Of Items</value>
+        <value xml:lang="en">Total No. of Items</value>
     </property>
     <property key="OrderTotalQty">
         <value xml:lang="de">Total Menge</value>
