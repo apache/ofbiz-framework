@@ -60,7 +60,7 @@ under the License.
         <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
 
         <!-- check for reply -->
-        <if-compare field="parameters.communicationEventId" value="AUTO_EMAIL_COMM" operator="not-equals"><!--not an incoming email from a mailserver -->
+        <if-compare field="parameters.userLogin.userLoginId" value="system" operator="not-equals"><!-- not apply on incoming emails -->
             <if-not-empty field="parameters.parentCommEventId">
                 <entity-one entity-name="CommunicationEvent" value-field="parentCommEvent">
                     <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
