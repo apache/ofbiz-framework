@@ -55,7 +55,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
                 <td>${uiLabelMap.ProductShipmentMethod}</td>
-                <td>${uiLabelMap.ProductWareHouseArea}</td>
+                <td>${uiLabelMap.ProductWarehouseArea}</td>
                 <td>${uiLabelMap.ProductNumberOfOrderItems}</td>
                 <td>${uiLabelMap.ProductReadyToPick}</td>
                 <td>${uiLabelMap.ProductNeedStockMove}</td>
