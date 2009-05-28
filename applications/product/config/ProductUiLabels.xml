@@ -19939,8 +19939,8 @@
         <value xml:lang="th">Void UPS Shipment Confirmation</value>
         <value xml:lang="zh">空UPS货运确认</value>
     </property>
-    <property key="ProductWareHouseArea">
-        <value xml:lang="en">WareHouse Area</value>
+    <property key="ProductWarehouseArea">
+        <value xml:lang="en">Warehouse Area</value>
     </property>
     <property key="ProductWarningOrderStatus">
         <value xml:lang="de">ACHTUNG: Auftragsstatus ist</value>
