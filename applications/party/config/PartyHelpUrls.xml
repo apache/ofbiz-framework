@@ -19,29 +19,32 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="PARTY_main">
+        <value xml:lang="en">Party</value>
+    </property>
     <property key="PARTY_findparty">
-        <value xml:lang="en">Parties</value>
+        <value xml:lang="en">Party</value>
     </property>
     <property key="PARTY_FindCommunicationEvents">
-        <value xml:lang="en">Communications</value>
+        <value xml:lang="en">Party Communications</value>
     </property>
     <property key="PARTY_showvisits">
-        <value xml:lang="en">Visits</value>
+        <value xml:lang="en">Party Visits</value>
     </property>
     <property key="PARTY_FindPartyClassificationGroups">
-        <value xml:lang="en">Classifications</value>
+        <value xml:lang="en">Party Classifications</value>
     </property>
     <property key="PARTY_FindSecurityGroup">
-        <value xml:lang="en">Security</value>
+        <value xml:lang="en">Party Security</value>
     </property>
     <property key="PARTY_AddressMatchMap">
-        <value xml:lang="en">Address Match Map</value>
+        <value xml:lang="en">Party Address Match Map</value>
     </property>
     <property key="PARTY_partyInvitation">
-        <value xml:lang="en">Invitation</value>
+        <value xml:lang="en">Party Invitation</value>
     </property>
     <property key="PARTY_CreateNewParty">
-        <value xml:lang="en">Create new party</value>
+        <value xml:lang="en">Party new</value>
     </property>
 
 </resource>
