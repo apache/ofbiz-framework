@@ -104,6 +104,7 @@ ofbiz/trunk/framework/webslinger/lib/webslinger-ext-20090312-2018a822aa51.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-launcher-20090312-2018a822aa51.jar
 ofbiz/trunk/applications/content/lib/lucene-core-2.4.1.jar
 ofbiz/trunk/applications/content/lib/poi-3.2-FINAL-20081019.jar
+ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 ==========================================================================
                                  Apache License
                            Version 2.0, January 2004
