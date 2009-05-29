@@ -837,4 +837,5 @@ under the License.
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
     </form>
+    <form name="ListProgressEmails" type="list" extends="ListPartyCommEvents" list-name="commEventProgress"/>
 </forms>
