@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -339,9 +338,10 @@ under the License.
         <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createReturnStatus" default-entity-name="ReturnHeader" engine="simple"
+    <service name="createReturnStatus" engine="simple"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnStatus">
         <description>Create Return Status</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 </services>

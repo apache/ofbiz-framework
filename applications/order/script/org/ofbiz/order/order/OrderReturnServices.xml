@@ -443,8 +443,11 @@ under the License.
         <find-by-and entity-name="ReturnItem" map="lookupPKMap" list="returnItems"/>
         <iterate entry="item" list="returnItems">
             <set field="item.statusId" from-field="parameters.statusId"/>
+            <set-service-fields service-name="updateReturnItem" map="item" to-map="serviceInMap"/>
+            <call-service service-name="updateReturnItem" in-map-name="serviceInMap"/>
+            <clear-field field="serviceInMap"/>
+            <clear-field field="item"/>
         </iterate>
-        <store-list list="returnItems"/>
     </simple-method>
     <simple-method method-name="removeReturnItem" short-description="Remove Return Item">
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/></check-permission>
@@ -526,15 +529,17 @@ under the License.
                 <field-map field-name="returnItemSeqId" from-field="receipt.returnItemSeqId"/>
             </entity-one>
             <set field="returnItem.receivedQuantity" from-field="${totalsMap.receipt.returnItemSeqId}" type="BigDecimal"/>
+            <set-service-fields service-name="updateReturnItem" map="returnItem" to-map="serviceInMap"/>
 
             <if-compare-field field="totalsMap.receipt.returnItemSeqId" to-field="returnItem.returnQuantity" operator="greater-equals" type="BigDecimal">
                 <!-- update the status for the item -->
-                <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
-                <store-value value-field="returnItem"/>
+                <set field="serviceInMap.statusId" value="RETURN_RECEIVED"/>
+                <call-service service-name="updateReturnItem" in-map-name="serviceInMap"/>
             </if-compare-field>
 
             <!-- update the returnItem with at least receivedQuantity, and also statusId if applicable -->
-            <store-value value-field="returnItem"/>
+            <call-service service-name="updateReturnItem" in-map-name="serviceInMap"/>
+            <clear-field field="serviceInMap"/>
         </iterate>
 
         <!-- check to see if all items have been received -->
@@ -1084,17 +1089,21 @@ under the License.
         </if-not-empty>
     </simple-method>
     
-    <simple-method method-name="createReturnStatus" short-description="Create Return Status">
-        <entity-one value-field="returnHeader" entity-name="ReturnHeader">
-            <field-map field-name="returnId" from-field="parameters.returnId"/>
-        </entity-one>
+    <simple-method method-name="createReturnStatus" short-description="Create ReturnHeader and ReturnItem Status">
         <make-value entity-name="ReturnStatus" value-field="newEntity"/>
+        <if-empty field="parameters.returnItemSeqId">
+            <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
+            <set field="newEntity.statusId" from-field="returnHeader.statusId"/>
+        <else>
+            <entity-one entity-name="ReturnItem"  value-field="returnItem"/>
+            <set field="newEntity.returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
+            <set field="newEntity.statusId" from-field="returnItem.statusId"/>
+        </else>
+        </if-empty>
         <sequenced-id sequence-name="ReturnStatus" field="newEntity.returnStatusId"/>
         <set field="newEntity.returnId" from-field="parameters.returnId"/>
-        <set field="newEntity.statusId" from-field="returnHeader.statusId"/>
         <set field="newEntity.changeByUserLoginId" from-field="userLogin.userLoginId"/>
         <now-timestamp field="newEntity.statusDatetime"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
 </simple-methods>

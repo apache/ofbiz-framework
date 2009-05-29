@@ -781,31 +781,19 @@ public class OrderReturnServices {
             String itemResponseId = (String) serviceResults.get("returnItemResponseId");
 
             // loop through the items again to update them and store a status change history
-            List toBeStored = new ArrayList();
             for (Iterator itemsIter = returnItems.iterator(); itemsIter.hasNext(); ) {
                 GenericValue item = (GenericValue) itemsIter.next();
-
-                // set the response on the item and flag the item to be stored
-                item.set("returnItemResponseId", itemResponseId);
-                item.set("statusId", "RETURN_COMPLETED");
-                toBeStored.add(item);
-
-                // create the status change history and set it to be stored
-                String returnStatusId = delegator.getNextSeqId("ReturnStatus");
-                GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
-                returnStatus.set("statusId", item.get("statusId"));
-                returnStatus.set("returnId", item.get("returnId"));
-                returnStatus.set("returnItemSeqId", item.get("returnItemSeqId"));
-                returnStatus.set("statusDatetime", now);
-                toBeStored.add(returnStatus);
-            }
-
-            // store the item changes (attached responseId)
-            try {
-                delegator.storeAll(toBeStored);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem storing ReturnItem updates", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemStoringReturnItemUpdates", locale));
+                Map returnItemMap = UtilMisc.toMap("returnItemResponseId", itemResponseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", "RETURN_COMPLETED", "userLogin", userLogin);
+                // store the item changes (attached responseId)
+                try {
+                    serviceResults = dispatcher.runSync("updateReturnItem", returnItemMap);
+                    if (ServiceUtil.isError(serviceResults)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemStoringReturnItemUpdates", locale), null, null, serviceResults);
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Problem storing ReturnItem updates", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemStoringReturnItemUpdates", locale));
+                }
             }
 
             // create the PaymentApplication for the billing account
@@ -1164,22 +1152,15 @@ public class OrderReturnServices {
                             Iterator itemsIter = items.iterator();
                             while (itemsIter.hasNext()) {
                                 GenericValue item = (GenericValue) itemsIter.next();
-                                item.set("returnItemResponseId", responseId);
-                                item.set("statusId", returnItemStatusId);
-
-                                // Create the status history
-                                String returnStatusId = delegator.getNextSeqId("ReturnStatus");
-                                GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
-                                returnStatus.set("statusId", item.get("statusId"));
-                                returnStatus.set("returnId", item.get("returnId"));
-                                returnStatus.set("returnItemSeqId", item.get("returnItemSeqId"));
-                                returnStatus.set("statusDatetime", now);
-
+                                
+                                Map returnItemMap = UtilMisc.toMap("returnItemResponseId", responseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", returnItemStatusId, "userLogin", userLogin);
                                 //Debug.log("Updating item status", module);
                                 try {
-                                    item.store();
-                                    delegator.create(returnStatus);
-                                } catch (GenericEntityException e) {
+                                    serviceResults = dispatcher.runSync("updateReturnItem", returnItemMap);
+                                    if (ServiceUtil.isError(serviceResults)) {
+                                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale), null, null, serviceResults);
+                                    }
+                                } catch (GenericServiceException e) {
                                     Debug.logError("Problem updating the ReturnItem entity", module);
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale));
                                 }

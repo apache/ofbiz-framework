@@ -210,7 +210,6 @@ under the License.
         <action service="processRepairReplacementReturn" mode="sync"/>
         <action service="processCreditReturn" mode="sync"/>
         <action service="processRefundOnlyReturn" mode="sync"/>
-        <action service="createReturnStatus" mode="sync"/>
     </eca>
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
@@ -375,5 +374,13 @@ under the License.
     <eca service="updateSalesOpportunity" event="commit">
         <condition field-name="leadPartyId" operator="is-not-empty"/>
         <action service="createSalesOpportunityLeadRole" mode="sync"/>
+    </eca>
+    <eca service="createReturnItem" event="commit">
+        <action service="createReturnStatus" mode="sync"/>
+    </eca>
+    <eca service="updateReturnItem" event="commit">
+        <condition field-name="statusId" operator="is-not-empty"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="createReturnStatus" mode="sync"/>
     </eca>
 </service-eca>
