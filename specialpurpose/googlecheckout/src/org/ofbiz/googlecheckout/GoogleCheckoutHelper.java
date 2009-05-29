@@ -1,0 +1,489 @@
+/**
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+**/
+
+package org.ofbiz.googlecheckout;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.order.order.OrderChangeHelper;
+import org.ofbiz.order.shoppingcart.CheckOutHelper;
+import org.ofbiz.order.shoppingcart.ItemNotFoundException;
+import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCartItem;
+import org.ofbiz.party.party.PartyWorker;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+
+import com.google.checkout.CheckoutException;
+import com.google.checkout.checkout.Item;
+import com.google.checkout.notification.Address;
+import com.google.checkout.notification.MerchantCodes;
+import com.google.checkout.notification.NewOrderNotification;
+import com.google.checkout.notification.OrderAdjustment;
+import com.google.checkout.notification.Shipping;
+import com.google.checkout.notification.StructuredName;
+import com.google.checkout.orderprocessing.AddMerchantOrderNumberRequest;
+
+public class GoogleCheckoutHelper {
+
+    private static final String module = GoogleCheckoutHelper.class.getName();
+
+    public static final String SALES_CHANNEL = "GC_SALES_CHANNEL";
+    public static final String ORDER_TYPE = "SALES_ORDER";
+    public static final String PAYMENT_METHOD = "EXT_GOOGLE_CHECKOUT";
+
+    public static final int SHIPPING_ADDRESS = 10;
+    public static final int BILLING_ADDRESS = 50;
+
+   protected LocalDispatcher dispatcher;
+   protected GenericDelegator delegator;
+    protected GenericValue system;
+
+    public GoogleCheckoutHelper(LocalDispatcher dispatcher, GenericDelegator delegator) {
+        this.dispatcher = dispatcher;
+        this.delegator = delegator;
+        
+        try {
+            system = delegator.findOne("UserLogin", true, "userLoginId", "system");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            system = delegator.makeValue("UserLogin");
+            system.set("userLoginId", "system");
+            system.set("partyId", "admin");
+            system.set("isSystem", "Y");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void createOrder(NewOrderNotification info, String productStoreId, String websiteId, String currencyUom, Locale locale) throws GeneralException {
+        // get the google order number
+        String externalId = info.getGoogleOrderNumber();
+
+        // check and make sure this order doesn't already exist
+        List<GenericValue> existingOrder = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
+        if (existingOrder != null && existingOrder.size() > 0) {
+            throw new GeneralException("Google order #" + externalId + " already exists.");
+        }
+
+        // Initialize the shopping cart
+        ShoppingCart cart = new ShoppingCart(delegator, productStoreId, websiteId, locale, currencyUom);
+        cart.setUserLogin(system, dispatcher);
+        cart.setOrderType(ORDER_TYPE);
+        cart.setChannelType(SALES_CHANNEL);
+        //cart.setOrderDate(UtilDateTime.toTimestamp(info.getTimestamp().()));
+        cart.setExternalId(externalId);
+
+        Debug.logInfo("Created shopping cart for Google order: ", module);
+        Debug.logInfo("-- WebSite : " + websiteId, module);
+       Debug.logInfo("-- Product Store : " + productStoreId, module);
+       Debug.logInfo("-- Locale : " + locale.toString(), module);
+        Debug.logInfo("-- Google Order # : " + externalId, module);
+
+        // set the customer information
+        Address shippingAddress = info.getBuyerShippingAddress();
+        Address billingAddress = info.getBuyerBillingAddress();
+        String[] partyInfo = getPartyInfo(shippingAddress, billingAddress);
+        if (partyInfo == null || partyInfo.length != 3) {
+            throw new GeneralException("Unable to parse/create party information, invalid number of parameters returned");
+        }
+
+        cart.setOrderPartyId(partyInfo[0]);
+        cart.setPlacingCustomerPartyId(partyInfo[0]);
+        cart.setShippingContactMechId(partyInfo[1]);
+
+        // contact info
+        String shippingEmail = shippingAddress.getEmail();
+        if (UtilValidate.isNotEmpty(shippingEmail)) {
+            setContactInfo(cart, "PRIMARY_EMAIL", shippingEmail);
+        }
+        String billingEmail = billingAddress.getEmail();
+        if (UtilValidate.isNotEmpty(billingEmail)) {
+            setContactInfo(cart, "BILLING_EMAIL", billingEmail);
+        }
+        String shippingPhone = shippingAddress.getPhone();
+        if (UtilValidate.isNotEmpty(shippingPhone)) {
+            setContactInfo(cart, "PHONE_SHIPPING", shippingPhone);
+        }
+        String billingPhone = billingAddress.getPhone();
+        if (UtilValidate.isNotEmpty(billingPhone)) {
+            setContactInfo(cart, "PHONE_BILLING", billingPhone);
+        }
+
+        // set the order items
+        Collection<Item> items = info.getShoppingCart().getItems();
+        for (Item item : items) {
+            try {
+                addItem(cart, item, null, 0);
+            } catch (ItemNotFoundException e) {
+                // TODO: handle items not found
+                Debug.logWarning(e, "Item was not found : " + item.getMerchantItemId(), module);
+            }
+        }
+
+        // handle the adjustments
+        OrderAdjustment adjustment = info.getOrderAdjustment();
+        addAdjustments(cart, adjustment); 
+
+        // ship group info
+        Shipping shipping = info.getOrderAdjustment().getShipping();
+        addShipInfo(cart, shipping);
+
+        // set the cart payment method
+        cart.addPayment(PAYMENT_METHOD);
+
+        // validate the payment methods
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+        Map validateResp = coh.validatePaymentMethods();
+        if (ServiceUtil.isError(validateResp)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
+        }
+
+        // create the order & process payments
+        Map createResp = coh.createOrder(system);
+        String orderId = cart.getOrderId();
+        if (ServiceUtil.isError(createResp)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(createResp));
+        }
+
+        // approve the order
+        OrderChangeHelper.approveOrder(dispatcher, system, orderId, cart.getHoldOrder());
+
+        // notify google of our order number
+        // TODO: enable this
+        /*
+        try {
+            dispatcher.runAsync("sendGoogleOrderNumberRequest", true, UtilMisc.toMap("orderId", orderId));
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+        } 
+        */
+    }
+
+    protected void addItem(ShoppingCart cart, Item item, String productCatalogId, int groupIdx) throws GeneralException {
+        String productId = item.getMerchantItemId();
+        BigDecimal qty = new BigDecimal(item.getQuantity());
+        BigDecimal price = new BigDecimal(item.getUnitPriceAmount());
+        price = price.setScale(ShoppingCart.scale, ShoppingCart.rounding);
+        
+        HashMap<Object, Object> attrs = new HashMap<Object, Object>();
+        attrs.put("shipGroup", groupIdx);
+
+        int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, productCatalogId, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
+        ShoppingCartItem cartItem = cart.findCartItem(idx);
+        cartItem.setQuantity(qty, dispatcher, cart, true, false);
+
+        // locate the price verify it matches the expected price
+        BigDecimal cartPrice = cartItem.getBasePrice();
+        cartPrice = cartPrice.setScale(ShoppingCart.scale, ShoppingCart.rounding);
+
+        if (price.doubleValue() != cartPrice.doubleValue()) {
+            // does not match; honor the price but hold the order for manual review
+            cartItem.setIsModifiedPrice(true);
+            cartItem.setBasePrice(price);
+            cart.setHoldOrder(true);
+            cart.addInternalOrderNote("Price received [" + price + "] (for item # " + productId + ") from Google Checkout does not match the price in the database [" + cartPrice + "]. Order is held for manual review.");
+        }
+
+        // assign the item to its ship group
+        cart.setItemShipGroupQty(cartItem, qty, groupIdx);
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected void addAdjustments(ShoppingCart cart, OrderAdjustment adjustment) {
+        // handle shipping
+        Shipping shipping = adjustment.getShipping();
+        BigDecimal shipAmount = new BigDecimal(shipping.getShippingCost());
+        GenericValue shipAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
+        shipAdj.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
+        shipAdj.set("amount", shipAmount);
+        cart.addAdjustment(shipAdj);
+
+        // handle tax
+        BigDecimal taxAmount = new BigDecimal(adjustment.getTotalTax());
+        GenericValue taxAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
+        taxAdj.set("orderAdjustmentTypeId", "SALES_TAX");
+        taxAdj.set("amount", taxAmount);
+       cart.addAdjustment(taxAdj);
+
+        // handle promotions
+        Collection<MerchantCodes> merchantCodes = adjustment.getMerchantCodes();
+        for (MerchantCodes codes : merchantCodes) {
+            GenericValue promoAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
+            promoAdj.set("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT");
+            promoAdj.set("description", "Promotion Code: " + codes.getCode());
+            promoAdj.set("comments", "Google Promotion: " + codes.getMessage());
+            promoAdj.set("amount", new BigDecimal(-1 * (codes.getAppliedAmount()))); // multiply by -1 
+            cart.addAdjustment(promoAdj);
+        }
+    }
+
+    protected void addShipInfo(ShoppingCart cart, Shipping shipping) {
+        String shippingName = shipping.getShippingName();
+
+        // TODO parse the shipping method and get a valid OFBiz shipping method
+        // FOR NOW - Just use some dummy info
+        String shipmentMethodTypeId = shippingName;
+        String carrierPartyId = "_NA_";
+        Boolean maySplit = Boolean.FALSE;
+
+        if (shipmentMethodTypeId != null) {
+            cart.setShipmentMethodTypeId(shipmentMethodTypeId);
+            cart.setCarrierPartyId(carrierPartyId);
+            cart.setMaySplit(maySplit);
+        } else {
+            Debug.logWarning("No valid fulfillment method found! No shipping info set!", module);
+        }
+    }
+
+	protected String[] getPartyInfo(Address shipAddr, Address billAddr) throws GeneralException {
+	    String shipCmId = null;
+	    String billCmId = null;
+	    String partyId = null;
+	
+	    // look for an existing shipping address
+	    List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shipAddr.getAddress1(), 
+	            (UtilValidate.isEmpty(shipAddr.getAddress2()) ? null : shipAddr.getAddress2()), shipAddr.getCity(), shipAddr.getRegion(), 
+	            shipAddr.getPostalCode(), null, shipAddr.getCountryCode(), shipAddr.getStructuredName().getFirstName(), 
+	            null, shipAddr.getStructuredName().getLastName());
+	    if (shipInfo != null && shipInfo.size() > 0) {
+	        GenericValue first = EntityUtil.getFirst(shipInfo);
+	        shipCmId = first.getString("contactMechId");
+	        partyId = first.getString("partyId");
+	        Debug.logInfo("Existing shipping address found : " + shipCmId + " (party: " + partyId + ")", module);
+	    }
+	    
+	    // look for an existing billing address
+	    List<GenericValue> billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(), 
+	            (UtilValidate.isEmpty(billAddr.getAddress2()) ? null : billAddr.getAddress2()), billAddr.getCity(), billAddr.getRegion(), 
+	            billAddr.getPostalCode(), null, billAddr.getCountryCode(), billAddr.getStructuredName().getFirstName(), 
+	            null, billAddr.getStructuredName().getLastName());
+        if (billInfo != null && billInfo.size() > 0) {
+            GenericValue first = EntityUtil.getFirst(billInfo);
+            billCmId = first.getString("contactMechId");
+            if (partyId == null) {
+                partyId = first.getString("partyId");
+            } else {
+               String billPartyId = first.getString("partyId");
+                if (!billPartyId.equals(partyId)) {
+                    // address found for a different partyID -- probably a duplicate
+                    Debug.logWarning("Duplicate partyId found : " + billPartyId + " -> " + partyId, module);
+                }
+            }
+            Debug.logInfo("Existing billing address found : " + billCmId + " (party: " + partyId + ")", module);
+        }
+
+        // create the party if necessary
+        if (partyId == null) {
+            partyId = createPerson(shipAddr.getStructuredName());
+        }
+
+        // create the shipping address if necessary
+        if (shipCmId == null) {
+            shipCmId = createPartyAddress(partyId, shipAddr);
+            addPurposeToAddress(partyId, shipCmId, SHIPPING_ADDRESS);
+        }
+
+        // create the billing address if necessary
+        if (billCmId == null) {
+            // check the billing address again (in case it was just created)
+            billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(), 
+                    billAddr.getAddress2(), billAddr.getCity(), billAddr.getRegion(), 
+                    billAddr.getPostalCode(), null, billAddr.getCountryCode(), billAddr.getStructuredName().getFirstName(), 
+                    null, billAddr.getStructuredName().getLastName());
+            if (billInfo != null && billInfo.size() > 0) {
+                GenericValue first = EntityUtil.getFirst(billInfo);
+                billCmId = first.getString("contactMechId");
+           } else {
+                billCmId = createPartyAddress(partyId, shipAddr);
+                addPurposeToAddress(partyId, billCmId, BILLING_ADDRESS);
+            }
+        }
+
+	    return new String[] { partyId, shipCmId, billCmId };
+	}
+
+	protected String createPerson(StructuredName name) throws GeneralException {
+	    Map<String, Object> personMap = FastMap.newInstance();
+        personMap.put("firstName", name.getFirstName());
+        personMap.put("lastName", name.getLastName());
+        personMap.put("userLogin", system);
+
+        Map<String, Object> personResp = dispatcher.runSync("createPerson", personMap);
+        if (ServiceUtil.isError(personResp)) {
+           throw new GeneralException("Unable to create new customer account: " + ServiceUtil.getErrorMessage(personResp));
+        }
+        String partyId = (String) personResp.get("partyId");
+        
+        Debug.logInfo("New party created : " + partyId, module);
+	    return partyId;
+	}
+	
+	protected String createPartyAddress(String partyId, Address addr) throws GeneralException {
+        // check for zip+4
+        String postalCode = addr.getPostalCode();
+        String postalCodeExt = null;
+        if (postalCode.length() == 10 && postalCode.indexOf("-") != -1) {
+            String[] strSplit = postalCode.split("-", 2);
+            postalCode = strSplit[0];
+            postalCodeExt = strSplit[1];
+        }
+
+        // prepare the create address map
+        Map<String, Object> addrMap = FastMap.newInstance();
+        addrMap.put("partyId", partyId);
+        addrMap.put("toName", addr.getContactName());
+        addrMap.put("address1", addr.getAddress1());
+        addrMap.put("address2", addr.getAddress2());
+        addrMap.put("city", addr.getCity());
+        addrMap.put("stateProvinceGeoId",addr.getRegion());
+        addrMap.put("countryGeoId", addr.getCountryCode());
+        addrMap.put("postalCode", postalCode);
+        addrMap.put("postalCodeExt", postalCodeExt);
+        addrMap.put("allowSolicitation", "Y");
+        addrMap.put("contactMechPurposeTypeId", "GENERAL_LOCATION");
+        addrMap.put("userLogin", system); // run as the system user
+        
+        // invoke the create address service
+        Map<String, Object> addrResp = dispatcher.runSync("createPartyPostalAddress", addrMap);
+        if (ServiceUtil.isError(addrResp)) {
+            throw new GeneralException("Unable to create new customer address record: " +
+                    ServiceUtil.getErrorMessage(addrResp));
+        }
+        String contactMechId = (String) addrResp.get("contactMechId");
+        
+        Debug.logInfo("Created new address for partyId [" + partyId + "] :" + contactMechId, module);
+	    return contactMechId;
+	}
+	
+	protected void addPurposeToAddress(String partyId, String contactMechId, int addrType) throws GeneralException {
+	    // convert the int to a purpose type ID
+	    String contactMechPurposeTypeId = getAddressType(addrType);
+	    
+	    // check to make sure the purpose doesn't already exist
+	    List<GenericValue> values = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, 
+	            "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId));
+	    
+	    if (values == null || values.size() == 0) {
+    	    Map<String, Object> addPurposeMap = FastMap.newInstance();
+    	    addPurposeMap.put("contactMechId", contactMechId);
+    	    addPurposeMap.put("partyId", partyId);	   
+    	    addPurposeMap.put("contactMechPurposeTypeId", contactMechPurposeTypeId);
+    	    addPurposeMap.put("userLogin", system);
+    	    
+    	    Map<String, Object> addPurposeResp = dispatcher.runSync("createPartyContactMechPurpose", addPurposeMap);
+    	    if (addPurposeResp != null && ServiceUtil.isError(addPurposeResp)) {
+    	        throw new GeneralException(ServiceUtil.getErrorMessage(addPurposeResp));
+    	    }
+	    }
+	}
+	
+	protected String getAddressType(int addrType) {
+	    String contactMechPurposeTypeId = "GENERAL_LOCATION";
+        switch(addrType) {
+            case SHIPPING_ADDRESS:
+                contactMechPurposeTypeId = "SHIPPING_LOCATION";
+                break;
+            case BILLING_ADDRESS:
+                contactMechPurposeTypeId = "BILLING_LOCATION";
+                break;
+        }
+        return contactMechPurposeTypeId;
+	}
+	
+	protected void setContactInfo(ShoppingCart cart, String contactMechPurposeTypeId, String infoString) throws GeneralException {
+        Map<String, Object> lookupMap = FastMap.newInstance();
+        String cmId = null;
+
+        String entityName = "PartyAndContactMech";
+        if (contactMechPurposeTypeId.startsWith("PHONE_")) {
+            lookupMap.put("partyId", cart.getOrderPartyId());
+            lookupMap.put("contactNumber", infoString);
+            entityName = "PartyAndTelecomNumber";
+        } else if (contactMechPurposeTypeId.endsWith("_EMAIL")) {
+            lookupMap.put("partyId", cart.getOrderPartyId());
+            lookupMap.put("infoString", infoString);
+        } else {
+            throw new GeneralException("Invalid contact mech type");
+        }
+
+        List<GenericValue> cmLookup;
+        try {
+            cmLookup = delegator.findByAnd(entityName, lookupMap, UtilMisc.toList("-fromDate"));
+            cmLookup = EntityUtil.filterByDate(cmLookup);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            throw e;
+        }
+
+        if (cmLookup != null && cmLookup.size() > 0) {
+            GenericValue v = EntityUtil.getFirst(cmLookup);
+            if (v != null) {
+                cmId = v.getString("contactMechId");
+            }
+        } else {
+            // create it
+            lookupMap.put("contactMechPurposeTypeId", contactMechPurposeTypeId);
+            lookupMap.put("userLogin", system);
+            Map<String, Object> createResp = null;
+            if (contactMechPurposeTypeId.startsWith("PHONE_")) {
+                try {
+                    createResp = dispatcher.runSync("createPartyTelecomNumber", lookupMap);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    throw e;
+                }
+            } else if (contactMechPurposeTypeId.endsWith("_EMAIL")) {
+                lookupMap.put("emailAddress", lookupMap.get("infoString"));
+                lookupMap.put("allowSolicitation", "Y");
+                try {
+                    createResp = dispatcher.runSync("createPartyEmailAddress", lookupMap);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    throw e;
+                }
+            }
+            if (createResp == null || ServiceUtil.isError(createResp)) {
+                throw new GeneralException("Unable to create the request contact mech");
+            }
+
+            // get the created ID
+            cmId = (String) createResp.get("contactMechId");
+        }
+
+        if (cmId != null) {
+            cart.addContactMech(contactMechPurposeTypeId, cmId);
+        }
+    }
+	
+	// uses a unique order number each time so that the duplicate order check doesn't kick in
+}
