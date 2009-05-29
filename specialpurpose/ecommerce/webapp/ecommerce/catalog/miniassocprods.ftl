@@ -20,22 +20,19 @@ under the License.
 <#assign associatedProducts = Static["org.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)?if_exists>
 <#if associatedProducts?has_content>
 <div id="miniassocproducts" class="screenlet">
-    <div class="screenlet-header">
-        <div class='boxhead'><b>${uiLabelMap.EcommerceYouMightLike}...</b></div>
-    </div>
+    <div class="screenlet-header boxhead">${uiLabelMap.EcommerceYouMightLike}...</div>
     <div class="screenlet-body">
         <#-- random complementary products -->
+        <ul class="browsecategorylist">
         <#list associatedProducts as miniProduct>
-            <div>
+            <li class="browsecategorytext">
                 ${setRequestAttribute("miniProdQuantity", 1)}
                 ${setRequestAttribute("miniProdFormName", "theminiassocprod" + miniProduct_index + "form")}
                 ${setRequestAttribute("optProductId", miniProduct.productId)}
                 ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
-            </div>
-            <#if miniProduct_has_next>
-                <div><hr/></div>
-            </#if>
+            </li>
         </#list>
+        </ul>
     </div>
 </div>
 </#if>
