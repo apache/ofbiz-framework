@@ -176,6 +176,7 @@ under the License.
                 <set field="tabButtonItem" value="OverView"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                <set field="my" from-field="parameters.my"/>
             </actions>
             <widgets>
                 <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -365,6 +366,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication"/>
+                <set field="tabButtonItem" value="CommunicationEvent"/>
                 <set field="my" from-field="parameters.my" default-value=""/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="communicationEvent.partyIdFrom" default-value="${userLogin.partyId}"/>
@@ -544,8 +546,6 @@ under the License.
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -569,14 +569,12 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListCommWorkEfforts"/>
                 <set field="tabButtonItem" value="UpdateCommWorkEfforts"/>
-
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="partyId" value="${parameters.partyId}"/>
                 <set field="partyIdFrom" value="${parameters.partyIdFrom}"/>
                 <set field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="entityName" value="CommunicationEvent"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -647,6 +645,7 @@ under the License.
                 <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="communicationEventId" value="${parameters.communicationEventId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -809,9 +808,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCommEvents"/>
                 <set field="headerItem" value="mycomm"/>
+                <set field="my" value="My" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen  name="CommonMyCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen  name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="MyCommunicationEvents"/>
                     </decorator-section>
