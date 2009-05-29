@@ -148,4 +148,14 @@ under the License.
     <CarrierShipmentBoxType shipmentBoxTypeId="FX25KGBOX" partyId="FEDEX" packagingTypeCode="FEDEX25KGBOX"/>
     <CarrierShipmentBoxType shipmentBoxTypeId="YOURPACKNG" partyId="FEDEX" packagingTypeCode="YOURPACKAGING"/>
 
+    <ShipmentBoxType shipmentBoxTypeId="UPSBOX_MED" description="UPS Medium Moving Box(18 inches x 14 inches  x 12 inches)" dimensionUomId="LEN_in" boxLength="18" boxWidth="14" boxHeight="12"/>
+    <ShipmentBoxType shipmentBoxTypeId="UPSBOX_LRG" description="UPS Large Moving Box(20 inches x 20 inches  x 15 inches)" dimensionUomId="LEN_in" boxLength="20" boxWidth="20" boxHeight="15"/>
+    <ShipmentBoxType shipmentBoxTypeId="UPSBOX_ELRG" description="UPS Extra Large Moving Box(23 inches x 23 inches  x 16 inches)" dimensionUomId="LEN_in" boxLength="23" boxWidth="23" boxHeight="16"/>
+    <ShipmentBoxType shipmentBoxTypeId="UPSBOX_WRDB" description="UPS Wardrobe Box(18 inches x 18 inches  x 22 inches)" dimensionUomId="LEN_in" boxLength="18" boxWidth="18" boxHeight="22"/>
+
+    <CarrierShipmentBoxType shipmentBoxTypeId="UPSBOX_MED" partyId="UPS"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="UPSBOX_LRG" partyId="UPS"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="UPSBOX_ELRG" partyId="UPS"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="UPSBOX_WRDB" partyId="UPS"/>
+
 </entity-engine-xml>

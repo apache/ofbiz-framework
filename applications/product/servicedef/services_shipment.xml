@@ -589,6 +589,9 @@ under the License.
         <attribute name="shipmentCostEstimateForShipGroup" type="String" mode="IN" optional="true"/>
         <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="shippableQuantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shippableTotal" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shippableItemInfo" type="List" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
         <attribute name="showWarningForm" type="Boolean" mode="OUT" optional="true"/>
     </service>

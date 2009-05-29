@@ -1017,6 +1017,8 @@ public class PackingSession implements java.io.Serializable {
             packageWeights.remove(Integer.valueOf(packageSeqId));
         } else {
             packageWeights.put(Integer.valueOf(packageSeqId), packageWeight);
+            PackingSessionLine packLine = this.getLine(packageSeqId);
+            packLine.setWeight(packageWeight);
         }
     }
 
@@ -1169,6 +1171,33 @@ public class PackingSession implements java.io.Serializable {
             packLine.setHeight(null);
             packLine.setShipmentBoxTypeId(null);
         }
+    }
+
+    public List<Map<String, Object>> getPackageInfo() throws GenericEntityException {
+        List<Map<String, Object>> packageInfoList = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(this.getLines())) {
+            for (PackingSessionLine packedline : this.getLines()) {
+                Map<String, Object> packageInfoMap = FastMap.newInstance();
+                if (UtilValidate.isNotEmpty(packedline.getShipmentBoxTypeId())) {
+                    GenericValue shipmentBoxType = this.getDelegator().findOne("ShipmentBoxType", UtilMisc.toMap("shipmentBoxTypeId", packedline.getShipmentBoxTypeId()), false);
+                    packageInfoMap.put("shipmentBoxType", shipmentBoxType);
+                } else {
+                    packageInfoMap.put("shipmentBoxType", null);
+                }
+                if (UtilValidate.isNotEmpty(packedline.getLength()) && UtilValidate.isNotEmpty(packedline.getWidth()) && UtilValidate.isNotEmpty(packedline.getHeight())) {
+                    packageInfoMap.put("packageLength", packedline.getLength());
+                    packageInfoMap.put("packageWidth", packedline.getWidth());
+                    packageInfoMap.put("packageHeight", packedline.getHeight());
+                } else {
+                    packageInfoMap.put("packageLength", null);
+                    packageInfoMap.put("packageWidth", null);
+                    packageInfoMap.put("packageHeight", null);
+                }
+                packageInfoMap.put("packageWeight", packedline.getWeight());
+                packageInfoList.add(packageInfoMap);
+            }
+        }
+        return packageInfoList;
     }
 
     class ItemDisplay extends AbstractMap {
