@@ -377,7 +377,7 @@ under the License.
         <field name="subject">
             <hyperlink description="${subject}[${communicationEventId}]" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
-                <parameter param-name="partyId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
