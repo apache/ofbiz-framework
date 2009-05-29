@@ -28,6 +28,10 @@
     <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
     <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
     <PartyRelationship partyIdFrom="DemoEmployee" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
+ 
+    <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
     
     <!-- email from an unknown party -->
     <CommunicationEvent communicationEventId="9000" communicationEventTypeId="AUTO_EMAIL_COMM" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@yahoo.com; Delivered-To: ofbiztest@yahoo.com; " fromString="mailinglist@antwebsystems.com" toString="ofbiztest@yahoo.com"/>
