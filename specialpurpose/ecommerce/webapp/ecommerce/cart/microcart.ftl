@@ -43,6 +43,8 @@ under the License.
           <span id="quickCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
           <span id="onePageCheckoutEnabled"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>">[${uiLabelMap.EcommerceOnePageCheckout}]</a></span>
           <span id="onePageCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</span>
+          <span id="googleCheckoutEnabled"><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>">[${uiLabelMap.EcommerceCartToGoogleCheckout}]</a></span>
+          <span id="googleCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceCartToGoogleCheckout}]</span>
       <#else>
           <span class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
           <span class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</span>

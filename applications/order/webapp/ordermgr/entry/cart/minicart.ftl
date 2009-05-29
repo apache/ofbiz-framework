@@ -34,6 +34,7 @@ under the License.
             <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></div>
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></div>
+            <div style="margin-top: 4px;"><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></div>
           </#if>
           <table width="100%" cellpadding="0" cellspacing="2">
             <tr>
@@ -71,6 +72,7 @@ under the License.
             <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></div>
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></div>
+            <div style="margin-top: 4px;"><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></div>
           </#if>
         <#else>
           <p>${uiLabelMap.OrderShoppingCartEmpty}</p>
