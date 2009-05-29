@@ -25,54 +25,62 @@ under the License.
 </#if>
 
 <div id="minicart" class="screenlet">
-    <div class="screenlet-header">
-        <div class='boxhead'><b>${uiLabelMap.OrderCartSummary}</b></div>
-    </div>
+    <div class="screenlet-header boxhead">${uiLabelMap.OrderCartSummary}</div>
     <div class="screenlet-body">
         <#if (shoppingCartSize > 0)>
           <#if hidetoplinks?default("N") != "Y">
-            <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
-            <div style="margin-top: 4px;"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></div>
-            <div style="margin-top: 4px;"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></div>
-            <div style="margin-top: 4px;"><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></div>
+            <ul>
+              <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></li>
+              <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></li>
+              <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
+              <li><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+            </ul>
           </#if>
-          <table width="100%" cellpadding="0" cellspacing="2">
-            <tr>
-              <td valign="bottom"><div><b>${uiLabelMap.OrderQty}</b></div></td>
-              <td valign="bottom"><div><b>${uiLabelMap.OrderItem}</b></div></td>
-              <td valign="bottom" align="right"><div><b>${uiLabelMap.CommonSubtotal}</b></div></td>
-            </tr>
+          <table>
+            <thead>
+              <tr>
+                <th>${uiLabelMap.OrderQty}</th>
+                <th>${uiLabelMap.OrderItem}</th>
+                <th>${uiLabelMap.CommonSubtotal}</th>
+              </tr>
+            <thead>
+            <tbody>
             <#list shoppingCart.items() as cartLine>
               <tr>
-                <td valign="top"><div>${cartLine.getQuantity()?string.number}</div></td>
-                <td valign="top">
+                <td>${cartLine.getQuantity()?string.number}</td>
+                <td>
                   <#if cartLine.getProductId()?exists>
                       <#if cartLine.getParentProductId()?exists>
-                          <div><a href="<@ofbizUrl>product?product_id=${cartLine.getParentProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a></div>
+                          <a href="<@ofbizUrl>product?product_id=${cartLine.getParentProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a>
                       <#else>
-                          <div><a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a></div>
+                          <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a>
                       </#if>
                   <#else>
-                    <div><b>${cartLine.getItemTypeDescription()?if_exists}</b></div>
+                    <b>${cartLine.getItemTypeDescription()?if_exists}</b>
                   </#if>
                 </td>
-                <td align="right" valign="top"><div><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                <td><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></td>
               </tr>
               <#if cartLine.getReservStart()?exists>
-                <tr><td>&nbsp;</td><td colspan="2"><div>(${cartLine.getReservStart()?string("yyyy-MM-dd")}, ${cartLine.getReservLength()} <#if cartLine.getReservLength() == 1>${uiLabelMap.CommonDay}<#else/>${uiLabelMap.CommonDays}</#if>)</div></td></tr>
+                <tr><td>&nbsp;</td><td colspan="2">(${cartLine.getReservStart()?string("yyyy-MM-dd")}, ${cartLine.getReservLength()} <#if cartLine.getReservLength() == 1>${uiLabelMap.CommonDay}<#else/>${uiLabelMap.CommonDays}</#if>)</td></tr>
               </#if>
             </#list>
+            </tbody>
+            <tfoot>
             <tr>
-              <td colspan="3" align="right">
-                <div><b>${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
-              </td>
+              <th colspan="3">
+                ${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/>
+              </th>
             </tr>
+            </tfoot>
           </table>
           <#if hidebottomlinks?default("N") != "Y">
-            <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
-            <div style="margin-top: 4px;"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></div>
-            <div style="margin-top: 4px;"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></div>
-            <div style="margin-top: 4px;"><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></div>
+            <ul>
+              <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></li>
+              <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></li>
+              <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
+              <li><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+            </ul>
           </#if>
         <#else>
           <p>${uiLabelMap.OrderShoppingCartEmpty}</p>
