@@ -1538,6 +1538,7 @@ under the License.
         <response name="shipping" type="view" value="shipsetting"/>
         <response name="options" type="view" value="optionsetting"/>
         <response name="payment" type="view" value="paymentoptions"/>
+        <response name="term" type="view" value="paymentoptions"/> <!-- this actually wants to go to a page to set the order terms, but for ecommerce we'll skip it and go to the payment options page -->
         <response name="addparty" type="request" value="calcShipping"/> <!-- this actually wants to go to a page to set another party, but for ecommerce we'll skip it and go to the beginning of the chain for review and checkout -->
         <response name="paysplit" type="view" value="checkoutpayment"/>
         <response name="sales" type="request" value="calcShipping"/>
