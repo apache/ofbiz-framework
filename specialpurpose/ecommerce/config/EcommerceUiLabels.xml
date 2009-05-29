@@ -383,6 +383,9 @@
         <value xml:lang="th">ตระกร้ามี</value>
         <value xml:lang="zh">购物车有</value>
     </property>
+    <property key="EcommerceCartToGoogleCheckout">
+        <value xml:lang="en">Google Checkout</value>
+    </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
         <value xml:lang="da">Indkøbskurv total</value>

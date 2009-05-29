@@ -474,6 +474,8 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                 $('quickCheckoutDisabled').show();
                 $('onePageCheckoutEnabled').hide();
                 $('onePageCheckoutDisabled').show();
+                $('googleCheckoutEnabled').hide();
+                $('googleCheckoutDisabled').show();
             } else {
                 // Used for edit cart
                 $('microCartQuantity').update(data.totalQuantity);

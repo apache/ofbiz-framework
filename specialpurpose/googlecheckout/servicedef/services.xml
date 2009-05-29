@@ -21,23 +21,23 @@
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
 
-    <service name="ConvertOfbizCartToGoogle" engine="simple" invoke="ConvertOfbizCartToGoogle"
+    <service name="ConvertOfbizCartToGoogle" engine="simple" invoke="ConvertOfbizCartToGoogle" auth="false"
         location="component://googlecheckout/script/org/ofbiz/googleCheckout/ShoppingCartServices.xml">
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.WebShoppingCart" mode="IN" optional="false"/>
         <attribute name="googleCart" mode="OUT" type="Map" optional="false"/>
         <attribute name="flowSupport" mode="OUT" type="Map" optional="false"/>
         <attribute name="sendInitialAuthDetails" mode="OUT" type="Boolean" optional="false"/>
     </service>
-    <service name="createXMLOutput" engine="simple" invoke="createXMLOutput"
+    <service name="createXMLOutput" engine="simple" invoke="createXMLOutput" auth="false"
         location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.WebShoppingCart" mode="IN" optional="false"/>
     </service>
-    <service name="transmitRequest" engine="simple" invoke="transmitRequest"
+    <service name="transmitRequest" engine="simple" invoke="transmitRequest" auth="false"
         location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="redirect" mode="OUT" type="String" optional="false"/>
     </service>
-    <service name="connectToGoogleCheckoutServer" engine="simple" invoke="connectToGoogleCheckoutServer"
+    <service name="connectToGoogleCheckoutServer" engine="simple" invoke="connectToGoogleCheckoutServer" auth="false"
         location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
         <attribute name="conn" mode="OUT" type="java.net.HttpURLConnection" optional="false"/>
     </service>
