@@ -774,7 +774,12 @@ public class ShoppingCartServices {
                 Iterator i = cart.iterator();
                 while (i.hasNext()) {
                     ShoppingCartItem item = (ShoppingCartItem) i.next();
-                    adjs = (List)orderAdjsMap.get(item.getOrderItemSeqId());
+                    String orderItemSeqId = item.getOrderItemSeqId();
+                    if (orderItemSeqId != null) {
+                        adjs = (List)orderAdjsMap.get(orderItemSeqId);
+                    } else {
+                        adjs = null;
+                    }
                     if (adjs != null) {
                         item.getAdjustments().addAll(adjs);
                     }
