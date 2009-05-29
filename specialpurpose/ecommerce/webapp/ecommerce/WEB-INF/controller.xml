@@ -1796,14 +1796,16 @@ under the License.
     <request-map uri="secureGoogleCheckoutNotification">
         <security auth="false" https="true"/>
         <event type="java" path="org.ofbiz.googlecheckout.GoogleCheckoutResponseEvents" invoke="checkNotification"/>
-        <response type="view" name="success" value="cartToGoogleCheckout"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
 
     <!--  This request can be used for server that don't have SSL certificate installed or sandbox instance that handles google response on unsecure port-->
     <request-map uri="unSecureGoogleCheckoutNotification">
         <security auth="false" https="false"/>
         <event type="java" path="org.ofbiz.googlecheckout.GoogleCheckoutResponseEvents" invoke="checkNotification"/>
-        <response type="view" name="success" value="cartToGoogleCheckout"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
     
     
