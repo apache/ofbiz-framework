@@ -180,7 +180,8 @@ under the License.
 
     <form name="ReturnStatusHistory" type="list" list-name="orderReturnStatusHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <field name="returnId"><display description="${returnId}"/></field>
+        <field name="returnId"><display/></field>
+        <field name="returnItemSeqId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="statusDatetime" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changeByUserLoginId" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
