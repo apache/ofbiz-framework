@@ -2489,6 +2489,7 @@ under the License.
         <field name="replacementOrderId" type="id"></field>
         <field name="paymentId" type="id"></field>
         <field name="billingAccountId" type="id"></field>
+        <field name="finAccountTransId" type="id"></field>
         <field name="responseAmount" type="currency-amount"></field>
         <field name="responseDate" type="date-time"></field>
         <prim-key field="returnItemResponseId"/>
@@ -2503,6 +2504,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="RTN_PAY_BACT" rel-entity-name="BillingAccount">
             <key-map field-name="billingAccountId"/>
+        </relation>
+        <relation type="one" fk-name="RTN_PAY_FINACTTX" rel-entity-name="FinAccountTrans">
+            <key-map field-name="finAccountTransId"/>
         </relation>
     </entity>
     <entity entity-name="ReturnItemType"
