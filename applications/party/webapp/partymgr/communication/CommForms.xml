@@ -149,7 +149,7 @@ under the License.
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
         <field name="partyIdFrom"><hidden/></field>
-        <field name="emailAddress" parameter-name="contactMechIdFrom">
+        <field name="fromEmailAddr" parameter-name="contactMechIdFrom">
             <drop-down>
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
             </drop-down>
@@ -415,7 +415,7 @@ under the License.
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject} " target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
-                <parameter param-name="partyId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="my"/>
             </hyperlink>

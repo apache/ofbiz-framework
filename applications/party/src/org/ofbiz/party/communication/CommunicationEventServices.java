@@ -709,6 +709,7 @@ public class CommunicationEventServices {
             		BodyPart p = wrapper.getPart(ind + "");
             		if (p.getContentType().toLowerCase().indexOf("text/plain") > -1) {
             			messageBody = (String) p.getContent();
+            			break;
             		}
             	}
             }
