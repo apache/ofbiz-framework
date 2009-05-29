@@ -179,7 +179,7 @@ under the License.
                 <set field="my" from-field="parameters.my"/>
             </actions>
             <widgets>
-                <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="commOverview"/>
                     </decorator-section>
