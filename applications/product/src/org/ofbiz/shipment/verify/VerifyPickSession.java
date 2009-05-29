@@ -347,13 +347,23 @@ public class VerifyPickSession implements Serializable {
     }
 
     protected String createShipment(VerifyPickSessionRow line) throws GeneralException {
+        GenericDelegator delegator = this.getDelegator();
+        String orderId = line.getOrderId();
         Map<String, Object> newShipment = FastMap.newInstance();
         newShipment.put("originFacilityId", facilityId);
         newShipment.put("primaryShipGroupSeqId", line.getShipGroupSeqId());
-        newShipment.put("primaryOrderId", line.getOrderId());
+        newShipment.put("primaryOrderId", orderId);
         newShipment.put("shipmentTypeId", "OUTGOING_SHIPMENT");
         newShipment.put("statusId", "SHIPMENT_PICKED");
         newShipment.put("userLogin", this.getUserLogin());
+        GenericValue orderRoleShipTo = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "SHIP_TO_CUSTOMER")));
+        if (UtilValidate.isNotEmpty(orderRoleShipTo)) {
+            newShipment.put("partyIdTo", orderRoleShipTo.getString("partyId"));
+        }
+        GenericValue orderRoleShipFrom = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "SHIP_FROM_VENDOR")));
+        if (UtilValidate.isNotEmpty(orderRoleShipFrom)) {
+            newShipment.put("partyIdFrom", orderRoleShipFrom.getString("partyId"));
+        }
         Map<String, Object> newShipResp = this.getDispatcher().runSync("createShipment", newShipment);
         if (ServiceUtil.isError(newShipResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(newShipResp));
