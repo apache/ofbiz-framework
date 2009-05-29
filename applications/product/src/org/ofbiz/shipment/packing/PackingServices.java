@@ -34,8 +34,10 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
@@ -342,6 +344,11 @@ public class PackingServices {
             }
         }
 
+        // Check package weight, it must be greater than ZERO
+        if (UtilValidate.isEmpty(packageWeight) || new BigDecimal(packageWeight).compareTo(ZERO) <= 0) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorPackageWeightCannotBeNullOrZero", locale));
+        }
+
         BigDecimal shippableWeight = ZERO;
         Map<String, Object> response = FastMap.newInstance();
 
@@ -380,6 +387,7 @@ public class PackingServices {
 
     public static Map<String, Object> completePackage(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         PackingSession session = (PackingSession) context.get("packingSession");
         Locale locale = (Locale) context.get("locale");
         Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
@@ -396,6 +404,9 @@ public class PackingServices {
         String dimensionUomId = (String) context.get("dimensionUomId");
         String weightUomId = (String) context.get("weightUomId");
         Boolean forceComplete = (Boolean) context.get("forceComplete");
+        List shippableItemInfo = (List) context.get("shippableItemInfo");
+        BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
+        BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
 
         String shipmentCostEstimateForShipGroup = (String) context.get("shipmentCostEstimateForShipGroup");
         BigDecimal estimatedShipCost = new BigDecimal(shipmentCostEstimateForShipGroup);
@@ -406,7 +417,34 @@ public class PackingServices {
         BigDecimal diffInShipCostInPerc = ZERO;
 
         BigDecimal shippableWeight = setSessionPackageWeights(session, packageWeights);
-        BigDecimal newEstimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
+        FastList<Map<String, Object>> packageInfo = FastList.newInstance();
+        try {
+            packageInfo = (FastList) session.getPackageInfo();
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        BigDecimal newEstimatedShipCost = null;
+        if ("UPS".equals(carrierPartyId)) {
+            Map<String, Object> upsRateEstimateMap = FastMap.newInstance();
+            upsRateEstimateMap.put("shippingContactMechId", shippingContactMechId);
+            upsRateEstimateMap.put("shipmentMethodTypeId", shipmentMethodTypeId);
+            upsRateEstimateMap.put("carrierPartyId", carrierPartyId);
+            upsRateEstimateMap.put("carrierRoleTypeId", carrierRoleTypeId);
+            upsRateEstimateMap.put("productStoreId", productStoreId);
+            upsRateEstimateMap.put("shippableWeight", shippableWeight);
+            upsRateEstimateMap.put("shippableQuantity", shippableQuantity);
+            upsRateEstimateMap.put("shippableTotal", shippableTotal);
+            upsRateEstimateMap.put("shippableItemInfo", shippableItemInfo);
+            upsRateEstimateMap.put("packageInfo", packageInfo);
+            try {
+                Map<String, Object> upsRateEstimateRespose = dispatcher.runSync("upsRateEstimate", upsRateEstimateMap);
+                newEstimatedShipCost = (BigDecimal) upsRateEstimateRespose.get("shippingEstimateAmount");
+            } catch (GenericServiceException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        } else {
+            newEstimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
+        }
 
         session.setAdditionalShippingCharge(newEstimatedShipCost);
         session.setDimensionUomId(dimensionUomId);
@@ -417,7 +455,8 @@ public class PackingServices {
 
         try {
             session.checkPackedQty(orderId, locale);
-            FastList<GenericValue> shipments = (FastList) delegator.findByAnd("Shipment", UtilMisc.toMap("primaryOrderId", orderId, "statusId", "SHIPMENT_PACKED"));
+            List<GenericValue> shipments = FastList.newInstance();
+            shipments = delegator.findByAnd("Shipment", UtilMisc.toMap("primaryOrderId", orderId, "statusId", "SHIPMENT_PACKED"));
             for (GenericValue shipment : shipments) {
                 BigDecimal additionalShippingCharge = shipment.getBigDecimal("additionalShippingCharge");
                 if (UtilValidate.isNotEmpty(additionalShippingCharge)) {
