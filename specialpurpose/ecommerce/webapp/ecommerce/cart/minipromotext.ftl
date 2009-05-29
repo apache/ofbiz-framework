@@ -24,17 +24,19 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#-- show promotions text -->
+        <ul>
         <#list productPromos as productPromo>
+          <li>
             <p>
                 <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a>
                 ${StringUtil.wrapString(productPromo.promoText?if_exists)}
             </p>
-            <#if productPromo_has_next>
-                <div><hr/></div>
-            </#if>
+          </li>
         </#list>
-        <div><hr/></div>
+        <li>
         <a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a>
+        </li>
+        <ul>
     </div>
 </div>
 </#if>
