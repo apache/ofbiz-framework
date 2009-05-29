@@ -4275,12 +4275,6 @@
         <value xml:lang="th">ที่อยู่อีเมล</value>
         <value xml:lang="zh">电子邮件地址</value>
     </property>
-    <property key="PartyEmailsFromKnownOrigin">
-        <value xml:lang="en">Emails from known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine connue</value>
-        <value xml:lang="it">Emails da origine sconosciuta</value>
-        <value xml:lang="th">อีเมล์ที่อ่านแล้ว</value>
-    </property>
     <property key="PartyEmailsFromUnknownOrigin">
         <value xml:lang="en">Emails from UN-known origin</value>
         <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
@@ -4980,6 +4974,9 @@
         <value xml:lang="ru">Начальный агент пользователя</value>
         <value xml:lang="th">ตัวแทนผู้ใช้แรก</value>
         <value xml:lang="zh">初始用户代理人</value>
+    </property>
+    <property key="PartyInProgresstEmails">
+        <value xml:lang="en">Emails scheduled to be sent</value>
     </property>
     <property key="PartyInvitation">
         <value xml:lang="de">Einladung</value>
