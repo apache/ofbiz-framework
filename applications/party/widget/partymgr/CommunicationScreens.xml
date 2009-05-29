@@ -137,6 +137,7 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="Find"/>
                 <set field="entityName" value="CommunicationEvent"/>
+                <set field="partyId" from-field="userLogin.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">

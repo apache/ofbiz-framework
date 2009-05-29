@@ -582,6 +582,7 @@
             </condition>
             <link target="EditCommunicationEvent">
                 <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.partyId"/>
             </link>
         </menu-item>
         <menu-item name="forward" title="${uiLabelMap.PartyForward}">
