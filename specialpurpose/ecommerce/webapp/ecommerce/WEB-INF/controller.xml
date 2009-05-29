@@ -1791,6 +1791,13 @@ under the License.
         <event type="service" invoke="transmitRequest"/>
         <response type="view" name="success" value="cartToGoogleCheckout"/>
     </request-map>
+    
+    <request-map uri="googleCheckoutNotification">
+        <security auth="false" https="false"/>
+        <event type="java" path="org.ofbiz.googlecheckout.GoogleCheckoutResponseEvents" invoke="checkNotification"/>
+        <response type="view" name="success" value="cartToGoogleCheckout"/>
+    </request-map>
+    
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
