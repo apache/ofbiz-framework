@@ -21,7 +21,7 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="ConvertOfbizCartToGoogle" short-description="">
+    <simple-method method-name="ConvertOfbizCartToGoogle" short-description="" login-required="false">
         <set field="cart" from-field="parameters.shoppingCart"/>
         <call-simple-method method-name="createShoppingCart"/>
         <field-to-result field="googleCart"/>
@@ -33,7 +33,7 @@
         <field-to-result field="sendInitialAuthDetails"/>
 
     </simple-method>
-    <simple-method method-name="createShoppingCart" short-description="">
+    <simple-method method-name="createShoppingCart" short-description="" login-required="false">
         <call-simple-method method-name="setupItems"/>
         <set field="googleCart.items" from-field="items"/>
 
@@ -44,7 +44,7 @@
         <set field="googleCart.merchantPrivateData" from-field="merchantPrivateData"/>
 
     </simple-method>
-    <simple-method method-name="createCheckoutFlowSupport" short-description="">
+    <simple-method method-name="createCheckoutFlowSupport" short-description="" login-required="false">
         <property-to-field resource="googleCheckout" property="editCartUrl" field="flowSupport.editCartUrl"/>
         <property-to-field resource="googleCheckout" property="continueShoppingUrl" field="flowSupport.continueShoppingUrl"/>
         <property-to-field resource="googleCheckout" property="requestPhone" field="flowSupport.requestPhone"/>
@@ -61,10 +61,10 @@
 
     </simple-method>
     <simple-method method-name="createorderProcessingSupport"
-            short-description="holding method for improvement; must return sendInitialAuthDetails">
+            short-description="holding method for improvement; must return sendInitialAuthDetails" login-required="false">
         <set field="sendInitialAuthDetails" value="false" type="Boolean"/>
     </simple-method>
-    <simple-method method-name="setupItems" short-description="">
+    <simple-method method-name="setupItems" short-description="" login-required="false">
         <!-- Get Items from Cart -->
         <call-object-method method-name="items" obj-field="cart" ret-field="cartItems"/>
         <iterate entry="item" list="cartItems">

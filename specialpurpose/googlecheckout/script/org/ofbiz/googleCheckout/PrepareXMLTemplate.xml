@@ -22,7 +22,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
 
-    <simple-method method-name="transmitRequest" short-description="">
+    <simple-method method-name="transmitRequest" short-description="" login-required="false">
         <!-- Connect, there may be ofbiz HttpClient.java that may handle this well -->
         <call-service service-name="connectToGoogleCheckoutServer">
             <result-to-field result-name="conn"/>
@@ -44,7 +44,7 @@
         <field-to-result field="redirect"/>
     </simple-method>
 <!-- Step 1 -->
-    <simple-method method-name="connectToGoogleCheckoutServer" short-description="create connection to Google Checkout server">
+    <simple-method method-name="connectToGoogleCheckoutServer" short-description="create connection to Google Checkout server" login-required="false">
         <call-simple-method method-name="createRequestUrl"/>
         <call-simple-method method-name="getHttpAuth"/>
         <call-bsh><![CDATA[
@@ -64,7 +64,7 @@
         ]]></call-bsh>
         <field-to-result field="conn"/>
     </simple-method>
-    <simple-method method-name="createRequestUrl" short-description="">
+    <simple-method method-name="createRequestUrl" short-description="" login-required="false">
         <!-- Setup Url spec -->
         <property-to-field resource="googleCheckout" property="basePostUrl" field="basePostUrl"/>
         <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
@@ -74,7 +74,7 @@
             <field field="urlSpec"/>
         </create-object>
     </simple-method>
-    <simple-method method-name="getHttpAuth" short-description="">
+    <simple-method method-name="getHttpAuth" short-description="" login-required="false">
         <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
         <property-to-field resource="googleCheckout" property="merchantKey" field="merchantKey"/>
         <set field="userNameAndPass" value="${merchantId}:${merchantKey}"/>
@@ -84,7 +84,7 @@
         <set field="HttpAuth" value="Basic ${encodedValue}"/>
     </simple-method>
 <!-- Step 2 -->
-    <simple-method method-name="createXMLOutput" short-description="">
+    <simple-method method-name="createXMLOutput" short-description="" login-required="false">
         <!-- create writer -->
         <create-object class-name="java.io.StringWriter" field="XMLWriter"/>
         <!-- create screen context -->
@@ -123,7 +123,7 @@
         <set field="content" value="${bsh:XMLWriter.toString()}"/>
     </simple-method>
 <!-- Step 3 -->
-    <simple-method method-name="setupContent" short-description="">
+    <simple-method method-name="setupContent" short-description="" login-required="false">
         <call-bsh><![CDATA[
         sWriter = new OutputStreamWriter(conn.getOutputStream());
         return org.ofbiz.base.util.UtilMisc.toMap("sWriter", sWriter);
@@ -137,7 +137,7 @@
         <call-object-method method-name="close" obj-field="writer"/>
     </simple-method>
 <!-- Step 4 -->
-    <simple-method method-name="getResponse" short-description="">
+    <simple-method method-name="getResponse" short-description="" login-required="false">
         <clear-field field="sReader"/>
         <call-bsh><![CDATA[
         try {
@@ -162,7 +162,7 @@
         <set field="response" value="${bsh:buffer.toString()}"/>
     </simple-method>
 <!-- Step 5 -->
-    <simple-method method-name="getReDirectFromXmlDoc" short-description="">
+    <simple-method method-name="getReDirectFromXmlDoc" short-description="" login-required="false">
         <call-bsh><![CDATA[
             document = org.ofbiz.base.util.UtilXml.readXmlDocument(response, false);
         return org.ofbiz.base.util.UtilMisc.toMap("document", document);
@@ -172,7 +172,7 @@
                 Skipping for now -->
         <call-simple-method method-name="getRedirectFromRootElement"/>
     </simple-method>
-    <simple-method method-name="getRedirectFromRootElement" short-description="">
+    <simple-method method-name="getRedirectFromRootElement" short-description="" login-required="false">
         <call-class-method method-name="childElementList" class-name="org.ofbiz.base.util.UtilXml" ret-field="childList">
             <field field="rootElement" type="org.w3c.dom.Element"/>
         </call-class-method>
