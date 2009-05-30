@@ -22,4 +22,10 @@ under the License.
     <Enumeration description="Google Checkout Channel" enumCode="GC_CHANNEL" enumId="GC_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
     <PaymentMethodType description="Google Checkout" paymentMethodTypeId="EXT_GOOGLE_CHECKOUT"/>
     <WebSite webSiteId="GOOGLECHECKOUT" siteName="Google Checkout Application" visualThemeSetId="BACKOFFICE"/>
+    
+    <EnumerationType description="Google Checkout Ship Types" enumTypeId="GOOGLE_SHIP_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="GOOGLE_FLAT_RATE" sequenceId="01" enumTypeId="GOOGLE_SHIP_TYPE"/>
+    <Enumeration description="Merchant Calculated Shipping" enumCode="MERCHANT_CALC" enumId="GOOGLE_MERCHANT_CALC" sequenceId="02" enumTypeId="GOOGLE_SHIP_TYPE"/>
+    <Enumeration description="Carrier Calculated Shipping" enumCode="CARRIER_CALC" enumId="GOOGLE_CARRIER_CALC" sequenceId="03" enumTypeId="GOOGLE_SHIP_TYPE"/>    
+    <Enumeration description="Pickup Shipping" enumCode="PICKUP" enumId="GOOGLE_PICKUP" sequenceId="04" enumTypeId="GOOGLE_SHIP_TYPE"/>    
 </entity-engine-xml>

@@ -34,6 +34,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
@@ -44,20 +46,26 @@ import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
-import com.google.checkout.CheckoutException;
 import com.google.checkout.checkout.Item;
 import com.google.checkout.notification.Address;
+import com.google.checkout.notification.AuthorizationAmountNotification;
+import com.google.checkout.notification.ChargeAmountNotification;
+import com.google.checkout.notification.ChargebackAmountNotification;
+import com.google.checkout.notification.FinancialOrderState;
 import com.google.checkout.notification.MerchantCodes;
 import com.google.checkout.notification.NewOrderNotification;
 import com.google.checkout.notification.OrderAdjustment;
+import com.google.checkout.notification.OrderStateChangeNotification;
+import com.google.checkout.notification.RefundAmountNotification;
+import com.google.checkout.notification.RiskInformationNotification;
 import com.google.checkout.notification.Shipping;
 import com.google.checkout.notification.StructuredName;
-import com.google.checkout.orderprocessing.AddMerchantOrderNumberRequest;
 
 public class GoogleCheckoutHelper {
 
     private static final String module = GoogleCheckoutHelper.class.getName();
-
+    private static final boolean errorOnUnknownItem = true; // set to false to simply ignore the item
+    
     public static final String SALES_CHANNEL = "GC_SALES_CHANNEL";
     public static final String ORDER_TYPE = "SALES_ORDER";
     public static final String PAYMENT_METHOD = "EXT_GOOGLE_CHECKOUT";
@@ -65,8 +73,8 @@ public class GoogleCheckoutHelper {
     public static final int SHIPPING_ADDRESS = 10;
     public static final int BILLING_ADDRESS = 50;
 
-   protected LocalDispatcher dispatcher;
-   protected GenericDelegator delegator;
+    protected LocalDispatcher dispatcher;
+    protected GenericDelegator delegator;
     protected GenericValue system;
 
     public GoogleCheckoutHelper(LocalDispatcher dispatcher, GenericDelegator delegator) {
@@ -84,6 +92,71 @@ public class GoogleCheckoutHelper {
         }
     }
 
+    public void processStateChange(OrderStateChangeNotification info) throws GeneralException {
+        String externalId = info.getGoogleOrderNumber();
+        GenericValue order = null;
+        try {
+            List<GenericValue> orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId" , SALES_CHANNEL));
+            order = EntityUtil.getFirst(orders);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        
+        if (order != null) {
+            String orderId = order.getString("orderId");
+            
+            // check for a financial state change
+            FinancialOrderState oldFin = info.getPreviousFinancialOrderState();
+            FinancialOrderState newFin = info.getNewFinancialOrderState();
+            if (!oldFin.equals(newFin)) {
+                // financial state change
+                if (newFin.equals(FinancialOrderState.CANCELLED) || newFin.equals(FinancialOrderState.CANCELLED_BY_GOOGLE)) {
+                    // cancel the order
+                    if (!"ORDER_CANCELLED".equals(order.getString("statusId"))) {
+                        OrderChangeHelper.cancelOrder(dispatcher, system, orderId);
+                    }
+                } else if (newFin.equals(FinancialOrderState.CHARGEABLE) && oldFin.equals(FinancialOrderState.REVIEWING)) {
+                    // approve the order 
+                    if (!"ORDER_APPROVED".equals(order.getString("statusId"))) {
+                        OrderChangeHelper.approveOrder(dispatcher, system, orderId, hasHoldOrderNotes(orderId));
+                    }
+                } else if (newFin.equals(FinancialOrderState.PAYMENT_DECLINED)) {
+                    // reject the order
+                    if (!"ORDER_REJECTED".equals(order.getString("statusId"))) {
+                        OrderChangeHelper.rejectOrder(dispatcher, system, orderId);
+                    }
+                }
+                // TODO: look at how to implement the other state changes
+                // CHARGED, CHARGING
+            }           
+        }        
+    }
+            
+    public void processRiskNotification(RiskInformationNotification info) throws GeneralException {
+        // TODO implement me (if desired)
+        return; // the notification will be accepted
+    }
+    
+    public void processAuthNotification(AuthorizationAmountNotification info) throws GeneralException {
+        // TODO implement me (if desired)
+        return; // the notification will be accepted                        
+    }
+    
+    public void processChargeNotification(ChargeAmountNotification info) throws GeneralException {
+        // TODO: implement me (if desired)
+        return; // the notification will be accepted
+    }
+    
+    public void processRefundNotification(RefundAmountNotification info) throws GeneralException {
+        // TODO: implement me (if desired)
+        return; // the notification will be accepted
+    }
+    
+    public void processChargeBackNotification(ChargebackAmountNotification info) throws GeneralException {
+        // TODO: implement me (if desired)
+        return; // the notification will be accepted
+    }
+    
     @SuppressWarnings("unchecked")
     public void createOrder(NewOrderNotification info, String productStoreId, String websiteId, String currencyUom, Locale locale) throws GeneralException {
         // get the google order number
@@ -92,7 +165,9 @@ public class GoogleCheckoutHelper {
         // check and make sure this order doesn't already exist
         List<GenericValue> existingOrder = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
         if (existingOrder != null && existingOrder.size() > 0) {
-            throw new GeneralException("Google order #" + externalId + " already exists.");
+            //throw new GeneralException("Google order #" + externalId + " already exists.");
+            Debug.logWarning("Google order #" + externalId + " already exists.", module);
+            return;
         }
 
         // Initialize the shopping cart
@@ -105,8 +180,8 @@ public class GoogleCheckoutHelper {
 
         Debug.logInfo("Created shopping cart for Google order: ", module);
         Debug.logInfo("-- WebSite : " + websiteId, module);
-       Debug.logInfo("-- Product Store : " + productStoreId, module);
-       Debug.logInfo("-- Locale : " + locale.toString(), module);
+        Debug.logInfo("-- Product Store : " + productStoreId, module);
+        Debug.logInfo("-- Locale : " + locale.toString(), module);
         Debug.logInfo("-- Google Order # : " + externalId, module);
 
         // set the customer information
@@ -144,9 +219,12 @@ public class GoogleCheckoutHelper {
         for (Item item : items) {
             try {
                 addItem(cart, item, null, 0);
-            } catch (ItemNotFoundException e) {
-                // TODO: handle items not found
+            } catch (ItemNotFoundException e) {                
                 Debug.logWarning(e, "Item was not found : " + item.getMerchantItemId(), module);
+                // throwing this exception tell google the order failed; it will continue to retry  
+                if (errorOnUnknownItem) {
+                    throw new GeneralException("Invalid item requested from Google Checkout - " + item.getMerchantItemId());
+                }
             }
         }
 
@@ -156,10 +234,10 @@ public class GoogleCheckoutHelper {
 
         // ship group info
         Shipping shipping = info.getOrderAdjustment().getShipping();
-        addShipInfo(cart, shipping);
+        addShipInfo(cart, shipping, partyInfo[1]);
 
         // set the cart payment method
-        cart.addPayment(PAYMENT_METHOD);
+        cart.addPaymentAmount(PAYMENT_METHOD, cart.getGrandTotal());
 
         // validate the payment methods
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
@@ -174,19 +252,13 @@ public class GoogleCheckoutHelper {
         if (ServiceUtil.isError(createResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(createResp));
         }
-
-        // approve the order
-        OrderChangeHelper.approveOrder(dispatcher, system, orderId, cart.getHoldOrder());
-
+        
         // notify google of our order number
-        // TODO: enable this
-        /*
         try {
-            dispatcher.runAsync("sendGoogleOrderNumberRequest", true, UtilMisc.toMap("orderId", orderId));
+            dispatcher.runAsync("sendGoogleOrderNumberRequest", UtilMisc.toMap("orderId", orderId), true);
         } catch (GeneralException e) {
             Debug.logError(e, module);
-        } 
-        */
+        }         
     }
 
     protected void addItem(ShoppingCart cart, Item item, String productCatalogId, int groupIdx) throws GeneralException {
@@ -233,7 +305,7 @@ public class GoogleCheckoutHelper {
         GenericValue taxAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
         taxAdj.set("orderAdjustmentTypeId", "SALES_TAX");
         taxAdj.set("amount", taxAmount);
-       cart.addAdjustment(taxAdj);
+        cart.addAdjustment(taxAdj);
 
         // handle promotions
         Collection<MerchantCodes> merchantCodes = adjustment.getMerchantCodes();
@@ -247,19 +319,24 @@ public class GoogleCheckoutHelper {
         }
     }
 
-    protected void addShipInfo(ShoppingCart cart, Shipping shipping) {
-        String shippingName = shipping.getShippingName();
-
-        // TODO parse the shipping method and get a valid OFBiz shipping method
-        // FOR NOW - Just use some dummy info
-        String shipmentMethodTypeId = shippingName;
-        String carrierPartyId = "_NA_";
-        Boolean maySplit = Boolean.FALSE;
-
-        if (shipmentMethodTypeId != null) {
+    protected void addShipInfo(ShoppingCart cart, Shipping shipping, String shipContactMechId) {        
+        String shippingName = shipping.getShippingName();        
+        GenericValue googleShipping = null;        
+        try {
+            googleShipping = delegator.findOne("GoogleShippingMethods", UtilMisc.toMap("shipmentMethodName", shippingName, 
+                    "productStoreId", cart.getProductStoreId()), false);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (googleShipping != null) {
+            String shipmentMethodTypeId = googleShipping.getString("shipmentMethodTypeId");
+            String carrierPartyId = googleShipping.getString("carrierPartyId");
+            Boolean maySplit = Boolean.FALSE; 
+            
             cart.setShipmentMethodTypeId(shipmentMethodTypeId);
             cart.setCarrierPartyId(carrierPartyId);
             cart.setMaySplit(maySplit);
+            cart.setShippingContactMechId(shipContactMechId);
         } else {
             Debug.logWarning("No valid fulfillment method found! No shipping info set!", module);
         }
@@ -273,8 +350,9 @@ public class GoogleCheckoutHelper {
 	    // look for an existing shipping address
 	    List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shipAddr.getAddress1(), 
 	            (UtilValidate.isEmpty(shipAddr.getAddress2()) ? null : shipAddr.getAddress2()), shipAddr.getCity(), shipAddr.getRegion(), 
-	            shipAddr.getPostalCode(), null, shipAddr.getCountryCode(), shipAddr.getStructuredName().getFirstName(), 
+	            shipAddr.getPostalCode(), null, getCountryGeoId(shipAddr.getCountryCode()), shipAddr.getStructuredName().getFirstName(), 
 	            null, shipAddr.getStructuredName().getLastName());
+	    
 	    if (shipInfo != null && shipInfo.size() > 0) {
 	        GenericValue first = EntityUtil.getFirst(shipInfo);
 	        shipCmId = first.getString("contactMechId");
@@ -285,8 +363,9 @@ public class GoogleCheckoutHelper {
 	    // look for an existing billing address
 	    List<GenericValue> billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(), 
 	            (UtilValidate.isEmpty(billAddr.getAddress2()) ? null : billAddr.getAddress2()), billAddr.getCity(), billAddr.getRegion(), 
-	            billAddr.getPostalCode(), null, billAddr.getCountryCode(), billAddr.getStructuredName().getFirstName(), 
+	            billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(), 
 	            null, billAddr.getStructuredName().getLastName());
+	    
         if (billInfo != null && billInfo.size() > 0) {
             GenericValue first = EntityUtil.getFirst(billInfo);
             billCmId = first.getString("contactMechId");
@@ -318,8 +397,9 @@ public class GoogleCheckoutHelper {
             // check the billing address again (in case it was just created)
             billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(), 
                     billAddr.getAddress2(), billAddr.getCity(), billAddr.getRegion(), 
-                    billAddr.getPostalCode(), null, billAddr.getCountryCode(), billAddr.getStructuredName().getFirstName(), 
+                    billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(), 
                     null, billAddr.getStructuredName().getLastName());
+            
             if (billInfo != null && billInfo.size() > 0) {
                 GenericValue first = EntityUtil.getFirst(billInfo);
                 billCmId = first.getString("contactMechId");
@@ -366,7 +446,7 @@ public class GoogleCheckoutHelper {
         addrMap.put("address2", addr.getAddress2());
         addrMap.put("city", addr.getCity());
         addrMap.put("stateProvinceGeoId",addr.getRegion());
-        addrMap.put("countryGeoId", addr.getCountryCode());
+        addrMap.put("countryGeoId", getCountryGeoId(addr.getCountryCode()));
         addrMap.put("postalCode", postalCode);
         addrMap.put("postalCodeExt", postalCodeExt);
         addrMap.put("allowSolicitation", "Y");
@@ -485,5 +565,33 @@ public class GoogleCheckoutHelper {
         }
     }
 	
-	// uses a unique order number each time so that the duplicate order check doesn't kick in
+	protected String getCountryGeoId(String geoCode) {
+	    if (geoCode != null && geoCode.length() == 3) {
+	        return geoCode;
+	    }
+        List<GenericValue> geos = null;
+        try {
+            geos = delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode, "geoTypeId", "COUNTRY"));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (geos != null && geos.size() > 0) {
+            return EntityUtil.getFirst(geos).getString("geoId");
+        } else {
+            return "_NA_";
+        }
+    }
+	
+	protected boolean hasHoldOrderNotes(String orderId) {
+	    EntityCondition idCond = EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId);
+	    EntityCondition content = EntityCondition.makeCondition("noteInfo", EntityOperator.LIKE, "%Order is held%");
+	    EntityCondition mainCond = EntityCondition.makeCondition(UtilMisc.toList(idCond, content), EntityOperator.AND);
+	    List<GenericValue> holdOrderNotes = null;	    
+	    try {
+	        holdOrderNotes = delegator.findList("OrderHeaderNoteView", mainCond, null, null, null, false);
+	    } catch (GenericEntityException e) {
+	        Debug.logError(e, module);
+	    }
+	    return UtilValidate.isNotEmpty(holdOrderNotes);
+	}
 }

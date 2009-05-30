@@ -22,12 +22,21 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
 
     <description>Google Checkout Component Site Configuration File</description>
-
+    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
+    <errorpage>/error/error.jsp</errorpage>
+    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
+    
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
 
+    <request-map uri="handleMessage" track-serverhit="false" track-visit="false">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.googlecheckout.GoogleCheckoutResponseEvents" invoke="checkNotification"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

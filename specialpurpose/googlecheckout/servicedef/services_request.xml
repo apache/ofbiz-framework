@@ -21,10 +21,18 @@
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
 
+    <!-- checkout request -->
+    <service name="sendGoogleCheckoutRequest" engine="java" auth="false"
+            location="org.ofbiz.googlecheckout.GoogleRequestServices" invoke="sendShoppingCartRequest">
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="redirect" type="String" mode="OUT" optional="false"/>
+    </service>
+    
     <!-- create order request notification -->
     <service name="sendGoogleOrderNumberRequest" engine="java" invoke="sendOrderNumberRequest"
             location="org.ofbiz.googlecheckout.GoogleRequestServices">
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>        
     </service>
     
     <!-- payment notifications -->
@@ -35,6 +43,7 @@
     <service name="sendGoogleChargeRequest" engine="java" invoke="sendChargeRequest"
             location="org.ofbiz.googlecheckout.GoogleRequestServices">
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
     </service>
     
     <!-- returns -->
@@ -70,4 +79,9 @@
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     
+    <!-- catch editing orders; return error -->
+    <service name="catchEditGoogleOrder" engine="java" invoke="catchEditGoogleOrder"
+            location="org.ofbiz.googlecheckout.GoogleRequestServices">
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>   
+    </service>
  </services>

@@ -20,4 +20,8 @@ under the License.
 
 <entity-engine-xml>
     <WebSite webSiteId="GOOGLECHECKOUT" productStoreId="9000" />
+    
+    <GoogleShippingMethods methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Express" productStoreId="9000" amount="20.00" carrierPartyId="UPS" shipmentMethodTypeId="AIR"/>
+    <GoogleShippingMethods methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Standard" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
+    <GoogleShippingMethods methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Free" productStoreId="9000" amount="0.00" carrierPartyId="USPS" shipmentMethodTypeId="STANDARD"/>    
 </entity-engine-xml>

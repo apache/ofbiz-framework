@@ -18,9 +18,7 @@ under the License.
 **/
 package org.ofbiz.googlecheckout;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Locale;
 
@@ -30,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -38,7 +35,13 @@ import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Document;
 
 import com.google.checkout.CheckoutException;
+import com.google.checkout.notification.AuthorizationAmountNotification;
+import com.google.checkout.notification.ChargeAmountNotification;
+import com.google.checkout.notification.ChargebackAmountNotification;
 import com.google.checkout.notification.NewOrderNotification;
+import com.google.checkout.notification.OrderStateChangeNotification;
+import com.google.checkout.notification.RefundAmountNotification;
+import com.google.checkout.notification.RiskInformationNotification;
 import com.google.checkout.util.Utils;
 
 public class GoogleCheckoutResponseEvents {
@@ -50,14 +53,17 @@ public class GoogleCheckoutResponseEvents {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
           
         GoogleCheckoutHelper helper = new GoogleCheckoutHelper(dispatcher, delegator);
-        //String xmlString = helper.getTestResponseString(); // TODO: make this work with the info sent to the event
-        String xmlString = processGoogleCheckoutResponse(request,response);
+        
         // check and parse the document
         Document document = null;
         try {
-            document = Utils.newDocumentFromString(xmlString);
+            document = Utils.newDocumentFromInputStream(request.getInputStream());            
         } catch (CheckoutException e) {
             Debug.logError(e, module);
+            sendResponse(response, null, true);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            sendResponse(response, null, true);
         }
         
         // check the document type and process 
@@ -75,6 +81,72 @@ public class GoogleCheckoutResponseEvents {
                     sendResponse(response, serialNumber, true);
                     return null;
                 }
+            } else if ("order-state-change-notification".equals(nodeValue)) {
+                OrderStateChangeNotification info = new OrderStateChangeNotification(document);
+                String serialNumber = info.getSerialNumber();
+                try {
+                    helper.processStateChange(info);
+                    sendResponse(response, serialNumber, false);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    sendResponse(response, serialNumber, true);
+                    return null;
+                }
+            } else if ("risk-information-notification".equals(nodeValue)) {
+                RiskInformationNotification info = new RiskInformationNotification(document);
+                String serialNumber = info.getSerialNumber();
+                try {
+                    helper.processRiskNotification(info);
+                    sendResponse(response, serialNumber, false);                    
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    sendResponse(response, serialNumber, true);
+                    return null;
+                }
+            } else if ("authorization-amount-notification".equals(nodeValue)) {
+                AuthorizationAmountNotification info = new AuthorizationAmountNotification(document);
+                String serialNumber = info.getSerialNumber();
+                try {
+                    helper.processAuthNotification(info);
+                    sendResponse(response, serialNumber, false);                    
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    sendResponse(response, serialNumber, true);
+                    return null;
+                } 
+            } else if ("charge-amount-notification".equals(nodeValue)) {
+                ChargeAmountNotification info = new ChargeAmountNotification(document);
+                String serialNumber = info.getSerialNumber();
+                try {
+                    helper.processChargeNotification(info);
+                    sendResponse(response, serialNumber, false);                    
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    sendResponse(response, serialNumber, true);
+                    return null;
+                }  
+            } else if ("chargeback-amount-notification".equals(nodeValue)) {
+                ChargebackAmountNotification info = new ChargebackAmountNotification(document);
+                String serialNumber = info.getSerialNumber();
+                try {
+                    helper.processChargeBackNotification(info);
+                    sendResponse(response, serialNumber, false);                    
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    sendResponse(response, serialNumber, true);
+                    return null;
+                }             
+            } else if ("refund-amount-notification".equals(nodeValue)) {
+                RefundAmountNotification info = new RefundAmountNotification(document);
+                String serialNumber = info.getSerialNumber();
+                try {
+                    helper.processRefundNotification(info);
+                    sendResponse(response, serialNumber, false);                    
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    sendResponse(response, serialNumber, true);
+                    return null;
+                }  
             } else {
                 Debug.logWarning("Unsupported document type submitted by Google; [" + nodeValue + "] has not yet been implemented.", module);
             }
@@ -82,25 +154,7 @@ public class GoogleCheckoutResponseEvents {
         
         return null;
     }
-    public static String processGoogleCheckoutResponse(HttpServletRequest request, HttpServletResponse response) {
-        StringBuffer xmlBuff = new StringBuffer();
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                xmlBuff.append(inputLine);
-            }
-            in.close();
-        } catch (IOException e) {
-            Debug.logError(e, "Problems sending verification message", module);
-        }
-        
-        if(UtilValidate.isNotEmpty(xmlBuff.toString())) {
-            return xmlBuff.toString();
-        } else {
-            return "error";
-        }
-    }
+            
     private static void sendResponse(HttpServletResponse response, String serialNumber, boolean error) {
         if (error) {
             try {
