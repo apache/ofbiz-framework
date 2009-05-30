@@ -1560,7 +1560,6 @@ public class UpsServices {
         cxt.put("shippableWeight", context.get("shippableWeight"));
         cxt.put("isResidentialAddress", context.get("isResidentialAddress"));
         cxt.put("shipFromAddress", shipFromAddress);
-        cxt.put("packageInfo", context.get("packageInfo"));
         try {
             return dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
 
@@ -1629,90 +1628,6 @@ public class UpsServices {
         UtilXml.addChildElementValue(packageWeightElement, "Weight", packageWeight.toString(), requestDoc);
     }
 
-    private static Map<String, Object> addPackageElement(Document requestDoc, Element shipmentElement, Map<String, Object> packageInfoMap) {
-        GenericValue shipmentBoxType = null;
-        List<GenericValue> carrierShipmentBoxTypes = null;
-        try {
-            if (UtilValidate.isNotEmpty(packageInfoMap.get("shipmentBoxType"))) {
-                shipmentBoxType = (GenericValue) packageInfoMap.get("shipmentBoxType");
-                carrierShipmentBoxTypes = shipmentBoxType.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"), null);
-            }
-            Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
-            Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
-
-            if (UtilValidate.isNotEmpty(carrierShipmentBoxTypes)) {
-                GenericValue carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
-                if (UtilValidate.isNotEmpty(carrierShipmentBoxType.getString("packagingTypeCode"))) {
-                    UtilXml.addChildElementValue(packagingTypeElement, "Code", carrierShipmentBoxType.getString("packagingTypeCode"), requestDoc);
-                } else {
-                    UtilXml.addChildElementValue(packagingTypeElement, "Code", "02", requestDoc);
-                }
-            } else {
-                UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
-            }
-
-            UtilXml.addChildElementValue(packagingTypeElement, "Description", "Unknown PackagingType", requestDoc);
-            if (UtilValidate.isNotEmpty(shipmentBoxType) && UtilValidate.isNotEmpty(shipmentBoxType.getString("description"))) {
-               UtilXml.addChildElementValue(packageElement, "Description", shipmentBoxType.getString("description"), requestDoc);
-            } else {
-                UtilXml.addChildElementValue(packageElement, "Description", "Package Description", requestDoc);
-            }
-
-            Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
-            Element packageWeightUnitOfMeasurementElement = UtilXml.addChildElement(packageWeightElement, "UnitOfMeasurement", requestDoc);
-            if (UtilValidate.isNotEmpty(shipmentBoxType) && UtilValidate.isNotEmpty(shipmentBoxType.getString("weightUomId"))) {
-                String weightUomUps = unitsOfbizToUps.get(shipmentBoxType.getString("weightUomId"));
-                UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", weightUomUps, requestDoc);
-            } else {
-                UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", "LBS", requestDoc);
-            }
-
-            BigDecimal packageWeight = BigDecimal.ONE;
-            if (UtilValidate.isNotEmpty(packageInfoMap.get("packageWeight"))) {
-                packageWeight = (BigDecimal) packageInfoMap.get("packageWeight");
-            } else {
-                String totalWeightStr = UtilProperties.getPropertyValue("shipment", "shipment.ups.min.estimate.weight", "1");
-                try {
-                    packageWeight = new BigDecimal(totalWeightStr);
-                } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
-                }
-            }
-
-            UtilXml.addChildElementValue(packageWeightElement, "Weight", packageWeight.toString(), requestDoc);
-            if (UtilValidate.isNotEmpty(packageInfoMap.get("packageLength")) && UtilValidate.isNotEmpty(packageInfoMap.get("packageWidth")) && 
-                    UtilValidate.isNotEmpty(packageInfoMap.get("packageHeight"))) { 
-                Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
-                Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", requestDoc);
-
-                UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", requestDoc);
-
-                BigDecimal length = (BigDecimal) packageInfoMap.get("packageLength");
-                BigDecimal width = (BigDecimal) packageInfoMap.get("packageWidth");
-                BigDecimal height = (BigDecimal) packageInfoMap.get("packageHeight");
-
-                UtilXml.addChildElementValue(dimensionsElement, "Length", length.setScale(decimals, rounding).toString(), requestDoc);
-                UtilXml.addChildElementValue(dimensionsElement, "Width", width.setScale(decimals, rounding).toString(), requestDoc);
-                UtilXml.addChildElementValue(dimensionsElement, "Height", height.setScale(decimals, rounding).toString(), requestDoc);
-            } else if (UtilValidate.isNotEmpty(shipmentBoxType) && UtilValidate.isNotEmpty(shipmentBoxType.getBigDecimal("boxLength")) &&
-                    UtilValidate.isNotEmpty(shipmentBoxType.getBigDecimal("boxWidth")) && UtilValidate.isNotEmpty(shipmentBoxType.getBigDecimal("boxHeight"))) {
-                Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
-                Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", requestDoc);
-                GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom");
-                if (dimensionUom != null) {
-                    UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), requestDoc);
-                } else {
-                    UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", requestDoc);
-                }
-                UtilXml.addChildElementValue(dimensionsElement, "Length", shipmentBoxType.getBigDecimal("boxLength").setScale(decimals, rounding).toString(), requestDoc);
-                UtilXml.addChildElementValue(dimensionsElement, "Width", shipmentBoxType.getBigDecimal("boxWidth").setScale(decimals, rounding).toString(), requestDoc);
-                UtilXml.addChildElementValue(dimensionsElement, "Height", shipmentBoxType.getBigDecimal("boxHeight").setScale(decimals, rounding).toString(), requestDoc);
-            }
-        } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        return ServiceUtil.returnSuccess();
-    }
 
     private static BigDecimal checkForDefaultPackageWeight(BigDecimal weight, BigDecimal minWeight) {
         return (weight.compareTo(BigDecimal.ZERO) > 0 && weight.compareTo(minWeight) > 0 ? weight : minWeight);
@@ -1994,7 +1909,6 @@ public class UpsServices {
         String shippingCountryCode = (String) context.get("shippingCountryCode");
         List<BigDecimal> packageWeights = UtilGenerics.checkList(context.get("packageWeights"));
         List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
-        List<Map<String, Object>> packageInfo = UtilGenerics.checkList(context.get("packageInfo"));
         BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
         BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
@@ -2128,19 +2042,11 @@ public class UpsServices {
         }
 
         // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
-        if (UtilValidate.isEmpty(packageInfo)) {
-            // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
-            if (UtilValidate.isEmpty(packageWeights)) {
-                splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
-            } else {
-                for (BigDecimal packageWeight: packageWeights) {
-                addPackageElement(rateRequestDoc,  shipmentElement, packageWeight);
-                }
-            }
+        if (UtilValidate.isEmpty(packageWeights)) {
+            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
-            // Passing in a map of package informations like weight, dimension (length, width and height) and shipmentBoxType
-            for (Map<String, Object> packageInfoMap : packageInfo) {
-                addPackageElement(rateRequestDoc,  shipmentElement, packageInfoMap);
+            for (BigDecimal packageWeight: packageWeights) {
+                addPackageElement(rateRequestDoc,  shipmentElement, packageWeight);
             }
         }
 
