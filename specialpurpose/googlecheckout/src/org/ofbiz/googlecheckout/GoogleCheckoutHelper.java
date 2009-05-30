@@ -63,8 +63,7 @@ import com.google.checkout.notification.StructuredName;
 
 public class GoogleCheckoutHelper {
 
-    private static final String module = GoogleCheckoutHelper.class.getName();
-    private static final boolean errorOnUnknownItem = true; // set to false to simply ignore the item
+    private static final String module = GoogleCheckoutHelper.class.getName();    
     
     public static final String SALES_CHANNEL = "GC_SALES_CHANNEL";
     public static final String ORDER_TYPE = "SALES_ORDER";
@@ -158,7 +157,7 @@ public class GoogleCheckoutHelper {
     }
     
     @SuppressWarnings("unchecked")
-    public void createOrder(NewOrderNotification info, String productStoreId, String websiteId, String currencyUom, Locale locale) throws GeneralException {
+    public void createOrder(NewOrderNotification info, String productStoreId, Locale locale) throws GeneralException {
         // get the google order number
         String externalId = info.getGoogleOrderNumber();
 
@@ -170,11 +169,23 @@ public class GoogleCheckoutHelper {
             return;
         }
 
+        // get the config object
+        GenericValue googleCfg = GoogleRequestServices.getGoogleConfiguration(delegator, productStoreId);
+        if (googleCfg == null) {
+            throw new GeneralException("No google configuration found for product store : " + productStoreId);
+        }
+        
+        String websiteId = googleCfg.getString("webSiteId");
+        String currencyUom = googleCfg.getString("currencyUomId");
+        String prodCatalogId = googleCfg.getString("prodCatalogId");
+        boolean errorOnUnknownItem = googleCfg.get("errorOnBadItem") != null && 
+            "Y".equalsIgnoreCase(googleCfg.getString("errorOnBadItem")) ? true : false;
+        
         // Initialize the shopping cart
-        ShoppingCart cart = new ShoppingCart(delegator, productStoreId, websiteId, locale, currencyUom);
+        ShoppingCart cart = new ShoppingCart(delegator, productStoreId, websiteId, locale, currencyUom);          
         cart.setUserLogin(system, dispatcher);
         cart.setOrderType(ORDER_TYPE);
-        cart.setChannelType(SALES_CHANNEL);
+        cart.setChannelType(SALES_CHANNEL);        
         //cart.setOrderDate(UtilDateTime.toTimestamp(info.getTimestamp().()));
         cart.setExternalId(externalId);
 
@@ -218,7 +229,7 @@ public class GoogleCheckoutHelper {
         Collection<Item> items = info.getShoppingCart().getItems();
         for (Item item : items) {
             try {
-                addItem(cart, item, null, 0);
+                addItem(cart, item, prodCatalogId, 0);
             } catch (ItemNotFoundException e) {                
                 Debug.logWarning(e, "Item was not found : " + item.getMerchantItemId(), module);
                 // throwing this exception tell google the order failed; it will continue to retry  
@@ -262,7 +273,7 @@ public class GoogleCheckoutHelper {
         }         
     }
 
-    protected void addItem(ShoppingCart cart, Item item, String productCatalogId, int groupIdx) throws GeneralException {
+    protected void addItem(ShoppingCart cart, Item item, String prodCatalogId, int groupIdx) throws GeneralException {
         String productId = item.getMerchantItemId();
         BigDecimal qty = new BigDecimal(item.getQuantity());
         BigDecimal price = new BigDecimal(item.getUnitPriceAmount());
@@ -271,7 +282,7 @@ public class GoogleCheckoutHelper {
         HashMap<Object, Object> attrs = new HashMap<Object, Object>();
         attrs.put("shipGroup", groupIdx);
 
-        int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, productCatalogId, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
+        int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, prodCatalogId, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
         ShoppingCartItem cartItem = cart.findCartItem(idx);
         cartItem.setQuantity(qty, dispatcher, cart, true, false);
 

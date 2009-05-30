@@ -19,7 +19,6 @@ under the License.
 
 package org.ofbiz.googlecheckout;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +62,8 @@ public class GoogleRequestServices {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String productStoreId = cart.getProductStoreId();
         GenericDelegator delegator = dctx.getDelegator();
-        MerchantInfo mInfo = getMerchantInfo();
+        GenericValue googleCfg = getGoogleConfiguration(delegator, productStoreId);
+        MerchantInfo mInfo = getMerchantInfo(delegator, productStoreId);
         if (mInfo == null) {
             Debug.logError("Invalid Google Chechout Merchant settings, check your configuration!", module);
             return ServiceUtil.returnError("Google checkout configuration error");
@@ -71,23 +71,36 @@ public class GoogleRequestServices {
         
         // the checkout request object
         CheckoutShoppingCartRequest req = new CheckoutShoppingCartRequest(mInfo, 300);
-        req.setRequestInitialAuthDetails(true); // send the auth notification
+        String requestAuthStr = googleCfg.getString("requestAuthDetails");
+        if (requestAuthStr == null) {
+            requestAuthStr = "Y";
+        }
+        boolean requestAuth = "Y".equalsIgnoreCase(requestAuthStr) ? true : false;
+        req.setRequestInitialAuthDetails(requestAuth); // send the auth notification
+        
+        String sendPromoItemStr = googleCfg.getString("sendPromoItems");
+        if (sendPromoItemStr == null) {
+            sendPromoItemStr = "Y";
+        }
+        boolean sendPromoItems = "Y".equalsIgnoreCase(sendPromoItemStr) ? true : false;
         
         // add the items
         List<ShoppingCartItem> items = cart.items();
-        for (ShoppingCartItem item : items) {                        
-            Item i = new Item();            
-            i.setItemName(item.getName());
-            i.setItemDescription(item.getDescription());
-            i.setMerchantItemId(item.getProductId());
-            i.setQuantity(item.getQuantity().intValue());
-            i.setUnitPriceAmount(item.getBasePrice().floatValue());
-            i.setUnitPriceCurrency(cart.getCurrency());            
-            //i.setItemWeight(item.getWeight().floatValue()); // must convert weight to Lb 
-            if (!item.taxApplies()) {
-                i.setTaxTableSelector("tax_exempt");
+        for (ShoppingCartItem item : items) { 
+            if (!item.getIsPromo() || sendPromoItems) {
+                Item i = new Item();            
+                i.setItemName(item.getName());
+                i.setItemDescription(item.getDescription());
+                i.setMerchantItemId(item.getProductId());
+                i.setQuantity(item.getQuantity().intValue());
+                i.setUnitPriceAmount(item.getBasePrice().floatValue());
+                i.setUnitPriceCurrency(cart.getCurrency());            
+                //i.setItemWeight(item.getWeight().floatValue()); // must convert weight to Lb 
+                if (!item.taxApplies()) {
+                    i.setTaxTableSelector("tax_exempt");
+                }
+                req.addItem(i);
             }
-            req.addItem(i);
         }
                         
         // flow support URLs
@@ -154,9 +167,31 @@ public class GoogleRequestServices {
         }
         
         // merchant stuff
-        //req.setAcceptMerchantCoupons(false); // disable coupons through google
-        //req.setAcceptMerchantGiftCertificates(false); // disable gift certs through google
-        req.setRequestBuyerPhoneNumber(true);
+        String acceptCouponStr = googleCfg.getString("acceptCoupons");
+        if (acceptCouponStr == null) {
+            acceptCouponStr = "N";
+        }
+        boolean acceptCoupons = "Y".equalsIgnoreCase(acceptCouponStr) ? true : false;
+                
+        String acceptCertStr = googleCfg.getString("acceptGiftCerts");
+        if (acceptCertStr == null) {
+            acceptCertStr = "N";
+        }
+        boolean acceptGiftCerts = "Y".equalsIgnoreCase(acceptCertStr) ? true : false;
+        
+        if (acceptCoupons || acceptGiftCerts) {
+            req.setAcceptMerchantCoupons(acceptCoupons); 
+            req.setAcceptMerchantGiftCertificates(acceptGiftCerts);
+            
+            // TODO: merchant calc support needs to be implemented if these are ever TRUE
+        }
+        
+        String requestPhoneStr = googleCfg.getString("requestPhone");
+        if (requestPhoneStr == null) {
+            requestPhoneStr = "Y";
+        }
+        boolean requestPhone = "Y".equalsIgnoreCase(requestPhoneStr) ? true : false;                        
+        req.setRequestBuyerPhoneNumber(requestPhone);
         
         // send the request
         CheckoutResponse resp = null;
@@ -185,7 +220,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            MerchantInfo mInfo = getMerchantInfo();
+            MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
             if (mInfo != null) {
                 String externalId = order.getString("externalId");                
                 AddMerchantOrderNumberRequest aor = new AddMerchantOrderNumberRequest(mInfo, externalId, orderId);
@@ -205,7 +240,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            MerchantInfo mInfo = getMerchantInfo();
+            MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
             if (mInfo != null) {
                 String externalId = order.getString("externalId");
                 AuthorizeOrderRequest aor = new AuthorizeOrderRequest(mInfo, externalId);
@@ -226,7 +261,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            MerchantInfo mInfo = getMerchantInfo();
+            MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
             if (mInfo != null) {
                 String externalId = order.getString("externalId");
                 Double amountToCharge = (Double) context.get("captureAmount");
@@ -258,15 +293,13 @@ public class GoogleRequestServices {
     
     public static Map<String, Object> sendShipRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
-        String shipmentId = (String) context.get("shipmentId");
-        MerchantInfo mInfo = getMerchantInfo();
-        if (mInfo != null) {
-            try {
-                sendItemsShipped(delegator, shipmentId, mInfo);
-            } catch (GeneralException e) {
-                // TODO: handle the error
-            }
-        }                
+        String shipmentId = (String) context.get("shipmentId");                
+        try {
+            sendItemsShipped(delegator, shipmentId);
+        } catch (GeneralException e) {
+            // TODO: handle the error
+        }
+        
         return ServiceUtil.returnSuccess();
     }
     
@@ -275,7 +308,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            MerchantInfo mInfo = getMerchantInfo();
+            MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
             if (mInfo != null) {
                 String externalId = order.getString("externalId");                
                 CancelOrderRequest cor = new CancelOrderRequest(mInfo, externalId, "Order Cancelled", ""); // TODO: configure the reason and comment
@@ -304,7 +337,7 @@ public class GoogleRequestServices {
             }
             
             if (orderItem != null) {
-                MerchantInfo mInfo = getMerchantInfo();
+                MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
                 if (mInfo != null) {
                     String externalId = order.getString("externalId");                    
                     CancelItemsRequest cir = new CancelItemsRequest(mInfo, externalId, "Item Cancelled", ""); // TODO: configure the reason and comment
@@ -326,7 +359,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            MerchantInfo mInfo = getMerchantInfo();
+            MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
             if (mInfo != null) {
                 String externalId = order.getString("externalId");                
                 ArchiveOrderRequest aor = new ArchiveOrderRequest(mInfo, externalId);
@@ -346,7 +379,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            MerchantInfo mInfo = getMerchantInfo();
+            MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
             if (mInfo != null) {
                 String externalId = order.getString("externalId");
                 UnarchiveOrderRequest uor = new UnarchiveOrderRequest(mInfo, externalId);
@@ -373,7 +406,7 @@ public class GoogleRequestServices {
         return ServiceUtil.returnSuccess();        
     }    
     
-    private static void sendItemsShipped(GenericDelegator delegator, String shipmentId, MerchantInfo mInfo) throws GeneralException {
+    private static void sendItemsShipped(GenericDelegator delegator, String shipmentId) throws GeneralException {
         List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId));
         if (issued != null && issued.size() > 0) {
             for (GenericValue issue : issued) {
@@ -384,6 +417,12 @@ public class GoogleRequestServices {
                 GenericValue order = findGoogleOrder(delegator, orderId);
                                  
                 if (order != null) {
+                    MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
+                    if (mInfo == null) {
+                        Debug.logInfo("Cannot find Google MerchantInfo for Order #" + orderId, module);
+                        continue;
+                    }
+                    
                     String externalId = order.getString("externalId");
                     
                     // locate the shipment package content record
@@ -414,6 +453,8 @@ public class GoogleRequestServices {
                                     try {
                                         ShipItemsRequest isr = new ShipItemsRequest(mInfo, externalId);
                                         isr.addItemShippingInformation(productId, carrier, track);
+                                        Debug.logInfo("Sending item shipped notification: " + productId + " / " + carrier + " / " + track, module);
+                                        Debug.logInfo("Using merchantInfo : " + mInfo.getMerchantId() + " #" + externalId, module);
                                         isr.send();
                                     } catch (CheckoutException e) {
                                         Debug.logError(e, module);
@@ -446,40 +487,82 @@ public class GoogleRequestServices {
         
         return null;
     }
-                           
-    public static MerchantInfo getMerchantInfo() {
+    
+    public static String getProductStoreFromShipment(GenericDelegator delegator, String shipmentId) {
+        GenericValue shipment = null;
+        try {
+            shipment = delegator.findOne("Shipment", false, "shipmentId", shipmentId);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (shipment != null) {
+            String orderId = shipment.getString("primaryOrderId");
+            return getProductStoreFromOrder(findGoogleOrder(delegator, orderId));
+        }
+        return null;
+    }
+    
+    public static String getProductStoreFromOrder(GenericValue order) {
+        if  (order != null) {
+            return order.getString("productStoreId");
+        }
+        return null;
+    }
+     
+    public static GenericValue getGoogleConfiguration(GenericDelegator delegator, String productStoreId) {
+        if (productStoreId == null) return null;
+        GenericValue config = null;
+        try {
+            config = delegator.findOne("GoogleConfiguration", true, "productStoreId", productStoreId);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return config;
+    }
+    
+    public static MerchantInfo getMerchantInfo(GenericDelegator delegator, String productStoreId) {
+        // google configuration
+        GenericValue config = getGoogleConfiguration(delegator, productStoreId);
+        if (config == null) {
+            Debug.logError("No google configuration found for product store ID : " + productStoreId, module);
+            return null;
+        }
+        
         // merchant information
-        String merchantId = UtilProperties.getPropertyValue("googleCheckout.properties", "merchantId");
-        String merchantKey = UtilProperties.getPropertyValue("googleCheckout.properties", "merchantKey");
-        String environment = UtilProperties.getPropertyValue("googleCheckout.properties", "environment.mode", "Sandbox");
-        String currencyCode = "USD";
+        String merchantId = config.getString("merchantId");
+        String merchantKey = config.getString("merchantKey");
+        String envEnumId = config.getString("envEnumId");
+        String currencyCode = config.getString("currencyUomId");
         
         if (UtilValidate.isEmpty(merchantId) || UtilValidate.isEmpty(merchantKey)) {
             return null;
         }
         
         // base URLs
-        String productionRoot = UtilProperties.getPropertyValue("googleCheckout.properties", "production.root.url");
-        String sandboxRoot = UtilProperties.getPropertyValue("googleCheckout.properties", "sandbox.root.url");
+        String productionRoot = UtilProperties.getPropertyValue("google-checkout.properties", "production.root.url");
+        String sandboxRoot = UtilProperties.getPropertyValue("google-checkout.properties", "sandbox.root.url");
         
         // command strings
-        String merchantCheckoutCommand = UtilProperties.getPropertyValue("googleCheckout.properties", "merchant.checkout.command", "merchantCheckout");
-        String checkoutCommand = UtilProperties.getPropertyValue("googleCheckout.properties", "checkout.command", "checkout");        
-        String requestCommand = UtilProperties.getPropertyValue("googleCheckout.properties", "request.command", "request");
+        String merchantCheckoutCommand = UtilProperties.getPropertyValue("google-checkout.properties", "merchant.checkout.command", "merchantCheckout");
+        String checkoutCommand = UtilProperties.getPropertyValue("google-checkout.properties", "checkout.command", "checkout");        
+        String requestCommand = UtilProperties.getPropertyValue("google-checkout.properties", "request.command", "request");
 
+        String environment = null;
         String checkoutUrl = "";
         String merchantCheckoutUrl = "";
         String requestUrl = "";
 
         // build the URLs based on the Environment type
-        if (EnvironmentType.Sandbox.equals(environment)) {
+        if ("GOOGLE_SANDBOX".equals(envEnumId)) {
             merchantCheckoutUrl = sandboxRoot + "/" + merchantCheckoutCommand + "/Merchant/" + merchantId;
             checkoutUrl = sandboxRoot + "/" + checkoutCommand + "/Merchant/" + merchantId;            
             requestUrl = sandboxRoot + "/" + requestCommand + "/Merchant/" + merchantId;
-        } else if (EnvironmentType.Production.equals(environment)) {
+            environment = EnvironmentType.Sandbox;
+        } else if ("GOOGLE_PRODUCTION".equals(envEnumId)) {
             merchantCheckoutUrl = productionRoot + "/" + merchantCheckoutCommand + "/Merchant/" + merchantId;
             checkoutUrl = productionRoot + "/" + checkoutCommand + "/Merchant/" + merchantId;            
             requestUrl = productionRoot + "/" + requestCommand + "/Merchant/" + merchantId;
+            environment = EnvironmentType.Production;
         } else {
             Debug.logError("Environment must be one of " + EnvironmentType.Sandbox + " or " + EnvironmentType.Production + ".", module);
             return null;
