@@ -25,7 +25,6 @@
     <service name="sendGoogleCheckoutRequest" engine="java" auth="false"
             location="org.ofbiz.googlecheckout.GoogleRequestServices" invoke="sendShoppingCartRequest">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="redirect" type="String" mode="OUT" optional="false"/>
     </service>
     
