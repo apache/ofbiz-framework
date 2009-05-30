@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Document;
 
@@ -181,18 +182,7 @@ public class GoogleCheckoutResponseEvents {
     }
     
     private static String getProductStoreId(HttpServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        String websiteId = getWebsiteId(request);
-        GenericValue website = null;
-        try {
-            website = delegator.findOne("WebSite", true, "webSiteId", websiteId);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        if (website != null) {
-            return website.getString("productStoreId");
-        }
-        return null;
+        return ProductStoreWorker.getProductStoreId(request); 
     }
     
     private static String getCurrencyUom(HttpServletRequest request) {

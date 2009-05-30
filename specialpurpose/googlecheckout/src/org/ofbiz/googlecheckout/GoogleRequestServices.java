@@ -60,8 +60,8 @@ public class GoogleRequestServices {
     
     @SuppressWarnings("unchecked")
     public static Map<String, Object> sendShoppingCartRequest(DispatchContext dctx, Map<String, ? extends Object> context) {        
-        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");  
-        String productStoreId = (String) context.get("productStoreId");        
+        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        String productStoreId = cart.getProductStoreId();
         GenericDelegator delegator = dctx.getDelegator();
         MerchantInfo mInfo = getMerchantInfo();
         if (mInfo == null) {
@@ -81,7 +81,7 @@ public class GoogleRequestServices {
             i.setItemDescription(item.getDescription());
             i.setMerchantItemId(item.getProductId());
             i.setQuantity(item.getQuantity().intValue());
-            i.setUnitPriceAmount(item.getItemSubTotal(new BigDecimal(1)).floatValue());
+            i.setUnitPriceAmount(item.getBasePrice().floatValue());
             i.setUnitPriceCurrency(cart.getCurrency());            
             //i.setItemWeight(item.getWeight().floatValue()); // must convert weight to Lb 
             if (!item.taxApplies()) {
