@@ -127,6 +127,9 @@ if (packageSeqIds) {
     context.weightPackageSeqIds = weightPackageSeqIds;
 }
 
+shipmentBoxTypes = delegator.findList("ShipmentBoxType", null, null, ["description"], null, true);
+context.shipmentBoxTypes = shipmentBoxTypes;
+
 // picklist based packing information
 picklistBinId = parameters.picklistBinId;
 // see if the bin ID is already set
@@ -167,7 +170,6 @@ if (shipment) {
 }
 
 // grab the order information
-String carrierPartyId = null;
 if (orderId) {
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
     if (orderHeader) {
@@ -176,7 +178,6 @@ if (orderId) {
         context.orderHeader = orderHeader;
         context.orderReadHelper = orh;
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
-        carrierPartyId = orderItemShipGroup.carrierPartyId;
         context.orderItemShipGroup = orderItemShipGroup;
         orderItems = orh.getOrderItems();
         context.orderItems = orderItems;
@@ -187,18 +188,14 @@ if (orderId) {
 
                     // Generate the shipment cost estimate for the ship group
                     productStoreId = orh.getProductStoreId();
-                    orderItemAndShipGroupAssocs = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
-                    shippableItemInfo = orh.getShippableItemInfo(shipGroupSeqId);
+                    shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
                     shippableItems = delegator.findList("OrderItemAndShipGrpInvResAndItemSum", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
-                    shippableTotal = new BigDecimal(orh.getShippableTotal(shipGroupSeqId).doubleValue());
+                    shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue());
                     shippableWeight = new Double(orh.getShippableWeight(shipGroupSeqId).doubleValue());
-                    shippableQuantity = new BigDecimal(orh.getShippableQuantity(shipGroupSeqId).doubleValue());
-                    shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, orderItemAndShipGroupAssocs, shippableTotal, shippableWeight, shippableQuantity);
+                    shippableQuantity = new Double(orh.getShippableQuantity(shipGroupSeqId).doubleValue());
+                    shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
                     context.shipmentCostEstimateForShipGroup = shipmentCostEstimate;
                     context.productStoreId = productStoreId;
-                    context.shippableQuantity = shippableQuantity;
-                    context.shippableTotal = shippableTotal;
-                    context.shippableItemInfo = shippableItemInfo;
 
                     if (!picklistBinId) {
                         packSession.addItemInfo(shippableItems);
@@ -215,15 +212,6 @@ if (orderId) {
         }
     } else {
         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderIdNotFound", [orderId : orderId], locale));
-    }
-}
-
-if (carrierPartyId) {
-        carrierShipmentBoxTypes =  delegator.findByAnd("CarrierShipmentBoxType", [partyId : carrierPartyId]);
-        shipmentBoxTypes = [];
-        carrierShipmentBoxTypes.each { carrierShipmentBoxType ->
-        shipmentBoxTypes.add(delegator.findOne("ShipmentBoxType", [shipmentBoxTypeId : carrierShipmentBoxType.shipmentBoxTypeId], false));
-        context.shipmentBoxTypes = shipmentBoxTypes;
     }
 }
 

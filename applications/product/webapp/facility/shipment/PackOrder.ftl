@@ -506,9 +506,6 @@ under the License.
                       <input type="hidden" name="shipmentId" value="${(shipment.shipmentId)?default("")}"/>
                       <input type="hidden" name="invoiceId" value="${(invoice.invoiceId)?default("")}"/>
                       <input type="hidden" name="showInput" value="N"/>
-                      <input type="hidden" name="shippableQuantity" value="${shippableQuantity?if_exists}"/>
-                      <input type="hidden" name="shippableTotal" value="${shippableTotal?if_exists}"/>
-                      <input type="hidden" name="shippableItemInfo" value="${shippableItemInfo?if_exists}"/>
                       <#if orderItemShipGroup?has_content>
                         <input type="hidden" name="shippingContactMechId" value="${orderItemShipGroup.contactMechId?if_exists}"/>
                         <input type="hidden" name="shipmentMethodTypeId" value="${orderItemShipGroup.shipmentMethodTypeId?if_exists}"/>
