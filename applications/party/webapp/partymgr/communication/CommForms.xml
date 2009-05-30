@@ -403,7 +403,7 @@ under the License.
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
         type="list" target="RemoveCommunicationEventRole" header-row-style="header-row-2">
         <row-actions>
-            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;PartyToComplete&quot;:&quot;&quot;}"/>
+            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;PartyToComplete&quot;:&quot;CommonEmptyHeader&quot;}"/>
         </row-actions>
         <field name="partyId"><hidden/></field>
         <field name="communicationEventId"><hidden/></field>
