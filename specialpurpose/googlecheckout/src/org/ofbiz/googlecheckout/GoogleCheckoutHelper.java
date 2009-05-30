@@ -230,12 +230,13 @@ public class GoogleCheckoutHelper {
 
         // handle the adjustments
         OrderAdjustment adjustment = info.getOrderAdjustment();
-        addAdjustments(cart, adjustment); 
-
-        // ship group info
-        Shipping shipping = info.getOrderAdjustment().getShipping();
-        addShipInfo(cart, shipping, partyInfo[1]);
-
+        if (adjustment != null){
+            addAdjustments(cart, adjustment);
+            // ship group info
+            Shipping shipping = info.getOrderAdjustment().getShipping();
+            addShipInfo(cart, shipping, partyInfo[1]);
+        }
+        
         // set the cart payment method
         cart.addPaymentAmount(PAYMENT_METHOD, cart.getGrandTotal());
 
