@@ -176,14 +176,27 @@ under the License.
                 <set field="tabButtonItem" value="OverView"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-                <set field="my" from-field="parameters.my"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-screen name="commOverview"/>
-                    </decorator-section>
-                </decorator-screen>
+                <section>
+                    <condition>
+                        <if-empty field="parameters.my"/>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <include-screen name="commOverview"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <decorator-screen name="CommonMyCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <include-screen name="commOverview"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
