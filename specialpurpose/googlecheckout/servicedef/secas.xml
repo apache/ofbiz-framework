@@ -20,10 +20,7 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     
-    <!-- payment related services -->
-    <eca service="authOrderPayments" event="commit" run-on-failure="false" run-on-error="false"> 
-        <action service="sendGoogleAuthorizeRequest" mode="sync"/>
-    </eca>
+    <!-- payment related services -->    
     <eca service="captureOrderPayments" event="commit" run-on-failure="false" run-on-error="false">
         <action service="sendGoogleChargeRequest" mode="sync"/>
     </eca>
@@ -39,16 +36,35 @@ under the License.
     </eca>
      
     <!-- return related services -->
+    <!-- enable once method is implemented
     <eca service="updateReturnHeader" event="in-validate" run-on-failure="false" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="RETURN_COMPLETED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_COMPLETED"/>
         <action service="sendGoogleReturnRequest" mode="sync"/>
     </eca>   
+    -->
       
     <!-- shipment related services -->
     <eca service="updateShipment" event="commit" run-on-failure="false" run-on-error="false">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
         <action service="sendGoogleShipRequest" mode="sync"/>
+    </eca>
+    
+    <!-- edit order catches -->
+    <eca service="updateOrderItems" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
+    </eca>
+    <eca service="appendOrderItem" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
+    </eca>
+    <eca service="recalcShippingTotal" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
+    </eca>
+    <eca service="recalcTaxTotal" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
+    </eca>
+    <eca service="createOrderAdjustment" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
     </eca>
  </service-eca>
