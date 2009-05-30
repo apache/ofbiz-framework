@@ -33,16 +33,43 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
+    <!--  - org.ofbiz.googlecheckout.config -->  
     <!--  - org.ofbiz.googlecheckout.shipping -->  
     <!-- ========================================================= -->
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.googlecheckout.config -->
+    <!-- ========================================================= -->
+    <!-- 
+    <entity entity-name="GoogleConfiguration"
+            package-name="org.ofbiz.googlecheckout.config"
+            title="Google Checkout Configuration">
+      <field name="merchantId" type="id-ne"></field>
+      <field name="merchantKey" type="value"></field>
+      <field name="environment" type="name"></field>
+      <field name="productStoreId" type="id-ne"></field>
+      <field name="webSiteId" type="id"></field>
+      <field name="prodCatalogId" type="id"></field>         
+      <prim-key field="merchantId"/>      
+      <relation type="one" fk-name="GCC_PROD_STORE" rel-entity-name="ProductStore">
+        <key-map field-name="productStoreId"/>
+      </relation>
+      <relation type="one" fk-name="GCC_WEBSITE" rel-entity-name="WebSite">
+        <key-map field-name="webSiteId"/>
+      </relation>
+      <relation type="one" fk-name="GCC_PROD_CAT" rel-entity-name="ProdCatalog">
+        <key-map field-name="prodCatalogId"/>
+      </relation>      
+    </entity>
+    -->
     
     <!-- ========================================================= -->
     <!-- org.ofbiz.googlecheckout.shipping -->
     <!-- ========================================================= -->
     
     <entity entity-name="GoogleShippingMethods"
-            package-name="org.ofbiz.accounting.budget"
-            title="Budget Entity">
+            package-name="org.ofbiz.googlecheckout.shipping"
+            title="Google Shipping Method Config">
       <field name="shipmentMethodName" type="id-ne"></field>
       <field name="productStoreId" type="id-ne"></field>
       <field name="amount" type="currency-amount"></field>
