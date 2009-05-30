@@ -33,7 +33,7 @@ under the License.
               <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></li>
               <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></li>
               <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-              <li><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
             </ul>
           </#if>
           <table>
@@ -79,7 +79,7 @@ under the License.
               <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></li>
               <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></li>
               <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-              <li><a href="<@ofbizUrl>cartToGoogleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
             </ul>
           </#if>
         <#else>

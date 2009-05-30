@@ -1787,11 +1787,19 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
     
+    <!--  Old request that calls the services written in Minilang -->
     <request-map uri="cartToGoogleCheckout">
         <security auth="false" https="false"/>
         <event type="service" invoke="transmitRequest"/>
         <response type="view" name="success" value="cartToGoogleCheckout"/>
     </request-map>
+    
+    <!-- New request that prepare data in the Java code -->
+   <request-map uri="googleCheckout">
+        <security auth="false" https="false" />
+        <event type="service" invoke="sendGoogleCheckoutRequest" />
+        <response type="view" name="success" value="redirectToGoogleCheckout" />
+    </request-map>    
     
     <!-- This will be used in production instance to provide secure communication -->
     <request-map uri="secureGoogleCheckoutNotification">
@@ -1946,5 +1954,6 @@ under the License.
     <view-map name="OnePageCheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#OnePageCheckout"/>
     <!-- Google Checkout View Mapping -->
     <view-map name="cartToGoogleCheckout" type="screen" page="component://googlecheckout/widget/GoogleCheckoutScreens.xml#redirect"/>
+    <view-map name="redirectToGoogleCheckout" type="screen" page="component://googlecheckout/widget/GoogleCheckoutScreens.xml#redirect"/>
     <!-- End of View Mappings -->
 </site-conf>
