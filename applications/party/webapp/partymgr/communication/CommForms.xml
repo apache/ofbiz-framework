@@ -415,7 +415,7 @@ under the License.
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject} " target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
-                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="my"/>
             </hyperlink>
