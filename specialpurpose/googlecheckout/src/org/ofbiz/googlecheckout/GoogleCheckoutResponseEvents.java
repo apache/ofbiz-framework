@@ -20,17 +20,12 @@ package org.ofbiz.googlecheckout;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Document;
@@ -72,10 +67,10 @@ public class GoogleCheckoutResponseEvents {
             String nodeValue = document.getDocumentElement().getNodeName();
             if ("new-order-notification".equals(nodeValue)) {
                 // handle create new order
-                NewOrderNotification info = new NewOrderNotification(document);
+                NewOrderNotification info = new NewOrderNotification(document);               
                 String serialNumber = info.getSerialNumber();
                 try {
-                    helper.createOrder(info, getProductStoreId(request), getWebsiteId(request), getCurrencyUom(request), getLocale(request));
+                    helper.createOrder(info, ProductStoreWorker.getProductStoreId(request), ProductStoreWorker.getStoreLocale(request));
                     sendResponse(response, serialNumber, false);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
@@ -175,46 +170,5 @@ public class GoogleCheckoutResponseEvents {
                 out.close();
             }
         }
-    }
-    
-    private static String getWebsiteId(HttpServletRequest request) {
-        return (String) request.getSession().getAttribute("webSiteId");
-    }
-    
-    private static String getProductStoreId(HttpServletRequest request) {
-        return ProductStoreWorker.getProductStoreId(request); 
-    }
-    
-    private static String getCurrencyUom(HttpServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        String productStoreId = getProductStoreId(request);
-        GenericValue productStore = null;
-        try {
-            productStore = delegator.findOne("ProductStore", true, "productStoreId", productStoreId);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        if (productStore != null) {
-            return productStore.getString("defaultCurrencyUomId");
-        }
-        return null;
-    }
-    
-    private static Locale getLocale(HttpServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        String productStoreId = getProductStoreId(request);
-        GenericValue productStore = null;
-        try {
-            productStore = delegator.findOne("ProductStore", true, "productStoreId", productStoreId);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        if (productStore != null) {
-            String localeStr = productStore.getString("defaultLocaleString");
-            if (localeStr != null) {
-                return UtilMisc.parseLocale(localeStr);
-            }
-        }
-        return null;
-    }
+    }                        
 }

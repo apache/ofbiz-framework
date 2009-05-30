@@ -23,6 +23,10 @@ under the License.
     <PaymentMethodType description="Google Checkout" paymentMethodTypeId="EXT_GOOGLE_CHECKOUT"/>
     <WebSite webSiteId="GOOGLECHECKOUT" siteName="Google Checkout Application" visualThemeSetId="BACKOFFICE"/>
     
+    <EnumerationType description="Google Environment Types" enumTypeId="GOOGLE_ENV_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Sandbox" enumCode="SANDBOX" enumId="GOOGLE_SANDBOX" sequenceId="01" enumTypeId="GOOGLE_ENV_TYPE"/>
+    <Enumeration description="Production" enumCode="PRODUCTION" enumId="GOOGLE_PRODUCTION" sequenceId="02" enumTypeId="GOOGLE_ENV_TYPE"/>
+    
     <EnumerationType description="Google Checkout Ship Types" enumTypeId="GOOGLE_SHIP_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="GOOGLE_FLAT_RATE" sequenceId="01" enumTypeId="GOOGLE_SHIP_TYPE"/>
     <Enumeration description="Merchant Calculated Shipping" enumCode="MERCHANT_CALC" enumId="GOOGLE_MERCHANT_CALC" sequenceId="02" enumTypeId="GOOGLE_SHIP_TYPE"/>
