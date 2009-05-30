@@ -56,10 +56,10 @@ public class GoogleCheckoutResponseEvents {
             document = Utils.newDocumentFromInputStream(request.getInputStream());            
         } catch (CheckoutException e) {
             Debug.logError(e, module);
-            sendResponse(response, null, true);
+            sendResponse(response, null, e);
         } catch (IOException e) {
             Debug.logError(e, module);
-            sendResponse(response, null, true);
+            sendResponse(response, null, e);
         }
         
         // check the document type and process 
@@ -71,10 +71,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.createOrder(info, ProductStoreWorker.getProductStoreId(request), ProductStoreWorker.getStoreLocale(request));
-                    sendResponse(response, serialNumber, false);
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 }
             } else if ("order-state-change-notification".equals(nodeValue)) {
@@ -82,10 +82,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processStateChange(info);
-                    sendResponse(response, serialNumber, false);
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 }
             } else if ("risk-information-notification".equals(nodeValue)) {
@@ -93,10 +93,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processRiskNotification(info);
-                    sendResponse(response, serialNumber, false);                    
+                    sendResponse(response, serialNumber, null);                    
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 }
             } else if ("authorization-amount-notification".equals(nodeValue)) {
@@ -104,10 +104,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processAuthNotification(info);
-                    sendResponse(response, serialNumber, false);                    
+                    sendResponse(response, serialNumber, null);                    
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 } 
             } else if ("charge-amount-notification".equals(nodeValue)) {
@@ -115,10 +115,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processChargeNotification(info);
-                    sendResponse(response, serialNumber, false);                    
+                    sendResponse(response, serialNumber, null);                    
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 }  
             } else if ("chargeback-amount-notification".equals(nodeValue)) {
@@ -126,10 +126,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processChargeBackNotification(info);
-                    sendResponse(response, serialNumber, false);                    
+                    sendResponse(response, serialNumber, null);                    
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 }             
             } else if ("refund-amount-notification".equals(nodeValue)) {
@@ -137,10 +137,10 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processRefundNotification(info);
-                    sendResponse(response, serialNumber, false);                    
+                    sendResponse(response, serialNumber, null);                    
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
-                    sendResponse(response, serialNumber, true);
+                    sendResponse(response, serialNumber, e);
                     return null;
                 }  
             } else {
@@ -151,10 +151,10 @@ public class GoogleCheckoutResponseEvents {
         return null;
     }
             
-    private static void sendResponse(HttpServletResponse response, String serialNumber, boolean error) {
-        if (error) {
+    private static void sendResponse(HttpServletResponse response, String serialNumber, Exception error) {
+        if (error != null) {
             try {
-                response.sendError(500);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, error.getMessage());
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
