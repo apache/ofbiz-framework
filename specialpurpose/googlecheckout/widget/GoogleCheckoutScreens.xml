@@ -133,4 +133,48 @@
             </widgets>
         </section>
     </screen>
+    
+    <!-- Google Checkout configuration screens -->
+    
+    <screen name="GoogleCheckoutConfigurations">
+        <section>
+            <actions>
+                <set field="titleProperty" value="GoogleCheckoutGoogleCheckoutConfiguration"/>
+                <set field="headerItem" value="GoogleCheckoutConfigurations"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListGoogleCheckoutConfigurations" location="component://googlecheckout/widget/GoogleCheckoutForms.xml"/>
+                        <screenlet id="add-gc-configuration" title="${uiLabelMap.GoogleCheckoutAddGoogleCheckoutConfiguration}" collapsible="true">
+                            <include-form name="AddGoogleCheckoutConfiguration" location="component://googlecheckout/widget/GoogleCheckoutForms.xml"/>
+                        </screenlet>     
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="GoogleCheckoutShippingMethods">
+        <section>
+            <actions>
+                <set field="titleProperty" value="GoogleCheckoutGoogleCheckoutConfiguration"/>
+                <set field="headerItem" value="GoogleCheckoutShippingMethods"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="shipmentMethodName" from-field="parameters.shipmentMethodName"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListGoogleCheckoutShippingMethods" location="component://googlecheckout/widget/GoogleCheckoutForms.xml"/>
+                        <screenlet id="add-gc-shipping-method" title="${uiLabelMap.GoogleCheckoutAddGoogleCheckoutShippingMethod}" collapsible="true">
+                            <include-form name="AddGoogleCheckoutShippingMethod" location="component://googlecheckout/widget/GoogleCheckoutForms.xml"/>
+                        </screenlet>    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

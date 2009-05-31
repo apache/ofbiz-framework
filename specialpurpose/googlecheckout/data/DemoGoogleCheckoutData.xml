@@ -21,9 +21,9 @@ under the License.
 <entity-engine-xml>
     <WebSite webSiteId="GOOGLECHECKOUT" productStoreId="9000" />
     
-    <GoogleShippingMethods methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Express" productStoreId="9000" amount="20.00" carrierPartyId="UPS" shipmentMethodTypeId="AIR"/>
-    <GoogleShippingMethods methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Standard" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
-    <GoogleShippingMethods methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Free" productStoreId="9000" amount="0.00" carrierPartyId="USPS" shipmentMethodTypeId="STANDARD"/>
+    <GoogleCheckoutShippingMethod methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Express" productStoreId="9000" amount="20.00" carrierPartyId="UPS" shipmentMethodTypeId="AIR"/>
+    <GoogleCheckoutShippingMethod methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Standard" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
+    <GoogleCheckoutShippingMethod methodTypeEnumId="GOOGLE_FLAT_RATE" shipmentMethodName="Free" productStoreId="9000" amount="0.00" carrierPartyId="USPS" shipmentMethodTypeId="STANDARD"/>
     
-    <GoogleConfiguration productStoreId="9000" merchantId="634321449957567" merchantKey="DAnyTJLnPzhhK_CuCaQOCg" envEnumId="GOOGLE_SANDBOX" webSiteId="WebStore" prodCatalogId="DemoCatalog" currencyUomId="USD" requestAuthDetails="Y" requestPhone="Y" sendPromoItems="N" errorOnBadItem="Y" acceptCoupons="N" acceptGiftCerts="N"/>       
+    <GoogleCheckoutConfiguration productStoreId="9000" merchantId="634321449957567" merchantKey="DAnyTJLnPzhhK_CuCaQOCg" envEnumId="GOOGLE_SANDBOX" webSiteId="WebStore" prodCatalogId="DemoCatalog" currencyUomId="USD" requestAuthDetails="Y" requestPhone="Y" sendPromoItems="N" errorOnBadItem="Y" acceptCoupons="N" acceptGiftCerts="N"/>       
 </entity-engine-xml>
