@@ -20,7 +20,7 @@
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
-
+   <!-- Start Old Implementation to send data in XML format -->
     <service name="ConvertOfbizCartToGoogle" engine="simple" invoke="ConvertOfbizCartToGoogle" auth="false"
         location="component://googlecheckout/script/org/ofbiz/googleCheckout/ShoppingCartServices.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.WebShoppingCart" mode="IN" optional="false"/>
@@ -41,4 +41,37 @@
         location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
         <attribute name="conn" mode="OUT" type="java.net.HttpURLConnection" optional="false"/>
     </service>
+    <!-- End Old Implementation to send data in XML format -->
+    
+    <!-- Start configuration services -->
+    <service name="createGoogleCheckoutConfiguration" default-entity-name="GoogleCheckoutConfiguration" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GoogleCheckoutConfiguration</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateGoogleCheckoutConfiguration" default-entity-name="GoogleCheckoutConfiguration" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GoogleCheckoutConfiguration</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGoogleCheckoutConfiguration" default-entity-name="GoogleCheckoutConfiguration" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GoogleCheckoutConfiguration</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createGoogleCheckoutShippingMethod" default-entity-name="GoogleCheckoutShippingMethod" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GoogleCheckoutShippingMethod</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateGoogleCheckoutShippingMethod" default-entity-name="GoogleCheckoutShippingMethod" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GoogleCheckoutShippingMethod</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGoogleCheckoutShippingMethod" default-entity-name="GoogleCheckoutShippingMethod" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GoogleCheckoutShippingMethod</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <!-- End configuration services -->
 </services>

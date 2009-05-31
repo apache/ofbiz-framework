@@ -120,7 +120,7 @@ public class GoogleRequestServices {
         // setup shipping options support
         List<GenericValue> shippingOptions = null;
         try {
-            shippingOptions = delegator.findByAnd("GoogleShippingMethods", UtilMisc.toMap("productStoreId", productStoreId));
+            shippingOptions = delegator.findByAnd("GoogleCheckoutShippingMethod", UtilMisc.toMap("productStoreId", productStoreId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -513,7 +513,7 @@ public class GoogleRequestServices {
         if (productStoreId == null) return null;
         GenericValue config = null;
         try {
-            config = delegator.findOne("GoogleConfiguration", true, "productStoreId", productStoreId);
+            config = delegator.findOne("GoogleCheckoutConfiguration", true, "productStoreId", productStoreId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

@@ -41,7 +41,7 @@ under the License.
     <!-- org.ofbiz.googlecheckout.config -->
     <!-- ========================================================= -->
   
-    <entity entity-name="GoogleConfiguration"
+    <entity entity-name="GoogleCheckoutConfiguration"
             package-name="org.ofbiz.googlecheckout.config"
             title="Google Checkout Configuration">
         <field name="productStoreId" type="id-ne"></field> 
@@ -79,7 +79,7 @@ under the License.
     <!-- org.ofbiz.googlecheckout.shipping -->
     <!-- ========================================================= -->
     
-    <entity entity-name="GoogleShippingMethods"
+    <entity entity-name="GoogleCheckoutShippingMethod"
             package-name="org.ofbiz.googlecheckout.shipping"
             title="Google Shipping Method Config">
         <field name="shipmentMethodName" type="id-ne"></field>
