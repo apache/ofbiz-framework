@@ -57,6 +57,11 @@ under the License.
         <description>UPS Track Shipment</description>
         <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="upsEmailReturnLabel" engine="java"
+            location="org.ofbiz.shipment.thirdparty.ups.UpsServices" invoke="upsEmailReturnLabel" auth="true">
+        <description>Email UPS Retrun Label</description>
+        <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- UPS Rate Estimate -->
     <service name="upsRateEstimateByPostalCode" engine="java"

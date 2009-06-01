@@ -7732,6 +7732,9 @@
         <value xml:lang="th">แสดงรายการจากการสั่งซื้อ</value>
         <value xml:lang="zh">来自订单的退货明细</value>
     </property>
+    <property key="OrderReturnLabelEmailSuccessful">
+        <value xml:lang="en">Return shipping label email successfully sent</value>
+    </property>
     <property key="OrderReturnLoadItems">
         <value xml:lang="de">Elemente ab Auftrag für Retoure verwenden</value>
         <value xml:lang="en">Load order items for return</value>

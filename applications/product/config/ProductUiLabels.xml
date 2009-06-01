@@ -9347,6 +9347,9 @@
         <value xml:lang="th">แก้ไขการขนส่ง</value>
         <value xml:lang="zh">编辑送货</value>
     </property>
+    <property key="ProductEmailReturnShippingLabelUPS">
+        <value xml:lang="en">Email Return Shipping Label (UPS)</value>
+    </property>
     <property key="ProductEntireCatalog">
         <value xml:lang="cs">Celý katalog</value>
         <value xml:lang="de">Gesamtkatalog</value>
