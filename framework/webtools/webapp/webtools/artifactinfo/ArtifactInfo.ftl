@@ -91,29 +91,40 @@ under the License.
         </#list>
         </table>
 
+        <div>
         <h2>Entities Related (One)</h2>
         <#list artifactInfo.getEntitiesRelatedOne()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
         </#list>
+        </div>
+
+        <div>
         <h2>Entities Related (Many)</h2>
         <#list artifactInfo.getEntitiesRelatedMany()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Services Using This Entity</h2>
         <#list artifactInfo.getServicesUsingEntity()?if_exists as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Forms Using This Entity</h2>
         <#list artifactInfo.getFormsUsingEntity()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Screens Using This Entity</h2>
         <#list artifactInfo.getScreensUsingEntity()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        </div>
 
     <#elseif artifactInfo.getType() == "service"/>
         <h2>Service Info</h2>
@@ -128,165 +139,230 @@ under the License.
         </#list>
         </table>
 
+        <div>
         <h2>Entities Used By This Service</h2>
         <#list artifactInfo.getEntitiesUsedByService()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Services Calling This Service</h2>
         <#list artifactInfo.getServicesCallingService()?if_exists as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Services Called By This Service</h2>
         <#list artifactInfo.getServicesCalledByService()?if_exists as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Service ECA Rules Triggered By This Service</h2>
         <#list artifactInfo.getServiceEcaRulesTriggeredByService()?if_exists as serviceEcaArtifactInfo>
             <@displayServiceEcaArtifactInfo serviceEcaArtifactInfo=serviceEcaArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Service ECA Rules Calling This Service</h2>
         <#list artifactInfo.getServiceEcaRulesCallingService()?if_exists as serviceEcaArtifactInfo>
             <@displayServiceEcaArtifactInfo serviceEcaArtifactInfo=serviceEcaArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Forms Calling This Service</h2>
         <#list artifactInfo.getFormsCallingService()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Forms Based On This Service</h2>
         <#list artifactInfo.getFormsBasedOnService()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Screens Calling This Service</h2>
         <#list artifactInfo.getScreensCallingService()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Requests with Events That Call This Service</h2>
         <#list artifactInfo.getRequestsWithEventCallingService()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
 
     <#elseif artifactInfo.getType() == "form"/>
+        <div>
         <h2>Form Extended by This Form</h2>
         <#if artifactInfo.getFormThisFormExtends()?exists>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=artifactInfo.getFormThisFormExtends()/>
         </#if>
+        </div>
 
+        <div>
         <h2>Entities Used in This Form</h2>
         <#list artifactInfo.getEntitiesUsedInForm()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Services Used in This Form</h2>
         <#list artifactInfo.getServicesUsedInForm()?if_exists as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Forms Extending This Form</h2>
         <#list artifactInfo.getFormsExtendingThisForm()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Screens Including This Form</h2>
         <#list artifactInfo.getScreensIncludingThisForm()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Controller Requests That Are Linked to in This Form</h2>
         <#list artifactInfo.getRequestsLinkedToInForm()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
+        <div>
         <h2>Controller Requests That Are Targeted By This Form</h2>
         <#list artifactInfo.getRequestsTargetedByForm()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
 
     <#elseif artifactInfo.getType() == "screen"/>
+        <div>
         <h2>Entities Used in This Screen</h2>
         <#list artifactInfo.getEntitiesUsedInScreen()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Services Used in This Screen</h2>
         <#list artifactInfo.getServicesUsedInScreen()?if_exists as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Forms Included in This Screen</h2>
         <#list artifactInfo.getFormsIncludedInScreen()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Screens Include in This Screen</h2>
         <#list artifactInfo.getScreensIncludedInScreen()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Screens Including This Screen</h2>
         <#list artifactInfo.getScreensIncludingThisScreen()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Controller Requests That Are Linked to in This Screen</h2>
         <#list artifactInfo.getRequestsLinkedToInScreen()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Controller Views Referring to This Screen</h2>
         <#list artifactInfo.getViewsReferringToScreen()?if_exists as controllerViewArtifactInfo>
             <@displayControllerViewArtifactInfo controllerViewArtifactInfo=controllerViewArtifactInfo/>
         </#list>
+        </div>
 
     <#elseif artifactInfo.getType() == "request"/>
         <#if artifactInfo.getServiceCalledByRequestEvent()?exists>
+            <div>
             <h2>Service Called by Request Event</h2>
             <@displayServiceArtifactInfo serviceArtifactInfo=artifactInfo.getServiceCalledByRequestEvent()/>
+            </div>
         </#if>
 
+        <div>
         <h2>Forms Referring to This Request</h2>
         <#list artifactInfo.getFormInfosReferringToRequest()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
+        <div>
         <h2>Forms Targeting This Request</h2>
         <#list artifactInfo.getFormInfosTargetingRequest()?if_exists as formWidgetArtifactInfo>
             <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Screens Referring to This Request</h2>
         <#list artifactInfo.getScreenInfosReferringToRequest()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Requests That Are Responses to This Request</h2>
         <#list artifactInfo.getRequestsThatAreResponsesToThisRequest()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
+        
+        <div>
         <h2>Requests That This Request is a Responses To</h2>
         <#list artifactInfo.getRequestsThatThisRequestIsResponsTo()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
 
+        <div>
         <h2>Controller Views That Are Responses to This Request</h2>
         <#list artifactInfo.getViewsThatAreResponsesToThisRequest()?if_exists as controllerViewArtifactInfo>
             <@displayControllerViewArtifactInfo controllerViewArtifactInfo=controllerViewArtifactInfo/>
         </#list>
+        </div>
 
     <#elseif artifactInfo.getType() == "view"/>
+        <div>
         <h2>Requests That This View is a Responses To</h2>
         <#list artifactInfo.getRequestsThatThisViewIsResponseTo()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
+        </div>
 
         <#if artifactInfo.getScreenCalledByThisView()?exists>
+            <div>
             <h2>Screen Called by This View</h2>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=artifactInfo.getScreenCalledByThisView()/>
+            </div>
         </#if>
 
     </#if>
