@@ -27,10 +27,12 @@ under the License.
      
     <!-- order related services -->
     <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="ORDER_CANCELLED"/>
         <action service="sendGoogleOrderCancelRequest" mode="sync"/>
     </eca>
     <eca service="changeOrderItemStatus" event="commit" run-on-failure="false" run-on-error="false">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="fromStatusId"/>
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
         <action service="sendGoogleOrderItemCancelRequest" mode="sync" result-to-context="true" ignore-failure="false"/>
     </eca>

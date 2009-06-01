@@ -449,6 +449,9 @@ public class GoogleRequestServices {
                                     if (UtilValidate.isEmpty(track)) {
                                         track = route.getString("trackingIdNumber");
                                     }
+                                    if (track == null) {
+                                        track = "";
+                                    }
 
                                     try {
                                         ShipItemsRequest isr = new ShipItemsRequest(mInfo, externalId);
