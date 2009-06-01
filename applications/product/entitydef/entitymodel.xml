@@ -585,6 +585,20 @@ under the License.
             <key-map field-name="configItemId"/>
         </relation>
     </entity>
+	<view-entity entity-name="ProductConfigAndProduct"
+	  package-name="org.ofbiz.product.config"
+	  title="Product Config And Product  View Entity, to be able to see which products use a certain configuration item">
+	  <member-entity entity-alias="PDC" entity-name="ProductConfig"/>
+	  <member-entity entity-alias="PD" entity-name="Product"/>
+	  <alias-all entity-alias="PDC">
+	    <exclude field="description"/>
+	    <exclude field="longDescription"/>
+	  </alias-all>
+	  <alias-all entity-alias="PD"/>
+	  <view-link entity-alias="PDC" rel-entity-alias="PD">
+	    <key-map field-name="productId"/>
+	  </view-link>
+	</view-entity>
     <entity entity-name="ProductConfigItem"
             package-name="org.ofbiz.product.config"
             title="Product Configuration Question Entity">
@@ -1299,6 +1313,27 @@ under the License.
             <key-map field-name="facilityId"/>
         </relation>
     </entity>
+  <view-entity entity-name="ProductFacilityAndPostalAddress"
+        package-name="org.ofbiz.product.facility"
+        title="Product Facility And Contactmech And Postal Address View Entity, to be able to list products by geographic location">
+    <member-entity entity-alias="PDFT" entity-name="ProductFacility"/>
+    <member-entity entity-alias="FTCT" entity-name="FacilityContactMech"/>
+    <member-entity entity-alias="CT" entity-name="ContactMech"/>
+    <member-entity entity-alias="PTA" entity-name="PostalAddress"/>
+    <alias-all entity-alias="PDFT"/>
+    <alias-all entity-alias="FTCT"/>
+    <alias-all entity-alias="CT"/>
+    <alias-all entity-alias="PTA"/>
+    <view-link entity-alias="PDFT" rel-entity-alias="FTCT">
+      <key-map field-name="facilityId"/>
+    </view-link>
+    <view-link entity-alias="FTCT" rel-entity-alias="CT">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+    <view-link entity-alias="CT" rel-entity-alias="PTA">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+  </view-entity>
     <entity entity-name="ProductFacilityLocation" package-name="org.ofbiz.product.facility" title="Product Facility Entity">
         <field name="productId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
@@ -4586,41 +4621,4 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="supplierRatingTypeId"/>
     </entity>
-
-  <view-entity entity-name="ProductFacilityAndPostalAddress"
-        package-name="org.ofbiz.product.product"
-        title="Product Facility And Contactmech And Postal Address View Entity, to be able to list products by geographic location">
-    <member-entity entity-alias="PDFT" entity-name="ProductFacility"/>
-    <member-entity entity-alias="FTCT" entity-name="FacilityContactMech"/>
-    <member-entity entity-alias="CT" entity-name="ContactMech"/>
-    <member-entity entity-alias="PTA" entity-name="PostalAddress"/>
-    <alias-all entity-alias="PDFT"/>
-    <alias-all entity-alias="FTCT"/>
-    <alias-all entity-alias="CT"/>
-    <alias-all entity-alias="PTA"/>
-    <view-link entity-alias="PDFT" rel-entity-alias="FTCT">
-      <key-map field-name="facilityId"/>
-    </view-link>
-    <view-link entity-alias="FTCT" rel-entity-alias="CT">
-      <key-map field-name="contactMechId"/>
-    </view-link>
-    <view-link entity-alias="CT" rel-entity-alias="PTA">
-      <key-map field-name="contactMechId"/>
-    </view-link>
-  </view-entity>
-
-  <view-entity entity-name="ProductConfigAndProduct"
-    package-name="org.ofbiz.product.product"
-    title="Product Config And Product  View Entity, to be able to see which products use a certain configuration item">
-    <member-entity entity-alias="PDC" entity-name="ProductConfig"/>
-    <member-entity entity-alias="PD" entity-name="Product"/>
-    <alias-all entity-alias="PDC">
-      <exclude field="description"/>
-      <exclude field="longDescription"/>
-    </alias-all>
-    <alias-all entity-alias="PD"/>
-    <view-link entity-alias="PDC" rel-entity-alias="PD">
-      <key-map field-name="productId"/>
-    </view-link>
-  </view-entity>
 </entitymodel>
