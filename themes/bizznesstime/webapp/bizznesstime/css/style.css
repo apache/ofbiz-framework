@@ -1124,7 +1124,6 @@ div.endcolumns { /* deprecated - use .clear */
 #column-container h2,
 #column-container .h2 {
 	margin-bottom: 0.5em;
-	text-transform:uppercase;
 	margin:5px 0 10px 0;
 	clear:both;
 	display:inline-block;
