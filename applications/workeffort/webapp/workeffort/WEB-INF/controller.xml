@@ -57,6 +57,8 @@ under the License.
 
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="mytasks"/></request-map>
 
+    <request-map uri="requestlist"><security https="true" auth="true"/><response name="success" type="view" value="RequestList"/></request-map>
+
     <request-map uri="mytasks"><security https="true" auth="true"/><response name="success" type="view" value="mytasks"/></request-map>
 
     <request-map uri="UserJobs"><security https="true" auth="true"/><response name="success" type="view" value="UserJobs"/></request-map>
