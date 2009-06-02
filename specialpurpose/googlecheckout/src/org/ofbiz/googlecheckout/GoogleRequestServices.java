@@ -19,12 +19,17 @@ under the License.
 
 package org.ofbiz.googlecheckout;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -49,13 +54,17 @@ import com.google.checkout.orderprocessing.ArchiveOrderRequest;
 import com.google.checkout.orderprocessing.AuthorizeOrderRequest;
 import com.google.checkout.orderprocessing.CancelOrderRequest;
 import com.google.checkout.orderprocessing.ChargeOrderRequest;
+import com.google.checkout.orderprocessing.RefundOrderRequest;
 import com.google.checkout.orderprocessing.UnarchiveOrderRequest;
 import com.google.checkout.orderprocessing.lineitem.CancelItemsRequest;
+import com.google.checkout.orderprocessing.lineitem.ReturnItemsRequest;
 import com.google.checkout.orderprocessing.lineitem.ShipItemsRequest;
 
 public class GoogleRequestServices {
     
     private static final String module = GoogleRequestServices.class.getName();
+    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     
     @SuppressWarnings("unchecked")
     public static Map<String, Object> sendShoppingCartRequest(DispatchContext dctx, Map<String, ? extends Object> context) {        
@@ -282,12 +291,104 @@ public class GoogleRequestServices {
         return ServiceUtil.returnSuccess();
     }
     
-    // NOT IMPLEMENTED
     public static Map<String, Object> sendReturnRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // Implement to use ReturnItemsRequest - send each item being returned
+        GenericDelegator delegator = dctx.getDelegator();
+        String returnId = (String) context.get("returnId");  
         
-        // Check to see if the return is a refund return -- if so also send a RefundOrderRequest
-          
+        // sort by order
+        Map<String, BigDecimal> toRefund = FastMap.newInstance();
+        Map<String, List<String>> toReturn = FastMap.newInstance();
+        
+        List<GenericValue> returnItems = null;
+        try {
+            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        
+        // go through the items and sort them by order
+        if (UtilValidate.isNotEmpty(returnItems)) {
+            for (GenericValue returnItem : returnItems) {
+                String orderId = returnItem.getString("orderId");
+                GenericValue order = findGoogleOrder(delegator, orderId);
+
+                if (order != null) {
+                    BigDecimal refundTotal = toRefund.get(orderId);
+                    if (refundTotal == null) {
+                        refundTotal = new BigDecimal(0.0);
+                    }
+                    List<String> items = toReturn.get(orderId);
+                    if (items == null) {
+                        items = FastList.newInstance();
+                    }
+
+                    // get the values from the return item
+                    BigDecimal returnPrice = returnItem.getBigDecimal("returnPrice");                            
+                    String productId = returnItem.getString("productId");
+
+                    // only look at refund returns to calculate the refund amount
+                    if ("RTN_REFUND".equals(returnItem.getString("returnTypeId"))) {
+                        if (returnPrice.doubleValue() > 0) {
+                            refundTotal = refundTotal.add(returnPrice).setScale(decimals, rounding);
+                            Debug.logInfo("Added [" + returnPrice + "] to refund total for order #" + orderId + " : " + refundTotal, module);
+                        }
+                    }
+                    if (productId != null) {
+                        items.add(productId);
+                    }
+
+                    // update the map values
+                    toRefund.put(orderId, refundTotal);
+                    toReturn.put(orderId, items);
+                }
+            }
+        }
+            
+        // create the return items request
+        for (String returnOrderId : toReturn.keySet()) {
+            GenericValue gOrder = findGoogleOrder(delegator, returnOrderId);
+            if (gOrder != null) {
+                MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(gOrder));
+                if (mInfo != null) {
+                    ReturnItemsRequest rir = new ReturnItemsRequest(mInfo, gOrder.getString("externalId"));
+                    List<String> items = toReturn.get(returnOrderId);
+                    for (String item : items) {
+                        rir.addItem(item);
+                    }
+                    try {
+                        rir.send();
+                    } catch (CheckoutException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                }
+            }
+        }
+            
+        // create the refund request
+        for (String refundOrderId : toRefund.keySet()) {
+            GenericValue gOrder = findGoogleOrder(delegator, refundOrderId);
+            if (gOrder != null) {
+                MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(gOrder));
+                if (mInfo != null) {
+                    BigDecimal amount = toRefund.get(refundOrderId).setScale(decimals, rounding);
+                    String externalId = gOrder.getString("externalId");
+                    String reason = "Item(s) Returned";
+                    if (amount.floatValue() > 0) {
+                        try {
+                            RefundOrderRequest ror = new RefundOrderRequest(mInfo, externalId, reason, amount.floatValue(), "");                               
+                            ror.send();
+                        } catch (CheckoutException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                    } else {
+                        Debug.logWarning("Refund for order #" + refundOrderId + " was 0, nothing to refund?", module);
+                    }
+                }
+            }
+        }
+                                
         return ServiceUtil.returnSuccess();
     }
     
@@ -297,7 +398,7 @@ public class GoogleRequestServices {
         try {
             sendItemsShipped(delegator, shipmentId);
         } catch (GeneralException e) {
-            // TODO: handle the error
+            Debug.logError(e, module);
         }
         
         return ServiceUtil.returnSuccess();
@@ -479,7 +580,6 @@ public class GoogleRequestServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        
         if (order != null) {
             String salesChannel = order.getString("salesChannelEnumId");
             String externalId = order.getString("externalId");
