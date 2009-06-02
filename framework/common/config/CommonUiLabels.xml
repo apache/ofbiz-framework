@@ -3650,6 +3650,9 @@
         <value xml:lang="fr">Mesures</value>
         <value xml:lang="it">Misure</value>
     </property>
+    <property key="CommonMax250Chars">
+        <value xml:lang="en">250 Chars Maximum</value>
+    </property>
     <property key="CommonMedium">
         <value xml:lang="ar">وسيط</value>
         <value xml:lang="de">Mittel</value>
