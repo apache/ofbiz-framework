@@ -647,7 +647,7 @@ under the License.
         <field name="contactMechTypeId" type="id"></field>
         <field name="contactMechIdFrom" type="id"/>
         <field name="contactMechIdTo" type="id"/>
-        <field name="roleTypeIdFrom" type="id"><description>If the partyIdFrom/roleTypeIdFrom fields are populated here the same data should not be duplicated in CommunicationEventRole records.</description></field>
+        <field name="roleTypeIdFrom" type="id"></field>
         <field name="roleTypeIdTo" type="id"></field>
         <field name="partyIdFrom" type="id"></field>
         <field name="partyIdTo" type="id"></field>
@@ -840,11 +840,11 @@ under the License.
     </entity>
     <entity entity-name="CommunicationEventRole"
             package-name="org.ofbiz.party.communication"
-            title="Communication Event Role Entity">
+            title="Communication Event Role Entity showing all participants of the communication event.">
       <field name="communicationEventId" type="id-ne"></field>
-        <field name="partyId" type="id-ne"><description>If the partyIdFrom/roleTypeIdFrom fields are populated in CommunicationEvent the same data should not be duplicated in CommunicationEventRole records.</description></field>
+        <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
-      <field name="contactMechId" type="id"><description>For additional communication event participants this represents the contactMechId of the ContactMech used.</description></field>
+      <field name="contactMechId" type="id"><description>For communication event participants this represents the contactMechId of the ContactMech used.</description></field>
       <field name="statusId" type="id"></field>
       <prim-key field="communicationEventId"/>
       <prim-key field="partyId"/>
@@ -876,9 +876,13 @@ under the License.
       <field name="parentTypeId" type="id-ne"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
+      <field name="contactMechTypeId" type="id"></field>
       <prim-key field="communicationEventTypeId"/>
       <relation type="one" fk-name="COM_EVNT_TYPE_PAR" title="Parent" rel-entity-name="CommunicationEventType">
         <key-map field-name="parentTypeId" rel-field-name="communicationEventTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_TYPE_CMT" title="ContacMechType" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
       </relation>
     </entity>
     <view-entity entity-name="CommunicationEventSum"
