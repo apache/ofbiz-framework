@@ -38,13 +38,11 @@ under the License.
     </eca>
      
     <!-- return related services -->
-    <!-- enable once method is implemented
-    <eca service="updateReturnHeader" event="in-validate" run-on-failure="false" run-on-error="false">
+    <eca service="updateReturnHeader" event="commit" run-on-failure="false" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="RETURN_COMPLETED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_COMPLETED"/>
         <action service="sendGoogleReturnRequest" mode="sync"/>
     </eca>   
-    -->
       
     <!-- shipment related services -->
     <eca service="updateShipment" event="commit" run-on-failure="false" run-on-error="false">
