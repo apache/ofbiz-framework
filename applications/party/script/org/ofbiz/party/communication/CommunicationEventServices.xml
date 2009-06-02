@@ -68,7 +68,7 @@ under the License.
                 <entity-one entity-name="PartyNameView" value-field="partyNameView">
                     <field-map field-name="partyId" from-field="parentCommEvent.partyIdFrom"/>
                 </entity-one>
-                <set field="newEntity.communicationEventTypeId" from-field="parentComEvent.communicationEventTypeId"/>
+                <set field="newEntity.communicationEventTypeId" from-field="parentCommEvent.communicationEventTypeId"/>
                 <if-compare field="newEntity.communicationEventTypeId" value="AUTO_EMAIL_COMM" operator="equals">
                     <set field="newEntity.communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
                 </if-compare>
