@@ -1817,6 +1817,12 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
     
+    <request-map uri="returnBackFromGoogle">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="clearCart"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
     
     <!-- End of Request Mappings -->
 
