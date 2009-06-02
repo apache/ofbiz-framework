@@ -249,7 +249,7 @@ public class GoogleCheckoutHelper {
         }
         
         // set the cart payment method
-        cart.addPaymentAmount(PAYMENT_METHOD, cart.getGrandTotal());
+        cart.addPaymentAmount(PAYMENT_METHOD, new BigDecimal(info.getOrderTotal()));
 
         // validate the payment methods
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
