@@ -19,36 +19,20 @@
 package org.ofbiz.shipment.packing;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 public class PackingServices {
 
     public static final String module = PackingServices.class.getName();
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     public static Map<String, Object> addPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
         PackingSession session = (PackingSession) context.get("packingSession");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String orderId = (String) context.get("orderId");
@@ -66,61 +50,23 @@ public class PackingServices {
         session.setPickerPartyId(pickerPartyId);
 
         if (quantity == null) {
-            quantity = ZERO;
+            quantity = BigDecimal.ONE;
         }
 
         Debug.log("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
 
         if (weight == null) {
             Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module);
-            weight = ZERO;
+            weight = BigDecimal.ZERO;
         }
 
-        List<String> orderItemSeqIds = FastList.newInstance();
-        BigDecimal qtyToPack = ZERO;
-        BigDecimal qtyToPacked = ZERO;
-        BigDecimal packedQuantity = ZERO;
-        BigDecimal readyToPackQty = ZERO;
-        int counter = 0;
         try {
-            // check if entered product is ordered product or not
-            if (UtilValidate.isNotEmpty(productId)) {
-                List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "productId", productId));
-                if (UtilValidate.isNotEmpty(orderItems)) {
-                    for (GenericValue orderItem : orderItems) {
-                        counter++;
-                        if (quantity.compareTo(ZERO) > 0) {
-                            BigDecimal orderedQuantity = orderItem.getBigDecimal("quantity");
-                            List<GenericValue> shipments = delegator.findByAnd("Shipment", UtilMisc.toMap("primaryOrderId", orderId , "statusId", "SHIPMENT_PACKED"));
-                            for(GenericValue shipment : shipments) {
-                                List<GenericValue> itemIssuances = shipment.getRelatedByAnd("ItemIssuance" , UtilMisc.toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
-                                for(GenericValue itemIssuance : itemIssuances) {
-                                    packedQuantity = packedQuantity.add(itemIssuance.getBigDecimal("quantity"));
-                                }
-                            }
-                            qtyToPack = orderedQuantity.subtract(packedQuantity);
-                            if (qtyToPack.compareTo(quantity) > -1) {
-                                readyToPackQty = session.getPackedQuantity(orderId, orderItem.getString("orderItemSeqId"), shipGroupSeqId, productId);
-                                qtyToPacked =  orderedQuantity.subtract(readyToPackQty);
-                                if (qtyToPacked.compareTo(quantity) > -1) {
-                                    session.addOrIncreaseLine(orderId, orderItem.getString("orderItemSeqId"), shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
-                                    counter--;
-                                    break;
-                                } else if (orderItems.size() == counter) {
-                                    throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
-                                }
-                            } else if (orderItems.size() == counter) {
-                                throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
-                            }
-                        }
-                    }
-                } else {
-                    throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity", UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
-                }
-            }
-        } catch (Exception ex) {
-            return ServiceUtil.returnError(ex.getMessage());
+            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
         }
+
         return ServiceUtil.returnSuccess();
     }
 
@@ -320,160 +266,19 @@ public class PackingServices {
         return result;
     }
 
-    public static Map<String, Object> weightPackage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        PackingSession session = (PackingSession) context.get("packingSession");
-        Locale locale = (Locale) context.get("locale");
-        String packageLength = (String) context.get("packageLength");
-        String packageWidth = (String) context.get("packageWidth");
-        String packageHeight = (String) context.get("packageHeight");
-        String packageSeqId = (String) context.get("packageSeqId");
-        String packageWeight = (String) context.get("packageWeight");
-        String shipmentBoxTypeId = (String) context.get("shipmentBoxTypeId");
-        String weightPackageSeqId = (String) context.get("weightPackageSeqId");
-
-        // User can either enter all the dimensions or shipment box type, but not both
-        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) { // Check if user entered any dimensions
-            if (UtilValidate.isNotEmpty(shipmentBoxTypeId)) { // check also if user entered shipment box type
-                session.setDimensionAndShipmentBoxType(packageSeqId);
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorEnteredBothDimensionAndPackageInputBoxField", locale));
-            } else if (!(UtilValidate.isNotEmpty(packageLength) && UtilValidate.isNotEmpty(packageWidth) && UtilValidate.isNotEmpty(packageHeight))) { // check if user does not enter all the dimensions
-                session.setDimensionAndShipmentBoxType(packageSeqId);
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnteredAllFieldsInDimension", locale));
-            }
-        }
-
-        BigDecimal shippableWeight = ZERO;
-        Map<String, Object> response = FastMap.newInstance();
-
-        session.setPackageLength(packageSeqId, packageLength);
-        session.setPackageWidth(packageSeqId, packageWidth);
-        session.setPackageHeight(packageSeqId, packageHeight);
-        session.setShipmentBoxTypeId(packageSeqId, shipmentBoxTypeId);
-
-        if (UtilValidate.isNotEmpty(packageWeight)) {
-            BigDecimal packWeight = new BigDecimal(packageWeight);
-            session.setPackageWeight(Integer.parseInt(packageSeqId), packWeight);
-            shippableWeight = shippableWeight.add(packWeight);
-        } else {
-            session.setPackageWeight(Integer.parseInt(packageSeqId), null);
-        }
-        session.setWeightPackageSeqId(packageSeqId, weightPackageSeqId);
-        response.put("dimensionSavedInSession", true);
-        return response;
-    }
-
-    public static Map<String, Object> holdShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
-        PackingSession session = (PackingSession) context.get("packingSession");
-        String shipmentId = (String) context.get("shipmentId");
-        String dimensionUomId = (String) context.get("dimensionUomId");
-        String weightUomId = (String) context.get("weightUomId");
-        try {
-            session.setDimensionUomId(dimensionUomId);
-            session.setWeightUomId(weightUomId);
-            session.createPackages(shipmentId);
-            session.clearAllLines();
-        } catch (GeneralException e) {
-            return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
-        }
-        return ServiceUtil.returnSuccess();
-    }
-
-    public static Map<String, Object> completePackage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        PackingSession session = (PackingSession) context.get("packingSession");
-        Locale locale = (Locale) context.get("locale");
-        Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
-
-        String orderId = (String) context.get("orderId");
-        String shipmentId = (String) context.get("shipmentId");
-        String invoiceId = (String) context.get("invoiceId");
-        String productStoreId = (String) context.get("productStoreId");
-        String pickerPartyId = (String) context.get("pickerPartyId");
-        String carrierPartyId = (String) context.get("carrierPartyId");
-        String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
-        String shippingContactMechId = (String) context.get("shippingContactMechId");
-        String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
-        String dimensionUomId = (String) context.get("dimensionUomId");
-        String weightUomId = (String) context.get("weightUomId");
-        Boolean forceComplete = (Boolean) context.get("forceComplete");
-
-        String shipmentCostEstimateForShipGroup = (String) context.get("shipmentCostEstimateForShipGroup");
-        BigDecimal estimatedShipCost = new BigDecimal(shipmentCostEstimateForShipGroup);
-
-        BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
-
-        Map<String, Object> response = FastMap.newInstance();
-        BigDecimal diffInShipCostInPerc = ZERO;
-
-        BigDecimal shippableWeight = setSessionPackageWeights(session, packageWeights);
-        BigDecimal newEstimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
-
-        session.setAdditionalShippingCharge(newEstimatedShipCost);
-        session.setDimensionUomId(dimensionUomId);
-        session.setWeightUomId(weightUomId);
-        session.setPickerPartyId(pickerPartyId);
-        session.setShipmentId(shipmentId);
-        session.setInvoiceId(invoiceId);
-
-        try {
-            session.checkPackedQty(orderId, locale);
-            FastList<GenericValue> shipments = (FastList) delegator.findByAnd("Shipment", UtilMisc.toMap("primaryOrderId", orderId, "statusId", "SHIPMENT_PACKED"));
-            for (GenericValue shipment : shipments) {
-                BigDecimal additionalShippingCharge = shipment.getBigDecimal("additionalShippingCharge");
-                if (UtilValidate.isNotEmpty(additionalShippingCharge)) {
-                    newEstimatedShipCost = newEstimatedShipCost.add(shipment.getBigDecimal("additionalShippingCharge"));
-                }
-            }
-            if (estimatedShipCost.compareTo(ZERO) == 0) {
-                diffInShipCostInPerc = newEstimatedShipCost;
-            } else {
-                diffInShipCostInPerc = (((newEstimatedShipCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
-            }
-            if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
-                response.put("showWarningForm", true);
-            } else {
-                if (forceComplete == null) {
-                    forceComplete = Boolean.FALSE;
-                }
-                try {
-                    shipmentId = session.complete(forceComplete, orderId, locale);
-                } catch (GeneralException e) {
-                    return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
-                }
-                if (UtilValidate.isEmpty(shipmentId)) {
-                    response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
-                } else {
-                    response = ServiceUtil.returnSuccess(UtilProperties.getMessage("ProductUiLabels", "FacilityShipmentCreatedAndMarkedAsPacked", UtilMisc.toMap("shipmentId", shipmentId), locale));
-                }
-                response.put("shipmentId", shipmentId);
-                response.put("showWarningForm", false);
-            }
-        } catch (GeneralException e) {
-            return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
-        }
-        return response;
-    }
 
     public static Map<String, Object> completePack(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
-        Locale locale = (Locale) context.get("locale");
 
         // set the instructions -- will clear out previous if now null
-        String orderId = (String) context.get("orderId");
-        String shipmentId = (String) context.get("shipmentId");
-        String invoiceId = (String) context.get("invoiceId");
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
         BigDecimal additionalShippingCharge = (BigDecimal) context.get("additionalShippingCharge");
         Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
-        String dimensionUomId = (String) context.get("dimensionUomId");
         String weightUomId = (String) context.get("weightUomId");
-        session.setShipmentId(shipmentId);
-        session.setInvoiceId(invoiceId);
         session.setHandlingInstructions(instructions);
         session.setPickerPartyId(pickerPartyId);
         session.setAdditionalShippingCharge(additionalShippingCharge);
-        session.setDimensionUomId(dimensionUomId);
         session.setWeightUomId(weightUomId);
         setSessionPackageWeights(session, packageWeights);
 
@@ -482,8 +287,9 @@ public class PackingServices {
             force = Boolean.FALSE;
         }
 
+        String shipmentId = null;
         try {
-            shipmentId = session.complete(force, orderId, locale);
+            shipmentId = session.complete(force);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
