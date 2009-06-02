@@ -1330,7 +1330,7 @@
         <value xml:lang="zh">参加者</value>
     </property>
     <property key="WorkEffortBanner3">
-        <value xml:lang="en">Enter existing CommunicationEvent Id below</value>
+        <value xml:lang="en">Enter existing Communication Event Id below</value>
         <value xml:lang="fr">Entrer la réf. existante d'événement de communication ci-dessous</value>
         <value xml:lang="it">Inserire qui sotto un evento comunicazioni</value>
         <value xml:lang="nl">Enter existing CommunicationEvent Id below</value>
@@ -1339,7 +1339,7 @@
         <value xml:lang="zh">在下面输入已存在的沟通事件</value>
     </property>
     <property key="WorkEffortBanner4">
-        <value xml:lang="en">OR add new CommunicationEvent data below to create new entity (leave CommunicationEvent Id empty)</value>
+        <value xml:lang="en">OR add new Communication Event data below to create new entity (leave Communication Event Id empty)</value>
         <value xml:lang="fr">OU Ajouter une nouvelle donnée d'événement de communication ci-dessous pour créer la nouvelle entité (Laisser la réf. d'évènement de communication vide)</value>
         <value xml:lang="it">O aggiungi un nuovo evento comunicazione qui sotto per creare una nuova entità (lasciare vuoto)</value>
         <value xml:lang="nl">OR add new CommunicationEvent data below to create new entity (leave CommunicationEvent Id empty)</value>
