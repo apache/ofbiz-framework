@@ -727,16 +727,6 @@ under the License.
         <response name="success" type="request" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
-    <request-map uri="addAttachmentEmail">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="addAttachmentEmail"/>
-    </request-map>
-    <request-map uri="uploadAttachFiletoEmail">
-        <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
-    </request-map>
     <request-map uri="removeAttachFile">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeCommEventContentAssoc"/>
@@ -1233,7 +1223,6 @@ under the License.
     <view-map name="ViewCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ViewCommunicationEvent"/>
     <view-map name="UpdateCommPurposes" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommPurposes"/>
     <view-map name="UpdateCommRoles" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommRoles"/>
-    <view-map name="addAttachmentEmail" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#addAttachmentEmail"/>
 
     <!-- TODO
     <view-map name="ListCommCustRequests" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommCustRequests"/>
