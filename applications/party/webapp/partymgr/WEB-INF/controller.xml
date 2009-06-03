@@ -765,7 +765,7 @@ under the License.
     <request-map uri="updateCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCommunicationEvent"/>
-        <response name="success" type="view-home" value="EditCommunicationEvent"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="deleteCommunicationEvent">
@@ -843,7 +843,10 @@ under the License.
         <response name="error" type="view" value="UpdateCommPurposes"/>
     </request-map>
 
-    <request-map uri="UpdateCommRoles"><security https="true" auth="true"/><response name="success" type="view" value="UpdateCommRoles"/></request-map>
+    <request-map uri="UpdateCommRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UpdateCommRoles" save-current-view="true"/>
+    </request-map>
     <request-map uri="createCommunicationEventRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEventRole"/>
@@ -853,8 +856,8 @@ under the License.
     <request-map uri="RemoveCommunicationEventRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeCommunicationEventRole"/>
-        <response name="success" type="view-home"/>
-        <response name="error" type="view-home"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="ListPartyCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyCommEvents"/></request-map>
 
