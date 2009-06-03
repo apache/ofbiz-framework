@@ -20,16 +20,17 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createAccount"  short-description="create Account Group">
-        <if-not-empty field="parameters.accountType">
-            <set field="accountType" from-field="parameters.accountType"/>
-            <else>
-                <set field="accountType" value="GROUP"/>
-            </else>
-        </if-not-empty>
         <set field="parameters.roleTypeId" value="ACCOUNT"/>
-        <if-compare field="accountType" operator="equals" value="GROUP">
-            <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
-        </if-compare>
+        <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
         <field-to-result field="partyId"/>
+        <set field="createPartyRoleCtx.partyId" from-field="userLogin.partyId"/>
+        <set field="createPartyRoleCtx.roleTypeId" value="OWNER"/>
+        <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+        <set field="partyRelationshipCtx.partyIdFrom" from-field="userLogin.partyId"/>
+        <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
+        <set field="partyRelationshipCtx.roleTypeIdFrom" value="OWNER"/>
+        <set field="partyRelationshipCtx.roleTypeIdTo" value="ACCOUNT"/>
+        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="ACCOUNT"/>
+        <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
     </simple-method>
 </simple-methods>
