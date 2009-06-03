@@ -451,6 +451,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                <set field="my" from-field="parameters.my"/>
             </actions>
             <widgets>
                 <decorator-screen name="Common${my}CommunicationEventDecorator"
@@ -612,7 +613,7 @@ under the License.
                 <set field="titleProperty" value="PartyCommContent"/>
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="CommContent"/>
-                <set field="partyId" value="${parameters.partyId}"/>
+                <set field="parameters.partyId" value="${parameters.partyId}" default-value="${userLogin.partyId}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="communicationEventId" value="${parameters.communicationEventId}"/>
@@ -626,15 +627,14 @@ under the License.
                                 <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PartyCommContent}">
-                                    <container style="button-bar">
-                                        <link style="smallSubmit" target="AddCommContent">
-                                            <parameter param-name="communicationEventId"/>
-                                            <parameter param-name="partyId"/>
-                                        </link>
-                                    </container>
-                                    <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listCommContent"/>
-                                </screenlet>
+                                <container>
+                                    <screenlet title="${uiLabelMap.PartyCommContent}">
+                                        <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listCommContent"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.PartyAttachContent}">
+                                        <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="uploadContent1"/>
+                                    </screenlet>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -656,6 +656,7 @@ under the License.
                 <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="communicationEventId" value="${parameters.communicationEventId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
