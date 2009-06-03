@@ -483,6 +483,27 @@ under the License.
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
+
+    <!-- Create a replacement order from an existing order against a lost shipment etc. -->
+    <request-map uri="loadCartForReplacementOrder">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromOrder"/>
+        <response name="success" type="request" value="createReplacementOrder"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    <request-map uri="createReplacementOrder">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createReplacementOrder"/>
+        <response name="success" type="request" value="clearCartForReplacementOrder"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    <request-map uri="clearCartForReplacementOrder">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="success" type="view" value="orderview"/>
+     </request-map>
+
     <request-map uri="addseperator">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addSeparator"/>

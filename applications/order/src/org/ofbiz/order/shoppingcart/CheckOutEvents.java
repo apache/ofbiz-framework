@@ -20,7 +20,6 @@ package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +34,9 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.marketing.tracking.TrackingCodeEvents;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -1069,6 +1070,64 @@ public class CheckOutEvents {
             return chargeAmount;
         } else {
             return null;
+        }
+    }
+
+    /** Create a replacement order from an existing order against a lost shipment etc. **/
+    public static String createReplacementOrder(HttpServletRequest request, HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+
+        Map context = cart.makeCartMap(dispatcher, false);
+        String originalOrderId = request.getParameter("orderId");
+
+        // create the replacement order adjustment
+        List <GenericValue>orderAdjustments = (List) context.get("orderAdjustments");
+        List <GenericValue>orderItems = (List) context.get("orderItems");
+        OrderReadHelper orderReadHelper = new OrderReadHelper(orderAdjustments, orderItems);
+        BigDecimal grandTotal = orderReadHelper.getOrderGrandTotal();
+        if (grandTotal.compareTo(new BigDecimal(0)) != 0) {
+            GenericValue adjustment = delegator.makeValue("OrderAdjustment");
+            adjustment.set("orderAdjustmentTypeId", "REPLACE_ADJUSTMENT");
+            adjustment.set("amount", grandTotal.negate());
+            adjustment.set("comments", "ReShip Order for Order #" + originalOrderId);
+            adjustment.set("createdDate", UtilDateTime.nowTimestamp());
+            adjustment.set("createdByUserLogin", userLogin.getString("userLoginId"));
+            cart.addAdjustment(adjustment);
+        }
+        // create the order association
+        List<ShoppingCartItem> cartLines = cart.items();
+        for (ShoppingCartItem sci : cartLines) {
+            int index = cart.getItemIndex(sci);
+            try {
+                Map orderItemMap = FastMap.newInstance();
+                orderItemMap.put("orderId", originalOrderId);
+                orderItemMap.put("isPromo", sci.getIsPromo() ? "Y" : "N");
+                orderItemMap.put("productId", sci.getProductId());
+                orderItemMap.put("orderItemTypeId", sci.getItemType());
+                GenericValue orderItem = EntityUtil.getFirst(delegator.findByAnd("OrderItem", orderItemMap));
+                if (UtilValidate.isNotEmpty(orderItem)) {
+                    sci.setAssociatedOrderId(orderItem.getString("orderId"));
+                    sci.setAssociatedOrderItemSeqId(orderItem.getString("orderItemSeqId"));
+                    sci.setOrderItemAssocTypeId("REPLACEMENT");
+                    cart.addItem(index, sci);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            } catch (CartItemModifyException e) {
+                Debug.logError(e.getMessage(), module);
+            }
+        }
+        
+        String result = createOrder(request, response);
+        if ("error".equals(result)) {
+            return "error";
+        } else {
+            request.setAttribute("orderId", request.getAttribute("orderId"));
+            return "success";
         }
     }
 }
