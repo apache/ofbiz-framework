@@ -405,6 +405,8 @@ under the License.
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: &quot;true&quot;.equals(parameters.all)?&quot;-entryDate&quot;:&quot;entryDate&quot;}"/>
             <set field="searchParameters.partyId" from-field="partyId"/>
+            <set field="searchParameters.statusId" value="COM_UNKNOWN_PARTY"/>
+            <set field="searchParameters.statusId_op" value="notEqual"/>
             <set field="searchParameters.roleStatusId" value="${groovy:&quot;true&quot;.equals(parameters.all)?&quot;dummy&quot;:&quot;COM_ROLE_COMPLETED&quot;}"/>
             <set field="searchParameters.roleStatusId_op" value="notEqual"/>
             <set field="searchParameters.communicationEventTypeId" value="${groovy:&quot;true&quot;.equals(internalNotesOnly)?&quot;COMMENT_NOTE&quot;:&quot;&quot;}"/>
@@ -420,7 +422,7 @@ under the License.
         <field name="deleteCommEventIfLast"><hidden value="Y"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300" sort-field="true">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent">
+            <hyperlink description="${subject}[${communicationEventId}] " target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
