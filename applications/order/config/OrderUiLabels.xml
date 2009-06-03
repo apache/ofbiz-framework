@@ -6900,6 +6900,9 @@
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">评级</value>
     </property>
+    <property key="OrderCreateReplacementOrder">
+        <value xml:lang="en">Create Replacement Order</value>
+    </property>
     <property key="OrderReAuthService">
         <value xml:lang="en">Re Auth Service</value>
         <value xml:lang="es">Servicio de reautentificación</value>
