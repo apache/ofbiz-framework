@@ -1126,7 +1126,6 @@ public class CheckOutEvents {
         if ("error".equals(result)) {
             return "error";
         } else {
-            request.setAttribute("orderId", request.getAttribute("orderId"));
             return "success";
         }
     }
