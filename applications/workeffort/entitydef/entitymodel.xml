@@ -470,7 +470,6 @@ under the License.
       <field name="workEffortId" type="id-ne"></field>
       <field name="contactMechId" type="id-ne"></field>
       <field name="sequenceId" type="id-ne"></field>
-      <field name="isPopup" type="indicator"></field>
       <field name="reminderDateTime" type="date-time"></field>
       <field name="repeatCount" type="numeric"></field>
       <field name="repeatInterval" type="numeric">

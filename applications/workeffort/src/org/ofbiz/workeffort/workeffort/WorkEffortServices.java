@@ -749,17 +749,6 @@ public class WorkEffortServices {
         for (GenericValue reminder : eventReminders) {
             int repeatCount = reminder.get("repeatCount") == null ? 0 : reminder.getLong("repeatCount").intValue();
             int currentCount = reminder.get("currentCount") == null ? 0 : reminder.getLong("currentCount").intValue();
-            String isPopup = reminder.getString("isPopup");
-            if ("Y".equals(isPopup)) {
-                if (repeatCount != 0 && repeatCount == currentCount) {
-                    try {
-                        reminder.remove();
-                    } catch (GenericEntityException e) {
-                        Debug.logWarning("Error while removing work effort event reminder: " + e, module);
-                    }
-                }
-                continue;
-            }
             GenericValue workEffort = null;
             try {
                 workEffort = reminder.getRelatedOne("WorkEffort");
