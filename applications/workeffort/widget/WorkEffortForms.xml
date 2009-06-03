@@ -124,9 +124,9 @@ under the License.
         </field>
 
 
-        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field>
+<!--        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field> -->
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
-        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
+<!--        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field> -->
         <field name="moneyUomId" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">

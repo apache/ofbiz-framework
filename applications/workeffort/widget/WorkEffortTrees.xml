@@ -20,22 +20,25 @@ under the License.
 
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
-    <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
-        default-render-style="simple" default-wrap-style="treeWrapper">
-        <node name="node-root"  entity-name="WorkEffort" render-style="expand-collapse">
+    <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort" expand-collapse-request="ChildWorkEfforts?workEffortId=${workEffortId}"
+        default-render-style="expand-collapse" default-wrap-style="treeWrapper">
+        <node name="node-root"  entity-name="WorkEffort" >
             <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-            <include-screen name="WorkEffortTreeLine" location="component://workeffort/widget/WorkEffortScreens.xml"/>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
                     <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
                 </entity-condition>
             </sub-node>
         </node>
-        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdTo" render-style="expand-collapse">
+        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdTo">
             <entity-one entity-name="WorkEffort" value-field="workEffort">
                 <field-map field-name="workEffortId" from-field="workEffortAssoc.workEffortIdTo"/>
             </entity-one>
-            <include-screen name="WorkEffortTreeLine" location="component://workeffort/widget/WorkEffortScreens.xml"/>
+            <link target="EditWorkEffortAndAssoc" text="${workEffort.workEffortName} - ${workEffort.description} [${workEffort.workEffortId}]">
+                <parameter param-name="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo"/>
+                <parameter param-name="workEffortIdFrom" from-field="workEffortAssoc.workEffortIdFrom"/>
+                <parameter param-name="workEffortAssocTypeId" from-field="workEffortAssoc.workEffortAssocTypeId"/>
+            </link>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
                     <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortAssoc.workEffortIdTo"/>
