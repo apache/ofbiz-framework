@@ -145,7 +145,7 @@ under the License.
                 <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
                 <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
                 <input name="userPrefValue" value="Y" type="hidden"/>
-              </form
+              </form>
            </p>
             <#if layoutSettings.topLines?has_content>
               <#list layoutSettings.topLines as topLine>
