@@ -101,7 +101,7 @@ under the License.
             <li><a href="<@ofbizUrl>loadCartForReplacementOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReplacementOrder}</a></li>
           </#if>
         </#if>
-        <li><a href="<@ofbizUrl>OrderHistory?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOrderHistory}</a></li>
+        <li><a href="<@ofbizUrl>OrderHistory?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewOrderHistory}</a></li>
       </ul>
     </div>
   </div>
