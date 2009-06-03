@@ -331,51 +331,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="addAttachmentEmail">
-        <section>
-            <actions>
-                <entity-condition entity-name="MimeType" list="mimeTypes">
-                    <order-by field-name="description"/>
-                    <order-by field-name="mimeTypeId"/>
-                </entity-condition>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <set field="communicationEventTypeId" from-field="parameters.communicationEventTypeId"/>
-                <set field="partyId" from-field="userLogin.partyId"/>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.PartyAttachContent}">
-                    <platform-specific>
-                        <html>
-                            <html-template location="component://party/webapp/partymgr/communication/addAttachFile.ftl"/>
-                        </html>
-                    </platform-specific>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="AttachFileList">
-        <section>
-            <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-and entity-name="CommEventContentAssoc" list="commEventContent">
-                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
-                </entity-and>
-                <entity-and entity-name="PartyContent" list="partyContent">
-                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.PartyAttachFile}">
-                    <platform-specific>
-                        <html>
-                            <html-template location="component://party/webapp/partymgr/communication/attachFileList.ftl"/>
-                        </html>
-                    </platform-specific>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
     <screen name="EditCommunicationEvent">
         <section>
             <actions>
@@ -457,8 +412,10 @@ under the License.
                                                 <include-form name="ListCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                                 <include-form name="AddEventRole" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                             </screenlet>
-                                            <include-screen name="AttachFileList"/>
-                                            <include-screen name="addAttachmentEmail"/>
+                                            <screenlet title="${uiLabelMap.PartyCommContent}">
+                                                <include-form name="listCommContent" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                                                <include-form  name="uploadContent" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                                            </screenlet>
                                         </container>
                                     </fail-widgets>
                                 </section>
