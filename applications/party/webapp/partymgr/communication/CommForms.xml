@@ -776,6 +776,7 @@ under the License.
         <field name="uploadedFile"><file/></field>
         <field name="upLoad" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
+    <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile"/>    
 
     <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">
