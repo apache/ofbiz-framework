@@ -4830,8 +4830,8 @@
         <value xml:lang="zh">订单头信息</value>
         <value xml:lang="zh_CN">订单头信息</value>
     </property>
-    <property key="OrderViewOrderHistory">
-        <value xml:lang="en">View Order History</value>
+    <property key="OrderOrderHistory">
+        <value xml:lang="en">Order History</value>
     </property>
     <property key="OrderOrderId">
         <value xml:lang="de">Auftrag ID</value>
@@ -9567,6 +9567,9 @@
         <value xml:lang="th">แสดงรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">浏览订单</value>
         <value xml:lang="zh_CN">查看订单</value>
+    </property>
+    <property key="OrderViewOrderHistory">
+        <value xml:lang="en">View Order History</value>
     </property>
     <property key="OrderViewPermissionError">
         <value xml:lang="de">Sie haben keine Leseberechtigung für diese Seite ("ORDERMGR_VIEW" oder "ORDERMGR_ADMIN" benötigt).</value>
