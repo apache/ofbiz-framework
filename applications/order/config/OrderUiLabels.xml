@@ -4830,8 +4830,8 @@
         <value xml:lang="zh">订单头信息</value>
         <value xml:lang="zh_CN">订单头信息</value>
     </property>
-    <property key="OrderOrderHistory">
-        <value xml:lang="en">Order History</value>
+    <property key="OrderViewOrderHistory">
+        <value xml:lang="en">View Order History</value>
     </property>
     <property key="OrderOrderId">
         <value xml:lang="de">Auftrag ID</value>
