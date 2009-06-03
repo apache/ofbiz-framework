@@ -760,6 +760,21 @@ under the License.
         <field name="imageData" map-name="empty"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
+    
+    <form name="uploadContent" type="upload" target="uploadAttachFiletoEmail">
+        <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
+        <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
+        <field name="statusId"><hidden value="CTNT_PUBLISHED"/></field>
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="partyContentTypeId" ><hidden value="USERDEF"/></field>
+        <field name="roleTypeId"><hidden value="CONTENT"/></field>
+        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
+        <field name="communicationEventTypeId"><hidden value="${communicationEventTypeId}"/></field>
+        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="originalCommEventId"><hidden value="${parameters.originalCommEventId}"/></field>
+        <field name="uploadedFile"><file/></field>
+        <field name="upLoad" title="${uiLabelMap.CommonUpload}"><submit/></field>
+    </form>
 
     <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">

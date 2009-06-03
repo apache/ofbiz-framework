@@ -734,8 +734,8 @@ under the License.
     <request-map uri="uploadAttachFiletoEmail">
         <security https="true" auth="true"/>
         <event type="simple" invoke="createCommunicationContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
-        <response name="success" type="view-last"/>
-        <response name="error" type="view" value="addAttachmentEmail"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="removeAttachFile">
         <security https="true" auth="true"/>
