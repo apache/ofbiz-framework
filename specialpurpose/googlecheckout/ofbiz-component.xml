@@ -35,6 +35,7 @@
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     
+    <keystore loader="main" location="config/googlecerts.jks" password="changeit" name="googlecerts" type="jks" is-certstore="false" is-truststore="true"/>
     <webapp name="googlecheckout"
         title="Google Checkout"
         menu-name="secondary"
