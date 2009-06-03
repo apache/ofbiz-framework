@@ -267,7 +267,7 @@
     </request-map>
     <request-map uri="MyTasks">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="MyTasks" save-current-view="true"/>
+        <response name="success" type="view" value="MyTasks" save-home-view="true"/>
     </request-map>
 
     <request-map uri="createTaskListAndAssoc">
@@ -337,7 +337,7 @@
     </request-map>
     <request-map uri="MyTimesheet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="MyTimesheet" save-current-view="true"/>
+        <response name="success" type="view" value="MyTimesheet" save-home-view="true"/>
     </request-map>
     <request-map uri="EditTimeEntries">
         <security https="true" auth="true"/>
@@ -375,7 +375,7 @@
     </request-map>
     <request-map uri="FindTimeSheet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindTimeSheet"/>
+        <response name="success" type="view" value="FindTimeSheet" save-home-view="true"/>
     </request-map>
     <request-map uri="EditTimeSheet">
         <security https="true" auth="true"/>
@@ -463,7 +463,7 @@
     </request-map>
     <request-map uri="Timesheet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="Timesheet"/>
+        <response name="success" type="view" value="Timesheet" save-home-view="true"/>
     </request-map>
     <request-map uri="TimeSheetStatusToComplete">
         <security https="true" auth="true"/>
