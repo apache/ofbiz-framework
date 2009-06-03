@@ -142,13 +142,14 @@ under the License.
                 <order-by field-name="infoString"/>
             </entity-condition>
         </actions>
-        <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
+        <alt-target use-when="communicationEvent!=null" target="sendCommunicationEvent"/>
         <field name="communicationEventId"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="EMAIL_COMMUNICATION"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
         <field name="partyIdFrom"><hidden/></field>
+        <field name="my" use-when="parameters.get(&quot;my&quot;)==null"><hidden value="parameters.my"/></field>
         <field name="fromEmailAddr" parameter-name="contactMechIdFrom">
             <drop-down>
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
