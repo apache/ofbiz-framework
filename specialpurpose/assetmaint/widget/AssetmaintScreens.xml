@@ -185,7 +185,7 @@
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar">
-                                            <link target="EditWorkEfforts" style="buttontext"  text="${uiLabelMap.CommonNew">
+                                            <link target="EditWorkEfforts" style="buttontext"  text="${uiLabelMap.CommonNew}">
                                                 <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
                                                 <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
                                                 <parameter param-name="workEffortId"/>
@@ -209,7 +209,7 @@
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar">
-                                            <link target="EditWorkEfforts" style="buttontext" text="${uiLabelMap.CommonNew">
+                                            <link target="EditWorkEfforts" style="buttontext" text="${uiLabelMap.CommonNew}">
                                             <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
                                             <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
                                               <parameter param-name="workEffortId"/>
