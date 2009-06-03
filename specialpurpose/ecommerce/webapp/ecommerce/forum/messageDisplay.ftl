@@ -33,7 +33,7 @@ under the License.
 			<div class="tableheadtext">
 			${forumMessage.description?if_exists}
 			</div>
-        	<hr/>
+        	
 		<#--
   		<#assign result = dispatcher.runSync("getPublicForumMessage", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId, "userLogin", userLogin))/>
   		<#if (result.resultData)?exists>

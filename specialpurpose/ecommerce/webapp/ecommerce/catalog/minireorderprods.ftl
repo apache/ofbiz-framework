@@ -18,9 +18,7 @@ under the License.
 -->
 <#if reorderProducts?has_content>
 <div id ="minireorderprods" class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductQuickReorder}...</div>
-    </div>
+    <h3>${uiLabelMap.ProductQuickReorder}...</h3>
     <div class="screenlet-body">
         <#list reorderProducts as miniProduct>
           <div>
@@ -30,7 +28,7 @@ under the License.
               ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
           </div>
           <#if miniProduct_has_next>
-              <div><hr/></div>
+              
           </#if>
         </#list>
     </div>

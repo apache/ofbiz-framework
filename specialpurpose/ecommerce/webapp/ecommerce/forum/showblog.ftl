@@ -20,11 +20,11 @@ under the License.
 <#import "/includes/bloglib.ftl" as blog/>
 
 <div class="screenlet" >
-<h1>&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.EcommerceFromSite}:</h1><br/>
-<div style="margin:10px;" >
+<h1>${uiLabelMap.EcommerceFromSite}:</h1><br/>
+<div>
 <@renderSiteAncestryPath trail=siteAncestorList?default([])/>
 <#if trailList?exists && 1 < trailList?size >
-<h1>&nbsp;&nbsp;${uiLabelMap.EcommerceFromParentArticle}:</h1><br/>
+<h1>${uiLabelMap.EcommerceFromParentArticle}:</h1><br/>
 </#if>
 <#if trailList?has_content>
     <@blog.renderAncestryPath trail=trailList startIndex=1 endIndexOffset=1 />
@@ -57,7 +57,7 @@ under the License.
     </td>
     </tr>
 </table>
-<hr/>
+
 <#--
 <@checkPermission mode="not-equals" subContentId=subContentId targetOperation="CONTENT_CREATE|CONTENT_RESPOND" contentPurposeList="RESPONSE" >
             ${permissionErrorMsg?if_exists}

@@ -36,7 +36,7 @@ under the License.
         <a class="tabButton" href="<@ofbizUrl>ViewBlog?contentId=${pair[0]?if_exists}&nodeTrailCsv=${csv?if_exists}"></@ofbizUrl>${uiLabelMap.CommonView}</a> <br/>
             <#assign indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
             <#else>
-        <hr/>
+        
         <u>${uiLabelMap.EcommerceAddResponseFor}${pair[0]?if_exists} - ${pair[1]?if_exists}:</u><br/>
             </#if>
             <#assign counter = counter + 1>

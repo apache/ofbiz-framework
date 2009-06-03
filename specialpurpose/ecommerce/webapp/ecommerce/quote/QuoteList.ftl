@@ -18,39 +18,37 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.EcommerceQuoteHistory}</div>
-    </div>
+    <h3>${uiLabelMap.EcommerceQuoteHistory}</h3>
     <div class="screenlet-body">
-        <table width="100%" cellpadding="1" cellspacing="0" border="0">
+        <table>
             <tr>
                 <td width="10%">
-                    <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.CommonNbr}</span></b></div>
+                    <div class="tabletext"><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.CommonNbr}</span></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
-                    <div class="tabletext"><b>${uiLabelMap.CommonName}</b></div>
+                    <div class="tabletext">${uiLabelMap.CommonName}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="40%">
-                    <div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div>
+                    <div class="tabletext">${uiLabelMap.CommonDescription}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10%">
-                    <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
+                    <div class="tabletext">${uiLabelMap.CommonStatus}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
-                    <div class="tabletext"><b>${uiLabelMap.OrderOrderQuoteIssueDate}</b></div>
-                    <div class="tabletext"><b>${uiLabelMap.CommonValidFromDate}</b></div>
-                    <div class="tabletext"><b>${uiLabelMap.CommonValidThruDate}</b></div>
+                    <div class="tabletext">${uiLabelMap.OrderOrderQuoteIssueDate}</div>
+                    <div class="tabletext">${uiLabelMap.CommonValidFromDate}</div>
+                    <div class="tabletext">${uiLabelMap.CommonValidThruDate}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10">&nbsp;</td>
             </tr>
             <#list quoteList as quote>
                 <#assign status = quote.getRelatedOneCache("StatusItem")>
-                <tr><td colspan="12"><hr/></td></tr>
+                
                 <tr>
                     <td>
                         <div class="tabletext">${quote.quoteId}</div>

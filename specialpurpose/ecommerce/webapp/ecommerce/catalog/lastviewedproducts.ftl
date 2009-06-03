@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<table border="0" width="100%" cellpadding="3">
+<table>
   <tr>
     <td colspan="2">
       <h1>
@@ -27,9 +27,8 @@ under the License.
 </table>
 
 <#if sessionAttributes.lastViewedProducts?exists && sessionAttributes.lastViewedProducts?has_content>
-<br/>
-<center>
-  <table width='100%' border='0' cellpadding='0' cellspacing='0'>
+
+  <table>
     <#list sessionAttributes.lastViewedProducts as productId>
       <tr>
         <td>
@@ -40,15 +39,12 @@ under the License.
       </tr>
     </#list>
   </table>
-</center>
+
 <#else>
-<table border="0" width="100%" cellpadding="2">
-  <tr>
-    <td colspan="2"><hr/></td>
-  </tr>
+<table>
   <tr>
     <td>
-      <div class='tabletext'>${uiLabelMap.ProductNotViewedAnyProducts}.</DIV>
+      <div class='tabletext'>${uiLabelMap.ProductNotViewedAnyProducts}.</div>
     </td>
   </tr>
 </table>

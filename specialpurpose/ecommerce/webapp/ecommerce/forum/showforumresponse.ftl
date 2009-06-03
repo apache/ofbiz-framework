@@ -19,8 +19,8 @@ under the License.
 
 <#import "bloglib.ftl" as blog/>
 <div class="screenlet" >
-<h1>&nbsp;&nbsp;&nbsp;&nbsp;{${uiLabelMap.EcommerceFromSite}</h1><br/>
-<div style="margin:10px;" >
+<h1>{${uiLabelMap.EcommerceFromSite}</h1><br/>
+<div>
 <@blog.renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1 />
 <#-- Do this so that we don't have to find the content twice (again in renderSubContent) -->
 <#assign lastNode = globalNodeTrail?if_exists?last/>

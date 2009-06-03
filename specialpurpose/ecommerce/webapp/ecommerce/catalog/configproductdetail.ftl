@@ -174,7 +174,7 @@ function getConfigDetails(event) {
 
 <div id="productdetail">
 
-<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<table>
 
   <#-- Category next/previous -->
   <#if category?exists>
@@ -191,7 +191,7 @@ function getConfigDetails(event) {
     </tr>
   </#if>
 
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  <tr><td colspan="2"></td></tr>
 
   <#-- Product image/name/price -->
   <tr>
@@ -244,7 +244,7 @@ function getConfigDetails(event) {
         <div>${uiLabelMap.ProductRegularPrice}: <span class='basePrice'><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <div>
-        <b>
+        
           <#if price.isSale?exists && price.isSale>
             <span class='salePrice'>${uiLabelMap.OrderOnSale}!</span>
             <#assign priceStyle = "salePrice">
@@ -252,7 +252,7 @@ function getConfigDetails(event) {
             <#assign priceStyle = "regularPrice">
           </#if>
             ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
-        </b>
+        
       </div>
       <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
         <#assign priceSaved = price.listPrice - price.price>
@@ -274,7 +274,7 @@ function getConfigDetails(event) {
         </div>
       </#if>
       <#if daysToShip?exists>
-        <div><b>${uiLabelMap.ProductUsuallyShipsIn} <font color='red'>${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
+        <div>${uiLabelMap.ProductUsuallyShipsIn} ${daysToShip} ${uiLabelMap.CommonDays}</div>
       </#if>
 
       <#-- show tell a friend details only in ecommerce application -->
@@ -363,7 +363,7 @@ function getConfigDetails(event) {
       </form>
     <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
-        <hr/>
+        
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}">
           <input type="hidden" name="product_id" value="${product.productId}">
@@ -427,7 +427,7 @@ function getConfigDetails(event) {
     </td>
   </tr>
 
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  
 
   <#-- Long description of product -->
   <tr>
@@ -456,7 +456,7 @@ function getConfigDetails(event) {
                 </div>
             </td>
           </tr>
-          <tr><td><hr/></td></tr>
+          
           <#assign counter = 0>
           <#assign questions = configwrapper.questions>
           <#list questions as question>
@@ -598,14 +598,14 @@ function getConfigDetails(event) {
             </#if>
             </td>
           </tr>
-          <tr><td><hr/></td></tr>
+          
           <#assign counter = counter + 1>
         </#list>
         </table>
       </form>
     </td>
   </tr>
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  
 
   <#-- Product Reviews -->
   <tr>
@@ -626,13 +626,13 @@ function getConfigDetails(event) {
           <table border="0" cellpadding="0" cellspacing='0'>
             <tr>
               <td>
-                <div><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y">${uiLabelMap.OrderAnonymous}<#else>${postedPerson.firstName} ${postedPerson.lastName}</#if></div>
+                <div>${uiLabelMap.CommonBy}: <#if productReview.postedAnonymous?default("N") == "Y">${uiLabelMap.OrderAnonymous}<#else>${postedPerson.firstName} ${postedPerson.lastName}</#if></div>
               </td>
               <td>
-                <div><b>${uiLabelMap.CommonOn}: </b>${productReview.postedDateTime?if_exists}</div>
+                <div>${uiLabelMap.CommonOn}: ${productReview.postedDateTime?if_exists}</div>
               </td>
               <td>
-                <div><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
+                <div>${uiLabelMap.OrderRanking}: ${productReview.productRating?if_exists?string}</div>
               </td>
             </tr>
             <tr>
@@ -645,7 +645,7 @@ function getConfigDetails(event) {
                 <div>${productReview.productReview?if_exists}</div>
               </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+           
           </table>
         </td>
       </tr>
@@ -678,14 +678,14 @@ function getConfigDetails(event) {
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
     <tr><td colspan="2"><h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2></td></tr>
-    <tr><td><hr/></td></tr>
+   
     <#list assocProducts as productAssoc>
       <tr><td>
         <div>
           <a href='<@ofbizUrl>${targetRequest}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo?if_exists}</@ofbizUrl>' class="buttontext">
             ${productAssoc.productIdTo?if_exists}
           </a>
-          - <b>${productAssoc.reason?if_exists}</b>
+          - ${productAssoc.reason?if_exists}
         </div>
       </td></tr>
       ${setRequestAttribute("optProductId", productAssoc.productIdTo)}
@@ -700,7 +700,7 @@ function getConfigDetails(event) {
         </td>
       </tr>
       <#local listIndex = listIndex + 1>
-      <tr><td><hr/></td></tr>
+      
     </#list>
     ${setRequestAttribute("optProductId", "")}
     ${setRequestAttribute("formNamePrefix", "")}
@@ -725,7 +725,7 @@ ${setRequestAttribute("productValue", productValue)}
 <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
 <#if commonFeatureResultIds?has_content>
   <h2>Similar Products That Might Interest You...</h2>
-  <hr/>
+ 
 
   <#list commonFeatureResultIds as commonFeatureResultId>
     <div>

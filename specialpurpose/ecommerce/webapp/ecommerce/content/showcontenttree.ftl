@@ -53,7 +53,7 @@ under the License.
 <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrail:" + nodeTrail, "")/>
 -->
 
-<div style="padding-left:20px;">
+<div>
     <@renderCategoryBrowse contentId=siteId indentIndex=1 nodeTrail=nodeTrail />
 </div>
 
@@ -105,7 +105,7 @@ under the License.
             <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${subContentId?if_exists}&nodeTrailCsv=${thisCsv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a> <br/>
             <#if thisContentId == subContentId>
                 <#assign catTrail = nodeTrail + [subContentId]/>
-                <div style="padding-left:20px;"><@renderCategoryBrowse contentId=subContentId indentIndex=(indentIndex + 1) nodeTrail=catTrail viewSz=viewSz viewIdx=viewIdx /></div>
+                <div><@renderCategoryBrowse contentId=subContentId indentIndex=(indentIndex + 1) nodeTrail=catTrail viewSz=viewSz viewIdx=viewIdx /></div>
             </#if>
         </@loopSubContent>
 </#macro>

@@ -18,10 +18,9 @@ under the License.
 -->
 <html>
   <body>
-    <center>
       <#if requestParameters.detail?has_content>
         <#assign detailImage = Static["org.ofbiz.base.util.Base64"].base64Decode(requestParameters.detail)>
-        <img src="${detailImage}" border="0" width='500'>
+        <img src="${detailImage}">
       <#else>
         <script language="JavaScript" type="text/javascript">
         <!-- //
@@ -29,6 +28,5 @@ under the License.
         // -->
         </script>
       </#if>
-    </center>
   </body>
 </html>

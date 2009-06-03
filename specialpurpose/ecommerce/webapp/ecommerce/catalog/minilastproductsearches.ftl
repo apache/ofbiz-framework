@@ -22,20 +22,20 @@ under the License.
 <#if searchOptionsHistoryList?has_content>
     <#if (searchOptionsHistoryList?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(searchOptionsHistoryList?size-1)/></#if>
     <div id="minilastproductsearches" class="screenlet">
-        <div class="screenlet-header">
+        
             <div class="boxlink">
                 <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
                 <#if (searchOptionsHistoryList?size > maxToShow)>
                     <a href="<@ofbizUrl>advancedsearch</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
                 </#if>
             </div>
-            <div class="boxhead">${uiLabelMap.OrderLastSearches}...</div>
-        </div>
+            <h3>${uiLabelMap.OrderLastSearches}...</h3>
+        
         <div class="screenlet-body">
             <#list searchOptionsHistoryList[0..limit] as searchOptions>
             <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
                     <p>
-                      <b>${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}</b>
+                      ${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}
                     </p>
                     <div class="tabletext">
                       <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
@@ -46,7 +46,7 @@ under the License.
                       <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
                     </#list>
                 <#if searchOptions_has_next>
-                    <div><hr/></div>
+                    
                 </#if>
             </#list>
         </div>

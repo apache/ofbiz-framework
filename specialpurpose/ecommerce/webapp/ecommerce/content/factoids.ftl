@@ -31,7 +31,7 @@ under the License.
 </#if>
 
 <div id="factoids" class="screenlet">
-    <div class="screenlet-header boxhead">${uiLabelMap.EcommerceFactoids}</div>
+    <h3>${uiLabelMap.EcommerceFactoids}</h3>
     <div class="screenlet-body">
       <ul class="browsecategorylist">
         <#assign count_1=0/>

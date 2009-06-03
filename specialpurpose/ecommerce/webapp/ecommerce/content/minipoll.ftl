@@ -24,9 +24,7 @@ under the License.
 
 <#if randomSurvey?has_content>
 <div id="minipoll" class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${randomSurvey.getSurveyName()?if_exists}</div>
-    </div>
+    <h3>${randomSurvey.getSurveyName()?if_exists}</h3>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>minipoll<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" style="margin: 0;">
           ${randomSurvey.render()}
