@@ -37,7 +37,11 @@ under the License.
                 <parameter param-name="partyId" from-field="partyRow.partyId"/>
             </hyperlink>
         </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
+        <field name="partyName" title="${uiLabelMap.PartyName}">
+            <hyperlink target="viewprofile" description="${person.lastName}, ${person.firstName}">
+                <parameter param-name="partyId" from-field="partyRow.partyId"/>
+            </hyperlink>
+        </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
     </form>
 

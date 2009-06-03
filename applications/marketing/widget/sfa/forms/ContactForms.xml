@@ -36,7 +36,11 @@ under the License.
                 <parameter param-name="partyId" from-field="partyRow.partyId"/>
             </hyperlink>
         </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
+        <field name="partyName" title="${uiLabelMap.PartyName}">
+            <hyperlink target="viewprofile" description="${person.lastName}, ${person.firstName}">
+                <parameter param-name="partyId" from-field="partyRow.partyId"/>
+            </hyperlink>
+        </field>
         <field name="export" title="${uiLabelMap.SfaVCard}">
             <hyperlink target="createVCardFromContact" description="${uiLabelMap.SfaVCard}">
                 <parameter param-name="partyId" from-field="partyRow.partyId"/>
