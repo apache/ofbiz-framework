@@ -22,7 +22,6 @@ under the License.
   <title>${uiLabelMap.EcommerceTellAFriend}</title>
 </head>
 <body class="ecbody">
-  <center>
     <form name="tellafriend" action="<@ofbizUrl>emailFriend</@ofbizUrl>" method="post">
       <#if requestParameters.productId?exists>
         <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/product?product_id=${requestParameters.productId}</@ofbizUrl>">
@@ -64,6 +63,5 @@ under the License.
         <div class="tabletext">${uiLabelMap.EcommerceTellAFriendSorry}</div>
       </#if>
     </form>
-  </center>
 </body>
 </html>

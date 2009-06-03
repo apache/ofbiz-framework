@@ -20,7 +20,7 @@ under the License.
 <#assign associatedProducts = Static["org.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)?if_exists>
 <#if associatedProducts?has_content>
 <div id="miniassocproducts" class="screenlet">
-    <div class="screenlet-header boxhead">${uiLabelMap.EcommerceYouMightLike}...</div>
+    <h3>${uiLabelMap.EcommerceYouMightLike}...</h3>
     <div class="screenlet-body">
         <#-- random complementary products -->
         <ul class="browsecategorylist">

@@ -379,6 +379,15 @@ height:auto !important;
 height:1%
 }
 
+#ecom-mainarea .screenlet h3 {
+	background: #1C334D;
+	color:#fff;
+	height:auto !important;
+	height:1%;
+	padding:1px 4px 3px 4px;
+}
+	
+
 .boxhead {
 font-size: 8pt;
 font-weight: bold;

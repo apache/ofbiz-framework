@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<hr/>
-    <form method="post"  action="<@ofbizUrl>searchContent</@ofbizUrl>"  name="searchQuery" style="margin: 0;">
+
+<form method="post"  action="<@ofbizUrl>searchContent</@ofbizUrl>"  name="searchQuery">
 <table border="0" cellpadding="2" cellspacing="0">
 
 <tr>
@@ -35,7 +35,7 @@ under the License.
 
 <!-- category form -->
 <tr>
-  <table border="0" wdith="100%">
+  <table>
     <tr>
       <td align="right" valign="middle">
         <div class="tabletext">${uiLabelMap.ProductFeatures}:</div>
@@ -96,7 +96,7 @@ under the License.
 </form>
 
 
-<hr/>
+
     ${listWrapper.renderFormString()}
 
 <#macro listSiteIds contentId indentIndex=0>

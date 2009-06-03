@@ -18,25 +18,25 @@ under the License.
 -->
 <#if miniProduct?exists>
     <p><a href="<@ofbizUrl>product/~product_id=${miniProduct.productId}</@ofbizUrl>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a></p>
-    <p><b>${miniProduct.productId}</b>
+    <p>${miniProduct.productId}
       <#if (priceResult.price?default(0) > 0 && miniProduct.requireAmount?default("N") == "N")>
         <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if>
         <#if totalPrice?exists>
           <p>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></p>
         <#else>
-          <b><span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
-          <@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span></b>
+          <span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
+          <@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span>
         </#if>
       </#if>
     </p>
 
-    <div style="margin-top: 4px;">
+    <div>
     <#if (miniProduct.introductionDate?exists) && (nowTimeLong < miniProduct.introductionDate.getTime())>
         <#-- check to see if introductionDate hasn't passed yet -->
-        <p style="color: red;">${uiLabelMap.ProductNotYetAvailable}</p>
+        <p>${uiLabelMap.ProductNotYetAvailable}</p>
     <#elseif (miniProduct.salesDiscontinuationDate?exists) && (nowTimeLong > miniProduct.salesDiscontinuationDate.getTime())>
         <#-- check to see if salesDiscontinuationDate has passed -->
-        <p style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</p>
+        <p>${uiLabelMap.ProductNoLongerAvailable}</p>
     <#elseif miniProduct.isVirtual?default("N") == "Y">
         <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a>
     <#elseif miniProduct.requireAmount?default("N") == "Y">

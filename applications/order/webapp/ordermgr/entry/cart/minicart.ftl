@@ -25,7 +25,7 @@ under the License.
 </#if>
 
 <div id="minicart" class="screenlet">
-    <div class="screenlet-header boxhead">${uiLabelMap.OrderCartSummary}</div>
+    <h3>${uiLabelMap.OrderCartSummary}</h3>
     <div class="screenlet-body">
         <#if (shoppingCartSize > 0)>
           <#if hidetoplinks?default("N") != "Y">

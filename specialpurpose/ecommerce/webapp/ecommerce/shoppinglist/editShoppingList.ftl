@@ -30,12 +30,10 @@ under the License.
 </script>
 <br/>
 <div class="screenlet">
-    <div class="screenlet-header">
         <div class="boxlink">
             <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingLists}</div>
-    </div>
+    <h3>&nbsp;${uiLabelMap.EcommerceShoppingLists}</h3>
     <div class="screenlet-body">
         <#if shoppingLists?has_content>
           <form name="selectShoppingList" method="post" action="<@ofbizUrl>editShoppingList</@ofbizUrl>">

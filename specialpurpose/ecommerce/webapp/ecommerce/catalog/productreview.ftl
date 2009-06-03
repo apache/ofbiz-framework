@@ -38,7 +38,7 @@ under the License.
       <tr>
         <td>
           <div class="tabletext">
-            <b>${uiLabelMap.EcommercePostAnonymous}:</b>
+            ${uiLabelMap.EcommercePostAnonymous}:
             &nbsp;${uiLabelMap.CommonYes}&nbsp;<input type="radio" name="postedAnonymous" value="true">
             &nbsp;${uiLabelMap.CommonNo}&nbsp;<input type="radio" name="postedAnonymous" value="false" CHECKED>
           </div>

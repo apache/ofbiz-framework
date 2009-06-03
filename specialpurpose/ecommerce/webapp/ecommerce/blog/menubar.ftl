@@ -1,5 +1,5 @@
 
-<div id="menubar" style="background-color: #ccc;">
+<div id="menubar">
     <a href="<@ofbizUrl>/main</@ofbizUrl>" class="headerlink">${uiLabelMap.CommonHome}</a>
     <a href="#" class="headerlink">${uiLabelMap.CommonNew}</a>
     <a href="#" class="headerlink">Recommended</a>

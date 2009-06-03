@@ -18,7 +18,7 @@ under the License.
 -->
 
 <div id="browse-forums" class="screenlet">
-    <div class="screenlet-header boxhead">${uiLabelMap.ProductBrowseForums}</div>
+    <h3>${uiLabelMap.ProductBrowseForums}</h3>
     <div class="screenlet-body">
           <ul class="browsecategorylist">
             <#list forums as forum>

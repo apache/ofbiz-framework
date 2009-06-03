@@ -18,12 +18,11 @@ under the License.
 -->
 <#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)/>
 <#assign currentCatalogId = Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)/>
-<h1>${uiLabelMap.ProductAdvancedSearchInCategory}</h1>
-<br/>
-<form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
+<h2>${uiLabelMap.ProductAdvancedSearchInCategory}</h2>
+<form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
   <input type="hidden" name="VIEW_SIZE" value="10"/>
   <input type="hidden" name="PAGING" value="Y"/>
-  <table width="100%">
+  <table>
     <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}">
     <#if searchCategory?has_content>
         <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
@@ -101,7 +100,7 @@ under the License.
   </table>
 
   <#if searchOptionsHistoryList?has_content>
-    <hr/>
+    
 
     <h2>${uiLabelMap.OrderLastSearches}...</h2>
 
@@ -112,7 +111,7 @@ under the License.
     <#list searchOptionsHistoryList as searchOptions>
     <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
         <div>
-          <b>${uiLabelMap.EcommerceSearchNumber}${searchOptions_index + 1}</b>
+          ${uiLabelMap.EcommerceSearchNumber}${searchOptions_index + 1}
           <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
           <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>
         </div>
@@ -121,7 +120,7 @@ under the License.
           <div>&nbsp;-&nbsp;${constraintString}</div>
         </#list>
         <#if searchOptions_has_next>
-          <hr/>
+          
         </#if>
     </#list>
   </#if>

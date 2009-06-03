@@ -18,7 +18,7 @@ under the License.
 -->
 
 <div id="browse-blogs" class="screenlet">
-    <div class="screenlet-header boxhead">${uiLabelMap.ProductBrowseBlogs}</div>
+    <h3>${uiLabelMap.ProductBrowseBlogs}</h3>
     <div class="screenlet-body">
       <ul class="browsecategorylist">
         <#list blogs as blog>

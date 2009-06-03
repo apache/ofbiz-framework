@@ -18,10 +18,8 @@ under the License.
 -->
 
 <div id="keywordsearchbox" class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductSearchCatalog}</div>
-    </div>
-    <div class="screenlet-body" style="text-align: center;">
+    <h3>${uiLabelMap.ProductSearchCatalog}</h3>
+    <div class="screenlet-body">
         <form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
           <input type="hidden" name="VIEW_SIZE" value="10"/>
           <input type="hidden" name="PAGING" value="Y"/>

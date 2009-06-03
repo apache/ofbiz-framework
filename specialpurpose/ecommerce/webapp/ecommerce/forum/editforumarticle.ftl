@@ -34,14 +34,14 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    
         <div class="boxlink">
             <a href="<@ofbizUrl>editforuminfo?contentId=${contentId?if_exists}&nodeTrailCsv=${nodeTrailCsv?if_exists}&contentIdTo=${contentIdTo?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceContentInformation}</div>
-    </div>
+        <h3>${uiLabelMap.EcommerceContentInformation}</h3>
+   
     <div class="screenlet-body">
-  <table width="100%" border="0" cellpadding="0" cellspacing='0'>
+  <table>
     <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.ProductContentId}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentId?if_exists}</div></td></tr>
     <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceContentName}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentName?if_exists}</div></td></tr>
     <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.CommonDescription}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${description?if_exists}<div></td></tr>
@@ -50,15 +50,15 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    
         <div class="boxlink">
             <a href="<@ofbizUrl>editaddimage?contentIdTo=${contentId?if_exists}&dataResourceId=${txtDataResourceId?if_exists}&mapKey=IMAGE&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceImageInformation}</div>
-    </div>
+        <h3>${uiLabelMap.EcommerceImageInformation}</h3>
+    
     <div class="screenlet-body">
-  <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceImage}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
+  <table>
+    <tr><td align="right" nowrap><div class='tabletext'>${uiLabelMap.EcommerceImage}</div></td><td>&nbsp;</td><td><div class='tabletext'>
         <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" />
 <div></td></tr>
   </table>
@@ -66,15 +66,13 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
         <div class="boxlink">
             <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId?if_exists}&dataResourceId=${txtDataResourceId?if_exists}&mapKey=SUMMARY&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceSummaryInformation}</div>
-    </div>
+        <h3>${uiLabelMap.EcommerceSummaryInformation}</h3>
     <div class="screenlet-body">
-  <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceSummary}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
+  <table>
+    <tr><td><div class='tabletext'>${uiLabelMap.EcommerceSummary}</div></td><td>&nbsp;</td><td><div class='tabletext'>
 ${summaryData?if_exists}
 <div></td></tr>
   </table>
@@ -82,12 +80,10 @@ ${summaryData?if_exists}
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
         <div class="boxlink">
             <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId?if_exists}&dataResourceId=${txtDataResourceId?if_exists}&mapKey=ARTICLE&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceArticleInformation}</div>
-    </div>
+        <h3>&nbsp;${uiLabelMap.EcommerceArticleInformation}</h3>
     <div class="screenlet-body">
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
     <tr><td align="right" nowrap><div class='tabletext'><b>Article</b></div></td><td>&nbsp;</td><td><div class='tabletext'>

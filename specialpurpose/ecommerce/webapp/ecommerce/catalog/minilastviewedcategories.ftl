@@ -22,12 +22,11 @@ under the License.
 <#if lastViewedCategories?has_content>
     <#if (lastViewedCategories?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedCategories?size-1)/></#if>
     <div id="minilastviewedcategories" class="screenlet">
-        <div class="screenlet-header">
+        
             <div class="boxlink">
                 <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
             </div>
-            <div class="boxhead">${uiLabelMap.EcommerceLastCategories}</div>
-        </div>
+        <h3>${uiLabelMap.EcommerceLastCategories}</h3>
         <div class="screenlet-body">
           <ul class="browsecategorylist">
             <#list lastViewedCategories[0..limit] as categoryId>
