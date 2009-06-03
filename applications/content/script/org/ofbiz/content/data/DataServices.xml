@@ -50,6 +50,12 @@ under the License.
             <set field="newEntity.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
+        <if-empty field="newEntity.mimeTypeId">
+            <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getMimeType" ret-field="newEntity.mimeTypeId">
+                <field field="newEntity" type="GenericValue"/>
+            </call-class-method>
+        </if-empty>
+
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.dataResourceId" result-name="dataResourceId"/>
     </simple-method>

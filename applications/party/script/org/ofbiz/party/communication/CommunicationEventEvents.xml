@@ -102,18 +102,6 @@ under the License.
         </call-class-method>
         <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
 
-        <!-- Call bsh get file type -->
-        <call-bsh><![CDATA[
-            String fileName = parameters.get("imageFileName");
-            String mimeTypeId = fileName.substring(fileName.indexOf(".")+1,fileName.length());
-            parameters.put("mimeType",mimeTypeId);
-            ]]>
-        </call-bsh>
-
-        <!-- Get mime type from FileExtention -->
-        <set field="fileMap.fileExtensionId" value="${parameters.mimeType}"/>
-        <find-by-primary-key map="fileMap" value-field="mimeType" entity-name="FileExtension"/>
-
         <!-- Create Data Resource -->
         <set-service-fields service-name="createContentFromUploadedFile"
             map="formInput.formInput" to-map="data"/>
@@ -174,12 +162,9 @@ under the License.
         </call-service>
 
         <!-- Return to request -->
-        <set field="communicationEventTypeId"
-            from-field="formInput.formInput.communicationEventTypeId"/>
-        <set field="communicationEventId" from-field="formInput.formInput.communicationEventId"/>
-        <field-to-request field="communicationEventId" request-name="communicationEventId"/>
-        <field-to-request field="communicationEventTypeId"
-            request-name="communicationEventTypeId"/>
+        <field-to-request field="formInput.formInput.communicationEventId" request-name="communicationEventId"/>
+        <set field="my" value="My"/>
+        <field-to-request field="my"/>
     </simple-method>
 
 </simple-methods>
