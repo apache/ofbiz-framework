@@ -118,7 +118,7 @@
             <order-by field-name="-fromDate"/>
         </entity-and>
         <first-from-list list="partyRelationships" entry="partyRelationship"/>
-
+        
         <if-not-empty field="partyRelationship">
             <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
             <call-service service-name="deletePartyRelationship" in-map-name="deletePartyRelationship"/>
@@ -148,6 +148,13 @@
         <set field="partyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
         <set field="partyRelationshipCtx.roleTypeIdTo" value="CONTACT"/>
         <set field="partyRelationshipCtx.partyRelationshipTypeId" value="EMPLOYMENT"/>
+        <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
+
+        <set field="partyRelationshipCtx.partyIdFrom" from-field="userLogin.partyId"/>
+        <set field="partyRelationshipCtx.partyIdTo" from-field="partyGroupId"/>
+        <set field="partyRelationshipCtx.roleTypeIdFrom" value="OWNER"/>
+        <set field="partyRelationshipCtx.roleTypeIdTo" value="ACCOUNT"/>
+        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="ACCOUNT"/>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
 
         <set field="updatePartyCtx.partyId" from-field="parameters.partyId"/>
