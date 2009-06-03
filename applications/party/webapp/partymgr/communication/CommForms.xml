@@ -62,14 +62,14 @@ under the License.
         </field>
 
         <!-- this is an example of how to display different types of contact mech to the user -->
-        <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}">
+        <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}" position="1">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/>
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}" position="2">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdTo"/>
         </field>
 
-        <field name="roleTypeIdFrom">
+        <field name="roleTypeIdFrom" position="1">
             <drop-down no-current-selected-key="_NA_">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>

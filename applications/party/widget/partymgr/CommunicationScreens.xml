@@ -384,7 +384,6 @@ under the License.
                 <set field="my" from-field="parameters.my" default-value=""/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="communicationEvent.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="parameters.communicationEventTypeId" from-field="parameters.communicationEventTypeId" default-value="${communicationEvent.communicationEventTypeId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -392,7 +391,10 @@ under the License.
                         <section><!-- Email -->
                             <condition>
                                 <and>
-                                    <if-compare field="parameters.communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                                    <or>
+                                        <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                                        <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                                    </or>
                                     <if-compare field="my" operator="equals" value="My"/>
                                 </and>
                             </condition>
@@ -414,10 +416,8 @@ under the License.
                                         </container>
                                         <container style="righthalf">
                                             <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                                                <include-form name="ViewCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                                            </screenlet>
-                                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="AddEventRole"/>
+                                                <include-form name="ListCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                                                <include-form name="AddEventRole" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                             </screenlet>
                                             <include-screen name="AttachFileList"/>
                                             <include-screen name="addAttachmentEmail"/>
@@ -430,7 +430,7 @@ under the License.
                         <section>
                             <condition><!-- internal note -->
                                 <and>
-                                    <if-compare field="parameters.communicationEventTypeId" operator="equals" value="COMMENT_NOTE"/>
+                                    <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="COMMENT_NOTE"/>
                                     <if-compare field="my" operator="equals" value="My"/>
                                 </and>
                             </condition>
@@ -453,9 +453,7 @@ under the License.
                                         <container style="righthalf">
                                             <screenlet title="${uiLabelMap.PartyCommEventRoles}">
                                                 <include-form name="ListCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                                            </screenlet>
-                                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="AddEventRole"/>
+                                                <include-form name="AddEventRole" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                             </screenlet>
                                             <include-screen name="AttachFileList"/>
                                             <include-screen name="addAttachmentEmail"/>
@@ -469,9 +467,9 @@ under the License.
                                 <or>
                                     <if-empty field="my"/>
                                     <and>
-                                        <if-compare field="parameters.communicationEventTypeId" operator="not-equals" value="COMMENT_NOTE"/>
-                                        <if-compare field="parameters.communicationEventTypeId" operator="not-equals" value="EMAIL_COMMUNICATION"/>
-                                        <if-compare field="parameters.communicationEventTypeId" operator="not-equals" value="AUTO_EMAIL_COMM"/>
+                                        <if-compare field="communicationEvent.communicationEventTypeId" operator="not-equals" value="COMMENT_NOTE"/>
+                                        <if-compare field="communicationEvent.communicationEventTypeId" operator="not-equals" value="EMAIL_COMMUNICATION"/>
+                                        <if-compare field="communicationEvent.communicationEventTypeId" operator="not-equals" value="AUTO_EMAIL_COMM"/>
                                     </and>
                                 </or>
                             </condition>

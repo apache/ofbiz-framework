@@ -372,6 +372,22 @@ under the License.
             <if-empty field="newEntity.statusId">
                 <set field="newEntity.statusId" value="COM_ROLE_CREATED"/>
             </if-empty>
+            
+            <!-- if not provided get the latest contact mech id -->
+            <if-empty field="newEntity.contactMechId">
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                <get-related-one value-field="communicationEvent" relation-name="CommunicationEventType" to-value-field="communicationEventType"/>
+                <if-not-empty field="communicationEventType.contactMechTypeId">
+                    <entity-and entity-name="PartyAndContactMech" list="contactMechs" filter-by-date="true">
+                        <field-map field-name="partyId" from-field="newEntity.partyId"/>
+                        <field-map field-name="contactMechTypeId" from-field="communicationEventType.contactMechTypeId"/>
+                        <order-by field-name="-fromDate"/>
+                    </entity-and>
+                    <first-from-list entry="contactMech" list="contactMechs"/>
+                    <set field="newEntity.contactMechId" from-field="contactMech.contactMechId"/>
+                </if-not-empty>
+            </if-empty>
+            
             <create-value value-field="newEntity"/>
         </if-empty>
     </simple-method>
