@@ -1220,7 +1220,7 @@ public class CommunicationEventServices {
         } else {
             pathInfo = null;
         }
-        if (pathInfo != null & pathInfo.indexOf("/") > -1) {
+        if (pathInfo != null && pathInfo.indexOf("/") > -1) {
             pathParsed = pathInfo.split("/");
             communicationEventId = pathParsed[0];            
         }
