@@ -37,7 +37,9 @@ under the License.
                         <#if orderInfo.get("${orderId}")?exists>
                             <#assign orderDetail = orderInfo.get("${orderId}")>
                             <#assign orderDate = orderDetail.orderDate>
-                            <#assign billAddress = orderDetail.billingAddress>
+                            <#if orderDetail.billingAddress?exists>
+                                <#assign billAddress = orderDetail.billingAddress>
+                            </#if>
                             <#assign shipAddress = orderDetail.shippingAddress>
                             <#assign shipmentMethodType = orderDetail.shipmentMethodType>
                             <#assign carrierPartyId = orderDetail.carrierPartyId>
@@ -84,13 +86,15 @@ under the License.
                                                                  <fo:table-body>
                                                                      <fo:table-row>
                                                                          <fo:table-cell>
-                                                                             <fo:block font-weight="bold">${uiLabelMap.OrderOrderBillToParty}:</fo:block>
-                                                                             <fo:block> ${billAddress.toName?if_exists}</fo:block>
-                                                                             <fo:block> ${billAddress.address1?if_exists}</fo:block>
-                                                                             <fo:block> ${billAddress.city?if_exists}</fo:block>
-                                                                             <fo:block> ${billAddress.countryGeoId?if_exists}</fo:block>
-                                                                             <fo:block> ${billAddress.postalCode?if_exists}</fo:block>
-                                                                             <fo:block> ${billAddress.stateProvinceGeoId?if_exists}</fo:block>
+                                                                             <#if billAddress?has_content>
+                                                                                 <fo:block font-weight="bold">${uiLabelMap.OrderOrderBillToParty}:</fo:block>
+                                                                                 <fo:block> ${billAddress.toName?if_exists}</fo:block>
+                                                                                 <fo:block> ${billAddress.address1?if_exists}</fo:block>
+                                                                                 <fo:block> ${billAddress.city?if_exists}</fo:block>
+                                                                                 <fo:block> ${billAddress.countryGeoId?if_exists}</fo:block>
+                                                                                 <fo:block> ${billAddress.postalCode?if_exists}</fo:block>
+                                                                                 <fo:block> ${billAddress.stateProvinceGeoId?if_exists}</fo:block>
+                                                                             </#if>
                                                                          </fo:table-cell>
                                                                      </fo:table-row>
                                                                  </fo:table-body>

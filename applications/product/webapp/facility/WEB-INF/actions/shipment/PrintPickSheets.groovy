@@ -58,8 +58,12 @@ if (toPrintOrders) {
                     orderId = orderHeader.orderId;
                     orderMap.orderId = orderId;
                     orderMap.orderDate = orderHeader.orderDate;
-                    billingContactMechId = EntityUtil.getFirst(delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "BILLING_LOCATION"])).contactMechId;
-                    billingAddress = delegator.findOne("PostalAddress", [contactMechId : billingContactMechId], false);
+                    billingOrderContactMechs = [];
+                    billingOrderContactMechs = delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "BILLING_LOCATION"]);
+                    if (billingOrderContactMechs.size() > 0) {
+                        billingContactMechId = EntityUtil.getFirst(billingOrderContactMechs).contactMechId;
+                        billingAddress = delegator.findOne("PostalAddress", [contactMechId : billingContactMechId], false);
+                    }
                     shippingContactMechId = EntityUtil.getFirst(delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "SHIPPING_LOCATION"])).contactMechId;
                     shippingAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMechId], false);
                     orderItemShipGroups.each { orderItemShipGroup ->
@@ -70,7 +74,9 @@ if (toPrintOrders) {
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId;
                         }
                         orderMap.shippingAddress = shippingAddress;
-                        orderMap.billingAddress = billingAddress;
+                        if (billingOrderContactMechs.size() > 0) {
+                            orderMap.billingAddress = billingAddress;
+                        }
                         orderInfoMap = [:];
                         orderInfoMap.(orderHeader.orderId) = orderMap;
                     }
