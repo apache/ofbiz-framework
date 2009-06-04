@@ -312,7 +312,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
         <set-service-fields service-name="updatePartyToWorkEffortAssignment" map="parameters" to-map="del"/>
-        <now-date-to-env field="del.thruDate"/>
+        <now-timestamp field="del.thruDate"/>
         <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="del"/>
     </simple-method>
     <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">

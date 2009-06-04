@@ -196,7 +196,7 @@
                     <field-map field-name="mapKey" value="IMAGE"/>
                 </entity-and>
                 <first-from-list entry="oldAssoc" list="oldAssocs"/>
-                <now-date-to-env field="oldAssoc.thruDate"/>
+                <now-timestamp field="oldAssoc.thruDate"/>
                 <store-value value-field="oldAssoc"/>
             </if-not-empty>
             <!-- upload a picture -->
