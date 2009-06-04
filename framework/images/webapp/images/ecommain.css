@@ -17,11 +17,8 @@
  * under the License.
  */
 
-blockquote,body,div,dl,dt,dd,fieldset,form,h1,h2,h3,h4,h5,h6,img,input,li,ol,p,select,span,td,textarea,th,ul {
-border-style:none;
-margin:0;
-padding:0;
-}
+@import url("reset.css");
+@import url("forms.css");
 
 a,address,body,caption,cite,code,dfn,em,strong,th,var {
 font-style:normal;
@@ -36,6 +33,8 @@ text-align:left;
 h1,h2,h3,h4,h5,h6 {
 font-size:100%;
 }
+
+h1 span,h2 span,h3 span ,h4 span ,h5 span,h6 span {font-size:75%}
 
 ol,ul {
 list-style:none;
@@ -55,13 +54,10 @@ color:#336;
 text-decoration:none;
 }
 
-body,textarea,input,select {
-font-family:Verdana, Arial, Helvetica, sans-serif;
-}
-
 body {
 background-color:#FFF;
 color:#000;
+font-family:Verdana, Arial, Helvetica, sans-serif;
 font-size:10px;
 margin:10px;
 }
@@ -75,13 +71,6 @@ margin:5px 0;
 
 input[type=radio],input[type=checkbox] {
 font-size:8pt;
-}
-
-input[type=text],input[type=password] {
-background:#FFF;
-border:#999 solid 1px;
-font-size:8pt;
-margin:2px;
 }
 
 input[type=submit],input[type=button],input[type=reset] {
@@ -101,13 +90,6 @@ text-decoration:underline;
 
 input[type=file] {
 font-size:11px;
-}
-
-select {
-background:#FFF;
-border:#999 solid 1px;
-font-size:8pt;
-margin:2px;
 }
 
 h1,.h1 {
@@ -378,11 +360,6 @@ color:red;
 font-size:8pt;
 font-weight:700;
 text-decoration:none;
-}
-
-#ecom-mainarea .form-row {
-clear:both;
-padding-top:2px;
 }
 
 #ecom-mainarea .form-label {
