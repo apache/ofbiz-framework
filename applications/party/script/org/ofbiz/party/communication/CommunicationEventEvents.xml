@@ -21,41 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="setCommEventToRead" short-description="">
-        <entity-one entity-name="CommunicationEventRole" value-field="eventRole"/>
-        <if-compare operator="equals" value="COM_ROLE_CREATED" field="eventRole.statusId">
-            <call-simple-method method-name="checkCommEventAccess"/>
-            <if-compare operator="equals" value="true" field="found">
-                <entity-one entity-name="UserLogin" value-field="userLogin">
-                    <field-map field-name="userLoginId" value="system"/>
-                </entity-one>
-                <set-service-fields service-name="setCommunicationEventRoleStatus"
-                    map="parameters" to-map="updStat"/>
-                <set field="updStat.statusId" value="COM_ROLE_READ"/>
-                <set field="updStat.userLogin" from-field="userLogin"/>
-                <call-service service-name="setCommunicationEventRoleStatus" in-map-name="updStat"
-                include-user-login="false"/>
-            </if-compare>
-        </if-compare>
-    </simple-method>
-
-    <simple-method method-name="checkCommEventAccess"
-        short-description="check if the user has access to the email of this party">
-        <set field="found" value="false"/>
-        <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
-            <entity-and list="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
-                <field-map field-name="partyIdFrom" value="${userLogin.partyId}"/>
-                <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN"/>
-                <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
-            </entity-and>
-            <if-not-empty field="emailOwners">
-                <set field="found" value="true"/>
-            </if-not-empty>
-            <else>
-                <set field="found" value="true"/>
-            </else>
-        </if-compare-field>
-    </simple-method>
     <simple-method method-name="addContentToCommEvent"
         short-description="Add content to email communication">
         <!-- Call layout to get field -->

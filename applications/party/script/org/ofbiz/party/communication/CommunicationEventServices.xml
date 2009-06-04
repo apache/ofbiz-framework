@@ -414,50 +414,6 @@ under the License.
         </if-not-empty>
     </simple-method>
 
-    <simple-method method-name="markEventRead" short-description="Automatically Marks a Communication Event as Read" login-required="false">
-        <if-empty field="parameters.communicationEventId">
-            <set from-field="parameters.messageId" field="parameters.communicationEventId"/>
-        </if-empty>
-        <entity-one entity-name="CommunicationEvent" value-field="event"/>
-
-        <!--  get the 'system' user to run the update service as -->
-        <entity-one entity-name="UserLogin" value-field="system">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-                 
-        <if>
-            <condition>
-                <and>
-                    <or>
-                        <!--  valid statuses which can go to read -->
-                        <if-compare field="event.statusId" operator="equals" value="COM_ENTERED"/>
-                        <if-compare field="event.statusId" operator="equals" value="COM_PENDING"/>
-                        <if-compare field="event.statusId" operator="equals" value="COM_IN_PROGRESS"/>                        
-                        <if-compare field="event.statusId" operator="equals" value="COM_COMPLETE"/>
-                    </or>
-                    <or> 
-                       <!--  if the user is not logged in, its okay to update, assumption is an external event -->
-                       <if-empty field="userLogin"/> 
-                       <!--  if the user is logged in, make sure they are the owner of the event -->                  
-                       <and>
-                           <not><if-empty field="userLogin"/></not>
-                           <if-compare-field field="event.partyIdTo" to-field="userLogin.partyId" operator="equals"/>
-                           <!--  note: it is not okay for an admin to mark another user's event as read -->
-                       </and>                   
-                    </or>
-                </and>                
-            </condition>
-            <then>               
-                <set field="updateCtx.communicationEventId" from-field="event.communicationEventId"/>                
-                <set field="updateCtx.statusId" value="COM_READ"/>
-                <set field="updateCtx.userLogin" from-field="userLogin"/>
-                <if-empty field="userLogin">
-                    <set field="updateCtx.userLogin" from-field="system"/>
-                </if-empty>
-                <call-service service-name="updateCommunicationEvent" in-map-name="updateCtx" include-user-login="false"/>
-            </then>            
-        </if>               
-    </simple-method>
 
     <simple-method method-name="sendEmailDated"
         short-description="Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email">
@@ -566,6 +522,35 @@ under the License.
                 </else>
             </if-empty>
         </if-compare-field>
+    </simple-method>
+    <simple-method method-name="setCommEventRoleToRead" short-description="set the status for a particular party role to the status COM_ROLE_READ">
+        <if-empty field="parameters.partyId">
+            <set field="parameters.partyId" from-field="parameters.userLogin.partyId"/>
+        </if-empty>
+        <if-empty field="parameters.roleTypeId">
+            <entity-and entity-name="CommunicationEventRole" list="communicationEventRoles">
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+            </entity-and>
+            <first-from-list entry="eventRole" list="communicationEventRoles"/>
+            <set field="parameters.roleTypeId" from-field="eventRole.roleTypeId"/>
+            <else>
+                <entity-one entity-name="CommunicationEventRole" value-field="eventRole"/>
+            </else>
+        </if-empty>
+        <if-not-empty field="eventRole">
+            <if-compare operator="equals" value="COM_ROLE_CREATED" field="eventRole.statusId">
+                <entity-one entity-name="UserLogin" value-field="userLogin">
+                    <field-map field-name="userLoginId" value="system"/>
+                </entity-one>
+                <set-service-fields service-name="setCommunicationEventRoleStatus"
+                    map="parameters" to-map="updStat"/>
+                <set field="updStat.statusId" value="COM_ROLE_READ"/>
+                <set field="updStat.userLogin" from-field="userLogin"/>
+                <call-service service-name="setCommunicationEventRoleStatus" in-map-name="updStat"
+                    include-user-login="false"/>
+            </if-compare>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="setCommunicationEventRoleStatus" short-description="Set The Communication Event Status for a specific role">
         <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole"/>
