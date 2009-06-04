@@ -6289,7 +6289,7 @@
         <value xml:lang="th">ยังค้างอยู่</value>
         <value xml:lang="zh">未决</value>
     </property>
-    <property key="StatusItem.description.COM_READ">
+    <property key="StatusItem.description.COM_ROLE_READ">
         <value xml:lang="de">Lesen</value>
         <value xml:lang="en">Read</value>
         <value xml:lang="es">Leído</value>
@@ -9222,7 +9222,7 @@
         <value xml:lang="th">Set In Progress</value>
         <value xml:lang="zh">设为处理中</value>
     </property>
-    <property key="StatusValidChange.transitionName.COM_PENDING.COM_READ">
+    <property key="StatusValidChange.transitionName.COM_ROLE_CREATED.COM_ROLE_READ">
         <value xml:lang="de">Als gelesen markieren</value>
         <value xml:lang="en">Mark Read</value>
         <value xml:lang="es">Marcar como leído</value>
@@ -9234,19 +9234,7 @@
         <value xml:lang="th">อ่านเครื่องหมาย</value>
         <value xml:lang="zh">标记为读</value>
     </property>
-    <property key="StatusValidChange.transitionName.COM_READ.COM_CANCELLED">
-        <value xml:lang="de">Annullieren</value>
-        <value xml:lang="en">Cancel</value>
-        <value xml:lang="es">Cancelar</value>
-        <value xml:lang="fr">Annuler</value>
-        <value xml:lang="it">Cancellato</value>
-        <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="ro">Sters</value>
-        <value xml:lang="ru">Отменить</value>
-        <value xml:lang="th">ยกเลิก</value>
-        <value xml:lang="zh">取消</value>
-    </property>
-    <property key="StatusValidChange.transitionName.COM_READ.COM_COMPLETE">
+    <property key="StatusValidChange.transitionName.COM_ROLE_READ.COM_ROLE_COMPLETE">
         <value xml:lang="de">Abschliessen</value>
         <value xml:lang="en">Complete</value>
         <value xml:lang="es">Finalizar</value>
@@ -9257,17 +9245,6 @@
         <value xml:lang="ru">Завершить</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
         <value xml:lang="zh">完成</value>
-    </property>
-    <property key="StatusValidChange.transitionName.COM_READ.COM_IN_PROGRESS">
-        <value xml:lang="en">Auf 'In arbeit' setzen</value>
-        <value xml:lang="es">Poner a 'en curso'</value>
-        <value xml:lang="fr">Mettre à "en cours"</value>
-        <value xml:lang="it">Impostato a 'in corso'</value>
-        <value xml:lang="pt">Pôr em Progresso</value>
-        <value xml:lang="ro">Setat In Curs</value>
-        <value xml:lang="ru">Установить В работе</value>
-        <value xml:lang="th">Set In Progress</value>
-        <value xml:lang="zh">设为处理中</value>
     </property>
     <property key="StatusValidChange.transitionName.COM_REFERRED.COM_CANCELLED">
         <value xml:lang="de">Annullieren</value>
