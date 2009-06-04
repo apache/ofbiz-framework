@@ -94,7 +94,11 @@ function setKeyAsParameter(text, li) {
 //Generic function for fetching country's associated state list.
 function getAssociatedStateList(countryId, stateId, errorId, divId) {
     var optionList = [];
-    new Ajax.Request("getAssociatedStateList", {
+    var requestToSend = "getAssociatedStateList";
+    if ($('orderViewed')) {
+        requestToSend = "/ordermgr/control/getAssociatedStateList"
+    }
+    new Ajax.Request(requestToSend, {
         asynchronous: false,
         parameters: {countryGeoId:$F(countryId)},
         onSuccess: function(transport) {
