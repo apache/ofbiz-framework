@@ -32,7 +32,7 @@ under the License.
         extends="EditSmallCustRequest" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <alt-target use-when="custRequest!=null" target="updaterequest"/>
         <field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field>
-        <field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field>
+        <field name="description" parameter-name="content" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field>
         <field name="workEffortName"><hidden value="${custRequestName}"/></field>
         <field name="workEffortId"><hidden value="${custRequestId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
