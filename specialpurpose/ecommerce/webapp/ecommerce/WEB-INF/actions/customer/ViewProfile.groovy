@@ -58,10 +58,10 @@ if (userLogin) {
     orderBy = ["-entryDate"];
     findOpts = new EntityFindOptions();
     findOpts.setMaxRows(5);
-    exprs = [EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId)];
-    exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_READ"));
+    exprs = [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId)];
+    exprs.add(EntityCondition.makeCondition("roleStatusId", EntityOperator.NOT_EQUAL, "COM_ROLE_READ"));
     condition = EntityCondition.makeCondition(exprs, EntityOperator.AND);
-    messages = delegator.findList("CommunicationEvent", condition, null, orderBy, findOpts, false);
+    messages = delegator.findList("CommunicationEventAndRole", condition, null, orderBy, findOpts, false);
     context.messages = messages;
     context.profileMessages = true;
 

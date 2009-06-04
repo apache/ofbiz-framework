@@ -1206,6 +1206,8 @@ public class CommunicationEventServices {
     
     /*
      * Event which marks a communication event as read, and returns a 1px image to the browser/mail client
+     * Is updated because the read status is now stored in the communicationEventRole
+     * This services is updated but could not be tested. assumed is "read" for partyIdTo on the commevent
      */
     public static String markCommunicationAsRead(HttpServletRequest request, HttpServletResponse response) {        
         String communicationEventId = null;        
@@ -1226,9 +1228,16 @@ public class CommunicationEventServices {
         // update the communication event
         if (communicationEventId != null) {
             Debug.logInfo("Marking communicationEventId [" + communicationEventId + "] from path info : " + request.getPathInfo() + " as read.", module);
+            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            GenericValue communicationEvent = null;
+            try {                
+                communicationEvent = delegator.findOne("CommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId), true);                
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);            
+            }
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             try {                
-                dispatcher.runAsync("markCommEventRead", UtilMisc.toMap("communicationEventId", communicationEventId));                
+                dispatcher.runAsync("setCommEventRoleToRead", UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", communicationEvent.getString("partyIdTo")));                
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);            
             }

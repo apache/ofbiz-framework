@@ -718,7 +718,7 @@ under the License.
     </request-map>
     <request-map uri="ViewCommunicationEvent">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="setCommEventToRead" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <event type="service" invoke="setCommEventRoleToRead"/>
         <response name="success" type="view" value="ViewCommunicationEvent"/>
     </request-map>
     <request-map uri="addContentToCommEvent">

@@ -776,15 +776,11 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="CommunicationEventWorkEff"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
     </service>
-    <service name="markCommEventRead" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="false">
+    <service name="setCommEventRoleToRead" engine="simple" default-entity-name="CommunicationEventRole" 
+        location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="setCommEventRoleToRead" auth="false">
         <description>Marks a communication event as read</description>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="markMessageRead" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="false">
-        <description>Marks a communication event as read</description>
-        <attribute name="messageId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <override name="communicationEventId" optional="false"/>
     </service>
     <service name="sendCommEventAsEmail" engine="java"
             location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendCommEventAsEmail" auth="true"

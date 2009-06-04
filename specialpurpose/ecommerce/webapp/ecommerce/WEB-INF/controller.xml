@@ -1227,7 +1227,7 @@ under the License.
     </request-map>
     <request-map uri="readmessage">
         <security https="true" auth="true"/>
-        <event type="service" invoke="markCommEventRead"/>
+        <event type="service" invoke="setCommEventRoleToRead"/>
         <response name="success" type="view" value="messagedetail"/>
         <response name="error" type="view" value="messagedetail"/>
     </request-map>
