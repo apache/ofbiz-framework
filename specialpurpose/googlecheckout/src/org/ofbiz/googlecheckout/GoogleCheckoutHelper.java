@@ -335,7 +335,7 @@ public class GoogleCheckoutHelper {
         String shippingName = shipping.getShippingName();        
         GenericValue googleShipping = null;        
         try {
-            googleShipping = delegator.findOne("GoogleCheckoutShippingMethod", UtilMisc.toMap("shipmentMethodName", shippingName, 
+            googleShipping = delegator.findOne("GoogleCoShippingMethod", UtilMisc.toMap("shipmentMethodName", shippingName, 
                     "productStoreId", cart.getProductStoreId()), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
