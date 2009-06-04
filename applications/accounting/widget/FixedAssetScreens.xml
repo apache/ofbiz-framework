@@ -569,6 +569,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFixedAssetGeoLocation"/>
+                <set field="tabButtonItem" value="FixedAssetGeoLocation"/>
+                <entity-one value-field="fixedAsset" entity-name="FixedAsset"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/fixedasset/FixedAssetGeoLocation.groovy"/>
             </actions>
             <widgets>
