@@ -993,4 +993,9 @@ under the License.
         DDQ (Delivered Duty Unpaid)
         This arrangement is basically the same as with DDP, except for the fact that the buyer is responsible for the duty, fees and taxes.
     -->
+    
+    <!-- Store Credit Account Type Data, to be set in Product Store -->
+    <EnumerationType description="Store Credit Account" enumTypeId="STR_CRDT_ACT" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Financial Account" enumCode="FINACCOUNT" enumId="FIN_ACCOUNT" sequenceId="01" enumTypeId="STR_CRDT_ACT"/>
+    <Enumeration description="Billing Account" enumCode="BILLACCOUNT" enumId="BILLING_ACCOUNT" sequenceId="02" enumTypeId="STR_CRDT_ACT"/>
 </entity-engine-xml>

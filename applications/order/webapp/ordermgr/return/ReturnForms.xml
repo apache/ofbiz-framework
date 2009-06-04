@@ -87,6 +87,11 @@ under the License.
                 <list-options key-name="billingAccountId" list-name="billingAccountList" description="${billingAccountId}: ${description}"/>
             </drop-down>
         </field>
+        <field name="finAccountId" use-when="finAccounts!=null&amp;&amp;finAccounts.size()&gt;0">
+            <drop-down allow-empty="true">
+                <list-options key-name="finAccountId" list-name="finAccounts" description="${finAccountId}: ${finAccountName}"/>
+            </drop-down>
+        </field>
         <field name="paymentMethodId" use-when="creditCardList!=null&amp;&amp;creditCardList.size()&gt;0">
             <drop-down allow-empty="true">
                 <list-options list-name="creditCardList" list-entry-name="creditCardPm" key-name="creditCardPm.paymentMethodId" description="${bsh:org.ofbiz.party.contact.ContactHelper.formatCreditCard(creditCardPm.getRelatedOne(&quot;CreditCard&quot;))}"/>

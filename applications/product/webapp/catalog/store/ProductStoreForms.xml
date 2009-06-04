@@ -223,6 +223,14 @@
                 </entity-options>
             </drop-down>
         </field>
+        <field name="storeCreditAccountEnumId">
+            <drop-down allow-empty="false">
+                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                    <entity-constraint name="enumTypeId" operator="equals" value="STR_CRDT_ACT"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="oldStyleSheet"><hidden/></field>
         <field name="oldHeaderLogo"><hidden/></field>
         <field name="oldHeaderMiddleBackground"><hidden/></field>

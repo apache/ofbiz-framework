@@ -57,6 +57,14 @@ if (returnId) {
 context.returnHeader = returnHeader;
 context.returnId = returnId;
 
+//fin account info
+finAccounts = null;
+if (partyId) {
+    finAccounts = delegator.findByAnd("FinAccountAndRole", [partyId: partyId, finAccountTypeId: "STORE_CREDIT_ACCT", roleTypeId: "OWNER", statusId: "FNACT_ACTIVE"]);
+    finAccounts = EntityUtil.filterByDate(finAccounts);
+}
+context.finAccounts = finAccounts;
+
 // billing account info
 billingAccountList = null;
 if (partyId) {
