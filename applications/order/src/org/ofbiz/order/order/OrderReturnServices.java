@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -678,7 +679,7 @@ public class OrderReturnServices {
         Locale locale = (Locale) context.get("locale");
 
         GenericValue returnHeader = null;
-        List returnItems = null;
+        List<GenericValue> returnItems = null;
         try {
             returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
             if (returnHeader != null) {
@@ -692,6 +693,7 @@ public class OrderReturnServices {
         BigDecimal adjustments = getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_CREDIT"));
 
         if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
+            String finAccountId = returnHeader.getString("finAccountId");
             String billingAccountId = returnHeader.getString("billingAccountId");
             String fromPartyId = returnHeader.getString("fromPartyId");
             String toPartyId = returnHeader.getString("toPartyId");
@@ -707,20 +709,129 @@ public class OrderReturnServices {
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
-            if (billingAccountId == null) {
-                // create new BillingAccount w/ 0 balance
-                Map results = createBillingAccountFromReturn(returnHeader, returnItems, dctx, context);
-                if (ServiceUtil.isError(results)) {
-                    Debug.logError("Error creating BillingAccount: " + results.get(ModelService.ERROR_MESSAGE), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWithCreateBillingAccount", locale) + results.get(ModelService.ERROR_MESSAGE));
-                }
-                billingAccountId = (String) results.get("billingAccountId");
+
+            // Fetch the ProductStore
+            GenericValue productStore = null;
+            GenericValue orderHeader = null;
+            GenericValue returnItem = EntityUtil.getFirst(returnItems);
+            try {
+                orderHeader = returnItem.getRelatedOne("OrderHeader");
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (orderHeader != null) {
+                OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
+                productStore = orderReadHelper.getProductStore();
             }
 
-            // double check; make sure we have a billingAccount
-            if (billingAccountId == null) {
-                Debug.logError("No available billing account, none was created", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoAvailableBillingAccount", locale));
+            // if both billingAccountId and finAccountId are supplied, look for productStore.storeCreditAccountEnumId preference
+            if (finAccountId != null && billingAccountId != null) {
+                Debug.logWarning("FinAccount and BillingAccount both are supplied for storing credit, priority will be given to ProductStore preference. Default is FinAccount.", module);
+                if (productStore != null && productStore.getString("storeCreditAccountEnumId") != null && "BILLING_ACCOUNT".equals(productStore.getString("storeCreditAccountEnumId"))) {
+                    finAccountId = null;
+                } else {
+                    billingAccountId = null;
+                }
+            }
+
+            if (finAccountId == null && billingAccountId == null) {
+                // First find a Billing Account with negative balance, and if found store credit to that
+                List<GenericValue> billingAccounts = FastList.newInstance();
+                try {
+                    billingAccounts = delegator.findByAnd("BillingAccountRoleAndAddress", UtilMisc.toMap("partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER"));
+                } catch (GenericEntityException e) {
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                billingAccounts = EntityUtil.filterByDate(billingAccounts);
+                billingAccounts = EntityUtil.orderBy(billingAccounts, UtilMisc.toList("-fromDate"));
+                if (UtilValidate.isNotEmpty(billingAccounts)) {
+                    ListIterator<GenericValue> billingAccountItr = billingAccounts.listIterator();
+                    while (billingAccountItr.hasNext() && billingAccountId == null) {
+                        String thisBillingAccountId = billingAccountItr.next().getString("billingAccountId");
+                        BigDecimal billingAccountBalance = ZERO;
+                        try {
+                            billingAccountBalance = getBillingAccountBalance(thisBillingAccountId, dctx);
+                        } catch (GenericEntityException e) {
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        if (billingAccountBalance.signum() == -1) {
+                            billingAccountId = thisBillingAccountId;
+                        }
+                    }
+                }
+
+                // if no billing account with negative balance is found, look for productStore.storeCreditAccountEnumId settings
+                if (billingAccountId == null) {
+                    if (productStore != null && productStore.getString("storeCreditAccountEnumId") != null && "BILLING_ACCOUNT".equals(productStore.getString("storeCreditAccountEnumId"))) {
+                        if (UtilValidate.isNotEmpty(billingAccounts)) {
+                            billingAccountId = EntityUtil.getFirst(billingAccounts).getString("billingAccountId");
+                        } else {
+                            // create new BillingAccount w/ 0 balance
+                            Map results = createBillingAccountFromReturn(returnHeader, returnItems, dctx, context);
+                            if (ServiceUtil.isError(results)) {
+                                Debug.logError("Error creating BillingAccount: " + results.get(ModelService.ERROR_MESSAGE), module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWithCreateBillingAccount", locale) + results.get(ModelService.ERROR_MESSAGE));
+                            }
+                            billingAccountId = (String) results.get("billingAccountId");
+
+                            // double check; make sure we have a billingAccount
+                            if (billingAccountId == null) {
+                                Debug.logError("No available billing account, none was created", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoAvailableBillingAccount", locale));
+                            }
+                        }
+                    } else {
+                        List<GenericValue> finAccounts = null;
+                        try {
+                            finAccounts = delegator.findByAnd("FinAccountAndRole", UtilMisc.toMap("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE"));
+                        } catch (GenericEntityException e) {
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        finAccounts = EntityUtil.filterByDate(finAccounts);
+                        finAccounts = EntityUtil.orderBy(finAccounts, UtilMisc.toList("-fromDate"));
+                        if (UtilValidate.isNotEmpty(finAccounts)) {
+                            finAccountId = EntityUtil.getFirst(finAccounts).getString("finAccountId");
+                        }
+
+                        if (finAccountId == null) {
+                            Map createAccountCtx = FastMap.newInstance();
+                            createAccountCtx.put("ownerPartyId", fromPartyId);
+                            createAccountCtx.put("finAccountTypeId", "STORE_CREDIT_ACCT");
+                            createAccountCtx.put("productStoreId", productStore.getString("productStoreId"));
+                            createAccountCtx.put("currencyUomId", returnHeader.getString("currencyUomId"));
+                            createAccountCtx.put("finAccountName", "Store Credit Account for party ["+fromPartyId+"]");
+                            createAccountCtx.put("userLogin", userLogin);
+                            Map createAccountResult = null;
+                            try {
+                                createAccountResult = dispatcher.runSync("createFinAccountForStore", createAccountCtx);
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, "Problems running the createFinAccountForStore service", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingFinAccountForStore", locale));
+                            }
+                            if (ServiceUtil.isError(createAccountResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createAccountResult));
+                            }
+                            finAccountId = (String) createAccountResult.get("finAccountId");
+
+                            // double check; make sure we have a FinAccount
+                            if (finAccountId == null) {
+                                Debug.logError("No available fin account, none was created", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoAvailableFinAccount", locale));
+                            }
+
+                            Map finAccountRoleResult = null;
+                            try {
+                                finAccountRoleResult = dispatcher.runSync("createFinAccountRole", UtilMisc.toMap("finAccountId", finAccountId, "partyId", fromPartyId, "roleTypeId", "OWNER", "userLogin", userLogin));
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, "Problem running the createFinAccountRole service", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingFinAccountRoleRecord", locale));
+                            }
+                            if (ServiceUtil.isError(finAccountRoleResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(finAccountRoleResult));
+                            }
+                        }
+                    }
+                }
             }
 
             // now; to be used for all timestamps
@@ -740,19 +851,39 @@ public class OrderReturnServices {
             // add the adjustments to the total
             creditTotal = creditTotal.add(adjustments.setScale(decimals, rounding));
 
+            // create finAccountRole and finAccountTrans
+            String finAccountTransId = null;
+            if (finAccountId != null) {
+                Map finAccountTransResult = null;
+                try {
+                    finAccountTransResult = dispatcher.runSync("createFinAccountTrans", UtilMisc.toMap("finAccountId", finAccountId, "finAccountTransTypeId", "DEPOSIT", "partyId", toPartyId, "amount", creditTotal, "reasonEnumId", "FATR_REFUND", "userLogin", userLogin));
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Problem creating FinAccountTrans record", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingFinAccountTransRecord", locale));
+                }
+                if (ServiceUtil.isError(finAccountTransResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(finAccountTransResult));
+                }
+                finAccountTransId = (String) finAccountTransResult.get("finAccountTransId");
+            }
+
             // create a Payment record for this credit; will look just like a normal payment
             // However, since this payment is not a DISBURSEMENT or RECEIPT but really a matter of internal record
             // it is of type "Other (Non-posting)"
             String paymentId = delegator.getNextSeqId("Payment");
             GenericValue payment = delegator.makeValue("Payment", UtilMisc.toMap("paymentId", paymentId));
             payment.set("paymentTypeId", "CUSTOMER_REFUND");
-            payment.set("paymentMethodTypeId", "EXT_BILLACT");
             payment.set("partyIdFrom", toPartyId);  // if you receive a return FROM someone, then you'd have to give a return TO that person
             payment.set("partyIdTo", fromPartyId);
             payment.set("effectiveDate", now);
             payment.set("amount", creditTotal);
             payment.set("comments", "Return Credit");
             payment.set("statusId", "PMNT_CONFIRMED");  // set the status to confirmed so nothing else can happen to the payment
+            if (billingAccountId != null) {
+                payment.set("paymentMethodTypeId", "EXT_BILLACT");
+            } else {
+                payment.set("paymentMethodTypeId", "FIN_ACCOUNT");
+            }
             try {
                 delegator.create(payment);
             } catch (GenericEntityException e) {
@@ -762,10 +893,14 @@ public class OrderReturnServices {
 
             // create a return item response
             Map itemResponse = UtilMisc.toMap("paymentId", paymentId);
-            itemResponse.put("billingAccountId", billingAccountId);
             itemResponse.put("responseAmount", creditTotal);
             itemResponse.put("responseDate", now);
             itemResponse.put("userLogin", userLogin);
+            if (billingAccountId != null) {
+                itemResponse.put("billingAccountId", billingAccountId);
+            } else {
+                itemResponse.put("finAccountTransId", finAccountTransId);
+            }
             Map serviceResults = null;
             try {
                 serviceResults = dispatcher.runSync("createReturnItemResponse", itemResponse);
@@ -796,33 +931,82 @@ public class OrderReturnServices {
                 }
             }
 
-            // create the PaymentApplication for the billing account
-            String paId = delegator.getNextSeqId("PaymentApplication");
-            GenericValue pa = delegator.makeValue("PaymentApplication", UtilMisc.toMap("paymentApplicationId", paId));
-            pa.set("paymentId", paymentId);
-            pa.set("billingAccountId", billingAccountId);
-            pa.set("amountApplied", creditTotal);
-            try {
-                delegator.create(pa);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem creating PaymentApplication record for billing account", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale));
-            }
-
-            // create the payment applications for the return invoice
-            try {
-                serviceResults = dispatcher.runSync("createPaymentApplicationsFromReturnItemResponse",
-                        UtilMisc.<String, Object>toMap("returnItemResponseId", itemResponseId, "userLogin", userLogin));
-                if (ServiceUtil.isError(serviceResults)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale), null, null, serviceResults);
+            if (billingAccountId != null) {
+                // create the PaymentApplication for the billing account
+                String paId = delegator.getNextSeqId("PaymentApplication");
+                GenericValue pa = delegator.makeValue("PaymentApplication", UtilMisc.toMap("paymentApplicationId", paId));
+                pa.set("paymentId", paymentId);
+                pa.set("billingAccountId", billingAccountId);
+                pa.set("amountApplied", creditTotal);
+                try {
+                    delegator.create(pa);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Problem creating PaymentApplication record for billing account", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale));
                 }
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem creating PaymentApplication records for return invoice", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale));
+
+                // create the payment applications for the return invoice in case of billing account
+                try {
+                    serviceResults = dispatcher.runSync("createPaymentApplicationsFromReturnItemResponse",
+                            UtilMisc.<String, Object>toMap("returnItemResponseId", itemResponseId, "userLogin", userLogin));
+                    if (ServiceUtil.isError(serviceResults)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale), null, null, serviceResults);
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Problem creating PaymentApplication records for return invoice", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale));
+                }
             }
         }
 
         return ServiceUtil.returnSuccess();
+    }
+    
+    /**
+     * Helper method to get billing account balance, cannot use BillingAccountWorker.getBillingAccountBalance()
+     * due to circular build dependency.
+     * @param billingAccountId
+     * @param dctx
+     * @return
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getBillingAccountBalance(String billingAccountId, DispatchContext dctx) throws GenericEntityException {
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+
+        BigDecimal balance = ZERO;
+        BigDecimal accountLimit = ZERO;
+        if (billingAccount.getBigDecimal("accountLimit") != null) {
+            accountLimit = billingAccount.getBigDecimal("accountLimit");
+        }
+        balance = balance.add(accountLimit);
+        // pending (not cancelled, rejected, or received) order payments
+        EntityConditionList whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
+                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
+            ), EntityOperator.AND);
+
+        List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
+        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
+            GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
+            BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
+            balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
+        }
+
+        List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        // TODO: cancelled payments?
+        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+            GenericValue paymentAppl = (GenericValue) pAi.next();
+            if (paymentAppl.getString("invoiceId") == null) {
+                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
+                balance = balance.add(amountApplied);
+            }
+        }
+
+        balance = balance.setScale(decimals, rounding);
+        return balance;
     }
 
     /**

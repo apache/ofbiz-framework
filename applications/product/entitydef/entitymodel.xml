@@ -3608,6 +3608,12 @@ under the License.
       <field name="authFraudMessage" type="long-varchar"></field>
       <field name="authErrorMessage" type="long-varchar"></field>
       <field name="visualThemeId" type="id"></field>
+      <field name="storeCreditAccountEnumId" type="id">
+          <description>Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return. Default to Financial Account. 
+              This field is override by ReturnHeader.billingAccountId or ReturnHeader.finAccountId, whichever is specified but if only finAccountId is specified explicitly then system will first
+              try to locate any billing account with -ve amount. If found, then amount is credit to this billing account else the amount will be credit to the financial account of the user.
+          </description>
+      </field>
 
       <!-- old fields, deprecated -->
       <field name="oldStyleSheet" col-name="STYLE_SHEET" type="url"></field>
@@ -3689,6 +3695,9 @@ under the License.
       <relation type="one" fk-name="PROD_STR_VATTXA" title="Vat" rel-entity-name="TaxAuthority">
         <key-map field-name="vatTaxAuthGeoId" rel-field-name="taxAuthGeoId"/>
         <key-map field-name="vatTaxAuthPartyId" rel-field-name="taxAuthPartyId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_STR_STRCRDACT" title="StoreCreditAccount" rel-entity-name="Enumeration">
+        <key-map field-name="storeCreditAccountEnumId" rel-field-name="enumId"/>
       </relation>
     </entity>
     <entity entity-name="ProductStoreCatalog"

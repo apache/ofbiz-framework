@@ -1071,6 +1071,9 @@
         <value xml:lang="th">ไม่มียอดรวมของบัญชี</value>
         <value xml:lang="zh">没有可用的账单账户</value>
     </property>
+    <property key="OrderNoAvailableFinAccount">
+        <value xml:lang="en">No available fin account</value>
+    </property>
     <property key="OrderNoCategorySpecifiedToAddFrom">
         <value xml:lang="en">No category specified to add from. </value>
         <value xml:lang="es">Ninguna categoría especificada a partir de la cual agregar.</value>
@@ -1334,6 +1337,15 @@
         <value xml:lang="ru">Пожалуйста, выберите или сбытовый или закупочный тип заказа. </value>
         <value xml:lang="th">กรุณาเลือกถ้าไม่การขายหรือรายการสั่งซื้อ</value>
         <value xml:lang="zh">请选择销售或购物订单。 </value>
+    </property>
+    <property key="OrderProblemsCreatingFinAccountForStore">
+        <value xml:lang="en">Problems creating FinAccount for Store</value>
+    </property>
+    <property key="OrderProblemCreatingFinAccountRoleRecord">
+        <value xml:lang="en">Problem creating FinAccountRole record</value>
+    </property>
+    <property key="OrderProblemCreatingFinAccountTransRecord">
+        <value xml:lang="en">Problem creating FinAccountTrans record</value>
     </property>
     <property key="OrderProblemCreatingPaymentApplicationRecord">
         <value xml:lang="en">Problem creating PaymentApplication record</value>
