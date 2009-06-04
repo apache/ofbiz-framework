@@ -1304,12 +1304,12 @@ public class ShoppingCartEvents {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-        String quoteId = request.getParameter("orderId");
+        String orderId = request.getParameter("orderId");
 
         ShoppingCart cart = null;
         try {
             Map outMap = dispatcher.runSync("loadCartFromOrder",
-                                                UtilMisc.<String, Object>toMap("orderId", quoteId,
+                                                UtilMisc.<String, Object>toMap("orderId", orderId,
                                                         "skipProductChecks", Boolean.TRUE, // the products have already been checked in the order, no need to check their validity again
                                                         "userLogin", userLogin));
 
