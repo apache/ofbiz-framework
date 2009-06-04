@@ -297,7 +297,8 @@ under the License.
     <StatusItem description="Enabled" sequenceId="01" statusCode="ENABLED" statusId="PARTY_ENABLED" statusTypeId="PARTY_STATUS"/>
     <StatusItem description="Disabled" sequenceId="99" statusCode="DISABLED" statusId="PARTY_DISABLED" statusTypeId="PARTY_STATUS"/>
     <StatusValidChange condition="" statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
-
+    <StatusValidChange condition="" statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
+    
     <StatusType description="Case" hasTable="N" parentTypeId="" statusTypeId="CASE_STATUS"/>
 
     <StatusType description="Communication Event" hasTable="N" parentTypeId="" statusTypeId="COM_EVENT_STATUS"/>
