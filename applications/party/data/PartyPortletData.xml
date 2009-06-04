@@ -101,4 +101,21 @@
         editFormName="EditCommPortletParams" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml"/>
     <PortletPortletCategory portalPortletId="MyCommunications" portletCategoryId="COMMUNICATIONS"/>
 
+    <PortalPage portalPageId="PartyProfile" sequenceNum="0" portalPageName="Party Profile Portal Page" description="Party profile page using flexible Portal technology" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="PartyProfile" columnSeqId="00001" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="PartyProfile" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
+
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00001" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="9"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="11"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="12"/>
+
+
 </entity-engine-xml>
