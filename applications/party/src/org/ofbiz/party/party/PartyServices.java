@@ -211,22 +211,40 @@ public class PartyServices {
         try {
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
 
-            // check that status is defined as a valid change
-            GenericValue statusValidChange = delegator.findByPrimaryKey("StatusValidChange", UtilMisc.toMap("statusId", party.getString("statusId"), "statusIdTo", statusId));
-            if (statusValidChange == null) {
-                String errorMsg = "Cannot change party status from " + party.getString("statusId") + " to " + statusId;
-                Debug.logWarning(errorMsg, module);
-                return ServiceUtil.returnError(errorMsg);
+            if (party.get("statusId") == null) { // old records
+            	party.set("statusId", "PARTY_ENABLED");
             }
 
-            // record the oldStatusId and change the party status
-            String oldStatusId = party.getString("statusId");
-            party.set("statusId", statusId);
-            party.store();
+        	String oldStatusId = party.getString("statusId");
+            if (!party.getString("statusId").equals(statusId)) {
 
-            // record this status change in PartyStatus table
-            GenericValue partyStatus = delegator.makeValue("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", statusDate));
-            partyStatus.create();
+            	// check that status is defined as a valid change
+            	GenericValue statusValidChange = delegator.findByPrimaryKey("StatusValidChange", UtilMisc.toMap("statusId", party.getString("statusId"), "statusIdTo", statusId));
+            	if (statusValidChange == null) {
+            		String errorMsg = "Cannot change party status from " + party.getString("statusId") + " to " + statusId;
+            		Debug.logWarning(errorMsg, module);
+            		return ServiceUtil.returnError(errorMsg);
+            	}
+
+            	party.set("statusId", statusId);
+            	party.store();
+
+            	// record this status change in PartyStatus table
+            	GenericValue partyStatus = delegator.makeValue("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", statusDate));
+            	partyStatus.create();
+
+            	// disable all userlogins for this user when the new status is disabled
+            	if (("PARTY_DISABLED").equals(statusId)) {
+            		List <GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+            		for(GenericValue userLogin : userLogins) {
+            			if (!"N".equals(userLogin.getString("enabled"))) {
+            				userLogin.set("enabled", "N");
+            				userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
+            				userLogin.store();
+            			}
+            		}
+            	}
+            }
 
             Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("oldStatusId", oldStatusId);
@@ -246,6 +264,7 @@ public class PartyServices {
     public static Map<String, Object> updatePerson(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
         String partyId = getPartyId(context);
@@ -267,16 +286,30 @@ public class PartyServices {
         if (person == null || party == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.not_found", locale));
         }
+        
+        // update status by separate service
+        String oldStatusId = party.getString("statusId");
 
         person.setNonPKFields(context);
         party.setNonPKFields(context);
 
+        party.set("statusId", oldStatusId);
+        
         try {
             person.store();
             party.store();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+        }
+        
+        if (!context.get("statusId").equals(oldStatusId)) {
+            try {
+                dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
+            } catch (GenericServiceException e) {
+                Debug.logWarning(e.getMessage(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+            }
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
@@ -399,6 +432,7 @@ public class PartyServices {
     public static Map<String, Object> updatePartyGroup(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
         String partyId = getPartyId(context);
@@ -425,8 +459,12 @@ public class PartyServices {
             return ServiceUtil.returnError(errMsg);
         }
 
+        
+        // update status by separate service
+        String oldStatusId = party.getString("statusId");
         partyGroup.setNonPKFields(context);
         party.setNonPKFields(context);
+        party.set("statusId", oldStatusId);
 
         try {
             partyGroup.store();
@@ -436,6 +474,15 @@ public class PartyServices {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_party_information_write", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
+        }
+
+        if (!context.get("statusId").equals(oldStatusId)) {
+            try {
+                dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
+            } catch (GenericServiceException e) {
+                Debug.logWarning(e.getMessage(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+            }
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
