@@ -10688,7 +10688,7 @@
         <value xml:lang="th">รายงานคำอธิบายทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="PageTitleFixedAssetGeoLocation">
-        <value xml:lang="en">Fixed Asset GeoLocation</value>
+        <value xml:lang="en">Fixed Asset Geo Location</value>
         <value xml:lang="fr">Géolocalisation de l'actif immobilisé</value>
     </property>
     <property key="PageTitleInventoryIssueSummary">

@@ -18,8 +18,8 @@ under the License.
 -->
 <#if latestGeoPoint?has_content>
   <#if latestGeoPoint.latitude?has_content && latestGeoPoint.longitude?has_content>
-    ${uiLabelMap.CommonLatitude}${latestGeoPoint.latitude}<br>
-    ${uiLabelMap.CommonLongitude}${latestGeoPoint.longitude}
+    <br>${uiLabelMap.CommonLatitude}${latestGeoPoint.latitude}
+    <br>${uiLabelMap.CommonLongitude}${latestGeoPoint.longitude}
     <#if latestGeoPoint.elevation?has_content>
       <br>${uiLabelMap.CommonElevation}${latestGeoPoint.elevation} ${elevationUomAbbr}
     </#if>
@@ -37,7 +37,7 @@ under the License.
           loadGoogleMap("${latestGeoPoint.latitude}",
                         "${latestGeoPoint.longitude}",
                         "<@ofbizUrl>EditFixedAsset?fixedAssetId=${fixedAssetId}</@ofbizUrl>",
-                        "${uiLabelMap.AccountingFixedAsset} ${uiLabelMap.CommonOf} ${fixedAssetId}")
+                        "${uiLabelMap.AccountingFixedAsset} ${(fixedAsset.fixedAssetName)?if_exists}")
         </script>
       <#elseif  latestGeoPoint.dataSourceId == "GEOPT_YAHOO">
       <#elseif  latestGeoPoint.dataSourceId == "GEOPT_MICROSOFT">

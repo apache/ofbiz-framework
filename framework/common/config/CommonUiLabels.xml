@@ -2754,7 +2754,7 @@
         <value xml:lang="th">Geo</value>
     </property>
     <property key="CommonGeoLocation">
-        <value xml:lang="en">Geolocation</value>
+        <value xml:lang="en">Geo Location</value>
         <value xml:lang="fr">Géolocalisation</value>
     </property>
     <property key="CommonGeos">
@@ -8374,7 +8374,7 @@
         <value xml:lang="zh_CN">增加新数据源类型</value>
     </property>
     <property key="PageTitleCommonGeoLocation">
-        <value xml:lang="en">GeoLocation of requested element</value>
+        <value xml:lang="en">Geo Location of requested element</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
     </property>
     <property key="PageTitleEditDataSource">
