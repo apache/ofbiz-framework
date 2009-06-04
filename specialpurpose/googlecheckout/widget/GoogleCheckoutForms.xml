@@ -24,7 +24,7 @@ under the License.
     <form name="ListGoogleCheckoutConfigurations" type="list"  list-name="googleCheckoutConfigurations"  target="updateGoogleCheckoutConfiguration"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="GoogleCheckoutConfiguration">
+            <entity-condition entity-name="GoogleCoConfiguration">
                 <order-by field-name="productStoreId"/>
             </entity-condition>
         </actions>
@@ -114,7 +114,7 @@ under the License.
     <form name="ListGoogleCheckoutShippingMethods" type="list"  list-name="googleCheckoutShippingMethods"  target="updateGoogleCheckoutShippingMethod"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="GoogleCheckoutShippingMethod">
+            <entity-condition entity-name="GoogleCoShippingMethod">
                 <order-by field-name="shipmentMethodName"/>
                 <order-by field-name="productStoreId"/>
             </entity-condition>

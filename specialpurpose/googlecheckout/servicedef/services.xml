@@ -44,33 +44,33 @@
     <!-- End Old Implementation to send data in XML format -->
     
     <!-- Start configuration services -->
-    <service name="createGoogleCheckoutConfiguration" default-entity-name="GoogleCheckoutConfiguration" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a GoogleCheckoutConfiguration</description>
+    <service name="createGoogleCheckoutConfiguration" default-entity-name="GoogleCoConfiguration" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GoogleCoConfiguration</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateGoogleCheckoutConfiguration" default-entity-name="GoogleCheckoutConfiguration" engine="entity-auto" invoke="update" auth="true">
-        <description>Update a GoogleCheckoutConfiguration</description>
+    <service name="updateGoogleCheckoutConfiguration" default-entity-name="GoogleCoConfiguration" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GoogleCoConfiguration</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteGoogleCheckoutConfiguration" default-entity-name="GoogleCheckoutConfiguration" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete a GoogleCheckoutConfiguration</description>
+    <service name="deleteGoogleCheckoutConfiguration" default-entity-name="GoogleCoConfiguration" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GoogleCoConfiguration</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createGoogleCheckoutShippingMethod" default-entity-name="GoogleCheckoutShippingMethod" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a GoogleCheckoutShippingMethod</description>
+    <service name="createGoogleCheckoutShippingMethod" default-entity-name="GoogleCoShippingMethod" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GoogleCoShippingMethod</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateGoogleCheckoutShippingMethod" default-entity-name="GoogleCheckoutShippingMethod" engine="entity-auto" invoke="update" auth="true">
-        <description>Update a GoogleCheckoutShippingMethod</description>
+    <service name="updateGoogleCheckoutShippingMethod" default-entity-name="GoogleCoShippingMethod" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GoogleCoShippingMethod</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteGoogleCheckoutShippingMethod" default-entity-name="GoogleCheckoutShippingMethod" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete a GoogleCheckoutShippingMethod</description>
+    <service name="deleteGoogleCheckoutShippingMethod" default-entity-name="GoogleCoShippingMethod" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GoogleCoShippingMethod</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- End configuration services -->
