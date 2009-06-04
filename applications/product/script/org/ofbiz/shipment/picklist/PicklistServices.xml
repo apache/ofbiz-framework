@@ -347,16 +347,16 @@ under the License.
 
                                 <!-- pick now, or needs stock move first? -->
                                 <!-- put in pick or move lists for the groupName prepared according to selected options by user -->
-                                <if-empty field="pickMoveInfoMap.${groupName}.${groupName}">
-                                    <get-related-one value-field="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveInfoMap.${groupName}.${groupName}.shipmentMethodType"/>
+                                <if-empty field="pickMoveInfoMap[groupName][groupName]">
+                                    <get-related-one value-field="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveInfoMap[groupName][groupName].shipmentMethodType"/>
                                 </if-empty>
                                 <if-compare field="needsStockMove" operator="equals" value="Y">
-                                    <field-to-list field="orderHeaderInfo" list="pickMoveInfoMap.${groupName}.orderNeedsStockMoveInfoList"/>
+                                    <field-to-list field="orderHeaderInfo" list="pickMoveInfoMap[groupName].orderNeedsStockMoveInfoList"/>
                                     <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
                                         <field-to-list field="orderHeaderInfo" list="rushOrderInfo.orderNeedsStockMoveInfoList"/>
                                     </if-compare>
                                 <else>
-                                    <field-to-list field="orderHeaderInfo" list="pickMoveInfoMap.${groupName}.orderReadyToPickInfoList"/>
+                                    <field-to-list field="orderHeaderInfo" list="pickMoveInfoMap[groupName].orderReadyToPickInfoList"/>
                                     <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
                                         <field-to-list field="orderHeaderInfo" list="rushOrderInfo.orderReadyToPickInfoList"/>
                                     </if-compare>
@@ -368,10 +368,10 @@ under the License.
                                     <calcop field="numberSoFar" operator="add"><number value="1"/></calcop>
                                 </calculate>
                                 <log level="info" message="Added order #${orderHeader.orderId} to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
-                                <set field="pickMoveInfoMap.${groupName}.groupName" from-field="groupName"/>
-                                <set field="pickMoveInfoMap.${groupName}.groupName1" from-field="groupName1"/>
-                                <set field="pickMoveInfoMap.${groupName}.groupName2" from-field="groupName2"/>
-                                <set field="pickMoveInfoMap.${groupName}.groupName3" from-field="noOfOrderItems"/>
+                                <set field="pickMoveInfoMap[groupName].groupName" from-field="groupName"/>
+                                <set field="pickMoveInfoMap[groupName].groupName1" from-field="groupName1"/>
+                                <set field="pickMoveInfoMap[groupName].groupName2" from-field="groupName2"/>
+                                <set field="pickMoveInfoMap[groupName].groupName3" from-field="noOfOrderItems"/>
                             </then>
                             <else>
                                 <log level="info" message="Order #${orderHeader.orderId} was not added to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
@@ -404,8 +404,8 @@ under the License.
 
         <!-- find all groupName, for each one get the value from the pickMoveInfoMap and add it to the pickMoveInfoList -->
         <iterate list="groupNames" entry="groupName">
-            <if-not-empty field="pickMoveInfoMap.${groupName}">
-                <field-to-list field="pickMoveInfoMap.${groupName}" list="pickMoveInfoList"/>
+            <if-not-empty field="pickMoveInfoMap[groupName]">
+                <field-to-list field="pickMoveInfoMap[groupName]" list="pickMoveInfoList"/>
             </if-not-empty>
         </iterate>
         <clear-field field="groupNames"/>
