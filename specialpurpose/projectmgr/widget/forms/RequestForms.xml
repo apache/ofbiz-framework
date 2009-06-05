@@ -43,6 +43,7 @@ under the License.
                 <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
                     <entity-constraint name="childWorkEffortTypeId" value="PHASE"/>
+                    <entity-constraint name="currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <entity-order-by field-name="workEffortName"/>
                     <entity-order-by field-name="childWorkEffortName"/>
                 </entity-options>
