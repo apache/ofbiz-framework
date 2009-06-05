@@ -92,7 +92,19 @@
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="contact methods of a party"/>
     <PortletPortletCategory portalPortletId="contact" portletCategoryId="PROFILE"/>
-
+    
+    <PortalPortlet portalPortletId="partyRelContacts" portletName="Account Related Contacts"
+        screenName="partyRelContacts"
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Related contacts of an account"/>
+    <PortletPortletCategory portalPortletId="partyRelContacts" portletCategoryId="PROFILE"/>
+    
+    <PortalPortlet portalPortletId="partyRelAccounts" portletName="Contact Related Accounts"
+        screenName="partyRelAccounts"
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Related accounts of an contact"/>
+    <PortletPortletCategory portalPortletId="partyRelAccounts" portletCategoryId="PROFILE"/>
+    
     <!-- communications -->
     <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
     <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="IN and outgoing Communication list of a party"
@@ -107,15 +119,17 @@
 
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00001" sequenceNum="4"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="9"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="11"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="12"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="partyRelContacts" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="partyRelAccounts" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
 
 
 </entity-engine-xml>
