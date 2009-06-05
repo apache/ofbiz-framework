@@ -58,11 +58,12 @@ under the License.
 </script>
 </#if>
 
-<!--------------------------------------------------------------------------------------------
-NOTE: all page headings should start with an <h2></h2> tag, 
-(not an H1 tag, as there should generally always only be one <h1></h1> tag on the page and
-that will generally always be reserved for the logo at the top of the page.
----------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------
+NOTE: all page headings should start with an h2 tag, not an H1 tag, as 
+there should generally always only be one h1 tag on the page and that 
+will generally always be reserved for the logo at the top of the page.
+------------------------------------------------------------------------------->
+
 <h2>${uiLabelMap.PartyRequestNewAccount}
 	<span>
 		${uiLabelMap.PartyAlreadyHaveAccount}, <a href='<@ofbizUrl>checkLogin/main</@ofbizUrl>'>${uiLabelMap.CommonLoginHere}</a>
@@ -399,13 +400,15 @@ that will generally always be reserved for the logo at the top of the page.
   
 </form>
 
-<!--------------------------------------------------------------------------------------------
-To create a consistent look and feel for all buttons, input[type=submit], and a tags acting as
-submit buttons, all button actions should be enclosed in a div with a class name of "buttons"
---------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------
+To create a consistent look and feel for all buttons, input[type=submit], 
+and a tags acting assubmit buttons, all button actions should have a 
+class name of "button". No other class names should be used to style 
+button actions.
+------------------------------------------------------------------------------->
 <div class="buttons">
-    <a href="javascript:document.newuserform.submit()">${uiLabelMap.CommonSave}</a>
-    <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="reset">${uiLabelMap.CommonBack}</a>
+    <a href="javascript:document.newuserform.submit()" class="button">${uiLabelMap.CommonSave}</a>
+    <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="button reset">${uiLabelMap.CommonBack}</a>
 </div>
 
 <script language="JavaScript" type="text/javascript">
