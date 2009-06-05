@@ -840,6 +840,7 @@ under the License.
     <form name="AddAccount" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdFrom"><lookup target-form-name="LookupAccount"/></field>
+        <field name="comments"><text/></field>
         <field name="roleTypeIdFrom"><hidden value="ACCOUNT"/></field>
         <field name="partyIdTo"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeIdTo"><hidden value="CONTACT"/></field>
@@ -852,6 +853,7 @@ under the License.
         <field name="partyIdFrom"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeIdFrom"><hidden value="ACCOUNT"/></field>
         <field name="partyIdTo"><lookup target-form-name="LookupContact"/></field>
+        <field name="comments"><text/></field>
         <field name="roleTypeIdTo"><hidden value="CONTACT"/></field>
         <field name="partyRelationshipTypeId"><hidden value="EMPLOYMENT"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>

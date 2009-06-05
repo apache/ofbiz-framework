@@ -470,10 +470,11 @@
     <screen name="partyRelContacts">
         <section>
             <actions>
-                <entity-and list="contacts" entity-name="PartyRelationship">
+                <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdFrom" from-field="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                    <order-by field-name="partyIdTo"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -494,10 +495,11 @@
     <screen name="partyRelAccounts">
         <section>
             <actions>
-                <entity-and list="accounts" entity-name="PartyRelationship">
+                <entity-and list="accounts" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                    <order-by field-name="partyIdFrom"/>
                 </entity-and>
             </actions>
             <widgets>
