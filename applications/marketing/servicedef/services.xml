@@ -390,7 +390,10 @@ under the License.
 
     <!-- lead services -->
     <service name="createLead" engine="simple" location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
-        <description>Create a Lead Person or Group</description>
+        <description>
+            Sales Lead can be just a person or a person representing a company or a company (party group).
+            createLead works 1) If person information is passed. 2) If company (party group) information is passed. 3) If Person and company (party group) information is passed. 
+        </description>
         <auto-attributes entity-name="Person" mode="IN" optional="true">
             <exclude field-name="partyId"/>
         </auto-attributes>
@@ -400,8 +403,6 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
             <exclude field-name="contactMechId"/>
         </auto-attributes>
-        <attribute name="partyId" type="String" mode="OUT"/>
-        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="title" type="String" mode="IN" optional="true"/>
@@ -409,10 +410,13 @@ under the License.
         <attribute name="officeSiteName" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="dataSourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeId" type="String" mode="OUT"/>
-        <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
         <attribute name="extension" type="String" mode="IN" optional="true"/>
         <attribute name="contactListId" type="String" mode="IN" optional="true"/>
+
+        <attribute name="partyId" type="String" mode="OUT" optional="true"/>
+        <attribute name="partyGroupPartyId" type="String" mode="OUT" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createContact" engine="simple"
         location="component://marketing/script/org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
