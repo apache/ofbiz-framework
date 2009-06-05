@@ -467,17 +467,11 @@
         </section>
     </screen>
 
-    <screen name="contactsAndAccounts">
+    <screen name="partyRelContacts">
         <section>
             <actions>
-                <set field="partyId" from-field="parameters.partyId"/>
                 <entity-and list="contacts" entity-name="PartyRelationship">
                     <field-map field-name="partyIdFrom" from-field="parameters.partyId"/>
-                    <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
-                    <field-map field-name="roleTypeIdTo" value="CONTACT"/>
-                </entity-and>
-                <entity-and list="accounts" entity-name="PartyRelationship">
-                    <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 </entity-and>
@@ -493,6 +487,20 @@
                         </screenlet>
                     </widgets>
                 </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="partyRelAccounts">
+        <section>
+            <actions>
+                <entity-and list="accounts" entity-name="PartyRelationship">
+                    <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
+                    <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                    <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                </entity-and>
+            </actions>
+            <widgets>
                 <section>
                     <condition>
                         <not><if-empty field="accounts"/></not>
@@ -506,7 +514,7 @@
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="mytasks">
         <section>
             <condition>

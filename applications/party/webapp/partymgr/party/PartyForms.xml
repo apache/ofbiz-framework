@@ -738,9 +738,8 @@ under the License.
             </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="partyRelationshipTypeId"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
-        <field name="fromDate"><display type="date"/></field>
-        <field name="thruDate"><display type="date"/></field>
+        <field name="partyRelationshipTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
+        <field name="comments"><display/></field>
     </form>
 
     <form name="ListRelatedAccounts" type="list" list-name="accounts" default-table-style="basic-table">
@@ -751,9 +750,8 @@ under the License.
             </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="partyRelationshipTypeId"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
-        <field name="fromDate"><display type="date"/></field>
-        <field name="thruDate"><display type="date"/></field>
+        <field name="partyRelationshipTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
+        <field name="comments"><display/></field>
     </form>
 
     <form name="ListPartyRelationships" type="list" list-name="partyRelationships" default-table-style="basic-table" target="updatePartyRelationship">
