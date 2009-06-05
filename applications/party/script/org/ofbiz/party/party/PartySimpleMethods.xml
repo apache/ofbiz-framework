@@ -139,10 +139,10 @@ under the License.
     <simple-method method-name="createPartyGroupRoleAndContactMechs" short-description="Creates a party group, role and contactMechs">
         <call-map-processor processor-name="partyGroup" in-map-name="parameters" out-map-name="partyGroupContext"
             xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"/>
-
-        <call-map-processor processor-name="postalAddress" in-map-name="parameters" out-map-name="postalAddressContext"
-            xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
-
+        <if-not-empty field="parameters.address1">
+            <call-map-processor processor-name="postalAddress" in-map-name="parameters" out-map-name="postalAddressContext"
+                xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
+        </if-not-empty>
         <if-not-empty field="parameters.contactNumber">
             <call-map-processor processor-name="telecomNumber" in-map-name="parameters" out-map-name="telecomNumberContext"
                 xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
