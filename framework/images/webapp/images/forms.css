@@ -33,7 +33,7 @@ fieldset fieldset legend {padding: 0 0 1.5em; font-size: 1em;}
 *+html legend {margin-left: -7px;}
 
 form .form-row, .buttons {clear: both; margin: 0 0 0.8em;}
-form .form-row label {display: block; padding-bottom:.34em}
+form .form-row label {display: block; padding-bottom:.08em}
 form ul li {list-style-type: none; margin: 0;}
 form .inline li, form .inline label {display: inline;}
 form .inline li {padding: 0 .75em 0 0;}
@@ -82,68 +82,68 @@ margin:0.3em 0 0;
 /***********************************************
 Buttons
 ***********************************************/
-.buttons { font-size:110%; padding:5px 0px 5px 0px; text-align:center;}
-.buttons a, .buttons button, .buttons input[type=submit], .buttons input[type=reset]{
-display:block;
-float:left;
+.buttons { font-size:100%; padding:5px 0px 5px 0px;}
+a.button, button.button, input[type=submit].button, input[type=reset].button{
+display:inline;
 margin:0 7px 0 0;
 background-color:#f5f5f5;
 border:1px solid #dedede;
 border-top:1px solid #eee;
 border-left:1px solid #eee;
 font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
-font-size:110%;
-line-height:140%;
+font-size:100%;
+line-height:130%;
 text-decoration:none;
 font-weight:bold;
 color:#565656;
 cursor:pointer;
 padding:5px 10px 6px 7px; /* Links */
 }
-.buttons button{
+button{
 width:auto;
 overflow:visible;
 padding:4px 10px 3px 7px; /* IE6 */
 }
-.buttons button[type]{
+button[type]{
 padding:5px 10px 5px 7px; /* Firefox */
 line-height:17px; /* Safari */
 }
 *:first-child+html button[type]{
 padding:4px 10px 3px 7px; /* IE7 */
 }
-button:hover, .buttons a:hover{
+button:hover, a.button:hover{
 background-color:#dff4ff;
 border:1px solid #c2e1ef;
 color:#336699;
 }
-.buttons a:active{
+a.button:active{
 background-color:#6299c5;
 border:1px solid #6299c5;
 color:#fff;
 }
-.buttons input[type=submit]:hover {
+
+input[type=submit].button:hover {
 background-color:#dff4ff;
 border:1px solid #c2e1ef;
 color:#336699;
 }
-.buttons a.submit:active{
+a.submit:active{
 background-color:#529214;
 border:1px solid #529214;
 color:#fff;
 }
-.buttons a.reset, button.reset{color:#d12f19;}
-.buttons a.reset:hover, button.reset:hover{
+a.reset, button.reset{color:#d12f19;}
+a.reset:hover, button.reset:hover{
 background:#fbe3e4;
 border:1px solid #fbc2c4;
 color:#d12f19;
 }
-.buttons input[type=reset]:hover, .buttons button[type=reset]:hover {
+input[type=reset].button:hover, button[type=reset].button:hover {
 background:#fbe3e4;
 border:1px solid #fbc2c4;
 color:#d12f19;
 }
-.buttons a.reset:active{
+a.reset:active{
 background-color:#d12f19;
 border:1px solid #d12f19;
 color:#fff;
