@@ -58,12 +58,6 @@ under the License.
 </script>
 </#if>
 
-<!-------------------------------------------------------------------------------------------
-Anil,
-The notes in this file are for developmental purposes only.  Please delete them before
-committing this file to the OFBiz trunk.
--------------------------------------------------------------------------------------------->
-
 <!--------------------------------------------------------------------------------------------
 NOTE: all page headings should start with an <h2></h2> tag, 
 (not an H1 tag, as there should generally always only be one <h1></h1> tag on the page and
