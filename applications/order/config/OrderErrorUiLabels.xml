@@ -654,6 +654,9 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่พบค่าหัวข้อรายการสั่งซื้อสำหรับรหัสรายการสั่งซื้อ : ${orderId}</value>
         <value xml:lang="zh">错误：没有为订单标识：${orderId} 找到有效的订单头 </value>
     </property>
+    <property key="OrderErrorOrderHasBeenAlreadyVerified">
+        <value xml:lang="en">ERROR: Order #${orderId} has been already verified, go to Weight Package Only screen for further processing</value>
+    </property>
     <property key="OrderErrorOrderIdNotFound">
         <value xml:lang="en">ERROR: Order with ID [${orderId}] not found</value>
         <value xml:lang="fr">Erreur : la commande avec la réf. [${orderId}] n'a pas été trouvé</value>
@@ -701,6 +704,9 @@
         <value xml:lang="it">Ordine ${orderId} non è un'ordine di acquisto</value>
         <value xml:lang="ru">Заказ ${orderId} не является закупочным заказом</value>
         <value xml:lang="th">ใบสั่งซื้อสินค้า ${orderId} ไม่เป็นรายการสั่งซื้อ</value>
+    </property>
+    <property key="OrderErrorOrderNotVerified">
+        <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weight Package Only button for further processing</value>
     </property>
     <property key="OrderErrorOrderNotVerifiedForPacking">
         <value xml:lang="en">ERROR: Order #${orderId} is not verified for packing</value>

@@ -21,10 +21,11 @@ under the License.
     <#assign showInput = requestParameters.showInput?default("Y")>
     <#assign hideGrid = requestParameters.hideGrid?default("N")>
 
-    <#if (requestParameters.forceComplete?has_content && !shipmentId?has_content)>
+    <#if (requestParameters.forceComplete?has_content && !invoiceIds?has_content)>
         <#assign forceComplete = "true">
         <#assign showInput = "Y">
     </#if>
+
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <ul>
@@ -33,7 +34,7 @@ under the License.
             <br class="clear"/>
         </div>
         <div class="screenlet-body">
-            <#if shipmentId?has_content>
+            <#if invoiceIds?has_content>
                 <div>
                 ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/PackingSlip.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a> ${uiLabelMap.CommonOr}
                 ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/ShipmentBarCode.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductBarcode}</a> ${uiLabelMap.CommonFor} ${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>/ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${shipmentId}</a>
@@ -74,6 +75,7 @@ under the License.
                   <td colspan="2">
                     <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.selectOrderForm.submit();">
                     <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
+                    <a href="javascript:document.selectOrderForm.action='<@ofbizUrl>weightPackageOnly</@ofbizUrl>';document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
                   </td>
                 </tr>
               </table>
@@ -98,6 +100,7 @@ under the License.
                   <td colspan="1">
                     <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.selectPicklistBinForm.submit();">
                     <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
+                    <a href="javascript:document.selectPicklistBinForm.action='<@ofbizUrl>weightPackageOnly</@ofbizUrl>';document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
                   </td>
                 </tr>
               </table>
