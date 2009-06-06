@@ -40,6 +40,7 @@ if (!shipmentId) {
 context.shipmentId = shipmentId;
 
 // If a shipment exists, provide the IDs of any related invoices
+invoiceIds = null;
 if (shipmentId) {
     // Get the primaryOrderId from the shipment
     shipment = delegator.findOne("Shipment",  [shipmentId : shipmentId], false);
@@ -110,6 +111,12 @@ packSession.setPrimaryOrderId(orderId);
 packSession.setPicklistBinId(picklistBinId);
 packSession.setFacilityId(facilityId);
 
+if (invoiceIds) {
+    orderId = null;
+}
+shipment = EntityUtil.getFirst(delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"]));
+context.shipment = shipment;
+
 context.packingSession = packSession;
 context.orderId = orderId;
 context.shipGroupSeqId = shipGroupSeqId;
@@ -128,6 +135,7 @@ if (orderId) {
 
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
+            if (!shipment) {
 
                 // Generate the shipment cost estimate for the ship group
                 productStoreId = orh.getProductStoreId();
@@ -144,6 +152,9 @@ if (orderId) {
                     packSession.addItemInfo(shippableItems);
                     //context.put("itemInfos", shippableItemInfo);
                 }
+            } else {
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderHasBeenAlreadyVerified", [orderId : orderId], locale));
+            }
             } else {
                 request.setAttribute("errorMessageList", ['No ship group sequence ID. Cannot process.']);
             }

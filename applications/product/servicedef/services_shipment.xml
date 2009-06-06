@@ -482,6 +482,57 @@ under the License.
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
     </service>
 
+    <!-- Weight Package Only Services -->
+    <service name="weightPackageOnly" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="weightPackageOnly" auth="true">
+        <description>Check order is verified or not, if veified than shown weight package only screen otherwise shown packing screen</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="setPackageInfo" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="setPackageInfo" auth="true">
+        <description>Set the weight, dimensions/shipmentBoxType of package in SESSION</description>
+        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="packageWeight" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="packageLength" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="packageWidth" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="packageHeight" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shipmentBoxTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updatePackedLine" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="updatePackedLine" auth="true">
+        <description>Update the weight, dimensions/shipmentBoxType of package</description>
+        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="packageWeight" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="packageLength" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="packageWidth" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="packageHeight" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shipmentBoxTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="weightPackageSeqId" type="Integer" mode="IN" optional="false"/>
+    </service>
+
+    <service name="deletePackedLine" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="deletePackedLine" auth="true">
+        <description>Delete the weight, dimensions/shipmentBoxType of package</description>
+        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSeqId" type="Integer" mode="IN" optional="false"/>
+    </service>
+
+    <service name="completePackage" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completePackage" auth="true">
+        <description>Complete the packging and set the shipment to packed</description>
+        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="estimatedShippingCost" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
+    </service>
+
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">
@@ -570,27 +621,6 @@ under the License.
         <attribute name="shipmentBoxTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="weightPackageSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="dimensionSavedInSession" type="Boolean" mode="OUT" optional="true"/>
-    </service>
-
-    <service name="completePackage" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="completePackage" auth="true">
-        <description>Complete the packging and set the shipment to packed</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
-        <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
-        <attribute name="orderId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="shippingContactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
-        <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipmentCostEstimateForShipGroup" type="String" mode="IN" optional="true"/>
-        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
-        <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="showWarningForm" type="Boolean" mode="OUT" optional="true"/>
     </service>
 
     <service name="holdShipment" engine="java"

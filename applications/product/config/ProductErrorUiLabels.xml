@@ -85,6 +85,12 @@
     <property key="ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity">
         <value xml:lang="en">ERROR: No valid order item found for product [${productId}] with quantity [${quantity}]</value>
     </property>
+    <property key="ProductErrorNumberOfPackageCannotBeGreaterThanTheNumberOfOrderedQuantity">
+        <value xml:lang="en">ERROR: Number of package cannot be greater than the number of ordered quantity</value>
+    </property>
+    <property key="ProductErrorPackageWeightCannotBeNullOrZero">
+        <value xml:lang="en">ERROR: Package weight cannot be null/zero, it should be greater than zero</value>
+    </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>

@@ -298,6 +298,25 @@ under the License.
         </section>
     </screen>
 
+    <screen name="WeightPackageOnly">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductWeightPackageOnly"/>
+                <set field="headerItem" value="shipment"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/WeightPackage.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/WeightPackage.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="PackingSlip.fo">
         <section>
             <actions>

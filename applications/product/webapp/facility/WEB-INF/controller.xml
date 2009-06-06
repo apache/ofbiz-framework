@@ -692,6 +692,38 @@ under the License.
         <response name="error" type="view" value="VerifyPick"/>
     </request-map>
 
+     <!-- ============= Weight Package Only Requests ============== -->
+    <request-map uri="weightPackageOnly">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="weightPackageOnly"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="view" value="PackOrder"/>
+    </request-map>
+    <request-map uri="setPackageInfo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setPackageInfo"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
+    </request-map>
+    <request-map uri="updatePackedLine">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePackedLine"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
+    </request-map>
+    <request-map uri="deletePackedLine">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePackedLine"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
+    </request-map>
+    <request-map uri="completePackage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="completePackage"/>
+        <response name="success" type="view" value="PackOrder"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
+    </request-map>
+
     <!-- ============= Packing Wizard Requests ============== -->
     <request-map uri="PackOrder">
         <security https="true" auth="true"/>
@@ -740,12 +772,6 @@ under the License.
     <request-map uri="weightPackage">
         <security https="true" auth="true"/>
         <event type="service" invoke="weightPackage"/>
-        <response name="success" type="view" value="PackOrder"/>
-        <response name="error" type="view" value="PackOrder"/>
-    </request-map>
-    <request-map uri="completePackage">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="completePackage"/>
         <response name="success" type="view" value="PackOrder"/>
         <response name="error" type="view" value="PackOrder"/>
     </request-map>
@@ -1267,6 +1293,7 @@ under the License.
     <view-map name="ShipmentManifest.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentManifest.fo" content-type="application/pdf" encoding="none"/>
 
     <view-map name="VerifyPick" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#VerifyPick"/>
+    <view-map name="WeightPackageOnly" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#WeightPackageOnly"/>
 
     <view-map name="ScheduleShipmentRouteSegment" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ScheduleShipmentRouteSegment"/>
     <view-map name="Labels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#Labels"/>
