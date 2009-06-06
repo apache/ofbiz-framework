@@ -1462,6 +1462,36 @@ under the License.
                      for Purchase Shipment, the facilityId parameter is the destinationFacilityId, and the initial status is "CREATED" -->
                 <if><condition><if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER"/></condition>
                   <then>
+                    <if-not-empty field="orderItemShipGroup.vendorPartyId">
+                      <set field="partyIdFrom" from-field="orderItemShipGroup.vendorPartyId"/>
+                    <else>
+                      <entity-one entity-name="Facility" value-field="facility" auto-field-map="false">
+                        <field-map field-name="facilityId" from-field="orderItemShipGrpInvResFacilityId"/>
+                      </entity-one>
+                      <if-not-empty field="facility.ownerPartyId">
+                        <set field="partyIdFrom" from-field="facility.ownerPartyId"/>
+                      </if-not-empty>
+                      <if-empty field="partyIdFrom">
+                        <entity-and entity-name="OrderRole" list="orderRoles">
+                          <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                          <field-map field-name="roleTypeId" value="SHIP_FROM_VENDOR"/>
+                        </entity-and>
+                        <if-not-empty field="orderRoles">
+                          <first-from-list list="orderRoles" entry="orderRole"/>
+                          <set field="partyIdFrom" from-field="orderRole.partyId"/>
+                        <else>
+                          <entity-and entity-name="OrderRole" list="orderRoles">
+                            <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                            <field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
+                          </entity-and>
+                          <first-from-list list="orderRoles" entry="orderRole"/>
+                          <set field="partyIdFrom" from-field="orderRole.partyId"/>
+                        </else>
+                        </if-not-empty>
+                      </if-empty>
+                    </else>
+                    </if-not-empty>
+                    <set field="shipmentContext.partyIdFrom" from-field="partyIdFrom"/>
                     <set from-field="orderItemShipGrpInvResFacilityId" field="shipmentContext.originFacilityId"/>
                     <set value="SHIPMENT_INPUT" field="shipmentContext.statusId"/>
                   </then>

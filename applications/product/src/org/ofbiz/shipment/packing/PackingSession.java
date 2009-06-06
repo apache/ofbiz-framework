@@ -709,6 +709,7 @@ public class PackingSession implements java.io.Serializable {
 
     protected void createShipment() throws GeneralException {
         // first create the shipment
+        GenericDelegator delegator = this.getDelegator();
         Map<String, Object> newShipment = FastMap.newInstance();
         newShipment.put("originFacilityId", this.facilityId);
         newShipment.put("primaryShipGroupSeqId", primaryShipGrp);
@@ -719,6 +720,30 @@ public class PackingSession implements java.io.Serializable {
         newShipment.put("picklistBinId", picklistBinId);
         newShipment.put("additionalShippingCharge", additionalShippingCharge);
         newShipment.put("userLogin", userLogin);
+        GenericValue orderRoleShipTo = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", primaryOrderId, "roleTypeId", "SHIP_TO_CUSTOMER")));
+        if (UtilValidate.isNotEmpty(orderRoleShipTo)) {
+            newShipment.put("partyIdTo", orderRoleShipTo.getString("partyId"));
+        }
+        String partyIdFrom = null; 
+        GenericValue orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", primaryOrderId, "shipGroupSeqId", primaryShipGrp)));
+        if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("vendorPartyId"))) {
+            partyIdFrom = orderItemShipGroup.getString("vendorPartyId");
+        } else if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("facilityId"))) {
+            GenericValue facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", orderItemShipGroup.getString("facilityId")), false);
+            if (UtilValidate.isNotEmpty(facility.getString("ownerPartyId"))) {
+                partyIdFrom = facility.getString("ownerPartyId");
+            }
+        }
+        if (UtilValidate.isEmpty(partyIdFrom)) {
+            GenericValue orderRoleShipFrom = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", primaryOrderId, "roleTypeId", "SHIP_FROM_VENDOR")));
+            if (UtilValidate.isNotEmpty(orderRoleShipFrom)) {
+                partyIdFrom = orderRoleShipFrom.getString("partyId");
+            } else {
+                orderRoleShipFrom = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", primaryOrderId, "roleTypeId", "BILL_FROM_VENDOR")));
+                partyIdFrom = orderRoleShipFrom.getString("partyId");
+            }
+        }
+        newShipment.put("partyIdFrom", partyIdFrom);
         Debug.log("Creating new shipment with context: " + newShipment, module);
         Map<String, Object> newShipResp = this.getDispatcher().runSync("createShipment", newShipment);
 

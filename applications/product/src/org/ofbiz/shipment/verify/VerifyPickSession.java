@@ -360,10 +360,26 @@ public class VerifyPickSession implements Serializable {
         if (UtilValidate.isNotEmpty(orderRoleShipTo)) {
             newShipment.put("partyIdTo", orderRoleShipTo.getString("partyId"));
         }
-        GenericValue orderRoleShipFrom = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "SHIP_FROM_VENDOR")));
-        if (UtilValidate.isNotEmpty(orderRoleShipFrom)) {
-            newShipment.put("partyIdFrom", orderRoleShipFrom.getString("partyId"));
+        String partyIdFrom = null; 
+        GenericValue orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", line.getShipGroupSeqId())));
+        if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("vendorPartyId"))) {
+            partyIdFrom = orderItemShipGroup.getString("vendorPartyId");
+        } else if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("facilityId"))) {
+            GenericValue facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", orderItemShipGroup.getString("facilityId")), false);
+            if (UtilValidate.isNotEmpty(facility.getString("ownerPartyId"))) {
+                partyIdFrom = facility.getString("ownerPartyId");
+            }
         }
+        if (UtilValidate.isEmpty(partyIdFrom)) {
+            GenericValue orderRoleShipFrom = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "SHIP_FROM_VENDOR")));
+            if (UtilValidate.isNotEmpty(orderRoleShipFrom)) {
+                partyIdFrom = orderRoleShipFrom.getString("partyId");
+            } else {
+                orderRoleShipFrom = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR")));
+                partyIdFrom = orderRoleShipFrom.getString("partyId");
+            }
+        }
+        newShipment.put("partyIdFrom", partyIdFrom);
         Map<String, Object> newShipResp = this.getDispatcher().runSync("createShipment", newShipment);
         if (ServiceUtil.isError(newShipResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(newShipResp));
