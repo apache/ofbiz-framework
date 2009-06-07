@@ -116,7 +116,6 @@
                                 <widgets>
                                     <container style="blogwrapper">
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
-                                        <label text="&lt;p/&gt;"/>
                                         <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
                                             <parameter param-name="blogContentId"/>
@@ -126,7 +125,6 @@
                                                 <parameter param-name="ownerContentId" from-field="blog.ownerContentId"/>
                                             </link>
                                         -->
-                                        <label text="&lt;br/&gt;"/>
                                         <container style="blogtext">
                                             <sub-content map-key="SUMMARY" content-id="${blog.contentId}"/>
                                         </container>
@@ -140,7 +138,6 @@
                                 <widgets>
                                     <container style="blogwrapper">
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
-                                        <label text="&lt;p/&gt;"/>
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
                                         <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
@@ -151,7 +148,6 @@
                                                 <parameter param-name="ownerContentId" from-field="blog.ownerContentId"/>
                                             </link>
                                         -->
-                                        <label text="&lt;br/&gt;"/>
                                         <container style="blogtext">
                                             <label text="${blog.description}" style="blogtext"/>
                                         </container>
@@ -247,7 +243,6 @@
             <widgets>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label text="&lt;p/&gt;"/>
                         <container style="bloghr">
                             <container style="leftjustify">
                                 <label text="${content.contentName}: ${content.description}" style="blogtitle"/>
@@ -269,21 +264,17 @@
                         <container style="blogcontentwrapper">
                             <container style="responsetext">
                                 <label text="${uiLabelMap.EcommerceBlogPostedOn}: ${content.createdDate}" style="responsetext"/>
-                                <label text="&lt;p/&gt;"/>
                             </container>
                             <content content-id="${articleContentId}"/>
                         </container>
 
-                        <label text="&lt;p/&gt;"/>
                         <include-screen name="BlogResponses"/>
-                        <label text="&lt;p/&gt;"/>
                         <!--
                             <link text="Latest" target="LatestResponses" >
                                 <parameter param-name="ownerContentId" from-field="webPubPt"/>
                             </link>
                         -->
                         <include-screen name="AddBlogResponse"/>
-                        <label text="&lt;p/&gt;"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -313,14 +304,13 @@
             <widgets>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label text="&lt;p/&gt;"/>
                         <container style="bloghr">
                             <container style="leftjustify">
                                 <link text="${article.contentName}: ${article.description}" target="ViewBlogArticle" style="blogtitle">
                                     <parameter param-name="articleContentId"/>
                                     <parameter param-name="blogContentId"/>
                                 </link>
-                                <label text=" --&gt; ${content.contentName}: ${content.description}" style="blogtitle"/>
+                                <label text="${content.contentName}: ${content.description}" style="blogtitle"/>
                             </container>
                             <section>
                                 <condition>
@@ -361,16 +351,13 @@
                         <container style="blogcontentwrapper">
                             <content content-id="${contentId}"/>
                         </container>
-                        <label text="&lt;p/&gt;"/>
 
                         <include-screen name="AddBlogResponse"/>
-                        <label text="&lt;p/&gt;"/>
 
                         <container style="bloghr">
                             <label text="${uiLabelMap.ContentForumThread}: " style="blogtitle"/>
                         </container>
                         <include-tree name="ResponseTree" location="component://ecommerce/widget/blog/BlogTrees.xml"/>
-                        <label text="&lt;p/&gt;"/>
                         <section>
                             <condition>
                                 <or>
