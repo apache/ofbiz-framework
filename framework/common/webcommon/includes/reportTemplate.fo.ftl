@@ -27,7 +27,7 @@ under the License.
               margin-top="0.4in" margin-bottom="0.4in"
               margin-left="0.6in" margin-right="0.4in">
             <#-- main body -->
-            <fo:region-body margin-top="1.2in" margin-bottom="0.4in"/>
+            <fo:region-body margin-top="1.5in" margin-bottom="0.4in"/>
             <#-- the header -->
             <fo:region-before extent="1.2in"/>
             <#-- the footer -->
