@@ -19,7 +19,7 @@ under the License.
 <#escape x as x?xml>
 <fo:table>
 <fo:table-column column-width="1in"/>
-<fo:table-column column-width="1.5in"/>
+<fo:table-column column-width="2.5in"/>
 <fo:table-body>
 <fo:table-row>
   <fo:table-cell>
