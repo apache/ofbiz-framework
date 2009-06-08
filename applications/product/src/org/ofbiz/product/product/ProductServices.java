@@ -740,7 +740,7 @@ public class ProductServices {
             String productId = (String) context.get("productId");
 
             if (UtilValidate.isEmpty(productId)) {
-                productId = "VP" + delegator.getNextSeqId("VirtualProduct");
+                productId = "VP" + delegator.getNextSeqId("Product");
                 // Create new virtual product...
                 GenericValue product = delegator.makeValue("Product");
                 product.set("productId", productId);
