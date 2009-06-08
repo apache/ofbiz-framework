@@ -48,8 +48,8 @@ public class ImportProductServices {
     /**
      * This method is responsible to import spreadsheet data into "Product" and
      * "InventoryItem" entities into database. The method uses the
-     * ImportProductHelper class to perform its opertaion. The method uses "Apache
-     * POI" api for importing spreadsheet(xls files) data.
+     * ImportProductHelper class to perform its operation. The method uses "Apache
+     * POI" api for importing spreadsheet (xls files) data.
      *
      * Note : Create the spreadsheet directory in the ofbiz home folder and keep
      * your xls files in this folder only.

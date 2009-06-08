@@ -414,6 +414,8 @@ under the License.
         </field>
         <field name="VIEW_SIZE" entry-name="viewSize" title="${uiLabelMap.ProductShowProductsPerPage}"><text/></field>
         <field name="monthsInPastLimit" entry-name="monthsInPastLimit"><text/></field>
+        <field name="fromDateSellThrough"><date-time/></field>
+        <field name="thruDateSellThrough"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -429,6 +431,7 @@ under the License.
                 <field-map field-name="checkTime" from-field="checkTime"/>
                 <field-map field-name="statusId" from-field="statusId"/>
             </service>
+            <script location="component://product/webapp/facility/WEB-INF/actions/facility/ComputeProductSellThroughData.groovy"/>
         </row-actions>
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink target="EditFacilityInventoryItems" description="${productId}">
@@ -455,6 +458,10 @@ under the License.
         <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><display description="${resultMap.defultPrice}"/></field>
         <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display description="${resultMap.listPrice}"/></field>
         <field name="wholeSalePrice" title="${uiLabelMap.ProductWholeSalePrice}"><display description="${resultMap.wholeSalePrice}"/></field>
+        <field name="fromDateSellThrough" entry-name="parameters.fromDateSellThrough"><display/></field>
+        <field name="sellThroughInitialInventory"><display/></field>
+        <field name="sellThroughInventorySold"><display/></field>
+        <field name="sellThroughPercentage"><display/></field>
     </form>
 
     <!-- multi-form for list of packages ready to be weighted and scheduled for shipment -->

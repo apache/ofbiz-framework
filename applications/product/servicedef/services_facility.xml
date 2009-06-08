@@ -208,6 +208,25 @@ under the License.
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
+    <service name="countProductInventoryOnHand" engine="simple"
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
+        <description>Count Inventory On Hand for a Product constrained by a facilityId at a given date.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryCountDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
+    <service name="countProductInventoryShippedForSales" engine="simple"
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="countProductInventoryShippedForSales" auth="true" use-transaction="false">
+        <description>Count Inventory Shipped for Sales Orders for a Product constrained by a facilityId in a given date range.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
     <service name="getProductInventorySummaryForItems" engine="java"
                 location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
         <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components

@@ -636,6 +636,40 @@ under the License.
         <field-to-result field="parameters.quantityOnHandTotal" result-name="quantityOnHandTotal"/>
     </simple-method>
 
+    <simple-method method-name="countProductInventoryOnHand" short-description="Count Inventory On Hand for a Product constrained by a facilityId at a given date." use-transaction="false">
+        <entity-condition entity-name="InventoryItemDetailForSum" list="inventoryItemDetailTotals">
+            <condition-list combine="and">
+                <condition-expr field-name="effectiveDate" operator="less-equals" from-field="parameters.inventoryCountDate"/>
+                <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
+            </condition-list>
+            <select-field field-name="quantityOnHandSum"/>
+        </entity-condition>
+        <first-from-list entry="inventoryItemDetailTotal" list="inventoryItemDetailTotals"/>
+        <set field="quantityOnHandTotal" from-field="inventoryItemDetailTotal.quantityOnHandSum" type="BigDecimal" default-value="0"/>
+        <field-to-result field="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+    </simple-method>
+
+    <simple-method method-name="countProductInventoryShippedForSales" short-description="Count Inventory Shipped for Sales Orders for a Product constrained by a facilityId in a given date range." use-transaction="false">
+        <if-empty field="parameters.thruDate">
+            <now-timestamp field="parameters.thruDate"/>
+        </if-empty>
+        <entity-condition entity-name="InventoryItemDetailForSum" list="inventoryItemDetailTotals">
+            <condition-list combine="and">
+                <condition-expr field-name="effectiveDate" operator="greater-equals" from-field="parameters.fromDate"/>
+                <condition-expr field-name="effectiveDate" operator="less" from-field="parameters.thruDate"/>
+                <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
+                <condition-expr field-name="orderId" operator="not-equals" from-field="nullField"/>
+                <condition-expr field-name="quantityOnHandDiff" operator="less" value="0"/>
+            </condition-list>
+            <select-field field-name="quantityOnHandSum"/>
+        </entity-condition>
+        <first-from-list entry="inventoryItemDetailTotal" list="inventoryItemDetailTotals"/>
+        <set field="quantityOnHandTotal" from-field="${inventoryItemDetailTotal.quantityOnHandSum * -1}" type="BigDecimal" default-value="0"/>
+        <field-to-result field="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+    </simple-method>
+
     <simple-method method-name="getMktgPackagesAvailable" short-description="Get Marketing Packages Available From Components In Inventory" login-required="false" use-transaction="false">
         <set field="availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="quantityOnHandTotal" value="0" type="BigDecimal"/>
