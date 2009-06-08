@@ -42,6 +42,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
@@ -55,6 +56,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -3830,6 +3832,32 @@ public class OrderServices {
         List toStore = new LinkedList();
         toStore.addAll(cart.makeOrderItems());
         toStore.addAll(cart.makeAllAdjustments());
+        
+        String shipGroupSeqId = null;
+        long groupIndex = cart.getShipInfoSize();
+        List orderAdjustments = new ArrayList();
+        for (long itr = 1; itr <= groupIndex; itr++) {
+            shipGroupSeqId = UtilFormatOut.formatPaddedNumber(1, 5);
+            List<GenericValue> removeList = new ArrayList<GenericValue>();
+            for (GenericValue stored: (List<GenericValue>)toStore) {
+                if ("OrderAdjustment".equals(stored.getEntityName())) {
+                    if (("SHIPPING_CHARGES".equals(stored.get("orderAdjustmentTypeId")) ||
+                            "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
+                            stored.get("orderId").equals(orderId) &&
+                            stored.get("shipGroupSeqId").equals(shipGroupSeqId)) {
+                        // Removing objects from toStore list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
+                        removeList.add(stored);
+                    }
+                    if (stored.get("comments") != null && ((String)stored.get("comments")).startsWith("Added manually by")) {
+                        // Removing objects from toStore list for Manually added Adjustment.
+                        removeList.add(stored);
+                    }
+                }
+            }
+            toStore.removeAll(removeList);
+        }
+        
+        // Creating objects for New Shipping and Handling Charges Adjustment and Sales Tax Adjustment
         toStore.addAll(cart.makeAllShipGroupInfos());
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
         toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));
