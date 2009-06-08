@@ -2577,12 +2577,17 @@ public class UpsServices {
                 Debug.logError(e2, excErrMsg, module);
                 return ServiceUtil.returnError(excErrMsg);
             }
-
-            Map resultMap = handleUpsShipmentConfirmResponse(shipmentConfirmResponseDocument, shipmentRouteSegment);
-            if ("error".equals(resultMap.get("responseMessage"))){
-                List errorMessageList = (List) resultMap.get("errorMessageList");
-                return ServiceUtil.returnError(errorMessageList);
+            Element shipmentConfirmResponseElement = shipmentConfirmResponseDocument.getDocumentElement();
+            // handle Response element info
+            Element responseElement = UtilXml.firstChildElement(shipmentConfirmResponseElement, "Response");
+            String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
+            List<Object> errorList = FastList.newInstance();
+            UpsServices.handleErrors(responseElement, errorList);
+            if (!"1".equals(responseStatusCode)) {
+                errorList.add(0, "The UPS ShipmentConfirm failed so not sending email for return shipping label");
+                return ServiceUtil.returnError(errorList);
             }
+
             //Shipment Accept Request follows
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
                 return ServiceUtil.returnError("ERROR: The Carrier for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is not UPS.");
@@ -2591,8 +2596,9 @@ public class UpsServices {
             if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
-
-            if (UtilValidate.isEmpty(shipmentRouteSegment.getString("trackingDigest"))) {
+            
+            String shipmentDigest = UtilXml.childElementValue(shipmentConfirmResponseElement, "ShipmentDigest");
+            if (UtilValidate.isEmpty(shipmentDigest)) {
                 return ServiceUtil.returnError("ERROR: The trackingDigest was not set for this Route Segment, meaning that a UPS shipment confirm has not been done.");
             }
 
@@ -2610,7 +2616,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(acceptRequestElement, "RequestAction", "ShipAccept", shipmentAcceptRequestDoc);
             UtilXml.addChildElementValue(acceptRequestElement, "RequestOption", "01", shipmentAcceptRequestDoc);
 
-            UtilXml.addChildElementValue(shipmentAcceptRequestElement, "ShipmentDigest", shipmentRouteSegment.getString("trackingDigest"), shipmentAcceptRequestDoc);
+            UtilXml.addChildElementValue(shipmentAcceptRequestElement, "ShipmentDigest", shipmentDigest, shipmentAcceptRequestDoc);
 
             String shipmentAcceptRequestString = null;
             try {
