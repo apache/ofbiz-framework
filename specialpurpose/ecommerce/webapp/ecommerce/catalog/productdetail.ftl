@@ -260,6 +260,10 @@ ${virtualJavaScript?if_exists}
  </script>
 
 <div id="productdetail">
+<#assign productAdditionalImage1 = productContentWrapper.get("ADDITIONAL_IMAGE_1")?if_exists>
+<#assign productAdditionalImage2 = productContentWrapper.get("ADDITIONAL_IMAGE_2")?if_exists>
+<#assign productAdditionalImage3 = productContentWrapper.get("ADDITIONAL_IMAGE_3")?if_exists>
+<#assign productAdditionalImage4 = productContentWrapper.get("ADDITIONAL_IMAGE_4")?if_exists>
 
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
   <#-- Category next/previous -->
@@ -288,7 +292,33 @@ ${virtualJavaScript?if_exists}
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
       <#if productLargeImageUrl?string?has_content>
-        <a href="javascript:popupDetail();"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" border="0" width="200"></a>
+        <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" border="0" width="200"/></a>
+        <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>"/>
+      </#if>
+      <#if !productLargeImageUrl?string?has_content>
+        <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage"/>
+      </#if>
+    </td>
+    <td> 
+      <#if productAdditionalImage1?string?has_content>
+        <div class="additionalImage">
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200"/></a>
+        </div></br>
+      </#if>
+      <#if productAdditionalImage2?string?has_content>
+        <div class="additionalImage">
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200"/></a>
+         </div></br>
+      </#if>
+      <#if productAdditionalImage3?string?has_content>
+        <div class="additionalImage">
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200"/></a>
+        </div>
+      </#if>
+      <#if productAdditionalImage4?string?has_content>
+        <div class="additionalImage">
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200"/></a>
+        </div>
       </#if>
     </td>
     <td align="right" valign="top">

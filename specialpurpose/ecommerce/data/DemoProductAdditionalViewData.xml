@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResource dataResourceId="GZ-2644-Add1" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE" objectInfo="/images/products/additional/web_browser2.png" />
+    <Content contentId="GZ-2644-Add1-CTNT" contentTypeId="DOCUMENT" dataResourceId="GZ-2644-Add1" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add1-CTNT" productContentTypeId="ADDITIONAL_IMAGE_1" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="GZ-2644-Add2" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE" objectInfo="/images/products/additional/web_browser3.png" />
+    <Content contentId="GZ-2644-Add2-CTNT" contentTypeId="DOCUMENT" dataResourceId="GZ-2644-Add2" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add2-CTNT" productContentTypeId="ADDITIONAL_IMAGE_2" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="GZ-2644-Add3" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE" objectInfo="/images/products/additional/web_browser4.png" />
+    <Content contentId="GZ-2644-Add3-CTNT" contentTypeId="DOCUMENT" dataResourceId="GZ-2644-Add3" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add3-CTNT" productContentTypeId="ADDITIONAL_IMAGE_3" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="GZ-2644-Add4" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE" objectInfo="/images/products/additional/web_browser5.png" />
+    <Content contentId="GZ-2644-Add4-CTNT" contentTypeId="DOCUMENT" dataResourceId="GZ-2644-Add4" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add4-CTNT" productContentTypeId="ADDITIONAL_IMAGE_4" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="WG-5569-Add1" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE"  objectInfo="/images/products/additional/cellphone_shandy2.png" />
+    <Content contentId="WG-5569-Add1-CTNT" contentTypeId="DOCUMENT" dataResourceId="WG-5569-Add1" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add1-CTNT" productContentTypeId="ADDITIONAL_IMAGE_1" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="WG-5569-Add2" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE" objectInfo="/images/products/additional/cellphone_shandy3.png" />
+    <Content contentId="WG-5569-Add2-CTNT" contentTypeId="DOCUMENT" dataResourceId="WG-5569-Add2" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add2-CTNT" productContentTypeId="ADDITIONAL_IMAGE_2" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="WG-5569-Add3" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE" objectInfo="/images/products/additional/cellphone_shandy4.png" />
+    <Content contentId="WG-5569-Add3-CTNT" contentTypeId="DOCUMENT" dataResourceId="WG-5569-Add3" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add3-CTNT" productContentTypeId="ADDITIONAL_IMAGE_3" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="WG-5569-Add4" dataResourceTypeId="SHORT_TEXT" dataTemplateTypeId="NONE"  objectInfo="/images/products/additional/cellphone_shandy5.png" />
+    <Content contentId="WG-5569-Add4-CTNT" contentTypeId="DOCUMENT" dataResourceId="WG-5569-Add4" statusId="CTNT_IN_PROGRESS"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add4-CTNT" productContentTypeId="ADDITIONAL_IMAGE_4" fromDate="2001-05-13 12:00:00.0"/>
+</entity-engine-xml>
