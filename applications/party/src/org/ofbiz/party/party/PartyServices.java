@@ -289,6 +289,9 @@ public class PartyServices {
         
         // update status by separate service
         String oldStatusId = party.getString("statusId");
+        if (party.get("statusId") == null) { // old records
+        	party.set("statusId", "PARTY_ENABLED");
+        }
 
         person.setNonPKFields(context);
         party.setNonPKFields(context);
