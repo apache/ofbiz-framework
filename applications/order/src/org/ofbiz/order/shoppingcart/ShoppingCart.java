@@ -3793,6 +3793,10 @@ public class ShoppingCart implements Serializable {
         }
         return groups;
     }
+    
+    public int getShipInfoSize() {
+        return this.shipInfo.size();
+    }
 
     public List makeAllOrderItemAttributes() {
         return makeAllOrderItemAttributes(null, ALL);
