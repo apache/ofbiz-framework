@@ -25,7 +25,7 @@ under the License.
 
 <#-- ========================================================================================================================== -->
         <div id="cartPanel" class="screenlet">
-          <h3 class="boxhead">${uiLabelMap.EcommerceStep} 1: ${uiLabelMap.PageTitleShoppingCart}</h3>
+          <h3>${uiLabelMap.EcommerceStep} 1: ${uiLabelMap.PageTitleShoppingCart}</h3>
           <div id="cartSummaryPanel" style="display: none;">
             <div class="buttons"><a href="javascript:void(0);" id="openCartPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></div>
             <table id="cartSummaryPanel_cartItems">
@@ -205,43 +205,38 @@ under the License.
 
 <#-- ========================================================================================================================== -->
         <div id="shippingPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 2: ${uiLabelMap.FacilityShipping}</div></div>
-          <div id="shippingSummaryPanel" class="screenlet-body" style="display: none;">
-            <div class="buttons"><span><a href="javascript:void(0);" id="openShippingPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></span></div>
+          <h3>${uiLabelMap.EcommerceStep} 2: ${uiLabelMap.FacilityShipping}</h3>
+          <div id="shippingSummaryPanel" style="display: none;">
+            <div class="buttons"><a href="javascript:void(0);" id="openShippingPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></div>
             <div id="shippingCompleted">
-              <div id="openShippingAndPersonlDetail"><h3>${uiLabelMap.FacilityShipping} ${uiLabelMap.EcommerceSummary}</h3></div>
-              <table>
-                <tbody>
-                  <tr>
-                    <td valign="top">${uiLabelMap.OrderShipTo}:</td>
-                    <td valign="top">
-                      <div>
-                        <div id="completedShipToAttn"></div>
-                        <div id="completedShippingContactNumber"></div>
-                        <div id="completedEmailAddress"></div>
-                      </div>
-                    </td>
-                    <td valign="top">${uiLabelMap.EcommerceLocation}:</td>
-                    <td valign="top">
-                      <div>
-                        <div id="completedShipToAddress1"></div>
-                        <div id="completedShipToAddress2"></div>
-                        <div id="completedShipToGeo"></div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <h3 id="openShippingAndPersonlDetail">${uiLabelMap.FacilityShipping} ${uiLabelMap.EcommerceSummary}</h3>
+              <ul>
+                <li>
+                  <h4>${uiLabelMap.OrderShipTo}</h4>
+                  <ul>
+                    <li id="completedShipToAttn"></li>
+                    <li id="completedShippingContactNumber"></li>
+                    <li id="completedEmailAddress"></li>
+                  </ul>
+                </li>
+                <li>
+                  <h4>${uiLabelMap.EcommerceLocation}</h4>
+                  <ul>
+                    <li id="completedShipToAddress1"></li>
+                    <li id="completedShipToAddress2"></li>
+                    <li id="completedShipToGeo"></li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
 
 <#-- ============================================================= -->
-          <div id="editShippingPanel" class="screenlet-body" style="display: none;">
+          <div id="editShippingPanel" style="display: none;">
             <form id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
-              <fieldset class="col">
                   <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${shipToContactMechId?if_exists}"/>
                   <input type="hidden" id="billToContactMechIdInShipingForm" name="billToContactMechId" value="${billToContactMechId?if_exists}"/>
-                  <input type="hidden" id="shipToPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
+                  <input type="hidden" id="shipToPartyId" name="partyId" value="${partyId?if_exists}"/>
                   <input type="hidden" id="shipToPhoneContactMechId" name="shipToPhoneContactMechId" value="${(shipToTelecomNumber.contactMechId)?if_exists}"/>
                   <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${emailContactMechId?if_exists}"/>
                   <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
@@ -256,20 +251,20 @@ under the License.
                     <input type="hidden" name="keepAddressBook" value="N"/>
                   </#if>
                   <div id="shippingFormServerError" class="errorMessage"></div>
-                  <div class="form-row">
-                      <span>
+                  <fieldset id="shipToName">
+                      <div class="form-row">
                         <label for="firstName">${uiLabelMap.PartyFirstName}*
                           <span id="advice-required-firstName" style="display: none" class="errorMessage"> (required)</span>
                         </label>
                         <input id="firstName" name="firstName" class="required" type="text" value="${firstName?if_exists}"/>
-                      </span>
-                        <span>
-                          <label for="lastName">${uiLabelMap.PartyLastName}*
+                      </div>
+                      <div class="form-row">
+                        <label for="lastName">${uiLabelMap.PartyLastName}*
                           <span id="advice-required-lastName" style="display:none" class="errorMessage"> (required)</span>
                         </label>
                         <input id="lastName" name="lastName" class="required" type="text" value="${lastName?if_exists}"/>
-                      </span>
-                  </div>
+                      </div>
+                  </fieldset>
                   <div class="form-row">
                   <#if shipToTelecomNumber?has_content>
                       <span>
@@ -327,8 +322,6 @@ under the License.
                           <input id="emailAddress" name="emailAddress" class="required validate-email" maxlength="255" size="40" type="text" value="${emailAddress?if_exists}"/>
                       </span>
                   </div>
-              </fieldset>
-              <fieldset class="col">
                     <div class="form-row">
                         <span>
                             <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*
@@ -387,7 +380,6 @@ under the License.
                             </select>
                         </span>
                     </div>
-              </fieldset>
             </form>
             <div class="buttons">
               <span><a href="javascript:void(0);" id="savePartyAndShippingContact">${uiLabelMap.EcommerceContinueToStep} 3</a></span>
