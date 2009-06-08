@@ -523,7 +523,7 @@ under the License.
             </if-empty>
         </if-compare-field>
     </simple-method>
-    <simple-method method-name="setCommEventRoleToRead" short-description="set the status for a particular party role to the status COM_ROLE_READ">
+    <simple-method method-name="setCommEventRoleToRead" short-description="set the status for a particular party role to the status COM_ROLE_READ" login-required="false">
         <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="parameters.userLogin.partyId"/>
         </if-empty>
