@@ -19,46 +19,47 @@ under the License.
 -->
 <entity-engine-xml>
 
-    <DataResource dataResourceId="WRAP_STD_LOOP" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Loop Wrap" mimeTypeId="text/html" createdDate="2004-01-20 22:24:40.258"/>
-    <DataResource dataResourceId="AFIBC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="SFIBC Logo" objectInfo="sfibc_logo.png" createdDate="2004-02-04 20:59:15.418" lastModifiedDate="2004-02-04 20:59:15.418" lastUpdatedStamp="2004-02-04 20:59:26.308" lastUpdatedTxStamp="2004-02-04 20:57:34.305" createdStamp="2004-02-04 20:59:15.418" createdTxStamp="2004-02-04 20:59:15.418"/>
-    <DataResource dataResourceId="AGEP_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGEP Logo" objectInfo="agep_logo.png" createdDate="2004-02-04 21:00:17.683" lastModifiedDate="2004-02-04 21:00:17.683" lastUpdatedStamp="2004-02-05 05:45:18.09" lastUpdatedTxStamp="2004-02-05 05:21:43.748" createdStamp="2004-02-04 21:00:17.683" createdTxStamp="2004-02-04 21:00:17.683"/>
-    <DataResource dataResourceId="AGINC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGINC Logo" objectInfo="aginc_logo.png" createdDate="2004-02-04 20:58:37.938" lastModifiedDate="2004-02-04 20:58:37.938" lastUpdatedStamp="2004-02-04 20:58:46.743" lastUpdatedTxStamp="2004-02-04 20:57:34.305" createdStamp="2004-02-04 20:58:37.938" createdTxStamp="2004-02-04 20:58:37.938"/>
-    <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl" createdDate="2003-12-31 11:40:15.818" lastModifiedDate="2003-12-31 11:40:15.818" lastUpdatedStamp="2003-12-31 11:40:15.819" lastUpdatedTxStamp="2003-12-31 11:40:15.819" createdStamp="2003-12-31 11:40:15.819" createdTxStamp="2003-12-31 11:40:15.819"/>
+    <DataResource dataResourceId="WRAP_STD_LOOP" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Loop Wrap" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="AFIBC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="SFIBC Logo" objectInfo="sfibc_logo.png"/>
+    <DataResource dataResourceId="AGEP_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGEP Logo" objectInfo="agep_logo.png"/>
+    <DataResource dataResourceId="AGINC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGINC Logo" objectInfo="aginc_logo.png"/>
+    <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl"/>
     <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="LEFT BAR"/>
-    <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png" createdDate="2004-02-13 13:37:54.199" lastModifiedDate="2004-02-13 13:37:54.199" lastUpdatedStamp="2004-02-13 13:39:33.035" lastUpdatedTxStamp="2004-02-13 13:37:54.73" createdStamp="2004-02-13 13:37:54.2" createdTxStamp="2004-02-13 13:37:54.2"/>
-    <DataResource dataResourceId="STDWRAP001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.289" lastUpdatedStamp="2004-01-16 15:28:58.306" lastUpdatedTxStamp="2004-01-16 15:28:58.306"/>
-    <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" lastUpdatedStamp="2004-01-21 16:12:56.675" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
-    <DataResource dataResourceId="TEMPLATE_IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.317" lastModifiedDate="2004-01-16 19:25:44.317" lastUpdatedStamp="2004-01-21 16:12:56.683" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 19:25:44.317" createdTxStamp="2004-01-16 19:25:44.317"/>
-    <DataResource dataResourceId="TEMPLATE_TEXT_ONLY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.047" lastModifiedDate="2004-01-16 19:34:15.047" lastUpdatedStamp="2004-01-21 16:12:56.725" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 19:34:15.047" createdTxStamp="2004-01-16 19:34:15.047"/>
-    <DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ViewWrap.ftl" createdDate="2003-12-31 11:41:46.78" lastModifiedDate="2003-12-31 11:41:46.78" lastUpdatedStamp="2003-12-31 11:41:46.781" lastUpdatedTxStamp="2003-12-31 11:41:46.78" createdStamp="2003-12-31 11:41:46.781" createdTxStamp="2003-12-31 11:41:46.78"/>
-    <DataResource dataResourceId="WRAP_ARTICLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" createdDate="2004-01-21 00:00:00.0" lastUpdatedStamp="2004-01-21 16:10:53.041" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.041" createdTxStamp="2004-01-21 16:10:53.026"/>
-    <DataResource dataResourceId="WRAP_ARTICLE_TABLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Article wrap with table elements" createdDate="2004-03-16 12:04:00.338" lastModifiedDate="2004-03-16 12:04:00.338" lastUpdatedStamp="2004-03-16 12:04:00.338" lastUpdatedTxStamp="2004-03-16 12:04:00.338" createdStamp="2004-03-16 12:04:00.338" createdTxStamp="2004-03-16 12:04:00.338"/>
-    <DataResource dataResourceId="WRAP_NEXT_PREV" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Next/Prev wrapper" createdDate="2004-02-03 14:03:42.09" lastModifiedDate="2004-02-03 14:03:42.09" lastUpdatedStamp="2004-02-03 14:03:42.091" lastUpdatedTxStamp="2004-02-03 14:03:42.091" createdStamp="2004-02-03 14:03:42.091" createdTxStamp="2004-02-03 14:03:42.091"/>
-    <DataResource dataResourceId="WRAP_STD_001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.289" lastUpdatedStamp="2004-01-21 16:12:56.651" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-21 16:10:53.062" createdTxStamp="2004-01-21 16:10:53.026"/>
-    <DataResource dataResourceId="WRAP_VIEW" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" createdDate="2004-01-21 00:00:00.0" lastUpdatedStamp="2004-01-21 16:10:53.053" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.053" createdTxStamp="2004-01-21 16:10:53.026"/>
-    <DataResource dataResourceId="10250" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" lastUpdatedStamp="2004-01-16 19:20:58.892" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
-    <DataResource dataResourceId="10261" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.317" lastModifiedDate="2004-01-16 19:25:44.317" lastUpdatedStamp="2004-01-16 19:25:44.317" lastUpdatedTxStamp="2004-01-16 19:25:44.317" createdStamp="2004-01-16 19:25:44.317" createdTxStamp="2004-01-16 19:25:44.317"/>
-    <DataResource dataResourceId="10263" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.047" lastModifiedDate="2004-01-16 19:34:15.047" lastUpdatedStamp="2004-01-16 19:34:15.047" lastUpdatedTxStamp="2004-01-16 19:34:15.047" createdStamp="2004-01-16 19:34:15.047" createdTxStamp="2004-01-16 19:34:15.047"/>
-    <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
-    <Content contentId="OWNER_BLOG_CONTENT" contentTypeId="PLACEHOLDER" contentName="Blog Content Owner" createdDate="2004-01-17 22:21:36.952" lastModifiedDate="2004-01-17 22:21:36.952" lastUpdatedStamp="2004-01-17 22:21:36.955" lastUpdatedTxStamp="2004-01-17 22:21:36.955" createdStamp="2004-01-17 22:21:36.955" createdTxStamp="2004-01-17 22:21:36.955"/>
-    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="10250" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.897" lastUpdatedStamp="2004-01-16 19:20:58.898" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.525" createdTxStamp="2004-01-16 01:24:06.525"/>
-    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="10261" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.324" lastModifiedDate="2004-01-16 19:25:44.324" lastUpdatedStamp="2004-01-16 19:25:44.326" lastUpdatedTxStamp="2004-01-16 19:25:44.326" createdStamp="2004-01-16 19:25:44.326" createdTxStamp="2004-01-16 19:25:44.326"/>
-    <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master" lastUpdatedStamp="2003-12-22 10:56:18.986" lastUpdatedTxStamp="2003-12-22 10:56:18.899"/>
-    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="10263" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.052" lastModifiedDate="2004-01-16 19:34:15.052" lastUpdatedStamp="2004-01-16 19:34:15.054" lastUpdatedTxStamp="2004-01-16 19:34:15.054" createdStamp="2004-01-16 19:34:15.054" createdTxStamp="2004-01-16 19:34:15.054"/>
-    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="10250" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.897" lastUpdatedStamp="2004-01-16 19:20:58.898" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.525" createdTxStamp="2004-01-16 01:24:06.525"/>
-    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="10261" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.324" lastModifiedDate="2004-01-16 19:25:44.324" lastUpdatedStamp="2004-01-16 19:25:44.326" lastUpdatedTxStamp="2004-01-16 19:25:44.326" createdStamp="2004-01-16 19:25:44.326" createdTxStamp="2004-01-16 19:25:44.326"/>
-    <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master" lastUpdatedStamp="2003-12-22 10:56:18.986" lastUpdatedTxStamp="2003-12-22 10:56:18.899"/>
-    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="10263" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.052" lastModifiedDate="2004-01-16 19:34:15.052" lastUpdatedStamp="2004-01-16 19:34:15.054" lastUpdatedTxStamp="2004-01-16 19:34:15.054" createdStamp="2004-01-16 19:34:15.054" createdTxStamp="2004-01-16 19:34:15.054"/>
+    <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png"/>
+    <DataResource dataResourceId="STDWRAP001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_TEXT_ONLY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ViewWrap.ftl"/>
+    <DataResource dataResourceId="WRAP_ARTICLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="WRAP_ARTICLE_TABLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Article wrap with table elements"/>
+    <DataResource dataResourceId="WRAP_NEXT_PREV" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Next/Prev wrapper"/>
+    <DataResource dataResourceId="WRAP_STD_001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="WRAP_VIEW" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="10250" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="10261" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="10263" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
 
-    <Content contentId="VIEW_WRAP" contentTypeId="DOCUMENT" dataResourceId="VIEW_WRAP" contentName="View Wrap" createdDate="2003-12-31 11:56:35.694" lastModifiedDate="2003-12-31 11:56:35.694" lastUpdatedStamp="2003-12-31 11:56:35.694" lastUpdatedTxStamp="2003-12-31 11:56:35.694" createdStamp="2003-12-31 11:56:35.694" createdTxStamp="2003-12-31 11:56:35.694"/>
-    <Content contentId="WRAP_ARTICLE" contentTypeId="DOCUMENT" dataResourceId="WRAP_ARTICLE" createdDate="2004-01-21 00:00:00.0" lastUpdatedStamp="2004-01-21 16:10:53.046" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.046" createdTxStamp="2004-01-21 16:10:53.026"/>
-    <Content contentId="WRAP_NEXT_PREV" contentTypeId="ANNOTATION" dataResourceId="WRAP_NEXT_PREV" contentName="Next-Prev wrapper" description="Next and Previous wrapper" createdDate="2004-02-03 14:05:16.909" lastModifiedDate="2004-02-03 14:05:16.909" lastUpdatedStamp="2004-02-03 14:05:16.909" lastUpdatedTxStamp="2004-02-03 14:05:16.909" createdStamp="2004-02-03 14:05:16.909" createdTxStamp="2004-02-03 14:05:16.909"/>
-    <Content contentId="WRAP_STD_001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.37" lastUpdatedStamp="2004-01-21 16:12:56.656" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-21 16:10:53.066" createdTxStamp="2004-01-21 16:10:53.026"/>
-    <Content contentId="WRAP_STD_LOOP" contentTypeId="DOCUMENT" dataResourceId="WRAP_STD_LOOP" contentName="Loop Wrap" mimeTypeId="text/html" createdDate="2004-01-20 22:24:40.258" lastModifiedDate="2004-02-12 18:09:55.174" lastUpdatedStamp="2004-02-12 18:09:55.176" lastUpdatedTxStamp="2004-02-12 18:09:55.176" createdStamp="2004-01-20 22:24:40.261" createdTxStamp="2004-01-20 22:24:40.261"/>
-    <Content contentId="WRAP_VIEW" contentTypeId="DOCUMENT" dataResourceId="WRAP_VIEW" createdDate="2004-01-21 00:00:00.0" lastUpdatedStamp="2004-01-21 16:10:53.056" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.056" createdTxStamp="2004-01-21 16:10:53.026"/>
-    <Content contentId="ARTICLE_WRAP" contentTypeId="DOCUMENT" dataResourceId="ARTICLE_WRAP" lastModifiedDate="2003-12-31 11:44:17.079" lastUpdatedStamp="2003-12-31 11:44:17.081" lastUpdatedTxStamp="2003-12-31 11:44:17.081" createdStamp="2003-12-31 10:34:37.14" createdTxStamp="2003-12-31 10:32:29.118"/>
-    <Content contentId="BLOG_MASTER" contentTypeId="DOCUMENT" contentName="Blog Master" createdDate="2004-01-05 02:50:06.173" lastModifiedDate="2004-01-05 02:50:06.173" lastUpdatedStamp="2004-01-05 02:50:06.174" lastUpdatedTxStamp="2004-01-05 02:50:06.174" createdStamp="2004-01-05 02:50:06.174" createdTxStamp="2004-01-05 02:50:06.174"/>
-    <ElectronicText dataResourceId="LEFTBAR" lastUpdatedStamp="2004-03-05 11:06:24.277" lastUpdatedTxStamp="2004-03-05 11:06:24.277">
+    <DataResource dataResourceId="TMPLT_IMG_CENTER_FL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_COMPOSITE" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" objectInfo="/content/TemplateComposite.ftl"/>
+
+    <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
+    <Content contentId="OWNER_BLOG_CONTENT" contentTypeId="PLACEHOLDER" contentName="Blog Content Owner"/>
+    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="10250" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html"/>
+    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="10261" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html"/>
+    <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master"/>
+    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="10263" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html"/>
+
+    <Content contentId="VIEW_WRAP" contentTypeId="DOCUMENT" dataResourceId="VIEW_WRAP" contentName="View Wrap"/>
+    <Content contentId="WRAP_ARTICLE" contentTypeId="DOCUMENT" dataResourceId="WRAP_ARTICLE"/>
+    <Content contentId="WRAP_NEXT_PREV" contentTypeId="ANNOTATION" dataResourceId="WRAP_NEXT_PREV" contentName="Next-Prev wrapper" description="Next and Previous wrapper"/>
+    <Content contentId="WRAP_STD_001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper" mimeTypeId="text/html"/>
+    <Content contentId="WRAP_STD_LOOP" contentTypeId="DOCUMENT" dataResourceId="WRAP_STD_LOOP" contentName="Loop Wrap" mimeTypeId="text/html"/>
+    <Content contentId="WRAP_VIEW" contentTypeId="DOCUMENT" dataResourceId="WRAP_VIEW"/>
+    <Content contentId="ARTICLE_WRAP" contentTypeId="DOCUMENT" dataResourceId="ARTICLE_WRAP"/>
+    <Content contentId="BLOG_MASTER" contentTypeId="DOCUMENT" contentName="Blog Master"/>
+
+    <ElectronicText dataResourceId="LEFTBAR">
         <textData><![CDATA[<#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -150,7 +151,7 @@ under the License.
 </script>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="STDWRAP001" lastUpdatedStamp="2004-01-16 15:28:58.335" lastUpdatedTxStamp="2004-01-16 15:28:58.306">
+    <ElectronicText dataResourceId="STDWRAP001">
         <textData><![CDATA[<#assign mapKey=wrapMapKey?if_exists/>
 <#assign subDataResourceId=wrapDataResourceId?if_exists/>
 <#assign subDataResourceTypeId=wrapDataResourceTypeId?if_exists/>
@@ -184,7 +185,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 </div>
 </div>]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="TMPLT_IMG_CENTER" lastUpdatedStamp="2004-01-30 16:48:06.505" lastUpdatedTxStamp="2004-01-30 16:48:06.505" createdStamp="2004-01-16 01:24:06.499" createdTxStamp="2004-01-16 01:24:06.482">
+    <ElectronicText dataResourceId="TMPLT_IMG_CENTER">
         <textData><![CDATA[<table>
   <tr>
     <td>
@@ -210,7 +211,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
   </tr>
 </table>]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="TEMPLATE_IMAGE_LEFT" lastUpdatedStamp="2004-01-30 16:49:08.969" lastUpdatedTxStamp="2004-01-30 16:49:08.969" createdStamp="2004-01-16 19:25:44.318" createdTxStamp="2004-01-16 19:25:44.317">
+    <ElectronicText dataResourceId="TEMPLATE_IMAGE_LEFT">
         <textData><![CDATA[<@editRenderSubContentCache mapKey="IMAGE">
   <@renderSubContentCache/>
 </@editRenderSubContentCache>
@@ -219,11 +220,11 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 </@editRenderSubContentCache>
  ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="TEMPLATE_TEXT_ONLY" lastUpdatedStamp="2004-03-18 10:05:46.703" lastUpdatedTxStamp="2004-03-18 10:05:46.703" createdStamp="2004-01-16 19:34:15.048" createdTxStamp="2004-01-16 19:34:15.047">
+    <ElectronicText dataResourceId="TEMPLATE_TEXT_ONLY">
         <textData><![CDATA[<@renderSubContentCache mapKey="ARTICLE" wrapTemplateId=""/>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="WRAP_ARTICLE" lastUpdatedStamp="2004-03-16 12:05:33.806" lastUpdatedTxStamp="2004-03-16 12:05:33.806" createdStamp="2004-01-21 16:10:53.043" createdTxStamp="2004-01-21 16:10:53.026">
+    <ElectronicText dataResourceId="WRAP_ARTICLE">
         <textData><![CDATA[<#assign thisContentId = ""/>
 <#if nodeTrailCsv?exists>
     <#assign idList = nodeTrailCsv?split(",")/>
@@ -236,7 +237,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="WRAP_ARTICLE_TABLE" lastUpdatedStamp="2004-03-16 12:04:07.687" lastUpdatedTxStamp="2004-03-16 12:04:07.687" createdStamp="2004-03-16 12:04:07.687" createdTxStamp="2004-03-16 12:04:07.687">
+    <ElectronicText dataResourceId="WRAP_ARTICLE_TABLE">
         <textData><![CDATA[<#assign thisContentId = ""/>
 <#if nodeTrailCsv?exists>
     <#assign idList = nodeTrailCsv?split(",")/>
@@ -257,7 +258,7 @@ ${wrappedContent?if_exists}
 </tr>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="WRAP_NEXT_PREV" lastUpdatedStamp="2004-02-12 15:41:07.692" lastUpdatedTxStamp="2004-02-12 15:41:07.692" createdStamp="2004-02-03 14:04:15.768" createdTxStamp="2004-02-03 14:04:15.768">
+    <ElectronicText dataResourceId="WRAP_NEXT_PREV">
         <textData><![CDATA[<tr><td>${wrappedContent}</td></tr>
 
 <#assign listSize=listSize?number/>
@@ -291,7 +292,7 @@ ${wrappedContent?if_exists}
 </td></tr>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="WRAP_STD_001" lastUpdatedStamp="2004-01-21 16:12:56.653" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-21 16:10:53.064" createdTxStamp="2004-01-21 16:10:53.026">
+    <ElectronicText dataResourceId="WRAP_STD_001">
         <textData><![CDATA[<#assign mapKey=wrapMapKey?if_exists/>
 <#assign subDataResourceId=wrapDataResourceId?if_exists/>
 <#assign subDataResourceTypeId=wrapDataResourceTypeId?if_exists/>
@@ -325,7 +326,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 </div>
 </div>]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="WRAP_STD_LOOP" lastUpdatedStamp="2004-02-11 22:29:52.832" lastUpdatedTxStamp="2004-02-11 22:29:52.832" createdStamp="2004-01-20 22:24:40.238" createdTxStamp="2004-01-20 22:24:40.236">
+    <ElectronicText dataResourceId="WRAP_STD_LOOP">
         <textData><![CDATA[<#assign contentIdTo=contentIdTo?if_exists/>
 
 <tr><td>
@@ -394,7 +395,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 </td></tr>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="WRAP_VIEW" lastUpdatedStamp="2004-03-06 15:18:33.369" lastUpdatedTxStamp="2004-03-06 15:18:33.369" createdStamp="2004-01-21 16:10:53.054" createdTxStamp="2004-01-21 16:10:53.026">
+    <ElectronicText dataResourceId="WRAP_VIEW">
         <textData><![CDATA[<#assign txt=wrappedContent?default("")/>
 ${txt}
 <br/>
@@ -404,7 +405,7 @@ ${txt}
 <br/>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="10250" lastUpdatedStamp="2004-01-16 19:20:58.895" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.499" createdTxStamp="2004-01-16 01:24:06.482">
+    <ElectronicText dataResourceId="10250">
         <textData><![CDATA[<table>
   <tr>
     <td>
@@ -427,7 +428,7 @@ ${txt}
   </tr>
 </table>]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="10261" lastUpdatedStamp="2004-01-16 19:25:44.318" lastUpdatedTxStamp="2004-01-16 19:25:44.317" createdStamp="2004-01-16 19:25:44.318" createdTxStamp="2004-01-16 19:25:44.317">
+    <ElectronicText dataResourceId="10261">
         <textData><![CDATA[<@editRenderSubContent mapKey="IMAGE">
   <@renderSubContent/>
 </@editRenderSubContent>
@@ -436,14 +437,13 @@ ${txt}
 </@editRenderSubContent>
  ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="10263" lastUpdatedStamp="2004-01-16 19:34:15.048" lastUpdatedTxStamp="2004-01-16 19:34:15.047" createdStamp="2004-01-16 19:34:15.048" createdTxStamp="2004-01-16 19:34:15.047">
+    <ElectronicText dataResourceId="10263">
         <textData><![CDATA[<@editRenderSubContent mapKey="ARTICLE">
   <@renderSubContent/>
 </@editRenderSubContent>
             ]]></textData>
     </ElectronicText>
-    <DataResource dataResourceId="TMPLT_IMG_CENTER_FL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" lastUpdatedStamp="2004-01-21 16:12:56.675" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
-    <ElectronicText dataResourceId="TMPLT_IMG_CENTER_FL" lastUpdatedStamp="2004-01-30 16:48:06.505" lastUpdatedTxStamp="2004-01-30 16:48:06.505" createdStamp="2004-01-16 01:24:06.499" createdTxStamp="2004-01-16 01:24:06.482">
+    <ElectronicText dataResourceId="TMPLT_IMG_CENTER_FL">
         <textData><![CDATA[<table>
   <tr>
     <td>
@@ -462,5 +462,4 @@ ${txt}
   </tr>
 </table>]]></textData>
     </ElectronicText>
-    <DataResource dataResourceId="TEMPLATE_COMPOSITE" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" objectInfo="/content/TemplateComposite.ftl" createdDate="2004-05-15 11:40:15.818" lastModifiedDate="2004-05-15 11:40:15.818" lastUpdatedStamp="2003-12-31 11:40:15.819" lastUpdatedTxStamp="2003-12-31 11:40:15.819" createdStamp="2003-12-31 11:40:15.819" createdTxStamp="2003-12-31 11:40:15.819"/>
 </entity-engine-xml>
