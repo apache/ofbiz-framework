@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
@@ -82,11 +83,15 @@ import org.ofbiz.service.ModelService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import org.webslinger.invoker.Wrap;
+
 /**
  * SimpleMethod Mini Language Core Object
  */
 public class SimpleMethod {
     private static final Map<String, MethodOperation.Factory> methodOperationFactories;
+    private static final Method simpleMethodExecMethod;
+    private static final Method methodOperationExecMethod;
     static {
         Map<String, MethodOperation.Factory> mapFactories = new HashMap<String, MethodOperation.Factory>();
         Iterator<MethodOperation.Factory> it = ServiceRegistry.lookupProviders(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader());
@@ -95,6 +100,12 @@ public class SimpleMethod {
             mapFactories.put(factory.getName(), factory);
         }
         methodOperationFactories = Collections.unmodifiableMap(mapFactories);
+        try {
+            simpleMethodExecMethod = SimpleMethod.class.getDeclaredMethod("exec", MethodContext.class);
+            methodOperationExecMethod = MethodOperation.class.getDeclaredMethod("exec", MethodContext.class);
+        } catch (NoSuchMethodException e) {
+            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+        }
     }
 
     public static final String module = SimpleMethod.class.getName();
@@ -225,11 +236,23 @@ public class SimpleMethod {
 
         Element rootElement = document.getDocumentElement();
         for (Element simpleMethodElement: UtilXml.childElementList(rootElement, "simple-method")) {
-            SimpleMethod simpleMethod = new SimpleMethod(simpleMethodElement, simpleMethods, xmlURL.toString());
+            SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, xmlURL.toString());
             simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
 
         return simpleMethods;
+    }
+
+    protected static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) {
+        if (UtilProperties.propertyValueEquals("webslinger-invoker.properties", "wrap-calls", "true")) {
+            Wrap<SimpleMethod> wrap = new Wrap<SimpleMethod>().fileName(location).wrappedClass(SimpleMethod.class);
+            wrap.loader(SimpleMethod.class.getClassLoader());
+            wrap.wrap(simpleMethodExecMethod);
+            SimpleMethod simpleMethod = wrap.newInstance(new Class<?>[] {Element.class, Map.class, String.class}, new Object[] {simpleMethodElement, simpleMethods, location});
+            return simpleMethod;
+        } else {
+            return new SimpleMethod(simpleMethodElement, simpleMethods, location);
+        }
     }
 
     public static Map<String, SimpleMethod> getDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
@@ -278,7 +301,7 @@ public class SimpleMethod {
 
         Element rootElement = document.getDocumentElement();
         for (Element simpleMethodElement: UtilXml.childElementList(rootElement, "simple-method")) {
-            SimpleMethod simpleMethod = new SimpleMethod(simpleMethodElement, simpleMethods, fromLocation);
+            SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, fromLocation);
             simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
 
@@ -905,6 +928,11 @@ public class SimpleMethod {
                     Debug.logWarning("Operation element \"" + nodeName + "\" no recognized", module);
                 }
                 if (methodOp == null) continue;
+                if (UtilProperties.propertyValueEquals("webslinger-invoker.properties", "wrap-calls", "true")) {
+                    Wrap<MethodOperation> wrap = new Wrap<MethodOperation>().fileName(simpleMethod.getLocationAndName()).wrappedClass(methodOp.getClass());
+                    wrap.wrap(methodOperationExecMethod);
+                    methodOp = wrap.newInstance(new Class<?>[] {Element.class, SimpleMethod.class}, new Object[] {curOperElem, simpleMethod});
+                }
                 methodOperations.add(methodOp);
                 DeprecatedOperation depOp = methodOp.getClass().getAnnotation(DeprecatedOperation.class);
                 if (depOp != null) Debug.logInfo("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value() + " operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + methodOp.rawString(), module);
