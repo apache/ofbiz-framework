@@ -97,11 +97,6 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
         </field>
         -->
-        <field name="cloneLayout" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="2" >
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentCloneLayout}" target="cloneLayout">
-                <parameter param-name="contentId" from-field="currentValue.contentId"/>
-            </hyperlink>
-        </field>
     </form>
     <form name="AddLayout" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="createLayoutSubContent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

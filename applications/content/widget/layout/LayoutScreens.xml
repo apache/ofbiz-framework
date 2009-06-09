@@ -120,6 +120,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <include-form name="EditLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                        <link target="cloneLayout" text="${uiLabelMap.ContentCloneLayout}" style="buttontext">
+                                            <parameter param-name="contentId" from-field="currentValue.contentId"/>
+                                        </link>
                                         <platform-specific>
                                             <html>
                                                 <html-template location="component://content/webapp/content/layout/renderSubContent.ftl"/>
