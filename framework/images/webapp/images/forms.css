@@ -32,8 +32,8 @@ fieldset fieldset legend {padding: 0 0 1.5em; font-size: 1em;}
 * html legend {margin-left: -7px;}
 *+html legend {margin-left: -7px;}
 
-form .form-row, .buttons {clear: both; margin: 0 0 0.8em;}
-form .form-row label {display: block; padding-bottom:.08em}
+form div, .buttons {clear: both; margin: 0 0 0.8em;}
+form div label {display: block; padding-bottom:.08em}
 form ul li {list-style-type: none; margin: 0;}
 form .inline li, form .inline label {display: inline;}
 form .inline li {padding: 0 .75em 0 0;}
@@ -62,16 +62,16 @@ textarea {overflow: auto;}
 * html button {margin: 0 .34em 0 0;}
 *+html button {margin: 0 .34em 0 0;}
 
-form.horizontal .form-row label {display: inline; float: left; text-align:right; padding-right:.34em}
+form.horizontal div label {display: inline; float: left; text-align:right; padding-right:.34em}
 
-form .form-row span {
+form div span {
 display:block;
 float:left;
 line-height:20px;
 margin:0;
 padding:0 0.4em 0 0;
 }
-form .form-row span label {
+form div span label {
 color:#404040;
 display:block;
 font-size:85%;
