@@ -693,11 +693,10 @@ under the License.
     </request-map>
 
      <!-- ============= Weight Package Only Requests ============== -->
-    <request-map uri="weightPackageOnly">
+    <request-map uri="WeightPackageOnly">
         <security https="true" auth="true"/>
-        <event type="service" invoke="weightPackageOnly"/>
         <response name="success" type="view" value="WeightPackageOnly"/>
-        <response name="error" type="view" value="PackOrder"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
     </request-map>
     <request-map uri="setPackageInfo">
         <security https="true" auth="true"/>
@@ -717,10 +716,21 @@ under the License.
         <response name="success" type="view" value="WeightPackageOnly"/>
         <response name="error" type="view" value="WeightPackageOnly"/>
     </request-map>
+    <request-map uri="shipNow">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="completePackage"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
+    </request-map>
+    <request-map uri="HoldShipment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="view" value="WeightPackageOnly"/>
+    </request-map>
     <request-map uri="completePackage">
         <security https="true" auth="true"/>
         <event type="service" invoke="completePackage"/>
-        <response name="success" type="view" value="PackOrder"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
         <response name="error" type="view" value="WeightPackageOnly"/>
     </request-map>
 
@@ -772,18 +782,6 @@ under the License.
     <request-map uri="weightPackage">
         <security https="true" auth="true"/>
         <event type="service" invoke="weightPackage"/>
-        <response name="success" type="view" value="PackOrder"/>
-        <response name="error" type="view" value="PackOrder"/>
-    </request-map>
-    <request-map uri="shipNow">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="completePack"/>
-        <response name="success" type="view" value="PackOrder"/>
-        <response name="error" type="view" value="PackOrder"/>
-    </request-map>
-    <request-map uri="holdShipment">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="holdShipment"/>
         <response name="success" type="view" value="PackOrder"/>
         <response name="error" type="view" value="PackOrder"/>
     </request-map>

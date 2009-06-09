@@ -706,7 +706,7 @@
         <value xml:lang="th">ใบสั่งซื้อสินค้า ${orderId} ไม่เป็นรายการสั่งซื้อ</value>
     </property>
     <property key="OrderErrorOrderNotVerified">
-        <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weight Package Only button for further processing</value>
+        <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weight Package Only for further processing</value>
     </property>
     <property key="OrderErrorOrderNotVerifiedForPacking">
         <value xml:lang="en">ERROR: Order #${orderId} is not verified for packing</value>

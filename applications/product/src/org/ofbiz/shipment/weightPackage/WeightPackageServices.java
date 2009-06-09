@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -38,6 +39,7 @@ import org.ofbiz.service.ServiceUtil;
 public class WeightPackageServices {
 
     private static BigDecimal ZERO = BigDecimal.ZERO;
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     public static Map<String, Object> weightPackageOnly(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -152,17 +154,43 @@ public class WeightPackageServices {
         String invoiceId = (String) context.get("invoiceId");
         String dimensionUomId = (String) context.get("dimensionUomId");
         String weightUomId = (String) context.get("weightUomId");
-        BigDecimal estimatedShipCost = (BigDecimal) context.get("shipmentEstimateCost");
+        BigDecimal estimatedShippingCost = (BigDecimal) context.get("estimatedShippingCost");
+        BigDecimal newEstimatedShippingCost = (BigDecimal) context.get("newEstimatedShippingCost");
+
+        if (UtilValidate.isEmpty(newEstimatedShippingCost)) {
+            newEstimatedShippingCost = ZERO;
+        }
 
         weightPackageSession.setDimensionUomId(dimensionUomId);
         weightPackageSession.setWeightUomId(weightUomId);
         weightPackageSession.setShipmentId(shipmentId);
         weightPackageSession.setInvoiceId(invoiceId);
-        weightPackageSession.setEstimatedShipCost(estimatedShipCost);
+        weightPackageSession.setEstimatedShipCost(estimatedShippingCost);
 
+        BigDecimal diffInShipCostInPerc = ZERO;
         Map<String, Object> response = FastMap.newInstance();
         try {
-            if (weightPackageSession.complete(orderId, locale)) {
+            String shipNow = (String) context.get("shipNow");
+            if (UtilValidate.isEmpty(shipNow)) {
+                shipNow = "N";
+            }
+            if ("N".equals(shipNow)) {
+                BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost.actual_over_estimated_percent_allowed", "10"));
+                // calculate the difference (in percentage) between estimatedShippingCharges (taken when order is created) and newEstimatedShippingCharges (calculated according to package weight)
+                if (estimatedShippingCost.compareTo(ZERO) > 0) {
+                    diffInShipCostInPerc = (((newEstimatedShippingCost.subtract(estimatedShippingCost)).divide(estimatedShippingCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
+                } else {
+                    diffInShipCostInPerc = newEstimatedShippingCost;
+                }
+                // check the difference in shippingCharges, if it is greater/less than 10% then show warning form
+                if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
+                    response.put("showWarningForm", true);
+                } else if (weightPackageSession.complete(orderId, locale)) {
+                    response.put("shipmentId", shipmentId);
+                } else {
+                    response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
+                }
+            } else if (weightPackageSession.complete(orderId, locale)) {
                 response.put("shipmentId", shipmentId);
             } else {
                 response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
