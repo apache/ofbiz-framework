@@ -530,7 +530,10 @@ under the License.
         <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
         <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
         <attribute name="estimatedShippingCost" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shipNow" type="String" mode="IN" optional="true"/>
+        <attribute name="newEstimatedShippingCost" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="showWarningForm" type="Boolean" mode="OUT" optional="true"/>
     </service>
 
     <!-- Pack Order Services -->

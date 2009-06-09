@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="FacilityActualShippingCharges">
+        <value xml:lang="en">Actual shipping charges</value>
+    </property>
     <property key="FacilityBillingAddressSameShipping">
         <value xml:lang="de">Rechnungsadresse und Lieferadresse stimmen überein</value>
         <value xml:lang="en">Billing address is the same as the shipping address</value>
@@ -47,6 +50,9 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+    </property>
+    <property key="FacilityEstimatedShippingCharges">
+        <value xml:lang="en">Estimated shipping charges</value>
     </property>
     <property key="FacilityFacility">
         <value xml:lang="de">Lager</value>
