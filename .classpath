@@ -136,7 +136,7 @@
     <classpathentry kind="lib" path="framework/base/lib/scripting/asm-analysis-2.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/asm-tree-2.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-2.2.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.6.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdom-1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.15.jar"/>

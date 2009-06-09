@@ -59,7 +59,7 @@ ofbiz/trunk/framework/base/lib/j2eespecs/tomcat-6.0.16-jsp_2.1_spec.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/tomcat-6.0.16-annotations_spec.jar
 ofbiz/trunk/framework/base/lib/scripting/bsf-2.4.0.jar
 ofbiz/trunk/framework/base/lib/scripting/jakarta-oro-2.0.8.jar
-ofbiz/trunk/framework/base/lib/scripting/groovy-1.5.6.jar
+ofbiz/trunk/framework/base/lib/scripting/groovy-1.6.0.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-6.0.16-catalina-ha.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-6.0.16-catalina-tribes.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-6.0.16-catalina.jar
