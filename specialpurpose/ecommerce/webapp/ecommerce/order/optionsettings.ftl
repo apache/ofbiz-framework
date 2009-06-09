@@ -17,109 +17,69 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderShippingInformation}</div>
-    </div>
-    <div class="screenlet-body">
-        <form method="post" action="<@ofbizUrl>processShipOptions</@ofbizUrl>" name="${parameters.formNameValue}">
-          <input type="hidden" name="finalizeMode" value="options"/>
-          <table width="100%" border="0" cellpadding="1" cellspacing="0">
-            <#list carrierShipmentMethodList as carrierShipmentMethod>
-            <tr>
-              <td width="1%" valign="top" >
-                <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                <input type="radio" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
-              </td>
-              <td valign="top">
-                <div class="tabletext">
-                    <#if shoppingCart.getShippingContactMechId()?exists>
-                        <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
-                    </#if>
-                    <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
-                    <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
-                </div>
-              </td>
-            </tr>
-            </#list>
-            <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
-            <tr>
-              <td width="1%" valign="top">
-                <input type="radio" name="shipping_method" value="Default" checked="checked"/>
-              </td>
-              <td valign="top">
-                <div class="tabletext">${uiLabelMap.OrderUseDefault}.</div>
-              </td>
-            </tr>
+  <h3>${uiLabelMap.OrderShippingInformation}</h3>
+  <form id="shipOptionsAndShippingInstructions" method="post" action="<@ofbizUrl>processShipOptions</@ofbizUrl>" name="${parameters.formNameValue}">
+    <fieldset><legend>${uiLabelMap.OrderShippingInformation}</legend>
+      <input type="hidden" name="finalizeMode" value="options"/>
+      <ul>
+      <#list carrierShipmentMethodList as carrierShipmentMethod>
+        <li>
+          <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
+          <input type="radio" id="shipping_method_${shippingMethod}" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
+          <lable for="shipping_method_${shippingMethod}">
+            <#if shoppingCart.getShippingContactMechId()?exists>
+              <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
             </#if>
-            <tr><td colspan="2"><hr/></td></tr>
-            <tr>
-              <td colspan="2">
-                <h2>${uiLabelMap.OrderShipAllAtOnce}?</h2>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top">
-                 <input type="radio" <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name="may_split" value="false"/>
-              </td>
-              <td valign="top">
-                <div class="tabletext">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</div>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top">
-                 <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> type="radio" name="may_split" value="true"/>
-              </td>
-              <td valign="top">
-                <div class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
-              </td>
-            </tr>
-            <tr><td colspan="2"><hr/></td></tr>
-            <tr>
-              <td colspan="2">
-                <h2>${uiLabelMap.OrderSpecialInstructions}</h2>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <textarea class="textAreaBox" cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
-              </td>
-            </tr>
-            <tr><td colspan="2"><hr/></td></tr>
-            <tr>
-              <td colspan="2">
-                <h2>${uiLabelMap.OrderPoNumber}</h2>
-                <input type="text" class="inputBox" name="correspondingPoId" size="15" value="${shoppingCart.getPoNumber()?if_exists}"/>
-              </td>
-            </tr>
-            <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-            <tr><td colspan="2"><hr/></td></tr>
-            <tr>
-              <td colspan="2">
-                <div>
-                  <h2>${uiLabelMap.OrderIsThisGift}</h2>
-                  <input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"/><span class="tabletext">${uiLabelMap.CommonYes}</span>
-                  <input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"/><span class="tabletext">${uiLabelMap.CommonNo}</span>
-                </div>
-              </td>
-            </tr>
-            <tr><td colspan="2"><hr/></td></tr>
-            <tr>
-              <td colspan="2"><h2>${uiLabelMap.OrderGiftMessage}</h2>
-            </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <textarea class="textAreaBox" cols="30" rows="3" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
-              </td>
-            </tr>
-            </#if>
-            <tr>
-              <td align="center" colspan="2">
-                <input type="submit" class="smallsubmit" value="${uiLabelMap.CommonContinue}"/>
-              </td>
-            </tr>
-          </table>
-        </form>
+            <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
+              <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if>
+             </#if>
+          </label>
+        </li>
+      </#list>
+      <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
+        <div>
+          <input type="radio" name="shipping_method" value="Default" checked="checked"/>
+          <label for="shipping_method">${uiLabelMap.OrderUseDefault}.</label>
+        </div>
+      </#if>
+    </fieldset>
+    <fieldset><legend>${uiLabelMap.OrderShipAllAtOnce}?</legend>
+        <div>
+          <input type="radio" id="maySplit_N" <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name="may_split" value="false"/>
+          <label for="maySplit_N">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</label>
+        </div>
+        <div>
+          <input type="radio" id="maySplit_Y" <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> name="may_split" value="true"/>
+          <label for="maySplit_Y">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</label>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div>
+          <label for="shipping_instructions">${uiLabelMap.OrderSpecialInstructions}</label>
+          <textarea cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+        </div>
+        <div>
+          <label for="correspondingPoId">${uiLabelMap.OrderPoNumber}</label>
+          <input type="text" name="correspondingPoId" value="${shoppingCart.getPoNumber()?if_exists}"/>
+        </div>
+    </fieldset>
+    <#if productStore.showCheckoutGiftOptions?if_exists != "N">
+        <fieldset><legend>${uiLabelMap.OrderIsThisGift}</legend>
+          <div>
+            <input type="radio" id="is_gift_Y" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"/>
+            <label for="is_gift_Y">${uiLabelMap.CommonYes}</label>
+          </div>
+          <div>
+            <input type="radio" id="is_gift_N" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"/>
+            <label far="is_gift_N">${uiLabelMap.CommonNo}</label>
+          </div>
+          <div>
+            <lable for="gift_message">${uiLabelMap.OrderGiftMessage}</label>
+            <textarea class="textAreaBox" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+          </div>
+        </fieldset>
+    </#if>
+    <div class="buttons">
+      <input type="submit" class="smallsubmit" value="${uiLabelMap.CommonContinue}"/>
     </div>
-</div>
+  </form>

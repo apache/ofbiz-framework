@@ -211,7 +211,6 @@ under the License.
           <div id="shippingSummaryPanel" style="display: none;">
             <div class="buttons"><a href="javascript:void(0);" id="openShippingPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></div>
             <div id="shippingCompleted">
-              <h3 id="openShippingAndPersonlDetail">${uiLabelMap.FacilityShipping} ${uiLabelMap.EcommerceSummary}</h3>
               <ul>
                 <li>
                   <h4>${uiLabelMap.OrderShipTo}</h4>
@@ -255,20 +254,20 @@ under the License.
                   </#if>
               </fieldset>
                   <div id="shippingFormServerError" class="errorMessage"></div>
-                  <fieldset id="shipToName">
-                      <div>
+                  <div>
+                      <span>
                         <label for="firstName">${uiLabelMap.PartyFirstName}*
                           <span id="advice-required-firstName" style="display: none" class="errorMessage"> (required)</span>
                         </label>
                         <input id="firstName" name="firstName" class="required" type="text" value="${firstName?if_exists}"/>
-                      </div>
-                      <div>
+                      </span>
+                      <span>
                         <label for="lastName">${uiLabelMap.PartyLastName}*
                           <span id="advice-required-lastName" style="display:none" class="errorMessage"> (required)</span>
                         </label>
                         <input id="lastName" name="lastName" class="required" type="text" value="${lastName?if_exists}"/>
-                      </div>
-                  </fieldset>
+                      </span>
+                  </div>
                   <div>
                   <#if shipToTelecomNumber?has_content>
                       <span>
@@ -394,19 +393,14 @@ under the License.
 
 <#-- ========================================================================================================================== -->
         <div id="shippingOptionPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 3: ${uiLabelMap.PageTitleShippingOptions}</div></div>
+          <h3>${uiLabelMap.EcommerceStep} 3: ${uiLabelMap.PageTitleShippingOptions}</h3>
           <div id="shippingOptionSummaryPanel" class="screenlet-body" style="display: none;">
-            <div class="buttons"><span><a href="javascript:void(0);" id="openShippingOptionPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></span></div>
+            <div class="buttons"><a href="javascript:void(0);" id="openShippingOptionPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></div>
             <div class="completed" id="shippingOptionCompleted">
-              <div id="openShippingOption"><h3>${uiLabelMap.FacilityShipping} ${uiLabelMap.ContentSurveyOption} ${uiLabelMap.EcommerceSummary}</h3></div>
-              <table cellpadding="0" cellspacing="0">
-                <tbody>
-                  <tr>
-                    <td valign="top">${uiLabelMap.CommonMethod}:&nbsp;</td>
-                    <td valign="top"><div id="selectedShipmentOption"></div></td>
-                  </tr>
-                </tbody>
-              </table>
+              <ul>
+                <li>${uiLabelMap.CommonMethod}</li>
+                <li id="selectedShipmentOption"></li>
+              </ul>
             </div>
           </div>
 
@@ -416,58 +410,48 @@ under the License.
               <fieldset>
                   <div id="shippingOptionFormServerError" class="errorMessage"></div>
                   <div>
-                    <span>
                       <label for="shipMethod">${uiLabelMap.OrderSelectShippingMethod}*
                           <span id="advice-required-shipping_method" class="custom-advice" style="display:none"> (required)</span>
                       </label>
                       <select id="shipMethod" name="shipMethod" class="required">
                           <option value=""></option>
                       </select>
-                    </span>
                   </div>
               </fieldset>
             </form>
             <div class="buttons">
-              <span><a href="javascript:void(0);" id="saveShippingMethod">${uiLabelMap.EcommerceContinueToStep} 4</a></span>
-              <span><a style="display:none" href="javascript:void(0);" id="processingBilling">${uiLabelMap.EcommercePleaseWait}....</a></span>
+              <a href="javascript:void(0);" id="saveShippingMethod">${uiLabelMap.EcommerceContinueToStep} 4</a>
+              <a style="display:none" href="javascript:void(0);" id="processingBilling">${uiLabelMap.EcommercePleaseWait}....</a>
             </div>
           </div>
         </div>
 
 <#-- ========================================================================================================================== -->
         <div id="billingPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 4: ${uiLabelMap.AccountingBilling}</div></div>
+          <h3>${uiLabelMap.EcommerceStep} 4: ${uiLabelMap.AccountingBilling}</h3>
           <div id="billingSummaryPanel" class="screenlet-body" style="display: none;">
-            <div class="buttons"><span><a href="javascript:void(0);" id="openBillingPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></span></div>
+            <div class="buttons"><a href="javascript:void(0);" id="openBillingPanel">${uiLabelMap.EcommerceClickHereToEdit}</a></div>
             <div class="completed" id="billingCompleted">
-              <div id="openBillingAndPersonlDetail"><h3>${uiLabelMap.AccountingBilling} ${uiLabelMap.CommonAnd} ${uiLabelMap.AccountingPayment} ${uiLabelMap.EcommerceSummary}</h3></div>
-              <table width="35%">
-                <tbody>
-                  <tr>
-                    <td valign="top">${uiLabelMap.OrderBillUpTo}:</td>
-                    <td valign="top">
-                      <div>
-                        <div id="completedBillToAttn"></div>
-                        <div id="completedBillToPhoneNumber"></div>
-                        <div id="completedCCNumber"></div>
-                        <div id="completedExpiryDate"></div>
-                      </div>
-                    </td>
-                    <td valign="top">${uiLabelMap.EcommerceLocation}:</td>
-                    <td valign="top">
-                      <div>
-                        <div id="completedBillToAddress1"></div>
-                        <div id="completedBillToAddress2"></div>
-                        <div id="completedBillToGeo"></div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td valign="top">${uiLabelMap.AccountingPaymentMethodId}:</td>
-                    <td valign="top"><div><div id="paymentMethod"></div></div></td>
-                  </tr>
-                </tbody>
-              </table>
+              <ul>
+                <li>
+                  <h4>${uiLabelMap.OrderBillUpTo}</h4>
+                  <ul>
+                    <li id="completedBillToAttn"></li>
+                    <li id="completedBillToPhoneNumber"></li>
+                    <li id="paymentMethod"></li>
+                    <li id="completedCCNumber"></li>
+                    <li id="completedExpiryDate"></li>
+                  </ul>
+                </li>
+                <li>
+                  <h4>${uiLabelMap.EcommerceLocation}</h4>
+                  <ul>
+                    <li id="completedBillToAddress1"></li>
+                    <li id="completedBillToAddress2"></li>
+                    <li id="completedBillToGeo"></li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -558,7 +542,6 @@ under the License.
                           </#if>
                         </div>
                         <div>
-                            <span>
                                 <label for="cardType">${uiLabelMap.AccountingCardType}*<span id="advice-required-cardType" style="display: none;" class="errorMessage"> (required)</span></label>
                                 <select name="cardType" id="cardType">
                                   <#if cardType?has_content>
@@ -566,7 +549,6 @@ under the License.
                                   </#if>
                                   ${screens.render("component://common/widget/CommonScreens.xml#cctypes")}
                                 </select>
-                            </span>
                         </div>
                         <div>
                             <span>
@@ -607,43 +589,32 @@ under the License.
                     </fieldset>
                     <fieldset class="col">
                         <div>
-                            <span>
                                 <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">checked</#if> />${uiLabelMap.FacilityBillingAddressSameShipping}
-                            </span>
                         </div>
                         <div id="billingAddress" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div>
-                            <span>
                               <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}*
                                 <span id="advice-required-billToAddress1" style="display:none" class="errorMessage"> (required)</span>
                               </label>
                               <input id="billToAddress1" name="billToAddress1" class="required" size="30" type="text" value="${billToAddress1?if_exists}"/>
-                            </span>
                           </div>
                           <div>
-                            <span>
                               <label for="billToAddress2" style="margin-top: 9px;">${uiLabelMap.PartyAddressLine2}</label>
                               <input id="billToAddress2" name="billToAddress2" type="text" value="${billToAddress2?if_exists}" size="30"/>
-                            </span>
                           </div>
                           <div>
-                            <span>
                               <label for="billToCity">${uiLabelMap.CommonCity}*
                                 <span id="advice-required-billToCity" style="display:none" class="errorMessage"> (required)</span>
                               </label>
                               <input id="billToCity" name="billToCity" class="required" type="text" value="${billToCity?if_exists}"/>
-                            </span>
                           </div>
                           <div>
-                            <span>
                               <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*
                                 <span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (required)</span>
                               </label>
                               <input id="billToPostalCode" name="billToPostalCode" class="required" type="text" value="${billToPostalCode?if_exists}" size="12" maxlength="10"/>
-                            </span>
                           </div>
                           <div>
-                            <span>
                               <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*
                                 <span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (required)</span>
                               </label>
@@ -653,10 +624,8 @@ under the License.
                                 </#if>
                                 ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                               </select>
-                            </span>
                           </div>
-                          <div id="billToStates">
-                            <span>
+                          <div>
                               <label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}*
                                 <span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span>
                               </label>
@@ -667,7 +636,6 @@ under the License.
                                   <option value="_NA_">${uiLabelMap.PartyNoState}</option>
                                 </#if>
                               </select>
-                            </span>
                         </div>
                     </div>
               </fieldset>
@@ -681,15 +649,13 @@ under the License.
 
 <#-- ========================================================================================================================== -->
         <div class="screenlet">
-          <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 5: ${uiLabelMap.OrderSubmitOrder}</div></div>
+          <h3>${uiLabelMap.EcommerceStep} 5: ${uiLabelMap.OrderSubmitOrder}</h3>
           <div id="orderSubmitPanel" style="display: none;">
             <form id="orderSubmitForm" action="<@ofbizUrl>onePageProcessOrder</@ofbizUrl>" method="post">
-              <fieldset>
                   <div class="buttons">
                     <input type="button" id="processOrderButton" name="processOrderButton" value="${uiLabelMap.OrderSubmitOrder}" />
                     <input type="button" style="display: none;" id="processingOrderButton" name="processingOrderButton" value="${uiLabelMap.OrderSubmittingOrder}" />
                   </div>
-              </fieldset>
             </form>
           </div>
         </div>
