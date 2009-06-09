@@ -97,18 +97,19 @@ under the License.
 <#-- ============================================================= -->
           <div id="editCartPanel">
             <form id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
+                <fieldset>
                   <input type="hidden" name="removeSelected" value="false" />
                   <div id="cartFormServerError" class="errorMessage"></div>
                   <table id="editCartPanel_cartItems">
                     <thead>
                       <tr>
-                        <th>${uiLabelMap.OrderItem}</td>
-                        <th>${uiLabelMap.CommonDescription}</td>
-                        <th>${uiLabelMap.EcommerceUnitPrice}</td>
-                        <th>${uiLabelMap.OrderQuantity}</td>
-                        <th>${uiLabelMap.EcommerceAdjustments}</td>
-                        <th>${uiLabelMap.EcommerceItemTotal}</td>
-                        <th>${uiLabelMap.FormFieldTitle_removeButton}</td>
+                        <th>${uiLabelMap.OrderItem}</th>
+                        <th>${uiLabelMap.CommonDescription}</th>
+                        <th>${uiLabelMap.EcommerceUnitPrice}</th>
+                        <th>${uiLabelMap.OrderQuantity}</th>
+                        <th>${uiLabelMap.EcommerceAdjustments}</th>
+                        <th>${uiLabelMap.EcommerceItemTotal}</th>
+                        <th>${uiLabelMap.FormFieldTitle_removeButton}</th>
                       </tr>
                     </thead>
                     <tbody id="updateBody">
@@ -188,10 +189,11 @@ under the License.
                       </tr>
                     </tbody>
                   </table>
+                  </fieldset>
                   <fieldset id="productPromoCodeFields">
                     <legend></legend>
-                    <div class="form-row">
-                      <lable for="productPromoCode">${uiLabelMap.EcommerceEnterPromoCode}<lable>
+                    <div>
+                      <label for="productPromoCode">${uiLabelMap.EcommerceEnterPromoCode}</label>
                       <input id="productPromoCode" name="productPromoCode" type="text" value=""/>
                     </div>
                   </fieldset>
@@ -234,6 +236,7 @@ under the License.
 <#-- ============================================================= -->
           <div id="editShippingPanel" style="display: none;">
             <form id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
+                <fieldset>
                   <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${shipToContactMechId?if_exists}"/>
                   <input type="hidden" id="billToContactMechIdInShipingForm" name="billToContactMechId" value="${billToContactMechId?if_exists}"/>
                   <input type="hidden" id="shipToPartyId" name="partyId" value="${partyId?if_exists}"/>
@@ -250,22 +253,23 @@ under the License.
                   <#else>
                     <input type="hidden" name="keepAddressBook" value="N"/>
                   </#if>
+              </fieldset>
                   <div id="shippingFormServerError" class="errorMessage"></div>
                   <fieldset id="shipToName">
-                      <div class="form-row">
+                      <div>
                         <label for="firstName">${uiLabelMap.PartyFirstName}*
                           <span id="advice-required-firstName" style="display: none" class="errorMessage"> (required)</span>
                         </label>
                         <input id="firstName" name="firstName" class="required" type="text" value="${firstName?if_exists}"/>
                       </div>
-                      <div class="form-row">
+                      <div>
                         <label for="lastName">${uiLabelMap.PartyLastName}*
                           <span id="advice-required-lastName" style="display:none" class="errorMessage"> (required)</span>
                         </label>
                         <input id="lastName" name="lastName" class="required" type="text" value="${lastName?if_exists}"/>
                       </div>
                   </fieldset>
-                  <div class="form-row">
+                  <div>
                   <#if shipToTelecomNumber?has_content>
                       <span>
                           <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
@@ -314,7 +318,7 @@ under the License.
                       </span>
                   </#if>
                   </div>
-                  <div class="form-row">
+                  <div>
                       <span>
                           <label for="emailAddress">${uiLabelMap.PartyEmailAddress}*
                             <span id="advice-required-emailAddress" style="display:none" class="errorMessage"> (required)</span>
@@ -322,7 +326,7 @@ under the License.
                           <input id="emailAddress" name="emailAddress" class="required validate-email" maxlength="255" size="40" type="text" value="${emailAddress?if_exists}"/>
                       </span>
                   </div>
-                    <div class="form-row">
+                    <div>
                         <span>
                             <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*
                                 <span id="advice-required-shipToAddress1" class="custom-advice errorMessage" style="display:none"> (required)</span>
@@ -330,13 +334,13 @@ under the License.
                             <input id="shipToAddress1" name="shipToAddress1" class="required" type="text" value="${shipToAddress1?if_exists}" maxlength="255" size="40"/>
                         </span>
                     </div>
-                    <div class="form-row">
+                    <div>
                         <span>
                           <label for="shipToAddress2">${uiLabelMap.PartyAddressLine2}</label>
                           <input id="shipToAddress2" name="shipToAddress2" type="text" value="${shipToAddress2?if_exists}" maxlength="255" size="40"/>
                         </span>
                     </div>
-                    <div class="form-row">
+                    <div>
                         <span>
                             <label for="shipToCity">${uiLabelMap.CommonCity}*
                                 <span id="advice-required-shipToCity" class="custom-advice errorMessage" style="display:none"> (required)</span>
@@ -344,7 +348,7 @@ under the License.
                             <input id="shipToCity" name="shipToCity" class="required" type="text" value="${shipToCity?if_exists}" maxlength="255" size="40"/>
                         </span>
                     </div>
-                    <div class="form-row">
+                    <div>
                         <span>
                             <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}*
                                 <span id="advice-required-shipToPostalCode" class="custom-advice errorMessage" style="display:none"> (required)</span>
@@ -352,7 +356,7 @@ under the License.
                             <input id="shipToPostalCode" name="shipToPostalCode" class="required" type="text" value="${shipToPostalCode?if_exists}" size="12" maxlength="10"/>
                         </span>
                     </div>
-                    <div class="form-row">
+                    <div>
                         <span>
                             <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*
                                 <span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (required)</span>
@@ -365,7 +369,7 @@ under the License.
                             </select>
                         </span>
                     </div>
-                    <div id="shipToStates" class="form-row">
+                    <div id="shipToStates">
                         <span>
                             <label for="shipToStateProvinceGeoId">${uiLabelMap.CommonState}*
                                 <span id="advice-required-shipToStateProvinceGeoId" style="display:none" class="errorMessage">(required)</span>
@@ -411,7 +415,7 @@ under the License.
             <form id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
               <fieldset>
                   <div id="shippingOptionFormServerError" class="errorMessage"></div>
-                  <div class="form-row">
+                  <div>
                     <span>
                       <label for="shipMethod">${uiLabelMap.OrderSelectShippingMethod}*
                           <span id="advice-required-shipping_method" class="custom-advice" style="display:none"> (required)</span>
@@ -490,7 +494,7 @@ under the License.
                     <input type="hidden" name="keepAddressBook" value="N"/>
                   </#if>
                   <div id="billingFormServerError" class="errorMessage"></div>
-                        <div class="form-row">
+                        <div>
                             <span>
                                 <label for="firstNameOnCard">${uiLabelMap.PartyFirstName}*
                                     <span id="advice-required-firstNameOnCard" style="display: none;" class="errorMessage"> (required)</span>
@@ -504,7 +508,7 @@ under the License.
                                 <input id="lastNameOnCard" name="lastNameOnCard" class="required" type="text" value="${lastNameOnCard?if_exists}"/>
                             </span>
                         </div>
-                        <div class="form-row">  
+                        <div>  
                           <#if billToTelecomNumber?has_content>
                             <span>
                                 <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
@@ -553,7 +557,7 @@ under the License.
                             </span>
                           </#if>
                         </div>
-                        <div class="form-row">
+                        <div>
                             <span>
                                 <label for="cardType">${uiLabelMap.AccountingCardType}*<span id="advice-required-cardType" style="display: none;" class="errorMessage"> (required)</span></label>
                                 <select name="cardType" id="cardType">
@@ -564,7 +568,7 @@ under the License.
                                 </select>
                             </span>
                         </div>
-                        <div class="form-row">
+                        <div>
                             <span>
                                 <label for="cardNumber">${uiLabelMap.AccountingCardNumber}*
                                     <span id="advice-required-cardNumber" style="display: none;" class="errorMessage"> (required)</span>
@@ -576,7 +580,7 @@ under the License.
                                 <input id="CVV2" name="cardSecurityCode" size="4" type="text" maxlength="4" value=""/>
                             </span>
                         </div>
-                        <div class="form-row">
+                        <div>
                           <span>
                             <label for="expMonth">${uiLabelMap.CommonMonth}:*
                                 <span id="advice-required-expMonth" style="display:none" class="errorMessage"> (required)</span>
@@ -602,13 +606,13 @@ under the License.
                         </div>
                     </fieldset>
                     <fieldset class="col">
-                        <div class="form-row">
+                        <div>
                             <span>
                                 <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">checked</#if> />${uiLabelMap.FacilityBillingAddressSameShipping}
                             </span>
                         </div>
                         <div id="billingAddress" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
-                          <div class="form-row">
+                          <div>
                             <span>
                               <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}*
                                 <span id="advice-required-billToAddress1" style="display:none" class="errorMessage"> (required)</span>
@@ -616,13 +620,13 @@ under the License.
                               <input id="billToAddress1" name="billToAddress1" class="required" size="30" type="text" value="${billToAddress1?if_exists}"/>
                             </span>
                           </div>
-                          <div class="form-row">
+                          <div>
                             <span>
                               <label for="billToAddress2" style="margin-top: 9px;">${uiLabelMap.PartyAddressLine2}</label>
                               <input id="billToAddress2" name="billToAddress2" type="text" value="${billToAddress2?if_exists}" size="30"/>
                             </span>
                           </div>
-                          <div class="form-row">
+                          <div>
                             <span>
                               <label for="billToCity">${uiLabelMap.CommonCity}*
                                 <span id="advice-required-billToCity" style="display:none" class="errorMessage"> (required)</span>
@@ -630,7 +634,7 @@ under the License.
                               <input id="billToCity" name="billToCity" class="required" type="text" value="${billToCity?if_exists}"/>
                             </span>
                           </div>
-                          <div class="form-row">
+                          <div>
                             <span>
                               <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*
                                 <span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (required)</span>
@@ -638,7 +642,7 @@ under the License.
                               <input id="billToPostalCode" name="billToPostalCode" class="required" type="text" value="${billToPostalCode?if_exists}" size="12" maxlength="10"/>
                             </span>
                           </div>
-                          <div class="form-row">
+                          <div>
                             <span>
                               <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*
                                 <span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (required)</span>
@@ -651,7 +655,7 @@ under the License.
                               </select>
                             </span>
                           </div>
-                          <div id="billToStates" class="form-row">
+                          <div id="billToStates">
                             <span>
                               <label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}*
                                 <span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span>
