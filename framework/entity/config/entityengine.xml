@@ -353,7 +353,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
-                pool-maxsize="250"/>
+                pool-maxsize="250"/><!-- Be warned that at this date (2009-06-09) the max_connections parameters in postgresql.conf 
+                is set by default to 100 by the initdb process see http://www.postgresql.org/docs/8.3/static/runtime-config-connection.html#GUC-MAX-CONNECTIONS-->
+                
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="java:comp/env/jdbc/localpostgres" isolation-level="ReadCommitted"/>-->
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localpostgres" isolation-level="ReadCommitted"/> --> <!-- Orion Style JNDI name -->
         <!-- <jndi-jdbc jndi-server-name="localweblogic" jndi-name="PostgresDataSource"/> --> <!-- Weblogic Style JNDI name -->
