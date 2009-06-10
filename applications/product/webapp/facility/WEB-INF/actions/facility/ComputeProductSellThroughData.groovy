@@ -17,6 +17,9 @@
  * under the License.
  */
 
+import java.math.MathContext;
+
+
 if (parameters.fromDateSellThrough) {
     Timestamp fromDate = null; 
     Timestamp thruDate = null; 
@@ -29,6 +32,6 @@ if (parameters.fromDateSellThrough) {
         inventoryShippedForSalesResult = dispatcher.runSync("countProductInventoryShippedForSales", [productId : productId, facilityId : facilityId, fromDate : fromDate, thruDate : thruDate, userLogin : userLogin]);
         context.sellThroughInitialInventory = inventoryCountResult.quantityOnHandTotal;
         context.sellThroughInventorySold = inventoryShippedForSalesResult.quantityOnHandTotal;
-        context.sellThroughPercentage = inventoryShippedForSalesResult.quantityOnHandTotal / inventoryCountResult.quantityOnHandTotal * 100;
+        context.sellThroughPercentage = new BigDecimal(inventoryShippedForSalesResult.quantityOnHandTotal / inventoryCountResult.quantityOnHandTotal * 100, new java.math.MathContext(2));
     }
 }
