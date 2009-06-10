@@ -930,6 +930,19 @@ public class OrderServices {
                 toBeStored.add(productPromoUse);
             }
         }
+        
+        // store the orderProductPromoCodes
+        Set orderProductPromoCodes = (Set) context.get("orderProductPromoCodes");
+        if (UtilValidate.isNotEmpty(orderProductPromoCodes)) {
+            GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");
+            Iterator orderProductPromoCodeIter = orderProductPromoCodes.iterator();
+            while (orderProductPromoCodeIter.hasNext()) {
+                orderProductPromoCode.clear();
+                orderProductPromoCode.set("orderId", orderId);
+                orderProductPromoCode.set("productPromoCodeId", orderProductPromoCodeIter.next());
+                toBeStored.add(orderProductPromoCode);
+            }
+        }
 
         /* DEJ20050529 the OLD way, where a single party had all roles... no longer doing things this way...
         // define the roles for the order
@@ -3556,9 +3569,6 @@ public class OrderServices {
             }
         }
 
-        // run promotions to handle all changes in the cart
-        ProductPromoWorker.doPromotions(cart, dispatcher);
-
         // save all the updated information
         try {
             saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap));
@@ -3566,6 +3576,9 @@ public class OrderServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
+        // run promotions to handle all changes in the cart
+        ProductPromoWorker.doPromotions(cart, dispatcher);
+        
         // log an order note
         try {
             dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", "Updated order.", "internalNote", "Y", "userLogin", userLogin));

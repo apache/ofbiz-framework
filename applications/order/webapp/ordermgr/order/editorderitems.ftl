@@ -275,6 +275,20 @@ float: right;
             <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
             <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
+            <#assign productPromoCodeId = ''>
+            <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT" && orderHeaderAdjustment.get("productPromoId")?has_content>
+                <#assign productPromo = orderHeaderAdjustment.getRelatedOne("ProductPromo")>
+                <#assign productPromoCodes = delegator.findByAnd("ProductPromoCode", {"productPromoId":productPromo.productPromoId})>
+                <#assign orderProductPromoCode = ''>
+                <#list productPromoCodes as productPromoCode>
+                    <#if !(orderProductPromoCode?has_content)>
+                        <#assign orderProductPromoCode = delegator.findOne("OrderProductPromoCode", {"productPromoCodeId":productPromoCode.productPromoCodeId, "orderId":orderHeaderAdjustment.orderId}, false)?if_exists>
+                    </#if>
+                </#list>
+                <#if orderProductPromoCode?has_content>
+                    <#assign productPromoCodeId = orderProductPromoCode.get("productPromoCodeId")>
+                </#if>
+            </#if>
             <#if adjustmentAmount != 0>
                 <form name="updateOrderAdjustmentForm${orderAdjustmentId}" method="post" action="<@ofbizUrl>updateOrderAdjustment</@ofbizUrl>">
                     <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId?if_exists}"/>
@@ -306,6 +320,9 @@ float: right;
                 <form name="deleteOrderAdjustment${orderAdjustmentId}" method="post" action="<@ofbizUrl>deleteOrderAdjustment</@ofbizUrl>">
                     <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId?if_exists}"/>
                     <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                    <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT">
+                        <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId?if_exists}"/>
+                    </#if>
                 </form>
             </#if>
         </#list>
