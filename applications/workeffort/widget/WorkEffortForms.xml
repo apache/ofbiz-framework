@@ -136,11 +136,11 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="estimatedMilliSeconds" position="1"/>
-        <field name="estimatedSetupMillis" position="2"/>
-        <field name="actualMilliSeconds" position="1"/>
-        <field name="actualSetupMillis" position="2"/>
-        <field name="totalMilliSecondsAllowed" position="1"/>
+        <field name="estimatedMilliSeconds" position="1"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="estimatedSetupMillis" position="2"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="actualMilliSeconds" position="1"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="actualSetupMillis" position="2"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="totalMilliSecondsAllowed" position="1"><lookup target-form-name="LookupTimeDuration"/></field>
         <field name="totalMoneyAllowed" position="2"/>
 
         <field name="quantityToProduce" position="1"/>

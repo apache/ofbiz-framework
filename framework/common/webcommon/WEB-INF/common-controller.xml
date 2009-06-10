@@ -143,6 +143,10 @@ under the License.
         <response name="success" type="view" value="geoLocation"/>
     </request-map>
 
+    <request-map uri="LookupTimeDuration">
+        <response name="success" type="view" value="LookupTimeDuration"/>
+    </request-map>
+
     <!-- home/last/current mappings -->
     <request-map uri="backHome">
         <security https="true" auth="true"/>
@@ -162,6 +166,7 @@ under the License.
     <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>
 
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
+    <view-map name="LookupTimeDuration" type="screen" page="component://common/widget/LookupScreens.xml#TimeDuration"/>
     <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
     <view-map name="LookupVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#LookupVisualThemes"/>
 
