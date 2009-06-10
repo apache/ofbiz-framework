@@ -36,7 +36,6 @@ under the License.
     set_value(duration);
   }
 </script>
-${(parameters.duration)?if_exists}<br/>
 <form name="TimeDuration" action="javascript:setTimeDuration()">
   <table cellspacing="0" class="basic-table">
     <tr>
