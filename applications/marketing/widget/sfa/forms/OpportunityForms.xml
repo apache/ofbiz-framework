@@ -130,7 +130,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" position="1" title="${uiLabelMap.SfaOpportunityName}"><display/></field>
-        <field name="initialAccount" position="1" title="${uiLabelMap.SfaInitialAccount}"><display/></field>
+        <field name="accountPartyId" position="1" title="${uiLabelMap.SfaInitialAccount}"><display/></field>
         <field name="estimatedAmount" position="1" title="${uiLabelMap.SfaEstimatedAmount} ${currencyUomId}"><display/></field>
         <field name="typeEnumId" position="1" title="${uiLabelMap.SfaType}"><display/></field>
         <field name="estimatedCloseDate" position="1" title="${uiLabelMap.SfaCloseDate}"><display/></field>

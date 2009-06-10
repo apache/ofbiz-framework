@@ -115,6 +115,16 @@ under the License.
                 <set field="tabButtonItem" value="ViewSalesOpportunity"/>
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
                 <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
+                <service service-name="findPartyInSalesOpportunityRole" result-map="accountPartyResult">
+                    <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                    <field-map field-name="roleTypeId" value="ACCOUNT"/>
+                </service>
+                <set field="accountPartyId" from-field="accountPartyResult.partyId"/>
+                <service service-name="findPartyInSalesOpportunityRole" result-map="leadPartyResult">
+                    <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                    <field-map field-name="roleTypeId" value="LEAD"/>
+                </service>
+                <set field="leadPartyId" from-field="leadPartyResult.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
