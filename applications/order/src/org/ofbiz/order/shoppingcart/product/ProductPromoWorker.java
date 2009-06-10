@@ -379,6 +379,15 @@ public class ProductPromoWorker {
                         // check if promo code required
                         if (requireCode) {
                             Set enteredCodes = cart.getProductPromoCodesEntered();
+                            // Check whether any promotion code is applied on order.
+                            if (cart.getOrderId() != null) {
+                                List orderproductPromoCodes =  delegator.findList("OrderProductPromoCode", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, cart.getOrderId()), null, null, null, false);
+                                Iterator orderproductPromoCodesItr = UtilMisc.toIterator(orderproductPromoCodes);
+                                while (orderproductPromoCodesItr != null && orderproductPromoCodesItr.hasNext()) {
+                                    GenericValue orderproductPromoCode = (GenericValue) orderproductPromoCodesItr.next();
+                                    enteredCodes.add(orderproductPromoCode.getString("productPromoCodeId"));
+                                }
+                            }
                             if (enteredCodes.size() > 0) {
                                 // get all promo codes entered, do a query with an IN condition to see if any of those are related
                                 EntityCondition codeCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId), EntityOperator.AND, EntityCondition.makeCondition("productPromoCodeId", EntityOperator.IN, enteredCodes));

@@ -50,6 +50,13 @@ under the License.
         <check-errors/>
         <entity-one entity-name="OrderAdjustment" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
+		
+        <if-not-empty field="parameters.productPromoCodeId">
+            <entity-one entity-name="OrderProductPromoCode" value-field="lookedUpValue"/>
+            <if-not-empty field="lookedUpValue">
+                <remove-value value-field="lookedUpValue"/>
+            </if-not-empty>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="createOrderAdjustmentBilling" short-description="Create an OrderAdjustmentBilling">

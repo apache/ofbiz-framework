@@ -133,6 +133,7 @@ under the License.
         <attribute name="orderItemContactMechs" type="List" mode="IN" optional="true"/>
         <attribute name="orderItemPriceInfos" type="List" mode="IN" optional="true"/>
         <attribute name="orderProductPromoUses" type="List" mode="IN" optional="true"/>
+        <attribute name="orderProductPromoCodes" type="Set" mode="IN" optional="true"/>
         <attribute name="orderItemSurveyResponses" type="List" mode="IN" optional="true"/>
         <attribute name="trackingCodeOrders" type="List" mode="IN" optional="true"/>
         <attribute name="orderAdditionalPartyRoleMap" type="Map" mode="IN" optional="true"/>
@@ -198,6 +199,7 @@ under the License.
         <description>Delete an order adjustment record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>  <!-- needed for resetGrandTotal seca -->
+        <attribute name="productPromoCodeId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createOrderAdjustmentBilling" engine="simple"

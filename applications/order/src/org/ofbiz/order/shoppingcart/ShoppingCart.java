@@ -3948,6 +3948,7 @@ public class ShoppingCart implements Serializable {
         result.put("orderTerms", this.getOrderTerms());
         result.put("orderItemPriceInfos", this.makeAllOrderItemPriceInfos());
         result.put("orderProductPromoUses", this.makeProductPromoUses());
+        result.put("orderProductPromoCodes", this.getProductPromoCodesEntered());
 
         result.put("orderAttributes", this.makeAllOrderAttributes());
         result.put("orderItemAttributes", this.makeAllOrderItemAttributes());
