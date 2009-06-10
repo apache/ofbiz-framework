@@ -149,7 +149,7 @@ under the License.
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
         <field name="partyIdFrom"><hidden/></field>
-        <field name="my" use-when="parameters.get(&quot;my&quot;)==null"><hidden value="parameters.my"/></field>
+        <field name="my"><hidden value="${parameters.my}"/></field>
         <field name="fromEmailAddr" parameter-name="contactMechIdFrom">
             <drop-down>
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
@@ -183,6 +183,7 @@ under the License.
         <field name="statusId"><hidden value="COM_PENDING"/></field>
         <field name="datetimeStarted"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
+        <field name="my"><hidden value="${parameters.my}"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <drop-down>
                 <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
