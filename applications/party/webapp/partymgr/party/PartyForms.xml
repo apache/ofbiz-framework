@@ -326,7 +326,7 @@ under the License.
         <auto-fields-service service-name="createPartyNote"/>
         <field name="partyId"><hidden/></field>
         <field name="noteId" tooltip="${uiLabelMap.PartyOptional}"><hidden/></field>
-        <field name="noteName" tooltip="${uiLabelMap.PartyOptional}"> </field>
+        <field name="noteName" title="${uiLabelMap.FormFieldTitle_noteName}" tooltip="${uiLabelMap.PartyOptional}"> </field>
         <field name="note"><textarea cols="70" rows="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">

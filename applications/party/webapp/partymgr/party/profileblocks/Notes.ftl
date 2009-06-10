@@ -33,6 +33,7 @@ under the License.
           <#list notes as noteRef>
             <tr>
               <td>
+                <div><b>${uiLabelMap.FormFieldTitle_noteName}: </b>${noteRef.noteName}</div>
                 <div><b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, noteRef.noteParty, true)}</div>
                 <div><b>${uiLabelMap.CommonAt}: </b>${noteRef.noteDateTime.toString()}</div>
               </td>
