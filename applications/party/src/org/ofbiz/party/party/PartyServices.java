@@ -1090,13 +1090,13 @@ public class PartyServices {
             String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId");
             if (UtilValidate.isNotEmpty(partyRelationshipTypeId)) {
                 // add relation to view
-                dynamicView.addMemberEntity("PR", "PartyRelationship");
-                dynamicView.addAlias("PR", "partyIdTo");
-                dynamicView.addAlias("PR", "partyRelationshipTypeId");
-                dynamicView.addViewLink("PT", "PR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "partyIdTo"));
+                dynamicView.addMemberEntity("PRSHP", "PartyRelationship");
+                dynamicView.addAlias("PRSHP", "partyIdTo");
+                dynamicView.addAlias("PRSHP", "partyRelationshipTypeId");
+                dynamicView.addViewLink("PT", "PRSHP", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "partyIdTo"));
                 String partyIdFrom = userLogin.getString("partyId");
                 paramList = paramList + "&partyIdFrom=" + partyIdFrom;
-                dynamicView.addAlias("PR", "partyIdFrom");
+                dynamicView.addAlias("PRSHP", "partyIdFrom");
                 // add the expr
                 andExprs.add(EntityCondition.makeCondition(
                         EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyIdFrom"), EntityOperator.EQUALS, EntityFunction.UPPER(partyIdFrom)),
