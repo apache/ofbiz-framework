@@ -767,7 +767,7 @@ under the License.
     <request-map uri="updateCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCommunicationEvent"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
+        <response name="success" type="view-home" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="sendCommunicationEvent">

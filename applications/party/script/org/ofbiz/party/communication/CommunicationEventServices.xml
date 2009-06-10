@@ -230,13 +230,15 @@ under the License.
             </condition>
             <then>
                 <!-- updating partyId from old: -->
-                <entity-one entity-name="CommunicationEventRole" value-field="roleFrom">
-                    <field-map field-name="communicationEventId" from-field="event.communicationEventId"/>
-                    <field-map field-name="partyId" from-field="event.partyIdFrom"/>
-                    <field-map field-name="roleTypeId" value="ORIGINATOR"/>
-                </entity-one>
-                <if-not-empty field="roleFrom">
-                    <remove-value value-field="roleFrom"/>
+                <if-not-empty field="event.partyIdFrom">
+                    <entity-one entity-name="CommunicationEventRole" value-field="roleFrom">
+                        <field-map field-name="communicationEventId" from-field="event.communicationEventId"/>
+                        <field-map field-name="partyId" from-field="event.partyIdFrom"/>
+                        <field-map field-name="roleTypeId" value="ORIGINATOR"/>
+                    </entity-one>
+                    <if-not-empty field="roleFrom">
+                        <remove-value value-field="roleFrom"/>
+                    </if-not-empty>
                 </if-not-empty>
                 <!-- add new role -->
                 <set field="newRoleFrom.partyId" from-field="parameters.partyIdFrom"/>
@@ -259,13 +261,15 @@ under the License.
             </condition>
             <then>
                 <!-- check if role exist then delete old role -->
-                <entity-one entity-name="CommunicationEventRole" value-field="roleTo">
-                    <field-map field-name="communicationEventId" from-field="event.communicationEventId"/>
-                    <field-map field-name="partyId" from-field="event.partyIdTo"/>
-                    <field-map field-name="roleTypeId" value="ADDRESSEE"/>
-                </entity-one>
-                <if-not-empty field="roleTo">
-                    <remove-value value-field="roleTo"/>
+                <if-not-empty field="event.partyIdTo">
+                    <entity-one entity-name="CommunicationEventRole" value-field="roleTo">
+                        <field-map field-name="communicationEventId" from-field="event.communicationEventId"/>
+                        <field-map field-name="partyId" from-field="event.partyIdTo"/>
+                        <field-map field-name="roleTypeId" value="ADDRESSEE"/>
+                    </entity-one>
+                    <if-not-empty field="roleTo">
+                        <remove-value value-field="roleTo"/>
+                    </if-not-empty>
                 </if-not-empty>
                 <!-- add new role -->
                 <set field="newRoleTo.partyId" from-field="parameters.partyIdTo"/>
