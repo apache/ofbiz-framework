@@ -3710,6 +3710,14 @@
         <value xml:lang="zh">方法</value>
         <value xml:lang="zh_CN">方法</value>
     </property>
+    <property key="CommonMilliSecond">
+        <value xml:lang="de">Millisekunde</value>
+        <value xml:lang="en">Millisecond</value>
+        <value xml:lang="es">milisegundo</value>
+        <value xml:lang="fr">millisecondes</value>
+        <value xml:lang="it">Milli Secondi</value>
+        <value xml:lang="ro">Milisecunde</value>
+    </property>
     <property key="CommonMinute">
         <value xml:lang="ar">بدقة</value>
         <value xml:lang="de">Jede Minute</value>
