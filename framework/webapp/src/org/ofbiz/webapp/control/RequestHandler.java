@@ -718,6 +718,9 @@ public class RequestHandler {
         	//Debug.log("======save home view: " + view);
         	req.getSession().setAttribute("_HOME_VIEW_NAME_", view);
         	req.getSession().setAttribute("_HOME_VIEW_PARAMS_", paramMap);
+        	// clear other saved views
+        	req.getSession().removeAttribute("_SAVED_VIEW_NAME_");
+        	req.getSession().removeAttribute("_SAVED_VIEW_PARAMS_");
         }
 
         ConfigXMLReader.ViewMap viewMap = (view == null ? null : getControllerConfig().viewMapMap.get(view));
