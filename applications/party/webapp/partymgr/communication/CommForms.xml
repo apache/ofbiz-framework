@@ -423,6 +423,8 @@ under the License.
         </row-actions>
         <field name="deleteCommEventIfLast"><hidden value="Y"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
+        <field name="partyId"><hidden/></field>
+        <field name="communicationEventId"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300" sort-field="true">
             <hyperlink description="${subject}[${communicationEventId}] " target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
