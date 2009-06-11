@@ -411,7 +411,7 @@ under the License.
             <set field="searchParameters.statusId_op" value="notEqual"/>
             <set field="searchParameters.roleStatusId" value="${groovy:&quot;true&quot;.equals(parameters.all)?&quot;dummy&quot;:&quot;COM_ROLE_COMPLETED&quot;}"/>
             <set field="searchParameters.roleStatusId_op" value="notEqual"/>
-            <set field="searchParameters.communicationEventTypeId" value="${groovy:&quot;true&quot;.equals(internalNotesOnly)?&quot;COMMENT_NOTE&quot;:&quot;&quot;}"/>
+            <set field="searchParameters.communicationEventTypeId" value="${groovy:internalNotesOnly&amp;&amp;&quot;true&quot;.equals(internalNotesOnly)?&quot;COMMENT_NOTE&quot;:&quot;&quot;}"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="searchParameters"/>
                 <field-map field-name="entityName" value="CommunicationEventAndRole"/>
