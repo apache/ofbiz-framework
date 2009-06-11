@@ -389,12 +389,19 @@ under the License.
     </service>
     <!-- Party ContachMech reverse find -->
     <service name="findPartyFromEmailAddress" engine="simple"
-            location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="findPartyFromEmailAddress" auth="true">
+        location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="findPartyFromEmailAddress" auth="true">
         <description>Find the partyId/contactMechId for a specific email address, if not found do not return a value</description>
         <attribute name="address" type="String" mode="IN" optional="false"/>
         <attribute name="caseInsensitive" type="String" mode="IN" optional="true"/>
         <attribute name="personal" type="String" mode="IN" optional="true"/><!-- field not used -->
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="findPartyFromTelephone" engine="simple"
+        location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="findPartyFromTelephone" auth="true">
+        <description>Find the partyId/contactMechId for a specific telephone number, if not found do not return a value</description>
+        <attribute name="telno" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="OUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
