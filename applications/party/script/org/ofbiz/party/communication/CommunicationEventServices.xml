@@ -34,7 +34,7 @@ under the License.
 
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
         <!-- check for forward only if created by a user and not incoming email by system-->
-        <if-compare field="parameters.userLogin.userLoginId" value="system" operator="not-equals">
+        <if-compare field="parameters.action" value="FORWARD" operator="equals">
             <if-not-empty field="parameters.origCommEventId">
                 <entity-one entity-name="CommunicationEvent" value-field="newEntity">
                     <field-map field-name="communicationEventId" from-field="parameters.origCommEventId"/>
@@ -59,9 +59,18 @@ under the License.
         </if-empty>
         <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
 
-        <!-- check for reply -->
-        <if-compare field="parameters.userLogin.userLoginId" value="system" operator="not-equals"><!-- not apply on incoming emails -->
-            <if-not-empty field="parameters.parentCommEventId">
+        <!-- check for reply or reply all-->
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.parentCommEventId"/></not>
+                    <or>
+                        <if-compare field="parameters.action" value="REPLY" operator="equals"/>
+                        <if-compare field="parameters.action" value="REPLYALL" operator="equals"/>
+                    </or>
+                </and>
+            </condition>
+            <then>
                 <entity-one entity-name="CommunicationEvent" value-field="parentCommEvent">
                     <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
                 </entity-one>
@@ -108,8 +117,8 @@ under the License.
                     <set field="newStat.statusId" value="COM_ROLE_COMPLETED"/>
                     <call-service service-name="setCommunicationEventRoleStatus" in-map-name="newStat"/>
                 </if-not-empty>
-            </if-not-empty>
-        </if-compare>
+            </then>
+        </if>
         
         <if-empty field="newEntity.statusId">
             <set value="COM_ENTERED" field="newEntity.statusId"/>
@@ -164,6 +173,23 @@ under the License.
         <now-timestamp field="newEntity.entryDate"/>
         <create-value value-field="newEntity"/>
 
+        <if-compare field="parameters.action" value="REPLYALL" operator="equals">
+            <entity-condition entity-name="CommunicationEventRole" list="roles">
+                <condition-list combine="and">
+                    <condition-expr field-name="communicationEventId" from-field="parentCommEvent.communicationEventId"/>
+                    <condition-expr field-name="partyId" operator="not-equals" from-field="newEntity.partyIdTo"/>
+                    <condition-expr field-name="partyId" operator="not-equals" from-field="newEntity.partyIdFrom"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="roles">
+                <iterate entry="role" list="roles">
+                    <set-service-fields service-name="createCommunicationEventRole" map="role" to-map="newRole"/>
+                    <set field="newRole.communicationEventId" from-field="newEntity.communicationEventId"/>
+                    <call-service service-name="createCommunicationEventRole" in-map-name="newRole"/>
+                </iterate>
+            </if-not-empty>
+        </if-compare>
+        
         <if-not-empty field="parameters.productId">
             <make-value value-field="eventProduct" entity-name="CommunicationEventProduct"/>
             <set from-field="parameters.productId" field="eventProduct.productId"/>
