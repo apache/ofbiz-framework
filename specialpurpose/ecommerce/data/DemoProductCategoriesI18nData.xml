@@ -272,15 +272,15 @@
     <ContentAssoc contentId="CFOOD-001DESCEN" contentIdTo="CFOOD-001DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
     <ContentAssoc contentId="CFOOD-001DESCEN" contentIdTo="CFOOD-001DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
 
-    <!-- Featured products category -->
+    <!-- Featured  Products category -->
     <DataResource dataResourceId="DRPROMO-001DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>
     <DataResource dataResourceId="DRPROMO-001DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>
 
     <ElectronicText dataResourceId="DRPROMO-001DESCFR" textData="Articles de démonstration"/>
-    <ElectronicText dataResourceId="DRPROMO-001DESCEN" textData="Featured products"/>
+    <ElectronicText dataResourceId="DRPROMO-001DESCEN" textData="Featured Products"/>
 
     <Content contentId="CPROMO-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRPROMO-001DESCFR" description="DESCRIPTION FR Articles de démonstration" localeString="fr"/>
-    <Content contentId="CPROMO-001DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRPROMO-001DESCEN" description="DESCRIPTION EN Featured products" localeString="en"/>
+    <Content contentId="CPROMO-001DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRPROMO-001DESCEN" description="DESCRIPTION EN Featured  Products" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="PROMOTIONS" contentId="CPROMO-001DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2007-12-28 00:00:00.0"/>
 
