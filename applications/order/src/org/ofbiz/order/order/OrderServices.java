@@ -3834,15 +3834,20 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
 
+        // get the new orderItems, adjustments, shipping info, payments and order item atrributes from the cart
+        List<Map> modifiedItems = FastList.newInstance();
+        List toStore = new LinkedList();
+        List<GenericValue> toAddList = new ArrayList<GenericValue>();
+        toAddList.addAll(cart.makeAllAdjustments());
+        cart.clearAllPromotionAdjustments();
+        ProductPromoWorker.doPromotions(cart, dispatcher);
+
         // validate the payment methods
         Map validateResp = coh.validatePaymentMethods();
         if (ServiceUtil.isError(validateResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
         }
 
-        // get the new orderItems, adjustments, shipping info, payments and order item atrributes from the cart
-        List<Map> modifiedItems = FastList.newInstance();
-        List toStore = new LinkedList();
         toStore.addAll(cart.makeOrderItems());
         toStore.addAll(cart.makeAllAdjustments());
         
@@ -3869,7 +3874,13 @@ public class OrderServices {
             }
             toStore.removeAll(removeList);
         }
-        
+        for (GenericValue toAdd: (List<GenericValue>)toAddList) {
+            if ("OrderAdjustment".equals(toAdd.getEntityName())) {
+                if (toAdd.get("comments") != null && ((String)toAdd.get("comments")).startsWith("Added manually by") && ("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId")))) {
+                    toStore.add(toAdd);
+                }
+            }
+        }
         // Creating objects for New Shipping and Handling Charges Adjustment and Sales Tax Adjustment
         toStore.addAll(cart.makeAllShipGroupInfos());
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
