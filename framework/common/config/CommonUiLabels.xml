@@ -1199,14 +1199,14 @@
     <property key="CommonCollapse">
         <value xml:lang="en">Collapse</value>
         <value xml:lang="es">Colapsar</value>
-        <value xml:lang="fr">Fermer</value>
+        <value xml:lang="fr">Replier</value>
         <value xml:lang="it">Collassato</value>
         <value xml:lang="th">ล้มเหลว</value>
     </property>
     <property key="CommonCollapseAll">
         <value xml:lang="en">Collapse all</value>
         <value xml:lang="es">Colapsar</value>
-        <value xml:lang="fr">Tout fermer</value>
+        <value xml:lang="fr">Tout replier</value>
         <value xml:lang="it">Collassato</value>
         <value xml:lang="th">ล้มเหลว</value>
     </property>
@@ -2186,7 +2186,7 @@
         <value xml:lang="de">Erweitern</value>
         <value xml:lang="en">Expand</value>
         <value xml:lang="es">Expandir</value>
-        <value xml:lang="fr">Tout ouvrir</value>
+        <value xml:lang="fr">Développer</value>
         <value xml:lang="it">Espandi</value>
         <value xml:lang="th">แผ่ขยาย</value>
     </property>
@@ -2194,7 +2194,7 @@
         <value xml:lang="de">Erweitern</value>
         <value xml:lang="en">Expand all</value>
         <value xml:lang="es">Expandir</value>
-        <value xml:lang="fr">Tout ouvrir</value>
+        <value xml:lang="fr">Tout développer</value>
         <value xml:lang="it">Espandi</value>
         <value xml:lang="th">แผ่ขยาย</value>
     </property>
