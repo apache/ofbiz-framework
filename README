@@ -14,7 +14,7 @@ Once that is properly setup just run the executable jar file
 that comes with OFBiz, which is ofbiz.jar. To do this on the
 command line you would run:
 
-java -jar ofbiz.jar
+java -Xmx256M -jar ofbiz.jar
 
 There are also start scripts for Windows and Unix-based
 operating systems, namely startofbiz.bat and startofbiz.sh.
