@@ -24,6 +24,9 @@ under the License.
     <form name="FindAcctgTrans" target="FindAcctgTrans" type="single" title="" default-map-name="journal"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
+        <field name="acctgTransId" title="${uiLabelMap.FormFieldTitle_acctgTransId}" entity-name="AcctgTrans">
+            <text size="20"/>
+        </field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="AcctgTransType" description="${description}">
@@ -183,6 +186,9 @@ under the License.
     <form name="FindAcctgTransEntries" target="FindAcctgTransEntries" type="single" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
+        <field name="acctgTransId" title="${uiLabelMap.FormFieldTitle_acctgTransId}" entity-name="AcctgTrans">
+            <text size="20"/>
+        </field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" description="[${glAccountId}] ${accountCode} ${accountName}">
