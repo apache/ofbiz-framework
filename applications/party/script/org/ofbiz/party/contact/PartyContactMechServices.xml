@@ -301,25 +301,75 @@ under the License.
         </if-empty>
         <set field="input.inputFields.infoString_ic" from-field="parameters.caseInsensitive"/>
         <log level="info" message="findPartyFromEmailAddress with case insensitive search: ${parameters.caseInsensitive}"/>
-
+        
         <if-empty field="parameters.fromDate">
             <now-timestamp field="input.filterByDateValue"/>
             <else>
                 <set field="input.filterByDateValue" from-field="parameters.fromDate"/>
             </else>
         </if-empty>
-
+        
         <call-service service-name="performFindItem" in-map-name="input">
             <results-to-map map-name="results"/>
         </call-service>
-
+        
         <if-not-empty field="results.item">
             <field-to-result field="results.item.partyId" result-name="partyId"/>
             <field-to-result field="results.item.contactMechId" result-name="contactMechId"/>
         </if-not-empty>
-
+        
     </simple-method>
+    
+    <simple-method method-name="findPartyFromTelephone" short-description="Find partyId from the telephone number">
 
+        <entity-and entity-name="PartyAndContactMech" list="contactMechs" filter-by-date="true">
+            <field-map field-name="contactMechTypeId" value="TELECOM_NUMBER"/>
+        </entity-and>
+        
+        <set field="inputString" from-field="parameters.telno"/>
+        <call-simple-method method-name="removeTelnoChar"/>
+        <set field="inputTelno" from-field="inputString"/>
+        
+        <iterate entry="contactMech" list="contactMechs">
+            <set field="inputString" from-field="contactMech.tnContactNumber"/>
+            <call-simple-method method-name="removeTelnoChar"/>
+            <set field="telno" from-field="inputString"/>
+            <if-compare-field field="inputTelno" operator="equals" to-field="telno">
+                <set field="partyId" from-field="contactMech.partyId"/>
+            </if-compare-field>
+            <set field="telno" value="${contactMech.tnAreaCode}${telno}"/>
+            <if-compare-field field="inputTelno" operator="equals" to-field="telno">
+                <set field="partyId" from-field="contactMech.partyId"/>
+            </if-compare-field>
+            <set field="telno" value="${contactMech.tnCountryCode}${telno}"/>
+            <if-compare-field field="inputTelno" operator="equals" to-field="telno">
+                <set field="partyId" from-field="contactMech.partyId"/>
+            </if-compare-field>
+            <set field="telno" value="+${telno}"/>
+            <if-compare-field field="inputTelno" operator="equals" to-field="telno">
+                <set field="partyId" from-field="contactMech.partyId"/>
+            </if-compare-field>
+        </iterate>
+        <if-not-empty field="partyId">
+            <field-to-result field="partyId"/>
+            <field-to-result field="contactMech.contactMechId" result-name="contactMechId"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="removeTelnoChar" short-description="remove a string from another string">
+        <set field="removeString" value="-"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilParse" method-name="removeStringFromString" ret-field="inputString">
+            <field field="inputString" type="String"/>
+            <field field="removeString" type="String"/>
+        </call-class-method>
+        <set field="removeString" value=" "/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilParse" method-name="removeStringFromString" ret-field="inputString">
+            <field field="inputString" type="String"/>
+            <field field="removeString" type="String"/>
+        </call-class-method>
+    </simple-method>
+    
+    
     <simple-method method-name="createPostalAddressAndPurposes" short-description="Create postal address, purposes and set them defaults" login-required="false">
         <call-service service-name="createPartyPostalAddress" in-map-name="parameters">
             <result-to-field result-name="contactMechId" field="parameters.contactMechId"/>
