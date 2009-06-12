@@ -17,23 +17,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign extInfo = parameters.extInfo?default("N")>
-<#if partyRelationshipTypeId=="LEAD_OWNER">
-  <#assign currentUrl="FindLead"/>
-  <#assign title="${uiLabelMap.SfaFindLeads}">
-  <#assign currentUrl="FindLeads"/>
-  <#assign title="${uiLabelMap.SfaFindLeads}"/>
-<#elseif partyRelationshipTypeId == "ACCOUNT">
-  <#assign currentUrl = "FindAccounts"/>
-  <#assign title = "${uiLabelMap.MarketingFindAccounts}">
-</#if>
+
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${title?if_exists}</li>
+      <li class="h3">${uiLabelMap.SfaFindContacts}</li>
       <#if parameters.hideFields?default("N") == "Y">
-        <li><a href="<@ofbizUrl>${currentUrl?if_exists}?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
+        <li><a href="<@ofbizUrl>FindContacts?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
-        <#if partyList?exists><li><a href="<@ofbizUrl>${currentUrl?if_exists}?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <#if partyList?exists><li><a href="<@ofbizUrl>FindContacts?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
         <li><a href="javascript:document.lookupparty.submit();">${uiLabelMap.PartyLookupParty}</a></li>
       </#if>
     </ul>
@@ -46,10 +38,10 @@ under the License.
 
            onsubmit="javascript:lookupParty('<@ofbizUrl>viewprofile</@ofbizUrl>');"
        -->
-      <form method="post" name="lookupparty" action="<@ofbizUrl>${currentUrl?if_exists}</@ofbizUrl>" class="basic-form">
+      <form method="post" name="lookupparty" action="<@ofbizUrl>FindContacts</@ofbizUrl>" class="basic-form">
         <input type="hidden" name="lookupFlag" value="Y"/>
         <input type="hidden" name="hideFields" value="Y"/>
-        <input type="hidden" name="partyRelationshipTypeId" value="${partyRelationshipTypeId}"/>
+        <input type="hidden" name="roleTypeId" value="${roleTypeId}"/>
         <table cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.PartyContactInformation}</td>
@@ -64,20 +56,14 @@ under the License.
             <td class="label">${uiLabelMap.PartyPartyId}</td>
             <td><input type="text" name="partyId" value="${parameters.partyId?if_exists}"/></td>
           </tr>
-          <#if partyRelationshipTypeId != "ACCOUNT">
-            <tr>
-              <td class="label">${uiLabelMap.PartyLastName}</td>
-              <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
-            </tr>
-            <tr>
-              <td class="label">${uiLabelMap.PartyFirstName}</td>
-              <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
-            </tr>
-          </#if>
-            <tr>
-              <td class="label">${uiLabelMap.PartyPartyGroupName}</td>
-              <td><input type="text" name="groupName" value="${parameters.groupName?if_exists}"/></td>
-            </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyLastName}</td>
+            <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyFirstName}</td>
+            <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
+          </tr>
           <#if extInfo == "P">
             <tr><td colspan="3"><hr/></td></tr>
             <tr>
