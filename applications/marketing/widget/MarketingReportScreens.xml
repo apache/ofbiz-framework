@@ -196,6 +196,7 @@ under the License.
                 <set field="statusId" from-field="parameters.statusId" type="String"/> 
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom" type="String"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo" type="String"/>
+                <set field="roleStatusId" from-field="parameters.roleStatusId" type="String"/>
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/EmailStatusReport.groovy"/>
             </actions>
             <widgets>

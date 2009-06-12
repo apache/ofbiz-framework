@@ -87,6 +87,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.PartyStatus}">
+            <drop-down allow-empty="true">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_ROL_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun} ${uiLabelMap.MarketingEmailStatusReport}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -146,15 +154,19 @@ under the License.
     </form>
 
     <form name="EmailStatusReport" title="${uiLabelMap.MarketingEmailStatusReport}" type="list" list-name="commStatausList" target="" paginate-target="EmailStatusReport"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-            <row-actions>
-                <entity-one entity-name="CommunicationEventType" value-field="communicationEventType"/>
-                <entity-one entity-name="StatusItem" value-field="statusItem"/>
-            </row-actions>
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="CommunicationEventType" value-field="communicationEventType"/>
+        </row-actions>
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}"><display/></field> 
         <field name="communicationEventTypeId" title="${uiLabelMap.MarketingContactListCommEventTypeId}"><display description="${communicationEventType.description}"/></field>
-        <field name="statusId" title="${uiLabelMap.PartyStatus}"><display description="${statusItem.description}"/></field>
+        <field name="statusId" title="${uiLabelMap.PartyStatus}">
+            <display-entity entity-name="StatusItem" description="${description}"/>
+        </field>
         <field name="partyIdTo" title="${uiLabelMap.FormFieldTitle_toPartyId}"><display/></field>
+        <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.PartyStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
         <field name="partyIdFrom" title="${uiLabelMap.FormFieldTitle_fromPartyId}"><display/></field>
         <field name="entryDate" title="${uiLabelMap.PartyEnteredDate}"><display/></field>
         <field name="subject" title="${uiLabelMap.PartySubject}"><display/></field>
