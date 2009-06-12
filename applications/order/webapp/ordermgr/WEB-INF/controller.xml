@@ -1527,6 +1527,13 @@ under the License.
         <response name="success" type="view" value="returnhead"/>
         <response name="error" type="view" value="returnhead"/>
     </request-map>
+    
+    <request-map uri="updateShippingMethodAndCharges">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShippingMethodAndCharges"/>
+        <response name="success" type="view" value="orderview"/>
+       <response name="error" type="view" value="orderview"/>
+    </request-map>
 
     <!-- Lookup request mappings -->
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>

@@ -417,3 +417,48 @@ if (orderItems) {
     orderItem = EntityUtil.getFirst(orderItems);
     context.orderItem = orderItem;
 }
+
+// getting online ship estimates corresponding to this Order from UPS when "Hold" button will be clicked, when user packs from weight package screen.
+// This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties) of online UPS shipping amount.
+
+    condn = EntityCondition.makeCondition([
+                                      EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId), 
+                                      EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SHIPMENT_PICKED")],
+                                  EntityOperator.AND);
+    shipments = delegator.findList("Shipment", condn, null, null, null, false);
+    if (shipments) {
+        pickedShipmentId = EntityUtil.getFirst(shipments).shipmentId;
+        shipmentRouteSegment = EntityUtil.getFirst(delegator.findList("ShipmentRouteSegment",EntityCondition.makeCondition([shipmentId : pickedShipmentId]), null, null, null, false));
+        context.shipmentRouteSegmentId = shipmentRouteSegment.shipmentRouteSegmentId;
+        context.pickedShipmentId = pickedShipmentId;
+        if (pickedShipmentId && shipmentRouteSegment.trackingIdNumber) {
+            if ("UPS" == shipmentRouteSegment.carrierPartyId) {
+                resultMap = dispatcher.runSync("upsShipmentAlternateRatesEstimate",[productStoreId : productStoreId, shipmentId : pickedShipmentId]);
+                shippingRates = resultMap.shippingRates;
+                shippingRateList = [];
+                shippingRates.each { shippingRate ->
+                    shippingMethodAndRate = [:];
+                    serviceCodes = shippingRate.keySet();
+                    serviceCodes.each { serviceCode ->
+                        carrierShipmentMethod = EntityUtil.getFirst(delegator.findByAnd("CarrierShipmentMethod", [partyId : "UPS", carrierServiceCode : serviceCode]));
+                        shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
+                        rate = shippingRate.get(serviceCode);
+                        shipmentMethodDescription = EntityUtil.getFirst(carrierShipmentMethod.getRelated("ShipmentMethodType")).description;
+                        shippingMethodAndRate.shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
+                        shippingMethodAndRate.rate = rate;
+                        shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription;
+                        shippingRateList.add(shippingMethodAndRate);
+                    }
+               }
+                context.shippingRateList = shippingRateList;
+            }
+        }
+    }
+      
+    // get orderAdjustmentId for SHIPPING_CHARGES
+    orderAdjustments.each { orderAdjustment ->
+        if(orderAdjustment.orderAdjustmentTypeId.equals("SHIPPING_CHARGES")) {
+            orderAdjustmentId = orderAdjustment.orderAdjustmentId;
+        }
+    }
+    context.orderAdjustmentId = orderAdjustmentId;

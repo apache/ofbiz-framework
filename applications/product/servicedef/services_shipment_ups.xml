@@ -100,5 +100,15 @@ under the License.
         <attribute name="postalCode" type="String" mode="IN" optional="true"/>
         <attribute name="matches" type="List" mode="OUT" optional="true"/>
     </service>
-
+    
+    <service name="upsShipmentAlternateRatesEstimate" engine="java"
+            location="org.ofbiz.shipment.thirdparty.ups.UpsServices" invoke="upsShipmentAlternateRatesInquiry" auth="false">
+            <description>UPS On-Line rate inquire tool. Supports rate shopping where  upsRateInquireMode is set to 'Shop', and shippingRates 
+                will return a List of Maps, of serviceCode -> rate for the shipping methods which are configured in ProductStoreShipmentMeth entity</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingRates" type="List" mode="OUT" optional="false"/>
+    </service>
+ 
 </services>

@@ -1285,5 +1285,55 @@ under the License.
             </iterate>
         </iterate>
     </simple-method>
-
+    
+    <simple-method  method-name="updateShippingMethodAndCharges" short-description="Updates shipping method and shipping charges from Order View page when Shipment is in picked status and items of Order are packed">
+         <!-- splitting shipmentMethodAndAmount request parameter value that contains "*" symbol
+             into "shipmentMethod" and "newAmount".
+        -->
+         <!-- shipmentMethod request parameter value contains "@" symbol
+             between "shipmentMethodTypeId" and "carrierPartyId".This will be splitted in updateOrderItemShipGroup method
+        -->
+        
+        <call-bsh><![CDATA[
+            shipmentMethodAndAmount = parameters.get("shipmentMethodAndAmount");
+            if (shipmentMethodAndAmount != null) {
+               parameters.put("shipmentMethod", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("*")));
+               parameters.put("amount", shipmentMethodAndAmount.substring(shipmentMethodAndAmount.indexOf("*")+1));
+               parameters.put("shipmentMethodTypeId", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("@")));
+            }
+        ]]></call-bsh>
+        <set field="newAmount" from-field="parameters.amount" type="BigDecimal"/>
+        <set field="shippingAmount" from-field="parameters.shippingAmount" type="BigDecimal"/>
+        <property-to-field field="percentAllowed" resource="shipment" property="shipment.default.cost_actual_over_estimated_percent_allowed"/>
+        <if-compare-field field="newAmount" operator="greater" to-field="shippingAmount" type="BigDecimal">
+            <set field="diffPercentage" value="${(newAmount - shippingAmount/shippingAmount)*100}" type="BigDecimal"/>
+        <else>
+            <set field="diffPercentage" value="${(shippingAmount - newAmount/newAmount)*100}" type="BigDecimal"/>
+        </else>
+        </if-compare-field>
+        <if-compare-field field="diffPercentage" operator="greater" to-field="percentAllowed" type="BigDecimal">
+            <set-service-fields map="parameters" to-map="updateOrderItemShipGroupContext" service-name="updateOrderItemShipGroup"/>
+            <call-service service-name="updateOrderItemShipGroup" in-map-name="updateOrderItemShipGroupContext"/>
+            <set-service-fields map="parameters" to-map="updateOrderAdjustmentContext" service-name="updateOrderAdjustment"/>
+            <call-service service-name="updateOrderAdjustment" in-map-name="updateOrderAdjustmentContext"/>
+            <set-service-fields map="parameters" to-map="updateShipmentRouteSegmentContext" service-name="updateShipmentRouteSegment"/>
+            <clear-field field="updateShipmentRouteSegmentContext.trackingIdNumber"/>
+            <clear-field field="updateShipmentRouteSegmentContext.trackingDigest"/>
+            <clear-field field="updateShipmentRouteSegmentContext.carrierServiceStatusId"/>
+            <call-service service-name="updateShipmentRouteSegment" in-map-name="updateShipmentRouteSegmentContext"/>
+            <set-service-fields map="parameters" to-map="upsShipmentConfirmContext" service-name="upsShipmentConfirm"/>
+            <call-service service-name="upsShipmentConfirm" in-map-name="upsShipmentConfirmContext"/>
+        <else>
+            <set-service-fields map="parameters" to-map="updateOrderItemShipGroupContext" service-name="updateOrderItemShipGroup"/>
+            <call-service service-name="updateOrderItemShipGroup" in-map-name="updateOrderItemShipGroupContext"/>
+            <set-service-fields map="parameters" to-map="updateShipmentRouteSegmentContext" service-name="updateShipmentRouteSegment"/>
+            <clear-field field="updateShipmentRouteSegmentContext.trackingIdNumber"/>
+            <clear-field field="updateShipmentRouteSegmentContext.trackingDigest"/>
+            <clear-field field="updateShipmentRouteSegmentContext.carrierServiceStatusId"/>
+            <call-service service-name="updateShipmentRouteSegment" in-map-name="updateShipmentRouteSegmentContext"/>
+            <set-service-fields map="parameters" to-map="upsShipmentConfirmContext" service-name="upsShipmentConfirm"/>
+            <call-service service-name="upsShipmentConfirm" in-map-name="upsShipmentConfirmContext"/>
+        </else>
+        </if-compare-field>
+    </simple-method>
 </simple-methods>
