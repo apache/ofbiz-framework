@@ -44,7 +44,7 @@ under the License.
     </tr>
     <tr>
       <td class="label">${uiLabelMap.CommonWeek}</td>
-      <td><input type="text" name="weeks" maxlength="2"/></td>
+      <td><input type="text" name="weeks" size="4" maxlength="2"/></td>
     </tr>
     <tr>
       <td class="label">${uiLabelMap.CommonDay}</td>
@@ -88,7 +88,7 @@ under the License.
     </tr>
     <tr>
       <td class="label">${uiLabelMap.CommonMilliSecond}</td>
-      <td><input type="text" name="millis" maxlength="4"/></td>
+      <td><input type="text" name="millis" size="4" maxlength="4"/></td>
     </tr>
     <tr>
       <td>&nbsp;</td>

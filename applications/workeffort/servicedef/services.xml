@@ -685,6 +685,10 @@ under the License.
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminders" auth="true">
         <description>Process work effort event reminders. This service is run by the job scheduler.</description>
     </service>
+    <service name="migrateWorkEffortEventReminders" engine="java"
+            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="migrateWorkEffortEventReminders" auth="true">
+        <description>Migrate work effort event reminders. Run this service to update work effort reminders.</description>
+    </service>
     
     <!-- WorkEffort and Survey Services -->
     <service name="createWorkEffortSurveyAppl" engine="simple" default-entity-name="WorkEffortSurveyAppl" 
