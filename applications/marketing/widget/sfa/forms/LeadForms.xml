@@ -24,11 +24,8 @@ under the License.
     <form name="ListLeads" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindLead"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
-            <entity-one entity-name="Person" value-field="person">
+            <entity-one entity-name="PartyNameView" value-field="partyName">
                 <field-map field-name="partyId" from-field="partyRow.partyId"/>
-            </entity-one>
-            <entity-one entity-name="PartyType" value-field="partyType">
-                <field-map field-name="partyTypeId" from-field="partyRow.partyTypeId"/>
             </entity-one>
             <set field="statusId" from-field="partyRow.statusId"/>
         </row-actions>
@@ -38,7 +35,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}">
-            <hyperlink target="viewprofile" description="${person.lastName}, ${person.firstName}">
+            <hyperlink target="viewprofile" description="${partyName.lastName}${partyName.groupName} ${partyName.firstName} ">
                 <parameter param-name="partyId" from-field="partyRow.partyId"/>
             </hyperlink>
         </field>

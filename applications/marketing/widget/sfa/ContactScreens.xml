@@ -37,7 +37,7 @@ under the License.
                             <widgets>
                                 <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <platform-specific>
-                                    <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
+                                    <html><html-template location="component://marketing/webapp/sfa/party/findContactParty.ftl"/></html>
                                 </platform-specific>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">

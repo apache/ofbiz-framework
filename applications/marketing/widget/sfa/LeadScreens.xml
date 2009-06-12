@@ -23,8 +23,8 @@ under the License.
      <screen name="FindLeads">
         <section>
             <actions>
-                <set field="roleTypeId" value="LEAD"/>
-                <set field="partyTypeId" value="PERSON"/>
+                <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
+                <set field="partyTypeId" value="ANY"/>
                 <set field="headerItem" value="Leads"/>
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>

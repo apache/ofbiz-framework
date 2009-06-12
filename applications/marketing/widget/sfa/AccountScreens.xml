@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="MarketingFindAccounts"/>
-                <set field="roleTypeId" value="ACCOUNT"/>
+                <set field="partyRelationshipTypeId" value="ACCOUNT"/>
                 <set field="headerItem" value="Accounts"/>
             </actions>
             <widgets>
