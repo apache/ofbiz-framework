@@ -229,6 +229,8 @@ under the License.
     <request-map uri="LookupSalesForecast"><security https="true" auth="true"/><response name="success" type="view" value="LookupSalesForecast"/></request-map>
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
+    <request-map uri="LookupLeads"><security auth="true" https="true"/><response name="success" type="view" value="LookupLeads"/></request-map>
+    <request-map uri="LookupAccounts"><security auth="true" https="true"/><response name="success" type="view" value="LookupAccounts"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -261,6 +263,8 @@ under the License.
     <view-map name="LookupSalesForecast" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSalesForecast"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
+    <view-map name="LookupLeads" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupLeads"/>
+    <view-map name="LookupAccounts" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupAccounts"/>
 
     <!-- end of view mappings -->
 </site-conf>
