@@ -468,17 +468,16 @@ under the License.
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Event Reminder Entity">
       <field name="workEffortId" type="id-ne"></field>
-      <field name="contactMechId" type="id-ne"></field>
       <field name="sequenceId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="reminderDateTime" type="date-time"></field>
       <field name="repeatCount" type="numeric"></field>
       <field name="repeatInterval" type="numeric">
           <description>The millisecond interval between reminder repeats</description>
       </field>
       <field name="currentCount" type="numeric"></field>
-      <field name="recurrenceOffset" type="numeric">
-          <description>If the work effort is recurring, the millisecond offset from
-          the recurring event that will be used to calculate the reminder date/time</description>
+      <field name="reminderOffset" type="numeric">
+          <description>The millisecond offset from the event to activate a reminder</description>
       </field>
       <field name="localeId" type="id"></field>
       <field name="timeZoneId" type="id-long"></field>

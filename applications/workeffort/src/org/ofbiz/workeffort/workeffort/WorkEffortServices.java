@@ -49,6 +49,8 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -747,6 +749,9 @@ public class WorkEffortServices {
             return ServiceUtil.returnError("Error while retrieving work effort event reminders: " + e);
         }
         for (GenericValue reminder : eventReminders) {
+            if (UtilValidate.isEmpty(reminder.get("contactMechId"))) {
+                continue;
+            }
             int repeatCount = reminder.get("repeatCount") == null ? 0 : reminder.getLong("repeatCount").intValue();
             int currentCount = reminder.get("currentCount") == null ? 0 : reminder.getLong("currentCount").intValue();
             GenericValue workEffort = null;
@@ -780,11 +785,11 @@ public class WorkEffortServices {
                 if (temporalExpression != null) {
                     eventDateTime = temporalExpression.first(cal).getTime();
                     Date reminderDateTime = null;
-                    long recurrenceOffset = reminder.get("recurrenceOffset") == null ? 0 : reminder.getLong("recurrenceOffset").longValue();
+                    long reminderOffset = reminder.get("reminderOffset") == null ? 0 : reminder.getLong("reminderOffset").longValue();
                     if (reminderStamp == null) {
-                        if (recurrenceOffset != 0) {
+                        if (reminderOffset != 0) {
                             cal.setTime(eventDateTime);
-                            TimeDuration duration = TimeDuration.fromLong(recurrenceOffset);
+                            TimeDuration duration = TimeDuration.fromLong(reminderOffset);
                             duration.addToCalendar(cal);
                             reminderDateTime = cal.getTime();
                         } else {
@@ -802,11 +807,11 @@ public class WorkEffortServices {
                             } else {
                                 cal.setTime(reminderDateTime);
                                 Date newReminderDateTime = null;
-                                if (recurrenceOffset != 0) {
-                                    TimeDuration duration = TimeDuration.fromLong(-recurrenceOffset);
+                                if (reminderOffset != 0) {
+                                    TimeDuration duration = TimeDuration.fromLong(-reminderOffset);
                                     duration.addToCalendar(cal);
                                     cal.setTime(temporalExpression.next(cal).getTime());
-                                    duration = TimeDuration.fromLong(recurrenceOffset);
+                                    duration = TimeDuration.fromLong(reminderOffset);
                                     duration.addToCalendar(cal);
                                     newReminderDateTime = cal.getTime();
                                 } else {
@@ -875,5 +880,31 @@ public class WorkEffortServices {
         }
         // TODO: Other contact mechanism types
         Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), module);
+    }
+
+    /** Migrate work effort event reminders.
+     * @param ctx
+     * @param context
+     * @return
+     */
+    @SuppressWarnings("deprecation")
+    public static Map<String, Object> migrateWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        ModelEntity modelEntity = delegator.getModelEntity("WorkEffortEventReminder");
+        if (modelEntity != null && modelEntity.getField("recurrenceOffset") != null) {
+            List<GenericValue> eventReminders = null;
+            try {
+                eventReminders = delegator.findAll("WorkEffortEventReminder");
+                for (GenericValue reminder : eventReminders) {
+                    if (UtilValidate.isNotEmpty(reminder.get("recurrenceOffset"))) {
+                        reminder.set("reminderOffset", reminder.get("recurrenceOffset"));
+                        reminder.store();
+                    }
+                }
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError("Error while migrating work effort event reminders: " + e);
+            }
+        }
+        return ServiceUtil.returnSuccess();
     }
 }

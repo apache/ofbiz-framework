@@ -288,15 +288,15 @@
         <value xml:lang="it">Classifica</value>
         <value xml:lang="th">การประเมิณ</value>
     </property>
-    <property key="FormFieldTitle_recurrenceOffset">
-        <value xml:lang="en">Recurrence Offset</value>
-        <value xml:lang="fr">Récurrence de décalage</value>
-        <value xml:lang="it">Intervallo ricorrenza</value>
-    </property>
     <property key="FormFieldTitle_reminderDateTime">
         <value xml:lang="en">Reminder Date Time</value>
         <value xml:lang="fr">Date heure de rappel</value>
         <value xml:lang="it">Data ora reminder</value>
+    </property>
+    <property key="FormFieldTitle_reminderOffset">
+        <value xml:lang="en">Reminder Offset</value>
+        <value xml:lang="fr">Récurrence de décalage</value>
+        <value xml:lang="it">Intervallo ricorrenza</value>
     </property>
     <property key="FormFieldTitle_repeatInterval">
         <value xml:lang="en">Repeat Interval</value>
