@@ -3876,7 +3876,8 @@ public class OrderServices {
         }
         for (GenericValue toAdd: (List<GenericValue>)toAddList) {
             if ("OrderAdjustment".equals(toAdd.getEntityName())) {
-                if (toAdd.get("comments") != null && ((String)toAdd.get("comments")).startsWith("Added manually by") && ("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId")))) {
+                if (toAdd.get("comments") != null && ((String)toAdd.get("comments")).startsWith("Added manually by") && (("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId"))) || 
+                        ("SHIPPING_CHARGES".equals(toAdd.get("orderAdjustmentTypeId"))) || ("SALES_TAX".equals(toAdd.get("orderAdjustmentTypeId"))))) {
                     toStore.add(toAdd);
                 }
             }
