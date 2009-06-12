@@ -231,8 +231,10 @@ public class OrderListState {
 
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions,  EntityOperator.OR);
         EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
-        if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
+        if (statusConditions.size() > 0) {
             allConditions.add(statusConditionsList);
+        }
+        if (typeConditions.size() > 0) {
             allConditions.add(typeConditionsList);
         }
 
