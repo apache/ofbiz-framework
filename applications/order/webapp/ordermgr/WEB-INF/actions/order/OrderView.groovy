@@ -456,6 +456,7 @@ if (orderItems) {
     }
       
     // get orderAdjustmentId for SHIPPING_CHARGES
+    orderAdjustmentId = null;
     orderAdjustments.each { orderAdjustment ->
         if(orderAdjustment.orderAdjustmentTypeId.equals("SHIPPING_CHARGES")) {
             orderAdjustmentId = orderAdjustment.orderAdjustmentId;
