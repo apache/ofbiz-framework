@@ -31,6 +31,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
@@ -56,12 +58,14 @@ public class WeightPackageSession implements Serializable {
     protected String dimensionUomId = null;
     protected String weightUomId = null;
     protected BigDecimal estimatedShipCost = null;
+    protected BigDecimal actualShipCost = null;
     protected int weightPackageSeqId = 1;
     protected List<WeightPackageSessionLine> weightPackageLines = null;
 
     private transient GenericDelegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
     private static BigDecimal ZERO = BigDecimal.ZERO;
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     public WeightPackageSession() {
     }
@@ -150,6 +154,14 @@ public class WeightPackageSession implements Serializable {
 
     public BigDecimal getEstimatedShipCost() {
         return this.estimatedShipCost;
+    }
+
+    public void setActualShipCost(BigDecimal actualShipCost) {
+        this.actualShipCost = actualShipCost;
+    }
+
+    public BigDecimal getActualShipCost() {
+        return this.actualShipCost;
     }
 
     public String getShipmentId() {
@@ -281,15 +293,115 @@ public class WeightPackageSession implements Serializable {
         }
     }
 
-    public boolean complete(String orderId, Locale locale) throws GeneralException {
+    public String complete(String orderId, Locale locale) throws GeneralException {
+        return complete(orderId, locale, "N");
+    }
 
+    public String complete(String orderId, Locale locale, String calculateOnlineShippingRateFromUps) throws GeneralException {
+
+        //create the package(s)
         this.createPackages(orderId);
-        this.changeOrderItemStatus(orderId, shipmentId);
+        // calculate the actual shipping charges according to package(s) weight and dimensions
+        BigDecimal actualShippingCost = ZERO;
+        // Check if UPS integration is done 
+        if ("Y".equals(calculateOnlineShippingRateFromUps)) {
+            // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in ShipmentRouteSegment entity in actualCost field
+            actualShippingCost = this.upsShipmentConfirm();
+        } else {
+            // calculate the shipping charges manually
+            actualShippingCost = this.getActualShipCost();
+        }
+        // calculate the difference between estimated shipping charges and actual shipping charges
+        if (diffInShipCost(actualShippingCost)) {
+            return "showWarningForm";
+        } else if ("Y".equals(calculateOnlineShippingRateFromUps)) {
+            // call upsShipmentAccept service, it will made record(s) in ShipmentPackageRouteSeg entity
+            this.upsShipmentAccept();
+        }
+        // change order item(s) status
+        this.changeOrderItemStatus(orderId);
+        // assign item(s) to package(s)
         this.applyItemsToPackages(orderId);
+        // update the ShipmentRouteSegments with total weight and weightUomId
         this.updateShipmentRouteSegments(orderId);
+        // set the shipment to packed
+        this.setShipmentToPacked();
+
+        return "success";
+    }
+
+    public boolean completeShipment(String orderId) throws GeneralException {
+        return completeShipment(orderId, "N");
+    }
+
+    public boolean completeShipment(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
+        // Check if UPS integration is done 
+        if ("Y".equals(calculateOnlineShippingRateFromUps)) {
+            // call upsShipmentAccept service, it will made record(s) in ShipmentPackageRouteSeg entity
+            this.upsShipmentAccept();
+        }
+        // change order item(s) status
+        this.changeOrderItemStatus(orderId);
+        // assign item(s) to package(s)
+        this.applyItemsToPackages(orderId);
+        // update the ShipmentRouteSegments with total weight and weightUomId
+        this.updateShipmentRouteSegments(orderId);
+        // set the shipment to packed
         this.setShipmentToPacked();
 
         return true;
+    }
+
+    protected BigDecimal upsShipmentConfirm() throws GeneralException {
+        GenericDelegator delegator = this.getDelegator();
+        BigDecimal actualCost = ZERO;
+        List<GenericValue> shipmentRouteSegments = delegator.findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId));
+        if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {
+            for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
+                Map<String, Object> shipmentRouteSegmentMap = FastMap.newInstance();
+                shipmentRouteSegmentMap.put("shipmentId", shipmentId);
+                shipmentRouteSegmentMap.put("shipmentRouteSegmentId", shipmentRouteSegment.getString("shipmentRouteSegmentId"));
+                shipmentRouteSegmentMap.put("userLogin", userLogin);
+                Map<String, Object> shipmentRouteSegmentResult = this.getDispatcher().runSync("upsShipmentConfirm", shipmentRouteSegmentMap);
+                if (ServiceUtil.isError(shipmentRouteSegmentResult)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(shipmentRouteSegmentResult));
+                }
+                GenericValue shipRouteSeg = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegment.getString("shipmentRouteSegmentId")), false);
+                actualCost = actualCost.add(shipRouteSeg.getBigDecimal("actualCost"));
+            }
+        }
+        return actualCost;
+    }
+
+    protected void upsShipmentAccept() throws GeneralException {
+        List<GenericValue> shipmentRouteSegments = this.getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId));
+        if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {
+            for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
+                Map<String, Object> shipmentRouteSegmentMap = FastMap.newInstance();
+                shipmentRouteSegmentMap.put("shipmentId", shipmentId);
+                shipmentRouteSegmentMap.put("shipmentRouteSegmentId", shipmentRouteSegment.getString("shipmentRouteSegmentId"));
+                shipmentRouteSegmentMap.put("userLogin", userLogin);
+                Map<String, Object> shipmentRouteSegmentResult = this.getDispatcher().runSync("upsShipmentAccept", shipmentRouteSegmentMap);
+                if (ServiceUtil.isError(shipmentRouteSegmentResult)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(shipmentRouteSegmentResult));
+                }
+            }
+        }
+    }
+
+    protected boolean diffInShipCost(BigDecimal actualShippingCost) throws GeneralException {
+        BigDecimal estimatedShipCost = this.getEstimatedShipCost();
+        BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
+        BigDecimal diffInShipCostInPerc = ZERO;
+        if (estimatedShipCost.compareTo(ZERO) == 0) {
+            diffInShipCostInPerc = actualShippingCost;
+        } else {
+            diffInShipCostInPerc = (((actualShippingCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
+        }
+        if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
+            return true;
+        }
+        return false;
     }
 
     protected void createPackages(String orderId) throws GeneralException {
@@ -316,7 +428,7 @@ public class WeightPackageSession implements Serializable {
         }
     }
 
-    protected void changeOrderItemStatus(String orderId, String shipmentId) throws GeneralException {
+    protected void changeOrderItemStatus(String orderId) throws GeneralException {
         List<GenericValue> shipmentItems = this.getDelegator().findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
         for (GenericValue shipmentItem : shipmentItems) {
             for (WeightPackageSessionLine packedLine : this.getPackedLines(orderId)) {
