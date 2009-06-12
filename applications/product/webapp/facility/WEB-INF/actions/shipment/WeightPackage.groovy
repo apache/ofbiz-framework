@@ -22,6 +22,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.shipment.weightPackage.WeightPackageSession;
+
 weightPackageSession = session.getAttribute("weightPackageSession");
 if (!weightPackageSession) {
     weightPackageSession = new WeightPackageSession(dispatcher, userLogin);
@@ -45,6 +46,13 @@ if (shipment) {
     context.invoice = invoice;
 } else {
     context.invoice = null;
+}
+if (shipment) {
+    shipmentRouteSegment = EntityUtil.getFirst(delegator.findByAnd("ShipmentRouteSegment", [shipmentId : shipment.shipmentId]));
+    actualCost = shipmentRouteSegment.actualCost;
+    if (actualCost) {
+        context.shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipment.shipmentId]);
+    }
 }
 
 facilityId = parameters.facilityId;
@@ -77,7 +85,6 @@ if (!shipmentId) {
     shipmentId = request.getAttribute("shipmentId");
 }
 context.shipmentId = shipmentId;
-//invoiceIds = null;
 if (shipmentId) {
     // Get the primaryOrderId from the shipment
     shipment = delegator.findOne("Shipment",  [shipmentId : shipmentId], false);
@@ -98,11 +105,13 @@ weightPackageSession.setPicklistBinId(picklistBinId);
 weightPackageSession.setFacilityId(facilityId);
 context.primaryOrderId = orderId;
 
+carrierPartyId = null;
 if (orderId) {
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
     if (orderHeader) {
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
         GenericValue orderItemShipGroup = orderReadHelper.getOrderItemShipGroup(shipGroupSeqId);
+        carrierPartyId = orderItemShipGroup.carrierPartyId;
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
             if (shipment) {
@@ -121,17 +130,20 @@ if (orderId) {
                 context.productStoreId = productStoreId;
                 context.estimatedShippingCost = estimatedShippingCost;
             } else {
-                orderId = null;
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotVerified", ["orderId" : orderId], locale));
+                orderId = null;
             }
             } else {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoShipGroupSequenceIdFoundCannotProcess", locale));
+                orderId = null;
             }
         } else {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotApprovedForPacking", [orderId : orderId], locale));
+            orderId = null;
         }
     } else {
         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderIdNotFound", [orderId : orderId], locale));
+        orderId = null;
     }
 }
 
@@ -139,8 +151,14 @@ context.orderId = orderId;
 context.shipGroupSeqId = shipGroupSeqId;
 context.picklistBinId = picklistBinId;
 
-shipmentBoxTypes = delegator.findList("ShipmentBoxType", null, null, ["description"], null, true);
-context.shipmentBoxTypes = shipmentBoxTypes;
+if (carrierPartyId) {
+    carrierShipmentBoxTypes =  delegator.findByAnd("CarrierShipmentBoxType", [partyId : carrierPartyId]);
+    shipmentBoxTypes = [];
+    carrierShipmentBoxTypes.each { carrierShipmentBoxType ->
+        shipmentBoxTypes.add(delegator.findOne("ShipmentBoxType", [shipmentBoxTypeId : carrierShipmentBoxType.shipmentBoxTypeId], false));
+        context.shipmentBoxTypes = shipmentBoxTypes;
+    }
+}
 
 defaultDimensionUomId = null;
 if (facility) {

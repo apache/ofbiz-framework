@@ -718,7 +718,7 @@ under the License.
     </request-map>
     <request-map uri="shipNow">
         <security https="true" auth="true"/>
-        <event type="service" invoke="completePackage"/>
+        <event type="service" invoke="completeShipment"/>
         <response name="success" type="view" value="WeightPackageOnly"/>
         <response name="error" type="view" value="WeightPackageOnly"/>
     </request-map>

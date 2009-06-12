@@ -92,9 +92,9 @@ under the License.
             </tr>
           </table>
         </form>
-      </#if>
-      <#if !(invoiceIds?has_content) && (orderId?has_content)>
+      <#else>
       <#assign packedLines = weightPackageSession.getPackedLines(orderId)/>
+      <#if !(shipmentPackages?has_content)>
       <#if packedLines?has_content>
         <table class="basic-table" cellpadding="2" cellspacing='0'>
           <tr>
@@ -202,6 +202,49 @@ under the License.
           </tr>
         </form>
       </table>
+      <#else>
+        <table class="basic-table" cellpadding="2" cellspacing='0'>
+         <tr>
+            <th>
+             ${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
+            </th>
+            <th>
+              ${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):
+            </th>
+            <th>
+              ${uiLabelMap.ProductPackageInputBox}:
+           </th>
+          </tr>
+          <#list shipmentPackages as shipmentPackage>
+            <form name="completePackForm" method="post" action="<@ofbizUrl>shipNow</@ofbizUrl>">
+              <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+              <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
+              <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}"/>
+              <input type="hidden" name="shipmentId" value="${(shipment.shipmentId)?if_exists}"/>
+              <input type="hidden" name="invoiceId" value="${(invoice.invoiceId)?if_exists}"/>
+             <tr>
+                <td>
+                  <span class="label">
+                    ${uiLabelMap.ProductPackage} ${shipmentPackage_index}
+                    <input type="text" size="7" readonly name="packageWeight" value="${(shipmentPackage.weight)?if_exists}">
+                  </span>
+                </td>
+                <td>
+                  <span class="label">${uiLabelMap.CommonLength}<input type="text" readonly name="packageLength" value="${(shipmentPackage.boxLength())?if_exists}"/></span>
+                  <span class="label">${uiLabelMap.ProductWidth}<input type="text" readonly name="packageWidth" value="${(shipmentPackage.boxWidth())?if_exists}" size="5"/></span>
+                  <span class="label">${uiLabelMap.PartyHeight}<input type="text" readonly name="packageHeight" value="${(shipmentPackage.boxHeight())?if_exists}" size="5"/></span>
+                </td>
+                <td>
+                  <input type="text" readonly name="shipmentBoxTypeId" value="${(shipmentPackage.shipmentBoxTypeId())?if_exists}" size="5"/>
+                </td>
+              </tr>
+            </form>
+          </#list>
+        </table>
+        <div align="right">
+          <a href="javascript:document.completePackForm.submit()" class="buttontext">${uiLabelMap.ProductComplete}</a>
+        </div>
+      </#if>
       </#if>
     </div>
   </div>
@@ -222,8 +265,6 @@ under the License.
         <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
         <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}"/>
         <input type="hidden" name="shipmentId" value="${(shipment.shipmentId)?if_exists}"/>
-        <input type="hidden" name="invoiceId" value="${(invoice.invoiceId)?if_exists}"/>
-        <input type="hidden" name="shipNow" value="Y"/>
       </form>
       <form name="holdShipmentForm" method="post" action="<@ofbizUrl>HoldShipment</@ofbizUrl>">
         <input type="hidden" name="orderId" value="${orderId?if_exists}"/>

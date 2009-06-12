@@ -524,16 +524,24 @@ under the License.
             location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completePackage" auth="true">
         <description>Complete the packging and set the shipment to packed</description>
         <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
-        <attribute name="orderId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
         <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
         <attribute name="estimatedShippingCost" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="shipNow" type="String" mode="IN" optional="true"/>
         <attribute name="newEstimatedShippingCost" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
         <attribute name="showWarningForm" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="completeShipment" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completeShipment" auth="true">
+         <description>Complete the packaging set the shipment to packed</description>
+        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
     </service>
 
     <!-- Pack Order Services -->

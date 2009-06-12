@@ -166,31 +166,45 @@ public class WeightPackageServices {
         weightPackageSession.setShipmentId(shipmentId);
         weightPackageSession.setInvoiceId(invoiceId);
         weightPackageSession.setEstimatedShipCost(estimatedShippingCost);
+        weightPackageSession.setActualShipCost(newEstimatedShippingCost);
 
-        BigDecimal diffInShipCostInPerc = ZERO;
         Map<String, Object> response = FastMap.newInstance();
         try {
-            String shipNow = (String) context.get("shipNow");
-            if (UtilValidate.isEmpty(shipNow)) {
-                shipNow = "N";
+            String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
+            String result = "error";
+            // Check if UPS integration is done
+            if ("Y".equals(getActualShippingQuoteFromUps)) {
+                result = weightPackageSession.complete(orderId, locale, "Y");
+            } else {
+                result = weightPackageSession.complete(orderId, locale);
             }
-            if ("N".equals(shipNow)) {
-                BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost.actual_over_estimated_percent_allowed", "10"));
-                // calculate the difference (in percentage) between estimatedShippingCharges (taken when order is created) and newEstimatedShippingCharges (calculated according to package weight)
-                if (estimatedShippingCost.compareTo(ZERO) > 0) {
-                    diffInShipCostInPerc = (((newEstimatedShippingCost.subtract(estimatedShippingCost)).divide(estimatedShippingCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
-                } else {
-                    diffInShipCostInPerc = newEstimatedShippingCost;
-                }
-                // check the difference in shippingCharges, if it is greater/less than 10% then show warning form
-                if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
-                    response.put("showWarningForm", true);
-                } else if (weightPackageSession.complete(orderId, locale)) {
-                    response.put("shipmentId", shipmentId);
-                } else {
-                    response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
-                }
-            } else if (weightPackageSession.complete(orderId, locale)) {
+            if ("showWarningForm".equals(result)) {
+                response.put("showWarningForm", true);
+            } else if ("success".equals(result)) {
+                response.put("shipmentId", shipmentId);
+            } else {
+                response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
+            }
+        } catch (GeneralException e) {
+            return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
+        }
+        return response;
+    }
+
+    public static Map<String, Object> completeShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Locale locale = (Locale) context.get("locale");
+        WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
+
+        String shipmentId = (String) context.get("shipmentId");
+        String orderId = (String) context.get("orderId");
+
+        Map<String, Object> response = FastMap.newInstance();
+        try {
+            String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
+            // Check if UPS integration is done
+            if ("Y".equals(getActualShippingQuoteFromUps) && weightPackageSession.completeShipment(orderId, "Y")) {
+                response.put("shipmentId", shipmentId);
+            } else if (weightPackageSession.completeShipment(orderId)) {
                 response.put("shipmentId", shipmentId);
             } else {
                 response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
