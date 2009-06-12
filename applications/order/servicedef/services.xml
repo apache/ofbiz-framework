@@ -970,4 +970,18 @@ under the License.
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false"/>
     </service>
+    
+    <service name="updateShippingMethodAndCharges" engine="simple" 
+            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateShippingMethodAndCharges">
+        <description>Compare order's shipping amount and new shipping amount(based on weight and dimension of packages).If new shipping amount is more then or less than default percentage (defined in shipment.properties) of Order's shipping amount, then shipping method and shipping charges are updated. And if new shipping amount is not more then or less than default percentage (defined in shipment.properties)% of Order's shipping amount then only shipping method is updated.Also updates record in ShipmentRouteSegment entity</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentMethodAndAmount" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderAdjustmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shippingAmount" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

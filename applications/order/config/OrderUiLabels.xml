@@ -4574,6 +4574,9 @@
         <value xml:lang="it">Di venerdì</value>
         <value xml:lang="th">ภายในวันศุกร์</value>
     </property>
+    <property key="OrderOnlineUPSShippingEstimates">
+        <value xml:lang="en">Online UPS Shipping estimates based on weight and dimensions of packages</value>
+    </property>
     <property key="OrderOnOrder">
         <value xml:lang="de">Auf Auftrag</value>
         <value xml:lang="en">On Order</value>
