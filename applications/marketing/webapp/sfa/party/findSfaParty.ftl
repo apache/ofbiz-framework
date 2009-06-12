@@ -18,12 +18,8 @@ under the License.
 -->
 <#assign extInfo = parameters.extInfo?default("N")>
 <#if partyRelationshipTypeId=="LEAD_OWNER">
-  <#assign currentUrl="FindLead"/>
   <#assign title="${uiLabelMap.SfaFindLeads}">
-  <#assign currentUrl="FindLeads"/>
-  <#assign title="${uiLabelMap.SfaFindLeads}"/>
 <#elseif partyRelationshipTypeId == "ACCOUNT">
-  <#assign currentUrl = "FindAccounts"/>
   <#assign title = "${uiLabelMap.MarketingFindAccounts}">
 </#if>
 <div class="screenlet">

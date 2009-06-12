@@ -25,6 +25,7 @@ under the License.
             <actions>
                 <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
                 <set field="partyTypeId" value="ANY"/>
+                <set field="currentUrl" value="FindLeads"/>
                 <set field="headerItem" value="Leads"/>
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
