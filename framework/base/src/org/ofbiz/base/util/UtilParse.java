@@ -36,16 +36,4 @@ public class UtilParse {
         return new BigDecimal(bigDecimalString);
     }
 
-    /**
-     * 
-     * to be used in minilanguage to remove all occurrencies of removeString from inputString
-     * 
-     * @param inputString
-     * @param removeString
-     * @return
-     */
-    public static String removeStringFromString(String inputString, String removeString) {
-    	return(inputString.replaceAll(removeString, ""));
-    }
-
 }

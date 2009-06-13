@@ -325,15 +325,12 @@ under the License.
         <entity-and entity-name="PartyAndContactMech" list="contactMechs" filter-by-date="true">
             <field-map field-name="contactMechTypeId" value="TELECOM_NUMBER"/>
         </entity-and>
-        
-        <set field="inputString" from-field="parameters.telno"/>
-        <call-simple-method method-name="removeTelnoChar"/>
-        <set field="inputTelno" from-field="inputString"/>
-        
+
+        <set field="dash" value="-"/>
+        <set field="emptyString" value=""/>
+        <set field="inputTelno" value="${str:replaceAll(parameters.telno, dash, emptyString)}"/>
         <iterate entry="contactMech" list="contactMechs">
-            <set field="inputString" from-field="contactMech.tnContactNumber"/>
-            <call-simple-method method-name="removeTelnoChar"/>
-            <set field="telno" from-field="inputString"/>
+            <set field="telno" value="${str:replace(contactMech.tnContactNumber, dash, emptyString)}"/>
             <if-compare-field field="inputTelno" operator="equals" to-field="telno">
                 <set field="partyId" from-field="contactMech.partyId"/>
             </if-compare-field>
@@ -355,20 +352,6 @@ under the License.
             <field-to-result field="contactMech.contactMechId" result-name="contactMechId"/>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="removeTelnoChar" short-description="remove a string from another string">
-        <set field="removeString" value="-"/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilParse" method-name="removeStringFromString" ret-field="inputString">
-            <field field="inputString" type="String"/>
-            <field field="removeString" type="String"/>
-        </call-class-method>
-        <set field="removeString" value=" "/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilParse" method-name="removeStringFromString" ret-field="inputString">
-            <field field="inputString" type="String"/>
-            <field field="removeString" type="String"/>
-        </call-class-method>
-    </simple-method>
-    
     
     <simple-method method-name="createPostalAddressAndPurposes" short-description="Create postal address, purposes and set them defaults" login-required="false">
         <call-service service-name="createPartyPostalAddress" in-map-name="parameters">
