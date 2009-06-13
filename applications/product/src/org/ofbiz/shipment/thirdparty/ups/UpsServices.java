@@ -317,8 +317,8 @@ public class UpsServices {
 
             // Child of Shipment: Shipper
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "Name", originPostalAddress.getString("toName"), shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "AttentionName", originPostalAddress.getString("attnName"), shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ? originPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ? originPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "PhoneNumber", originPhoneNumber, shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "ShipperNumber", UtilProperties.getPropertyValue("shipment", "shipment.ups.shipper.number"), shipmentConfirmRequestDoc);
 
@@ -334,11 +334,10 @@ public class UpsServices {
             UtilXml.addChildElementValue(shipperAddressElement, "CountryCode", originCountryGeo.getString("geoCode"), shipmentConfirmRequestDoc);
             // How to determine this? Add to data model...? UtilXml.addChildElement(shipperAddressElement, "ResidentialAddress", shipmentConfirmRequestDoc);
 
-
             // Child of Shipment: ShipTo
             Element shipToElement = UtilXml.addChildElement(shipmentElement, "ShipTo", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "CompanyName", destPostalAddress.getString("toName"), shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(shipToElement, "AttentionName", destPostalAddress.getString("attnName"), shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "CompanyName", UtilValidate.isNotEmpty(destPostalAddress.getString("toName")) ? destPostalAddress.getString("toName") : "", shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(shipToElement, "AttentionName", UtilValidate.isNotEmpty(destPostalAddress.getString("attnName")) ? destPostalAddress.getString("attnName") : "", shipmentConfirmRequestDoc);
             if (UtilValidate.isNotEmpty(destPhoneNumber)) {
                 UtilXml.addChildElementValue(shipToElement, "PhoneNumber", destPhoneNumber, shipmentConfirmRequestDoc);
             }
@@ -427,30 +426,34 @@ public class UpsServices {
 
             // Child of Shipment: Service
             Element serviceElement = UtilXml.addChildElement(shipmentElement, "Service", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(serviceElement, "Code", carrierShipmentMethod.getString("carrierServiceCode"), shipmentConfirmRequestDoc);
+            String carrierServiceCode = carrierShipmentMethod.getString("carrierServiceCode");
+            UtilXml.addChildElementValue(serviceElement, "Code", carrierServiceCode, shipmentConfirmRequestDoc);
 
             // Child of Shipment: ShipmentServiceOptions
-            Element shipmentServiceOptionsElement = UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", shipmentConfirmRequestDoc);
-            Element internationalFormsElement = UtilXml.addChildElement(shipmentServiceOptionsElement, "InternationalForms", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(internationalFormsElement, "FormType", "01", shipmentConfirmRequestDoc);
-            List<GenericValue> shipmentItems = shipment.getRelated("ShipmentItem");
-            for (GenericValue shipmentItem :shipmentItems) {
-                Element productElement = UtilXml.addChildElement(internationalFormsElement, "Product", shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(productElement, "Description", "Product Description", shipmentConfirmRequestDoc);
-                Element unitElement = UtilXml.addChildElement(productElement, "Unit", shipmentConfirmRequestDoc);
-                BigDecimal productQuantity = shipmentItem.getBigDecimal("quantity").setScale(decimals, rounding);
-                UtilXml.addChildElementValue(unitElement, "Number", String.valueOf(productQuantity.intValue()), shipmentConfirmRequestDoc);
-                List<GenericValue> shipmentItemIssuances = shipmentItem.getRelated("ItemIssuance");
-                GenericValue orderItem = EntityUtil.getFirst(shipmentItemIssuances).getRelatedOne("OrderItem");
-                UtilXml.addChildElementValue(unitElement, "Value", orderItem.getBigDecimal("unitPrice").toString(), shipmentConfirmRequestDoc);
-                Element unitOfMeasurElement = UtilXml.addChildElement(unitElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(unitOfMeasurElement, "Code", "EA", shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(productElement, "OriginCountryCode", "US", shipmentConfirmRequestDoc);
+            List internationalServiceCodes = UtilMisc.toList("07", "08", "54", "65");
+            if (internationalServiceCodes.contains(carrierServiceCode)) {
+                Element shipmentServiceOptionsElement = UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", shipmentConfirmRequestDoc);
+                Element internationalFormsElement = UtilXml.addChildElement(shipmentServiceOptionsElement, "InternationalForms", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(internationalFormsElement, "FormType", "01", shipmentConfirmRequestDoc);
+                List<GenericValue> shipmentItems = shipment.getRelated("ShipmentItem");
+                for (GenericValue shipmentItem :shipmentItems) {
+                    Element productElement = UtilXml.addChildElement(internationalFormsElement, "Product", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(productElement, "Description", "Product Description", shipmentConfirmRequestDoc);
+                    Element unitElement = UtilXml.addChildElement(productElement, "Unit", shipmentConfirmRequestDoc);
+                    BigDecimal productQuantity = shipmentItem.getBigDecimal("quantity").setScale(decimals, rounding);
+                    UtilXml.addChildElementValue(unitElement, "Number", String.valueOf(productQuantity.intValue()), shipmentConfirmRequestDoc);
+                    List<GenericValue> shipmentItemIssuances = shipmentItem.getRelated("ItemIssuance");
+                    GenericValue orderItem = EntityUtil.getFirst(shipmentItemIssuances).getRelatedOne("OrderItem");
+                    UtilXml.addChildElementValue(unitElement, "Value", orderItem.getBigDecimal("unitPrice").toString(), shipmentConfirmRequestDoc);
+                    Element unitOfMeasurElement = UtilXml.addChildElement(unitElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(unitOfMeasurElement, "Code", "EA", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(productElement, "OriginCountryCode", "US", shipmentConfirmRequestDoc);
+                }
+                String invoiceDate = RecurrenceUtil.formatDate((Date) shipment.getTimestamp("createdDate"));
+                UtilXml.addChildElementValue(internationalFormsElement, "InvoiceDate", invoiceDate, shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(internationalFormsElement, "ReasonForExport","SALE", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(internationalFormsElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
             }
-            String invoiceDate = RecurrenceUtil.formatDate((Date) shipment.getTimestamp("createdDate"));
-            UtilXml.addChildElementValue(internationalFormsElement, "InvoiceDate", invoiceDate, shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(internationalFormsElement, "ReasonForExport","SALE", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(internationalFormsElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
 
             // Child of Shipment: Package
             ListIterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.listIterator();
@@ -520,11 +523,11 @@ public class UpsServices {
                 BigDecimal boxWeight = shipmentPackage.getBigDecimal("weight");
                 UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilValidate.isNotEmpty(boxWeight) ? ""+boxWeight.intValue() : "", shipmentConfirmRequestDoc);
                 // Commenting as not accepted in case of international order
-                /*
-                Element referenceNumberElement = UtilXml.addChildElement(packageElement, "ReferenceNumber", shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(referenceNumberElement, "Code", "MK", shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(referenceNumberElement, "Value", shipmentPackage.getString("shipmentPackageSeqId"), shipmentConfirmRequestDoc);
-                */
+                if (!internationalServiceCodes.contains(carrierServiceCode)) {
+                    Element referenceNumberElement = UtilXml.addChildElement(packageElement, "ReferenceNumber", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(referenceNumberElement, "Code", "MK", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(referenceNumberElement, "Value", shipmentPackage.getString("shipmentPackageSeqId"), shipmentConfirmRequestDoc);
+                }    
                 if (carrierShipmentBoxType != null && carrierShipmentBoxType.get("oversizeCode") != null) {
                     UtilXml.addChildElementValue(packageElement, "OversizePackage", carrierShipmentBoxType.getString("oversizeCode"), shipmentConfirmRequestDoc);
                 }
