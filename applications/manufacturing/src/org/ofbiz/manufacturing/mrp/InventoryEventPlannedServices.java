@@ -66,7 +66,7 @@ public class InventoryEventPlannedServices {
         mrpEvent = delegator.findByPrimaryKey("MrpEvent", mrpEventKeyMap);
         if (mrpEvent == null) {
             mrpEvent = delegator.makeValue("MrpEvent", mrpEventKeyMap);
-            mrpEvent.put("quantity", newQuantity);
+            mrpEvent.put("quantity", newQuantity.doubleValue());
             mrpEvent.put("eventName", eventName);
             mrpEvent.put("facilityId", facilityId);
             mrpEvent.put("isLate", (isLate? "Y": "N"));
