@@ -461,7 +461,7 @@ public class MrpServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem, we can not find CustomTimePeriod, for more detail look at the log");
             }
-            if (customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
+            if (customTimePeriod.getDate("thruDate") != null && customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
                 continue;
             } else {
                 List salesForecastDetails = null;
