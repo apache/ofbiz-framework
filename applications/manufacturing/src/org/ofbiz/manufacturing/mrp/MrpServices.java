@@ -461,30 +461,32 @@ public class MrpServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem, we can not find CustomTimePeriod, for more detail look at the log");
             }
-            if (customTimePeriod.getDate("thruDate") != null && customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
-                continue;
-            } else {
-                List salesForecastDetails = null;
-                Iterator sfdIter = null;
-                try {
-                    salesForecastDetails = delegator.findByAnd("SalesForecastDetail", UtilMisc.toMap("salesForecastId", genericResult.getString("salesForecastId")));
-                } catch (GenericEntityException e) {
-                    return ServiceUtil.returnError("Problem, we can not find SalesForecastDetails, for more detail look at the log");
-                }
-                sfdIter = salesForecastDetails.iterator();
-                while (sfdIter.hasNext()) {
-                    genericResult = (GenericValue) sfdIter.next();
-                    String productId =  genericResult.getString("productId");
-                    BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
-                    if (productId == null || eventQuantityTmp == null) {
-                        continue;
-                    }
-                    eventQuantityTmp = eventQuantityTmp.negate();
-                    parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getDate("fromDate"), "mrpEventTypeId", "SALES_FORECAST");
+            if (customTimePeriod != null) {
+                if (customTimePeriod.getDate("thruDate") != null && customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
+                    continue;
+                } else {
+                    List salesForecastDetails = null;
+                    Iterator sfdIter = null;
                     try {
-                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("salesForecastDetailId"), false, delegator);
+                        salesForecastDetails = delegator.findByAnd("SalesForecastDetail", UtilMisc.toMap("salesForecastId", genericResult.getString("salesForecastId")));
                     } catch (GenericEntityException e) {
-                        return ServiceUtil.returnError("Problem initializing the MrpEvent entity (SalesForecastDetail)");
+                        return ServiceUtil.returnError("Problem, we can not find SalesForecastDetails, for more detail look at the log");
+                    }
+                    sfdIter = salesForecastDetails.iterator();
+                    while (sfdIter.hasNext()) {
+                        genericResult = (GenericValue) sfdIter.next();
+                        String productId =  genericResult.getString("productId");
+                        BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
+                        if (productId == null || eventQuantityTmp == null) {
+                            continue;
+                        }
+                        eventQuantityTmp = eventQuantityTmp.negate();
+                        parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getDate("fromDate"), "mrpEventTypeId", "SALES_FORECAST");
+                        try {
+                            InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("salesForecastDetailId"), false, delegator);
+                        } catch (GenericEntityException e) {
+                            return ServiceUtil.returnError("Problem initializing the MrpEvent entity (SalesForecastDetail)");
+                        }
                     }
                 }
             }
