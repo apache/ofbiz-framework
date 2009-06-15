@@ -315,6 +315,7 @@ public class ModelFormField {
         if (overrideFormField.onClickUpdateAreas != null) {
             this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
         }
+        this.encodeOutput = overrideFormField.encodeOutput;
     }
 
     public boolean induceFieldInfo(String defaultFieldType) {
