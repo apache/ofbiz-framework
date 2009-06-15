@@ -47,6 +47,7 @@ if (shipment) {
 } else {
     context.invoice = null;
 }
+actualCost = null;
 if (shipment) {
     shipmentRouteSegment = EntityUtil.getFirst(delegator.findByAnd("ShipmentRouteSegment", [shipmentId : shipment.shipmentId]));
     actualCost = shipmentRouteSegment.actualCost;
@@ -97,6 +98,14 @@ if (shipmentId) {
             
         }
     }
+    shipmentPackageRouteSegs = delegator.findByAnd("ShipmentPackageRouteSeg",  [shipmentId : shipmentId]);
+    shipmentPackageRouteSegList = [];
+    shipmentPackageRouteSegs.each { shipmentPackageRouteSeg ->
+        if (shipmentPackageRouteSeg.labelImage) {
+            shipmentPackageRouteSegList.add(shipmentPackageRouteSeg);
+        }
+    }
+    context.shipmentPackageRouteSegList = shipmentPackageRouteSegList;
 }
 
 weightPackageSession.setPrimaryShipGroupSeqId(shipGroupSeqId);
@@ -158,6 +167,10 @@ if (carrierPartyId) {
         shipmentBoxTypes.add(delegator.findOne("ShipmentBoxType", [shipmentBoxTypeId : carrierShipmentBoxType.shipmentBoxTypeId], false));
         context.shipmentBoxTypes = shipmentBoxTypes;
     }
+}
+
+if (actualCost) {
+    context.newEstimatedShippingCost = actualCost;
 }
 
 defaultDimensionUomId = null;
