@@ -1179,8 +1179,8 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="createUpdateEmailAddress" engine="simple"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createUpdateEmailAddress" auth="false">
+    <service name="createUpdatePartyEmailAddress" engine="simple"
+        location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createUpdatePartyEmailAddress" auth="false">
         <description>Create and Update email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>

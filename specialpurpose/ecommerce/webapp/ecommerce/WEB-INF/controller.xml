@@ -1775,7 +1775,7 @@ under the License.
 
     <request-map uri="updatePartyEmailAddress">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createUpdateEmailAddress"/>
+        <event type="jsonservice" invoke="createUpdatePartyEmailAddress"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>

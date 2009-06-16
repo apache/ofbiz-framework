@@ -919,11 +919,11 @@ under the License.
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>
 
-        <set-service-fields service-name="createUpdateEmailAddress" map="emailAddressContext" to-map="createUpdateEmailCtx"/>
-        <set field="createUpdateEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-        <set field="createUpdateEmailCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdateEmailCtx.partyId" from-field="parameters.partyId"/>
-        <call-service service-name="createUpdateEmailAddress" in-map-name="createUpdateEmailCtx">
+        <set-service-fields service-name="createUpdatePartyEmailAddress" map="emailAddressContext" to-map="createUpdatePartyEmailCtx"/>
+        <set field="createUpdatePartyEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <set field="createUpdatePartyEmailCtx.userLogin" from-field="userLogin"/>
+        <set field="createUpdatePartyEmailCtx.partyId" from-field="parameters.partyId"/>
+        <call-service service-name="createUpdatePartyEmailAddress" in-map-name="createUpdatePartyEmailCtx">
             <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
         </call-service>
         <field-to-request field="parameters.emailContactMechId" request-name="emailContactMechId"/>
@@ -1354,12 +1354,12 @@ under the License.
         <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>
-        <set-service-fields service-name="createUpdateEmailAddress" map="emailAddressContext" to-map="createUpdateEmailCtx"/>
-        <set field="createUpdateEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-        <set field="createUpdateEmailCtx.contactMechId" from-field="parameters.emailContactMechId"/>
-        <set field="createUpdateEmailCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdateEmailCtx.partyId" from-field="parameters.partyId"/>
-        <call-service service-name="createUpdateEmailAddress" in-map-name="createUpdateEmailCtx">
+        <set-service-fields service-name="createUpdatePartyEmailAddress" map="emailAddressContext" to-map="createUpdatePartyEmailCtx"/>
+        <set field="createUpdatePartyEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <set field="createUpdatePartyEmailCtx.contactMechId" from-field="parameters.emailContactMechId"/>
+        <set field="createUpdatePartyEmailCtx.userLogin" from-field="userLogin"/>
+        <set field="createUpdatePartyEmailCtx.partyId" from-field="parameters.partyId"/>
+        <call-service service-name="createUpdatePartyEmailAddress" in-map-name="createUpdatePartyEmailCtx">
             <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
         </call-service>
     </simple-method>

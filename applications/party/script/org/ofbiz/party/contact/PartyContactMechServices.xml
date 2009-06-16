@@ -540,4 +540,25 @@ under the License.
             </call-service>
         </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="createUpdatePartyEmailAddress" short-description="Create and update email address" login-required="false">
+        <if-empty field="parameters.contactMechId">
+            <set-service-fields service-name="createPartyEmailAddress" map="parameters" to-map="emailAddressContext"/>
+            <set field="emailAddressContext.partyId" from-field="userLogin.partyId"/>
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
+            </call-service>
+            <log level="info" message="Email Contact Created emailContactMechId is ${contactMechId}"></log>
+        <else>
+            <set-service-fields service-name="updatePartyEmailAddress" map="parameters" to-map="emailAddressContext"/>
+            <call-service service-name="updatePartyEmailAddress" in-map-name="emailAddressContext">
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
+            </call-service>
+            <log level="info" message="Email Contact updated emailContactMechId is ${contactMechId}"></log>
+        </else>
+        </if-empty>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
+        <field-to-result field="contactMech.infoString" result-name="emailAddress"/>
+        <field-to-result field="contactMechId"/>
+    </simple-method>
 </simple-methods>
