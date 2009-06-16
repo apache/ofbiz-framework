@@ -853,6 +853,11 @@ public class InvoiceServices {
         }
 
         try {
+            List billFromVendorInvoiceRoles = EntityUtil.getFieldListFromEntityList(delegator.findByAnd("InvoiceRole", UtilMisc.<String, Object>toMap("invoiceId", invoiceIdIn, "roleTypeId", "BILL_FROM_VENDOR")), "partyId", true);
+            List salesRepInvoiceRoles = EntityUtil.getFieldListFromEntityList(delegator.findByAnd("InvoiceRole", UtilMisc.<String, Object>toMap("invoiceId", invoiceIdIn, "roleTypeId", "SALES_REP")), "partyId", true);
+            if (UtilValidate.isEmpty(billFromVendorInvoiceRoles) || UtilValidate.isEmpty(salesRepInvoiceRoles)) {
+                return ServiceUtil.returnSuccess();
+            }
             // Change this when amountApplied is BigDecimal, 18 digit scale to keep all the precision
             BigDecimal appliedFraction = ((BigDecimal)context.get("amountApplied")).divide(amountTotal, 12, rounding);
             Map inMap = UtilMisc.toMap("invoiceId", invoiceIdIn);
@@ -907,6 +912,9 @@ public class InvoiceServices {
                         Iterator it = itemComms.iterator();
                         while (it.hasNext()) {
                             Map commMap = (Map)it.next();
+                            if (!billFromVendorInvoiceRoles.contains(commMap.get("partyIdFrom")) || !salesRepInvoiceRoles.contains(commMap.get("partyIdTo"))) {
+                                continue;
+                            }
                             String partyIdFromTo = (String) commMap.get("partyIdFrom") + (String) commMap.get("partyIdTo");
                             if (!commissionParties.containsKey(partyIdFromTo)) {
                                 commissionParties.put(partyIdFromTo, UtilMisc.toList(commMap));

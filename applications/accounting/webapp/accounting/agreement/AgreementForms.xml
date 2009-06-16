@@ -206,7 +206,7 @@ under the License.
         <auto-fields-service service-name="updateAgreementTerm"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementTermId" ><hidden/></field>
-        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <display-entity entity-name="TermType"/>
         </field>
