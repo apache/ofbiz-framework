@@ -173,5 +173,49 @@ under the License.
         <field name="changedDate"><display/></field>
         <field name="changedByUser"><display/></field>
     </form>
+    
+    <!-- Forms Specific to portlet -->
+    <form name="EditOrderByCustomer" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+        <field name="statusId" entry-name="attributeMap.statusId">
+            <drop-down>
+                <option key="ORDER_CREATED" description="${uiLabelMap.CommonCreated}"/>
+                <option key="ORDER_PROCESSING" description="${uiLabelMap.CommonProcessing}"/>
+                <option key="ORDER_APPROVED" description="${uiLabelMap.CommonApproved}"/>
+                <option key="ORDER_SENT" description="${uiLabelMap.CommonSent}"/>
+                <option key="ORDER_HELD" description="${uiLabelMap.CommonHeld}"/>
+                <option key="ORDER_COMPLETED" description="${uiLabelMap.CommonCompleted}"/>
+                <option key="ORDER_REJECTED" description="${uiLabelMap.CommonRejected}"/>
+                <option key="ORDER_CANDELLED" description="${uiLabelMap.CommonCancelled}"/>
+            </drop-down>
+        </field>
+        <field name="roleTypeId" entry-name="attributeMap.roleTypeId">
+            <drop-down>
+                <option key="PLACING_CUSTOMER" description="${uiLabelMap.MyPortalPlacingCustomer}"/>
+                <option key="SHIP_TO_CUSTOMER" description="${uiLabelMap.MyPortalShipToCustomer}"/>
+                <option key="END_USER_CUSTOMER" description="${uiLabelMap.MyPortalEndUserCustomer}"/>
+                <option key="BILL_TO_CUSTOMER" description="${uiLabelMap.MyPortalBillToCustomer}"/>
+            </drop-down>
+        </field>
+        <field name="updateButton"><submit/></field>
+    </form>
+    <form name="ListCustomerOrders" type="list" target="" list-name="listIt" title="" odd-row-style="alternate-row" 
+        header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="OrderHeaderAndRoles">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="roleTypeId" from-field="roleTypeId"/>
+                <field-map field-name="statusId" from-field="statusId"/>
+            </entity-and>
+        </actions>
+        <field name="orderTypeId" title="${uiLabelMap.FormFieldTitle_orderTypeId}"><display/></field>
+        <field name="orderId" title="${uiLabelMap.OrderOrderId}"><display/></field>
+        <field name="orderName" title="${uiLabelMap.OrderOrderName}"><display/></field>
+        <field name="remainingSubTotal" title="${uiLabelMap.FormFieldTitle_remainingSubTotal}"><display/></field>
+        <field name="grandTotal" title="${uiLabelMap.OrderGrandTotal}"><display/></field>
+        <field name="statusId"><display/></field>
+        <field name="orderDate" title="${uiLabelMap.OrderOrderDate}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
+        <field name="roleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}"><display/></field>
+    </form>
 
 </forms>

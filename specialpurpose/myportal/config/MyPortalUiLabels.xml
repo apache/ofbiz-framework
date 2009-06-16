@@ -25,6 +25,9 @@
         <value xml:lang="it">Mia pagina</value>
         <value xml:lang="th">แอปพริเคชันของฉัน</value>
     </property>
+    <property key="MyPortalBillToCustomer">
+        <value xml:lang="en">Bill To Customer</value>
+    </property>
     <property key="MyPortalCaptchaMissingError">
         <value xml:lang="en">Verify code captcha is missing or wrong</value>
         <value xml:lang="fr">Vérifier le code captcha, il est absent ou erroné</value>
@@ -71,6 +74,9 @@
         <value xml:lang="it">Mio portale</value>
         <value xml:lang="th">ส่วนตัว</value>
     </property>
+    <property key="MyPortalEndUserCustomer">
+        <value xml:lang="en">End User Customer</value>
+    </property>    
     <property key="MyPortalFirstNameMissing">
         <value xml:lang="en">Your firstName is missing</value>
         <value xml:lang="fr">Votre prénom est absent</value>
@@ -88,6 +94,9 @@
         <value xml:lang="fr">Votre nom est absent</value>
         <value xml:lang="it">Cognome mancante</value>
         <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
+    </property>
+    <property key="MyPortalMyOrders">
+        <value xml:lang="en">My Orders</value>
     </property>
     <property key="MyPortalMyTasks">
         <value xml:lang="en">myTasks</value>
@@ -165,6 +174,9 @@
         <value xml:lang="it">Mio profilo</value>
         <value xml:lang="th">ประวัติส่วนตัวของฉัน</value>
     </property>
+    <property key="MyPortalPlacingCustomer">
+        <value xml:lang="en">Placing Customer</value>
+    </property>
     <property key="MyPortalRegisterComplete">
         <value xml:lang="en">Register of new person is complete...Please </value>
         <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
@@ -186,6 +198,9 @@
         <value xml:lang="fr">Envoyer le courriel à chaque demande de changement d'un client</value>
         <value xml:lang="it">Invia email ad ogni modifica della richiesta cliente</value>
         <value xml:lang="th">ส่งอีเมล์ถึงลูกค้าที่เปลี่ยนความต้องการ</value>
+    </property>
+    <property key="MyPortalShipToCustomer">
+        <value xml:lang="en">Ship To Customer</value>
     </property>
     <property key="MyPortalTaskActEndDate">
         <value xml:lang="en">Task Act End</value>

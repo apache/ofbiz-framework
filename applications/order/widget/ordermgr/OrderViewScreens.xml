@@ -436,4 +436,23 @@ under the License.
         </section>
     </screen>
 
+    <!-- Screens Specific to portlet -->
+    <screen name="ListCustomerOrders">
+        <section>
+            <actions>
+                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="statusId" from-field="statusId"/>
+                <set field="roleTypeId" from-field="roleTypeId"/>
+                <set field="screenletTitle" from-field="uiLabelMap.MyPortalMyOrders"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${screenletTitle} ${partyId} ${statusId}" navigation-form-name="ListCustomerOrders" >
+                   <include-form name="ListCustomerOrders" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section> 
+    </screen>
+
 </screens>
