@@ -37,5 +37,16 @@
         editFormName="EditCustReqStatusId"
         editFormLocation="component://order/webapp/ordermgr/request/RequestForms.xml"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
+    
+    <!--List of order(s) placed by a customer in order -->
+    <PortletCategory portletCategoryId="LIST_CUSTOMER_ORDER" description="List of order(s) placed by a Customer"/>
+    <PortalPortlet portalPortletId="ListCustomerOrders"
+        portletName="List Customer Orders"
+        screenName="ListCustomerOrders"
+        screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
+        description="List Orders placed by customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
+        editFormName="EditOrderByCustomer"
+        editFormLocation="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+    <PortletPortletCategory portalPortletId="ListCustomerOrders" portletCategoryId="LIST_CUSTOMER_ORDER"/>
 
 </entity-engine-xml>
