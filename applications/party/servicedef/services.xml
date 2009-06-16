@@ -1168,8 +1168,8 @@ under the License.
         <override name="firstName" optional="false"/>
         <override name="lastName" optional="false"/>
     </service>
-    <service name="createUpdateTelecomNumber" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createUpdateTelecomNumber" auth="false">
+    <service name="createUpdatePartyTelecomNumber" engine="simple"
+            location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createUpdatePartyTelecomNumber" auth="false">
         <description>Create and Update telecom number</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
