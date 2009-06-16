@@ -218,6 +218,12 @@ public class OrderReadHelper {
                                             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
                 payments = paymentPref.getRelated("Payment");
                 payments = EntityUtil.filterByOr(payments, exprs);
+                List conds = UtilMisc.toList(EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_PAYMENT"),
+                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_DEPOSIT"),
+                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "INTEREST_RECEIPT"),
+                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "GC_DEPOSIT"),
+                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "POS_PAID_IN"));
+                payments = EntityUtil.filterByOr(payments, conds);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

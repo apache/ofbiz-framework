@@ -1177,6 +1177,11 @@ public class OrderReturnServices {
                 // We break the OPPs down this way because we need to process the refunds to payment methods in a particular order
                 Map receivedPaymentTotalsByPaymentMethod = orderReadHelper.getReceivedPaymentTotalsByPaymentMethod() ;
                 Map refundedTotalsByPaymentMethod = orderReadHelper.getReturnedTotalsByPaymentMethod() ;
+                
+                // getOrderPaymentPreferenceTotalByType has been called because getReceivedPaymentTotalsByPaymentMethod does not 
+                // return payments captured from Billing Account.This is because when payment is captured from Billing Account
+                // then no entry is maintained in Payment entity. 
+                BigDecimal receivedPaymentTotalsByBillingAccount = orderReadHelper.getOrderPaymentPreferenceTotalByType("EXT_BILLACT");
 
                 /*
                  * Go through the OrderPaymentPreferences and determine how much remains to be refunded for each.
@@ -1194,6 +1199,10 @@ public class OrderReturnServices {
                     BigDecimal orderPayPrefReceivedTotal = ZERO;
                     if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
                         orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add((BigDecimal)receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
+                    }
+                    
+                    if (receivedPaymentTotalsByBillingAccount != null) {
+                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(receivedPaymentTotalsByBillingAccount);
                     }
                     BigDecimal orderPayPrefRefundedTotal = ZERO;
                     if (refundedTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
