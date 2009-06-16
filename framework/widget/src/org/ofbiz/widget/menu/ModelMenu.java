@@ -345,60 +345,7 @@ public class ModelMenu extends ModelWidget {
         // include portal pages if specified
         //menuStringRenderer.renderFormatSimpleWrapperRows(writer, context, this);
         for (ModelMenuItem item : this.menuItemList) {
-            String parentPortalPageId = item.getParentPortalPageId(context);
-            if (UtilValidate.isNotEmpty(parentPortalPageId)) {
-                List <GenericValue> portalPages = null;
-                try {
-                    // first get public pages
-                    EntityCondition cond =
-                        EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
-                            EntityCondition.makeCondition(UtilMisc.toList(
-                                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parentPortalPageId),
-                                    EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
-                                    EntityOperator.OR)),
-                            EntityOperator.AND);
-                    portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                    if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                        String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
-                        // replace with private pages
-                        for (GenericValue portalPage : portalPages) {
-                            cond = EntityCondition.makeCondition(UtilMisc.toList(
-                                    EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                                    EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
-                                    EntityOperator.AND);
-                            List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                            if (UtilValidate.isNotEmpty(privatePortalPages)) {
-                                portalPages.remove(portalPage);
-                                portalPages.add(privatePortalPages.get(0));
-                            }
-                        }
-                        // add any other created private pages
-                        cond = EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                                EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
-                                EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
-                                EntityOperator.AND);
-                        portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
-                    }
-                    portalPages = EntityUtil.orderBy(portalPages, UtilMisc.toList("sequenceNum"));
-                } catch (GenericEntityException e) {
-                    Debug.logError("Could not retrieve portalpages in the menu:" + e.getMessage(), module);
-                }
-                for (GenericValue portalPage : portalPages) {
-                    if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-                        ModelMenuItem localItem = new ModelMenuItem(item.getModelMenu());
-                        localItem.name =  portalPage.getString("portalPageId");
-                        localItem.setTitle(portalPage.getString("portalPageName"));
-                        localItem.link = new Link(item);
-                        localItem.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId") + "&parentPortalPageId=" + parentPortalPageId);
-                        localItem.link.setText(portalPage.getString("portalPageName"));
-                        localItem.renderMenuItemString(writer, context, menuStringRenderer);
-                    }
-                }
-            } else {
                 item.renderMenuItemString(writer, context, menuStringRenderer);
-            }
         }
         // render formatting wrapper close
         menuStringRenderer.renderFormatSimpleWrapperClose(writer, context, this);
