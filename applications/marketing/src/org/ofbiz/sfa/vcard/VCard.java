@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -102,17 +103,26 @@ public class VCard {
                 serviceCtx.put("address1", workAddress.getStreet());
                 serviceCtx.put("city", workAddress.getCity());
                 serviceCtx.put("postalCode", workAddress.getPostalCode());
+                
+                List<GenericValue> countryGeoList = null;
+                List<GenericValue> stateGeoList = null;
                 EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                                                     EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
                                                     EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getCountry())), EntityOperator.AND);
-                GenericValue countryGeo = EntityUtil.getFirst(delegator.findList("Geo", cond, null, null, null, true));
-                serviceCtx.put("countryGeoId", countryGeo.get("geoId"));
+                countryGeoList = delegator.findList("Geo", cond, null, null, null, true);
+                if (!countryGeoList.isEmpty()) {
+                    GenericValue countryGeo = EntityUtil.getFirst(countryGeoList);
+                    serviceCtx.put("countryGeoId", countryGeo.get("geoId"));
+                }
 
                 EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "STATE"),
                         EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND);
-                GenericValue stateGeo = EntityUtil.getFirst(delegator.findList("Geo", condition, null, null, null, true));
-                serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
+                stateGeoList = delegator.findList("Geo", condition, null, null, null, true);
+                if (!stateGeoList.isEmpty()) {
+                    GenericValue stateGeo = EntityUtil.getFirst(stateGeoList);
+                    serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
+                }
 
                 Communications communications = contact.getCommunications();
                 for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
