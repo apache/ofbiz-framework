@@ -293,10 +293,6 @@ public class WeightPackageSession implements Serializable {
         }
     }
 
-    public String complete(String orderId, Locale locale) throws GeneralException {
-        return complete(orderId, locale, "N");
-    }
-
     public String complete(String orderId, Locale locale, String calculateOnlineShippingRateFromUps) throws GeneralException {
 
         //create the package(s)
@@ -328,10 +324,6 @@ public class WeightPackageSession implements Serializable {
         this.setShipmentToPacked();
 
         return "success";
-    }
-
-    public boolean completeShipment(String orderId) throws GeneralException {
-        return completeShipment(orderId, "N");
     }
 
     public boolean completeShipment(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
@@ -521,5 +513,15 @@ public class WeightPackageSession implements Serializable {
             shipmentCostEstimate = (BigDecimal) shipCostEstimateResult.get("shippingEstimateAmount");
         }
         return shipmentCostEstimate;
+    }
+
+    protected void savePackagesInfo(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
+        //create the package(s)
+        this.createPackages(orderId);
+        // Check if UPS integration is done 
+        if ("Y".equals(calculateOnlineShippingRateFromUps)) {
+            // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in ShipmentRouteSegment entity in actualCost field
+            this.upsShipmentConfirm();
+        }
     }
 }
