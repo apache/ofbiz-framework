@@ -183,6 +183,24 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, link(0):" + link,"");
         if (link != null) {
             renderLink(writer, context, link);
+        } else {
+            String txt = menuItem.getTitle(context);
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                txt = simpleEncoder.encode(txt);
+            }
+            writer.append(txt);
+            
+        }
+        if (!menuItem.getMenuItemList().isEmpty()) {
+            appendWhitespace(writer);
+            writer.append("    <ul>");
+            appendWhitespace(writer);
+            for (ModelMenuItem childMenuItem : menuItem.getMenuItemList()) {
+                childMenuItem.renderMenuItemString(writer, context, this);
+            }
+            writer.append("    </ul>");
+            appendWhitespace(writer);
         }
 
         writer.append("</li>");
