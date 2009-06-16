@@ -903,13 +903,13 @@ under the License.
                 processor-name="phoneNumber" in-map-name="parameters" out-map-name="shipToPhoneContext"/>
         <check-errors/>
 
-        <set-service-fields service-name="createUpdateTelecomNumber" map="shipToPhoneContext" to-map="createUpdateTelecomNumberCtx"/>
-        <set field="createUpdateTelecomNumberCtx.contactMechId" from-field="parameters.shipToPhoneContactMechId"/>
-        <set field="createUpdateTelecomNumberCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdateTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
-        <set field="createUpdateTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="createUpdateTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
-        <call-service service-name="createUpdateTelecomNumber" in-map-name="createUpdateTelecomNumberCtx">
+        <set-service-fields service-name="createUpdatePartyTelecomNumber" map="shipToPhoneContext" to-map="createUpdatePartyTelecomNumberCtx"/>
+        <set field="createUpdatePartyTelecomNumberCtx.contactMechId" from-field="parameters.shipToPhoneContactMechId"/>
+        <set field="createUpdatePartyTelecomNumberCtx.userLogin" from-field="userLogin"/>
+        <set field="createUpdatePartyTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
+        <set field="createUpdatePartyTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
+        <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="parameters.shipToPhoneContactMechId"/>
         </call-service>
         <field-to-request field="parameters.shipToPhoneContactMechId" request-name="shipToPhoneContactMechId"/>
@@ -1206,13 +1206,13 @@ under the License.
                 processor-name="phoneNumber" in-map-name="parameters" out-map-name="billToPhoneContext"/>
         <check-errors/>
 
-        <set-service-fields service-name="createUpdateTelecomNumber" map="billToPhoneContext" to-map="createUpdateTelecomNumberCtx"/>
-        <set field="createUpdateTelecomNumberCtx.contactMechId" from-field="parameters.billToPhoneContactMechId"/>
-        <set field="createUpdateTelecomNumberCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdateTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
-        <set field="createUpdateTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="createUpdateTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
-        <call-service service-name="createUpdateTelecomNumber" in-map-name="createUpdateTelecomNumberCtx">
+        <set-service-fields service-name="createUpdatePartyTelecomNumber" map="billToPhoneContext" to-map="createUpdatePartyTelecomNumberCtx"/>
+        <set field="createUpdatePartyTelecomNumberCtx.contactMechId" from-field="parameters.billToPhoneContactMechId"/>
+        <set field="createUpdatePartyTelecomNumberCtx.userLogin" from-field="userLogin"/>
+        <set field="createUpdatePartyTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
+        <set field="createUpdatePartyTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
+        <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="parameters.billToPhoneContactMechId"/>
         </call-service>
         <field-to-request field="parameters.billToPhoneContactMechId" request-name="billToPhoneContactMechId"/>

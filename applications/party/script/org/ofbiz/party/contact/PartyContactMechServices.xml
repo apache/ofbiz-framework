@@ -561,4 +561,22 @@ under the License.
         <field-to-result field="contactMech.infoString" result-name="emailAddress"/>
         <field-to-result field="contactMechId"/>
     </simple-method>
+    
+    <simple-method method-name="createUpdatePartyTelecomNumber" short-description="Create and update phone number" login-required="false">
+        <if-empty field="parameters.contactMechId">
+            <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
+            <call-service service-name="createPartyTelecomNumber" in-map-name="phoneContext">
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
+            </call-service>
+            <log level="info" message="Phone Contact created phoneContactMechId is ${contactMechId}"/>
+        <else>
+            <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
+            <call-service service-name="updatePartyTelecomNumber" in-map-name="phoneContext">
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
+            </call-service>
+            <log level="info" message="Phone Contact updated phoneContactMechId is ${contactMechId}"/>
+        </else>
+        </if-empty>
+        <field-to-result field="contactMechId"/>
+    </simple-method>
 </simple-methods>
