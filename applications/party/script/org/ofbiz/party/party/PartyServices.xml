@@ -940,7 +940,7 @@ under the License.
 
     <simple-method method-name="createUpdatePerson" short-description="Create and update a person" login-required="false">
         <log level="info" message="========= Inside create update person ============="/>
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
         <check-errors/>
         <log level="info" message="==================map-processor successfully ran ================${personMap}========================"/>
