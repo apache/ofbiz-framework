@@ -731,6 +731,12 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="completePackage"/>
         <response name="success" type="view" value="WeightPackageOnly"/>
+        <response name="error" type="request" value="savePackagesInfo"/>
+    </request-map>
+    <request-map uri="savePackagesInfo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="savePackagesInfo"/>
+        <response name="success" type="view" value="WeightPackageOnly"/>
         <response name="error" type="view" value="WeightPackageOnly"/>
     </request-map>
 

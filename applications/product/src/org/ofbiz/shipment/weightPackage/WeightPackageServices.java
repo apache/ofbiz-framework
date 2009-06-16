@@ -171,13 +171,7 @@ public class WeightPackageServices {
         Map<String, Object> response = FastMap.newInstance();
         try {
             String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
-            String result = "error";
-            // Check if UPS integration is done
-            if ("Y".equals(getActualShippingQuoteFromUps)) {
-                result = weightPackageSession.complete(orderId, locale, "Y");
-            } else {
-                result = weightPackageSession.complete(orderId, locale);
-            }
+            String result = weightPackageSession.complete(orderId, locale, getActualShippingQuoteFromUps);;
             if ("showWarningForm".equals(result)) {
                 response.put("showWarningForm", true);
             } else if ("success".equals(result)) {
@@ -202,9 +196,9 @@ public class WeightPackageServices {
         try {
             String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
             // Check if UPS integration is done
-            if ("Y".equals(getActualShippingQuoteFromUps) && weightPackageSession.completeShipment(orderId, "Y")) {
+            if ("Y".equals(getActualShippingQuoteFromUps) && weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
                 response.put("shipmentId", shipmentId);
-            } else if (weightPackageSession.completeShipment(orderId)) {
+            } else if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
                 response.put("shipmentId", shipmentId);
             } else {
                 response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
@@ -213,6 +207,22 @@ public class WeightPackageServices {
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
         }
         return response;
+    }
+
+    public static Map<String, Object> savePackagesInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Locale locale = (Locale) context.get("locale");
+        WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
+
+        String orderId = (String) context.get("orderId");
+
+        String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
+        try {
+            weightPackageSession.savePackagesInfo(orderId, getActualShippingQuoteFromUps);
+        } catch (GeneralException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        return ServiceUtil.returnSuccess(UtilProperties.getMessage("ProductUiLabels", "FacilityThereIsProblemOccuredInPaymentCapture", locale));
     }
 
 }

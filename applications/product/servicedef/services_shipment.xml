@@ -537,11 +537,20 @@ under the License.
 
     <service name="completeShipment" engine="java"
             location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completeShipment" auth="true">
-         <description>Complete the packaging set the shipment to packed</description>
+        <description>Complete the packaging set the shipment to packed</description>
         <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
+    </service>
+
+    <service name="savePackagesInfo" engine="java"
+            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="savePackagesInfo" auth="true">
+        <description>Save the package(s) information in ShipmentPackage entity from session</description>
+        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Pack Order Services -->

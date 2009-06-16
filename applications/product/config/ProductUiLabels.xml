@@ -222,6 +222,9 @@
         <value xml:lang="zh">特别说明</value>
         <value xml:lang="zh_CN">特殊说明</value>
     </property>
+    <property key="FacilityThereIsProblemOccuredInPaymentCapture">
+        <value xml:lang="en">There is problem occured in payment capture, shipment is still in PICKED status</value>
+    </property>
     <property key="FacilityWaitEntireOrderReady">
         <value xml:lang="de">Bitte warten Sie mit der Auslieferung bis die Bestellung vollständig vorliegt.</value>
         <value xml:lang="en">Please wait until the entire order is ready before shipping.</value>
