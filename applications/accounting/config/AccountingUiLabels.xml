@@ -5388,6 +5388,14 @@
         <value xml:lang="th">ยกเลิกรายได้บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">覆盖收入总账账户标识</value>
     </property>
+    <property key="AccountingPostedTransactionTotals">
+        <value xml:lang="en">Posted Totals</value>
+        <value xml:lang="it">Totali Contabilizzati</value>
+    </property>
+    <property key="AccountingPostedAndUnpostedTransactionTotals">
+        <value xml:lang="en">Posted And Unposted Totals</value>
+        <value xml:lang="it">Totali contabilizzati e non</value>
+    </property>
     <property key="AccountingPIN">
         <value xml:lang="cs">PIN</value>
         <value xml:lang="de">PIN</value>

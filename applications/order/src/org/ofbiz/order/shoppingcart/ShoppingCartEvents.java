@@ -1018,7 +1018,7 @@ public class ShoppingCartEvents {
         Locale locale = UtilHttp.getLocale(request);
         int i;
 
-        if (UtilValidate.isEmpty(partyId) || roleTypeId.length < 1) {
+        if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(roleTypeId) || roleTypeId.length < 1) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
