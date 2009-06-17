@@ -36,7 +36,7 @@ under the License.
 <#macro renderContentEnd></#macro>
 <#macro renderSubContentBegin></#macro>
 <#macro renderSubContentBody></#macro>
-<#macro renderSubContentEnd></#macro>
+<#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style></#macro>
 <#macro renderLabel text><#if text?exists>${text}</#if></#macro>

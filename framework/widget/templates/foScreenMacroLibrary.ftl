@@ -51,7 +51,7 @@ under the License.
 <#macro renderContentEnd></#macro>
 <#macro renderSubContentBegin></#macro>
 <#macro renderSubContentBody></#macro>
-<#macro renderSubContentEnd></#macro>
+<#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style><fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block></#macro>
 <#macro renderLabel text id style><#if text?exists><#if style?has_content><fo:inline <@getFoStyle style/>></#if>${text}<#if style?has_content></fo:inline></#if></#if></#macro>

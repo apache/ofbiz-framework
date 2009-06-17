@@ -53,7 +53,7 @@ under the License.
 </#macro>
 <#macro renderSubContentBegin editContainerStyle editRequest enableEditValue><#if editRequest?exists && enableEditValue == "true"><div class="${editContainerStyle}"></#if></#macro>
 <#macro renderSubContentBody></#macro>
-<#macro renderSubContentEnd>
+<#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
 <#if editRequest?exists && enableEditValue == "true">
 <#if urlString?exists><a href="${urlString}">${editMode}</a><#rt/></#if>
 <#if editContainerStyle?exists></div><#rt/></#if>

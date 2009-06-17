@@ -41,7 +41,7 @@ under the License.
 </#macro>
 <#macro renderSubContentBegin editContainerStyle editRequest enableEditValue></#macro>
 <#macro renderSubContentBody></#macro>
-<#macro renderSubContentEnd>
+<#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
 </#macro>
 
 <#macro renderHorizontalSeparator id style></#macro>
