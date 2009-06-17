@@ -40,21 +40,30 @@ under the License.
         <br class="clear"/>
     </div>
     <div class="screenlet-body">
-    <div class="errorMessage">
-        <#if ! isPurchaseShipment>
+    
+    <#if ! isPurchaseShipment>
+        <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductErrorShipmentNotPurchaseShipment?interpret><@uiLabelWithVar/>
-        <#elseif orderId?has_content && !orderHeader?exists>
+        </div>
+    <#elseif orderId?has_content && !orderHeader?exists>
+        <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductErrorOrderIdNotFound?interpret><@uiLabelWithVar/>
-        <#elseif orderHeader?exists && orderHeader.orderTypeId != "PURCHASE_ORDER">
+        </div>
+    <#elseif orderHeader?exists && orderHeader.orderTypeId != "PURCHASE_ORDER">
+        <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductErrorOrderNotPurchaseOrder?interpret><@uiLabelWithVar/>
-        <#elseif ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?exists>
+        </div>
+    <#elseif ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?exists>
+        <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?interpret><@uiLabelWithVar/>
             <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
-        <#elseif ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?exists>
+        </div>
+    <#elseif ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?exists>
+        <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?interpret><@uiLabelWithVar/>
             <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
-        </#if>
-    </div>
+        </div>
+    </#if>
     <#if ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?exists>
         <div class="errorMessage" style="color:green">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?interpret><@uiLabelWithVar/>

@@ -171,7 +171,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     // Retrieve the backordered quantity
     // TODO: limit to a facility? The shipment destination facility is not necessarily the same facility as the inventory
     conditions = [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.productId),
-                  EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0))];
+                  EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, BigDecimal.ZERO)];
     negativeInventoryItems = delegator.findList("InventoryItem",  EntityCondition.makeCondition(conditions, EntityOperator.AND), null, null, null, false);
     backOrderedQuantity = 0;
     negativeInventoryItems.each { negativeInventoryItem ->
