@@ -21,27 +21,6 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListLeads" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindLead"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
-        <row-actions>
-            <entity-one entity-name="PartyNameView" value-field="partyName">
-                <field-map field-name="partyId" from-field="partyRow.partyId"/>
-            </entity-one>
-            <set field="statusId" from-field="partyRow.statusId"/>
-        </row-actions>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyRow.partyId}">
-                <parameter param-name="partyId" from-field="partyRow.partyId"/>
-            </hyperlink>
-        </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}">
-            <hyperlink target="viewprofile" description="${partyName.lastName}${partyName.groupName} ${partyName.firstName} ">
-                <parameter param-name="partyId" from-field="partyRow.partyId"/>
-            </hyperlink>
-        </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
-    </form>
-
     <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table" default-map-name="contactDetailMap">
         <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>

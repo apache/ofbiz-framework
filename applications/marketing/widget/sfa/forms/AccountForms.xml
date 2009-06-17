@@ -21,23 +21,6 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListAccounts" type="list" list-name="partyList" paginate-target="FindAccount"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
-        </row-actions>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyId}" target-type="inter-app">
-                <parameter param-name="partyId"/>
-            </hyperlink>
-        </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}">
-            <hyperlink target="viewprofile" description="${partyGroup.groupName}" target-type="inter-app">
-                <parameter param-name="partyId"/>
-            </hyperlink>        
-        </field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display-entity entity-name="PartyType"/></field>
-    </form>
     <form name="NewAccount" type="single" target="createAccount" header-row-style="header-row" default-table-style="basic-table">
         <field name="accountType"><hidden value="${accountType}"/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
