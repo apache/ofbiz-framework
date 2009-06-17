@@ -39,8 +39,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.shipment.weightPackage.WeightPackageSession;
-import org.ofbiz.shipment.weightPackage.WeightPackageSessionLine;
 
 public class WeightPackageSession implements Serializable {
 

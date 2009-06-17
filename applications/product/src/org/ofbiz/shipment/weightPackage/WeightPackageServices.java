@@ -27,35 +27,16 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
 public class WeightPackageServices {
 
     private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-
-    public static Map<String, Object> weightPackageOnly(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
-        WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
-        String orderId = (String) context.get("orderId");
-        try {
-            GenericValue shipment = EntityUtil.getFirst(delegator.findByAnd("Shipment", UtilMisc.toMap("primaryOrderId", orderId, "statusId", "SHIPMENT_PICKED")));
-            if (UtilValidate.isEmpty(shipment)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotVerified", UtilMisc.toMap("orderId", orderId), locale));
-            }
-        } catch (GeneralException e) {
-            ServiceUtil.returnError(e.getMessage());
-        }
-        return ServiceUtil.returnSuccess();
-    }
 
     public static Map<String, Object> setPackageInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -195,10 +176,7 @@ public class WeightPackageServices {
         Map<String, Object> response = FastMap.newInstance();
         try {
             String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
-            // Check if UPS integration is done
-            if ("Y".equals(getActualShippingQuoteFromUps) && weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
-                response.put("shipmentId", shipmentId);
-            } else if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
+            if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
                 response.put("shipmentId", shipmentId);
             } else {
                 response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));

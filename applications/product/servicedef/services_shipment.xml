@@ -483,12 +483,6 @@ under the License.
     </service>
 
     <!-- Weight Package Only Services -->
-    <service name="weightPackageOnly" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="weightPackageOnly" auth="true">
-        <description>Check order is verified or not, if veified than shown weight package only screen otherwise shown packing screen</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-    </service>
-
     <service name="setPackageInfo" engine="java"
             location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="setPackageInfo" auth="true">
         <description>Set the weight, dimensions/shipmentBoxType of package in SESSION</description>
@@ -627,30 +621,6 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="packageSeqId" type="Integer" mode="IN" optional="false"/>
-    </service>
-
-    <service name="weightPackage" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="weightPackage" auth="true">
-        <description>Set the dimension and weight of packages in the ShipmentPackage entity</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
-        <attribute name="packageWeight" type="String" mode="IN" optional="true"/>
-        <attribute name="packageLength" type="String" mode="IN" optional="true"/>
-        <attribute name="packageWidth" type="String" mode="IN" optional="true"/>
-        <attribute name="packageHeight" type="String" mode="IN" optional="true"/>
-        <attribute name="packageSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="shipmentBoxTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="weightPackageSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="dimensionSavedInSession" type="Boolean" mode="OUT" optional="true"/>
-    </service>
-
-    <service name="holdShipment" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="holdShipment" auth="true">
-        <description>Shipment will remains in PICKED sataus and dimension and weight will save in the ShipmentPackage entity</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="completePack" engine="java"
