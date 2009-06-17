@@ -40,32 +40,11 @@ under the License.
                                 <section>
                                     <widgets>
                                         <platform-specific>
-                                            <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
+                                            <html>
+                                                <html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/>
+                                                <html-template location="component://marketing/webapp/sfa/account/ListAccounts.ftl"/>
+                                            </html>
                                         </platform-specific>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.SfaFindResults}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <condition>
-                                                        <not>
-                                                            <if-empty field="partyList"/>
-                                                        </not>
-                                                    </condition>
-                                                    <widgets>
-                                                        <include-form name="ListAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
-                                                    </widgets>
-                                                    <fail-widgets>
-                                                        <container style="h3">
-                                                            <label text="${uiLabelMap.PartyNoPartiesFound}"/>
-                                                        </container>
-                                                    </fail-widgets>
-                                                </section>
-                                            </container>
-                                        </container>
                                     </widgets>
                                 </section>
                             </widgets>

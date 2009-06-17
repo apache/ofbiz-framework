@@ -37,25 +37,11 @@ under the License.
                                 <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <container style="no-clear">
                                     <platform-specific>
-                                        <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
+                                        <html>
+                                            <html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/>
+                                            <html-template location="component://marketing/webapp/sfa/lead/ListLeads.ftl"/>
+                                        </html>
                                     </platform-specific>
-                                    <screenlet title="${uiLabelMap.SfaFindResults}">
-                                        <section>
-                                            <condition>
-                                                <not>
-                                                    <if-empty field="partyList"/>
-                                                </not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="ListLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                                            </widgets>
-                                            <fail-widgets>
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PartyNoPartiesFound}"/>
-                                                </container>
-                                            </fail-widgets>
-                                        </section>
-                                    </screenlet>
                                 </container>
                             </widgets>
                         </section>
