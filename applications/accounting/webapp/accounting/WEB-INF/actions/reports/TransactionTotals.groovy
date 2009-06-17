@@ -17,67 +17,129 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.util.EntityUtil;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+debitTotal = BigDecimal.ZERO;
+creditTotal = BigDecimal.ZERO;
+
 exprs = [EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId)];
 if (fromDate) {
     exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
-}
-if (thruDate) {
-    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
-}
+} else return;
 
-postedExprs = FastList.newInstance();
-postedExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
-postedExprs.addAll(exprs);
-fieldsToSelect = ["glAccountId", "debitCreditFlag", "totalAmount"] as Set;
+if (!thruDate) {
+    thruDate = UtilDateTime.nowTimestamp();
+}
+exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+
+exprList = FastList.newInstance();
+orExprs = new ArrayList();
+orExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
+orExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+orCond = EntityCondition.makeCondition(orExprs, EntityOperator.OR);
+
+exprList.add(orCond);
+exprList.addAll(exprs);
+
+fieldsToSelect = ["glAccountId", "debitCreditFlag", "totalAmount", "isPosted"] as Set;
 orderBy = ["glAccountId"];
 
 postedTransTotalList = FastList.newInstance();
-postedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", EntityCondition.makeCondition(postedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
-if (postedTrans) {
-    postedTrans.each { value ->
-        postedMap = FastMap.newInstance();
-        postedMap.glAccountId = value.glAccountId;
-        if ("C".equals(value.debitCreditFlag)) {
-            postedMap.credit = value.getBigDecimal("totalAmount");
-            postedMap.debit = BigDecimal.ZERO;
-        } else {
-            postedMap.credit = BigDecimal.ZERO;
-            postedMap.debit = value.getBigDecimal("totalAmount");
-        }
-        postedTransTotalList.add(postedMap);
+unpostedTransTotalList = FastList.newInstance();
+postedAndUnpostedTransTotalList = FastList.newInstance();
+tempValueMap = [:];
+tempValueMap.isPosted = "";
+tempValueMap.glAccountId = "000";
+tempValueMap.debitCreditFlag = "X";
+tempValueMap.totalAmount = 0.00;
+
+allTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", EntityCondition.makeCondition(exprList, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
+if (allTrans) {
+    //PostedTransaction Section
+    allPostedTrans = EntityUtil.filterByCondition(allTrans, EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
+    getPostedTrans(0, (allPostedTrans.get(0)).glAccountId);
+
+    //UnPostedTransaction Section
+    allUnPostedTrans = EntityUtil.filterByCondition(allTrans, EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+    getUnpostedTrans(0, (allUnPostedTrans.get(0)).glAccountId);
+
+    //PostedAndUnPostedTransaction Section
+    getPostedAndUnpostedTrans(0, (allTrans.get(0)).glAccountId);
+}
+
+private void addTransToList(List transectionList, String prevGlAccountId, Map value) {
+    if (!prevGlAccountId.equals(value.glAccountId)) {
+        postedAndUnpostedMap = FastMap.newInstance();
+        postedAndUnpostedMap.glAccountId = prevGlAccountId;
+        postedAndUnpostedMap.credit = creditTotal;
+        postedAndUnpostedMap.debit = debitTotal;
+        transectionList.add(postedAndUnpostedMap);
+        debitTotal = BigDecimal.ZERO;
+        creditTotal = BigDecimal.ZERO;
     }
+    if ("C".equals(value.debitCreditFlag))
+        creditTotal += value.getBigDecimal("totalAmount");
+    if ("D".equals(value.debitCreditFlag))
+        debitTotal += value.getBigDecimal("totalAmount");
+}
+
+private void getPostedTrans(int index, String prevGlAccountId) {
+    if (index < allPostedTrans.size())
+        value = allPostedTrans.get(index);
+    else {
+        tempValueMap.isPosted = "Y";
+        value = tempValueMap;
+    }
+    if("Y".equals(value.isPosted)) {
+        addTransToList(postedTransTotalList, prevGlAccountId, value);
+    }
+    if (index < allPostedTrans.size()) {
+        index++;
+        getPostedTrans(index, value.glAccountId);
+    }
+    else return;
+}
+
+private void getUnpostedTrans(int index, String prevGlAccountId) {
+    if (index != allUnPostedTrans.size())
+        value = allUnPostedTrans.get(index);
+    else {
+        tempValueMap.isPosted = "N";
+        value = tempValueMap;
+    }
+    
+    if("N".equals(value.isPosted)) {
+        addTransToList(unpostedTransTotalList, prevGlAccountId, value);     
+    }
+    if (index < allUnPostedTrans.size()) {
+        index++; 
+        getUnpostedTrans(index, value.glAccountId);
+    }
+    else return;
+}
+
+private void getPostedAndUnpostedTrans(int index, String prevGlAccountId) {
+    if (index != allTrans.size())
+        value = allTrans.get(index);
+    else { 
+        tempValueMap.isPosted = "X";
+        value = tempValueMap;
+    }
+    addTransToList(postedAndUnpostedTransTotalList, prevGlAccountId, value);  
+    if (index < allTrans.size()) {
+        index++; 
+        getPostedAndUnpostedTrans(index, value.glAccountId);
+    }
+    else return;
 }
 context.postedTransTotalList = postedTransTotalList;
-
-unpostedExprs = FastList.newInstance();
-unpostedExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
-unpostedExprs.addAll(exprs);
-
-unpostedTransTotalList = FastList.newInstance();
-unpostedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", EntityCondition.makeCondition(unpostedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
-if (unpostedTrans) {
-    unpostedTrans.each { value ->
-        Map unpostedMap = FastMap.newInstance();
-        unpostedMap.glAccountId = value.glAccountId;
-        if ("C".equals(value.debitCreditFlag)) {
-            unpostedMap.credit = value.getBigDecimal("totalAmount");
-            unpostedMap.debit = BigDecimal.ZERO;
-        } else {
-            unpostedMap.credit = BigDecimal.ZERO;
-            unpostedMap.debit = value.getBigDecimal("totalAmount");
-        }
-        unpostedTransTotalList.add(unpostedMap);
-    }
-}
-context.put("unpostedTransTotalList", unpostedTransTotalList);
+context.unpostedTransTotalList = unpostedTransTotalList;
+context.postedAndUnpostedTransTotalList = postedAndUnpostedTransTotalList;
