@@ -29,6 +29,8 @@ under the License.
       <div>${uiLabelMap.WebtoolsForSomethingInteresting}.</div>
       <br />
       <div>${uiLabelMap.WebtoolsNoteAntRunInstall}</div>
+      <br />
+      <div><a href="<@ofbizUrl>checkLogin</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></div>
     </#if>
     <#if userLogin?has_content>
       <ul class="webToolList">
