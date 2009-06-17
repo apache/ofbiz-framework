@@ -423,6 +423,10 @@ public class CheckOutEvents {
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map callResult;
 
+        if (UtilValidate.isEmpty(userLogin)) {
+            userLogin = cart.getUserLogin();
+            session.setAttribute("userLogin", userLogin);
+        }
         // remove this whenever creating an order so quick reorder cache will refresh/recalc
         session.removeAttribute("_QUICK_REORDER_PRODUCTS_");
 
