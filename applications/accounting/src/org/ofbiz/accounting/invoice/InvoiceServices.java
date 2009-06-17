@@ -1294,7 +1294,11 @@ public class InvoiceServices {
                 if (billAvail != null && billAvail.signum() == 1) { // this checks if billAvail is a positive non-zero number
                     if (issueQty != null && issueQty.compareTo(billAvail) > 0) {
                         // can only bill some of the issuance; others have been billed already
-                        issue.set("quantity", billAvail);
+                        if ("ShipmentReceipt".equals(issue.getEntityName())) {
+                            issue.set("quantityAccepted", billAvail);
+                        } else {
+                            issue.set("quantity", billAvail);
+                        }
                         billAvail = ZERO;
                     } else {
                         // now have been billed
