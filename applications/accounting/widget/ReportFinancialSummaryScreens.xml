@@ -568,6 +568,16 @@ under the License.
                                 </container>
                             </container>
                         </container>
+                         <container style="screenlet">            
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
+                                </container>    
+                                <container style="screenlet-body">
+                                    <include-form name="PostedAndUnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                               
+                                </container>
+                            </container>          
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
