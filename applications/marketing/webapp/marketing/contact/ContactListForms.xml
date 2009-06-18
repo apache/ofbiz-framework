@@ -146,8 +146,10 @@ under the License.
 
         <field name="contactListId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.MarketingContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field use-when="partyId!=null" name="partyId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="fromDate!=null" name="fromDate" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
 
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CLPT_PENDING">
@@ -164,8 +166,10 @@ under the License.
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field use-when="partyId!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
      </form>
+    
 
     <form name="FindContactListParties" type="single" target="ListContactListParties" title=""
         header-row-style="header-row" default-table-style="basic-table">
