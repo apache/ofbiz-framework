@@ -136,6 +136,18 @@ under the License.
         <#if headerImageUrl?exists>
           <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${headerImageUrl}</@ofbizContentUrl>"/></a></li>
         </#if>
+        <li width=20/>
+        <#if layoutSettings.middleTopMessage1?exists && layoutSettings.middleTopMessage1 != " ">
+          <li class=h4>
+          <table width="350px">
+          <tr><td>
+          <center>${layoutSettings.middleTopHeader?if_exists}</center>
+          <a href="/myportal/control/showPortlet?portalPortletId=${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
+          <a href="/myportal/control/showPortlet?portalPortletId=${layoutSettings.middleTopLink2?if_exists}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
+          <a href="/myportal/control/showPortlet?portalPortletId=${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
+          </td></tr></table>
+          </li>
+        </#if>
         <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
           <#if userLogin?exists>
             <p class="expanded">

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="createSystemInfoNote" short-description="Create a system to to a specific party">
+
+        <!-- new communication events -->
+        <if-compare field="parameters.entityName" value="CommunicationEvent" operator="equals">
+            <entity-one entity-name="CommunicationEvent" value-field="comm">
+                <field-map field-name="communicationEventId" from-field="parameters.entityNameId"/>
+            </entity-one>
+            <entity-and entity-name="CommunicationEventRole" list="roles">
+                <field-map field-name="communicationEventId" from-field="parameters.entityNameId"/>
+            </entity-and>
+            <if-not-empty field="roles">
+                <iterate entry="role" list="roles">
+                    <if-compare field="role.statusId" value="COM_ROLE_CREATED" operator="equals">
+                        <make-value value-field="noteData" entity-name="NoteData"/>
+                        <set field="noteData.noteParty" from-field="role.partyId"/>
+                        <set field="noteData.noteName" value="SYSTEMNOTE"/>
+                        <now-timestamp field="noteData.noteDateTime"/>
+                        <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+                        <set field="noteData.noteInfo" value="New incoming communication event: ${comm.subject} from ${comm.partyIdFrom}"/>
+                        <set field="noteData.moreInfoPortletId" value="MyCommunications"/>
+                        <create-value value-field="noteData"/>
+                    </if-compare>
+                </iterate>
+            </if-not-empty>
+        </if-compare>
+        
+        <!-- new task assignments for the logged on user -->
+        <if-compare field="parameters.entityName" value="WorkEffortPartyAssignment" operator="equals">
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <make-value value-field="noteData" entity-name="NoteData"/>
+            <set field="noteData.noteParty" from-field="parameters.partyId"/>
+            <set field="noteData.noteName" value="SYSTEMNOTE"/>
+            <now-timestamp field="noteData.noteDateTime"/>
+            <set field="noteData.noteInfo" value="New task assignment '${workEffort,workEffortName}' [${parameters.workEffortId}]"/>
+            <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+            <set field="noteData.moreInfoPortletId" value="mytasks"/>
+            <create-value value-field="noteData"/>
+        </if-compare>
+    
+    </simple-method>
+
+    <simple-method method-name="getSystemInfoStatus" short-description="">
+        <!-- communication events -->
+        <entity-count entity-name="CommunicationEventRole" count-field="comCount">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="COM_ROLE_COMPLETED"/>    
+            </condition-list>
+        </entity-count>
+        <entity-condition entity-name="CommunicationEventAndRole" list="comms">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="COM_ROLE_COMPLETED"/>    
+            </condition-list>
+            <order-by field-name="-entryDate"/>
+        </entity-condition>
+        <if-compare field="comCount" value="0" operator="greater">
+            <set field="status.noteInfo" value="Open communication events: ${comCount}"/>
+            <first-from-list entry="comm" list="comms"/>
+            <set field="status.noteDateTime" from-field="comm.entryDate"/>
+            <field-to-list field="status" list="systemInfoStatus"/>
+            <clear-field field="status"/>
+        </if-compare>
+        <!-- assigned tasks -->
+        <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
+            <field-map field-name="statusId" value="PAS_ASSIGNED"/>
+            <order-by field-name="-fromDate"/>
+        </entity-and>
+        <entity-count entity-name="WorkEffortPartyAssignment" count-field="assignCount">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PAS_ASSIGNED"/>
+            </condition-list>
+        </entity-count>            
+        <if-compare field="assignCount" value="0" operator="greater">
+            <set field="status.noteInfo" value="Assigned and not completed tasks: ${assignCount}"/>
+            <first-from-list entry="assign" list="assigns"/>
+            <set field="status.noteDateTime" from-field="assign.fromDate"/>
+            <field-to-list field="status" list="systemInfoStatus"/>
+        </if-compare>
+        
+        <!-- return result -->
+        <if-not-empty field="systemInfoStatus">
+            <field-to-result field="systemInfoStatus"/>
+        </if-not-empty>
+        
+    </simple-method>
+    <simple-method method-name="getSystemInfoNotes" short-description="">
+        <entity-and entity-name="NoteData" list="systemInfoNotes">
+            <field-map field-name="noteParty" from-field="parameters.userLogin.partyId"/>
+            <field-map field-name="noteName" value="SYSTEMNOTE"/>
+            <order-by field-name="-noteDateTime"/>
+        </entity-and>
+        <if-not-empty field="systemInfoNotes">
+            <field-to-result field="systemInfoNotes"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="getLastSystemInfoNote" short-description="">
+        <entity-and entity-name="NoteData" list="systemInfoNotes">
+            <field-map field-name="noteParty" from-field="parameters.userLogin.partyId"/>
+            <field-map field-name="noteName" value="SYSTEMNOTE"/>
+            <order-by field-name="-noteDateTime"/>
+        </entity-and>
+        <if-not-empty field="systemInfoNotes">
+            <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]"/>
+            <field-to-result field="lastSystemInfoNote1"/>
+            <set field="lastSystemInfoNote2" from-field="systemInfoNotes[1]"/>
+            <field-to-result field="lastSystemInfoNote2"/>
+            <set field="lastSystemInfoNote3" from-field="systemInfoNotes[2]"/>
+            <field-to-result field="lastSystemInfoNote3"/>
+        </if-not-empty>
+    </simple-method>
+    
+</simple-methods>

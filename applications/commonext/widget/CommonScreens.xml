@@ -59,6 +59,22 @@ under the License.
                     </actions>
                     <widgets/>
                 </section>
+                <section>
+                    <condition>
+                        <not><if-empty field="userLogin"/></not>
+                    </condition>
+                    <actions>                
+                        <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
+                        <set field="layoutSettings.middleTopHeader" value="----------Last system notes----------"/>
+                        <set field="layoutSettings.middleTopMessage1" value="${date:dateTimeStr(resultNote.lastSystemInfoNote1.noteDateTime, timeZone, locale)} ${resultNote.lastSystemInfoNote1.noteInfo}"/>
+                        <set field="layoutSettings.middleTopLink1" from-field="resultNote.lastSystemInfoNote1.moreInfoPortletId"/>
+                        <set field="layoutSettings.middleTopMessage2" value="${date:dateTimeStr(resultNote.lastSystemInfoNote2.noteDateTime, timeZone, locale)} ${resultNote.lastSystemInfoNote2.noteInfo}"/>
+                        <set field="layoutSettings.middleTopLink2" from-field="resultNote.lastSystemInfoNote2.moreInfoPortletId"/>
+                        <set field="layoutSettings.middleTopMessage3" value="${date:dateTimeStr(resultNote.lastSystemInfoNote3.noteDateTime, timeZone, locale)} ${resultNote.lastSystemInfoNote3.noteInfo}"/>
+                        <set field="layoutSettings.middleTopLink3" from-field="resultNote.lastSystemInfoNote3.moreInfoPortletId"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
