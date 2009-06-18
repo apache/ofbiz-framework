@@ -18,17 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -38,16 +34,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.FileUtil;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericDelegator;
@@ -367,7 +359,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
-    	// FIXME: copy those code from HtmlScreenRenderer.java
     	Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         //Boolean nullThruDatesOnly = Boolean.valueOf(false);
         String mimeTypeId = "text/html";
@@ -519,8 +510,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-    	 // FIXME: copy those code from HtmlScreenRenderer.java
-    	 Locale locale = Locale.getDefault();
+         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
          String mimeTypeId = "text/html";
          String expandedContentId = content.getContentId(context);
          String expandedMapKey = content.getMapKey(context);
