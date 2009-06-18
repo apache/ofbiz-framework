@@ -552,7 +552,7 @@
         <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" target="EditTaskPartyAssigns"/><!-- this used for tasks , partyId not yet selected-->
         <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" target="createTaskPartyAssign"/><!-- this used for tasks , partyId selected-->
         <field name="projectId"><hidden/></field>
-        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null"><!-- project level -->
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
