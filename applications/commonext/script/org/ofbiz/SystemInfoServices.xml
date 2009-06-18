@@ -81,25 +81,29 @@ under the License.
             <set field="status.noteInfo" value="Open communication events: ${comCount}"/>
             <first-from-list entry="comm" list="comms"/>
             <set field="status.noteDateTime" from-field="comm.entryDate"/>
+            <set field="status.moreInfoPortletId" value="MyCommunications"/>
             <field-to-list field="status" list="systemInfoStatus"/>
             <clear-field field="status"/>
         </if-compare>
         <!-- assigned tasks -->
-        <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
-            <field-map field-name="partyId" from-field="userLogin.partyId"/>
+        <entity-and entity-name="WorkEffortAndPartyAssign" list="assigns" filter-by-date="true">
+            <field-map field-name="partyId" from-field="parameters.userLogin.partyId"/>
             <field-map field-name="statusId" value="PAS_ASSIGNED"/>
+            <field-map field-name="workEffortTypeId" value="TASK"/>
             <order-by field-name="-fromDate"/>
         </entity-and>
-        <entity-count entity-name="WorkEffortPartyAssignment" count-field="assignCount">
+        <entity-count entity-name="WorkEffortAndPartyAssign" count-field="assignCount">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
-                <condition-expr field-name="statusId" operator="not-equals" value="PAS_ASSIGNED"/>
+                <condition-expr field-name="partyId"  operator="equals" from-field="parameters.userLogin.partyId"/>
+                <condition-expr field-name="statusId" operator="equals" value="PAS_ASSIGNED"/>
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="TASK"/>
             </condition-list>
         </entity-count>            
         <if-compare field="assignCount" value="0" operator="greater">
             <set field="status.noteInfo" value="Assigned and not completed tasks: ${assignCount}"/>
             <first-from-list entry="assign" list="assigns"/>
             <set field="status.noteDateTime" from-field="assign.fromDate"/>
+            <set field="status.moreInfoPortletId" value="mytasks"/>
             <field-to-list field="status" list="systemInfoStatus"/>
         </if-compare>
         
@@ -127,11 +131,11 @@ under the License.
             <order-by field-name="-noteDateTime"/>
         </entity-and>
         <if-not-empty field="systemInfoNotes">
-            <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]"/>
+            <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]" default-value=""/>
             <field-to-result field="lastSystemInfoNote1"/>
-            <set field="lastSystemInfoNote2" from-field="systemInfoNotes[1]"/>
+            <set field="lastSystemInfoNote2" from-field="systemInfoNotes[1]" default-value=""/>
             <field-to-result field="lastSystemInfoNote2"/>
-            <set field="lastSystemInfoNote3" from-field="systemInfoNotes[2]"/>
+            <set field="lastSystemInfoNote3" from-field="systemInfoNotes[2]" default-value=""/>
             <field-to-result field="lastSystemInfoNote3"/>
         </if-not-empty>
     </simple-method>
