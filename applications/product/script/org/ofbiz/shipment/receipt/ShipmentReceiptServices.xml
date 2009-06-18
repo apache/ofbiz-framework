@@ -313,25 +313,155 @@ under the License.
             </if-compare>
         </if-compare>
     </simple-method>
+    
+    <simple-method method-name="issueOrderItemToShipmentAndReceiveAgainstPO" short-description="Issues order item quantity specified to the shipment, then receives inventory for that item and quantity">
+        <set value="Issue OrderItem to Shipment and Receive against PO" field="operationName"/>
+        <check-permission permission="FACILITY" action="_CREATE">
+            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+        <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
 
-    <simple-method method-name="updatePoOnReceiveInventory" short-description="Update order items if quantity received is higher than quantity on purchase order">
-        <set field="quantityAccepted" from-field="parameters.quantityAccepted" type="BigDecimal"/>
-        <entity-one entity-name="OrderItem" value-field="orderItem"/>
-        <if-compare-field field="orderItem.quantity" operator="less" to-field="quantityAccepted" type="BigDecimal">
-            <set field="orderItem.quantity" from-field="quantityAccepted"/>
-            <store-value  value-field="orderItem"/>
-        </if-compare-field>
-        <entity-and entity-name="ItemIssuance" list="itemIssuances">
-            <field-map field-name="orderId" from-field="parameters.orderId"/>
-            <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
-        </entity-and>
-        <first-from-list list="itemIssuances" entry="itemIssuance"/>
-        <if-not-empty field="itemIssuance">
-            <if-compare-field field="itemIssuance.quantity"  operator="less" to-field="quantityAccepted" type="BigDecimal">
-                <set field="itemIssuance.quantity" from-field="quantityAccepted"/>
-                <set-service-fields service-name="updateItemIssuance" map="itemIssuance" to-map="updateItemIssuanceMap"/>
-                <call-service service-name="updateItemIssuance" in-map-name="updateItemIssuanceMap"/>
+        <!-- get orderItem -->
+        <entity-one entity-name="OrderItem" value-field="orderItem" auto-field-map="true"/>
+        <!-- get orderItemShipGroupAssoc -->
+        <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc" auto-field-map="true"/>
+        <!-- get shipment -->
+        <entity-one entity-name="Shipment" value-field="shipment" auto-field-map="true"/>
+        
+        <!-- try to find an existing shipmentItem and attach to it, if none found create a new shipmentItem -->
+        <!-- if there is NO productId on the orderItem, ALWAYS create a new shipmentItem -->
+        <if-not-empty field="orderItem.productId">
+            <entity-condition entity-name="ShipmentItem" list="shipmentItems">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="orderItem.productId"/>
+                    <condition-expr field-name="shipmentId" from-field="shipment.shipmentId"/>
+                    <condition-expr field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId" ignore-if-empty="true"/>
+                </condition-list>
+                <order-by field-name="shipmentItemSeqId"/>
+            </entity-condition>
+            <first-from-list entry="shipmentItem" list="shipmentItems"/>
+        </if-not-empty>
+
+        <if-empty field="shipmentItem">
+            <set from-field="orderItem.productId" field="shipmentItemCreate.productId"/>
+            <set from-field="parameters.shipmentId" field="shipmentItemCreate.shipmentId"/>
+            <set from-field="parameters.quantity" field="shipmentItemCreate.quantity"/>
+            <call-service service-name="createShipmentItem" in-map-name="shipmentItemCreate">
+                <result-to-field result-name="shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
+            </call-service>
+            <set from-field="parameters.shipmentId" field="shipmentItemLookupPk.shipmentId"/>
+            <find-by-primary-key entity-name="ShipmentItem" map="shipmentItemLookupPk" value-field="shipmentItem"/>
+            
+            <!-- Create ItemIssuance for this ShipmentItem -->
+            <set from-field="parameters.quantity" field="itemIssuanceCreate.quantity"/>
+            <set from-field="shipmentItem.shipmentId" field="itemIssuanceCreate.shipmentId"/>
+            <set from-field="shipmentItem.shipmentItemSeqId" field="itemIssuanceCreate.shipmentItemSeqId"/>
+            <set from-field="orderItem.orderId" field="itemIssuanceCreate.orderId"/>
+            <set from-field="orderItem.orderItemSeqId" field="itemIssuanceCreate.orderItemSeqId"/>
+            
+            <if-not-empty field="orderItemShipGroupAssoc">
+                <!-- If we have a ShipGroup Assoc for this Item to focus on, set that; this is mostly the case for purchase orders and such -->
+                <set from-field="orderItemShipGroupAssoc.shipGroupSeqId" field="itemIssuanceCreate.shipGroupSeqId"/>
+            </if-not-empty>
+
+            <set from-field="userLogin.userLoginId" field="itemIssuanceCreate.issuedByUserLoginId"/>
+            <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
+                <result-to-field result-name="itemIssuanceId"/>
+            </call-service>
+        <else>
+            <call-simple-method method-name="getTotalIssuedQuantityForOrderItem" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
+            <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
+            <set field="receivedQuantity" value="${receivedQuantity + parameters.quantity}" type="BigDecimal"/>
+            <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
+                <set field="quantityToAdd" value="${receivedQuantity - totalIssuedQuantity}" type="BigDecimal"/>
+                <set field="shipmentItem.quantity" value="${shipmentItem.quantity + quantityToAdd}" type="BigDecimal"/>
+                <store-value value-field="shipmentItem"/>
+                <set field="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
+                
+                <entity-and list="itemIssuances" entity-name="ItemIssuance">
+                    <field-map field-name="orderId" from-field="orderItem.orderId"/>
+                    <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                    <field-map field-name="shipmentId" from-field="shipmentItem.shipmentId"/>
+                    <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
+                    <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroupAssoc.shipGroupSeqId"/>
+                    <order-by field-name="-issuedDateTime"/>
+                </entity-and>
+                <first-from-list entry="itemIssuance" list="itemIssuances"/>
+                <set field="itemIssuance.quantity" value="${itemIssuance.quantity + quantityToAdd}" type="BigDecimal"/>
+                <store-value value-field="itemIssuance"/>
+                <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
             </if-compare-field>
+        </else>
+        </if-empty>
+
+        <call-simple-method method-name="associateIssueRoles" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
+
+        <set-service-fields service-name="receiveInventoryProduct" map="parameters" to-map="receiveInventoryProductCtx"/>
+        <set field="receiveInventoryProductCtx.shipmentItemSeqId" from-field="shipmentItemSeqId"/>
+        <set field="receiveInventoryProductCtx.itemIssuanceId" from-field="itemIssuanceId"/>
+        <call-service service-name="receiveInventoryProduct" in-map-name="receiveInventoryProductCtx">
+            <result-to-result result-name="inventoryItemId"/>
+        </call-service>
+    </simple-method>
+    
+    <simple-method method-name="getReceivedQuantityForOrderItem" short-description="Computes the till now received quantity from all ShipmentReceipts">
+        <set field="receivedQuantity" type="BigDecimal" value="0"/>
+        <entity-and list="shipmentReceipts" entity-name="ShipmentReceipt">
+            <field-map field-name="orderId" from-field="orderItem.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+        </entity-and>
+        <iterate entry="shipmentReceipt" list="shipmentReceipts">
+            <set field="receivedQuantity" value="${receivedQuantity + shipmentReceipt.quantityAccepted}" type="BigDecimal"/>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="updateIssuanceShipmentAndPoOnReceiveInventory" short-description="Update issuance, shipment and order items if quantity received is higher than quantity on purchase order">
+        <entity-one value-field="orderItem" entity-name="OrderItem"/>
+        <set field="unitCost" from-field="parameters.unitCost" type="BigDecimal"/>
+        <if-compare-field field="unitCost" operator="not-equals" to-field="orderItem.unitPrice">
+            <set field="orderItem.unitPrice" from-field="unitCost"/>
+            <store-value value-field="orderItem"/>
+        </if-compare-field>
+        <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
+        <if-compare-field field="orderItem.quantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
+            <set field="orderItem.quantity" from-field="receivedQuantity"/>
+            <store-value value-field="orderItem"/>
+        </if-compare-field>
+        <if-not-empty field="parameters.shipmentId">
+            <if-not-empty field="orderItem.productId">
+                <call-simple-method method-name="getTotalIssuedQuantityForOrderItem" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
+                <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
+                    <set field="quantityToAdd" value="${receivedQuantity - totalIssuedQuantity}" type="BigDecimal"/>
+                    <entity-condition entity-name="ShipmentItem" list="shipmentItems">
+                        <condition-list combine="and">
+                            <condition-expr field-name="productId" from-field="orderItem.productId"/>
+                            <condition-expr field-name="shipmentId" from-field="parameters.shipmentId"/>
+                            <condition-expr field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId" ignore-if-empty="true"/>
+                        </condition-list>
+                        <order-by field-name="shipmentItemSeqId"/>
+                    </entity-condition>
+                    <first-from-list entry="shipmentItem" list="shipmentItems"/>
+                    <set field="shipmentItem.quantity" value="${shipmentItem.quantity + quantityToAdd}" type="BigDecimal"/>
+                    <store-value value-field="shipmentItem"/>
+                    
+                    <entity-and list="itemIssuances" entity-name="ItemIssuance">
+                        <field-map field-name="orderId" from-field="parameters.orderId"/>
+                        <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                        <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
+                        <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
+                        <order-by field-name="-issuedDateTime"/>
+                    </entity-and>
+                    <first-from-list entry="itemIssuance" list="itemIssuances"/>
+                    <set field="itemIssuance.quantity" value="${itemIssuance.quantity + quantityToAdd}" type="BigDecimal"/>
+                    <store-value value-field="itemIssuance"/>
+                    
+                    <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
+                    <call-simple-method method-name="associateIssueRoles" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
+                </if-compare-field>
+            </if-not-empty>
         </if-not-empty>
     </simple-method>
 
