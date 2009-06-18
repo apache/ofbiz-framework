@@ -120,9 +120,9 @@ public class UtilXml {
         return writer;
     }
 
-    /** Serializes a DOM Element to an <code>OutputStream</code> using DOM 3.
+    /** Serializes a DOM Node to an <code>OutputStream</code> using DOM 3.
      * @param os The <code>OutputStream</code> instance to write to
-     * @param element The DOM <code>Element</code> object to be serialized
+     * @param node The DOM <code>Node</code> object to be serialized
      * @param encoding Optional character encoding
      * @param includeXmlDeclaration If set to <code>true</code>,
      * the xml declaration will be included in the output
@@ -135,11 +135,11 @@ public class UtilXml {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static void writeXmlDocument(OutputStream os, Element element, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void writeXmlDocument(OutputStream os, Node node, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationLS impl = getDomLsImplementation();
         LSOutput out = createLSOutput(impl, os, encoding);
         LSSerializer writer = createLSSerializer(impl, includeXmlDeclaration, enablePrettyPrint);
-        writer.write(element, out);
+        writer.write(node, out);
     }
 
     // ----- TrAX Methods ----------------- //
