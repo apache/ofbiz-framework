@@ -199,7 +199,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
-    	HttpServletResponse response = (HttpServletResponse) context.get("response");
+        HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
 
         String targetWindow = link.getTargetWindow(context);
@@ -212,7 +212,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String actionUrl = "";
         StringBuilder parameters=new StringBuilder();
         if ("hidden-form".equals(linkType)) {
-        	StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             actionUrl = sb.toString();
@@ -247,8 +247,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         ModelScreenWidget.Image img = link.getImage();
         if (img == null) {
             StringBuilder sb = new StringBuilder();
-        	renderImage(sb,context,img);
-        	imgStr = sb.toString();
+            renderImage(sb,context,img);
+            imgStr = sb.toString();
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderLink ");
@@ -281,8 +281,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
-    	if ( image == null)
-    	    return ;
+        if ( image == null)
+            return ;
         String src = image.getSrc(context);
         String id = image.getId(context);
         String style = image.getStyle(context);
@@ -304,7 +304,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
             } else {
-            	urlString = src;
+                urlString = src;
             }
         } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
             if (request != null && response != null) {
@@ -314,7 +314,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 urlString = newURL.toString();
             }
         } else {
-        	urlString = src;
+            urlString = src;
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderImage ");
@@ -339,7 +339,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
-    	 String editRequest = content.getEditRequest(context);
+         String editRequest = content.getEditRequest(context);
          String editContainerStyle = content.getEditContainerStyle(context);
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
@@ -359,7 +359,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
-    	Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         //Boolean nullThruDatesOnly = Boolean.valueOf(false);
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
@@ -492,7 +492,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-    	 String editRequest = content.getEditRequest(context);
+         String editRequest = content.getEditRequest(context);
          String editContainerStyle = content.getEditContainerStyle(context);
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
@@ -558,7 +558,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-    	 String editMode = "Edit";
+         String editMode = "Edit";
          String editRequest = content.getEditRequest(context);
          String editContainerStyle = content.getEditContainerStyle(context);
          String enableEditName = content.getEnableEditName(context);
@@ -623,7 +623,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String menuString = "";
         boolean showMore = false;
         if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || collapsible) {
-        	showMore = true;
+            showMore = true;
             if (collapsible) {
                 collapsibleAreaId = this.getNextElementId();
                 Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
@@ -640,7 +640,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 }
             }
             if (!collapsed) {
-            	StringWriter sb = new StringWriter();
+                StringWriter sb = new StringWriter();
                 if (navMenu != null) {
                     MenuStringRenderer savedRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
                     MenuStringRenderer renderer = new ScreenletMenuRenderer(request, response);
