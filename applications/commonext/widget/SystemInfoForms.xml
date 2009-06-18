@@ -27,7 +27,7 @@ under the License.
             <service service-name="getSystemInfoNotes" result-map-list="systemInfoNotes"/>
         </actions>
         <field name="noteDateTime" title="Date info created"><display/></field>
-        <field name="noteInfo" title="System Info Note"><hyperlink target="/myportal/control/showPortlet?portalPortletId=${moreInfoPortletId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
+        <field name="noteInfo" title="System Info Note"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
     </form>
 
     <form name="SystemInfoStatus" type="list" list-name="systemInfoStatus"
@@ -36,6 +36,6 @@ under the License.
             <service service-name="getSystemInfoStatus" result-map-list="systemInfoStatus"/>
         </actions>
         <field name="noteDateTime" title="Date Last Changed"><display/></field>
-        <field name="noteInfo" title="Item info"><hyperlink target="${moreInfoUrl}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
+        <field name="noteInfo" title="System Info Status"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
     </form>
 </forms>

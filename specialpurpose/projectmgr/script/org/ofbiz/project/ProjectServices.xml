@@ -433,7 +433,7 @@
                                     </else>
                                 </if-not-empty>
                                 <call-simple-method method-name="updateTimeEntry"/>
-                                <set field="parameters.hoursDay${dayNumber}" value="-999999"/>
+                                <set field="parameters.hoursDay${dayNumber}" value="-999999" type="Double"/>
                             </else>
                         </if-not-empty>
                     </if-compare-field>

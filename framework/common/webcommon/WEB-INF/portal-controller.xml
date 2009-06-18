@@ -28,6 +28,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showPortlet"/>
     </request-map>
+    <request-map uri="showPortletDecorator">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showPortletDecorator"/>
+    </request-map>
     <request-map uri="showPortalPage">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showPortalPage" save-home-view="true"/>
@@ -123,6 +127,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="showPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortlet"/>
+    <view-map name="showPortletDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletDecorator"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
     <view-map name="AddPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
 </site-conf>
