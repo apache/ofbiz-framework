@@ -21,6 +21,28 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+    <screen name="showPortlet">
+        <section>
+            <actions>
+                <set field="headerItem" from-field="parameters.portletId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPortlet" value-field="portlet"/>
+                            </actions>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortlet.ftl"/></html></platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="showPortalPage">
         <section>
             <actions>
@@ -51,7 +73,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="ManagePortalPages">
         <section>
             <actions>

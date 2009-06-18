@@ -233,7 +233,8 @@ under the License.
         short-description="Update a CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
         <if-compare-field to-field="parameters.statusId" operator="not-equals" field="event.statusId">
-            <call-simple-method method-name="setCommunicationEventStatus"/>
+            <set field="newStatusId" from-field="parameters.statusId"/>
+            <set field="parameters.statusId" from-field="event.statusId"/>
         </if-compare-field>
         <!-- get partyId from email address if required -->
         <if-empty field="parameters.partyIdTo">
@@ -310,6 +311,12 @@ under the License.
         </if>
         <set-nonpk-fields map="parameters" value-field="event"/>
         <store-value value-field="event"/>
+        <!-- set status at the end if required with the com event completed -->
+        <if-not-empty field="newStatusId">
+            <set field="parameters.statusId" from-field="newStatusId"/>
+            <set-service-fields service-name="setCommunicationEventStatus" map="parameters" to-map="newStat"/>
+            <call-service service-name="setCommunicationEventStatus" in-map-name="newStat"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="deleteCommunicationEvent" short-description="Delete a CommunicationEvent">
@@ -543,7 +550,7 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <add-error><fail-message message="Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}"/></add-error>
                 <log level="error" message="Cannot change from ${communicationEvent.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>

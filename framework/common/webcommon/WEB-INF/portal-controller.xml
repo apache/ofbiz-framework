@@ -24,6 +24,10 @@ under the License.
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
 
     <!-- Portal requests -->
+    <request-map uri="showPortlet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showPortlet"/>
+    </request-map>
     <request-map uri="showPortalPage">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showPortalPage" save-home-view="true"/>
@@ -118,6 +122,7 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
+    <view-map name="showPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortlet"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
     <view-map name="AddPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
 </site-conf>

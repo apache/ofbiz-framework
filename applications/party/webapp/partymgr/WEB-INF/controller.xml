@@ -721,6 +721,10 @@ under the License.
         <event type="service" invoke="setCommEventRoleToRead"/>
         <response name="success" type="view" value="ViewCommunicationEvent"/>
     </request-map>
+    <request-map uri="viewCommunicationEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
     <request-map uri="addContentToCommEvent">
         <security https="true" auth="true"/>
         <event type="simple" invoke="addContentToCommEvent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
