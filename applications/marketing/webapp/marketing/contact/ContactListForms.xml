@@ -219,12 +219,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="expireLink" title=" " widget-style="buttontext">            
-            <hyperlink target="updateContactListParty/ListContactListParties" description="${uiLabelMap.CommonExpire}"  link-type="hidden-form" also-hidden="false">                
+            <hyperlink target="expireContactListParty" description="${uiLabelMap.CommonExpire}"  link-type="hidden-form" also-hidden="false">                
                 <parameter param-name="contactListId"/>                
                 <parameter param-name="partyId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="donePage"/>                
                 <parameter param-name="thruDate" value="${nowTimestamp}"/>
+                <parameter param-name="hideExpired" value="Y"/>
             </hyperlink>
         </field>
     </form>
