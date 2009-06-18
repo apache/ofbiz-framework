@@ -709,12 +709,11 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
 
-    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="group" auth="true">
+    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="simple" transaction-timeout="600"
+            location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
         <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
-        <group>
-            <invoke name="issueOrderItemToShipment" result-to-context="true"/>
-            <invoke name="receiveInventoryProduct" result-to-context="true"/>
-        </group>
+        <implements service="issueOrderItemToShipment"/>
+        <implements service="receiveInventoryProduct"/>
     </service>
 
     <service name="quickReceiveReturn" engine="simple"
@@ -874,5 +873,15 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT"/>
+    </service>
+    <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="simple"
+            location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="updateIssuanceShipmentAndPoOnReceiveInventory">
+        <description>Update issuance, shipment and order items if quantity received is higher than quantity on purchase order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="unitCost" type="String" mode="IN" optional="false"/>
     </service>
 </services>

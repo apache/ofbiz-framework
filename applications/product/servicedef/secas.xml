@@ -117,4 +117,10 @@ under the License.
         <condition field-name="orderIdList" operator="is-not-empty"/>
         <action service="convertPickOrderIdListToHeaders" mode="sync"/>
     </eca>
+    
+    <eca service="receiveInventoryProduct" event="commit">
+        <condition field-name="facilityId" operator="is-not-empty"/>
+        <condition field-name="orderId" operator="is-not-empty"/>
+        <action service="updateIssuanceShipmentAndPoOnReceiveInventory" mode="sync"/>
+    </eca>
 </service-eca>

@@ -126,7 +126,7 @@ under the License.
         <entity-one entity-name="Shipment" value-field="shipment" auto-field-map="true"/>
 
         <call-simple-method method-name="findCreateIssueShipmentItem"/>
-        <call-simple-method method-name="callCreateItemIssuance"/>
+        <call-simple-method method-name="findCreateItemIssuance"/>
         <call-simple-method method-name="associateIssueRoles"/>
     </simple-method>
 
@@ -228,7 +228,7 @@ under the License.
         </if-compare>
 
         <!--<call-simple-method method-name="findCreateIssueShipmentItem"/>-->
-        <call-simple-method method-name="callCreateItemIssuance"/>
+        <call-simple-method method-name="findCreateItemIssuance"/>
         <call-simple-method method-name="associateIssueRoles"/>
 
         <!-- decrement quantity still reserved -->
@@ -307,7 +307,27 @@ under the License.
         </if-empty>
         <field-to-result field="shipmentItem.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
     </simple-method>
-    <simple-method method-name="callCreateItemIssuance" short-description="Call Create ItemIssuance - meant to be called in-line">
+    <simple-method method-name="findCreateItemIssuance" short-description="Find Create ItemIssuance - meant to be called in-line">
+        <!-- If a non-sales order find ItemIssuance for orderItemSeqId-shimentItemSeqId-shipGroupSeqId pair, update it and return -->
+        <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
+            <entity-and list="itemIssuances" entity-name="ItemIssuance">
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                <field-map field-name="shipmentId" from-field="shipmentItem.shipmentId"/>
+                <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
+                <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroupAssoc.shipGroupSeqId"/>
+                <order-by field-name="-issuedDateTime"/>
+            </entity-and>
+            <if-not-empty field="itemIssuances">
+                <first-from-list entry="itemIssuance" list="itemIssuances"/>
+                <set field="itemIssuance.quantity" value="${itemIssuance.quantity + parameters.quantity}" type="BigDecimal"/>
+                <store-value value-field="itemIssuance"/>
+                <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
+                <field-to-result field="itemIssuanceId"/>
+                <return/>
+            </if-not-empty>
+        </if-compare>
+        
         <!-- create the ItemIssuance -->
         <set from-field="parameters.quantity" field="itemIssuanceCreate.quantity"/>
         <set from-field="shipmentItem.shipmentId" field="itemIssuanceCreate.shipmentId"/>
@@ -556,5 +576,15 @@ under the License.
             <calcop field="parameters.quantity" operator="negative"/>
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+    </simple-method>
+    <simple-method method-name="getTotalIssuedQuantityForOrderItem" short-description="Computes the total issued quantity for an order item">
+        <set field="totalIssuedQuantity" type="BigDecimal" value="0"/>
+        <entity-and list="allItemIssuances" entity-name="ItemIssuance">
+            <field-map field-name="orderId" from-field="orderItem.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+        </entity-and>
+        <iterate entry="itemIssuance" list="allItemIssuances">
+            <set field="totalIssuedQuantity" value="${totalIssuedQuantity + itemIssuance.quantity}" type="BigDecimal"/>
+        </iterate>
     </simple-method>
 </simple-methods>
