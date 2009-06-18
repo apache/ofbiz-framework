@@ -311,7 +311,9 @@ under the License.
     <request-map uri="updateContactListParty">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateContactListParty"/>
+        
         <response name="success" type="view" value="EditContactListParty"/>
+        
         <response name="error" type="view" value="EditContactListParty"/>
     </request-map>
     <request-map uri="removeContactListParty">
@@ -350,6 +352,16 @@ under the License.
         <response name="success" type="view" value="ListContactListCommEvents"/>
         <response name="error" type="view" value="ListContactListCommEvents"/>
     </request-map>     
+    <request-map uri="expireContactListParty">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateContactListParty"/>
+        <response name="success" type="request-redirect" value="ListContactListParties">
+            <redirect-parameter name="contactListId"/>
+            <redirect-parameter name="hideExpired"/>
+        </response>
+        <response name="error" type="view" value="ListContactListParties"/>
+    </request-map>
+    
 
     <!-- Lookup request mappings -->
     <request-map uri="LookupSegmentGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupSegmentGroup"/></request-map>
