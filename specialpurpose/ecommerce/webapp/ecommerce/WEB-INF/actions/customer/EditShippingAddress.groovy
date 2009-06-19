@@ -31,6 +31,8 @@ if (userLogin) {
         postalAddress = contactMech.getRelatedOne("PostalAddress");
         context.shipToContactMechId = postalAddress.contactMechId;
 
+        context.shipToName = postalAddress.toName;
+        context.shipToAttnName = postalAddress.attnName;
         context.shipToAddress1 = postalAddress.address1;
         context.shipToAddress2 = postalAddress.address2;
         context.shipToCity = postalAddress.city;

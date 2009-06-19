@@ -28,6 +28,8 @@ if (userLogin) {
         postalAddress = contactMech.getRelatedOne("PostalAddress");
         billToContactMechId = postalAddress.contactMechId;
         context.billToContactMechId = billToContactMechId;
+        context.billToName = postalAddress.toName;
+        context.billToAttnName = postalAddress.attnName; 
         context.billToAddress1 = postalAddress.address1;
         context.billToAddress2 = postalAddress.address2;
         context.billToCity = postalAddress.city;
