@@ -22,7 +22,7 @@ under the License.
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createSystemInfoNote" short-description="Create a system to to a specific party">
-        <set field="partyId" from-field="parameters.partyId"/>
+        <set field="partyId" from-field="parameters.partyId" default-value="userLogin.partyId"/>
         <!-- new communication events -->
         <if-compare field="parameters.entityName" value="CommunicationEvent" operator="equals">
             <entity-one entity-name="CommunicationEvent" value-field="comm">

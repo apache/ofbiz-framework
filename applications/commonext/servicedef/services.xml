@@ -28,7 +28,7 @@ under the License.
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="createSystemInfoNote">
         <description>Create a system info note realted to a certain entityId</description>        
         <auto-attributes mode="IN" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/><!-- userLogin.partyId is default -->
         <attribute name="entityName" type="String" mode="IN"/>
         <attribute name="entityNameId" type="String" mode="IN"/>
     </service>
