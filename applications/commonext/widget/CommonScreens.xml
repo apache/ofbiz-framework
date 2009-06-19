@@ -66,11 +66,11 @@ under the License.
                     <actions>                
                         <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
                         <set field="layoutSettings.middleTopHeader" value="----------Last system notes----------"/>
-                        <set field="layoutSettings.middleTopMessage1" value="${date:dateTimeStr(resultNote.lastSystemInfoNote1.noteDateTime, timeZone, locale)} ${resultNote.lastSystemInfoNote1.noteInfo}"/>
+                        <set field="layoutSettings.middleTopMessage1" value="${groovy:resultNote.lastSystemInfoNote1!=null?resultNote.lastSystemInfoNote1.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote1.noteInfo:&quot;&quot;}"/>
                         <set field="layoutSettings.middleTopLink1" from-field="resultNote.lastSystemInfoNote1.moreInfoPortletId"/>
-                        <set field="layoutSettings.middleTopMessage2" value="${date:dateTimeStr(resultNote.lastSystemInfoNote2.noteDateTime, timeZone, locale)} ${resultNote.lastSystemInfoNote2.noteInfo}"/>
+                        <set field="layoutSettings.middleTopMessage2" value="${groovy:resultNote.lastSystemInfoNote2!=null?resultNote.lastSystemInfoNote2.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote2.noteInfo:&quot;&quot;}"/>
                         <set field="layoutSettings.middleTopLink2" from-field="resultNote.lastSystemInfoNote2.moreInfoPortletId"/>
-                        <set field="layoutSettings.middleTopMessage3" value="${date:dateTimeStr(resultNote.lastSystemInfoNote3.noteDateTime, timeZone, locale)} ${resultNote.lastSystemInfoNote3.noteInfo}"/>
+                        <set field="layoutSettings.middleTopMessage3" value="${groovy:resultNote.lastSystemInfoNote3!=null?resultNote.lastSystemInfoNote3.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote3.noteInfo:&quot;&quot;}"/>
                         <set field="layoutSettings.middleTopLink3" from-field="resultNote.lastSystemInfoNote3.moreInfoPortletId"/>
                     </actions>
                     <widgets/>
