@@ -145,12 +145,16 @@ public class ProductServices {
         // * String productId      -- Product ID to look up feature types
         GenericDelegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
+        String productFeatureApplTypeId = (String) context.get("productFeatureApplTypeId");
+        if (UtilValidate.isEmpty(productFeatureApplTypeId)) {
+            productFeatureApplTypeId = "SELECTABLE_FEATURE";
+        }
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
         Set<String> featureSet = new LinkedHashSet<String>();
 
         try {
-            Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
+            Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId);
             List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
             List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
             for (GenericValue v: features) {
