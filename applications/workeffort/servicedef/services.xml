@@ -669,13 +669,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateWorkEffortEventReminder" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="update" auth="true">
         <description>Update a WorkEffort Attribute</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteWorkEffortEventReminder" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a WorkEffort Attribute</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
