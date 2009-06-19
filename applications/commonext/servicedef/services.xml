@@ -26,10 +26,11 @@ under the License.
 
     <service name="createSystemInfoNote" engine="simple" default-entity-name="NoteData"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="createSystemInfoNote">
-        <description>Create a system info note</description>        
+        <description>Create a system info note realted to a certain entityId</description>        
         <auto-attributes mode="IN" optional="true"/>
-        <attribute name="entityName" type="String" mode="IN" optional="true"/>
-        <attribute name="entityNameId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="entityName" type="String" mode="IN"/>
+        <attribute name="entityNameId" type="String" mode="IN"/>
     </service>
     <service name="deleteAllSystemNotes" engine="simple" auth="true"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="deleteAllSystemNotes">
