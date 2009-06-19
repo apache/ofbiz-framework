@@ -44,8 +44,7 @@ under the License.
     <ElectronicText dataResourceId="CMSS_DEMO_HEADER">
         <textData><![CDATA[
             <div id="header">
-                <div>This is the header!</div>
-                <hr/>
+                <h1>This is the header!</h1>
             </div>
             ]]></textData>
     </ElectronicText>
@@ -56,8 +55,7 @@ under the License.
     <ElectronicText dataResourceId="CMSS_DEMO_FOOTER">
         <textData><![CDATA[
             <div id="footer">
-                <hr/>
-                <div>This is the footer!</div>
+                <h4>This is the footer!</h4>
             </div>
             </body>
             </html>
@@ -75,13 +73,15 @@ under the License.
     <ElectronicText dataResourceId="CMSS_DEMO_HOME">
         <textData><![CDATA[
             <div>
-                <h1>Welcome to the Home page.</h1>
-                <div><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1 - Hard Coded Link</a></div>
-                <div><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></div>
-                <div><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></div>
-                <div><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></div>
-                <div><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with belog using screen decorator</a></div>
-                <div><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></div>
+              <h1>Welcome to the Home page.</h1>
+              <ul>
+                <li><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1 - Hard Coded Link</a></div>
+                <li><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with belog using screen decorator</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></li>
+              </ul>  
             </div>
             ]]></textData>
     </ElectronicText>
