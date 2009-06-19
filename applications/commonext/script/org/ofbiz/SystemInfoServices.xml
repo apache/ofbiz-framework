@@ -22,7 +22,7 @@ under the License.
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createSystemInfoNote" short-description="Create a system to to a specific party">
-
+        <set field="partyId" from-field="parameters.partyId"/>
         <!-- new communication events -->
         <if-compare field="parameters.entityName" value="CommunicationEvent" operator="equals">
             <entity-one entity-name="CommunicationEvent" value-field="comm">
@@ -49,16 +49,22 @@ under the License.
         
         <!-- new task assignments for the logged on user -->
         <if-compare field="parameters.entityName" value="WorkEffortPartyAssignment" operator="equals">
-            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
+                <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
+            </entity-one>
             <make-value value-field="noteData" entity-name="NoteData"/>
-            <set field="noteData.noteParty" from-field="parameters.partyId"/>
+            <set field="noteData.noteParty" from-field="partyId"/>
             <set field="noteData.noteName" value="SYSTEMNOTE"/>
             <now-timestamp field="noteData.noteDateTime"/>
-            <set field="noteData.noteInfo" value="New task assignment '${workEffort,workEffortName}' [${parameters.workEffortId}]"/>
+            <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
             <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
             <set field="noteData.moreInfoPortletId" value="mytasks"/>
             <create-value value-field="noteData"/>
         </if-compare>
+        
+        <if-empty field="noteData">
+            <log level="error" message="No logic to create system note for entity name: ${parameters.entityName} "/>
+        </if-empty>
     
     </simple-method>
 

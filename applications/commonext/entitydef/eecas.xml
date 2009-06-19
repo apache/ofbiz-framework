@@ -23,8 +23,9 @@ under the License.
 
     <eca entity="WorkEffortPartyAssignment" operation="create-store" event="return">
         <condition field-name="statusId" operator="equals" value="PAS_ASSIGNED"/>
-        <set field-name="entityName" value="WorkEffortPartyAssign"/>
+        <set field-name="entityName" value="WorkEffortPartyAssignment"/>
         <set field-name="entityNameId" env-name="workEffortId"/>
+        <set field-name="partyId" env-name="userLogin.partyId"/>
         <action service="createSystemInfoNote" mode="sync"/>
     </eca>
 
