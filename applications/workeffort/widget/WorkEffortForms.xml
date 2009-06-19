@@ -1306,10 +1306,11 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="sequenceId"><hidden/></field>
         <field name="contactMechId"><display/></field>
+        <field name="partyId"><display/></field>
         <field name="reminderDateTime"><date-time/></field>
         <field name="repeatCount"><text/></field>
         <field name="repeatInterval"><text/></field>
-        <field name="reminderOffset"><text/></field>
+        <field name="reminderOffset"><lookup target-form-name="LookupTimeDuration"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortEventReminder">
@@ -1326,6 +1327,7 @@ under the License.
         <field name="localeId"><hidden value="${locale}"/></field>
         <field name="timeZoneId"><hidden value="${timeZone}"/></field>
         <field name="contactMechId"><lookup target-form-name="LookupContactMech"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="reminderDateTime"><date-time/></field>
         <field name="repeatCount"><text/></field>
         <field name="repeatInterval"><text/></field>
