@@ -31,7 +31,10 @@ under the License.
         <attribute name="entityName" type="String" mode="IN" optional="true"/>
         <attribute name="entityNameId" type="String" mode="IN" optional="true"/>
     </service>
-    
+    <service name="deleteAllSystemNotes" engine="simple" auth="true"
+        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="deleteAllSystemNotes">
+        <description>Delete all system notes for the logged on party</description>
+    </service>
     <service name="getSystemInfoNotes" engine="simple" auth="true"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getSystemInfoNotes">
         <description>Get system notes for the logged on party</description>
