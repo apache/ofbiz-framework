@@ -79,8 +79,8 @@ under the License.
               <tr>
                 <td colspan="2">&nbsp;</td>
                 <td colspan="2">
-                  <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
                   <a href="javascript:document.selectOrderForm.action='<@ofbizUrl>PackOrder</@ofbizUrl>';document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
+                  <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
                 </td>
               </tr>
             </table>
@@ -101,8 +101,8 @@ under the License.
               <tr>
                 <td colspan="2">&nbsp;</td>
                 <td colspan="1">
-                  <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
                   <a href="javascript:document.selectPicklistBinForm.action='<@ofbizUrl>PackOrder</@ofbizUrl>';document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
+                  <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
                 </td>
               </tr>
             </table>
