@@ -339,7 +339,7 @@ under the License.
     </request-map>
     <request-map uri="processShipSettings">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipSettings"/>
+        <event type="service" invoke="createUpdateShippingAddress"/>
         <response name="success" type="request" value="setShipOptions"/>
         <response name="error" type="view" value="shipsetting"/>
     </request-map>
