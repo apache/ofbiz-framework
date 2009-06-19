@@ -128,7 +128,9 @@ under the License.
 
         <!-- now create a new conversion relationship -->
         <set-service-fields to-map="createParams" service-name="createUomConversionDated" map="parameters"/>
-        <set from-field="nowTimestamp" field="createParams.fromDate"/>
+        <if-empty field="parameters.fromDate">
+            <set field="createParams.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
         <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
     </simple-method>
 </simple-methods>

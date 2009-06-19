@@ -293,6 +293,7 @@ under the License.
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
         <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
+        <attribute name="purposeEnumId" mode="IN" type="String" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
     <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"

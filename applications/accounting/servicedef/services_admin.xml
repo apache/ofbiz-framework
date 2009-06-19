@@ -72,6 +72,8 @@ under the License.
         <attribute type="BigDecimal" mode="IN" name="conversionFactor" optional="false"/>
         <attribute type="String" mode="IN" name="purposeEnumId" optional="true"/>
         <attribute type="Timestamp" mode="IN" name="asOfTimestamp" optional="true"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/> 
     </service>
 
     <service name="createGlAccountTypeDefault" engine="entity-auto" default-entity-name="GlAccountTypeDefault" invoke="create" auth="true">
