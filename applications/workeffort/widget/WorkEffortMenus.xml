@@ -144,5 +144,65 @@ under the License.
             <link target="newEvent"/>
         </menu-item>
     </menu>
-
+    <menu name="Day">
+        <menu-item name="next" title="${uiLabelMap.WorkEffortNextDay}">
+            <link target="week?start=${nextMillis}"/>
+        </menu-item>
+        <menu-item name="toDay" title="${uiLabelMap.CommonToday}">
+            <link target="day"/>
+        </menu-item>
+        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousDay}">
+            <link target="week?start=${prevMillis}"/>
+        </menu-item>
+    </menu>
+    <menu name="Week">
+        <menu-item name="next" title="${uiLabelMap.WorkEffortNextWeek}">
+            <link target="week?start=${nextMillis}"/>
+        </menu-item>
+        <menu-item name="thisWeek" title="${uiLabelMap.WorkEffortThisWeek}">
+            <link target="week"/>
+        </menu-item>
+        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousWeek}">
+            <link target="week?start=${prevMillis}"/>
+        </menu-item>
+    </menu>
+    <menu name="Month">
+        <menu-item name="next" title="${uiLabelMap.WorkEffortNextMonth}">
+            <link target="week?start=${nextMillis}"/>
+        </menu-item>
+        <menu-item name="thisMonth" title="${uiLabelMap.WorkEffortThisMonth}">
+            <link target="month"/>
+        </menu-item>
+        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousMonth}">
+            <link target="week?start=${prevMillis}"/>
+        </menu-item>
+    </menu>
+    <menu name="Calendar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
+            <link target="day"/>
+        </menu-item>
+        <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
+            <link target="week"/>
+        </menu-item>
+        <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
+            <link target="month"/>
+        </menu-item>
+        <menu-item name="upcoming" title="${uiLabelMap.WorkEffortUpcomingEvents}">
+            <link target="upcoming"/>
+        </menu-item>
+    </menu>
+    <menu name="CalendarPortlet" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day"/>
+        </menu-item>
+        <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week"/>
+        </menu-item>
+        <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month"/>
+        </menu-item>
+        <menu-item name="upcoming" title="${uiLabelMap.WorkEffortUpcomingEvents}">
+            <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming"/>
+        </menu-item>
+    </menu>
 </menus>

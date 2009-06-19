@@ -26,5 +26,14 @@
         screenLocation="component://workeffort/widget/WorkEffortScreens.xml"
         description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="mycompanycomms" portletCategoryId="EVENTSTASKS"/>
+    
+    <PortalPortlet portalPortletId="Calendar"
+        portletName="Event Calendar"
+        screenName="Calendar"
+        screenLocation="component://workeffort/widget/CalendarScreens.xml"
+        description="My Calendar"/>
+    <PortletPortletCategory portalPortletId="Calendar" portletCategoryId="EVENTSTASKS"/>
+    
+    
 
 </entity-engine-xml>

@@ -17,10 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.WorkEffortCalendarUpComingEventsView}</h3>
-  </div>
   <#if days?has_content>
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
