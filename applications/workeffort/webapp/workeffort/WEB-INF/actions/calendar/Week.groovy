@@ -58,7 +58,9 @@ if (start == null) {
 }
 
 Timestamp prev = UtilDateTime.getDayStart(start, -7, timeZone, locale);
+context.prevMillis = new Long(prev.getTime()).toString();
 Timestamp next = UtilDateTime.getDayStart(start, 7, timeZone, locale);
+context.nextMillis = new Long(next.getTime()).toString();
 Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale);
 
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),"periodType",new Integer(Calendar.DATE));

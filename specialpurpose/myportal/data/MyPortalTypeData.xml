@@ -88,6 +88,7 @@
 
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="SystemInfoNotes" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="SystemInfoStatus" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="Calendar" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE0" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE0" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
@@ -110,6 +111,7 @@
 
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="SystemInfoNotes" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="SystemInfoStatus" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="Calendar" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML0" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML0" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="2"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>

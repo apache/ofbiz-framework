@@ -16,15 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${start?date?string("EEEE")?cap_first} ${start?date?string.long}</li>
-      <li><a href="<@ofbizUrl>day?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortNextDay}</a></li>
-      <li><a href="<@ofbizUrl>day?start=${nowTimestamp.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonToday}</a></li>
-      <li><a href="<@ofbizUrl>day?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortPreviousDay}</a></li>
-    </ul>
-    <br class="clear"/>
-  </div>
 <#if periods?has_content>
   <#if (maxConcurrentEntries < 2)>
     <#assign entryWidth = 100>

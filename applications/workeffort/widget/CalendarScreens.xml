@@ -21,6 +21,51 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+    <screen name="Calendar">
+        <section>
+            <widgets>
+                <include-menu name="CalendarPortlet" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.period" operator="equals" value="day"/>
+                    </condition>
+                    <widgets>
+                        <include-screen name="CalendarDay"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.period" operator="equals" value="week"/>
+                    </condition>
+                    <widgets>
+                        <include-screen name="CalendarWeek"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <or>
+                            <if-compare field="parameters.period" operator="equals" value="month"/>
+                            <if-empty field="parameters.period"/>
+                        </or>
+                    </condition>
+                    <widgets>
+                        <include-screen name="CalendarMonth"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <or>
+                            <if-compare field="parameters.period" operator="equals" value="upcoming"/>
+                        </or>
+                    </condition>
+                    <widgets>
+                        <include-screen name="CalendarUpcoming"/>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="CalendarDay">
         <section>
             <actions>
@@ -32,9 +77,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
+                        <screenlet title="${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
+                            <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                            <platform-specific>
                             <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
-                        </platform-specific>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -52,9 +100,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.CommonWeek} ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
+                            <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                            <platform-specific>
+                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -72,9 +123,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
+                        <screenlet title="${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
+                            <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                            <platform-specific>
                             <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
-                        </platform-specific>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -92,9 +146,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
+                        <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}">
+                            <platform-specific>
                             <html><html-template location="component://workeffort/webapp/workeffort/calendar/upcoming.ftl"/></html>
-                        </platform-specific>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

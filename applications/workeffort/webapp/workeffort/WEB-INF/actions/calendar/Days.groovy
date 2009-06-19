@@ -58,7 +58,9 @@ if (start == null) {
 }
 
 Timestamp prev = UtilDateTime.getDayStart(start, -1, timeZone, locale);
+context.prevMillis = new Long(prev.getTime()).toString();
 Timestamp next = UtilDateTime.getDayStart(start, 1, timeZone, locale);
+context.nextMillis = new Long(next.getTime()).toString();
 
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(24),"periodType",new Integer(Calendar.HOUR));
 serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
