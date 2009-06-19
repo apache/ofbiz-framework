@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -895,7 +896,24 @@ public class UtilValidate {
             return false;
         }
     }
-
+    
+    public static boolean isDateBeforeNow(Timestamp  date) {
+        Timestamp now = UtilDateTime.nowTimestamp();
+        if (date != null) {
+            return date.before(now);
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean isDateAfterNow(Timestamp  date) {
+        Timestamp now = UtilDateTime.nowTimestamp();
+        if (date != null) {
+            return date.after(now);
+        } else {
+            return false;
+        }
+    }
     /** isTime returns true if string arguments hour, minute, and second form a valid time. */
     public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
