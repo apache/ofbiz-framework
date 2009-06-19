@@ -137,7 +137,7 @@ under the License.
           <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${headerImageUrl}</@ofbizContentUrl>"/></a></li>
         </#if>
         <li width=20/>
-        <#if layoutSettings.middleTopMessage1?exists && layoutSettings.middleTopMessage1 != " ">
+        <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
           <li class=h4>
           <div class="divHidden">
           <center>${layoutSettings.middleTopHeader?if_exists}</center>

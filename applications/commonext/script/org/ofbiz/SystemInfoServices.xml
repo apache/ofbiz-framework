@@ -62,6 +62,12 @@ under the License.
     
     </simple-method>
 
+    <simple-method method-name="deleteAllSystemNotes" short-description="delete all system notes from a particular user">
+        <set field="removeData.noteParty" from-field="parameters.userLogin.partyId"/>
+        <set field="removeData.noteName" value="SYSTEMNOTE"/>
+        <remove-by-and entity-name="NoteData" map="removeData"/>
+    </simple-method>
+
     <simple-method method-name="getSystemInfoStatus" short-description="">
         <!-- communication events -->
         <entity-count entity-name="CommunicationEventRole" count-field="comCount">

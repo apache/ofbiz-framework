@@ -24,7 +24,8 @@ under the License.
     <screen name="SystemInfoNotes">
         <section>
             <widgets>
-                <screenlet title="System Info notes for user: ${userLogin.partyId}">
+                <screenlet title="System Info notes for user: ${userLogin.partyId}" navigation-menu-name="SystemInfoNotes">
+                    <include-menu name="SystemInfoNotes" location="component://commonext/widget/SystemInfoMenus.xml"/>
                     <include-form name="SystemInfoNotes" location="component://commonext/widget/SystemInfoForms.xml"/>
                 </screenlet>
             </widgets>
