@@ -603,6 +603,10 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="massRejectOrders" auth="true">
         <implements service="massOrderChangeInterface"/>
     </service>
+    <service name="massQuickShipOrders" engine="java" transaction-timeout="300"
+            location="org.ofbiz.order.order.OrderServices" invoke="massQuickShipOrders" auth="true">
+        <implements service="massOrderChangeInterface"/>
+    </service>
     <service name="massPrintOrders" engine="java" transaction-timeout="300"
             location="org.ofbiz.order.order.OrderServices" invoke="massPrintOrders" auth="true">
         <implements service="massOrderChangeInterface"/>
