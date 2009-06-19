@@ -487,7 +487,11 @@ color: #008000;
 .salePrice {
 color: #ff0000;
 }
-
+.divHidden {
+    width:400px;
+    overflow:hidden;
+    white-space:nowrap;
+    }
 /* ===== Product Summary Styles ===== */
 .product-prevnext {
 text-align: right;
