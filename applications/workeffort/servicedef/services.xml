@@ -662,6 +662,25 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <!-- WorkEffort Attribute Services -->
+    <service name="createWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a WorkEffort Attribute</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWorkEffortEventReminder" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a WorkEffort Attribute</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortEventReminder" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a WorkEffort Attribute</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <!-- WorkEffort Event Reminder Services -->
     <service name="createWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="create" auth="true">
         <description>Create a WorkEffort Event Reminder</description>
