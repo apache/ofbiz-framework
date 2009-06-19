@@ -29,10 +29,24 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 
 orderId = parameters.orderId;
-
+orderHeader = null;
 // we have a special case here where for an anonymous order the user will already be logged out, but the userLogin will be in the request so we can still do a security check here
 if (!userLogin) {
     userLogin = parameters.temporaryAnonymousUserLogin;
+    // This is another special case, when Order is placed by anonymous user from ecommerce and then Order is completed by admin(or any user) from Order Manager
+    // then userLogin is not found when Order Complete Mail is send to user.
+    if (!userLogin) {
+        if (orderId) {
+            orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+            orderStatuses = orderHeader.getRelated("OrderStatus");
+            orderStatuses.each { orderStatus ->
+                if ("ORDER_COMPLETED".equals(orderStatus.statusId)) {
+                    statusUserLogin = orderStatus.statusUserLogin;
+                    userLogin = delegator.findOne("UserLogin", [userLoginId :statusUserLogin], false);
+                }
+            }
+        }
+    }
     context.userLogin = userLogin;
 }
 
@@ -50,7 +64,6 @@ if (userLogin) {
 // can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen
 allowAnonymousView = context.allowAnonymousView;
 
-orderHeader = null;
 isDemoStore = true;
 if (orderId) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
