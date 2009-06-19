@@ -156,20 +156,26 @@ public class ICalendarWorker {
         }
         List<GenericValue> relatedParties = EntityUtil.filterByDate(delegator.findList("WorkEffortPartyAssignView", EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffortId), null, null, null, false));
         for (GenericValue partyValue : relatedParties) {
-            ParameterList paramList = new ParameterList();
+            ParameterList paramList = null;
             String partyName = partyValue.getString("groupName");
             if (UtilValidate.isEmpty(partyName)) {
-                partyName = partyValue.getString("firstName") + " " + partyValue.getString("lastName");
+                partyName = partyValue.getString("firstName") + "_" + partyValue.getString("lastName");
             }
-            paramList.add(new Cn(partyName));
-            // paramList.add(new XParameter(partyIdPropName, partyValue.getString("partyId")));
+            partyName = partyName.replace(" ", "_");
             try {
                 if ("CAL_ORGANIZER~CAL_OWNER".contains(partyValue.getString("roleTypeId"))) {
-                    eventProps.add(new Organizer("CN:".concat(partyName)));
+                    Organizer organizer = new Organizer("CN:".concat(partyName));
+                    paramList = organizer.getParameters();
+                    eventProps.add(organizer);
                 } else {
-                    eventProps.add(new Attendee("CN:".concat(partyName)));
+                    Attendee attendee = new Attendee("CN:".concat(partyName));
+                    paramList = attendee.getParameters();
+                    eventProps.add(attendee);
                 }
-            } catch (Exception e) {}
+                paramList.add(new XParameter("X-ORG-APACHE-OFBIZ-PARTY-ID", partyValue.getString("partyId")));
+            } catch (Exception e) {
+                Debug.logError(e, "Error while processing related parties: ", module);
+            }
         }
         DateRange range = new DateRange(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"));
         eventProps.add(new DtStart(new DateTime(range.start())));
