@@ -202,6 +202,10 @@ under the License.
                 <field-map field-name="entityName" value="ContactListParty"/>                
             </service>            
         </actions>
+        <row-actions>
+            <set field="thruDate" from-field="thruDate" type="Timestamp"/>
+            <set field="isDateAfterNow" value="${groovy:org.ofbiz.base.util.UtilValidate.isDateAfterNow(thruDate)}" type="Boolean"/>
+        </row-actions>
 
         <field name="contactListId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.MarketingContactListPartyId}"><display-entity entity-name="PartyNameView" description="${firstName}  ${lastName} ${groupName} [${partyId}]"/></field>
@@ -211,14 +215,14 @@ under the License.
         <field name="preferredContactMechId" title="${uiLabelMap.MarketingContactListPreferredContactMech}">
             <display-entity entity-name="ContactMechDetail" key-field-name="contactMechId" description="[${contactMechId}]: [${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress1}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]"/>
         </field>
-        <field name="editLink" title=" " widget-style="buttontext">
+        <field name="editLink" use-when="${groovy:thruDate == null || isDateAfterNow == true}" widget-style="buttontext">
             <hyperlink target="EditContactListParty" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="contactListId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-        <field name="expireLink" title=" " widget-style="buttontext">            
+        <field name="expireLink" use-when="${groovy:thruDate == null || isDateAfterNow == true}" widget-style="buttontext"> 
             <hyperlink target="expireContactListParty" description="${uiLabelMap.CommonExpire}"  link-type="hidden-form" also-hidden="false">                
                 <parameter param-name="contactListId"/>                
                 <parameter param-name="partyId"/>
