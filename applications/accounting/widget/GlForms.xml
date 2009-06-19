@@ -575,6 +575,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="CONVERSION_PURPOSE"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="voucherRef"><text size="30"/></field>
         <field name="partyId"><text size="30"/></field>
         <field name="productId"><text size="20"/></field>

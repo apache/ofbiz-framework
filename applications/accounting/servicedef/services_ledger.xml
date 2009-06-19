@@ -236,6 +236,7 @@ under the License.
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTransEntry"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="purposeEnumId" mode="IN" type="String" optional="true"></attribute>
         <override name="acctgTransEntrySeqId" mode="OUT"/>
     </service>
     <service name="updateAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="simple"

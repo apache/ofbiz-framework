@@ -96,6 +96,7 @@ under the License.
                     <set field="convertUomInMap.originalValue" from-field="newEntity.origAmount" type="BigDecimal"/>
                     <set field="convertUomInMap.uomId" from-field="newEntity.origCurrencyUomId"/>
                     <set field="convertUomInMap.uomIdTo" from-field="newEntity.currencyUomId"/>
+                    <set field="convertUomInMap.purposeEnumId" from-field="parameters.purposeEnumId"/>
                     <!-- TODO: set the optional asOfDate input parameter -->
                     <call-service service-name="convertUom" in-map-name="convertUomInMap">
                         <result-to-field result-name="convertedValue" field="newEntity.amount"/>

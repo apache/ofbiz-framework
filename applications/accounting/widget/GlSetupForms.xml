@@ -333,6 +333,8 @@ under the License.
             </drop-down>
         </field>
         <field name="conversionFactor"><text/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingUpdateFX}"><submit/></field>
     </form>
 
