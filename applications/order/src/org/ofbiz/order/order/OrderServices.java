@@ -4336,6 +4336,33 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map massQuickShipOrders(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        List orderIds = (List) context.get("orderIdList");
+
+        for (Object orderId : orderIds){
+            if (UtilValidate.isEmpty(orderId)) {
+                continue;
+            }
+            Map ctx = FastMap.newInstance();
+            ctx.put("userLogin", userLogin);
+            ctx.put("orderId", orderId);
+
+            Map resp = null;
+            try {
+                resp = dispatcher.runSync("quickShipEntireOrder", ctx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (ServiceUtil.isError(resp)) {
+                return ServiceUtil.returnError("Error quickShipEntireOrder for order: ", null, null, resp);
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
     public static Map massPickOrders(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();

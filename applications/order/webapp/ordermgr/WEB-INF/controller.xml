@@ -126,6 +126,12 @@ under the License.
         <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
+    <request-map uri="massQuickShipOrders">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="massQuickShipOrders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
+    </request-map>
     <request-map uri="massPickOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPickOrders"/>
