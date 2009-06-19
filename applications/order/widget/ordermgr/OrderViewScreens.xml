@@ -365,7 +365,6 @@ under the License.
                             <container>
                                 <link target="orderview?orderId=${orderId}" text="${uiLabelMap.OrderBackToOrder}" style="buttontext"/>
                             </container>
-                            <container></container>
                             <include-screen name="OrderShipmentMethodHistory"/>
                             <include-screen name="OrderUnitPriceHistory"/>
                             <include-screen name="OrderQuantityHistory"/>
@@ -420,7 +419,7 @@ under the License.
         <section>
             <condition>
                 <not>
-                    <if-empty field="orderUnitPriceHistories"/>
+                    <if-empty field="orderQuantityHistories"/>
                 </not>
             </condition>
             <widgets>
