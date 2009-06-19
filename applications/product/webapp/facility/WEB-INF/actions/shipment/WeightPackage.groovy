@@ -155,7 +155,7 @@ if (orderId) {
         orderId = null;
     }
 }
-
+weightPackageSession.setCarrierPartyId(carrierPartyId);
 context.orderId = orderId;
 context.shipGroupSeqId = shipGroupSeqId;
 context.picklistBinId = picklistBinId;
