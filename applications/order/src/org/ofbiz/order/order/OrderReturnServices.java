@@ -1081,6 +1081,63 @@ public class OrderReturnServices {
         }
     }
 
+    public static Map processRefundReturnForReplacement(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String orderId = (String) context.get("orderId");
+        Map serviceResult = FastMap.newInstance();
+        
+        GenericValue orderHeader = null;
+        List<GenericValue> orderPayPrefs = FastList.newInstance();
+        try {
+            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
+        } catch (GenericEntityException e) {
+            Debug.logError("Problem looking up order information for orderId #" + orderId, module);
+            ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderCannotGetOrderHeader", locale));
+        }
+         
+        // Check for replacement order
+        if (UtilValidate.isEmpty(orderPayPrefs)){
+            List<GenericValue> returnItemResponses = FastList.newInstance();
+            try {
+                returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse");
+            } catch (GenericEntityException e) {
+                Debug.logError("Problem getting ReturnItemResponses", module);
+                ServiceUtil.returnError(e.getMessage());
+            }
+            
+            for (GenericValue returnItemResponse : returnItemResponses) {
+                GenericValue returnItem = null;
+                GenericValue returnHeader = null;
+                try {
+                    returnItem = EntityUtil.getFirst(returnItemResponse.getRelated("ReturnItem"));
+                    returnHeader = returnItem.getRelatedOne("ReturnHeader");
+                } catch (GenericEntityException e) {
+                    Debug.logError("Problem getting ReturnItem", module);
+                    ServiceUtil.returnError(e.getMessage());
+                }
+                
+                if ("RETURN_RECEIVED".equals(returnHeader.getString("statusId"))) {
+                    String returnId = returnItem.getString("returnId");
+                    String returnTypeId = returnItem.getString("returnTypeId");
+                    try {
+                        serviceResult = dispatcher.runSync("processRefundReturn", UtilMisc.toMap("returnId", returnId, "returnTypeId", returnTypeId, "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "Problem running the processRefundReturn service", module);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
+                    }
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
+                }
+            }
+        }
+        return serviceResult;
+    }
+
     // refund (cash/charge) return
     public static Map processRefundReturn(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -1138,6 +1195,16 @@ public class OrderReturnServices {
                     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
                     // sort these desending by maxAmount
                     orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
+                    // Check for replacement order
+                    if (UtilValidate.isEmpty(orderPayPrefs)){
+                        List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"));
+                        if (UtilValidate.isNotEmpty(orderItemAssocs)) {
+                            String originalOrderId = EntityUtil.getFirst(orderItemAssocs).getString("orderId");
+                            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", originalOrderId));
+                            orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
+                            orderId = originalOrderId;
+                        }
+                    }
                     List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED"), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_RECEIVED"));
                     orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
                 } catch (GenericEntityException e) {

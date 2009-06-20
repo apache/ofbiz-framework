@@ -271,6 +271,11 @@ under the License.
         <description>Process subscription changes from a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="processRefundReturnForReplacement" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturnForReplacement">
+        <description>Process the refund return for replacement order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <!-- other return services -->
     <service name="updateReturnStatusFromReceipt" engine="simple"
