@@ -252,6 +252,8 @@ public class OrderReturnServices {
                     bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
                 }
                 sendMap.put("bodyScreenUri", bodyScreenLocation);
+                String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
+                sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
 
                 ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
                 uiLabelMap.addBottomResourceBundle("OrderUiLabels");
