@@ -97,7 +97,7 @@
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonMax250Chars}"><textarea/></field>
         <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="WES_PRIVATE">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
                     <entity-order-by field-name="description"/>
@@ -707,7 +707,7 @@
             </drop-down>
         </field>
         <field name="taskScopeEnumId" parameter-name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="WES_PRIVATE">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
                     <entity-order-by field-name="description"/>
