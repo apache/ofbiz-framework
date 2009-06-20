@@ -24,136 +24,96 @@ under the License.
     <screen name="Calendar">
         <section>
             <widgets>
-                <include-menu name="CalendarPortlet" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                 <section>
                     <condition>
-                        <if-compare field="parameters.period" operator="equals" value="day"/>
+                        <or>
+                            <if-compare field="parameters.period" operator="equals" value="day"/>
+                            <if-empty field="parameters.period"/>
+                        </or>
                     </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarDay"/>
+                        <set field="tabButtonItem" value="day"/>
+                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
+                    </actions>
                     <widgets>
-                        <include-screen name="CalendarDay"/>
+                        <screenlet title="${uiLabelMap.WorkEffortDayView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
+                            <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                            <platform-specific>
+                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </widgets>
                 </section>
                 <section>
                     <condition>
                         <if-compare field="parameters.period" operator="equals" value="week"/>
                     </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarWeek"/>
+                        <set field="tabButtonItem" value="week"/>
+                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
+                    </actions>
                     <widgets>
-                        <include-screen name="CalendarWeek"/>
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <or>
-                            <if-compare field="parameters.period" operator="equals" value="month"/>
-                            <if-empty field="parameters.period"/>
-                        </or>
-                    </condition>
-                    <widgets>
-                        <include-screen name="CalendarMonth"/>
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <or>
-                            <if-compare field="parameters.period" operator="equals" value="upcoming"/>
-                        </or>
-                    </condition>
-                    <widgets>
-                        <include-screen name="CalendarUpcoming"/>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CalendarDay">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleCalendarDay"/>
-                <set field="headerItem" value="calendar"/>
-                <set field="tabButtonItem" value="day"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
-                            <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <platform-specific>
-                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
-                            </platform-specific>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CalendarWeek">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleCalendarWeek"/>
-                <set field="headerItem" value="calendar"/>
-                <set field="tabButtonItem" value="week"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonWeek} ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
+                        <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
                             <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
                             </platform-specific>
                         </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CalendarMonth">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleCalendarMonth"/>
-                <set field="headerItem" value="calendar"/>
-                <set field="tabButtonItem" value="month"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.period" operator="equals" value="month"/>
+                    </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarMonth"/>
+                        <set field="tabButtonItem" value="month"/>
+                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
+                    </actions>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
                             <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
-                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
+                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
                             </platform-specific>
                         </screenlet>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.period" operator="equals" value="upcoming"/>
+                    </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarUpcoming"/>
+                        <set field="headerItem" value="calendar"/>
+                        <set field="tabButtonItem" value="upcoming"/>
+                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Upcoming.groovy"/>
+                    </actions>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}" navigation-menu-name="Upcoming">
+                            <include-menu name="Upcoming" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                            <platform-specific>
+                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/upcoming.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarWithDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="Calendar"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 
-    <screen name="CalendarUpcoming">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleCalendarUpcoming"/>
-                <set field="headerItem" value="calendar"/>
-                <set field="tabButtonItem" value="upcoming"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Upcoming.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}">
-                            <platform-specific>
-                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/upcoming.ftl"/></html>
-                            </platform-specific>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 </screens>

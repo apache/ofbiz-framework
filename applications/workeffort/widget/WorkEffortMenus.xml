@@ -23,7 +23,7 @@ under the License.
     <menu name="WorkEffortAppBar" title="${uiLabelMap.WorkEffortWorkEffortManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="task" >
         <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
-        <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
+        <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="calendar"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
@@ -144,65 +144,73 @@ under the License.
             <link target="newEvent"/>
         </menu-item>
     </menu>
-    <menu name="Day">
+    <menu name="Day"  extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextDay}">
-            <link target="week?start=${nextMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${nextMillis}"/>
         </menu-item>
         <menu-item name="toDay" title="${uiLabelMap.CommonToday}">
-            <link target="day"/>
+            <link target="${parameters._LAST_VIEW_NAME_}"/>
         </menu-item>
         <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousDay}">
-            <link target="week?start=${prevMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${prevMillis}"/>
         </menu-item>
     </menu>
-    <menu name="Week">
+    <menu name="Week" extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextWeek}">
-            <link target="week?start=${nextMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${nextMillis}"/>
         </menu-item>
         <menu-item name="thisWeek" title="${uiLabelMap.WorkEffortThisWeek}">
             <link target="week"/>
         </menu-item>
         <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousWeek}">
-            <link target="week?start=${prevMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${prevMillis}"/>
         </menu-item>
     </menu>
-    <menu name="Month">
+    <menu name="Month" extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextMonth}">
-            <link target="week?start=${nextMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${nextMillis}"/>
         </menu-item>
         <menu-item name="thisMonth" title="${uiLabelMap.WorkEffortThisMonth}">
-            <link target="month"/>
-        </menu-item>
-        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousMonth}">
-            <link target="week?start=${prevMillis}"/>
-        </menu-item>
-    </menu>
-    <menu name="Calendar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
-            <link target="day"/>
-        </menu-item>
-        <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
-            <link target="week"/>
-        </menu-item>
-        <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
-            <link target="month"/>
-        </menu-item>
-        <menu-item name="upcoming" title="${uiLabelMap.WorkEffortUpcomingEvents}">
-            <link target="upcoming"/>
-        </menu-item>
-    </menu>
-    <menu name="CalendarPortlet" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day"/>
-        </menu-item>
-        <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week"/>
-        </menu-item>
-        <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
             <link target="${parameters._LAST_VIEW_NAME_}?period=month"/>
         </menu-item>
+        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousMonth}">
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${prevMillis}"/>
+        </menu-item>
+    </menu>
+    <menu name="Upcoming" extends="Calendar">
+    </menu>
+    <menu name="Calendar">
         <menu-item name="upcoming" title="${uiLabelMap.WorkEffortUpcomingEvents}">
+            <condition>
+                <if-compare field="parameters.period" operator="not-equals" value="upcoming"/>
+            </condition>
             <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming"/>
+        </menu-item>
+        <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
+            <condition>
+                <if-compare field="parameters.period" operator="not-equals" value="month"/>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month"/>
+        </menu-item>
+        <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
+            <condition>
+                <if-compare field="parameters.period" operator="not-equals" value="week"/>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week"/>
+        </menu-item>
+        <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
+            <condition>
+                <and>
+                    <if-compare field="parameters.period" operator="not-equals" value="day"/>
+                    <not><if-empty field="parameters.period"/></not>
+                </and>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day"/>
+        </menu-item>
+        <menu-item name="dummy" title="--------">
+            <condition>
+                <if-compare field="parameters.period" operator="not-equals" value="upcoming"/>
+            </condition>
         </menu-item>
     </menu>
 </menus>

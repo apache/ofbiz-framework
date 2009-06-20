@@ -63,10 +63,7 @@ under the License.
 
     <request-map uri="UserJobs"><security https="true" auth="true"/><response name="success" type="view" value="UserJobs"/></request-map>
 
-    <request-map uri="day"><security https="true" auth="true"/><response name="success" type="view" value="day"/></request-map>
-    <request-map uri="week"><security https="true" auth="true"/><response name="success" type="view" value="week"/></request-map>
-    <request-map uri="month"><security https="true" auth="true"/><response name="success" type="view" value="month"/></request-map>
-    <request-map uri="upcoming"><security https="true" auth="true"/><response name="success" type="view" value="upcoming"/></request-map>
+    <request-map uri="calendar"><security https="true" auth="true"/><response name="success" type="view" value="calendar"/></request-map>
 
     <!--  WorkEffort Related Summary request mappings -->
     <request-map uri="WorkEffortSummary"><security https="true" auth="true"/><response name="success" type="view" value="WorkEffortSummary"/></request-map>
@@ -692,10 +689,7 @@ under the License.
 
     <view-map name="UserJobs" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#UserJobs"/>
 
-    <view-map name="day" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarDay"/>
-    <view-map name="week" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarWeek"/>
-    <view-map name="month" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarMonth"/>
-    <view-map name="upcoming" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarUpcoming"/>
+    <view-map name="calendar" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarWithDecorator"/>
 
     <view-map name="WorkEffortSummary" type="screen" page="component://workeffort/widget/WorkEffortRelatedSummaryScreens.xml#WorkEffortSummary"/>
 
