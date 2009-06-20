@@ -101,7 +101,7 @@
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
 
     <!-- First Demo project from customer 1 and employee 1,2-->
-    <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project1 Cust1" revisionNumber="1"/>
+    <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project1 Cust1" revisionNumber="1"/>
     <WorkEffortPartyAssignment workEffortId="9000" partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2009-04-05 20:27:52.818"/>
     <WorkEffortPartyAssignment  workEffortId="9000" partyId="admin" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoCustomer1" statusId="PAS_ASSIGNED" roleTypeId="CLIENT_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
@@ -109,14 +109,14 @@
     <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoEmployee1" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoEmployee2" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_ANALYST" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffort workEffortId="9001" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9000" workEffortName="phase1" revisionNumber="1"/>
-    <WorkEffort workEffortId="9002" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9001" scopeEnumId="WES_PUBLIC" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9002" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9001" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9002" skillTypeId="9000" estimatedDuration="16.0"/>
-    <WorkEffort workEffortId="9003" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9001" scopeEnumId="WES_PUBLIC" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9003" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9001" scopeEnumId="WES_PRIVATE" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9003" skillTypeId="9000" estimatedDuration="24.0"/>
     <WorkEffort workEffortId="9004" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:35.939" workEffortParentId="9000" workEffortName="phase2" revisionNumber="1"/>
-    <WorkEffort workEffortId="9005" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9004" scopeEnumId="WES_PUBLIC" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9005" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9004" scopeEnumId="WES_PRIVATE" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9005" skillTypeId="9000" estimatedDuration="32.0"/>
-    <WorkEffort workEffortId="9006" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9004" scopeEnumId="WES_PUBLIC" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9006" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9004" scopeEnumId="WES_PRIVATE" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9006" skillTypeId="9000" estimatedDuration="40.0"/>
 
     <!-- task dependencies project 1-->
@@ -125,7 +125,7 @@
     <WorkEffortAssoc workEffortIdFrom="9005" workEffortIdTo="9006" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
 
     <!-- Second Demo project for customer 2 and employee 1,3-->
-    <WorkEffort workEffortId="9100" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project2 Cust 2" revisionNumber="1"/>
+    <WorkEffort workEffortId="9100" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project2 Cust 2" revisionNumber="1"/>
     <WorkEffortPartyAssignment  workEffortId="9100" partyId="admin" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffortPartyAssignment workEffortId="9100" partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2009-04-05 20:27:52.818"/>
     <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoCustomer2" statusId="PAS_ASSIGNED" roleTypeId="CLIENT_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
@@ -133,14 +133,14 @@
     <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoEmployee1" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoEmployee3" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_ANALYST" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffort workEffortId="9101" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9100" workEffortName="phase1" revisionNumber="1"/>
-    <WorkEffort workEffortId="9102" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9101" scopeEnumId="WES_PUBLIC" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9102" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9101" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9102" skillTypeId="9000" estimatedDuration="16.0"/>
-    <WorkEffort workEffortId="9103" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9101" scopeEnumId="WES_PUBLIC" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9103" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9101" scopeEnumId="WES_PRIVATE" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9103" skillTypeId="9000" estimatedDuration="24.0"/>
     <WorkEffort workEffortId="9104" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:35.939" workEffortParentId="9100" workEffortName="phase2" revisionNumber="1"/>
-    <WorkEffort workEffortId="9105" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9104" scopeEnumId="WES_PUBLIC" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9105" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9104" scopeEnumId="WES_PRIVATE" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9105" skillTypeId="9000" estimatedDuration="32.0"/>
-    <WorkEffort workEffortId="9106" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9104" scopeEnumId="WES_PUBLIC" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9106" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9104" scopeEnumId="WES_PRIVATE" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9106" skillTypeId="9000" estimatedDuration="40.0"/>
 
     <!-- task dependencies project 2 -->
@@ -149,13 +149,13 @@
     <WorkEffortAssoc workEffortIdFrom="9105" workEffortIdTo="9106" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
 
     <!-- Another Demo project for DemoCustomeCompanyr and employee 1,3-->
-    <WorkEffort workEffortId="9200" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project3 DemoCustomerCompany" revisionNumber="1"/>
+    <WorkEffort workEffortId="9200" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project3 DemoCustomerCompany" revisionNumber="1"/>
     <WorkEffortPartyAssignment workEffortId="9200" partyId="DemoEmployee3" roleTypeId="PROVIDER_ANALYST" fromDate="2007-12-14 16:45:21.831" statusId="PAS_ASSIGNED"/>
     <WorkEffortPartyAssignment workEffortId="9200" partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2009-04-05 20:27:52.818"/>
     <WorkEffortPartyAssignment workEffortId="9200" partyId="DemoCustCompany" roleTypeId="CLIENT_BILLING" fromDate="2009-04-05 20:27:52.893"/>
     <WorkEffortPartyAssignment  workEffortId="9200" partyId="DemoEmployee1" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffort workEffortId="9201" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9200" workEffortName="phase1" revisionNumber="1"/>
-    <WorkEffort workEffortId="9202" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9201" scopeEnumId="WES_PUBLIC" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="9202" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9201" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9202" skillTypeId="9000" estimatedDuration="16.0"/>
 
     <!-- Recurring calendar event demo - set up a staff meeting on the first Monday of each month -->
@@ -164,16 +164,16 @@
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="1ST_MONDAY_IN_MONTH"/>
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="10AM"/>
     <FixedAsset fixedAssetId="DEMO_PROJECTOR" fixedAssetName="Overhead Projector" fixedAssetTypeId="EQUIPMENT"/>
-    <WorkEffort workEffortId="STAFF_MTG" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="Staff Meeting" description="Staff Meeting" tempExprId="STAFF_MTG" estimatedStartDate="2008-01-01 00:00:00.0" estimatedMilliSeconds="3600000"/>
+    <WorkEffort workEffortId="STAFF_MTG" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="Staff Meeting" description="Staff Meeting" tempExprId="STAFF_MTG" estimatedStartDate="2008-01-01 00:00:00.0" estimatedMilliSeconds="3600000"/>
     <WorkEffortFixedAssetAssign workEffortId="STAFF_MTG" fixedAssetId="DEMO_PROJECTOR" statusId="FA_ASGN_REQUESTED" availabilityStatusId="WEFA_IN_USE" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee3" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
 
     <!-- Publish the staff meeting calendar event -->
-    <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PUBLIC" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
+    <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PRIVATE" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
     <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="STAFF_MTG" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffort workEffortId="OneOffMeeting" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="One off Meeting june 14" description="Staff Meeting" estimatedStartDate="2009-06-14 09:00:00.0" estimatedCompletionDate="2009-06-14 10:00:00.0"/>
+    <WorkEffort workEffortId="OneOffMeeting" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="One off Meeting june 14" description="Staff Meeting" estimatedStartDate="2009-06-14 09:00:00.0" estimatedCompletionDate="2009-06-14 10:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="OneOffMeeting" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
