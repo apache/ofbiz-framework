@@ -901,6 +901,7 @@ under the License.
                     <if-compare field="orderHeader.statusId" operator="equals" value="ORDER_HOLD">
                         <set field="changeOrderStatusMap.statusId" value="ORDER_APPROVED"/>
                         <set field="changeOrderStatusMap.orderId" from-field="returnItemResponse.replacementOrderId"/>
+                        <set field="changeOrderStatusMap.setItemStatus" value="Y"/>
                         <call-service service-name="changeOrderStatus" in-map-name="changeOrderStatusMap"/>
                     </if-compare>
                     <if-compare field="orderHeader.statusId" operator="equals" value="ORDER_CANCELLED">
