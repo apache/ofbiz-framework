@@ -480,10 +480,9 @@ public class WorkEffortServices {
                 partyIdsToUse.add(userLogin.getString("partyId"));
             }
         }
-
         List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
         if (entityExprList == null) {
-            entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId, workEffortTypeId);
+            entityExprList = getDefaultWorkEffortExprList(partyIdsToUse, facilityId, fixedAssetId, workEffortTypeId);
         }
         
         // check the start dates
@@ -525,7 +524,7 @@ public class WorkEffortServices {
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
                 List<GenericValue> tempWorkEfforts = null;
-                if (UtilValidate.isNotEmpty(partyIds)) {
+                if (UtilValidate.isNotEmpty(partyIdsToUse)) {
                     tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, orderByList, null, false));
                 } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
                     // Get "old style" work efforts and "new style" work efforts
