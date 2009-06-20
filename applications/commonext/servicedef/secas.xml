@@ -20,7 +20,15 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
+    <!-- update existing comm events into status: entered-->
     <eca service="setCommunicationEventStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_ENTERED"/>
+        <set field-name="entityName" value="CommunicationEvent"/>
+        <set field-name="entityNameId" env-name="communicationEventId"/>
+        <action service="createSystemInfoNote" mode="sync"/>
+    </eca>
+    <!-- creation comm events with status entered -->
+    <eca service="createCommunicationEvent" event="commit">
         <condition field-name="statusId" operator="equals" value="COM_ENTERED"/>
         <set field-name="entityName" value="CommunicationEvent"/>
         <set field-name="entityNameId" env-name="communicationEventId"/>
