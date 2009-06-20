@@ -129,6 +129,7 @@ under the License.
     <screen name="CommonCalendarDecorator">
         <section>
             <actions>
+                <set field="headerItem" value="calendar"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -147,12 +148,12 @@ under the License.
                                 <entity-condition entity-name="WorkEffortType" list="allWorkEffortTypes">
                                     <order-by field-name="description"/>
                                 </entity-condition>
+                                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
                             </actions>
                             <widgets>
                                 <platform-specific>
                                     <html><html-template location="component://workeffort/webapp/workeffort/calendar/eventsByForms.ftl"/></html>
                                 </platform-specific>
-                                <include-menu name="Calendar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

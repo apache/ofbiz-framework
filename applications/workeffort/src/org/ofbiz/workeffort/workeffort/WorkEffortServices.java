@@ -485,9 +485,38 @@ public class WorkEffortServices {
         if (entityExprList == null) {
             entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId, workEffortTypeId);
         }
-        entityExprList.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));
-        List<EntityCondition> completionExprList = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp), EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.EQUALS, null));
-        entityExprList.add(EntityCondition.makeCondition(completionExprList, EntityJoinOperator.OR));
+        
+        // check the start dates
+        entityExprList.add(
+        		EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        						EntityCondition.makeCondition("actualStartDate", EntityOperator.EQUALS, null),
+        						EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
+        						EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, startStamp)
+        				), EntityJoinOperator.AND),
+        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        						EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null),
+        						EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, startStamp)
+        				), EntityJoinOperator.AND)
+				), EntityJoinOperator.OR));
+        				
+        // check the end dates
+        entityExprList.add(
+        		EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        						EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null),
+        						EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.NOT_EQUAL, null),
+        						EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
+        				), EntityJoinOperator.AND),
+        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        						EntityCondition.makeCondition("actualCompletionDate", EntityOperator.NOT_EQUAL, null),
+        						EntityCondition.makeCondition("actualCompletionDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
+        				), EntityJoinOperator.AND),
+						EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null),
+						EntityCondition.makeCondition("estimatedMilliSeconds", EntityOperator.NOT_EQUAL, null),
+						EntityCondition.makeCondition("actualMilliSeconds", EntityOperator.NOT_EQUAL, null)
+				), EntityJoinOperator.OR));
+        
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
@@ -565,6 +594,8 @@ public class WorkEffortServices {
                 List<Map<String, Object>> curWorkEfforts = FastList.newInstance();
                 Map<String, Object> entry = FastMap.newInstance();
                 for (GenericValue workEffort : validWorkEfforts) {
+                	if (workEffort.getTimestamp("actualStartDate") != null) workEffort.put("estimatedStartDate", workEffort.getTimestamp("actualStartDate"));
+                	if (workEffort.getTimestamp("actualCompletionDate") != null) workEffort.put("estimatedCompletionDate", workEffort.getTimestamp("actualCompletionDate"));
                     DateRange weRange = new DateRange(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"));
                     if (periodRange.intersectsRange(weRange)) {
                         Map<String, Object> calEntry = FastMap.newInstance();

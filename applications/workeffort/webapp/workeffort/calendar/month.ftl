@@ -52,15 +52,33 @@ height: auto;
       <a class="add-new" href='<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
       <br class="clear"/>
       <#list period.calendarEntries as calEntry>
+        <#if calEntry.workEffort.actualStartDate?exists>
+            <#assign startDate = calEntry.workEffort.actualStartDate>
+          <#else>
+            <#assign startDate = calEntry.workEffort.estimatedStartDate>
+        </#if>
+
+        <#if calEntry.workEffort.actualCompletionDate?exists>
+            <#assign completionDate = calEntry.workEffort.actualCompletionDate>
+          <#else>
+            <#assign completionDate = calEntry.workEffort.estimatedCompletionDate>
+        </#if>
+
+        <#if !completionDate?exists>
+            <#assign completionDate =  calEntry.workEffort.actualStartDate + calEntry.workEffort.actualMilliSeconds>
+        </#if>    
+        <#if !completionDate?exists>
+            <#assign completionDate =  calEntry.workEffort.estimatedStartDate + calEntry.workEffort.estimatedMilliSeconds>
+        </#if>    
         <hr/>
-        <#if (calEntry.workEffort.estimatedStartDate.compareTo(period.start)  <= 0 && calEntry.workEffort.estimatedCompletionDate.compareTo(period.end) >= 0)>
+        <#if (startDate.compareTo(period.start)  <= 0 && completionDate.compareTo(period.end) >= 0)>
           ${uiLabelMap.CommonAllDay}
-        <#elseif calEntry.workEffort.estimatedStartDate.before(period.start)>
-          ${uiLabelMap.CommonUntil} ${calEntry.workEffort.estimatedCompletionDate?time?string.short}
-        <#elseif calEntry.workEffort.estimatedCompletionDate.after(period.end)>
-          ${uiLabelMap.CommonFrom} ${calEntry.workEffort.estimatedStartDate?time?string.short}
+        <#elseif startDate.before(period.start)>
+          ${uiLabelMap.CommonUntil} ${completionDate?time?string.short}
+        <#elseif completionDate.after(period.end)>
+          ${uiLabelMap.CommonFrom} ${startDate?time?string.short}
         <#else>
-          ${calEntry.workEffort.estimatedStartDate?time?string.short}-${calEntry.workEffort.estimatedCompletionDate?time?string.short}
+          ${startDate?time?string.short}-${completionDate?time?string.short}
         </#if>
         <br/>
         <a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}

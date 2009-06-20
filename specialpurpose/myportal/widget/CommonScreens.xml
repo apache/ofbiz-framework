@@ -76,14 +76,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonCalendarDecorator">
-        <section>
-            <widgets>
-                <decorator-section-include name="body"/>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonMyTimeDecorator">
         <section>
             <widgets>
@@ -135,7 +127,19 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <screen name="CommonWorkEffortDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="login">
         <section>
             <widgets>
