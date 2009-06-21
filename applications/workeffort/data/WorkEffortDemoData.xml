@@ -42,6 +42,10 @@ under the License.
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <!-- private one off event for employee1 should not show with admin-->
+    <WorkEffort workEffortId="PrivateDemoEmployee1" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="My Wifes birthday june 29" description="The birthday i should never forget" estimatedStartDate="2009-06-29 00:00:00.0" estimatedCompletionDate="2009-06-29 23:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="PrivateDemoEmployee1" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="PrivateDemoEmployee1" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <!-- public event -->
     <WorkEffort workEffortId="PublicEvent" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="The general company party june 17" description="General Party" estimatedStartDate="2009-06-17 19:00:00.0" estimatedCompletionDate="2009-06-17 23:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="PublicEvent" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>

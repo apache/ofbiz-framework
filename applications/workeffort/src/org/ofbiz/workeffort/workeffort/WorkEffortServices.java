@@ -514,12 +514,15 @@ public class WorkEffortServices {
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
-        // always take all recurring workefforts and 'AND' all previous conditions
+        // always take all recurring workefforts and 'AND' all previous conditions including the period check
         EntityConditionList<EntityCondition> ecl = 
-			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-					EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null),
-					periodCheck
-			), EntityJoinOperator.OR);
+        	EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        			EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null),
+        			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        					EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
+        					periodCheck
+        			), EntityJoinOperator.AND)
+        	), EntityJoinOperator.OR);
         // get all public workefforts in the required period
         EntityConditionList<EntityCondition> eclPublic = 
 			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
