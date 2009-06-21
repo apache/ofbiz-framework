@@ -187,7 +187,7 @@ under the License.
                     <if-empty field="parameters.fixedAssetId"/>
                 </and>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming&amp;fixedAssetId=${parameters.fixedAssetId}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming"/>
         </menu-item>
         <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
             <condition>
