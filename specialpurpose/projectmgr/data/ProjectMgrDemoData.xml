@@ -158,25 +158,4 @@
     <WorkEffort workEffortId="9202" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9201" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9202" skillTypeId="9000" estimatedDuration="16.0"/>
 
-    <!-- Recurring calendar event demo - set up a staff meeting on the first Monday of each month -->
-    <TemporalExpression tempExprId="STAFF_MTG" tempExprTypeId="INTERSECTION"/>
-    <TemporalExpression tempExprId="10AM" tempExprTypeId="TIME_OF_DAY_RANGE" string1="10:00" string2="10:00"/>
-    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="1ST_MONDAY_IN_MONTH"/>
-    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="10AM"/>
-    <FixedAsset fixedAssetId="DEMO_PROJECTOR" fixedAssetName="Overhead Projector" fixedAssetTypeId="EQUIPMENT"/>
-    <WorkEffort workEffortId="STAFF_MTG" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="Staff Meeting" description="Staff Meeting" tempExprId="STAFF_MTG" estimatedStartDate="2008-01-01 00:00:00.0" estimatedMilliSeconds="3600000"/>
-    <WorkEffortFixedAssetAssign workEffortId="STAFF_MTG" fixedAssetId="DEMO_PROJECTOR" statusId="FA_ASGN_REQUESTED" availabilityStatusId="WEFA_IN_USE" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee3" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
-
-    <!-- Publish the staff meeting calendar event -->
-    <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PRIVATE" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
-    <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="STAFF_MTG" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffort workEffortId="OneOffMeeting" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="One off Meeting june 14" description="Staff Meeting" estimatedStartDate="2009-06-14 09:00:00.0" estimatedCompletionDate="2009-06-14 10:00:00.0"/>
-    <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="OneOffMeeting" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
-    
 </entity-engine-xml>
