@@ -253,45 +253,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <screen name="CommonCalendarDecorator">
-        <section>
-            <actions>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
-                            </condition>
-                            <actions>
-                                <entity-condition entity-name="Facility" list="allFacilities">
-                                    <order-by field-name="facilityName"/>
-                                </entity-condition>
-                                <entity-condition entity-name="FixedAsset" list="allFixedAssets">
-                                    <order-by field-name="fixedAssetId"/>
-                                </entity-condition>
-                            </actions>
-                            <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/eventsByForms.ftl"/></html>
-                                </platform-specific>
-                                <platform-specific>
-                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/CalendarTabBar.ftl"/></html>
-                                </platform-specific>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ProjectMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="Main">
         <section>
             <actions>
