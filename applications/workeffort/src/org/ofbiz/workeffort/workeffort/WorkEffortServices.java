@@ -50,7 +50,6 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -484,42 +483,38 @@ public class WorkEffortServices {
         if (entityExprList == null) {
             entityExprList = getDefaultWorkEffortExprList(partyIdsToUse, facilityId, fixedAssetId, workEffortTypeId);
         }
-        
-        // check the start dates
-        entityExprList.add(
-        		EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        						EntityCondition.makeCondition("actualStartDate", EntityOperator.EQUALS, null),
-        						EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
-        						EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, startStamp)
-        				), EntityJoinOperator.AND),
-        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        						EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null),
-        						EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, startStamp)
-        				), EntityJoinOperator.AND)
-				), EntityJoinOperator.OR));
         				
-        // check the end dates
         entityExprList.add(
         		EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        				// the taskstart should be less than the periodend and the taskEnd should be larger than the period start
         				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        						EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null),
-        						EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.NOT_EQUAL, null),
-        						EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
-        				), EntityJoinOperator.AND),
+        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        								EntityCondition.makeCondition("actualStartDate", EntityOperator.EQUALS, null),
+        								EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
+        								EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
+        						), EntityJoinOperator.AND),
+        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        								EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null),
+        								EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
+        						), EntityJoinOperator.AND)
+        				), EntityJoinOperator.OR),
         				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        						EntityCondition.makeCondition("actualCompletionDate", EntityOperator.NOT_EQUAL, null),
-        						EntityCondition.makeCondition("actualCompletionDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
-        				), EntityJoinOperator.AND),
-						EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null),
-						EntityCondition.makeCondition("estimatedMilliSeconds", EntityOperator.NOT_EQUAL, null),
-						EntityCondition.makeCondition("actualMilliSeconds", EntityOperator.NOT_EQUAL, null)
-				), EntityJoinOperator.OR));
+        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null),
+        								EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.NOT_EQUAL, null),
+        								EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
+        						), EntityJoinOperator.AND),
+        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+        								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.NOT_EQUAL, null),
+        								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
+        						), EntityJoinOperator.AND)
+        				), EntityJoinOperator.OR)
+        		), EntityJoinOperator.AND));
         
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
-        EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList);
+        EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND);
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
