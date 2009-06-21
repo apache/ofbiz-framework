@@ -36,10 +36,14 @@ under the License.
     <!-- Publish the staff meeting calendar event -->
     <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PRIVATE" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
     <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="STAFF_MTG" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
-    <WorkEffort workEffortId="OneOffMeeting" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="One off Meeting june 14" description="Staff Meeting" estimatedStartDate="2009-06-14 09:00:00.0" estimatedCompletionDate="2009-06-14 10:00:00.0"/>
+    <!-- one off event -->
+    <WorkEffort workEffortId="OneOffMeeting" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="One off Meeting june 12" description="Staff Meeting" estimatedStartDate="2009-06-12 09:00:00.0" estimatedCompletionDate="2009-06-12 10:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="OneOffMeeting" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <!-- public event -->
+    <WorkEffort workEffortId="PublicEvent" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="The general company party june 17" description="General Party" estimatedStartDate="2009-06-17 19:00:00.0" estimatedCompletionDate="2009-06-17 23:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="PublicEvent" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
     
 </entity-engine-xml>
