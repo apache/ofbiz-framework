@@ -986,17 +986,9 @@ under the License.
         <response name="success" type="view" value="LookupOrderHeader"/>
     </request-map>
     <!-- FixedAssetMaintenance Calendar -->
-    <request-map uri="day">
+    <request-map uri="calendar">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FixedAssetDay"/>
-    </request-map>
-    <request-map uri="week">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FixedAssetWeek"/>
-    </request-map>
-    <request-map uri="month">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FixedAssetMonth"/>
+        <response name="success" type="view" value="calendar"/>
     </request-map>
     <request-map uri="EditWorkEffort">
         <security https="true" auth="true"/>
@@ -2120,9 +2112,7 @@ under the License.
     <view-map name="ListFixedAssetMaints" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetMaints"/>
     <view-map name="EditFixedAssetMeters" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMeters"/>
     <view-map name="EditFixedAssetMaintOrders" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaintOrders"/>
-    <view-map name="FixedAssetDay" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#CalendarDay"/>
-    <view-map name="FixedAssetWeek" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#CalendarWeek"/>
-    <view-map name="FixedAssetMonth" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#CalendarMonth"/>
+    <view-map name="calendar" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarWithDecorator"/>
     <view-map name="WorkEffortSummary" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#WorkEffortSummary"/>
 
     <!-- Depreciation Calculation   -->

@@ -146,35 +146,35 @@ under the License.
     </menu>
     <menu name="Day"  extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextDay}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${nextMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${nextMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="toDay" title="${uiLabelMap.CommonToday}">
-            <link target="${parameters._LAST_VIEW_NAME_}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?paeriod=day&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousDay}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${prevMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${prevMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
     </menu>
     <menu name="Week" extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextWeek}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${nextMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${nextMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="thisWeek" title="${uiLabelMap.WorkEffortThisWeek}">
-            <link target="week"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousWeek}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${prevMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${prevMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
     </menu>
     <menu name="Month" extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextMonth}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${nextMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${nextMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="thisMonth" title="${uiLabelMap.WorkEffortThisMonth}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousMonth}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${prevMillis}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${prevMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
     </menu>
     <menu name="Upcoming" extends="Calendar">
@@ -182,21 +182,24 @@ under the License.
     <menu name="Calendar">
         <menu-item name="upcoming" title="${uiLabelMap.WorkEffortUpcomingEvents}">
             <condition>
-                <if-compare field="parameters.period" operator="not-equals" value="upcoming"/>
+                <and>
+                    <if-compare field="parameters.period" operator="not-equals" value="upcoming"/>
+                    <if-empty field="parameters.fixedAssetId"/>
+                </and>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
             <condition>
                 <if-compare field="parameters.period" operator="not-equals" value="month"/>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
             <condition>
                 <if-compare field="parameters.period" operator="not-equals" value="week"/>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
             <condition>
