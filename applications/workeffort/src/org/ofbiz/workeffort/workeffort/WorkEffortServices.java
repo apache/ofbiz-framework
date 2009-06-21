@@ -514,7 +514,14 @@ public class WorkEffortServices {
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
-        EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND);
+        // always take all repeating workefforts and 'AND' all previous conditions
+        EntityConditionList<EntityCondition> ecl = 
+			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+					EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
+					EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null)
+			), EntityJoinOperator.OR);
+        
+        
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
