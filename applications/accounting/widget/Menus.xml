@@ -488,7 +488,7 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
-            <link target="month">
+            <link target="calendar">
                 <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
@@ -529,25 +529,6 @@ under the License.
         </menu-item>
         <menu-item name="FixedAssetGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="FixedAssetGeoLocation">
-                <parameter param-name="fixedAssetId"/>
-            </link>
-        </menu-item>
-    </menu>
-
-    <menu name="FixedAssetCalendarTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-          selected-menuitem-context-field-name="parameters.viewMode">
-        <menu-item name="D" title="${uiLabelMap.CommonDay}">
-            <link target="day">
-                <parameter param-name="fixedAssetId"/>
-            </link>
-        </menu-item>
-        <menu-item name="W" title="${uiLabelMap.CommonWeek}">
-            <link target="week">
-                <parameter param-name="fixedAssetId"/>
-            </link>
-        </menu-item>
-        <menu-item name="M" title="${uiLabelMap.CommonMonth}">
-            <link target="month">
                 <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
