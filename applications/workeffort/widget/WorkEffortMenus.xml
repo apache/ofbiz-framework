@@ -149,7 +149,7 @@ under the License.
             <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${nextMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="toDay" title="${uiLabelMap.CommonToday}">
-            <link target="${parameters._LAST_VIEW_NAME_}?paeriod=day&amp;fixedAssetId=${parameters.fixedAssetId}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousDay}">
             <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${prevMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>
@@ -208,7 +208,7 @@ under the License.
                     <not><if-empty field="parameters.period"/></not>
                 </and>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day"/>
+            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;fixedAssetId=${parameters.fixedAssetId}"/>
         </menu-item>
         <menu-item name="dummy" title="--------">
             <condition>
