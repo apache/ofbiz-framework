@@ -136,6 +136,23 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="CommonCalendarDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/fixedasset/ViewCalendar.groovy"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator">
+                    <decorator-section name="body">
+                        <!--include-menu name="FixedAssetCalendarTabBar" location="component://accounting/widget/Menus.xml"/-->
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
 
