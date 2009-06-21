@@ -23,21 +23,43 @@ under the License.
 
     <screen name="SystemInfoNotes">
         <section>
+            <actions>
+                <service service-name="getSystemInfoNotes" result-map="resultMap"/>
+                <set field="systemInfoNotes" from-field="resultMap.systemInfoNotes"/>
+            </actions>
             <widgets>
-                <screenlet title="System Info notes for user: ${userLogin.partyId}" navigation-menu-name="SystemInfoNotes">
-                    <include-menu name="SystemInfoNotes" location="component://commonext/widget/SystemInfoMenus.xml"/>
-                    <include-form name="SystemInfoNotes" location="component://commonext/widget/SystemInfoForms.xml"/>
-                </screenlet>
+                <section>
+                    <condition>
+                        <not><if-empty field="systemInfoNotes"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="System Info notes for user: ${userLogin.partyId}" navigation-menu-name="SystemInfoNotes">
+                            <include-menu name="SystemInfoNotes" location="component://commonext/widget/SystemInfoMenus.xml"/>
+                            <include-form name="SystemInfoNotes" location="component://commonext/widget/SystemInfoForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
     
     <screen name="SystemInfoStatus">
         <section>
+            <actions>
+                <service service-name="getSystemInfoStatus" result-map="resultMap"/>
+                <set field="systemInfoStatus" from-field="resultMap.systemInfoStatus"/>
+            </actions>
             <widgets>
-                <screenlet title="System Status Info for user: ${userLogin.partyId}">
-                    <include-form name="SystemInfoStatus" location="component://commonext/widget/SystemInfoForms.xml"/>
-                </screenlet>
+                <section>
+                    <condition>
+                        <not><if-empty field="systemInfoStatus"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="System Status Info for user: ${userLogin.partyId}">
+                            <include-form name="SystemInfoStatus" location="component://commonext/widget/SystemInfoForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
