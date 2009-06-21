@@ -484,7 +484,7 @@ public class WorkEffortServices {
             entityExprList = getDefaultWorkEffortExprList(partyIdsToUse, facilityId, fixedAssetId, workEffortTypeId);
         }
         				
-        entityExprList.add(
+        EntityCondition periodCheck = 
         		EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
         				// the taskstart should be less than the periodend and the taskEnd should be larger than the period start
         				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
@@ -509,17 +509,23 @@ public class WorkEffortServices {
         								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
         						), EntityJoinOperator.AND)
         				), EntityJoinOperator.OR)
-        		), EntityJoinOperator.AND));
+        		), EntityJoinOperator.AND);
         
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
-        // always take all repeating workefforts and 'AND' all previous conditions
+        // always take all recurring workefforts and 'AND' all previous conditions
         EntityConditionList<EntityCondition> ecl = 
 			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-					EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
-					EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null)
+					EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null),
+					periodCheck
 			), EntityJoinOperator.OR);
+        // get all public workefforts in the required period
+        EntityConditionList<EntityCondition> eclPublic = 
+			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
+					EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
+					periodCheck
+			), EntityJoinOperator.AND);
         
         
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
@@ -528,6 +534,7 @@ public class WorkEffortServices {
                 List<GenericValue> tempWorkEfforts = null;
                 if (UtilValidate.isNotEmpty(partyIdsToUse)) {
                     tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, orderByList, null, false));
+                    tempWorkEfforts.addAll(delegator.findList("WorkEffort", eclPublic, null, orderByList, null, false));
                 } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
                     // Get "old style" work efforts and "new style" work efforts
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, orderByList, null, false);
