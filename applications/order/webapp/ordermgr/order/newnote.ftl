@@ -29,7 +29,8 @@ under the License.
         <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
         <a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 
-        <form method="post" action="<@ofbizUrl>createordernote/${donePage}</@ofbizUrl>" name="createnoteform">
+        <form method="post" action="<@ofbizUrl>createordernote</@ofbizUrl>" name="createnoteform">
+            <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
             <table class="basic-table" cellspacing='0'>
               <tr>
                 <td width="26%" align="right"><span class="label">${uiLabelMap.OrderNote}</span></td>

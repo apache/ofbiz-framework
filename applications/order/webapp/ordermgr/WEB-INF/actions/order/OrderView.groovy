@@ -209,6 +209,12 @@ if (orderHeader) {
     notes = delegator.findByAnd("OrderHeaderNoteView", [orderId : orderId], ["-noteDateTime"]);
     context.orderNotes = notes;
 
+    showNoteHeadingOnPDF = false;
+    if (notes && EntityUtil.filterByCondition(notes, EntityCondition.makeCondition("internalNote", EntityOperator.EQUALS, "N")).size() > 0) {
+        showNoteHeadingOnPDF = true;
+    }
+    context.showNoteHeadingOnPDF = showNoteHeadingOnPDF;
+
     cmvm = ContactMechWorker.getOrderContactMechValueMaps(delegator, orderId);
     context.orderContactMechValueMaps = cmvm;
 
