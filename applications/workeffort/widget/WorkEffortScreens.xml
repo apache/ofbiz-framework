@@ -828,37 +828,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="newCompanyEvent">
-        <section>
-            <widgets>
-                <section>
-                    <widgets>
-                        <decorator-screen name="main-decorator"
-                            location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet>
-                                    <include-form name="newEvent"
-                                        location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="MyCompanyComms">
-        <section>
-            <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId"/>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.WorkEffortCompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
-                    <include-menu name="MyCompanyCommsMenu" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                    <include-form name="MyCompanyComms" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-
 </screens>

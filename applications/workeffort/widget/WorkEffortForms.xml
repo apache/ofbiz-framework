@@ -1354,14 +1354,45 @@ under the License.
         <field name="delete" title="${uiLabelMap.CommonDelete}"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="newEvent" type="single" target="createEvent">
-        <field name="portalPageId"><hidden/></field>
-        <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
-        <field name="currentStatusId"><hidden value="_NA_"/></field>
+    <form name="addCalEvent" type="single" target="createWorkEffortAndPartyAssign">
+        <field name="partyId"><hidden value="${parameters.userLogin.partyId}"/></field>
+        <field name="roleTypeId"><hidden value="CAL_OWNER"/></field>
+        <field name="workEffortTypeId"><hidden value="EVENT"/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="currentStatusId"><hidden value="CAL_TENTATIVE"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="actualStartDate"><date-time type="date"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" position="2"><text/></field>
+        <field name="workEffortTypeId" position="1">
+            <drop-down no-current-selected-key="MEETING">
+                <entity-options entity-name="WorkEffortType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="EVENT"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="scopeEnumId" position="2">
+            <drop-down no-current-selected-key="WES_PRIVATE">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="estimatedStartDate" position="1"><date-time input-method="time-dropdown"/></field>
+        <field name="estimatedCompletionDate" position="2"><date-time input-method="time-dropdown"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
-
+    <form name="showCalEvent" type="single" default-map-name="workEffort">
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" position="2"><display/></field>
+        <field name="workEffortTypeId" position="1">
+            <display-entity entity-name="WorkEffortType" description="${description}"/>
+        </field>
+        <field name="scopeEnumId" position="2">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="estimatedStartDate" position="1"><display type="date-time"></display></field>
+        <field name="estimatedCompletionDate" position="2"><display type="date-time"></display></field>
+    </form>
+    
 </forms>

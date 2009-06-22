@@ -83,6 +83,12 @@ under the License.
         <response name="success" type="view" value="EditWorkEffort"/>
         <response name="error" type="view" value="EditWorkEffort"/>
     </request-map>
+    <request-map uri="createWorkEffortAndPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndPartyAssign"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view-last"/>
+    </request-map>
     <request-map uri="createWorkEffortAssoc">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffortAssoc"/>
@@ -655,27 +661,6 @@ under the License.
     <request-map uri="listWorkEffortEventReminders">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="ListWorkEffortEventReminders"/>
-    </request-map>
-
-    <!-- COMPANY Events -->
-    <request-map uri="myCompanyComms">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myCompanyComms" save-current-view="true"/>
-    </request-map>
-    <request-map uri="newEvent">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="newEvent"/>
-    </request-map>
-    <request-map uri="createEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="view-last" value="myCompanyComms"/>
-        <response name="error" type="view" value="newEvent"/>
-    </request-map>
-    <request-map uri="deleteEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view-last" value="myCompanyComms"/>
     </request-map>
 
     <!-- end of request mappings -->

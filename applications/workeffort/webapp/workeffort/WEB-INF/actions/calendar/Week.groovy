@@ -48,8 +48,9 @@ if (workEffortTypeId != null) {
 }
 
 Timestamp start = null;
-if (startParam != null)
+if (UtilValidate.isNotEmpty(startParam)) {
     start = new Timestamp(Long.parseLong(startParam));
+}
 
 if (start == null) {
     start = UtilDateTime.getWeekStart(nowTimestamp, timeZone, locale);
