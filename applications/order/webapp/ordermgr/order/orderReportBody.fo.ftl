@@ -116,18 +116,16 @@ under the License.
 
            <#-- notes -->
            <#if orderNotes?has_content>
+                   <#if showNoteHeadingOnPDF>
                    <fo:table-row >
                        <fo:table-cell number-columns-spanned="3">
                            <fo:block font-weight="bold">${uiLabelMap.OrderNotes}</fo:block>
+                           <fo:block><fo:leader leader-length="19cm" leader-pattern="rule"/></fo:block>
                        </fo:table-cell>
                    </fo:table-row>
+                   </#if>
                 <#list orderNotes as note>
                  <#if (note.internalNote?has_content) && (note.internalNote != "Y")>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="6">
-                            <fo:block><fo:leader leader-length="19cm" leader-pattern="rule" /></fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="1">
                         <fo:block>${note.noteInfo?if_exists}</fo:block>

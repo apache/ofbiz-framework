@@ -301,7 +301,7 @@ under the License.
     <request-map uri="createordernote">
         <security https="true" auth="true"/>
         <event type="service" invoke="createOrderNote"/>
-        <response name="success" type="view" value="orderlist"/>
+        <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="createnewnote"/>
     </request-map>
 
