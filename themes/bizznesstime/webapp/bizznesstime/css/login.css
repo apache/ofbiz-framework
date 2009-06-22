@@ -265,7 +265,7 @@ html[xmlns] .clearfix { display: block; }
 .humanMsg {
     letter-spacing: -1px;
     position: fixed;
-    top: 130px;
+    top: 70px;
     left: 25%;
     width: 50%;
     text-align: center;
