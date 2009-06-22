@@ -757,6 +757,7 @@ public class ModelFormField {
                 } else {
                     returnValue = retVal.toString();
                 }
+                return returnValue; // do not encode date and number type fields
             } else {
                 returnValue = defaultValue;
             }
@@ -2057,7 +2058,7 @@ public class ModelFormField {
             if (this.description != null && !this.description.isEmpty()) {
                 retVal = this.description.expandString(context);
             } else {
-                retVal = modelFormField.getEntry(context);
+                retVal = this.modelFormField.getEntry(context);
             }
             if (retVal == null || retVal.length() == 0) {
                 retVal = "";
@@ -2068,7 +2069,8 @@ public class ModelFormField {
                 String isoCode = null;
                 if (this.currency != null && !this.currency.isEmpty()) {
                     isoCode = this.currency.expandString(context);
-                }
+                } 
+                
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeConvert(retVal, "BigDecimal", null, null, locale, true);
                     retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
@@ -2077,8 +2079,10 @@ public class ModelFormField {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
-            } else if ("date".equals(type) && retVal.length() > 10) {
+            } else if ("date".equals(this.type) && retVal.length() > 10) {
                 retVal = retVal.substring(0,10);
+            } else if ("date-time".equals(this.type) && retVal.length() > 16) {
+                retVal = retVal.substring(0,16);
             }
             return retVal;
         }

@@ -662,6 +662,9 @@ under the License.
                     <xs:enumeration value="date">
                         <xs:annotation><xs:documentation>Display only the date part of a timestamp field</xs:documentation></xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="date-time">
+                        <xs:annotation><xs:documentation>Display only the date and hours:minutes part of a timestamp field</xs:documentation></xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
