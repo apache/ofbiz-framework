@@ -1558,12 +1558,6 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
     </property>
-    <property key="WorkEffortCompanyEvents">
-        <value xml:lang="en">Company events</value>
-        <value xml:lang="fr">Evènements de l'entreprise</value>
-        <value xml:lang="it">Eventi aziendali</value>
-        <value xml:lang="th">เหตุการณ์บริษัท</value>
-    </property>
     <property key="WorkEffortCompanyName">
         <value xml:lang="en">OFBiz: WorkEffort Manager</value>
         <value xml:lang="es">OFBiz: Administración de tareas</value>

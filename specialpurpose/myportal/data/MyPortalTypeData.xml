@@ -19,7 +19,6 @@
 -->
 <entity-engine-xml>
 
-    <WorkEffortType description="Company Events" hasTable="N" parentTypeId="EVENT" workEffortTypeId="COMPANY_EVENT"/>
     <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
 
     <!-- ProductStoreEmailSetting for send auto email to customer when CustRequest completed -->
@@ -34,7 +33,6 @@
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE0" sequenceNum="50" portalPageName="My Comms" description="The OFBiz My Communications page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE2" sequenceNum="200" portalPageName="Other Party Comms" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE3" sequenceNum="300" portalPageName="Company Events" description="The OFBiz My Portal Company Events page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
 
@@ -42,7 +40,6 @@
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML0" sequenceNum="50" portalPageName="My Comms" description="The OFBiz My Communications page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML2" sequenceNum="200" portalPageName="Other Party Comms" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
-    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML3" sequenceNum="300" portalPageName="Company Events" description="The OFBiz My Portal Company Events page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
 
@@ -60,7 +57,6 @@
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE1" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE1" columnSeqId="00002" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE2" columnSeqId="00001"/>
-    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE3" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE4" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE5" columnSeqId="00001"/>
 
@@ -69,7 +65,6 @@
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML1" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML1" columnSeqId="00002" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML2" columnSeqId="00001"/>
-    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML3" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML4" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML5" columnSeqId="00001"/>
 
@@ -105,7 +100,6 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002" sequenceNum="11"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortletAttribute portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="MyCommunications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE3" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
 
@@ -124,7 +118,6 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="7"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortletAttribute portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="MyCommunications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML3" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
 
