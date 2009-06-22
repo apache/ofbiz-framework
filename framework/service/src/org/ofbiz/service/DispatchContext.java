@@ -259,7 +259,6 @@ public class DispatchContext implements Serializable {
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher
      */
-    @Deprecated
     public Security getSecurity() {
         return dispatcher.getSecurity();
     }
