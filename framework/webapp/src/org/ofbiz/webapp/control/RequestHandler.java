@@ -551,11 +551,11 @@ public class RequestHandler {
                 }
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {
-                        String key = (String) request.getAttribute(urlParamEntry.getKey());
+                        String key = urlParamEntry.getKey();
                         // Don't overwrite messages coming from the current event
                         if (!("_EVENT_MESSAGE".equals(key) || "_ERROR_MESSAGE_".equals(key)
                                 || "_EVENT_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_LIST".equals(key))) {
-                            request.setAttribute(urlParamEntry.getKey(), urlParamEntry.getValue());
+                            request.setAttribute(key, urlParamEntry.getValue());
                         }
                     }
                 }
