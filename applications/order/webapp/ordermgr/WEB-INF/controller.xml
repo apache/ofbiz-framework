@@ -928,7 +928,7 @@ under the License.
     <request-map uri="makeQuickReturn">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="createReturnAndItemOrAdjustment"/>
-        <response name="success" type="view" value="returnitems"/>
+        <response name="success" type="request-redirect" value="returnItems"><redirect-parameter name="returnId"/></response>
         <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="quickRefundOrder">
