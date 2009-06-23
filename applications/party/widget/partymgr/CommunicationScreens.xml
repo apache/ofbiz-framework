@@ -211,22 +211,6 @@ under the License.
                             <include-screen name="commEvent" location="component://party/widget/partymgr/CommunicationScreens.xml"/>
                         </widgets>
                     </section>
-                    <section>
-                        <condition>
-                            <not>
-                                <if-empty field="communicationEvent.parentCommEventId"/>
-                            </not>
-                        </condition>
-                        <actions>
-                            <set field="parent" value="${uiLabelMap.CommonParent}"/>
-                            <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
-                                <field-map field-name="communicationEventId" from-field="communicationEvent.parentCommEventId"/>
-                            </entity-one>
-                        </actions>
-                        <widgets>
-                            <include-screen name="commEvent" location="component://party/widget/partymgr/CommunicationScreens.xml"/>
-                        </widgets>
-                    </section>
                 </container>
                 <container style="righthalf">
                     <label style="h1" text="${uiLabelMap.CommonRelatedInformation}"/>
@@ -317,14 +301,12 @@ under the License.
                                     </screenlet>
                                 </widgets>
                             </section>
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ViewEmail"/>
+                            <include-form  name="ViewEmail"
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </widgets>
                         <fail-widgets>
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ViewCommEvent"/>
+                            <include-form name="ViewCommEvent"
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </fail-widgets>
                     </section>
                 </screenlet>
