@@ -811,6 +811,22 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
+    <simple-method method-name="createPartyRelationshipContactAccount" short-description="create a company/contact relationship and add the related roles">
+        <set field="roleMap.partyId" from-field="parameters.accountPartyId"/>
+        <set field="roleMap.roleTypeId" value="ACCOUNT"/>
+        <call-service service-name="createPartyRole" in-map-name="roleMap"/>
+        <set field="roleMap.partyId" from-field="parameters.contactPartyId"/>
+        <set field="roleMap.roleTypeId" value="CONTACT"/>
+        <call-service service-name="createPartyRole" in-map-name="roleMap"/>
+        <set field="relMap.partyIdFrom" from-field="parameters.accountPartyId"/>
+        <set field="relMap.roleTypeIdFrom" value="ACCOUNT"/>
+        <set field="relMap.partyIdTo" from-field="parameters.contactPartyId"/>
+        <set field="relMap.roleTypeIdTo" value="CONTACT"/>
+        <set field="relMap.partyRelationshipTypeId" value="EMPLOYMENT"/>
+        <set field="relMap.comments" from-field="parameters.comments"/> 
+        <call-service service-name="createPartyRelationship" in-map-name="relMap"/>
+    </simple-method>
+    
     <simple-method method-name="createPartyCarrierAccount" short-description="Create PartyCarrierAccount">
         <make-value entity-name="PartyCarrierAccount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -939,11 +955,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUpdatePerson" short-description="Create and update a person" login-required="false">
-        <log level="info" message="========= Inside create update person ============="/>
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
         <check-errors/>
-        <log level="info" message="==================map-processor successfully ran ================${personMap}========================"/>
         <set field="partyId" from-field="parameters.partyId"/>
         <set-service-fields service-name="createPerson" map="personMap" to-map="personContext"/>
         <if-empty field="partyId">
@@ -959,4 +973,5 @@ under the License.
         </if-empty>
         <field-to-result field="partyId"/>
     </simple-method>
+
 </simple-methods>
