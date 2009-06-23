@@ -180,6 +180,10 @@ public class PartyServices {
         person = delegator.makeValue("Person", UtilMisc.toMap("partyId", partyId));
         person.setNonPKFields(context);
         toBeStored.add(person);
+        
+        // standard add the role of "contact" 
+        GenericValue partyRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "CONTACT"));
+        toBeStored.add(partyRole);
 
         try {
             delegator.storeAll(toBeStored);
@@ -414,6 +418,12 @@ public class PartyServices {
             partyGroup = delegator.makeValue("PartyGroup", UtilMisc.toMap("partyId", partyId));
             partyGroup.setNonPKFields(context);
             partyGroup.create();
+            
+            // standard add the role of "Account" 
+            GenericValue partyRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "ACCOUNT"));
+            partyRole.create();
+
+            
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
