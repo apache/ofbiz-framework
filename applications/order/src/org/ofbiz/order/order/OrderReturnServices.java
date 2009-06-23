@@ -1969,7 +1969,7 @@ public class OrderReturnServices {
                 orderMap.put("orderAdjustments", UtilMisc.toList(adj));
 
                 // Payment preference
-                if (additionalItemTotal.compareTo(BigDecimal.ZERO) > 0) {
+                if ((additionalItemTotal.compareTo(BigDecimal.ZERO) > 0) || ("RTN_CSREPLACE".equals(returnTypeId) && orderPriceTotal.compareTo(ZERO) > 0)) {
                     GenericValue paymentMethod = null;
                     try {
                         paymentMethod = returnHeader.getRelatedOne("PaymentMethod");
@@ -1993,6 +1993,9 @@ public class OrderReturnServices {
                             } else {
                                 opp.set("statusId", "PAYMENT_RECEIVED");
                             }
+                        }
+                        if ("RTN_CSREPLACE".equals(returnTypeId)) {
+                            opp.set("maxAmount", orderPriceTotal);
                         }
                         orderMap.put("orderPaymentInfo", UtilMisc.toList(opp));
                     }
