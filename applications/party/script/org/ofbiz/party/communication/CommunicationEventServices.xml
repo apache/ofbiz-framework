@@ -40,6 +40,7 @@ under the License.
                     <field-map field-name="communicationEventId" from-field="parameters.origCommEventId"/>
                 </entity-one>
                 <clear-field field="newEntity.communicationEventId"/>
+                <clear-field field="newEntity.messageId"/>
                 <clear-field field="newEntity.partyIdTo"/>
                 <set field="newEntity.partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="newEntity.subject" value="Forw: ${newEntity.subject}"/>
