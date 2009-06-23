@@ -202,7 +202,7 @@ under the License.
           <tr>
             <td>&nbsp;</td>
             <td>
-              <input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
+              <input type="submit" value="${uiLabelMap.CommonFind}" onClick="javascript:document.lookupparty.submit();"/>
             </td>
           </tr>
         </table>
