@@ -1361,8 +1361,8 @@ under the License.
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="currentStatusId"><hidden value="CAL_TENTATIVE"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}" position="2"><text/></field>
-        <field name="workEffortTypeId" position="1">
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="workEffortTypeId">
             <drop-down no-current-selected-key="MEETING">
                 <entity-options entity-name="WorkEffortType" description="${description}">
                     <entity-constraint name="parentTypeId" value="EVENT"/>
@@ -1370,7 +1370,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="scopeEnumId" position="2">
+        <field name="scopeEnumId">
             <drop-down no-current-selected-key="WES_PRIVATE">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
@@ -1378,21 +1378,52 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedStartDate" position="1"><date-time input-method="time-dropdown"/></field>
-        <field name="estimatedCompletionDate" position="2"><date-time input-method="time-dropdown"/></field>
+        <field name="estimatedStartDate"><date-time input-method="time-dropdown"/></field>
+        <field name="estimatedCompletionDate"><date-time input-method="time-dropdown"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="showCalEvent" type="single" default-map-name="workEffort">
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}" position="2"><display/></field>
-        <field name="workEffortTypeId" position="1">
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="workEffortTypeId">
             <display-entity entity-name="WorkEffortType" description="${description}"/>
         </field>
-        <field name="scopeEnumId" position="2">
+        <field name="scopeEnumId">
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
         </field>
-        <field name="estimatedStartDate" position="1"><display type="date-time"></display></field>
-        <field name="estimatedCompletionDate" position="2"><display type="date-time"></display></field>
+        <field name="estimatedStartDate"><display type="date-time"></display></field>
+        <field name="estimatedCompletionDate"><display type="date-time"></display></field>
+    </form>
+    <form name="showCalEventRoles" type="list" list-name="roles" 
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="roles" filter-by-date="true">
+                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            </entity-and>
+        </actions>
+        <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="partyId" >
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName} ${firstName} ${middleName}"/>
+        </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+    </form>
+    <form name="showCalEventRolesDel" type="list" extends="showCalEventRoles" target="deleteWorkEffortPartyAssign">
+        <field name="remove"><submit/></field>
+    </form>
+    <form name="addCalEventRole" type="single" target="createWorkEffortPartyAssign">
+        <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="partyId" position="1"><lookup target-form-name="LookupPartyName"></lookup></field>
+        <field name="roleTypeId" position="2">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="CALENDAR_ROLE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="add"><submit/></field>
     </form>
     
 </forms>

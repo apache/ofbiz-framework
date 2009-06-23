@@ -23,6 +23,9 @@ under the License.
 
     <screen name="Calendar">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCalendar"/>
+            </actions>
             <widgets>
                 <section>
                     <condition>
@@ -36,8 +39,7 @@ under the License.
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortDayView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
                             <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <include-screen name="addEvent"/>
-                            <include-screen name="showEvent"/>
+                            <include-screen name="eventDetail"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
                             </platform-specific>
@@ -52,15 +54,12 @@ under the License.
                         </or>
                     </condition>
                     <actions>
-                        <set field="titleProperty" value="PageTitleCalendarWeek"/>
-                        <set field="tabButtonItem" value="week"/>
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
                     </actions>
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
                             <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <include-screen name="addEvent"/>
-                            <include-screen name="showEvent"/>
+                            <include-screen name="eventDetail"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
                             </platform-specific>
@@ -72,15 +71,12 @@ under the License.
                         <if-compare field="parameters.period" operator="equals" value="month"/>
                     </condition>
                     <actions>
-                        <set field="titleProperty" value="PageTitleCalendarMonth"/>
-                        <set field="tabButtonItem" value="month"/>
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
                     </actions>
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
                             <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <include-screen name="addEvent"/>
-                            <include-screen name="showEvent"/>
+                            <include-screen name="eventDetail"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
                             </platform-specific>
@@ -92,9 +88,6 @@ under the License.
                         <if-compare field="parameters.period" operator="equals" value="upcoming"/>
                     </condition>
                     <actions>
-                        <set field="titleProperty" value="PageTitleCalendarUpcoming"/>
-                        <set field="headerItem" value="calendar"/>
-                        <set field="tabButtonItem" value="upcoming"/>
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Upcoming.groovy"/>
                     </actions>
                     <widgets>
@@ -122,30 +115,57 @@ under the License.
         </section>
     </screen>
 
-    <screen name="addEvent">
+
+    <screen name="eventDetail">
         <section>
-            <condition>
-                <if-compare field="parameters.form" operator="equals" value="edit"/>
-            </condition>
-            <widgets>
-                <label style="h2" text="Add a Calendar Event"/>
-                <include-form name="addCalEvent" location="component://workeffort/widget/WorkEffortForms.xml"/>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="showEvent">
-        <section>
-            <condition>
-                <if-compare field="parameters.form" operator="equals" value="show"/>
-            </condition>
             <actions>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
             <widgets>
-                <label style="h2" text="Calendar Event Summary"/>
-                <include-form name="showCalEvent" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.form" operator="equals" value="edit"/>
+                    </condition>
+                    <widgets>
+                        <container style="lefthalf">
+                            <label style="h2" text="Add a Calendar Event"/>
+                            <include-form name="addCalEvent" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </container>
+                        <container style="righthalf">
+                            <label style="h2" text="Participants"/>
+                            <include-form name="showCalEventRolesDel" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            <section>
+                                <condition>
+                                    <and>
+                                        <not><if-empty field="workEffort"/></not>
+                                        <if-compare field="workEffortTypeId" operator="not-equals" value="WES_PUBLIC"/>
+                                    </and>
+                                </condition>
+                                <widgets>
+                                    <include-form name="addCalEventRole" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                </widgets>
+                            </section>
+                        </container>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.form" operator="equals" value="show"/>
+                    </condition>
+                    <widgets>
+                        <container style="lefthalf">
+                            <label style="h2" text="Calendar Event Summary"/>
+                            <include-form name="showCalEvent" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </container>
+                        <container style="righthalf">
+                            <label style="h2" text="Participants"/>
+                            <include-form name="showCalEventRoles" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </container>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
+    
     
 </screens>

@@ -217,7 +217,18 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="CommonProjectDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator" location="component://order/widget/ordermgr/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="reloadCaptchaImage">
         <section>
             <actions>
