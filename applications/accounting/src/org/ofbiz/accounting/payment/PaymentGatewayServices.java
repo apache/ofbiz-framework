@@ -494,8 +494,11 @@ public class PaymentGatewayServices {
             processAmount = paymentPreference.getBigDecimal("maxAmount");
         }
 
+        // Check if the order is a replacement order
+        boolean replacementOrderFlag = isReplacementOrder(orderHeader);
+        
         // don't authorized more then what is required
-        if (processAmount.compareTo(totalRemaining) > 0) {
+        if (!replacementOrderFlag && processAmount.compareTo(totalRemaining) > 0) {
             processAmount = totalRemaining;
         }
 
@@ -1269,7 +1272,10 @@ public class PaymentGatewayServices {
                 BigDecimal amountThisCapture;
 
                 // determine how much for *this* capture
-                if (authAmount.compareTo(amountToCapture) >= 0) {
+                if (isReplacementOrder(orderHeader)) {
+                    // if it is a replacement order then just capture the auth amount
+                    amountThisCapture = authAmount;
+                } else if (authAmount.compareTo(amountToCapture) >= 0) {
                     // if the auth amount is more then expected capture just capture what is expected
                     amountThisCapture = amountToCapture;
                 } else if (payments.hasNext()) {
@@ -1297,8 +1303,10 @@ public class PaymentGatewayServices {
                     // decrease amount of next payment preference to capture
                     amountToCapture = amountToCapture.subtract(amountCaptured);
 
-                    // add the invoiceId to the result for processing
-                    captureResult.put("invoiceId", invoiceId);
+                    // add the invoiceId to the result for processing, not for a replacement order
+                    if (!isReplacementOrder(orderHeader)) {
+                        captureResult.put("invoiceId", invoiceId);
+                    }
 
                     // process the capture's results
                     try {
@@ -3479,5 +3487,22 @@ public class PaymentGatewayServices {
             Debug.logError(e, module);
         }
         return serviceName;
+    }
+    
+    public static boolean isReplacementOrder(GenericValue orderHeader) {
+        boolean replacementOrderFlag = false;
+        
+        List<GenericValue> returnItemResponses = FastList.newInstance();
+        try {
+            returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return replacementOrderFlag;
+        }
+        if (UtilValidate.isNotEmpty(returnItemResponses)) {
+            replacementOrderFlag = true;
+        }
+        
+        return replacementOrderFlag;
     }
 }
