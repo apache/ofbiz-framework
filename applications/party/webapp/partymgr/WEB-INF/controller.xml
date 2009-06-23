@@ -662,6 +662,12 @@ under the License.
         <response name="success" type="view" value="EditPartyRelationships"/>
         <response name="error" type="view" value="EditPartyRelationships"/>
     </request-map>
+    <request-map uri="createPartyRelationshipContactAccount">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyRelationshipContactAccount"/>
+        <response name="success" type="view" value="EditPartyRelationships"/>
+        <response name="error" type="view" value="EditPartyRelationships"/>
+    </request-map>
     <request-map uri="updatePartyRelationship">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyRelationship"/>

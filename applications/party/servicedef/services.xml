@@ -336,6 +336,14 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyRelationshipName" optional="false"/>
     </service>
+    
+    <service name="createPartyRelationshipContactAccount" engine="simple"
+        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRelationshipContactAccount" auth="true">
+        <description>create a company/contact relationship and add the related roles</description>
+        <attribute name="accountPartyId" type="String" mode="IN"/>        
+        <attribute name="contactPartyId" type="String" mode="IN"/>        
+        <attribute name="comments" type="String" mode="IN" optional="true" allow-html="safe"/>
+    </service>
 
     <!-- ContactMech services -->
     <service name="createContactMech" engine="simple"
