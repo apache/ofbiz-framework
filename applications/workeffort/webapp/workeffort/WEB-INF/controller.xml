@@ -148,13 +148,15 @@ under the License.
         <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
         <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
     </request-map>
-
-    <request-map uri="ListWorkEffortPartyAssigns"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortPartyAssigns"/></request-map>
+    <request-map uri="ListWorkEffortPartyAssigns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
+    </request-map>
     <request-map uri="createWorkEffortPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="assignPartyToWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
+        <response name="success" type="view-home" value="ListWorkEffortPartyAssigns"/>
+        <response name="error" type="view-home" value="ListWorkEffortPartyAssigns"/>
     </request-map>
     <request-map uri="updateWorkEffortPartyAssign">
         <security https="true" auth="true"/>
@@ -165,8 +167,8 @@ under the License.
     <request-map uri="deleteWorkEffortPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyToWorkEffortAssignment"/>
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
+        <response name="success" type="view-home" value="ListWorkEffortPartyAssigns"/>
+        <response name="error" type="view-home" value="ListWorkEffortPartyAssigns"/>
     </request-map>
 
     <request-map uri="EditWorkEffortRates">
