@@ -1195,6 +1195,10 @@ public class OrderReturnServices {
                     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
                     // sort these desending by maxAmount
                     orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
+
+                    List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED"), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_RECEIVED"));
+                    orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
+                    
                     // Check for replacement order
                     if (UtilValidate.isEmpty(orderPayPrefs)){
                         List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"));
@@ -1202,11 +1206,10 @@ public class OrderReturnServices {
                             String originalOrderId = EntityUtil.getFirst(orderItemAssocs).getString("orderId");
                             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", originalOrderId));
                             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
+                            orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
                             orderId = originalOrderId;
                         }
                     }
-                    List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED"), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_RECEIVED"));
-                    orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get Order details for #" + orderId, module);
                     continue;
