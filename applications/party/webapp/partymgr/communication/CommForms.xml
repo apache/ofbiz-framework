@@ -240,12 +240,18 @@ under the License.
         <field name="datetimeEnded" title="${uiLabelMap.CommonEndDate}"><display type="date"/></field>
         <field name="subject"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><display/></field>
+        <field name="parentCommEventId">
+            <hyperlink description="${communicationEvent.parentCommEventId}" target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEvent.parentCommEventId"/>
+            </hyperlink>
+        </field>
         <field name="note" title="${uiLabelMap.CommonNote}"><display/></field>
         
         <sort-order>
             <field-group collapsible="false" initially-collapsed="false">
                 <sort-field name="communicationEventId"/>
                 <sort-field name="communicationEventTypeId"/>
+                <sort-field name="parentCommEventId"/>
                 <sort-field name="contactListId"/>
                 <sort-field name="messageId"/>
                 <sort-field name="partyIdFrom"/>
@@ -256,7 +262,7 @@ under the License.
                 <sort-field name="datetimeEnded"/>
                 <sort-field name="subject"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="true">                               
+            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">                               
                 <sort-field name="content"/>
                 <sort-field name="note"/>                
             </field-group>
@@ -310,7 +316,7 @@ under the License.
                 <sort-field name="datetimeEnded"/>
                 <sort-field name="subject"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="true">               
+            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">               
                 <sort-field name="contentMimeTypeId"/>
                 <sort-field name="content"/>
                 <sort-field name="note"/>                
