@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -261,11 +260,11 @@ public class ComponentConfig {
         return cc.getRootLocation();
     }
 
-    public static List getAppBarWebInfos(String serverName) {
+    public static List<WebappInfo> getAppBarWebInfos(String serverName) {
         return ComponentConfig.getAppBarWebInfos(serverName, null, null);
     }
 
-    public static List getAppBarWebInfos(String serverName, String menuName) {
+    public static List<WebappInfo> getAppBarWebInfos(String serverName, String menuName) {
         return ComponentConfig.getAppBarWebInfos(serverName, null, menuName);
     }
 
