@@ -720,6 +720,12 @@ public class UtilXml {
         return valueBuffer.toString();
     }
 
+    public static String elementAttribute(Element element, String attrName, String defaultValue) {
+        if (node == null) return defaultValue;
+        String attrValue = element.getAttribute(attrName);
+        return UtilValidate.isNotEmpty(attrValue) attrValue ? defaultValue;
+    }
+
     public static String checkEmpty(String string) {
         if (string != null && string.length() > 0)
             return string;
