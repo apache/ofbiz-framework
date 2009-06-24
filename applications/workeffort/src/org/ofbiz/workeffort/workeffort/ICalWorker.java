@@ -50,8 +50,8 @@ import org.ofbiz.service.calendar.TemporalExpressionWorker;
 
 /** iCalendar worker class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
  * iCal4J</a> library. */
-public class ICalendarWorker {
-    public static final String module = ICalendarWorker.class.getName();
+public class ICalWorker {
+    public static final String module = ICalWorker.class.getName();
     
     protected static final ProdId prodId = new ProdId("-//Apache Open For Business//Work Effort Calendar//EN");
     protected static final Map<String, Status> statusMap = UtilMisc.toMap("CAL_TENTATIVE", Status.VEVENT_TENTATIVE,
