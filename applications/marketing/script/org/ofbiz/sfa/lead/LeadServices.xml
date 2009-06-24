@@ -34,7 +34,7 @@
                 </and>
             </condition>
             <then>
-                <add-error><fail-message message="Please enter person first name or last name or Company name"/></add-error>
+                <add-error><fail-property resource="MarketingUiLabels" property="SfaFirstNameLastNameAndCompanyNameMissingError"/></add-error>
             </then>
         </if>
         <check-errors/>
@@ -52,15 +52,18 @@
                 <set field="parameters.roleTypeId" value="LEAD"/>
                 <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
                 <check-errors/>
+                
+                <set field="leadContactPartyId" from-field="partyId"/>
+                <clear-field field="partyId"/>
                 <set field="partyRelationshipCtx.partyIdFrom" from-field="userLogin.partyId"/>
-                <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
+                <set field="partyRelationshipCtx.partyIdTo" from-field="leadContactPartyId"/>
                 <set field="partyRelationshipCtx.roleTypeIdFrom" value="OWNER"/>
                 <set field="partyRelationshipCtx.roleTypeIdTo" value="LEAD"/>
                 <set field="partyRelationshipCtx.partyRelationshipTypeId" value="LEAD_OWNER"/>
                 <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
                 <check-errors/>
         
-                <set field="updatePartyStatusCtx.partyId" from-field="partyId"/>
+                <set field="updatePartyStatusCtx.partyId" from-field="leadContactPartyId"/>
                 <set field="updatePartyStatusCtx.statusId" value="LEAD_ASSIGNED"/>
                 <call-service service-name="setPartyStatus" in-map-name="updatePartyStatusCtx"/>
             </then>
@@ -69,11 +72,16 @@
         <if-not-empty field="parameters.groupName">
             <set field="parameters.partyTypeId" value="PARTY_GROUP"/>
             <set field="parameters.roleTypeId" value="ACCOUNT_LEAD"/>
-            <if-empty field="partyId">
+            <if-empty field="leadContactPartyId">
                 <!-- In case we have any contact mech data then associate with party group  -->
                 <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
                 <set field="partyGroupPartyId" from-field="partyId"/>
                 <clear-field field="partyId"/>
+         
+               <set field="updatePartyStatusCtx.partyId" from-field="partyGroupPartyId"/>
+               <set field="updatePartyStatusCtx.statusId" value="LEAD_ASSIGNED"/>
+               <call-service service-name="setPartyStatus" in-map-name="updatePartyStatusCtx"/>
+
                 <else>
                     <call-map-processor processor-name="partyGroup" in-map-name="parameters" out-map-name="partyGroupCtx"
                         xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"/>
@@ -87,9 +95,9 @@
                 </else>
             </if-empty>
             
-            <if-not-empty field="partyId">
+            <if-not-empty field="leadContactPartyId">
                 <set field="partyRelationshipCtx.partyIdFrom" from-field="partyGroupPartyId"/>
-                <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
+                <set field="partyRelationshipCtx.partyIdTo" from-field="leadContactPartyId"/>
                 <set field="partyRelationshipCtx.roleTypeIdFrom" value="ACCOUNT_LEAD"/>
                 <set field="partyRelationshipCtx.roleTypeIdTo" value="LEAD"/>
                 <set field="partyRelationshipCtx.positionTitle" from-field="parameters.title"/>
@@ -109,7 +117,7 @@
             <set field="partyDataSourceCtx.dataSourceId" from-field="parameters.dataSourceId"/>
             <call-service service-name="createPartyDataSource" in-map-name="partyDataSourceCtx"/>
         </if-not-empty>
-        <field-to-result field="partyId"/>
+        <field-to-result field="leadContactPartyId" result-name="partyId" />
         <field-to-result field="partyGroupPartyId"/>
         <field-to-result field="parameters.roleTypeId" result-name="roleTypeId"/>
     </simple-method>
@@ -125,10 +133,11 @@
             <order-by field-name="-fromDate"/>
         </entity-and>
         <first-from-list list="partyRelationships" entry="partyRelationship"/>
-        
+
         <if-not-empty field="partyRelationship">
             <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
-            <call-service service-name="deletePartyRelationship" in-map-name="deletePartyRelationship"/>
+            <set from-field="nowTimestamp" field="deletePartyRelationship.thruDate"/>
+            <call-service service-name="updatePartyRelationship" in-map-name="deletePartyRelationship"/>
             <set field="partyGroupId" from-field="partyRelationship.partyIdFrom"/>
             <else>
                 <set field="partyGroupId" from-field="parameters.partyGroupId"/>
@@ -143,11 +152,6 @@
         <set field="partyRoleCtx.partyId" from-field="partyGroupId"/>
         <set field="partyRoleCtx.roleTypeId" value="ACCOUNT"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleCtx"/>
-        <set field="partyRoleCtx.roleTypeId" value="ACCOUNT_LEAD"/>
-        <call-service service-name="deletePartyRole" in-map-name="partyRoleCtx"/>
-        <set field="partyRoleCtx.partyId" from-field="parameters.partyId"/>
-        <!--set field="partyRoleCtx.roleTypeId" value="LEAD"/>
-        <call-service service-name="deletePartyRole" in-map-name="partyRoleCtx"/-->
 
         <!-- create new relationship -->
         <set field="partyRelationshipCtx.partyIdFrom" from-field="partyGroupId"/>
