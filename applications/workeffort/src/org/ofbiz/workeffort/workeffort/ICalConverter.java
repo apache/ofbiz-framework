@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +31,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
@@ -54,7 +52,6 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
@@ -307,6 +304,44 @@ public class ICalConverter {
         }
     }
 
+    /** Returns a calendar derived from a Work Effort calendar publish point. 
+     * 
+     * @param delegator
+     * @param workEffortId ID of a work effort with <code>workEffortTypeId</code> equal to
+     * <code>PUBLISH_PROPS</code>.
+     * @return An iCalendar as a <code>String</code>, or <code>null</code>
+     * if <code>workEffortId</code> is invalid.
+     * @throws GenericEntityException
+     */
+    public static String getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
+        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+        GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+        if (!isCalendarPublished(publishProperties)) {
+            Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
+            return null;
+        }
+        if (!"WES_PUBLIC".equals(publishProperties.get("scopeEnumId")) && !hasPermission(workEffortId, "VIEW", context)) {
+            return null;
+        }
+        Calendar calendar = makeCalendar(publishProperties, context);
+        ComponentList components = calendar.getComponents();
+        List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
+        if (workEfforts != null) {
+            for (GenericValue workEffort : workEfforts) {
+                toCalendarComponent(components, workEffort, context);
+            }
+        }
+        if (Debug.verboseOn()) {
+            try {
+                calendar.validate(true);
+                Debug.logVerbose("iCalendar passes validation", module);
+            } catch (ValidationException e) {
+                Debug.logVerbose("iCalendar fails validation: " + e, module);
+            }
+        }
+        return calendar.toString();
+    }
+
     protected static void getPartyPrimaryEmailAddress(Property property, GenericValue partyAssign, Map<String, Object> context) {
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("partyId", partyAssign.get("partyId"));
         Map<String, Object> resultMap = invokeService("getPartyICalUri", serviceMap, context);
@@ -329,6 +364,20 @@ public class ICalConverter {
             return WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
         }
         return null;
+    }
+
+    protected static boolean hasPermission(String workEffortId, String action, Map<String, Object> context) {
+        if (context.get("userLogin") == null) {
+            return false;
+        }
+        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffortId, "mainAction", action);
+        Map<String, Object> serviceResult = invokeService("workEffortICalendarPermission", serviceMap, context);
+        Boolean hasPermission = (Boolean) serviceResult.get("hasPermission");
+        if (hasPermission != null) {
+            return hasPermission.booleanValue();
+        } else {
+            return false;
+        }
     }
 
     protected static Map<String, Object> invokeService(String serviceName, Map<String, ? extends Object> serviceMap, Map<String, Object> context) {
@@ -362,6 +411,14 @@ public class ICalConverter {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg + e);
         }
+    }
+
+    protected static boolean isCalendarPublished(GenericValue publishProperties) {
+        if (publishProperties == null || !"PUBLISH_PROPS".equals(publishProperties.get("workEffortTypeId"))) {
+            return false;
+        }
+        DateRange range = new DateRange(publishProperties.getTimestamp("actualStartDate"), publishProperties.getTimestamp("actualCompletionDate"));
+        return range.includesDate(new Date());
     }
 
     protected static void loadPartyAssignment(Property property, GenericValue partyAssign, Map<String, Object> context) {
@@ -426,6 +483,44 @@ public class ICalConverter {
         replaceProperty(componentProps, toXProperty(workEffortIdXPropName, workEffort.getString("workEffortId")));
     }
 
+    protected static Calendar makeCalendar(GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
+        String iCalData = null;
+        GenericValue iCalValue = workEffort.getRelatedOne("WorkEffortIcalData");
+        if (iCalValue != null) {
+            iCalData = iCalValue.getString("icalData");
+        }
+        boolean newCalendar = true;
+        Calendar calendar = null;
+        if (iCalData == null) {
+            Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
+            calendar = new Calendar();
+        } else {
+            Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
+            StringReader reader = new StringReader(iCalData);
+            CalendarBuilder builder = new CalendarBuilder();
+            try {
+                calendar = builder.build(reader);
+                newCalendar = false;
+            } catch (Exception e) {
+                Debug.logError(e, "Error while parsing saved iCalendar, creating new iCalendar: ", module);
+                calendar = new Calendar();
+            }
+        }
+        PropertyList propList = calendar.getProperties();
+        replaceProperty(propList, prodId);
+        replaceProperty(propList, new XProperty(workEffortIdXPropName, workEffort.getString("workEffortId")));
+        if (newCalendar) {
+            propList.add(Version.VERSION_2_0);
+            propList.add(CalScale.GREGORIAN);
+            // TODO: Get time zone from publish properties value
+            java.util.TimeZone tz = java.util.TimeZone.getDefault();
+            TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+            net.fortuna.ical4j.model.TimeZone timezone = registry.getTimeZone(tz.getID());
+            calendar.getComponents().add(timezone.getVTimeZone());
+        }
+        return calendar;
+    }
+
     protected static String makePartyName(GenericValue partyAssign) {
         String partyName = partyAssign.getString("groupName");
         if (UtilValidate.isEmpty(partyName)) {
@@ -461,14 +556,6 @@ public class ICalConverter {
             return;
         }
         map.put(key, value);
-    }
-
-    protected static boolean isCalendarPublished(GenericValue publishProperties) {
-        if (publishProperties == null || !"PUBLISH_PROPS".equals(publishProperties.get("workEffortTypeId"))) {
-            return false;
-        }
-        DateRange range = new DateRange(publishProperties.getTimestamp("actualStartDate"), publishProperties.getTimestamp("actualCompletionDate"));
-        return range.includesDate(new Date());
     }
 
     @SuppressWarnings("unchecked")
@@ -534,96 +621,6 @@ public class ICalConverter {
                 }
             }
         }
-    }
-
-    protected static boolean hasPermission(String workEffortId, String action, Map<String, Object> context) {
-        if (context.get("userLogin") == null) {
-            return false;
-        }
-        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffortId, "mainAction", action);
-        Map<String, Object> serviceResult = invokeService("workEffortICalendarPermission", serviceMap, context);
-        Boolean hasPermission = (Boolean) serviceResult.get("hasPermission");
-        if (hasPermission != null) {
-            return hasPermission.booleanValue();
-        } else {
-            return false;
-        }
-    }
-
-    /** Returns a calendar derived from a Work Effort calendar publish point. 
-     * 
-     * @param delegator
-     * @param workEffortId ID of a work effort with <code>workEffortTypeId</code> equal to
-     * <code>PUBLISH_PROPS</code>.
-     * @return An iCalendar as a <code>String</code>, or <code>null</code>
-     * if <code>workEffortId</code> is invalid.
-     * @throws GenericEntityException
-     */
-    public static String getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
-        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
-        GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
-        if (!isCalendarPublished(publishProperties)) {
-            Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
-            return null;
-        }
-        if (!"WES_PUBLIC".equals(publishProperties.get("scopeEnumId")) && !hasPermission(workEffortId, "VIEW", context)) {
-            return null;
-        }
-        Calendar calendar = makeCalendar(publishProperties, context);
-        ComponentList components = calendar.getComponents();
-        List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        if (workEfforts != null) {
-            for (GenericValue workEffort : workEfforts) {
-                toCalendarComponent(components, workEffort, context);
-            }
-        }
-        if (Debug.verboseOn()) {
-            try {
-                calendar.validate(true);
-                Debug.logVerbose("iCalendar passes validation", module);
-            } catch (ValidationException e) {
-                Debug.logVerbose("iCalendar fails validation: " + e, module);
-            }
-        }
-        return calendar.toString();
-    }
-
-    protected static Calendar makeCalendar(GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
-        String iCalData = null;
-        GenericValue iCalValue = workEffort.getRelatedOne("WorkEffortIcalData");
-        if (iCalValue != null) {
-            iCalData = iCalValue.getString("icalData");
-        }
-        boolean newCalendar = true;
-        Calendar calendar = null;
-        if (iCalData == null) {
-            Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
-            calendar = new Calendar();
-        } else {
-            Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
-            StringReader reader = new StringReader(iCalData);
-            CalendarBuilder builder = new CalendarBuilder();
-            try {
-                calendar = builder.build(reader);
-                newCalendar = false;
-            } catch (Exception e) {
-                Debug.logError(e, "Error while parsing saved iCalendar, creating new iCalendar: ", module);
-                calendar = new Calendar();
-            }
-        }
-        PropertyList propList = calendar.getProperties();
-        replaceProperty(propList, prodId);
-        replaceProperty(propList, new XProperty(workEffortIdXPropName, workEffort.getString("workEffortId")));
-        if (newCalendar) {
-            propList.add(Version.VERSION_2_0);
-            propList.add(CalScale.GREGORIAN);
-            // TODO: Get time zone from publish properties value
-            java.util.TimeZone tz = java.util.TimeZone.getDefault();
-            TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
-            net.fortuna.ical4j.model.TimeZone timezone = registry.getTimeZone(tz.getID());
-            calendar.getComponents().add(timezone.getVTimeZone());
-        }
-        return calendar;
     }
 
     protected static void storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
