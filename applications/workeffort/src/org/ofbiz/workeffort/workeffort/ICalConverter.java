@@ -593,18 +593,14 @@ public class ICalConverter {
                     " on URL workEffortId " + context.get("workEffortId"), module);
             return;
         }
-        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffortId, "icalData", calendar.toString());
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
             return;
         }
-        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
-        if (iCalData == null) {
-            invokeService("createWorkEffortICalData", serviceMap, context);
-        } else {
-            invokeService("updateWorkEffortICalData", serviceMap, context);
+        if (!hasPermission(workEffortId, "UPDATE", context)) {
+            return;
         }
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
         if (workEfforts == null || workEfforts.size() == 0) {
@@ -627,8 +623,17 @@ public class ICalConverter {
                                 " on URL workEffortId " + context.get("workEffortId"), module);
                         continue;
                     }
+                } else {
+                    // TODO: create a new work effort
                 }
             }
+        }
+        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffortId, "icalData", calendar.toString());
+        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
+        if (iCalData == null) {
+            invokeService("createWorkEffortICalData", serviceMap, context);
+        } else {
+            invokeService("updateWorkEffortICalData", serviceMap, context);
         }
     }
 

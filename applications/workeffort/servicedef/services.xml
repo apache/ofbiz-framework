@@ -686,14 +686,14 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
     </service>
-    <service name="getICalWorkEfforts" engine="simple"
+    <service name="getICalWorkEfforts" engine="simple" auth="false"
              location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getICalWorkEfforts">
         <description>Get iCalendar Work Efforts</description>
         <!-- No permission checking - the servlet handles that -->
         <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
         <attribute type="List" mode="OUT" name="workEfforts"/>
     </service>
-    <service name="getPartyICalUri" engine="simple"
+    <service name="getPartyICalUri" engine="simple" auth="false"
              location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getPartyICalUri">
         <description>Get Party iCalendar URI</description>
         <!-- No permission checking - the servlet handles that -->
