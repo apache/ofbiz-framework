@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /** WebDAV response helper class. This class provides helper methods for
- * working with WebDAV PROPFIND requests and responses.*/
+ * working with WebDAV requests and responses.*/
 public class ResponseHelper {
 
     public static final String DAV_NAMESPACE_URI = "DAV:";
