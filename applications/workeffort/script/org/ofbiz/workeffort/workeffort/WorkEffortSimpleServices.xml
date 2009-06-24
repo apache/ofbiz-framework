@@ -1474,7 +1474,7 @@ under the License.
 
     <!-- iCalendar services -->
 
-    <simple-method method-name="getICalWorkEfforts" short-description="Get All Work Efforts Related To An iCalendar Publish Point">
+    <simple-method method-name="getICalWorkEfforts" short-description="Get All Work Efforts Related To An iCalendar Publish Point" login-required="false">
         <!-- Servlet already confirmed workEffortId is a valid publish point -->
         <set field="workEffortId" from-field="parameters.workEffortId"/>
         <entity-condition list="assignedParties" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
@@ -1517,7 +1517,7 @@ under the License.
         <field-to-result field="workEfforts"/>
     </simple-method>
     
-    <simple-method method-name="getPartyICalUri" short-description="Get The Party iCalendar URI">
+    <simple-method method-name="getPartyICalUri" short-description="Get The Party iCalendar URI" login-required="false">
         <!-- RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URI (4.3.3) -->
         <!-- For now we just look for a primary email address. This could be expanded later. -->
         <set field="partyId" from-field="parameters.partyId"/>
