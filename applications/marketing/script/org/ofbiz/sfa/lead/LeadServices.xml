@@ -110,13 +110,14 @@
             <set field="partyRelationshipCtx.roleTypeIdTo" value="ACCOUNT_LEAD"/>
             <set field="partyRelationshipCtx.partyRelationshipTypeId" value="LEAD_OWNER"/>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
+            <if-not-empty field="parameters.dataSourceId">
+                <set field="partyDataSourceCtx.partyId" from-field="partyGroupPartyId"/>
+                <set field="partyDataSourceCtx.dataSourceId" from-field="parameters.dataSourceId"/>
+                <call-service service-name="createPartyDataSource" in-map-name="partyDataSourceCtx"/>
+            </if-not-empty>
+
         </if-not-empty>
 
-        <if-not-empty field="parameters.dataSourceId">
-            <set field="partyDataSourceCtx.partyId" from-field="partyId"/>
-            <set field="partyDataSourceCtx.dataSourceId" from-field="parameters.dataSourceId"/>
-            <call-service service-name="createPartyDataSource" in-map-name="partyDataSourceCtx"/>
-        </if-not-empty>
         <field-to-result field="leadContactPartyId" result-name="partyId" />
         <field-to-result field="partyGroupPartyId"/>
         <field-to-result field="parameters.roleTypeId" result-name="roleTypeId"/>
