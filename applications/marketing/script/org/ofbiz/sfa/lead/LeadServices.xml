@@ -157,8 +157,6 @@
             <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
             <set from-field="nowTimestamp" field="deletePartyRelationship.thruDate"/>
             <call-service service-name="updatePartyRelationship" in-map-name="deletePartyRelationship"/>
-
-            <log level="info" message="Expiring relationship  ${deletePartyRelationship}"> </log>
             <clear-field field="deletePartyRelationship"/>
             <clear-field field="partyRelationship"/>
         </if-not-empty>
@@ -176,7 +174,6 @@
             <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
             <set from-field="nowTimestamp" field="deletePartyRelationship.thruDate"/>
             <call-service service-name="updatePartyRelationship" in-map-name="deletePartyRelationship"/>
-            <log level="info" message="Expiring relationship  ${deletePartyRelationship}"> </log>
             <clear-field field="deletePartyRelationship"/>
             <clear-field field="partyRelationship"/>
         </if-not-empty>
@@ -191,7 +188,6 @@
         <set field="partyRelationshipCtx.roleTypeIdTo" value="ACCOUNT"/>
         <set field="partyRelationshipCtx.partyRelationshipTypeId" value="ACCOUNT"/>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
-        <log level="info" message="Creating relationship  ${partyRelationshipCtx}"> </log>
         <clear-field field="partyRelationshipCtx"/>
 
         <set field="updatePartyCtx.partyId" from-field="partyGroupId"/>
@@ -209,8 +205,6 @@
         <set field="partyRelationshipCtx.partyRelationshipTypeId" value="EMPLOYMENT"/>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
 
-
-        <log level="info" message="Creating relationship  ${partyRelationshipCtx}"> </log>
         <clear-field field="partyRelationshipCtx"/>
         <set field="updatePartyCtx.partyId" from-field="partyId"/>
         <set field="updatePartyCtx.statusId" value="LEAD_CONVERTED"/>
@@ -218,6 +212,6 @@
  
         <field-to-result field="partyId"/>
         <field-to-result field="partyGroupId"/>
-        <set field="successMessage" value="Lead ${partyId} ${partyGroupId} succesfully converted to Account/Contact"/>
+        <set field="successMessage" value="Lead ${partyGroupId} ${partyId}  succesfully converted to Account/Contact"/>
     </simple-method>
 </simple-methods>
