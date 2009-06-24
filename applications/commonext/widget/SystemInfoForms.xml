@@ -26,6 +26,16 @@ under the License.
         <field name="noteDateTime" title="Date info created"><display type="date-time"/></field>
         <field name="noteInfo" title="System Info Note"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
     </form>
+    
+    <form name="EditSysInfoPortletParams" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+        <field name="dummy" title="BLOCK the following notifications:"><display/></field>
+        <field name="allNotifications" entry-name="attributeMap.allNotifications"><check/></field>
+        <field name="email" entry-name="attributeMap.email"><check/></field>
+        <field name="internalNotes" entry-name="attributeMap.internalNotes"><check/></field>
+        <field name="telephoneForwards" entry-name="attributeMap.telephoneForwards"><check/></field>
+        <field name="taskAssignment" entry-name="attributeMap.taskAssignment"><check/></field>
+        <field name="updateButton"><submit/></field>
+    </form>
 
     <form name="SystemInfoStatus" type="list" list-name="systemInfoStatus"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">

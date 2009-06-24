@@ -92,16 +92,35 @@ under the License.
         </if-not-empty>
     </simple-method>
 
-    <simple-method method-name="getPortletAttributes" short-description="Get all attributes of a Portlet" login-required="true">
-        <entity-and entity-name="PortletAttribute" list="attributeList">
-            <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
-            <field-map field-name="portalPortletId" from-field="parameters.portalPortletId"/>
-            <field-map field-name="portletSeqId" from-field="parameters.portletSeqId"/>
-        </entity-and>
-        <iterate list="attributeList" entry="attributeRecord">
-            <set field="attributeMap.${attributeRecord.attrName}" from-field="attributeRecord.attrValue"/>
-        </iterate>
-        <field-to-result field="attributeMap" result-name="attributeMap"/>
+    <simple-method method-name="getPortletAttributes" short-description="Get all attributes of a Portlet either by providing userLogin or portalPageid with portalPortletId" login-required="true">
+        <if-empty field="parameters.ownerUserLoginId">
+            <if-empty field="parameters.portalPageId">
+                <log level="error" message="Service getPortletAttributes did not receive either ownerUserLoginId OR portalPageId"></log>
+                <return response-code="error"/> 
+            </if-empty>
+        </if-empty>
+        <!-- if userLogin provided get the portalPageId with the required portlet -->
+        <if-not-empty field="parameters.ownerUserLoginId">
+            <entity-and entity-name="PortalPageAndPortlet" list="ppList">
+                <field-map field-name="ownerUserLoginId" from-field="parameters.ownerUserLoginId"/>
+                <field-map field-name="portalPortletId"  from-field="parameters.portalPortletId"/>
+            </entity-and>
+            <first-from-list entry="portalPage" list="ppList"/>
+            <set field="parameters.portalPageId" from-field="portalPage.portalPageId"/>
+        </if-not-empty>
+        <entity-condition entity-name="PortletAttribute" list="attributeList">
+            <condition-list combine="and">
+                <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>                
+                <condition-expr field-name="portalPortletId" operator="equals" from-field="parameters.portalPortletId"/>                
+                <condition-expr field-name="portletSeqId" operator="equals" from-field="parameters.portletSeqId" ignore-if-empty="true"/>                
+            </condition-list>
+        </entity-condition>
+        <if-not-empty field="attributeList">
+            <iterate list="attributeList" entry="attributeRecord">
+                <set field="attributeMap.${attributeRecord.attrName}" from-field="attributeRecord.attrValue"/>
+            </iterate>
+            <field-to-result field="attributeMap" result-name="attributeMap"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="createPortalPage" short-description="Create a new Portal Page">

@@ -41,32 +41,44 @@ under the License.
     <simple-method method-name="setPortalPortletAttributes" short-description="Sets a PortalPortlet attributes">
         <if-not-empty field="parameters">
             <iterate-map map="parameters" key="attributeKey" value="attributeValue">
-                <if-not-empty field="attributeKey">
-                    <if>
-                        <condition>
-                            <and>
-                                <if-compare field="attributeKey"  operator="not-equals" value="portalPageId"/>
-                                <if-compare field="attributeKey"  operator="not-equals" value="portalPortletId"/>
-                                <if-compare field="attributeKey"  operator="not-equals" value="portletSeqId"/>
-                            </and>
-                        </condition>
-                        <then>
-                            <clear-field field="attributeEntityMap"/>
-                            <set-service-fields service-name="createPortletAttribute" to-map="attributeEntityMap" map="parameters"/>
-                            <set field="attributeEntityMap.attrName"  from-field="attributeKey"/>
-                            <set field="attributeEntityMap.attrValue" from-field="attributeValue"/>
-
-                            <entity-one entity-name="PortletAttribute" value-field="attributeItem">
-                                <field-map field-name="attrName" from-field="attributeEntityMap.attrName"/>
-                            </entity-one>
-                            <if-not-empty field="attributeItem">
-                                <remove-value value-field="attributeItem"/>
-                            </if-not-empty>
-
-                            <call-service in-map-name="attributeEntityMap" service-name="createPortletAttribute"/>
-                        </then>
-                    </if>
-                </if-not-empty>
+                <if>
+                    <condition>
+                        <and>
+                            <if-compare field="attributeKey"  operator="not-equals" value="portalPageId"/>
+                            <if-compare field="attributeKey"  operator="not-equals" value="portalPortletId"/>
+                            <if-compare field="attributeKey"  operator="not-equals" value="portletSeqId"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <log level="always" message="===2==processing: ${attributeKey}"></log>
+                        <clear-field field="attributeEntityMap"/>
+                        <set-service-fields service-name="createPortletAttribute" map="parameters" to-map="attributeEntityMap"/>
+                        <set field="attributeEntityMap.attrName"  from-field="attributeKey"/>
+                        <set field="attributeEntityMap.attrValue" from-field="attributeValue"/>
+                        
+                        <entity-one entity-name="PortletAttribute" value-field="attributeItem">
+                            <field-map field-name="attrName" from-field="attributeEntityMap.attrName"/>
+                        </entity-one>
+                        <if-not-empty field="attributeItem">
+                            <remove-value value-field="attributeItem"/>
+                        </if-not-empty>
+                        <call-service service-name="createPortletAttribute" in-map-name="attributeEntityMap"/>
+                        <!-- remove all attributes which were not provided -->
+                        <entity-condition entity-name="PortletAttribute" list="attributeList">
+                            <condition-list combine="and">
+                                <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>                
+                                <condition-expr field-name="portalPortletId" operator="equals" from-field="parameters.portalPortletId"/>                
+                                <condition-expr field-name="portletSeqId" operator="equals" from-field="parameters.portletSeqId" ignore-if-null="true"/>                
+                            </condition-list>
+                        </entity-condition>
+                        <!-- remove all not supplied attributes -->
+                        <iterate entry="attribute" list="attributeList">
+                            <if-empty field="parameters.${attribute.attrName}">
+                                <remove-value value-field="attribute"/>
+                            </if-empty>
+                        </iterate>                        
+                    </then>
+                </if>
             </iterate-map>
         </if-not-empty>
     </simple-method>
