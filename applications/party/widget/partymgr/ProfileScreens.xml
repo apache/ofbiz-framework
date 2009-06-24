@@ -467,6 +467,15 @@
         </section>
     </screen>
 
+    <screen name="contactsAndAccounts">
+        <section>
+            <widgets>
+                <include-screen name="partyRelContacts"/>
+                <include-screen name="partyRelAccounts"/>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="partyRelContacts">
         <section>
             <actions>
