@@ -492,7 +492,7 @@ under the License.
       <relation type="one" fk-name="WE_EVENT_REMIND_CM" rel-entity-name="ContactMech">
         <key-map field-name="contactMechId"/>
       </relation>
-      <relation type="one" fk-name="WE_EVENT_REMIND_PTY" rel-entity-name="Party">
+      <relation type="one" fk-name="WE_EVENT_REMIND_PY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
     </entity>
