@@ -79,7 +79,7 @@ under the License.
                 <li><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></li>
                 <li><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></li>
                 <li><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></li>
-                <li><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with belog using screen decorator</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with blog using screen decorator</a></li>
                 <li><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></li>
               </ul>  
             </div>
