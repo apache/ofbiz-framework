@@ -352,102 +352,36 @@ public class SimpleMethod {
         this.methodName = simpleMethodElement.getAttribute("method-name");
         this.shortDescription = simpleMethodElement.getAttribute("short-description");
 
-        defaultErrorCode = simpleMethodElement.getAttribute("default-error-code");
-        if (defaultErrorCode == null || defaultErrorCode.length() == 0) {
-            defaultErrorCode = "error";
-        }
-        defaultSuccessCode = simpleMethodElement.getAttribute("default-success-code");
-        if (defaultSuccessCode == null || defaultSuccessCode.length() == 0) {
-            defaultSuccessCode = "success";
-        }
+        defaultErrorCode = UtilXml.elementAttribute(simpleMethodElement, "default-error-code", "error");
+        defaultSuccessCode = UtilXml.elementAttribute(simpleMethodElement, "default-success-code", "success");
 
-        parameterMapName = simpleMethodElement.getAttribute("parameter-map-name");
-        if (parameterMapName == null || parameterMapName.length() == 0) {
-            parameterMapName = "parameters";
-        }
+        parameterMapName = UtilXml.elementAttribute(simpleMethodElement, "parameter-map-name", "parameters");
 
-        eventRequestName = simpleMethodElement.getAttribute("event-request-object-name");
-        if (eventRequestName == null || eventRequestName.length() == 0) {
-            eventRequestName = "request";
-        }
-        eventSessionName = simpleMethodElement.getAttribute("event-session-object-name");
-        if (eventSessionName == null || eventSessionName.length() == 0) {
-            eventSessionName = "session";
-        }
-        eventResponseName = simpleMethodElement.getAttribute("event-response-object-name");
-        if (eventResponseName == null || eventResponseName.length() == 0) {
-            eventResponseName = "response";
-        }
-        eventResponseCodeName = simpleMethodElement.getAttribute("event-response-code-name");
-        if (eventResponseCodeName == null || eventResponseCodeName.length() == 0) {
-            eventResponseCodeName = "_response_code_";
-        }
-        eventErrorMessageName = simpleMethodElement.getAttribute("event-error-message-name");
-        if (eventErrorMessageName == null || eventErrorMessageName.length() == 0) {
-            eventErrorMessageName = "_error_message_";
-        }
-        eventErrorMessageListName = simpleMethodElement.getAttribute("event-error-message-list-name");
-        if (eventErrorMessageListName == null || eventErrorMessageListName.length() == 0) {
-            eventErrorMessageListName = "_error_message_list_";
-        }
-        eventEventMessageName = simpleMethodElement.getAttribute("event-event-message-name");
-        if (eventEventMessageName == null || eventEventMessageName.length() == 0) {
-            eventEventMessageName = "_event_message_";
-        }
-        eventEventMessageListName = simpleMethodElement.getAttribute("event-event-message-list-name");
-        if (eventEventMessageListName == null || eventEventMessageListName.length() == 0) {
-            eventEventMessageListName = "_event_message_list_";
-        }
+        eventRequestName = UtilXml.elementAttribute(simpleMethodElement, "event-request-object-name", "request");
+        eventSessionName = UtilXml.elementAttribute(simpleMethodElement, "event-session-object-name", "session");
+        eventResponseName = UtilXml.elementAttribute(simpleMethodElement, "event-response-object-name", "response");
+        eventResponseCodeName = UtilXml.elementAttribute(simpleMethodElement, "event-response-code-name", "_response_code_");
+        eventErrorMessageName = UtilXml.elementAttribute(simpleMethodElement, "event-error-message-name", "_error_message_");
+        eventErrorMessageListName = UtilXml.elementAttribute(simpleMethodElement, "event-error-message-list-name", "_error_message_list_");
+        eventEventMessageName = UtilXml.elementAttribute(simpleMethodElement, "event-event-message-name", "_event_message_");
+        eventEventMessageListName = UtilXml.elementAttribute(simpleMethodElement, "event-event-message-list-name", "_event_message_list_");
 
-        serviceResponseMessageName = simpleMethodElement.getAttribute("service-response-message-name");
-        if (serviceResponseMessageName == null || serviceResponseMessageName.length() == 0) {
-            serviceResponseMessageName = "responseMessage";
-        }
-        serviceErrorMessageName = simpleMethodElement.getAttribute("service-error-message-name");
-        if (serviceErrorMessageName == null || serviceErrorMessageName.length() == 0) {
-            serviceErrorMessageName = "errorMessage";
-        }
-        serviceErrorMessageListName = simpleMethodElement.getAttribute("service-error-message-list-name");
-        if (serviceErrorMessageListName == null || serviceErrorMessageListName.length() == 0) {
-            serviceErrorMessageListName = "errorMessageList";
-        }
-        serviceErrorMessageMapName = simpleMethodElement.getAttribute("service-error-message-map-name");
-        if (serviceErrorMessageMapName == null || serviceErrorMessageMapName.length() == 0) {
-            serviceErrorMessageMapName = "errorMessageMap";
-        }
+        serviceResponseMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-response-message-name", "responseMessage");
+        serviceErrorMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-name", "errorMessage");
+        serviceErrorMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-list-name", "errorMessageList");
+        serviceErrorMessageMapName = UtilXml.elementAttribute(simpleMethodElement, "service-error-message-map-name", "errorMessageMap");
 
-        serviceSuccessMessageName = simpleMethodElement.getAttribute("service-success-message-name");
-        if (serviceSuccessMessageName == null || serviceSuccessMessageName.length() == 0) {
-            serviceSuccessMessageName = "successMessage";
-        }
-        serviceSuccessMessageListName = simpleMethodElement.getAttribute("service-success-message-list-name");
-        if (serviceSuccessMessageListName == null || serviceSuccessMessageListName.length() == 0) {
-            serviceSuccessMessageListName = "successMessageList";
-        }
+        serviceSuccessMessageName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-name", "successMessage");
+        serviceSuccessMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-list-name", "successMessageList");
 
         loginRequired = !"false".equals(simpleMethodElement.getAttribute("login-required"));
         useTransaction = !"false".equals(simpleMethodElement.getAttribute("use-transaction"));
 
-        localeName = simpleMethodElement.getAttribute("locale-name");
-        if (localeName == null || localeName.length() == 0) {
-            localeName = "locale";
-        }
-        delegatorName = simpleMethodElement.getAttribute("delegator-name");
-        if (delegatorName == null || delegatorName.length() == 0) {
-            delegatorName = "delegator";
-        }
-        securityName = simpleMethodElement.getAttribute("security-name");
-        if (securityName == null || securityName.length() == 0) {
-            securityName = "security";
-        }
-        dispatcherName = simpleMethodElement.getAttribute("dispatcher-name");
-        if (dispatcherName == null || dispatcherName.length() == 0) {
-            dispatcherName = "dispatcher";
-        }
-        userLoginName = simpleMethodElement.getAttribute("user-login-name");
-        if (userLoginName == null || userLoginName.length() == 0) {
-            userLoginName = "userLogin";
-        }
+        localeName = UtilXml.elementAttribute(simpleMethodElement, "locale-name", "locale");
+        delegatorName = UtilXml.elementAttribute(simpleMethodElement, "delegator-name", "delegator");
+        securityName = UtilXml.elementAttribute(simpleMethodElement, "security-name", "security");
+        dispatcherName = UtilXml.elementAttribute(simpleMethodElement, "dispatcher-name", "dispatcher");
+        userLoginName = UtilXml.elementAttribute(simpleMethodElement, "user-login-name", "userLogin");
 
         readOperations(simpleMethodElement, this.methodOperations, this);
     }
