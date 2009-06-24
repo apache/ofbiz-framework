@@ -585,13 +585,6 @@ public class ICalConverter {
                 Debug.logVerbose("iCalendar fails validation: " + e, module);
             }
         }
-        // TODO: Remove this before commit
-            try {
-                calendar.validate(true);
-                Debug.logInfo("iCalendar passes validation", module);
-            } catch (ValidationException e) {
-                Debug.logInfo("iCalendar fails validation: " + e, module);
-            }
         return calendar.toString();
     }
 
