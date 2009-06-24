@@ -721,9 +721,9 @@ public class UtilXml {
     }
 
     public static String elementAttribute(Element element, String attrName, String defaultValue) {
-        if (node == null) return defaultValue;
+        if (element == null) return defaultValue;
         String attrValue = element.getAttribute(attrName);
-        return UtilValidate.isNotEmpty(attrValue) attrValue ? defaultValue;
+        return UtilValidate.isNotEmpty(attrValue) ? attrValue : defaultValue;
     }
 
     public static String checkEmpty(String string) {
