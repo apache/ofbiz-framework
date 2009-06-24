@@ -1734,6 +1734,9 @@
         <value xml:lang="fr">Premier contact</value>
         <value xml:lang="it">Primo contatto</value>
     </property>
+    <property key="SfaFirstNameLastNameAndCompanyNameMissingError">
+        <value xml:lang="en">Please enter Person First name or Last name or Company name</value>
+    </property>
     <property key="SfaForecasts">
         <value xml:lang="en">Forecast</value>
         <value xml:lang="es">Previsión</value>
