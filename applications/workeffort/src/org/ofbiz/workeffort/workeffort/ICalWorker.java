@@ -58,7 +58,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /** iCalendar worker class. This class handles the WebDAV requests and
- * delegates the calendar tasks to <code>ICalConverter</code>.
+ * delegates the calendar conversion tasks to <code>ICalConverter</code>.
  */
 public class ICalWorker {
     public static final String module = ICalWorker.class.getName();
@@ -72,6 +72,7 @@ public class ICalWorker {
             context.put(attributeName, request.getAttribute(attributeName));
         }
         context.put("parameters", request.getParameterMap());
+        context.put("locale", UtilHttp.getLocale(request));
         return context;
     }
 
@@ -90,11 +91,11 @@ public class ICalWorker {
         setupRequest(request, response);
         String workEffortId = (String) request.getAttribute("workEffortId");
         if (workEffortId == null) {
-            Debug.logInfo("[sendCalendar] workEffortId missing", module);
+            Debug.logInfo("[handleGetRequest] workEffortId missing", module);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        Debug.logInfo("[sendCalendar] workEffortId = " + workEffortId, module);
+        Debug.logInfo("[handleGetRequest] workEffortId = " + workEffortId, module);
         try {
             String calendar = ICalConverter.getICalendar(workEffortId, createConversionContext(request));
             if (calendar == null) {
@@ -107,7 +108,7 @@ public class ICalWorker {
             writer.write(calendar);
             writer.close();
         } catch (Exception e) {
-            Debug.logError(e, "[sendCalendar] Error while sending calendar: ", module);
+            Debug.logError(e, "[handleGetRequest] Error while sending calendar: ", module);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
@@ -117,16 +118,18 @@ public class ICalWorker {
         setupRequest(request, response);
         String workEffortId = (String) request.getAttribute("workEffortId");
         if (workEffortId == null) {
-            Debug.logInfo("[sendProperties] workEffortId missing", module);
+            Debug.logInfo("[handlePropFindRequest] workEffortId missing", module);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        Debug.logInfo("[sendProperties] workEffortId = " + workEffortId, module);
+        Debug.logInfo("[handlePropFindRequest] workEffortId = " + workEffortId, module);
         try {
             Document requestDocument = WebDavUtil.getDocumentFromRequest(request);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             UtilXml.writeXmlDocument(os, requestDocument, "UTF-8", true, true);
-            Debug.logInfo("[sendProperties] PROPFIND body:\r\n" + os.toString(), module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + os.toString(), module);
+            }
             PropFindHelper helper = new PropFindHelper(requestDocument);
             if (!helper.isAllProp() && !helper.isPropName()) {
                 Document responseDocument = helper.getResponseDocument();
@@ -161,7 +164,9 @@ public class ICalWorker {
                 responseDocument.appendChild(rootElement);
                 os = new ByteArrayOutputStream();
                 UtilXml.writeXmlDocument(os, responseDocument, "UTF-8", true, true);
-                Debug.logInfo("[sendProperties] PROPFIND response:\r\n" + os.toString(), module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + os.toString(), module);
+                }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
                 Writer writer = getWriter(response, context);
                 helper.writeResponse(writer);
@@ -173,29 +178,28 @@ public class ICalWorker {
         }
         response.setStatus(HttpServletResponse.SC_OK);
         response.flushBuffer();
-        
     }
 
     public static void handlePutRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
         String contentType = request.getContentType();
-        Debug.logInfo("[updateCalendar] content type = " + contentType, module);
+        Debug.logInfo("[handlePutRequest] content type = " + contentType, module);
         if (contentType != null && !"text/calendar".equals(contentType)) {
-            Debug.logInfo("[updateCalendar] invalid content type", module);
+            Debug.logInfo("[handlePutRequest] invalid content type", module);
             response.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         setupRequest(request, response);
         String workEffortId = (String) request.getAttribute("workEffortId");
         if (workEffortId == null) {
-            Debug.logInfo("[updateCalendar] workEffortId missing", module);
+            Debug.logInfo("[handlePutRequest] workEffortId missing", module);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        Debug.logInfo("[updateCalendar] workEffortId = " + workEffortId, module);
+        Debug.logInfo("[handlePutRequest] workEffortId = " + workEffortId, module);
         try {
             ICalConverter.storeCalendar(request.getInputStream(), createConversionContext(request));
         } catch (Exception e) {
-            Debug.logError(e, "[updateCalendar] Error while updating calendar: ", module);
+            Debug.logError(e, "[handlePutRequest] Error while updating calendar: ", module);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }

@@ -305,10 +305,9 @@ public class ICalConverter {
     }
 
     /** Returns a calendar derived from a Work Effort calendar publish point. 
-     * 
-     * @param delegator
      * @param workEffortId ID of a work effort with <code>workEffortTypeId</code> equal to
      * <code>PUBLISH_PROPS</code>.
+     * @param context The conversion context
      * @return An iCalendar as a <code>String</code>, or <code>null</code>
      * if <code>workEffortId</code> is invalid.
      * @throws GenericEntityException
@@ -558,6 +557,14 @@ public class ICalConverter {
         map.put(key, value);
     }
 
+    /** Update work efforts from an incoming iCalendar request.
+     * @param is
+     * @param context
+     * @throws IOException
+     * @throws ParserException
+     * @throws GenericEntityException
+     * @throws GenericServiceException
+     */
     @SuppressWarnings("unchecked")
     public static void storeCalendar(InputStream is, Map<String, Object> context) throws IOException, ParserException, GenericEntityException, GenericServiceException {
         CalendarBuilder builder = new CalendarBuilder();
@@ -572,7 +579,9 @@ public class ICalConverter {
                 is.close();
             }
         }
-        Debug.logInfo("Processing calendar:\r\n" + calendar, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Processing calendar:\r\n" + calendar, module);
+        }
         String workEffortId = fromXProperty(calendar.getProperties(), workEffortIdXPropName);
         if (workEffortId == null) {
             // TODO: Create new publish point
@@ -658,7 +667,6 @@ public class ICalConverter {
     protected static void toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         GenericDelegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
-        context.put("workEffortId", workEffortId);
         String workEffortTypeId = workEffort.getString("workEffortTypeId");
         GenericValue typeValue = delegator.findOne("WorkEffortType", UtilMisc.toMap("workEffortTypeId", workEffortTypeId), true);
         boolean isTask = false;
