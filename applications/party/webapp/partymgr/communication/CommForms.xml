@@ -467,7 +467,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="entryDate" sort-field="true"><display type="date"/></field>
+        <field name="entryDate" sort-field="true"><display type="date-time"/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="removeButton" widget-style="smallSubmit"><submit/></field>
     </form>
@@ -890,5 +890,9 @@ under the License.
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="ListProgressEmails" type="list" extends="ListPartyCommEvents" list-name="commEventProgress"/>
+    <form name="ListProgressEmails" type="list" extends="ListPartyCommEvents" list-name="commEventProgress">
+        <field name="partyIdFrom"><ignored/></field>
+        <field name="startDate"><display type="date-time"/></field>
+        <field name="removeButton" widget-style="smallSubmit"><submit/></field>
+    </form>
 </forms>
