@@ -87,7 +87,7 @@ public class VCard {
             for (Contact contact: contacts) {
                 PersonalIdentity pid = contact.getPersonalIdentity();
                 Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("firstName", pid.getFirstname(), "lastName", pid.getLastname());
-
+                    
                 for (Iterator iter = contact.getAddresses(); iter.hasNext();) {
                     Address address = (AddressImpl) iter.next();
                     if (contact.isPreferredAddress(address)) {
@@ -100,64 +100,71 @@ public class VCard {
                         continue;
                     }
                 }
-                serviceCtx.put("address1", workAddress.getStreet());
-                serviceCtx.put("city", workAddress.getCity());
-                serviceCtx.put("postalCode", workAddress.getPostalCode());
+                if (UtilValidate.isNotEmpty(workAddress)) {
+                    serviceCtx.put("address1", workAddress.getStreet());
+                    serviceCtx.put("city", workAddress.getCity());
+                    serviceCtx.put("postalCode", workAddress.getPostalCode());
+                    
+                    List<GenericValue> countryGeoList = null;
+                    List<GenericValue> stateGeoList = null;
+                    EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                                        EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
+                                                        EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getCountry())), EntityOperator.AND);
+                    countryGeoList = delegator.findList("Geo", cond, null, null, null, true);
+                    if (!countryGeoList.isEmpty()) {
+                        GenericValue countryGeo = EntityUtil.getFirst(countryGeoList);
+                        serviceCtx.put("countryGeoId", countryGeo.get("geoId"));
+                    }
+
+                    EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "STATE"),
+                            EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND);
+                    stateGeoList = delegator.findList("Geo", condition, null, null, null, true);
+                    if (!stateGeoList.isEmpty()) {
+                        GenericValue stateGeo = EntityUtil.getFirst(stateGeoList);
+                        serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
+                    }
+                }
                 
-                List<GenericValue> countryGeoList = null;
-                List<GenericValue> stateGeoList = null;
-                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
-                                                    EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
-                                                    EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getCountry())), EntityOperator.AND);
-                countryGeoList = delegator.findList("Geo", cond, null, null, null, true);
-                if (!countryGeoList.isEmpty()) {
-                    GenericValue countryGeo = EntityUtil.getFirst(countryGeoList);
-                    serviceCtx.put("countryGeoId", countryGeo.get("geoId"));
-                }
-
-                EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "STATE"),
-                        EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND);
-                stateGeoList = delegator.findList("Geo", condition, null, null, null, true);
-                if (!stateGeoList.isEmpty()) {
-                    GenericValue stateGeo = EntityUtil.getFirst(stateGeoList);
-                    serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
-                }
-
                 Communications communications = contact.getCommunications();
-                for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
-                    EmailAddress emailAddress = (EmailAddressImpl) iter.next();
-                    if (communications.isPreferredEmailAddress(emailAddress)) {
-                        email = emailAddress.getAddress();
-                        break;
-                    } else {
-                        email = emailAddress.getAddress();
-                        break;
+                if (UtilValidate.isNotEmpty(communications)) {
+                    for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
+                        EmailAddress emailAddress = (EmailAddressImpl) iter.next();
+                        if (communications.isPreferredEmailAddress(emailAddress)) {
+                            email = emailAddress.getAddress();
+                            break;
+                        } else {
+                            email = emailAddress.getAddress();
+                            break;
+                        }
+                    }
+                    if(UtilValidate.isNotEmpty(email)) {
+                        serviceCtx.put("emailAddress", email);
+                    }
+                    for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {
+                        PhoneNumber phoneNumber = (PhoneNumberImpl) iter.next();
+                        if (phoneNumber.isPreferred()) {
+                            phone = phoneNumber.getNumber();
+                            break;
+                        } else if (phoneNumber.isWork()) {
+                            phone = phoneNumber.getNumber();
+                            break;
+                        } else { // for now use only preffered / work phone numbers
+                            continue;
+                        }
+                    }
+                    if (UtilValidate.isNotEmpty(phone)) {
+                        String[] numberParts = phone.split("\\D");
+                        String telNumber = "";
+                        for (String number: numberParts) {
+                            if (number != "") {
+                                telNumber =  telNumber + number;
+                            }
+                        }
+                        serviceCtx.put("areaCode", telNumber.substring(0, 3));
+                        serviceCtx.put("contactNumber", telNumber.substring(3));
                     }
                 }
-                serviceCtx.put("emailAddress", email);
-
-                for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {
-                    PhoneNumber phoneNumber = (PhoneNumberImpl) iter.next();
-                    if (phoneNumber.isPreferred()) {
-                        phone = phoneNumber.getNumber();
-                        break;
-                    } else if (phoneNumber.isWork()) {
-                        phone = phoneNumber.getNumber();
-                        break;
-                    } else { // for now use only preffered / work phone numbers
-                        continue;
-                    }
-                }
-                String[] numberParts = phone.split("\\D");
-                String telNumber = "";
-                for (String number: numberParts) {
-                    if (number != "") {
-                        telNumber =  telNumber + number;
-                    }
-                }
-                serviceCtx.put("areaCode", telNumber.substring(0, 3));
-                serviceCtx.put("contactNumber", telNumber.substring(3));
 
                 GenericValue userLogin = (GenericValue) context.get("userLogin");
                 serviceCtx.put("userLogin", userLogin);
