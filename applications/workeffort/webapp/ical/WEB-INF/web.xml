@@ -40,14 +40,8 @@ under the License.
     <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
   </context-param>
   <context-param>
-    <param-name>serviceReaderUrls</param-name>
-    <param-value>/WEB-INF/services.xml</param-value>
-    <description>Configuration File(s) For The Service Dispatcher</description>
-  </context-param>
-  <context-param>
-    <param-name>scriptLocationPath</param-name>
-    <param-value>/WEB-INF/bsh</param-value>
-    <description>BeanShell Script Location</description>
+    <param-name>requestHandlerFactoryClass</param-name>
+    <param-value>org.ofbiz.workeffort.workeffort.ICalHandlerFactory</param-value>
   </context-param>
 
     <filter>
@@ -75,7 +69,6 @@ under the License.
         <filter-name>ContextFilter</filter-name>
             <url-pattern>/*</url-pattern>
     </filter-mapping>
-
   <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
   <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
   <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
@@ -84,8 +77,8 @@ under the License.
   <servlet>
     <servlet-name>iCalendarServlet</servlet-name>
     <display-name>iCalendarServlet</display-name>
-    <description>Main Control Servlet</description>
-    <servlet-class>org.ofbiz.workeffort.workeffort.ICalServlet</servlet-class>
+    <description>iCalendar WebDAV Servlet</description>
+    <servlet-class>org.ofbiz.webapp.webdav.WebDavServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

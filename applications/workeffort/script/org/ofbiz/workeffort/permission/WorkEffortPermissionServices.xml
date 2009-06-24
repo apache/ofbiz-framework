@@ -303,4 +303,80 @@ under the License.
         </while>
     </simple-method>
 
+    <simple-method method-name="workEffortICalendarPermission" short-description="Check iCalendar Permission">
+        <!-- Note: the iCalendar servlet will call the permission service under two conditions - to grant
+             VIEW access to a calendar that isn't PUBLIC, or to grant UPDATE access to a work effort -->
+        <log level="verbose" message="workEffortICalendarPermission invoked for workEffortId ${parameters.workEffortId},
+            user login partyId = ${userLogin.partyId}"/>
+        <call-simple-method method-name="workEffortManagerPermission"/>
+        <if-compare field="hasPermission" value="true" operator="equals">
+            <set field="hasPermission" value="false" type="Boolean"/>
+            <set field="workEffortId" from-field="parameters.workEffortId"/>
+            <entity-one value-field="workEffort" entity-name="WorkEffort"/>
+            <if-not-empty field="workEffort">
+                <entity-condition list="partyAssignments" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleTypeId" value="CAL_OWNER"/>
+                            <condition-expr field-name="roleTypeId" value="CAL_ORGANIZER"/>
+                            <condition-expr field-name="roleTypeId" value="CAL_DELEGATE"/>
+                        </condition-list>
+                    </condition-list>
+                </entity-condition>
+                <set field="isDelegate" value="false"/>
+                <set field="isOwner" value="false"/>
+                <set field="isOrganizer" value="false"/>
+                <iterate list="partyAssignments" entry="partyAssignment">
+                    <if-compare field="partyAssignment.roleTypeId" operator="equals" value="CAL_OWNER">
+                        <set field="isDelegate" value="true"/>
+                        <set field="isOwner" value="true"/>
+                        <set field="isOrganizer" value="true"/>
+                    <else>
+                        <if-compare field="partyAssignment.roleTypeId" operator="equals" value="CAL_ORGANIZER">
+                            <set field="isOrganizer" value="true"/>
+                            <else>
+                                <if-compare field="partyAssignment.roleTypeId" operator="equals" value="CAL_DELEGATE">
+                                    <set field="isDelegate" value="true"/>
+                                </if-compare>
+                            </else>
+                        </if-compare>
+                    </else>
+                    </if-compare>
+                </iterate>
+                <if-compare value="PUBLISH_PROPS" field="workEffort.workEffortTypeId" operator="equals">
+                    <log level="verbose" message="Checking publish properties permission, isOwner = ${isOwner}, isDelegate = ${isDelegate}"/>
+                    <if>
+                        <condition>
+                            <or>
+                                <and>
+                                    <!-- The calendar is private and the user is the calendar owner -->
+                                    <if-compare field="workEffort.scopeEnumId" operator="equals" value="WES_PRIVATE"/>
+                                    <if-compare field="isOwner" operator="equals" value="true"/>
+                                </and>
+                                <and>
+                                    <!-- The calendar is confidential and the user is a delegate of the calendar -->
+                                    <if-compare field="workEffort.scopeEnumId" operator="equals" value="WES_CONFIDENTIAL"/>
+                                    <if-compare field="isDelegate" operator="equals" value="true"/>
+                                </and>
+                            </or>
+                        </condition>
+                    <then>
+                        <set field="hasPermission" value="true" type="Boolean"/>
+                    </then>
+                    </if>
+                <else>
+                    <!-- RFC 2445 3.5 Only an ORGANIZER can update a VEVENT or VTODO. -->
+                    <log level="verbose" message="Checking work effort update permission, isOrganizer = ${isOrganizer}"/>
+                    <if-compare field="isOrganizer" operator="equals" value="true">
+                        <set field="hasPermission" value="true" type="Boolean"/>
+                    </if-compare>
+                </else>
+                </if-compare>
+            </if-not-empty>
+            <field-to-result field="hasPermission"/>
+        </if-compare>
+    </simple-method>
+
 </simple-methods>

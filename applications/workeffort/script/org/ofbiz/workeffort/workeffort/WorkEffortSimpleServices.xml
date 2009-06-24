@@ -1472,4 +1472,66 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
+    <!-- iCalendar services -->
+
+    <simple-method method-name="getICalWorkEfforts" short-description="Get All Work Efforts Related To An iCalendar Publish Point">
+        <!-- Servlet already confirmed workEffortId is a valid publish point -->
+        <set field="workEffortId" from-field="parameters.workEffortId"/>
+        <entity-condition list="assignedParties" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+            <condition-list combine="and">
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                <!-- DELEGATE has special meaning in publish properties - it's
+                    another party in an ORGANIZER role, NOT a party whose work efforts
+                    are included in a calendar. We need another role to define calendar
+                    members. -->
+                <condition-expr field-name="roleTypeId" value="CAL_DELEGATE" operator="not-equals"/>
+            </condition-list>
+        </entity-condition>
+        <iterate entry="assignedParty" list="assignedParties">
+            <entity-condition list="resultList" entity-name="WorkEffortAndPartyAssign" filter-by-date="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="scopeEnumId" value="WES_PUBLIC"/>
+                    <condition-expr field-name="workEffortTypeId" value="PUBLISH_PROPS" operator="not-equals"/>
+                    <condition-expr field-name="partyId" from-field="assignedParty.partyId"/>
+                </condition-list>
+            </entity-condition>
+            <list-to-list list="resultList" to-list="workEfforts"/>
+        </iterate>
+        <entity-and list="assignedFixedAssets" entity-name="WorkEffortFixedAssetAssign" filter-by-date="true">
+            <field-map field-name="workEffortId" from-field="workEffortId"/>
+        </entity-and>
+        <iterate entry="assignedFixedAsset" list="assignedFixedAssets">
+            <entity-condition list="resultList" entity-name="WorkEffortAndFixedAssetAssign" filter-by-date="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="scopeEnumId" value="WES_PUBLIC"/>
+                    <condition-expr field-name="workEffortTypeId" value="PUBLISH_PROPS" operator="not-equals"/>
+                    <condition-expr field-name="fixedAssetId" from-field="assignedFixedAsset.fixedAssetId"/>
+                </condition-list>
+            </entity-condition>
+            <list-to-list list="resultList" to-list="workEfforts"/>
+        </iterate>
+        <entity-and list="resultList" entity-name="WorkEffortAssocToView" filter-by-date="true">
+            <field-map field-name="workEffortIdFrom" from-field="workEffortId"/>
+        </entity-and>
+        <list-to-list list="resultList" to-list="workEfforts"/>
+        <field-to-result field="workEfforts"/>
+    </simple-method>
+    
+    <simple-method method-name="getPartyICalUri" short-description="Get The Party iCalendar URI">
+        <!-- RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URI (4.3.3) -->
+        <!-- For now we just look for a primary email address. This could be expanded later. -->
+        <set field="partyId" from-field="parameters.partyId"/>
+        <entity-condition list="emailAddresses" entity-name="PartyContactWithPurpose">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+                <condition-expr field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                <condition-expr field-name="purposeThruDate" from-field="null"/>
+            </condition-list>
+        </entity-condition>
+        <if-compare field="util:size(emailAddresses)" operator="not-equals" value="0" type="Integer">
+            <set field="iCalUri" value="MAILTO:${emailAddresses[0].infoString}"/>
+            <field-to-result field="iCalUri"/>
+        </if-compare>
+    </simple-method>
+
 </simple-methods>

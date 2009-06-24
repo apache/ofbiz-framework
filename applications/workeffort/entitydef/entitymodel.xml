@@ -578,6 +578,18 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="workEffortGoodStdTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="WorkEffortIcalData"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Work Effort iCalendar Data">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="icalData" type="very-long">
+            <description>iCalender Data</description>
+        </field>
+        <prim-key field="workEffortId"/>
+        <relation type="one" fk-name="WKEFF_ICAL_DATA" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+    </entity>
     <entity entity-name="WorkEffortInventoryAssign"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Inventory Assignment Entity">

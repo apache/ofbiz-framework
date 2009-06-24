@@ -662,23 +662,43 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <!-- WorkEffort Attribute Services -->
-    <service name="createWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a WorkEffort Attribute</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+    <!-- WorkEffort iCalendar Services -->
+    <service name="createWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="create" auth="true">
+        <description>Create WorkEffort iCalendar Data</description>
+        <permission-service service-name="workEffortICalendarPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="update" auth="true">
-        <description>Update a WorkEffort Attribute</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
+    <service name="updateWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="update" auth="true">
+        <description>Update WorkEffort iCalendar Data</description>
+        <permission-service service-name="workEffortICalendarPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete a WorkEffort Attribute</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
+    <service name="deleteWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete WorkEffort iCalendar Data</description>
+        <permission-service service-name="workEffortICalendarPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="workEffortICalendarPermission" engine="simple"
+             location="component://workeffort/script/org/ofbiz/workeffort/permission/WorkEffortPermissionServices.xml" invoke="workEffortICalendarPermission">
+        <description>iCalendar Permission Check</description>
+        <implements service="permissionInterface"/>
+        <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
+    </service>
+    <service name="getICalWorkEfforts" engine="simple"
+             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getICalWorkEfforts">
+        <description>Get iCalendar Work Efforts</description>
+        <!-- No permission checking - the servlet handles that -->
+        <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
+        <attribute type="List" mode="OUT" name="workEfforts"/>
+    </service>
+    <service name="getPartyICalUri" engine="simple"
+             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getPartyICalUri">
+        <description>Get Party iCalendar URI</description>
+        <!-- No permission checking - the servlet handles that -->
+        <attribute type="String" mode="IN" name="partyId" optional="false"/>
+        <attribute type="String" mode="OUT" name="iCalUri" optional="true"/>
     </service>
 
     <!-- WorkEffort Event Reminder Services -->
