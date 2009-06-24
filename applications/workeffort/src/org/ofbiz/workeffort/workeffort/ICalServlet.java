@@ -81,7 +81,7 @@ public class ICalServlet extends HttpServlet {
         }
         Calendar calendar = null;
         try {
-            calendar = ICalendarWorker.getICalendar(delegator, workEffortId);
+            calendar = ICalWorker.getICalendar(delegator, workEffortId);
         } catch (Exception e) {
             Debug.logError("[ICalServlet.doGet] Error while getting iCalendar: " + e, module);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
