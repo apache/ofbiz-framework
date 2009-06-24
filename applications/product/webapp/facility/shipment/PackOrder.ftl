@@ -17,6 +17,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<script language="JavaScript" type="text/javascript">
+    function clearLine(facilityId, orderId, orderItemSeqId, productId, shipGroupSeqId, inventoryItemId, packageSeqId) {
+        document.clearPackLineForm.facilityId.value = facilityId;
+        document.clearPackLineForm.orderId.value = orderId;
+        document.clearPackLineForm.orderItemSeqId.value = orderItemSeqId;
+        document.clearPackLineForm.productId.value = productId;
+        document.clearPackLineForm.shipGroupSeqId.value = shipGroupSeqId;
+        document.clearPackLineForm.inventoryItemId.value = inventoryItemId;
+        document.clearPackLineForm.packageSeqId.value = packageSeqId;
+        document.clearPackLineForm.submit();
+    }
+</script>
+
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
     <#assign showInput = requestParameters.showInput?default("Y")>
     <#assign hideGrid = requestParameters.hideGrid?default("N")>
@@ -114,6 +127,15 @@ under the License.
               <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
               <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
               <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+            </form>
+            <form name="clearPackLineForm" method="post" action="<@ofbizUrl>ClearPackLine</@ofbizUrl>">
+                <input type="hidden" name="facilityId"/>
+                <input type="hidden" name="orderId"/>
+                <input type="hidden" name="orderItemSeqId"/>
+                <input type="hidden" name="productId"/>
+                <input type="hidden" name="shipGroupSeqId"/>
+                <input type="hidden" name="inventoryItemId"/>
+                <input type="hidden" name="packageSeqId"/>
             </form>
         </div>
     </div>
@@ -429,7 +451,7 @@ under the License.
                       <td align="right">${line.getQuantity()}</td>
                       <td align="right">${line.getWeight()} (${packingSession.getPackageWeight(line.getPackageSeq()?int)?if_exists})</td>
                       <td align="right">${line.getPackageSeq()}</td>
-                      <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&amp;productId=${line.getProductId()?default("")}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
+                      <td align="right"><a href="javascript:clearLine('${facilityId}', '${line.getOrderId()}', '${line.getOrderItemSeqId()}', '${line.getProductId()?default("")}', '${line.getShipGroupSeqId()}', '${line.getInventoryItemId()}', '${line.getPackageSeq()}')" class="buttontext">${uiLabelMap.CommonClear}</a></td>
                     </tr>
                   </#list>
                 </table>
@@ -473,7 +495,7 @@ under the License.
                       <td align="right">${line.getQuantity()}</td>
                       <td align="right">${line.getWeight()} (${packingSession.getPackageWeight(line.getPackageSeq()?int)?if_exists})</td>
                       <td align="right">${line.getPackageSeq()}</td>
-                      <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&amp;productId=${line.getProductId()?default("")}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
+                      <td align="right"><a href="javascript:clearLine('${facilityId}', '${line.getOrderId()}', '${line.getOrderItemSeqId()}', '${line.getProductId()?default("")}', '${line.getShipGroupSeqId()}', '${line.getInventoryItemId()}', '${line.getPackageSeq()}')" class="buttontext">${uiLabelMap.CommonClear}</a></td>
                   </tr>
               </#list>
             </table>
