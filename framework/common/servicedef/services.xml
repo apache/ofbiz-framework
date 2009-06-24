@@ -637,9 +637,10 @@ under the License.
     <service name="getPortletAttributes" engine="simple" auth="true"
         location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="getPortletAttributes">
         <description>Get all attributes of a Portlet</description>
-        <attribute name="portalPageId" type="String" mode="IN" optional="false"/>
+        <attribute name="portalPageId" type="String" mode="IN" optional="true"/>
+        <attribute name="ownerUserLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
-        <attribute name="portletSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="portletSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
     </service>
 </services>

@@ -698,7 +698,7 @@ under the License.
             <key-map field-name="columnSeqId"/>
         </relation>
     </entity>
-    <view-entity entity-name="PortalPagePortletView" package-name="org.ofbiz.common.portal" title="View entity to have all Portal and Portlet information">
+    <view-entity entity-name="PortalPagePortletView" package-name="org.ofbiz.common.portal" title="View entity to have all Portlet information with portalPageId ">
         <member-entity entity-alias="PPGPTLT" entity-name="PortalPagePortlet"/>
         <member-entity entity-alias="PTLT" entity-name="PortalPortlet"/>
         <alias-all entity-alias="PPGPTLT"/>
@@ -722,4 +722,14 @@ under the License.
             <key-map field-name="portalPortletId"/>
         </relation>
     </entity>
+
+    <view-entity entity-name="PortalPageAndPortlet" package-name="org.ofbiz.common.portal" title="View entity to have all Portal and Portlet information">
+        <member-entity entity-alias="PP" entity-name="PortalPage"/>
+        <member-entity entity-alias="PPP" entity-name="PortalPagePortlet"/>
+        <alias-all entity-alias="PP"/>
+        <alias-all entity-alias="PPP"/>
+        <view-link entity-alias="PP" rel-entity-alias="PPP">
+            <key-map field-name="portalPageId"/>
+        </view-link>
+    </view-entity>
 </entitymodel>
