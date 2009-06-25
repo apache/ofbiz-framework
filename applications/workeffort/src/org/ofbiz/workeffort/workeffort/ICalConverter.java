@@ -112,6 +112,29 @@ public class ICalConverter {
         return organizer;
     }
 
+    protected static void createWorkEffort(Component component, Map<String, Object> context) {
+        Map<String, Object> serviceMap = FastMap.newInstance();
+        setWorkEffortServiceMap(component, serviceMap);
+        serviceMap.put("workEffortTypeId", "VTODO".equals(component.getName()) ? "TASK" : "EVENT");
+        serviceMap.put("currentStatusId", "VTODO".equals(component.getName()) ? "CAL_NEEDS_ACTION" : "CAL_TENTATIVE");
+        serviceMap.put("partyId", ((GenericValue) context.get("userLogin")).get("partyId"));
+        serviceMap.put("roleTypeId", "CAL_ORGANIZER");
+        serviceMap.put("statusId", "PRTYASGN_ASSIGNED");
+        Map<String, Object> serviceResult = invokeService("createWorkEffortAndPartyAssign", serviceMap, context);
+        String workEffortId = (String) serviceResult.get("workEffortId");
+        if (workEffortId != null) {
+            serviceMap.clear();
+            serviceMap.put("workEffortIdFrom", context.get("workEffortId"));
+            serviceMap.put("workEffortIdTo", workEffortId);
+            serviceMap.put("workEffortAssocTypeId", "WORK_EFF_DEPENDENCY");
+            serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
+            serviceResult = invokeService("createWorkEffortAssoc", serviceMap, context);
+            if (!ServiceUtil.isError(serviceResult)) {
+                replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
+            }
+        }
+    }
+
     protected static String fromClazz(PropertyList propertyList) {
         Clazz iCalObj = (Clazz) propertyList.getProperty(Clazz.CLASS);
         if (iCalObj == null) {
@@ -557,6 +580,25 @@ public class ICalConverter {
         map.put(key, value);
     }
 
+    protected static void setWorkEffortServiceMap(Component component, Map<String, Object> serviceMap) {
+        PropertyList propertyList = component.getProperties();
+        setMapElement(serviceMap, "scopeEnumId", fromClazz(propertyList));
+        setMapElement(serviceMap, "description", fromDescription(propertyList));
+        setMapElement(serviceMap, "estimatedStartDate", fromDtStart(propertyList));
+        setMapElement(serviceMap, "estimatedMilliSeconds", fromDuration(propertyList));
+        setMapElement(serviceMap, "lastModifiedDate", fromLastModified(propertyList));
+        setMapElement(serviceMap, "locationDesc", fromLocation(propertyList));
+        setMapElement(serviceMap, "priority", fromPriority(propertyList));
+        setMapElement(serviceMap, "currentStatusId", fromStatus(propertyList));
+        setMapElement(serviceMap, "workEffortName", fromSummary(propertyList));
+        if ("VTODO".equals(component.getName())) {
+            setMapElement(serviceMap, "actualCompletionDate", fromCompleted(propertyList));
+            setMapElement(serviceMap, "percentComplete", fromPercentComplete(propertyList));
+        } else {
+            setMapElement(serviceMap, "estimatedCompletionDate", fromDtEnd(propertyList));
+        }
+    }
+
     /** Update work efforts from an incoming iCalendar request.
      * @param is
      * @param context
@@ -602,6 +644,7 @@ public class ICalConverter {
         if (!hasPermission(workEffortId, "UPDATE", context)) {
             return;
         }
+        boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
         if (workEfforts == null || workEfforts.size() == 0) {
             return;
@@ -623,12 +666,12 @@ public class ICalConverter {
                                 " on URL workEffortId " + context.get("workEffortId"), module);
                         continue;
                     }
-                } else {
-                    // TODO: create a new work effort
+                } else if (hasCreatePermission) {
+                    createWorkEffort(component, context);
                 }
             }
         }
-        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffortId, "icalData", calendar.toString());
+        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", context.get("workEffortId"), "icalData", calendar.toString());
         GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
         if (iCalData == null) {
             invokeService("createWorkEffortICalData", serviceMap, context);
@@ -650,21 +693,7 @@ public class ICalConverter {
         }
         Map<String, Object> serviceMap = FastMap.newInstance();
         serviceMap.put("workEffortId", workEffortId);
-        setMapElement(serviceMap, "scopeEnumId", fromClazz(propertyList));
-        setMapElement(serviceMap, "description", fromDescription(propertyList));
-        setMapElement(serviceMap, "estimatedStartDate", fromDtStart(propertyList));
-        setMapElement(serviceMap, "estimatedMilliSeconds", fromDuration(propertyList));
-        setMapElement(serviceMap, "lastModifiedDate", fromLastModified(propertyList));
-        setMapElement(serviceMap, "locationDesc", fromLocation(propertyList));
-        setMapElement(serviceMap, "priority", fromPriority(propertyList));
-        setMapElement(serviceMap, "currentStatusId", fromStatus(propertyList));
-        setMapElement(serviceMap, "workEffortName", fromSummary(propertyList));
-        if ("VTODO".equals(component.getName())) {
-            setMapElement(serviceMap, "actualCompletionDate", fromCompleted(propertyList));
-            setMapElement(serviceMap, "percentComplete", fromPercentComplete(propertyList));
-        } else {
-            setMapElement(serviceMap, "estimatedCompletionDate", fromDtEnd(propertyList));
-        }
+        setWorkEffortServiceMap(component, serviceMap);
         invokeService("updateWorkEffort", serviceMap, context);
     }
 
