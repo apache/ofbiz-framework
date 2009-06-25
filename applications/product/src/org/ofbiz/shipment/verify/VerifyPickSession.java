@@ -27,11 +27,13 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericDispatcher;
@@ -39,6 +41,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 public class VerifyPickSession implements Serializable {
+
+    public static final String module = VerifyPickSession.class.getName();
 
     protected GenericValue userLogin = null;
     protected String dispatcherName = null;
@@ -296,6 +300,8 @@ public class VerifyPickSession implements Serializable {
         String invoiceId = null;
         String invoiceItemSeqId = null;
         this.checkVerifiedQty(orderId, locale);
+        // check reserved quantity, it should be equal to verified quantity
+        this.checkReservedQty(orderId, locale);
         String shipmentId = this.createShipment((this.getPickRows(orderId)).get(0));
         this.issueItemsToShipment(shipmentId, locale);
         invoiceId = this.createInvoice(orderId);
@@ -304,6 +310,32 @@ public class VerifyPickSession implements Serializable {
             line.setInvoiceItemSeqId(invoiceItemSeqId);
         }
         return shipmentId;
+    }
+
+    protected void checkReservedQty(String orderId, Locale locale) throws GeneralException {
+        List<String> errorList = FastList.newInstance();
+        for (VerifyPickSessionRow pickRow : this.getPickRows(orderId)) {
+            BigDecimal reservedQty =  this.getReservedQty(pickRow.getOrderId(), pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId());
+            BigDecimal verifiedQty = pickRow.getReadyToVerifyQty();
+            if (verifiedQty.compareTo(reservedQty) != 0) {
+                errorList.add(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem", UtilMisc.toMap("productId", pickRow.getProductId(), "verifiedQty", pickRow.getReadyToVerifyQty(), "reservedQty", reservedQty), locale));
+            }
+        }
+
+        if (errorList.size() > 0) {
+            throw new GeneralException(UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorAttemptToVerifyOrderFailed", UtilMisc.toMap("orderId", orderId), locale), errorList);
+        }
+    }
+
+    public BigDecimal getReservedQty(String orderId, String orderItemSeqId, String shipGroupSeqId) {
+        BigDecimal reservedQty = ZERO;
+        try {
+            GenericValue reservation = EntityUtil.getFirst(this.getDelegator().findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId)));
+            reservedQty = reservation.getBigDecimal("totQuantityAvailable");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return reservedQty;
     }
 
     protected void checkVerifiedQty(String orderId, Locale locale) throws GeneralException {
