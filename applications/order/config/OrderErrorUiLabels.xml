@@ -337,6 +337,9 @@
     <property key="OrderErrorAllItemsOfOrderAreAlreadyVerified">
         <value xml:lang="en">ERROR: All items of order #${orderId} are already verified</value>
     </property>
+    <property key="OrderErrorAttemptToVerifyOrderFailed">
+        <value xml:lang="en">ERROR: Attempt to verify order #${orderId} failed</value>
+    </property>
     <property key="OrderErrorCallingCountProductQuantityOrderedService">
         <value xml:lang="en">Error calling countProductQuantityOrdered service : </value>
         <value xml:lang="es">Error al llamar al servicio countProductQuantityOrdered:</value>

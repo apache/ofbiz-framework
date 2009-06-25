@@ -91,6 +91,9 @@
     <property key="ProductErrorPackageWeightCannotBeNullOrZero">
         <value xml:lang="en">ERROR: Package weight cannot be null/zero, it should be greater than zero</value>
     </property>
+    <property key="ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem">
+        <value xml:lang="en">ERROR: Verified quantity does not match the reserved quantity for item #${productId} [verified qty = ${verifiedQty} / reserved qty = ${reservedQty}]</value>
+    </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
