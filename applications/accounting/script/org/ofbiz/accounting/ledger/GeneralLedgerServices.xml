@@ -2198,6 +2198,7 @@ under the License.
         </entity-one>
         <!--Cloning AcctgTrans-->
         <clone-value value-field="acctgTrans" new-value-field="newAcctgTrans"/>
+        <clear-field field="newAcctgTrans.acctgTransId"/>
         <set-service-fields to-map="createAcctgTransInMap" service-name="createAcctgTrans" map="newAcctgTrans"/>
         <now-timestamp field="nowTimestamp"/>
         <set field="createAcctgTransInMap.transactionDate" from-field="nowTimestamp"/>
@@ -2205,14 +2206,14 @@ under the License.
         <set field="originalAcctgTransId" from-field="parameters.fromAcctgTransId"/>
         <field-to-result field="originalAcctgTransId" result-name="acctgTransId"/>
 
-        <clear-field field="newAcctgTrans.acctgTransId"/>
         <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransInMap">
-            <result-to-field result-name="newAcctgTrans.acctgTransId"/>
+            <result-to-field result-name="acctgTransId" field="newAcctgTrans.acctgTransId"/>
         </call-service>
         <get-related list="acctgTransEntries" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
         <iterate list="acctgTransEntries" entry="acctgTransEntry">
             <!--Cloning AcctgTransEntry-->
             <clone-value value-field="acctgTransEntry" new-value-field="newAcctgTransEntry"/>
+            <clear-field field="newAcctgTransEntry.acctgTransId"/>
             <set-service-fields to-map="createAcctgTransAndEntryInMap" service-name="createAcctgTransEntry" map="newAcctgTransEntry"/>
             <set field="createAcctgTransAndEntryInMap.acctgTransId" from-field="newAcctgTrans.acctgTransId"/>
             <if-compare field="parameters.revert" operator="equals" value="Y">
