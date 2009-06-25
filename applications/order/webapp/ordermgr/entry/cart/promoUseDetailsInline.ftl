@@ -17,47 +17,48 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionInformation}:</div>
-    </div>
-    <div class="screenlet-body">
-        <div style="float: left; width: 40%;">
-            <div>${uiLabelMap.OrderPromotionsApplied}:</div>
+<div>
+    <h1>${uiLabelMap.OrderPromotionInformation}:</h1>
+    <h3>${uiLabelMap.OrderPromotionsApplied}:</h3>
+        <ul>    
             <#list shoppingCart.getProductPromoUseInfoIter() as productPromoUseInfo>
-                <div>
+                <li>
                     <#-- TODO: when promo pretty print is done show promo short description here -->
-                       ${uiLabelMap.OrderPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoUseInfo.productPromoId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>
+                       ${uiLabelMap.OrderPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoUseInfo.productPromoId?if_exists}</@ofbizUrl>" class="button">${uiLabelMap.CommonDetails}</a>
                     <#if productPromoUseInfo.productPromoCodeId?has_content> - ${uiLabelMap.OrderWithPromoCode} [${productPromoUseInfo.productPromoCodeId}]</#if>
                     <#if (productPromoUseInfo.totalDiscountAmount != 0)> - ${uiLabelMap.CommonTotalValue} <@ofbizCurrency amount=(-1*productPromoUseInfo.totalDiscountAmount) isoCode=shoppingCart.getCurrency()/></#if>
-                </div>
+                </li>
                 <#if (productPromoUseInfo.quantityLeftInActions > 0)>
-                    <div>- Could be used for ${productPromoUseInfo.quantityLeftInActions} more discounted item<#if (productPromoUseInfo.quantityLeftInActions > 1)>s</#if> if added to your cart.</div>
+                    <li>- Could be used for ${productPromoUseInfo.quantityLeftInActions} more discounted item<#if (productPromoUseInfo.quantityLeftInActions > 1)>s</#if> if added to your cart.</li>
                 </#if>
             </#list>
-        </div>
-        <div style="float: right; width: 55%; padding-left: 10px; border-left: 1px solid #999999;">
-            <div>${uiLabelMap.OrderCartItemUseinPromotions}:</div>
-            <#list shoppingCart.items() as cartLine>
-                <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
-                <#if cartLine.getIsPromo()>
-                    <div>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()?if_exists}] - ${uiLabelMap.OrderIsAPromotionalItem}</div>
-                <#else>
-                    <div>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()?if_exists}] - ${cartLine.getPromoQuantityUsed()?string.number}/${cartLine.getQuantity()?string.number} ${uiLabelMap.CommonUsed} - ${cartLine.getPromoQuantityAvailable()?string.number} ${uiLabelMap.CommonAvailable}</div>
-                    <#list cartLine.getQuantityUsedPerPromoActualIter() as quantityUsedPerPromoActualEntry>
-                        <#assign productPromoActualPK = quantityUsedPerPromoActualEntry.getKey()>
-                        <#assign actualQuantityUsed = quantityUsedPerPromoActualEntry.getValue()>
-                        <#assign isQualifier = "ProductPromoCond" == productPromoActualPK.getEntityName()>
-                        <div>&nbsp;&nbsp;-&nbsp;${actualQuantityUsed} ${uiLabelMap.CommonUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoActualPK.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></div>
-                        <!-- productPromoActualPK ${productPromoActualPK.toString()} -->
-                    </#list>
-                    <#list cartLine.getQuantityUsedPerPromoFailedIter() as quantityUsedPerPromoFailedEntry>
-                        <#assign productPromoFailedPK = quantityUsedPerPromoFailedEntry.getKey()>
-                        <#assign failedQuantityUsed = quantityUsedPerPromoFailedEntry.getValue()>
-                        <#assign isQualifier = "ProductPromoCond" == productPromoFailedPK.getEntityName()>
-                        <div>&nbsp;&nbsp;-&nbsp;${uiLabelMap.CommonCouldBeUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoFailedPK.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></div>
-                        <!-- Total times checked but failed: ${failedQuantityUsed}, productPromoFailedPK ${productPromoFailedPK.toString()} -->
-                    </#list>
+        </ul>
+    <h3>${uiLabelMap.OrderCartItemUseinPromotions}:</h3>
+    <ul>
+        <#list shoppingCart.items() as cartLine>
+            <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
+            <#if cartLine.getIsPromo()>
+                <li>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()?if_exists}] - ${uiLabelMap.OrderIsAPromotionalItem}</li>
+            <#else>
+                <li>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()?if_exists}] - ${cartLine.getPromoQuantityUsed()?string.number}/${cartLine.getQuantity()?string.number} ${uiLabelMap.CommonUsed} - ${cartLine.getPromoQuantityAvailable()?string.number} ${uiLabelMap.CommonAvailable}
+                    <ul>
+                        <#list cartLine.getQuantityUsedPerPromoActualIter() as quantityUsedPerPromoActualEntry>
+                            <#assign productPromoActualPK = quantityUsedPerPromoActualEntry.getKey()>
+                            <#assign actualQuantityUsed = quantityUsedPerPromoActualEntry.getValue()>
+                            <#assign isQualifier = "ProductPromoCond" == productPromoActualPK.getEntityName()>
+                            <li>&nbsp;&nbsp;-&nbsp;${actualQuantityUsed} ${uiLabelMap.CommonUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoActualPK.productPromoId}</@ofbizUrl>" class="button">${uiLabelMap.CommonDetails}</a></li>
+                            <!-- productPromoActualPK ${productPromoActualPK.toString()} -->
+                        </#list>
+                    </ul>
+                    <ul>
+                        <#list cartLine.getQuantityUsedPerPromoFailedIter() as quantityUsedPerPromoFailedEntry>
+                            <#assign productPromoFailedPK = quantityUsedPerPromoFailedEntry.getKey()>
+                            <#assign failedQuantityUsed = quantityUsedPerPromoFailedEntry.getValue()>
+                            <#assign isQualifier = "ProductPromoCond" == productPromoFailedPK.getEntityName()>
+                            <li>&nbsp;&nbsp;-&nbsp;${uiLabelMap.CommonCouldBeUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoFailedPK.productPromoId}</@ofbizUrl>" class="button">${uiLabelMap.CommonDetails}</a></li>
+                            <!-- Total times checked but failed: ${failedQuantityUsed}, productPromoFailedPK ${productPromoFailedPK.toString()} -->
+                        </#list>
+                    </ul>
                     <#list cartLine.getQuantityUsedPerPromoCandidateIter() as quantityUsedPerPromoCandidateEntry>
                         <#assign productPromoCandidatePK = quantityUsedPerPromoCandidateEntry.getKey()>
                         <#assign candidateQuantityUsed = quantityUsedPerPromoCandidateEntry.getValue()>
@@ -65,10 +66,9 @@ under the License.
                         <!-- Left over not reset or confirmed, shouldn't happen: ${candidateQuantityUsed} Might be Used (Candidate) as <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} [${productPromoCandidatePK.productPromoId}] -->
                         <!-- productPromoCandidatePK ${productPromoCandidatePK.toString()} -->
                     </#list>
-                </#if>
-            </#list>
-        </div>
-        <br class="clear"/>
-    </div>
+                </li>
+            </#if>
+        </#list>
+    </ul>
 </div>
 

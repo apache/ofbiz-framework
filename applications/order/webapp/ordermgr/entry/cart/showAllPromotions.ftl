@@ -16,19 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderSpecialOffers}</div>
-    </div>
-    <div class="screenlet-body">
+THIS IS IT BITCHES!
+<div>
+    <h1>${uiLabelMap.OrderSpecialOffers}</h1>
+    <div>
+        <ul>
         <#-- show promotions text -->
         <#list productPromosAllShowable as productPromo>
-            <div><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText}</div>
-            <#if productPromo_has_next>
-                <hr/>
-            </#if>
+            <li><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="button">${uiLabelMap.CommonDetails}</a>${StringUtil.wrapString(productPromo.promoText?if_exists)}</li>
         </#list>
+        </ul>
     </div>
 </div>
 
