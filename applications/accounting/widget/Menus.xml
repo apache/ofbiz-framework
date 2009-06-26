@@ -565,7 +565,7 @@ under the License.
                 <if-service-permission service-name="acctgPrefPermissionCheck" main-action="UPDATE"/>
             </condition>
             <link target="AdminMain">
-                <parameter param-name="organizationPartyId" from-field="defaultOrganizationPartyId"/>
+                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="PartyAccounts" title="${uiLabelMap.AccountingAccounting}">
@@ -573,7 +573,7 @@ under the License.
                 <if-service-permission service-name="basicGeneralLedgerPermissionCheck" main-action="VIEW"/>
             </condition>
             <link target="PartyAccountsSummary">
-                <parameter param-name="organizationPartyId" from-field="defaultOrganizationPartyId"/>
+                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
             </link>
         </menu-item>
     </menu>
