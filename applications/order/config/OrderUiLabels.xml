@@ -2264,11 +2264,12 @@
     </property>
     <property key="OrderCreateReturn">
         <value xml:lang="de">Retoure erstellen</value>
-        <value xml:lang="en">Create return</value>
+        <value xml:lang="en">Create Return</value>
         <value xml:lang="es">Crear devolución</value>
         <value xml:lang="fr">Créer un retour</value>
         <value xml:lang="it">Creare reso</value>
         <value xml:lang="nl">Maak een retour</value>
+        <value xml:lang="ro">Creare Returnare</value>
         <value xml:lang="ru">Создать возврат</value>
         <value xml:lang="th">สร้างผลตอบแทน</value>
         <value xml:lang="zh">创建退货</value>
@@ -7580,18 +7581,6 @@
         <value xml:lang="en">Could not find Return with ID</value>
         <value xml:lang="fr">Impossible de trouver un retour avec cette réf.</value>
         <value xml:lang="it">Non è possibile trovare il reso</value>
-    </property>
-    <property key="OrderReturnCreate">
-        <value xml:lang="de">Retoure erstellen</value>
-        <value xml:lang="en">Create Return</value>
-        <value xml:lang="es">Crear devolución</value>
-        <value xml:lang="fr">Créer le retour</value>
-        <value xml:lang="it">Creare Reso</value>
-        <value xml:lang="nl">Create Return</value>
-        <value xml:lang="ro">Creare Returnare</value>
-        <value xml:lang="ru">Создать возврат</value>
-        <value xml:lang="th">กลับคืนการสร้าง</value>
-        <value xml:lang="zh">创建退货</value>
     </property>
     <property key="OrderReturnDestinationFacility">
         <value xml:lang="de">Ziellager</value>

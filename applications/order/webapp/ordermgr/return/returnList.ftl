@@ -18,7 +18,7 @@ under the License.
 -->
 
 <h1>${uiLabelMap.OrderReturnsCurrent}</h1>
-<div><a href="<@ofbizUrl>returnMain</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderReturnCreate}</a></div>
+<div><a href="<@ofbizUrl>returnMain</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></div>
 
 <br/>
 <table cellspacing="0" class="basic-table">
