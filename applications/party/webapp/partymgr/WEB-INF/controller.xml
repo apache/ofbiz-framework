@@ -821,7 +821,7 @@ under the License.
 
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
+        <event type="simple" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml" invoke="allocateMsgToParty"/>
         <response name="success" type="view-home"/>
         <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>

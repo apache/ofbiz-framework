@@ -475,67 +475,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
-
-        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-        <if-empty field="communicationEvent">
-            <add-error><fail-message message="Communication Event ID: ${parameters.commnicationEventId} not found"/></add-error>
-        </if-empty>
-
-        <if-empty field="parameters.partyId">
-            <if-empty field="parameters.emailAddress">
-                <add-error><fail-message message="Email address is required"/></add-error>
-            </if-empty>
-
-            <if-empty field="parameters.lastName">
-                <add-error><fail-message message="Please enter a lastName"/></add-error>
-            </if-empty>
-
-            <if-empty field="parameters.firstName">
-                <add-error><fail-message message="Please enter a firstName"/></add-error>
-                <check-errors/>
-            </if-empty>
-        </if-empty>
-
-        <check-errors/>
-
-        <!-- create partyId if not provided -->
-        <if-empty field="parameters.partyId">
-            <set-service-fields service-name="createPerson" map="parameters" to-map="newParty"/>
-            <call-service service-name="createPerson" in-map-name="newParty">
-                <result-to-field result-name="partyId" field="parameters.partyId"/>
-            </call-service>
-        </if-empty>
-
-        <!-- allocate email to the party -->
-        <if-not-empty field="parameters.emailAddress">
-            <entity-one entity-name="Party" value-field="party"/>
-            <if-empty field="party">
-                <add-error>
-                     <fail-message message="Party ID: ${parameters.partyId} not found"/>
-                </add-error>
-                <check-errors />
-            </if-empty>
-            <set field="newEmail.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-            <set field="newEmail.partyId" from-field="parameters.partyId"/>
-            <set field="newEmail.emailAddress" from-field="parameters.emailAddress"/>
-            <call-service service-name="createPartyEmailAddress"
-                in-map-name="newEmail">
-                <result-to-field result-name="contactMechId" field="inCom.contactMechIdFrom"/>
-            </call-service>
-        </if-not-empty>
-
-        <!-- update the communication event -->
-        <set field="inCom.communicationEventId" from-field="parameters.communicationEventId"/>
-        <set field="inCom.partyIdFrom" from-field="parameters.partyId"/>
-        <set field="inCom.statusId" value="COM_ENTERED"/>
-        <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
-
-        <field-to-request field="parameters.communicationEventId" request-name="communicationEventId"/>
-        <entity-one entity-name="PartyNameView" value-field="nameView"/>
-        <set field="_event_message_" value="Email addres: ${parameters.emailAddress} allocated to party: ${nameView.groupName}${nameView.firstName} ${nameView.middleName} ${nameView.lastName}[${parameters.partyId}]"/>
-    </simple-method>
-
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
         <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
