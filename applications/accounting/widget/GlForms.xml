@@ -487,6 +487,7 @@ under the License.
             </drop-down>
         </field>
         <field name="amount"><text size="20" maxlength="20"/></field>
+        <field name="description"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
