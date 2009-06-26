@@ -118,6 +118,8 @@ under the License.
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
+        <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
+        <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
     </service>
     <service name="updateCustRequestNote" engine="simple"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
@@ -133,6 +135,8 @@ under the License.
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="note" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
+        <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
+        <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
     </service>
     <service name="createCustRequestFromCart" engine="simple" auth="true"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCart">
@@ -162,6 +166,7 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- for notification services -->
+        <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
     </service>
     <service name="createCustRequestFromCommEvent" engine="simple" default-entity-name="CommunicationEvent"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCommEvent" auth="true">

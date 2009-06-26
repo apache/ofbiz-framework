@@ -49,6 +49,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequest" short-description="Create Customer Request">
+        <log level="always" message="======start create with story: ${parameters.story}"/>
         <make-value value-field="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -80,7 +81,7 @@ under the License.
         <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
         <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
         
-
+<log level="always" message="========================== story: ${parameters.story}"></log>
         <!-- create also the item if key fields are provided -->
         <if>
             <condition>
@@ -216,6 +217,9 @@ under the License.
         </call-service>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification services -->
+        <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification services -->
     </simple-method>
     <simple-method method-name="updateCustRequestNote" short-description="Update CustRequest Note">
         <entity-one entity-name="CustRequestNote" value-field="lookedUpValue"/>
@@ -235,6 +239,9 @@ under the License.
         </call-service>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification services -->
+        <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification services -->
     </simple-method>
 
     <simple-method method-name="getCustRequestsByRole" short-description="Create Customer RequestItem Note">
@@ -364,6 +371,7 @@ under the License.
             <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
             <field-to-result field="custRequest.custRequestId"  result-name="custRequestId"/>
             <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification -->
+            <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification -->
             <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
                 <entity-one entity-name="StatusValidChange" value-field="statusChange">
                     <field-map field-name="statusId" from-field="custRequest.statusId"/>
