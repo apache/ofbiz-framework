@@ -59,6 +59,14 @@ function runAction() {
     form.submit();
 }
 // -->
+
+    function paginateOrderList(viewSize, viewIndex, hideFields) {
+        document.paginationForm.viewSize.value = viewSize;
+        document.paginationForm.viewIndex.value = viewIndex;
+        document.paginationForm.hideFields.value = hideFields;
+        document.paginationForm.submit();
+    }
+
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
@@ -481,24 +489,35 @@ document.lookuporder.orderId.focus();
     <ul>
       <li class="h3">${uiLabelMap.OrderOrderFound}</li>
       <#if (orderList?has_content && 0 < orderList?size)>
-        <#if (viewIndex > 1)>
-          <li><a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+        <#if (orderListSize > highIndex)>
+          <li><a href="javascript:paginateOrderList('${viewSize}', '${viewIndex+1}', '${requestParameters.hideFields?default("N")}')">${uiLabelMap.CommonNext}</a></li>
         <#else>
-          <li><span class="disabled">${uiLabelMap.CommonPrevious}</span></li>
+          <li><span class="disabled">${uiLabelMap.CommonNext}</span></li>
         </#if>
         <#if (orderListSize > 0)>
           <li><span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderListSize}</span></li>
         </#if>
-        <#if (orderListSize > highIndex)>
-          <li><a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
+        <#if (viewIndex > 1)>
+          <li><a href="javascript:paginateOrderList('${viewSize}', '${viewIndex-1}', '${requestParameters.hideFields?default("N")}')">${uiLabelMap.CommonPrevious}</a></li>
         <#else>
-          <li><span class="disabled">${uiLabelMap.CommonNext}</span></li>
+          <li><span class="disabled">${uiLabelMap.CommonPrevious}</span></li>
         </#if>
       </#if>
     </ul>
     <br class="clear" />
   </div>
   <div class="screenlet-body">
+    <form name="paginationForm" method="post" action="<@ofbizUrl>searchorders</@ofbizUrl>">
+      <input type="hidden" name="viewSize"/>
+      <input type="hidden" name="viewIndex"/>
+      <input type="hidden" name="hideFields"/>
+      <#if paramIdList?exists && paramIdList?has_content>
+        <#list paramIdList as paramIds>
+          <#assign paramId = paramIds.split("=")/>
+          <input type="hidden" name="${paramId[0]}" value="${paramId[1]}"/>
+        </#list>
+      </#if>
+    </form>
     <form name="massOrderChangeForm" method="post" action="javascript:void();">
       <div>&nbsp;</div>
       <div align="right">

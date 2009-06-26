@@ -143,6 +143,11 @@ lookupFlag = request.getParameter("lookupFlag");
 paramList = request.getAttribute("paramList") ?: "";
 context.paramList = paramList;
 
+if (paramList) {
+    paramIds = paramList.split("&amp;");
+    context.paramIdList = Arrays.asList(paramIds);
+}
+
 orderList = request.getAttribute("orderList");
 context.orderList = orderList;
 
