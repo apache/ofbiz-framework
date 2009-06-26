@@ -108,9 +108,29 @@ under the License.
                         <screenlet title="${uiLabelMap.CommonPortalPagesForApplication}: ${parameters.parentPortalPageId}">
                             <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.CommonPortalNewPage}">
-                            <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="portalPage"/></not>
+                                    <not><if-empty field="parameters.editAttributes"/></not>
+                                </and>
+                            </condition>
+                            <actions>
+                                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
+                                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                                <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
+                                    <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.CommonPortalNewPage}">
+                                    <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                         <section>
                             <condition>
                                 <not><if-empty field="portalPage"/></not>
@@ -133,24 +153,6 @@ under the License.
                                         <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
                                     </link>
                                     <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <and>
-                                    <not><if-empty field="portalPage"/></not>
-                                    <not><if-empty field="parameters.editAttributes"/></not>
-                                </and>
-                            </condition>
-                            <actions>
-                                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
-                                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
-                                <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
-                            </actions>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
-                                    <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
                                 </screenlet>
                             </widgets>
                         </section>
