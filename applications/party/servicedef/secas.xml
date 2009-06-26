@@ -61,11 +61,13 @@ under the License.
     </eca>
 
     <!-- email : create communication event -->
-    <eca service="sendMailFromScreen" event="in-validate">
+    <!-- not sure why this sendmailfrom screen is here because it will call sendmail below anyway.....
+        disabled for now, because the subject is rendered inside sendmailFromscreen and is not showing rendered in the generated comm event -->
+        <!--eca service="sendMailFromScreen" event="in-validate">
         <condition field-name="partyId" operator="is-not-empty"/>
         <condition field-name="communicationEventId" operator="is-empty"/>        
         <action service="createCommEventFromEmail" mode="sync" run-as-user="system"/>
-    </eca>
+    </eca-->
     <eca service="sendMailMultiPart" event="in-validate">
         <condition field-name="partyId" operator="is-not-empty"/>
         <condition field-name="communicationEventId" operator="is-empty"/>        

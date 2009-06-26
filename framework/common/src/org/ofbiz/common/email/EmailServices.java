@@ -118,13 +118,6 @@ public class EmailServices {
         }
         results.put("userLogin", userLogin);
 
-        // first check to see if sending mail is enabled
-        String mailEnabled = UtilProperties.getPropertyValue("general.properties", "mail.notifications.enabled", "N");
-        if (!"Y".equalsIgnoreCase(mailEnabled)) {
-            // no error; just return as if we already processed
-            Debug.logImportant("Mail notifications disabled in general.properties; here is the context with info that would have been sent: " + context, module);
-            return results;
-        }
         String sendTo = (String) context.get("sendTo");
         String sendCc = (String) context.get("sendCc");
         String sendBcc = (String) context.get("sendBcc");
@@ -286,6 +279,14 @@ public class EmailServices {
             return ServiceUtil.returnError(errMsg);
         }
 
+        // check to see if sending mail is enabled
+        String mailEnabled = UtilProperties.getPropertyValue("general.properties", "mail.notifications.enabled", "N");
+        if (!"Y".equalsIgnoreCase(mailEnabled)) {
+            // no error; just return as if we already processed
+            Debug.logImportant("Mail notifications disabled in general.properties; What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, module);
+            return results;
+        }
+        
         try {
             Transport trans = session.getTransport("smtp");
             if (!useSmtpAuth) {
@@ -389,9 +390,7 @@ public class EmailServices {
             partyId = (String) bodyParameters.get("partyId");
         }
         bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
-        if (UtilValidate.isNotEmpty(webSiteId)) {
-            NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
-        }
+        NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
 
         if (UtilValidate.isEmpty(attachmentName)) {
@@ -544,6 +543,7 @@ public class EmailServices {
         
         result.put("messageWrapper", sendMailResult.get("messageWrapper"));
         result.put("body", bodyWriter.toString());
+        result.put("subject", subject);
         return result;
     }
 
