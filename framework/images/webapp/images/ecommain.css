@@ -308,7 +308,7 @@ voice-family:inherit;
 }
 
 #ecom-mainarea .leftonly {
-margin-left:201px;
+float:left;
 voice-family:inherit;
 }
 
