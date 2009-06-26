@@ -42,15 +42,10 @@ under the License.
             </widgets>
          </section>
     </screen>
-    <screen name="ViewRequest">
+    
+    <screen name="ViewCustRequest">
         <section>
             <actions>
-                <set field="MainColumnStyle" value="rightonly"/>
-                <set field="tabButtonItem" value="ViewRequest"/>
-                <set field="headerItem" value="request"/>
-                <set field="titleProperty" value="PageTitleViewRequest"/>
-                <!--<set field="headerItem" value="Shopping List"/>-->
-                <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <get-related-one value-field="custRequest" relation-name="CustRequestType" to-value-field="custRequestType"/>
@@ -79,40 +74,56 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
+                <container style="lefthalf">
+                    <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
+                        <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
+                    <screenlet title="${uiLabelMap.OrderRequestRoles}">
+                        <include-form name="ViewRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
+                </container>
+                <container style="righthalf">
+                    <screenlet title="${uiLabelMap.OrderCustRequestStatusList}" navigation-form-name="ViewRequest">
+                        <include-form name="ViewRequestStatus" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
+                    <platform-specific>
+                        <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                    </platform-specific>
+                    <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequest">
+                        <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
+                    <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequest">
+                        <include-form name="ViewRequestWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
+                    <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ViewRequest">
+                        <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
+                </container>
+                <container style="clear"/>
+                <screenlet title="${uiLabelMap.PageTitleRequestItems}">
+                    <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                </screenlet>
+                <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
+                    <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ViewRequest">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="rightonly"/>
+                <set field="tabButtonItem" value="ViewRequest"/>
+                <set field="headerItem" value="request"/>
+                <set field="titleProperty" value="PageTitleViewRequest"/>
+                <!--<set field="headerItem" value="Shopping List"/>-->
+                <set field="showRequestManagementLinks" value="Y"/>
+            </actions>
+            <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="lefthalf">
-                            <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
-                                <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                            </screenlet>
-                            <screenlet title="${uiLabelMap.OrderRequestRoles}">
-                                <include-form name="ViewRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                            </screenlet>
-                        </container>
-                        <container style="righthalf">
-                            <screenlet title="${uiLabelMap.OrderCustRequestStatusList}" navigation-form-name="ViewRequest">
-                                <include-form name="ViewRequestStatus" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                            </screenlet>
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
-                            </platform-specific>
-                            <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequest">
-                                <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                            </screenlet>
-                            <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequest">
-                                <include-form name="ViewRequestWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                            </screenlet>
-                            <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ViewRequest">
-                                 <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                            </screenlet>
-                        </container>
-                        <container style="clear"/>
-                        <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                            <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
-                            <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        </screenlet>
+                        <include-screen name="ViewCustRequest"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -668,6 +679,7 @@ under the License.
                     <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
                 </entity-one>
                 <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailCreation} #${custRequestId}"/>
+                <set field="parameters.subject" value="You request has been received and is registered as Customer request: ${custRequest.custRequestName}[${custRequest.custRequestId}]"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CreateCustRequestNotification.ftl"/></html></platform-specific>
@@ -695,5 +707,27 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
-
+    <screen name="AddNoteCustRequestNotification">
+        <section>
+            <condition><not><if-empty field="custRequestId"/></not></condition>
+            <actions>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="PartyNameView" value-field="person">
+                    <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
+                </entity-one>
+                <entity-one entity-name="NoteData" value-field="noteData"/>
+                <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailNoteAdded} #${custRequestId}"/>
+                <set field="subject" value="A note has been added to your Customer request ${custRequest.custRequestName}[${custRequest.custRequestId}]"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template 
+                location="component://order/webapp/ordermgr/request/AddedNoteCustRequestNotification.ftl"/>
+                </html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="Customer requestId is required: ${parameters.custRequestId} value: ${custRequestId}"></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    
 </screens>

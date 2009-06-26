@@ -27,7 +27,13 @@
         screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
         description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="INCOM_CUST_REQUESTS" portletCategoryId="CUST_REQUEST"/>
-
+    <PortalPortlet portalPortletId="ViewCustRequest"
+        portletName="View a specific customer request"
+        screenName="ViewCustRequest"
+        screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
+        description="View your own customer request inclusive of notes"/>
+    <PortletPortletCategory portalPortletId="ViewCustRequest" portletCategoryId="CUST_REQUEST"/>
+    
     <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) available to a Customer"/>
     <PortalPortlet portalPortletId="ListCustRequests"
         portletName="List Cust Requests"
