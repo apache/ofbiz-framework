@@ -65,11 +65,13 @@ allTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", EntityCondition.m
 if (allTrans) {
     //PostedTransaction Section
     allPostedTrans = EntityUtil.filterByCondition(allTrans, EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
-    getPostedTrans(0, (allPostedTrans.get(0)).glAccountId);
+    if (allPostedTrans)
+        getPostedTrans(0, (allPostedTrans.get(0)).glAccountId);
 
     //UnPostedTransaction Section
     allUnPostedTrans = EntityUtil.filterByCondition(allTrans, EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
-    getUnpostedTrans(0, (allUnPostedTrans.get(0)).glAccountId);
+    if (allUnPostedTrans)
+        getUnpostedTrans(0, (allUnPostedTrans.get(0)).glAccountId);
 
     //PostedAndUnPostedTransaction Section
     getPostedAndUnpostedTrans(0, (allTrans.get(0)).glAccountId);
