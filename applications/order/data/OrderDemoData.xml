@@ -23,13 +23,17 @@ under the License.
     <EmailTemplateSetting
         emailTemplateSettingId="CUST_REQ_ACCEPTED"
         bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#CreateCustRequestNotification"
-        subject="OFBiz - Your Request Is Created[${custRequestId}]"
+        subject="OFBiz - Your Request is received: '${custRequestName}' #CR${custRequestId}"
         fromAddress="ofbiztest@yahoo.com"/>
     <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_COMPLETED"
         bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#CompletedCustRequestNotification"
-        subject="OFBiz - Your Request Is Complete[${custRequestId}]"
+        subject="OFBiz - Your Request is complete: '${custRequestName}' #CR${custRequestId}"
         fromAddress="ofbiztest@yahoo.com"/>
-
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_NOTE_ADDED"
+        bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#AddNoteCustRequestNotification"
+        subject="OFBiz - A Note has been added to your request: '${custRequestName}' #CR${custRequestId}"
+        fromAddress="ofbiztest@yahoo.com"/>
+    
     <!-- incoming customer request examples -->
     <Party partyId="DemoCustomer"/>
     <Party partyId="DemoCustAgent"/>

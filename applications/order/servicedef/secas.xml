@@ -294,7 +294,7 @@ under the License.
         <condition field-name="custRequestId" operator="is-not-empty"/>
         <action service="updateCommunicationEvent" mode="sync"/>
     </eca>
-
+    
     <eca service="updateCustRequest" event="commit">
         <condition field-name="communicationEventId" operator="is-not-empty"/>
         <condition field-name="custRequestId" operator="is-not-empty"/>
@@ -343,20 +343,32 @@ under the License.
     </eca>
 
     <!-- customer request notifications -->
+    <!-- notification of a customer request received and accepted -->
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_ACCEPTED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
+        <set field-name="bodyParameters.custRequestName" env-name="custRequestName"/>
         <set field-name="partyIdTo" env-name="fromPartyId"/>
         <set field-name="emailTemplateSettingId" value="CUST_REQ_ACCEPTED"/>
         <action service="sendMailFromTemplateSetting" mode="sync" />
     </eca>
+    <!-- notification of a customer request completed -->
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_COMPLETED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="partyIdTo" env-name="fromPartyId"/>
         <set field-name="emailTemplateSettingId" value="CUST_REQ_COMPLETED"/>
+        <action service="sendMailFromTemplateSetting" mode="sync"/>
+    </eca>
+    <!-- notification a item note was added to the customer request -->
+    <eca service="createCustRequestItemNote" event="commit">
+        <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
+        <set field-name="bodyParameters.custRequestItemSeqId" env-name="custRequestItemSeqId"/>
+        <set field-name="bodyParameters.noteId" env-name="noteId"/>
+        <set field-name="partyIdTo" env-name="fromPartyId"/>
+        <set field-name="emailTemplateSettingId" value="CUST_REQ_NOTE_ADDED"/>
         <action service="sendMailFromTemplateSetting" mode="sync"/>
     </eca>
     <eca service="createSalesOpportunity" event="commit">

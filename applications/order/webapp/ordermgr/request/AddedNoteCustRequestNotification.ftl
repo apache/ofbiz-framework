@@ -20,15 +20,17 @@ under the License.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>${title}</title>
-        <link rel="stylesheet" href="${StringUtil.wrapString(baseUrl?if_exists)}/images/maincss.css" type="text/css"/>
+        <link rel="stylesheet" href="${baseUrl?if_exists}/images/maincss.css" type="text/css"/>
     </head>
     <body>
-        <h1>${title}</h1>
+        <h2>${title}</h2>
         <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has been completed.
+        <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has a note added to it:<br/>
+        ${noteData.noteInfo?if_exists}
         <br/><br/>
-        The status and used hours can always be checked at the url: <br/>
-        <a href="${StringUtil.wrapString(baseUrl?if_exists)}/myportal/control/showPortletDecorator?portalPortletId=ViewCustRequest&custRequestId=${custRequest.custRequestId}">${baseUrl?if_exists}/myportal/control/ViewRequest?custRequestId=${custRequest.custRequestId}</a>
+        Please reply by email.<br/><br/>
+        The status and used hours can always be checked <br/>
+        <a href="${StringUtil.wrapString(baseUrl?if_exists)}/myportal/control/showPortletDecorator?portalPortletId=ViewCustRequest&custRequestId=${custRequest.custRequestId}">here.....</a>
         <br/><br/>
         Regards.<br/><br/>
         Thank you for your business.

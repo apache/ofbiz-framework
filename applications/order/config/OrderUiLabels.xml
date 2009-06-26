@@ -2380,6 +2380,9 @@
         <value xml:lang="en">Customer Request Completed Notification Mai</value>
         <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
     </property>
+    <property key="OrderCustRequestNotificationMailNoteAdded">
+        <value xml:lang="en">Customer Request Note added Notification</value>
+    </property>
     <property key="OrderCustRequestNotificationMailCreation">
         <value xml:lang="en">Customer Request Creation Notification Mail</value>
         <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
