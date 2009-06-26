@@ -896,7 +896,7 @@ under the License.
         <attribute name="partyId" mode="IN" type="String" optional="true"/>
         <attribute name="userLogin" mode="IN" type="org.ofbiz.entity.GenericValue" optional="true"/>
         <attribute name="shipToAttnName" mode="IN" type="String" optional="true"/>
-        <attribute name="shipToToName" mode="IN" type="String" optional="true"/>
+        <attribute name="shipToName" mode="IN" type="String" optional="true"/>
         <attribute name="shipToAddress1" mode="IN" type="String" optional="false"/>
         <attribute name="shipToAddress2" mode="IN" type="String" optional="true"/>
         <attribute name="shipToCity" mode="IN" type="String" optional="false"/>
