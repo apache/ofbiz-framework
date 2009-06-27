@@ -598,7 +598,7 @@ under the License.
         <field name="communicationEventId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile" link-style="smallSubmit" description="${partyId}">
+                <sub-hyperlink description=" [${partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
