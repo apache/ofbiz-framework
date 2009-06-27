@@ -32,6 +32,8 @@
         screenName="Calendar"
         screenLocation="component://workeffort/widget/CalendarScreens.xml"
         description="My Calendar"
+        editFormName="EditCalendar"
+        editFormLocation="component://workeffort/widget/CalendarForms.xml"
         screenshot="/images/portlets/Calendar.png"/>
     <PortletPortletCategory portalPortletId="Calendar" portletCategoryId="EVENTSTASKS"/>
     

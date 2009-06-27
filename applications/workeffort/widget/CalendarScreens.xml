@@ -25,6 +25,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCalendar"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+                <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
             </actions>
             <widgets>
                 <section>
