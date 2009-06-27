@@ -167,6 +167,10 @@
         <value xml:lang="th">ข้อมูล Url</value>
         <value xml:lang="zh">信息链接</value>
     </property>
+    <property key="FormFieldTitle_initialView">
+        <value xml:lang="en">Initial View</value>
+        <value xml:lang="it">Vista iniziale</value>
+    </property>
     <property key="FormFieldTitle_invoiceInfo">
         <value xml:lang="en">Invoice Info</value>
         <value xml:lang="fr">Information de facture</value>
