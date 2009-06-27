@@ -40,9 +40,10 @@ under the License.
         <permission-service service-name="custRequestPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
+        <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <override name="custRequestName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
         <override name="story" allow-html="safe"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
@@ -135,6 +136,7 @@ under the License.
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="note" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/><!-- party who created the note -->
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
     </service>
@@ -176,9 +178,8 @@ under the License.
         <attribute name="custRequestId" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
         <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
-        <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
-        <override name="content" allow-html="safe"/>
-        <override name="custRequestName" allow-html="safe"/>
+        <attribute name="custRequestName" mode="IN" type="String" optional="true" allow-html="safe"/>
+        <attribute name="story" mode="IN" type="String" optional="true" allow-html="safe"/>
     </service>
 
     <!-- custRequest content services -->

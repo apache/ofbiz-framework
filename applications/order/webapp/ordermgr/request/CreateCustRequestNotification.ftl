@@ -30,7 +30,7 @@ under the License.
         We will solve/implement the request as soon as possible
         <br/><br/>
         The status and used hours can always be checked <br/>
-        <a href="${StringUtil.wrapString(baseUrl?if_exists)}/myportal/control/showPortletDecorator?portalPortletId=ViewCustRequest&custRequestId=${custRequest.custRequestId}">here....</a>
+        <a href="${StringUtil.wrapString(baseUrl?if_exists)}/myportal/control/showPortletDecorator?portalPortletId=ViewCustRequest&id=${custRequest.custRequestId}">here....</a>
         <br/><br/>
         Regards.
         <br/><br/>

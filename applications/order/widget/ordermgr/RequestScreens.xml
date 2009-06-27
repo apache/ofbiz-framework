@@ -46,7 +46,7 @@ under the License.
     <screen name="ViewCustRequest">
         <section>
             <actions>
-                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.id}"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <get-related-one value-field="custRequest" relation-name="CustRequestType" to-value-field="custRequestType"/>
                 <get-related-one value-field="custRequest" relation-name="StatusItem" to-value-field="statusItem"/>

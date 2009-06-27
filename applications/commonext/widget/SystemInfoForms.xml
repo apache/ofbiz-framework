@@ -24,7 +24,7 @@ under the License.
     <form name="SystemInfoNotes" type="list" list-name="systemInfoNotes" 
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="noteDateTime" title="Date info created"><display type="date-time"/></field>
-        <field name="noteInfo" title="System Info Note"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
+        <field name="noteInfo" title="System Info Note"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}&amp;id=${moreInfoItemId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
     </form>
     
     <form name="EditSysInfoPortletParams" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">

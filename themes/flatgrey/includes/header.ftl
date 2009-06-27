@@ -141,9 +141,9 @@ under the License.
           <li class=h4>
           <div class="divHidden">
           <center>${layoutSettings.middleTopHeader?if_exists}</center>
-          <a href="/myportal/control/showPortletDecorator?portalPortletId=${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
-          <a href="/myportal/control/showPortletDecorator?portalPortletId=${layoutSettings.middleTopLink2?if_exists}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
-          <a href="/myportal/control/showPortletDecorator?portalPortletId=${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
+          <a href="${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
+          <a href="${layoutSettings.middleTopLink2?if_exists}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
+          <a href="${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
           </div>
           </li>
         </#if>
