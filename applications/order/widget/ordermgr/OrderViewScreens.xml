@@ -168,6 +168,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderLookupOrder"/>
                 <set field="headerItem" value="orderlist"/>
+                <set field="filterDate" type="Timestamp" from-field="parameters.filterDate"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FilterOrderList.groovy"/>
             </actions>
@@ -452,6 +453,30 @@ under the License.
                 </screenlet>
             </widgets>
         </section> 
+    </screen>
+    
+    <screen name="ListSalesOrders">
+        <section>
+            <actions>
+                <set field="filterDate" type="Timestamp" value="${nowTimestamp}"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html><html-template location="component://order/webapp/ordermgr/order/OrderListByDate.ftl"/></html>
+                        </platform-specific>
+                    </widgets>
+                    <fail-widgets>
+                        <label style="h3" text="${uiLabelMap.OrderViewPermissionError}"/>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
     </screen>
 
 </screens>

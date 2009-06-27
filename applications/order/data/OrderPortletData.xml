@@ -54,5 +54,14 @@
         editFormName="EditOrderByCustomer"
         editFormLocation="component://order/webapp/ordermgr/order/OrderForms.xml"/>
     <PortletPortletCategory portalPortletId="ListCustomerOrders" portletCategoryId="LIST_CUSTOMER_ORDER"/>
+    
+    <!-- List Todays Order -->
+    <PortletCategory portletCategoryId="LIST_TODAYS_ORDER" description="List of order(s) placed"/>
+    <PortalPortlet portalPortletId="ListSalesOrders"
+        portletName="List Sales Orders By Date"
+        screenName="ListSalesOrders"
+        screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
+        description="List Sales Orders placed today" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
+    <PortletPortletCategory portalPortletId="ListSalesOrders" portletCategoryId="LIST_TODAYS_ORDER"/>
 
 </entity-engine-xml>

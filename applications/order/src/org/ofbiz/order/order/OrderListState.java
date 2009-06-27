@@ -18,6 +18,7 @@
  */
 package org.ofbiz.order.order;
 
+import java.sql.Timestamp;
 import java.util.*;
 import javax.servlet.http.*;
 import javolution.util.*;
@@ -209,11 +210,18 @@ public class OrderListState {
     /**
      * Get the OrderHeaders corresponding to the state.
      */
-    public List getOrders(String facilityId, GenericDelegator delegator) throws GenericEntityException {
+    public List getOrders(String facilityId, Timestamp filterDate, GenericDelegator delegator) throws GenericEntityException {
         List allConditions = new ArrayList();
 
         if (facilityId != null) {
             allConditions.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, facilityId));
+        }
+        
+        if (filterDate != null) {
+            List andExprs = new ArrayList();
+            andExprs.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)));
+            andExprs.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.getDayEnd(filterDate)));
+            allConditions.add(EntityCondition.makeCondition(andExprs, EntityOperator.AND));
         }
 
         List statusConditions = new ArrayList();
