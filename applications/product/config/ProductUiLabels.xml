@@ -7200,6 +7200,9 @@
         <value xml:lang="th">ราคาพื้นฐาน</value>
         <value xml:lang="zh">价格底线</value>
     </property>
+    <property key="ProductBestSellingProductsOf">
+        <value xml:lang="en">Best Selling Products of</value>
+    </property>
     <property key="ProductBeTheFirstToReviewThisProduct">
         <value xml:lang="cs">Staňte se prvním, kdo zhodnotí tetnto výrobek</value>
         <value xml:lang="de">Seien Sie der Erste, der dieses Produkt beurteilt!</value>
@@ -13316,6 +13319,9 @@
         <value xml:lang="ru">Не найдены правила ценообразования</value>
         <value xml:lang="th">ไม่พบข้อบังคับราคา</value>
         <value xml:lang="zh">没有找到价格规则</value>
+    </property>
+    <property key="ProductNoProductFound">
+        <value xml:lang="en">No Product Found</value>
     </property>
     <property key="ProductNoProductsInCategory">
         <value xml:lang="de">Keine Produkte in der Kategorie</value>

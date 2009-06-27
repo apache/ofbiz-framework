@@ -1816,4 +1816,31 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="BestSellingProducts">
+        <section>
+            <actions>
+                <set field="filterDate" type="Timestamp" from-field="nowTimestamp"/>
+                <set field="date" type="Date" from-field="nowTimestamp"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/BestProducts.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ProductBestSellingProductsOf} ${date}">
+                    <section>
+                        <condition>
+                            <not>
+                                <if-empty field="bestSellingProducts"/>
+                            </not>
+                        </condition>
+                        <widgets>
+                            <include-form name="ListBestProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="h3" text="${uiLabelMap.ProductNoProductFound}"></label>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>
