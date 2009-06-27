@@ -31,7 +31,8 @@
         portletName="Event Calendar"
         screenName="Calendar"
         screenLocation="component://workeffort/widget/CalendarScreens.xml"
-        description="My Calendar"/>
+        description="My Calendar"
+        screenshot="/images/portlets/Calendar.png"/>
     <PortletPortletCategory portalPortletId="Calendar" portletCategoryId="EVENTSTASKS"/>
     
     
