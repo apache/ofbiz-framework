@@ -305,7 +305,7 @@
                 </and>
             </condition>
             <link target="EditTask">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}">
@@ -318,7 +318,7 @@
                 </and>
             </condition>
             <link target="Dependencies">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
@@ -331,7 +331,7 @@
                 </and>
             </condition>
             <link target="EditTaskPartyAssigns">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="taskskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
@@ -344,7 +344,7 @@
                 </and>
             </condition>
             <link target="EditTaskSkills">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}">
@@ -357,7 +357,7 @@
                 </and>
             </condition>
             <link target="EditTimeEntries">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="taskContent" title="${uiLabelMap.CommonContent}">
@@ -370,7 +370,7 @@
                 </and>
             </condition>
             <link target="EditTaskContents">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
@@ -386,7 +386,7 @@
                 <not><if-empty field="workEffortId"/></not>
             </condition>
             <link target="EditWorkEffortSurveyAppls">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
     </menu>
@@ -412,7 +412,7 @@
                 </and>
             </condition>
             <link target="setTaskStatus">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
                 <parameter param-name="currentStatusId" value="PTS_ON_HOLD"/>
             </link>
         </menu-item>
@@ -424,7 +424,7 @@
                 </and>
             </condition>
             <link target="setTaskStatusToComplete">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="release" title="${uiLabelMap.ProjectMgrRelease}" >
@@ -435,7 +435,7 @@
                 </and>
             </condition>
             <link target="setTaskStatus">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
                 <parameter param-name="currentStatusId" value="PTS_CREATED"/>
             </link>
         </menu-item>
@@ -447,7 +447,7 @@
                 </and>
             </condition>
             <link target="setTaskStatus">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
                 <parameter param-name="currentStatusId" value="PTS_CANCELLED"/>
             </link>
         </menu-item>
