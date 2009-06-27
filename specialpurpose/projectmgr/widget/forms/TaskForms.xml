@@ -589,7 +589,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortAndContentDataResource">
-                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
             </entity-and>
         </actions>
         <field name="contentName" widget-style="smallSubmit">
