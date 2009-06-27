@@ -45,7 +45,7 @@ context.salesChannels = salesChannels;
 productStores = delegator.findList("ProductStore", null, null, ["storeName"], null, true);
 context.productStores = productStores;
 
-suppliers = delegator.findByAnd("PartyRole", [roleTypeId : "SUPPLIER"], ["partyId"]);
+suppliers = delegator.findByAnd("PartyRoleAndPartyDetail", [roleTypeId : "SUPPLIER"], ["groupName", "partyId"]);
 context.suppliers = suppliers;
 
 organizations = delegator.findByAnd("PartyRole", [roleTypeId : "INTERNAL_ORGANIZATIO"]);

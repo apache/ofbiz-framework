@@ -190,7 +190,7 @@ under the License.
               <select name="supplierPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
                 <option value="">${uiLabelMap.OrderSelectSupplier}</option>
                 <#list suppliers as supplier>
-                  <option value="${supplier.partyId}"<#if supplier.partyId == thisPartyId> selected</#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
+                  <option value="${supplier.partyId}"<#if supplier.partyId == thisPartyId> selected</#if>>[${supplier.partyId}] - ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                 </#list>
               </select>
             </div>
