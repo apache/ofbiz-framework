@@ -693,9 +693,9 @@ under the License.
         <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
         <attribute type="List" mode="OUT" name="workEfforts"/>
     </service>
-    <service name="getPartyICalUri" engine="simple" auth="false"
-             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getPartyICalUri">
-        <description>Get Party iCalendar URI</description>
+    <service name="getPartyICalUrl" engine="simple" auth="false"
+             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getPartyICalUrl">
+        <description>Get Party iCalendar URL</description>
         <!-- No permission checking - the servlet handles that -->
         <attribute type="String" mode="IN" name="partyId" optional="false"/>
         <attribute type="String" mode="OUT" name="iCalUri" optional="true"/>

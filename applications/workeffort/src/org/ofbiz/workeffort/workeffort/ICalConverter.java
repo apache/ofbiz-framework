@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
@@ -86,6 +87,8 @@ public class ICalConverter {
             "PRTYASGN_OFFERED", PartStat.TENTATIVE, "PRTYASGN_ASSIGNED", PartStat.ACCEPTED);
     protected static final Map<String, String> fromPartStatusMap = UtilMisc.toMap(
             "TENTATIVE", "PRTYASGN_OFFERED", "ACCEPTED", "PRTYASGN_ASSIGNED");
+    protected static final Map<String, String> fromRoleMap = UtilMisc.toMap("ATTENDEE", "CAL_ATTENDEE", 
+            "CONTACT", "CONTACT", "ORGANIZER", "CAL_ORGANIZER");
 
     protected static VAlarm createAlarm(GenericValue workEffortEventReminder) {
         VAlarm alarm = null;
@@ -118,20 +121,22 @@ public class ICalConverter {
         serviceMap.put("workEffortTypeId", "VTODO".equals(component.getName()) ? "TASK" : "EVENT");
         serviceMap.put("currentStatusId", "VTODO".equals(component.getName()) ? "CAL_NEEDS_ACTION" : "CAL_TENTATIVE");
         serviceMap.put("partyId", ((GenericValue) context.get("userLogin")).get("partyId"));
-        serviceMap.put("roleTypeId", "CAL_ORGANIZER");
+        serviceMap.put("roleTypeId", "CAL_OWNER");
         serviceMap.put("statusId", "PRTYASGN_ASSIGNED");
         Map<String, Object> serviceResult = invokeService("createWorkEffortAndPartyAssign", serviceMap, context);
         String workEffortId = (String) serviceResult.get("workEffortId");
         if (workEffortId != null) {
+            replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
             serviceMap.clear();
             serviceMap.put("workEffortIdFrom", context.get("workEffortId"));
             serviceMap.put("workEffortIdTo", workEffortId);
             serviceMap.put("workEffortAssocTypeId", "WORK_EFF_DEPENDENCY");
             serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
             serviceResult = invokeService("createWorkEffortAssoc", serviceMap, context);
-            if (!ServiceUtil.isError(serviceResult)) {
-                replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
+            if (ServiceUtil.isError(serviceResult)) {
+                return;
             }
+            storePartyAssignments(workEffortId, component, context);
         }
     }
 
@@ -238,6 +243,14 @@ public class ICalConverter {
     
     protected static String fromSummary(PropertyList propertyList) {
         Summary iCalObj = (Summary) propertyList.getProperty(Summary.SUMMARY);
+        if (iCalObj == null) {
+            return null;
+        }
+        return iCalObj.getValue();
+    }
+
+    protected static String fromUid(PropertyList propertyList) {
+        Uid iCalObj = (Uid) propertyList.getProperty(Uid.UID);
         if (iCalObj == null) {
             return null;
         }
@@ -364,13 +377,16 @@ public class ICalConverter {
         return calendar.toString();
     }
 
-    protected static void getPartyPrimaryEmailAddress(Property property, GenericValue partyAssign, Map<String, Object> context) {
+    protected static void getPartyUrl(Property property, GenericValue partyAssign, Map<String, Object> context) {
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("partyId", partyAssign.get("partyId"));
-        Map<String, Object> resultMap = invokeService("getPartyICalUri", serviceMap, context);
-        String iCalUri = (String) resultMap.get("iCalUri");
-        if (iCalUri != null) {
+        Map<String, Object> resultMap = invokeService("getPartyICalUrl", serviceMap, context);
+        String iCalUrl = (String) resultMap.get("iCalUrl");
+        if (iCalUrl != null) {
+            if (!iCalUrl.contains(":") && iCalUrl.contains("@")) {
+                iCalUrl = "MAILTO:".concat(iCalUrl);
+            }
             try {
-                property.setValue(iCalUri);
+                property.setValue(iCalUrl);
             } catch (Exception e) {
                 Debug.logError(e, "Error while setting party URI: ", module);
             }
@@ -444,7 +460,7 @@ public class ICalConverter {
     }
 
     protected static void loadPartyAssignment(Property property, GenericValue partyAssign, Map<String, Object> context) {
-        getPartyPrimaryEmailAddress(property, partyAssign, context);
+        getPartyUrl(property, partyAssign, context);
         if (UtilValidate.isEmpty(property.getValue())) {
             try {
                 // RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URL
@@ -501,7 +517,11 @@ public class ICalConverter {
         replaceProperty(componentProps, toLocation(workEffort.getString("locationDesc")));
         replaceProperty(componentProps, toStatus(workEffort.getString("currentStatusId")));
         replaceProperty(componentProps, toSummary(workEffort.getString("workEffortName")));
-        replaceProperty(componentProps, toUid(workEffort.getString("workEffortId")));
+        Property uid = componentProps.getProperty(Uid.UID);
+        if (uid == null) {
+            // Don't overwrite UIDs created by calendar clients
+            replaceProperty(componentProps, toUid(workEffort.getString("workEffortId")));
+        }
         replaceProperty(componentProps, toXProperty(workEffortIdXPropName, workEffort.getString("workEffortId")));
     }
 
@@ -580,6 +600,15 @@ public class ICalConverter {
         map.put(key, value);
     }
 
+    protected static void setPartyIdFromUrl(Property property, Map<String, Object> context) {
+        Map<String, ? extends Object> serviceMap = UtilMisc.toMap("address", property.getValue(), "caseInsensitive", "Y");
+        Map<String, Object> resultMap = invokeService("findPartyFromEmailAddress", serviceMap, context);
+        String partyId = (String) resultMap.get("partyId");
+        if (partyId != null) {
+            replaceParameter(property.getParameters(), toXParameter(partyIdXParamName, partyId));
+        }
+    }
+
     protected static void setWorkEffortServiceMap(Component component, Map<String, Object> serviceMap) {
         PropertyList propertyList = component.getProperties();
         setMapElement(serviceMap, "scopeEnumId", fromClazz(propertyList));
@@ -591,6 +620,7 @@ public class ICalConverter {
         setMapElement(serviceMap, "priority", fromPriority(propertyList));
         setMapElement(serviceMap, "currentStatusId", fromStatus(propertyList));
         setMapElement(serviceMap, "workEffortName", fromSummary(propertyList));
+        setMapElement(serviceMap, "universalId", fromUid(propertyList));
         if ("VTODO".equals(component.getName())) {
             setMapElement(serviceMap, "actualCompletionDate", fromCompleted(propertyList));
             setMapElement(serviceMap, "percentComplete", fromPercentComplete(propertyList));
@@ -626,9 +656,7 @@ public class ICalConverter {
         }
         String workEffortId = fromXProperty(calendar.getProperties(), workEffortIdXPropName);
         if (workEffortId == null) {
-            // TODO: Create new publish point
-            Debug.logWarning("Warning: Not an OFBiz calendar: \r\n" + calendar, module);
-            return;
+            workEffortId = (String) context.get("workEffortId");
         }
         if (!workEffortId.equals(context.get("workEffortId"))) {
             Debug.logWarning("Spoof attempt: received calendar workEffortId " + workEffortId +
@@ -658,8 +686,18 @@ public class ICalConverter {
         for (Component component : components) {
             if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
                 workEffortId = fromXProperty(component.getProperties(), workEffortIdXPropName);
+                if (workEffortId == null) {
+                    Property uid = component.getProperty(Uid.UID);
+                    if (uid != null) {
+                        GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue())));
+                        if (workEffort != null) {
+                            workEffortId = workEffort.getString("workEffortId");
+                        }
+                    }
+                }
                 if (workEffortId != null) {
                     if (validWorkEfforts.contains(workEffortId)) {
+                        replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
                         storeWorkEffort(component, context);
                     } else {
                         Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
@@ -680,6 +718,47 @@ public class ICalConverter {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    protected static void storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
+        Map<String, Object> serviceMap = FastMap.newInstance();
+        List<Property> partyList = FastList.newInstance();
+        partyList.addAll(component.getProperties("ATTENDEE"));
+        partyList.addAll(component.getProperties("CONTACT"));
+        partyList.addAll(component.getProperties("ORGANIZER"));
+        for (Property property : partyList) {
+            String partyId = fromXParameter(property.getParameters(), partyIdXParamName);
+            if (partyId == null) {
+                serviceMap.clear();
+                String address = property.getValue();
+                if (address.toUpperCase().startsWith("MAILTO:")) {
+                    address = address.substring(7);
+                }
+                serviceMap.put("address", address);
+                Map<String, Object> result = invokeService("findPartyFromEmailAddress", serviceMap, context);
+                partyId = (String) result.get("partyId");
+                if (partyId == null) {
+                    continue;
+                }
+                replaceParameter(property.getParameters(), toXParameter(partyIdXParamName, partyId));
+            }
+            serviceMap.clear();
+            serviceMap.put("workEffortId", workEffortId);
+            serviceMap.put("partyId", partyId);
+            serviceMap.put("roleTypeId", fromRoleMap.get(property.getName()));
+            GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+            List<GenericValue> assignments = null;
+            try {
+                assignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", serviceMap));
+                if (assignments.size() == 0) {
+                    serviceMap.put("statusId", "PRTYASGN_OFFERED");
+                    serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
+                    invokeService("assignPartyToWorkEffort", serviceMap, context);
+                }
+            } catch (GenericEntityException e) {
+            }
+        }
+    }
+
     protected static void storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
         PropertyList propertyList = component.getProperties();
         String workEffortId = fromXProperty(propertyList, workEffortIdXPropName);
@@ -695,12 +774,14 @@ public class ICalConverter {
         serviceMap.put("workEffortId", workEffortId);
         setWorkEffortServiceMap(component, serviceMap);
         invokeService("updateWorkEffort", serviceMap, context);
+        storePartyAssignments(workEffortId, component, context);
     }
 
     @SuppressWarnings("unchecked")
     protected static void toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         GenericDelegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
+        String workEffortUid = workEffort.getString("universalId");
         String workEffortTypeId = workEffort.getString("workEffortTypeId");
         GenericValue typeValue = delegator.findOne("WorkEffortType", UtilMisc.toMap("workEffortTypeId", workEffortTypeId), true);
         boolean isTask = false;
@@ -721,6 +802,11 @@ public class ICalConverter {
             result = i.next();
             Property xProperty = result.getProperty(workEffortIdXPropName);
             if (xProperty != null && workEffortId.equals(xProperty.getValue())) {
+                newComponent = false;
+                break;
+            }
+            Property uid = result.getProperty(Uid.UID);
+            if (uid != null && uid.getValue().equals(workEffortUid)) {
                 newComponent = false;
                 break;
             }

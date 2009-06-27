@@ -1480,11 +1480,7 @@ under the License.
         <entity-condition list="assignedParties" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="workEffortId" from-field="workEffortId"/>
-                <!-- DELEGATE has special meaning in publish properties - it's
-                    another party in an ORGANIZER role, NOT a party whose work efforts
-                    are included in a calendar. We need another role to define calendar
-                    members. -->
-                <condition-expr field-name="roleTypeId" value="CAL_DELEGATE" operator="not-equals"/>
+                <condition-expr field-name="roleTypeId" value="ICAL_MEMBER"/>
             </condition-list>
         </entity-condition>
         <iterate entry="assignedParty" list="assignedParties">
@@ -1517,20 +1513,22 @@ under the License.
         <field-to-result field="workEfforts"/>
     </simple-method>
     
-    <simple-method method-name="getPartyICalUri" short-description="Get The Party iCalendar URI" login-required="false">
+    <simple-method method-name="getPartyICalUrl" short-description="Get The Party iCalendar URL" login-required="false">
         <!-- RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URI (4.3.3) -->
-        <!-- For now we just look for a primary email address. This could be expanded later. -->
         <set field="partyId" from-field="parameters.partyId"/>
-        <entity-condition list="emailAddresses" entity-name="PartyContactWithPurpose">
+        <entity-condition list="contactMechs" entity-name="PartyContactWithPurpose">
             <condition-list combine="and">
+                <condition-list combine="or">
+                    <condition-expr field-name="contactMechPurposeTypeId" value="ICAL_URL"/>
+                    <condition-expr field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                </condition-list>
                 <condition-expr field-name="partyId" from-field="partyId"/>
-                <condition-expr field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
                 <condition-expr field-name="purposeThruDate" from-field="null"/>
             </condition-list>
+            <order-by field-name="contactMechPurposeTypeId"/>
         </entity-condition>
-        <if-compare field="util:size(emailAddresses)" operator="not-equals" value="0" type="Integer">
-            <set field="iCalUri" value="MAILTO:${emailAddresses[0].infoString}"/>
-            <field-to-result field="iCalUri"/>
+        <if-compare field="util:size(contactMechs)" operator="greater" value="0" type="Integer">
+            <field-to-result field="iCalUrl" result-name="contactMechs[0].infoString"/>
         </if-compare>
     </simple-method>
 
