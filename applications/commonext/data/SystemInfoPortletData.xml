@@ -18,20 +18,22 @@
     under the License.
 -->
 <entity-engine-xml>
-    
+
     <PortletCategory portletCategoryId="SYSTEMINFO" description="OFBiz System Information"/>
-    
+
     <PortalPortlet portalPortletId="SystemInfoNotes"
         portletName="System notes reporting an event"
         screenName="SystemInfoNotes"
         screenLocation="component://commonext/widget/SystemInfoScreens.xml" description="List of system notes for this specific party"
-        editFormName="EditSysInfoPortletParams" editFormLocation="component://commonext/widget/SystemInfoForms.xml"/>
+        editFormName="EditSysInfoPortletParams" editFormLocation="component://commonext/widget/SystemInfoForms.xml"
+        screenshot="/images/portlets/SystemInfoNotes.png"/>
     <PortletPortletCategory portalPortletId="SystemInfoNotes" portletCategoryId="SYSTEMINFO"/>
-    
+
     <PortalPortlet portalPortletId="SystemInfoStatus"
-        portletName="System status of for this particular user"
+        portletName="System status for this particular user"
         screenName="SystemInfoStatus"
-        screenLocation="component://commonext/widget/SystemInfoScreens.xml" description="List of system notes for this specific party"/>
+        screenLocation="component://commonext/widget/SystemInfoScreens.xml" description="List of system notes for this specific party"
+        screenshot="/images/portlets/SystemInfoStatus.png"/>
     <PortletPortletCategory portalPortletId="SystemInfoStatus" portletCategoryId="SYSTEMINFO"/>
-    
+
 </entity-engine-xml>
