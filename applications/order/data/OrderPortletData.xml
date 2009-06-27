@@ -45,7 +45,7 @@
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
     
     <!--List of order(s) placed by a customer in order -->
-    <PortletCategory portletCategoryId="LIST_CUSTOMER_ORDER" description="List of order(s) placed by a Customer"/>
+    <PortletCategory portletCategoryId="ORDERMGR" description="List of order(s)"/>
     <PortalPortlet portalPortletId="ListCustomerOrders"
         portletName="List Customer Orders"
         screenName="ListCustomerOrders"
@@ -53,15 +53,14 @@
         description="List Orders placed by customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
         editFormName="EditOrderByCustomer"
         editFormLocation="component://order/webapp/ordermgr/order/OrderForms.xml"/>
-    <PortletPortletCategory portalPortletId="ListCustomerOrders" portletCategoryId="LIST_CUSTOMER_ORDER"/>
+    <PortletPortletCategory portalPortletId="ListCustomerOrders" portletCategoryId="ORDERMGR"/>
     
     <!-- List Todays Order -->
-    <PortletCategory portletCategoryId="LIST_TODAYS_ORDER" description="List of order(s) placed"/>
     <PortalPortlet portalPortletId="ListSalesOrders"
         portletName="List Sales Orders By Date"
         screenName="ListSalesOrders"
         screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
         description="List Sales Orders placed today" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
-    <PortletPortletCategory portalPortletId="ListSalesOrders" portletCategoryId="LIST_TODAYS_ORDER"/>
+    <PortletPortletCategory portalPortletId="ListSalesOrders" portletCategoryId="ORDERMGR"/>
 
 </entity-engine-xml>
