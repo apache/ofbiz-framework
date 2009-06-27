@@ -40,12 +40,12 @@ under the License.
          <tr>
         <td>
           <#if state.hasPrevious()>
-            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}&filterDate=${filterDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
           </#if>
         </td>
         <td align="right">
           <#if state.hasNext()>
-            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}&filterDate=${filterDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
           </#if>
         </td>
       </tr>

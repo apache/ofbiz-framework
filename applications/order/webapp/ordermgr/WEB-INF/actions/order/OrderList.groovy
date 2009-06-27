@@ -46,7 +46,7 @@ if (security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session)) {
 }
 context.hasPermission = hasPermission;
 
-orderHeaderList = state.getOrders(facilityId, delegator);
+orderHeaderList = state.getOrders(facilityId, filterDate, delegator);
 context.orderHeaderList = orderHeaderList;
 
 // a list of order type descriptions
@@ -54,3 +54,5 @@ ordertypes = delegator.findList("OrderType", null, null, null, null, true);
 ordertypes.each { type ->
     context["descr_" + type.orderTypeId] = type.get("description",locale);
 }
+
+context.filterDate = filterDate;
