@@ -25,7 +25,8 @@
         portletName="Incoming Cust.Requests"
         screenName="IncomingCustRequests"
         screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
-        description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
+        description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"
+        screenshot="/images/portlets/INCOM_CUST_REQUESTS.png"/>
     <PortletPortletCategory portalPortletId="INCOM_CUST_REQUESTS" portletCategoryId="CUST_REQUEST"/>
     <PortalPortlet portalPortletId="ViewCustRequest"
         portletName="View a specific customer request"
