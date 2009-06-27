@@ -32,6 +32,11 @@ under the License.
                 <field-map field-name="communicationEventId" from-field="parameters.entityNameId"/>
             </entity-and>
             <if-not-empty field="roles">
+                <make-value value-field="noteData" entity-name="NoteData"/>
+                <now-timestamp field="noteData.noteDateTime"/>
+                <set field="noteData.noteName" value="SYSTEMNOTE"/>
+                <set field="noteData.noteInfo" value="New incoming communication event: ${comm.subject} from ${comm.partyIdFrom}"/>
+                <set field="noteData.moreInfoPortletId" value="MyCommunications"/>
                 <iterate entry="role" list="roles">
                     <if-compare field="role.statusId" value="COM_ROLE_CREATED" operator="equals">
                         <set field="partyId" from-field="role.partyId"/>
@@ -61,13 +66,8 @@ under the License.
                                 </and>    
                             </condition>
                             <then>
-                                <make-value value-field="noteData" entity-name="NoteData"/>
-                                <set field="noteData.noteParty" from-field="role.partyId"/>
-                                <set field="noteData.noteName" value="SYSTEMNOTE"/>
-                                <now-timestamp field="noteData.noteDateTime"/>
                                 <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                                <set field="noteData.noteInfo" value="New incoming communication event: ${comm.subject} from ${comm.partyIdFrom}"/>
-                                <set field="noteData.moreInfoPortletId" value="MyCommunications"/>
+                                <set field="noteData.noteParty" from-field="role.partyId"/>
                                 <create-value value-field="noteData"/>
                             </then>
                         </if>
@@ -84,17 +84,52 @@ under the License.
                         <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
                     </entity-one>
                     <make-value value-field="noteData" entity-name="NoteData"/>
-                    <set field="noteData.noteParty" from-field="partyId"/>
-                    <set field="noteData.noteName" value="SYSTEMNOTE"/>
                     <now-timestamp field="noteData.noteDateTime"/>
-                    <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
                     <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+                    <set field="noteData.noteParty" from-field="role.partyId"/>
+                    <set field="noteData.noteName" value="SYSTEMNOTE"/>
+                    <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
                     <set field="noteData.moreInfoPortletId" value="mytasks"/>
                     <create-value value-field="noteData"/>
                 </if-compare>
             </if-compare>
         </if-compare>
-        
+        <!-- Create a system info note to all customer request participants if a note was added to the customer request
+            the originator of the customer request will get already a email so does not need to be notified-->
+        <if-compare field="parameters.entityName" value="CustRequestItemNote" operator="equals">
+            <!-- find related customer request originator -->
+            <entity-and entity-name="CustRequestItemNoteView" list="custRequesItems">
+                <field-map field-name="noteId" from-field="parameters.entityNameId"/>
+            </entity-and>
+            <first-from-list entry="custRequesItem" list="custRequesItems"/>
+            <entity-one entity-name="CustRequest" value-field="custRequest">
+                <field-map field-name="custRequestId" from-field="custRequesItem.custRequestId"/>
+                <select-field field-name="fromPartyId"/>
+                <select-field field-name="custRequestName"/>
+            </entity-one>
+            <!-- find all parties who have added a note to this request item excluding the originator (he already gets email)-->
+            <entity-condition entity-name="CustRequestItemNoteView" list="custRequestParties" distinct="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" operator="not-equals" from-field="custRequest.fromPartyId"/>
+                    <condition-expr field-name="custRequestId" from-field="custRequesItem.custRequestId"/>
+                    <condition-expr field-name="custRequestItemSeqId" from-field="custRequesItem.custRequestItemSeqId"/>
+                </condition-list>
+                <select-field field-name="partyId"/>
+                <select-field field-name="custRequestId"/>
+                <select-field field-name="custRequestItemSeqId"/>
+            </entity-condition>
+            <make-value value-field="noteData" entity-name="NoteData"/>
+            <now-timestamp field="noteData.noteDateTime"/>
+            <set field="noteData.noteName" value="SYSTEMNOTE"/>
+            <set field="noteData.moreInfoPortletId" value="ViewCustRequest"/>
+            <set field="noteData.moreInfoItemId" from-field="custRequest.custRequestId"/>
+            <set field="noteData.noteInfo" value="A note has been added to customer request ${custRequest.custRequestName} [${custRequest.custRequestId}]"/>
+            <iterate entry="custRequestParty" list="custRequestParties">
+                <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+                <set field="noteData.noteParty" from-field="custRequestParty.partyId"/>
+                <create-value value-field="noteData"/>
+            </iterate>
+        </if-compare>
     </simple-method>
 
     <simple-method method-name="getPortletAttributeMap" short-description="get the attributes of the SystemInfoNotes portlet for a userlogin">
@@ -196,5 +231,5 @@ under the License.
             <field-to-result field="lastSystemInfoNote3"/>
         </if-not-empty>
     </simple-method>
-    
+   
 </simple-methods>

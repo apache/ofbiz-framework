@@ -49,7 +49,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequest" short-description="Create Customer Request">
-        <log level="always" message="======start create with story: ${parameters.story}"/>
         <make-value value-field="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -81,7 +80,6 @@ under the License.
         <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
         <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
         
-<log level="always" message="========================== story: ${parameters.story}"></log>
         <!-- create also the item if key fields are provided -->
         <if>
             <condition>
@@ -234,8 +232,10 @@ under the License.
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="newEntity.custRequestItemSeqId"/>
         <set from-field="parameters.note" field="newNoteMap.note"/>
+        <set from-field="parameters.partyId" field="newNoteMap.partyId"/>
         <call-service service-name="createNote" in-map-name="newNoteMap">
             <result-to-field result-name="noteId" field="newEntity.noteId"/>
+            <result-to-result result-name="partyId"/><!-- for notification services -->
         </call-service>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>
@@ -413,17 +413,7 @@ under the License.
         <set-service-fields service-name="createCustRequestCommEvent" map="parameters" to-map="custRequestCommEvent"/>
         <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
 
-        <if-empty field="parameters.content">
-            <set field="parameters.content" from-field="communicationEvent.content"/>
-        </if-empty>
-        <if-not-empty field="parameters.content">
-            <set field="newItem.custRequestId" from-field="parameters.custRequestId"/>
-            <set field="newItem.description" from-field="parameters.description"/>
-            <set field="newItem.story" from-field="parameters.content"/>
-            <call-service service-name="createCustRequestItem" in-map-name="newItem"/>
-        </if-not-empty>
-
-        <!-- copy attachements/content -->
+        <!-- copy attachments/content -->
         <entity-and entity-name="CommEventContentAssoc" list="custRequestContents">
             <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
         </entity-and>

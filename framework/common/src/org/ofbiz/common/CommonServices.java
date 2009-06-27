@@ -160,6 +160,7 @@ public class CommonServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         result.put("noteId", noteId);
+        result.put("partyId", partyId);
         return result;
     }
 

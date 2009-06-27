@@ -362,8 +362,9 @@ under the License.
         <set field-name="emailTemplateSettingId" value="CUST_REQ_COMPLETED"/>
         <action service="sendMailFromTemplateSetting" mode="sync"/>
     </eca>
-    <!-- notification a item note was added to the customer request -->
+    <!-- notification a item note was added to the customer request by other people than the originator -->
     <eca service="createCustRequestItemNote" event="commit">
+        <condition field-name="partyIdTo" operator="not-equals" value="notePartyId"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="bodyParameters.custRequestItemSeqId" env-name="custRequestItemSeqId"/>
         <set field-name="bodyParameters.noteId" env-name="noteId"/>
