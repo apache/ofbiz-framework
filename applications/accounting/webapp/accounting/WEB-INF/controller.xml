@@ -374,6 +374,58 @@ under the License.
         <response name="error" type="view" value="FindPurchaseInvoicesByDueDate"/>
     </request-map>
 
+    <!-- Payment Group requests -->
+
+    <request-map uri="FindPaymentGroup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPaymentGroup"/>
+    </request-map>
+    <request-map uri="EditPaymentGroup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPaymentGroup"/>
+    </request-map>
+    <request-map uri="createPaymentGroup">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentGroup"/>
+        <response name="success" type="view" value="EditPaymentGroup"/>
+        <response name="error" type="view" value="EditPaymentGroup"/>
+    </request-map>
+    <request-map uri="updatePaymentGroup">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGroup"/>
+        <response name="success" type="view" value="EditPaymentGroup"/>
+        <response name="error" type="view" value="EditPaymentGroup"/>
+    </request-map>
+    <request-map uri="deletePaymentGroup">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePaymentGroup"/>
+        <response name="success" type="view" value="FindPaymentGroup"/>
+        <response name="error" type="view" value="FindPaymentGroup"/>
+    </request-map>
+
+    <request-map uri="EditPaymentGroupMember">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPaymentGroupMember"/>
+    </request-map>
+    <request-map uri="createPaymentGroupMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentGroupMember"/>
+        <response name="success" type="view" value="EditPaymentGroupMember"/>
+        <response name="error" type="view" value="EditPaymentGroupMember"/>
+    </request-map>
+    <request-map uri="updatePaymentGroupMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGroupMember"/>
+        <response name="success" type="view" value="EditPaymentGroupMember"/>
+        <response name="error" type="view" value="EditPaymentGroupMember"/>
+    </request-map>
+    <request-map uri="deletePaymentGroupMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePaymentGroupMember"/>
+        <response name="success" type="view" value="EditPaymentGroupMember"/>
+        <response name="error" type="view" value="EditPaymentGroupMember"/>
+    </request-map>
+
     <!-- transaction page requests -->
     <request-map uri="FindGatewayResponses">
         <security https="true" auth="true"/>
@@ -2038,6 +2090,10 @@ under the License.
     <view-map name="FindSalesInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindSalesInvoicesByDueDate"/>
     <view-map name="FindPurchaseInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPurchaseInvoicesByDueDate"/>
 
+    <!-- Payment Group -->
+    <view-map name="FindPaymentGroup" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#FindPaymentGroup"/>
+    <view-map name="EditPaymentGroup" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#EditPaymentGroup"/>
+    <view-map name="EditPaymentGroupMember" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#EditPaymentGroupMember"/>
     <!-- Party Accounts -->
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/GlScreens.xml#PartyAccountsSummary"/>
     <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTrans"/>

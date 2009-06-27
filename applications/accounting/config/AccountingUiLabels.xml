@@ -1925,6 +1925,9 @@
         <value xml:lang="nl">Maak nieuwe factuur</value>
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
     </property>
+    <property key="AccountingCreateNewPaymentGroup">
+        <value xml:lang="en">Create New Payment Group</value>
+    </property>
     <property key="AccountingCreateNewPurchaseInvoice">
         <value xml:lang="de">Neue Einkaufsrechnung</value>
         <value xml:lang="en">New Purchase Invoice</value>
@@ -2392,6 +2395,12 @@
         <value xml:lang="th">แก้ไขการชำระเงิน</value>
         <value xml:lang="zh">编辑支付</value>
     </property>
+    <property key="AccountingEditPaymentGroup">
+        <value xml:lang="en">Edit Payment Group</value>
+    </property>
+    <property key="AccountingEditPaymentGroupMember">
+        <value xml:lang="en">Edit Payment Group Member</value>
+    </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="de">Steuerkonten bearbeiten</value>
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
@@ -2737,6 +2746,9 @@
         <value xml:lang="ru">Поиск накладных</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้า</value>
         <value xml:lang="zh">查找发票</value>
+    </property>
+    <property key="AccountingFindPaymentGroup">
+        <value xml:lang="en">Find Payment Group</value>
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="de">Suche Einkaufsrechnungen über Fälligkeit</value>
@@ -4963,6 +4975,9 @@
         <value xml:lang="th">การชำระเงินใหม่</value>
         <value xml:lang="zh">新建支付</value>
     </property>
+    <property key="AccountingNewPaymentGroup">
+        <value xml:lang="en">New Payment Group</value>
+    </property>
     <property key="AccountingNewPaymentIncoming">
         <value xml:lang="en">New incoming payment</value>
         <value xml:lang="fr">Nouveau paiement reçu</value>
@@ -5880,6 +5895,12 @@
         <value xml:lang="ru">Учетный код ответа платежного шлюза</value>
         <value xml:lang="th">Accounting Payment Gateway Response Id</value>
         <value xml:lang="zh">财务支付网关响应编号</value>
+    </property>
+    <property key="AccountingPaymentGroup">
+        <value xml:lang="en">Payment Group</value>
+    </property>
+    <property key="AccountingPaymentGroupMember">
+        <value xml:lang="en">Group Member</value>
     </property>
     <property key="AccountingPaymentHeader">
         <value xml:lang="ar">رأسية التسديد</value>

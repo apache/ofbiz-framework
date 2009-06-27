@@ -745,4 +745,38 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    
+    <!-- Payment Group -->
+    <service name="createPaymentGroup" default-entity-name="PaymentGroup" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Payment Group</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="paymentGroupTypeId" optional="false"/>
+        <override name="paymentGroupName" optional="false"/>
+    </service>
+    <service name="updatePaymentGroup" default-entity-name="PaymentGroup" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Payment Group</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePaymentGroup" default-entity-name="PaymentGroup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Payment Group</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+    <!-- Payment Group Member -->
+    <service name="createPaymentGroupMember" default-entity-name="PaymentGroupMember" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Payment Group Member</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updatePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Payment Group Member</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Payment Group Member</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

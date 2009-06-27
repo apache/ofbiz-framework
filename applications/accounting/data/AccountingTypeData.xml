@@ -665,6 +665,10 @@ under the License.
     <!-- payment types for POS PAID IN/OUT -->
     <PaymentType description="POS Paid Out" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="POS_PAID_OUT"/>
     <PaymentType description="POS Paid In" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="POS_PAID_IN"/>
+    
+    <!-- Payment Group Type -->
+    <PaymentGroupType paymentGroupTypeId="CHECK_RUN" parentTypeId="" hasTable="N" description="Check Run"/>
+    <PaymentGroupType paymentGroupTypeId="PAYMENT_BATCH" parentTypeId="" hasTable="N" description="Payment Batch"/>
 
     <!-- Payment Gateway Config -->
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>

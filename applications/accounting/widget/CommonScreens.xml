@@ -79,6 +79,61 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonPaymentGroupDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="PaymentGroup"/>
+                <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
+                <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                                    <not><if-empty field="paymentGroup"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ACCOUNTING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="paymentGroup"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label></container>
+                                        <container style="button-bar">
+                                            <link target="EditPaymentGroup" text="${uiLabelMap.AccountingCreateNewPaymentGroup}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="h1"><label>${uiLabelMap.AccountingNewPaymentGroup}</label></container>
+                                    </fail-widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="CommonTaxAuthorityDecorator">
         <section>
             <actions>
