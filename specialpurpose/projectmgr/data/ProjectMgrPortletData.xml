@@ -41,6 +41,13 @@
         screenLocation="component://projectmgr/widget/ProjectScreens.xml"
         description="List Projects For a certain Customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="PROJECTMANAGER"/>
-
-
+    
+    <PortalPortlet portalPortletId="ViewProjectTask"
+        portletName="View a specific task of a project"
+        screenName="ViewProjectTask"
+        screenLocation="component://projectmgr/widget/TaskScreens.xml"
+        description="View a specific task of a project" securityServiceName="projectMgrPermission" securityMainAction="VIEW"/>
+    <PortletPortletCategory portalPortletId="ViewProjectTask" portletCategoryId="PROJECTMANAGER"/>
+    
+    
 </entity-engine-xml>

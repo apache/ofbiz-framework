@@ -80,16 +80,20 @@ under the License.
             <call-simple-method method-name="getPortletAttributeMap"/>
             <if-compare field="haveUserLogin" value="true" operator="equals">
                 <if-compare field="attributeMap.taskAssignment" value="Y" operator="not-equals">
-                    <entity-one entity-name="WorkEffort" value-field="workEffort">
+                    <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
                         <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
-                    </entity-one>
+                        <order-by field-name="-fromDate"/>
+                    </entity-and>
+                    <first-from-list entry="assign" list="assigns"/>
+                    <get-related-one value-field="assign" relation-name="WorkEffort" to-value-field="workEffort"/>
                     <make-value value-field="noteData" entity-name="NoteData"/>
                     <now-timestamp field="noteData.noteDateTime"/>
                     <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                    <set field="noteData.noteParty" from-field="role.partyId"/>
+                    <set field="noteData.noteParty" from-field="assign.partyId"/>
                     <set field="noteData.noteName" value="SYSTEMNOTE"/>
                     <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
-                    <set field="noteData.moreInfoPortletId" value="mytasks"/>
+                    <set field="noteData.moreInfoPortletId" value="ViewProjectTask"/>
+                    <set field="noteData.moreInfoItemId" from-field="workEffort.workEffortId"/>
                     <create-value value-field="noteData"/>
                 </if-compare>
             </if-compare>

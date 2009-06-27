@@ -21,11 +21,10 @@ under the License.
 <entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
 
-    <eca entity="WorkEffortPartyAssignment" operation="create-store" event="return">
+    <eca entity="WorkEffortPartyAssignment" operation="create" event="return">
         <condition field-name="statusId" operator="equals" value="PAS_ASSIGNED"/>
         <set field-name="entityName" value="WorkEffortPartyAssignment"/>
         <set field-name="entityNameId" env-name="workEffortId"/>
-        <set field-name="partyId" env-name="userLogin.partyId"/>
         <action service="createSystemInfoNote" mode="sync"/>
     </eca>
 
