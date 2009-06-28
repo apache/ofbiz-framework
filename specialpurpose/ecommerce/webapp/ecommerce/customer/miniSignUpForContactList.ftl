@@ -28,44 +28,42 @@ under the License.
 </#macro>
 
 <div id="miniSignUpForContactList" class="screenlet">
-    <h3>${uiLabelMap.EcommerceSignUpForContactList}</h3>
-        <#if sessionAttributes.autoName?has_content>
-            <#-- The visitor potentially has an account and party id -->
-            <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
-                <#-- They are logged in so lets present the form to sign up with their email address -->
-                <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm">
-                  <fieldset>
-                    <input type="hidden" name="partyId" value="${partyId}"/>
-                    <input type="hidden" name="statusId" value="CLPT_PENDING"/>
-                    <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
-                    <@contactList publicEmailContactLists=publicEmailContactLists/>
-
-                    <select name="preferredContactMechId" class="selectBox" style="width:134px">
-                        <#list partyAndContactMechList as partyAndContactMech>
-                            <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode?if_exists}-${partyAndContactMech.tnAreaCode?if_exists}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2?if_exists}, ${partyAndContactMech.paCity?if_exists}, ${partyAndContactMech.paStateProvinceGeoId?if_exists}, ${partyAndContactMech.paPostalCode?if_exists}, ${partyAndContactMech.paPostalCodeExt?if_exists} ${partyAndContactMech.paCountryGeoId?if_exists}</#if></option>
-                        </#list>
-                    </select>
-
-                    <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
-                  </fieldset>
-                </form>
-            <#else>
-                <#-- Not logged in so ask them to log in and then sign up or clear the user association -->
-                <p>${uiLabelMap.EcommerceSignUpForContactListLogIn}</p>
-                <p><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonLogin}</a> ${sessionAttributes.autoName}</p>
-                <p>(${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)</p>
-            </#if>
-        <#else>
-            <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
-            <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm">
-              <fieldset>
-                <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
-                <@contactList publicEmailContactLists=publicEmailContactLists/>
-                <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text"/>
-                <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
-              </fieldset>
-            </form>
-        </#if>
+  <h3>${uiLabelMap.EcommerceSignUpForContactList}</h3>
+  <#if sessionAttributes.autoName?has_content>
+  <#-- The visitor potentially has an account and party id -->
+    <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
+    <#-- They are logged in so lets present the form to sign up with their email address -->
+      <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm">
+        <fieldset>
+          <input type="hidden" name="partyId" value="${partyId}"/>
+          <input type="hidden" name="statusId" value="CLPT_PENDING"/>
+          <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
+          <@contactList publicEmailContactLists=publicEmailContactLists/>
+          <select name="preferredContactMechId" class="selectBox" style="width:134px">
+            <#list partyAndContactMechList as partyAndContactMech>
+              <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode?if_exists}-${partyAndContactMech.tnAreaCode?if_exists}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2?if_exists}, ${partyAndContactMech.paCity?if_exists}, ${partyAndContactMech.paStateProvinceGeoId?if_exists}, ${partyAndContactMech.paPostalCode?if_exists}, ${partyAndContactMech.paPostalCodeExt?if_exists} ${partyAndContactMech.paCountryGeoId?if_exists}</#if></option>
+            </#list>
+          </select>
+          <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="button"/>
+        </fieldset>
+      </form>
+    <#else>
+    <#-- Not logged in so ask them to log in and then sign up or clear the user association -->
+      <p>${uiLabelMap.EcommerceSignUpForContactListLogIn}</p>
+      <p><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a> ${sessionAttributes.autoName}</p>
+      <p>(${uiLabelMap.CommonNotYou}? <a href="<@ofbizUrl>autoLogout</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a>)</p>
+    </#if>
+  <#else>
+  <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
+    <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm">
+      <fieldset>
+        <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
+        <@contactList publicEmailContactLists=publicEmailContactLists/>
+        <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text"/>
+        <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
+      </fieldset>
+    </form>
+  </#if>
 </div>
 
 
