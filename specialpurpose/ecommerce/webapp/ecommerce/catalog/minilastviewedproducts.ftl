@@ -20,25 +20,24 @@ under the License.
 <#assign maxToShow = 4/>
 <#assign lastViewedProducts = sessionAttributes.lastViewedProducts?if_exists/>
 <#if lastViewedProducts?has_content>
-    <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
-    <div id="minilastviewedproducts" class="screenlet">
-        
-            <div class="boxlink">
-                <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
-                <#if (lastViewedProducts?size > maxToShow)>
-                    <a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
-                </#if>
-            </div>
-        <h3>${uiLabelMap.EcommerceLastProducts}</h3>
-          <ul>
-            <#list lastViewedProducts[0..limit] as productId>
-              <li>
-                    ${setRequestAttribute("miniProdQuantity", "1")}
-                    ${setRequestAttribute("optProductId", productId)}
-                    ${setRequestAttribute("miniProdFormName", "lastviewed" + productId_index + "form")}
-                    ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
-              </li>
-            </#list>
-          </ul>
+  <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
+  <div id="minilastviewedproducts" class="screenlet">
+    <div class="boxlink">
+      <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
+      <#if (lastViewedProducts?size > maxToShow)>
+        <a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
+      </#if>
     </div>
+    <h3>${uiLabelMap.EcommerceLastProducts}</h3>
+    <ul>
+      <#list lastViewedProducts[0..limit] as productId>
+        <li>
+          ${setRequestAttribute("miniProdQuantity", "1")}
+          ${setRequestAttribute("optProductId", productId)}
+          ${setRequestAttribute("miniProdFormName", "lastviewed" + productId_index + "form")}
+          ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
+        </li>
+      </#list>
+    </ul>
+  </div>
 </#if>

@@ -22,31 +22,30 @@ under the License.
 <#if searchOptionsHistoryList?has_content>
     <#if (searchOptionsHistoryList?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(searchOptionsHistoryList?size-1)/></#if>
     <div id="minilastproductsearches" class="screenlet">
-        
-            <div class="boxlink">
-                <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
-                <#if (searchOptionsHistoryList?size > maxToShow)>
-                    <a href="<@ofbizUrl>advancedsearch</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
-                </#if>
-            </div>
-            <h3>${uiLabelMap.OrderLastSearches}...</h3>
-        
-          <ul>
-            <#list searchOptionsHistoryList[0..limit] as searchOptions>
-            <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
+      <div class="boxlink">
+        <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
+        <#if (searchOptionsHistoryList?size > maxToShow)>
+          <a href="<@ofbizUrl>advancedsearch</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
+        </#if>
+      </div>
+      <h3>${uiLabelMap.OrderLastSearches}...</h3>
+      <ul>
+        <#list searchOptionsHistoryList[0..limit] as searchOptions>
+          <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
+          <li>
+          ${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}
+            <ul>
               <li>
-                ${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}
-                <ul>
-                  <li>
-                    <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="button">${uiLabelMap.CommonSearch}</a>
-                    <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="button">${uiLabelMap.CommonRefine}</a>
-                  </li>
-                  <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
-                  <#list constraintStrings as constraintString>
-                    <li>${constraintString}</li>
-                  </#list>
-              </ul>
-            </#list>
-          </ul>
+                <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="button">${uiLabelMap.CommonSearch}</a>
+                <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="button">${uiLabelMap.CommonRefine}</a>
+              </li>
+              <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
+              <#list constraintStrings as constraintString>
+                <li>${constraintString}</li>
+                </#list>
+            </ul>
+          </li>
+        </#list>
+      </ul>
     </div>
 </#if>
