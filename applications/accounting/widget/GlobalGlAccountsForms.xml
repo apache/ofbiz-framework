@@ -132,7 +132,8 @@ under the License.
         </field>
         <field name="parentGlAccountId">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="glAccountId" entity-name="GlAccount" description="[${glAccountId}] ${accountName}-${accountCode}">
+                <entity-options key-field-name="glAccountId" entity-name="GlAccount" description="${accountName} [${glAccountId}]-${accountCode}">
+                    <entity-order-by field-name="accountName"/>
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
