@@ -233,12 +233,16 @@ under the License.
             <order-by field-name="-noteDateTime"/>
         </entity-and>
         <if-not-empty field="systemInfoNotes">
-            <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]" default-value=""/>
+            <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]"/>
             <field-to-result field="lastSystemInfoNote1"/>
-            <set field="lastSystemInfoNote2" from-field="systemInfoNotes[1]" default-value=""/>
-            <field-to-result field="lastSystemInfoNote2"/>
-            <set field="lastSystemInfoNote3" from-field="systemInfoNotes[2]" default-value=""/>
-            <field-to-result field="lastSystemInfoNote3"/>
+            <if-not-empty field="systemInfoNotes[2]">
+                <set field="lastSystemInfoNote2" from-field="systemInfoNotes[1]"/>
+                <field-to-result field="lastSystemInfoNote2"/>
+            </if-not-empty>
+            <if-not-empty field="systemInfoNotes[3]">
+                <set field="lastSystemInfoNote3" from-field="systemInfoNotes[2]"/>
+                <field-to-result field="lastSystemInfoNote3"/>
+            </if-not-empty>
         </if-not-empty>
     </simple-method>
    

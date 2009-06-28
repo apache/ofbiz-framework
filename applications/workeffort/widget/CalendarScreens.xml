@@ -122,48 +122,71 @@ under the License.
         <section>
             <actions>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <script location="component://workeffort/script/isCalOwner.groovy"/>
             </actions>
             <widgets>
                 <section>
                     <condition>
-                        <if-compare field="parameters.form" operator="equals" value="edit"/>
+                        <and>
+                            <or>
+                                <and>
+                                    <not><if-empty field="workEffort"/></not>
+                                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="CAL_CANCELLED"/>
+                                </and>
+                                <if-empty field="workEffort"/>
+                            </or>
+                            <if-compare field="parameters.form" operator="equals" value="edit"/>
+                        </and>
                     </condition>
                     <widgets>
-                        <container style="lefthalf">
-                            <label style="h2" text="Add a Calendar Event"/>
-                            <include-form name="addCalEvent" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                        </container>
-                        <container style="righthalf">
-                            <label style="h2" text="Participants"/>
-                            <include-form name="showCalEventRolesDel" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                            <section>
-                                <condition>
-                                    <and>
-                                        <not><if-empty field="workEffort"/></not>
-                                        <if-compare field="workEffortTypeId" operator="not-equals" value="WES_PUBLIC"/>
-                                    </and>
-                                </condition>
-                                <widgets>
-                                    <include-form name="addCalEventRole" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                </widgets>
-                            </section>
-                        </container>
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field="parameters.form" operator="equals" value="show"/>
-                    </condition>
-                    <widgets>
-                        <container style="lefthalf">
-                            <label style="h2" text="Calendar Event Summary"/>
-                            <include-form name="showCalEvent" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                        </container>
-                        <container style="righthalf">
-                            <label style="h2" text="Participants"/>
-                            <include-form name="showCalEventRoles" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                        </container>
-                    </widgets>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-compare field="isCalOwner" operator="equals" value="true" type="Boolean"/>
+                                    <if-empty field="workEffort"/>
+                                </or>
+                            </condition>
+                            <widgets><!-- edit section -->
+                                <container style="lefthalf">
+                                    <label style="h1" text="Add/Edit a Calendar Event"/>
+                                    <include-form name="editCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                </container>
+                                <container style="righthalf">
+                                    <label style="h1" text="Participants"/>
+                                    <include-form name="showCalEventRolesDel" location="component://workeffort/widget/CalendarForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <and>
+                                                <not><if-empty field="workEffort"/></not>
+                                                <if-compare field="workEffortTypeId" operator="not-equals" value="WES_PUBLIC"/>
+                                            </and>
+                                        </condition>
+                                        <widgets>
+                                            <include-form name="addCalEventRole" location="component://workeffort/widget/CalendarForms.xml"/>
+                                            <section>
+                                                <condition>
+                                                    <not><if-empty field="workEffort"/></not>
+                                                </condition>
+                                                <widgets>
+                                                    <include-form name="cancelEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </widgets>
+                                    </section>
+                                </container>
+                            </widgets>
+                            <fail-widgets><!-- view section -->
+                                <container style="lefthalf">
+                                    <label style="h1" text="Calendar Event Summary"/>
+                                    <include-form name="showCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                </container>
+                                <container style="righthalf">
+                                    <label style="h1" text="Participants"/>
+                                    <include-form name="showCalEventRoles" location="component://workeffort/widget/CalendarForms.xml"/>
+                                </container>
+                            </fail-widgets>
+                        </section>                
+                    </widgets>            
                 </section>
             </widgets>
         </section>
