@@ -728,7 +728,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}" key-field-name="glAccountId">
+                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                    <entity-order-by field-name="accountName"/>
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
@@ -791,7 +792,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}" key-field-name="glAccountId">
+                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                    <entity-order-by field-name="accountName"/>
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
