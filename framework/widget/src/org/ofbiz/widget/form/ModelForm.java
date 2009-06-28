@@ -235,12 +235,10 @@ public class ModelForm extends ModelWidget {
             } else if (!parentForm.equals(formElement.getAttribute("name"))) {
                 // try to find a form definition in the same file
                 Element rootElement = formElement.getOwnerDocument().getDocumentElement();
-                List formElements = UtilXml.childElementList(rootElement, "form");
+                List<? extends Element> formElements = UtilXml.childElementList(rootElement, "form");
                 //Uncomment below to add support for abstract forms
                 //formElements.addAll(UtilXml.childElementList(rootElement, "abstract-form"));
-                Iterator formElementIter = formElements.iterator();
-                while (formElementIter.hasNext()) {
-                    Element formElementEntry = (Element) formElementIter.next();
+                for (Element formElementEntry: formElements) {
                     if (formElementEntry.getAttribute("name").equals(parentForm)) {
                         parent = new ModelForm(formElementEntry, entityModelReader, dispatchContext);
                         break;
@@ -303,9 +301,7 @@ public class ModelForm extends ModelWidget {
                 //this.fieldMap = parent.fieldMap;
 
                 // Create this fieldList/Map from clones of parent's
-                Iterator fieldListIter = parent.fieldList.iterator();
-                while (fieldListIter.hasNext()) {
-                    ModelFormField parentChildField = (ModelFormField)fieldListIter.next();
+                for (ModelFormField parentChildField: parent.fieldList) {
                     ModelFormField childField = new ModelFormField(this);
                     childField.mergeOverrideModelFormField(parentChildField);
                     this.fieldList.add(childField);
@@ -472,45 +468,32 @@ public class ModelForm extends ModelWidget {
         }
 
         // alt-target
-        List altTargetElements = UtilXml.childElementList(formElement, "alt-target");
-        Iterator altTargetElementIter = altTargetElements.iterator();
-        while (altTargetElementIter.hasNext()) {
-            Element altTargetElement = (Element) altTargetElementIter.next();
+        for (Element altTargetElement: UtilXml.childElementList(formElement, "alt-target")) {
             AltTarget altTarget = new AltTarget(altTargetElement);
             this.addAltTarget(altTarget);
         }
 
         // on-event-update-area
-        List<? extends Element> updateAreaElements = UtilXml.childElementList(formElement, "on-event-update-area");
-        for (Element updateAreaElement : updateAreaElements) {
+        for (Element updateAreaElement : UtilXml.childElementList(formElement, "on-event-update-area")) {
             UpdateArea updateArea = new UpdateArea(updateAreaElement);
             this.addOnEventUpdateArea(updateArea);
         }
 
         // auto-fields-service
-        List autoFieldsServiceElements = UtilXml.childElementList(formElement, "auto-fields-service");
-        Iterator autoFieldsServiceElementIter = autoFieldsServiceElements.iterator();
-        while (autoFieldsServiceElementIter.hasNext()) {
-            Element autoFieldsServiceElement = (Element) autoFieldsServiceElementIter.next();
+        for (Element autoFieldsServiceElement: UtilXml.childElementList(formElement, "auto-fields-service")) {
             AutoFieldsService autoFieldsService = new AutoFieldsService(autoFieldsServiceElement);
             this.addAutoFieldsFromService(autoFieldsService);
         }
 
         // auto-fields-entity
-        List autoFieldsEntityElements = UtilXml.childElementList(formElement, "auto-fields-entity");
-        Iterator autoFieldsEntityElementIter = autoFieldsEntityElements.iterator();
-        while (autoFieldsEntityElementIter.hasNext()) {
-            Element autoFieldsEntityElement = (Element) autoFieldsEntityElementIter.next();
+        for (Element autoFieldsEntityElement: UtilXml.childElementList(formElement, "auto-fields-entity")) {
             AutoFieldsEntity autoFieldsEntity = new AutoFieldsEntity(autoFieldsEntityElement);
             this.addAutoFieldsFromEntity(autoFieldsEntity);
         }
 
         // read in add field defs, add/override one by one using the fieldList and fieldMap
-        List fieldElements = UtilXml.childElementList(formElement, "field");
-        Iterator fieldElementIter = fieldElements.iterator();
         String thisType = this.getType();
-        while (fieldElementIter.hasNext()) {
-            Element fieldElement = (Element) fieldElementIter.next();
+        for (Element fieldElement: UtilXml.childElementList(formElement, "field")) {
             ModelFormField modelFormField = new ModelFormField(fieldElement, this);
             ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
             if (thisType.equals("multi") && fieldInfo instanceof ModelFormField.SubmitField) {
@@ -529,10 +512,7 @@ public class ModelForm extends ModelWidget {
             FieldGroup lastFieldGroup = new FieldGroup(null, this);
             this.fieldGroupList.add(lastFieldGroup);
             // read in sort-field
-            List sortFieldElements = UtilXml.childElementList(sortOrderElement);
-            Iterator sortFieldElementIter = sortFieldElements.iterator();
-            while (sortFieldElementIter.hasNext()) {
-                Element sortFieldElement = (Element) sortFieldElementIter.next();
+            for (Element sortFieldElement: UtilXml.childElementList(sortOrderElement)) {
                 String tagName = sortFieldElement.getTagName();
                 if (tagName.equals("sort-field")) {
                     String fieldName = sortFieldElement.getAttribute("name");
@@ -557,17 +537,15 @@ public class ModelForm extends ModelWidget {
         // reorder fields according to sort order
         if (sortOrderFields.size() > 0) {
             List<ModelFormField> sortedFields = FastList.newInstance();
-            Iterator<String> sortOrderFieldIter = this.sortOrderFields.iterator();
-            while (sortOrderFieldIter.hasNext()) {
-                String fieldName = (String) sortOrderFieldIter.next();
+            for (String fieldName: this.sortOrderFields) {
                 if (UtilValidate.isEmpty(fieldName)) {
                     continue;
                 }
 
                 // get all fields with the given name from the existing list and put them in the sorted list
-                Iterator fieldIter = this.fieldList.iterator();
+                Iterator<ModelFormField> fieldIter = this.fieldList.iterator();
                 while (fieldIter.hasNext()) {
-                    ModelFormField modelFormField = (ModelFormField) fieldIter.next();
+                    ModelFormField modelFormField = fieldIter.next();
                     if (fieldName.equals(modelFormField.getName())) {
                         // matched the name; remove from the original last and add to the sorted list
                         fieldIter.remove();
@@ -690,10 +668,7 @@ public class ModelForm extends ModelWidget {
             throw new IllegalArgumentException(errmsg);
         }
 
-        List modelParams = modelService.getInModelParamList();
-        Iterator modelParamIter = modelParams.iterator();
-        while (modelParamIter.hasNext()) {
-            ModelParam modelParam = (ModelParam) modelParamIter.next();
+        for (ModelParam modelParam: modelService.getInModelParamList()) {
             // skip auto params that the service engine populates...
             if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name) || "timeZone".equals(modelParam.name)) {
                 continue;
@@ -755,9 +730,9 @@ public class ModelForm extends ModelWidget {
             throw new IllegalArgumentException("Error finding Entity with name " + autoFieldsEntity.entityName + " for auto-fields-entity in a form widget");
         }
 
-        Iterator modelFieldIter = modelEntity.getFieldsIterator();
+        Iterator<ModelField> modelFieldIter = modelEntity.getFieldsIterator();
         while (modelFieldIter.hasNext()) {
-            ModelField modelField = (ModelField) modelFieldIter.next();
+            ModelField modelField = modelFieldIter.next();
             if (modelField.getIsAutoCreatedInternal()) {
                 // don't ever auto-add these, should only be added if explicitly referenced
                 continue;
@@ -811,9 +786,7 @@ public class ModelForm extends ModelWidget {
 
         // find the highest position number to get the max positions used
         int positions = 1;
-        Iterator fieldIter = this.fieldList.iterator();
-        while (fieldIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) fieldIter.next();
+        for (ModelFormField modelFormField: this.fieldList) {
             int curPos = modelFormField.getPosition();
             if (curPos > positions) {
                 positions = curPos;
@@ -875,7 +848,7 @@ public class ModelForm extends ModelWidget {
         if (!skipStart) formStringRenderer.renderFormOpen(writer, context, this);
 
         // render all hidden & ignored fields
-        List hiddenIgnoredFieldList = this.getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
+        List<ModelFormField> hiddenIgnoredFieldList = this.getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
         this.renderHiddenIgnoredFields(writer, context, formStringRenderer, hiddenIgnoredFieldList);
 
         // render formatting wrapper open
@@ -883,15 +856,15 @@ public class ModelForm extends ModelWidget {
         //formStringRenderer.renderFormatSingleWrapperOpen(writer, context, this);
 
         // render each field row, except hidden & ignored rows
-        Iterator fieldIter = tempFieldList.iterator();
+        Iterator<ModelFormField> fieldIter = tempFieldList.iterator();
         ModelFormField lastFormField = null;
         ModelFormField currentFormField = null;
         ModelFormField nextFormField = null;
         if (fieldIter.hasNext()) {
-            currentFormField = (ModelFormField) fieldIter.next();
+            currentFormField = fieldIter.next();
         }
         if (fieldIter.hasNext()) {
-            nextFormField = (ModelFormField) fieldIter.next();
+            nextFormField = fieldIter.next();
         }
 
         FieldGroup currentFieldGroup = null;
@@ -915,10 +888,8 @@ public class ModelForm extends ModelWidget {
             // don't do it on the first pass though...
             if (isFirstPass) {
                 isFirstPass = false;
-                List inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
-                Iterator iter = inbetweenList.iterator();
-                while (iter.hasNext()) {
-                    Object obj = iter.next();
+                List<FieldGroupBase> inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
+                for (FieldGroupBase obj: inbetweenList) {
                     if (obj instanceof ModelForm.Banner) {
                         ((ModelForm.Banner) obj).renderString(writer, context, formStringRenderer);
                     }
@@ -959,10 +930,8 @@ public class ModelForm extends ModelWidget {
                     if (!lastFieldGroupName.equals(currentFieldGroupName)) {
                         lastFieldGroup.renderEndString(writer, context, formStringRenderer);
 
-                        List inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
-                        Iterator iter = inbetweenList.iterator();
-                        while (iter.hasNext()) {
-                            Object obj = iter.next();
+                        List<FieldGroupBase> inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
+                        for (FieldGroupBase obj: inbetweenList) {
                             if (obj instanceof ModelForm.Banner) {
                                 ((ModelForm.Banner) obj).renderString(writer, context, formStringRenderer);
                             }
@@ -1128,9 +1097,9 @@ public class ModelForm extends ModelWidget {
         List<ModelFormField> tempFieldList = FastList.newInstance();
         tempFieldList.addAll(this.fieldList);
         for (int j = 0; j < tempFieldList.size(); j++) {
-            ModelFormField modelFormField = (ModelFormField) tempFieldList.get(j);
+            ModelFormField modelFormField = tempFieldList.get(j);
             for (int i = j+1; i < tempFieldList.size(); i++) {
-                ModelFormField curField = (ModelFormField) tempFieldList.get(i);
+                ModelFormField curField = tempFieldList.get(i);
                 if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
                     tempFieldList.remove(i--);
                 }
@@ -1142,12 +1111,10 @@ public class ModelForm extends ModelWidget {
         // ===========================
         // We get a sorted (by position, ascending) set of lists;
         // each list contains all the fields with that position.
-        Collection fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
-        Iterator fieldListsByPositionIter = fieldListsByPosition.iterator();
-        List<Map> fieldRowsByPosition = FastList.newInstance(); // this list will contain maps, each one containing the list of fields for a position
-        while (fieldListsByPositionIter.hasNext()) {
+        Collection<List<ModelFormField>> fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
+        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = FastList.newInstance(); // this list will contain maps, each one containing the list of fields for a position
+        for (List<ModelFormField> mainFieldList: fieldListsByPosition) {
             int numOfColumns = 0;
-            List mainFieldList = (List) fieldListsByPositionIter.next();
 
             List<ModelFormField> innerDisplayHyperlinkFieldsBegin = FastList.newInstance();
             List<ModelFormField> innerFormFields = FastList.newInstance();
@@ -1165,10 +1132,8 @@ public class ModelForm extends ModelWidget {
             // the fields in the first list will be rendered as columns before the
             // combined column for the input fields; the fields in the second list
             // will be rendered as columns after it
-            Iterator displayHyperlinkFieldIter = mainFieldList.iterator();
             boolean inputFieldFound = false;
-            while (displayHyperlinkFieldIter.hasNext()) {
-                ModelFormField modelFormField = (ModelFormField) displayHyperlinkFieldIter.next();
+            for (ModelFormField modelFormField: mainFieldList) {
                 ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                 // if the field's title is explicitly set to "" (title="") then
@@ -1199,9 +1164,7 @@ public class ModelForm extends ModelWidget {
             }
 
             // prepare the combined title for the column that will contain the form/input fields
-            Iterator formFieldIter = mainFieldList.iterator();
-            while (formFieldIter.hasNext()) {
-                ModelFormField modelFormField = (ModelFormField) formFieldIter.next();
+            for (ModelFormField modelFormField: mainFieldList) {
                 ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                 // don't do any header for hidden or ignored fields
@@ -1231,12 +1194,10 @@ public class ModelForm extends ModelWidget {
         // ===========================
         // Rendering
         // ===========================
-        Iterator fieldRowsByPositionIt = fieldRowsByPosition.iterator();
-        while (fieldRowsByPositionIt.hasNext()) {
-            Map listsMap = (Map) fieldRowsByPositionIt.next();
-            List innerDisplayHyperlinkFieldsBegin = (List)listsMap.get("displayBefore");
-            List innerFormFields = (List)listsMap.get("inputFields");
-            List innerDisplayHyperlinkFieldsEnd = (List)listsMap.get("displayAfter");
+        for (Map<String, List<ModelFormField>> listsMap: fieldRowsByPosition) {
+            List<ModelFormField> innerDisplayHyperlinkFieldsBegin = listsMap.get("displayBefore");
+            List<ModelFormField> innerFormFields = listsMap.get("inputFields");
+            List<ModelFormField> innerDisplayHyperlinkFieldsEnd = listsMap.get("displayAfter");
 
             int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                              innerDisplayHyperlinkFieldsEnd.size() +
@@ -1248,9 +1209,9 @@ public class ModelForm extends ModelWidget {
 
             if (numOfCells > 0) {
                 formStringRenderer.renderFormatHeaderRowOpen(writer, context, this);
-                Iterator innerDisplayHyperlinkFieldsBeginIt = innerDisplayHyperlinkFieldsBegin.iterator();
+                Iterator<ModelFormField> innerDisplayHyperlinkFieldsBeginIt = innerDisplayHyperlinkFieldsBegin.iterator();
                 while (innerDisplayHyperlinkFieldsBeginIt.hasNext()) {
-                    ModelFormField modelFormField = (ModelFormField) innerDisplayHyperlinkFieldsBeginIt.next();
+                    ModelFormField modelFormField = innerDisplayHyperlinkFieldsBeginIt.next();
                     // span columns only if this is the last column in the row (not just in this first list)
                     if (innerDisplayHyperlinkFieldsBeginIt.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size()) {
                         formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
@@ -1263,9 +1224,9 @@ public class ModelForm extends ModelWidget {
                 if (innerFormFields.size() > 0) {
                     // TODO: manage colspan
                     formStringRenderer.renderFormatHeaderRowFormCellOpen(writer, context, this);
-                    Iterator innerFormFieldsIt = innerFormFields.iterator();
+                    Iterator<ModelFormField> innerFormFieldsIt = innerFormFields.iterator();
                     while (innerFormFieldsIt.hasNext()) {
-                        ModelFormField modelFormField = (ModelFormField) innerFormFieldsIt.next();
+                        ModelFormField modelFormField = innerFormFieldsIt.next();
 
                         if (separateColumns || modelFormField.getSeparateColumn()) {
                             formStringRenderer.renderFormatItemRowCellOpen(writer, context, this, modelFormField, 1);
@@ -1287,9 +1248,9 @@ public class ModelForm extends ModelWidget {
                     }
                     formStringRenderer.renderFormatHeaderRowFormCellClose(writer, context, this);
                 }
-                Iterator innerDisplayHyperlinkFieldsEndIt = innerDisplayHyperlinkFieldsEnd.iterator();
+                Iterator<ModelFormField> innerDisplayHyperlinkFieldsEndIt = innerDisplayHyperlinkFieldsEnd.iterator();
                 while (innerDisplayHyperlinkFieldsEndIt.hasNext()) {
-                    ModelFormField modelFormField = (ModelFormField) innerDisplayHyperlinkFieldsEndIt.next();
+                    ModelFormField modelFormField = innerDisplayHyperlinkFieldsEndIt.next();
                     // span columns only if this is the last column in the row (not just in this first list)
                     if (innerDisplayHyperlinkFieldsEndIt.hasNext() || numOfCells > innerDisplayHyperlinkFieldsEnd.size()) {
                         formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
@@ -1331,13 +1292,11 @@ public class ModelForm extends ModelWidget {
         }
         // if list is empty, do not render rows
         Iterator iter = null;
-        List items = null;
         if (obj instanceof Iterator) {
             iter = (Iterator) obj;
             setPaginate(true);
         } else if (obj instanceof List) {
-            items = (List) obj;
-            iter = items.listIterator();
+            iter = ((List) obj).listIterator();
             setPaginate(true);
         }
 
@@ -1398,13 +1357,11 @@ public class ModelForm extends ModelWidget {
         }
         // if list is empty, do not render rows
         Iterator iter = null;
-        List items = null;
         if (obj instanceof Iterator) {
             iter = (Iterator) obj;
             setPaginate(true);
         } else if (obj instanceof List) {
-            items = (List) obj;
-            iter = items.listIterator();
+            iter = ((List) obj).listIterator();
             setPaginate(true);
         }
 
@@ -1491,14 +1448,12 @@ public class ModelForm extends ModelWidget {
 
                 // We get a sorted (by position, ascending) set of lists;
                 // each list contains all the fields with that position.
-                Collection fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
-                Iterator fieldListsByPositionIter = fieldListsByPosition.iterator();
+                Collection<List<ModelFormField>> fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
                 //List hiddenIgnoredFieldList = getHiddenIgnoredFields(localContext, null, tempFieldList);
-                while (fieldListsByPositionIter.hasNext()) {
+                for (List<ModelFormField> fieldListByPosition: fieldListsByPosition) {
                     // For each position (the subset of fields with the same position attribute)
                     // we have two phases: preprocessing and rendering
                     this.rowCount++;
-                    List fieldListByPosition = (List) fieldListsByPositionIter.next();
 
                     List<ModelFormField> innerDisplayHyperlinkFieldsBegin = FastList.newInstance();
                     List<ModelFormField> innerFormFields = FastList.newInstance();
@@ -1510,10 +1465,10 @@ public class ModelForm extends ModelWidget {
                     // - hyperlink fields that will appear at the beginning of the row
                     // - fields of other types
                     // - hyperlink fields that will appear at the end of the row
-                    Iterator innerDisplayHyperlinkFieldIter = fieldListByPosition.iterator();
+                    Iterator<ModelFormField> innerDisplayHyperlinkFieldIter = fieldListByPosition.iterator();
                     int currentPosition = 1;
                     while (innerDisplayHyperlinkFieldIter.hasNext()) {
-                        ModelFormField modelFormField = (ModelFormField) innerDisplayHyperlinkFieldIter.next();
+                        ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
                         ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                         // don't do any header for hidden or ignored fields
@@ -1532,9 +1487,9 @@ public class ModelForm extends ModelWidget {
                         innerDisplayHyperlinkFieldsBegin.add(modelFormField);
                         currentPosition = modelFormField.getPosition();
                     }
-                    Iterator innerFormFieldIter = fieldListByPosition.iterator();
+                    Iterator<ModelFormField> innerFormFieldIter = fieldListByPosition.iterator();
                     while (innerFormFieldIter.hasNext()) {
-                        ModelFormField modelFormField = (ModelFormField) innerFormFieldIter.next();
+                        ModelFormField modelFormField = innerFormFieldIter.next();
                         ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                         // don't do any header for hidden or ignored fields
@@ -1554,7 +1509,7 @@ public class ModelForm extends ModelWidget {
                         currentPosition = modelFormField.getPosition();
                     }
                     while (innerDisplayHyperlinkFieldIter.hasNext()) {
-                        ModelFormField modelFormField = (ModelFormField) innerDisplayHyperlinkFieldIter.next();
+                        ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
                         ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                         // don't do any header for hidden or ignored fields
@@ -1573,7 +1528,7 @@ public class ModelForm extends ModelWidget {
                         innerDisplayHyperlinkFieldsEnd.add(modelFormField);
                         currentPosition = modelFormField.getPosition();
                     }
-                    List hiddenIgnoredFieldList = getHiddenIgnoredFields(localContext, null, tempFieldList, currentPosition);
+                    List<ModelFormField> hiddenIgnoredFieldList = getHiddenIgnoredFields(localContext, null, tempFieldList, currentPosition);
 
                     // Rendering:
                     // the fields in the three lists created in the preprocessing phase
@@ -1606,7 +1561,7 @@ public class ModelForm extends ModelWidget {
     // The fields in the three lists, usually created in the preprocessing phase
     // of the renderItemRows method are rendered: this will create a visual representation
     // of one row (corresponding to one position).
-    public void renderItemRow(Appendable writer, Map<String, Object> localContext, FormStringRenderer formStringRenderer, boolean formPerItem, List hiddenIgnoredFieldList, List innerDisplayHyperlinkFieldsBegin, List innerFormFields, List innerDisplayHyperlinkFieldsEnd, int position, int numOfColumns) throws IOException {
+    public void renderItemRow(Appendable writer, Map<String, Object> localContext, FormStringRenderer formStringRenderer, boolean formPerItem, List<ModelFormField> hiddenIgnoredFieldList, List<ModelFormField> innerDisplayHyperlinkFieldsBegin, List<ModelFormField> innerFormFields, List<ModelFormField> innerDisplayHyperlinkFieldsEnd, int position, int numOfColumns) throws IOException {
         int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                          innerDisplayHyperlinkFieldsEnd.size() +
                          (innerFormFields.size() > 0? 1: 0);
@@ -1619,9 +1574,9 @@ public class ModelForm extends ModelWidget {
         formStringRenderer.renderFormatItemRowOpen(writer, localContext, this);
 
         // do the first part of display and hyperlink fields
-        Iterator innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsBegin.iterator();
+        Iterator<ModelFormField> innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsBegin.iterator();
         while (innerDisplayHyperlinkFieldIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) innerDisplayHyperlinkFieldIter.next();
+            ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
             // span columns only if this is the last column in the row (not just in this first list)
             if (innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size()) {
                 formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
@@ -1644,9 +1599,9 @@ public class ModelForm extends ModelWidget {
             // do all of the hidden fields...
             this.renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
 
-            Iterator innerFormFieldIter = innerFormFields.iterator();
+            Iterator<ModelFormField> innerFormFieldIter = innerFormFields.iterator();
             while (innerFormFieldIter.hasNext()) {
-                ModelFormField modelFormField = (ModelFormField) innerFormFieldIter.next();
+                ModelFormField modelFormField = innerFormFieldIter.next();
                 if (separateColumns || modelFormField.getSeparateColumn()) {
                     formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
                 }
@@ -1667,7 +1622,7 @@ public class ModelForm extends ModelWidget {
         // render the rest of the display/hyperlink fields
         innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsEnd.iterator();
         while (innerDisplayHyperlinkFieldIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) innerDisplayHyperlinkFieldIter.next();
+            ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
             // span columns only if this is the last column in the row
             if (innerDisplayHyperlinkFieldIter.hasNext()) {
                 formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
@@ -1682,11 +1637,9 @@ public class ModelForm extends ModelWidget {
         formStringRenderer.renderFormatItemRowClose(writer, localContext, this);
     }
 
-    public List getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered, List fieldList, int position) {
+    public List<ModelFormField> getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered, List<ModelFormField> fieldList, int position) {
         List<ModelFormField> hiddenIgnoredFieldList = FastList.newInstance();
-        Iterator fieldIter = fieldList.iterator();
-        while (fieldIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) fieldIter.next();
+        for (ModelFormField modelFormField: fieldList) {
             // with position == -1 then gets all the hidden fields
             if (position != -1 && modelFormField.getPosition() != position) {
                 continue;
@@ -1724,10 +1677,8 @@ public class ModelForm extends ModelWidget {
         }
         return hiddenIgnoredFieldList;
     }
-    public void renderHiddenIgnoredFields(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, List fieldList) throws IOException {
-        Iterator fieldIter = fieldList.iterator();
-        while (fieldIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) fieldIter.next();
+    public void renderHiddenIgnoredFields(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, List<ModelFormField> fieldList) throws IOException {
+        for (ModelFormField modelFormField: fieldList) {
             ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
             // render hidden/ignored field widget
@@ -1746,11 +1697,9 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public Collection getFieldListsByPosition(List<ModelFormField> modelFormFieldList) {
+    public Collection<List<ModelFormField>> getFieldListsByPosition(List<ModelFormField> modelFormFieldList) {
         Map<Integer, List<ModelFormField>> fieldsByPosition = new TreeMap<Integer, List<ModelFormField>>();
-        Iterator fieldListIter = modelFormFieldList.iterator();
-        while (fieldListIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) fieldListIter.next();
+        for (ModelFormField modelFormField: modelFormFieldList) {
             Integer position = Integer.valueOf(modelFormField.getPosition());
             List<ModelFormField> fieldListByPosition = fieldsByPosition.get(position);
             if (fieldListByPosition == null) {
@@ -1762,11 +1711,9 @@ public class ModelForm extends ModelWidget {
         return fieldsByPosition.values();
     }
 
-    public List getFieldListByPosition(List<ModelFormField> modelFormFieldList, int position) {
+    public List<ModelFormField> getFieldListByPosition(List<ModelFormField> modelFormFieldList, int position) {
         List<ModelFormField> fieldListByPosition = FastList.newInstance();
-        Iterator fieldListIter = modelFormFieldList.iterator();
-        while (fieldListIter.hasNext()) {
-            ModelFormField modelFormField = (ModelFormField) fieldListIter.next();
+        for (ModelFormField modelFormField: modelFormFieldList) {
             if (modelFormField.getPosition() == position) {
                 fieldListByPosition.add(modelFormField);
             }
@@ -1928,9 +1875,7 @@ public class ModelForm extends ModelWidget {
         try {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
-            Iterator altTargetIter = this.altTargets.iterator();
-            while (altTargetIter.hasNext()) {
-                AltTarget altTarget = (AltTarget) altTargetIter.next();
+            for (AltTarget altTarget: this.altTargets) {
                 Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(altTarget.useWhen));
                 boolean condTrue = false;
                 // retVal should be a Boolean, if not something weird is up...
@@ -2524,8 +2469,8 @@ public class ModelForm extends ModelWidget {
         return this.multiSubmitFields;
     }
 
-    public List<Object> getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
-        ArrayList<Object> inbetweenList = new ArrayList<Object>();
+    public List<FieldGroupBase> getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
+        ArrayList<FieldGroupBase> inbetweenList = new ArrayList<FieldGroupBase>();
         boolean firstFound = false;
         String startFieldGroupId = null;
         String endFieldGroupId = null;
@@ -2537,9 +2482,9 @@ public class ModelForm extends ModelWidget {
         } else {
             startFieldGroupId = startFieldGroup.getId();
         }
-        Iterator iter = fieldGroupList.iterator();
+        Iterator<FieldGroupBase> iter = fieldGroupList.iterator();
         while (iter.hasNext()) {
-            Object obj = iter.next();
+            FieldGroupBase obj = iter.next();
             if (obj instanceof ModelForm.Banner) {
                 if (firstFound) inbetweenList.add(obj);
             } else {
@@ -2761,10 +2706,7 @@ public class ModelForm extends ModelWidget {
                     this.collapsible = true;
                 }
 
-                List sortFieldElements = UtilXml.childElementList(sortOrderElement, "sort-field");
-                Iterator sortFieldElementIter = sortFieldElements.iterator();
-                while (sortFieldElementIter.hasNext()) {
-                    Element sortFieldElement = (Element) sortFieldElementIter.next();
+                for (Element sortFieldElement: UtilXml.childElementList(sortOrderElement, "sort-field")) {
                     modelForm.sortOrderFields.add(sortFieldElement.getAttribute("name"));
                     modelForm.fieldGroupMap.put(sortFieldElement.getAttribute("name"), this);
                 }
