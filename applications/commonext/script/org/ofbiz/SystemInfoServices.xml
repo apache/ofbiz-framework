@@ -75,29 +75,35 @@ under the License.
                 </iterate>
             </if-not-empty>
         </if-compare>
+        
         <!-- new task assignments for the logged on user -->
         <if-compare field="parameters.entityName" value="WorkEffortPartyAssignment" operator="equals">
-            <call-simple-method method-name="getPortletAttributeMap"/>
-            <if-compare field="haveUserLogin" value="true" operator="equals">
-                <if-compare field="attributeMap.taskAssignment" value="Y" operator="not-equals">
-                    <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
-                        <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
-                        <order-by field-name="-fromDate"/>
-                    </entity-and>
-                    <first-from-list entry="assign" list="assigns"/>
-                    <get-related-one value-field="assign" relation-name="WorkEffort" to-value-field="workEffort"/>
-                    <make-value value-field="noteData" entity-name="NoteData"/>
-                    <now-timestamp field="noteData.noteDateTime"/>
-                    <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                    <set field="noteData.noteParty" from-field="assign.partyId"/>
-                    <set field="noteData.noteName" value="SYSTEMNOTE"/>
-                    <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
-                    <set field="noteData.moreInfoPortletId" value="ViewProjectTask"/>
-                    <set field="noteData.moreInfoItemId" from-field="workEffort.workEffortId"/>
-                    <create-value value-field="noteData"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
+                <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
+            </entity-one>
+            <if-compare field="workEffort.workEffortTypeId" value="TASK" operator="equals">
+                <call-simple-method method-name="getPortletAttributeMap"/>
+                <if-compare field="haveUserLogin" value="true" operator="equals">
+                    <if-compare field="attributeMap.taskAssignment" value="Y" operator="not-equals">
+                        <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
+                            <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
+                            <order-by field-name="-fromDate"/>
+                        </entity-and>
+                        <first-from-list entry="assign" list="assigns"/>
+                        <make-value value-field="noteData" entity-name="NoteData"/>
+                        <now-timestamp field="noteData.noteDateTime"/>
+                        <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+                        <set field="noteData.noteParty" from-field="assign.partyId"/>
+                        <set field="noteData.noteName" value="SYSTEMNOTE"/>
+                        <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
+                        <set field="noteData.moreInfoPortletId" value="ViewProjectTask"/>
+                        <set field="noteData.moreInfoItemId" from-field="workEffort.workEffortId"/>
+                        <create-value value-field="noteData"/>
+                    </if-compare>
                 </if-compare>
             </if-compare>
         </if-compare>
+        
         <!-- Create a system info note to all customer request participants if a note was added to the customer request
             the originator of the customer request will get already a email so does not need to be notified-->
         <if-compare field="parameters.entityName" value="CustRequestItemNote" operator="equals">

@@ -479,7 +479,7 @@
                 <return/>
             </if-empty>
         </if-empty>
-        <if-not-empty field="parameters.taskId">
+        <if-not-empty field="parameters.taskId"><!-- taskId is provided -->
             <entity-one entity-name="WorkEffort" value-field="task">
                 <field-map field-name="workEffortId" from-field="parameters.taskId"/>
             </entity-one>
@@ -489,19 +489,22 @@
                     <return/>
                 </else>
             </if-not-empty>
-            <else>
+            <else><!-- phaseId is provided -->
                 <entity-one entity-name="WorkEffort" value-field="phase">
                     <field-map field-name="workEffortId" from-field="parameters.phaseId"/>
                 </entity-one>
             </else>
         </if-not-empty>
-        <get-related-one value-field="phase" relation-name="ParentWorkEffort" to-value-field="project"/>
-        <field-to-result field="project.workEffortId" result-name="projectId"/>
-        <field-to-result field="project.workEffortName" result-name="projectName"/>
-        <field-to-result field="phase.workEffortId" result-name="phaseId"/>
-        <field-to-result field="phase.workEffortName" result-name="phaseName"/>
-        <field-to-result field="task.workEffortId" result-name="taskId"/>
-        <field-to-result field="task.workEffortName" result-name="taskName"/>
+        <!-- get project info -->
+        <if-not-empty field="phase">
+            <get-related-one value-field="phase" relation-name="ParentWorkEffort" to-value-field="project"/>
+            <field-to-result field="project.workEffortId" result-name="projectId"/>
+            <field-to-result field="project.workEffortName" result-name="projectName"/>
+            <field-to-result field="phase.workEffortId" result-name="phaseId"/>
+            <field-to-result field="phase.workEffortName" result-name="phaseName"/>
+            <field-to-result field="task.workEffortId" result-name="taskId"/>
+            <field-to-result field="task.workEffortName" result-name="taskName"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="copyProjectToTemplate" short-description="copy a project to a workeffortType starting with 'template'">
