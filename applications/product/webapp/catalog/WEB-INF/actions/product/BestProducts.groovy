@@ -17,11 +17,6 @@
  * under the License.
  */
 
-/*
- * For cases when the ApplyFeaturesFromCategory.ftl is actually supposed to get its list of ProductFeatures from a productFeatureGroupId.
- * Puts productFeatureGroup and productFeatures which are put of this group into the context.  Currently does not break out the features by view size.
- */
- 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
