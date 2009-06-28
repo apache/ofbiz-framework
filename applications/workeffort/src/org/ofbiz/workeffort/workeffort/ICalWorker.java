@@ -61,8 +61,18 @@ import org.w3c.dom.Element;
  * delegates the calendar conversion tasks to <code>ICalConverter</code>.
  */
 public class ICalWorker {
+
     public static final String module = ICalWorker.class.getName();
-    
+
+    public static class ResponseProperties {
+        public final int statusCode;
+        public final String statusMessage;
+        public ResponseProperties(int statusCode, String statusMessage) {
+            this.statusCode = statusCode;
+            this.statusMessage = statusMessage;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     protected static Map<String, Object> createConversionContext(HttpServletRequest request) {
         Map<String, Object> context = FastMap.newInstance();
@@ -74,6 +84,26 @@ public class ICalWorker {
         context.put("parameters", request.getParameterMap());
         context.put("locale", UtilHttp.getLocale(request));
         return context;
+    }
+
+    public static ResponseProperties createForbiddenResponse(String statusMessage) {
+        return new ResponseProperties(HttpServletResponse.SC_FORBIDDEN, statusMessage);
+    }
+
+    public static ResponseProperties createNotAuthorizedResponse(String statusMessage) {
+        return new ResponseProperties(HttpServletResponse.SC_UNAUTHORIZED, statusMessage);
+    }
+
+    public static ResponseProperties createNotFoundResponse(String statusMessage) {
+        return new ResponseProperties(HttpServletResponse.SC_NOT_FOUND, statusMessage);
+    }
+
+    public static ResponseProperties createOkResponse(String statusMessage) {
+        return new ResponseProperties(HttpServletResponse.SC_OK, statusMessage);
+    }
+
+    public static ResponseProperties createPartialContentResponse(String statusMessage) {
+        return new ResponseProperties(HttpServletResponse.SC_PARTIAL_CONTENT, statusMessage);
     }
 
     protected static Writer getWriter(HttpServletResponse response, ServletContext context) throws IOException {
@@ -96,22 +126,18 @@ public class ICalWorker {
             return;
         }
         Debug.logInfo("[handleGetRequest] workEffortId = " + workEffortId, module);
+        ResponseProperties responseProps = null;
         try {
-            String calendar = ICalConverter.getICalendar(workEffortId, createConversionContext(request));
-            if (calendar == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
-            response.setContentType("text/calendar");
-            response.setStatus(HttpServletResponse.SC_OK);
-            Writer writer = getWriter(response, context);
-            writer.write(calendar);
-            writer.close();
+            responseProps = ICalConverter.getICalendar(workEffortId, createConversionContext(request));
         } catch (Exception e) {
             Debug.logError(e, "[handleGetRequest] Error while sending calendar: ", module);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+        if (responseProps.statusCode == HttpServletResponse.SC_OK) {
+            response.setContentType("text/calendar");
+        }
+        writeResponse(responseProps, response, context);
     }
 
     public static void handlePropFindRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
@@ -125,9 +151,10 @@ public class ICalWorker {
         Debug.logInfo("[handlePropFindRequest] workEffortId = " + workEffortId, module);
         try {
             Document requestDocument = WebDavUtil.getDocumentFromRequest(request);
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            UtilXml.writeXmlDocument(os, requestDocument, "UTF-8", true, true);
+            ByteArrayOutputStream os = null;
             if (Debug.verboseOn()) {
+                os = new ByteArrayOutputStream();
+                UtilXml.writeXmlDocument(os, requestDocument, "UTF-8", true, true);
                 Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + os.toString(), module);
             }
             PropFindHelper helper = new PropFindHelper(requestDocument);
@@ -162,9 +189,9 @@ public class ICalWorker {
                 Element rootElement = helper.createMultiStatusElement();
                 rootElement.appendChild(responseElement);
                 responseDocument.appendChild(rootElement);
-                os = new ByteArrayOutputStream();
-                UtilXml.writeXmlDocument(os, responseDocument, "UTF-8", true, true);
                 if (Debug.verboseOn()) {
+                    os = new ByteArrayOutputStream();
+                    UtilXml.writeXmlDocument(os, responseDocument, "UTF-8", true, true);
                     Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + os.toString(), module);
                 }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
@@ -196,14 +223,15 @@ public class ICalWorker {
             return;
         }
         Debug.logInfo("[handlePutRequest] workEffortId = " + workEffortId, module);
+        ResponseProperties responseProps = null;
         try {
-            ICalConverter.storeCalendar(request.getInputStream(), createConversionContext(request));
+            responseProps = ICalConverter.storeCalendar(request.getInputStream(), createConversionContext(request));
         } catch (Exception e) {
             Debug.logError(e, "[handlePutRequest] Error while updating calendar: ", module);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
-        response.setStatus(HttpServletResponse.SC_OK);
+        writeResponse(responseProps, response, context);
     }
 
     protected static void logInUser(HttpServletRequest request, HttpServletResponse response) throws GenericServiceException, GenericEntityException {
@@ -253,6 +281,24 @@ public class ICalWorker {
             logInUser(request, response);
         } catch (Exception e) {
             Debug.logError(e, "Error while logging in user: ", module);
+        }
+    }
+
+    protected static void writeResponse(ResponseProperties responseProps, HttpServletResponse response, ServletContext context) throws IOException {
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
+                    ", message = " + responseProps.statusMessage, module);
+        }
+        response.setStatus(responseProps.statusCode);
+        if (responseProps.statusMessage != null) {
+            Writer writer = getWriter(response, context);
+            try {
+                writer.write(responseProps.statusMessage);
+            } catch (IOException e) {
+                throw e;
+            } finally {
+                writer.close();
+            }
         }
     }
 }
