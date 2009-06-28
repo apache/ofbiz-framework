@@ -30,18 +30,15 @@ under the License.
                 </#if>
             </div>
         <h3>${uiLabelMap.EcommerceLastProducts}</h3>
-        <div class="screenlet-body">
+          <ul>
             <#list lastViewedProducts[0..limit] as productId>
-                <div>
+              <li>
                     ${setRequestAttribute("miniProdQuantity", "1")}
                     ${setRequestAttribute("optProductId", productId)}
                     ${setRequestAttribute("miniProdFormName", "lastviewed" + productId_index + "form")}
                     ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
-                </div>
-                <#if productId_has_next>
-                   
-                </#if>
+              </li>
             </#list>
-        </div>
+          </ul>
     </div>
 </#if>

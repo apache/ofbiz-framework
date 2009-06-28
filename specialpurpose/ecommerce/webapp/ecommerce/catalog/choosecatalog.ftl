@@ -24,7 +24,6 @@ under the License.
 <#if (catalogCol?size > 1)>
 <div id ="choosecatalog" class="screenlet">
     <h3>${uiLabelMap.ProductChooseCatalog}</h3>
-    <div class="screenlet-body">
         <form name="choosecatalogform" method="post" action="<@ofbizUrl>main</@ofbizUrl>">
           <select name='CURRENT_CATALOG_ID' class='selectBox' onchange="submit()">
             <option value='${currentCatalogId}'>${currentCatalogName}</option>
@@ -35,6 +34,5 @@ under the License.
             </#list>
           </select>
         </form>
-    </div>
 </div>
 </#if>

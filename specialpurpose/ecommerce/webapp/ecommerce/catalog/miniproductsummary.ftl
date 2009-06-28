@@ -17,32 +17,33 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if miniProduct?exists>
-    <p><a href="<@ofbizUrl>product/~product_id=${miniProduct.productId}</@ofbizUrl>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a></p>
-    <p>${miniProduct.productId}
-      <#if (priceResult.price?default(0) > 0 && miniProduct.requireAmount?default("N") == "N")>
-        <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if>
-        <#if totalPrice?exists>
-          <p>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></p>
-        <#else>
-          <span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
-          <@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span>
-        </#if>
-      </#if>
-    </p>
-
-    <div>
+    <a href="<@ofbizUrl>product/~product_id=${miniProduct.productId}</@ofbizUrl>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a>
+    <ul>
+        <li>${miniProduct.productId}
+          <#if (priceResult.price?default(0) > 0 && miniProduct.requireAmount?default("N") == "N")>
+            <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if>
+            <#if totalPrice?exists>
+              <li>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></li>
+            <#else>
+              <span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
+              <@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span>
+            </#if>
+          </#if>
+        </li>
     <#if (miniProduct.introductionDate?exists) && (nowTimeLong < miniProduct.introductionDate.getTime())>
         <#-- check to see if introductionDate hasn't passed yet -->
-        <p>${uiLabelMap.ProductNotYetAvailable}</p>
+        <li>${uiLabelMap.ProductNotYetAvailable}</li>
     <#elseif (miniProduct.salesDiscontinuationDate?exists) && (nowTimeLong > miniProduct.salesDiscontinuationDate.getTime())>
         <#-- check to see if salesDiscontinuationDate has passed -->
-        <p>${uiLabelMap.ProductNoLongerAvailable}</p>
+        <li>${uiLabelMap.ProductNoLongerAvailable}</li>
     <#elseif miniProduct.isVirtual?default("N") == "Y">
-        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a>
+        <li><a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a></li>
     <#elseif miniProduct.requireAmount?default("N") == "Y">
-        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a>
+        <li><a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a></li>
     <#else>
+      <li>
         <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="${miniProdFormName}" style="margin: 0;">
+          <fieldset>
             <input type="hidden" name="add_product_id" value="${miniProduct.productId}"/>
             <input type="hidden" name="quantity" value="${miniProdQuantity?default("1")}"/>
             <#if requestParameters.orderId?has_content><input type="hidden" name="orderId" value="${requestParameters.orderId}"/></#if>
@@ -51,8 +52,10 @@ under the License.
             <#if requestParameters.VIEW_INDEX?has_content><input type="hidden" name="VIEW_INDEX" value="${requestParameters.VIEW_INDEX}"/></#if>
             <#if requestParameters.VIEW_SIZE?has_content><input type="hidden" name="VIEW_SIZE" value="${requestParameters.VIEW_SIZE}"/></#if>
             <input type="hidden" name="clearSearch" value="N"/>
-            <a href="javascript:document.${miniProdFormName}.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.CommonAdd} ${miniProdQuantity} ${uiLabelMap.OrderToCart}</span></a>
+            <a href="javascript:document.${miniProdFormName}.submit()" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.CommonAdd} ${miniProdQuantity} ${uiLabelMap.OrderToCart}</span></a>
+          </fieldset>
         </form>
+      </li>
     </#if>
-    </div>
+    </ul>
 </#if>
