@@ -31,7 +31,6 @@ under the License.
             </div>
             <h3>${uiLabelMap.OrderLastSearches}...</h3>
         
-        <div class="screenlet-body">
           <ul>
             <#list searchOptionsHistoryList[0..limit] as searchOptions>
             <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
@@ -49,6 +48,5 @@ under the License.
               </ul>
             </#list>
           </ul>
-        </div>
     </div>
 </#if>
