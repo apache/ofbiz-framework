@@ -66,7 +66,7 @@ under the License.
     <#else>
       ${startDate?time?string.short}-${completionDate?time?string.short}
     </#if>
-    <br/><a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=show&period=day&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
+    <br/><a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&period=day&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
     </#if>
     </#list>
     <#if (period.calendarEntries?size < maxConcurrentEntries)>

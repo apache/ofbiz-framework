@@ -139,11 +139,6 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    <menu name="MyCompanyCommsMenu">
-        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
-            <link target="newEvent"/>
-        </menu-item>
-    </menu>
     <menu name="Day"  extends="Calendar">
         <menu-item name="next" title="${uiLabelMap.WorkEffortNextDay}">
             <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${nextMillis}&amp;fixedAssetId=${parameters.fixedAssetId}"/>

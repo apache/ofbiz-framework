@@ -116,13 +116,13 @@ under the License.
     <request-map uri="updateWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="view" value="EditWorkEffort"/>
+        <response name="success" type="view-home" value="EditWorkEffort"/>
         <response name="error" type="view" value="EditWorkEffort"/>
     </request-map>
     <request-map uri="deleteWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEfforts"/>
+        <response name="success" type="view-home" value="ListWorkEfforts"/>
         <response name="error" type="view" value="ListWorkEfforts"/>
     </request-map>
 
@@ -749,7 +749,6 @@ under the License.
     <view-map name="EditAgreementWorkEffortAppls" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortAppls"/>
     <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
     <view-map name="LookupAgreementItem" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem" type="screen"/>
-    <view-map name="myCompanyComms" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#MyCompanyComms"/>
     <view-map name="newEvent" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#newCompanyEvent"/>
     <!-- end of view mappings -->
 </site-conf>
