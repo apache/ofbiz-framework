@@ -45,7 +45,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="glAccountId">
             <drop-down>
-                <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}">
+                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId} ]">
+                    <entity-order-by field-name="accountName"/>
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
