@@ -107,7 +107,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
 
     public void appendContentUrl(Appendable writer, String location) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         ContentUrlTag.appendContentPrefix(this.request, buffer);
         writer.append(buffer.toString());
         writer.append(location);
@@ -2667,7 +2667,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String value = modelFormField.getEntry(context, imageField.getValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             writer.append(" src=\"");
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             ContentUrlTag.appendContentPrefix(request, buffer);
             writer.append(buffer.toString());
             writer.append(value);

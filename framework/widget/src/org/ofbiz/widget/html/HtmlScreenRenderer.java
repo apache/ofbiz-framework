@@ -618,7 +618,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             }
         } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
             if (request != null && response != null) {
-                StringBuffer newURL = new StringBuffer();
+                StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(request, newURL);
                 newURL.append(src);
                 writer.append(newURL.toString());

@@ -110,7 +110,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (delegator == null) {
                 //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, delegator is null(6)", "");
         }
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         ContentUrlTag.appendContentPrefix(this.request, buffer);
         writer.append(buffer.toString());
         writer.append(location);
@@ -556,7 +556,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 }
             } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 if (request != null && response != null) {
-                    StringBuffer newURL = new StringBuffer();
+                    StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     newURL.append(src);
                     writer.append(newURL.toString());

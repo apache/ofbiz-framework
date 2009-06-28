@@ -2241,7 +2241,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String width = "";
         String height = "";
         if (UtilValidate.isNotEmpty(value)) {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             ContentUrlTag.appendContentPrefix(request, buffer);
             buffer.append(value);
             value = buffer.toString();
@@ -2626,7 +2626,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         executeMacro(sr.toString());
     }
     public void appendContentUrl(Appendable writer, String location) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         ContentUrlTag.appendContentPrefix(this.request, buffer);
         writer.append(buffer.toString());
         writer.append(location);

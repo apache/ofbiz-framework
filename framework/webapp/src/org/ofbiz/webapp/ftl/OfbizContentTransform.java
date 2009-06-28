@@ -61,7 +61,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     String requestUrl = buf.toString();
 
                     // make the link
-                    StringBuffer newURL = new StringBuffer();
+                    StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     if (newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/' && requestUrl.charAt(0) != '/') {
                         newURL.append('/');

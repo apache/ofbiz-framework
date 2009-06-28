@@ -114,7 +114,7 @@ public class WidgetWorker {
     }
 
     public static void appendContentUrl(Appendable writer, String location, HttpServletRequest request) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         ContentUrlTag.appendContentPrefix(request, buffer);
         writer.append(buffer.toString());
         writer.append(location);
