@@ -1473,7 +1473,7 @@ public class ModelFormField {
         }
 
         public static int findFieldTypeFromName(String name) {
-            Integer fieldTypeInt = (Integer) FieldInfo.fieldTypeByName.get(name);
+            Integer fieldTypeInt = FieldInfo.fieldTypeByName.get(name);
             if (fieldTypeInt != null) {
                 return fieldTypeInt.intValue();
             } else {
