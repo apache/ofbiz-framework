@@ -134,6 +134,7 @@ under the License.
                                     <if-compare field="workEffort.currentStatusId" operator="not-equals" value="CAL_CANCELLED"/>
                                 </and>
                                 <if-empty field="workEffort"/>
+                                <if-has-permission permission="WORKEFFORTMGR_ADMIN"/>
                             </or>
                             <if-compare field="parameters.form" operator="equals" value="edit"/>
                         </and>
