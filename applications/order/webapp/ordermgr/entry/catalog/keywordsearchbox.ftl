@@ -21,6 +21,7 @@ under the License.
     <h3>${uiLabelMap.ProductSearchCatalog}</h3>
     <div class="screenlet-body">
         <form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
+         <fieldset>
           <input type="hidden" name="VIEW_SIZE" value="10"/>
           <input type="hidden" name="PAGING" value="Y"/>
           <div>
@@ -41,9 +42,11 @@ under the License.
           <#else>
             <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
           </#if>
-          <div><input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>${uiLabelMap.CommonAll}&nbsp;<a href="javascript:document.keywordsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a></div>
+          <div><input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>${uiLabelMap.CommonAll}&nbsp;<a href="javascript:document.keywordsearchform.submit()" class="button">${uiLabelMap.CommonFind}</a></div>
+         </fieldset>
         </form>
         <form name="advancedsearchform" method="post" action="<@ofbizUrl>advancedsearch</@ofbizUrl>">
+          <fieldset>
           <#if 0 < otherSearchProdCatalogCategories?size>
             <div>${uiLabelMap.ProductAdvancedSearchIn}: </div>
             <div>
@@ -62,8 +65,9 @@ under the License.
           </#if>
           <br/>
           <div>
-            <a href="javascript:document.advancedsearchform.submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
+            <a href="javascript:document.advancedsearchform.submit()" class="button">${uiLabelMap.ProductAdvancedSearch}</a>
           </div>
+         </fieldset>
         </form>
     </div>
 </div>
