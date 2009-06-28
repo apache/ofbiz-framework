@@ -62,6 +62,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.TemporalExpression;
 import org.ofbiz.service.calendar.TemporalExpressionWorker;
+import static org.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
 
 /** iCalendar converter class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
  * iCal4J</a> library. 
@@ -115,7 +116,7 @@ public class ICalConverter {
         return organizer;
     }
 
-    protected static void createWorkEffort(Component component, Map<String, Object> context) {
+    protected static ResponseProperties createWorkEffort(Component component, Map<String, Object> context) {
         Map<String, Object> serviceMap = FastMap.newInstance();
         setWorkEffortServiceMap(component, serviceMap);
         serviceMap.put("workEffortTypeId", "VTODO".equals(component.getName()) ? "TASK" : "EVENT");
@@ -124,6 +125,9 @@ public class ICalConverter {
         serviceMap.put("roleTypeId", "CAL_OWNER");
         serviceMap.put("statusId", "PRTYASGN_ASSIGNED");
         Map<String, Object> serviceResult = invokeService("createWorkEffortAndPartyAssign", serviceMap, context);
+        if (ServiceUtil.isError(serviceResult)) {
+            return ICalWorker.createPartialContentResponse(ServiceUtil.getErrorMessage(serviceResult));
+        }
         String workEffortId = (String) serviceResult.get("workEffortId");
         if (workEffortId != null) {
             replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
@@ -134,10 +138,11 @@ public class ICalConverter {
             serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
             serviceResult = invokeService("createWorkEffortAssoc", serviceMap, context);
             if (ServiceUtil.isError(serviceResult)) {
-                return;
+                return ICalWorker.createPartialContentResponse(ServiceUtil.getErrorMessage(serviceResult));
             }
             storePartyAssignments(workEffortId, component, context);
         }
+        return null;
     }
 
     protected static String fromClazz(PropertyList propertyList) {
@@ -348,22 +353,25 @@ public class ICalConverter {
      * if <code>workEffortId</code> is invalid.
      * @throws GenericEntityException
      */
-    public static String getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
+    public static ResponseProperties getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
-            return null;
+            return ICalWorker.createNotFoundResponse(null);
         }
         if (!"WES_PUBLIC".equals(publishProperties.get("scopeEnumId")) && !hasPermission(workEffortId, "VIEW", context)) {
-            return null;
+            return ICalWorker.createNotFoundResponse(null);
         }
         Calendar calendar = makeCalendar(publishProperties, context);
         ComponentList components = calendar.getComponents();
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
         if (workEfforts != null) {
             for (GenericValue workEffort : workEfforts) {
-                toCalendarComponent(components, workEffort, context);
+                ResponseProperties responseProps = toCalendarComponent(components, workEffort, context);
+                if (responseProps != null) {
+                    return responseProps;
+                }
             }
         }
         if (Debug.verboseOn()) {
@@ -374,7 +382,7 @@ public class ICalConverter {
                 Debug.logVerbose("iCalendar fails validation: " + e, module);
             }
         }
-        return calendar.toString();
+        return ICalWorker.createOkResponse(calendar.toString());
     }
 
     protected static void getPartyUrl(Property property, GenericValue partyAssign, Map<String, Object> context) {
@@ -638,7 +646,7 @@ public class ICalConverter {
      * @throws GenericServiceException
      */
     @SuppressWarnings("unchecked")
-    public static void storeCalendar(InputStream is, Map<String, Object> context) throws IOException, ParserException, GenericEntityException, GenericServiceException {
+    public static ResponseProperties storeCalendar(InputStream is, Map<String, Object> context) throws IOException, ParserException, GenericEntityException, GenericServiceException {
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = null;
         try {
@@ -661,65 +669,74 @@ public class ICalConverter {
         if (!workEffortId.equals(context.get("workEffortId"))) {
             Debug.logWarning("Spoof attempt: received calendar workEffortId " + workEffortId +
                     " on URL workEffortId " + context.get("workEffortId"), module);
-            return;
+            return ICalWorker.createForbiddenResponse(null);
         }
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
-            return;
+            return ICalWorker.createNotFoundResponse(null);
         }
         if (!hasPermission(workEffortId, "UPDATE", context)) {
-            return;
+            return ICalWorker.createNotAuthorizedResponse(null);
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        if (workEfforts == null || workEfforts.size() == 0) {
-            return;
-        }
-        // Security issue: make sure only related work efforts get updated
-        Set validWorkEfforts = FastSet.newInstance();
-        for (GenericValue workEffort : workEfforts) {
-            validWorkEfforts.add(workEffort.getString("workEffortId"));
-        }
-        List<Component> components = calendar.getComponents();
-        for (Component component : components) {
-            if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
-                workEffortId = fromXProperty(component.getProperties(), workEffortIdXPropName);
-                if (workEffortId == null) {
-                    Property uid = component.getProperty(Uid.UID);
-                    if (uid != null) {
-                        GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue())));
-                        if (workEffort != null) {
-                            workEffortId = workEffort.getString("workEffortId");
+        if (workEfforts != null && workEfforts.size() > 0) {
+            // Security issue: make sure only related work efforts get updated
+            Set validWorkEfforts = FastSet.newInstance();
+            for (GenericValue workEffort : workEfforts) {
+                validWorkEfforts.add(workEffort.getString("workEffortId"));
+            }
+            List<Component> components = calendar.getComponents();
+            ResponseProperties responseProps = null;
+            for (Component component : components) {
+                if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
+                    workEffortId = fromXProperty(component.getProperties(), workEffortIdXPropName);
+                    if (workEffortId == null) {
+                        Property uid = component.getProperty(Uid.UID);
+                        if (uid != null) {
+                            GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue())));
+                            if (workEffort != null) {
+                                workEffortId = workEffort.getString("workEffortId");
+                            }
                         }
                     }
-                }
-                if (workEffortId != null) {
-                    if (validWorkEfforts.contains(workEffortId)) {
-                        replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
-                        storeWorkEffort(component, context);
-                    } else {
-                        Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
-                                " on URL workEffortId " + context.get("workEffortId"), module);
-                        continue;
+                    if (workEffortId != null) {
+                        if (validWorkEfforts.contains(workEffortId)) {
+                            replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
+                            responseProps = storeWorkEffort(component, context);
+                        } else {
+                            Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
+                                    " on URL workEffortId " + context.get("workEffortId"), module);
+                            responseProps = ICalWorker.createForbiddenResponse(null);
+                        }
+                    } else if (hasCreatePermission) {
+                        responseProps = createWorkEffort(component, context);
                     }
-                } else if (hasCreatePermission) {
-                    createWorkEffort(component, context);
+                    if (responseProps != null) {
+                        return responseProps;
+                    }
                 }
             }
         }
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", context.get("workEffortId"), "icalData", calendar.toString());
         GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
+        Map<String, Object> serviceResult = null;
         if (iCalData == null) {
-            invokeService("createWorkEffortICalData", serviceMap, context);
+            serviceResult = invokeService("createWorkEffortICalData", serviceMap, context);
         } else {
-            invokeService("updateWorkEffortICalData", serviceMap, context);
+            serviceResult = invokeService("updateWorkEffortICalData", serviceMap, context);
         }
+        if (ServiceUtil.isError(serviceResult)) {
+            return ICalWorker.createPartialContentResponse(ServiceUtil.getErrorMessage(serviceResult));
+        }
+        return ICalWorker.createOkResponse(null);
     }
 
     @SuppressWarnings("unchecked")
-    protected static void storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
+    protected static ResponseProperties storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
+        ResponseProperties responseProps = null;
         Map<String, Object> serviceMap = FastMap.newInstance();
         List<Property> partyList = FastList.newInstance();
         partyList.addAll(component.getProperties("ATTENDEE"));
@@ -755,30 +772,33 @@ public class ICalConverter {
                     invokeService("assignPartyToWorkEffort", serviceMap, context);
                 }
             } catch (GenericEntityException e) {
+                responseProps = ICalWorker.createPartialContentResponse(e.getMessage());
+                break;
             }
         }
+        return responseProps;
     }
 
-    protected static void storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
+    protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
         PropertyList propertyList = component.getProperties();
         String workEffortId = fromXProperty(propertyList, workEffortIdXPropName);
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
         GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (workEffort == null) {
-            return;
+            return ICalWorker.createNotFoundResponse(null);
         }
         if (!hasPermission(workEffortId, "UPDATE", context)) {
-            return;
+            return ICalWorker.createNotAuthorizedResponse(null);
         }
         Map<String, Object> serviceMap = FastMap.newInstance();
         serviceMap.put("workEffortId", workEffortId);
         setWorkEffortServiceMap(component, serviceMap);
         invokeService("updateWorkEffort", serviceMap, context);
-        storePartyAssignments(workEffortId, component, context);
+        return storePartyAssignments(workEffortId, component, context);
     }
 
     @SuppressWarnings("unchecked")
-    protected static void toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
+    protected static ResponseProperties toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         GenericDelegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
         String workEffortUid = workEffort.getString("universalId");
@@ -795,7 +815,7 @@ public class ICalConverter {
         } else if ("EVENT".equals(workEffortTypeId) || (typeValue != null && "EVENT".equals(typeValue.get("parentTypeId")))){
             resultList = components.getComponents("VEVENT");
         } else {
-            return;
+            return null;
         }
         Iterator<Component> i = resultList.iterator();
         while (i.hasNext()) {
@@ -872,6 +892,7 @@ public class ICalConverter {
                 Debug.logVerbose(e, "iCalendar component fails validation: ", module);
             }
         }
+        return null;
     }
 
     protected static Clazz toClazz(String javaObj) {
