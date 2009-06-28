@@ -308,7 +308,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             }
         } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
             if (request != null && response != null) {
-                StringBuffer newURL = new StringBuffer();
+                StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(request, newURL);
                 newURL.append(src);
                 urlString = newURL.toString();
