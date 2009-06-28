@@ -29,12 +29,12 @@ under the License.
 
 <div id="miniSignUpForContactList" class="screenlet">
     <h3>${uiLabelMap.EcommerceSignUpForContactList}</h3>
-    <div class="screenlet-body">
         <#if sessionAttributes.autoName?has_content>
             <#-- The visitor potentially has an account and party id -->
             <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
                 <#-- They are logged in so lets present the form to sign up with their email address -->
                 <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm">
+                  <fieldset>
                     <input type="hidden" name="partyId" value="${partyId}"/>
                     <input type="hidden" name="statusId" value="CLPT_PENDING"/>
                     <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
@@ -47,6 +47,7 @@ under the License.
                     </select>
 
                     <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
+                  </fieldset>
                 </form>
             <#else>
                 <#-- Not logged in so ask them to log in and then sign up or clear the user association -->
@@ -57,13 +58,14 @@ under the License.
         <#else>
             <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
             <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm">
+              <fieldset>
                 <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
                 <@contactList publicEmailContactLists=publicEmailContactLists/>
-                <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text">
+                <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text"/>
                 <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
+              </fieldset>
             </form>
         </#if>
-    </div>
 </div>
 
 
