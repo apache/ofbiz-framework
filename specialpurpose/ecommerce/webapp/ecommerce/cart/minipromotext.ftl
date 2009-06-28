@@ -20,7 +20,6 @@ under the License.
 <#if showPromoText>
 <div id="minipromotext">
     <h3>${uiLabelMap.OrderSpecialOffers}</h3>
-    <div>
         <#-- show promotions text -->
         <ul>
         <#list productPromos as productPromo>
@@ -34,7 +33,6 @@ under the License.
         <li>
         <a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="button">${uiLabelMap.OrderViewAllPromotions}</a>
         </li>
-        <ul>
-    </div>
+        </ul>
 </div>
 </#if>

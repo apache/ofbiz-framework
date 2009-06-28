@@ -32,23 +32,23 @@ under the License.
             <h3>${uiLabelMap.OrderLastSearches}...</h3>
         
         <div class="screenlet-body">
+          <ul>
             <#list searchOptionsHistoryList[0..limit] as searchOptions>
             <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
-                    <p>
-                      ${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}
-                    </p>
-                    <div class="tabletext">
-                      <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
-                      <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>
-                    </div>
-                    <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
-                    <#list constraintStrings as constraintString>
-                      <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
-                    </#list>
-                <#if searchOptions_has_next>
-                    
-                </#if>
+              <li>
+                ${uiLabelMap.EcommerceSearchNumber} ${searchOptions_index + 1}
+                <ul>
+                  <li>
+                    <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="button">${uiLabelMap.CommonSearch}</a>
+                    <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="button">${uiLabelMap.CommonRefine}</a>
+                  </li>
+                  <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
+                  <#list constraintStrings as constraintString>
+                    <li>${constraintString}</li>
+                  </#list>
+              </ul>
             </#list>
+          </ul>
         </div>
     </div>
 </#if>
