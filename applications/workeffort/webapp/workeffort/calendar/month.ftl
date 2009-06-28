@@ -81,7 +81,7 @@ height: auto;
           ${startDate?time?string.short}-${completionDate?time?string.short}
         </#if>
         <br/>
-        <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=show&period=day&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}
+        <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=show&period=month&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}
         <br/>
       </#list>
     </td>
