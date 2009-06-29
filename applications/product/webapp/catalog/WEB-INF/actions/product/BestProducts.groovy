@@ -88,4 +88,6 @@ while (itr <= 5) {
     itr++;
 }
 
-context.bestSellingProducts= topSellingProducts;
+context.bestSellingProducts = topSellingProducts;
+
+context.now = UtilDateTime.toDateString(UtilDateTime.nowDate());

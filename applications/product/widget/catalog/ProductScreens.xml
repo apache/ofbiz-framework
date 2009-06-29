@@ -1821,11 +1821,10 @@ under the License.
         <section>
             <actions>
                 <set field="filterDate" type="Timestamp" from-field="nowTimestamp"/>
-                <set field="date" type="Date" from-field="nowTimestamp"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/BestProducts.groovy"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.ProductBestSellingProductsOf} ${date}">
+                <screenlet title="${uiLabelMap.ProductBestSellingProductsOf} ${now}">
                     <section>
                         <condition>
                             <not>
