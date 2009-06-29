@@ -43,22 +43,22 @@ under the License.
                         <call-simple-method method-name="getPortletAttributeMap"/>
                         <if>
                             <condition>
-                                <and>
+                                <and><!-- check for 'all' notifications flag off -->
                                     <if-compare field="haveUserLogin" value="true" operator="equals"/>
                                     <if-compare field="attributeMap.allNotifications" value="Y" operator="not-equals"/>
                                     <or>
-                                        <and>
+                                        <and><!-- incoming email for known parties, no notifications for unknown parties -->
                                             <if-compare field="attributeMap.incomingEmail" value="Y" operator="not-equals"/>
-                                            <if-compare field="comm.communicationEventTypeId" value="AUTO_EMAIL" operator="equals"/>
+                                            <if-compare field="comm.communicationEventTypeId" value="AUTO_EMAIL_COM" operator="equals"/>
                                         </and>
-                                        <and>
+                                        <and><!-- internal sent email -->
                                             <if-compare field="attributeMap.email" value="Y" operator="not-equals"/>
                                             <or>
                                                 <if-compare field="comm.communicationEventTypeId" value="AUTO_EMAIL_COMM" operator="equals"/>
                                                 <if-compare field="comm.communicationEventTypeId" value="EMAIL_COMMUNICATION" operator="equals"/>
                                             </or>
                                         </and>
-                                        <and>
+                                        <and><!-- internal notes -->
                                             <if-compare field="attributeMap.internalNotes" value="Y" operator="not-equals"/>
                                             <if-compare field="comm.communicationEventTypeId" value="COMMENT_NOTE" operator="equals"/>
                                         </and>
