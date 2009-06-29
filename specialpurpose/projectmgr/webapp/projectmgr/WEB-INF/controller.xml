@@ -188,6 +188,12 @@
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
         <response name="error" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
+    <request-map uri="removeTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="unassignPartyFromWorkEffort"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProjectTask"/>
