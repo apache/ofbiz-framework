@@ -2366,7 +2366,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context)).append( "')");
             } else {
                 linkText = prepLinkText + 0 + anchor;
-                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                appendOfbizUrl(writer, urlPath + linkText);
             }
             writer.append("\">").append(modelForm.getPaginateFirstLabel(context)).append("</a>");
         } else {
@@ -2384,7 +2384,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
-                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                appendOfbizUrl(writer, urlPath + linkText);
             }
             writer.append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>");
         } else {
@@ -2404,7 +2404,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 if (linkText.startsWith("/")) {
                     linkText = linkText.substring(1);
                 }
-                writer.append("location.href = '").append(rh.makeLink(this.request, this.response, urlPath + linkText)).append("' + this.value;");
+                writer.append("location.href = '");
+                appendOfbizUrl(writer, urlPath + linkText);
+                writer.append("' + this.value;");
             }
             writer.append("\">");
             // actual value
@@ -2440,7 +2442,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
-                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                appendOfbizUrl(writer, urlPath + linkText);
             }
             writer.append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>");
         } else {
@@ -2458,7 +2460,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (listSize / viewSize) + anchor;
-                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                appendOfbizUrl(writer, urlPath + linkText);
             }
             writer.append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");
         } else {
@@ -2548,7 +2550,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (ajaxEnabled) {
             writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText, context)).append("')");
         } else {
-            writer.append(rh.makeLink(this.request, this.response, urlPath + prepLinkText));
+            appendOfbizUrl(writer, urlPath + prepLinkText);
         }
         writer.append("\">").append(titleText).append("</a>");
     }
@@ -2901,7 +2903,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 ajaxParams += extraParams;
             }
             ajaxUrl.append(updateArea.getAreaId()).append(",");
-            ajaxUrl.append(this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl)));
+            try {
+                appendOfbizUrl(ajaxUrl, UtilHttp.removeQueryStringFromTarget(targetUrl));
+            } catch (IOException e) {
+                throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+            }
             ajaxUrl.append(",").append(ajaxParams);
         }
         return ajaxUrl.toString();
