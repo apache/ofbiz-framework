@@ -61,6 +61,16 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import org.apache.xerces.parsers.DOMParser;
+import org.apache.xerces.xni.Augmentations;
+import org.apache.xerces.xni.NamespaceContext;
+import org.apache.xerces.xni.QName;
+import org.apache.xerces.xni.XNIException;
+import org.apache.xerces.xni.XMLAttributes;
+import org.apache.xerces.xni.XMLLocator;
+import org.apache.xerces.xni.XMLResourceIdentifier;
+import org.apache.xerces.xni.XMLString;
+
 /**
  * Utilities methods to simplify dealing with JAXP & DOM XML parsing
  *
@@ -337,6 +347,16 @@ public class UtilXml {
         return readXmlDocument(bis, validate, "Internal Content");
     }
 
+    public static Document readXmlDocument(String content, boolean validate, boolean withPosition)
+            throws SAXException, ParserConfigurationException, java.io.IOException {
+        if (content == null) {
+            Debug.logWarning("[UtilXml.readXmlDocument] content was null, doing nothing", module);
+            return null;
+        }
+        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes("UTF-8"));
+        return readXmlDocument(bis, validate, "Internal Content", withPosition);
+    }
+
     public static Document readXmlDocument(URL url)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(url, true);
@@ -354,6 +374,17 @@ public class UtilXml {
         return document;
     }
 
+    public static Document readXmlDocument(URL url, boolean validate, boolean withPosition)
+            throws SAXException, ParserConfigurationException, java.io.IOException {
+        if (url == null) {
+            Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", module);
+            return null;
+        }
+        InputStream is = url.openStream();
+        Document document = readXmlDocument(is, validate, url.toString(), withPosition);
+        is.close();
+        return document;
+    }
 
     /**
      * @deprecated
@@ -366,6 +397,11 @@ public class UtilXml {
     public static Document readXmlDocument(InputStream is, String docDescription)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(is, true, docDescription);
+    }
+
+    public static Document readXmlDocument(InputStream is, String docDescription, boolean withPosition)
+            throws SAXException, ParserConfigurationException, java.io.IOException {
+        return readXmlDocument(is, true, docDescription, withPosition);
     }
 
     public static Document readXmlDocument(InputStream is, boolean validate, String docDescription)
@@ -414,6 +450,117 @@ public class UtilXml {
             builder.setErrorHandler(eh);
         }
         document = builder.parse(is);
+
+        double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+        if (Debug.verboseOn()) Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
+        return document;
+    }
+
+    public static Document readXmlDocument(InputStream is, boolean validate, String docDescription, boolean withPosition)
+            throws SAXException, ParserConfigurationException, java.io.IOException {
+        if (!withPosition) {
+            return readXmlDocument(is, validate, docDescription);
+        }
+
+        if (is == null) {
+            Debug.logWarning("[UtilXml.readXmlDocument] InputStream was null, doing nothing", module);
+            return null;
+        }
+
+        long startTime = System.currentTimeMillis();
+
+        Document document = null;
+
+        DOMParser parser = new DOMParser() {
+            private XMLLocator locator;
+
+            private void setLineColumn(Node node) {
+                if (node.getUserData("startLine") != null) {
+                    return;
+                }
+                node.setUserData("startLine",locator.getLineNumber(), null);
+                node.setUserData("startColumn",locator.getColumnNumber(), null);
+            }
+
+            private void setLineColumn() {
+                try {
+                    Node node = (Node) getProperty("http://apache.org/xml/properties/dom/current-element-node");
+                    if (node != null) {
+                        setLineColumn(node);
+                    }
+                } catch (SAXException ex) {
+                    Debug.logWarning(ex, module);
+                }
+            }
+
+            private void setLastChildLineColumn() {
+                try {
+                    Node node = (Node) getProperty("http://apache.org/xml/properties/dom/current-element-node");
+                    if (node != null) {
+                       setLineColumn(node.getLastChild());
+                    }
+                } catch (SAXException ex) {
+                    Debug.logWarning(ex, module);
+                }
+            }
+
+            public void startGeneralEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augs) throws XNIException {
+                super.startGeneralEntity(name, identifier, encoding, augs);
+                setLineColumn();
+            }
+
+            public void comment(XMLString text, Augmentations augs) throws XNIException {
+                super.comment(text, augs);
+                setLastChildLineColumn();
+            }
+
+            public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
+                super.processingInstruction(target, data, augs);
+                setLastChildLineColumn();
+            }
+
+            public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
+                super.startDocument(locator, encoding, namespaceContext, augs);
+                this.locator = locator;
+                setLineColumn();
+            }
+
+            public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs) throws XNIException {
+                super.doctypeDecl(rootElement, publicId, systemId, augs);
+            }
+
+            public void startElement(QName elementQName, XMLAttributes attrList, Augmentations augs) throws XNIException {
+                super.startElement(elementQName, attrList, augs);
+                setLineColumn();
+            }
+
+            public void characters(XMLString text, Augmentations augs) throws XNIException {
+                super.characters(text, augs);
+                setLastChildLineColumn();
+            }
+
+            public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
+                super.ignorableWhitespace(text, augs);
+                setLastChildLineColumn();
+            }
+        };
+        parser.setFeature("http://xml.org/sax/features/namespaces", true);
+        parser.setFeature("http://xml.org/sax/features/validation", validate);
+        parser.setFeature("http://apache.org/xml/features/validation/schema", validate);
+        parser.setFeature("http://apache.org/xml/features/dom/defer-node-expansion", false);
+
+        // with a SchemaUrl, a URL object
+        //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+        //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", SchemaUrl);
+        if (validate) {
+            LocalResolver lr = new LocalResolver(new DefaultHandler());
+            ErrorHandler eh = new LocalErrorHandler(docDescription, lr);
+
+            parser.setEntityResolver(lr);
+            parser.setErrorHandler(eh);
+        }
+        parser.parse(new InputSource(is));
+        document = parser.getDocument();
 
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
         if (Debug.verboseOn()) Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
