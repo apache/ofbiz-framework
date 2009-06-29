@@ -30,6 +30,7 @@ import org.apache.commons.vfs.impl.StandardFileSystemManager;
 
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.UtilMisc;
 import org.webslinger.commons.vfs.VFSUtil;
 
 public class CommonsVfsContainer implements Container {
@@ -45,9 +46,9 @@ public class CommonsVfsContainer implements Container {
             sfsm.setBaseFile(currentDir);
             CommonsVfsContainer.sfsm = sfsm;
         } catch (FileSystemException e) {
-            throw (ContainerException) new ContainerException("Initializing StandardFileSystemManager").initCause(e);
+            throw UtilMisc.initCause(new ContainerException("Initializing StandardFileSystemManager"), e);
         } catch (MalformedURLException e) {
-            throw (ContainerException) new ContainerException("Initializing StandardFileSystemManager").initCause(e);
+            throw UtilMisc.initCause(new ContainerException("Initializing StandardFileSystemManager"), e);
         }
         return true;
     }

@@ -29,6 +29,7 @@ import org.apache.commons.vfs.FileObject;
 
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.commons.vfs.CommonsVfsContainer;
 
 import org.webslinger.bsf.LanguageManager;
@@ -62,7 +63,7 @@ public class WebslingerContainer implements Container {
             templateManager = new TemplateManager(vfsDelegate, null);
             templateManager.setClassLoader(loader);
         } catch (BSFException e) {
-            throw (ContainerException) new ContainerException("Initializing StandardFileSystemManager").initCause(e);
+            throw UtilMisc.initCause(new ContainerException("Initializing StandardFileSystemManager"), e);
         }
         return true;
     }

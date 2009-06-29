@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.bsf.BSFException;
 
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -51,9 +52,9 @@ public class WebslingerBSFServiceEngine extends GenericAsyncEngine {
         try {
             return UtilGenerics.checkMap(WebslingerContainer.runEvent(modelService.engineName, modelService.location, paramNames, paramTypes, params));
         } catch (IOException e) {
-            throw (GenericServiceException) new GenericServiceException(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new GenericServiceException(e.getMessage()), e);
         } catch (BSFException e) {
-            throw (GenericServiceException) new GenericServiceException(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new GenericServiceException(e.getMessage()), e);
         }
     }
 }

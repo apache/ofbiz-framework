@@ -32,6 +32,7 @@ import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -112,7 +113,7 @@ public class TestListContainer implements Container {
             new File(outputLocation + ".tmp").renameTo(new File(outputLocation));
         } catch (IOException e) {
             Debug.logError(e, module);
-            throw (IllegalArgumentException) new IllegalArgumentException(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new IllegalArgumentException(e.getMessage()), e);
         }
 
         return true;

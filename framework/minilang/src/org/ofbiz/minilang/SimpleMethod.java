@@ -104,7 +104,7 @@ public class SimpleMethod {
             simpleMethodExecMethod = SimpleMethod.class.getDeclaredMethod("exec", MethodContext.class);
             methodOperationExecMethod = MethodOperation.class.getDeclaredMethod("exec", MethodContext.class);
         } catch (NoSuchMethodException e) {
-            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
         }
     }
 

@@ -46,6 +46,11 @@ public class UtilMisc {
 
     public static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
+    public static final <T extends Throwable> T initCause(T throwable, Throwable cause) {
+        throwable.initCause(cause);
+        return throwable;
+    }
+
     /**
      * Get an iterator from a collection, returning null if collection is null
      * @param col The collection to be turned in to an iterator
