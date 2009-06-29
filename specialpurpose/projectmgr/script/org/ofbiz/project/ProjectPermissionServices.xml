@@ -20,6 +20,18 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-method method-name="projectMgrRequestPermission" short-description="Make sure the sure the user can read the requests for the projects">
+        <if-has-permission permission="PROJECTMGR" action="ADMIN">
+            <set field="hasPermission" value="true" type="Boolean"/>
+            <else>
+                <set field="hasPermission" value="false" type="Boolean"/>
+                <set field="failMessage" value="You need at least PROJECTMGR_ADMIN permission to the the project requests"/>
+                <field-to-result field="failMessage"/>
+            </else>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
 
     <simple-method method-name="projectMgrPermission" short-description="general service to check access to the project component">
         <set field="primaryPermission" value="PROJECTMGR"/>

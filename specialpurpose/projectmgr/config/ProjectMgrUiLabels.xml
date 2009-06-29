@@ -512,6 +512,9 @@
         <value xml:lang="th">ไม่กำหนดงาน</value>
         <value xml:lang="zh">未分配任务</value>
     </property>
+    <property key="ProjectMgrCustomerRequestList">
+        <value xml:lang="en">Project Customer Request list</value>
+    </property>
     <property key="ProjectMgrAcceptedCustomerRequestList">
         <value xml:lang="en">Accepted Customer Request list</value>
         <value xml:lang="fr">Liste des demandes client acceptées</value>

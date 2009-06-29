@@ -611,4 +611,9 @@
             </link>
         </menu-item>
     </menu>
+    <menu name="ProjectRequestList">
+        <menu-item name="newrequest">
+            <link target="/projectmgr/control/newrequest" url-mode="inter-app"/>
+        </menu-item>
+    </menu>
 </menus>

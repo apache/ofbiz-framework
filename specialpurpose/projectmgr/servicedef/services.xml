@@ -56,7 +56,12 @@ under the License.
         <attribute name="timesheetId" type="String" mode="IN" optional="true"/>
         <attribute name="timeEntryId" type="String" mode="IN" optional="true"/>
     </service>
-
+    
+    <service name="projectMgrRequestPermission" engine="simple"
+        location="component://projectmgr/script/org/ofbiz/project/ProjectPermissionServices.xml" invoke="projectMgrRequestPermission">
+        <implements service="permissionInterface"/>
+    </service>
+    
     <service name="updateTimeEntryByWorkeffort" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
         <description>Update workeffort by workeffortId and timesheetId </description>

@@ -26,7 +26,14 @@
         screenLocation="component://projectmgr/widget/TimeSheetScreens.xml"
         description="My Current Timesheet" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="mytimesheet" portletCategoryId="PROJECTMANAGER"/>
-
+    
+    <PortalPortlet portalPortletId="ProjectRequestList"
+        portletName="Project Customer Request List"
+        screenName="ProjectRequestList"
+        screenLocation="component://projectmgr/widget/RequestScreens.xml"
+        description="Project Customer Request List" securityServiceName="projectMgrRequestPermission" securityMainAction="VIEW"/>
+    <PortletPortletCategory portalPortletId="ProjectRequestList" portletCategoryId="PROJECTMANAGER"/>
+    
     <PortalPortlet
         portalPortletId="mytasks"
         portletName="MyTasks"
