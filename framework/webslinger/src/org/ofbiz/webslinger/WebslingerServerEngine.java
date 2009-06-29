@@ -56,7 +56,7 @@ public class WebslingerServerEngine extends GenericAsyncEngine {
         } catch (GenericServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw (GenericServiceException) new GenericServiceException(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new GenericServiceException(e.getMessage()), e);
         }
     }
 }

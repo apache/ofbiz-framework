@@ -26,6 +26,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.website.WebSiteWorker;
@@ -43,7 +44,7 @@ public class ContentUrlTag extends BodyTagSupport {
         try {
             appendContentPrefix(request, (Appendable) urlBuffer);
         } catch (IOException e) {
-            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
         }
     }
 
@@ -51,7 +52,7 @@ public class ContentUrlTag extends BodyTagSupport {
         try {
             appendContentPrefix(request, (Appendable) urlBuffer);
         } catch (IOException e) {
-            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
         }
     }
 

@@ -2899,7 +2899,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             try {
                 appendOfbizUrl(ajaxUrl, UtilHttp.removeQueryStringFromTarget(targetUrl));
             } catch (IOException e) {
-                throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+                throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
             }
             ajaxUrl.append(",").append(ajaxParams);
         }

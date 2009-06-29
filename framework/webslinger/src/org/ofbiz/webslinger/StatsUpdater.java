@@ -27,6 +27,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -70,7 +71,7 @@ public class StatsUpdater {
             } catch (GenericEntityException e) {
                 throw e;
             } catch (Exception e) {
-                throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
+                throw UtilMisc.initCause(new GenericEntityException(e.getMessage()), e);
             }
         }
 

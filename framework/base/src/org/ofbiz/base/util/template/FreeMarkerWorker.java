@@ -97,7 +97,7 @@ public class FreeMarkerWorker {
             resources = loader.getResources("freemarkerTransforms.properties");
         } catch (IOException e) {
             Debug.logError(e, "Could not load list of freemarkerTransforms.properties", module);
-            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
         }
         while (resources.hasMoreElements()) {
             URL propertyURL = resources.nextElement();
