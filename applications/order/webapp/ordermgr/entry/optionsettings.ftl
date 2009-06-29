@@ -35,8 +35,19 @@ under the License.
 </#if>
 <#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
 <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId))?if_exists />
-<hr/>
+
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="2">
+                    <h2>${uiLabelMap.OrderInternalNote}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <textarea cols="30" rows="3" name="internal_order_notes"></textarea>
+                  </td>
+                </tr>
+                <tr><td colspan="2"><hr/></td></tr>
               <tr>
                 <td colspan="2">
                     <h1><b>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}</b><#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
