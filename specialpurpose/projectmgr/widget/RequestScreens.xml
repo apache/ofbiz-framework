@@ -20,27 +20,44 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="RequestList">
+    
+    <screen name="ProjectRequestList">
         <section>
+            <condition>
+                <if-has-permission permission="PROJECTMGR" action="ADMIN"/>
+            </condition>
             <actions>
-                <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
-                <set field="tabButtonItem" value="requestlist"/>
-                <set field="headerItem" value="request"/>
                 <entity-and list="custRequests" entity-name="CustRequest">
                     <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
                     <order-by field-name="lastModifiedDate"/>
                 </entity-and>
             </actions>
             <widgets>
+                <screenlet title="${uiLabelMap.ProjectMgrCustomerRequestList}" navigation-menu-name="ProjectRequestList">
+                    <label style="h2" text="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}"/>
+                    <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                    <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                    <label style="h2" text="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}"/>
+                    <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <label style="h2" text="You need at least a PROJECT_ADMIN permission"></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    
+    <screen name="RequestList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
+                <set field="tabButtonItem" value="requestlist"/>
+                <set field="headerItem" value="request"/>
+            </actions>
+            <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}" navigation-form-name="ListRequests">
-                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                            <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}" navigation-form-name="ListRequestsWorkEffortForm">
-                            <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                        </screenlet>
+                        <include-screen name="ProjectRequestList"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
