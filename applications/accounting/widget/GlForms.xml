@@ -869,4 +869,179 @@ under the License.
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+
+    <form name="AcctgTransEntriesSearchResultsCsv" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList" view-size="1000">
+        <actions>
+            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransEntryList">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                    <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
+                    <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                    <condition-expr field-name="paymentId" operator="equals" from-field="parameters.paymentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" from-field="parameters.shipmentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" from-field="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
+                </condition-list>
+                <order-by field-name="-transactionDate"/>
+            </entity-condition>
+        </actions>
+        <field name="quot0" title="&quot;"><display/></field>
+        <field name="acctgTransId"><display/></field>
+        <field name="quot1" title="&quot;"><display/></field>
+        <field name="separator0" title=","><display description=", "/></field>
+
+        <field name="quot2" title="&quot;"><display/></field>
+        <field name="acctgTransEntrySeqId"><display description="${acctgTransEntrySeqId}"/></field>
+        <field name="quot3" title="&quot;"><display/></field>
+        <field name="separator1" title=","><display description=", "/></field>
+
+        <field name="quot4" title="&quot;"><display/></field>
+        <field name="transactionDate"><display/></field>
+        <field name="quot5" title="&quot;"><display/></field>
+        <field name="separator2" title=","><display description=", "/></field>
+
+        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
+        <field name="separator3" title=","><display description=", "/></field>
+
+        <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
+        <field name="separator4" title=","><display description=", "/></field>
+
+        <field name="quot6" title="&quot;"><display/></field>
+        <field name="glAccountId"><display/></field>
+        <field name="quot7" title="&quot;"><display/></field>
+        <field name="separator5" title=","><display description=","/></field>
+
+        <field name="glAccountDescription"><display description="${accountName}"/></field>
+        <field name="separator6" title=","><display description=","/></field>
+
+        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass" description="${description}"/></field>
+        <field name="separator7" title=","><display description=","/></field>
+
+        <field name="quot8" title="&quot;"><display/></field>
+        <field name="invoiceId"><display/></field>
+        <field name="quot9" title="&quot;"><display/></field>
+        <field name="separator8" title=","><display description=","/></field>
+
+        <field name="quot10" title="&quot;"><display/></field>
+        <field name="paymentId"><display/></field>
+        <field name="quot11" title="&quot;"><display/></field>
+        <field name="separator9" title=","><display description=","/></field>
+
+        <field name="quot12" title="&quot;"><display/></field>
+        <field name="workEffortId"><display/></field>
+        <field name="quot13" title="&quot;"><display/></field>
+        <field name="separator10" title=","><display description=","/></field>
+
+        <field name="quot14" title="&quot;"><display/></field>
+        <field name="shipmentId"><display/></field>
+        <field name="quot15" title="&quot;"><display/></field>
+        <field name="separator12" title=","><display description=","/></field>
+        
+        <field name="quot16" title="&quot;"><display/></field>
+        <field name="partyId"><display/></field>
+        <field name="quot17" title="&quot;"><display/></field>
+        <field name="separator13" title=","><display description=","/></field>
+        
+        <field name="quot18" title="&quot;"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="quot19" title="&quot;"><display/></field>
+        <field name="separator14" title=","><display description=","/></field>
+        
+        <field name="quot20" title="&quot;"><display/></field>
+        <field name="isPosted"><display/></field>
+        <field name="quot21" title="&quot;"><display/></field>
+        <field name="separator15" title=","><display description=","/></field>
+
+        <field name="quot22" title="&quot;"><display/></field>
+        <field name="postedDate"><display/></field>
+        <field name="quot23" title="&quot;"><display/></field>
+        <field name="separator16" title=","><display description=","/></field>
+
+        <field name="quot24" title="&quot;"><display/></field>
+        <field name="debitCreditFlag"><display/></field>
+        <field name="quot25" title="&quot;"><display/></field>
+        <field name="separator17" title=","><display description=","/></field>
+        
+        <field name="quot26" title="&quot;"><display/></field>
+        <field name="amount"><display currency="${currencyUomId}"/></field>
+        <field name="quot27" title="&quot;"><display/></field>
+    </form>
+
+    <form name="AcctgTransSearchResultsCsv" type="list" title="List Accounting Transactions" list-name="acctgTransList" view-size="1000">
+        <actions>
+           <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransList" result-set-type="forward" distinct="true">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
+                    <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                    <condition-expr field-name="paymentId" operator="equals" from-field="parameters.paymentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" from-field="parameters.shipmentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" from-field="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
+                </condition-list>
+                <select-field field-name="acctgTransId"/>
+                <select-field field-name="transactionDate"/>
+                <select-field field-name="acctgTransTypeId"/>
+                <select-field field-name="glFiscalTypeId"/>
+                <select-field field-name="invoiceId"/>
+                <select-field field-name="paymentId"/>
+                <select-field field-name="workEffortId"/>
+                <select-field field-name="shipmentId"/>
+                <select-field field-name="isPosted"/>
+                <select-field field-name="postedDate"/>
+                <order-by field-name="-transactionDate"/>
+            </entity-condition>
+        </actions>
+        <field name="quot0" title="&quot;"><display/></field>
+        <field name="acctgTransId"><display/></field>
+        <field name="quot1" title="&quot;"><display/></field>
+        <field name="separator1" title=","><display description=","/></field>
+        
+        <field name="quot2" title="&quot;"><display/></field>
+        <field name="transactionDate"><display/></field>
+        <field name="quot3" title="&quot;"><display/></field>
+        <field name="separator2" title=","><display description=","/></field>
+        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
+        <field name="separator3" title=","><display description=","/></field>
+        <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
+        <field name="separator4" title=","><display description=","/></field>
+        <field name="quot4" title="&quot;"><display/></field>
+        <field name="invoiceId"><display/></field>
+        <field name="quot5" title="&quot;"><display/></field>
+        <field name="separator5" title=","><display description=","/></field>
+        <field name="quot6" title="&quot;"><display/></field>
+        <field name="paymentId"><display/></field>
+        <field name="quot7" title="&quot;"><display/></field>
+        <field name="separator6" title=","><display description=","/></field>
+        <field name="quot8" title="&quot;"><display/></field>
+        <field name="workEffortId"><display/></field>
+        <field name="quot9" title="&quot;"><display/></field>
+        <field name="separator7" title=","><display description=","/></field>
+        <field name="quot10" title="&quot;"><display/></field>
+        <field name="shipmentId"><display/></field>
+        <field name="quot11" title="&quot;"><display/></field>
+        <field name="separator8" title=","><display description=","/></field>
+        <field name="quot12" title="&quot;"><display/></field>
+        <field name="isPosted"><display/></field>
+        <field name="quot13" title="&quot;"><display/></field>
+        <field name="separator9" title=","><display description=","/></field>
+        <field name="quot14" title="&quot;"><display/></field>
+        <field name="postedDate"><display/></field>
+        <field name="quot15" title="&quot;"><display/></field>
+        <field name="separator10" title=","><display description=","/></field>
+    </form>
 </forms>
