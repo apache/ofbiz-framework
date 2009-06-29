@@ -124,15 +124,11 @@
             <condition>
                 <or>
                     <and>
-                        <not>
-                            <if-empty field="parameters.newPartyId"/>
-                        </not>
+                        <not><if-empty field="parameters.newPartyId"/></not>
                         <if-compare-field field="parameters.partyId" to-field="parameters.newPartyId" operator="not-equals"/>
                     </and>
                     <and>
-                        <not>
-                            <if-empty field="parameters.newRoleTypeId"/>
-                        </not>
+                        <not><if-empty field="parameters.newRoleTypeId"/></not>
                         <if-compare-field field="parameters.roleTypeId" to-field="parameters.newRoleTypeId" operator="not-equals"/>
                     </and>
                 </or>
@@ -156,14 +152,15 @@
                 <create-value value-field="newAssign"/>
             </then>
             <else>
-                <if-not-empty field="parameters.fromDate">
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="assignment">
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
+                    <field-map field-name="fromDate" from-field="fromDate"/>
+                </entity-one>
+                <if-not-empty field="assignment">
                     <!-- status changed or assignment ended -->
-                    <entity-one entity-name="WorkEffortPartyAssignment" value-field="assignment">
-                        <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-                        <field-map field-name="partyId" from-field="parameters.partyId"/>
-                        <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
-                        <field-map field-name="fromDate" from-field="parameters.fromDate"/>
-                    </entity-one>
                     <if-compare field="parameters.statusId" value="PAS_ENDED" operator="equals">
                         <!-- special case to indicate end of assignment -->
                         <now-timestamp field="assignment.thruDate"/>
