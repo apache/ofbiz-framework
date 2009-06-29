@@ -40,12 +40,22 @@ public class ContentUrlTag extends BodyTagSupport {
 
     @Deprecated
     public static void appendContentPrefix(HttpServletRequest request, StringBuffer urlBuffer) {
-        StringBuilder urlBuilder = new StringBuilder();
-        appendContentPrefix(request, urlBuilder);
-        urlBuffer.append(urlBuilder);
+        try {
+            appendContentPrefix(request, (Appendable) urlBuffer);
+        } catch (IOException e) {
+            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+        }
     }
 
     public static void appendContentPrefix(HttpServletRequest request, StringBuilder urlBuffer) {
+        try {
+            appendContentPrefix(request, (Appendable) urlBuffer);
+        } catch (IOException e) {
+            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+        }
+    }
+
+    public static void appendContentPrefix(HttpServletRequest request, Appendable urlBuffer) throws IOException {
         if (request == null) {
             Debug.logWarning("WARNING: request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties (no WebSite or security setting known)", module);
             String prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.standard");
