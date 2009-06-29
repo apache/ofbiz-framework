@@ -107,7 +107,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
 
     public void appendContentUrl(Appendable writer, String location) throws IOException {
-        ContentUrlTag.appendContentPrefix(this.request, writer);
+        StringBuilder buffer = new StringBuilder();
+        ContentUrlTag.appendContentPrefix(this.request, buffer);
+        writer.append(buffer.toString());
         writer.append(location);
     }
 
@@ -209,14 +211,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             Map<String, Object> fieldMap = inPlaceEditor.getFieldMap(context);
             if (fieldMap != null) {
                 url.append('?');
-                Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
-                Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
                 int count = 0;
-                while (fieldIterator.hasNext()) {
+                for (Entry<String, Object> field: fieldMap.entrySet()) {
                     count++;
-                    Entry<String, Object> field = fieldIterator.next();
                     url.append(field.getKey()).append('=').append(field.getValue());
-                    if (count < fieldSet.size()) {
+                    if (count < fieldMap.size()) {
                         url.append('&');
                     }
                 }
@@ -2332,19 +2331,21 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // Create separate url path String and request parameters String,
         // add viewIndex/viewSize parameters to request parameter String
         String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
-        String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
-        if (prepLinkText == null) {
-            prepLinkText = "";
+        StringBuilder prepLinkBuffer = new StringBuilder();
+        String prepLinkQueryString = UtilHttp.getQueryStringFromTarget(targetService);
+        if (prepLinkQueryString != null) {
+            prepLinkBuffer.append(prepLinkQueryString);
         }
-        if (prepLinkText.indexOf("?") < 0) {
-            prepLinkText += "?";
-        } else if (!prepLinkText.endsWith("?")) {
-            prepLinkText += "&amp;";
+        if (prepLinkBuffer.indexOf("?") < 0) {
+            prepLinkBuffer.append("?");
+        } else if (prepLinkBuffer.indexOf("?", prepLinkBuffer.length() - 1) > 0) {
+            prepLinkBuffer.append("&amp;");
         }
         if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-            prepLinkText += queryString + "&amp;";
+            prepLinkBuffer.append(queryString).append("&amp;");
         }
-        prepLinkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=";
+        prepLinkBuffer.append(viewSizeParam).append("=").append(viewSize).append("&amp;").append(viewIndexParam).append("=");
+        String prepLinkText = prepLinkBuffer.toString();
         if (ajaxEnabled) {
             // Prepare params for prototype.js
             prepLinkText = prepLinkText.replace("?", "");
@@ -2366,7 +2367,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context)).append( "')");
             } else {
                 linkText = prepLinkText + 0 + anchor;
-                appendOfbizUrl(writer, urlPath + linkText);
+                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
             writer.append("\">").append(modelForm.getPaginateFirstLabel(context)).append("</a>");
         } else {
@@ -2384,7 +2385,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
-                appendOfbizUrl(writer, urlPath + linkText);
+                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
             writer.append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>");
         } else {
@@ -2404,9 +2405,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 if (linkText.startsWith("/")) {
                     linkText = linkText.substring(1);
                 }
-                writer.append("location.href = '");
-                appendOfbizUrl(writer, urlPath + linkText);
-                writer.append("' + this.value;");
+                writer.append("location.href = '").append(rh.makeLink(this.request, this.response, urlPath + linkText)).append("' + this.value;");
             }
             writer.append("\">");
             // actual value
@@ -2442,7 +2441,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
-                appendOfbizUrl(writer, urlPath + linkText);
+                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
             writer.append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>");
         } else {
@@ -2460,7 +2459,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (listSize / viewSize) + anchor;
-                appendOfbizUrl(writer, urlPath + linkText);
+                writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
             writer.append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");
         } else {
@@ -2521,19 +2520,21 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         paramName.add("sortField");
         String queryString = UtilHttp.stripNamedParamsFromQueryString(str, paramName);
         String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
-        String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
-        if (prepLinkText == null) {
-            prepLinkText = "";
+        StringBuilder prepLinkBuffer = new StringBuilder();
+        String prepLinkQueryString = UtilHttp.getQueryStringFromTarget(targetService);
+        if (prepLinkQueryString != null) {
+            prepLinkBuffer.append(prepLinkQueryString);
         }
-        if (prepLinkText.indexOf("?") < 0) {
-            prepLinkText += "?";
-        } else if (!prepLinkText.endsWith("?")) {
-            prepLinkText += "&amp;";
+        if (prepLinkBuffer.indexOf("?") < 0) {
+            prepLinkBuffer.append("?");
+        } else if (prepLinkBuffer.indexOf("?", prepLinkBuffer.length() - 1) > 0) {
+            prepLinkBuffer.append("&amp;");
         }
         if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-            prepLinkText += queryString + "&amp;";
+            prepLinkBuffer.append(queryString).append("&amp;");
         }
-        prepLinkText += "sortField" + "=" + newSortField;
+        prepLinkBuffer.append("sortField").append("=").append(newSortField);
+        String prepLinkText = prepLinkBuffer.toString();
         if (ajaxEnabled) {
             prepLinkText = prepLinkText.replace("?", "");
             prepLinkText = prepLinkText.replace("&amp;", "&");
@@ -2550,7 +2551,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (ajaxEnabled) {
             writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText, context)).append("')");
         } else {
-            appendOfbizUrl(writer, urlPath + prepLinkText);
+            writer.append(rh.makeLink(this.request, this.response, urlPath + prepLinkText));
         }
         writer.append("\">").append(titleText).append("</a>");
     }
@@ -2666,7 +2667,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String value = modelFormField.getEntry(context, imageField.getValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             writer.append(" src=\"");
-            appendContentUrl(writer, value);
+            StringBuilder buffer = new StringBuilder();
+            ContentUrlTag.appendContentPrefix(request, buffer);
+            writer.append(buffer.toString());
+            writer.append(value);
             writer.append('"');
         }
 
@@ -2903,11 +2907,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 ajaxParams += extraParams;
             }
             ajaxUrl.append(updateArea.getAreaId()).append(",");
-            try {
-                appendOfbizUrl(ajaxUrl, UtilHttp.removeQueryStringFromTarget(targetUrl));
-            } catch (IOException e) {
-                throw (InternalError) new InternalError(e.getMessage()).initCause(e);
-            }
+            ajaxUrl.append(this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl)));
             ajaxUrl.append(",").append(ajaxParams);
         }
         return ajaxUrl.toString();
