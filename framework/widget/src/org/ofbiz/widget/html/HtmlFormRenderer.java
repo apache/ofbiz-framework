@@ -107,9 +107,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
 
     public void appendContentUrl(Appendable writer, String location) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        ContentUrlTag.appendContentPrefix(this.request, buffer);
-        writer.append(buffer.toString());
+        ContentUrlTag.appendContentPrefix(this.request, writer);
         writer.append(location);
     }
 
