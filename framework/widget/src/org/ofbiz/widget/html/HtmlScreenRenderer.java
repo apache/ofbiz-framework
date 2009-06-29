@@ -312,17 +312,17 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         if (paginateAnchor != null) anchor = "#" + paginateAnchor;
 
         // preparing the link text, so that later in the code we can reuse this and just add the viewIndex
-        String prepLinkText = "";
-        prepLinkText = targetService;
-        if (prepLinkText.indexOf("?") < 0) {
-            prepLinkText += "?";
-        } else if (!prepLinkText.endsWith("?")) {
-            prepLinkText += "&amp;";
+        StringBuilder prepLinkTextBuffer = new StringBuilder(targetService);
+        if (prepLinkTextBuffer.indexOf("?") < 0) {
+            prepLinkTextBuffer.append("?");
+        } else if (prepLinkTextBuffer.indexOf("?", prepLinkTextBuffer.length() - 1) > 0) {
+            prepLinkTextBuffer.append("&amp;");
         }
         if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-            prepLinkText += queryString + "&amp;";
+            prepLinkTextBuffer.append(queryString).append("&amp;");
         }
-        prepLinkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=";
+        prepLinkTextBuffer.append(viewSizeParam).append("=").append(viewSize).append("&amp;").append(viewIndexParam).append("=");
+        String prepLinkText = prepLinkTextBuffer.toString();
 
         String linkText;
 
@@ -734,12 +734,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 editRequest += "contentId=" + expandedContentId;
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                String urlString = rh.makeLink(request, response, editRequest, false, false, false);
-                writer.append("<a href=\"");
-                writer.append(rh.makeLink(request, response, editRequest, false, false, false));
-                writer.append("\">");
-                writer.append(editMode);
-                writer.append("</a>");
+                writer.append("<a href=\"").append(rh.makeLink(request, response, editRequest, false, false, false)).append("\">").append(editMode).append("</a>");
             }
             if (UtilValidate.isNotEmpty(editContainerStyle)) {
                 writer.append("</div>");
@@ -871,9 +866,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 */
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                writer.append("<a href=\"");
-                writer.append(rh.makeLink(request, response, editRequest, false, false, false));
-                writer.append("\">").append(editMode).append("</a>");
+                writer.append("<a href=\"").append(rh.makeLink(request, response, editRequest, false, false, false)).append("\">").append(editMode).append("</a>");
             }
             if (UtilValidate.isNotEmpty(editContainerStyle)) {
                 writer.append("</div>");

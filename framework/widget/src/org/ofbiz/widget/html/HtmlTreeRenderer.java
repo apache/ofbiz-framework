@@ -88,15 +88,15 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                     expandCollapseLink.setStyle("collapsed");
                     expandCollapseLink.setText(" ");
-                    String target = node.getModelTree().getExpandCollapseRequest(context);
+                    StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
                     if (target.indexOf("?") < 0) {
-                        target += "?";
+                        target.append("?");
                     } else {
-                        target += "&";
+                        target.append("&");
                     }
-                    target += trailName + "=" + currentNodeTrailPiped;
-                    expandCollapseLink.setTarget(target);
+                    target.append(trailName).append("=").append(currentNodeTrailPiped);
+                    expandCollapseLink.setTarget(target.toString());
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
@@ -108,15 +108,15 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 }
                 expandCollapseLink.setStyle("expanded");
                 expandCollapseLink.setText(" ");
-                String target = node.getModelTree().getExpandCollapseRequest(context);
+                StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                 String trailName = node.getModelTree().getTrailName(context);
                 if (target.indexOf("?") < 0) {
-                    target += "?";
+                    target.append("?");
                 } else {
-                    target += "&";
+                    target.append("&");
                 }
-                target += trailName + "=" + currentNodeTrailPiped;
-                expandCollapseLink.setTarget(target);
+                target.append(trailName).append("=").append(currentNodeTrailPiped);
+                expandCollapseLink.setTarget(target.toString());
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
             }
@@ -240,12 +240,13 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
                 String externalLoginKey = (String) req.getAttribute("externalLoginKey");
                 if (UtilValidate.isNotEmpty(externalLoginKey)) {
-                    if (target.contains("?")) {
-                        target += "&externalLoginKey=" + externalLoginKey;
-                    } else {
-                        target += "?externalLoginKey=" + externalLoginKey;
-                    }
                     writer.append(target);
+                    if (target.contains("?")) {
+                        writer.append("&externalLoginKey=");
+                    } else {
+                        writer.append("?externalLoginKey=");
+                    }
+                    writer.append(externalLoginKey);
                 }
             } else {
                 writer.append(target);
