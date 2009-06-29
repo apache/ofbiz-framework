@@ -668,6 +668,7 @@ public class CheckOutEvents {
         String shipBeforeDate = null;
         String shipAfterDate = null;
         String cancelBackOrderDate = null;
+        String internalOrderNotes = null;
 
         String mode = request.getParameter("finalizeMode");
         Debug.logInfo("FinalizeMode: " + mode, module);
@@ -785,8 +786,9 @@ public class CheckOutEvents {
                     shipBeforeDate = request.getParameter(shipGroupIndex + "_shipBeforeDate");
                     shipAfterDate = request.getParameter(shipGroupIndex + "_shipAfterDate");
                     cancelBackOrderDate = request.getParameter("cancelBackOrderDate");
+                    internalOrderNotes = request.getParameter("internal_order_notes");
 
-                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
+                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, cancelBackOrderDate, internalOrderNotes);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
             }

@@ -1310,12 +1310,12 @@ public class CheckOutHelper {
      * any error messages
      */
     public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String orderAdditionalEmails) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String orderAdditionalEmails, String internalOrderNotes) {
         this.cart.setOrderAdditionalEmails(orderAdditionalEmails);
-        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
+        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes);
     }
     public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes) {
 
         Map result = ServiceUtil.returnSuccess();
 
@@ -1344,6 +1344,7 @@ public class CheckOutHelper {
         this.cart.setMaySplit(shipGroupIndex, Boolean.valueOf(maySplit));
         this.cart.setIsGift(shipGroupIndex, Boolean.valueOf(isGift));
         this.cart.setInternalCode(internalCode); // FIXME: the internalCode is not a ship group field and should be moved outside of this method
+        this.cart.addInternalOrderNote(internalOrderNotes);
 
         // set ship before date
         if ((shipBeforeDate != null) && (shipBeforeDate.length() > 8)) {
