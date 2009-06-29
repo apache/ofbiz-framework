@@ -53,11 +53,14 @@ context.todayDate = new java.sql.Date(System.currentTimeMillis()).toString();
 
 
 orderHeader = null;
+orderItems = null;
+orderAdjustments = null;
+
 if (orderId) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
 }
 
-if (orderHeader) {
+if (orderHeader) {    
     // note these are overridden in the OrderViewWebSecure.groovy script if run
     context.hasPermission = true;
     context.canViewInternalDetails = true;
