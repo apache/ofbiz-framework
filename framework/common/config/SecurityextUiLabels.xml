@@ -75,7 +75,7 @@
     </property>
     <property key="loginevents.following_error_occurred_during_login">
         <value xml:lang="de"><b>Folgender Fehler trat während des Login-Vorgangs auf: </b>${errorMessage}</value>
-        <value xml:lang="en">error  following  occurred  during login: ${errorMessage}</value>
+        <value xml:lang="en">following error occurred during login: ${errorMessage}</value>
         <value xml:lang="es">Error al hacer login</value>
         <value xml:lang="fr"><b>L'erreur suivante est survenue pendant la connexion:</b>${errorMessage}</value>
         <value xml:lang="it">Il seguente errore è accaduto durante l'autenticazione: ${errorMessage}</value>
