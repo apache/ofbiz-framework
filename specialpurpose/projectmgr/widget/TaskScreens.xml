@@ -346,7 +346,7 @@ under the License.
             <widgets>
                 <decorator-screen name="Common${parameters.my}TaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="ProjectTaskView"/>
+                        <include-screen name="ViewProjectTask"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
