@@ -631,41 +631,41 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             // write the select for hours
-            writer.append("&nbsp;<select name=\"" + UtilHttp.makeCompositeParam(paramName, "hour") + "\"");
-            writer.append(classString + ">");
+            writer.append("&nbsp;<select name=\"").append(UtilHttp.makeCompositeParam(paramName, "hour")).append("\"");
+            writer.append(classString).append(">");
 
             // keep the two cases separate because it's hard to understand a combined loop
             if (isTwelveHour) {
                 for (int i = 1; i <= 12; i++) {
-                    writer.append("<option value=\"" + Integer.toString(i) + "\"");
+                    writer.append("<option value=\"").append(Integer.toString(i)).append("\"");
                     if (cal != null) {
                         int hour = cal.get(Calendar.HOUR_OF_DAY);
                         if (hour == 0) hour = 12;
                         if (hour > 12) hour -= 12;
                         if (i == hour) writer.append(" selected");
                     }
-                    writer.append(">" + Integer.toString(i) + "</option>");
+                    writer.append(">").append(Integer.toString(i)).append("</option>");
                 }
             } else {
                 for (int i = 0; i < 24; i++) {
-                    writer.append("<option value=\"" + Integer.toString(i) + "\"");
+                    writer.append("<option value=\"").append(Integer.toString(i)).append("\"");
                     if (cal != null && i == cal.get(Calendar.HOUR_OF_DAY)) {
                         writer.append(" selected");
                     }
-                    writer.append(">" + Integer.toString(i) + "</option>");
+                    writer.append(">").append(Integer.toString(i)).append("</option>");
                 }
             }
 
             // write the select for minutes
             writer.append("</select>:<select name=\"");
             writer.append(UtilHttp.makeCompositeParam(paramName, "minutes") + "\"");
-            writer.append(classString + ">");
+            writer.append(classString).append(">");
             for (int i = 0; i < 60; i++) {
-                writer.append("<option value=\"" + Integer.toString(i) + "\"");
+                writer.append("<option value=\"").append(Integer.toString(i)).append("\"");
                 if (cal != null && i == cal.get(Calendar.MINUTE)) {
                     writer.append(" selected");
                 }
-                writer.append(">" + Integer.toString(i) + "</option>");
+                writer.append(">").append(Integer.toString(i)).append("</option>");
             }
             writer.append("</select>");
 
@@ -673,10 +673,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (isTwelveHour) {
                 String amSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.AM) ? "selected" : "");
                 String pmSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.PM) ? "selected" : "");
-                writer.append("<select name=\"" + UtilHttp.makeCompositeParam(paramName, "ampm") + "\"");
-                writer.append(classString + ">");
-                writer.append("<option value=\"" + "AM" + "\" " + amSelected + ">AM</option>");
-                writer.append("<option value=\"" + "PM" + "\" " + pmSelected + ">PM</option>");
+                writer.append("<select name=\"").append(UtilHttp.makeCompositeParam(paramName, "ampm")).append("\"");
+                writer.append(classString).append(">");
+                writer.append("<option value=\"AM\" ").append(amSelected).append(">AM</option>");
+                writer.append("<option value=\"PM\" ").append(pmSelected).append(">PM</option>");
                 writer.append("</select>");
             }
 
@@ -756,8 +756,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("/>");
 
             appendWhitespace(writer);
-            writer.append("<input type=\"hidden\"");
-            writer.append(" name=\"");
+            writer.append("<input type=\"hidden\" name=\"");
             writer.append(modelFormField.getParameterName(context));
             writer.append('"');
             if (UtilValidate.isNotEmpty(idName)) {
@@ -782,19 +781,19 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             int count = 0;
             for (ModelFormField.OptionValue optionValue: allOptionValues) {
                 count++;
-                writer.append("" + optionValue.getKey() + ": ");
-                writer.append(" '" + optionValue.getDescription() + "'");
+                writer.append(optionValue.getKey()).append(": ");
+                writer.append(" '").append(optionValue.getDescription()).append("'");
                 if (count != allOptionValues.size()) {
                     writer.append(", ");
                 }
             }
             writer.append("};");
             appendWhitespace(writer);
-            writer.append("ajaxAutoCompleteDropDown('" + textFieldIdName + "', '" + idName + "', data, {autoSelect: " +
-                    autoComplete.getAutoSelect() + ", frequency: " + autoComplete.getFrequency() + ", minChars: " + autoComplete.getMinChars() +
-                    ", choices: " + autoComplete.getChoices() + ", partialSearch: " + autoComplete.getPartialSearch() +
-                    ", partialChars: " + autoComplete.getPartialChars() + ", ignoreCase: " + autoComplete.getIgnoreCase() +
-                    ", fullSearch: " + autoComplete.getFullSearch() + "});");
+            writer.append("ajaxAutoCompleteDropDown('").append(textFieldIdName).append("', '").append(idName).append("', data, {autoSelect: ").append(
+                    autoComplete.getAutoSelect()).append(", frequency: ").append(autoComplete.getFrequency()).append(", minChars: ").append(autoComplete.getMinChars()).append(
+                    ", choices: ").append(autoComplete.getChoices()).append(", partialSearch: ").append(autoComplete.getPartialSearch()).append(
+                    ", partialChars: ").append(autoComplete.getPartialChars()).append(", ignoreCase: ").append(autoComplete.getIgnoreCase()).append(
+                    ", fullSearch: ").append(autoComplete.getFullSearch()).append("});");
             appendWhitespace(writer);
             writer.append("</script>");
         } else {
@@ -831,7 +830,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append('"');
             }
 
-            writer.append(" size=\"" + dropDownField.getSize() + "\">");
+            writer.append(" size=\"").append(dropDownField.getSize()).append("\">");
 
             // if the current value should go first, stick it in
             if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
@@ -1353,8 +1352,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             appendWhitespace(writer);
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(writer);
-            writer.append("document." + modelForm.getCurrentFormName(context) + ".");
-            writer.append(focusFieldName + ".focus();");
+            writer.append("document.").append(modelForm.getCurrentFormName(context)).append(".");
+            writer.append(focusFieldName).append(".focus();");
             appendWhitespace(writer);
             writer.append("</script>");
         }
@@ -1646,7 +1645,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append(" <table cellspacing=\"0\"");
         if (UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-            writer.append(" class=\"" + modelForm.getDefaultTableStyle() + "\"");
+            writer.append(" class=\"").append(modelForm.getDefaultTableStyle()).append("\"");
         }
         writer.append(">");
         appendWhitespace(writer);
@@ -1768,16 +1767,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(" <select name=\"");
             writer.append(modelFormField.getParameterName(context));
             writer.append("_op\" class=\"selectBox\">");
-            writer.append("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
-            writer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
-            writer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
-            writer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
-            writer.append("<option value=\"notEqual\"" + ("notEqual".equals(defaultOption)? " selected": "") + ">" + opNotEqual + "</option>");
+            writer.append("<option value=\"equals\"").append(("equals".equals(defaultOption)? " selected": "")).append(">").append(opEquals).append("</option>");
+            writer.append("<option value=\"like\"").append(("like".equals(defaultOption)? " selected": "")).append(">").append(opBeginsWith).append("</option>");
+            writer.append("<option value=\"contains\"").append(("contains".equals(defaultOption)? " selected": "")).append(">").append(opContains).append("</option>");
+            writer.append("<option value=\"empty\"").append(("empty".equals(defaultOption)? " selected": "")).append(">").append(opIsEmpty).append("</option>");
+            writer.append("<option value=\"notEqual\"").append(("notEqual".equals(defaultOption)? " selected": "")).append(">").append(opNotEqual).append("</option>");
             writer.append("</select>");
         } else {
             writer.append(" <input type=\"hidden\" name=\"");
             writer.append(modelFormField.getParameterName(context));
-            writer.append("_op\" value=\"" + defaultOption + "\"/>");
+            writer.append("_op\" value=\"").append(defaultOption).append("\"/>");
         }
 
         writer.append("<input type=\"text\"");
@@ -1824,12 +1823,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (!textFindField.getHideIgnoreCase()) {
             writer.append(" <input type=\"checkbox\" name=\"");
             writer.append(modelFormField.getParameterName(context));
-            writer.append("_ic\" value=\"Y\"" + (ignCase ? " checked=\"checked\"" : "") + "/>");
+            writer.append("_ic\" value=\"Y\"").append((ignCase ? " checked=\"checked\"" : "")).append("/>");
             writer.append(ignoreCase);
         } else {
             writer.append( "<input type=\"hidden\" name=\"");
             writer.append(modelFormField.getParameterName(context));
-            writer.append("_ic\" value=\"" + (ignCase ? "Y" : "") + "\"/>");
+            writer.append("_ic\" value=\"").append((ignCase ? "Y" : "")).append("\"/>");
         }
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -1897,9 +1896,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld0_op\" class=\"selectBox\">");
-        writer.append("<option value=\"equals\"" + ("equals".equals(defaultOptionFrom)? " selected": "") + ">" + opEquals + "</option>");
-        writer.append("<option value=\"greaterThan\"" + ("greaterThan".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThan + "</option>");
-        writer.append("<option value=\"greaterThanEqualTo\"" + ("greaterThanEqualTo".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThanEquals + "</option>");
+        writer.append("<option value=\"equals\"").append(("equals".equals(defaultOptionFrom)? " selected": "")).append(">").append(opEquals).append("</option>");
+        writer.append("<option value=\"greaterThan\"").append(("greaterThan".equals(defaultOptionFrom)? " selected": "")).append(">").append(opGreaterThan).append("</option>");
+        writer.append("<option value=\"greaterThanEqualTo\"").append(("greaterThanEqualTo".equals(defaultOptionFrom)? " selected": "")).append(">").append(opGreaterThanEquals).append("</option>");
         writer.append("</select>");
 
         writer.append("</span>");
@@ -1941,8 +1940,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld1_op\" class=\"selectBox\">");
-        writer.append("<option value=\"lessThan\"" + ("lessThan".equals(defaultOptionThru)? " selected": "") + ">" + opLessThan + "</option>");
-        writer.append("<option value=\"lessThanEqualTo\"" + ("lessThanEqualTo".equals(defaultOptionThru)? " selected": "") + ">" + opLessThanEquals + "</option>");
+        writer.append("<option value=\"lessThan\"").append(("lessThan".equals(defaultOptionThru)? " selected": "")).append(">").append(opLessThan).append("</option>");
+        writer.append("<option value=\"lessThanEqualTo\"").append(("lessThanEqualTo".equals(defaultOptionThru)? " selected": "")).append(">").append(opLessThanEquals).append("</option>");
         writer.append("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -2066,10 +2065,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld0_op\" class=\"selectBox\">");
-        writer.append("<option value=\"equals\"" + ("equals".equals(defaultOptionFrom)? " selected": "") + ">" + opEquals + "</option>");
-        writer.append("<option value=\"sameDay\"" + ("sameDay".equals(defaultOptionFrom)? " selected": "") + ">" + opSameDay + "</option>");
-        writer.append("<option value=\"greaterThanFromDayStart\"" + ("greaterThanFromDayStart".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThanFromDayStart + "</option>");
-        writer.append("<option value=\"greaterThan\"" + ("greaterThan".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThan + "</option>");
+        writer.append("<option value=\"equals\"").append(("equals".equals(defaultOptionFrom)? " selected": "")).append(">").append(opEquals).append("</option>");
+        writer.append("<option value=\"sameDay\"").append(("sameDay".equals(defaultOptionFrom)? " selected": "")).append(">").append(opSameDay).append("</option>");
+        writer.append("<option value=\"greaterThanFromDayStart\"").append(("greaterThanFromDayStart".equals(defaultOptionFrom)? " selected": "")).append(">").append(opGreaterThanFromDayStart).append("</option>");
+        writer.append("<option value=\"greaterThan\"").append(("greaterThan".equals(defaultOptionFrom)? " selected": "")).append(">").append(opGreaterThan).append("</option>");
         writer.append("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -2143,10 +2142,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld1_op\" class=\"selectBox\">");
-        writer.append("<option value=\"lessThan\"" + ("lessThan".equals(defaultOptionThru)? " selected": "") + ">" + opLessThan + "</option>");
-        writer.append("<option value=\"upToDay\"" + ("upToDay".equals(defaultOptionThru)? " selected": "") + ">" + opUpToDay + "</option>");
-        writer.append("<option value=\"upThruDay\"" + ("upThruDay".equals(defaultOptionThru)? " selected": "") + ">" + opUpThruDay + "</option>");
-        writer.append("<option value=\"empty\"" + ("empty".equals(defaultOptionThru)? " selected": "") + ">" + opIsEmpty + "</option>");
+        writer.append("<option value=\"lessThan\"").append(("lessThan".equals(defaultOptionThru)? " selected": "")).append(">").append(opLessThan).append("</option>");
+        writer.append("<option value=\"upToDay\"").append(("upToDay".equals(defaultOptionThru)? " selected": "")).append(">").append(opUpToDay).append("</option>");
+        writer.append("<option value=\"upThruDay\"").append(("upThruDay".equals(defaultOptionThru)? " selected": "")).append(">").append(opUpThruDay).append("</option>");
+        writer.append("<option value=\"empty\"").append(("empty".equals(defaultOptionThru)? " selected": "")).append(">").append(opIsEmpty).append("</option>");
         writer.append("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -2247,7 +2246,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             appendWhitespace(writer);
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(writer);
-            writer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
+            writer.append("ajaxAutoCompleter('").append(createAjaxParamsFromUpdateAreas(updateAreas, null, context)).append("');");
             appendWhitespace(writer);
             writer.append("</script>");
         }
@@ -2354,7 +2353,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             prepLinkText = prepLinkText.replace("&amp;", "&");
         }
 
-        writer.append("<div class=\"" + modelForm.getPaginateStyle() + "\">");
+        writer.append("<div class=\"").append(modelForm.getPaginateStyle()).append("\">");
         appendWhitespace(writer);
         writer.append(" <ul>");
         appendWhitespace(writer);
@@ -2362,52 +2361,52 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String linkText;
 
         // First button
-        writer.append("  <li class=\"" + modelForm.getPaginateFirstStyle());
+        writer.append("  <li class=\"").append(modelForm.getPaginateFirstStyle());
         if (viewIndex > 0) {
             writer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context) + "')");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context)).append( "')");
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            writer.append("\">" + modelForm.getPaginateFirstLabel(context) + "</a>");
+            writer.append("\">").append(modelForm.getPaginateFirstLabel(context)).append("</a>");
         } else {
             // disabled button
-            writer.append("-disabled\">" + modelForm.getPaginateFirstLabel(context));
+            writer.append("-disabled\">").append(modelForm.getPaginateFirstLabel(context));
         }
         writer.append("</li>");
         appendWhitespace(writer);
 
         // Previous button
-        writer.append("  <li class=\"" + modelForm.getPaginatePreviousStyle());
+        writer.append("  <li class=\"").append(modelForm.getPaginatePreviousStyle());
         if (viewIndex > 0) {
             writer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context) + "')");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            writer.append("\">" + modelForm.getPaginatePreviousLabel(context) + "</a>");
+            writer.append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>");
         } else {
             // disabled button
-            writer.append("-disabled\">" + modelForm.getPaginatePreviousLabel(context));
+            writer.append("-disabled\">").append(modelForm.getPaginatePreviousLabel(context));
         }
         writer.append("</li>");
         appendWhitespace(writer);
 
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
-            writer.append("  <li>" + pageLabel + " <select name=\"page\" size=\"1\" onchange=\"");
+            writer.append("  <li>").append(pageLabel).append(" <select name=\"page\" size=\"1\" onchange=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value", context) + ")");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value", context)).append(")");
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
                     linkText = linkText.substring(1);
                 }
-                writer.append("location.href = '" + rh.makeLink(this.request, this.response, urlPath + linkText) + "' + this.value;");
+                writer.append("location.href = '").append(rh.makeLink(this.request, this.response, urlPath + linkText)).append("' + this.value;");
             }
             writer.append("\">");
             // actual value
@@ -2436,37 +2435,37 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         appendWhitespace(writer);
 
         // Next button
-        writer.append("  <li class=\"" + modelForm.getPaginateNextStyle());
+        writer.append("  <li class=\"").append(modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
             writer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context) + "')");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            writer.append("\">" + modelForm.getPaginateNextLabel(context) + "</a>");
+            writer.append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>");
         } else {
             // disabled button
-            writer.append("-disabled\">" + modelForm.getPaginateNextLabel(context));
+            writer.append("-disabled\">").append(modelForm.getPaginateNextLabel(context));
         }
         writer.append("</li>");
         appendWhitespace(writer);
 
         // Last button
-        writer.append("  <li class=\"" + modelForm.getPaginateLastStyle());
+        writer.append("  <li class=\"").append(modelForm.getPaginateLastStyle());
         if (highIndex < listSize) {
             writer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context) + "')");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + (listSize / viewSize) + anchor;
                 writer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            writer.append("\">" + modelForm.getPaginateLastLabel(context) + "</a>");
+            writer.append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");
         } else {
             // disabled button
-            writer.append("-disabled\">" + modelForm.getPaginateLastLabel(context));
+            writer.append("-disabled\">").append(modelForm.getPaginateLastLabel(context));
         }
         writer.append("</li>");
         appendWhitespace(writer);
@@ -2549,11 +2548,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         writer.append(" href=\"");
         if (ajaxEnabled) {
-            writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText, context) + "')");
+            writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText, context)).append("')");
         } else {
             writer.append(rh.makeLink(this.request, this.response, urlPath + prepLinkText));
         }
-        writer.append("\">" + titleText + "</a>");
+        writer.append("\">").append(titleText).append("</a>");
     }
 
     /* (non-Javadoc)
@@ -2675,7 +2674,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         writer.append(" border=\"");
-        writer.append("" + imageField.getBorder());
+        writer.append(Integer.toString(imageField.getBorder()));
         writer.append('"');
 
         Integer width = imageField.getWidth();
@@ -2749,10 +2748,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("<ul><li class=\"");
                 if (collapsed) {
                     writer.append("collapsed\"><a ");
-                    writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                    writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '").append(collapsibleAreaId).append("', '").append(expandToolTip).append("', '").append(collapseToolTip).append("');\"");
                 } else {
                     writer.append("expanded\"><a ");
-                    writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                    writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '").append(collapsibleAreaId).append("', '").append(expandToolTip).append("', '").append(collapseToolTip).append("');\"");
                 }
                 writer.append(">&nbsp&nbsp&nbsp</a></li></ul>");
 
@@ -2768,7 +2767,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
             writer.append("</td></tr></table></div>");
 
-            writer.append("<div id=\"" + collapsibleAreaId + "\" class=\"fieldgroup-body\"");
+            writer.append("<div id=\"").append(collapsibleAreaId).append("\" class=\"fieldgroup-body\"");
             if (fieldGroup.collapsible() && collapsed) {
                 writer.append(" style=\"display: none;\"");
             }
@@ -2870,7 +2869,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         } else if (modelFormField.isSortField()) {
             renderSortField (writer, context, modelFormField, titleText);
         } else if (modelFormField.isRowSubmit()) {
-            if (UtilValidate.isNotEmpty(titleText)) writer.append(titleText + "<br/>");
+            if (UtilValidate.isNotEmpty(titleText)) writer.append(titleText).append("<br/>");
             writer.append("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");
             writer.append(modelFormField.getModelForm().getName());
             writer.append("');\"/>");
