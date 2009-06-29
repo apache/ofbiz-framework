@@ -2051,6 +2051,25 @@ under the License.
         <response name="error" type="view" value="EditFacility"/>
     </request-map>
 
+    <request-map uri="AcctgTransEntriesSearchResultsCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AcctgTransEntriesSearchResultsCsv"/>
+    </request-map>
+
+    <request-map uri="AcctgTransEntriesSearchResultsPdf.pdf">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AcctgTransEntriesSearchResultsPdf"/>
+    </request-map>
+
+    <request-map uri="AcctgTransSearchResultsCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AcctgTransSearchResultsCsv"/>
+    </request-map>
+
+    <request-map uri="AcctgTransSearchResultPdf.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AcctgTransSearchResultPdf"/>
+    </request-map>
 
     <!-- end of request mappings -->
 
@@ -2301,6 +2320,10 @@ under the License.
     -->
 
     <view-map name="FixedAssetGeoLocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeoLocation"/>
-
+    <view-map name="AcctgTransEntriesSearchResultsCsv" type="screentext" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="AcctgTransEntriesSearchResultsPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="AcctgTransSearchResultsCsv" type="screentext" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultsCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="AcctgTransSearchResultPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultPdf" content-type="application/pdf" encoding="none"/>
+    
     <!-- end of view mappings -->
 </site-conf>

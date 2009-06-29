@@ -168,6 +168,12 @@
         <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
+    <property key="AccountingAcctgTransEntriesFor">
+        <value xml:lang="en">Accounting Transaction Entries For</value>
+    </property>
+    <property key="AccountingAcctgTransFor">
+        <value xml:lang="en">Accounting Transactions For</value>
+    </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="de">Ist-Währungsbetrag</value>
         <value xml:lang="en">Actual Currency Amount</value>
@@ -1777,6 +1783,9 @@
         <value xml:lang="th">ไม่สามารถหาบัญชีแยกประเภททั่วไปด้วยรหัส</value>
         <value xml:lang="zh">没有在总账中找到相应的编号</value>
     </property>
+    <property key="AccountingCreditDebitFlag">
+        <value xml:lang="en">C/D</value>
+    </property>
     <property key="AccountingCreateAcctRecons">
         <value xml:lang="de">Kontenabstimmung erstellen</value>
         <value xml:lang="en">Create Account Reconciliation</value>
@@ -2654,6 +2663,12 @@
         <value xml:lang="ru">Действительно до</value>
         <value xml:lang="th">วันหมดอายุ</value>
         <value xml:lang="zh">有效期</value>
+    </property>
+    <property key="AccountingExportAsCsv">
+        <value xml:lang="en">Export as CSV</value>
+    </property>
+    <property key="AccountingExportAsPdf">
+        <value xml:lang="en">Export as PDF</value>
     </property>
     <property key="AccountingExternalAccountId">
         <value xml:lang="ar">دليل حساب محاسبي خارجي</value>
@@ -5262,6 +5277,9 @@
         <value xml:lang="ru">В текущей накладной нет позиций</value>
         <value xml:lang="th">No current invoice line items</value>
         <value xml:lang="zh">没有当前发票的行明细</value>
+    </property>
+    <property key="AccountingNoAcctgTransFound">
+        <value xml:lang="en">No Accounting Transactions Found.</value>
     </property>
     <property key="AccountingNotModificationRecrationGlAccount">
         <value xml:lang="ar">لا يمكن تعيير هذا دون إعادة إستحداث حساب المحاسبي</value>
