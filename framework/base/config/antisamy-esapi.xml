@@ -28,6 +28,8 @@ http://www.w3.org/TR/html401/struct/global.html
 <!--
 Slashdot allowed tags taken from "Reply" page:
 <b> <i> <p> <br> <a> <ol> <ul> <li> <dl> <dt> <dd> <em> <strong> <tt> <blockquote> <div> <ecode> <quote>
+OFBiz additional allowed tags:
+<span>
 -->
 
 <anti-samy-rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="antisamy.xsd">
@@ -119,6 +121,7 @@ Slashdot allowed tags taken from "Reply" page:
         </tag>
 
         <tag name="div" action="validate"/>
+        <tag name="span" action="validate"/>
         <tag name="i" action="validate"/>
         <tag name="b" action="validate"/>
         <tag name="em" action="validate"/>
