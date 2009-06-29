@@ -1621,7 +1621,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
 
-    <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderListView"/>
+    <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#Main"/>
 
     <view-map name="orderstats" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderStats"/>
     <view-map name="findorders" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderFindOrder"/>
