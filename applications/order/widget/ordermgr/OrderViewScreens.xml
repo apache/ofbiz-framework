@@ -33,6 +33,37 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="Main">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+                <set field="parameters.portalPageId" value="OrderPortalPage"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                </entity-and>
+                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                    <order-by field-name="sequenceNum"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="OrderHeaderView">
         <section>
             <actions>

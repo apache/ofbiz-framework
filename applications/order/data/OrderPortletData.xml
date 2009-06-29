@@ -63,5 +63,12 @@
         screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
         description="List Sales Orders placed today" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ListSalesOrders" portletCategoryId="ORDERMGR"/>
+    
+    <PortalPage portalPageId="OrderPortalPage" sequenceNum="0" portalPageName="Order Portal Page" description="Order main page using flexible Portal technology" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="OrderPortalPage" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="OrderPortalPage" columnSeqId="00002"/>
+
+    <PortalPagePortlet portalPageId="OrderPortalPage" portalPortletId="ListSalesOrders" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="OrderPortalPage" portalPortletId="BestSellingProducts" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
 
 </entity-engine-xml>
