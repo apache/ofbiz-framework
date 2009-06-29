@@ -228,7 +228,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
                 } else if (prefix != null) {
-                    writer.append(prefix + target);
+                    writer.append(prefix).append(target);
                 } else {
                     writer.append(target);
                 }
