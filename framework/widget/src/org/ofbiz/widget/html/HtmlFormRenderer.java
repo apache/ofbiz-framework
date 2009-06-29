@@ -224,11 +224,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             writer.append("ajaxInPlaceEditDisplayField('");
-            writer.append(idName + "', '" +url+ "', {");
+            writer.append(idName).append("', '").append(url).append("', {");
             if (UtilValidate.isNotEmpty(inPlaceEditor.getParamName())) {
-                writer.append("paramName: '" +inPlaceEditor.getParamName()+ "'");
+                writer.append("paramName: '").append(inPlaceEditor.getParamName()).append("'");
             } else {
-                writer.append("paramName: '" +modelFormField.getFieldName()+ "'");
+                writer.append("paramName: '").append(modelFormField.getFieldName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelControl())) {
                 writer.append(", cancelControl: ");
@@ -241,10 +241,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelText())) {
-                writer.append(", cancelText: '" +inPlaceEditor.getCancelText()+ "'");
+                writer.append(", cancelText: '").append(inPlaceEditor.getCancelText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getClickToEditText())) {
-                writer.append(", clickToEditText: '" +inPlaceEditor.getClickToEditText()+ "'");
+                writer.append(", clickToEditText: '").append(inPlaceEditor.getClickToEditText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFieldPostCreation())) {
                 writer.append(", fieldPostCreation: ");
@@ -257,25 +257,25 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFormClassName())) {
-                writer.append(", formClassName: '" +inPlaceEditor.getFormClassName()+ "'");
+                writer.append(", formClassName: '").append(inPlaceEditor.getFormClassName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightColor())) {
-                writer.append(", highlightColor: '" +inPlaceEditor.getHighlightColor()+ "'");
+                writer.append(", highlightColor: '").append(inPlaceEditor.getHighlightColor()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightEndColor())) {
-                writer.append(", highlightEndColor: '" +inPlaceEditor.getHighlightEndColor()+ "'");
+                writer.append(", highlightEndColor: '").append(inPlaceEditor.getHighlightEndColor()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getHoverClassName())) {
-                writer.append(", hoverClassName: '" +inPlaceEditor.getHoverClassName()+ "'");
+                writer.append(", hoverClassName: '").append(inPlaceEditor.getHoverClassName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getHtmlResponse())) {
-                writer.append(", htmlResponse: " +inPlaceEditor.getHtmlResponse());
+                writer.append(", htmlResponse: ").append(inPlaceEditor.getHtmlResponse());
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingClassName())) {
-                writer.append(", loadingClassName: '" +inPlaceEditor.getLoadingClassName()+ "'");
+                writer.append(", loadingClassName: '").append(inPlaceEditor.getLoadingClassName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingText())) {
-                writer.append(", loadingText: '" +inPlaceEditor.getLoadingText()+ "'");
+                writer.append(", loadingText: '").append(inPlaceEditor.getLoadingText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getOkControl())) {
                 writer.append(", okControl: ");
@@ -288,34 +288,34 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getOkText())) {
-                writer.append(", okText: '" +inPlaceEditor.getOkText()+ "'");
+                writer.append(", okText: '").append(inPlaceEditor.getOkText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getSavingClassName())) {
-                writer.append(", savingClassName: '" +inPlaceEditor.getSavingClassName()+ "', ");
+                writer.append(", savingClassName: '").append(inPlaceEditor.getSavingClassName()).append("', ");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getSavingText())) {
-                writer.append(", savingText: '" +inPlaceEditor.getSavingText()+ "'");
+                writer.append(", savingText: '").append(inPlaceEditor.getSavingText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getSubmitOnBlur())) {
-                writer.append(", submitOnBlur: " +inPlaceEditor.getSubmitOnBlur());
+                writer.append(", submitOnBlur: ").append(inPlaceEditor.getSubmitOnBlur());
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBeforeControls())) {
-                writer.append(", textBeforeControls: '" +inPlaceEditor.getTextBeforeControls()+ "'");
+                writer.append(", textBeforeControls: '").append(inPlaceEditor.getTextBeforeControls()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getTextAfterControls())) {
-                writer.append(", textAfterControls: '" +inPlaceEditor.getTextAfterControls()+ "'");
+                writer.append(", textAfterControls: '").append(inPlaceEditor.getTextAfterControls()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBetweenControls())) {
-                writer.append(", textBetweenControls: '" +inPlaceEditor.getTextBetweenControls()+ "'");
+                writer.append(", textBetweenControls: '").append(inPlaceEditor.getTextBetweenControls()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getUpdateAfterRequestCall())) {
-                writer.append(", updateAfterRequestCall: " +inPlaceEditor.getUpdateAfterRequestCall());
+                writer.append(", updateAfterRequestCall: ").append(inPlaceEditor.getUpdateAfterRequestCall());
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getRows())) {
-                writer.append(", rows: '" +inPlaceEditor.getRows()+ "'");
+                writer.append(", rows: '").append(inPlaceEditor.getRows()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCols())) {
-                writer.append(", cols: '" +inPlaceEditor.getCols()+ "'");
+                writer.append(", cols: '").append(inPlaceEditor.getCols()).append("'");
             }
             writer.append("});");
             writer.append("</script>");
@@ -424,7 +424,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             appendWhitespace(writer);
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(writer);
-            writer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
+            writer.append("ajaxAutoCompleter('").append(createAjaxParamsFromUpdateAreas(updateAreas, null, context)).append("');");
             appendWhitespace(writer);
             writer.append("</script>");
         }
@@ -658,7 +658,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
             // write the select for minutes
             writer.append("</select>:<select name=\"");
-            writer.append(UtilHttp.makeCompositeParam(paramName, "minutes") + "\"");
+            writer.append(UtilHttp.makeCompositeParam(paramName, "minutes")).append("\"");
             writer.append(classString).append(">");
             for (int i = 0; i < 60; i++) {
                 writer.append("<option value=\"").append(Integer.toString(i)).append("\"");
@@ -1149,7 +1149,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(" onclick=\"");
                 writer.append("ajaxSubmitFormUpdateAreas('");
                 writer.append(formId);
-                writer.append("', '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
+                writer.append("', '").append(createAjaxParamsFromUpdateAreas(updateAreas, null, context));
                 writer.append("')\"");
             }
 
