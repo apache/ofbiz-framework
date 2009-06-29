@@ -75,7 +75,7 @@ public class HtmlFormWrapper {
         this.renderer = new HtmlFormRenderer(request, response);
 
         this.context = new HashMap<String, Object>();
-        Map parameterMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
 
         //make sure the locale is in the context

@@ -119,9 +119,7 @@ public class TextFormRenderer implements FormStringRenderer {
                 this.makeTextString(writer, modelFormField.getWidgetStyle(), ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
         } else {
-            Iterator optionValueIter = allOptionValues.iterator();
-            while (optionValueIter.hasNext()) {
-                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+            for (ModelFormField.OptionValue optionValue: allOptionValues) {
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
                 if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
                         (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
