@@ -360,8 +360,13 @@ public class ICalConverter {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
             return ICalWorker.createNotFoundResponse(null);
         }
-        if (!"WES_PUBLIC".equals(publishProperties.get("scopeEnumId")) && !hasPermission(workEffortId, "VIEW", context)) {
-            return ICalWorker.createNotFoundResponse(null);
+        if (!"WES_PUBLIC".equals(publishProperties.get("scopeEnumId"))) {
+            if (context.get("userLogin") == null) {
+                return ICalWorker.createNotAuthorizedResponse(null);
+            }
+            if (!hasPermission(workEffortId, "VIEW", context)) {
+                return ICalWorker.createForbiddenResponse(null);
+            }
         }
         Calendar calendar = makeCalendar(publishProperties, context);
         ComponentList components = calendar.getComponents();
@@ -677,8 +682,11 @@ public class ICalConverter {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
             return ICalWorker.createNotFoundResponse(null);
         }
-        if (!hasPermission(workEffortId, "UPDATE", context)) {
+        if (context.get("userLogin") == null) {
             return ICalWorker.createNotAuthorizedResponse(null);
+        }
+        if (!hasPermission(workEffortId, "UPDATE", context)) {
+            return ICalWorker.createForbiddenResponse(null);
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
@@ -788,7 +796,7 @@ public class ICalConverter {
             return ICalWorker.createNotFoundResponse(null);
         }
         if (!hasPermission(workEffortId, "UPDATE", context)) {
-            return ICalWorker.createNotAuthorizedResponse(null);
+            return null;
         }
         Map<String, Object> serviceMap = FastMap.newInstance();
         serviceMap.put("workEffortId", workEffortId);

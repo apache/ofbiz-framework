@@ -41,15 +41,13 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.webapp.webdav.PropFindHelper;
 import org.ofbiz.webapp.webdav.ResponseHelper;
@@ -118,13 +116,10 @@ public class ICalWorker {
     }
 
     public static void handleGetRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
-        setupRequest(request, response);
-        String workEffortId = (String) request.getAttribute("workEffortId");
-        if (workEffortId == null) {
-            Debug.logInfo("[handleGetRequest] workEffortId missing", module);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        if (!isValidRequest(request, response)) {
             return;
         }
+        String workEffortId = (String) request.getAttribute("workEffortId");
         Debug.logInfo("[handleGetRequest] workEffortId = " + workEffortId, module);
         ResponseProperties responseProps = null;
         try {
@@ -137,17 +132,14 @@ public class ICalWorker {
         if (responseProps.statusCode == HttpServletResponse.SC_OK) {
             response.setContentType("text/calendar");
         }
-        writeResponse(responseProps, response, context);
+        writeResponse(responseProps, request, response, context);
     }
 
     public static void handlePropFindRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
-        setupRequest(request, response);
-        String workEffortId = (String) request.getAttribute("workEffortId");
-        if (workEffortId == null) {
-            Debug.logInfo("[handlePropFindRequest] workEffortId missing", module);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        if (!isValidRequest(request, response)) {
             return;
         }
+        String workEffortId = (String) request.getAttribute("workEffortId");
         Debug.logInfo("[handlePropFindRequest] workEffortId = " + workEffortId, module);
         try {
             Document requestDocument = WebDavUtil.getDocumentFromRequest(request);
@@ -208,20 +200,16 @@ public class ICalWorker {
     }
 
     public static void handlePutRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
+        if (!isValidRequest(request, response)) {
+            return;
+        }
         String contentType = request.getContentType();
-        Debug.logInfo("[handlePutRequest] content type = " + contentType, module);
         if (contentType != null && !"text/calendar".equals(contentType)) {
             Debug.logInfo("[handlePutRequest] invalid content type", module);
             response.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
-        setupRequest(request, response);
         String workEffortId = (String) request.getAttribute("workEffortId");
-        if (workEffortId == null) {
-            Debug.logInfo("[handlePutRequest] workEffortId missing", module);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
         Debug.logInfo("[handlePutRequest] workEffortId = " + workEffortId, module);
         ResponseProperties responseProps = null;
         try {
@@ -231,37 +219,50 @@ public class ICalWorker {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
-        writeResponse(responseProps, response, context);
+        writeResponse(responseProps, request, response, context);
     }
 
+    protected static boolean isValidRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!request.isSecure()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return false;
+        }
+        setupRequest(request, response);
+        String workEffortId = (String) request.getAttribute("workEffortId");
+        if (workEffortId == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return false;
+        }
+        return true;
+    }
+
+    @SuppressWarnings("unchecked")
     protected static void logInUser(HttpServletRequest request, HttpServletResponse response) throws GenericServiceException, GenericEntityException {
-        GenericValue userLogin = null;
-        String username = request.getParameter("USERNAME");
-        String password = request.getParameter("PASSWORD");
-        if (UtilValidate.isEmpty(username) || UtilValidate.isEmpty(password)) {
+        Map<String, Object> serviceMap = (Map<String, Object>) WebDavUtil.getCredentialsFromRequest(request);
+        if (serviceMap == null) {
             return;
         }
-        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase"))) {
-            username = username.toLowerCase();
-        }
-        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "password.lowercase"))) {
-            password = password.toLowerCase();
-        }
+        serviceMap.put("locale", UtilHttp.getLocale(request));
+        GenericValue userLogin = null;
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Map<String, Object> result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request)));
-        if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
-            userLogin = (GenericValue) result.get("userLogin");
-            request.setAttribute("userLogin", userLogin);
-            session.setAttribute("userLogin", userLogin);
-            VisitHandler.getVisitor(request, response);
-        } else {
+        Map<String, Object> result = dispatcher.runSync("userLogin", serviceMap);
+        if (ServiceUtil.isError(result) || ServiceUtil.isFailure(result)) {
             return;
         }
+        userLogin = (GenericValue) result.get("userLogin");
+        request.setAttribute("userLogin", userLogin);
+        session.setAttribute("userLogin", userLogin);
+        VisitHandler.getVisitor(request, response);
         GenericValue person = userLogin.getRelatedOne("Person");
-        GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup");
-        if (person != null) request.setAttribute("person", person);
-        if (partyGroup != null) request.setAttribute("partyGroup", partyGroup);
+        if (person != null) {
+            request.setAttribute("person", person);
+        } else {
+            GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup");
+            if (partyGroup != null) {
+                request.setAttribute("partyGroup", partyGroup);
+            }
+        }
     }
 
     protected static void setupRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -284,12 +285,15 @@ public class ICalWorker {
         }
     }
 
-    protected static void writeResponse(ResponseProperties responseProps, HttpServletResponse response, ServletContext context) throws IOException {
+    protected static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
                     ", message = " + responseProps.statusMessage, module);
         }
         response.setStatus(responseProps.statusCode);
+        if (responseProps.statusCode == HttpServletResponse.SC_UNAUTHORIZED) {
+            response.setHeader("WWW-Authenticate", "Basic realm=\"OFBiz iCalendar " + request.getAttribute("workEffortId") + "\"");
+        }
         if (responseProps.statusMessage != null) {
             Writer writer = getWriter(response, context);
             try {
