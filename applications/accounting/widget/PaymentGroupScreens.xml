@@ -36,7 +36,7 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
                                         <container style="button-bar">
-                                            <link target="EditPaymentGroup" text="Create New Payment Group" style="buttontext"/>
+                                            <link target="EditPaymentGroup" text="${uiLabelMap.AccountingCreateNewPaymentGroup}" style="buttontext"/>
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
