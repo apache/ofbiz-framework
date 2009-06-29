@@ -207,19 +207,19 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         if (ajaxEnabled) {
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
-            String url = inPlaceEditor.getUrl(context);
+            StringBuilder url = new StringBuilder(inPlaceEditor.getUrl(context));
             Map<String, Object> fieldMap = inPlaceEditor.getFieldMap(context);
             if (fieldMap != null) {
-                url += '?';
+                url.append('?');
                 Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
                 Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
                 int count = 0;
                 while (fieldIterator.hasNext()) {
                     count++;
                     Entry<String, Object> field = fieldIterator.next();
-                    url += (String) field.getKey() + '=' + (String) field.getValue();
+                    url.append(field.getKey()).append('=').append(field.getValue());
                     if (count < fieldSet.size()) {
-                        url += '&';
+                        url.append('&');
                     }
                 }
             }
