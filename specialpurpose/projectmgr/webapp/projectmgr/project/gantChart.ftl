@@ -33,7 +33,7 @@ g.setShowComp(1); // Show/Hide % Complete(0/1)
         g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseName}", "", "", "00ff00", "", 0, "", 0, 1, 0, 1));
     </#if>
     <#if t.workEffortTypeId == "TASK">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${t.estimatedStartDate}", "${t.estimatedCompletionDate}","009900", "${t.url}", 0 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0, ${t.phaseNr}, 1<#if t.preDecessor?exists>, ${t.preDecessor}</#if>));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${StringUtil.wrapString(t.estimatedStartDate)}", "${StringUtil.wrapString(t.estimatedCompletionDate)}","009900", "${t.url}", 0 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0, ${t.phaseNr}, 1<#if t.preDecessor?exists>, ${t.preDecessor}</#if>));
     </#if>
 </#list>
 
