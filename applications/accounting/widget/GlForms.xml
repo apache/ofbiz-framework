@@ -191,10 +191,8 @@ under the License.
         </field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}] [${accountCode}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
                     <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
@@ -454,39 +452,35 @@ under the License.
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="debitGlAccountId" use-when="debitGlAccountClassId!=null">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
                     <entity-constraint name="glAccountClassId" operator="equals" env-name="debitGlAccountClassId" ignore-if-null="true"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="debitGlAccountId" use-when="debitGlAccountClassId==null">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="creditGlAccountId" use-when="creditGlAccountClassId!=null">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
                     <entity-constraint name="glAccountClassId" operator="equals" env-name="creditGlAccountClassId" ignore-if-null="true"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="creditGlAccountId" use-when="creditGlAccountClassId==null">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -565,10 +559,9 @@ under the License.
         </field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -618,10 +611,9 @@ under the License.
         </field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -728,9 +720,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId}]" key-field-name="glAccountId">
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                <entity-options entity-name="GlAccount" description="${accountCode} - ${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -792,9 +783,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId}]" key-field-name="glAccountId">
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                <entity-options entity-name="GlAccount" description="${accountCode} - ${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
