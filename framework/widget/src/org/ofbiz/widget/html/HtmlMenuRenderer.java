@@ -166,7 +166,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(alignStyle)) {
             writer.append(" class=\"");
             if (UtilValidate.isNotEmpty(style)) {
-                writer.append(style + " ");
+                writer.append(style).append(" ");
             }
             if (UtilValidate.isNotEmpty(alignStyle)) {
                 writer.append(alignStyle);
@@ -175,7 +175,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         String toolTip = menuItem.getTooltip(context);
         if (UtilValidate.isNotEmpty(toolTip)) {
-            writer.append(" title=\"" + toolTip + "\"");
+            writer.append(" title=\"").append(toolTip).append("\"");
         }
         writer.append(">");
 
@@ -242,24 +242,24 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         writer.append("<div");
         String menuId = modelMenu.getId();
         if (UtilValidate.isNotEmpty(menuId)) {
-            writer.append(" id=\"" + menuId + "\"");
+            writer.append(" id=\"").append(menuId).append("\"");
         } else {
             // TODO: Remove else after UI refactor - allow both id and style
             String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
             if (UtilValidate.isNotEmpty(menuContainerStyle)) {
-                writer.append(" class=\"" + menuContainerStyle + "\"");
+                writer.append(" class=\"").append(menuContainerStyle).append("\"");
             }
         }
         String menuWidth = modelMenu.getMenuWidth();
         // TODO: Eliminate embedded styling after refactor
         if (UtilValidate.isNotEmpty(menuWidth)) {
-            writer.append(" style=\"width:" + menuWidth + ";\"");
+            writer.append(" style=\"width:").append(menuWidth).append(";\"");
         }
         writer.append(">");
         appendWhitespace(writer);
         String menuTitle = modelMenu.getTitle(context);
         if (UtilValidate.isNotEmpty(menuTitle)) {
-            writer.append("<h2>" + menuTitle + "</h2>");
+            writer.append("<h2>").append(menuTitle).append("</h2>");
             appendWhitespace(writer);
         }
         writer.append("<ul>");
@@ -276,7 +276,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
         String fillStyle = modelMenu.getFillStyle();
         if (UtilValidate.isNotEmpty(fillStyle)) {
-            writer.append("<div class=\"" + fillStyle + "\">&nbsp;</div>");
+            writer.append("<div class=\"").append(fillStyle).append("\">&nbsp;</div>");
         }
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
         writer.append(" </ul>");
