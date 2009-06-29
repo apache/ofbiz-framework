@@ -64,9 +64,8 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down>
-                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId}]">
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                <entity-options entity-name="GlAccount" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -375,10 +374,9 @@ under the License.
         </field>
         <field name="glAccountId">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -423,11 +421,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingOverrideRevenueGlAccountId}">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
                     <entity-constraint name="glAccountClassId" operator="in" env-name="revenueAccountClassIds"></entity-constraint>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -474,11 +471,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
                     <entity-constraint name="glAccountClassId" operator="in" env-name="expenseAccountClassIds"></entity-constraint>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -566,10 +562,9 @@ under the License.
         </field>
         <field name="glAccountId">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -669,10 +664,9 @@ under the License.
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -696,10 +690,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -716,10 +709,9 @@ under the License.
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType"/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -741,9 +733,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -757,9 +749,9 @@ under the License.
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -783,10 +775,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -803,10 +794,9 @@ under the License.
         <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -830,10 +820,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.FormFieldTitle_glAccountTypeId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -846,9 +835,9 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -873,10 +862,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -899,10 +887,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -929,10 +916,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -945,10 +931,9 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -981,10 +966,9 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <entity-options description="${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
+                <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
-                    <entity-order-by field-name="accountName"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
