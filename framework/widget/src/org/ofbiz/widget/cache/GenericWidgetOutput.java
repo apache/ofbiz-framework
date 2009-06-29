@@ -25,7 +25,7 @@ public class GenericWidgetOutput {
     protected String output;
 
     public GenericWidgetOutput(String output) {
-        this.output = new String(output);
+        this.output = output;
     }
 
     public String toString() {
