@@ -663,11 +663,11 @@ public class ModelFormField {
      * @param encoder
      * @return
      */
-    public String getEntry(Map<String, Object> context) {
+    public String getEntry(Map<String, ? extends Object> context) {
         return this.getEntry(context, "");
     }
 
-    public String getEntry(Map<String, Object> context , String defaultValue) {
+    public String getEntry(Map<String, ? extends Object> context , String defaultValue) {
         Boolean isError = (Boolean) context.get("isError");
         Boolean useRequestParameters = (Boolean) context.get("useRequestParameters");
 
@@ -823,7 +823,7 @@ public class ModelFormField {
      *
      * @return
      */
-    public String getParameterName(Map<String, Object> context) {
+    public String getParameterName(Map<String, ? extends Object> context) {
         String baseName;
         if (UtilValidate.isNotEmpty(this.parameterName)) {
             baseName = this.parameterName;
@@ -856,7 +856,7 @@ public class ModelFormField {
         return event;
     }
 
-    public String getAction(Map<String, Object> context) {
+    public String getAction(Map<String, ? extends Object> context) {
         if (this.action != null && this.action.getOriginal() != null) {
             return action.expandString(context);
         } else {

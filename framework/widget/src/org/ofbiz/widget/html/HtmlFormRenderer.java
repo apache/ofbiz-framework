@@ -854,9 +854,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             // list out all options according to the option list
-            Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
-            while (optionValueIter.hasNext()) {
-                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+            for (ModelFormField.OptionValue optionValue: allOptionValues) {
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
                 writer.append("<option");
                 // if current value should be selected in the list, select it
@@ -943,9 +941,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String action = modelFormField.getAction(context);
 
         // list out all options according to the option list
-        Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
-        while (optionValueIter.hasNext()) {
-            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+        for (ModelFormField.OptionValue optionValue: allOptionValues) {
 
             writer.append("<input type=\"checkbox\"");
 
@@ -996,9 +992,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String action = modelFormField.getAction(context);
 
         // list out all options according to the option list
-        Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
-        while (optionValueIter.hasNext()) {
-            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+        for (ModelFormField.OptionValue optionValue: allOptionValues) {
 
             writer.append("<div");
 
@@ -1360,9 +1354,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderMultiFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        Iterator<ModelFormField> submitFields = modelForm.getMultiSubmitFields().iterator();
-        while (submitFields.hasNext()) {
-            ModelFormField submitField = (ModelFormField) submitFields.next();
+        for (ModelFormField submitField: modelForm.getMultiSubmitFields()) {
             if (submitField != null) {
 
                 // Threw this in that as a hack to keep the submit button from expanding the first field

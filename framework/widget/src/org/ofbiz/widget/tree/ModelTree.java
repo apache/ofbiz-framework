@@ -116,10 +116,7 @@ public class ModelTree extends ModelWidget {
             postTrailOpenDepth = 999;
         }
 
-        List nodeElements = UtilXml.childElementList(treeElement, "node");
-        Iterator nodeElementIter = nodeElements.iterator();
-        while (nodeElementIter.hasNext()) {
-            Element nodeElementEntry = (Element) nodeElementIter.next();
+        for (Element nodeElementEntry: UtilXml.childElementList(treeElement, "node")) {
             ModelNode node = new ModelNode(nodeElementEntry, this);
             String nodeName = node.getName();
             nodeList.add(node);
@@ -340,10 +337,7 @@ public class ModelTree extends ModelWidget {
                 this.condition = new ModelTreeCondition(modelTree, conditionElement);
             }
 
-            List subNodeElements = UtilXml.childElementList(nodeElement, "sub-node");
-            Iterator subNodeElementIter = subNodeElements.iterator();
-            while (subNodeElementIter.hasNext()) {
-                Element subNodeElementEntry = (Element) subNodeElementIter.next();
+            for (Element subNodeElementEntry: UtilXml.childElementList(nodeElement, "sub-node")) {
                 ModelSubNode subNode = new ModelSubNode(subNodeElementEntry, this);
                 subNodeList.add(subNode);
             }
@@ -401,10 +395,8 @@ public class ModelTree extends ModelWidget {
                     //if (Debug.infoOn()) Debug.logInfo(" processChildren:" + processChildren, module);
                     if (processChildren.booleanValue()) {
                         getChildren(context);
-                        Iterator nodeIter = this.subNodeValues.iterator();
                         int newDepth = depth + 1;
-                        while (nodeIter.hasNext()) {
-                            Object[] arr = (Object[]) nodeIter.next();
+                        for (Object[] arr: this.subNodeValues) {
                             ModelNode node = (ModelNode) arr[0];
                             Map<String, Object> val = UtilGenerics.checkMap(arr[1]);
                             //GenericPK pk = val.getPrimaryKey();
@@ -421,9 +413,9 @@ public class ModelTree extends ModelWidget {
                                 newContext.putAll(val);
                             }
                             String targetEntityId = null;
-                            List targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
+                            List<String> targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
                             if (newDepth < targetNodeTrail.size()) {
-                                targetEntityId = (String) targetNodeTrail.get(newDepth);
+                                targetEntityId = targetNodeTrail.get(newDepth);
                             }
                             if ((targetEntityId != null && targetEntityId.equals(thisEntityId)) || this.showPeers(newDepth, context)) {
                                 node.renderNodeString(writer, newContext, treeStringRenderer, newDepth);

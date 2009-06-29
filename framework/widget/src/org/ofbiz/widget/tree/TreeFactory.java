@@ -113,10 +113,7 @@ public class TreeFactory {
         if (treeFileDoc != null) {
             // read document and construct ModelTree for each tree element
             Element rootElement = treeFileDoc.getDocumentElement();
-            List treeElements = UtilXml.childElementList(rootElement, "tree");
-            Iterator treeElementIter = treeElements.iterator();
-            while (treeElementIter.hasNext()) {
-                Element treeElement = (Element) treeElementIter.next();
+            for (Element treeElement: UtilXml.childElementList(rootElement, "tree")) {
                 ModelTree modelTree = new ModelTree(treeElement, delegator, dispatcher);
                 modelTree.setTreeLocation(treeLocation);
                 modelTreeMap.put(modelTree.getName(), modelTree);

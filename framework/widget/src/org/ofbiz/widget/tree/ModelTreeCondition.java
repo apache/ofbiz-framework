@@ -60,7 +60,7 @@ public class ModelTreeCondition {
         this.rootCondition = readCondition(modelTree, firstChildElement);
     }
 
-    public boolean eval(Map<String, Object> context) {
+    public boolean eval(Map<String, ? extends Object> context) {
         if (rootCondition == null) {
             return true;
         }
@@ -74,7 +74,7 @@ public class ModelTreeCondition {
             this.modelTree = modelTree;
         }
 
-        public abstract boolean eval(Map<String, Object> context);
+        public abstract boolean eval(Map<String, ? extends Object> context);
     }
 
     public static List<TreeCondition> readSubConditions(ModelTree modelTree, Element conditionElement) {
@@ -117,14 +117,14 @@ public class ModelTreeCondition {
     }
 
     public static class And extends TreeCondition {
-        protected List<TreeCondition> subConditions;
+        protected List<? extends TreeCondition> subConditions;
 
         public And(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.subConditions = readSubConditions(modelTree, condElement);
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             // return false for the first one in the list that is false, basic and algo
             for (TreeCondition subCondition: subConditions) {
                 if (!subCondition.eval(context)) {
@@ -136,14 +136,14 @@ public class ModelTreeCondition {
     }
 
     public static class Xor extends TreeCondition {
-        protected List<TreeCondition> subConditions;
+        protected List<? extends TreeCondition> subConditions;
 
         public Xor(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.subConditions = readSubConditions(modelTree, condElement);
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
             for (TreeCondition subCondition: subConditions) {
@@ -161,14 +161,14 @@ public class ModelTreeCondition {
     }
 
     public static class Or extends TreeCondition {
-        protected List<TreeCondition> subConditions;
+        protected List<? extends TreeCondition> subConditions;
 
         public Or(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.subConditions = readSubConditions(modelTree, condElement);
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             // return true for the first one in the list that is true, basic or algo
             for (TreeCondition subCondition: subConditions) {
                 if (subCondition.eval(context)) {
@@ -188,7 +188,7 @@ public class ModelTreeCondition {
             this.subCondition = readCondition(modelTree, firstChildElement);
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             return !this.subCondition.eval(context);
         }
     }
@@ -203,7 +203,7 @@ public class ModelTreeCondition {
             this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
@@ -242,7 +242,7 @@ public class ModelTreeCondition {
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
 
@@ -309,7 +309,7 @@ public class ModelTreeCondition {
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
 
@@ -359,7 +359,7 @@ public class ModelTreeCondition {
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             String format = this.formatExdr.expandString(context);
 
             Object fieldVal = this.fieldAcsr.get(context);
@@ -402,7 +402,7 @@ public class ModelTreeCondition {
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
             Pattern pattern = null;
@@ -436,7 +436,7 @@ public class ModelTreeCondition {
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
         }
@@ -449,7 +449,7 @@ public class ModelTreeCondition {
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
 
-        public boolean eval(Map<String, Object> context) {
+        public boolean eval(Map<String, ? extends Object> context) {
 
             boolean passed = permissionChecker.runPermissionCheck(context);
             return passed;

@@ -102,7 +102,7 @@ public abstract class ModelTreeAction {
     }
     */
 
-    public static void runSubActions(List<ModelTreeAction> actions, Map<String, Object> context) {
+    public static void runSubActions(List<? extends ModelTreeAction> actions, Map<String, Object> context) {
         for (ModelTreeAction action: actions) {
             if (Debug.verboseOn()) Debug.logVerbose("Running tree action " + action.getClass().getName(), module);
             action.runAction(context);
