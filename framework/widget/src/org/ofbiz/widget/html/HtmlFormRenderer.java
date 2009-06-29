@@ -2884,13 +2884,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (updateAreas == null) {
             return "";
         }
-        String ajaxUrl = "";
+        StringBuilder ajaxUrl = new StringBuilder();
         boolean firstLoop = true;
         for (ModelForm.UpdateArea updateArea : updateAreas) {
             if (firstLoop) {
                 firstLoop = false;
             } else {
-                ajaxUrl += ",";
+                ajaxUrl.append(",");
             }
             String targetUrl = updateArea.getAreaTarget(context);
             String ajaxParams = getAjaxParamsFromTarget(targetUrl);
@@ -2900,10 +2900,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
                 ajaxParams += extraParams;
             }
-            ajaxUrl += updateArea.getAreaId() + ",";
-            ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
-            ajaxUrl += "," + ajaxParams;
+            ajaxUrl.append(updateArea.getAreaId()).append(",");
+            ajaxUrl.append(this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl)));
+            ajaxUrl.append(",").append(ajaxParams);
         }
-        return ajaxUrl;
+        return ajaxUrl.toString();
     }
 }
