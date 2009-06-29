@@ -32,6 +32,7 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
+    <#if orderHeaderList?has_content>
     <table class="basic-table hover-bar" cellspacing='0'>
       <tr class="header-row">
         <td width="20%">${uiLabelMap.OrderOrder} #</td>
@@ -67,9 +68,9 @@ under the License.
           <td>${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}</td>
         </tr>
       </#list>
-      <#if !orderHeaderList?has_content>
-        <tr><td colspan="9"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
-      </#if>
     </table>
+    <#else>
+      <h3>${uiLabelMap.OrderNoOrderFound}</h3>
+    </#if>
   </div>
 </div>
