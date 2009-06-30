@@ -33,7 +33,26 @@
     <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
 
-    <!-- demo lead -->
+    <!-- Demo Lead Owners -->
+    <Party partyId="DemoLeadOwner" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLeadOwner" firstName="Demo" lastName="LeadOwner"/>
+    <PartyRole partyId="DemoLeadOwner" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
+    <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner" enabled="Y"/>
+    <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <Party partyId="DemoLeadOwner1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLeadOwner1" firstName="Demo" lastName="LeadOwner1"/>
+    <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner1" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
+    <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner1" enabled="Y"/>
+    <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner1" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Demo Leads -->
     <Party partyId="sfa102" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa102" groupName="A promising Lead Company"/>
     <PartyRole partyId="sfa102" roleTypeId="ACCOUNT_LEAD"/>
@@ -52,7 +71,6 @@
     <!-- Status Valid Change   -->
     <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="LEAD_CONVERTED" transitionName="Convert Lead To Contact"/>
     
-    <!--  Demo Leads  -->
     <Party partyId="DemoLead" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead" firstName="Demo" lastName="Lead"/>
     <PartyRole partyId="DemoLead" roleTypeId="_NA_"/>
@@ -84,25 +102,6 @@
     <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="_NA_"/>
     <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="DemoLeadOwnersGroup" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
-
-    <!-- Demo Lead Owners -->
-    <Party partyId="DemoLeadOwner" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoLeadOwner" firstName="Demo" lastName="LeadOwner"/>
-    <PartyRole partyId="DemoLeadOwner" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
-    <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner" enabled="Y"/>
-    <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
-    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
-    
-    <Party partyId="DemoLeadOwner1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoLeadOwner1" firstName="Demo" lastName="LeadOwner1"/>
-    <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_"/>
-    <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER"/>
-    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner1" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
-    <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner1" enabled="Y"/>
-    <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
-    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner1" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Leads of DemoLeadOwner -->
     <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
