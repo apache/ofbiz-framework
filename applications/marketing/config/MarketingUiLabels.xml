@@ -1869,6 +1869,9 @@
         <value xml:lang="fr">Sélectionner un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
         <value xml:lang="it">Selezione entrambi utente esistente o lasciare vuoto per creare un nuovo utente</value>
     </property>
+    <property key="SfaSelectLeadOwners">
+        <value xml:lang="en">Select Lead Owners</value>
+    </property>
     <property key="SfaType">
         <value xml:lang="de">Art</value>
         <value xml:lang="en">Type</value>

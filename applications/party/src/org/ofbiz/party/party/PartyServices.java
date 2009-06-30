@@ -1095,13 +1095,19 @@ public class PartyServices {
                 dynamicView.addAlias("PRSHP", "partyIdTo");
                 dynamicView.addAlias("PRSHP", "partyRelationshipTypeId");
                 dynamicView.addViewLink("PT", "PRSHP", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "partyIdTo"));
-                String partyIdFrom = userLogin.getString("partyId");
-                paramList = paramList + "&partyIdFrom=" + partyIdFrom;
+                List<String> ownerPartyIds = (List) context.get("ownerPartyIds");
+                EntityCondition relationshipCond = null;
+                if (UtilValidate.isEmpty(ownerPartyIds)) {
+                    String partyIdFrom = userLogin.getString("partyId");
+                    paramList = paramList + "&partyIdFrom=" + partyIdFrom;
+                    relationshipCond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyIdFrom"), EntityOperator.EQUALS, EntityFunction.UPPER(partyIdFrom));
+                } else {
+                    relationshipCond = EntityCondition.makeCondition("partyIdFrom", EntityOperator.IN, ownerPartyIds);
+                }
                 dynamicView.addAlias("PRSHP", "partyIdFrom");
                 // add the expr
                 andExprs.add(EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyIdFrom"), EntityOperator.EQUALS, EntityFunction.UPPER(partyIdFrom)),
-                        EntityOperator.AND,
+                        relationshipCond, EntityOperator.AND,
                         EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyRelationshipTypeId"), EntityOperator.EQUALS, EntityFunction.UPPER(partyRelationshipTypeId))));
                 fieldsToSelect.add("partyIdTo");
             }

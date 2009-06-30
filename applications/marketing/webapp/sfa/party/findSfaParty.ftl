@@ -74,6 +74,28 @@ under the License.
               <td class="label">${uiLabelMap.PartyPartyGroupName}</td>
               <td><input type="text" name="groupName" value="${parameters.groupName?if_exists}"/></td>
             </tr>
+          <#if partyRelationshipTypeId == "LEAD_OWNER">
+            <#-- Suppose an organization has some Lead Owners. Every lead owner should be able to see the leads of other lead owners.
+                 To achieve this create a party group of type TEAM and for every lead owner, setup a relationship (LEAD_OWN_GRP_MEMBER) with this party group.
+                 First of all find out the party group (i.e. partyIdFrom) of lead owners corresponding to logged in user.
+            -->
+            <#assign toPartyRelationships = delegator.findByAnd("PartyRelationship", {"partyIdTo", userLogin.getString("partyId"), "partyRelationshipTypeId", "LEAD_OWN_GRP_MEMBER"})>
+            <#if toPartyRelationships?has_content>
+              <#assign toPartyRelationship = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(toPartyRelationships)>
+              <#-- Now we know the party group, lets find out all the lead owners for this group -->
+              <#assign fromPartyRelationships = delegator.findByAnd("PartyRelationship", {"partyIdFrom", toPartyRelationship.getString("partyIdFrom")})>
+              <tr>
+                <td class="label">${uiLabelMap.SfaSelectLeadOwners}</td>
+                <td>
+                  <select name='ownerPartyIds' multiple="multiple">
+                    <#list fromPartyRelationships as partyRelationship>
+                      <option value="${partyRelationship.partyIdTo}"<#if userLogin.partyId == partyRelationship.partyIdTo>selected</#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, partyRelationship.partyIdTo, true)}</option>
+                    </#list>
+                  </select>
+                </td>
+              </tr>
+            </#if>
+          </#if>
           <#if extInfo == "P">
             <tr><td colspan="3"><hr/></td></tr>
             <tr>

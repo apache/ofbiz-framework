@@ -54,6 +54,68 @@
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
     <!-- Status Valid Change   -->
     <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="LEAD_CONVERTED" transitionName="Convert Lead To Contact"/>
+    
+    <!--  Demo Leads  -->
+    <Party partyId="DemoLead" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLead" firstName="Demo" lastName="Lead"/>
+    <PartyRole partyId="DemoLead" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLead" roleTypeId="LEAD"/>
+    
+    <Party partyId="DemoLead1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLead1" firstName="Demo" lastName="Lead1"/>
+    <PartyRole partyId="DemoLead1" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLead1" roleTypeId="LEAD"/>
+
+    <Party partyId="DemoLead2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLead2" firstName="Demo" lastName="Lead2"/>
+    <PartyRole partyId="DemoLead2" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLead2" roleTypeId="LEAD"/>
+    
+    <Party partyId="DemoLead3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLead3" firstName="Demo" lastName="Lead3"/>
+    <PartyRole partyId="DemoLead3" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLead3" roleTypeId="LEAD"/>
+
+    <Party partyId="DemoLead4" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLead4" firstName="Demo" lastName="Lead4"/>
+    <PartyRole partyId="DemoLead4" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLead4" roleTypeId="LEAD"/>
+
+    <!-- Lead Owners Team -->
+    <Party partyId="DemoLeadOwnersGroup" partyTypeId="TEAM" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="DemoLeadOwnersGroup" groupName="A Group of Lead Owners"/>
+    <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="DemoLeadOwnersGroup" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Demo Lead Owners -->
+    <Party partyId="DemoLeadOwner" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLeadOwner" firstName="Demo" lastName="LeadOwner"/>
+    <PartyRole partyId="DemoLeadOwner" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
+    <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner" enabled="Y"/>
+    <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <Party partyId="DemoLeadOwner1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoLeadOwner1" firstName="Demo" lastName="LeadOwner1"/>
+    <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner1" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
+    <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner1" enabled="Y"/>
+    <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner1" fromDate="2001-05-13 00:00:00.000"/>
+
+    <!-- Leads of DemoLeadOwner -->
+    <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+    <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead1" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+    <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead2" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+    
+    <!-- Leads of DemoLeadOwner1 -->
+    <PartyRelationship partyIdFrom="DemoLeadOwner1" roleTypeIdFrom="OWNER" partyIdTo="DemoLead3" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+    <PartyRelationship partyIdFrom="DemoLeadOwner1" roleTypeIdFrom="OWNER" partyIdTo="DemoLead4" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+
+    <PartyRelationship partyIdFrom="DemoLeadOwnersGroup" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="DemoLeadOwner" roleTypeIdTo="OWNER" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER"/>
+    <PartyRelationship partyIdFrom="DemoLeadOwnersGroup" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="DemoLeadOwner1" roleTypeIdTo="OWNER" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER"/>
 </entity-engine-xml>
-
-
