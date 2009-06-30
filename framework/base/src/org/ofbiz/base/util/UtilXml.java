@@ -21,6 +21,7 @@ package org.ofbiz.base.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -228,87 +229,53 @@ public class UtilXml {
 
     // ------------------------------------ //
 
-    public static String writeXmlDocument(Document document) throws java.io.IOException {
-        if (document == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] Document was null, doing nothing", module);
+    public static String writeXmlDocument(Node node) throws java.io.IOException {
+        if (node == null) {
+            Debug.logWarning("[UtilXml.writeXmlDocument] Node was null, doing nothing", module);
             return null;
         }
-        return writeXmlDocument(document.getDocumentElement());
-    }
-
-    public static String writeXmlDocument(Element element) throws java.io.IOException {
-        if (element == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] Element was null, doing nothing", module);
-            return null;
-        }
-
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        writeXmlDocument(bos, element);
-        String outString = bos.toString("UTF-8");
-
-        if (bos != null) bos.close();
-        return outString;
+        writeXmlDocument(bos, node);
+        return bos.toString("UTF-8");
     }
 
-    public static String writeXmlDocument(DocumentFragment fragment) throws java.io.IOException {
-        if (fragment == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] DocumentFragment was null, doing nothing", module);
-            return null;
-        }
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        List<? extends Element> elementList = UtilXml.childElementList(fragment);
-        for (Element element: elementList) {
-            writeXmlDocument(bos, element);
-        }
-        String outString = bos.toString("UTF-8");
-
-        if (bos != null) bos.close();
-        return outString;
-    }
-
-    public static void writeXmlDocument(String filename, Document document)
-        throws java.io.FileNotFoundException, java.io.IOException {
-        if (document == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] Document was null, doing nothing", module);
-            return;
-        }
-        writeXmlDocument(filename, document.getDocumentElement());
-    }
-
-    public static void writeXmlDocument(String filename, Element element)
-        throws java.io.FileNotFoundException, java.io.IOException {
-        if (element == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] Element was null, doing nothing", module);
+    public static void writeXmlDocument(String filename, Node node) throws FileNotFoundException, IOException {
+        if (node == null) {
+            Debug.logWarning("[UtilXml.writeXmlDocument] Node was null, doing nothing", module);
             return;
         }
         if (filename == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Filename was null, doing nothing", module);
             return;
         }
-
         File outFile = new File(filename);
         FileOutputStream fos = null;
-        fos = new FileOutputStream(outFile);
-
         try {
-            writeXmlDocument(fos, element);
-        } finally {
-            if (fos != null) fos.close();
+            fos = new FileOutputStream(outFile);
+            writeXmlDocument(fos, node);
+        } catch (FileNotFoundException e) {
+            throw e;
+        } catch (IOException e) {
+            throw e;
+        }
+        if (fos != null) {
+            fos.close();
         }
     }
 
-    public static void writeXmlDocument(OutputStream os, Document document) throws java.io.IOException {
-        if (document == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] Document was null, doing nothing", module);
+    public static void writeXmlDocument(OutputStream os, Node node) throws java.io.IOException {
+        if (node == null) {
+            Debug.logWarning("[UtilXml.writeXmlDocument] Node was null, doing nothing", module);
             return;
         }
-        writeXmlDocument(os, document.getDocumentElement());
-    }
-
-    @SuppressWarnings("deprecation")
-    public static void writeXmlDocument(OutputStream os, Element element) throws java.io.IOException {
-        writeXmlDocument(os, element, new OutputFormat());
+        // OutputFormat defaults are: indent on, indent = 4, include XML declaration,
+        // charset = UTF-8, line width = 72 
+        try {
+            writeXmlDocument(node, os, "UTF-8", false, true, 4);
+        } catch (TransformerException e) {
+            // Wrapping this exception for backwards compatibility
+            throw new IOException(e.getMessage());
+        }
     }
 
     /**
