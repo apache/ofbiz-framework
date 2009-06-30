@@ -638,8 +638,7 @@ under the License.
                                 <condition-expr field-name="fromPartyId" operator="not-equals" from-field="notFromPartyId" ignore-if-empty="true"/>
                                 <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
                             </condition-list>
-                            <order-by field-name="+priority"/>
-                            <order-by field-name="+custRequestDate"/>
+                            <order-by field-name="-custRequestDate"/>
                         </entity-condition>
                     </actions>
                     <widgets/>
@@ -660,8 +659,7 @@ under the License.
                                     <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
                                 </condition-list>
                             </condition-list>
-                            <order-by field-name="+priority"/>
-                            <order-by field-name="+custRequestDate"/>
+                            <order-by field-name="-custRequestDate"/>
                         </entity-condition>
                     </actions>
                     <widgets/>
