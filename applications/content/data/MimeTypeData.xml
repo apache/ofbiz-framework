@@ -132,6 +132,7 @@ under the License.
     <FileExtension fileExtensionId="rtf" mimeTypeId="text/rtf"/>
     <FileExtension fileExtensionId="swf" mimeTypeId="application/x-shockwave-flash"/>
     <FileExtension fileExtensionId="txt" mimeTypeId="text/plain"/>
+    <FileExtension fileExtensionId="htm" mimeTypeId="text/html"/>
     <FileExtension fileExtensionId="html" mimeTypeId="text/html"/>
     <FileExtension fileExtensionId="xml" mimeTypeId="text/xml"/>
     <FileExtension fileExtensionId="vrml" mimeTypeId="model/vrml"/>
