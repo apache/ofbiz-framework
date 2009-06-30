@@ -698,7 +698,7 @@ under the License.
         <description>Get Party iCalendar URL</description>
         <!-- No permission checking - the servlet handles that -->
         <attribute type="String" mode="IN" name="partyId" optional="false"/>
-        <attribute type="String" mode="OUT" name="iCalUri" optional="true"/>
+        <attribute type="String" mode="OUT" name="iCalUrl" optional="true"/>
     </service>
 
     <!-- WorkEffort Event Reminder Services -->

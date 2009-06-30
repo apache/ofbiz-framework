@@ -253,10 +253,6 @@ public class UtilXml {
         try {
             fos = new FileOutputStream(outFile);
             writeXmlDocument(fos, node);
-        } catch (FileNotFoundException e) {
-            throw e;
-        } catch (IOException e) {
-            throw e;
         } finally {
             if (fos != null) {
                 fos.close();

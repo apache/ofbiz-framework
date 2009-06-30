@@ -19,7 +19,6 @@
 
 package org.ofbiz.workeffort.workeffort;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -41,8 +40,10 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
@@ -84,10 +85,28 @@ public class ICalWorker {
         return context;
     }
 
+    /** Create an HTTP Forbidden response. The calendar converter will use this
+     * response when a user is logged in, but they don't have the basic CRUD
+     * permissions to perform an action. Returning a Forbidden status will
+     * prevent the client from trying the operation again.
+     * 
+     * @param statusMessage Optional status message - usually <code>null</code>
+     * for security reasons
+     * @return
+     */
     public static ResponseProperties createForbiddenResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_FORBIDDEN, statusMessage);
     }
 
+    /** Create an HTTP Unauthorized response. The calendar converter will use this
+     * response when a user is not logged in, and basic CRUD permissions are
+     * needed to perform an action. Returning an Unauthorized status will
+     * force the client to authenticate the user, then try the operation again.
+     * 
+     * @param statusMessage Optional status message - usually <code>null</code>
+     * for security reasons
+     * @return
+     */
     public static ResponseProperties createNotAuthorizedResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_UNAUTHORIZED, statusMessage);
     }
@@ -100,8 +119,27 @@ public class ICalWorker {
         return new ResponseProperties(HttpServletResponse.SC_OK, statusMessage);
     }
 
+    /** Create an HTTP Partial Content response. The calendar converter will use this
+     * response when a calendar is only partially updated.
+     * 
+     * @param statusMessage A message describing which calendar components were
+     * not updated
+     * @return
+     */
     public static ResponseProperties createPartialContentResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_PARTIAL_CONTENT, statusMessage);
+    }
+
+    protected static Date getLastModifiedDate(HttpServletRequest request) throws GenericEntityException {
+        String workEffortId = (String) request.getAttribute("workEffortId");
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
+        if (iCalData != null) {
+            return iCalData.getTimestamp("lastUpdatedStamp");
+        } else {
+            return publishProperties.getTimestamp("lastUpdatedStamp");
+        }
     }
 
     protected static Writer getWriter(HttpServletResponse response, ServletContext context) throws IOException {
@@ -143,11 +181,8 @@ public class ICalWorker {
         Debug.logInfo("[handlePropFindRequest] workEffortId = " + workEffortId, module);
         try {
             Document requestDocument = WebDavUtil.getDocumentFromRequest(request);
-            ByteArrayOutputStream os = null;
             if (Debug.verboseOn()) {
-                os = new ByteArrayOutputStream();
-                UtilXml.writeXmlDocument(os, requestDocument, "UTF-8", true, true);
-                Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + os.toString(), module);
+                Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + UtilXml.writeXmlDocument(requestDocument), module);
             }
             PropFindHelper helper = new PropFindHelper(requestDocument);
             if (!helper.isAllProp() && !helper.isPropName()) {
@@ -162,7 +197,8 @@ public class ICalWorker {
                         continue;
                     }
                     if ("getlastmodified".equals(propElement.getLocalName())) {
-                        Element lmElement = helper.createElementSetValue("D:getlastmodified", WebDavUtil.formatDate(WebDavUtil.RFC1123_DATE_FORMAT, new Date()));
+                        Date lastModified = getLastModifiedDate(request);
+                        Element lmElement = helper.createElementSetValue("D:getlastmodified", WebDavUtil.formatDate(WebDavUtil.RFC1123_DATE_FORMAT, lastModified));
                         supportedProps.add(lmElement);
                         continue;
                     }
@@ -182,14 +218,15 @@ public class ICalWorker {
                 rootElement.appendChild(responseElement);
                 responseDocument.appendChild(rootElement);
                 if (Debug.verboseOn()) {
-                    os = new ByteArrayOutputStream();
-                    UtilXml.writeXmlDocument(os, responseDocument, "UTF-8", true, true);
-                    Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + os.toString(), module);
+                    Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), module);
                 }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
                 Writer writer = getWriter(response, context);
-                helper.writeResponse(writer);
-                writer.close();
+                try {
+                    helper.writeResponse(response, writer);
+                } finally {
+                    writer.close();
+                }
                 return;
             }
         } catch (Exception e) {
@@ -295,11 +332,10 @@ public class ICalWorker {
             response.setHeader("WWW-Authenticate", "Basic realm=\"OFBiz iCalendar " + request.getAttribute("workEffortId") + "\"");
         }
         if (responseProps.statusMessage != null) {
+            response.setContentLength(responseProps.statusMessage.length());
             Writer writer = getWriter(response, context);
             try {
                 writer.write(responseProps.statusMessage);
-            } catch (IOException e) {
-                throw e;
             } finally {
                 writer.close();
             }

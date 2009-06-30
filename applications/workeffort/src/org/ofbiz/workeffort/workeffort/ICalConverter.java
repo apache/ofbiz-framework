@@ -70,7 +70,6 @@ import static org.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
 public class ICalConverter {
 
     protected static final String module = ICalConverter.class.getName();
-    protected static final String contactMechIdXParamName = "X-ORG-APACHE-OFBIZ-CONTACT-MECH-ID";
     protected static final String partyIdXParamName = "X-ORG-APACHE-OFBIZ-PARTY-ID";
     protected static final ProdId prodId = new ProdId("-//Apache Open For Business//Work Effort Calendar//EN");
     protected static final String workEffortIdParamName = "X-ORG-APACHE-OFBIZ-WORKEFFORT-ID";
@@ -656,9 +655,6 @@ public class ICalConverter {
         Calendar calendar = null;
         try {
             calendar = builder.build(is);
-        } catch (IOException e) {
-            Debug.logError(e, "Error while updating calendar: ", module);
-            throw e;
         } finally {
             if (is != null) {
                 is.close();
