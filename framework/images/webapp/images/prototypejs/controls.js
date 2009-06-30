@@ -676,7 +676,7 @@ Ajax.InPlaceEditor = Class.create({
       });
       new Ajax.Updater({ success: this.element }, this.url, options);
     } else {
-      var options = Object.extend({ method: 'get' }, this.options.ajaxOptions);
+      var options = Object.extend({ method: this.options.method || 'get' }, this.options.ajaxOptions);
       Object.extend(options, {
         parameters: params,
         onComplete: this._boundWrapperHandler,
