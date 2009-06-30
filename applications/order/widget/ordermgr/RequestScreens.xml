@@ -72,6 +72,9 @@ under the License.
                 <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
+                <entity-and entity-name="CustRequestItemNoteView" list="notes">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <container style="lefthalf">
@@ -138,6 +141,7 @@ under the License.
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <set field="statusId" from-field="custRequest.statusId"/>
                 <entity-one entity-name="StatusItem" value-field="currentStatus"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
