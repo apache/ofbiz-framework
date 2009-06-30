@@ -98,12 +98,12 @@ ofbiz/trunk/framework/webapp/lib/ws-commons-java5-1.0.1.jar
 ofbiz/trunk/framework/webapp/lib/ws-commons-util-1.0.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-connector-2.1.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-2.1.1.jar
+ofbiz/trunk/framework/base/lib/webslinger-base-invoker-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-cache-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-collections-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-collections-arrays-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-concurrent-20090610-bdb0eb5173b8.jar
-ofbiz/trunk/framework/webslinger/lib/webslinger-base-invoker-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-junit-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-lang-20090610-bdb0eb5173b8.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-base-logging-20090610-bdb0eb5173b8.jar
