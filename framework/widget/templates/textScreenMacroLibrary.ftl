@@ -29,7 +29,7 @@ under the License.
 <#macro renderSectionEnd boundaryComment>
 </#macro>
 
-<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval>
+<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval></#macro>
 <#macro renderContainerEnd></#macro>
 <#macro renderContentBegin></#macro>
 <#macro renderContentBody></#macro>
