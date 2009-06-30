@@ -257,9 +257,10 @@ public class UtilXml {
             throw e;
         } catch (IOException e) {
             throw e;
-        }
-        if (fos != null) {
-            fos.close();
+        } finally {
+            if (fos != null) {
+                fos.close();
+            }
         }
     }
 
