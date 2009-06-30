@@ -531,6 +531,9 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
