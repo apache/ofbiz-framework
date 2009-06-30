@@ -49,7 +49,7 @@ under the License.
         <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail
             but are passed down to storeEmailAsCommunication during the SECA chain.  See sendMailInterface for more comments.</description>
         <implements service="sendMailInterface"/>
-        <attribute name="body" type="String" mode="INOUT" optional="false" allow-html="any"/>        
+        <attribute name="body" type="String" mode="INOUT" optional="false" allow-html="safe"/>        
         <override name="contentType" mode="INOUT"/>
         <override name="subject" mode="INOUT" optional="false"/>
         <override name="emailType" type="String" mode="INOUT" optional="true"/>
@@ -67,16 +67,16 @@ under the License.
             location="org.ofbiz.common.email.EmailServices" invoke="sendMailFromUrl">
         <description>Send E-Mail From URL Service</description>
         <implements service="sendMailInterface"/>
-        <attribute name="bodyUrl" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="bodyUrl" type="String" mode="IN" optional="false"/>
         <attribute name="bodyUrlParameters" type="Map" mode="IN" optional="true"/>
-        <attribute name="body" type="String" mode="OUT" optional="false" allow-html="any"/>
+        <attribute name="body" type="String" mode="OUT" optional="false" allow-html="safe"/>
     </service>
     <service name="sendMailFromScreen" max-retry="3" engine="java"
         location="org.ofbiz.common.email.EmailServices" invoke="sendMailFromScreen">
         <description>Send E-Mail From Screen Widget Service</description>
         <implements service="sendMailInterface"/>
-        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="any"/>
-        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true"/>
         <attribute name="xslfoAttachScreenLocation" type="String" mode="IN" optional="true"/>
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
@@ -90,7 +90,7 @@ under the License.
         <implements service="sendMailInterface"/>
         <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
-        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
@@ -101,8 +101,8 @@ under the License.
             location="" invoke="">
         <description>Send Template Based Notification Service</description>
         <implements service="sendMailInterface"/>
-        <attribute name="body" type="String" mode="INOUT" optional="true" allow-html="any"/>
-        <attribute name="baseUrl" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="body" type="String" mode="INOUT" optional="true" allow-html="safe"/>
+        <attribute name="baseUrl" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="templateName" type="String" mode="IN" optional="false"/>
         <attribute name="templateData" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
@@ -111,7 +111,7 @@ under the License.
             location="" invoke="">
         <description>Send Template Based Notification Service</description>
         <implements service="prepareNotificationInterface"/>
-        <attribute name="body" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="body" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="templateName" type="String" mode="IN" optional="false"/>
         <attribute name="templateData" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>

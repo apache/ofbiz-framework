@@ -247,7 +247,7 @@ under the License.
         <attribute name="sendTo" type="String" mode="IN" optional="false"/>
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="true"/>
-        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="other" type="String" mode="IN" optional="true"/><!-- to send the invoice in the 'other' currency (y) -->
     </service>
     <service name="checkInvoicePaymentApplications" engine="java"
