@@ -35,9 +35,9 @@
         description="View your own customer request inclusive of notes"/>
     <PortletPortletCategory portalPortletId="ViewCustRequest" portletCategoryId="CUST_REQUEST"/>
     
-    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) available to a Customer"/>
+    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) used by a Customer"/>
     <PortalPortlet portalPortletId="ListCustRequests"
-        portletName="List Cust Requests"
+        portletName="List Cust Requests for a customer"
         screenName="ListCustRequests"
         screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
         description="List Cust Requests to the customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"

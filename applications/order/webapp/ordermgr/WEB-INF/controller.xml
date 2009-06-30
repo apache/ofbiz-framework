@@ -1136,7 +1136,8 @@ under the License.
     <request-map uri="FindRequest"><security https="true" auth="true"/><response name="success" type="view" value="FindRequest"/></request-map>
     <request-map uri="ViewRequest"><security https="true" auth="true"/><response name="success" type="view" value="ViewRequest"/></request-map>
     <request-map uri="EditRequest"><security https="true" auth="true"/><response name="success" type="view" value="EditRequest"/></request-map>
-
+    <request-map uri="EditRequestCustomer"><security https="true" auth="true"/><response name="success" type="view" value="EditRequestCustomer"/></request-map>
+    
     <!-- CustRequest Content -->
     <request-map uri="EditCustRequestContent">
         <security https="true" auth="true"/>
@@ -1718,6 +1719,7 @@ under the License.
     <view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#FindRequest"/>
     <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequest"/>
+    <view-map name="EditRequestCustomer" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestCustomer"/>
     <view-map name="EditRequestItem" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestItem"/>
     <view-map name="RequestItems" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestItems"/>
     <view-map name="RequestRoles" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestRoles"/>

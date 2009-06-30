@@ -117,7 +117,6 @@ under the License.
                 <set field="tabButtonItem" value="ViewRequest"/>
                 <set field="headerItem" value="request"/>
                 <set field="titleProperty" value="PageTitleViewRequest"/>
-                <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="showRequestManagementLinks" value="Y"/>
             </actions>
             <widgets>
@@ -133,7 +132,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderRequest"/>
-                <set field="tabButtonItem" value="request"/>
+                <set field="tabButtonItem" value="editRequest"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
@@ -155,6 +154,25 @@ under the License.
                                     <include-form name="EditCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                                 </fail-widgets>
                             </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditRequestCustomer">
+        <section>
+            <actions>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <set field="statusId" from-field="custRequest.statusId"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.OrderRequest}">
+                            <include-form name="EditRequestCustomer" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -560,6 +578,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- list customer requests to the customer portlet -->
     <screen name="ListCustRequests">
         <section>
             <actions>
@@ -650,7 +669,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet title="${screenletTitle} ${fromPartyId}" navigation-form-name="ListCustRequests" >
-                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                            <link target="EditRequestCustomer" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                             <include-form name="ListMyCustRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                     </widgets>
