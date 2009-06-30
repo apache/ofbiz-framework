@@ -47,7 +47,12 @@ under the License.
             <set field="emailParams.bodyScreenUri" from-field="emailTemplateSetting.bodyScreenLocation"/>
             <set field="emailParams.xslfoAttachScreenLocation" from-field="emailTemplateSetting.xslfoAttachScreenLocation"/>
             <set field="emailParams.partyId" from-field="parameters.partyIdTo"/>
-            <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
+            <if-not-empty field="emailTemplateSetting.fromAddress">
+                <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
+                <else>
+                    <property-to-field resource="general" property="defaultFromEmailAddress" field="emailParams.sendFrom" default="ofbiztest@yahoo.com"/>                    
+                </else>
+            </if-not-empty>
             <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>
             <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
             <set field="emailParams.subject" from-field="emailTemplateSetting.subject"/>

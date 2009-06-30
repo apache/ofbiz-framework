@@ -342,4 +342,16 @@ under the License.
     <OrderContentType description="Image" hasTable="N" parentTypeId="" orderContentTypeId="IMAGE_URL"/>
 
     <WebSite webSiteId="OrderEntry" siteName="Order Entry Web Site" visualThemeSetId="BACKOFFICE"/>
+
+    <EmailTemplateSetting
+        emailTemplateSettingId="CUST_REQ_ACCEPTED"
+        bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#CreateCustRequestNotification"
+        subject="OFBiz - Your Request is received: '${custRequestName}' #CR${custRequestId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_COMPLETED"
+        bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#CompletedCustRequestNotification"
+        subject="OFBiz - Your Request is complete: '${custRequestName}' #CR${custRequestId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_NOTE_ADDED"
+        bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#AddNoteCustRequestNotification"
+        subject="OFBiz - A Note has been added to your request: '${custRequestName}' #CR${custRequestId}"/>
+    
 </entity-engine-xml>
