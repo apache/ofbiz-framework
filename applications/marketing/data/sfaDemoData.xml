@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity-engine-xml>
-    <!-- demo owner -->
-    <Party partyId="admin"/>
-    <PartyRole partyId="admin" roleTypeId="OWNER"/>
 
     <!-- demo accounts -->
     <Party partyId="sfa100" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
@@ -48,7 +45,7 @@
     <!-- company to lead relationship -->
     <PartyRelationship partyIdFrom="sfa102" roleTypeIdFrom="ACCOUNT_LEAD" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <!-- owner to lead relationship -->
-    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="OWNER" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
+    <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
     <ContactMech contactMechId="sfa103" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztestLead@yahoo.com"/>
     <PartyContactMech partyId="sfa101" contactMechId="sfa103" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
