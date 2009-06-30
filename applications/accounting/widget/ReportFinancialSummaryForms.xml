@@ -232,22 +232,22 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glAccountId"><display/></field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="debit"><display/></field>
-        <field name="credit"><display/></field>
+        <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="UnpostedTransactionTotalList" type="list" list-name="unpostedTransTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glAccountId"><display/></field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="debit"><display/></field>
-        <field name="credit"><display/></field>
+        <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="PostedAndUnpostedTransactionTotalList" type="list" list-name="postedAndUnpostedTransTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glAccountId"><display/></field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="debit"><display/></field>
-        <field name="credit"><display/></field>
+        <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 </forms>
