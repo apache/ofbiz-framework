@@ -230,11 +230,13 @@ under the License.
         <alt-target use-when="custRequest==null" target="createrequest"/>
         <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
         <field name="custRequestId"><hidden/></field>
+        <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
+        <field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -271,6 +273,7 @@ under the License.
                 <option key="9(Lowest)"/>
             </drop-down>
         </field>
+        <field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field>
         <field name="maximumAmountUomId">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -286,7 +289,6 @@ under the License.
         </field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
         <field name="responseRequiredDate"><date-time type="timestamp"/></field>
-        <!--<field name="requestPartyId" use-when="custRequest==null" title="Requesting Party"><lookup target-form-name="LookupPartyName"/></field>-->
         <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
@@ -673,7 +675,7 @@ under the License.
         </field>
         <field name="custRequestDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="priority">
+        <field name="priority" use-when="!statusId.equals(&quot;CRQ_COMPLETED&quot;)">
             <drop-down allow-empty="true">
                 <option key="1(Highest)"/>
                 <option key="2"/>
@@ -686,7 +688,8 @@ under the License.
                 <option key="9(Lowest)"/>
             </drop-down>
         </field>
-        <field name="updateButton" widget-style="smallSubmit"><submit /></field>
+        <field name="priority" use-when="statusId.equals(&quot;CRQ_COMPLETED&quot;)"><display/></field>
+        <field name="updateButton" widget-style="smallSubmit" use-when="!statusId.equals(&quot;CRQ_COMPLETED&quot;)"><submit /></field>
         <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanEndDate}"><display type="date"/></field>

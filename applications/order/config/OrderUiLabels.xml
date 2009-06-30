@@ -1650,6 +1650,9 @@
         <value xml:lang="zh">取消全部明细</value>
         <value xml:lang="zh_CN">取消所有项目</value>
     </property>
+    <property key="OrderCancelledMyCustomerRequests">
+        <value xml:lang="en">My Cancelled Customer Requests</value>
+    </property>
     <property key="OrderCancelOrder">
         <value xml:lang="de">Auftrag annullieren</value>
         <value xml:lang="en">Cancel Order</value>
@@ -1976,6 +1979,9 @@
         <value xml:lang="th">เสร็จสมบูรณ์</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_CN">完成</value>
+    </property>
+    <property key="OrderCompletedMyCustomerRequests">
+        <value xml:lang="en">My Completed customer requests</value>
     </property>
     <property key="OrderConfigure">
         <value xml:lang="de">Konfigurieren</value>
@@ -4608,6 +4614,9 @@
         <value xml:lang="ru">На продажу</value>
         <value xml:lang="th">ขาย</value>
         <value xml:lang="zh">销售中</value>
+    </property>
+    <property key="OrderOpenCollequeCustomerRequests">
+        <value xml:lang="en">Open Customer requests from my Colleques</value>
     </property>
     <property key="OrderOpenMyCustomerRequests">
         <value xml:lang="en">My Open Customer Requests</value>
