@@ -38,13 +38,19 @@ under the License.
           <input type="hidden" name="partyId" value="${partyId}"/>
           <input type="hidden" name="statusId" value="CLPT_PENDING"/>
           <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
-          <@contactList publicEmailContactLists=publicEmailContactLists/>
-          <select name="preferredContactMechId" class="selectBox" style="width:134px">
-            <#list partyAndContactMechList as partyAndContactMech>
-              <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode?if_exists}-${partyAndContactMech.tnAreaCode?if_exists}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2?if_exists}, ${partyAndContactMech.paCity?if_exists}, ${partyAndContactMech.paStateProvinceGeoId?if_exists}, ${partyAndContactMech.paPostalCode?if_exists}, ${partyAndContactMech.paPostalCodeExt?if_exists} ${partyAndContactMech.paCountryGeoId?if_exists}</#if></option>
-            </#list>
-          </select>
-          <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="button"/>
+          <div>
+            <@contactList publicEmailContactLists=publicEmailContactLists/>
+          </div>
+          <div>
+            <select name="preferredContactMechId" class="selectBox">
+              <#list partyAndContactMechList as partyAndContactMech>
+                <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode?if_exists}-${partyAndContactMech.tnAreaCode?if_exists}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2?if_exists}, ${partyAndContactMech.paCity?if_exists}, ${partyAndContactMech.paStateProvinceGeoId?if_exists}, ${partyAndContactMech.paPostalCode?if_exists}, ${partyAndContactMech.paPostalCodeExt?if_exists} ${partyAndContactMech.paCountryGeoId?if_exists}</#if></option>
+              </#list>
+            </select>
+          </div>
+          <div>
+            <input type="submit" value="${uiLabelMap.EcommerceSubscribe}"/>
+          </div>
         </fieldset>
       </form>
     <#else>
@@ -55,12 +61,18 @@ under the License.
     </#if>
   <#else>
   <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
-    <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm">
+    <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
       <fieldset>
-        <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
-        <@contactList publicEmailContactLists=publicEmailContactLists/>
-        <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text"/>
-        <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
+        <div>
+          <label>${uiLabelMap.EcommerceSignUpForContactListComments}</label>
+          <@contactList publicEmailContactLists=publicEmailContactLists/>
+        </div>
+        <div>
+          <input name="email" class="inputBox" type="text"/>
+        </div>
+        <div>
+          <input type="submit" value="${uiLabelMap.EcommerceSubscribe}"/>
+        </div>
       </fieldset>
     </form>
   </#if>
