@@ -24,6 +24,23 @@ import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 
+productId = parameters.productId;
+if (productId) {
+
+    quantityOnHandTotal = parameters.quantityOnHandTotal;
+    if (!quantityOnHandTotal) {
+        quantityOnHandTotal = 0;
+    }
+    context.quantityOnHandTotal = quantityOnHandTotal;
+
+    availableToPromiseTotal = parameters.availableToPromiseTotal;
+    if (!availableToPromiseTotal) {
+        availableToPromiseTotal = 0;
+    }
+    context.availableToPromiseTotal = availableToPromiseTotal;
+}
+context.productId = productId;
+
 // Just in case we are here from the choosecatalog form, the
 // following call will save in the session the new catalogId
 CatalogWorker.getCurrentCatalogId(request);
@@ -75,6 +92,7 @@ productStoreFacilityId = null;
 if (productStore) {
     productStoreFacilityId = productStore.inventoryFacilityId;
 }
+context.facilityId = productStoreFacilityId;
 inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", [orderItems : shoppingCart.makeOrderItems(), facilityId : productStoreFacilityId]);
 context.availableToPromiseMap = inventorySummary.availableToPromiseMap;
 context.quantityOnHandMap = inventorySummary.quantityOnHandMap;

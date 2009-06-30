@@ -7136,6 +7136,9 @@
         <value xml:lang="th">ได้ประโยชน์ได้ถึงวันที่</value>
         <value xml:lang="zh">有效截止日期</value>
     </property>
+    <property key="ProductAvailableToPromise">
+        <value xml:lang="en">Available To Promise</value>
+    </property>
     <property key="ProductAverageCost">
         <value xml:lang="de">Durchschnittliche Kosten</value>
         <value xml:lang="en">Average Cost</value>
@@ -16066,6 +16069,9 @@
         <value xml:lang="ru">Количество не установлено</value>
         <value xml:lang="th">ไม่ตั้งค่าจำนวน</value>
         <value xml:lang="zh">未设置数量</value>
+    </property>
+    <property key="ProductQuantityOnHand">
+        <value xml:lang="en">Quantity On Hand</value>
     </property>
     <property key="ProductQuantityRejected">
         <value xml:lang="de">Menge abgelehnt</value>

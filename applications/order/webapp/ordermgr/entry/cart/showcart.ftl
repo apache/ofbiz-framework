@@ -17,21 +17,49 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<script language="JavaScript" type="text/javascript">
+    function showQohAtp() {
+        document.qohAtpForm.productId.value = document.quickaddform.add_product_id.value;
+        document.qohAtpForm.submit();
+    }
+</script>
+
 <div class="screenlet">
     <div class="screenlet-body">
+      <div>
+        <#if quantityOnHandTotal?exists && availableToPromiseTotal?exists && (productId)?exists>
+          <ul>
+            <li>
+              <label>${uiLabelMap.ProductQuantityOnHand}</label>: ${quantityOnHandTotal}
+            </li>
+            <li>
+              <label>${uiLabelMap.ProductAvailableToPromise}</label>: ${availableToPromiseTotal}
+            </li>
+          </ul>
+        </#if>
+      </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td>
+            <form name="qohAtpForm" method="post" action="<@ofbizUrl>getProductInventoryAvailable</@ofbizUrl>">
+              <fieldset>
+                <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                <input type="hidden" name="productId"/>
+              </fieldset>
+            </form>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="quickaddform" style="margin: 0;">
               <table border="0">
                 <tr>
                   <td align="right"><div>${uiLabelMap.ProductProductId} :</div></td>
-                  <td><input type="text" size="25" name="add_product_id" value=""/>
+                  <td><input type="text" size="25" name="add_product_id" value="${productId?if_exists}"/>
                     <span class='tabletext'>
                       <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                       <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'<@ofbizUrl><#if orderType=="PURCHASE_ORDER">LookupSupplierProduct?partyId=${partyId?if_exists}<#else>LookupProduct</#if></@ofbizUrl>');">
                         <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                       </a>
+                      <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+                        <a href="javascript:showQohAtp()" class="buttontext">${uiLabelMap.ProductAtpQoh}</a>
+                      </#if>
                     </span>
                   </td>
                 </tr>
