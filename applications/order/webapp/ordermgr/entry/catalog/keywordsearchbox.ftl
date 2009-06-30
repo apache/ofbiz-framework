@@ -45,7 +45,7 @@ under the License.
         <div>
           <input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>${uiLabelMap.CommonAny}
           <input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>${uiLabelMap.CommonAll}
-          <a href="javascript:document.keywordsearchform.submit()" class="button">${uiLabelMap.CommonFind}</a>
+          <input type="submit" value="${uiLabelMap.CommonFind}" class="button"/>
         </div>
       </fieldset>
     </form>
@@ -68,7 +68,7 @@ under the License.
           <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
         </#if>
         <div>
-          <a href="javascript:document.advancedsearchform.submit()" class="button">${uiLabelMap.ProductAdvancedSearch}</a>
+          <input type="submit" value="${uiLabelMap.ProductAdvancedSearch}" class="button"/>
         </div>
       </fieldset>
     </form>
