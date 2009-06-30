@@ -30,7 +30,10 @@ under the License.
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PARTYMGR_CME_UPDATE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PARTYMGR_CME_CREATE"/>
     <!-- for the calendar operations -->
-    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
     <!-- be able to create internal notes and email-->
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PARTYMGR_CME-EMAIL_CREATE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PARTYMGR_CME-EMAIL_UPDATE"/>
@@ -52,10 +55,14 @@ under the License.
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PARTYMGR_CME-NOTE_CREATE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PARTYMGR_CME_CREATE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PARTYMGR_CME_DELETE"/>
     <!-- and can upload content for task/project -->
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="CONTENTMGR_ROLE_CREATE"/>
     <!-- for the calendar operations -->
-    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
     
     <SecurityPermission permissionId="MYPORTAL_CUSTOMER" description="Use the customer screens in MYPORTAL."/>
     <SecurityGroup description="Customer user of MYPORTAL, Limited access to own custRequests, and project" groupId="MYPORTAL_CUSTOMER"/>
@@ -64,4 +71,13 @@ under the License.
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME_UPDATE"/>
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PROJECTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="CONTENTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME_CREATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME_DELETE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="ORDERMGR_CRQ_CREATE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="ORDERMGR_CRQ_UPDATE"/>
 </entity-engine-xml>
