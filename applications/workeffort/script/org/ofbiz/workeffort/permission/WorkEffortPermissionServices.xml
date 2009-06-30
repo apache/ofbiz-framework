@@ -305,7 +305,7 @@ under the License.
 
     <simple-method method-name="workEffortICalendarPermission" short-description="Check iCalendar Permission">
         <!-- Note: the iCalendar servlet will call the permission service under two conditions - to grant
-             VIEW access to a calendar that isn't PUBLIC, or to grant UPDATE access to a work effort -->
+             VIEW access to a calendar that isn't PUBLIC, or to grant CREATE or UPDATE access to a work effort -->
         <log level="verbose" message="workEffortICalendarPermission invoked for workEffortId ${parameters.workEffortId},
             user login partyId = ${userLogin.partyId}"/>
         <call-simple-method method-name="workEffortManagerPermission"/>

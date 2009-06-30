@@ -23,12 +23,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /** WebDAV response helper class. This class provides helper methods for
  * working with WebDAV requests and responses.*/
@@ -54,7 +52,7 @@ public class ResponseHelper {
     
     protected final Document responseDocument;
     
-    public ResponseHelper() throws IOException, SAXException, ParserConfigurationException {
+    public ResponseHelper() {
         this.responseDocument = UtilXml.makeEmptyXmlDocument();
     }
     
@@ -93,13 +91,14 @@ public class ResponseHelper {
         return this.responseDocument;
     }
 
-    public void writeResponse(Writer writer) throws IOException {
+    public void writeResponse(HttpServletResponse response, Writer writer) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
             UtilXml.writeXmlDocument(os, this.responseDocument, "UTF-8", true, true);
         } catch (Exception e) {
             throw new IOException(e.getMessage());
         }
-        writer.write(os.toString());
+        response.setContentLength(os.size());
+        writer.write(os.toString("UTF-8"));
     }
 }

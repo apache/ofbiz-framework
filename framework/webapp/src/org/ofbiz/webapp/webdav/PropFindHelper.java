@@ -18,10 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.webapp.webdav;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 
@@ -29,7 +26,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /** PROPFIND HTTP method helper class. This class provides helper methods for
  * working with WebDAV PROPFIND requests and responses.*/
@@ -37,7 +33,7 @@ public class PropFindHelper extends ResponseHelper {
 
     protected final Document requestDocument;
     
-    public PropFindHelper(Document requestDocument) throws IOException, SAXException, ParserConfigurationException {
+    public PropFindHelper(Document requestDocument) {
         this.requestDocument = requestDocument;
     }
     

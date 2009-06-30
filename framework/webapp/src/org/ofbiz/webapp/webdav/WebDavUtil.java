@@ -53,9 +53,16 @@ public class WebDavUtil {
     }
 
     public static Document getDocumentFromRequest(HttpServletRequest request) throws IOException, SAXException, ParserConfigurationException {
-        InputStream is = request.getInputStream();
-        Document document = UtilXml.readXmlDocument(is, false, "WebDAV request");
-        is.close();
+        Document document = null;
+        InputStream is = null;
+        try {
+            is = request.getInputStream();
+            document = UtilXml.readXmlDocument(is, false, "WebDAV request");
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
         return document;
     }
 
@@ -66,7 +73,7 @@ public class WebDavUtil {
      * those aren't found, then the request is checked for the HTTP Authorization header.
      * Currently, only Basic authorization is supported.</p>
      * 
-     * @param request
+     * @param request The WebDAV request
      * @return A <code>Map</code> containing <code>login.username</code> and 
      * <code>login.password</code> elements.
      */
