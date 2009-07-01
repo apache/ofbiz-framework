@@ -51,17 +51,17 @@ under the License.
       <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
     </#if>
     <#if shortcutIcon?has_content>
-    <link rel="shortcut icon" href="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>" />
+    <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
     </#if>
     <#if layoutSettings.styleSheets?has_content>
         <#list layoutSettings.styleSheets as styleSheet>
-            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
         </#list>
     </#if>
     <#if userLogin?has_content>
     <#if layoutSettings.VT_STYLESHEET?has_content>
         <#list layoutSettings.VT_STYLESHEET as styleSheet>
-            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
         </#list>
     </#if>
     <#else>
@@ -70,12 +70,12 @@ under the License.
     <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
         <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
         <#list layoutSettings.rtlStyleSheets as styleSheet>
-            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
         </#list>
     </#if>
     <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
         <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
-            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" media="screen,projection" type="text/css" charset="UTF-8"/>
         </#list>
     </#if>
     ${layoutSettings.extraHead?if_exists}
@@ -90,13 +90,13 @@ under the License.
         <#list layoutSettings.javaScripts as javaScript>
             <#if javaScriptsSet.contains(javaScript)>
                 <#assign nothing = javaScriptsSet.remove(javaScript)/>
-                <script type="text/javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+                <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
             </#if>
         </#list>
     </#if>
     <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
         <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-            <script type="text/javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+            <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
     </#if>
 </head>
