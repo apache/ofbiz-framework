@@ -46,4 +46,30 @@ under the License.
             </sub-node>
         </node>
     </tree>
+
+    <!-- A read-only tree of child work efforts. Mainly used to check if iCalendar events and
+        tasks are being saved as work efforts. -->
+    <tree name="ICalendarTree" root-node-name="node-root" entity-name="WorkEffort" expand-collapse-request="ICalendarChildren?workEffortId=${workEffortId}"
+        default-render-style="expand-collapse" default-wrap-style="treeWrapper">
+        <node name="node-root"  entity-name="WorkEffort" >
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdTo">
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
+                <field-map field-name="workEffortId" from-field="workEffortAssoc.workEffortIdTo"/>
+            </entity-one>
+            <label text="${workEffort.workEffortName} - ${workEffort.description} [${workEffort.workEffortId}]"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortAssoc.workEffortIdTo"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+    </tree>
+
 </trees>

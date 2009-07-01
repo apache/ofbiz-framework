@@ -29,6 +29,7 @@ under the License.
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.WorkEffortTimesheet}"><link target="FindTimesheet"/></menu-item>
         <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="UserJobs"/></menu-item>
+        <menu-item name="WorkEffortICalendar" title="${uiLabelMap.WorkEffortICalendar}"><link target="FindICalendars"/></menu-item>
     </menu>
     <menu name="WorkEffortTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="WorkEffort">
@@ -211,4 +212,30 @@ under the License.
             </condition>
         </menu-item>
     </menu>
+
+    <menu name="ICalendarTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="WorkEffort">
+        <menu-item name="WorkEffort" title="${uiLabelMap.WorkEffortICalendar}">
+            <link target="EditICalendar">
+                <parameter param-name="workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="WorkEffortAssocs" title="${uiLabelMap.CommonEntityChildren}">
+            <link target="ICalendarChildren">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="trail" from-field="workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="WorkEffortPartyAssigns" title="${uiLabelMap.WorkEffortParties}">
+            <link target="ICalendarParties">
+                <parameter param-name="workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="WorkEffortFixedAssetAssigns" title="${uiLabelMap.AccountingFixedAssets}">
+            <link target="ICalendarFixedAssets">
+                <parameter param-name="workEffortId"/>
+            </link>
+        </menu-item>
+    </menu>
+
 </menus>

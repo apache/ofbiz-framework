@@ -1335,4 +1335,100 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="EditICalendar" default-map-name="workEffort" target="updateICalendar" type="single">
+        <alt-target target="createICalendar" use-when="workEffort==null"/>
+        <field name="workEffortTypeId"><hidden value="PUBLISH_PROPS"></hidden></field>
+        <field name="currentStatusId"><hidden value="CAL_CANCELLED"></hidden></field>
+        <field name="quickAssignPartyId" title="${uiLabelMap.WorkEffortICalendarOwner}" use-when="workEffort==null @and workEffortId==null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="workEffortId" use-when="workEffort!=null" title="${uiLabelMap.WorkEffortICalendarUrl}"><display description="/iCalendar/${workEffortId}/"/></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortICalendarName}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="scopeEnumId" title="${uiLabelMap.WorkEffortICalendarVisibility}">
+            <drop-down no-current-selected-key="WES_PRIVATE">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="actualStartDate" title="${uiLabelMap.CommonFrom}" position="2"><date-time/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.CommonTo}" position="3"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditICalendarPartyAssign" target="createICalendarPartyAssign" type="single">
+        <actions>
+            <!-- Clear parameters from prior create/update event -->
+            <set field="parameters.partyId" value=""/>
+            <set field="parameters.roleTypeId" value=""/>
+            <set field="parameters.fromDate" value=""/>
+            <set field="parameters.thruDate" value=""/>
+            <set field="parameters.comments" value=""/>
+            <entity-condition list="roleList" entity-name="RoleType">
+                <condition-list combine="or">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="CAL_DELEGATE"/>
+                    <condition-expr field-name="roleTypeId" operator="equals" value="ICAL_MEMBER"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down allow-empty="false">
+                <list-options list-name="roleList" key-name="roleTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListICalendarPartyAssigns" extends="ListWorkEffortPartyAssigns" target="updateICalendarPartyAssign"
+        extends-resource="component://workeffort/widget/WorkEffortPartyAssignForms.xml" header-row-style="header-row-2">
+        <field name="statusDateTime"><ignored/></field>
+        <field name="availabilityStatusId"><ignored/></field>
+        <field name="expectationEnumId"><ignored/></field>
+        <field name="delegateReasonEnumId"><ignored/></field>
+        <field name="facilityId"><ignored/></field>
+        <field name="mustRsvp"><ignored/></field>
+    </form>
+ 
+    <form name="ListIcalendars" list-name="listIt" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="WorkEffortAndPartyAssign" list="listIt">
+                <field-map field-name="workEffortTypeId" value="PUBLISH_PROPS"/>
+                <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>
+            </entity-and>
+        </actions>
+        <field name="workEffortId" title="${uiLabelMap.WorkEffortICalendarUrl}">
+            <hyperlink also-hidden="false" description="/iCalendar/${workEffortId}/" target="EditICalendar" target-type="plain">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortICalendarName}"><display/></field>
+    </form>
+
+    <form name="EditICalendarFixedAssetAssign" extends="EditWorkEffortFixedAssetAssign" target="createICalendarFixedAssetAssign">
+        <actions>
+            <!-- Clear parameters from prior create/update event -->
+            <set field="parameters.fixedAssetId" value=""/>
+            <set field="parameters.fromDate" value=""/>
+            <set field="parameters.thruDate" value=""/>
+            <set field="parameters.comments" value=""/>
+        </actions>
+        <field name="statusId"><ignored/></field>
+        <field name="availabilityStatusId"><ignored/></field>
+        <field name="allocatedCost"><ignored/></field>
+    </form>
+
+    <form name="ListICalendarFixedAssetAssigns" extends="ListWorkEffortFixedAssetAssigns" target="updateICalendarFixedAssetAssign">
+        <field name="statusId"><ignored/></field>
+        <field name="availabilityStatusId"><ignored/></field>
+        <field name="allocatedCost"><ignored/></field>
+        <field name="deleteLink"><ignored/></field>
+    </form>
+
 </forms>
