@@ -1187,9 +1187,10 @@ public class ModelForm extends ModelWidget {
                 maxNumOfColumns = numOfColumns;
             }
 
-            fieldRowsByPosition.add(UtilMisc.toMap("displayBefore", innerDisplayHyperlinkFieldsBegin,
+            Map<String, List<ModelFormField>> fieldRow = UtilMisc.toMap("displayBefore", innerDisplayHyperlinkFieldsBegin,
                                                    "inputFields", innerFormFields,
-                                                   "displayAfter", innerDisplayHyperlinkFieldsEnd));
+                                                   "displayAfter", innerDisplayHyperlinkFieldsEnd);
+            fieldRowsByPosition.add(fieldRow);
         }
         // ===========================
         // Rendering
