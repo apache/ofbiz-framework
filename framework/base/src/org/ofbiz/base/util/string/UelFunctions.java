@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,6 +33,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.el.FunctionMapper;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 
 import javolution.util.FastMap;
 
@@ -142,6 +145,7 @@ import org.w3c.dom.Node;
  * <tr><td colspan="2"><b><code>dom:</code> contains <code>org.w3c.dom.*</code> functions</b></td></tr>
  * <tr><td><code>dom:readHtmlDocument(String)</code></td><td>Reads an HTML file and returns a <code>org.w3c.dom.Document</code> instance.</td></tr>
  * <tr><td><code>dom:readXmlDocument(String)</code></td><td>Reads an XML file and returns a <code>org.w3c.dom.Document</code> instance.</td></tr>
+ * <tr><td><code>dom:toHtmlString(Node, String encoding, boolean indent, int indentAmount)</code></td><td>Returns a <code>org.w3c.dom.Node</code> as an HTML <code>String</code>.</td></tr>
  * <tr><td><code>dom:toXmlString(Node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</code></td><td>Returns a <code>org.w3c.dom.Node</code> as an XML <code>String</code>.</td></tr>
  * <tr><td><code>dom:writeXmlDocument(String, Node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</code></td><td>Writes a <code>org.w3c.dom.Node</code> to an XML file and returns <code>true</code> if successful.</td></tr>
  * </table>
@@ -249,6 +253,7 @@ public class UelFunctions {
                 this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
                 this.functionMap.put("dom:readHtmlDocument", UelFunctions.class.getMethod("readHtmlDocument", String.class));
                 this.functionMap.put("dom:readXmlDocument", UelFunctions.class.getMethod("readXmlDocument", String.class));
+                this.functionMap.put("dom:toHtmlString", UelFunctions.class.getMethod("toHtmlString", Node.class, String.class, boolean.class, int.class));
                 this.functionMap.put("dom:toXmlString", UelFunctions.class.getMethod("toXmlString", Node.class, String.class, boolean.class, boolean.class, int.class));
                 this.functionMap.put("dom:writeXmlDocument", UelFunctions.class.getMethod("writeXmlDocument", String.class, Node.class, String.class, boolean.class, boolean.class, int.class));
             } catch (Exception e) {
@@ -473,6 +478,37 @@ public class UelFunctions {
             Debug.logError(e, "Error while writing XML document " + str, module);
         }
         return false;
+    }
+
+    public static String toHtmlString(Node node, String encoding, boolean indent, int indentAmount) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            sb.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xalan=\"http://xml.apache.org/xslt\" version=\"1.0\">\n");
+            sb.append("<xsl:output method=\"html\" encoding=\"");
+            sb.append(encoding == null ? "UTF-8" : encoding);
+            sb.append("\"");
+            sb.append(" indent=\"");
+            sb.append(indent ? "yes" : "no");
+            sb.append("\"");
+            if (indent) {
+                sb.append(" xalan:indent-amount=\"");
+                sb.append(indentAmount <= 0 ? 4 : indentAmount);
+                sb.append("\"");
+            }
+            sb.append("/>\n<xsl:template match=\"@*|node()\">\n");
+            sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
+            sb.append("</xsl:template>\n</xsl:stylesheet>\n");
+            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
+            os.close();
+            return os.toString();
+        } catch (Exception e) {
+            Debug.logError(e, "Error while creating HTML String ", module);
+        }
+        return null;
     }
 
     public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
