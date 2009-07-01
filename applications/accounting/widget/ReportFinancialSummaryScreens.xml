@@ -550,39 +550,115 @@ under the License.
                                     <include-form name="FindTransactionTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                 </container>
                             </container>
-                         </container>
-                         <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
-                                </container>
-                                <container style="screenlet-body">
-                                    <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </container>
-                            </container>
-                         </container>
-                         <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
-                                </container>
-                                <container style="screenlet-body">
-                                    <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </container>
-                            </container>
                         </container>
-                         <container style="screenlet">            
+                        <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
-                                </container>    
-                                <container style="screenlet-body">
-                                    <include-form name="PostedAndUnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                               
+                                    <label text="${uiLabelMap.AccountingTransactionTotalsReport}"/>
                                 </container>
-                            </container>          
+                                <container style="screenlet-body">
+                                    <section>
+                                        <condition>
+                                            <or>
+                                                <not><if-empty field="postedTransTotalList"/></not>
+                                                <not><if-empty field="unpostedTransTotalList"/></not>
+                                                <not><if-empty field="postedAndUnpostedTransTotalList"/></not>
+                                            </or>
+                                        </condition>
+                                        <widgets>
+                                            <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="TransactionTotalsCsv.csv">
+                                                <parameter param-name="fromDate"/>
+                                                <parameter param-name="thruDate"/>
+                                                <parameter param-name="organizationPartyId"/>
+                                            </link>
+                                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="TransactionTotalsPdf.pdf">
+                                                <parameter param-name="fromDate"/>
+                                                <parameter param-name="thruDate"/>
+                                                <parameter param-name="organizationPartyId"/>
+                                            </link>
+                                        </widgets>
+                                    </section>
+                                </container>
+                            </container>
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    </container>
+                                </container>
+                            </container>
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    </container>
+                                </container>
+                            </container>
+                            <container style="screenlet">            
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
+                                    </container>    
+                                    <container style="screenlet-body">
+                                        <include-form name="PostedAndUnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                               
+                                    </container>
+                               </container>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="TransactionTotalsPdf">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                            <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
+                            <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
+                            <include-form name="PostedAndUnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="TransactionTotalsCsv">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
+            </actions>
+            <widgets>
+                <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                <include-form name="PostedTransactionTotalListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                <include-form name="UnpostedTransactionTotalListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                <include-form name="PostedAndUnpostedTransactionTotalListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
             </widgets>
         </section>
     </screen>
