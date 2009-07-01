@@ -60,8 +60,8 @@ debian/ofbiz-framework/
 debian/ofbiz-specialpurpose.debhelper.log
 debian/ofbiz-specialpurpose.substvars
 debian/ofbiz-specialpurpose/
-debian/ofbiz-debhelper.log
-debian/ofbiz-substvars
+debian/ofbiz.debhelper.log
+debian/ofbiz.substvars
 debian/ofbiz/
 debian/stamps/
 
