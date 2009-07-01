@@ -318,6 +318,7 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                         <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                        <condition-expr field-name="statusId" value="PRTYASGN_ASSIGNED"/>
                         <condition-list combine="or">
                             <condition-expr field-name="roleTypeId" value="CAL_OWNER"/>
                             <condition-expr field-name="roleTypeId" value="CAL_ORGANIZER"/>

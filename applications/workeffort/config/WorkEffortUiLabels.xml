@@ -1921,6 +1921,36 @@
         <value xml:lang="th">มาตรฐานที่ดี</value>
         <value xml:lang="zh">良好标准</value>
     </property>
+    <property key="WorkEffortICalendar">
+        <value xml:lang="en">iCalendar</value>
+    </property>
+    <property key="WorkEffortICalendarAdd">
+        <value xml:lang="en">Add iCalendar</value>
+    </property>
+    <property key="WorkEffortICalendarAddParty">
+        <value xml:lang="en">Add iCalendar Party</value>
+    </property>
+    <property key="WorkEffortICalendarAddFixedAsset">
+        <value xml:lang="en">Add iCalendar Fixed Asset</value>
+    </property>
+    <property key="WorkEffortICalendarEdit">
+        <value xml:lang="en">Edit iCalendar</value>
+    </property>
+    <property key="WorkEffortICalendarFind">
+        <value xml:lang="en">Find iCalendars</value>
+    </property>
+    <property key="WorkEffortICalendarName">
+        <value xml:lang="en">Calendar Name</value>
+    </property>
+    <property key="WorkEffortICalendarOwner">
+        <value xml:lang="en">Calendar Owner</value>
+    </property>
+    <property key="WorkEffortICalendarUrl">
+        <value xml:lang="en">iCalendar Url</value>
+    </property>
+    <property key="WorkEffortICalendarVisibility">
+        <value xml:lang="en">Calendar Visibility</value>
+    </property>
     <property key="WorkEffortIdMissing">
         <value xml:lang="en">Work Effort ID is missing.</value>
         <value xml:lang="fr">La réf. de tâche est manquante</value>
