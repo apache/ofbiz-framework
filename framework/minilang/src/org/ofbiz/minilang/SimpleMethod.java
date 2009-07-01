@@ -221,7 +221,7 @@ public class SimpleMethod {
         // read in the file
         Document document = null;
         try {
-            document = UtilXml.readXmlDocument(xmlURL, true);
+            document = UtilXml.readXmlDocument(xmlURL, true, true);
         } catch (java.io.IOException e) {
             throw new MiniLangException("Could not read XML file", e);
         } catch (org.xml.sax.SAXException e) {
@@ -277,7 +277,7 @@ public class SimpleMethod {
 
         try {
             if (content != null) {
-                document = UtilXml.readXmlDocument(content, true);
+                document = UtilXml.readXmlDocument(content, true, true);
             }
         } catch (java.io.IOException e) {
             throw new MiniLangException("Could not read XML content", e);
@@ -857,6 +857,10 @@ public class SimpleMethod {
                 if (UtilProperties.propertyValueEquals("webslinger-invoker.properties", "wrap-calls", "true")) {
                     Wrap<MethodOperation> wrap = new Wrap<MethodOperation>().fileName(simpleMethod.getLocationAndName()).wrappedClass(methodOp.getClass());
                     wrap.wrap(methodOperationExecMethod);
+                    Object startLine = curOperElem.getUserData("startLine");
+                    if (startLine != null) {
+                        wrap.lineNumber(((Integer) startLine).intValue());
+                    }
                     methodOp = wrap.newInstance(new Class<?>[] {Element.class, SimpleMethod.class}, new Object[] {curOperElem, simpleMethod});
                 }
                 methodOperations.add(methodOp);
