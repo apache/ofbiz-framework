@@ -4566,7 +4566,7 @@ public class OrderServices {
             }
         } catch (Exception exc) {
             // TODO: imporve error handling
-            ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + exc.getMessage());
+            return ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + exc.getMessage());
         }
 
         return ServiceUtil.returnSuccess();
