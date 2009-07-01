@@ -41,9 +41,11 @@ munge_conffile() {
 	case "$source" in
 		(framework/entity/config/entityengine.xml)
 			. /etc/dbconfig-common/ofbiz.conf
+			get pg_fieldtype ofbiz/fieldtype/postgres
 			xalan \
 				-xsl "$OFBIZ_HOME/support/entityengine.xslt" \
 				-in "$OFBIZ_HOME/ucf/$source" \
+				-param pgfieldtype "'$pg_fieldtype'" \
 				-param dbtype "'$dbc_dbtype'" \
 				-param dbuser "'$dbc_dbuser'" \
 				-param dbpass "'$dbc_dbpass'" \
@@ -66,22 +68,6 @@ configure_ofbiz() {
 	done
 	eval /etc/init.d/ofbiz install $extra
 	rm -rf "/var/lib/ofbiz/import"
-}
-get_random_chars() {
-	(
-		LANG=C
-		LC_ALL=C
-		length="$1"
-		chars=""
-		while :; do
-			needed_length=$((${length} - ${#chars}))
-			chars="$chars$(dd if=/dev/urandom count="${needed_length}" bs=1 2>/dev/null | sed -n -e 's/[^[:alnum:]]//g;p;q')"
-			if [ "${#chars}" -ge "$length" ]; then
-				break
-			fi
-		done
-		echo $chars
-	)
 }
 get() {
 	var_name="$1"
@@ -115,11 +101,7 @@ ofbiz_init_invoke() {
 dbc_generate_include=sh:/etc/ofbiz/dbc-debconf.cfg
 [ "$1" != "triggered" ] && dbc_go ofbiz "$@"
 if [ -e /etc/ofbiz/dbc-debconf.cfg ]; then
-	ofbiz_admin_key=""
 	. /etc/ofbiz/dbc-debconf.cfg
-else
-	ofbiz_admin_key="$(get_random_chars 32)"
-	ofbiz_readers=""
 fi
 if [ -r "/etc/ofbiz/debconf.cfg" ]; then
 	chown root:ofbiz "/etc/ofbiz/debconf.cfg"
