@@ -244,15 +244,7 @@ public class SimpleMethod {
     }
 
     protected static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) {
-        if (UtilProperties.propertyValueEquals("webslinger-invoker.properties", "wrap-calls", "true")) {
-            Wrap<SimpleMethod> wrap = new Wrap<SimpleMethod>().fileName(location).wrappedClass(SimpleMethod.class);
-            wrap.loader(SimpleMethod.class.getClassLoader());
-            wrap.wrap(simpleMethodExecMethod);
-            SimpleMethod simpleMethod = wrap.newInstance(new Class<?>[] {Element.class, Map.class, String.class}, new Object[] {simpleMethodElement, simpleMethods, location});
-            return simpleMethod;
-        } else {
-            return new SimpleMethod(simpleMethodElement, simpleMethods, location);
-        }
+        return new SimpleMethod(simpleMethodElement, simpleMethods, location);
     }
 
     public static Map<String, SimpleMethod> getDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
