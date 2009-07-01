@@ -102,7 +102,7 @@ under the License.
 
     <target name="clean-output">
         <delete verbose="on">
-            <fileset dir="../runtime/output" includes="*"/>
+            <fileset dir="." includes="../runtime/output/*"/>
         </delete>
     </target>
 
