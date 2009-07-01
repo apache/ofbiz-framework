@@ -489,6 +489,12 @@ under the License.
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
+    <request-map uri="getProductInventoryAvailable">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getInventoryAvailableByFacility"/>
+        <response name="success" type="view" value="showcart"/>
+        <response name="error" type="view" value="showcart"/>
+    </request-map>
 
     <!-- Create a replacement order from an existing order against a lost shipment etc. -->
     <request-map uri="loadCartForReplacementOrder">
