@@ -161,6 +161,8 @@ while (<FIND>) {
 		$type = 'varlib';
 	} elsif (-f) {
 		$type = 'code';
+	} elsif ($_ eq 'rc.ofbiz.for.debian') {
+		next;
 	} else {
 		next;
 	}
