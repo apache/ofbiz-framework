@@ -90,7 +90,7 @@ sub copylink($$$) {
 }
 system('rm', '-rf', 'debian/ofbiz', 'debian/ofbiz-specialpurpose');
 
-open(FIND, '-|', qw(find -printf %P\0)) || die("Couldn't run find");
+open(FIND, '-|', qw(find -not -path */.git/* -printf %P\0)) || die("Couldn't run find");
 $/ = "\0";
 while (<FIND>) {
 	chomp;
