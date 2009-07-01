@@ -1344,7 +1344,9 @@ public class CheckOutHelper {
         this.cart.setMaySplit(shipGroupIndex, Boolean.valueOf(maySplit));
         this.cart.setIsGift(shipGroupIndex, Boolean.valueOf(isGift));
         this.cart.setInternalCode(internalCode); // FIXME: the internalCode is not a ship group field and should be moved outside of this method
-        this.cart.addInternalOrderNote(internalOrderNotes);
+        if (UtilValidate.isNotEmpty(internalOrderNotes)) {
+            this.cart.addInternalOrderNote(internalOrderNotes);
+        }
 
         // set ship before date
         if ((shipBeforeDate != null) && (shipBeforeDate.length() > 8)) {
