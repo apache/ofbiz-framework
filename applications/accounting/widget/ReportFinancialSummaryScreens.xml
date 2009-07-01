@@ -563,10 +563,6 @@ under the License.
                                 </container>
                             </container>
                         </container>
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingTransactionTotalsReport}"/>
-                                </container>
-                                <container style="screenlet-body">
                                     <section>
                                         <condition>
                                             <or>
@@ -618,7 +614,6 @@ under the License.
                                     </container>
                                </container>
                             </container>
-                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
