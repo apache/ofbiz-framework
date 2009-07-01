@@ -131,12 +131,13 @@ under the License.
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
-        <field name="glAccountId">
+        <field name="glAccountId" use-when="isPdf != true">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
+        <field name="glAccountId"  use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
@@ -306,5 +307,20 @@ under the License.
         <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="quot5" title="&quot;"><display description="&quot;"/></field>
+    </form>
+
+    <form name="IncomeStatementListCsv" type="list" list-name="glAccountTotalsList" view-size="99999">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-field="glAccount" auto-field-map="true"/>
+            <set field="totalAmount" from-field="${totalAmount}"/>
+        </row-actions>
+        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
+        <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
+        <field name="seprator0" title=","><display description=","/></field>
+
+        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
+        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
     </form>
 </forms>

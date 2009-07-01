@@ -2080,6 +2080,16 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TransactionTotalsCsv"/>
     </request-map>
+
+    <request-map uri="IncomeStatementListPdf.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="IncomeStatementListPdf"/>
+    </request-map>
+
+    <request-map uri="IncomeStatementListCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="IncomeStatementListCsv"/>
+    </request-map>
     
     <!-- end of request mappings -->
 
@@ -2337,6 +2347,8 @@ under the License.
 
     <view-map name="TransactionTotalsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="TransactionTotalsCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="IncomeStatementListPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="IncomeStatementListCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListCsv" content-type="text/csv" encoding="none"/>
 
     <!-- end of view mappings -->
 </site-conf>

@@ -356,6 +356,18 @@ under the License.
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
+                                        <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="IncomeStatementListCsv.csv">
+                                            <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                            <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        </link>
+                                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf">
+                                            <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                            <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        </link>
                                         <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                         <container>
                                             <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${parameters.totalNetIncome}"/>
@@ -659,6 +671,55 @@ under the License.
                 <include-form name="UnpostedTransactionTotalListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                 <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
                 <include-form name="PostedAndUnpostedTransactionTotalListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="IncomeStatementListPdf">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+
+                <service service-name="prepareIncomeStatement" result-map="result" auto-field-map="true"/>
+                <set field="glAccountTotalsList" from-field="result.glAccountTotalsList"/>
+                <set field="totalNetIncome" from-field="result.totalNetIncome"/>
+                <set field="isPdf" value="true" type="Boolean"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <container>
+                            <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="IncomeStatementListCsv">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+
+                <service service-name="prepareIncomeStatement" result-map="result" auto-field-map="true"/>
+                <set field="glAccountTotalsList" from-field="result.glAccountTotalsList"/>
+                <set field="totalNetIncome" from-field="result.totalNetIncome"/>
+            </actions>
+            <widgets>
+                <include-form name="IncomeStatementListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <container>
+                    <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
+                </container>
             </widgets>
         </section>
     </screen>
