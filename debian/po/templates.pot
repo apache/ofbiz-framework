@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: ofbiz@packages.debian.org\n"
-"POT-Creation-Date: 2008-11-18 10:54-0600\n"
+"POT-Creation-Date: 2009-05-28 11:47-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,93 +16,47 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Type: password
+#. Type: string
 #. Description
 #: ../ofbiz-framework.templates:1001
-msgid "Enter the password for ofbiz admin accounts:"
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../ofbiz-framework.templates:1001
-msgid ""
-"If this is the first time installing ofbiz, you can leave this blank, and "
-"the default of 'ofbiz' will be choosen."
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../ofbiz-framework.templates:2001
-msgid "Password confirmation:"
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../ofbiz-framework.templates:3001
-msgid "for internal use"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../ofbiz-framework.templates:4001
-msgid "passwords do not match"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../ofbiz-framework.templates:4001
-msgid "The passwords you have entered do not match."
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../ofbiz-framework.templates:5001
-msgid "empty password is not allowed"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../ofbiz-framework.templates:5001
-msgid "The password you have entered is empty.  This is not allowed."
+msgid "Enter the username for ofbiz admin account:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../ofbiz-framework.templates:6001
+#: ../ofbiz-framework.templates:1001
+msgid ""
+"If this is the first time installing ofbiz, you can leave this blank, and "
+"the default of 'admin' will be choosen.  The initial password will be "
+"'ofbiz', and you will be prompted to change it after you log in the first "
+"time."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../ofbiz-framework.templates:2001
 msgid "Admin port for status queries:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../ofbiz-framework.templates:6001
+#: ../ofbiz-framework.templates:2001
 msgid ""
 "This is the port used to communicate with a running ofbiz instance, to see "
 "if it is starting, running, or stopping."
 msgstr ""
 
-#. Type: multiselect
+#. Type: select
 #. Description
-#: ../ofbiz-framework.templates:7001
-msgid "Important additional data?"
+#: ../ofbiz-framework.templates:3001
+msgid "Which field type mapping to use?"
 msgstr ""
 
-#. Type: multiselect
+#. Type: select
 #. Description
-#: ../ofbiz-framework.templates:7001
+#: ../ofbiz-framework.templates:3001
 msgid ""
-"OfBiz comes with lots of example data, showing products/categories/users "
-"etc.  If this is your first time working with ofbiz, you may want to import "
-"this extra data to see how to better use it."
-msgstr ""
-
-#. Type: boolean
-#. Description
-#: ../ofbiz-framework.templates:8001
-msgid "Reimport data?"
-msgstr ""
-
-#. Type: boolean
-#. Description
-#: ../ofbiz-framework.templates:8001
-msgid "Whether data should be reimported on upgrade."
+"Postgresql 8.1 or later has no speed differences when using TEXT, or using a "
+"blank-padded field type mapping.  New installs should prefer the TEXT "
+"variant."
 msgstr ""
