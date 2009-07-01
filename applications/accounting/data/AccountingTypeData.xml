@@ -668,7 +668,7 @@ under the License.
     
     <!-- Payment Group Type -->
     <PaymentGroupType paymentGroupTypeId="CHECK_RUN" parentTypeId="" hasTable="N" description="Check Run"/>
-    <PaymentGroupType paymentGroupTypeId="PAYMENT_BATCH" parentTypeId="" hasTable="N" description="Payment Batch"/>
+    <PaymentGroupType paymentGroupTypeId="BATCH_PAYMENT" parentTypeId="" hasTable="N" description="Batch of Payments"/>
 
     <!-- Payment Gateway Config -->
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
