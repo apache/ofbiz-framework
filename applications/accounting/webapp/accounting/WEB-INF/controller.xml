@@ -2071,6 +2071,16 @@ under the License.
         <response name="success" type="view" value="AcctgTransSearchResultPdf"/>
     </request-map>
 
+    <request-map uri="TransactionTotalsPdf.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="TransactionTotalsPdf"/>
+    </request-map>
+
+    <request-map uri="TransactionTotalsCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="TransactionTotalsCsv"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2324,6 +2334,9 @@ under the License.
     <view-map name="AcctgTransEntriesSearchResultsPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="AcctgTransSearchResultsCsv" type="screentext" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="AcctgTransSearchResultPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultPdf" content-type="application/pdf" encoding="none"/>
-    
+
+    <view-map name="TransactionTotalsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="TransactionTotalsCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsCsv" content-type="text/csv" encoding="none"/>
+
     <!-- end of view mappings -->
 </site-conf>

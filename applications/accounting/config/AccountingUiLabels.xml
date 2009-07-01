@@ -7241,6 +7241,9 @@
         <value xml:lang="nl">Totalen transactie</value>
         <value xml:lang="th">ผลรวมรายการ</value>
     </property>
+    <property key="AccountingTransactionTotalsReport">
+        <value xml:lang="en">Transaction Totals Report</value>
+    </property>
     <property key="AccountingTransactionType">
         <value xml:lang="ar">نوع العملية</value>
         <value xml:lang="de">Transaktions-Art</value>
