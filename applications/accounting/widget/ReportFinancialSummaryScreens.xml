@@ -563,8 +563,6 @@ under the License.
                                 </container>
                             </container>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
                                 <container style="h3">
                                     <label text="${uiLabelMap.AccountingTransactionTotalsReport}"/>
                                 </container>
@@ -590,8 +588,6 @@ under the License.
                                             </link>
                                         </widgets>
                                     </section>
-                                </container>
-                            </container>
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
                                     <container style="h3">
