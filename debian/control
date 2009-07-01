@@ -20,7 +20,7 @@ Priority: extra
 Maintainer: Adam Heath <doogie@brainfood.com>
 Origin: brainfood
 Bugs: mozilla://bugs.brainfood.com
-Standards-Version: 3.8.0
+Standards-Version: 3.8.1
 Build-Depends: openjdk-6-jdk, debhelper (>= 5), po-debconf
 
 Package: ofbiz-framework
@@ -36,7 +36,7 @@ Description: An Open Source E-Commerce System
 
 Package: ofbiz-applications
 Architecture: all
-Depends: ofbiz-framework (= ${binary:Version})
+Depends: ofbiz-framework (= ${binary:Version}), ${misc:Depends}
 Description: An Open Source E-Commerce System
  The Apache Open For Business Project is an open source enterprise
  automation software providing: ERP, CRM, E-Business / E-Commerce,
@@ -46,7 +46,7 @@ Description: An Open Source E-Commerce System
 
 Package: ofbiz
 Architecture: all
-Depends: ofbiz-framework (= ${binary:Version}), ofbiz-applications (= ${binary:Version})
+Depends: ofbiz-framework (= ${binary:Version}), ofbiz-applications (= ${binary:Version}), ${misc:Depends}
 Description: An Open Source E-Commerce System
  The Apache Open For Business Project is an open source enterprise
  automation software providing: ERP, CRM, E-Business / E-Commerce,
@@ -57,7 +57,7 @@ Description: An Open Source E-Commerce System
 
 Package: ofbiz-specialpurpose
 Architecture: all
-Depends: ofbiz-framework (= ${binary:Version}), ofbiz-applications (= ${binary:Version})
+Depends: ofbiz-framework (= ${binary:Version}), ofbiz-applications (= ${binary:Version}), ${misc:Depends}
 Description: OFBiz - SpecialPurpose Applications
  The Apache Open For Business Project is an open source enterprise
  automation software providing: ERP, CRM, E-Business / E-Commerce,
