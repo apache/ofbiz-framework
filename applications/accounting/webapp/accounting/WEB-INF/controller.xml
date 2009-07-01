@@ -2099,7 +2099,17 @@ under the License.
     <request-map uri="BalanceSheet.pdf">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="BalanceSheetPdf"/>
-    </request-map> 
+    </request-map>
+
+    <request-map uri="TrialBalanceSearchResultsPdf.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="TrialBalanceSearchResultsPdf"/>
+    </request-map>
+
+    <request-map uri="TrialBalanceSearchResultsCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="TrialBalanceSearchResultsCsv"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2360,6 +2370,8 @@ under the License.
     <view-map name="IncomeStatementListCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListCsv" content-type="text/csv" encoding="none"/>
     <view-map name="BalanceSheetCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetCsv" content-type="text/csv" encoding="none"/>
     <view-map name="BalanceSheetPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="TrialBalanceSearchResultsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="TrialBalanceSearchResultsCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsCsv" content-type="text/csv" encoding="none"/>
 
     <!-- end of view mappings -->
 </site-conf>
