@@ -94,12 +94,13 @@ under the License.
             <set field="parameters.debitTotal" value="${bsh:(showDebit ? (debitTotal.add(absolutePostedBalance)) : (debitTotal))}" type="BigDecimal"/>
             <set field="parameters.creditTotal" value="${bsh:(showCredit ? (creditTotal.add(absolutePostedBalance)) : (creditTotal))}" type="BigDecimal"/>
         </row-actions>
-        <field name="glAccountId" use-when="!showTotals">
+        <field name="glAccountId" use-when="!showTotals || isPdf != true">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
+        <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
         <field name="debit" use-when="showDebit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
         <field name="debit" use-when="showCredit"><display/></field>
         <field name="credit" use-when="showCredit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
@@ -371,5 +372,40 @@ under the License.
         <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="quot3" title="&quot;"><display description="&quot;"/></field>
+    </form>
+
+    <form name="TrialBalanceSearchResultsCsv" type="list" list-name="trialBalances"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-field="glAccount">
+                <field-map field-name="glAccountId"/>
+            </entity-one>
+            <set field="showDebit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
+            <set field="showCredit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
+            <set field="absolutePostedBalance" value="${bsh:(postedBalance.abs())}" type="BigDecimal"/>
+            <set field="showTotals" value="${bsh:(isLastRow != null &amp;&amp; isLastRow==true)}" type="Boolean"/>
+            <set field="debitTotal" from-field="parameters.debitTotal" type="BigDecimal"/>
+            <set field="creditTotal" from-field="parameters.creditTotal" type="BigDecimal"/>
+            <set field="noValue" value="0" type="BigDecimal"/>
+            <set field="parameters.debitTotal" value="${bsh:(showDebit ? (debitTotal.add(absolutePostedBalance)) : (debitTotal))}" type="BigDecimal"/>
+            <set field="parameters.creditTotal" value="${bsh:(showCredit ? (creditTotal.add(absolutePostedBalance)) : (creditTotal))}" type="BigDecimal"/>
+        </row-actions>
+        <field name="glAccountId" use-when="!showTotals"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="separator0" title=","><display description=","/></field>
+
+        <field name="quot0" title="&quot;"><display/></field>
+        <field name="debit" use-when="showDebit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="debit" use-when="showCredit"><display description="${noValue}"/></field>
+        <field name="quot1" title="&quot;"><display/></field>
+        <field name="separator1" title=","><display description=","/></field>
+
+        <field name="quot2" title="&quot;"><display/></field>
+        <field name="credit" use-when="showCredit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" use-when="showDebit"><display description="${noValue}"/></field>
+        <field name="quot3" title="&quot;"><display/></field>
+        <field name="glAccountId" use-when="showTotals"><display description="${uiLabelMap.Total}"/></field>
+        <field name="separator2" title="," use-when="showTotals"><display description=","/></field>
+        <field name="debit" use-when="showTotals"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" use-when="showTotals"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
     </form>
 </forms>

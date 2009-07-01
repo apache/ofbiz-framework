@@ -308,6 +308,12 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
+                                <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="TrialBalanceSearchResultsCsv.csv">
+                                    <parameter param-name="organizationPartyId"/>
+                                </link>
+                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf">
+                                    <parameter param-name="organizationPartyId"/>
+                                </link>
                                  <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             </container>
                         </container>
@@ -774,6 +780,71 @@ under the License.
                                 </container>
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="TrialBalanceSearchResultsCsv">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+
+                <entity-condition entity-name="GlAccountOrganization" list="trialBalances" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="postedBalance" operator="not-equals" from-field="null"/>
+                    </condition-list>
+                    <order-by field-name="glAccountId"/>
+                </entity-condition>
+                <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
+                <set field="totalsRow.postedBalance" value="0" type="BigDecimal"/>
+                <set field="trialBalances[]" from-field="totalsRow" type="Object"/>
+                <set field="parameters.debitTotal" value="0" type="BigDecimal"/>
+                <set field="parameters.creditTotal" value="0" type="BigDecimal"/>
+            </actions>
+            <widgets>
+                <container>
+                    <include-form name="TrialBalanceSearchResultsCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="TrialBalanceSearchResultsPdf">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+
+                <entity-condition entity-name="GlAccountOrganization" list="trialBalances" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="postedBalance" operator="not-equals" from-field="null"/>
+                    </condition-list>
+                    <order-by field-name="glAccountId"/>
+                </entity-condition>
+                <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
+                <set field="totalsRow.postedBalance" value="0" type="BigDecimal"/>
+                <set field="trialBalances[]" from-field="totalsRow" type="Object"/>
+                <set field="parameters.debitTotal" value="0" type="BigDecimal"/>
+                <set field="parameters.creditTotal" value="0" type="BigDecimal"/>
+                <set field="isPdf" value="true" type="Boolean"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
