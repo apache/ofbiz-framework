@@ -854,11 +854,15 @@ under the License.
     <StatusItem description="Received" sequenceId="04" statusCode="RECEIVED" statusId="PMNT_RECEIVED" statusTypeId="PMNT_STATUS"/>
     <StatusItem description="Confirmed" sequenceId="05" statusCode="CONFIRMED" statusId="PMNT_CONFIRMED" statusTypeId="PMNT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PMNT_CANCELLED" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Voided" sequenceId="11" statusCode="VOID" statusId="PMNT_VOID" statusTypeId="PMNT_STATUS"/>
     <StatusValidChange condition="" statusId="PMNT_NOT_PAID" statusIdTo="PMNT_SENT" transitionName="Payment Send"/>
     <StatusValidChange condition="" statusId="PMNT_NOT_PAID" statusIdTo="PMNT_RECEIVED" transitionName="Payment Received"/>
     <StatusValidChange condition="" statusId="PMNT_NOT_PAID" statusIdTo="PMNT_CANCELLED" transitionName="Payment Cancelled"/>
     <StatusValidChange condition="" statusId="PMNT_SENT" statusIdTo="PMNT_CONFIRMED" transitionName="Payment Confirmed"/>
     <StatusValidChange condition="" statusId="PMNT_RECEIVED" statusIdTo="PMNT_CONFIRMED" transitionName="Payment Confirmed"/>
+    <StatusValidChange condition="" statusId="PMNT_SENT" statusIdTo="PMNT_VOID" transitionName="Payment Voided"/>
+    <StatusValidChange condition="" statusId="PMNT_RECEIVED" statusIdTo="PMNT_VOID" transitionName="Payment Voided"/>
+    <StatusValidChange condition="" statusId="PMNT_NOT_PAID" statusIdTo="PMNT_VOID" transitionName="Payment Voided"/>
 
     <SettlementTerm settlementTermId="COD" termName="Cash Due on Delivery" termValue="0" uomId="TF_day"/>
     <SettlementTerm settlementTermId="NET_15" termName="Net Due in 15 Days" termValue="15" uomId="TF_day"/>

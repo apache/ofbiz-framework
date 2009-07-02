@@ -6229,6 +6229,9 @@
         <value xml:lang="th">เปลี่ยนสถานะเป็น 'Sent'</value>
         <value xml:lang="zh">状态改为'已发送'</value>
     </property>
+    <property key="AccountingPaymentTabStatusToVoid">
+        <value xml:lang="en"> Status to 'Void'</value>
+    </property>
     <property key="AccountingPaymentType">
         <value xml:lang="ar">نوع التسديد</value>
         <value xml:lang="en">Payment Type</value>
