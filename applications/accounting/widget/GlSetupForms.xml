@@ -974,4 +974,59 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListGlAccountOrgCsv" list-name="listIt" target="" title="" type="list" view-size="99999"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate="false">
+        <actions>
+            <entity-condition entity-name="GlAccountOrganizationAndClass">
+                <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+        </actions>
+        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
+        <field name="glAccountId"><display description="${glAccountId}"/></field>
+        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
+        <field name="separator0" title=","><display description=","/></field>
+
+        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
+        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
+        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
+        <field name="separator1" title=","><display description=","/></field>
+
+        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
+        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass" key-field-name="glAccountClassId"/></field>
+        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
+        <field name="separator2" title=","><display description=","/></field>
+
+        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType" key-field-name="glResourceTypeId"/></field>
+        <field name="separator3" title=","><display description=","/></field>
+
+        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass" key-field-name="glXbrlClassId"/></field>
+        <field name="separator4" title=","><display description=","/></field>
+
+        <field name="quot6" title="&quot;"><display description="&quot;"/></field>
+        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${parentGlAccountId}"/></field>            
+        <field name="quot7" title="&quot;"><display description="&quot;"/></field>
+        <field name="separator5" title=","><display description=","/></field>
+
+        <field name="quot8" title="&quot;"><display description="&quot;"/></field>
+        <field name="accountCode" ><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode}"/></field>
+        <field name="quot9" title="&quot;"><display description="&quot;"/></field>
+        <field name="separator6" title=","><display description=","/></field>
+
+        <field name="accountName" ><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
+        <field name="separator7" title=","><display description=","/></field>
+
+        <field name="description"><display description="${description}"/></field>
+        <field name="separator8" title=","><display description=","/></field>
+
+        <field name="quot10" title="&quot;"><display description="&quot;"/></field>
+        <field name="productId"><display description="${productId}"/></field>
+        <field name="quot11" title="&quot;"><display description="&quot;"/></field>
+        <field name="separator9" title=","><display description=","/></field>
+
+        <field name="quot12" title="&quot;"><display description="&quot;"/></field>
+        <field name="postedBalance"><display description="${postedBalance}"/></field>
+        <field name="quot13" title="&quot;"><display description="&quot;"/></field>
+    </form>
 </forms>

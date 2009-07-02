@@ -1567,6 +1567,9 @@
         <value xml:lang="th">ประเภทบัตร</value>
         <value xml:lang="zh">卡类型</value>
     </property>
+    <property key="AccountingChartOfAcctsFor">
+        <value xml:lang="en">Chart of accounts for</value>
+    </property>
     <property key="AccountingChartOfAcctsMenu">
         <value xml:lang="ar">بيان الحسابات</value>
         <value xml:lang="de">Kontenübersicht</value>
@@ -5280,6 +5283,9 @@
     </property>
     <property key="AccountingNoAcctgTransFound">
         <value xml:lang="en">No Accounting Transactions Found.</value>
+    </property>
+    <property key="AccountingNoRecordFound">
+        <value xml:lang="en">No Record Found.</value>
     </property>
     <property key="AccountingNotModificationRecrationGlAccount">
         <value xml:lang="ar">لا يمكن تعيير هذا دون إعادة إستحداث حساب المحاسبي</value>

@@ -107,6 +107,12 @@ under the License.
                         <screenlet id="GlAccountOrganizationPanel" title="${uiLabelMap.AccountingChartOfAcctsMenu}" collapsible="true">
                             <include-form name="AssignGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>
+                        <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="ListGlAccountOrgCsv.csv">
+                            <parameter param-name="organizationPartyId"/>
+                        </link>
+                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ListGlAccountOrgPdf.pdf">
+                            <parameter param-name="organizationPartyId"/>
+                        </link>
                         <include-form name="ListGlAccountOrganization" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -549,6 +555,40 @@ under the License.
                         <include-form name="ListPartyGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListGlAccountOrgPdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <entity-condition entity-name="GlAccountOrganizationAndClass" list="glAccountOrgAndClassList">
+                    <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <order-by field-name="glAccountId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xsl-fo>
+                        <html-template location="component://accounting/webapp/accounting/reports/ChartOfAccount.fo.ftl"/>
+                    </xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ListGlAccountOrgCsv">
+        <section>
+            <actions>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+            </actions>
+            <widgets>
+                <container>
+                    <include-form name="ListGlAccountOrgCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
+                </container>
             </widgets>
         </section>
     </screen>
