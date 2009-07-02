@@ -127,6 +127,7 @@ under the License.
                     <textarea cols="30" rows="3" name="${shipGroupIndex?default("0")}_shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
+                <#if giftEnable != "N"> 
                 <tr>
                   <td colspan="2">
                     <#if cart.getOrderType() = "PURCHASE_ORDER">
@@ -153,6 +154,7 @@ under the License.
                   </td>
                 </tr>
                  </#if>
+                </#if>
                    <tr>
                       <td colspan="2"></td>
                    </tr>

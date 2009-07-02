@@ -39,7 +39,7 @@ under the License.
           <td colspan="2">
             <div>
               <b>${uiLabelMap.ProductProduct}</b>
-              <#if showOrderGiftWrap?default("true") == "true">
+              <#if giftEnable != "N">
                   <select name="GWALL" onchange="javascript:gwAll(this);">
                     <option value="">${uiLabelMap.OrderGiftWrapAllItems}</option>
                     <option value="NO^">${uiLabelMap.OrderNoGiftWrap}</option>

@@ -163,7 +163,7 @@ function setAlternateGwp(field) {
             <tr>
               <th></th> 
               <th scope="row">${uiLabelMap.OrderProduct}</th>
-              <#if asslGiftWraps?has_content && showOrderGiftWrap?default("true") == "true">
+              <#if asslGiftWraps?has_content && giftEnable != "Y">
                 <th scope="row">
                   <select class="selectBox" name="GWALL" onchange="javascript:gwAll(this);">
                     <option value="">${uiLabelMap.EcommerceGiftWrapAllItems}</option>

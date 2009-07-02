@@ -130,7 +130,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-
+                <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
                 <set field="titleProperty" value="PageTitleShoppingCart"/>
                 <set field="headerItem" value="Shopping Cart"/>
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/ShowCart.groovy"/>
