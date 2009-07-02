@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.entity.finder;
 
+import static org.ofbiz.base.util.UtilGenerics.cast;
+
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,26 +31,22 @@ import java.util.Set;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.ObjectType;
-import static org.ofbiz.base.util.UtilGenerics.cast;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelFieldTypeReader;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.w3c.dom.Element;
 
@@ -150,7 +146,7 @@ public class EntityFinderUtil {
     }
 
     public static interface Condition extends Serializable {
-        public EntityCondition createCondition(Map<String, ? extends Object> context, String entityName, GenericDelegator delegator);
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader);
     }
     public static class ConditionExpr implements Condition {
         protected FlexibleStringExpander fieldNameExdr;
@@ -182,12 +178,7 @@ public class EntityFinderUtil {
             this.ignoreExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("ignore"));
         }
 
-        public EntityCondition createCondition(Map<String, ? extends Object> context, String entityName, GenericDelegator delegator) {
-            ModelEntity modelEntity = delegator.getModelEntity(entityName);
-            if (modelEntity == null) {
-                throw new IllegalArgumentException("Error in Entity Find: could not find entity with name [" + entityName + "]");
-            }
-
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
             String fieldName = fieldNameExdr.expandString(context);
 
             Object value = null;
@@ -221,14 +212,14 @@ public class EntityFinderUtil {
             }
             
             if(modelEntity.getField(fieldName) == null) {
-                throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + entityName + "]");
+                throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + modelEntity.getEntityName() + "]");
             }
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
             if (!((operator == EntityOperator.IN || operator == EntityOperator.BETWEEN)
                     && value instanceof Collection)) {
                 // now to a type conversion for the target fieldName
-                value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, delegator, context);
+                value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, modelFieldTypeReader, context);
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
@@ -290,18 +281,18 @@ public class EntityFinderUtil {
             }
         }
 
-        public EntityCondition createCondition(Map<String, ? extends Object> context, String entityName, GenericDelegator delegator) {
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
             if (this.conditionList.size() == 0) {
                 return null;
             }
             if (this.conditionList.size() == 1) {
                 Condition condition = this.conditionList.get(0);
-                return condition.createCondition(context, entityName, delegator);
+                return condition.createCondition(context, modelEntity, modelFieldTypeReader);
             }
 
             List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
             for (Condition curCondition: conditionList) {
-                EntityCondition econd = curCondition.createCondition(context, entityName, delegator);
+                EntityCondition econd = curCondition.createCondition(context, modelEntity, modelFieldTypeReader);
                 if (econd != null) {
                     entityConditionList.add(econd);
                 }
@@ -327,7 +318,7 @@ public class EntityFinderUtil {
             }
         }
 
-        public EntityCondition createCondition(Map<String, ? extends Object> context, String entityName, GenericDelegator delegator) {
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
             EntityCondition condition = (EntityCondition) fieldNameAcsr.get(context);
             return condition;
         }

@@ -621,6 +621,11 @@ public class GenericDAO {
         if (modelEntity == null) {
             return null;
         }
+        
+        ModelViewEntity modelViewEntity = null;
+        if (modelEntity instanceof ModelViewEntity) {
+            modelViewEntity = (ModelViewEntity) modelEntity;
+        }
 
         // if no find options passed, use default
         if (findOptions == null) findOptions = new EntityFindOptions();
@@ -677,17 +682,30 @@ public class GenericDAO {
         }
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
+        String viewEntityCondWhereString = null;
+        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
+            EntityCondition viewWhereEntityCondition = modelViewEntity.getByConditionFinder().getWhereEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
+            if (viewWhereEntityCondition != null) {
+                viewEntityCondWhereString = viewWhereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
+            }
+        }
+
+        if (entityCondWhereString.length() > 0) {
+            whereString.append("(");
+            whereString.append(entityCondWhereString);
+            whereString.append(")");
+        }
+        
+        if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
+            if (whereString.length() > 0) whereString.append(" AND ");
+            whereString.append("(");
+            whereString.append(viewEntityCondWhereString);
+            whereString.append(")");
+        }
 
         if (viewClause.length() > 0) {
-            if (entityCondWhereString.length() > 0) {
-                whereString.append("(");
-                whereString.append(entityCondWhereString);
-                whereString.append(") AND ");
-            }
-
+            if (whereString.length() > 0) whereString.append(" AND ");
             whereString.append(viewClause);
-        } else {
-            whereString.append(entityCondWhereString);
         }
 
         if (whereString.length() > 0) {
@@ -696,8 +714,7 @@ public class GenericDAO {
         }
 
         // GROUP BY clause for view-entity
-        if (modelEntity instanceof ModelViewEntity) {
-            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
+        if (modelViewEntity != null) {
             String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), ", ", "", false);
 
             if (UtilValidate.isNotEmpty(groupByString)) {
@@ -709,17 +726,51 @@ public class GenericDAO {
         // HAVING clause
         String entityCondHavingString = "";
         List<EntityConditionParam> havingEntityConditionParams = FastList.newInstance();
-
         if (havingEntityCondition != null) {
             entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
         }
-        if (entityCondHavingString.length() > 0) {
+        
+        String viewEntityCondHavingString = null;
+        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
+            EntityCondition viewHavingEntityCondition = modelViewEntity.getByConditionFinder().getHavingEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
+            if (viewHavingEntityCondition != null) {
+                viewEntityCondHavingString = viewHavingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
+            }
+        }
+
+        StringBuilder havingString = new StringBuilder();
+        if (UtilValidate.isNotEmpty(entityCondHavingString)) {
+            havingString.append("(");
+            havingString.append(entityCondHavingString);
+            havingString.append(")");
+        }
+        if (UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
+            if (havingString.length() > 0) havingString.append(" AND ");
+            havingString.append("(");
+            havingString.append(viewEntityCondHavingString);
+            havingString.append(")");
+        }
+        
+        if (havingString.length() > 0) {
             sqlBuffer.append(" HAVING ");
-            sqlBuffer.append(entityCondHavingString);
+            sqlBuffer.append(havingString);
         }
 
         // ORDER BY clause
-        sqlBuffer.append(SqlJdbcUtil.makeOrderByClause(modelEntity, orderBy, datasourceInfo));
+        List<String> orderByExpanded = FastList.<String>newInstance();
+        // add the manually specified ones, then the ones in the view entity's entity-condition
+        if (orderBy != null) {
+            orderByExpanded.addAll(orderBy);
+        }
+        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
+            List<String> viewOrderBy = modelViewEntity.getByConditionFinder().getOrderByFieldList(FastMap.<String, Object>newInstance());
+            if (viewOrderBy != null && viewOrderBy.size() > 0) {
+                orderByExpanded.addAll(viewOrderBy);
+            }
+        }
+        sqlBuffer.append(SqlJdbcUtil.makeOrderByClause(modelEntity, orderByExpanded, datasourceInfo));
+        
+        // make the final SQL String
         String sql = sqlBuffer.toString();
 
         SQLProcessor sqlP = new SQLProcessor(helperName);

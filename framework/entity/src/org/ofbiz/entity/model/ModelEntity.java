@@ -55,6 +55,7 @@ import org.w3c.dom.Element;
  * Generic Entity - Entity model class
  *
  */
+@SuppressWarnings("serial")
 public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, Serializable {
 
     public static final String module = ModelEntity.class.getName();
@@ -1297,24 +1298,22 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /** Convert a field value from one Java data type to another. This is the preferred method -
      * which takes into consideration the user's locale and time zone (for conversions that
      * require them).
-     * @param modelField
-     * @param value
-     * @param delegator
-     * @param context
      * @return the converted value
      */
     public Object convertFieldValue(ModelField modelField, Object value, GenericDelegator delegator, Map<String, ? extends Object> context) {
+        ModelFieldTypeReader modelFieldTypeReader = delegator.getModelFieldTypeReader(this);
+        return this.convertFieldValue(modelField, value, modelFieldTypeReader, context);
+    }
+    /** Convert a field value from one Java data type to another. This is the preferred method -
+     * which takes into consideration the user's locale and time zone (for conversions that
+     * require them).
+     * @return the converted value
+     */
+    public Object convertFieldValue(ModelField modelField, Object value, ModelFieldTypeReader modelFieldTypeReader, Map<String, ? extends Object> context) {
         if (value == null || value == GenericEntity.NULL_FIELD) {
             return null;
         }
-        String fieldJavaType = null;
-        try {
-            fieldJavaType = delegator.getEntityFieldType(this, modelField.getType()).getJavaType();
-        } catch (GenericEntityException e) {
-            String errMsg = "Could not convert field value: could not find Java type for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            throw new IllegalArgumentException(errMsg);
-        }
+        String fieldJavaType = modelFieldTypeReader.getModelFieldType(modelField.getType()).getJavaType();
         try {
             return ObjectType.simpleTypeConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
         } catch (GeneralException e) {
