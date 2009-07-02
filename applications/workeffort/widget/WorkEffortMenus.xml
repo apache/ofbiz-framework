@@ -236,6 +236,11 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
+        <menu-item name="ICalendarHelp" title="${uiLabelMap.CommonHelp}">
+            <link target="ICalendarHelp">
+                <parameter param-name="workEffortId"/>
+            </link>
+        </menu-item>
     </menu>
 
 </menus>

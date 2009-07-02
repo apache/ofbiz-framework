@@ -147,6 +147,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindICalendars"/>
     </request-map>
+    <request-map uri="ICalendarHelp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ICalendarHelp"/>
+    </request-map>
     <request-map uri="createICalendar">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
@@ -752,6 +756,7 @@ under the License.
     <view-map name="ICalendarParties" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarParties"/>
     <view-map name="ICalendarFixedAssets" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarFixedAssets"/>
     <view-map name="FindICalendars" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#FindICalendars"/>
+    <view-map name="ICalendarHelp" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarHelp"/>
 
     <view-map name="ListWorkEffortEventReminders" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortEventReminders"/>
     <view-map name="ListWorkEffortFixedAssetAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortFixedAssetAssigns"/>

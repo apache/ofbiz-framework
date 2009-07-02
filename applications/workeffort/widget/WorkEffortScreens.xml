@@ -886,6 +886,7 @@ under the License.
                                 </container>
                                 <container style="button-bar">
                                     <link text="${uiLabelMap.CommonCreate}" target="EditICalendar" style="buttontext"/>
+                                    <link text="${uiLabelMap.CommonHelp}" target="ICalendarHelp" style="buttontext"/>
                                 </container>
                                 <include-form name="ListIcalendars" location="component://workeffort/widget/WorkEffortForms.xml"/>
                             </widgets>
@@ -909,6 +910,15 @@ under the License.
                 <set field="title" value="${uiLabelMap.WorkEffortICalendarEdit} - ${workEffort.workEffortName}"/>
             </actions>
             <widgets>
+                <section>
+                    <condition>
+                        <if-empty field="workEffort"/>
+                    </condition>
+                    <actions>
+                        <set field="title" value="${uiLabelMap.WorkEffortICalendarAdd}"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <decorator-screen name="iCalendarDecorator" location="${parameters.iCalendarDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
@@ -919,7 +929,6 @@ under the License.
                                     </condition>
                                     <actions>
                                         <set field="quickAssignPartyId" from-field="userLogin.partyId"/>
-                                        <set field="title" value="${uiLabelMap.WorkEffortICalendarAdd}"/>
                                     </actions>
                                     <widgets>
                                         <include-form name="EditICalendar" location="component://workeffort/widget/WorkEffortForms.xml"/>
@@ -1003,6 +1012,35 @@ under the License.
                             <widgets>
                                 <include-form name="EditICalendarFixedAssetAssign" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 <include-form name="ListICalendarFixedAssetAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ICalendarHelp">
+        <section>
+            <actions>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/wiki-content.css" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap"/>
+                <set field="tabButtonItem" value="ICalendarHelp"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <set field="title" value="${uiLabelMap.WorkEffortICalendarHelp}"/>
+                <set field="document" from-field="dom:readHtmlDocument(uiLabelMap.WorkEffortICalendarHelpUrl)"/>
+                <set field="wikiDivList" from-field="document[&quot;//DIV[@class='wiki-content']&quot;]"/>
+                <set field="wikiContent" from-field="dom:toHtmlString(wikiDivList[0], 'UTF-8', true, 2)"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="iCalendarDecorator" location="${parameters.iCalendarDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://workeffort/webapp/workeffort/workeffort/ICalendarHelp.ftl"/></html>
+                                </platform-specific>
                             </widgets>
                         </section>
                     </decorator-section>
