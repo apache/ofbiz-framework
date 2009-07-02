@@ -404,6 +404,7 @@ public class GiftCertificateServices {
                 return releaseResult;
             }
 
+            String authRefNum = authTransaction.getString("referenceNum");
             Map result = ServiceUtil.returnSuccess();
             if (redeemResult != null) {
                 Boolean processResult = (Boolean) redeemResult.get("processResult");
@@ -411,6 +412,7 @@ public class GiftCertificateServices {
                 result.put("captureResult", processResult);
                 result.put("captureCode", "C");
                 result.put("captureRefNum", redeemResult.get("referenceNum"));
+                result.put("authRefNum", authRefNum);
             }
 
             return result;
