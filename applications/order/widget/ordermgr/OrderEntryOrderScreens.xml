@@ -53,6 +53,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutPayment.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutOptions.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
+                <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -143,6 +144,7 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderOptionSettings"/>
                 <set field="stepLabelId" value="CommonOptions"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/OptionSettings.groovy"/>
+                <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">

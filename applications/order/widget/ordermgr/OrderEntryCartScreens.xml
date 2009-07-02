@@ -65,6 +65,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleOrderShowCart"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
+                <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowPromoText.groovy"/>
