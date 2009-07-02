@@ -586,9 +586,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <container>
                     <include-form name="ListGlAccountOrgCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
-                </container>
             </widgets>
         </section>
     </screen>
