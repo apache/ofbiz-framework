@@ -696,6 +696,14 @@ under the License.
     </request-map>
 
     <request-map uri="ListGlAccountOrganization"><security https="true" auth="true"/><response name="success" type="view" value="ListGlAccountOrganization"/></request-map>
+    <request-map uri="ListGlAccountOrgPdf.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListGlAccountOrgPdf"/>
+    </request-map>
+    <request-map uri="ListGlAccountOrgCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListGlAccountOrgCsv"/>
+    </request-map>
 
     <!-- TO BE REMOVED
     <request-map uri="EditGlobalGlAccountOrganizations"><security https="true" auth="true"/><response name="success" type="view" value="EditGlobalGlAccountOrganizations"/></request-map>
@@ -2283,6 +2291,8 @@ under the License.
     <view-map name="EditVarianceReasonGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditVarianceReasonGlAccounts"/>
     <view-map name="EditCreditCardTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditCreditCardTypeGlAccounts"/>
     <view-map name="EditOrganizationTaxAuthorityGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditOrganizationTaxAuthorityGlAccounts"/>
+    <view-map name="ListGlAccountOrgPdf" type="screenfop" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="ListGlAccountOrgCsv" type="screentext" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgCsv" content-type="text/csv" encoding="none"/>
 
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
