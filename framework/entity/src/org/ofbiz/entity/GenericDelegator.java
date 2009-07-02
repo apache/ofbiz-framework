@@ -506,16 +506,19 @@ public class GenericDelegator implements DelegatorInterface {
      *@return ModelFieldType instance for the named type from the helper that corresponds to the specified entity
      */
     public ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException {
+        return this.getModelFieldTypeReader(entity).getModelFieldType(type);
+    }
+    
+    public ModelFieldTypeReader getModelFieldTypeReader(ModelEntity entity) {
         String helperName = getEntityHelperName(entity);
-
-        if (helperName == null || helperName.length() <= 0)
+        if (helperName == null || helperName.length() <= 0) {
             return null;
-        ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-
-        if (modelFieldTypeReader == null) {
-            throw new GenericEntityException("ModelFieldTypeReader not found for entity " + entity.getEntityName() + " with helper name " + helperName);
         }
-        return modelFieldTypeReader.getModelFieldType(type);
+        ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
+        if (modelFieldTypeReader == null) {
+            throw new IllegalArgumentException("ModelFieldTypeReader not found for entity " + entity.getEntityName() + " with helper name " + helperName);
+        }
+        return modelFieldTypeReader;
     }
 
     /** Gets field type names from the helper that corresponds to the specified entity

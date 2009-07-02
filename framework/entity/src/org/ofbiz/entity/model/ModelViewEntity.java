@@ -33,8 +33,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -42,6 +42,7 @@ import org.w3c.dom.NodeList;
 /**
  * This class extends ModelEntity and provides additional information appropriate to view entities
  */
+@SuppressWarnings("serial")
 public class ModelViewEntity extends ModelEntity {
     public static final String module = ModelViewEntity.class.getName();
 
@@ -79,6 +80,8 @@ public class ModelViewEntity extends ModelEntity {
     protected List<ModelField> groupBys = FastList.newInstance();
 
     protected Map<String, Map<String, ModelConversion>> conversions = FastMap.newInstance();
+    
+    protected ByConditionFinder byConditionFinder = null;
 
     public ModelViewEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo def) {
         super(reader, entityElement, def);
@@ -118,6 +121,13 @@ public class ModelViewEntity extends ModelEntity {
 
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before relations");
         this.populateRelated(reader, entityElement);
+        
+        Element entityConditionElement = UtilXml.firstChildElement(entityElement, "entity-condition");
+        if (entityConditionElement != null) {
+            this.byConditionFinder = new ByConditionFinder(entityConditionElement);
+            // make sure the entity name is set since the XML for this particular condition doesn't allow it
+            this.byConditionFinder.setEntityName(this.entityName);
+        }
 
         // before finishing, make sure the table name is null, this should help bring up errors early...
         this.tableName = null;
@@ -265,6 +275,10 @@ public class ModelViewEntity extends ModelEntity {
 
     public void addViewLink(ModelViewLink viewLink) {
         this.viewLinks.add(viewLink);
+    }
+    
+    public ByConditionFinder getByConditionFinder() {
+        return this.byConditionFinder;
     }
 
     public String colNameString(String separator, String afterLast, boolean alias, ModelField... flds) {

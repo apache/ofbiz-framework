@@ -1703,7 +1703,8 @@ public class ModelFormField {
             if (UtilValidate.isNotEmpty(this.constraintList)) {
                 List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
                 for (EntityFinderUtil.Condition condition: constraintList) {
-                    expandedConditionList.add(condition.createCondition(context, this.entityName, delegator));
+                    ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
+                    expandedConditionList.add(condition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity)));
                 }
                 findCondition = EntityCondition.makeCondition(expandedConditionList);
             }

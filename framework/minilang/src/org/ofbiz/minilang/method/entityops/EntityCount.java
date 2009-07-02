@@ -32,6 +32,7 @@ import org.ofbiz.entity.finder.EntityFinderUtil.Condition;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionObject;
+import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -102,16 +103,18 @@ public class EntityCount extends MethodOperation {
                 delegator = GenericDelegator.getGenericDelegator(delegatorName);
             }
 
+            ModelEntity modelEntity = delegator.getModelEntity(entityName);
+            
             // create whereEntityCondition from whereCondition
             EntityCondition whereEntityCondition = null;
             if (this.whereCondition != null) {
-                whereEntityCondition = this.whereCondition.createCondition(context, entityName, delegator);
+                whereEntityCondition = this.whereCondition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));
             }
 
             // create havingEntityCondition from havingCondition
             EntityCondition havingEntityCondition = null;
             if (this.havingCondition != null) {
-                havingEntityCondition = this.havingCondition.createCondition(context, entityName, delegator);
+                havingEntityCondition = this.havingCondition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));
             }
 
             long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
