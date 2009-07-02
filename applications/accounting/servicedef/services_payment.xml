@@ -142,4 +142,10 @@ under the License.
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="voidPayment" engine="simple" 
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="voidPayment" auth="true">
+        <description>Sets payment status to PMNT_VOID, removes all PaymentApplications, changes related invoice statuses to 
+            INVOICE_READY if status is INVOICE_PAID, and reverses related AcctgTrans by calling copyAcctgTransAndEntries service</description>
+        <attribute name="paymentId" mode="IN" optional="false" type="String"/>
+    </service>
 </services>

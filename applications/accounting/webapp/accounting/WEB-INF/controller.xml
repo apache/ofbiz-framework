@@ -1966,6 +1966,12 @@ under the License.
         <response name="success" type="view" value="EditAgreementRoles"/>
         <response name="error" type="view" value="EditAgreementRoles"/>
     </request-map>
+    <request-map uri="voidPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="voidPayment"/>
+        <response name="success" type="view" value="paymentOverview"/>
+        <response name="error" type="view" value="paymentOverview"/>
+    </request-map>
 
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>

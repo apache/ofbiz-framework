@@ -445,6 +445,20 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
+        <menu-item name="statusToVoidPayment" title="${uiLabelMap.AccountingPaymentTabStatusToVoid}">
+            <condition>
+                <and>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <and>
+                        <if-compare field="payment.statusId" operator="not-equals" value="PMNT_CONFIRMED"/>
+                        <if-compare field="payment.statusId" operator="not-equals" value="PMNT_VOID"/>
+                    </and>
+                </and>
+            </condition>
+            <link target="voidPayment">
+                <parameter param-name="paymentId" from-field="payment.paymentId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="PaymentGroupTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
