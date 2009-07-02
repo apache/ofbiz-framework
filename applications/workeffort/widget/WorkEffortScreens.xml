@@ -872,6 +872,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="WorkEffortICalendar"/>
+                <set field="title" value="${uiLabelMap.WorkEffortICalendarFind}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -882,7 +883,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="h1">
-                                    <label text="${uiLabelMap.WorkEffortICalendarFind}"/>
+                                    <label text="${title}"/>
                                 </container>
                                 <container style="button-bar">
                                     <link text="${uiLabelMap.CommonCreate}" target="EditICalendar" style="buttontext"/>
