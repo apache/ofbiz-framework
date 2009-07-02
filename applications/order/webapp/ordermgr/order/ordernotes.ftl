@@ -47,11 +47,21 @@ under the License.
                   <td align="right" valign="top" width="15%">
                     <#if note.internalNote?if_exists == "N">
                         ${uiLabelMap.OrderPrintableNote}
-                        <a href="<@ofbizUrl>updateOrderNote?orderId=${orderId}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                        <form name="privateNotesForm_${note_index}" method="post" action="<@ofbizUrl>updateOrderNote</@ofbizUrl>">
+                          <input type="hidden" name="orderId" value="${orderId}"/>
+                          <input type="hidden" name="noteId" value="${note.noteId}"/>
+                          <input type="hidden" name="internalNote" value="Y"/>
+                          <a href="javascript:document.privateNotesForm_${note_index}.submit()" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                        </form>
                     </#if>
                     <#if note.internalNote?if_exists == "Y">
                         ${uiLabelMap.OrderNotPrintableNote}
-                        <a href="<@ofbizUrl>updateOrderNote?orderId=${orderId}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                        <form name="publicNotesForm_${note_index}" method="post" action="<@ofbizUrl>updateOrderNote</@ofbizUrl>">
+                          <input type="hidden" name="orderId" value="${orderId}"/>
+                          <input type="hidden" name="noteId" value="${note.noteId}"/>
+                          <input type="hidden" name="internalNote" value="N"/>
+                          <a href="javascript:document.publicNotesForm_${note_index}.submit()" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                        </form>
                     </#if>
                   </td>
                 </tr>
