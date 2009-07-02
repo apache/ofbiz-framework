@@ -1397,7 +1397,7 @@ under the License.
     <form name="ListIcalendars" list-name="listIt" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="WorkEffortAndPartyAssign" list="listIt">
+            <entity-and entity-name="WorkEffortAndPartyAssign" list="listIt" filter-by-date="true">
                 <field-map field-name="workEffortTypeId" value="PUBLISH_PROPS"/>
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>

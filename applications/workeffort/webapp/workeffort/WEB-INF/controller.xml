@@ -21,6 +21,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/icalendar-controller.xml"/>
     <description>Work Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
 
@@ -126,68 +127,6 @@ under the License.
         <response name="error" type="view" value="ListWorkEfforts"/>
     </request-map>
     
-    <!-- iCalendar requests and events -->
-    <request-map uri="EditICalendar">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditICalendar"/>
-    </request-map>
-    <request-map uri="ICalendarChildren">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ICalendarChildren"/>
-    </request-map>
-    <request-map uri="ICalendarParties">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ICalendarParties"/>
-    </request-map>
-    <request-map uri="ICalendarFixedAssets">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ICalendarFixedAssets"/>
-    </request-map>
-    <request-map uri="FindICalendars">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindICalendars"/>
-    </request-map>
-    <request-map uri="ICalendarHelp">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ICalendarHelp"/>
-    </request-map>
-    <request-map uri="createICalendar">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="view-home" value="EditICalendar"/>
-        <response name="error" type="view" value="EditICalendar"/>
-    </request-map>
-    <request-map uri="updateICalendar">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="view-home" value="EditICalendar"/>
-        <response name="error" type="view" value="EditICalendar"/>
-    </request-map>
-    <request-map uri="createICalendarPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="assignPartyToWorkEffort"/>
-        <response name="success" type="view-home" value="ICalendarParties"/>
-        <response name="error" type="view-home" value="ICalendarParties"/>
-    </request-map>
-    <request-map uri="updateICalendarPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
-        <response name="success" type="view" value="ICalendarParties"/>
-        <response name="error" type="view" value="ICalendarParties"/>
-    </request-map>
-    <request-map uri="createICalendarFixedAssetAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortFixedAssetAssign"/>
-        <response name="success" type="view" value="ICalendarFixedAssets"/>
-        <response name="error" type="view" value="ICalendarFixedAssets"/>
-    </request-map>
-    <request-map uri="updateICalendarFixedAssetAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortFixedAssetAssign"/>
-        <response name="success" type="view" value="ICalendarFixedAssets"/>
-        <response name="error" type="view" value="ICalendarFixedAssets"/>
-    </request-map>
-
     <request-map uri="ListWorkEffortFixedAssetAssigns">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
@@ -750,13 +689,6 @@ under the License.
     <view-map name="EditWorkEffortAndAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAndAssoc"/>
     <view-map name="EditWorkEffortAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAssoc"/>
     <view-map name="AddWorkEffortAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#AddWorkEffortAssoc"/>
-
-    <view-map name="EditICalendar" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditICalendar"/>
-    <view-map name="ICalendarChildren" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarChildren"/>
-    <view-map name="ICalendarParties" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarParties"/>
-    <view-map name="ICalendarFixedAssets" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarFixedAssets"/>
-    <view-map name="FindICalendars" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#FindICalendars"/>
-    <view-map name="ICalendarHelp" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarHelp"/>
 
     <view-map name="ListWorkEffortEventReminders" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortEventReminders"/>
     <view-map name="ListWorkEffortFixedAssetAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortFixedAssetAssigns"/>
