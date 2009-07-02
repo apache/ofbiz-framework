@@ -684,7 +684,7 @@ under the License.
              location="component://workeffort/script/org/ofbiz/workeffort/permission/WorkEffortPermissionServices.xml" invoke="workEffortICalendarPermission">
         <description>iCalendar Permission Check</description>
         <implements service="permissionInterface"/>
-        <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
+        <attribute type="String" mode="IN" name="workEffortId" optional="true"/>
     </service>
     <service name="getICalWorkEfforts" engine="simple" auth="false"
              location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="getICalWorkEfforts">
