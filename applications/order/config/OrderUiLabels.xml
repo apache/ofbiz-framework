@@ -5677,7 +5677,7 @@
         <value xml:lang="zh_CN">报价单位标识</value>
     </property>
     <property key="OrderOrderReceivedOn">
-        <value xml:lang="en">Order Recieved On</value>
+        <value xml:lang="en">Order Received On</value>
     </property>
     <property key="OrderOrderReturn">
         <value xml:lang="de">Retoure</value>
