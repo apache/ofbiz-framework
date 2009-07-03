@@ -27,11 +27,9 @@ under the License.
 <jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" />
 
 <%
-  Iterator prods = UtilMisc.toIterator(delegator.findByAnd("Product", null, null));
-  while(prods.hasNext())
-  {
-    GenericValue prod1 = (GenericValue)prods.next();
-    KeywordIndex.indexKeywords(prod1);
+  List<GenericValue> products = delegator.findList("Product", null, null, null, null, false);
+  for (GenericValue product : products) {
+    KeywordIndex.indexKeywords(product);
   }
 
   if(request.getParameter("makeall") == null) {
