@@ -1254,13 +1254,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public void convertFieldMapInPlace(Map<String, Object> inContext, GenericDelegator delegator) {
+        convertFieldMapInPlace(inContext, delegator.getModelFieldTypeReader(this));
+    }
+    public void convertFieldMapInPlace(Map<String, Object> inContext, ModelFieldTypeReader modelFieldTypeReader) {
         Iterator<ModelField> modelFields = this.getFieldsIterator();
         while (modelFields.hasNext()) {
             ModelField modelField = modelFields.next();
             String fieldName = modelField.getName();
             Object oldValue = inContext.get(fieldName);
             if (oldValue != null) {
-                inContext.put(fieldName, this.convertFieldValue(modelField, oldValue, delegator, inContext));
+                inContext.put(fieldName, this.convertFieldValue(modelField, oldValue, modelFieldTypeReader, inContext));
             }
         }
     }

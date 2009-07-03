@@ -674,14 +674,13 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
 
         // WHERE clause
-        StringBuilder whereString = new StringBuilder();
-        String entityCondWhereString = "";
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
+        
+        String entityCondWhereString = "";
         if (whereEntityCondition != null) {
             entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
         }
 
-        String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
         String viewEntityCondWhereString = null;
         if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
             EntityCondition viewWhereEntityCondition = modelViewEntity.getByConditionFinder().getWhereEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
@@ -690,22 +689,33 @@ public class GenericDAO {
             }
         }
 
+        String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
+
+        StringBuilder whereString = new StringBuilder();
         if (entityCondWhereString.length() > 0) {
-            whereString.append("(");
+            boolean addParens = false;
+            if (entityCondWhereString.charAt(0) != '(') addParens = true;
+            if (addParens) whereString.append("(");
             whereString.append(entityCondWhereString);
-            whereString.append(")");
+            if (addParens) whereString.append(")");
         }
         
         if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
             if (whereString.length() > 0) whereString.append(" AND ");
-            whereString.append("(");
+            boolean addParens = false;
+            if (viewEntityCondWhereString.charAt(0) != '(') addParens = true;
+            if (addParens) whereString.append("(");
             whereString.append(viewEntityCondWhereString);
-            whereString.append(")");
+            if (addParens) whereString.append(")");
         }
 
         if (viewClause.length() > 0) {
             if (whereString.length() > 0) whereString.append(" AND ");
+            boolean addParens = false;
+            if (viewClause.charAt(0) != '(') addParens = true;
+            if (addParens) whereString.append("(");
             whereString.append(viewClause);
+            if (addParens) whereString.append(")");
         }
 
         if (whereString.length() > 0) {
@@ -740,15 +750,19 @@ public class GenericDAO {
 
         StringBuilder havingString = new StringBuilder();
         if (UtilValidate.isNotEmpty(entityCondHavingString)) {
-            havingString.append("(");
+            boolean addParens = false;
+            if (entityCondHavingString.charAt(0) != '(') addParens = true;
+            if (addParens) havingString.append("(");
             havingString.append(entityCondHavingString);
-            havingString.append(")");
+            if (addParens) havingString.append(")");
         }
         if (UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
             if (havingString.length() > 0) havingString.append(" AND ");
-            havingString.append("(");
+            boolean addParens = false;
+            if (viewEntityCondHavingString.charAt(0) != '(') addParens = true;
+            if (addParens) havingString.append("(");
             havingString.append(viewEntityCondHavingString);
-            havingString.append(")");
+            if (addParens) havingString.append(")");
         }
         
         if (havingString.length() > 0) {
@@ -802,9 +816,9 @@ public class GenericDAO {
         if (Debug.timingOn()) {
             long queryEndTime = System.currentTimeMillis();
             long queryTotalTime = queryEndTime - queryStartTime;
-            if (queryTotalTime > 150) {
+            //if (queryTotalTime > 150) {
                 Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + sql, module);
-            }
+            //}
         }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader);
     }
