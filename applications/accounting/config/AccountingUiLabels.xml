@@ -6362,6 +6362,10 @@
         <value xml:lang="it">Organizzazione</value>
         <value xml:lang="th">รหัสองค์กรกลุ่มผู้ใช้</value>
     </property>
+    <property key="AccountingOriginalCurrency">
+        <value xml:lang="en">Original Currency</value>
+        <value xml:lang="it">Valuta originale</value>
+    </property>
     <property key="AccountingChildPeriods">
         <value xml:lang="en">Child Periods</value>
         <value xml:lang="fr">Périodes enfants</value>
