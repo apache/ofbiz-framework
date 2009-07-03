@@ -33,11 +33,25 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListReports"/>
     </request-map>
-
+    <request-map uri="findPayments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPayments"/>
+    </request-map>
+    <request-map uri="batchPayments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BatchPayments"/>
+    </request-map>
+    <request-map uri="LookupCustomerName">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupCustomerName"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://accounting/widget/ar/CommonScreens.xml#main"/>
     <view-map name="ListReports" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#ListReports"/>
+    <view-map name="FindPayments" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#FindPayments"/>
+    <view-map name="BatchPayments" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#BatchPayments"/>
+    <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <!-- end of view mappings -->
 </site-conf>

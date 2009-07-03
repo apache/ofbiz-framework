@@ -11191,4 +11191,7 @@
         <value xml:lang="it">Mostra voci transazione</value>
         <value xml:lang="nl">Boekingen transactie bekijken</value>
     </property>
+    <property key="PageTitleBatchPayments">
+        <value xml:lang="en">Batch Payments</value>
+    </property>    
 </resource>
