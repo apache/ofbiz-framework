@@ -2124,6 +2124,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TrialBalanceSearchResultsCsv"/>
     </request-map>
+
+    <!--Global GL Settings -->
+    <request-map uri="acctgTransDetailReportPdf.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AcctgTransDetailReportPdf"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2388,6 +2394,7 @@ under the License.
     <view-map name="BalanceSheetPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="TrialBalanceSearchResultsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="TrialBalanceSearchResultsCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="AcctgTransDetailReportPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransDetailReportPdf" content-type="application/pdf" encoding="none"/>
 
     <!-- end of view mappings -->
 </site-conf>

@@ -139,6 +139,11 @@ under the License.
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
         </field>
+        <field name="createTransactionDetailReportPDF" title="${uiLabelMap.CommonEmptyHeader}" use-when="${isPosted=='Y'}" widget-style="buttontext">
+            <hyperlink target="acctgTransDetailReportPdf.pdf" description="${uiLabelMap.AccountingInvoicePDF}">
+                <parameter param-name="acctgTransId"/>
+            </hyperlink>
+        </field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
 
@@ -1044,4 +1049,60 @@ under the License.
         <field name="quot15" title="&quot;"><display/></field>
         <field name="separator10" title=","><display description=","/></field>
     </form>
+
+    <form name="AcctgTransDetailReportPdf" type="single" default-map-name="acctgTrans">
+    <actions>
+    
+    </actions>
+        <field name="acctgTransId"><display/></field>
+        <field name="acctgTransTypeId" use-when="${acctgTrans.acctgTransTypeId!=null}">
+            <display-entity entity-name="AcctgTransType" key-field-name="acctgTransTypeId"/>
+        </field>
+        <field name="description" use-when="${acctgTrans.description!=null}"><display/></field>
+        <field name="transactionDate" use-when="${acctgTrans.transactionDate!=null}"><display/></field>
+        <field name="isPosted" use-when="${acctgTrans.isPosted!=null}"><display/></field>
+        <field name="postedDate" use-when="${acctgTrans.postedDate!=null}"><display/></field>
+        <field name="scheduledPostingDate" use-when="${acctgTrans.scheduledPostingDate!=null}"><display/></field>
+        <field name="glJournalId" use-when="${acctgTrans.glJournalId!=null}"><display/></field>
+        <field name="glFiscalTypeId" use-when="${acctgTrans.glFiscalTypeId!=null}">
+            <display-entity entity-name="GlFiscalType" key-field-name="glFiscalTypeId"/>
+        </field>
+        <field name="voucherRef"  use-when="${acctgTrans.voucherRef!=null}"><display/></field>
+        <field name="voucherDate" use-when="${acctgTrans.voucherDate!=null}"><display/></field>
+        <field name="groupStatusId" use-when="${acctgTrans.groupStatusId!=null}"><display/></field>
+        <field name="fixedAssetId" use-when="${acctgTrans.fixedAssetId!=null}"><display/></field>
+        <field name="inventoryItemId" use-when="${acctgTrans.inventoryItemId!=null}"><display/></field>
+        <field name="physicalInventoryId" use-when="${acctgTrans.physicalInventoryId!=null}"><display/></field>
+        <field name="partyId" use-when="${acctgTrans.partyId!=null}"><display/></field>
+        <field name="roleTypeId" use-when="${acctgTrans.roleTypeId!=null}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+        </field>
+        <field name="invoiceId" use-when="${acctgTrans.invoiceId!=null}"><display/></field>
+        <field name="paymentId" use-when="${acctgTrans.paymentId!=null}"><display/></field>
+        <field name="finAccountTransId" use-when="${acctgTrans.finAccountTransId!=null}"><display/></field>
+        <field name="shipmentId" use-when="${acctgTrans.shipmentId!=null}"><display/></field>
+        <field name="receiptId" use-when="${acctgTrans.receiptId!=null}"><display/></field>
+        <field name="workEffortId" use-when="${acctgTrans.workEffortId!=null}"><display/></field>
+        <field name="theirAcctgTransId" use-when="${acctgTrans.theirAcctgTransId!=null}"><display/></field>
+        <field name="createdByUserLogin" use-when="${acctgTrans.createdByUserLogin!=null}"><display/></field>
+        <field name="lastModifiedByUserLogin" use-when="${acctgTrans.lastModifiedByUserLogin!=null}"><display/></field>
+    </form>
+
+    <form name="AcctgTransEntriesDetailReportPdf" type="list" list-name="acctgTransEntries">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-field="glAccount">
+                <field-map field-name="glAccountId" from-field="glAccountId"/>
+            </entity-one>
+            <set field="accountName" from-field="glAccount.accountName"/>
+            <set field="accountCode" from-field="glAccount.accountCode"/>
+        </row-actions>
+        <field name="accountCode"><display/></field>
+        <field name="accountName"><display/></field>
+        <field name="debitAmount"><display type="currency" currency="${currencyUomId}" description="${groovy:if(debitCreditFlag.equals('D'))return(amount);if(debitCreditFlag.equals('C'))return(0);}"/></field>
+        <field name="creditAmount"><display type="currency" currency="${currencyUomId}" description="${groovy:if(debitCreditFlag.equals('C'))return(amount);if(debitCreditFlag.equals('D'))return(0);}"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.AccountingOriginalCurrency}"><display description="${currencyUomId}"/></field>
+        <field name="exchangeRate" use-when="${origCurrencyUomId!=null}"><display description="${origAmount/amount} ${origCurrencyUomId}/${currencyUomId}"/></field>
+        <field name="exchangeRate" use-when="${origCurrencyUomId==null @and origAmount==null}"><display description="${amount/amount} ${currencyUomId}/${currencyUomId}"/></field>
+    </form>
+
 </forms>
