@@ -23,17 +23,16 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.condition.EntityFieldMap;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelFieldTypeReader;
 import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to find entity values by a and
  *
  */
+@SuppressWarnings("serial")
 public class ByAndFinder extends ListFinder {
 
     public static final String module = ByAndFinder.class.getName();
@@ -47,12 +46,12 @@ public class ByAndFinder extends ListFinder {
         this.fieldMap = EntityFinderUtil.makeFieldMap(element);
     }
 
-    protected EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, GenericDelegator delegator) {
+    public EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
         // create the by and map
         Map<String, Object> entityContext = FastMap.newInstance();
         EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, entityContext);
         // then convert the types...
-        modelEntity.convertFieldMapInPlace(entityContext, delegator);
+        modelEntity.convertFieldMapInPlace(entityContext, modelFieldTypeReader);
         return EntityCondition.makeCondition(entityContext);
     }
 }
