@@ -286,4 +286,10 @@ under the License.
         <description>Scheduled service to generate Invoice from an existing Invoice</description>
         <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
     </service>
+    
+    <service name="cancelInvoice" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="cancelInvoice">
+        <description>Cancel Invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
