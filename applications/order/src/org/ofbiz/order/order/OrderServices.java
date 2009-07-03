@@ -5228,4 +5228,18 @@ public class OrderServices {
         return ServiceUtil.returnSuccess("runSubscriptionAutoReorders finished, " + count + " subscription extended.");
     }
 
+    public static Map setShippingInstructions(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String orderId = (String) context.get("orderId");
+        String shipGroupSeqId = (String) context.get("shipGroupSeqId");
+        String shippingInstructions = (String) context.get("shippingInstructions");
+        try {
+            GenericValue orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId,"shipGroupSeqId",shipGroupSeqId)));
+            orderItemShipGroup.set("shippingInstructions", shippingInstructions);
+            orderItemShipGroup.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return ServiceUtil.returnSuccess();
+    }
 }
