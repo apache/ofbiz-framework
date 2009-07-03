@@ -93,7 +93,7 @@ under the License.
           </form>
         </li>
       </#if>
-      <#if invoice.statusId == "INVOICE_SENT" || invoice.statusId == "INVOICE_RECEIVED" || invoice.statusId == "INVOICE_IN_PROCESS">
+      <#if invoice.statusId == "INVOICE_SENT" || invoice.statusId == "INVOICE_RECEIVED" || invoice.statusId == "INVOICE_IN_PROCESS" || invoice.statusId == "INVOICE_READY">
         <li>
           <a href="javascript:confirmActionFormLink('You want to cancel this invoice number ${invoice.invoiceId}?','InvoiceSubTabBar_statusToCancelled')" class="buttontext">${uiLabelMap.AccountingInvoiceStatusToCancelled}</a>
           <form method="post" action="<@ofbizUrl>setInvoiceStatus</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="InvoiceSubTabBar_statusToCancelled">

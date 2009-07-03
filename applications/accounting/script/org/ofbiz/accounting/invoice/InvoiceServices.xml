@@ -503,20 +503,6 @@ under the License.
                         <call-service service-name="createPaymentApplication" in-map-name="payAppl"/>
                     </if-compare>
                 </if-compare>
-
-                <!-- if new status is cancelled remove existing payment applications and time entries. -->
-                <if-compare field="parameters.statusId" operator="equals" value="INVOICE_CANCELLED">
-                    <set field="removePaymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
-                    <remove-by-and entity-name="PaymentApplication" map="removePaymentApplicationMap"/>
-                    <entity-and entity-name="TimeEntry" list="entries">
-                        <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
-                    </entity-and>
-                    <iterate entry="entry" list="entries">
-                        <clear-field field="entry.invoiceId"/>
-                        <clear-field field="entry.invoiceItemSeqId"/>
-                        <store-value value-field="entry"/>
-                    </iterate>
-                </if-compare>
             </else>
             </if-empty>
         </if-compare-field>
@@ -598,4 +584,45 @@ under the License.
            <call-service service-name="updateInvoice" in-map-name="updateInvoiceCtx"/>
        </iterate>
    </simple-method>
+    
+    <simple-method method-name="cancelInvoice" short-description="Service to cancel the Invoices">
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <if-empty field="invoice">
+            <add-error><fail-message message="${uiLabelMap.AccountingInvoiceNotFound}"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <get-related relation-name="AcctgTrans" list="acctgTransInvoiceList" value-field="invoice"/>
+        <iterate list="acctgTransInvoiceList" entry="acctgTransInvoice">
+            <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransInvoice.acctgTransId"/>
+            <set field="copyAcctgTransCtx.revert" value="Y"/>
+            <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx"/>
+        </iterate>            
+        <get-related relation-name="PaymentApplication" value-field="invoice" list="paymentApplications"/>
+        <iterate list="paymentApplications" entry="paymentApplication">
+            <get-related-one relation-name="Payment" value-field="paymentApplication" to-value-field="payment"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare field="updatePaymentCtx.statusId" operator="equals" value="PMNT_SENT"/>
+                        <if-compare field="updatePaymentCtx.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                    </or>
+                </condition>
+                <then>
+                    <set field="paymentStatusCtx.paymentId" from-field="payment.paymentId"/>
+                    <set field="paymentStatusCtx.statusId" value="PMNT_NOT_PAID"/>
+                    <call-service service-name="setPaymentStatus" in-map-name="paymentStatusCtx"/>
+                    <get-related relation-name="AcctgTrans" value-field="payment" list="acctgTransPaymentList"/>
+                    <clear-field field="copyAcctgTransCtx"/>
+                    <iterate list="acctgTransPaymentList" entry="acctgTransPayment">
+                        <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransPayment.acctgTransId"/>
+                        <set field="copyAcctgTransCtx.revert" value="Y"/>
+                        <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx"/>
+                    </iterate>
+                </then>
+            </if>
+            <set field="removePaymentApplicationCtx.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+            <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationCtx"/>
+        </iterate>
+    </simple-method>
+
 </simple-methods>
