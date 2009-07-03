@@ -988,4 +988,12 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="false"/>
     </service>
+
+    <service name="setShippingInstructions" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderServices" invoke="setShippingInstructions">
+        <description>Set the shipping instructions for an order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shippingInstructions" type="String" mode="IN" optional="true"/>
+    </service>
 </services>

@@ -16,6 +16,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
+<script language="JavaScript" type="text/javascript">
+    function editInstruction() {
+        $('shippingInstructions').style.display="block";
+        $('saveInstruction').style.display="inline";
+        $('editInstruction').style.display="none";
+        $('instruction').style.display="none";
+    }
+    function addInstruction() {
+        $('shippingInstructions').style.display="block";
+        $('saveInstruction').style.display="inline";
+        $('addInstruction').style.display="none";
+    }
+    function saveInstruction() {
+        document.updateShippingInstructionsForm.submit();
+    }
+</script>
+
 <#if (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)) && orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
   <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -383,18 +401,45 @@ under the License.
             </td>
           </tr>
         </#if>
-        <#if shipGroup.shippingInstructions?has_content>
-          <tr><td colspan="3"><hr/></td></tr>
-          <tr>
-            <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.OrderInstructions}</span>
-            </td>
-            <td width="5">&nbsp;</td>
-            <td valign="top" width="80%">
-              <div>${shipGroup.shippingInstructions}</div>
-            </td>
-          </tr>
-        </#if>
+
+        <tr><td colspan="7"><hr class="sepbar"></td></tr>
+        <tr>
+          <td align="right" valign="top" width="15%">
+            <span class="label">&nbsp;${uiLabelMap.OrderInstructions}</span>
+          </td>
+          <td width="5">&nbsp;</td>
+          <td align="left" valign="top" width="80%">
+            <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+              <form name="updateShippingInstructionsForm" method="post" action="<@ofbizUrl>setShippingInstructions</@ofbizUrl>">
+                <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
+                <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                <#if shipGroup.shippingInstructions?has_content>
+                  <table>
+                    <tr>
+                      <td id="instruction">
+                        <label>${shipGroup.shippingInstructions}</label>
+                      </td>
+                      <td>  
+                        <a href="javascript:editInstruction();" class="buttontext" id="editInstruction">${uiLabelMap.CommonEdit}</a>
+                      </td>
+                    </tr>
+                  </table>
+                <#else>
+                  <a href="javascript:addInstruction();" class="buttontext" id="addInstruction">${uiLabelMap.CommonAdd}</a>
+                </#if>
+                <a href="javascript:saveInstruction();" class="buttontext" id="saveInstruction" style="display:none">${uiLabelMap.CommonSave}</a>
+                <textarea name="shippingInstructions" id="shippingInstructions" style="display:none">${shipGroup.shippingInstructions?if_exists}</textarea>
+              </form>
+            <#else>
+              <#if shipGroup.shippingInstructions?has_content>
+                <span>${shipGroup.shippingInstructions}</span>
+              <#else>
+                <span>${uiLabelMap.OrderThisOrderDoesNotHaveShippingInstructions}</span>
+              </#if>
+            </#if>
+          </td>
+        </tr>
+
         <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
           <tr><td colspan="3"><hr/></td></tr>
           <tr>

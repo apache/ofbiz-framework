@@ -292,6 +292,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewimage"/>
     </request-map>
+    <request-map uri="setShippingInstructions">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setShippingInstructions"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
 
     <!-- Order Note Requests -->
     <request-map uri="createnewnote">

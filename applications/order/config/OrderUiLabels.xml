@@ -9064,6 +9064,9 @@
         <value xml:lang="th">รายการสั่งซื้อนี้ไม่ใช่ของขวัญ</value>
         <value xml:lang="zh">本订单不是礼品</value>
     </property>
+    <property key="OrderThisOrderDoesNotHaveShippingInstructions">
+        <value xml:lang="en">This order does not have shipping instructions</value>
+    </property>
     <property key="OrderThisOrderGift">
         <value xml:lang="de">Dieser Auftrag ist ein GESCHENK</value>
         <value xml:lang="en">This order is a gift</value>
