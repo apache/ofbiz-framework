@@ -40,6 +40,7 @@ under the License.
 </#if>
 </#macro>
 
+<#macro renderTooltip tooltip tooltipStyle></#macro>
 <#macro renderCheckField items className alert allChecked currentValue name event action></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event ation></#macro>
 

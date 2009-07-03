@@ -31,20 +31,20 @@ under the License.
 
 <#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval></#macro>
 <#macro renderContainerEnd></#macro>
-<#macro renderContentBegin></#macro>
+<#macro renderContentBegin editRequest enableEditValue editContainerStyle></#macro>
 <#macro renderContentBody></#macro>
-<#macro renderContentEnd></#macro>
-<#macro renderSubContentBegin></#macro>
+<#macro renderContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
+<#macro renderSubContentBegin editContainerStyle editRequest enableEditValue></#macro>
 <#macro renderSubContentBody></#macro>
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style></#macro>
-<#macro renderLabel text><#if text?exists>${text}</#if></#macro>
-<#macro renderLink></#macro>
-<#macro renderImage></#macro>
+<#macro renderLabel text id style><#if text?exists>${text}</#if></#macro>
+<#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name linkUrl text imgStr></#macro>
+<#macro renderImage src id style wid hgt border alt urlString></#macro>
 
-<#macro renderContentFrame></#macro>
-<#macro renderScreenletBegin id></#macro>
+<#macro renderContentFrame fullUrl width height border></#macro>
+<#macro renderScreenletBegin id title collapsible collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled></#macro>
 <#macro renderScreenletSubWidget></#macro>
 <#macro renderScreenletEnd></#macro>
 
