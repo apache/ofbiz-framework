@@ -1051,9 +1051,6 @@ under the License.
     </form>
 
     <form name="AcctgTransDetailReportPdf" type="single" default-map-name="acctgTrans">
-    <actions>
-    
-    </actions>
         <field name="acctgTransId"><display/></field>
         <field name="acctgTransTypeId" use-when="${acctgTrans.acctgTransTypeId!=null}">
             <display-entity entity-name="AcctgTransType" key-field-name="acctgTransTypeId"/>
