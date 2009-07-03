@@ -63,7 +63,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="PaymentTabBar" location="component://accounting/widget/Menus.xml"/>
-                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <platform-specific><html><html-template location="component://accounting/webapp/accounting/payment/PaymentSubTabBar.ftl"/></html></platform-specific>
+                                <!--include-menu name="PaymentSubTabBar" location="component://accounting/widget/Menus.xml"/-->
                                 <container style="leftclear">
                                     <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
                                 </container>
