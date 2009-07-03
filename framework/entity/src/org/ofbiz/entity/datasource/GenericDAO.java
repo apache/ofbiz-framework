@@ -675,54 +675,12 @@ public class GenericDAO {
 
         // WHERE clause
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
-        
-        String entityCondWhereString = "";
-        if (whereEntityCondition != null) {
-            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
-        }
-
-        String viewEntityCondWhereString = null;
-        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
-            EntityCondition viewWhereEntityCondition = modelViewEntity.getByConditionFinder().getWhereEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
-            if (viewWhereEntityCondition != null) {
-                viewEntityCondWhereString = viewWhereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
-            }
-        }
-
-        String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
-
-        StringBuilder whereString = new StringBuilder();
-        if (entityCondWhereString.length() > 0) {
-            boolean addParens = false;
-            if (entityCondWhereString.charAt(0) != '(') addParens = true;
-            if (addParens) whereString.append("(");
-            whereString.append(entityCondWhereString);
-            if (addParens) whereString.append(")");
-        }
-        
-        if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
-            if (whereString.length() > 0) whereString.append(" AND ");
-            boolean addParens = false;
-            if (viewEntityCondWhereString.charAt(0) != '(') addParens = true;
-            if (addParens) whereString.append("(");
-            whereString.append(viewEntityCondWhereString);
-            if (addParens) whereString.append(")");
-        }
-
-        if (viewClause.length() > 0) {
-            if (whereString.length() > 0) whereString.append(" AND ");
-            boolean addParens = false;
-            if (viewClause.charAt(0) != '(') addParens = true;
-            if (addParens) whereString.append("(");
-            whereString.append(viewClause);
-            if (addParens) whereString.append(")");
-        }
-
+        StringBuilder whereString = makeConditionWhereString(modelEntity, whereEntityCondition, whereEntityConditionParams);
         if (whereString.length() > 0) {
             sqlBuffer.append(" WHERE ");
             sqlBuffer.append(whereString.toString());
         }
-
+        
         // GROUP BY clause for view-entity
         if (modelViewEntity != null) {
             String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), ", ", "", false);
@@ -734,37 +692,8 @@ public class GenericDAO {
         }
 
         // HAVING clause
-        String entityCondHavingString = "";
         List<EntityConditionParam> havingEntityConditionParams = FastList.newInstance();
-        if (havingEntityCondition != null) {
-            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
-        }
-        
-        String viewEntityCondHavingString = null;
-        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
-            EntityCondition viewHavingEntityCondition = modelViewEntity.getByConditionFinder().getHavingEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
-            if (viewHavingEntityCondition != null) {
-                viewEntityCondHavingString = viewHavingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
-            }
-        }
-
-        StringBuilder havingString = new StringBuilder();
-        if (UtilValidate.isNotEmpty(entityCondHavingString)) {
-            boolean addParens = false;
-            if (entityCondHavingString.charAt(0) != '(') addParens = true;
-            if (addParens) havingString.append("(");
-            havingString.append(entityCondHavingString);
-            if (addParens) havingString.append(")");
-        }
-        if (UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
-            if (havingString.length() > 0) havingString.append(" AND ");
-            boolean addParens = false;
-            if (viewEntityCondHavingString.charAt(0) != '(') addParens = true;
-            if (addParens) havingString.append("(");
-            havingString.append(viewEntityCondHavingString);
-            if (addParens) havingString.append(")");
-        }
-        
+        StringBuilder havingString = makeConditionHavingString(modelEntity, havingEntityCondition, havingEntityConditionParams);
         if (havingString.length() > 0) {
             sqlBuffer.append(" HAVING ");
             sqlBuffer.append(havingString);
@@ -816,11 +745,101 @@ public class GenericDAO {
         if (Debug.timingOn()) {
             long queryEndTime = System.currentTimeMillis();
             long queryTotalTime = queryEndTime - queryStartTime;
-            //if (queryTotalTime > 150) {
+            if (queryTotalTime > 150) {
                 Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + sql, module);
-            //}
+            }
         }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader);
+    }
+    
+    protected StringBuilder makeConditionWhereString(ModelEntity modelEntity, EntityCondition whereEntityCondition, List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
+        ModelViewEntity modelViewEntity = null;
+        if (modelEntity instanceof ModelViewEntity) {
+            modelViewEntity = (ModelViewEntity) modelEntity;
+        }
+        
+        String entityCondWhereString = "";
+        if (whereEntityCondition != null) {
+            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
+        }
+
+        String viewEntityCondWhereString = null;
+        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
+            EntityCondition viewWhereEntityCondition = modelViewEntity.getByConditionFinder().getWhereEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
+            if (viewWhereEntityCondition != null) {
+                viewEntityCondWhereString = viewWhereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
+            }
+        }
+
+        String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
+
+        StringBuilder whereString = new StringBuilder();
+        if (entityCondWhereString.length() > 0) {
+            boolean addParens = false;
+            if (entityCondWhereString.charAt(0) != '(') addParens = true;
+            if (addParens) whereString.append("(");
+            whereString.append(entityCondWhereString);
+            if (addParens) whereString.append(")");
+        }
+        
+        if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
+            if (whereString.length() > 0) whereString.append(" AND ");
+            boolean addParens = false;
+            if (viewEntityCondWhereString.charAt(0) != '(') addParens = true;
+            if (addParens) whereString.append("(");
+            whereString.append(viewEntityCondWhereString);
+            if (addParens) whereString.append(")");
+        }
+
+        if (viewClause.length() > 0) {
+            if (whereString.length() > 0) whereString.append(" AND ");
+            boolean addParens = false;
+            if (viewClause.charAt(0) != '(') addParens = true;
+            if (addParens) whereString.append("(");
+            whereString.append(viewClause);
+            if (addParens) whereString.append(")");
+        }
+        
+        return whereString;
+    }
+    
+    protected StringBuilder makeConditionHavingString(ModelEntity modelEntity, EntityCondition havingEntityCondition, List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
+        ModelViewEntity modelViewEntity = null;
+        if (modelEntity instanceof ModelViewEntity) {
+            modelViewEntity = (ModelViewEntity) modelEntity;
+        }
+        
+        String entityCondHavingString = "";
+        if (havingEntityCondition != null) {
+            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
+        }
+        
+        String viewEntityCondHavingString = null;
+        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
+            EntityCondition viewHavingEntityCondition = modelViewEntity.getByConditionFinder().getHavingEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
+            if (viewHavingEntityCondition != null) {
+                viewEntityCondHavingString = viewHavingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
+            }
+        }
+
+        StringBuilder havingString = new StringBuilder();
+        if (UtilValidate.isNotEmpty(entityCondHavingString)) {
+            boolean addParens = false;
+            if (entityCondHavingString.charAt(0) != '(') addParens = true;
+            if (addParens) havingString.append("(");
+            havingString.append(entityCondHavingString);
+            if (addParens) havingString.append(")");
+        }
+        if (UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
+            if (havingString.length() > 0) havingString.append(" AND ");
+            boolean addParens = false;
+            if (viewEntityCondHavingString.charAt(0) != '(') addParens = true;
+            if (addParens) havingString.append("(");
+            havingString.append(viewEntityCondHavingString);
+            if (addParens) havingString.append(")");
+        }
+        
+        return havingString;
     }
 
     public List<GenericValue> selectByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
@@ -982,27 +1001,8 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
 
         // WHERE clause
-        StringBuilder whereString = new StringBuilder();
-        String entityCondWhereString = "";
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
-        if (whereEntityCondition != null) {
-            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
-        }
-
-        String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
-
-        if (viewClause.length() > 0) {
-            if (entityCondWhereString.length() > 0) {
-                whereString.append("(");
-                whereString.append(entityCondWhereString);
-                whereString.append(") AND ");
-            }
-
-            whereString.append(viewClause);
-        } else {
-            whereString.append(entityCondWhereString);
-        }
-
+        StringBuilder whereString = makeConditionWhereString(modelEntity, whereEntityCondition, whereEntityConditionParams);
         if (whereString.length() > 0) {
             sqlBuffer.append(" WHERE ");
             sqlBuffer.append(whereString.toString());
@@ -1017,14 +1017,11 @@ public class GenericDAO {
         }
 
         // HAVING clause
-        String entityCondHavingString = "";
         List<EntityConditionParam> havingEntityConditionParams = FastList.newInstance();
-        if (havingEntityCondition != null) {
-            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
-        }
-        if (entityCondHavingString.length() > 0) {
+        StringBuilder havingString = makeConditionHavingString(modelEntity, havingEntityCondition, havingEntityConditionParams);
+        if (havingString.length() > 0) {
             sqlBuffer.append(" HAVING ");
-            sqlBuffer.append(entityCondHavingString);
+            sqlBuffer.append(havingString);
         }
 
         if (isGroupBy) {
