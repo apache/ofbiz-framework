@@ -132,7 +132,7 @@ under the License.
             </tr>
         </#if>
             <tr><td colspan="7"><hr/></td></tr>
-        <#if orderType != "PURCHASE_ORDER" && giftEnable != "N">
+        <#if orderType != "PURCHASE_ORDER" && productStore.showCheckoutGiftOptions?if_exists != "N">
         <#-- gift settings -->
             <tr>
                 <td align="right" valign="top" width="15%">

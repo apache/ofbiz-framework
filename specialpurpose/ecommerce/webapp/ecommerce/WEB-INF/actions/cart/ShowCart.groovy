@@ -28,6 +28,8 @@ shoppingCart = ShoppingCartEvents.getCartObject(request);
 context.shoppingCartSize = shoppingCart?.size() ?: 0;
 context.shoppingCart = shoppingCart;
 
+context.productStore = ProductStoreWorker.getProductStore(request);
+
 if (parameters.add_product_id) { // check if a parameter is passed
     add_product_id = parameters.add_product_id;
     product = delegator.findByPrimaryKeyCache("Product", [productId : add_product_id]);

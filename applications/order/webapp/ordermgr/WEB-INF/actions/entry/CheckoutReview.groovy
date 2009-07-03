@@ -32,6 +32,7 @@ import org.ofbiz.party.party.PartyWorker;
 cart = ShoppingCartEvents.getCartObject(request);
 context.cart = cart;
 context.currencyUomId = cart.getCurrency();
+context.productStore = ProductStoreWorker.getProductStore(request);
 
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");

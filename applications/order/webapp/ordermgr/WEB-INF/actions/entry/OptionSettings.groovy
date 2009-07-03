@@ -26,8 +26,9 @@ import org.ofbiz.product.store.*;
 
 cart = session.getAttribute("shoppingCart");
 context.cart = cart;
-productStoreId = ProductStoreWorker.getProductStoreId(request);
-
+productStore = ProductStoreWorker.getProductStore(request);
+productStoreId = productStore.productStoreId;
+context.productStore = productStore;
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
 
