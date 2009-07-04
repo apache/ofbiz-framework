@@ -25,6 +25,7 @@ under the License.
         "tableheadsmall":"column-width=\"0.5in\"",
         "tableheadmedium":"column-width=\"1.5in\"",
         "tableheadwide":"column-width=\"3in\"",
+        "tableheadhuge":"column-width=\"5in\"",
         "head1":"font-size=\"12\" font-weight=\"bold\"",
         "head2":"font-weight=\"bold\"",
         "head3":"font-weight=\"bold\" font-style=\"italic\"",
