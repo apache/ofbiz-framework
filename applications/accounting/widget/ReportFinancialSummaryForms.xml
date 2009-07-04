@@ -100,14 +100,14 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="debit" use-when="showDebit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="debit" use-when="showCredit"><display/></field>
-        <field name="credit" use-when="showCredit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" use-when="showDebit"><display/></field>
+        <field name="glAccountId" use-when="isPdf == true" title-area-style="tableheadhuge"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="debit" use-when="showDebit" widget-style="tabletextright"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="debit" use-when="showCredit" widget-style="tabletextright"><display/></field>
+        <field name="credit" use-when="showCredit" widget-style="tabletextright"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" use-when="showDebit" widget-style="tabletextright"><display/></field>
         <field name="glAccountId" use-when="showTotals"><display description="${uiLabelMap.CommonTotal}"/></field>
-        <field name="debit" use-when="showTotals"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" use-when="showTotals"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="debit" use-when="showTotals" widget-style="tabletextright"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" use-when="showTotals" widget-style="tabletextright"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="IncomeStatementParameters" type="single" target="prepareIncomeStatement"
