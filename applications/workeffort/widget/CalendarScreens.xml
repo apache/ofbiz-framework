@@ -142,10 +142,13 @@ under the License.
                     <widgets>
                         <section><!-- check if edit form needs to be shown, otherwise show view only form -->
                             <condition>
-                                <or>
-                                    <if-compare field="isCalOwner" operator="equals" value="true" type="Boolean"/>
-                                    <if-has-permission permission="WORKEFFORTMGR" action="ADMIN"/>
-                                </or>
+                                <and>
+                                    <or>
+                                        <if-compare field="isCalOwner" operator="equals" value="true" type="Boolean"/>
+                                        <if-has-permission permission="WORKEFFORTMGR" action="ADMIN"/>
+                                    </or>
+                                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                                </and>
                             </condition>
                             <widgets><!-- edit section -->
                                 <container style="lefthalf">
