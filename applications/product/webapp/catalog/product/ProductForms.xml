@@ -870,16 +870,15 @@ under the License.
         <field name="lastPrice" header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=lastPrice" header-link-style="buttontext">
             <display type="currency" currency="${currencyUomId}"/>
         </field>
-        <!-- not usable : no fields modifiable -->
-        <!--field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductSuppliers" description="${uiLabelMap.CommonUpdate}" also-hidden="false">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="EditProductSuppliers" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="productId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="currencyUomId"/>
                 <parameter param-name="minimumOrderQuantity"/>
                 <parameter param-name="availableFromDate"/>
             </hyperlink>
-        </field-->
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeSupplierProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productId"/><parameter param-name="partyId"/><parameter param-name="currencyUomId"/>
