@@ -25,26 +25,17 @@ import org.ofbiz.webapp.pseudotag.*;
 import org.ofbiz.workeffort.workeffort.*;
 import java.sql.Timestamp;
 
-String currentDay = parameters.get("currentDay");
-String startParam = parameters.get("start");
+String currentDay = parameters.currentDay;
+String startParam = parameters.start;
 
-facilityId = parameters.get("facilityId");
-fixedAssetId = parameters.get("fixedAssetId");
-partyId = parameters.get("partyId");
-workEffortTypeId = parameters.get("workEffortTypeId");
-
-eventsParam = "";
-if (facilityId != null) {
-    eventsParam = "facilityId=" + facilityId;
-}
-if (fixedAssetId != null) {
-    eventsParam = "fixedAssetId=" + fixedAssetId;
-}
-if (partyId != null) {
-    eventsParam = "partyId=" + partyId;
-}
-if (workEffortTypeId != null) {
-    eventsParam = "workEffortTypeId=" + workEffortTypeId;
+facilityId = parameters.facilityId;
+fixedAssetId = parameters.fixedAssetId;
+partyId = parameters.partyId;
+workEffortTypeId = parameters.workEffortTypeId;
+entityExprList = (List) context.get("entityExprList");
+filterOutCanceledEvents = parameters.filterOutCanceledEvents;
+if (!filterOutCanceledEvents) {
+	filterOutCanceledEvents = Boolean.FALSE;
 }
 
 Timestamp start = null;
@@ -64,8 +55,14 @@ Timestamp next = UtilDateTime.getDayStart(start, 7, timeZone, locale);
 context.nextMillis = new Long(next.getTime()).toString();
 Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale);
 
-Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),"periodType",new Integer(Calendar.DATE));
-serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),
+		"periodType",new Integer(Calendar.DATE));
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, 
+		"fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, 
+		"locale", locale, "timeZone", timeZone));
+if (entityExprList) {
+    serviceCtx.putAll(["entityExprList" : entityExprList]);
+}
 
 Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
 context.put("periods",result.get("periods"));
@@ -74,4 +71,3 @@ context.put("start",start);
 context.put("end",end);
 context.put("prev",prev);
 context.put("next",next);
-context.put("eventsParam", eventsParam);

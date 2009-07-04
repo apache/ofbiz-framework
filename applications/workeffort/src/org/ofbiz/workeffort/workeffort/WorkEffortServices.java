@@ -50,6 +50,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -366,8 +367,8 @@ public class WorkEffortServices {
         if (UtilValidate.isNotEmpty(fixedAssetId)) {
             entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
 //            typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
-            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
-            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
+//            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
+//            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
         }
         EntityCondition typesCondition = null;
@@ -421,7 +422,24 @@ public class WorkEffortServices {
      * </ul>
      * </ul>
      */
+   
     public static Map<String, Object> getWorkEffortEventsByPeriod(DispatchContext ctx, Map<String, ? extends Object> context) {
+    	
+    	/*
+    	 To create testdata for  this function for  fixedasset/facility
+
+		1) go to Manufacturing -> JobShop, then click on "create new Production run":
+				https://localhost:8443/manufacturing/control/CreateProductionRun
+		2) enter as productId "PROD_MANUF", quantity 1, start date tomorrow and press the submit button
+	`	3) in the next screen, click on the "Confirm" link (top part of the sccreen)
+
+		Now you have a confirmed production run (starting tomorrow) happening in facility "WebStoreWarehouse", 
+		with a task happening in fixed asset "WORKCENTER_COST"
+
+		In the calendars screen, selecting the proper facility you should see the work effort associated to the production run; 
+		if you select the proper fixed asset you should see the task.
+
+    	 */
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -435,6 +453,7 @@ public class WorkEffortServices {
         Collection<String> partyIds = UtilGenerics.checkCollection(context.get("partyIds"));
         String facilityId = (String) context.get("facilityId");
         String fixedAssetId = (String) context.get("fixedAssetId");
+        // Debug.log("======by period for fixedAsset: " + fixedAssetId + " facilityId: " + facilityId + "partyId: " + partyId + " entityExprList:" + (List) context.get("entityExprList"));
         String workEffortTypeId = (String) context.get("workEffortTypeId");
         Boolean filterOutCanceledEvents = (Boolean) context.get("filterOutCanceledEvents");
         if (filterOutCanceledEvents == null) {
@@ -479,70 +498,36 @@ public class WorkEffortServices {
                 partyIdsToUse.add(userLogin.getString("partyId"));
             }
         }
+
         List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
         if (entityExprList == null) {
-            entityExprList = getDefaultWorkEffortExprList(partyIdsToUse, facilityId, fixedAssetId, workEffortTypeId);
+            entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId, workEffortTypeId);
         }
-        				
-        EntityCondition periodCheck = 
-        		EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        				// the taskstart should be less than the periodend and the taskEnd should be larger than the period start
-        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        								EntityCondition.makeCondition("actualStartDate", EntityOperator.EQUALS, null),
-        								EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
-        								EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
-        						), EntityJoinOperator.AND),
-        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        								EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null),
-        								EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
-        						), EntityJoinOperator.AND)
-        				), EntityJoinOperator.OR),
-        				EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null),
-        								EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.NOT_EQUAL, null),
-        								EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
-        						), EntityJoinOperator.AND),
-        						EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.NOT_EQUAL, null),
-        								EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
-        						), EntityJoinOperator.AND)
-        				), EntityJoinOperator.OR)
-        		), EntityJoinOperator.AND);
-        
+        entityExprList.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));
+        List<EntityCondition> completionExprList = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp), EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.EQUALS, null));
+        entityExprList.add(EntityCondition.makeCondition(completionExprList, EntityJoinOperator.OR));
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
-        // always take all recurring workefforts and 'AND' all previous conditions including the period check
-        EntityConditionList<EntityCondition> ecl = 
-        	EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        			EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null),
-        			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-        					EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
-        					periodCheck
-        			), EntityJoinOperator.AND)
-        	), EntityJoinOperator.OR);
-        // get all public workefforts in the required period
-        EntityConditionList<EntityCondition> eclPublic = 
-			EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-					EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
-					periodCheck
-			), EntityJoinOperator.AND);
-        
-        
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
                 List<GenericValue> tempWorkEfforts = null;
                 if (UtilValidate.isNotEmpty(partyIdsToUse)) {
+                    EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND);
+                	// Debug.log("=====conditions for party: " + ecl);
                     tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, orderByList, null, false));
-                    tempWorkEfforts.addAll(delegator.findList("WorkEffort", eclPublic, null, orderByList, null, false));
                 } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
+                	entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
+                    EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND);
                     // Get "old style" work efforts and "new style" work efforts
+                	//Debug.log("=====conditions for fixed asset: " + ecl);
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, orderByList, null, false);
                     tempWorkEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndFixedAssetAssign", ecl, null, orderByList, null, false)));
                 } else {
+                	entityExprList.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
+                    EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND);
+                	// Debug.log("=====conditions for facility: " + ecl);
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false);
                 }
                 validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(tempWorkEfforts);
@@ -605,8 +590,6 @@ public class WorkEffortServices {
                 List<Map<String, Object>> curWorkEfforts = FastList.newInstance();
                 Map<String, Object> entry = FastMap.newInstance();
                 for (GenericValue workEffort : validWorkEfforts) {
-                	if (workEffort.getTimestamp("actualStartDate") != null) workEffort.put("estimatedStartDate", workEffort.getTimestamp("actualStartDate"));
-                	if (workEffort.getTimestamp("actualCompletionDate") != null) workEffort.put("estimatedCompletionDate", workEffort.getTimestamp("actualCompletionDate"));
                     DateRange weRange = new DateRange(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"));
                     if (periodRange.intersectsRange(weRange)) {
                         Map<String, Object> calEntry = FastMap.newInstance();

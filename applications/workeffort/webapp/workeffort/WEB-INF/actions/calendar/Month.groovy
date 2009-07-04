@@ -26,27 +26,13 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.webapp.pseudotag.*;
 import org.ofbiz.workeffort.workeffort.*;
 
-startParam = parameters.get("start");
+startParam = parameters.start;
 
-facilityId = parameters.get("facilityId");
-fixedAssetId = parameters.get("fixedAssetId");
-partyId = parameters.get("partyId");
-workEffortTypeId = parameters.get("workEffortTypeId");
-
-eventsParam = "";
-if (facilityId != null) {
-    eventsParam = "facilityId=" + facilityId;
-}
-if (fixedAssetId != null) {
-    eventsParam = "fixedAssetId=" + fixedAssetId;
-}
-if (partyId != null) {
-    eventsParam = "partyId=" + partyId;
-}
-
-if (workEffortTypeId != null) {
-    eventsParam = "workEffortTypeId=" + workEffortTypeId;
-}
+facilityId = parameters.facilityId;
+fixedAssetId = parameters.fixedAssetId;
+partyId = parameters.partyId;
+workEffortTypeId = parameters.workEffortTypeId;
+entityExprList = context.entityExprList;
 
 start = null;
 if (UtilValidate.isNotEmpty(startParam)) {
@@ -79,6 +65,9 @@ context.put("firstWeekNum", new Integer(firstWeekNum));
 
 serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom,"numPeriods", new Integer(numDays), "periodType", new Integer(Calendar.DATE));
 serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
+if (entityExprList) {
+	serviceCtx.putAll(["entityExprList" : entityExprList]);
+}
 
 result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
 
@@ -88,4 +77,3 @@ context.put("start", start);
 context.put("end", end);
 context.put("prev", prev);
 context.put("next", next);
-context.put("eventsParam", eventsParam);

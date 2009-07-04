@@ -193,6 +193,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="Calendar">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="Calendar" location="component://workeffort/widget/CalendarScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    
     <!-- Fixed Asset Registrations -->
     <screen name="EditFixedAssetRegistrations">
         <section>
