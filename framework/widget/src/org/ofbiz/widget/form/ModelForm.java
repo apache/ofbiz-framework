@@ -649,7 +649,12 @@ public class ModelForm extends ModelWidget {
         }
         int index = onPaginateUpdateAreas.indexOf(updateArea);
         if (index != -1) {
-            onPaginateUpdateAreas.set(index, updateArea);
+            if (UtilValidate.isNotEmpty(updateArea.areaTarget)) {
+                onPaginateUpdateAreas.set(index, updateArea);
+            } else {
+                // blank target indicates a removing override
+                onPaginateUpdateAreas.remove(index);
+            }
         } else {
             onPaginateUpdateAreas.add(updateArea);
         }
