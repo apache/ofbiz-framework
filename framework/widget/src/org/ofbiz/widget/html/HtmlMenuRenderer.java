@@ -453,12 +453,29 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
             writer.append(" href=\"");
             if ("hidden-form".equals(linkType)) {
-                writer.append("javascript:document.");
-                writer.append(uniqueItemName);
-                writer.append(".submit()");
+                if (link.getRequestConfirmation()) {
+                    writer.append("javascript:confirmActionFormLink('");
+                    writer.append(link.getConfirmationMsg(context));
+                    writer.append("', '");
+                    writer.append(uniqueItemName);
+                    writer.append("')");
+                } else {
+                    writer.append("javascript:document.");
+                    writer.append(uniqueItemName);
+                    writer.append(".submit()");
+                }
             } else {
+                if (link.getRequestConfirmation()) {
+                    writer.append("javascript:confirmActionLink('");
+                    writer.append(link.getConfirmationMsg(context));
+                    writer.append("', '");
+                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                            link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+                    writer.append("')");
+                } else {
                 WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+                }
             }
             writer.append("\">");
         }
