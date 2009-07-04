@@ -601,6 +601,8 @@ public class ModelMenuItem {
         protected boolean encode = false;
         protected String linkType;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected boolean requestConfirmation = false;
+        protected FlexibleStringExpander confirmationMsgExdr;
 
         public Link(Element linkElement, ModelMenuItem parentMenuItem) {
             this.linkMenuItem = parentMenuItem;
@@ -625,6 +627,8 @@ public class ModelMenuItem {
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
             }
+            setRequestConfirmation("true".equals(linkElement.getAttribute("request-confirmation")));
+            setConfirmationMsg(linkElement.getAttribute("confirmation-message"));
         }
 
         public Link(ModelMenuItem parentMenuItem) {
@@ -640,6 +644,7 @@ public class ModelMenuItem {
             setSecure("");
             setEncode("");
             setName("");
+            setConfirmationMsg("");
         }
 
         public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
@@ -718,6 +723,14 @@ public class ModelMenuItem {
         public List<WidgetWorker.Parameter> getParameterList() {
             return this.parameterList;
         }
+        
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+        
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
 
         public void setText(String val) {
             String textAttr = UtilFormatOut.checkNull(val);
@@ -779,6 +792,14 @@ public class ModelMenuItem {
 
         public void setImage(Image img) {
             this.image = img;
+        }
+        
+        public void setRequestConfirmation(boolean val) {
+            this.requestConfirmation = val;
+        }
+        
+        public void setConfirmationMsg(String val) {
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public ModelMenuItem getLinkMenuItem() {

@@ -210,6 +210,16 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="request-confirmation" default="false">
+            <xs:annotation><xs:documentation>If true then the user is presented with a dialog box requesting confirmation prior to proceeding</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="confirmation-message" type="xs:string"><xs:annotation><xs:documentation>The message displayed when request-confirm is set to true</xs:documentation></xs:annotation></xs:attribute>
     </xs:attributeGroup>
     <xs:element name="parameter">
         <xs:complexType>
