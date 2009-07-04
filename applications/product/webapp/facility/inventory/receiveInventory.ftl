@@ -410,6 +410,12 @@ under the License.
                           <td align="right">
                             <input type="text" name="quantityRejected_o_${rowCount}" value="0" size="6"/>
                           </td>
+                          <tr>
+                            <td colspan="4" align="right">${uiLabelMap.OrderQtyOrdered} :</td>
+                            <td align="right">
+                              <input type="text" class="inputBox" name="quantityOrdered" value="${orderItem.quantity}" size="6" maxlength="20" disabled/>
+                            </td>
+                          </tr>
                         </tr>
                         <tr>
                           <td>&nbsp;</td>
