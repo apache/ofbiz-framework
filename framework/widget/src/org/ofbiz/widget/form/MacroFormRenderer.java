@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -1228,6 +1229,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         List<ModelFormField> childFieldList = modelForm.getFieldList();
         List<String> columnStyleList = FastList.newInstance();
+        List<String> fieldNameList = FastList.newInstance(); 
         for (ModelFormField childField : childFieldList) {
             int childFieldType = childField.getFieldInfo().getFieldType();
             if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
@@ -1237,7 +1239,14 @@ public class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isEmpty(areaStyle)) {
                 areaStyle = "";
             }
-            columnStyleList.add(areaStyle);
+            if (fieldNameList.contains(childField.getName())) {
+                if (UtilValidate.isNotEmpty(areaStyle)) {
+                    columnStyleList.set(fieldNameList.indexOf(childField.getName()), areaStyle);
+                }
+            } else {
+                columnStyleList.add(areaStyle);
+                fieldNameList.add(childField.getName());
+            }
         }
         columnStyleList = StringUtil.quoteStrList(columnStyleList);
         String columnStyleListString = StringUtil.join(columnStyleList, ", ");
