@@ -117,6 +117,7 @@ under the License.
         </field>
         <field name="contentName" widget-style="tabletext"><display/></field>
         <field name="createdByUserLogin"><ignored/></field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target=""/>
     </form>
 
     <form name="EditContent" target="updateContent" title="" type="single" default-map-name="currentValue"
