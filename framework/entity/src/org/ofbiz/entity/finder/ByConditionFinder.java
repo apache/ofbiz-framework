@@ -58,6 +58,7 @@ public class ByConditionFinder extends ListFinder {
         }
     }
 
+    @Override
     public EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
         // create whereEntityCondition from whereCondition
         if (this.whereCondition != null) {
@@ -66,6 +67,7 @@ public class ByConditionFinder extends ListFinder {
         return null;
     }
 
+    @Override
     public EntityCondition getHavingEntityCondition(Map<String, Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
         // create havingEntityCondition from havingCondition
         if (this.havingCondition != null) {
@@ -74,4 +76,3 @@ public class ByConditionFinder extends ListFinder {
         return null;
     }
 }
-
