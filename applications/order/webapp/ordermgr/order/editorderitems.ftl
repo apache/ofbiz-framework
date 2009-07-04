@@ -145,7 +145,26 @@ float: right;
                                   </#if>
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
-                                  <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
+                                <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
+                                <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId})/>
+                                <#assign totalReceived = 0.0>
+                                <#if shipmentReceipts?exists && shipmentReceipts?has_content>
+                                  <#list shipmentReceipts as shipmentReceipt>
+                                    <#if shipmentReceipt.quantityAccepted?exists && shipmentReceipt.quantityAccepted?has_content>
+                                      <#assign  quantityAccepted = shipmentReceipt.quantityAccepted>
+                                      <#assign totalReceived = quantityAccepted + totalReceived>
+                                    </#if>
+                                    <#if shipmentReceipt.quantityRejected?exists && shipmentReceipt.quantityRejected?has_content>
+                                      <#assign  quantityRejected = shipmentReceipt.quantityRejected>
+                                      <#assign totalReceived = quantityRejected + totalReceived>
+                                    </#if>
+                                  </#list>
+                                </#if>
+                                <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
+                                  <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double)>
+                                <#else>
+                                  <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double)>
+                                </#if>
                                   ${uiLabelMap.OrderOrdered}&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br/>
                                   ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br/>
                                   ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
