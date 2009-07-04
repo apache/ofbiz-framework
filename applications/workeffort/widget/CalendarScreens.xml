@@ -27,6 +27,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleCalendar"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -126,25 +127,24 @@ under the License.
             </actions>
             <widgets>
                 <section>
-                    <condition>
+                    <condition><!-- check if need to display detail screen -->
                         <and>
+                            <if-compare field="parameters.form" operator="equals" value="edit"/>
                             <or>
                                 <and>
                                     <not><if-empty field="workEffort"/></not>
                                     <if-compare field="workEffort.currentStatusId" operator="not-equals" value="CAL_CANCELLED"/>
                                 </and>
                                 <if-empty field="workEffort"/>
-                                <if-has-permission permission="WORKEFFORTMGR" action="ADMIN"/>
                             </or>
-                            <if-compare field="parameters.form" operator="equals" value="edit"/>
                         </and>
                     </condition>
                     <widgets>
-                        <section>
+                        <section><!-- check if edit form needs to be shown, otherwise show view only form -->
                             <condition>
                                 <or>
                                     <if-compare field="isCalOwner" operator="equals" value="true" type="Boolean"/>
-                                    <if-empty field="workEffort"/>
+                                    <if-has-permission permission="WORKEFFORTMGR" action="ADMIN"/>
                                 </or>
                             </condition>
                             <widgets><!-- edit section -->

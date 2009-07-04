@@ -29,14 +29,12 @@ under the License.
                 <option key="month" description="${uiLabelMap.WorkEffortMonthView}"/>
             </drop-down>
         </field>
-        <field name="updateButton"><submit/></field>
     </form>
     <form name="editCalEvent" type="single" target="createWorkEffortAndPartyAssign" default-map-name="workEffort">
         <alt-target use-when="workEffort!=null" target="updateWorkEffort"/>
         <field name="workEffortId" use-when="workEffort!=null"><hidden/></field>
         <field name="partyId"><hidden value="${parameters.userLogin.partyId}"/></field>
         <field name="roleTypeId" use-when="workEffort==null"><hidden value="CAL_OWNER"/></field>
-        <field name="workEffortTypeId"><hidden value="EVENT"/></field>
         <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="currentStatusId"><hidden value="CAL_TENTATIVE"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
@@ -44,7 +42,7 @@ under the License.
         <field name="workEffortTypeId">
             <drop-down no-current-selected-key="MEETING">
                 <entity-options entity-name="WorkEffortType" description="${description}">
-                    <entity-constraint name="parentTypeId" value="EVENT"/>
+                    <entity-constraint name="parentTypeId" value="${parameters.parentTypeId}"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -59,7 +57,8 @@ under the License.
         </field>
         <field name="estimatedStartDate"><date-time input-method="time-dropdown" /></field>
         <field name="estimatedCompletionDate"><date-time input-method="time-dropdown"/></field>
-        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
+        <field name="addButton" use-when="workEffort==null"><submit/></field>
+        <field name="updateButton" use-when="workEffort!=null"><submit/></field>
     </form>
     <form name="cancelEvent" type="single" target="updateWorkEffort">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
@@ -97,7 +96,7 @@ under the License.
     </form>
     <form name="addCalEventRole" type="single" target="createWorkEffortPartyAssign">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
-        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"></lookup></field>
         <field name="roleTypeId" position="2">
             <drop-down no-current-selected-key="CAL_ATTENDEE">
