@@ -280,7 +280,7 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="javascript:confirmActionLink('Are you sure you want to close this project?','updateProject')" url-mode="plain">
+            <link target="updateProject" request-confirmation="true" confirmation-message="Are you sure you want to close this project?">
                 <parameter param-name="workEffortId" from-field="parameters.projectId"/>
                 <parameter param-name="currentStatusId" value="PRJ_CLOSED"/>
             </link>
