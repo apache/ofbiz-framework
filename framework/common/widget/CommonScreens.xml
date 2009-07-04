@@ -237,10 +237,14 @@ under the License.
                     </widgets>
                     <fail-widgets>
                         <screenlet title="${title}" id="findScreenlet" collapsible="true" padded="false">
-                            <decorator-section-include name="search-options"/>
+	                        <container id="search-options">
+	                            <decorator-section-include name="search-options"/>
+	                        </container>
                         </screenlet>
                         <screenlet>
-                            <decorator-section-include name="search-results"/>
+		                    <container id="search-results">
+		                        <decorator-section-include name="search-results"/>
+		                    </container>
                         </screenlet>
                     </fail-widgets>
                 </section>
