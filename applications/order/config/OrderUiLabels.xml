@@ -1731,6 +1731,9 @@
         <value xml:lang="th">บัตรใช้ในโปรโมชัน</value>
         <value xml:lang="zh">购物车明细使用促销情况</value>
     </property>
+    <property key="OrderCancelSelectedItems">
+        <value xml:lang="en">Cancel Selected Items</value>
+    </property>
     <property key="OrderCartSummary">
         <value xml:lang="cs">Obsah košíku</value>
         <value xml:lang="de">Ihr Warenkorb enthält</value>

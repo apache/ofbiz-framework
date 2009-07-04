@@ -21,6 +21,7 @@ package org.ofbiz.order.order;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,12 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+
+import javolution.util.FastMap;
 
 /**
  * Order Events
@@ -88,5 +95,57 @@ public class OrderEvents {
         }
 
         return "success";
+    }
+    
+    public static String cancelSelectedOrderItems(HttpServletRequest request, HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+    
+        Map resultMap = FastMap.newInstance();
+        String  orderId = request.getParameter("orderId");
+        String[] orderItemSeqIds = request.getParameterValues("selectedItem");
+    
+        if (orderItemSeqIds != null) {
+            for (String orderItemSeqId : orderItemSeqIds) {
+                try {
+                    GenericValue orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
+                    List<GenericValue> orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc");
+                    for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
+                        GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
+                        String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");
+                        
+                        Map contextMap = FastMap.newInstance();
+                        contextMap.put("orderId", orderId);
+                        contextMap.put("orderItemSeqId", orderItemSeqId);
+                        contextMap.put("shipGroupSeqId", shipGroupSeqId);
+                        contextMap.put("userLogin", userLogin);
+                        try {
+                            resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
+                            
+                            if(ServiceUtil.isError(resultMap)) {
+                                String errorMessage = (String) resultMap.get("errorMessage");
+                                Debug.logError(errorMessage, module);
+                                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                                return "error";
+                            }
+                            
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            request.setAttribute("_ERROR_MESSAGE_", resultMap.get("errorMessage"));
+                            return "error";
+                        }
+                    }
+                } catch (GenericEntityException e ) {
+                    Debug.logError(e, module);
+                    return "error";
+                }
+            }
+            return "success"; 
+        } else {
+            request.setAttribute("_ERROR_MESSAGE_", "No order item selected. Please select an order item to cancel");
+            return "error";
+        }
     }
 }
