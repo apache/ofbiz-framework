@@ -41,8 +41,7 @@ under the License.
                                     <condition><not><if-empty field="parameters.invoiceId"/></not></condition>
                                     <widgets>
                                         <include-menu name="InvoiceTabBar" location="component://accounting/widget/Menus.xml"/>
-                                        <!-- include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/-->
-                                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/invoice/InvoiceSubTabBar.ftl"/></html></platform-specific>
+                                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <container style="leftclear">
                                             <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${invoice.description} [${invoiceId}]  ${${extraFunctionName}}"/>
                                         </container>
@@ -74,8 +73,7 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <!-- include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/-->
-                                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/invoice/InvoiceSubTabBar.ftl"/></html></platform-specific>
+                                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <container style="clear"/>
                                     </decorator-section>
                                     <decorator-section name="search-options">
