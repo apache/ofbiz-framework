@@ -109,7 +109,7 @@ under the License.
     </form>
     <form name="addCalEventRole" type="single" target="createWorkEffortPartyAssign">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
-        <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"></lookup></field>
         <field name="roleTypeId" position="2">
             <drop-down no-current-selected-key="CAL_ATTENDEE">

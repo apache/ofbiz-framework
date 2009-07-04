@@ -54,11 +54,6 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindFixedAssetMaints"/>
     </request-map>
-    <request-map uri="ListFixedAssetCalendar">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="month"/>
-        <response name="error" type="view" value="month"/>
-    </request-map>
 
     <!--  WorkEffort request mappings -->
     <request-map uri="EditWorkEfforts">
