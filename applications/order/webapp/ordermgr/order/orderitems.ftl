@@ -145,7 +145,25 @@ under the License.
                     <table>
                       <tr valign="top">
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
-                        <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0) - shippedQuantity)>
+                        <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId})/>
+                        <#assign totalReceived = 0.0>
+                        <#if shipmentReceipts?exists && shipmentReceipts?has_content>
+                          <#list shipmentReceipts as shipmentReceipt>
+                            <#if shipmentReceipt.quantityAccepted?exists && shipmentReceipt.quantityAccepted?has_content>
+                              <#assign  quantityAccepted = shipmentReceipt.quantityAccepted>
+                              <#assign totalReceived = quantityAccepted + totalReceived>
+                            </#if>
+                            <#if shipmentReceipt.quantityRejected?exists && shipmentReceipt.quantityRejected?has_content>
+                              <#assign  quantityRejected = shipmentReceipt.quantityRejected>
+                              <#assign totalReceived = quantityRejected + totalReceived>
+                            </#if>
+                          </#list>
+                        </#if>
+                        <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
+                            <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double)>
+                        <#else>
+                            <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double)>
+                        </#if>
                         <#-- to compute shortfall amount, sum up the orderItemShipGrpInvRes.quantityNotAvailable -->
                         <#assign shortfalledQuantity = 0/>
                         <#list orderItemShipGrpInvResList as orderItemShipGrpInvRes>
@@ -188,7 +206,10 @@ under the License.
                           <#-- Make sure digital goods without shipments don't always remainn "outstanding": if item is completed, it must have no outstanding quantity.  -->
                           <#if (orderItem.statusId != null) && (orderItem.statusId == "ITEM_COMPLETED")>
                           0
-                          <#else>${orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0) - shippedQuantity}
+                          <#elseif orderHeader.orderTypeId == "PURCHASE_ORDER">
+                            ${(orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double}
+                          <#elseif orderHeader.orderTypeId == "SALES_ORDER">
+                            ${(orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double}
                           </#if>
                           </td>
                        </tr>
