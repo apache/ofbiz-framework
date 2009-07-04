@@ -188,6 +188,12 @@ under the License.
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
+    <request-map uri="cancelSelectedOrderItems">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.order.OrderEvents" invoke="cancelSelectedOrderItems"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
     <request-map uri="createOrderAdjustment">
         <security https="true" auth="true"/>
         <event type="service" invoke="createOrderAdjustment"/>
