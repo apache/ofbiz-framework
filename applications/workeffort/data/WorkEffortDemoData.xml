@@ -32,6 +32,7 @@ under the License.
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee3" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
     
     <!-- Publish the staff meeting calendar event -->
     <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PRIVATE" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
