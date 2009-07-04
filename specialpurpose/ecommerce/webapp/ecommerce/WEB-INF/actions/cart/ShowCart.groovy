@@ -21,6 +21,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.entity.condition.*;
 
 // Get the Cart and Prepare Size
