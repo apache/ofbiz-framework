@@ -67,6 +67,7 @@ public class TimeDuration implements Serializable {
         this.set(cal1, cal2);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -80,6 +81,7 @@ public class TimeDuration implements Serializable {
         return false;
     }
 
+    @Override
     public String toString() {
         return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.millis;
     }
@@ -282,6 +284,7 @@ public class TimeDuration implements Serializable {
 
     protected static class NullDuration extends TimeDuration {
         protected NullDuration() {}
+        @Override
         public Calendar addToCalendar(Calendar cal) {
             return cal;
         }

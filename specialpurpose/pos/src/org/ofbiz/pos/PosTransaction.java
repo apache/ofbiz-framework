@@ -862,6 +862,7 @@ public class PosTransaction implements Serializable {
         // threaded drawer/receipt printing
         final PosTransaction currentTrans = this;
         final SwingWorker worker = new SwingWorker() {
+            @Override
             public Object construct() {
                 // open the drawer
                 currentTrans.popDrawer();

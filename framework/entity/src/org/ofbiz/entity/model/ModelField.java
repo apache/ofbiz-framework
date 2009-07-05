@@ -181,16 +181,19 @@ public class ModelField extends ModelChild {
         return this.validators.remove(index);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj.getClass() != getClass()) return false;
         ModelField other = (ModelField) obj;
         return other.getName().equals(getName()) && other.getModelEntity() == getModelEntity();
     }
 
+    @Override
     public int hashCode() {
         return getModelEntity().hashCode() ^ getName().hashCode();
     }
 
+    @Override
     public String toString() {
         return getModelEntity() + "@" + getName();
     }

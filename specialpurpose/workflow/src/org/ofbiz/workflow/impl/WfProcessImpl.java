@@ -113,6 +113,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#abort()
      */
+    @Override
     public void abort() throws WfException, CannotStop, NotRunning {
         super.abort();
 
@@ -278,6 +279,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
     /**
      * @see org.ofbiz.workflow.impl.WfExecutionObjectImpl#executionObjectType()
      */
+    @Override
     public String executionObjectType() {
         return "WfProcess";
     }

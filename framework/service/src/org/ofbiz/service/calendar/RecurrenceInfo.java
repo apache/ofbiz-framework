@@ -350,6 +350,7 @@ public class RecurrenceInfo {
         public RecurrenceWrapper(RecurrenceInfo info) {
             this.info = info;
         }
+        @Override
         public Calendar first(Calendar cal) {
             long result = this.info.first();
             if (result == 0) {
@@ -359,9 +360,11 @@ public class RecurrenceInfo {
             first.setTimeInMillis(result);
             return first;
         }
+        @Override
         public boolean includesDate(Calendar cal) {
             return this.info.isValidCurrent(cal.getTimeInMillis());
         }
+        @Override
         public Calendar next(Calendar cal) {
             long result = this.info.next(cal.getTimeInMillis());
             if (result == 0) {
@@ -371,6 +374,7 @@ public class RecurrenceInfo {
             next.setTimeInMillis(result);
             return next;
         }
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {}
     }
 }

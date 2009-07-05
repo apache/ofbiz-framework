@@ -30,40 +30,48 @@ import org.ofbiz.minilang.method.*;
  */
 public class CombinedCondition implements Conditional {
     public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new CombinedCondition(element, OR, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "or";
         }
     }
 
     public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new CombinedCondition(element, XOR, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "xor";
         }
     }
 
     public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new CombinedCondition(element, AND, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "and";
         }
     }
 
     public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new CombinedCondition(element, NOT, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "not";
         }

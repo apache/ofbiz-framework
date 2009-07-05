@@ -964,10 +964,9 @@ public class ProductServices {
 
             /* scale Image in different sizes */
             String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
-            ScaleImage imageTransform = new ScaleImage();
             Map<String, Object> resultResize = FastMap.newInstance();
             try {
-                resultResize.putAll(imageTransform.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
+                resultResize.putAll(ScaleImage.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
             } catch (IOException e) {
                 String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
                 Debug.logError(e, errMsg, module);

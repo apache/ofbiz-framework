@@ -140,6 +140,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
         return new LoopWriter(out) {
 
+            @Override
             public int onStart() throws TemplateModelException, IOException {
                 String renderOnStart = (String)templateCtx.get("renderOnStart");
                 if (renderOnStart != null && renderOnStart.equalsIgnoreCase("true")) {
@@ -148,14 +149,17 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 return TransformControl.EVALUATE_BODY;
             }
 
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
                 String wrappedContent = buf.toString();

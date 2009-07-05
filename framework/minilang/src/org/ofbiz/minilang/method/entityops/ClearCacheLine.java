@@ -51,6 +51,7 @@ public class ClearCacheLine extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String entityName = methodContext.expandString(this.entityName);
 
@@ -67,10 +68,12 @@ public class ClearCacheLine extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<clear-cache-line/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

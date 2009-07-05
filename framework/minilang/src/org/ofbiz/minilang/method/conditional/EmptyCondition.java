@@ -29,10 +29,12 @@ import org.ofbiz.minilang.method.*;
  */
 public class EmptyCondition implements Conditional {
     public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> {
+        @Override
         public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new EmptyCondition(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if-empty";
         }

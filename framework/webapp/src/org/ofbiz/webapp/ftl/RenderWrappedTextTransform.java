@@ -44,13 +44,16 @@ public class RenderWrappedTextTransform implements  TemplateTransformModel {
 
         return new Writer(out) {
 
+            @Override
             public void write(char cbuf[], int off, int len) {
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 if (UtilValidate.isNotEmpty(wrappedFTL)) {
                         out.write(wrappedFTL);

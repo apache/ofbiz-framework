@@ -600,6 +600,7 @@ public class StringUtil {
      *
      * @deprecated Use StringUtil.htmlEncoder instead.
      */
+    @Deprecated
     public static String htmlSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
         html = StringUtil.replaceString(html, "&", "&amp;");
         html = StringUtil.replaceString(html, "<", "&lt;");
@@ -698,6 +699,7 @@ public class StringUtil {
         /**
          * @return The String this object wraps.
          */
+        @Override
         public String toString() {
             return this.theString;
         }
@@ -709,6 +711,7 @@ public class StringUtil {
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object>, Reusable {
         protected static final ObjectFactory<HtmlEncodingMapWrapper<?>> mapStackFactory = new ObjectFactory<HtmlEncodingMapWrapper<?>>() {
+            @Override
             protected HtmlEncodingMapWrapper<?> create() {
                 return new HtmlEncodingMapWrapper();
             }
@@ -758,6 +761,7 @@ public class StringUtil {
         public Set<K> keySet() { return this.internalMap.keySet(); }
         public Collection<Object> values() { return this.internalMap.values(); }
         public Set<Map.Entry<K, Object>> entrySet() { return this.internalMap.entrySet(); }
+        @Override
         public String toString() { return this.internalMap.toString(); }
     }
 }

@@ -229,6 +229,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
+    @Override
     public Object get(Object name) {
         Field field = MODEL_SERVICE_FIELD_MAP.get(name.toString());
         if (field != null) {
@@ -264,10 +265,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public int hashCode() {
             return field.hashCode() ^ System.identityHashCode(ModelService.this);
         }
 
+        @Override
         public boolean equals(Object o) {
             if (!(o instanceof ModelServiceMapEntry)) return false;
             ModelServiceMapEntry other = (ModelServiceMapEntry) o;
@@ -279,12 +282,15 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
+    @Override
     public Set<Map.Entry<String, Object>> entrySet() {
         return new AbstractSet<Map.Entry<String, Object>>() {
+            @Override
             public int size() {
                 return MODEL_SERVICE_FIELDS.length;
             }
 
+            @Override
             public Iterator<Map.Entry<String, Object>> iterator() {
                 return new Iterator<Map.Entry<String, Object>>() {
                     private int i = 0;
@@ -305,10 +311,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         };
     }
 
+    @Override
     public Object put(String o1, Object o2) {
         return null;
     }
 
+    @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append(name).append("::");

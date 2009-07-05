@@ -55,6 +55,7 @@ public class StartActivityJob extends AbstractJob {
     /**
      * @see org.ofbiz.service.job.Job#exec()
      */
+    @Override
     public void exec() {
         try {
             Debug.logVerbose("Executing job now : " + activity, module);

@@ -24,10 +24,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.owasp.esapi.errors.EncodingException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -44,14 +41,17 @@ public class OfbizContentTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 try {
                     Environment env = Environment.getCurrentEnvironment();

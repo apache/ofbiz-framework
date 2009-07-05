@@ -50,10 +50,12 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
         super(resourceName, menuName, request, response);
     }
 
+    @Override
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRendererImage(request, response);
     }
 
+    @Override
     public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
 

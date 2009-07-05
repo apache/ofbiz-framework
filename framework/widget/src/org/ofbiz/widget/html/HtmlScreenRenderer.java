@@ -422,7 +422,9 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         public ScreenletMenuRenderer(HttpServletRequest request, HttpServletResponse response) {
             super(request, response);
         }
+        @Override
         public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) {}
+        @Override
         public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) {}
     }
 

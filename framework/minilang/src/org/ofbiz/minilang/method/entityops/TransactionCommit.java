@@ -50,6 +50,7 @@ public class TransactionCommit extends MethodOperation {
         beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         boolean beganTransaction = false;
 
@@ -72,10 +73,12 @@ public class TransactionCommit extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<transaction-commit/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

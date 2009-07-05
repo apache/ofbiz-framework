@@ -127,6 +127,7 @@ public class GroupServiceModel {
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(getName());

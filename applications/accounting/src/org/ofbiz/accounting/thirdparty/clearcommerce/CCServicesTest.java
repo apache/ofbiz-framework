@@ -62,6 +62,7 @@ public class CCServicesTest extends OFBizTestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         // populate test data
         configFile = new String("paymentTest.properties");

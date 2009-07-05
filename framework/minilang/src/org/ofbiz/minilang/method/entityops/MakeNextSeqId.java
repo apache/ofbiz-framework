@@ -57,6 +57,7 @@ public class MakeNextSeqId extends MethodOperation {
         incrementByStr = element.getAttribute("increment-by");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String seqFieldName = methodContext.expandString(this.seqFieldName);
         String numericPaddingStr = methodContext.expandString(this.numericPaddingStr);
@@ -84,10 +85,12 @@ public class MakeNextSeqId extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<make-next-seq-id/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

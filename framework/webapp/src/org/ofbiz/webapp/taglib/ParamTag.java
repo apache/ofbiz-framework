@@ -82,6 +82,7 @@ public class ParamTag extends TagSupport {
         return this.alias;
     }
 
+    @Override
     public int doStartTag() throws JspTagException {
         AbstractParameterTag sTag = (AbstractParameterTag) findAncestorWithClass(this, AbstractParameterTag.class);
 
@@ -122,6 +123,7 @@ public class ParamTag extends TagSupport {
         return SKIP_BODY;
     }
 
+    @Override
     public int doEndTag() {
         return EVAL_PAGE;
     }

@@ -156,16 +156,19 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
         return new LoopWriter(out) {
 
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
                 //StringBuilder ctxBuf = (StringBuilder) templateRoot.get("buf");
                 //ctxBuf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public int onStart() throws TemplateModelException, IOException {
 
                 List globalNodeTrail = (List) templateRoot.get("globalNodeTrail");
@@ -184,6 +187,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 }
             }
 
+            @Override
             public int afterBody() throws TemplateModelException, IOException {
                 FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);
                 List list = (List) templateRoot.get("globalNodeTrail");
@@ -207,6 +211,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 }
             }
 
+            @Override
             public void close() throws IOException {
                 FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);
                 String wrappedContent = buf.toString();

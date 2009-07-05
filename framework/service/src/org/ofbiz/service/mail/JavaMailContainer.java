@@ -245,6 +245,7 @@ public class JavaMailContainer implements Container {
             this.userLogin = userLogin;
         }
 
+        @Override
         public void run() {
             if (UtilValidate.isNotEmpty(stores)) {
                 for (Map.Entry<Store, Session> entry: stores.entrySet()) {

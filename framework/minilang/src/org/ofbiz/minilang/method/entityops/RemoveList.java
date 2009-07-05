@@ -54,6 +54,7 @@ public class RemoveList extends MethodOperation {
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
 
@@ -90,10 +91,12 @@ public class RemoveList extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<remove-list/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

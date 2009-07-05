@@ -393,6 +393,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     }
 
     /** @deprecated */
+    @Deprecated
     public static String getImageType(GenericDelegator delegator, GenericValue dataResource) {
         String imageType = null;
         if (dataResource != null) {
@@ -715,24 +716,28 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
 
     /** @deprecated */
+    @Deprecated
     public static String renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Map templateContext,
             GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException {
         return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, mimeTypeId, false);
     }
 
     /** @deprecated */
+    @Deprecated
     public static void renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Appendable out,
             Map templateContext, GenericValue view, Locale locale, String targetMimeTypeId) throws GeneralException, IOException {
         renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, false);
     }
 
     /** @deprecated */
+    @Deprecated
     public static String renderDataResourceAsTextCache(GenericDelegator delegator, String dataResourceId, Map templateContext,
             GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException {
         return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, mimeTypeId, true);
     }
 
     /** @deprecated */
+    @Deprecated
     public static void renderDataResourceAsTextCache(GenericDelegator delegator, String dataResourceId, Appendable out,
             Map templateContext, GenericValue view, Locale locale, String targetMimeTypeId) throws GeneralException, IOException {
         renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, true);
@@ -844,24 +849,28 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     }
 
     /** @deprecated */
+    @Deprecated
     public static String getDataResourceTextCache(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
             GenericDelegator delegator) throws IOException, GeneralException {
         return getDataResourceText(dataResource, mimeTypeId, locale, context, delegator, true);
     }
 
     /** @deprecated */
+    @Deprecated
     public static void writeDataResourceTextCache(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
             GenericDelegator delegator, Appendable outWriter) throws IOException, GeneralException {
         writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
     }
 
     /** @deprecated */
+    @Deprecated
     public static String getDataResourceText(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
             GenericDelegator delegator) throws IOException, GeneralException {
         return getDataResourceText(dataResource, mimeTypeId, locale, context, delegator, false);
     }
 
     /** @deprecated */
+    @Deprecated
     public static void writeDataResourceText(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
             GenericDelegator delegator, Appendable out) throws IOException, GeneralException {
         writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, out, false);

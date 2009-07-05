@@ -140,6 +140,7 @@ public class GroupModel {
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(getGroupName());

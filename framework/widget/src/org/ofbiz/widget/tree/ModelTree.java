@@ -184,6 +184,7 @@ public class ModelTree extends ModelWidget {
         return this.trailNameExdr.expandString(context);
     }
 
+    @Override
     public String getBoundaryCommentName() {
         return treeLocation + "#" + name;
     }

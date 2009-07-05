@@ -50,6 +50,7 @@ public class FirstFromList extends MethodOperation {
         this.listAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         if (listAcsr.isEmpty()) {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing", module);
@@ -67,9 +68,11 @@ public class FirstFromList extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         return "<first-from-list list-name=\"" + this.listAcsr + "\" entry-name=\"" + this.entryAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

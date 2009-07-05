@@ -52,10 +52,12 @@ public class SimpleMethodTest extends OFBizTestCase {
         this.methodName = mainElement.getAttribute("name");
     }
 
+    @Override
     public int countTestCases() {
         return 1;
     }
 
+    @Override
     public void run(TestResult result) {
         result.startTest(this);
 

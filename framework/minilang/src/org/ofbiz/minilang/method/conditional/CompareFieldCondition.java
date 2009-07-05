@@ -31,10 +31,12 @@ import org.ofbiz.minilang.operation.*;
  */
 public class CompareFieldCondition implements Conditional {
     public static final class CompareFieldConditionFactory extends ConditionalFactory<CompareFieldCondition> {
+        @Override
         public CompareFieldCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new CompareFieldCondition(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if-compare-field";
         }

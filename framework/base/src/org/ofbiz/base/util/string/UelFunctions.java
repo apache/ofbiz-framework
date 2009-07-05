@@ -261,6 +261,7 @@ public class UelFunctions {
             }
             Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
         }
+        @Override
         public Method resolveFunction(String prefix, String localName) {
             return functionMap.get(prefix + ":" + localName);
         }

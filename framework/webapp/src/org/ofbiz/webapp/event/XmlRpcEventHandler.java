@@ -135,6 +135,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         return null;
     }
 
+    @Override
     protected void setResponseHeader(ServerStreamConnection con, String header, String value) {
         ((HttpStreamConnection) con).getResponse().setHeader(header, value);
     }
@@ -205,6 +206,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             this.setAuthenticationHandler(new OfbizRpcAuthHandler());
         }
 
+        @Override
         public XmlRpcHandler getHandler(String method) throws XmlRpcNoSuchHandlerException, XmlRpcException {
             ModelService model = null;
             try {

@@ -59,6 +59,7 @@ public class RenderTag extends RegionTag {
         return sectionName != null;
     }
 
+    @Override
     public int doStartTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest)
             pageContext.getRequest();
@@ -75,6 +76,7 @@ public class RenderTag extends RegionTag {
         return EVAL_BODY_INCLUDE;
     }
 
+    @Override
     public int doEndTag() throws JspException {
         Region regionEnd = null;
 
@@ -107,6 +109,7 @@ public class RenderTag extends RegionTag {
         return EVAL_PAGE;
     }
 
+    @Override
     public void release() {
         super.release();
         sectionName = role = null;

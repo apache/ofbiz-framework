@@ -91,6 +91,7 @@ public class WebDavServlet extends GenericServlet {
         }
     }
 
+    @Override
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
         request.setAttribute("delegator", this.delegator);
         request.setAttribute("dispatcher", this.dispatcher);

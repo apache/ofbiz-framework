@@ -58,11 +58,13 @@ public abstract class AbstractParameterTag extends TagSupport {
             return this.outParameters;
     }
 
+    @Override
     public int doStartTag() throws JspTagException {
         inParameters = FastMap.newInstance();
         return EVAL_BODY_INCLUDE;
     }
 
+    @Override
     public abstract int doEndTag() throws JspTagException;
 
 }

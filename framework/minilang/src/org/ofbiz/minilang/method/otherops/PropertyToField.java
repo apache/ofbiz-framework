@@ -64,6 +64,7 @@ public class PropertyToField extends MethodOperation {
         argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
@@ -106,10 +107,12 @@ public class PropertyToField extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<property-to-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

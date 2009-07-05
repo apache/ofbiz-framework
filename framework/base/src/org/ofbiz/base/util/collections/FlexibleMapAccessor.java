@@ -196,6 +196,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         return expression;
     }
 
+    @Override
     public String toString() {
         if (this.isEmpty()) {
             return super.toString();
@@ -203,6 +204,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         return this.original;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -218,6 +220,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         return false;
     }
 
+    @Override
     public int hashCode() {
         return this.original == null ? super.hashCode() : this.original.hashCode();
     }

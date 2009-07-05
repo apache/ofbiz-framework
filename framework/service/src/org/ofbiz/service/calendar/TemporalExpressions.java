@@ -38,15 +38,19 @@ public class TemporalExpressions implements Serializable {
 
     /** This class represents a null expression. */
     public static class Null extends TemporalExpression {
+        @Override
         public Calendar first(Calendar cal) {
             return null;
         }
+        @Override
         public boolean includesDate(Calendar cal) {
             return false;
         }
+        @Override
         public Calendar next(Calendar cal) {
             return null;
         }
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -77,6 +81,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -87,10 +92,12 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", size = " + this.expressionSet.size();
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             for (TemporalExpression expression : this.expressionSet) {
                 if (expression.includesDate(cal)) {
@@ -100,6 +107,7 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             for (TemporalExpression expression : this.expressionSet) {
                 Calendar first = expression.first(cal);
@@ -110,6 +118,7 @@ public class TemporalExpressions implements Serializable {
             return null;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             for (TemporalExpression expression : this.expressionSet) {
                 Calendar next = expression.next(cal);
@@ -120,10 +129,12 @@ public class TemporalExpressions implements Serializable {
             return null;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
 
+        @Override
         public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> rawSet = new TreeSet<Date>();
             Set<Date> finalSet = new TreeSet<Date>();
@@ -148,6 +159,7 @@ public class TemporalExpressions implements Serializable {
             return Collections.unmodifiableSet(this.expressionSet);
         }
 
+        @Override
         protected boolean containsExpression(TemporalExpression expression) {
             for (TemporalExpression setItem : this.expressionSet) {
                 if (setItem.containsExpression(expression)) {
@@ -183,6 +195,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -193,10 +206,12 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", size = " + this.expressionSet.size();
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             for (TemporalExpression expression : this.expressionSet) {
                 if (!expression.includesDate(cal)) {
@@ -206,6 +221,7 @@ public class TemporalExpressions implements Serializable {
             return true;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = (Calendar) cal.clone();
             for (TemporalExpression expression : this.expressionSet) {
@@ -221,6 +237,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             for (TemporalExpression expression : this.expressionSet) {
@@ -236,10 +253,12 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
 
+        @Override
         public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> finalSet = new TreeSet<Date>();
             Set<Date> rawSet = new TreeSet<Date>();
@@ -271,6 +290,7 @@ public class TemporalExpressions implements Serializable {
             return Collections.unmodifiableSet(this.expressionSet);
         }
 
+        @Override
         protected boolean containsExpression(TemporalExpression expression) {
             for (TemporalExpression setItem : this.expressionSet) {
                 if (setItem.containsExpression(expression)) {
@@ -304,6 +324,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -315,14 +336,17 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", included = " + this.included + ", excluded = " + this.excluded;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             return this.included.includesDate(cal) && !this.excluded.includesDate(cal);
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = this.included.first(cal);
             while (first != null && this.excluded.includesDate(first)) {
@@ -331,6 +355,7 @@ public class TemporalExpressions implements Serializable {
             return first;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = this.included.next(cal);
             while (next != null && this.excluded.includesDate(next)) {
@@ -339,10 +364,12 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
 
+        @Override
         public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> finalSet = new TreeSet<Date>();
             Set<Date> rawSet = this.included.getRange(range, cal);
@@ -370,6 +397,7 @@ public class TemporalExpressions implements Serializable {
             return this.included;
         }
 
+        @Override
         protected boolean containsExpression(TemporalExpression expression) {
             return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
         }
@@ -387,6 +415,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -397,22 +426,27 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", start = " + this.range.start() + ", end = " + this.range.end();
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             return this.range.includesDate(cal.getTime());
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             return includesDate(cal) ? cal : null;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             return includesDate(cal) ? cal : null;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -489,6 +523,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -500,11 +535,13 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", start = " + this.startStr + ", end = " + this.endStr
             + ", interval = " + this.interval + ", count = " + this.count;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             long millis = cal.getTimeInMillis();
             Calendar startCal = setStart(cal);
@@ -517,6 +554,7 @@ public class TemporalExpressions implements Serializable {
             return millis >= startMillis && millis <= endMillis;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             if (includesDate(cal)) {
                 return cal;
@@ -524,6 +562,7 @@ public class TemporalExpressions implements Serializable {
             return next(cal);
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.add(this.interval, this.count);
@@ -569,6 +608,7 @@ public class TemporalExpressions implements Serializable {
             return this.startSecs;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -618,6 +658,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -629,10 +670,12 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", start = " + this.start + ", end = " + this.end;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             int dow = cal.get(Calendar.DAY_OF_WEEK);
             if (dow == this.start || dow == this.end) {
@@ -651,6 +694,7 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = (Calendar) cal.clone();
             while (!includesDate(first)) {
@@ -659,6 +703,7 @@ public class TemporalExpressions implements Serializable {
             return setStartOfDay(first);
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.add(Calendar.DAY_OF_MONTH, 1);
@@ -668,6 +713,7 @@ public class TemporalExpressions implements Serializable {
             return setStartOfDay(next);
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -714,6 +760,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -725,10 +772,12 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", start = " + this.start + ", end = " + this.end;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
             if (month == this.start || month == this.end) {
@@ -747,6 +796,7 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = (Calendar) cal.clone();
             first.set(Calendar.DAY_OF_MONTH, 1);
@@ -756,6 +806,7 @@ public class TemporalExpressions implements Serializable {
             return first;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.set(Calendar.DAY_OF_MONTH, 1);
@@ -766,6 +817,7 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -810,6 +862,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -821,15 +874,18 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", start = " + this.start + ", end = " + this.end;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             int dom = cal.get(Calendar.DAY_OF_MONTH);
             return dom >= this.start && dom <= this.end;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = setStartOfDay((Calendar) cal.clone());
             while (!includesDate(first)) {
@@ -838,6 +894,7 @@ public class TemporalExpressions implements Serializable {
             return first;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = setStartOfDay((Calendar) cal.clone());
             next.add(Calendar.DAY_OF_MONTH, 1);
@@ -847,6 +904,7 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -892,6 +950,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -903,10 +962,12 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", dayOfWeek = " + this.dayOfWeek + ", occurrence = " + this.occurrence;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             if (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
                 return false;
@@ -918,6 +979,7 @@ public class TemporalExpressions implements Serializable {
             return dom == next.get(Calendar.DAY_OF_MONTH) && next.get(Calendar.MONTH) == month;
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
             Calendar first = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
@@ -931,6 +993,7 @@ public class TemporalExpressions implements Serializable {
             return first;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
             Calendar next = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
@@ -944,6 +1007,7 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }
@@ -1017,6 +1081,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -1028,15 +1093,18 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
 
+        @Override
         public String toString() {
             return super.toString() + ", start = " + this.start + ", freqType = " + this.freqType + ", freqCount = " + this.freqCount;
         }
 
+        @Override
         public boolean includesDate(Calendar cal) {
             Calendar next = first(cal);
             return next.equals(cal);
         }
 
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = prepareCal(cal);
             while (first.before(cal)) {
@@ -1045,6 +1113,7 @@ public class TemporalExpressions implements Serializable {
             return first;
         }
 
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = first(cal);
             if (next.equals(cal)) {
@@ -1053,6 +1122,7 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
         }

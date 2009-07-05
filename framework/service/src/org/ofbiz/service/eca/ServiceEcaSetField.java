@@ -141,6 +141,7 @@ public class ServiceEcaSetField {
         return s;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaSetField) {
             ServiceEcaSetField other = (ServiceEcaSetField) obj;

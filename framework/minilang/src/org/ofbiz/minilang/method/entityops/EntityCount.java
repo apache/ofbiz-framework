@@ -92,6 +92,7 @@ public class EntityCount extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         try {
             Map<String, Object> context = methodContext.getEnvMap();
@@ -143,10 +144,12 @@ public class EntityCount extends MethodOperation {
         return entName;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<entity-count/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

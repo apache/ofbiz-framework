@@ -53,15 +53,18 @@ public class NowTimestampToEnv extends MethodOperation {
         envAcsr = new ContextAccessor<java.sql.Timestamp>(element.getAttribute("field"), element.getAttribute("env-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         envAcsr.put(methodContext, new java.sql.Timestamp(System.currentTimeMillis()));
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<now-timestamp-to-env/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

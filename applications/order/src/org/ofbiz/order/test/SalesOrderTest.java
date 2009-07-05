@@ -37,10 +37,12 @@ public class SalesOrderTest extends OFBizTestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
     }
 
+    @Override
     protected void tearDown() throws Exception {
     }
 

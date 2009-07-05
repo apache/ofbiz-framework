@@ -273,7 +273,6 @@ public class ICalWorker {
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     protected static void logInUser(HttpServletRequest request, HttpServletResponse response) throws GenericServiceException, GenericEntityException {
         Map<String, Object> serviceMap = (Map<String, Object>) WebDavUtil.getCredentialsFromRequest(request);
         if (serviceMap == null) {

@@ -247,6 +247,7 @@ public class MessageString implements Serializable {
         this.isError = isError;
     }
 
+    @Override
     public String toString() {
         return this.message;
     }

@@ -43,10 +43,12 @@ public class WebslingerBSFServiceEngine extends GenericAsyncEngine {
         super(dispatcher);
     }
 
+    @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         runSync(localName, modelService, context);
     }
 
+    @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Object[] params = new Object[] { dispatcher.getLocalContext(localName), context };
         try {

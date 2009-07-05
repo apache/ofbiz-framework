@@ -87,6 +87,7 @@ public final class SplashScreen extends Frame {
             setVisible(true);
         }
 
+        @Override
         public void paint(Graphics graphics) {
             if (fImage != null) {
                 graphics.drawImage(fImage, 0, 0, this);

@@ -470,6 +470,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /**
      * @deprecated
      */
+    @Deprecated
     public ModelField getPk(int index) {
         return this.pks.get(index);
     }
@@ -489,6 +490,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /**
      * @deprecated Use getPkFieldsUnmodifiable instead.
      */
+    @Deprecated
     public List<ModelField> getPksCopy() {
         List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.pks);
@@ -515,6 +517,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /**
      * @deprecated
      */
+    @Deprecated
     public ModelField getNopk(int index) {
         return this.nopks.get(index);
     }
@@ -536,6 +539,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /**
      * @deprecated
      */
+    @Deprecated
     public ModelField getField(int index) {
         return this.fields.get(index);
     }
@@ -547,6 +551,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /**
      * @deprecated Use getFieldsUnmodifiable instead.
      */
+    @Deprecated
     public List<ModelField> getFieldsCopy() {
         List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.fields);
@@ -1340,6 +1345,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.noAutoStamp = noAutoStamp;
     }
 
+    @Override
     public String toString() {
         return "ModelEntity[" + getEntityName() + "]";
     }

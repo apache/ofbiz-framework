@@ -874,22 +874,27 @@ public class UtilProperties implements java.io.Serializable {
             return bundle;
         }
 
+        @Override
         public int hashCode() {
             return this.hashCode;
         }
 
+        @Override
         public boolean equals(Object obj) {
             return obj == null ? false : obj.hashCode() == this.hashCode;
         }
 
+        @Override
         public Locale getLocale() {
             return this.locale;
         }
 
+        @Override
         protected Object handleGetObject(String key) {
             return properties.get(key);
         }
 
+        @Override
         public Enumeration<String> getKeys() {
             return new Enumeration<String>() {
                 Iterator i = properties.keySet().iterator();
@@ -924,6 +929,7 @@ public class UtilProperties implements java.io.Serializable {
             }
             in.close();
         }
+        @Override
         public void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
             xmlToProperties(in, null, this);
             in.close();

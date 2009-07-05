@@ -65,6 +65,7 @@ public class PrimaryKeyFinder extends Finder {
         selectFieldExpanderList = EntityFinderUtil.makeSelectFieldExpanderList(entityOneElement);
     }
 
+    @Override
     public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
 

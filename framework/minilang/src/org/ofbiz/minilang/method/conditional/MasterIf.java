@@ -73,6 +73,7 @@ public class MasterIf extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
@@ -114,10 +115,12 @@ public class MasterIf extends MethodOperation {
         return allSubOps;
     }
 
+    @Override
     public String rawString() {
         return expandedString(null);
     }
 
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: fill in missing details, if needed
         StringBuilder messageBuf = new StringBuilder();

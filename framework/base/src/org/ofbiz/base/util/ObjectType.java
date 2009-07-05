@@ -1239,10 +1239,12 @@ public class ObjectType {
     public static final class NullObject {
         public NullObject() { }
 
+        @Override
         public String toString() {
             return "ObjectType.NullObject";
         }
 
+        @Override
         public boolean equals(Object other) {
             if (other instanceof NullObject) {
                 // should do equality of object? don't think so, just same type

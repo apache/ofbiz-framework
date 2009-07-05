@@ -911,6 +911,7 @@ public class UtilMisc {
             }
         }
 
+        @Override
         public String toString() {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.toString();
@@ -929,6 +930,7 @@ public class UtilMisc {
             }
         }
 
+        @Override
         public int hashCode() {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.hashCode();
@@ -944,6 +946,7 @@ public class UtilMisc {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.equals(obj);

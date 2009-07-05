@@ -56,6 +56,7 @@ public class FieldToSession extends MethodOperation {
         sessionAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("session-name"), fieldAcsr.toString());
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -82,10 +83,12 @@ public class FieldToSession extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<field-to-session field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

@@ -67,6 +67,7 @@ public class IfHasPermission extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
@@ -114,9 +115,11 @@ public class IfHasPermission extends MethodOperation {
         return allSubOps;
     }
 
+    @Override
     public String rawString() {
         return "<if-has-permission permission=\"" + this.permissionExdr + "\" action=\"" + this.actionExdr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

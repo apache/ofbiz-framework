@@ -52,6 +52,7 @@ public class StoreValue extends MethodOperation {
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
 
@@ -88,10 +89,12 @@ public class StoreValue extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<store-value/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

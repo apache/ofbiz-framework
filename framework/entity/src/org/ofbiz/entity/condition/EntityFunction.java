@@ -81,18 +81,22 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             public Integer getValue(Object value) { return value.toString().length(); }
         };
         protected static final SQLFunctionFactory<Integer, LENGTH> lengthFactory = new SQLFunctionFactory<Integer, LENGTH>() {
+            @Override
             protected LENGTH create() {
                 return new LENGTH();
             }
 
+            @Override
             protected void init(LENGTH function, Object value) {
                 function.init(value);
             }
         };
         protected LENGTH() {}
         /** @deprecated Use EntityCondition.LENGTH() instead */
+        @Deprecated
         public LENGTH(EntityConditionValue nested) { init(nested); }
         /** @deprecated Use EntityCondition.LENGTH() instead */
+        @Deprecated
         public LENGTH(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.LENGTH, value);
@@ -104,18 +108,22 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             public String getValue(Object value) { return value.toString().trim(); }
         };
         protected static final SQLFunctionFactory<String, TRIM> trimFactory = new SQLFunctionFactory<String, TRIM>() {
+            @Override
             protected TRIM create() {
                 return new TRIM();
             }
 
+            @Override
             protected void init(TRIM function, Object value) {
                 function.init(value);
             }
         };
         protected TRIM() {}
         /** @deprecated Use EntityCondition.TRIM() instead */
+        @Deprecated
         public TRIM(EntityConditionValue nested) { init(nested); }
         /** @deprecated Use EntityCondition.TRIM() instead */
+        @Deprecated
         public TRIM(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.TRIM, value);
@@ -127,18 +135,22 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             public String getValue(Object value) { return value.toString().toUpperCase(); }
         };
         protected static final SQLFunctionFactory<String, UPPER> upperFactory = new SQLFunctionFactory<String, UPPER>() {
+            @Override
             protected UPPER create() {
                 return new UPPER();
             }
 
+            @Override
             protected void init(UPPER function, Object value) {
                 function.init(value);
             }
         };
         protected UPPER() {}
         /** @deprecated Use EntityCondition.UPPER() instead */
+        @Deprecated
         public UPPER(EntityConditionValue nested) { init(nested); }
         /** @deprecated Use EntityCondition.UPPER() instead */
+        @Deprecated
         public UPPER(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.UPPER, value);
@@ -150,18 +162,22 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             public String getValue(Object value) { return value.toString().toLowerCase(); }
         };
         protected static final SQLFunctionFactory<String, LOWER> lowerFactory = new SQLFunctionFactory<String, LOWER>() {
+            @Override
             protected LOWER create() {
                 return new LOWER();
             }
 
+            @Override
             protected void init(LOWER function, Object value) {
                 function.init(value);
             }
         };
         protected LOWER() {}
         /** @deprecated Use EntityCondition.LOWER() instead */
+        @Deprecated
         public LOWER(EntityConditionValue nested) { init(nested); }
         /** @deprecated Use EntityCondition.LOWER() instead */
+        @Deprecated
         public LOWER(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.LOWER, value);
@@ -202,6 +218,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         this.fetcher = null;
     }
 
+    @Override
     public EntityConditionValue freeze() {
         if (nested != null) {
             return new EntityFunction<T>(fetcher, function, nested.freeze()) {};
@@ -222,10 +239,12 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         return function.ordinal();
     }
 
+    @Override
     public int hashCode() {
         return function.hashCode();
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityFunction)) return false;
         EntityFunction otherFunc = (EntityFunction) obj;
@@ -234,6 +253,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
     }
 
+    @Override
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceinfo) {
         sql.append(function.name()).append('(');
         if (nested != null) {
@@ -244,6 +264,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         sql.append(')');
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         if (nested != null) {
             visitor.acceptEntityConditionValue(nested);
@@ -252,10 +273,12 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         }
     }
 
+    @Override
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityFunction(this);
     }
 
+    @Override
     public ModelField getModelField(ModelEntity modelEntity) {
         if (nested != null) {
             return nested.getModelField(modelEntity);
@@ -263,12 +286,14 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         return null;
     }
 
+    @Override
     public void validateSql(ModelEntity modelEntity) throws GenericModelException {
         if (nested != null) {
             nested.validateSql(modelEntity);
         }
     }
 
+    @Override
     public Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
         Object value = nested != null ? nested.getValue(delegator, map) : this.value;
         return value != null ? fetcher.getValue(value) : null;

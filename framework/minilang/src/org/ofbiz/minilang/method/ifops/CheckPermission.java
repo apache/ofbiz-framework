@@ -91,6 +91,7 @@ public class CheckPermission extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         boolean hasPermission = false;
 
@@ -187,10 +188,12 @@ public class CheckPermission extends MethodOperation {
         }
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<check-permission/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

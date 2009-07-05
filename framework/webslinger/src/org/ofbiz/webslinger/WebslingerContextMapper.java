@@ -70,6 +70,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         super.init(config, UtilProperties.getPropertyValue("webslinger.properties", "moduleBase"));
     }
 
+    @Override
     protected Layout[] getStartLayouts() throws Exception {
         ArrayList<Layout> layouts = new ArrayList<Layout>();
         try {
@@ -81,6 +82,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         return layouts.toArray(new Layout[layouts.size()]);
     }
 
+    @Override
     public void initializeRequest(WebslingerServletContext context, HttpServletRequest request) {
         request.setAttribute("servletContext", context);
         Object delegator = context.getAttribute("delegator");
@@ -98,6 +100,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         servletContext.setAttribute("security", security);
     }
 
+    @Override
     protected void initializeContext(WebslingerServletContext context, Layout layout) throws Exception {
         OfbizLayout ofbizLayout = (OfbizLayout) layout;
         GenericDelegator delegator = GenericDelegator.getGenericDelegator(ofbizLayout.delegatorName);
@@ -131,6 +134,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         }
     }
 
+    @Override
     protected Set<String> getSuffixes() throws Exception {
         Cache cache = delegator.getCache();
         Set<String> suffixes;
@@ -147,6 +151,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         return suffixes;
     }
 
+    @Override
     protected Layout lookupLayout(String hostName, String contextPath) throws Exception {
         GenericValue layout = EntityUtil.getOnly(delegator.findByAndCache("WebslingerLayout", UtilMisc.toMap("hostName", hostName, "contextPath", contextPath)));
         if (layout == null) return null;
@@ -193,10 +198,12 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
             return bases;
         }
 
+        @Override
         public int hashCode() {
             return hashCode;
         }
 
+        @Override
         public boolean equals(Object o) {
             if (!(o instanceof OfbizLayout)) return false;
             OfbizLayout other = (OfbizLayout) o;

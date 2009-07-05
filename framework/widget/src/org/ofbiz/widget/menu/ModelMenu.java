@@ -432,6 +432,7 @@ public class ModelMenu extends ModelWidget {
         return this.type;
     }
 
+    @Override
     public String getBoundaryCommentName() {
         return menuLocation + "#" + name;
     }

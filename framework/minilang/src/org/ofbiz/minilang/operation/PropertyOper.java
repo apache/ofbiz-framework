@@ -39,6 +39,7 @@ public class PropertyOper extends MakeInStringOperation {
         property = element.getAttribute("property");
     }
 
+    @Override
     public String exec(Map inMap, List messages, Locale locale, ClassLoader loader) {
         String propStr = UtilProperties.getPropertyValue(UtilURL.fromResource(resource, loader), property);
 

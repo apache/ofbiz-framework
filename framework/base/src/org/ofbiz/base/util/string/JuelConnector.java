@@ -57,6 +57,7 @@ public class JuelConnector {
         public ExtendedAstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
             super(base, property, lvalue, strict);
         }
+        @Override
         public void setValue(Bindings bindings, ELContext context, Object value) throws ELException {
             if (!lvalue) {
                 throw new ELException(LocalMessages.get("error.value.set.rvalue"));
@@ -90,6 +91,7 @@ public class JuelConnector {
         public ExtendedAstDot(AstNode base, String property, boolean lvalue) {
             super(base, property, lvalue);
         }
+        @Override
         public void setValue(Bindings bindings, ELContext context, Object value) throws ELException {
             if (!lvalue) {
                 throw new ELException(LocalMessages.get("error.value.set.rvalue"));
@@ -121,6 +123,7 @@ public class JuelConnector {
         public ExtendedParser(Builder context, String input) {
             super(context, input);
         }
+        @Override
         protected AstEval eval(boolean required, boolean deferred) throws ScanException, ParseException {
             AstEval v = null;
             Symbol start_eval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
@@ -146,9 +149,11 @@ public class JuelConnector {
             }
             return v;
         }
+        @Override
         protected AstBracket createAstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
             return new ExtendedAstBracket(base, property, lvalue, strict);
         }
+        @Override
         protected AstDot createAstDot(AstNode base, String property, boolean lvalue) {
             return new ExtendedAstDot(base, property, lvalue);
         }
@@ -157,6 +162,7 @@ public class JuelConnector {
     /** Custom <code>Builder</code> class needed to implement a custom parser. */
     @SuppressWarnings("serial")
     protected static class ExtendedBuilder extends Builder {
+        @Override
         public Tree build(String expression) throws ELException {
             try {
                 return new ExtendedParser(this, expression).tree();

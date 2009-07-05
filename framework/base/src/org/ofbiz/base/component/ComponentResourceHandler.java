@@ -89,6 +89,7 @@ public class ComponentResourceHandler implements ResourceHandler {
         return ComponentConfig.getFullLocation(componentName, loaderName, location);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ComponentResourceHandler) {
             ComponentResourceHandler other = (ComponentResourceHandler) obj;
@@ -102,11 +103,13 @@ public class ComponentResourceHandler implements ResourceHandler {
         return false;
     }
 
+    @Override
     public int hashCode() {
         // the hashCode will weight by a combination componentName and the combination of loaderName and location
         return (this.componentName.hashCode() + ((this.loaderName.hashCode() + this.location.hashCode()) >> 1)) >> 1;
     }
 
+    @Override
     public String toString() {
         return "ComponentResourceHandler from XML file [" + this.componentName + "] with loaderName [" + loaderName + "] and location [" + location + "]";
     }

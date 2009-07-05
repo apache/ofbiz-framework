@@ -60,7 +60,7 @@ public class DataResourceDocument {
           // make a new, empty document
           doc = new Document();
 
-          doc.add(new Field("dataResourceId", id, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+          doc.add(new Field("dataResourceId", id, Store.YES, Index.NOT_ANALYZED, TermVector.NO));
 
           String mimeTypeId = dataResource.getString("mimeTypeId");
         if (UtilValidate.isEmpty(mimeTypeId)) {
@@ -84,7 +84,7 @@ public class DataResourceDocument {
           String text = outWriter.toString();
           Debug.logInfo("in DataResourceDocument, text:" + text, module);
                 if (UtilValidate.isNotEmpty(text))
-              doc.add(new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO));
+              doc.add(new Field("content", text, Store.NO, Index.ANALYZED, TermVector.NO));
 
         return doc;
     }

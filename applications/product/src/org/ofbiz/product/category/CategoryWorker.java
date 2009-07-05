@@ -52,6 +52,7 @@ public class CategoryWorker {
     public static final String module = CategoryWorker.class.getName();
 
     /** @deprecated */
+    @Deprecated
     public static String getCatalogTopCategory(PageContext pageContext, String defaultTopCategory) {
         return getCatalogTopCategory(pageContext.getRequest(), defaultTopCategory);
     }
@@ -84,6 +85,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getCategoriesWithNoParent(PageContext pageContext, String attributeName) {
         getCategoriesWithNoParent(pageContext.getRequest(), attributeName);
     }
@@ -110,6 +112,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getRelatedCategories(PageContext pageContext, String attributeName, boolean limitView) {
             getRelatedCategories(pageContext.getRequest(), attributeName, limitView);
     }
@@ -128,6 +131,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getRelatedCategories(PageContext pageContext, String attributeName, String parentId, boolean limitView) {
         getRelatedCategories(pageContext.getRequest(), attributeName, parentId, limitView);
     }
@@ -144,6 +148,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static List<GenericValue> getRelatedCategoriesRet(PageContext pageContext, String attributeName, String parentId, boolean limitView) {
         return getRelatedCategoriesRet(pageContext.getRequest(), attributeName, parentId, limitView);
     }
@@ -267,6 +272,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void setTrail(PageContext pageContext, String currentCategory) {
         setTrail(pageContext.getRequest(), currentCategory);
     }
@@ -349,6 +355,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static List<String> getTrail(PageContext pageContext) {
         return getTrail(pageContext.getRequest());
     }
@@ -360,6 +367,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static List<String> setTrail(PageContext pageContext, List<String> crumb) {
         return setTrail(pageContext.getRequest(), crumb);
     }
@@ -371,6 +379,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static boolean checkTrailItem(PageContext pageContext, String category) {
         return checkTrailItem(pageContext.getRequest(), category);
     }
@@ -386,6 +395,7 @@ public class CategoryWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static String lastTrailItem(PageContext pageContext) {
         return lastTrailItem(pageContext.getRequest());
     }

@@ -36,5 +36,6 @@ public class WfActivityLoopImplementation extends WfActivityAbstractImplementati
      * To be implemented.
      * @see org.ofbiz.workflow.impl.WfActivityAbstractImplementation#run()
      */
+    @Override
     public void run() {}
 }

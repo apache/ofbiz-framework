@@ -60,10 +60,12 @@ public class DateRange implements Serializable {
         }
     }
 
+    @Override
     public boolean equals(Object obj) {
         return obj instanceof DateRange && ((DateRange)obj).start.equals(this.start) && ((DateRange)obj).end.equals(this.end);
     }
 
+    @Override
     public String toString() {
         return this.start + " - " + this.end;
     }

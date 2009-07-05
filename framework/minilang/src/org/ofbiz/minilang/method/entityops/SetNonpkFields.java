@@ -55,6 +55,7 @@ public class SetNonpkFields extends MethodOperation {
         setIfNullStr = element.getAttribute("set-if-null");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
@@ -82,10 +83,12 @@ public class SetNonpkFields extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<set-nonpk-fields/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

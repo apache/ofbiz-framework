@@ -74,6 +74,7 @@ public class IfTag extends BodyTagSupport {
         return size.toString();
     }
 
+    @Override
     public int doStartTag() throws JspTagException {
         Object object = null;
 
@@ -220,10 +221,12 @@ public class IfTag extends BodyTagSupport {
         return SKIP_BODY;
     }
 
+    @Override
     public int doAfterBody() {
         return SKIP_BODY;
     }
 
+    @Override
     public int doEndTag() {
         try {
             BodyContent body = getBodyContent();

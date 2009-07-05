@@ -124,6 +124,7 @@ public class ModelTreeCondition {
             this.subConditions = readSubConditions(modelTree, condElement);
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             // return false for the first one in the list that is false, basic and algo
             for (TreeCondition subCondition: subConditions) {
@@ -143,6 +144,7 @@ public class ModelTreeCondition {
             this.subConditions = readSubConditions(modelTree, condElement);
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
@@ -168,6 +170,7 @@ public class ModelTreeCondition {
             this.subConditions = readSubConditions(modelTree, condElement);
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             // return true for the first one in the list that is true, basic or algo
             for (TreeCondition subCondition: subConditions) {
@@ -188,6 +191,7 @@ public class ModelTreeCondition {
             this.subCondition = readCondition(modelTree, firstChildElement);
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             return !this.subCondition.eval(context);
         }
@@ -203,6 +207,7 @@ public class ModelTreeCondition {
             this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -242,6 +247,7 @@ public class ModelTreeCondition {
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
@@ -309,6 +315,7 @@ public class ModelTreeCondition {
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
@@ -359,6 +366,7 @@ public class ModelTreeCondition {
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             String format = this.formatExdr.expandString(context);
 
@@ -402,6 +410,7 @@ public class ModelTreeCondition {
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
@@ -436,6 +445,7 @@ public class ModelTreeCondition {
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
@@ -449,6 +459,7 @@ public class ModelTreeCondition {
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
 
+        @Override
         public boolean eval(Map<String, ? extends Object> context) {
 
             boolean passed = permissionChecker.runPermissionCheck(context);

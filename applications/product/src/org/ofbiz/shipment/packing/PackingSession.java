@@ -1006,10 +1006,12 @@ public class PackingSession implements java.io.Serializable {
             return quantity;
         }
 
+        @Override
         public Set entrySet() {
             return null;
         }
 
+        @Override
         public Object get(Object name) {
             if ("orderItem".equals(name.toString())) {
                 return orderItem;
@@ -1021,6 +1023,7 @@ public class PackingSession implements java.io.Serializable {
             return null;
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o instanceof ItemDisplay) {
                 ItemDisplay d = (ItemDisplay) o;

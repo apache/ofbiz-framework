@@ -3324,6 +3324,7 @@ public class DatabaseUtil {
         /** Comma separated list of column names in the primary tables foreign keys */
         public String fkColumnName;
 
+        @Override
         public String toString() {
             return "FK Reference from table " + fkTableName + " called " + fkName + " to PK in table " + pkTableName;
         }

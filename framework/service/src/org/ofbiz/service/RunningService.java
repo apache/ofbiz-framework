@@ -67,6 +67,7 @@ public class RunningService {
         this.endStamp = UtilDateTime.nowTimestamp();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o != null && o instanceof RunningService) {
             RunningService x = (RunningService) o;

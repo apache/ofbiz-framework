@@ -28,6 +28,7 @@ import org.ofbiz.base.util.*;
  */
 public class ClasspathLoader extends ResourceLoader implements java.io.Serializable {
 
+    @Override
     public URL getURL(String location) throws GenericConfigException {
         String fullLocation = fullLocation(location);
         URL url = UtilURL.fromResource(fullLocation);
@@ -37,6 +38,7 @@ public class ClasspathLoader extends ResourceLoader implements java.io.Serializa
         return url;
     }
 
+    @Override
     public InputStream loadResource(String location) throws GenericConfigException {
         URL url = getURL(location);
         try {

@@ -65,6 +65,7 @@ public class StringAppend extends MethodOperation {
         argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list"), element.getAttribute("arg-list-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
@@ -116,10 +117,12 @@ public class StringAppend extends MethodOperation {
         return newValue.toString();
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<string-append string=\"" + this.string + "\" prefix=\"" + this.prefix + "\" suffix=\"" + this.suffix + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

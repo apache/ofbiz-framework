@@ -39,6 +39,7 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
     /** Run the service synchronously and IGNORE the result
      * @param context Map of name, value pairs composing the context
      */
+    @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> result = runSync(localName, modelService, context);
     }
@@ -47,6 +48,7 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
      * @param context Map of name, value pairs composing the context
      * @return Map of name, value pairs composing the result
      */
+    @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> result = serviceInvoker(localName, modelService, context);
         if (result == null)

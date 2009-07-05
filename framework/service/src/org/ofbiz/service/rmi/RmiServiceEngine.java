@@ -37,10 +37,12 @@ public class RmiServiceEngine extends GenericAsyncEngine {
         super(dispatcher);
     }
 
+    @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return run(modelService, context);
     }
 
+    @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         run(modelService, context);
     }

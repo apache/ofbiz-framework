@@ -53,6 +53,7 @@ public class FormatTag extends BodyTagSupport {
         this.defaultStr = defaultStr;
     }
 
+    @Override
     public int doAfterBody() throws JspException {
         NumberFormat nf = null;
         DateFormat df = null;

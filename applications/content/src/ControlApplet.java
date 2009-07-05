@@ -57,6 +57,7 @@ public class ControlApplet extends Applet implements Runnable {
 
     protected Thread thread = null;
 
+    @Override
     public void init() {
         ctx = this.getAppletContext();
         this.sessionId = this.getParameter("sessionId");
@@ -106,6 +107,7 @@ public class ControlApplet extends Applet implements Runnable {
         }
     }
 
+    @Override
     public void destroy() {
         this.stopped = true;
     }

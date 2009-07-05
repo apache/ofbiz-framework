@@ -56,6 +56,7 @@ public class I18nBundleTag extends TagSupport {
         return this.bundle;
     }
 
+    @Override
     public int doStartTag() throws JspException {
         try {
             this.bundle = UtilProperties.getResourceBundle(this.baseName, UtilHttp.getLocale((HttpServletRequest) pageContext.getRequest()));
@@ -75,6 +76,7 @@ public class I18nBundleTag extends TagSupport {
         return EVAL_BODY_INCLUDE;
     }
 
+    @Override
     public int doEndTag() throws JspException {
         return EVAL_PAGE;
     }

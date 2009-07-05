@@ -48,6 +48,7 @@ public class ContactMechWorker {
     public static final String module = ContactMechWorker.class.getName();
 
     /** @deprecated */
+    @Deprecated
     public static void getPartyContactMechValueMaps(PageContext pageContext, String partyId, boolean showOld, String partyContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List<Map<String, Object>> partyContactMechValueMaps = getPartyContactMechValueMaps(delegator, partyId, showOld);
@@ -204,6 +205,7 @@ public class ContactMechWorker {
 
 
     /** @deprecated */
+    @Deprecated
     public static void getOrderContactMechValueMaps(PageContext pageContext, String orderId, String orderContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List<Map<String, GenericValue>> maps = getOrderContactMechValueMaps(delegator, orderId);

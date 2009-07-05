@@ -44,6 +44,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
         this.shortCircuitValue = shortCircuitValue;
     }
 
+    @Override
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append('(');
         sql.append(((EntityCondition) lhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
@@ -79,6 +80,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
         return ((EntityCondition) item).freeze();
     }
 
+    @Override
     public EntityCondition freeze(Object lhs, Object rhs) {
         return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
@@ -99,11 +101,13 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
         }
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor, Object lhs, Object rhs) {
         ((EntityCondition) lhs).visit(visitor);
         visitor.visit(rhs);
     }
 
+    @Override
     public boolean entityMatches(GenericEntity entity, Object lhs, Object rhs) {
         return entityMatches(entity, (EntityCondition) lhs, (EntityCondition) rhs);
     }
@@ -126,6 +130,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
         return castBoolean(mapMatches(delegator, map, lhs, rhs));
     }
 
+    @Override
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         if (((EntityCondition) lhs).mapMatches(delegator, map)) return shortCircuitValue;
         if (((EntityCondition) rhs).mapMatches(delegator, map)) return shortCircuitValue;
@@ -145,6 +150,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
         return !shortCircuitValue;
     }
 
+    @Override
     public void validateSql(ModelEntity modelEntity, Object lhs, Object rhs) throws GenericModelException {
         validateSql(modelEntity, (EntityCondition) lhs, (EntityCondition) rhs);
     }

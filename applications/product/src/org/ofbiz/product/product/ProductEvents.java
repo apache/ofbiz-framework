@@ -37,7 +37,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilParse;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -433,10 +432,10 @@ public class ProductEvents {
                     product.set("lastModifiedDate", nowTimestamp);
                     product.setString("lastModifiedByUserLogin", userLogin.getString("userLoginId"));
                     try {
-                        product.set("productHeight", UtilParse.parseBigDecimalForEntity(request.getParameter("productHeight")));
-                        product.set("productWidth", UtilParse.parseBigDecimalForEntity(request.getParameter("productWidth")));
-                        product.set("productDepth", UtilParse.parseBigDecimalForEntity(request.getParameter("productDepth")));
-                        product.set("weight", UtilParse.parseBigDecimalForEntity(request.getParameter("weight")));
+                        product.set("productHeight", new BigDecimal(request.getParameter("productHeight")));
+                        product.set("productWidth", parseBigDecimalForEntity(request.getParameter("productWidth")));
+                        product.set("productDepth", parseBigDecimalForEntity(request.getParameter("productDepth")));
+                        product.set("weight", parseBigDecimalForEntity(request.getParameter("weight")));
 
                         // default unit settings for shipping parameters
                         product.set("heightUomId", "LEN_in");
@@ -444,10 +443,10 @@ public class ProductEvents {
                         product.set("depthUomId", "LEN_in");
                         product.set("weightUomId", "WT_oz");
 
-                        BigDecimal floz = UtilParse.parseBigDecimalForEntity(request.getParameter("~floz"));
-                        BigDecimal ml = UtilParse.parseBigDecimalForEntity(request.getParameter("~ml"));
-                        BigDecimal ntwt = UtilParse.parseBigDecimalForEntity(request.getParameter("~ntwt"));
-                        BigDecimal grams = UtilParse.parseBigDecimalForEntity(request.getParameter("~grams"));
+                        BigDecimal floz = parseBigDecimalForEntity(request.getParameter("~floz"));
+                        BigDecimal ml = parseBigDecimalForEntity(request.getParameter("~ml"));
+                        BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt"));
+                        BigDecimal grams = parseBigDecimalForEntity(request.getParameter("~grams"));
 
                         List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")), true);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
@@ -470,14 +469,14 @@ public class ProductEvents {
                     do {
                         GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
                         try {
-                            product.set("productHeight", UtilParse.parseBigDecimalForEntity(request.getParameter("productHeight" + attribIdx)));
-                            product.set("productWidth", UtilParse.parseBigDecimalForEntity(request.getParameter("productWidth" + attribIdx)));
-                            product.set("productDepth", UtilParse.parseBigDecimalForEntity(request.getParameter("productDepth" + attribIdx)));
-                            product.set("weight", UtilParse.parseBigDecimalForEntity(request.getParameter("weight" + attribIdx)));
-                            BigDecimal floz = UtilParse.parseBigDecimalForEntity(request.getParameter("~floz" + attribIdx));
-                            BigDecimal ml = UtilParse.parseBigDecimalForEntity(request.getParameter("~ml" + attribIdx));
-                            BigDecimal ntwt = UtilParse.parseBigDecimalForEntity(request.getParameter("~ntwt" + attribIdx));
-                            BigDecimal grams = UtilParse.parseBigDecimalForEntity(request.getParameter("~grams" + attribIdx));
+                            product.set("productHeight", parseBigDecimalForEntity(request.getParameter("productHeight" + attribIdx)));
+                            product.set("productWidth", parseBigDecimalForEntity(request.getParameter("productWidth" + attribIdx)));
+                            product.set("productDepth", parseBigDecimalForEntity(request.getParameter("productDepth" + attribIdx)));
+                            product.set("weight", parseBigDecimalForEntity(request.getParameter("weight" + attribIdx)));
+                            BigDecimal floz = parseBigDecimalForEntity(request.getParameter("~floz" + attribIdx));
+                            BigDecimal ml = parseBigDecimalForEntity(request.getParameter("~ml" + attribIdx));
+                            BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt" + attribIdx));
+                            BigDecimal grams = parseBigDecimalForEntity(request.getParameter("~grams" + attribIdx));
 
                             List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")), true);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
@@ -1041,12 +1040,7 @@ public class ProductEvents {
         return "success";
     }
 
-    /**
-     * Return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks
-     * in fields where doubles display. Blank meaning null, vs. 0 which means 0
-     * @param doubleString
-     * @return a Double for the parsed value
-     */
+    @Deprecated
     public static Double parseDoubleForEntity(String doubleString) throws NumberFormatException {
         if (doubleString == null) {
             return null;
@@ -1058,4 +1052,23 @@ public class ProductEvents {
         }
         return Double.valueOf(doubleString);
     }
+    
+    /**
+     * Return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks
+     * in fields where BigDecimal display. Blank meaning null, vs. 0 which means 0
+     * @param bigDecimalString
+     * @return a BigDecimal for the parsed value
+     */
+    public static BigDecimal parseBigDecimalForEntity(String bigDecimalString) throws NumberFormatException {
+        if (bigDecimalString == null) {
+            return null;
+        }
+        bigDecimalString = bigDecimalString.trim();
+        bigDecimalString = bigDecimalString.replaceAll(",", "");
+        if (bigDecimalString.length() < 1) {
+            return null;
+        }
+        return new BigDecimal(bigDecimalString);
+    }
+
 }

@@ -80,14 +80,17 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
 
             final String passedCsv = (String)templateCtx.get("nodeTrailCsv");
 
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public int onStart() throws TemplateModelException, IOException {
                 String csvTrail = null;
 
@@ -160,6 +163,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
             }
 
 
+            @Override
             public void close() throws IOException {
                 templateCtx.put("nodeTrailCsv", passedCsv);
                 String wrappedContent = buf.toString();

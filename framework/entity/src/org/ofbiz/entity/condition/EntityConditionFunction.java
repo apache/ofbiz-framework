@@ -37,12 +37,15 @@ public abstract class EntityConditionFunction extends EntityCondition {
 
     public static class NOT extends EntityConditionFunction {
         public NOT(EntityCondition nested) { super(ID_NOT, "NOT", nested); }
+        @Override
         public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
             return !condition.mapMatches(delegator, map);
         }
+        @Override
         public EntityCondition freeze() {
             return new NOT(condition.freeze());
         }
+        @Override
         public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
             // nothing to do here...
         }
@@ -79,20 +82,24 @@ public abstract class EntityConditionFunction extends EntityCondition {
         return idInt;
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityConditionFunction(this, condition);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityConditionFunction)) return false;
         EntityConditionFunction otherFunc = (EntityConditionFunction) obj;
         return this.idInt == otherFunc.idInt && (this.condition != null ? condition.equals(otherFunc.condition) : otherFunc.condition != null);
     }
 
+    @Override
     public int hashCode() {
         return idInt.hashCode() ^ condition.hashCode();
     }
 
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         sb.append(codeString).append('(');
@@ -101,6 +108,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
         return sb.toString();
     }
 
+    @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         condition.checkCondition(modelEntity);
     }

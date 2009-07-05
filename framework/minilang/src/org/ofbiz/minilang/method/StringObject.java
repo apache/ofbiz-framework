@@ -38,14 +38,17 @@ public class StringObject extends MethodObject<String> {
     }
 
     /** Get the name for the type of the object */
+    @Override
     public String getTypeName() {
         return "java.lang.String";
     }
 
+    @Override
     public Class<String> getTypeClass(ClassLoader loader) {
         return java.lang.String.class;
     }
 
+    @Override
     public String getObject(MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String cdataValue = methodContext.expandString(this.cdataValue);

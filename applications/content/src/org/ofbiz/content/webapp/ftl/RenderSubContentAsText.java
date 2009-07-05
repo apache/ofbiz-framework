@@ -126,13 +126,16 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
         return new Writer(out) {
 
+            @Override
             public void write(char cbuf[], int off, int len) {
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
                 if (Debug.infoOn()) Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");

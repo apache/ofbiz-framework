@@ -99,14 +99,17 @@ public class OfbizAmountTransform implements TemplateTransformModel {
         final String format = OfbizAmountTransform.getArg(args, "format");
 
         return new Writer(out) {
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 try {
                     if (Debug.verboseOn()) Debug.logVerbose("parms: " + amount + " " + format + " " + locale, module);

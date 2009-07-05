@@ -197,6 +197,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
 
@@ -212,6 +213,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         return buf.toString();
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaCondition) {
             ServiceEcaCondition other = (ServiceEcaCondition) obj;

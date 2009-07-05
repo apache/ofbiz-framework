@@ -65,14 +65,17 @@ public class OfbizUrlTransform implements TemplateTransformModel {
         final boolean encode = checkArg(args, "encode", true);
 
         return new Writer(out) {
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 try {
                     Environment env = Environment.getCurrentEnvironment();

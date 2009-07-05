@@ -50,6 +50,7 @@ public class WorkEffortWorker {
     public static final String module = WorkEffortWorker.class.getName();
 
     /** @deprecated */
+    @Deprecated
     public static void getWorkEffort(PageContext pageContext, String workEffortIdAttrName, String workEffortAttrName, String partyAssignsAttrName,
         String canViewAttrName, String tryEntityAttrName, String currentStatusAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
@@ -134,14 +135,17 @@ public class WorkEffortWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getMonthWorkEffortEvents(PageContext pageContext, String attributeName) {}
 
     /** @deprecated */
+    @Deprecated
     public static void getActivityContext(PageContext pageContext, String workEffortId) {
         getActivityContext(pageContext, workEffortId, "activityContext");
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getActivityContext(PageContext pageContext, String workEffortId, String attribute) {
         LocalDispatcher dispatcher = (LocalDispatcher) pageContext.getRequest().getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");

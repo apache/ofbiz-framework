@@ -61,6 +61,7 @@ public class SessionToField extends MethodOperation {
         defaultVal = element.getAttribute("default");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String defaultVal = methodContext.expandString(this.defaultVal);
 
@@ -100,10 +101,12 @@ public class SessionToField extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<session-to-field session-name=\"" + this.sessionAcsr + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

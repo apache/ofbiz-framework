@@ -456,6 +456,7 @@ public class JobManager {
         }
     }
 
+    @Override
     public void finalize() throws Throwable {
         this.shutdown();
         super.finalize();

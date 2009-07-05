@@ -37,10 +37,12 @@ public class JythonTest extends OFBizTestCase {
         this.scriptLocation = mainElement.getAttribute("script-location");
     }
 
+    @Override
     public int countTestCases() {
         return 1;
     }
 
+    @Override
     public void run(TestResult result) {
         // TODO Auto-generated method stub
         result.startTest(this);

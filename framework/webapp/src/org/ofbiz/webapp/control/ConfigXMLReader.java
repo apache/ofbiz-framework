@@ -279,7 +279,7 @@ public class ConfigXMLReader {
                 for (File controllerFile: controllerFiles) {
                     URL controllerUrl = null;
                     try {
-                        controllerUrl = controllerFile.toURL();
+                        controllerUrl = controllerFile.toURI().toURL();
                     } catch (MalformedURLException mue) {
                         throw new GeneralException(mue);
                     }

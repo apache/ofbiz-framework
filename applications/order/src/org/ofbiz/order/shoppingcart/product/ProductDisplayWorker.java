@@ -341,6 +341,7 @@ public class ProductDisplayWorker {
             return ((Comparable) value).compareTo(value2);
         }
 
+        @Override
         public boolean equals(java.lang.Object obj) {
             if ((obj != null) && (obj instanceof ProductByMapComparator)) {
                 ProductByMapComparator that = (ProductByMapComparator) obj;

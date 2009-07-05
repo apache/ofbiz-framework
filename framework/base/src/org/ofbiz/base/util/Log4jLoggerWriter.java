@@ -52,6 +52,7 @@ public class Log4jLoggerWriter extends PrintWriter {
             this.priority = priority;
         }
 
+        @Override
         public void write(char[] cbuf, int off, int len) throws IOException {
             if (closed) {
                 throw new IOException("Writer is closed");
@@ -68,12 +69,14 @@ public class Log4jLoggerWriter extends PrintWriter {
             }
         }
 
+        @Override
         public void flush() throws IOException {
             if (closed) {
                 throw new IOException("Writer is closed");
             }
         }
 
+        @Override
         public void close() {
             closed = true;
         }

@@ -149,11 +149,13 @@ public class ModelRelation extends ModelChild {
 
     /** @deprecated
       * the main entity of this relation */
+    @Deprecated
     public ModelEntity getMainEntity() {
         return getModelEntity();
     }
 
     /** @deprecated */
+    @Deprecated
     public void setMainEntity(ModelEntity mainEntity) {
         setModelEntity(mainEntity);
     }
@@ -275,6 +277,7 @@ public class ModelRelation extends ModelChild {
     }
 
     // FIXME: CCE
+    @Override
     public boolean equals(Object other) {
         ModelRelation otherRel = (ModelRelation) other;
 

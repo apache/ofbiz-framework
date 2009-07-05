@@ -150,14 +150,17 @@ public class CachedClassLoader extends URLClassLoader {
         this(url, parent, "__globalContext");
     }
 
+    @Override
     public String toString() {
         return "org.ofbiz.base.util.CachedClassLoader(" + contextName + ") / " + getParent().toString();
     }
 
+    @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         return loadClass(name, false);
     }
 
+    @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         //check glocal common classes, ie for all instances
         Class<?> theClass = globalClassNameClassMap.get(name);
@@ -202,6 +205,7 @@ public class CachedClassLoader extends URLClassLoader {
         return theClass;
     }
 
+    @Override
     public URL getResource(String name) {
         //check glocal common resources, ie for all instances
         URL theResource = globalResourceMap.get(name);

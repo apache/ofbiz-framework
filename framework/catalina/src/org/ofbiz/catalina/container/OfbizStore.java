@@ -56,10 +56,12 @@ public class OfbizStore extends StoreBase implements Store {
         this.delegator = delegator;
     }
 
+    @Override
     public String getInfo() {
         return info;
     }
 
+    @Override
     public String getStoreName() {
         return storeName;
     }

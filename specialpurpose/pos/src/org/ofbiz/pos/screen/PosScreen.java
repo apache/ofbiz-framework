@@ -82,6 +82,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         this.addFocusListener(this);
     }
 
+    @Override
     public void pageCreated() {
         super.pageCreated();
 
@@ -130,6 +131,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         KeyboardAdaptor.attachComponents(this);
     }
 
+    @Override
     public void pageActivated() {
         super.pageActivated();
 
@@ -149,6 +151,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         this.refresh();
     }
 
+    @Override
     public void pageDeactivated() {
         super.pageDeactivated();
 
@@ -295,6 +298,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     }
 
     // generic page display methods - extends those in XPage
+    @Override
     public PosScreen showPage(String pageName) {
         return this.showPage(pageName, true);
     }

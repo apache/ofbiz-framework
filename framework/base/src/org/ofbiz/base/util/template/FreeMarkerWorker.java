@@ -584,9 +584,11 @@ public class FreeMarkerWorker {
             this.templateLocation = templateLocation;
         }
 
+        @Override
         public int hashCode() {
             return templateLocation.hashCode();
         }
+        @Override
         public boolean equals(Object obj) {
             return obj instanceof FlexibleTemplateSource && obj.hashCode() == this.hashCode();
         }

@@ -40,6 +40,7 @@ public class FieldString extends MethodString {
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 
+    @Override
     public String getString(MethodContext methodContext) {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {

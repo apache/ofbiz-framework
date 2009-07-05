@@ -93,6 +93,7 @@ public class SetCalendar extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         Object newValue = null;
         if (!this.fromField.isEmpty()) {
@@ -198,6 +199,7 @@ public class SetCalendar extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         return "<set-calendar field=\"" + this.field
                 + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal())
@@ -205,6 +207,7 @@ public class SetCalendar extends MethodOperation {
                 + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
                 + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

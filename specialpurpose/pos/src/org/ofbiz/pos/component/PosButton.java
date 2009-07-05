@@ -113,6 +113,7 @@ public class PosButton {
 
         if (buttonName != null) {
             final SwingWorker worker = new SwingWorker() {
+                @Override
                 public Object construct() {
                     if (cl != null) {
                         Thread.currentThread().setContextClassLoader(cl);

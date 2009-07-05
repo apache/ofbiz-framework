@@ -31,6 +31,7 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
     public static final String module = EntityConditionList.class.getName();
 
     protected static final ObjectFactory<EntityConditionList> entityConditionListFactory = new ObjectFactory<EntityConditionList>() {
+        @Override
         protected EntityConditionList create() {
             return new EntityConditionList();
         }
@@ -41,23 +42,28 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityConditionList(EntityJoinOperator operator, T... conditionList) {
         init(operator, conditionList);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
         init(conditionList, operator);
     }
 
+    @Override
     public int getConditionListSize() {
         return super.getConditionListSize();
     }
 
+    @Override
     public Iterator<T> getConditionIterator() {
         return super.getConditionIterator();
     }
 
+    @Override
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityConditionList(this);
     }

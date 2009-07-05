@@ -63,26 +63,32 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
         return this.modelEntity;
     }
 
+    @Override
     public String getDisplayName() {
         return this.getUniqueId();
     }
 
+    @Override
     public String getDisplayType() {
         return "Entity";
     }
 
+    @Override
     public String getType() {
         return ArtifactInfoFactory.EntityInfoTypeId;
     }
 
+    @Override
     public String getUniqueId() {
         return this.modelEntity.getEntityName();
     }
 
+    @Override
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.modelEntity.getLocation(), null);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof EntityArtifactInfo) {
             return this.modelEntity.getEntityName().equals(((EntityArtifactInfo) obj).modelEntity.getEntityName());

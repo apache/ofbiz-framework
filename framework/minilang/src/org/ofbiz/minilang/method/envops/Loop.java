@@ -58,6 +58,7 @@ public class Loop extends MethodOperation {
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String countStrExp = methodContext.expandString(this.countStr);
         int count = 0;
@@ -91,10 +92,12 @@ public class Loop extends MethodOperation {
         return this.subOps;
     }
 
+    @Override
     public String rawString() {
         return "<loop count=\"" + this.countStr + "\"/>";
     }
 
+    @Override
     public String expandedString(MethodContext methodContext) {
         return this.rawString();
     }

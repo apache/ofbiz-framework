@@ -219,6 +219,7 @@ public class KeyboardAdaptor {
             }
         }
 
+        @Override
         public void run() {
             while (running) {
                 long now = System.currentTimeMillis();

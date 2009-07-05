@@ -68,6 +68,7 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);
     }
 
+    @Override
     public String toString() {
         StringBuilder sql = new StringBuilder();
         toString(sql);

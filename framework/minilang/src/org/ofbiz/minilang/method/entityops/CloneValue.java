@@ -51,6 +51,7 @@ public class CloneValue extends MethodOperation {
         newValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("new-value-field"), element.getAttribute("new-value-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
@@ -62,10 +63,12 @@ public class CloneValue extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<clone-value/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

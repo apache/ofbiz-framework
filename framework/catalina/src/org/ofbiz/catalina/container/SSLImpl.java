@@ -49,6 +49,7 @@ public class SSLImpl extends JSSEImplementation {
         Debug.log("SSLImpl loaded; using custom ServerSocketFactory", module);
     }
 
+    @Override
     public ServerSocketFactory getServerSocketFactory() {
         return ssFactory;
     }

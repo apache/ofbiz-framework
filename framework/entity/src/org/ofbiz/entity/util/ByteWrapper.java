@@ -27,6 +27,7 @@ import java.io.Serializable;
  *
  * A very simple class to wrap a byte array for persistence.
  */
+@Deprecated
 public class ByteWrapper implements Serializable {
     protected byte[] bytes;
 

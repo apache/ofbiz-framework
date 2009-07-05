@@ -105,6 +105,7 @@ public class ServiceValidationException extends GenericServiceException {
         return missingFields;
     }
 
+    @Override
     public List<String> getMessageList() {
         if (this.messages == null || this.messages.size() == 0) {
             return null;
@@ -128,6 +129,7 @@ public class ServiceValidationException extends GenericServiceException {
         }
     }
 
+    @Override
     public String getMessage() {
         String msg = super.getMessage();
         if (UtilValidate.isNotEmpty(this.messages)) {

@@ -81,6 +81,7 @@ public class CreateObject extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String className = methodContext.expandString(this.className);
 
@@ -180,10 +181,12 @@ public class CreateObject extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<create-object/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

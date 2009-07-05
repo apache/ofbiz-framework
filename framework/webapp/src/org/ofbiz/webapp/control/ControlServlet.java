@@ -61,6 +61,7 @@ public class ControlServlet extends HttpServlet {
     /**
      * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
      */
+    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         if (Debug.infoOn()) Debug.logInfo("LOADING WEBAPP [" + config.getServletContext().getContextPath().substring(1) + "] " + config.getServletContext().getServletContextName() + ", located at " + config.getServletContext().getRealPath("/"), module);
@@ -74,6 +75,7 @@ public class ControlServlet extends HttpServlet {
     /**
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
@@ -81,6 +83,7 @@ public class ControlServlet extends HttpServlet {
     /**
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long requestStartTime = System.currentTimeMillis();
         RequestHandler requestHandler = this.getRequestHandler();
@@ -316,6 +319,7 @@ public class ControlServlet extends HttpServlet {
     /**
      * @see javax.servlet.Servlet#destroy()
      */
+    @Override
     public void destroy() {
         super.destroy();
     }

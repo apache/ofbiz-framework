@@ -60,6 +60,7 @@ public class ProductWorker {
     public static final MathContext generalRounding = new MathContext(10);
 
     /** @deprecated */
+    @Deprecated
     public static void getProduct(PageContext pageContext, String attributeName) {
         getProduct(pageContext, attributeName, null);
     }
@@ -150,6 +151,7 @@ public class ProductWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getProduct(PageContext pageContext, String attributeName, String productId) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         ServletRequest request = pageContext.getRequest();
@@ -291,6 +293,7 @@ public class ProductWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getAssociatedProducts(PageContext pageContext, String productAttributeName, String assocPrefix) {
         GenericValue product = (GenericValue) pageContext.getAttribute(productAttributeName);
 

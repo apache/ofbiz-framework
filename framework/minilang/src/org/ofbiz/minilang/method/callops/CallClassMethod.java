@@ -82,6 +82,7 @@ public class CallClassMethod extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String className = methodContext.expandString(this.className);
         String methodName = methodContext.expandString(this.methodName);
@@ -100,10 +101,12 @@ public class CallClassMethod extends MethodOperation {
         return CallObjectMethod.callMethod(simpleMethod, methodContext, parameters, methodClass, null, methodName, retFieldAcsr, retMapAcsr);
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<call-class-method/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

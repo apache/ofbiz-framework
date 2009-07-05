@@ -202,6 +202,7 @@ public class ProductConfigWrapper implements Serializable {
         return configId;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof ProductConfigWrapper)) {
             return false;
@@ -223,6 +224,7 @@ public class ProductConfigWrapper implements Serializable {
         return true;
     }
 
+    @Override
     public String toString() {
         return questions.toString();
     }
@@ -492,6 +494,7 @@ public class ProductConfigWrapper implements Serializable {
             return null;
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == null || !(obj instanceof ConfigItem)) {
                 return false;
@@ -513,6 +516,7 @@ public class ProductConfigWrapper implements Serializable {
             return true;
         }
 
+        @Override
         public String toString() {
             return configItem.getString("configItemId");
         }
@@ -740,6 +744,7 @@ public class ProductConfigWrapper implements Serializable {
             return componentOptions;
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == null || !(obj instanceof ConfigOption)) {
                 return false;
@@ -752,6 +757,7 @@ public class ProductConfigWrapper implements Serializable {
             return isSelected() == co.isSelected();
         }
 
+        @Override
         public String toString() {
             return configOption.getString("configItemId") + "/" + configOption.getString("configOptionId") + (isSelected()? "*": "");
         }

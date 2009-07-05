@@ -136,6 +136,7 @@ public class ModelScreenCondition implements Serializable {
             this.subConditions = readSubConditions(modelScreen, condElement);
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
             for (ScreenCondition subCondition: this.subConditions) {
@@ -155,6 +156,7 @@ public class ModelScreenCondition implements Serializable {
             this.subConditions = readSubConditions(modelScreen, condElement);
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
@@ -180,6 +182,7 @@ public class ModelScreenCondition implements Serializable {
             this.subConditions = readSubConditions(modelScreen, condElement);
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
             for (ScreenCondition subCondition: this.subConditions) {
@@ -200,6 +203,7 @@ public class ModelScreenCondition implements Serializable {
             this.subCondition = readCondition(modelScreen, firstChildElement);
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             return !this.subCondition.eval(context);
         }
@@ -219,6 +223,7 @@ public class ModelScreenCondition implements Serializable {
             this.resExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("resource-description"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -298,6 +303,7 @@ public class ModelScreenCondition implements Serializable {
             this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -337,6 +343,7 @@ public class ModelScreenCondition implements Serializable {
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
@@ -404,6 +411,7 @@ public class ModelScreenCondition implements Serializable {
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
@@ -454,6 +462,7 @@ public class ModelScreenCondition implements Serializable {
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             String format = this.formatExdr.expandString(context);
 
@@ -497,6 +506,7 @@ public class ModelScreenCondition implements Serializable {
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
@@ -531,6 +541,7 @@ public class ModelScreenCondition implements Serializable {
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
@@ -544,6 +555,7 @@ public class ModelScreenCondition implements Serializable {
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
 
+        @Override
         public boolean eval(Map<String, Object> context) {
             return permissionChecker.runPermissionCheck(context);
         }
