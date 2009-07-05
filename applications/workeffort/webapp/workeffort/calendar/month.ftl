@@ -49,39 +49,42 @@ height: auto;
     </#if>
     <td<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
       <span class="h1"><a href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=day&start=${period.start.time?string("#")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${period.start?date?string("d")?cap_first}</a></span>
-      <a class="add-new" href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=month&form=edit&start=${parameters.start?if_exists}&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
+      <a class="add-new" href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=month&form=edit&start=${parameters.start?if_exists}&parentTypeId=${parentTypeId}&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
       <br class="clear"/>
+      
       <#list period.calendarEntries as calEntry>
         <#if calEntry.workEffort.actualStartDate?exists>
             <#assign startDate = calEntry.workEffort.actualStartDate>
           <#else>
-            <#assign startDate = calEntry.workEffort.estimatedStartDate>
+            <#assign startDate = calEntry.workEffort.estimatedStartDate?if_exists>
         </#if>
 
         <#if calEntry.workEffort.actualCompletionDate?exists>
             <#assign completionDate = calEntry.workEffort.actualCompletionDate>
           <#else>
-            <#assign completionDate = calEntry.workEffort.estimatedCompletionDate>
+            <#assign completionDate = calEntry.workEffort.estimatedCompletionDate?if_exists>
         </#if>
 
-        <#if !completionDate?exists>
+        <#if !completionDate?has_content && calEntry.workEffort.actualMilliSeconds?has_content>
             <#assign completionDate =  calEntry.workEffort.actualStartDate + calEntry.workEffort.actualMilliSeconds>
         </#if>    
-        <#if !completionDate?exists>
+        <#if !completionDate?has_content && calEntry.workEffort.estimatedMilliSeconds?has_content>
             <#assign completionDate =  calEntry.workEffort.estimatedStartDate + calEntry.workEffort.estimatedMilliSeconds>
         </#if>    
         <hr/>
-        <#if (startDate.compareTo(period.start)  <= 0 && completionDate.compareTo(period.end) >= 0)>
+        <#if (startDate.compareTo(period.start) <= 0 && completionDate?has_content && completionDate.compareTo(period.end) >= 0)>
           ${uiLabelMap.CommonAllDay}
-        <#elseif startDate.before(period.start)>
+        <#elseif startDate.before(period.start) && completionDate?has_content>
           ${uiLabelMap.CommonUntil} ${completionDate?time?string.short}
+        <#elseif !completionDate?has_content>
+          ${uiLabelMap.CommonFrom} ${startDate?time?string.short} - ?
         <#elseif completionDate.after(period.end)>
           ${uiLabelMap.CommonFrom} ${startDate?time?string.short}
         <#else>
           ${startDate?time?string.short}-${completionDate?time?string.short}
         </#if>
         <br/>
-        <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&period=month&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}
+        <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&parentTypeId=${parentTypeId}&period=month&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}
         <br/>
       </#list>
     </td>
