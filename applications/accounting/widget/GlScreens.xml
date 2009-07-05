@@ -701,42 +701,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingEditAcctRecon}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>
-                        </section>
-                        <section>
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingEditAcctRecon}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>
-                        </section>
+                        <screenlet title="${uiLabelMap.AccountingEditAcctRecon}">
+                            <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingEditAcctRecon}">
+                            <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -218,6 +218,12 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
         <field name="paymentId"><hidden/></field>
+        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
+        <field name="glJournalId"><display-entity entity-name="GlJournal" description="${glJournalName}"/></field>
+        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType" description="${description}"/></field>
+        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass" description="${description}"/></field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${lastName} ${groupName}"/></field>
+        <field name="reconcileStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
     </form>
 
     <form name="NewSalesInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice"
