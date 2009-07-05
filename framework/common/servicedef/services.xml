@@ -52,7 +52,7 @@ under the License.
         <description>Create a new note record</description>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
-        <attribute name="note" type="String" mode="IN"/>
+        <attribute name="note" type="String" mode="IN" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT"/>
     </service>
 
