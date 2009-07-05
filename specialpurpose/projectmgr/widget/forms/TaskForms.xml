@@ -284,6 +284,7 @@
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onChange" action="javascript:document.assignTaskToMe.submit();" use-when="parameters.get(&quot;workEffortId&quot;)==null">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}" key-field-name="workEffortId" filter-by-date="true">
+                    <entity-constraint name="projectStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <entity-constraint name="partyId" operator="equals" value="${parameters.userLogin.partyId}"/>
                     <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
                     <entity-order-by field-name="projectName"/>
