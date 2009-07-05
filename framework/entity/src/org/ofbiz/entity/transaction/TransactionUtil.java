@@ -252,6 +252,7 @@ public class TransactionUtil implements Status {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void rollback(boolean beganTransaction) throws GenericTransactionException {
         Debug.logWarning("WARNING: called rollback without debug/error info; it is recommended to always pass this to make otherwise tricky bugs much easier to track down.", module);
         rollback(beganTransaction, null, null);
@@ -757,6 +758,7 @@ public class TransactionUtil implements Status {
      * Maintain the suspended transactions together with their timestamps
      */
     private static ThreadLocal<Map<Transaction, Timestamp>> suspendedTxStartStamps = new ThreadLocal<Map<Transaction, Timestamp>>() {
+        @Override
         public Map<Transaction, Timestamp> initialValue() {
             return UtilGenerics.checkMap(new ListOrderedMap());
         }

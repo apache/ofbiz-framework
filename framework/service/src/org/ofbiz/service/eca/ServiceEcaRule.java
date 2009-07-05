@@ -171,6 +171,7 @@ public class ServiceEcaRule implements java.io.Serializable {
         return this.enabled;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaRule) {
             ServiceEcaRule other = (ServiceEcaRule) obj;
@@ -189,6 +190,7 @@ public class ServiceEcaRule implements java.io.Serializable {
         }
     }
     
+    @Override
     public String toString() {
         return "ServiceEcaRule:" + this.serviceName + ":" + this.eventName + ":runOnError=" + this.runOnError + ":runOnFailure=" + this.runOnFailure + ":enabled=" + this.enabled + ":conditions=" + this.conditions + ":actionsAndSets=" + this.actionsAndSets;
     }

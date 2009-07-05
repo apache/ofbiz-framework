@@ -60,6 +60,7 @@ public class CallSimpleMethod extends MethodOperation {
         return this.methodName;
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         if (this.methodName != null && this.methodName.length() > 0) {
             String methodName = methodContext.expandString(this.methodName);
@@ -129,9 +130,11 @@ public class CallSimpleMethod extends MethodOperation {
         return simpleMethodToCall;
     }
 
+    @Override
     public String rawString() {
         return "<call-simple-method xml-resource=\"" + this.xmlResource + "\" method-name=\"" + this.methodName + "\" />";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

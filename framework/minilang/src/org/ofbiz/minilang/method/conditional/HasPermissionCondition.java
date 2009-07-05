@@ -31,10 +31,12 @@ import org.w3c.dom.Element;
  */
 public class HasPermissionCondition implements Conditional {
     public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> {
+        @Override
         public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new HasPermissionCondition(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if-has-permission";
         }

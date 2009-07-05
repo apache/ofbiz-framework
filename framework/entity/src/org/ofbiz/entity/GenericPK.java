@@ -31,6 +31,7 @@ import org.ofbiz.entity.model.ModelEntity;
 public class GenericPK extends GenericEntity {
 
     protected static final ObjectFactory<GenericPK> genericPKFactory = new ObjectFactory<GenericPK>() {
+        @Override
         protected GenericPK create() {
             return new GenericPK();
         }
@@ -69,6 +70,7 @@ public class GenericPK extends GenericEntity {
     /** Clones this GenericPK, this is a shallow clone & uses the default shallow HashMap clone
      *@return Object that is a clone of this GenericPK
      */
+    @Override
     public Object clone() {
         GenericPK newEntity = GenericPK.create(this);
         newEntity.setDelegator(internalDelegator);

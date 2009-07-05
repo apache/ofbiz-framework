@@ -70,6 +70,7 @@ public class FindByAnd extends MethodOperation {
         useIteratorStr = element.getAttribute("use-iterator");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String entityName = methodContext.expandString(this.entityName);
         String delegatorName = methodContext.expandString(this.delegatorName);
@@ -123,10 +124,12 @@ public class FindByAnd extends MethodOperation {
         return this.entityName;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<find-by-and/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

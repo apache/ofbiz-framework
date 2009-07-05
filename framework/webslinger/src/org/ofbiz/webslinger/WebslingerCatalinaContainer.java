@@ -31,6 +31,7 @@ import org.ofbiz.catalina.container.CatalinaContainer;
 import org.webslinger.catalina.WebslingerAccessLogValve;
 
 public class WebslingerCatalinaContainer extends CatalinaContainer {
+    @Override
     protected Engine createEngine(ContainerConfig.Container.Property engineConfig) throws ContainerException {
         Engine engine = super.createEngine(engineConfig);
         String logDir = ContainerConfig.getPropertyValue(engineConfig, "access-log-dir", null);

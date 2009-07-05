@@ -48,10 +48,12 @@ public class FieldObject<T> extends MethodObject<T> {
     }
 
     /** Get the name for the type of the object */
+    @Override
     public String getTypeName() {
         return type;
     }
 
+    @Override
     public Class<T> getTypeClass(ClassLoader loader) {
         try {
             return UtilGenerics.cast(ObjectType.loadClass(type, loader));
@@ -61,6 +63,7 @@ public class FieldObject<T> extends MethodObject<T> {
         }
     }
 
+    @Override
     public T getObject(MethodContext methodContext) {
         T fieldVal = null;
 

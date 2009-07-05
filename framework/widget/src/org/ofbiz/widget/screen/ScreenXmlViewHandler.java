@@ -40,6 +40,7 @@ public class ScreenXmlViewHandler extends ScreenWidgetViewHandler {
 
     public static final String module = ScreenXmlViewHandler.class.getName();
 
+    @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Writer writer = null;
         try {

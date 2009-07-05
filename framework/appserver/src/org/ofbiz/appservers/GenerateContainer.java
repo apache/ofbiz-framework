@@ -77,7 +77,7 @@ public class GenerateContainer implements Container {
      */
     public void init(String[] args, String configFile) {
         ofbizHome = System.getProperty("ofbiz.home");
-        configFile = configFile;
+        this.configFile = configFile;
         this.args = args;
         isGeronimo = args[0].toLowerCase().contains("geronimo") || args[0].toLowerCase().contains("wasce");
         if (isGeronimo) {

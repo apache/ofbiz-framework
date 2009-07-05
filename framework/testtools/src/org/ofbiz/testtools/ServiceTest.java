@@ -49,10 +49,12 @@ public class ServiceTest extends OFBizTestCase {
         this.serviceName = mainElement.getAttribute("service-name");
     }
 
+    @Override
     public int countTestCases() {
         return 1;
     }
 
+    @Override
     public void run(TestResult result) {
         result.startTest(this);
 

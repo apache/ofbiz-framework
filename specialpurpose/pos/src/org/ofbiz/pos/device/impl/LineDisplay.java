@@ -32,6 +32,7 @@ public class LineDisplay extends GenericDevice {
         this.control = new jpos.LineDisplay();
     }
 
+    @Override
     protected void initialize() throws JposException {
         throw new JposException(JposConst.JPOS_E_NOEXIST, "Device not yet implemented");
     }

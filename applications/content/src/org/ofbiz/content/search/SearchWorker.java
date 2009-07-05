@@ -139,9 +139,9 @@ public class SearchWorker {
         // Now create
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
         } catch (Exception e) {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
         }
         //if (Debug.infoOn()) Debug.logInfo("in indexContent, writer:" +
         // writer, module);
@@ -189,10 +189,10 @@ public class SearchWorker {
         String indexAllPath = getIndexPath(path);
         IndexWriter writer = null;
         try {
-               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
+               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
                     if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
         } catch (FileNotFoundException e) {
-               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
+               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
                     if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
         }
 
@@ -229,13 +229,13 @@ public class SearchWorker {
         String indexAllPath = getIndexPath(path);
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
         } catch (FileNotFoundException e) {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
         }
         indexDataResource(delegator, context, id, writer);
         writer.optimize();
-            writer.close();
+        writer.close();
 
     }
 

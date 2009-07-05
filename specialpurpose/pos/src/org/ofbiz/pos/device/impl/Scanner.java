@@ -41,6 +41,7 @@ public class Scanner extends GenericDevice {
         this.control = new jpos.Scanner();
     }
 
+    @Override
     protected void initialize() throws JposException {
         Debug.logInfo("Scanner [" + control.getPhysicalDeviceName() + "] Claimed : " + control.getClaimed(), module);
         final jpos.Scanner scanner = (jpos.Scanner) control;
@@ -51,6 +52,7 @@ public class Scanner extends GenericDevice {
         // create the new listner
         scanner.addDataListener(new DataEventAdaptor() {
 
+            @Override
             public void dataOccurred(jpos.events.DataEvent event) {
                 byte[] scanData = null;
                 int dataType = ScannerConst.SCAN_SDT_UNKNOWN;

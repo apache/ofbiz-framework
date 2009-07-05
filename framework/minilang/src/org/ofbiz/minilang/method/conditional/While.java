@@ -58,6 +58,7 @@ public class While extends MethodOperation {
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // if conditions fails, always return true;
         // if a sub-op returns false return false and stop, otherwise drop though loop and return true
@@ -74,10 +75,12 @@ public class While extends MethodOperation {
         return this.thenSubOps;
     }
 
+    @Override
     public String rawString() {
         return expandedString(null);
     }
 
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: fill in missing details, if needed
         StringBuilder messageBuf = new StringBuilder();

@@ -43,6 +43,7 @@ public class ProjectWorker {
     public static final String module = ProjectWorker.class.getName();
 
     /** @deprecated */
+    @Deprecated
     public static void getAssignedProjects(PageContext pageContext, String projectsAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
@@ -71,6 +72,7 @@ public class ProjectWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getAllAssignedProjects(PageContext pageContext, String projectsAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
@@ -96,6 +98,7 @@ public class ProjectWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getAllProjectPhases(PageContext pageContext, String phasesAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
@@ -144,6 +147,7 @@ public class ProjectWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getAllPhaseTasks(PageContext pageContext, String tasksAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
@@ -191,6 +195,7 @@ public class ProjectWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getTaskNotes(PageContext pageContext, String notesAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");

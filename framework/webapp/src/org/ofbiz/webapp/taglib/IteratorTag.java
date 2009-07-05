@@ -112,6 +112,7 @@ public class IteratorTag extends BodyTagSupport {
         return expandMap ? "true" : "false";
     }
 
+    @Override
     public int doStartTag() throws JspTagException {
         Debug.logVerbose("Starting Iterator Tag...", module);
 
@@ -126,6 +127,7 @@ public class IteratorTag extends BodyTagSupport {
             return SKIP_BODY;
     }
 
+    @Override
     public int doAfterBody() {
         if (defineElement()) {
             return EVAL_BODY_AGAIN;
@@ -134,6 +136,7 @@ public class IteratorTag extends BodyTagSupport {
         }
     }
 
+    @Override
     public int doEndTag() {
         try {
             BodyContent body = getBodyContent();

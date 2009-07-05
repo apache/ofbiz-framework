@@ -27,7 +27,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 
@@ -37,7 +36,6 @@ import jpos.POSPrinterConst;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -83,6 +81,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         this.control = new jpos.POSPrinter();
     }
 
+    @Override
     protected void initialize() throws JposException {
         Debug.logInfo("Receipt [" + control.getPhysicalDeviceName() + "] Claimed : " + control.getClaimed(), module);
         // set map mode to metric - all dimensions specified in 1/100mm units
@@ -258,44 +257,44 @@ public class Receipt extends GenericDevice implements DialogCallback {
                     String[] code = line.trim().split("\\=");
                     if ("#description.length".equals(code[0])) {
                         try {
-                            this.descLength[type] = Integer.parseInt(code[1]);
+                            Receipt.descLength[type] = Integer.parseInt(code[1]);
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
                     } else if ("#productId.length".equals(code[0])) {
                         try {
-                            this.pridLength[type] = Integer.parseInt(code[1]);
+                            Receipt.pridLength[type] = Integer.parseInt(code[1]);
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
                     } else if ("#price.length".equals(code[0])) {
                         try {
-                            this.priceLength[type] = Integer.parseInt(code[1]);
+                            Receipt.priceLength[type] = Integer.parseInt(code[1]);
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
                     } else if ("#quantity.length".equals(code[0])) {
                         try {
-                            this.qtyLength[type] = Integer.parseInt(code[1]);
+                            qtyLength[type] = Integer.parseInt(code[1]);
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
                     } else if ("#infoString.length".equals(code[0])) {
                         try {
-                            this.infoLength[type] = Integer.parseInt(code[1]);
+                            Receipt.infoLength[type] = Integer.parseInt(code[1]);
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
                     } else if ("#dateFormat".equals(code[0])) {
-                        this.dateFmtStr[type] = code[1];
+                        Receipt.dateFmtStr[type] = code[1];
                     } else if ("#configPadding.length".equals(code[0])) {
                         try {
-                            this.configPaddingLength[type] = Integer.parseInt(code[1]);
+                            Receipt.configPaddingLength[type] = Integer.parseInt(code[1]);
                             StringBuffer spaces = new StringBuffer();
-                            for (int i=0; i < this.configPaddingLength[type]; i+=1) {
+                            for (int i=0; i < Receipt.configPaddingLength[type]; i+=1) {
                                 spaces.append(" ");
                             }
-                            this.configPadding[type] = spaces.toString();
+                            Receipt.configPadding[type] = spaces.toString();
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
@@ -339,7 +338,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             dateFormat = new SimpleDateFormat[3];
         }
         if (dateFormat[type] == null) {
-            dateFormat[type] = new SimpleDateFormat(this.dateFmtStr[type]);
+            dateFormat[type] = new SimpleDateFormat(Receipt.dateFmtStr[type]);
         }
         return dateFormat[type];
     }
@@ -401,7 +400,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                     expandMap.putAll(map);
                     // adjust the padding
                     expandMap.put("configDescription",
-                        UtilFormatOut.padString(this.configPadding[type] + (String) expandMap.get("configDescription"), descLength[type], true, ' '));
+                        UtilFormatOut.padString(Receipt.configPadding[type] + (String) expandMap.get("configDescription"), descLength[type], true, ' '));
                     expandMap.put("productId", UtilFormatOut.padString((String) expandMap.get("productId"), pridLength[type], true, ' '));
                     expandMap.put("configBasePrice", UtilFormatOut.padString((String) expandMap.get("configBasePrice"), priceLength[type], false, ' '));
                     expandMap.put("configQuantity", UtilFormatOut.padString((String) expandMap.get("configQuantity"), qtyLength[type], false, ' '));

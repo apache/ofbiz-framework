@@ -46,6 +46,7 @@ public class Return extends MethodOperation {
             responseCode = "success";
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String responseCode = methodContext.expandString(this.responseCode);
 
@@ -60,10 +61,12 @@ public class Return extends MethodOperation {
         }
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<return/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

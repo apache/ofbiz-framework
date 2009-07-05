@@ -1156,6 +1156,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      *@param  obj  The object (GenericEntity) to compare this two
      *@return      boolean stating if the two objects are equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof GenericEntity)) return false;
 
@@ -1170,6 +1171,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     /** Creates a hashCode for the entity, using the default String hashCode and Map hashCode, overrides the default hashCode
      *@return    Hashcode corresponding to this entity
      */
+    @Override
     public int hashCode() {
         // divide both by two (shift to right one bit) to maintain scale and add together
         if (generateHashCode) {
@@ -1189,6 +1191,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      *
      *@return String corresponding to this entity
      */
+    @Override
     public String toString() {
         StringBuilder theString = new StringBuilder();
         theString.append("[GenericEntity:");
@@ -1297,6 +1300,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     /** Clones this GenericEntity, this is a shallow clone & uses the default shallow HashMap clone
      *@return Object that is a clone of this GenericEntity
      */
+    @Override
     public Object clone() {
         GenericEntity newEntity = new GenericEntity();
         newEntity.init(this);
@@ -1374,9 +1378,11 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public static class NullGenericEntity extends GenericEntity implements NULL {
         protected NullGenericEntity() { }
 
+        @Override
         public String getEntityName() {
             return "[null-entity]";
         }
+        @Override
         public String toString() {
             return "[null-entity]";
         }
@@ -1385,6 +1391,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public static class NullField implements NULL, Comparable<NullField> {
         protected NullField() { }
 
+        @Override
         public String toString() {
             return "[null-field]";
         }

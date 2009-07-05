@@ -68,6 +68,7 @@ public class Log extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String levelStr = methodContext.expandString(this.levelStr);
         String message = methodContext.expandString(this.message);
@@ -112,10 +113,12 @@ public class Log extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<log level=\"" + this.levelStr + "\" message=\"" + this.message + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

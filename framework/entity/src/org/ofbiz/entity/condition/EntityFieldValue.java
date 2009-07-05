@@ -39,6 +39,7 @@ import org.ofbiz.entity.model.ModelField;
 public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     protected static final ObjectFactory<EntityFieldValue> entityFieldValueFactory = new ObjectFactory<EntityFieldValue>() {
+        @Override
         protected EntityFieldValue create() {
             return new EntityFieldValue();
         }
@@ -55,6 +56,7 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     protected EntityFieldValue() {}
 
     /** @deprecated Use EntityFieldValue.makeFieldValue() instead */
+    @Deprecated
     public EntityFieldValue(String fieldName) {
     this.init(fieldName);
     }
@@ -71,24 +73,29 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
         return fieldName;
     }
 
+    @Override
     public int hashCode() {
         return fieldName.hashCode();
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityFieldValue)) return false;
         EntityFieldValue otherValue = (EntityFieldValue) obj;
         return fieldName.equals(otherValue.fieldName);
     }
 
+    @Override
     public ModelField getModelField(ModelEntity modelEntity) {
         return getField(modelEntity, fieldName);
     }
 
+    @Override
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         sql.append(getColName(tableAliases, modelEntity, fieldName, includeTableNamePrefix, datasourceInfo));
     }
 
+    @Override
     public void validateSql(ModelEntity modelEntity) throws GenericModelException {
         ModelField field = getModelField(modelEntity);
         if (field == null) {
@@ -96,6 +103,7 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
         }
     }
 
+    @Override
     public Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
         if (map == null) {
             return null;
@@ -107,14 +115,17 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
         }
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityFieldValue(this);
     }
 
+    @Override
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityFieldValue(this);
     }
 
+    @Override
     public EntityConditionValue freeze() {
         return this;
     }

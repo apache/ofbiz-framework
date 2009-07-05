@@ -40,6 +40,7 @@ public class WfActivitySubFlowImplementation extends WfActivityAbstractImplement
     /**
      * @see org.ofbiz.workflow.impl.WfActivityAbstractImplementation#run()
      */
+    @Override
     public void run() throws WfException {
         GenericValue subFlow = null;
         try {

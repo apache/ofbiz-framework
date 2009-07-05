@@ -90,11 +90,13 @@ public class ModelIndex extends ModelChild {
 
     /** @deprecated
       * the main entity of this relation */
+    @Deprecated
     public ModelEntity getMainEntity() {
         return getModelEntity();
     }
 
     /** @deprecated */
+    @Deprecated
     public void setMainEntity(ModelEntity mainEntity) {
         setModelEntity(mainEntity);
     }

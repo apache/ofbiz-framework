@@ -23,11 +23,13 @@ import java.io.OutputStream;
 
 
 /** @deprecated */
+@Deprecated
 public class OutputStreamByteCount extends OutputStream {
 
     protected long byteCount = 0;
 
     /** @deprecated */
+    @Deprecated
     public OutputStreamByteCount() {
         super();
     }
@@ -35,14 +37,17 @@ public class OutputStreamByteCount extends OutputStream {
     /**
      * @see java.io.OutputStream#write(int)
      */
+    @Override
     public void write(int arg0) throws IOException {
         byteCount++;
     }
 
+    @Override
     public void write(byte[] b) throws IOException {
         byteCount += b.length;
     }
 
+    @Override
     public void write(byte[] b, int off, int len) throws IOException {
         byteCount += len;
     }

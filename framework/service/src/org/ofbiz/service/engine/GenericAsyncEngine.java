@@ -153,6 +153,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
         }
     }
 
+    @Override
     protected boolean allowCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
         return mode == GenericEngine.SYNC_MODE;
     }

@@ -196,6 +196,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     /** The col-name of the Field, the alias of the field if this is on a view-entity */
+    @Override
     public String getColNameOrAlias(String fieldName) {
         ModelField modelField = this.getField(fieldName);
         String fieldString = modelField.getColName();
@@ -281,10 +282,12 @@ public class ModelViewEntity extends ModelEntity {
         return this.byConditionFinder;
     }
 
+    @Override
     public String colNameString(String separator, String afterLast, boolean alias, ModelField... flds) {
         return colNameString(Arrays.asList(flds), separator, afterLast, alias);
     }
 
+    @Override
     public String colNameString(List<ModelField> flds, String separator, String afterLast, boolean alias) {
         StringBuilder returnString = new StringBuilder();
 
@@ -659,6 +662,7 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
+    @Override
     public String toString() {
         return "ModelViewEntity[" + getEntityName() + "]";
     }
@@ -1031,10 +1035,12 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
+        @Override
         public int hashCode() {
             return fromModelEntity.hashCode();
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof ModelConversion)) return false;
             ModelConversion other = (ModelConversion) obj;
@@ -1046,6 +1052,7 @@ public class ModelViewEntity extends ModelEntity {
             fieldMap.put(fromFieldName, toFieldName);
         }
 
+        @Override
         public String toString() {
             //return fromModelEntity.getEntityName() + ":" + fieldMap + ":" + wildcards;
             return aliasName + "(" + fromModelEntity.getEntityName() + ")";

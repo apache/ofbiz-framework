@@ -245,7 +245,7 @@ public class LabelReferences {
     private void getLabelsFromFormWidgets(String inFile, File file) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GenericServiceException {
         Set<String> fieldNames = FastSet.newInstance();
         findUiLabelMapInFile(inFile, file.getPath());
-        Document formDocument = UtilXml.readXmlDocument(file.toURL());
+        Document formDocument = UtilXml.readXmlDocument(file.toURI().toURL());
         Element rootElem = formDocument.getDocumentElement();
         for (Element formElement : UtilXml.childElementList(rootElem, "form")) {
             for (Element elem : UtilXml.childElementList(formElement, "auto-fields-service")) {
@@ -267,7 +267,7 @@ public class LabelReferences {
         List<File> componentsFiles = FileUtil.findXmlFiles(null, null, "ofbiz-component", "http://ofbiz.apache.org/dtds/ofbiz-component.xsd");
         for (File componentFile : componentsFiles) {
             String filePath = componentFile.getPath();
-            Document menuDocument = UtilXml.readXmlDocument(componentFile.toURL());
+            Document menuDocument = UtilXml.readXmlDocument(componentFile.toURI().toURL());
             Element rootElem = menuDocument.getDocumentElement();
             for (Element elem1 : UtilXml.childElementList(rootElem)) {
                 checkOfbizComponentTag(elem1, filePath);

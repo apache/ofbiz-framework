@@ -148,6 +148,7 @@ public class RitaApi {
         return (String) document.get(name);
     }
 
+    @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
         Iterator i = document.entrySet().iterator();

@@ -75,6 +75,7 @@ public class SetOperation extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         Object newValue = null;
         if (!this.fromField.isEmpty()) {
@@ -120,6 +121,7 @@ public class SetOperation extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         return "<set field=\"" + this.field
                 + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal())
@@ -128,6 +130,7 @@ public class SetOperation extends MethodOperation {
                 + (this.type == null || this.type.length() == 0 ? "" : "\" type=\"" + this.type)
                 + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

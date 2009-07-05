@@ -36,6 +36,7 @@ public class NullCashDrawer extends BaseService implements jpos.services.CashDra
     public void waitForDrawerClose(int i, int i1, int i2, int i3) throws JposException {
     }
 
+    @Override
     public int getDeviceServiceVersion() throws JposException {
         return 1002000;
     }

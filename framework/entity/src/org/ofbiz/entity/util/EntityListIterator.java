@@ -510,6 +510,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         throw new GeneralRuntimeException("CursorListIterator currently only supports read-only access");
     }
 
+    @Override
     protected void finalize() throws Throwable {
         try {
             if (!closed) {

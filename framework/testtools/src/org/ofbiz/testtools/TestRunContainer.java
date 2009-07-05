@@ -190,11 +190,13 @@ public class TestRunContainer implements Container {
             this.setOutput(out);
         }
 
+        @Override
         public void startTestSuite(JUnitTest suite) {
             startTimes.put(suite.getName(), System.currentTimeMillis());
             super.startTestSuite(suite);
         }
 
+        @Override
         public void endTestSuite(JUnitTest suite) throws BuildException {
             long startTime = startTimes.get(suite.getName());
             suite.setRunTime((System.currentTimeMillis() - startTime));

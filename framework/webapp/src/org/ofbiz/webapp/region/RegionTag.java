@@ -77,6 +77,7 @@ public class RegionTag extends TagSupport {
         regionObj.put(section);
     }
 
+    @Override
     public void release() {
         super.release();
         regionObj = null;

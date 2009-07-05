@@ -21,8 +21,6 @@ package org.ofbiz.entity.condition;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javolution.context.ObjectFactory;
 
 import org.ofbiz.base.util.Debug;
@@ -33,12 +31,10 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
-import org.ofbiz.entity.model.ModelFieldTypeReader;
 
 /**
  * Encapsulates simple expressions used for specifying queries
@@ -48,6 +44,7 @@ public class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
     protected static final ObjectFactory<EntityExpr> entityExprFactory = new ObjectFactory<EntityExpr>() {
+        @Override
         protected EntityExpr create() {
             return new EntityExpr();
         }
@@ -60,21 +57,25 @@ public class EntityExpr extends EntityCondition {
     protected EntityExpr() {}
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityExpr(Object lhs, EntityComparisonOperator operator, Object rhs) {
         this.init(lhs, operator, rhs);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityExpr(String lhs, EntityComparisonOperator operator, Object rhs) {
         this.init(lhs, operator, rhs);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityExpr(String lhs, boolean leftUpper, EntityComparisonOperator operator, Object rhs, boolean rightUpper) {
         this.init(leftUpper ? EntityFunction.UPPER_FIELD(lhs) : lhs, operator, rightUpper ? EntityFunction.UPPER(rhs) : rhs);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityExpr(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
         this.init(lhs, operator, rhs);
     }
@@ -133,20 +134,24 @@ public class EntityExpr extends EntityCondition {
     }
 
     /** @deprecated */
+    @Deprecated
     public void setLUpper(boolean upper) {
     }
 
     /** @deprecated */
+    @Deprecated
     public boolean isLUpper() {
         return lhs instanceof EntityFunction.UPPER;
     }
 
     /** @deprecated */
+    @Deprecated
     public boolean isRUpper() {
         return rhs instanceof EntityFunction.UPPER;
     }
 
     /** @deprecated */
+    @Deprecated
     public void setRUpper(boolean upper) {
     }
 
@@ -162,6 +167,7 @@ public class EntityExpr extends EntityCondition {
         return rhs;
     }
 
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
 
@@ -172,10 +178,12 @@ public class EntityExpr extends EntityCondition {
         return sql.toString();
     }
 
+    @Override
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         return operator.mapMatches(delegator, map, lhs, rhs);
     }
 
+    @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         // if (Debug.verboseOn()) Debug.logVerbose("checkCondition for entity " + modelEntity.getEntityName(), module);
         if (lhs instanceof EntityCondition) {
@@ -184,6 +192,7 @@ public class EntityExpr extends EntityCondition {
         }
     }
 
+    @Override
     protected void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         if (rhs instanceof EntityFunction.UPPER) {
             if (value instanceof String) {
@@ -193,10 +202,12 @@ public class EntityExpr extends EntityCondition {
         super.addValue(buffer, field, value, params);
     }
 
+    @Override
     public EntityCondition freeze() {
         return operator.freeze(lhs, rhs);
     }
 
+    @Override
     public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
         if (this.lhs instanceof String) {
             ModelField modelField = modelEntity.getField((String) this.lhs);
@@ -212,10 +223,12 @@ public class EntityExpr extends EntityCondition {
         }
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityOperator(operator, lhs, rhs);
     }
 
+    @Override
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityExpr(this);
     }
@@ -272,6 +285,7 @@ public class EntityExpr extends EntityCondition {
         }
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityExpr)) return false;
         EntityExpr other = (EntityExpr) obj;
@@ -286,6 +300,7 @@ public class EntityExpr extends EntityCondition {
         return isEqual;
     }
 
+    @Override
     public int hashCode() {
         return hashCode(lhs) +
                hashCode(operator) +

@@ -101,10 +101,12 @@ public abstract class EntityConditionBase implements Serializable {
         SqlJdbcUtil.addValue(buffer, params == null ? null : field, value, params);
     }
 
+    @Override
     public boolean equals(Object obj) {
         throw new UnsupportedOperationException("equals:" + getClass().getName());
     }
 
+    @Override
     public int hashCode() {
         throw new UnsupportedOperationException("hashCode: " + getClass().getName());
     }

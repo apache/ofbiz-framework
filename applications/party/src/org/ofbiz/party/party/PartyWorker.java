@@ -84,6 +84,7 @@ public class PartyWorker {
     }
 
     /** @deprecated */
+    @Deprecated
     public static void getPartyOtherValues(PageContext pageContext, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Map<String, GenericValue> partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
         for (Map.Entry<String, GenericValue> e: partyMap.entrySet()) {

@@ -57,6 +57,7 @@ public class CatalogUrlServlet extends HttpServlet {
     /**
      * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
      */
+    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
     }
@@ -64,6 +65,7 @@ public class CatalogUrlServlet extends HttpServlet {
     /**
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
@@ -71,6 +73,7 @@ public class CatalogUrlServlet extends HttpServlet {
     /**
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDelegator delegator = (GenericDelegator) getServletContext().getAttribute("delegator");
 
@@ -146,6 +149,7 @@ public class CatalogUrlServlet extends HttpServlet {
     /**
      * @see javax.servlet.Servlet#destroy()
      */
+    @Override
     public void destroy() {
         super.destroy();
     }

@@ -54,6 +54,7 @@ public class PaymentWorker {
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     /** @deprecated */
+    @Deprecated
     public static void getPartyPaymentMethodValueMaps(PageContext pageContext, String partyId, Boolean showOld, String paymentMethodValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List paymentMethodValueMaps = getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
@@ -98,6 +99,7 @@ public class PaymentWorker {
 
     /** TODO: REMOVE (DEJ 20030301): This is the OLD style and should be removed when the eCommerce and party mgr JSPs are */
     /** @deprecated */
+    @Deprecated
     public static void getPaymentMethodAndRelated(PageContext pageContext, String partyId,
             String paymentMethodAttr, String creditCardAttr, String eftAccountAttr, String paymentMethodIdAttr, String curContactMechIdAttr,
             String donePageAttr, String tryEntityAttr) {

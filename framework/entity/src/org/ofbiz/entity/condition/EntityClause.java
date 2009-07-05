@@ -128,6 +128,7 @@ public class EntityClause {
         return secondModelEntity;
     }
 
+    @Override
     public String toString() {
         StringBuilder outputBuffer = new StringBuilder();
 

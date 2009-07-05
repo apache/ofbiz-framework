@@ -146,6 +146,7 @@ public class Start implements Runnable {
                 if (command.equals(Start.SHUTDOWN_COMMAND)) {
                     if (serverStopping) return "IN-PROGRESS";
                     Thread t = new Thread() {
+                        @Override
                         public void run() {
                             shutdownServer();
                         }
@@ -281,6 +282,7 @@ public class Start implements Runnable {
         try {
             Method shutdownHook = java.lang.Runtime.class.getMethod("addShutdownHook", new Class[]{java.lang.Thread.class});
             Thread hook = new Thread() {
+                @Override
                 public void run() {
                     setName("OFBiz_Shutdown_Hook");
                     shutdownServer();

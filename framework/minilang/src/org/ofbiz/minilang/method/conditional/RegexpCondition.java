@@ -44,10 +44,12 @@ import org.w3c.dom.Element;
  */
 public class RegexpCondition implements Conditional {
     public static final class RegexpConditionFactory extends ConditionalFactory<RegexpCondition> {
+        @Override
         public RegexpCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new RegexpCondition(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if-regexp";
         }

@@ -87,10 +87,12 @@ public class ModelKeyMap implements java.io.Serializable {
         return UtilMisc.toList(new ModelKeyMap(fieldName1, relFieldName1), new ModelKeyMap(fieldName2, relFieldName2), new ModelKeyMap(fieldName3, relFieldName3));
     }
 
+    @Override
     public int hashCode() {
         return this.fieldName.hashCode() + this.relFieldName.hashCode();
     }
 
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof ModelKeyMap)) return false;
         ModelKeyMap otherKeyMap = (ModelKeyMap) other;

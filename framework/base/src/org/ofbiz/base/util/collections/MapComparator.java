@@ -47,6 +47,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
     /**
      * @see java.lang.Object#equals(java.lang.Object)
      */
+    @Override
     public boolean equals(Object obj) {
         return obj.equals(this);
     }

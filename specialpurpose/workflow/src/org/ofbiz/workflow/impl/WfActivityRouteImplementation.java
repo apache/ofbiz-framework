@@ -32,6 +32,7 @@ public class WfActivityRouteImplementation extends WfActivityAbstractImplementat
     /**
      * @see org.ofbiz.workflow.impl.WfActivityAbstractImplementation#run()
      */
+    @Override
     public void run() {
         setComplete(true);
     }

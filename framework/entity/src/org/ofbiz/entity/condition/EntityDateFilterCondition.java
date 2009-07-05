@@ -33,6 +33,7 @@ import org.ofbiz.entity.model.ModelEntity;
 public class EntityDateFilterCondition extends EntityCondition {
 
     protected static final ObjectFactory<EntityDateFilterCondition> entityDateFilterConditionFactory = new ObjectFactory<EntityDateFilterCondition>() {
+        @Override
         protected EntityDateFilterCondition create() {
             return new EntityDateFilterCondition();
         }
@@ -44,6 +45,7 @@ public class EntityDateFilterCondition extends EntityCondition {
     protected EntityDateFilterCondition() {}
 
     /** @deprecated Use EntityCondition.makeConditionDate() instead */
+    @Deprecated
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
         init(fromDateName, thruDateName);
     }
@@ -58,43 +60,52 @@ public class EntityDateFilterCondition extends EntityCondition {
         this.thruDateName = null;
     }
 
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         EntityCondition condition = makeCondition();
         return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
     }
 
+    @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         EntityCondition condition = makeCondition();
         condition.checkCondition(modelEntity);
     }
 
+    @Override
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         EntityCondition condition = makeCondition();
         return condition.mapMatches(delegator, map);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityDateFilterCondition)) return false;
         EntityDateFilterCondition other = (EntityDateFilterCondition) obj;
         return equals(fromDateName, other.fromDateName) && equals(thruDateName, other.thruDateName);
     }
 
+    @Override
     public int hashCode() {
         return hashCode(fromDateName) ^ hashCode(thruDateName);
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityDateFilterCondition(this);
     }
 
+    @Override
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityDateFilterCondition(this);
     }
 
+    @Override
     public EntityCondition freeze() {
         return this;
     }
 
+    @Override
     public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
         // nothing to do here...
     }

@@ -41,12 +41,15 @@ public class LoopWriter extends Writer implements TransformControl {
         throw t;
     }
 
+    @Override
     public void close() throws IOException {
     }
 
+    @Override
     public void write(char cbuf[], int off, int len) {
     }
 
+    @Override
     public void flush() throws IOException {
     }
 

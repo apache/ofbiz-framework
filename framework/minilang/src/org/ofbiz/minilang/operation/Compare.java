@@ -33,6 +33,7 @@ public class Compare extends BaseCompare {
         this.value = element.getAttribute("value");
     }
 
+    @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object fieldValue = inMap.get(fieldName);
 

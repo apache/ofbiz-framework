@@ -400,6 +400,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#resume()
      */
+    @Override
     public void resume() throws WfException, CannotResume, NotRunning, NotSuspended {
         super.resume();
         try {
@@ -413,6 +414,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#abort()
      */
+    @Override
     public void abort() throws WfException, CannotStop, NotRunning {
         super.abort();
 
@@ -501,6 +503,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
     /**
      * @see org.ofbiz.workflow.impl.WfExecutionObjectImpl#executionObjectType()
      */
+    @Override
     public String executionObjectType() {
         return "WfActivity";
     }

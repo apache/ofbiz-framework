@@ -55,6 +55,7 @@ public class ClearField extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
@@ -75,9 +76,11 @@ public class ClearField extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         return "<clear-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

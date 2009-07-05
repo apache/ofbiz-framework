@@ -54,6 +54,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
         KeyboardAdaptor.getInstance(this, KeyboardAdaptor.KEYBOARD_DATA);
     }
 
+    @Override
     public void open(String deviceName, EventCallbacks ecb) throws JposException {
         super.open(deviceName, ecb);
 
@@ -265,6 +266,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
             return mappedCode;
         }
 
+        @Override
         public int hashCode() {
             int code = this.keyCode;
             if (shift) code += KeyEvent.SHIFT_DOWN_MASK;

@@ -125,14 +125,17 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         final int rounding = roundingNumber;
 
         return new Writer(out) {
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 try {
                     if (Debug.verboseOn()) Debug.logVerbose("parms: " + amount + " " + isoCode + " " + locale, module);

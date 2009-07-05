@@ -168,27 +168,33 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
     public String getDisplayName() {
         // remove the component:// from the location
         return this.screenName + " (" + this.screenLocation.substring(12) + ")";
     }
 
+    @Override
     public String getDisplayType() {
         return "Screen Widget";
     }
 
+    @Override
     public String getType() {
         return ArtifactInfoFactory.ScreenWidgetInfoTypeId;
     }
 
+    @Override
     public String getUniqueId() {
         return this.screenLocation + "#" + this.screenName;
     }
 
+    @Override
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.screenLocation, null);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ScreenWidgetArtifactInfo) {
             return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName()) &&

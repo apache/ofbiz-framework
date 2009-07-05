@@ -30,9 +30,11 @@ public class ServiceEngineTests extends OFBizTestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
     }
 
+    @Override
     protected void tearDown() throws Exception {
     }
 

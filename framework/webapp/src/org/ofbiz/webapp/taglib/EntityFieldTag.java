@@ -89,6 +89,7 @@ public class EntityFieldTag extends TagSupport {
         this.defaultObj = defaultObj;
     }
 
+    @Override
     public int doStartTag() throws JspException {
         try {
             EntityField.run(attribute, field, prefix, suffix, defaultObj.toString(), type, pageContext);

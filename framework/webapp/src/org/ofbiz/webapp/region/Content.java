@@ -58,6 +58,7 @@ public abstract class Content implements java.io.Serializable {
         return type;
     }
 
+    @Override
     public String toString() {
         return "Content: " + content + ", type: " + type;
     }

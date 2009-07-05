@@ -50,6 +50,7 @@ public class EntityOne extends MethodOperation {
         this.finder = new PrimaryKeyFinder(element);
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         try {
             GenericDelegator delegator = methodContext.getDelegator();
@@ -74,10 +75,12 @@ public class EntityOne extends MethodOperation {
         return this.finder.getEntityName();
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<entity-one/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

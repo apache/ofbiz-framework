@@ -471,6 +471,7 @@ public class OrderReadHelper {
     }
 
     /** @deprecated */
+    @Deprecated
     public GenericValue getShippingAddress() {
         try {
             GenericValue orderContactMech = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderContactMech", UtilMisc.toMap(
@@ -513,6 +514,7 @@ public class OrderReadHelper {
     }
 
     /** @deprecated */
+    @Deprecated
     public GenericValue getBillingAddress() {
         GenericValue billingAddress = null;
         try {

@@ -158,6 +158,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key *
      * @return the hashcode
      */
+    @Override
     public int hashCode() {
         return this.name.hashCode();
     }
@@ -166,6 +167,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
      * @param obj
      * @return whether this object is equal to the passed object
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof FlexibleServletAccessor) {
             FlexibleServletAccessor flexibleServletAccessor = (FlexibleServletAccessor) obj;
@@ -185,6 +187,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     /** To be used for a string representation of the accessor, returns the original name.
      * @return the name of this accessor
      */
+    @Override
     public String toString() {
         return this.name;
     }

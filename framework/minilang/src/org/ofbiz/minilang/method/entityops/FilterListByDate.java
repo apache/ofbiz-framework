@@ -69,6 +69,7 @@ public class FilterListByDate extends MethodOperation {
         allSameStr = element.getAttribute("all-same");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
 
         if (!validDateAcsr.isEmpty()) {
@@ -79,10 +80,12 @@ public class FilterListByDate extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<filter-list-by-date/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

@@ -36,6 +36,7 @@ public class StringString extends MethodString {
         cdataValue = UtilXml.elementValue(element);
     }
 
+    @Override
     public String getString(MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String cdataValue = methodContext.expandString(this.cdataValue);

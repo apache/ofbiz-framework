@@ -129,6 +129,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         return this.requestUri;
     }
 
+    @Override
     public String getDisplayName() {
         String location = UtilURL.getOfbizHomeRelativeLocation(this.controllerXmlUrl);
         if (location.endsWith("/WEB-INF/controller.xml")) {
@@ -137,22 +138,27 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         return this.requestUri + " (" + location + ")";
     }
 
+    @Override
     public String getDisplayType() {
         return "Controller Request";
     }
 
+    @Override
     public String getType() {
         return ArtifactInfoFactory.ControllerRequestInfoTypeId;
     }
 
+    @Override
     public String getUniqueId() {
         return this.controllerXmlUrl.toExternalForm() + "#" + this.requestUri;
     }
 
+    @Override
     public URL getLocationURL() throws MalformedURLException {
         return this.controllerXmlUrl;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ControllerRequestArtifactInfo) {
             ControllerRequestArtifactInfo that = (ControllerRequestArtifactInfo) obj;

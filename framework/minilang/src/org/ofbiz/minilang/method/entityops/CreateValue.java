@@ -55,6 +55,7 @@ public class CreateValue extends MethodOperation {
         createOrStore = "true".equals(element.getAttribute("or-store"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
 
@@ -93,10 +94,12 @@ public class CreateValue extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<create-value/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

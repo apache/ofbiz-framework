@@ -52,6 +52,7 @@ public class RefreshValue extends MethodOperation {
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
 
@@ -74,10 +75,12 @@ public class RefreshValue extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<refresh-value/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

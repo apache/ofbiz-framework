@@ -44,6 +44,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
     public static final String module = MapStack.class.getName();
 
     protected static final ObjectFactory<MapStack<?>> mapStackFactory = new ObjectFactory<MapStack<?>>() {
+        @Override
         protected MapStack<?> create() {
             return new MapStack();
         }
@@ -335,6 +336,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         return Collections.unmodifiableSet(resultEntrySet);
     }
 
+    @Override
     public String toString() {
         StringBuilder fullMapString = new StringBuilder();
         int curLevel = 0;

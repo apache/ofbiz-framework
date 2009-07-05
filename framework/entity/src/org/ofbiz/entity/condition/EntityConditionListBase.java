@@ -79,10 +79,12 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
         return this.conditionList.iterator();
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityJoinOperator(operator, conditionList);
     }
 
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
         StringBuilder sql = new StringBuilder();
@@ -90,25 +92,30 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
         return sql.toString();
     }
 
+    @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         // if (Debug.verboseOn()) Debug.logVerbose("checkCondition for entity " + modelEntity.getEntityName(), module);
         operator.validateSql(modelEntity, conditionList);
     }
 
+    @Override
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         return operator.mapMatches(delegator, map, conditionList);
     }
 
+    @Override
     public EntityCondition freeze() {
         return operator.freeze(conditionList);
     }
 
+    @Override
     public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
         for (T cond: this.conditionList) {
             cond.encryptConditionFields(modelEntity, delegator);
         }
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityConditionListBase)) return false;
         EntityConditionListBase other = (EntityConditionListBase) obj;
@@ -122,6 +129,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
         return isEqual;
     }
 
+    @Override
     public int hashCode() {
         return conditionList.hashCode() + operator.hashCode();
     }

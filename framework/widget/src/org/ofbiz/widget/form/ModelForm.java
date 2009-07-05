@@ -1850,6 +1850,7 @@ public class ModelForm extends ModelWidget {
         return lstNm;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
@@ -1935,6 +1936,7 @@ public class ModelForm extends ModelWidget {
         return this.type;
     }
 
+    @Override
     public String getBoundaryCommentName() {
         return formLocation + "#" + name;
     }
@@ -2586,9 +2588,11 @@ public class ModelForm extends ModelWidget {
             this.useWhen = altTargetElement.getAttribute("use-when");
             this.targetExdr = FlexibleStringExpander.getInstance(altTargetElement.getAttribute("target"));
         }
+        @Override
         public int hashCode() {
             return useWhen.hashCode();
         }
+        @Override
         public boolean equals(Object obj) {
             return obj instanceof AltTarget && obj.hashCode() == this.hashCode();
         }
@@ -2619,9 +2623,11 @@ public class ModelForm extends ModelWidget {
             this.areaId = areaId;
             this.areaTarget = areaTarget;
         }
+        @Override
         public int hashCode() {
             return areaId.hashCode();
         }
+        @Override
         public boolean equals(Object obj) {
             return obj instanceof UpdateArea && obj.hashCode() == this.hashCode();
         }

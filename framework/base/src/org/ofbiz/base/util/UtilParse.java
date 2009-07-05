@@ -21,9 +21,11 @@ package org.ofbiz.base.util;
 import java.math.BigDecimal;
 
 /** @deprecated */
+@Deprecated
 public class UtilParse {
 
     /** @deprecated */
+    @Deprecated
     public static BigDecimal parseBigDecimalForEntity(String bigDecimalString) throws NumberFormatException {
         if (bigDecimalString == null) {
             return null;

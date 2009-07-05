@@ -506,6 +506,7 @@ public class WorkEffortSearch {
             this.includeSubWorkEfforts = includeSubWorkEfforts;
         }
 
+        @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             Set<String> workEffortIdSet = FastSet.newInstance();
             if (includeSubWorkEfforts) {
@@ -573,6 +574,7 @@ public class WorkEffortSearch {
 
 
         /** pretty print for log messages and even UI stuff */
+        @Override
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             GenericValue workEffort = null;
             GenericValue workEffortAssocType = null;
@@ -609,6 +611,7 @@ public class WorkEffortSearch {
             return ppBuf.toString();
         }
 
+        @Override
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof WorkEffortAssocConstraint) {
@@ -648,6 +651,7 @@ public class WorkEffortSearch {
             this.reviewTextString = reviewTextString;
         }
 
+        @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             String entityAlias = "WFR" + workEffortSearchContext.index;
             String prefix = "wfr" + workEffortSearchContext.index;
@@ -663,6 +667,7 @@ public class WorkEffortSearch {
 
 
         /** pretty print for log messages and even UI stuff */
+        @Override
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortReviews", locale) + ": \"");
@@ -670,6 +675,7 @@ public class WorkEffortSearch {
             return ppBuf.toString();
         }
 
+        @Override
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof WorkEffortReviewConstraint) {
@@ -700,6 +706,7 @@ public class WorkEffortSearch {
             this.roleTypeId = roleTypeId;
         }
 
+        @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             // make index based values and increment
             String entityAlias = "WEPA" + workEffortSearchContext.index;
@@ -724,6 +731,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.partyId + "," + this.roleTypeId)));
         }
 
+        @Override
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             GenericValue partyNameView = null;
             GenericValue roleType = null;
@@ -768,6 +776,7 @@ public class WorkEffortSearch {
             return ppBuf.toString();
         }
 
+        @Override
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof PartyAssignmentConstraint) {
@@ -805,6 +814,7 @@ public class WorkEffortSearch {
             this.productIdSet = UtilMisc.makeSetWritable(productIdSet);
         }
 
+        @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             // make index based values and increment
             String entityAlias = "WEGS" + workEffortSearchContext.index;
@@ -835,6 +845,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", productIdInfo.toString())));
         }
 
+        @Override
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder infoOut = new StringBuilder();
             try {
@@ -861,6 +872,7 @@ public class WorkEffortSearch {
             return infoOut.toString();
         }
 
+        @Override
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof ProductSetConstraint) {
@@ -918,6 +930,7 @@ public class WorkEffortSearch {
             return fullKeywordSet;
         }
 
+        @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             // just make the fixed keyword lists and put them in the context
             if (isAnd) {
@@ -958,6 +971,7 @@ public class WorkEffortSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
+        @Override
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortKeywords", locale)).append(": \"");
@@ -966,6 +980,7 @@ public class WorkEffortSearch {
             return ppBuf.toString();
         }
 
+        @Override
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof KeywordConstraint) {
@@ -1008,6 +1023,7 @@ public class WorkEffortSearch {
             this.thruDate = thruDate;
         }
 
+        @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             workEffortSearchContext.dynamicViewEntity.addAlias("WEFF", "lastModifiedDate", "lastModifiedDate", null, null, null, null);
 
@@ -1042,6 +1058,7 @@ public class WorkEffortSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
+        @Override
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(": \"");
@@ -1050,6 +1067,7 @@ public class WorkEffortSearch {
         }
 
 
+        @Override
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof LastUpdatedRangeConstraint) {
@@ -1097,6 +1115,7 @@ public class WorkEffortSearch {
         public SortKeywordRelevancy() {
         }
 
+        @Override
         public void setSortOrder(WorkEffortSearchContext workEffortSearchContext) {
             if (workEffortSearchContext.includedKeywordSearch) {
                 // we have to check this in order to be sure that there is a totalRelevancy to sort by...
@@ -1105,14 +1124,17 @@ public class WorkEffortSearch {
             }
         }
 
+        @Override
         public String getOrderName() {
             return "KeywordRelevancy";
         }
 
+        @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             return UtilProperties.getMessage(resource, "WorkEffortKeywordRelevancy", locale);
         }
 
+        @Override
         public boolean isAscending() {
             return false;
         }
@@ -1134,6 +1156,7 @@ public class WorkEffortSearch {
             this.ascending = ascending;
         }
 
+        @Override
         public void setSortOrder(WorkEffortSearchContext workEffortSearchContext) {
             if (workEffortSearchContext.getDelegator().getModelEntity("WorkEffort").isField(fieldName)) {
                 workEffortSearchContext.dynamicViewEntity.addAlias("WEFF", fieldName);
@@ -1146,10 +1169,12 @@ public class WorkEffortSearch {
             workEffortSearchContext.fieldsToSelect.add(fieldName);
         }
 
+        @Override
         public String getOrderName() {
             return "WorkEffortField:" + this.fieldName;
         }
 
+        @Override
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             if ("workEffortName".equals(this.fieldName)) {
                 return UtilProperties.getMessage(resource, "WorkEffortName", locale);
@@ -1163,6 +1188,7 @@ public class WorkEffortSearch {
             return this.fieldName;
         }
 
+        @Override
         public boolean isAscending() {
             return this.ascending;
         }

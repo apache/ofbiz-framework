@@ -109,12 +109,15 @@ public class UelUtil {
         public BasicContext(Map<String, ? extends Object> context) {
             this.variableMapper = new BasicVariableMapper(context, this);
         }
+        @Override
         public ELResolver getELResolver() {
             return defaultResolver;
         }
+        @Override
         public FunctionMapper getFunctionMapper() {
             return UelFunctions.getFunctionMapper();
         }
+        @Override
         public VariableMapper getVariableMapper() {
             return this.variableMapper;
         }
@@ -134,6 +137,7 @@ public class UelUtil {
          * @param variable the variable's name
          * @return a BasicValueExpression containing the variable's value or null if the variable is unknown
          */
+        @Override
         public ValueExpression resolveVariable(String variable) {
             Object obj = null;
             String createObjectType = null;
@@ -189,6 +193,7 @@ public class UelUtil {
             }
             return null;
         }
+        @Override
         public ValueExpression setVariable(String variable, ValueExpression expression) {
             return new BasicValueExpression(this.variables.put(variable, expression.getValue(this.elContext)));
         }
@@ -201,6 +206,7 @@ public class UelUtil {
             super();
             this.object = object;
         }
+        @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -214,30 +220,39 @@ public class UelUtil {
             } catch (Exception e) {}
             return false;
         }
+        @Override
         public int hashCode() {
             return this.object == null ? 0 : this.object.hashCode();
         }
+        @Override
         public Object getValue(ELContext context) {
             return this.object;
         }
+        @Override
         public String getExpressionString() {
             return null;
         }
+        @Override
         public boolean isLiteralText() {
             return false;
         }
+        @Override
         public Class<?> getType(ELContext context) {
             return this.object == null ? null : this.object.getClass();
         }
+        @Override
         public boolean isReadOnly(ELContext context) {
             return false;
         }
+        @Override
         public void setValue(ELContext context, Object value) {
             this.object = value;
         }
+        @Override
         public String toString() {
             return "ValueExpression(" + this.object + ")";
         }
+        @Override
         public Class<?> getExpectedType() {
             return this.object == null ? null : this.object.getClass();
         }
@@ -247,6 +262,7 @@ public class UelUtil {
      * auto-vivify.
      */
     protected static class ExtendedCompositeResolver extends CompositeELResolver {
+        @Override
         public void setValue(ELContext context, Object base, Object property, Object val) {
             super.setValue(context, base, property, val);
             if (!context.isPropertyResolved() && base == null) {
@@ -271,6 +287,7 @@ public class UelUtil {
             super(isReadOnly);
             this.isReadOnly = isReadOnly;
         }
+        @Override
         @SuppressWarnings("unchecked")
         public void setValue(ELContext context, Object base, Object property, Object val) {
             if (context == null) {
@@ -317,6 +334,7 @@ public class UelUtil {
         public ExtendedMapResolver(boolean isReadOnly) {
             super(isReadOnly);
         }
+        @Override
         @SuppressWarnings("unchecked")
         public Object getValue(ELContext context, Object base, Object property) {
             if (context == null) {

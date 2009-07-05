@@ -31,10 +31,12 @@ public final class HardRefCacheLine<V> extends CacheLine<V> {
         this.value = value;
     }
 
+    @Override
     public V getValue() {
         return value;
     }
 
+    @Override
     public boolean isInvalid() {
         return value == null;
     }

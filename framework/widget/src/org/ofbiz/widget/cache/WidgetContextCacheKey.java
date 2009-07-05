@@ -87,10 +87,12 @@ public class WidgetContextCacheKey {
         this.context.putAll(context);
     }
 
+    @Override
     public int hashCode() {
         return 0;
     }
 
+    @Override
     public boolean equals(Object obj) {
         WidgetContextCacheKey key = null;
         if (obj instanceof WidgetContextCacheKey) {
@@ -133,6 +135,7 @@ public class WidgetContextCacheKey {
         return true;
     }
 
+    @Override
     public String toString() {
         Map<String, Object> printableMap = FastMap.newInstance();
         for (String fieldName: this.context.keySet()) {

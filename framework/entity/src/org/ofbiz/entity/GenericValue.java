@@ -49,6 +49,7 @@ public class GenericValue extends GenericEntity implements Reusable {
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
     protected static final ObjectFactory<GenericValue> genericValueFactory = new ObjectFactory<GenericValue>() {
+        @Override
         protected GenericValue create() {
             return new GenericValue();
         }
@@ -103,6 +104,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         return newValue;
     }
 
+    @Override
     public void reset() {
         // from GenericEntity
         super.reset();
@@ -113,6 +115,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         this.originalDbValues = null;
     }
 
+    @Override
     public void synchronizedWithDatasource() {
         super.synchronizedWithDatasource();
         this.copyOriginalDbValues();
@@ -490,6 +493,7 @@ public class GenericValue extends GenericEntity implements Reusable {
     /** Clones this GenericValue, this is a shallow clone & uses the default shallow HashMap clone
      *@return Object that is a clone of this GenericValue
      */
+    @Override
     public Object clone() {
         GenericValue newEntity = GenericValue.create(this);
         newEntity.setDelegator(internalDelegator);
@@ -497,9 +501,11 @@ public class GenericValue extends GenericEntity implements Reusable {
     }
 
     protected static class NullGenericValue extends GenericValue implements NULL {
+        @Override
         public String getEntityName() {
             return "[null-entity-value]";
         }
+        @Override
         public String toString() {
             return "[null-entity-value]";
         }

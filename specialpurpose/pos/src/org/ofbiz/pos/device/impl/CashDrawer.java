@@ -41,6 +41,7 @@ public class CashDrawer extends GenericDevice implements Runnable, DialogCallbac
         this.control = new jpos.CashDrawer();
     }
 
+    @Override
     protected void initialize() throws JposException {
         Debug.logInfo("CashDrawer [" + control.getPhysicalDeviceName() + "] Claimed : " + control.getClaimed(), module);
     }

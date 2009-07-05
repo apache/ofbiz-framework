@@ -29,6 +29,7 @@ public class NullPosPrinter extends BaseService implements jpos.services.POSPrin
 
     private StringBuffer printerBuffer = new StringBuffer();
 
+    @Override
     public int getDeviceServiceVersion() throws JposException {
         return 1002000;
     }

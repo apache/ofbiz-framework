@@ -28,6 +28,7 @@ public class GenericWidgetOutput {
         this.output = output;
     }
 
+    @Override
     public String toString() {
         return this.output;
     }

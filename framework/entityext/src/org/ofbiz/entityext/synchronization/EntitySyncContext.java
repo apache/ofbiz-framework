@@ -1117,6 +1117,7 @@ public class EntitySyncContext {
         public SyncOtherErrorException(String str, Throwable nested) { super(str, nested); }
         public SyncOtherErrorException(Throwable nested) { super(nested); }
         public SyncOtherErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+        @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
                 List<Object> errorList = FastList.newInstance();
@@ -1133,6 +1134,7 @@ public class EntitySyncContext {
         public SyncDataErrorException(String str, Throwable nested) { super(str, nested); }
         public SyncDataErrorException(Throwable nested) { super(nested); }
         public SyncDataErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+        @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
                 List<Object> errorList = FastList.newInstance();
@@ -1149,6 +1151,7 @@ public class EntitySyncContext {
         public SyncServiceErrorException(String str, Throwable nested) { super(str, nested); }
         public SyncServiceErrorException(Throwable nested) { super(nested); }
         public SyncServiceErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+        @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
                 List<Object> errorList = FastList.newInstance();

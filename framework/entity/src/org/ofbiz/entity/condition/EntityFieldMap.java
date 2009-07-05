@@ -36,6 +36,7 @@ import org.ofbiz.entity.util.EntityUtil;
 public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     protected static final ObjectFactory<EntityFieldMap> entityFieldMapFactory = new ObjectFactory<EntityFieldMap>() {
+        @Override
         protected EntityFieldMap create() {
             return new EntityFieldMap();
         }
@@ -62,21 +63,25 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityFieldMap(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
         this.init(compOp, joinOp, keysValues);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
         this.init(fieldMap, compOp, joinOp);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityFieldMap(EntityJoinOperator operator, Object... keysValues) {
         this.init(EntityOperator.EQUALS, operator, keysValues);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
+    @Deprecated
     public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityJoinOperator operator) {
         this.init(fieldMap, EntityOperator.EQUALS, operator);
     }
@@ -95,6 +100,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         this.operator = joinOp;
     }
 
+    @Override
     public void reset() {
         super.reset();
         this.fieldMap = null;
@@ -116,6 +122,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return Collections.unmodifiableMap(this.fieldMap).entrySet().iterator();
     }
 
+    @Override
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityFieldMap(this);
     }

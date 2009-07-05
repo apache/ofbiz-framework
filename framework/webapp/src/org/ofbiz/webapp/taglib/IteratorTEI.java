@@ -31,6 +31,7 @@ public class IteratorTEI extends TagExtraInfo {
         super();
     }
 
+    @Override
     public VariableInfo[] getVariableInfo(TagData data) {
         String name = null;
         String className = null;
@@ -47,6 +48,7 @@ public class IteratorTEI extends TagExtraInfo {
         return result;
     }
 
+    @Override
     public boolean isValid(TagData data) {
         return true;
     }

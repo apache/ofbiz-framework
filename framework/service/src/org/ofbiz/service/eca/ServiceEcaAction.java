@@ -239,6 +239,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         return success;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaAction) {
             ServiceEcaAction other = (ServiceEcaAction) obj;

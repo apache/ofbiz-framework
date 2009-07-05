@@ -56,7 +56,6 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
         this.keystore = location;
         this.ksType = type;
         this.ksPass = password;
-        this.alias = alias;
     }
 
     public void setKeyStoreAlias(String alias) {

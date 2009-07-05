@@ -57,10 +57,15 @@ public class ModelInfo {
     }
 
     public static final ModelInfo DEFAULT = new ModelInfo() {
+        @Override
         public String getTitle()        { return "None"; }
+        @Override
         public String getAuthor()       { return "None"; }
+        @Override
         public String getCopyright()    { return "Copyright 2001-2009 The Apache Software Foundation"; }
+        @Override
         public String getVersion()      { return "1.0"; }
+        @Override
         public String getDescription()  { return "None"; }
     };
 

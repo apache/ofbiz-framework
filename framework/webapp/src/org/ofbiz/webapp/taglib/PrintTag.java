@@ -52,6 +52,7 @@ public class PrintTag extends TagSupport {
         this.defaultStr = defaultStr;
     }
 
+    @Override
     public int doStartTag() throws JspException {
         if (attribute == null)
             return SKIP_BODY;

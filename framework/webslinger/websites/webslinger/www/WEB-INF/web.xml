@@ -4,9 +4,9 @@
  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
  version="2.4">
  <context-param>
+  <description>A unique ID used to look up the WebSite entity</description>
   <param-name>webSiteId</param-name>
   <param-value>WEBTOOLS</param-value>
-  <description>A unique ID used to look up the WebSite entity</description>
  </context-param>
   <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
   <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
@@ -22,9 +22,9 @@
   <load-on-startup>3</load-on-startup>
  </servlet>
  <servlet>
-  <servlet-name>ControlServlet</servlet-name>
-  <display-name>ControlServlet</display-name>
   <description>Main Control Servlet</description>
+  <display-name>ControlServlet</display-name>
+  <servlet-name>ControlServlet</servlet-name>
   <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
   <load-on-startup>1</load-on-startup>
  </servlet>

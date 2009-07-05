@@ -198,6 +198,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
     }
 
     // thread run method
+    @Override
     public void run() {
         try {
             if (timeout != null) {

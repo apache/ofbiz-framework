@@ -95,6 +95,7 @@ public final class MainResourceHandler implements ResourceHandler {
         return loader.fullLocation(location);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof MainResourceHandler) {
             MainResourceHandler other = (MainResourceHandler) obj;
@@ -108,11 +109,13 @@ public final class MainResourceHandler implements ResourceHandler {
         return false;
     }
 
+    @Override
     public int hashCode() {
         // the hashCode will weight by a combination xmlFilename and the combination of loaderName and location
         return (this.xmlFilename.hashCode() + ((this.loaderName.hashCode() + this.location.hashCode()) >> 1)) >> 1;
     }
 
+    @Override
     public String toString() {
         return "ResourceHandler from XML file [" + this.xmlFilename + "] with loaderName [" + loaderName + "] and location [" + location + "]";
     }

@@ -76,7 +76,7 @@ public class ContentDocument {
         // make a new, empty document
         doc = new Document();
         String contentId = content.getString("contentId");
-        doc.add(new Field("contentId", contentId, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+        doc.add(new Field("contentId", contentId, Store.YES, Index.NOT_ANALYZED, TermVector.NO));
         // Add the last modified date of the file a field named "modified". Use
         // a
         // Keyword field, so that it's searchable, but so that no attempt is
@@ -87,14 +87,14 @@ public class ContentDocument {
             modDate = (Timestamp) content.get("createdDate");
         }
         if (modDate != null) {
-            doc.add(new Field("modified", modDate.toString(), Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+            doc.add(new Field("modified", modDate.toString(), Store.YES, Index.NOT_ANALYZED, TermVector.NO));
         }
         String contentName = content.getString("contentName");
         if (UtilValidate.isNotEmpty(contentName))
-            doc.add(new Field("title", contentName, Store.YES, Index.TOKENIZED, TermVector.NO));
+            doc.add(new Field("title", contentName, Store.YES, Index.ANALYZED, TermVector.NO));
         String description = content.getString("description");
         if (UtilValidate.isNotEmpty(description))
-            doc.add(new Field("description", description, Store.YES, Index.TOKENIZED, TermVector.NO));
+            doc.add(new Field("description", description, Store.YES, Index.ANALYZED, TermVector.NO));
         List ancestorList = FastList.newInstance();
         GenericDelegator delegator = content.getDelegator();
         ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
@@ -102,7 +102,7 @@ public class ContentDocument {
         //Debug.logInfo("in ContentDocument, ancestorString:" + ancestorString,
         // module);
         if (UtilValidate.isNotEmpty(ancestorString)) {
-            Field field = new Field("site", ancestorString, Store.NO, Index.TOKENIZED, TermVector.NO);
+            Field field = new Field("site", ancestorString, Store.NO, Index.ANALYZED, TermVector.NO);
             //Debug.logInfo("in ContentDocument, field:" + field.stringValue(),
             // module);
             doc.add(field);
@@ -165,7 +165,7 @@ public class ContentDocument {
         }
         //Debug.logInfo("in DataResourceDocument, text:" + text, module);
         if (UtilValidate.isNotEmpty(text)) {
-            Field field = new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO);
+            Field field = new Field("content", text, Store.NO, Index.ANALYZED, TermVector.NO);
             //Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
             doc.add(field);
         }
@@ -188,7 +188,7 @@ public class ContentDocument {
         String featureString = StringUtil.join(featureList, " ");
         //Debug.logInfo("in ContentDocument, featureString:" + featureString, module);
         if (UtilValidate.isNotEmpty(featureString)) {
-            Field field = new Field("feature", featureString, Store.NO, Index.TOKENIZED, TermVector.NO);
+            Field field = new Field("feature", featureString, Store.NO, Index.ANALYZED, TermVector.NO);
             doc.add(field);
         }
         return true;

@@ -50,6 +50,7 @@ public class MakeValue extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String entityName = methodContext.expandString(this.entityName);
         Map<String, ? extends Object> ctxMap = (mapAcsr.isEmpty() ? null : mapAcsr.get(methodContext));
@@ -61,10 +62,12 @@ public class MakeValue extends MethodOperation {
         return this.entityName;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<make-value/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

@@ -234,6 +234,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         this.displayPrefix = displayPrefix;
     }
 
+    @Override
     public String getDisplayName() {
         return this.getDisplayPrefixedName();
     }
@@ -241,18 +242,22 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         return (this.displayPrefix != null ? this.displayPrefix : "") + this.modelService.name;
     }
 
+    @Override
     public String getDisplayType() {
         return "Service";
     }
 
+    @Override
     public String getType() {
         return ArtifactInfoFactory.ServiceInfoTypeId;
     }
 
+    @Override
     public String getUniqueId() {
         return this.modelService.name;
     }
 
+    @Override
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.modelService.definitionLocation, null);
     }
@@ -553,6 +558,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         return topLevelMap;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceArtifactInfo) {
             return this.modelService.name.equals(((ServiceArtifactInfo) obj).modelService.name);

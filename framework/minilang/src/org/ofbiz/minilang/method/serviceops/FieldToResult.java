@@ -53,6 +53,7 @@ public class FieldToResult extends MethodOperation {
         resultAcsr = new ContextAccessor<Object>(element.getAttribute("result-name"), fieldAcsr.toString());
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // only run this if it is in an SERVICE context
         if (methodContext.getMethodType() == MethodContext.SERVICE) {
@@ -82,10 +83,12 @@ public class FieldToResult extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<field-to-result field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

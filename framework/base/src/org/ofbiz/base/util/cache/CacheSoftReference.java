@@ -36,6 +36,7 @@ public class CacheSoftReference<V> extends SoftReference<V> implements Serializa
         super(o, referenceQueue);
     }
 
+    @Override
     public void clear() {
         if (Debug.verboseOn()) {
             Debug.logVerbose(new Exception("UtilCache.CacheSoftRef.clear()"), "Clearing UtilCache SoftReference - " + get(), module);
@@ -43,6 +44,7 @@ public class CacheSoftReference<V> extends SoftReference<V> implements Serializa
         super.clear();
     }
 
+    @Override
     public void finalize() throws Throwable {
         if (Debug.verboseOn()) {
             Debug.logVerbose(new Exception("UtilCache.CacheSoftRef.finalize()"), "Finalize UtilCache SoftReference - " + get(), module);

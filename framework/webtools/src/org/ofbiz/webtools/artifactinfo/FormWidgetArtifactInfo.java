@@ -182,27 +182,33 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
     public String getDisplayName() {
         // remove the component:// from the location
         return this.formName + " (" + this.formLocation.substring(12) + ")";
     }
 
+    @Override
     public String getDisplayType() {
         return "Form Widget";
     }
 
+    @Override
     public String getType() {
         return ArtifactInfoFactory.FormWidgetInfoTypeId;
     }
 
+    @Override
     public String getUniqueId() {
         return this.formLocation + "#" + this.formName;
     }
 
+    @Override
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.formLocation, null);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof FormWidgetArtifactInfo) {
             return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) &&

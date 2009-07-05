@@ -62,6 +62,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
         KeyboardAdaptor.getInstance(this, KeyboardAdaptor.SCANNER_DATA);
     }
 
+    @Override
     public void open(String deviceName, EventCallbacks ecb) throws JposException {
         super.open(deviceName, ecb);
         this.readCodeMap();

@@ -43,6 +43,7 @@ import org.ofbiz.entity.model.ModelEntity;
 public class EntityWhereString extends EntityCondition {
 
     protected static final ObjectFactory<EntityWhereString> entityWhereStringFactory = new ObjectFactory<EntityWhereString>() {
+        @Override
         protected EntityWhereString create() {
             return new EntityWhereString();
         }
@@ -53,6 +54,7 @@ public class EntityWhereString extends EntityCondition {
     protected EntityWhereString() {}
 
     /** @deprecated Use EntityCondition.makeConditionWhere() instead */
+    @Deprecated
     public EntityWhereString(String sqlString) {
         init(sqlString);
     }
@@ -65,17 +67,21 @@ public class EntityWhereString extends EntityCondition {
         this.sqlString = null;
     }
 
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         return sqlString;
     }
 
+    @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {// no nothing, this is always assumed to be fine... could do funky SQL syntax checking, but hey this is a HACK anyway
     }
 
+    @Override
     public boolean entityMatches(GenericEntity entity) {
         throw new UnsupportedOperationException("Cannot do entityMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
     }
 
+    @Override
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         throw new UnsupportedOperationException("Cannot do mapMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
     }
@@ -84,24 +90,29 @@ public class EntityWhereString extends EntityCondition {
         return sqlString;
     }
 
+    @Override
     public EntityCondition freeze() {
         return this;
     }
 
+    @Override
     public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
         // nothing to do here...
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityWhereString(this);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityWhereString)) return false;
         EntityWhereString other = (EntityWhereString) obj;
         return equals(sqlString, other.sqlString);
     }
 
+    @Override
     public int hashCode() {
         return hashCode(sqlString);
     }

@@ -62,6 +62,7 @@ public class IterateNextTag extends BodyTagSupport {
         return element;
     }
 
+    @Override
     public int doStartTag() throws JspTagException {
         IteratorTag iteratorTag =
             (IteratorTag) findAncestorWithClass(this, IteratorTag.class);
@@ -102,10 +103,12 @@ public class IterateNextTag extends BodyTagSupport {
         return EVAL_BODY_AGAIN;
     }
 
+    @Override
     public int doAfterBody() {
         return SKIP_BODY;
     }
 
+    @Override
     public int doEndTag() {
         try {
             BodyContent body = getBodyContent();

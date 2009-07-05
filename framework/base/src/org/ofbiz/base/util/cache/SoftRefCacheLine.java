@@ -31,10 +31,12 @@ public final class SoftRefCacheLine<V> extends CacheLine<V> {
         this.ref = new CacheSoftReference<V>(value);
     }
 
+    @Override
     public V getValue() {
         return ref.get();
     }
 
+    @Override
     public boolean isInvalid() {
         return ref.get() == null;
     }

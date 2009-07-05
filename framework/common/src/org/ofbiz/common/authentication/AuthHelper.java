@@ -88,7 +88,6 @@ public class AuthHelper {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private synchronized static void loadAuthenticators_internal(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
             Iterator<Authenticator> it = ServiceRegistry.lookupProviders(Authenticator.class, getContextClassLoader());

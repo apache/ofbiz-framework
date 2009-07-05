@@ -178,14 +178,17 @@ public class LoopSubContentTransform implements TemplateTransformModel {
 
         return new LoopWriter(out) {
 
+            @Override
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public int onStart() throws TemplateModelException, IOException {
                 templateCtx.put("entityIndex", Integer.valueOf(0));
                 boolean inProgress = prepCtx(delegator, templateCtx);
@@ -196,6 +199,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                 }
             }
 
+            @Override
             public int afterBody() throws TemplateModelException, IOException {
                 boolean inProgress = prepCtx(delegator, templateCtx);
                 if (inProgress) {
@@ -205,6 +209,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                 }
             }
 
+            @Override
             public void close() throws IOException {
 
                 String wrappedFTL = buf.toString();

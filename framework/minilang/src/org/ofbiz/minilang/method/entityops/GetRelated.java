@@ -64,6 +64,7 @@ public class GetRelated extends MethodOperation {
         useCacheStr = element.getAttribute("use-cache");
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String relationName = methodContext.expandString(this.relationName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
@@ -101,10 +102,12 @@ public class GetRelated extends MethodOperation {
     public String getRelationName() {
         return this.relationName;
     }
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<get-related/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

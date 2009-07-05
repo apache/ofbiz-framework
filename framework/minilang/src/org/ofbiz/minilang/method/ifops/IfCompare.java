@@ -79,6 +79,7 @@ public class IfCompare extends MethodOperation {
         }
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
@@ -145,10 +146,12 @@ public class IfCompare extends MethodOperation {
         return allSubOps;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<if-compare field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\" value=\"" + value + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

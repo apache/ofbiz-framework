@@ -63,6 +63,7 @@ public class ServiceTag extends AbstractParameterTag {
         return resultScope;
     }
 
+    @Override
     public int doEndTag() throws JspTagException {
         LocalDispatcher dispatcher = (LocalDispatcher) pageContext.getRequest().getAttribute("dispatcher");
 

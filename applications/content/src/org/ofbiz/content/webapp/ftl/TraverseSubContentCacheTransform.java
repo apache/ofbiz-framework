@@ -138,16 +138,19 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
 
         return new LoopWriter(out) {
 
+            @Override
             public void write(char cbuf[], int off, int len) {
                 //StringBuilder ctxBuf = (StringBuilder) templateContext.get("buf");
                 //ctxBuf.append(cbuf, off, len);
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public int onStart() throws TemplateModelException, IOException {
                 //templateContext.put("buf", new StringBuilder());
                 List nodeTrail = null;
@@ -200,6 +203,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 }
             }
 
+            @Override
             public int afterBody() throws TemplateModelException, IOException {
 
 
@@ -221,6 +225,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                     return TransformControl.END_EVALUATION;
             }
 
+            @Override
             public void close() throws IOException {
 
                 FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);

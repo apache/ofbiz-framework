@@ -55,6 +55,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
         if (UtilValidate.isEmpty(this.action)) this.action = "assert";
     }
 
+    @Override
     public int countTestCases() {
         int testCaseCount = 0;
         try {
@@ -67,6 +68,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
         return testCaseCount;
     }
 
+    @Override
     public void run(TestResult result) {
         result.startTest(this);
 

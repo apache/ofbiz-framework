@@ -31,7 +31,6 @@ import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
@@ -68,6 +67,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return null;
     }
 
+    @Override
     public void validateSql(ModelEntity entity, Object lhs, Object rhs) throws GenericModelException {
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
@@ -79,11 +79,13 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         }
     }
 
+    @Override
     public void visit(EntityConditionVisitor visitor, Object lhs, Object rhs) {
         visitor.accept(lhs);
         visitor.accept(rhs);
     }
 
+    @Override
     public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
 
@@ -135,6 +137,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         Object leftValue;
@@ -158,6 +161,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return compare((Comparable) leftValue, rightValue);
     }
 
+    @Override
     public EntityCondition freeze(Object lhs, Object rhs) {
         return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }

@@ -59,6 +59,7 @@ public class Section extends Content {
         return name;
     }
 
+    @Override
     public void render(PageContext pageContext) throws JspException {
         try {
             if (UtilJ2eeCompat.doFlushOnRender(pageContext.getServletContext())) {
@@ -82,6 +83,7 @@ public class Section extends Content {
         }
     }
 
+    @Override
     public void render(HttpServletRequest request, HttpServletResponse response) throws java.io.IOException, ServletException {
         ServletContext context = (ServletContext) request.getAttribute("servletContext");
         boolean verboseOn = Debug.verboseOn();
@@ -175,6 +177,7 @@ public class Section extends Content {
     }
      */
 
+    @Override
     public String toString() {
         return "Section: " + name + ", info=" + info + ", content=" + content + ", type=" + type;
     }

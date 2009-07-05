@@ -96,6 +96,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
     }
 
+    @Override
     public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
 
         boolean isEntrySet = false;
@@ -399,6 +400,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<iterate-section/>";

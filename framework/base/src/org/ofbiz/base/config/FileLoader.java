@@ -28,6 +28,7 @@ import org.ofbiz.base.util.*;
  */
 public class FileLoader extends ResourceLoader implements java.io.Serializable {
 
+    @Override
     public URL getURL(String location) throws GenericConfigException {
         String fullLocation = fullLocation(location);
         URL fileUrl = null;
@@ -39,6 +40,7 @@ public class FileLoader extends ResourceLoader implements java.io.Serializable {
         return fileUrl;
     }
 
+    @Override
     public InputStream loadResource(String location) throws GenericConfigException {
         URL fileUrl = getURL(location);
         try {

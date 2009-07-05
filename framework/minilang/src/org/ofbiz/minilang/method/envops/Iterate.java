@@ -64,6 +64,7 @@ public class Iterate extends MethodOperation {
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
 
         if (listAcsr.isEmpty()) {
@@ -130,10 +131,12 @@ public class Iterate extends MethodOperation {
         return this.subOps;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<iterate list-name=\"" + this.listAcsr + "\" entry-name=\"" + this.entryAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

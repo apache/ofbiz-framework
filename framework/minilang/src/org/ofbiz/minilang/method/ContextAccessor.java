@@ -95,11 +95,13 @@ public class ContextAccessor<T> {
     }
 
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
+    @Override
     public int hashCode() {
         return this.name.hashCode();
     }
 
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ContextAccessor) {
             ContextAccessor<?> contextAccessor = (ContextAccessor<?>) obj;
@@ -117,6 +119,7 @@ public class ContextAccessor<T> {
     }
 
     /** To be used for a string representation of the accessor, returns the original name. */
+    @Override
     public String toString() {
         return this.name;
     }

@@ -32,10 +32,12 @@ import org.ofbiz.minilang.operation.*;
  */
 public class CompareCondition implements Conditional {
     public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> {
+        @Override
         public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new CompareCondition(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if-compare";
         }

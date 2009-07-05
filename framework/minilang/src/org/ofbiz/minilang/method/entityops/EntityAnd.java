@@ -50,6 +50,7 @@ public class EntityAnd extends MethodOperation {
         this.finder = new ByAndFinder(element);
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         try {
             GenericDelegator delegator = methodContext.getDelegator();
@@ -74,10 +75,12 @@ public class EntityAnd extends MethodOperation {
         return this.finder.getEntityName();
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<entity-and/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

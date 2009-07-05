@@ -57,6 +57,7 @@ public class FilterListByAnd extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         Map<String, ? extends Object> theMap = null;
 
@@ -67,10 +68,12 @@ public class FilterListByAnd extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<filter-list-by-and/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

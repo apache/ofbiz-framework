@@ -41,15 +41,18 @@ public class ClearEntityCaches extends MethodOperation {
         super(element, simpleMethod);
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         methodContext.getDelegator().clearAllCaches();
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<clear-entity-caches/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

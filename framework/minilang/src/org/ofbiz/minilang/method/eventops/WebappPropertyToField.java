@@ -61,6 +61,7 @@ public class WebappPropertyToField extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
     }
 
+    @Override
     public boolean exec(MethodContext methodContext) {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
@@ -110,10 +111,12 @@ public class WebappPropertyToField extends MethodOperation {
         return true;
     }
 
+    @Override
     public String rawString() {
         // TODO: add all attributes and other info
         return "<webapp-property-to-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
+    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();

@@ -79,6 +79,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry").longValue() : -1;
     }
 
+    @Override
     public void queue() throws InvalidJobException {
         super.queue();
 
@@ -119,6 +120,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     /**
      * @see org.ofbiz.service.job.GenericServiceJob#init()
      */
+    @Override
     protected void init() throws InvalidJobException {
         super.init();
 
@@ -201,6 +203,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     /**
      * @see org.ofbiz.service.job.GenericServiceJob#finish()
      */
+    @Override
     protected void finish() throws InvalidJobException {
         super.finish();
 
@@ -221,6 +224,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     /**
      * @see org.ofbiz.service.job.GenericServiceJob#failed(Throwable)
      */
+    @Override
     protected void failed(Throwable t) throws InvalidJobException {
         super.failed(t);
 
@@ -256,6 +260,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     /**
      * @see org.ofbiz.service.job.GenericServiceJob#getServiceName()
      */
+    @Override
     protected String getServiceName() throws InvalidJobException {
         GenericValue jobObj = getJob();
         if (jobObj == null || jobObj.get("serviceName") == null) {
@@ -267,6 +272,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     /**
      * @see org.ofbiz.service.job.GenericServiceJob#getContext()
      */
+    @Override
     protected Map<String, Object> getContext() throws InvalidJobException {
         Map<String, Object> context = null;
         try {

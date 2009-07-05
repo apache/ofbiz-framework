@@ -120,7 +120,7 @@ public class LabelManagerFactory {
             if (UtilValidate.isNotEmpty(fileName) && !fileName.equals(fileInfo.getFileName())) {
                 continue;
             }
-            Document resourceDocument = UtilXml.readXmlDocument(fileInfo.file.toURL(), false);
+            Document resourceDocument = UtilXml.readXmlDocument(fileInfo.file.toURI().toURL(), false);
             Element resourceElem = resourceDocument.getDocumentElement();
             String labelKeyComment = "";
             for (Node propertyNode : UtilXml.childNodeList(resourceElem.getFirstChild())) {

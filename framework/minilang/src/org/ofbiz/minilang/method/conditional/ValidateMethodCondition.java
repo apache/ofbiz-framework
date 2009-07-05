@@ -30,10 +30,12 @@ import org.ofbiz.minilang.method.*;
  */
 public class ValidateMethodCondition implements Conditional {
     public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> {
+        @Override
         public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) {
             return new ValidateMethodCondition(element);
         }
 
+        @Override
         public String getName() {
             return "if-validate-method";
         }

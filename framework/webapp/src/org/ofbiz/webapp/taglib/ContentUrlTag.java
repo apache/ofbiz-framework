@@ -93,6 +93,7 @@ public class ContentUrlTag extends BodyTagSupport {
         return buf.toString();
     }
 
+    @Override
     public int doEndTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 

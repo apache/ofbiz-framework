@@ -278,7 +278,7 @@ public class UtilXml {
     /**
      * @deprecated Use  <a href="#writeXmlDocument(org.w3c.dom.Node,%20java.io.OutputStream,%20java.lang.String,%20boolean,%20boolean,%20int)">writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</a>
      */
-    @SuppressWarnings("deprecation")
+    @Deprecated
     public static void writeXmlDocument(OutputStream os, Element element, OutputFormat format) throws java.io.IOException {
         if (element == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Element was null, doing nothing", module);
@@ -353,6 +353,7 @@ public class UtilXml {
     /**
      * @deprecated
      */
+    @Deprecated
     public static Document readXmlDocument(InputStream is)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(is, true, null);
@@ -468,41 +469,49 @@ public class UtilXml {
                 }
             }
 
+            @Override
             public void startGeneralEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augs) throws XNIException {
                 super.startGeneralEntity(name, identifier, encoding, augs);
                 setLineColumn();
             }
 
+            @Override
             public void comment(XMLString text, Augmentations augs) throws XNIException {
                 super.comment(text, augs);
                 setLastChildLineColumn();
             }
 
+            @Override
             public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
                 super.processingInstruction(target, data, augs);
                 setLastChildLineColumn();
             }
 
+            @Override
             public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
                 super.startDocument(locator, encoding, namespaceContext, augs);
                 this.locator = locator;
                 setLineColumn();
             }
 
+            @Override
             public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs) throws XNIException {
                 super.doctypeDecl(rootElement, publicId, systemId, augs);
             }
 
+            @Override
             public void startElement(QName elementQName, XMLAttributes attrList, Augmentations augs) throws XNIException {
                 super.startElement(elementQName, attrList, augs);
                 setLineColumn();
             }
 
+            @Override
             public void characters(XMLString text, Augmentations augs) throws XNIException {
                 super.characters(text, augs);
                 setLastChildLineColumn();
             }
 
+            @Override
             public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
                 super.ignorableWhitespace(text, augs);
                 setLastChildLineColumn();

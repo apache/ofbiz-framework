@@ -33,13 +33,12 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -1329,16 +1328,9 @@ public class UspsServices {
 
         OutputStream os = new ByteArrayOutputStream();
 
-        OutputFormat format = new OutputFormat(requestDocument);
-        format.setOmitDocumentType(true);
-        format.setOmitXMLDeclaration(true);
-        format.setIndenting(false);
-
-        XMLSerializer serializer = new XMLSerializer(os, format);
         try {
-            serializer.asDOMSerializer();
-            serializer.serialize(requestDocument.getDocumentElement());
-        } catch (IOException e) {
+            UtilXml.writeXmlDocument(requestDocument, os, "UTF-8", true, false, 0);
+        } catch (TransformerException e) {
             throw new UspsRequestException("Error serializing requestDocument: " + e.getMessage());
         }
 

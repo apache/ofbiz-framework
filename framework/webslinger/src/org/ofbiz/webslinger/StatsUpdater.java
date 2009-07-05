@@ -113,6 +113,7 @@ public class StatsUpdater {
             super(owner, field, label, HARD);
         }
 
+        @Override
         protected Map<String, Long> createValue(GenericPK pk) throws Exception {
             return new HashMap<String, Long>();
         }

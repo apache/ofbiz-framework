@@ -47,6 +47,7 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
     /**
      * @see org.ofbiz.workflow.impl.WfActivityAbstractImplementation#run()
      */
+    @Override
     public void run() throws WfException {
         Collection tools = null;
         //Linea agregada por Oswin Ondarza
