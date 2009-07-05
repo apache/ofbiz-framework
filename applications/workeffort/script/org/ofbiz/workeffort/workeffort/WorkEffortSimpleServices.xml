@@ -43,12 +43,6 @@ under the License.
         <field-to-result field="newEntity.workEffortId" result-name="workEffortId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <if-not-empty field="newEntity.estimatedStartDate">
-            <if-empty field="newEntity.estimatedCompletionDate">
-                <set field="newEntity.estimatedCompletionDate" from-field="newEntity.estimatedStartDate"/>
-            </if-empty>
-        </if-not-empty>
-
         <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastStatusUpdate"/>
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>

@@ -28,6 +28,7 @@ under the License.
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
+                <set field="parentTypeId" from-field="parameters.parentTypeId" default-value="EVENT"/><!-- workeffortTypeId parent to ad events --> 
             </actions>
             <widgets>
                 <section>

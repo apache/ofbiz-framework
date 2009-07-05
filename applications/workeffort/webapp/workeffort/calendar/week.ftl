@@ -33,42 +33,44 @@ under the License.
   <tr<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
     <td class="centered" width="1%">
       <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=day&start=${period.start.time?string("#")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>">${period.start?date?string("EEEE")?cap_first}&nbsp;${period.start?date?string.short}</a><br/>
-      <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=week&form=edit&start=${parameters.start?if_exists}&parentTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
+      <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=week&form=edit&start=${parameters.start?if_exists}&parentTypeId=${parentTypeId}&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
     </td>
     <#list period.calendarEntries as calEntry>
         <#if calEntry.workEffort.actualStartDate?exists>
             <#assign startDate = calEntry.workEffort.actualStartDate>
           <#else>
-            <#assign startDate = calEntry.workEffort.estimatedStartDate>
+            <#assign startDate = calEntry.workEffort.estimatedStartDate?if_exists>
         </#if>
 
         <#if calEntry.workEffort.actualCompletionDate?exists>
             <#assign completionDate = calEntry.workEffort.actualCompletionDate>
           <#else>
-            <#assign completionDate = calEntry.workEffort.estimatedCompletionDate>
+            <#assign completionDate = calEntry.workEffort.estimatedCompletionDate?if_exists>
         </#if>
 
-        <#if !completionDate?exists>
+        <#if !completionDate?has_content && calEntry.workEffort.actualMilliSeconds?has_content>
             <#assign completionDate =  calEntry.workEffort.actualStartDate + calEntry.workEffort.actualMilliSeconds>
         </#if>    
-        <#if !completionDate?exists>
+        <#if !completionDate?has_content && calEntry.workEffort.estimatedMilliSeconds?has_content>
             <#assign completionDate =  calEntry.workEffort.estimatedStartDate + calEntry.workEffort.estimatedMilliSeconds>
         </#if>    
     
     <#if calEntry.startOfPeriod>
     <td<#if (calEntry.periodSpan > 1)> rowspan="${calEntry.periodSpan}"</#if> width="${entryWidth?string("#")}%">
-    <#if (startDate.compareTo(start)  <= 0 && completionDate.compareTo(next) >= 0)>
+    <#if (startDate.compareTo(period.start) <= 0 && completionDate?has_content && completionDate.compareTo(period.end) >= 0)>
       ${uiLabelMap.CommonAllWeek}
-    <#elseif (startDate.compareTo(period.start)  = 0 && completionDate.compareTo(period.end) = 0)>
+    <#elseif (startDate.compareTo(period.start)  = 0 && completionDate?has_content && completionDate.compareTo(period.end) = 0)>
       ${uiLabelMap.CommonAllDay}
-    <#elseif startDate.before(start)>
+    <#elseif startDate.before(start) && completionDate?has_content>
       ${uiLabelMap.CommonUntil} ${completionDate?datetime?string.short}
-    <#elseif completionDate.after(next)>
+    <#elseif !completionDate?has_content>
+      ${uiLabelMap.CommonFrom} ${startDate?time?string.short} - ?
+    <#elseif completionDate.after(period.end)>
       ${uiLabelMap.CommonFrom} ${startDate?time?string.short}
     <#else>
       ${startDate?time?string.short}-${completionDate?time?string.short}
     </#if>
-      <br/><a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&period=week&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
+      <br/><a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&parentTypeId=${parentTypeId}&period=week&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
     </#if>
     </#list>
     <#if (period.calendarEntries?size < maxConcurrentEntries)>
