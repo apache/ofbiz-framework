@@ -432,7 +432,7 @@ public class ProductEvents {
                     product.set("lastModifiedDate", nowTimestamp);
                     product.setString("lastModifiedByUserLogin", userLogin.getString("userLoginId"));
                     try {
-                        product.set("productHeight", new BigDecimal(request.getParameter("productHeight")));
+                        product.set("productHeight", parseBigDecimalForEntity(request.getParameter("productHeight")));
                         product.set("productWidth", parseBigDecimalForEntity(request.getParameter("productWidth")));
                         product.set("productDepth", parseBigDecimalForEntity(request.getParameter("productDepth")));
                         product.set("weight", parseBigDecimalForEntity(request.getParameter("weight")));
