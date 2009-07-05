@@ -117,7 +117,7 @@ under the License.
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteInfo" type="String" mode="IN" optional="false"/>
+        <attribute name="noteInfo" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
@@ -126,7 +126,7 @@ under the License.
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
         <description>Update CustRequest Note</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCustRequestItemNote" engine="simple"
@@ -134,7 +134,7 @@ under the License.
         <description>Create a note for a CustRequestItem</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="note" type="String" mode="IN" optional="false"/>
+        <attribute name="note" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/><!-- party who created the note -->
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
