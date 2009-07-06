@@ -2905,6 +2905,9 @@
         <value xml:lang="zh">帮助</value>
         <value xml:lang="zh_CN">帮助</value>
     </property>
+    <property key="CommonHelpNotFound">
+        <value xml:lang="en">Help file or URL not found</value>
+    </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
         <value xml:lang="de">Felder ausblenden</value>

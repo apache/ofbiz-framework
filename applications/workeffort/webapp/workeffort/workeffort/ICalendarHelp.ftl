@@ -16,4 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-${StringUtil.wrapString(wikiContent)} 
+<#if wikiContent?has_content>
+    ${StringUtil.wrapString(wikiContent)}
+<#else>
+    <h2>${uiLabelMap.CommonHelpNotFound}</h2>
+</#if>
