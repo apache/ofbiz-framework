@@ -67,6 +67,19 @@ under the License.
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
                   </li>
                 </form>
+              <#else>
+                <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="POST">
+                  <input type="hidden" name="initialSelected" value="Y"/>
+                  <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
+                  <li>
+                    <select name="facilityId">
+                      <#list ownedFacilities as facility>
+                        <option value="${facility.facilityId}">${facility.facilityName}</option>
+                      </#list>
+                    </select>
+                    <a href="javascript:document.receiveInventoryForm.submit()" class="buttontext">${uiLabelMap.OrderQuickReceivePurchaseOrder}</a>
+                  </li>
+                </form>
               </#if>
               <#if orderHeader.statusId != "ORDER_COMPLETED">
                 <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="POST">
