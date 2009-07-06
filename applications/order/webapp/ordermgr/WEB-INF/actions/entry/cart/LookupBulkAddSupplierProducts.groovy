@@ -23,6 +23,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.ofbiz.order.order.OrderReadHelper;
 
 productId = request.getParameter("productId") ?: "";
 supplier = null;
@@ -61,4 +62,55 @@ selectedFields.add("availableFromDate");
 selectedFields.add("availableThruDate");
 productList = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
 
-context.productList = EntityUtil.filterByDate(productList, nowTimestamp, "availableFromDate", "availableThruDate", true);
+productList = EntityUtil.filterByDate(productList, nowTimestamp, "availableFromDate", "availableThruDate", true);
+newProductList = [];
+
+productList.each { supplierProduct ->
+    quantityOnOrder = 0.0;
+    productId = supplierProduct.productId;
+    condition = [];  // find approved purchase orders
+    condition = EntityCondition.makeCondition(EntityCondition.makeCondition("orderTypeId", "PURCHASE_ORDER"), EntityOperator.AND,
+            EntityCondition.makeCondition("statusId", "ORDER_APPROVED"));
+
+    orderHeaders = delegator.findList("OrderHeader", condition, null, ["orderId DESC"], null, false);
+    orderHeaders.each { orderHeader ->
+        orderReadHelper = new OrderReadHelper(orderHeader);
+        orderItems = orderReadHelper.getOrderItems();
+        orderItems.each { orderItem ->
+            if (productId.equals(orderItem.productId) && "ITEM_APPROVED".equals(orderItem.statusId)) {
+                if (!orderItem.cancelQuantity) {
+                    cancelQuantity = 0.0;
+                }
+                shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem);
+                quantityOnOrder += orderItem.quantity - cancelQuantity - shippedQuantity;
+            }
+        }
+    }
+    String facilityId = request.getParameter("facilityId");
+    if (facilityId) {
+        productFacilityList = delegator.findByAnd("ProductFacility", ["productId": productId, "facilityId" : facilityId]);
+    } else {
+        productFacilityList = delegator.findByAnd("ProductFacility", ["productId": productId]);
+    }
+    productFacilityList.each { productFacility ->
+        result = dispatcher.runSync("getInventoryAvailableByFacility", ["productId" : productId, "facilityId" : productFacility.facilityId]);
+        qohAtp = result.quantityOnHandTotal.toString() + "/" + result.availableToPromiseTotal.toString();
+        productInfoMap = [:];
+        
+        product = delegator.findOne("Product", ["productId" : productId], false);
+        productInfoMap.internalName = product.internalName;
+
+        productInfoMap.productId = productId;
+        productInfoMap.qohAtp = qohAtp;
+        productInfoMap.quantityOnOrder = quantityOnOrder;
+
+        productInfoMap.supplierProductId = supplierProduct.supplierProductId;
+        productInfoMap.lastPrice = supplierProduct.lastPrice;
+        productInfoMap.orderQtyIncrements = supplierProduct.orderQtyIncrements;
+
+        productInfoMap.minimumStock = productFacility.minimumStock;
+
+        newProductList.add(productInfoMap);
+    }
+}
+context.productList = newProductList;
