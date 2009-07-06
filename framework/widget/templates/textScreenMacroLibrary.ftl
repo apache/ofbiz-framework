@@ -39,7 +39,11 @@ under the License.
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style></#macro>
-<#macro renderLabel text id style><#if text?exists>${text}</#if></#macro>
+<#macro renderLabel text id style>
+    <#if text?exists>
+        ${text}<#lt/>
+    </#if>
+</#macro>
 <#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name linkUrl text imgStr></#macro>
 <#macro renderImage src id style wid hgt border alt urlString></#macro>
 
