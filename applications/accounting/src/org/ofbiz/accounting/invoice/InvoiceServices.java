@@ -993,11 +993,13 @@ public class InvoiceServices {
                 while (itt.hasNext()) {
                     Map elem = (Map) itt.next();
                     BigDecimal elemAmount = ((BigDecimal)elem.get("commission")).multiply(appliedFraction);
+                    BigDecimal quantity = (BigDecimal)elem.get("quantity");
                     elemAmount = elemAmount.setScale(decimals, rounding);
                     Map resMap = dispatcher.runSync("createInvoiceItem", UtilMisc.toMap(
                             "invoiceId", invoiceId,
                             "productId", elem.get("productId"),
                             "invoiceItemTypeId", "COMM_INV_ITEM",
+                            "quantity",quantity,
                             "amount", elemAmount,
                             "userLogin", userLogin));
                     if (ServiceUtil.isError(resMap)) {
