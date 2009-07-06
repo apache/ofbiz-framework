@@ -60,12 +60,12 @@ conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 selectedFields = ["productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity"] as Set;
 selectedFields.add("availableFromDate");
 selectedFields.add("availableThruDate");
-productList = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
+supplierProducts = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
 
-productList = EntityUtil.filterByDate(productList, nowTimestamp, "availableFromDate", "availableThruDate", true);
+supplierProducts = EntityUtil.filterByDate(supplierProducts, nowTimestamp, "availableFromDate", "availableThruDate", true);
 newProductList = [];
 
-productList.each { supplierProduct ->
+supplierProducts.each { supplierProduct ->
     quantityOnOrder = 0.0;
     productId = supplierProduct.productId;
     // find approved purchase orders
