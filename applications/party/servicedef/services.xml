@@ -93,10 +93,10 @@ under the License.
     <service name="updatePerson" engine="java" default-entity-name="Person"
             location="org.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
         <description>Update a Person</description>
-        <required-permissions join-type="AND">
+<!--        <required-permissions join-type="AND">
             <check-permission permission="update:party:${partyId}"/>
-        </required-permissions>
-        <!-- <permission-service service-name="partyGroupPermissionCheck" main-action="UPDATE"/>  -->
+        </required-permissions> -->
+        <permission-service service-name="partyGroupPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="true"><!-- if no partyId specified will use userLogin.partyId --></auto-attributes>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
