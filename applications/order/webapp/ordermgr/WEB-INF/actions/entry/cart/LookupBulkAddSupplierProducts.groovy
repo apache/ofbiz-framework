@@ -68,7 +68,7 @@ newProductList = [];
 productList.each { supplierProduct ->
     quantityOnOrder = 0.0;
     productId = supplierProduct.productId;
-    condition = [];  // find approved purchase orders
+    // find approved purchase orders
     condition = EntityCondition.makeCondition(EntityCondition.makeCondition("orderTypeId", "PURCHASE_ORDER"), EntityOperator.AND,
             EntityCondition.makeCondition("statusId", "ORDER_APPROVED"));
 
