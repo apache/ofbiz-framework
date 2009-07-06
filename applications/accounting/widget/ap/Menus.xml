@@ -20,7 +20,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="ApAppBar" title="${uiLabelMap.AccountingApManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
-        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
+        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="FindApInvoices"/></menu-item>
         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
         <menu-item name="findVendors" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}"><link target="findVendors"/></menu-item>
         <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
@@ -57,16 +57,26 @@ under the License.
     </menu>
     <menu name="ApMainInvoiceTypeMenu" type="simple" default-selected-style="selected">
         <menu-item name="findInvoice"  title="${uiLabelMap.AccountingShowInvoices} ${invoiceType.description}">
-            <link target="findInvoices">
+            <link target="FindApInvoices">
                 <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
     </menu>
     <menu name="ApMainInvoiceStatusMenu" type="simple" default-selected-style="selected">
         <menu-item name="findInvoice"  title="${uiLabelMap.AccountingShowInvoices} ${invoicesStatus.description}">
-            <link target="findInvoices">
+            <link target="FindApInvoices">
                 <parameter param-name="lookupFlag" value="Y"/>
             </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ApInvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+            default-menu-item-name="viewInvoices">
+        <menu-item name="viewInvoices" title="${uiLabelMap.CommonMain}">
+            <link target="FindApInvoices"/>
+        </menu-item>
+        <menu-item name="purchaseInvoices" title="${uiLabelMap.AccountingPurchaseInvoices}">
+            <link target="FindPurchaseInvoices"/>
         </menu-item>
     </menu>
 </menus>

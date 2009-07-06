@@ -31,6 +31,19 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListReports"/>
     </request-map>
+    <request-map uri="FindPurchaseInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPurchaseInvoices"/>
+    </request-map>
+    <request-map uri="FindApInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindApInvoices"/>
+    </request-map>
+    <request-map uri="NewPurchaseInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewPurchaseInvoice"/>
+    </request-map>
+
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">
         <security https="true" auth="true"/>
@@ -58,6 +71,10 @@ under the License.
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#main"/>
     <view-map name="ListReports" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#ListReports"/>
+    <view-map name="FindPurchaseInvoices" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#FindPurchaseInvoices"/>
+    <view-map name="FindApInvoices" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#FindApInvoices"/>
+    <view-map name="NewPurchaseInvoice" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#NewPurchaseInvoice"/>
+    
     <!-- Vendor Mappings -->
     <view-map name="FindVendors" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#FindVendors"/>
     <view-map name="EditVendor" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#EditVendor"/>

@@ -28,6 +28,7 @@ under the License.
                 <set field="applicationMenuName" value="ApAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/ap/Menus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.AccountingApManagerApplication}" global="true"/>
+                <set field="invoiceMenuLocation" value="component://accounting/widget/ap/ApInvoiceMenus.xml" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -202,6 +203,27 @@ under the License.
                                         <include-form name="ListVendors" location="component://accounting/widget/ap/forms/VendorForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonApInvoiceDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="invoices"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameter.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-menu location="component://accounting/widget/ap/Menus.xml" name="ApInvoiceTabBar"/>
+                                <container style="clear"/>
+                                <decorator-section-include name="body"/>
                             </widgets>
                         </section>
                     </decorator-section>
