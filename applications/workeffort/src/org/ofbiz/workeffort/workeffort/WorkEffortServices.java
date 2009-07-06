@@ -168,6 +168,7 @@ public class WorkEffortServices {
 
         Map<String, Object> result = FastMap.newInstance();
         if (validWorkEfforts == null) validWorkEfforts = FastList.newInstance();
+        validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(validWorkEfforts);
         result.put("tasks", validWorkEfforts);
         return result;
     }
