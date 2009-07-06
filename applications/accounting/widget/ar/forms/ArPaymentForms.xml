@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="FindBatchPayments" type="single" target="batchPayments"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="FindBatchPayments" type="single" target="batchPayments">
         <field name="paymentMethodTypeId" title="${uiLabelMap.FormFieldTitle_paymentMethodTypeId}*" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
