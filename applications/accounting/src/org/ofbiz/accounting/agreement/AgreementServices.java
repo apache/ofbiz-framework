@@ -131,14 +131,14 @@ public class AgreementServices {
                         BigDecimal termValue = term.getBigDecimal("termValue");
                         if (termValue != null) {
                             if (termTypeId.equals("FIN_COMM_FIXED")) {
-                                commission = commission.add(termValue.multiply(quantity));
+                                commission = commission.add(termValue);
                             } else if (termTypeId.equals("FIN_COMM_VARIABLE")) {
                                 // if variable percentage commission, need to divide by 100, because 5% is stored as termValue of 5.0
                                 commission = commission.add(termValue.multiply(amount).divide(new BigDecimal("100"), 12, rounding));
                             } else if (termTypeId.equals("FIN_COMM_MIN")) {
-                                min = termValue.multiply(quantity);
+                                min = termValue;
                             } else if (termTypeId.equals("FIN_COMM_MAX")) {
-                                max = termValue.multiply(quantity);
+                                max = termValue;
                             }
                             // TODO: Add other type of terms and handling here
                         }
@@ -166,6 +166,7 @@ public class AgreementServices {
                             "partyIdFrom", agreementItem.getString("partyIdFrom"),
                             "partyIdTo", agreementItem.getString("partyIdTo"),
                             "commission", commission,
+                            "quantity", quantity,
                             "currencyUomId", agreementItem.getString("currencyUomId"),
                             "productId", productId);
                     if (days >= 0) {
