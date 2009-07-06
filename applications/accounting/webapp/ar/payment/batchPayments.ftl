@@ -18,16 +18,27 @@ under the License.
 -->
 <div class="screenlet">
     <div class="screenlet-body">
-        <form name='batchPaymentForm'>
-            <table class="basic-table">
-                <tr class="header-row">
-                    <td>${uiLabelMap.FormFieldTitle_paymentId}</td>
-                    <td>${uiLabelMap.Party}</td>
-                    <td>${uiLabelMap.CommonAmount}</td>
-                    <td>${uiLabelMap.CommonDate}</td>
-                </tr>
-                <#if paymentList?has_content>
+        <form method="post" action="<@ofbizUrl>createPaymentBatch</@ofbizUrl>" name='paymentBatchForm'>
+            <input type="hidden" name="_useRowSubmit" value="Y">
+            <#if paymentList?has_content>
+                <div>
+                    <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
+                    <input type="text" size='25' name='paymentGroupName'>
+                    <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
+                </div>
+                <table class="basic-table">
+                    <tr class="header-row">
+                        <td>${uiLabelMap.FormFieldTitle_paymentId}</td>
+                        <td>${uiLabelMap.Party}</td>
+                        <td>${uiLabelMap.CommonAmount}</td>
+                        <td>${uiLabelMap.CommonDate}</td>
+                        <td align="right">
+                            ${uiLabelMap.ProductSelectAll}&nbsp;
+                            <input id="selectAll" type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'paymentBatchForm');"/>
+                        </td>
+                    </tr>
                     <#list paymentList as payment>
+                        <input type="hidden" name="paymentId_o_${payment_index}" value="${payment.paymentId}"/>
                         <tr>
                             <td><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId}</@ofbizUrl>">${payment.paymentId}</a></td>
                             <td>
@@ -38,12 +49,20 @@ under the License.
                                     ${(partyName.groupName)!}
                                 </#if>
                             </td>
-                            <td>${payment.amount?if_exists}</td>
+                            <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate?if_exists}</td>
+                            <td align="right">
+                                <input type="checkbox" name="_rowSubmit_o_${payment_index}" value="Y" onclick="javascript:checkToggle(this, 'paymentBatchForm');">
+                            </td>
                         </tr>
                     </#list>
-                </#if>
-            </table>
+                    <tr>
+                        <td align="right">
+                            <a href="javascript:document.paymentBatchForm.submit();" class="buttontext">${uiLabelMap.AccountingCreateBatch}</a>
+                        </td>
+                    </tr>
+                </table>
+            </#if>
         </form>
     </div>
 </div>

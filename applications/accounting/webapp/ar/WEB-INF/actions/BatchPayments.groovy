@@ -17,7 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 
 List paymentCond = [];
 if (paymentMethodTypeId) {
@@ -39,14 +41,11 @@ if (paymentMethodTypeId) {
             paymentGroupMember = delegator.findList("PaymentGroupMember", EntityCondition.makeCondition([paymentId : payment.paymentId]), null, null, null, false);
             if (!paymentGroupMember) {
                 if (cardType && payment.paymentMethodId) {
-                    
-                        creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
-                        if (creditCard.cardType == cardType) {
-                            paymentListWithCreditCard.add(payment);
-                        }
-                
-                }
-                else {
+                    creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
+                    if (creditCard.cardType == cardType) {
+                        paymentListWithCreditCard.add(payment);
+                    }
+                } else if (UtilValidate.isEmpty(cardType)) {
                     paymentListWithoutCreditCard.add(payment);
                 }
             }

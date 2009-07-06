@@ -428,4 +428,31 @@ under the License.
         </iterate>
     </simple-method>
 
+    <simple-method method-name="createPaymentBatch" short-description="create a batch of payments">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="paymentId" from-field="parameters.paymentId"/>
+        <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
+            <field-map field-name="paymentId"/>
+        </entity-and>
+        <if-not-empty field="paymentGroupMembers">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentIsAlreadyBatched"/></add-error>
+            <check-errors/>
+        </if-not-empty>
+        <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
+        <set field="paymentGroupName" from-field="parameters.paymentGroupName"/>
+        <if-empty field="paymentGroupId">
+            <if-not-empty field="paymentGroupName">
+                <set field="createPaymentGroupCtx.paymentGroupName" from-field="paymentGroupName"/>
+                <set field="createPaymentGroupCtx.paymentGroupTypeId" value="BATCH_PAYMENT"/>
+                <call-service service-name="createPaymentGroup" in-map-name="createPaymentGroupCtx">
+                    <result-to-field result-name="paymentGroupId"/>
+                </call-service>
+            </if-not-empty>
+        </if-empty>
+        <set field="createPaymentGroupMemberCtx.paymentId" from-field="paymentId"/>
+        <set field="createPaymentGroupMemberCtx.paymentGroupId" from-field="paymentGroupId"/>
+        <set field="createPaymentGroupMemberCtx.fromDate" from-field="nowTimestamp"/>
+        <call-service service-name="createPaymentGroupMember" in-map-name="createPaymentGroupMemberCtx"/>
+        <field-to-result field="paymentGroupId"/>
+    </simple-method>
 </simple-methods>

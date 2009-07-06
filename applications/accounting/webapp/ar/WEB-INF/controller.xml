@@ -45,6 +45,12 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupCustomerName"/>
     </request-map>
+    <request-map uri="createPaymentBatch">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="createPaymentBatch"/>
+        <response name="success" type="view" value="BatchPayments"/>
+        <response name="error" type="view" value="BatchPayments"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

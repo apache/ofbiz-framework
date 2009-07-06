@@ -1826,6 +1826,9 @@
         <value xml:lang="th">สร้างสัญญา</value>
         <value xml:lang="zh">新建指定</value>
     </property>
+    <property key="AccountingCreateBatch">
+        <value xml:lang="en">Create Batch</value>
+    </property>
     <property key="AccountingCreateBillingAccount">
         <value xml:lang="ar">استحداث حساب فوترة</value>
         <value xml:lang="de">Rechnungskonto erstellen</value>
@@ -5987,6 +5990,9 @@
         <value xml:lang="ru">Платежная информация</value>
         <value xml:lang="th">ข้อมูลการชำระเงิน</value>
         <value xml:lang="zh">支付信息</value>
+    </property>
+    <property key="AccountingPaymentIsAlreadyBatched">
+        <value xml:lang="en">PaymentId ${paymentId} Is Already Batched</value>
     </property>
     <property key="AccountingPaymentLessRequested">
         <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
