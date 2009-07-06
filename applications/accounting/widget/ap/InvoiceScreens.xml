@@ -40,4 +40,102 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="FindApInvoices">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingFindApInvoices"/>
+                <set field="tabButtonItem" value="viewInvoices"/>
+                <set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
+                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/FindApInvoices.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar">
+                                            <link target="NewPurchaseInvoice" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                        </container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindApInvoices" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListApInvoices"  location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindPurchaseInvoices">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingFindPurchaseInvoices"/>
+                <set field="tabButtonItem" value="purchaseInvoices"/>
+                <entity-condition entity-name="Invoice" list="invoices">
+                    <condition-list combine="and">
+                        <condition-expr field-name="invoiceTypeId" operator="equals" from-field="parameters.invoiceTypeId" ignore-if-empty="false"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom" ignore-if-empty="true"/>
+                        <condition-expr field-name="invoiceDate" operator="greater-equals" from-field="parameters.fromInvoiceDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="invoiceDate" operator="less-equals" from-field="parameters.thruInvoiceDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="dueDate" operator="greater-equals" from-field="parameters.fromDueDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="dueDate" operator="less-equals" from-field="parameters.thruDueDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                    </condition-list>
+                    <order-by field-name="partyIdFrom"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindPurchaseInvoices" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/ap/invoices/PurchaseInvoices.ftl"/></html>
+                                        </platform-specific>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="NewPurchaseInvoice">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingCreateNewInvoice"/>
+                <set field="headerItem" value="invoices"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingCreateNewPurchaseInvoice}">
+                                    <include-form name="NewPurchaseInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

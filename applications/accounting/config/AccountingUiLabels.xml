@@ -2742,6 +2742,9 @@
         <value xml:lang="ru">Финансовые счета</value>
         <value xml:lang="th">งบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
+    <property key="AccountingFindApInvoices">
+        <value xml:lang="en">Find AP Invoices</value>
+    </property>
     <property key="AccountingFindFixedAssets">
         <value xml:lang="de">Suche Anlagen</value>
         <value xml:lang="en">Find Fixed Assets</value>
@@ -2770,6 +2773,9 @@
     </property>
     <property key="AccountingFindPaymentGroup">
         <value xml:lang="en">Find Payment Group</value>
+    </property>
+    <property key="AccountingFindPurchaseInvoices">
+        <value xml:lang="en">Find Purchase Invoices</value>
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="de">Suche Einkaufsrechnungen über Fälligkeit</value>
@@ -6641,6 +6647,9 @@
         <value xml:lang="th">ราคาสินค้า</value>
         <value xml:lang="zh">产品税率</value>
     </property>
+    <property key="AccountingPurchaseInvoices">
+        <value xml:lang="en">Purchase Invoices</value>
+    </property>
     <property key="AccountingPurchaseInvoiceToRevenue">
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="fr">Liste d'affectation du type facture d'achat au n° de compte de produit</value>
@@ -7552,6 +7561,9 @@
         <value xml:lang="fr">Raison de la divergence du Grand Livre général</value>
         <value xml:lang="it">Motivazione Varianza Conti Gl</value>
         <value xml:lang="nl">Reden afwijking GB-rekening</value>
+    </property>
+    <property key="AccountingVendorParty">
+        <value xml:lang="en">Vendor Party</value>
     </property>
     <property key="AccountingVerifyTransaction">
         <value xml:lang="en">Verify Transaction</value>
