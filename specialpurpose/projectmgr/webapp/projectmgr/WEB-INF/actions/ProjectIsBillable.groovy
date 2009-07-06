@@ -33,7 +33,9 @@ projectMembers.each {member ->
 	}
 	if (fromPartyId && toPartyId && fromPartyId.equals(toPartyId)) {
 		context.isBillable = false;
-	} else {
+	} else if (!toPartyId || !fromPartyId){
+        context.isBillable = false;
+	} else {	
 		context.isBillable = true;
 	}
 }

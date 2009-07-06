@@ -25,6 +25,16 @@
             <entity-one entity-name="PartyGroup" value-field="partyGroup">
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-one>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
+                <field-map field-name="workEffortId" from-field="parameters.projectId"/>
+                <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
+            </entity-and>
+            <set field="project.clientBillingPartyId" from-field="assigns[0].partyId"/>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="assignsOrg" filter-by-date="true">
+                <field-map field-name="workEffortId" from-field="parameters.projectId"/>
+                <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+            </entity-and>
+            <set field="project.organizationPartyId" from-field="assignsOrg[0].partyId"/>
         </actions>
         <alt-target use-when="project==null" target="createProject"/>
         <field use-when="project==null" name="templateId">
