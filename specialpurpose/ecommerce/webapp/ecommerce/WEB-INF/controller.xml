@@ -1678,7 +1678,7 @@ under the License.
     </request-map>
 
     <request-map uri="getShoppingCartItemIndex">
-        <security https="true" auth="false"/>
+        <security https="false" auth="false"/>
         <event type="jsonservice" invoke="getShoppingCartItemIndex"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
