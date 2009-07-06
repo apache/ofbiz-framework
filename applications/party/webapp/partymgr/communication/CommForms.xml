@@ -238,8 +238,8 @@ under the License.
         <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><display type="date"/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonEndDate}"><display type="date"/></field>
-        <field name="subject"><display/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><display/></field>
+        <field name="subject"><display also-hidden="false"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><display also-hidden="false"/></field>
         <field name="parentCommEventId">
             <hyperlink description="${communicationEvent.parentCommEventId}" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId" from-field="communicationEvent.parentCommEventId"/>
@@ -775,7 +775,7 @@ under the License.
         <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
         <field name="statusId"><hidden value="CTNT_PUBLISHED"/></field>
-        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="partyId"><hidden value="${partyIdFrom}"/></field>
         <field name="partyContentTypeId" ><hidden value="USERDEF"/></field>
         <field name="roleTypeId"><hidden value="CONTENT"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>

@@ -83,7 +83,6 @@ under the License.
         <call-service service-name="createDataResource" in-map-name="data">
             <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
         </call-service>
-        <log level="always" message=" DataResource : ${parameters.dataResourceId}"/>
 
         <!-- Create attach upload to data resource -->
         <set-service-fields service-name="attachUploadToDataResource" map="formInput.formInput"
