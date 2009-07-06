@@ -61,7 +61,9 @@ under the License.
 <#macro renderFormatListWrapperClose formName></#macro>
 
 <#macro renderFormatHeaderRowOpen style></#macro>
-<#macro renderFormatHeaderRowClose> </#macro>
+<#macro renderFormatHeaderRowClose>
+
+</#macro>
 <#macro renderFormatHeaderRowCellOpen style positionSpan></#macro>
 <#macro renderFormatHeaderRowCellClose></#macro>
 
@@ -70,17 +72,21 @@ under the License.
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
 
 <#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle></#macro>
-<#macro renderFormatItemRowClose formName></#macro>
+<#macro renderFormatItemRowClose formName>
+
+</#macro>
 <#macro renderFormatItemRowCellOpen fieldName style positionSpan></#macro>
 <#macro renderFormatItemRowCellClose fieldName></#macro>
 <#macro renderFormatItemRowFormCellOpen style></#macro>
 <#macro renderFormatItemRowFormCellClose></#macro>
 
 <#macro renderFormatSingleWrapperOpen formName style></#macro>
-<#macro renderFormatSingleWrapperClose formName></#macro>
+<#macro renderFormatSingleWrapperClose formName>
+</#macro>
 
 <#macro renderFormatFieldRowOpen></#macro>
-<#macro renderFormatFieldRowClose></#macro>
+<#macro renderFormatFieldRowClose>
+</#macro>
 <#macro renderFormatFieldRowTitleCellOpen style> </#macro>
 <#macro renderFormatFieldRowTitleCellClose></#macro>
 <#macro renderFormatFieldRowSpacerCell></#macro>
