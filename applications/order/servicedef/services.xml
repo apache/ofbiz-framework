@@ -996,4 +996,11 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shippingInstructions" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="setGiftMessage" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderServices" invoke="setGiftMessage">
+        <description>Set Gift message for an order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="giftMessage" type="String" mode="IN" optional="true"/>
+    </service>
 </services>

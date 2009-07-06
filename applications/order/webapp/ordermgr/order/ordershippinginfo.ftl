@@ -32,6 +32,20 @@ under the License.
     function saveInstruction() {
         document.updateShippingInstructionsForm.submit();
     }
+    function editGiftMessage() {
+        $('giftMessage').style.display="block";
+        $('saveGiftMessage').style.display="inline";
+        $('editGiftMessage').style.display="none";
+        $('message').style.display="none";
+    }
+    function addGiftMessage() {
+        $('giftMessage').style.display="block";
+        $('saveGiftMessage').style.display="inline";
+        $('addGiftMessage').style.display="none";
+    }
+    function saveGiftMessage() {
+        document.setGiftMessageForm.submit();
+    }
 </script>
 
 <#if (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)) && orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
@@ -461,23 +475,35 @@ under the License.
             </td>
             <td width="5">&nbsp;</td>
             <td valign="top" width="80%">
-              <#if shipGroup.isGift?upper_case == "N">${uiLabelMap.OrderThisOrderNotGift}<#else>${uiLabelMap.OrderThisOrderGift}</#if>
+              <#if shipGroup.isGift?upper_case == "N">
+                ${uiLabelMap.OrderThisOrderNotGift}<#else>${uiLabelMap.OrderThisOrderGift}</#if>
             </td>
           </tr>
         </#if>
-        <#if shipGroup.giftMessage?has_content>
-          <tr><td colspan="3"><hr/></td></tr>
-          <tr>
+        <#if shipGroup.isGift?upper_case == "Y">
+          <form name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
+            <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
+            <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+            <tr><td colspan="3"><hr/></td></tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.OrderGiftMessage}</span>
             </td>
-            <td width="5">&nbsp;</td>
-            <td valign="top" width="80%">
-              ${shipGroup.giftMessage}
+            <#if shipGroup.giftMessage?has_content>
+              <td>&nbsp;</td>
+              <td id="message" colspan="3" >
+                <label>${shipGroup.giftMessage}</label>
+                <a href="javascript:editGiftMessage();" class="buttontext" id="editGiftMessage">${uiLabelMap.CommonEdit}</a>
+              </td>
+            <#else>
+              <td align="right"><a href="javascript:addGiftMessage();" class="buttontext" id="addGiftMessage">${uiLabelMap.CommonAdd}</a></td>
+            </#if>
+            <td>
+              <textarea name="giftMessage" id="giftMessage" style="display:none">${shipGroup.giftMessage?if_exists}</textarea>
+              <a href="javascript:saveGiftMessage();" class="buttontext" id="saveGiftMessage" style="display:none">${uiLabelMap.CommonSave}</a>
             </td>
-          </tr>
+          </form>
         </#if>
-         <#if shipGroup.shipAfterDate?has_content>
+        <#if shipGroup.shipAfterDate?has_content>
          <tr><td colspan="3"><hr/></td></tr>
          <tr>
             <td align="right" valign="top" width="15%">

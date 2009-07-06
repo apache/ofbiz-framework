@@ -5242,4 +5242,19 @@ public class OrderServices {
         }
         return ServiceUtil.returnSuccess();
     }
+
+    public static Map setGiftMessage(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String orderId = (String) context.get("orderId");
+        String shipGroupSeqId = (String) context.get("shipGroupSeqId");
+        String giftMessage = (String) context.get("giftMessage");
+        try {
+            GenericValue orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId,"shipGroupSeqId",shipGroupSeqId)));
+            orderItemShipGroup.set("giftMessage", giftMessage);
+            orderItemShipGroup.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return ServiceUtil.returnSuccess();
+    }
 }

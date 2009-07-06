@@ -304,6 +304,12 @@ under the License.
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
+    <request-map uri="setGiftMessage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setGiftMessage"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
 
     <!-- Order Note Requests -->
     <request-map uri="createnewnote">
