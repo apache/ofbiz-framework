@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-method method-name="testCreateBatchForPayments" short-description="auto test batching process" login-required="false">
+        <set field="paymentIds[]" value="demo10001"/>
+        <set field="paymentIds[]" value="demo10010"/>
+        <set field="paymentGroupName" value="Payment Batch"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceInMap.paymentIds" from-field="paymentIds"/>
+        <set field="serviceInMap.paymentGroupName" from-field="paymentGroupName"/>
+        <set field="serviceInMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPaymentBatch" in-map-name="serviceInMap">
+            <result-to-field result-name="paymentGroupId"/>
+        </call-service>
+        <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+        <entity-and entity-name="PaymentGroupMember" list="paymentGroupMemberList">
+            <field-map field-name="paymentGroupId"/>
+        </entity-and>
+        <assert>
+            <not><if-empty field="paymentGroupMemberList"/></not>
+            <if-compare-field field="paymentGroupName" operator="equals" to-field="paymentGroup.paymentGroupName"/>
+        </assert>
+        <check-errors/>
+        <iterate list="paymentGroupMemberList" entry="paymentGroupMember">
+            <assert>
+                <or>
+                    <if-compare-field field="paymentGroupMember.paymentId" operator="equals" to-field="paymentIds[0]"/>
+                    <if-compare-field field="paymentGroupMember.paymentId" operator="equals" to-field="paymentIds[1]"/>
+                </or>
+            </assert>
+            <check-errors/>
+        </iterate>
+        <log level="info" message="Batch ${paymentGroupId} is created successfully for payments"/>
+    </simple-method>
+</simple-methods>
