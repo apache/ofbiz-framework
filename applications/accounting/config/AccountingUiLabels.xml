@@ -5997,9 +5997,6 @@
         <value xml:lang="th">ข้อมูลการชำระเงิน</value>
         <value xml:lang="zh">支付信息</value>
     </property>
-    <property key="AccountingPaymentIsAlreadyBatched">
-        <value xml:lang="en">PaymentId ${paymentId} Is Already Batched</value>
-    </property>
     <property key="AccountingPaymentLessRequested">
         <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Pago [${paymentId}] tiene ${paymentApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
@@ -6771,6 +6768,9 @@
         <value xml:lang="ru">Номер маршрута</value>
         <value xml:lang="th">หมายเลข Routing</value>
         <value xml:lang="zh">路由号码</value>
+    </property>
+    <property key="AccountingRunningTotal">
+        <value xml:lang="en">Running Total</value>
     </property>
     <property key="AccountingSalesInvoiceToRevenue">
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>

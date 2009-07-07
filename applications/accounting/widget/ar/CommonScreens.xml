@@ -117,4 +117,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonPaymentGroupDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="PaymentGroup"/>
+                <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
+                <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <widgets>
+                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="paymentGroup"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label></container>
+                                        <container style="button-bar">
+                                            <link target="EditPaymentGroup" text="${uiLabelMap.AccountingCreateNewPaymentGroup}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="h1"><label>${uiLabelMap.AccountingNewPaymentGroup}</label></container>
+                                    </fail-widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

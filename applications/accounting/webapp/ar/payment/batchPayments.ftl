@@ -16,15 +16,48 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
+<script language="JavaScript" type="text/javascript">
+<!-- //
+
+function togglePaymentId(master) {
+    var form = document.paymentBatchForm;
+    var payments = form.elements.length;
+    for (var i = 0; i < payments; i++) {
+        var element = form.elements[i];
+        if (element.name == "paymentIds") {
+            element.checked = master.checked;
+        }
+    }
+    getPaymentRunningTotal(master);
+}
+function getPaymentRunningTotal(e) {
+    if (!($(e).checked)) {
+        $('checkAllPayments').checked = false;
+    }
+    new Ajax.Request('getPaymentRunningTotal', {
+        asynchronous: false,
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            $('showPaymentRunningTotal').update(data.paymentRunningTotal);
+        }, parameters: $('paymentBatchForm').serialize(), requestHeaders: {Accept: 'application/json'}
+    });
+}
+// -->
+
+</script>
 <div class="screenlet">
     <div class="screenlet-body">
-        <form method="post" action="<@ofbizUrl>createPaymentBatch</@ofbizUrl>" name='paymentBatchForm'>
-            <input type="hidden" name="_useRowSubmit" value="Y">
+        <form id="paymentBatchForm" name="paymentBatchForm" method="post" action="<@ofbizUrl>createPaymentBatch</@ofbizUrl>">
             <#if paymentList?has_content>
                 <div>
                     <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
                     <input type="text" size='25' name='paymentGroupName'>
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
+                </div>
+                <div>
+                    <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
+                    <span class="label" id="showPaymentRunningTotal"></span>
                 </div>
                 <table class="basic-table">
                     <tr class="header-row">
@@ -34,11 +67,10 @@ under the License.
                         <td>${uiLabelMap.CommonDate}</td>
                         <td align="right">
                             ${uiLabelMap.ProductSelectAll}&nbsp;
-                            <input id="selectAll" type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'paymentBatchForm');"/>
+                            <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
                         </td>
                     </tr>
                     <#list paymentList as payment>
-                        <input type="hidden" name="paymentId_o_${payment_index}" value="${payment.paymentId}"/>
                         <tr>
                             <td><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId}</@ofbizUrl>">${payment.paymentId}</a></td>
                             <td>
@@ -52,7 +84,7 @@ under the License.
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate?if_exists}</td>
                             <td align="right">
-                                <input type="checkbox" name="_rowSubmit_o_${payment_index}" value="Y" onclick="javascript:checkToggle(this, 'paymentBatchForm');">
+                                <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal('paymentId_${payment_index}');"/>
                             </td>
                         </tr>
                     </#list>

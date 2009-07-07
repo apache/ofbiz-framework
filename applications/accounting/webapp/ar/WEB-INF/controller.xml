@@ -47,9 +47,14 @@ under the License.
     </request-map>
     <request-map uri="createPaymentBatch">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="createPaymentBatch"/>
-        <response name="success" type="view" value="BatchPayments"/>
+        <event type="service" invoke="createPaymentBatch"/>
+        <response name="success" type="view" value="EditPaymentGroup"/>
         <response name="error" type="view" value="BatchPayments"/>
+    </request-map>
+    <request-map uri="getPaymentRunningTotal">
+        <event type="jsonservice" invoke="getPaymentRunningTotal"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
     <!-- end of request mappings -->
 
