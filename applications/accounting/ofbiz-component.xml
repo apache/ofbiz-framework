@@ -79,6 +79,7 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas_olap.xml"/>
 
     <test-suite loader="main" location="testdef/accountingtests.xml"/>
+    <test-suite loader="main" location="testdef/paymenttests.xml"/>
 
     <webapp name="accounting"
         title="Accounting"
