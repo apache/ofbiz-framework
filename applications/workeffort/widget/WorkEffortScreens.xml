@@ -949,6 +949,30 @@ under the License.
         </section>
     </screen>
 
+    <screen name="EditICalendarData">
+        <section>
+            <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap"/>
+                <set field="tabButtonItem" value="ICalendarData"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortIcalData" to-value-field="iCalData"/>
+                <set field="title" value="${uiLabelMap.WorkEffortICalendarEditData} - ${workEffort.workEffortName}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="iCalendarDecorator" location="${parameters.iCalendarDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-form name="EditICalendarData" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ICalendarChildren">
         <section>
             <actions>

@@ -1933,8 +1933,14 @@
     <property key="WorkEffortICalendarAddFixedAsset">
         <value xml:lang="en">Add iCalendar Fixed Asset</value>
     </property>
+    <property key="WorkEffortICalendarData">
+        <value xml:lang="en">Data</value>
+    </property>
     <property key="WorkEffortICalendarEdit">
         <value xml:lang="en">Edit iCalendar</value>
+    </property>
+    <property key="WorkEffortICalendarEditData">
+        <value xml:lang="en">Edit iCalendar Data</value>
     </property>
     <property key="WorkEffortICalendarFind">
         <value xml:lang="en">Find iCalendars</value>
