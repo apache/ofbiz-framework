@@ -38,6 +38,7 @@ under the License.
     <OrderAdjustmentType description="Promotion" hasTable="N" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" parentTypeId=""/>
     <OrderAdjustmentType description="Replacement" hasTable="N" orderAdjustmentTypeId="REPLACE_ADJUSTMENT" parentTypeId=""/>
     <OrderAdjustmentType description="Discount" hasTable="N" orderAdjustmentTypeId="DISCOUNT_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Donation" hasTable="N" orderAdjustmentTypeId="DONATION_ADJUSTMENT" parentTypeId=""/>
     <OrderAdjustmentType description="Fee" hasTable="N" orderAdjustmentTypeId="FEE" parentTypeId=""/>
     <OrderAdjustmentType description="Miscellaneous Charges" hasTable="N" orderAdjustmentTypeId="MISCELLANEOUS_CHARGE" parentTypeId=""/>
     <OrderAdjustmentType description="Sales Tax" hasTable="N" orderAdjustmentTypeId="SALES_TAX" parentTypeId=""/>
