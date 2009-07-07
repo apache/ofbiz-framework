@@ -42,6 +42,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditICalendar"/>
     </request-map>
+    <request-map uri="EditICalendarData">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditICalendarData"/>
+    </request-map>
     <request-map uri="ICalendarChildren">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ICalendarChildren"/>
@@ -74,6 +78,18 @@ under the License.
         <response name="success" type="view-home" value="EditICalendar"/>
         <response name="error" type="view" value="EditICalendar"/>
     </request-map>
+    <request-map uri="createICalendarData">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortICalData"/>
+        <response name="success" type="view-home" value="EditICalendarData"/>
+        <response name="error" type="view" value="EditICalendarData"/>
+    </request-map>
+    <request-map uri="updateICalendarData">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortICalData"/>
+        <response name="success" type="view-home" value="EditICalendarData"/>
+        <response name="error" type="view" value="EditICalendarData"/>
+    </request-map>
     <request-map uri="createICalendarPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="assignPartyToWorkEffort"/>
@@ -102,6 +118,7 @@ under the License.
     <!-- View Mappings -->
 
     <view-map name="EditICalendar" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditICalendar"/>
+    <view-map name="EditICalendarData" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditICalendarData"/>
     <view-map name="ICalendarChildren" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarChildren"/>
     <view-map name="ICalendarParties" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarParties"/>
     <view-map name="ICalendarFixedAssets" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ICalendarFixedAssets"/>
