@@ -359,7 +359,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
-        sr.append("\" value=\"");
+        sr.append("\" value=r\"");
         sr.append(value);
         sr.append("\" textSize=\"");
         sr.append(textSize);
@@ -434,7 +434,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
-        sr.append("\" value=\"");
+        sr.append("\" value=r\"");
         sr.append(value);
         sr.append("\" cols=\"");
         sr.append(cols);
