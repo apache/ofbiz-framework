@@ -239,6 +239,7 @@ under the License.
             <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}"/>
             <input type="hidden" name="purchaseOrderId" value="${requestParameters.purchaseOrderId?if_exists}"/>
             <input type="hidden" name="initialSelected" value="Y"/>
+            <input type="hidden" name="partialReceive" value="${partialReceive?if_exists}"/>
             <table class="basic-table" cellspacing="0">
               <#list shipments?if_exists as shipment>
                 <#assign originFacility = shipment.getRelatedOneCache("OriginFacility")?if_exists/>
@@ -381,7 +382,7 @@ under the License.
                           </td>
                           <td align="right">${uiLabelMap.ProductQtyReceived} :</td>
                           <td align="right">
-                            <input type="text" name="quantityAccepted_o_${rowCount}" size="6" value="${defaultQuantity?string.number}"/>
+                            <input type="text" name="quantityAccepted_o_${rowCount}" size="6" value=<#if partialReceive?exists>"0"<#else>"${defaultQuantity?string.number}"</#if>/>
                           </td>
                         </tr>
                         <tr>

@@ -26,6 +26,11 @@ purchaseOrderId = request.getParameter("purchaseOrderId");
 productId = request.getParameter("productId");
 shipmentId = request.getParameter("shipmentId");
 
+partialReceive = parameters.partialReceive;
+if (partialReceive) {
+    context.partialReceive = partialReceive;
+}
+
 facility = null;
 if (facilityId) {
     facility = delegator.findOne("Facility", [facilityId : facilityId], false);

@@ -81,6 +81,20 @@ under the License.
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
                   </li>
                 </form>
+                <form name="receivePurchaseOrderForm" action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                  <input type="hidden" name="initialSelected" value="Y"/>
+                  <input type="hidden" name="orderId" value="${orderId}"/>
+                  <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
+                  <input type="hidden" name="partialReceive" value="Y"/>
+                  <li>
+                    <select name="facilityId">
+                      <#list ownedFacilities as facility>
+                        <option value="${facility.facilityId}">${facility.facilityName}</option>
+                      </#list>
+                    </select>
+                    <a href="javascript:document.receivePurchaseOrderForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
+                  </li>
+                </form>
               <#else>
                 <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="POST">
                   <input type="hidden" name="initialSelected" value="Y"/>
@@ -92,6 +106,19 @@ under the License.
                       </#list>
                     </select>
                     <a href="javascript:document.receiveInventoryForm.submit()" class="buttontext">${uiLabelMap.OrderQuickReceivePurchaseOrder}</a>
+                  </li>
+                </form>
+                <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
+                  <input type="hidden" name="initialSelected" value="Y"/>
+                  <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
+                  <input type="hidden" name="partialReceive" value="Y"/>
+                  <li>
+                    <select name="facilityId">
+                      <#list ownedFacilities as facility>
+                        <option value="${facility.facilityId}">${facility.facilityName}</option>
+                      </#list>
+                    </select>
+                    <a href="javascript:document.partialReceiveInventoryForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
                   </li>
                 </form>
               </#if>
