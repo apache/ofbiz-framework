@@ -234,11 +234,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceHeader}">
-                                    <container>
-                                        <link target="editInvoice" text="${uiLabelMap.CommonUpdate}" style="buttontext">
-                                            <parameter param-name="invoiceId"/>
-                                        </link>
-                                    </container>
+                                    <link target="editInvoice" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                        <parameter param-name="invoiceId"/>
+                                    </link>
                                     <include-form name="invoiceHeader" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
                                 <container style="lefthalf">
@@ -247,11 +245,9 @@ under the License.
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
                                         navigation-form-name="ListInvoiceApplications">
-                                        <container>
-                                            <link target="editInvoiceApplications" text="${uiLabelMap.CommonUpdate}" style="buttontext">
-                                                <parameter param-name="invoiceId"/>
-                                            </link>
-                                        </container>
+                                        <link target="editInvoiceApplications" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                            <parameter param-name="invoiceId"/>
+                                        </link>
                                         <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </screenlet>
                                 </container>
@@ -269,13 +265,11 @@ under the License.
                                         <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </screenlet>
                                 </container>
-                                <container style="leftclear"/>
+                                <container style="clear"/>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="invoiceItems">
-                                    <container>
-                                        <link target="listInvoiceItems" text="${uiLabelMap.CommonUpdate}" style="buttontext">
-                                            <parameter param-name="invoiceId"/>
-                                        </link>
-                                    </container>
+                                    <link target="listInvoiceItems" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                        <parameter param-name="invoiceId"/>
+                                    </link>
                                     <include-form name="invoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
                                 <section>
@@ -284,12 +278,10 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
-                                   <container>
-                                        <link target="editInvoiceTimeEntries" text="${uiLabelMap.CommonUpdate}" style="buttontext">
-                                            <parameter param-name="invoiceId"/>
-                                        </link>
-                                    </container>
-                                   <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                            <link target="editInvoiceTimeEntries" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                                <parameter param-name="invoiceId"/>
+                                            </link>
+                                            <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -319,7 +311,7 @@ under the License.
                                         <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </screenlet>
                                 </container>
-                                <container style="leftclear"/>
+                                <container style="clear"/>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="invoiceItems">
                                     <include-form name="invoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
