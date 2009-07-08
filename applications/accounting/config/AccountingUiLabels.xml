@@ -98,6 +98,9 @@
         <value xml:lang="th">เลขที่บัญชี</value>
         <value xml:lang="zh">账户号码</value>
     </property>
+    <property key="AccountingAccountTransactionId">
+        <value xml:lang="en">Account Transaction Id</value>
+    </property>
     <property key="AccountingAccountType">
         <value xml:lang="ar">نوع الحساب</value>
         <value xml:lang="cs">Typ účtu</value>
@@ -1061,6 +1064,9 @@
         <value xml:lang="th">ยอดคงเหลือระหว่าง</value>
         <value xml:lang="zh">不定额</value>
     </property>
+    <property key="AccountingBalanceOfTheAccount">
+        <value xml:lagn="en">Balance Of The Account</value>
+    </property>
     <property key="AccountingBalanceSheet">
         <value xml:lang="ar">مذكرة الميزانية</value>
         <value xml:lang="de">Bilanz</value>
@@ -1789,6 +1795,9 @@
     <property key="AccountingCreditDebitFlag">
         <value xml:lang="en">C/D</value>
     </property>
+    <property key="AccountingCreditFlag">
+        <value xml:lang="en">C</value>
+    </property>
     <property key="AccountingCreateAcctRecons">
         <value xml:lang="de">Kontenabstimmung erstellen</value>
         <value xml:lang="en">Create Account Reconciliation</value>
@@ -1994,6 +2003,9 @@
         <value xml:lang="ru">Ошибка безопасности: для создания платежа вы либо должны иметь отношения с участником, либо иметь права PAY_INFO_CREATE или PAY_INFO_ADMIN.</value>
         <value xml:lang="th">Security Error : ความผิดพลาด! ในการสร้างการชำระเงินคุณต้องระบุกลุ่มผู้ส่งหรือกลุ่มผู้รับหรือต้องมี PAY_INFO_CREATE หรือ PAY_INFO_ADMIN ก่อน.</value>
         <value xml:lang="zh">安全错误：要新建支付，你必须或者是支付方或接收方，或具有PAY_INFO_CREATE或PAY_INFO_ADMIN权限。</value>
+    </property>
+    <property key="AccountingCreditAmount">
+        <value xml:lang="en">Credit Amount</value>
     </property>
     <property key="AccountingCreatePermissionError">
         <value xml:lang="en">Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
@@ -2225,6 +2237,9 @@
         <value xml:lang="th">การแลกเปลี่ยนข้อมูล</value>
         <value xml:lang="zh">数据交换</value>
     </property>
+    <property key="AccountingDebitAmount">
+        <value xml:lang="en">Debit Amount</value>
+    </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ date acquise est vide dans les données d'immobilisation</value>
@@ -2239,6 +2254,12 @@
         <value xml:lang="it">Data filtro</value>
         <value xml:lang="nl">Filter boekhouddatum</value>
         <value xml:lang="th">Date Filter</value>
+    </property>
+    <property key="AccountingDebitFlag">
+        <value xml:lang="en">D</value>
+    </property>
+    <property key="AccountingDebitOrCreditOfBalance">
+        <value xml:lang="en">Debit Or Credit Of The Balance</value>
     </property>
     <property key="AccountingDebitCreditMustEqual">
         <value xml:lang="ar"> مجاميع الدين و القرض يجب أن يكونا متساويان</value>
@@ -3678,6 +3699,9 @@
         <value xml:lang="th">จัดแบ่งหมวดหมู่บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">总账账户Java类</value>
     </property>
+    <property key="AccountingGlAccountNameAndGlAccountCode">
+        <value xml:lang="en">Gl account code and Gl account name</value>
+    </property>
     <property key="AccountingGlAccountDefault">
         <value xml:lang="ar">القيم الإفتراضية للحساب المحاسبي</value>
         <value xml:lang="de">GL Standard Konto</value>
@@ -3702,6 +3726,12 @@
         <value xml:lang="ru">Код счета ГК</value>
         <value xml:lang="th">รหัสบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">总账账户编号</value>
+    </property>
+    <property key="AccountingGlAccountTrialBalance">
+        <value xml:lang="en">GL Account Trial Balance</value>
+    </property>
+    <property key="AccountingGlAccountTrialBalanceReport">
+        <value xml:lang="en">GL Account Trial Balance Report</value>
     </property>
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="en">GL Account Type Defaults</value>
@@ -7070,6 +7100,9 @@
         <value xml:lang="th">ประสบความสำเร็จ</value>
         <value xml:lang="zh">成功</value>
     </property>
+    <property key="AccountingSubsidiaryLedger">
+        <value xml:lang="en">Subsidiary Ledger</value>
+    </property>
     <property key="AccountingSuffixCard">
         <value xml:lang="en">Suffix on Card</value>
         <value xml:lang="es">Sufijo en tarjeta</value>
@@ -7165,6 +7198,12 @@
         <value xml:lang="th">รหัสประเภทช่วงระยะเวลา</value>
         <value xml:lang="zh">条件类型标识</value>
     </property>
+    <property key="AccountingTotalOfTheCurrentMonth">
+        <value xml:lang="en">Total of the current month</value>
+    </property>
+    <property key="AccountingTotalOfYearToDate">
+        <value xml:lang="en">Total of Year To Date</value>
+    </property>
     <property key="AccountingTextData">
         <value xml:lang="de">Textangaben</value>
         <value xml:lang="en">Text Data</value>
@@ -7176,6 +7215,9 @@
         <value xml:lang="ru">Текстовые данные</value>
         <value xml:lang="th">ข้อมูลตัวหนังสือ</value>
         <value xml:lang="zh">文本数据</value>
+    </property>
+    <property key="AccountingTheBalanceOfLastYear">
+        <value xml:lang="en">The balance of last year</value>
     </property>
     <property key="AccountingThruDate">
         <value xml:lang="ar">الأجل</value>
@@ -7429,6 +7471,9 @@
         <value xml:lang="it">Tipo</value>
         <value xml:lang="nl">Type</value>
         <value xml:lang="th">ประเภท</value>
+    </property>
+    <property key="AccountingTypeOfTheCurrency">
+        <value xml:lang="en">Type of the Currency</value>
     </property>
     <property key="AccountingUnPostedTransactionTotals">
         <value xml:lang="en">UnPosted Totals</value>

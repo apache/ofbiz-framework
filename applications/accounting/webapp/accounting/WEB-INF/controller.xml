@@ -2130,6 +2130,16 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AcctgTransDetailReportPdf"/>
     </request-map>
+
+    <request-map uri="GlAccountTrialBalance">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="GlAccountTrialBalance"/>
+    </request-map>
+    <request-map uri="GlAccountTrialBalanceReportPdf.pdf">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="GlAccountTrialBalanceReportPdf"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2395,6 +2405,8 @@ under the License.
     <view-map name="TrialBalanceSearchResultsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="TrialBalanceSearchResultsCsv" type="screentext" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="AcctgTransDetailReportPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransDetailReportPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="GlAccountTrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalance"/>
+    <view-map name="GlAccountTrialBalanceReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalanceReportPdf" content-type="application/pdf" encoding="none"/>
 
     <!-- end of view mappings -->
 </site-conf>

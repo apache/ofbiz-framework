@@ -439,4 +439,38 @@ under the License.
         </else>
         </if-compare>
     </simple-method>
+
+    <simple-method method-name="getAcctgTransEntriesAndTransTotal" short-description="Calculate total of credit and debit and difference between both">
+
+        <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries" distinct="true">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
+                <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.customTimePeriodStartDate"/>
+                <condition-expr field-name="transactionDate" operator="less" from-field="parameters.customTimePeriodEndDate"/>
+            </condition-list>
+        </entity-condition>
+
+        <set field="debitTotal" type="BigDecimal" value="0"/>
+        <set field="creditTotal" type="BigDecimal" value="0"/>
+        <set field="debitCreditDifference" type="BigDecimal" value="0"/>
+
+        <iterate entry="acctgTransEntry" list="acctgTransAndEntries">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+               <set field="debitTotal" value="${debitTotal + acctgTransEntry.amount}" type="BigDecimal"/>
+            <else>
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                    <set field="creditTotal" value="${creditTotal + acctgTransEntry.amount}" type="BigDecimal"/>
+                </if-compare>
+            </else>
+            </if-compare>
+        </iterate>
+
+        <set field="debitCreditDifference" value="${debitTotal - creditTotal}" type="BigDecimal"/>
+        <field-to-result field="acctgTransAndEntries"/>
+        <field-to-result field="debitTotal"/>
+        <field-to-result field="creditTotal"/>
+        <field-to-result field="debitCreditDifference"/>
+    </simple-method>
 </simple-methods>

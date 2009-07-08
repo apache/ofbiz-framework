@@ -408,4 +408,35 @@ under the License.
         <field name="debit" use-when="showTotals"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
         <field name="credit" use-when="showTotals"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="GlAccountTrialBalance" type="single" target="GlAccountTrialBalance">
+        <actions>
+            <entity-and entity-name="CustomTimePeriod" list="customTimePeriods">
+                <field-map field-name="organizationPartyId"/>
+                <field-map field-name="periodTypeId" value="FISCAL_YEAR"/>
+                <order-by field-name="fromDate"/>
+            </entity-and>
+        </actions>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${glAccountId} ${accountName}">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="timePeriod">
+            <drop-down>
+                <list-options list-name="customTimePeriods" key-name="customTimePeriodId" description="${fromDate} - ${thruDate}"/>
+            </drop-down>
+        </field>
+        <field name="isPosted">
+            <drop-down>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonAll}" key="ALL"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>
+    </form>
 </forms>

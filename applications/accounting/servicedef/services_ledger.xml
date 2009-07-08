@@ -574,4 +574,17 @@ under the License.
         <attribute name="customTimePeriodId" mode="IN" type="String"/>
         <attribute name="previousTimePeriod" mode="OUT" type="Map" optional="false"/>
     </service>
+    <service name="getAcctgTransEntriesAndTransTotal" engine="simple" invoke="getAcctgTransEntriesAndTransTotal" 
+        location="component://accounting/script/org/ofbiz/accounting/ledger/AcctgTransServices.xml" auth="true">
+        <description>Given AcctgTransAndEntire and Calculate acctg trans total for specific time period.</description>
+        <attribute name="customTimePeriodStartDate" mode="IN" type="Timestamp"/>
+        <attribute name="customTimePeriodEndDate" mode="IN" type="Timestamp"/>
+        <attribute name="organizationPartyId" mode="IN" type="String"/>
+        <attribute name="isPosted" mode="IN" type="String" optional="true"/>
+        <attribute name="glAccountId" mode="IN" type="String"/>
+        <attribute name="acctgTransAndEntries" type="List" mode="OUT"/>
+        <attribute name="debitTotal" type="BigDecimal" mode="OUT"/>
+        <attribute name="creditTotal" type="BigDecimal" mode="OUT"/>
+        <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT"/>
+    </service>
 </services>
