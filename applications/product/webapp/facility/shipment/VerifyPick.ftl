@@ -196,8 +196,6 @@ under the License.
               <td>${uiLabelMap.ProductInternalName}</td>
               <td align="right">${uiLabelMap.ProductOrderedQuantity}</td>
               <td align="right">${uiLabelMap.ProductVerified}&nbsp;${uiLabelMap.CommonQuantity}</td>
-              <td>&nbsp;</td>
-              <td align="right">${uiLabelMap.CommonReady}&nbsp;${uiLabelMap.CommonTo}&nbsp;${uiLabelMap.ProductVerify}</td>
               <td align="center">${uiLabelMap.CommonQty}&nbsp;${uiLabelMap.CommonTo}&nbsp;${uiLabelMap.ProductVerify}</td>
             </tr>
             <#if orderItems?has_content>
@@ -238,8 +236,6 @@ under the License.
                     <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
                   </td>
                   <td align="right">${orderItemQuantity?if_exists}</td>
-                  <td align="right">${verifiedQuantity?if_exists}</td>
-                  <td>&nbsp;&nbsp;&nbsp;</td>
                   <td align="right">${readyToVerify?if_exists}</td>
                   <td align="center">
                     <#if (orderItemQuantity.compareTo(readyToVerify) > 0)>
@@ -295,7 +291,7 @@ under the License.
                 <td>${uiLabelMap.ProductItem} #</td>
                 <td>${uiLabelMap.ProductProductId}</td>
                 <td>${uiLabelMap.ProductInventoryItem} #</td>
-                <td align="right">${uiLabelMap.ProductVerified}&nbsp;${uiLabelMap.CommonQty}</td>
+                <td align="right">${uiLabelMap.ProductVerified}&nbsp;${uiLabelMap.CommonQuantity}</td>
                 <td>&nbsp;</td>
               </tr>
               <#list pickRows as pickRow>
