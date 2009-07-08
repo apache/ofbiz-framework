@@ -84,6 +84,9 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
                 encoding = UtilProperties.getPropertyValue("widget", getName() + ".default.encoding", "none");
             }
             boolean compressOutput = "compressed".equals(encoding);
+            if (!compressOutput) {
+                compressOutput = "true".equals(UtilProperties.getPropertyValue("widget", "compress.HTML"));
+            }
             if (!compressOutput && this.servletContext != null) {
                 compressOutput = "true".equals((String) this.servletContext.getAttribute("compressHTML"));
             }
