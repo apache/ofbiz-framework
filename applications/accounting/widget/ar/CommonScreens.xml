@@ -141,10 +141,8 @@ under the License.
                                         <not><if-empty field="paymentGroup"/></not>
                                     </condition>
                                     <widgets>
+                                        <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label></container>
-                                        <container style="button-bar">
-                                            <link target="EditPaymentGroup" text="${uiLabelMap.AccountingCreateNewPaymentGroup}" style="buttontext"/>
-                                        </container>
                                     </widgets>
                                     <fail-widgets>
                                         <container style="h1"><label>${uiLabelMap.AccountingNewPaymentGroup}</label></container>

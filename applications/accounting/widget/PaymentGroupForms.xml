@@ -38,7 +38,7 @@ under the License.
             </service>
         </actions>
         <field name="paymentGroupId" widget-style="buttontext">
-            <hyperlink description="${paymentGroupId}" target="EditPaymentGroup">
+            <hyperlink description="${paymentGroupId}" target="PaymentGroupOverview">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
@@ -57,6 +57,7 @@ under the License.
         <field use-when="paymentGroup!=null" name="paymentGroupId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="paymentGroup==null @and paymentGroupId==null" name="paymentGroupId"><ignored/></field>
         <field use-when="paymentGroup==null @and paymentGroupId!=null" name="paymentGroupId"><display description="${uiLabelMap.CommonCannotBeFound}: [${paymentGroupId}]" also-hidden="false"/></field>
+        <field name="paymentGroupId" use-when="display==true"><display/></field>
         <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentGroupType" description="${description}">
@@ -64,8 +65,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}" use-when="display==true">
+            <display-entity entity-name="PaymentGroupType" description="${description}"/>
+        </field>
+        <field name="paymentGroupName" use-when="display==true"><display/></field>
         <field name="submitButton" use-when="paymentMethod==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="paymentMethod!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="display==true"><hidden/></field>
     </form>
     
     <!-- Payment Group Member -->
@@ -90,5 +96,11 @@ under the License.
         <field name="paymentGroupId"><hidden/></field>
         <field name="paymentId"><text size="30"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    <form name="PaymentGroupMembers" type="list" list-name="paymentGroupMembers"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="paymentId"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
     </form>
 </forms>

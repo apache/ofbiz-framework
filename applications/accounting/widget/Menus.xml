@@ -464,11 +464,10 @@ under the License.
     </menu>
 
     <menu name="PaymentGroupTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="Find" title="${uiLabelMap.CommonFind}">
-            <condition>
-                <if-compare field="tabButtonItem" operator="not-equals" value="Find"/>
-            </condition>
-            <link target="FindPaymentGroup"/>
+        <menu-item name="PaymentGroupOverview" title="${uiLabelMap.AccountingPaymentTabOverview}">
+            <link target="PaymentGroupOverview">
+                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="EditPaymentGroup" title="${uiLabelMap.CommonGroup}">
             <condition><not><if-empty field="paymentGroup.paymentGroupId"/></not></condition>
@@ -482,6 +481,28 @@ under the License.
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
+    </menu>
+    
+    <menu name="PaymentGroupSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+            menu-container-style="button-bar button-style-2">
+        <menu-item name="createNew" title="${uiLabelMap.AccountingCreateNewPaymentGroup}">
+            <condition>
+                <not><if-empty field="paymentGroup"/></not>
+            </condition>
+            <link target="EditPaymentGroup"/>
+        </menu-item>
+        <!-- To Do -->
+        <!--<menu-item name="depositSlip" title="${uiLabelMap.AccountingDepositSlip}">
+            <condition>
+                <and>
+                    <if-compare field="display" operator="equals" value="true"/>
+                    <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="BATCH_PAYMENT"/>
+                </and>
+            </condition>
+            <link target="DepositSlip.pdf">
+                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </link>
+        </menu-item>-->
     </menu>
 
     <menu name="FixedAssetMaintTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"

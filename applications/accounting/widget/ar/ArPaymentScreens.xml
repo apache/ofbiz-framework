@@ -58,6 +58,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleBatchPayments"/>
+                <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="batchPayments"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
                 <set field="cardType" from-field="parameters.cardType"/>
