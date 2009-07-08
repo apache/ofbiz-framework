@@ -630,8 +630,8 @@ under the License.
         <set field="invoiceRunningTotal" type="BigDecimal" value="0"/>
         <iterate list="invoiceIds" entry="invoiceId">
             <entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
-            <set field="serviceInMap.invoiceId" from-field="invoice.invoiceId"/>
-            <call-service service-name="getInvoicePaymentInfoList" in-map-name="serviceInMap">
+            <set field="getInvoicePaymentInfoListCtx.invoiceId" from-field="invoice.invoiceId"/>
+            <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListCtx">
                 <result-to-field result-name="invoicePaymentInfoList"/>
             </call-service>
             <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
