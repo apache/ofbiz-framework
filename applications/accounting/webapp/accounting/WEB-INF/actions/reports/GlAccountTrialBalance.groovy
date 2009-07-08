@@ -20,6 +20,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.accounting.util.UtilAccounting;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -38,10 +39,10 @@ if (organizationPartyId) {
 
     if (parameters.timePeriod) {
         currentTimePeriod = delegator.findOne("CustomTimePeriod", [customTimePeriodId : parameters.timePeriod], false);
-        previousTimePeriod = dispatcher.runSync("getPreviousTimePeriod", 
+        previousTimePeriodResult = dispatcher.runSync("getPreviousTimePeriod", 
                 [customTimePeriodId : parameters.timePeriod, userLogin : userLogin]);
-
-        if (previousTimePeriod) {
+        previousTimePeriod = previousTimePeriodResult.previousTimePeriod;
+        if (UtilValidate.isNotEmpty(previousTimePeriod)) {
             glAccountHistory = delegator.findOne("GlAccountHistory", 
                     [customTimePeriodId : previousTimePeriod.customTimePeriodId, glAccountId : parameters.glAccountId, organizationPartyId : organizationPartyId], false);
             if (glAccountHistory) {
