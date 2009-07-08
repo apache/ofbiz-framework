@@ -88,9 +88,6 @@ under the License.
             </entity-and>
             <first-from-list list="customTimePeriodList" entry="previousTimePeriod"/>
             <field-to-result field="previousTimePeriod"/>
-        <else>
-            <field-to-result field="currentTimePeriod" result-name="previousTimePeriod"/>
-        </else>
         </if-compare>
     </simple-method>
 </simple-methods>
