@@ -43,7 +43,7 @@ if (organizationPartyId) {
 
         if (previousTimePeriod) {
             glAccountHistory = delegator.findOne("GlAccountHistory", 
-                    [customTimePeriodId : previousTimePeriod.previousTimePeriod.customTimePeriodId, glAccountId : parameters.glAccountId, organizationPartyId : organizationPartyId], false);
+                    [customTimePeriodId : previousTimePeriod.customTimePeriodId, glAccountId : parameters.glAccountId, organizationPartyId : organizationPartyId], false);
             if (glAccountHistory) {
                 context.openingBalance = glAccountHistory.endingBalance;
                 balanceOfTheAcctgForYear = glAccountHistory.endingBalance;
