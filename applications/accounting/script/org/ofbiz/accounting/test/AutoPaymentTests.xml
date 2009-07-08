@@ -54,4 +54,92 @@ under the License.
         </iterate>
         <log level="info" message="Batch ${paymentGroupId} is created successfully for payments"/>
     </simple-method>
+
+    <simple-method method-name="testVoidPayment" short-description="Test case for voiding payments" login-required="false">
+        <!-- Precondition : payment is in sent status and invoice is in ready for posting status 
+                            Credit in account 213000 - CUSTOMER CREDIT
+                            Debit in account 210000 - ACCOUNTS PAYABLE -->
+
+        <!-- Post condition : payment status changes to void.
+                              removes PaymentApplication if any associated.
+                              Credit in account 210000- ACCOUNTS PAYABLE  
+                              Debit in account 213000 - CUSTOMER CREDIT-->
+
+        <set field="paymentId" value="8000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="voidPaymentMap.userLogin" from-field="userLogin"/>
+        <set field="voidPaymentMap.paymentId" from-field="paymentId"/>
+        <call-service service-name="voidPayment" in-map-name="voidPaymentMap"/>
+
+        <entity-one entity-name="Payment" value-field="payment"/>
+        <assert>
+            <if-compare field="payment.statusId" operator="equals" value="PMNT_VOID"/>
+        </assert>
+        <check-errors/>
+        <set field="orderBy[]" value="-transactionDate"/>
+        <get-related relation-name="AcctgTrans" value-field="payment" list="acctgTransList" order-by-list="orderBy"/>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
+        <get-related relation-name="AcctgTransEntry" value-field="acctgTrans" list="acctgTransEntries"/>
+        <iterate list="acctgTransEntries" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="213000"/>
+                </assert>
+            </if-compare>
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
+                </assert>
+            </if-compare>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCancelInvoice" short-description="Test case for canceling invoices" login-required="false">
+        <!-- Precondition : invoice is in ready status 
+                            Credit in account 210000 - ACCOUNTS PAYABLE
+                            Debit in account 516100 -->
+
+        <!-- Post condition : invoice status changes to cancelled.
+                              removes PaymentApplication if any associated.
+                              Credit in account 516100
+                              Debit in account 210000 - ACCOUNTS PAYABLE -->
+
+        <set field="invoiceId" value="8001"/>
+        <set field="statusId" value="INVOICE_CANCELLED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="setInvoiceStatusMap.userLogin" from-field="userLogin"/>
+        <set field="setInvoiceStatusMap.invoiceId" from-field="invoiceId"/>
+        <set field="setInvoiceStatusMap.statusId" from-field="statusId"/>
+        <call-service service-name="setInvoiceStatus" in-map-name="setInvoiceStatusMap"/>
+        
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <assert>
+            <if-compare field="invoice.statusId" operator="equals" value="INVOICE_CANCELLED"/>
+        </assert>
+        <check-errors/>
+        <set field="orderBy[]" value="-transactionDate"/>
+        <get-related relation-name="AcctgTrans" value-field="invoice" list="acctgTransList" order-by-list="orderBy"/>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
+        <get-related relation-name="AcctgTransEntry" value-field="acctgTrans" list="acctgTransEntries"/>
+        <iterate list="acctgTransEntries" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="516100"/>
+                </assert>
+            </if-compare>
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
+                </assert>
+            </if-compare>
+        </iterate>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
