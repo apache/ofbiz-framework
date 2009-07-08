@@ -204,14 +204,35 @@ under the License.
             <actions>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.WebtoolsFindValues}: ${entityName}"/>
+                <set field="title" value="${uiLabelMap.WebtoolsFindValues} ${uiLabelMap.WebtoolsForEntity}: ${entityName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/entity/FindGeneric.ftl"/></html>
-                        </platform-specific>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <container style="button-bar">
+                                    <link target="entitymaint" text="${uiLabelMap.WebtoolsBackToEntityList}" style="buttontext"/>
+                                    <link target="ViewRelations" text="${uiLabelMap.WebtoolsViewRelations}" style="buttontext">
+                                        <parameter param-name="entityName" from-field="entityName"/>
+                                    </link>
+                                    <link target="ViewGeneric" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                                        <parameter param-name="entityName" from-field="entityName"/>
+                                        <parameter param-name="enableEdit" value="true"/>
+                                    </link>
+                                </container>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <platform-specific>
+                                    <html><html-template location="component://webtools/webapp/webtools/entity/FindGeneric.ftl"/></html>
+                                </platform-specific>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <platform-specific>
+                                    <html><html-template location="component://webtools/webapp/webtools/entity/ListGeneric.ftl"/></html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
