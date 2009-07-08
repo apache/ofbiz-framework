@@ -568,4 +568,10 @@ under the License.
         <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="lastClosedTimePeriod" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
+    <service name="getPreviousTimePeriod" engine="simple" invoke="getPreviousTimePeriod"
+        location="component://accounting/script/org/ofbiz/accounting/period/PeriodServices.xml" auth="true">
+        <description>Return previous year with respect to the given year and if none found then return current year as previous.</description>
+        <attribute name="customTimePeriodId" mode="IN" type="String"/>
+        <attribute name="previousTimePeriod" mode="OUT" type="Map" optional="false"/>
+    </service>
 </services>

@@ -73,4 +73,24 @@ under the License.
 
         <field-to-result field="listSoFar" result-name="customTimePeriodList"/>
     </simple-method>
+
+    <!-- Return previous year with respect to the given year and if none found then return current year as previous. -->
+    <simple-method method-name="getPreviousTimePeriod" short-description="Return previous time period">
+        
+        <entity-one entity-name="CustomTimePeriod" value-field="currentTimePeriod"/>
+   
+        <set field="periodNum" value="${currentTimePeriod.periodNum - 1}" type="Integer"/>
+        <if-compare field="periodNum" operator="greater" value="-1">
+            <entity-and entity-name="CustomTimePeriod" list="customTimePeriodList" filter-by-date="false">
+                <field-map field-name="organizationPartyId" from-field="currentTimePeriod.organizationPartyId"/>
+                <field-map field-name="periodTypeId" from-field="currentTimePeriod.periodTypeId"/>
+                <field-map field-name="periodNum"/>
+            </entity-and>
+            <first-from-list list="customTimePeriodList" entry="previousTimePeriod"/>
+            <field-to-result field="previousTimePeriod"/>
+        <else>
+            <field-to-result field="currentTimePeriod" result-name="previousTimePeriod"/>
+        </else>
+        </if-compare>
+    </simple-method>
 </simple-methods>
