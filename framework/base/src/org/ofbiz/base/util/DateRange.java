@@ -26,9 +26,9 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class DateRange implements Serializable {
     /** A <code>Date</code> instance initialized to the earliest possible date.*/
-    public static final Date MIN_DATE = new Date(Long.MIN_VALUE);
+    public static final Date MIN_DATE = UtilDateTime.getEarliestDate();
     /** A <code>Date</code> instance initialized to the latest possible date.*/
-    public static final Date MAX_DATE = new Date(Long.MAX_VALUE);
+    public static final Date MAX_DATE = UtilDateTime.getLatestDate();
     /** A <code>DateRange</code> instance initialized to the widest possible range of dates.*/
     public static final DateRange FullRange = new DateRange();
 
