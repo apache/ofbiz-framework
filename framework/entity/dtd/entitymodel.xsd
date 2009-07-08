@@ -426,6 +426,7 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element maxOccurs="unbounded" ref="key-map"/>
+                <xs:element minOccurs="0" ref="entity-condition"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.view-link"/>
         </xs:complexType>
@@ -448,7 +449,6 @@ under the License.
                 <xs:choice minOccurs="0">
                     <xs:element ref="condition-expr"/>
                     <xs:element ref="condition-list"/>
-                    <xs:element ref="condition-object"/>
                 </xs:choice>
                 <xs:element minOccurs="0" ref="having-condition-list"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
@@ -481,6 +481,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-expr">
+        <xs:attribute name="entity-alias" type="xs:string"/>
         <xs:attribute name="field-name" type="xs:string" use="required"/>
         <xs:attribute name="operator" default="equals">
             <xs:simpleType>
@@ -497,24 +498,9 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="from-field" type="xs:string"/>
+        <xs:attribute name="rel-entity-alias" type="xs:string"/>
+        <xs:attribute name="rel-field-name" type="xs:string"/>
         <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="ignore-if-null" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="ignore-if-empty" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="ignore-case" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -523,21 +509,12 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="ignore" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Ignore the condition if flag is true.
-                    Defaults to false.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="condition-list">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="condition-expr"/>
                 <xs:element ref="condition-list"/>
-                <xs:element ref="condition-object"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.condition-list"/>
         </xs:complexType>
@@ -552,20 +529,11 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="condition-object">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.condition-object"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.condition-object">
-        <xs:attribute name="field" type="xs:string" use="required"/>
-    </xs:attributeGroup>
     <xs:element name="having-condition-list">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="condition-expr"/>
                 <xs:element ref="condition-list"/>
-                <xs:element ref="condition-object"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.having-condition-list"/>
         </xs:complexType>
