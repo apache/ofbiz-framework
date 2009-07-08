@@ -21,17 +21,13 @@ under the License.
                 <ul>
                     <#if (viewIndex > 0)>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonFirst}</a></li>
-                        <li>|</li>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-previous">${uiLabelMap.CommonPrevious}</a></li>
-                        <li>|</li>
                     </#if>
                     <#if (arraySize > 0)>
                         <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${arraySize}</li>
                     </#if>
                     <#if (arraySize > highIndex)>
-                        <li>|</li>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonNext}</a></li>
-                        <li>|</li>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonLast}</a></li>
                     </#if>
                 </ul>
