@@ -16,12 +16,58 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<script language="JavaScript" type="text/javascript">
+<!--
+function toggleInvoiceId(master) {
+    var form = document.listPurchaseInvoices;
+    var invoices = form.elements.length;
+    for (var i = 0; i < invoices; i++) {
+        var element = form.elements[i];
+        if (element.name == "invoiceIds") {
+            element.checked = master.checked;
+        }
+    }
+    getInvoiceRunningTotal(master);
+}
+
+function getInvoiceRunningTotal(e) {
+    var form = document.listPurchaseInvoices;
+    var invoices = form.elements.length;
+    var isSingle = true;
+    for (var i = 0; i < invoices; i++) {
+        var element = form.elements[i];
+        if (element.name == "invoiceIds" && element.checked) {
+            isSingle = false;
+        }
+    }
+    if (!($(e).checked)) {
+        $('checkAllInvoices').checked = false;
+    }
+    if (!isSingle) {
+        new Ajax.Request('getInvoiceRunningTotal', {
+            asynchronous: false,
+            onSuccess: function(transport) {
+                var data = transport.responseText.evalJSON(true);
+                $('showInvoiceRunningTotal').update(data.invoiceRunningTotal);
+            }, parameters: $('listPurchaseInvoices').serialize(), requestHeaders: {Accept: 'application/json'}
+        });
+    } else {
+        $('showInvoiceRunningTotal').update("");
+    }
+}
+-->
+</script>
 
 <#if invoices?has_content >
-  <form name="ListPurchaseInvoices">
+  <div>
+    <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
+    <span class="label" id="showInvoiceRunningTotal"></span>
+  </div>
+  <form name="listPurchaseInvoices" id="listPurchaseInvoices">
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
       <tr class="header-row-2">
+        <td width="8%"><input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/> ${uiLabelMap.CommonSelectAll}</td>
         <td width="10%">${uiLabelMap.FormFieldTitle_invoiceId}</td>
         <td width="15%">${uiLabelMap.AccountingVendorParty}</td>
         <td width="10%">${uiLabelMap.CommonStatus}</td>
@@ -40,6 +86,7 @@ under the License.
         <#if invoicePaymentInfo.outstandingAmount != 0>
           <#assign statusItem = invoice.getRelatedOneCache("StatusItem")>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+            <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal('invoiceId_${invoice_index}');"/></td>
             <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
             <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</td>
             <td>${statusItem.get("description")?if_exists}</td>
