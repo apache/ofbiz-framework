@@ -625,14 +625,21 @@ public class ICalConverter {
         PropertyList propertyList = component.getProperties();
         setMapElement(serviceMap, "scopeEnumId", fromClazz(propertyList));
         setMapElement(serviceMap, "description", fromDescription(propertyList));
-        setMapElement(serviceMap, "estimatedStartDate", fromDtStart(propertyList));
-        setMapElement(serviceMap, "estimatedMilliSeconds", fromDuration(propertyList));
-        setMapElement(serviceMap, "lastModifiedDate", fromLastModified(propertyList));
         setMapElement(serviceMap, "locationDesc", fromLocation(propertyList));
         setMapElement(serviceMap, "priority", fromPriority(propertyList));
         setMapElement(serviceMap, "currentStatusId", fromStatus(propertyList));
         setMapElement(serviceMap, "workEffortName", fromSummary(propertyList));
         setMapElement(serviceMap, "universalId", fromUid(propertyList));
+        // Set some fields to null so calendar clients can revert changes
+        serviceMap.put("estimatedStartDate", null);
+        serviceMap.put("estimatedCompletionDate", null);
+        serviceMap.put("estimatedMilliSeconds", null);
+        serviceMap.put("lastModifiedDate", null);
+        serviceMap.put("actualCompletionDate", null);
+        serviceMap.put("percentComplete", null);
+        setMapElement(serviceMap, "estimatedStartDate", fromDtStart(propertyList));
+        setMapElement(serviceMap, "estimatedMilliSeconds", fromDuration(propertyList));
+        setMapElement(serviceMap, "lastModifiedDate", fromLastModified(propertyList));
         if ("VTODO".equals(component.getName())) {
             setMapElement(serviceMap, "actualCompletionDate", fromCompleted(propertyList));
             setMapElement(serviceMap, "percentComplete", fromPercentComplete(propertyList));
@@ -873,7 +880,6 @@ public class ICalConverter {
             loadRelatedParties(relatedParties, componentProps, context);
         }
         if (newComponent) {
-            DateRange range = new DateRange(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"));
             if (UtilValidate.isNotEmpty(workEffort.getString("tempExprId"))) {
                 TemporalExpression tempExpr = TemporalExpressionWorker.getTemporalExpression(delegator, workEffort.getString("tempExprId"));
                 if (tempExpr != null) {
@@ -883,8 +889,6 @@ public class ICalConverter {
                         replaceProperty(componentProps, new Description("Error while converting recurrence: " + e));
                     }
                 }
-            } else {
-                componentProps.add(new DtEnd(new DateTime(range.end())));
             }
             getAlarms(workEffort, alarms);
         }
