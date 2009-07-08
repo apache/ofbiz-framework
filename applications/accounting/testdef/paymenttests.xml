@@ -25,4 +25,14 @@
     <test-case case-name="auto-create-batch-for-payments">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCreateBatchForPayments"/>
     </test-case>
+    
+    <!--Test case for voiding payments -->
+    <test-case case-name="auto-test-voidPayment">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testVoidPayment"/>
+    </test-case>
+    
+    <!--Test case for canceling invoices-->
+    <test-case case-name="auto-test-cancelInvoice">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCancelInvoice"/>
+    </test-case>
 </test-suite>
