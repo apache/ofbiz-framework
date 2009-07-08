@@ -2282,6 +2282,9 @@
         <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
     </property>
+    <property key="AccountingDepositSlip">
+        <value xml:lang="en">Deposit Slip</value>
+    </property>
     <property key="AccountingDescr">
         <value xml:lang="ar">وصف</value>
         <value xml:lang="de">Beschreibung</value>
@@ -5964,6 +5967,9 @@
     </property>
     <property key="AccountingPaymentGroupMember">
         <value xml:lang="en">Group Member</value>
+    </property>
+    <property key="AccountingPaymentGroupOverview">
+        <value xml:lang="en">Payment Group Overview</value>
     </property>
     <property key="AccountingPaymentHeader">
         <value xml:lang="ar">رأسية التسديد</value>
