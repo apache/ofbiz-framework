@@ -292,4 +292,12 @@ under the License.
         <description>Cancel Invoice</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <service name="getInvoiceRunningTotal" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoiceRunningTotal" auth="true">
+        <description>calculate running total for selected Invoices</description>
+        <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
+        <attribute name="invoiceRunningTotal" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+
 </services>

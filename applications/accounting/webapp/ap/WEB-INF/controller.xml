@@ -43,6 +43,11 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewPurchaseInvoice"/>
     </request-map>
+    <request-map uri="getInvoiceRunningTotal">
+        <event type="jsonservice" invoke="getInvoiceRunningTotal"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
 
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">
