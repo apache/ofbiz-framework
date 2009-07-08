@@ -957,27 +957,6 @@ public class UtilDateTime {
     }
 
     /**
-     * Returns a List of Maps of month number and name entries - suitable for select inputs.
-     *
-     * @param locale
-     * @return List of month number, name
-     */
-    public static List<Map<String,String>> getMonths(Locale locale) {
-        Calendar tempCal = Calendar.getInstance(locale);
-        tempCal.set(Calendar.MONTH, Calendar.JANUARY);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
-        List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
-        for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
-            Map<String,String> monthEntry = new FastMap<String,String>();
-            monthEntry.put("monthNumber",String.valueOf(tempCal.get(Calendar.MONTH)));
-            monthEntry.put("monthName",dateFormat.format(tempCal.getTime()));
-            resultList.add(monthEntry);
-            tempCal.roll(Calendar.MONTH, 1);
-        }
-        return resultList;
-    }
-
-    /**
      * Returns an initialized DateFormat object.
      *
      * @param dateFormat
