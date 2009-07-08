@@ -33,6 +33,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javolution.util.FastMap;
+
 /**
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
  */
@@ -949,6 +951,27 @@ public class UtilDateTime {
         List<String> resultList = new ArrayList<String>();
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
             resultList.add(dateFormat.format(tempCal.getTime()));
+            tempCal.roll(Calendar.MONTH, 1);
+        }
+        return resultList;
+    }
+
+    /**
+     * Returns a List of Maps of month number and name entries - suitable for select inputs.
+     *
+     * @param locale
+     * @return List of month number, name
+     */
+    public static List<Map<String,Object>> getMonths(Locale locale) {
+        Calendar tempCal = Calendar.getInstance(locale);
+        tempCal.set(Calendar.MONTH, Calendar.JANUARY);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
+        List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+        for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
+            Map<String,Object> monthEntry = new FastMap<String,Object>();
+            monthEntry.put("monthNumber",tempCal.get(Calendar.MONTH));
+            monthEntry.put("monthName",dateFormat.format(tempCal.getTime()));
+            resultList.add(monthEntry);
             tempCal.roll(Calendar.MONTH, 1);
         }
         return resultList;
