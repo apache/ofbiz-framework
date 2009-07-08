@@ -850,4 +850,67 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="GlAccountTrialBalance">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingGlAccountTrialBalance"/>
+                <set field="labelTitleProperty" value="AccountingGlAccountTrialBalance"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="GlAccountTrialBalance"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/GlAccountTrialBalance.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <screenlet title="${uiLabelMap.AccountingGlAccountTrialBalance}">
+                                <include-form name="GlAccountTrialBalance"  location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            </screenlet>
+                            <section>
+                                <condition>
+                                   <or>
+                                    <not><if-empty field="parameters.glAccountId"/></not>
+                                    <not><if-empty field="parameters.timePeriod"/></not>
+                                    <not><if-empty field="parameters.isPosted"/></not>
+                                    </or>
+                                </condition>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.AccountingGlAccountTrialBalance}">
+                                       <platform-specific>
+                                           <html>
+                                               <html-template location="component://accounting/webapp/accounting/reports/GlAccountTrialBalanceReport.ftl"/>
+                                           </html>
+                                       </platform-specific>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="GlAccountTrialBalanceReportPdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/GlAccountTrialBalance.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <xsl-fo>
+                                <html-template location="component://accounting/webapp/accounting/reports/GlAccountTrialBalanceReport.fo.ftl"/>
+                            </xsl-fo>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
