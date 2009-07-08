@@ -19,7 +19,6 @@ under the License.
 
 <script language="JavaScript" type="text/javascript">
 <!-- //
-
 function togglePaymentId(master) {
     var form = document.paymentBatchForm;
     var payments = form.elements.length;
@@ -32,16 +31,29 @@ function togglePaymentId(master) {
     getPaymentRunningTotal(master);
 }
 function getPaymentRunningTotal(e) {
+    var form = document.paymentBatchForm;
+    var payments = form.elements.length;
+    var isSingle = true;
+    for (var i = 0; i < payments; i++) {
+        var element = form.elements[i];
+        if (element.name == "paymentIds" && element.checked) {
+            isSingle = false;
+        }
+    }
     if (!($(e).checked)) {
         $('checkAllPayments').checked = false;
     }
-    new Ajax.Request('getPaymentRunningTotal', {
-        asynchronous: false,
-        onSuccess: function(transport) {
-            var data = transport.responseText.evalJSON(true);
-            $('showPaymentRunningTotal').update(data.paymentRunningTotal);
-        }, parameters: $('paymentBatchForm').serialize(), requestHeaders: {Accept: 'application/json'}
-    });
+    if (!isSingle) {
+        new Ajax.Request('getPaymentRunningTotal', {
+            asynchronous: false,
+            onSuccess: function(transport) {
+                var data = transport.responseText.evalJSON(true);
+                $('showPaymentRunningTotal').update(data.paymentRunningTotal);
+            }, parameters: $('paymentBatchForm').serialize(), requestHeaders: {Accept: 'application/json'}
+        });
+    } else {
+        $('showPaymentRunningTotal').update("");
+    }
 }
 // -->
 

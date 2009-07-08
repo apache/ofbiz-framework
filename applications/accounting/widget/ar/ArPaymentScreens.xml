@@ -64,6 +64,7 @@ under the License.
                 <set field="fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <set field="thruDate" type="Timestamp" from-field="parameters.thruDate"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <script location="component://accounting/webapp/ar/WEB-INF/actions/BatchPayments.groovy"/>
             </actions>
             <widgets>
