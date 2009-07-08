@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 
@@ -33,13 +34,16 @@ if (paymentMethodTypeId) {
     if (partyIdFrom) {
         paymentCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom));
     }
+    if (organizationPartyId) {
+        paymentCond.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, organizationPartyId));
+    }
     payments = delegator.findList("Payment", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];
     if (payments) {
         payments.each { payment ->
-            paymentGroupMember = delegator.findList("PaymentGroupMember", EntityCondition.makeCondition([paymentId : payment.paymentId]), null, null, null, false);
-            if (!paymentGroupMember) {
+            paymentGroupMembers = EntityUtil.filterByDate(delegator.findList("PaymentGroupMember", EntityCondition.makeCondition([paymentId : payment.paymentId]), null, null, null, false));
+            if (!paymentGroupMembers) {
                 if (cardType && payment.paymentMethodId) {
                     creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
                     if (creditCard.cardType == cardType) {
