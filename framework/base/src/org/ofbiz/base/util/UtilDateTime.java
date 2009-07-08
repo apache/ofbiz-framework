@@ -962,14 +962,14 @@ public class UtilDateTime {
      * @param locale
      * @return List of month number, name
      */
-    public static List<Map<String,Object>> getMonths(Locale locale) {
+    public static List<Map<String,String>> getMonths(Locale locale) {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.MONTH, Calendar.JANUARY);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
-        List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+        List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
-            Map<String,Object> monthEntry = new FastMap<String,Object>();
-            monthEntry.put("monthNumber",tempCal.get(Calendar.MONTH));
+            Map<String,String> monthEntry = new FastMap<String,String>();
+            monthEntry.put("monthNumber",String.valueOf(tempCal.get(Calendar.MONTH)));
             monthEntry.put("monthName",dateFormat.format(tempCal.getTime()));
             resultList.add(monthEntry);
             tempCal.roll(Calendar.MONTH, 1);
