@@ -122,4 +122,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="DepositSlipPdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
+                <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+                <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
+                    <field-map field-name="paymentGroupId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <xsl-fo><html-template location="component://accounting/webapp/accounting/reports/DepositSlip.fo.ftl"/></xsl-fo>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

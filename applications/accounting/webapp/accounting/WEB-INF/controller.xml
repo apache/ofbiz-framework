@@ -437,6 +437,12 @@ under the License.
         <response name="success" type="view" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="PaymentGroupOverview"/>
     </request-map>
+    
+    <request-map uri="DepositSlip.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="DepositSlipPdf"/>
+        <response name="error" type="view" value="PaymentGroupOverview"/>
+    </request-map>
 
     <!-- transaction page requests -->
     <request-map uri="FindGatewayResponses">
@@ -2195,6 +2201,7 @@ under the License.
     <view-map name="EditPaymentGroup" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#EditPaymentGroup"/>
     <view-map name="EditPaymentGroupMember" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#EditPaymentGroupMember"/>
     <view-map name="PaymentGroupOverview" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#PaymentGroupOverview"/>
+    <view-map name="DepositSlipPdf" type="screenfop" page="component://accounting/widget/PaymentGroupScreens.xml#DepositSlipPdf" content-type="application/pdf" encoding="none"/>
     <!-- Party Accounts -->
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/GlScreens.xml#PartyAccountsSummary"/>
     <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTrans"/>
