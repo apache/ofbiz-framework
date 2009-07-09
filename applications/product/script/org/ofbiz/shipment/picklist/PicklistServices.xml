@@ -123,88 +123,86 @@ under the License.
                 <set field="groupName4" from-field="orderHeader.orderId"/>
                 <set field="groupName" from-field="orderHeader.orderId"/>
             <else>
-            
-            <iterate list="OrderHeaderAndItemFacilityLocationList" entry="orderHeaderAndItemFacilityLocation">
+                <iterate list="OrderHeaderAndItemFacilityLocationList" entry="orderHeaderAndItemFacilityLocation">
                 <!-- set groupName for order according to the options selected by the user -->
-                <if>
-                    <condition>
-                        <or>
-                            <if-compare field="groupByShippingMethod" operator="equals" value="Y"/>
+                    <if>
+                        <condition>
+                            <or>
+                                <if-compare field="groupByShippingMethod" operator="equals" value="Y"/>
+                                <and>
+                                    <if-empty field="groupByShippingMethod"/>
+                                    <if-empty field="groupByWarehouseArea"/>
+                                    <if-empty field="groupByNoOfOrderItems"/>
+                                    <if-empty field="groupByZero"/>
+                                </and>
+                            </or>
+                        </condition>
+                        <then>
+                            <set field="groupName1" from-field="orderHeaderAndItemFacilityLocation.shipmentMethodTypeId"/>
+                        </then>
+                    </if>
+
+                    <if-compare field="groupByWarehouseArea" operator="equals" value="Y">
+                        <set field="groupName2" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
+                        <set field="locationGroupName" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
+                    </if-compare>
+
+                    <if>
+                        <condition>
                             <and>
-                                <if-empty field="groupByShippingMethod"/>
-                                <if-empty field="groupByWarehouseArea"/>
-                                <if-empty field="groupByNoOfOrderItems"/>
-                                <if-empty field="groupByZero"/>
+                                <if-compare field="groupByNoOfOrderItems" operator="equals" value="Y"/>
+                                <if-compare  field="orderItemCount" operator="less" value="3" type="BigDecimal"/>
                             </and>
-                        </or>
-                    </condition>
-                    <then>
-                        <set field="groupName1" from-field="orderHeaderAndItemFacilityLocation.shipmentMethodTypeId"/>
-                    </then>
-                </if>
+                        </condition>
+                        <then>
+                            <property-to-field property="FacilityNumberOfItemsLessThanThree" field="noOfOrderItems" resource="ProductUiLabels"/>
+                            <set field="groupName3" value="Items_Less_Than_3"/>
+                        </then>
+                    <else-if>
+                        <condition>
+                            <and>
+                                <if-compare field="groupByNoOfOrderItems" operator="equals" value="Y"/>
+                                <if-compare  field="orderItemCount" operator="greater-equals" value="3" type="BigDecimal"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <property-to-field property="FacilityNumberOfItemsThreeOrMore" field="noOfOrderItems" resource="ProductUiLabels"/>
+                            <set field="groupName3" value="Items_Three_Or_More"/>
+                        </then>
+                    </else-if>
+                    </if>
 
-                <if-compare field="groupByWarehouseArea" operator="equals" value="Y">
-                    <set field="groupName2" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
-                    <set field="locationGroupName" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
+                    <set field="groupName" value="${groupName1}${groupName2}${groupName3}"/>
+
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare field="groupByWarehouseArea" operator="equals" value="Y"/>
+                                <not><if-compare-field field="locations" operator="contains" to-field="locationGroupName"/></not>
+                            </and>
+                        </condition>
+                        <then>
+                            <field-to-list field="locationGroupName" list="locations"/>
+                        </then>
+                    </if>
+                </iterate>
+                <!-- count no. of locations in location list -->
+                <set field="locationCount" value="0"/>
+                <if-not-empty field="locations">
+                    <set field="locationCount" value="${util:size(locations)}" type="Long"/>
+                </if-not-empty>
+
+                <!-- If order items are picked from different locations of a facility, then create a new group called multiple locations. This order will now belong to this new group -->
+                <if-compare field="locationCount" operator="greater" value="1" type="Long">
+                    <set field="groupName2" value="MULTI_LOCATIONS"/>
+                    <!-- update the composite group name with new location group name -->
+                    <set field="groupName" value="${groupName1}${groupName2}${groupName3}"/>
+                    <property-to-field property="FacilityMultipleLocations" field="groupName2" resource="ProductUiLabels"/>
                 </if-compare>
-
-                <if>
-                    <condition>
-                        <and>
-                            <if-compare field="groupByNoOfOrderItems" operator="equals" value="Y"/>
-                            <if-compare  field="orderItemCount" operator="less" value="3" type="BigDecimal"/>
-                        </and>
-                    </condition>
-                    <then>
-                        <property-to-field property="FacilityNumberOfItemsLessThanThree" field="noOfOrderItems" resource="ProductUiLabels"/>
-                        <set field="groupName3" value="Items_Less_Than_3"/>
-                    </then>
-                <else-if>
-                    <condition>
-                        <and>
-                            <if-compare field="groupByNoOfOrderItems" operator="equals" value="Y"/>
-                            <if-compare  field="orderItemCount" operator="greater-equals" value="3" type="BigDecimal"/>
-                        </and>                        
-                    </condition>
-                    <then>
-                        <property-to-field property="FacilityNumberOfItemsThreeOrMore" field="noOfOrderItems" resource="ProductUiLabels"/>
-                        <set field="groupName3" value="Items_Three_Or_More"/>
-                    </then>
-                </else-if>                      
-                </if>
-
-                <set field="groupName" value="${groupName1}${groupName2}${groupName3}"/>
-
-                <if>
-                    <condition>
-                        <and>
-                            <if-compare field="groupByWarehouseArea" operator="equals" value="Y"/>
-                            <not><if-compare-field field="locations" operator="contains" to-field="locationGroupName"/></not>
-                        </and>
-                    </condition>
-                    <then>
-                        <field-to-list field="locationGroupName" list="locations"/>
-                    </then>
-                </if>
-            </iterate>                
-            <!-- count no. of locations in location list -->
-            <set field="locationCount" value="0"/>
-            <if-not-empty field="locations">
-                <set field="locationCount" value="${util:size(locations)}" type="Long"/>
-            </if-not-empty>
-
-            <!-- If order items are picked from different locations of a facility, then create a new group called multiple locations. This order will now belong to this new group -->
-            <if-compare field="locationCount" operator="greater" value="1" type="Long">
-                <set field="groupName2" value="MULTI_LOCATIONS"/>
-                <!-- update the composite group name with new location group name -->
-                <set field="groupName" value="${groupName1}${groupName2}${groupName3}"/>
-                <property-to-field property="FacilityMultipleLocations" field="groupName2" resource="ProductUiLabels"/>
-            </if-compare>
-            <clear-field field="locations"/>
-            <clear-field field="locationCount"/>
+                <clear-field field="locations"/>
+                <clear-field field="locationCount"/>
             </else>
             </if-compare>
-            <!-- End ZERO Grouping -->
 
             <iterate entry="orderItemShipGroup" list="orderItemShipGroupList">
                 <!-- get the order items and the order item inventory res entries -->
