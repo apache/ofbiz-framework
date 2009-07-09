@@ -112,4 +112,5 @@ under the License.
             <order-by field-name="exampleName"/>
         </entity-condition>
     </view-entity>
+    <!-- TODO: add example for nested view-entity with conditions on nested views, and fix underlying code since probably won't work right now -->
 </entitymodel>
