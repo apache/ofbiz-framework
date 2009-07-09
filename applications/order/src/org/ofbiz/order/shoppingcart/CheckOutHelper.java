@@ -1310,12 +1310,12 @@ public class CheckOutHelper {
      * any error messages
      */
     public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String orderAdditionalEmails, String internalOrderNotes) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String orderAdditionalEmails) {
         this.cart.setOrderAdditionalEmails(orderAdditionalEmails);
-        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes);
+        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, null, null);
     }
     public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes, String shippingNotes) {
 
         Map result = ServiceUtil.returnSuccess();
 
@@ -1376,6 +1376,11 @@ public class CheckOutHelper {
               errMsg = "Ship After Date must be a valid date formed ";
               result = ServiceUtil.returnError(errMsg);
             }
+        }
+
+        // Shipping Notes for order will be public
+        if (UtilValidate.isNotEmpty(shippingNotes)) {
+            this.cart.addOrderNote(shippingNotes);
         }
 
         return result;

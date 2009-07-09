@@ -39,12 +39,24 @@ under the License.
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td colspan="2">
-                    <h2>${uiLabelMap.OrderInternalNote}</h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <textarea cols="30" rows="3" name="internal_order_notes"></textarea>
+                    <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td colspan="2">
+                          <h2>${uiLabelMap.OrderInternalNote}</h2>
+                        </td>
+                        <td colspan="2">
+                          <h2>${uiLabelMap.OrderShippingNotes}</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <textarea cols="30" rows="3" name="internal_order_notes"></textarea>
+                        </td>
+                        <td colspan="2">
+                          <textarea cols="30" rows="3" name="shippingNotes"></textarea>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
                 <tr><td colspan="2"><hr/></td></tr>

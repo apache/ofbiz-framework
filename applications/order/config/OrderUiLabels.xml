@@ -8569,6 +8569,9 @@
         <value xml:lang="th">ส่งของมาเมื่อมีสินค้า</value>
         <value xml:lang="zh">有货时送到</value>
     </property>
+    <property key="OrderShippingNotes">
+        <value xml:lang="en">Shipping Notes</value>
+    </property>
     <property key="OrderShipRequest">
         <value xml:lang="de">Versandanfrage</value>
         <value xml:lang="en">Ship Request</value>
