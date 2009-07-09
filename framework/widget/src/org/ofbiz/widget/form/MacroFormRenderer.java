@@ -2448,8 +2448,17 @@ public class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
                 targetType="plain";
             }
-            //FIXME need to change to macro
-            WidgetWorker.makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, modelFormField, this.request, this.response, null, null);
+            StringWriter sr = new StringWriter();
+            WidgetWorker.makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, modelFormField, this.request, this.response, null, null);
+            String title = sr.toString().replace("\"", "\'");
+            sr = new StringWriter();
+            sr.append("<@renderHyperlinkTitle ");
+            sr.append(" name=\"");
+            sr.append(modelFormField.getModelForm().getName());
+            sr.append("\" title=\"");
+            sr.append(title);
+            sr.append("\" />");
+            executeMacro(sr.toString());
         } else if (modelFormField.isSortField()) {
             renderSortField (writer, context, modelFormField, titleText);
         } else if (modelFormField.isRowSubmit()) {
@@ -2459,7 +2468,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(modelFormField.getModelForm().getName());
             sr.append("\" title=\"");
             sr.append(titleText);
-            sr.append("\" />");
+            sr.append("\" showSelectAll=\"Y\"/>");
             executeMacro(sr.toString());
         } else {
              writer.append(titleText);
