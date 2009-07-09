@@ -17,92 +17,52 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
-<#if shoppingCart?has_content>
-    <#assign shoppingCartSize = shoppingCart.size()>
-<#else>
-    <#assign shoppingCartSize = 0>
-</#if>
-
 <h1>${uiLabelMap.CommonLogin}</h1>
-<br/>
-
-<div>
-  <div style="float: left; width: 49%; margin-right: 5px; text-align: center;">
     <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">${uiLabelMap.CommonRegistered}</div>
-        </div>
-        <div class="screenlet-body" style="text-align: center;">
-          <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
-              <div class="tabletext">
-                  ${uiLabelMap.CommonUsername}:&nbsp;
-                  <input type="text" class="inputBox" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>" size="20"/>
-              </div>
-              <#if autoUserLogin?has_content>
-                  <div class="tabletext">
-                      (${uiLabelMap.CommonNot}&nbsp;${autoUserLogin.userLoginId}?&nbsp;<a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
-                  </div>
-              </#if>
-              <div class="tabletext">
-                  ${uiLabelMap.CommonPassword}:&nbsp;
-                  <input type="password" class="inputBox" name="PASSWORD" value="" size="20"/>
-              </div>
-              <div class="tabletext">
-                  <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonLogin}"/>
-              </div>
-          </form>
-        </div>
+      <h3>${uiLabelMap.CommonRegistered}</h3>
+      <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
+        <fieldset>
+          <div>
+            <label for="userName">${uiLabelMap.CommonUsername}</label>
+            <input type="text" id="userName" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
+          </div>
+          <#if autoUserLogin?has_content>
+              <p>(${uiLabelMap.CommonNot} ${autoUserLogin.userLoginId}? <a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a>)</p>
+          </#if>
+          <div>
+            <label for="password">${uiLabelMap.CommonPassword}:</label>
+            <input type="password" id="password" name="PASSWORD" value=""/>
+          </div>
+          <div>
+            <input type="submit" class="button" value="${uiLabelMap.CommonLogin}"/>
+          </div>
+        </fieldset>
+      </form>
     </div>
 
     <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">${uiLabelMap.CommonForgotYourPassword}?</div>
+      <h3>${uiLabelMap.CommonForgotYourPassword}?</h3>
+      <form method="post" action="<@ofbizUrl>forgotpassword</@ofbizUrl>">
+        <div>
+          <label for="forgotpassword_userName">${uiLabelMap.CommonUsername}</label>
+          <input type="text" id="forgotpassword_userName" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
         </div>
-        <div class="screenlet-body" style="text-align: center;">
-          <form method="post" action="<@ofbizUrl>forgotpassword</@ofbizUrl>" name="forgotpassword" style="margin: 0;">
-            <span class="tabletext">${uiLabelMap.CommonUsername}:&nbsp;</span><input type="text" size="20" class="inputBox" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
-            <div><input type="submit" name="GET_PASSWORD_HINT" class="smallSubmit" value="${uiLabelMap.CommonGetPasswordHint}"/>&nbsp;<input type="submit" name="EMAIL_PASSWORD" class="smallSubmit" value="${uiLabelMap.CommonEmailPassword}"/></div>
-          </form>
+        <div class="buttons">
+          <input type="submit" class="button" name="GET_PASSWORD_HINT" value="${uiLabelMap.CommonGetPasswordHint}"/>
+          <input type="submit" class="button" name="EMAIL_PASSWORD" value="${uiLabelMap.CommonEmailPassword}"/>
         </div>
+      </form>
+    </div>
+    <div class="screenlet">
+      <h3>${uiLabelMap.CommonNewUser}</h3>
+      <form method="post" action="<@ofbizUrl>newcustomer</@ofbizUrl>">
+        <div>
+          <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:</p>
+          <input type="submit" class="button" id="newcustomer_submit" value="${uiLabelMap.CommonMayCreate}"/>
+        <div>
+      </form>
     </div>
 
-  </div>
-  <div style="float: right; width: 49%; margin-left: 5px; text-align: center;">
-    <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">${uiLabelMap.CommonNewUser}</div>
-        </div>
-        <div class="screenlet-body" style="text-align: center;">
-          <form method="post" action="<@ofbizUrl>newcustomer</@ofbizUrl>" style="margin: 0;">
-            <div class="tabletext">${uiLabelMap.CommonMayCreateNewAccountHere}:</div>
-            <div><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonMayCreate}"/></div>
-          </form>
-        </div>
-    </div>
-
-    <#if (shoppingCartSize > 0)>
-    <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">${uiLabelMap.CommonCheckoutAnonymous}</div>
-        </div>
-        <div class="screenlet-body">
-          <div class="tabletext" align="center">${uiLabelMap.CommonCheckoutAnonymousMsg}:</div>
-          <form method="post" action="<@ofbizUrl>setCustomer</@ofbizUrl>" style="margin: 0;">
-            <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.OrderCheckout}"/></div>
-          </form>
-          <form method="post" action="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>" style="margin: 0;">
-            <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.OrderCheckoutQuick}"/></div>
-          </form>
-          <form method="post" action="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>" style="margin: 0;">
-            <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceOnePageCheckout}"/></div>
-          </form>
-          <form method="post" action="<@ofbizUrl>googleCheckout</@ofbizUrl>" style="margin: 0;">
-            <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCartToGoogleCheckout}"/></div>
-          </form>
-        </div>
-    </div>
-    </#if>
   </div>
   <div class="endcolumns">&nbsp;</div>
 </div>
