@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderField text><#if text?exists>${text}</#if></#macro>
+<#macro renderField text><#if text?exists>"${text}"</#if></#macro>
 
 <#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
 <@renderField description />
@@ -112,7 +112,7 @@ under the License.
 <#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip></#macro>
 <#macro renderFieldGroupClose style id title></#macro>
 
-<#macro renderHyperlinkTitle name title></#macro>
+<#macro renderHyperlinkTitle name title showSelectAll="N"></#macro>
 <#macro renderSortField style title linkUrl ajaxEnabled></#macro>
 <#macro formatBoundaryComment boundaryType widgetType widgetName></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><@renderField description /></#macro>

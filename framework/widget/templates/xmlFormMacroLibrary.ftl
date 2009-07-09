@@ -110,7 +110,7 @@ under the License.
 <#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip></#macro>
 <#macro renderFieldGroupClose style id title></#macro>
 
-<#macro renderHyperlinkTitle name title></#macro>
+<#macro renderHyperlinkTitle name title showSelectAll="N"></#macro>
 <#macro renderSortField style title linkUrl ajaxEnabled></#macro>
 <#macro formatBoundaryComment boundaryType widgetType widgetName></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><@renderField description /></#macro>
