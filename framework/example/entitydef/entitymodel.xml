@@ -92,24 +92,6 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <view-entity entity-name="ExampleStatusDetail" package-name="org.ofbiz.example.example">
-        <member-entity entity-alias="EXPL" entity-name="Example"/>
-        <member-entity entity-alias="EXST" entity-name="ExampleStatus"/>
-        <alias-all entity-alias="EXPL">
-            <exclude field="statusId"/>
-        </alias-all>
-        <alias-all entity-alias="EXST"/>
-        <alias entity-alias="EXPL" name="currentStatusId" field="statusId"/>
-        <alias name="statusDelay">
-            <complex-alias operator="-">
-                <complex-alias-field entity-alias="EXST" field="statusDate"/>
-                <complex-alias-field entity-alias="EXPL" field="exampleDate"/>
-            </complex-alias>
-        </alias>
-        <view-link entity-alias="EXPL" rel-entity-alias="EXST">
-            <key-map field-name="exampleId"/>
-        </view-link>
-    </view-entity>
     <entity entity-name="ExampleType"
             package-name="org.ofbiz.example.example"
             default-resource-name="ExampleEntityLabels"
