@@ -705,8 +705,8 @@ public class GenericDAO {
         if (orderBy != null) {
             orderByExpanded.addAll(orderBy);
         }
-        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
-            List<String> viewOrderBy = modelViewEntity.getByConditionFinder().getOrderByFieldList(FastMap.<String, Object>newInstance());
+        if (modelViewEntity != null) {
+            List<String> viewOrderBy = modelViewEntity.getViewEntityConditionOrderBy();
             if (viewOrderBy != null && viewOrderBy.size() > 0) {
                 orderByExpanded.addAll(viewOrderBy);
             }
@@ -745,9 +745,9 @@ public class GenericDAO {
         if (Debug.timingOn()) {
             long queryEndTime = System.currentTimeMillis();
             long queryTotalTime = queryEndTime - queryStartTime;
-            if (queryTotalTime > 150) {
+            // TODO remove comment: if (queryTotalTime > 150) {
                 Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + sql, module);
-            }
+            //}
         }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader);
     }
@@ -764,8 +764,8 @@ public class GenericDAO {
         }
 
         String viewEntityCondWhereString = null;
-        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
-            EntityCondition viewWhereEntityCondition = modelViewEntity.getByConditionFinder().getWhereEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
+        if (modelViewEntity != null) {
+            EntityCondition viewWhereEntityCondition = modelViewEntity.getViewEntityConditionWhere(this.modelFieldTypeReader);
             if (viewWhereEntityCondition != null) {
                 viewEntityCondWhereString = viewWhereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
             }
@@ -815,8 +815,8 @@ public class GenericDAO {
         }
         
         String viewEntityCondHavingString = null;
-        if (modelViewEntity != null && modelViewEntity.getByConditionFinder() != null) {
-            EntityCondition viewHavingEntityCondition = modelViewEntity.getByConditionFinder().getHavingEntityCondition(FastMap.<String, Object>newInstance(), modelEntity, this.modelFieldTypeReader);
+        if (modelViewEntity != null) {
+            EntityCondition viewHavingEntityCondition = modelViewEntity.getViewEntityConditionHaving(this.modelFieldTypeReader);
             if (viewHavingEntityCondition != null) {
                 viewEntityCondHavingString = viewHavingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
             }

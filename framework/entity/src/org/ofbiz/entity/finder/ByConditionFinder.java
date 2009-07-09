@@ -56,6 +56,11 @@ public class ByConditionFinder extends ListFinder {
         } else if (conditionObjectElement != null) {
             this.whereCondition = new ConditionObject(conditionObjectElement);
         }
+
+        Element havingConditionListElement = UtilXml.firstChildElement(element, "having-condition-list");
+        if (havingConditionListElement != null) {
+            this.havingCondition = new ConditionList(havingConditionListElement);
+        }
     }
 
     @Override

@@ -33,6 +33,7 @@ import org.ofbiz.entity.model.ModelField;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityConditionValue extends EntityConditionBase {
 
     public abstract ModelField getModelField(ModelEntity modelEntity);
