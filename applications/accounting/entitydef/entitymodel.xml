@@ -1274,6 +1274,8 @@ under the License.
       <field name="invoiceItemAssocTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="partyIdTo" type="id"></field>
       <field name="quantity" type="fixed-point"></field>
       <field name="amount" type="currency-amount"></field>      
       <prim-key field="invoiceIdFrom"/>
@@ -1292,6 +1294,12 @@ under the License.
       <relation type="one" fk-name="IN_ITMASSC_TIITM" title="To" rel-entity-name="InvoiceItem">
         <key-map field-name="invoiceIdTo" rel-field-name="invoiceId"/>
         <key-map field-name="invoiceItemSeqIdTo" rel-field-name="invoiceItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
       </relation>
     </entity>
     
