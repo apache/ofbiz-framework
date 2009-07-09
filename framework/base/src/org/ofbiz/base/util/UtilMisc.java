@@ -251,8 +251,8 @@ public class UtilMisc {
     /**
      * Assuming outerMap not null; if null will throw a NullPointerException
      */
-    public static <K, IK, V> Map<IK, V> getMapFromMap(Map<K, Map<IK, V>> outerMap, K key) {
-        Map<IK, V> innerMap = outerMap.get(key);
+    public static <K, IK, V> Map<IK, V> getMapFromMap(Map<K, Object> outerMap, K key) {
+        Map<IK, V> innerMap = UtilGenerics.<IK, V>checkMap(outerMap.get(key));
         if (innerMap == null) {
             innerMap = FastMap.newInstance();
             outerMap.put(key, innerMap);
@@ -263,8 +263,8 @@ public class UtilMisc {
     /**
      * Assuming outerMap not null; if null will throw a NullPointerException
      */
-    public static <K, V> List<V> getListFromMap(Map<K, List<V>> outerMap, K key) {
-        List<V> innerList = outerMap.get(key);
+    public static <K, V> List<V> getListFromMap(Map<K, Object> outerMap, K key) {
+        List<V> innerList = UtilGenerics.<V>checkList(outerMap.get(key));
         if (innerList == null) {
             innerList = FastList.newInstance();
             outerMap.put(key, innerList);
@@ -732,7 +732,8 @@ public class UtilMisc {
     }
 
     /** This is meant to be very quick to create and use for small sized maps, perfect for how we usually use UtilMisc.toMap */
-    protected static class SimpleMap<V> implements Map<String, V>, java.io.Serializable {
+    @SuppressWarnings("serial")
+	protected static class SimpleMap<V> implements Map<String, V>, java.io.Serializable {
         protected Map<String, V> realMapIfNeeded = null;
 
         String[] names;
@@ -951,7 +952,7 @@ public class UtilMisc {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.equals(obj);
             } else {
-                Map mapObj = (Map) obj;
+                Map<String, V> mapObj = UtilGenerics.<String, V>checkMap(obj);
 
                 //first check the size
                 if (mapObj.size() != names.length) return false;

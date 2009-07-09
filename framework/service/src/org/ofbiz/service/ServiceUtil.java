@@ -18,28 +18,37 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transaction;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.ofbiz.base.util.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.config.ServiceConfigUtil;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transaction;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * Generic Service Utility Class
@@ -318,13 +327,13 @@ public class ServiceUtil {
      * @param targetMap The Map to add any Map error messages to
      * @param callResult The result from an invocation
      */
-    public static void addErrors(List<Object> targetList, Map<String, Object> targetMap, Map<String, ? extends Object> callResult) {
-        List<? extends Object> newList;
-        Map<String, ? extends Object> errorMsgMap;
+    public static void addErrors(List<String> targetList, Map<String, Object> targetMap, Map<String, ? extends Object> callResult) {
+        List<String> newList;
+        Map<String, Object> errorMsgMap;
 
         //See if there is a single message
         if (callResult.containsKey(ModelService.ERROR_MESSAGE)) {
-            targetList.add(callResult.get(ModelService.ERROR_MESSAGE));
+            targetList.add((String) callResult.get(ModelService.ERROR_MESSAGE));
         }
 
         //See if there is a message list
