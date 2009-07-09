@@ -67,6 +67,7 @@ under the License.
         <set field="groupByShippingMethod" from-field="parameters.groupByShippingMethod"/>
         <set field="groupByNoOfOrderItems" from-field="parameters.groupByNoOfOrderItems"/>
         <set field="groupByWarehouseArea" from-field="parameters.groupByWarehouseArea"/>
+        <set field="groupByZero" from-field="parameters.groupByZero"/>
         <now-timestamp field="nowTimestamp"/>
         <if-not-empty field="parameters.orderId">
             <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
@@ -112,9 +113,17 @@ under the License.
                 <select-field field-name="areaId"/>
             </entity-condition>
             <set field="groupName"/>
-            <set field="groupName1"/>
-            <set field="groupName2"/>
-            <set field="groupName3"/>            
+            <set field="groupName1"/> <!-- Group by Shipping Method -->
+            <set field="groupName2"/> <!-- Group by Warehouse Area -->
+            <set field="groupName3"/> <!-- Group by Number of Order Items -->
+            <set field="groupName4"/> <!-- No Grouping -->
+
+            <!-- If user selects group by zero method, then there is no need to do the grouping -->
+            <if-compare field="groupByZero" operator="equals" value="Y">
+                <set field="groupName4" from-field="orderHeader.orderId"/>
+                <set field="groupName" from-field="orderHeader.orderId"/>
+            <else>
+            
             <iterate list="OrderHeaderAndItemFacilityLocationList" entry="orderHeaderAndItemFacilityLocation">
                 <!-- set groupName for order according to the options selected by the user -->
                 <if>
@@ -125,6 +134,7 @@ under the License.
                                 <if-empty field="groupByShippingMethod"/>
                                 <if-empty field="groupByWarehouseArea"/>
                                 <if-empty field="groupByNoOfOrderItems"/>
+                                <if-empty field="groupByZero"/>
                             </and>
                         </or>
                     </condition>
@@ -162,6 +172,7 @@ under the License.
                     </then>
                 </else-if>                      
                 </if>
+
                 <set field="groupName" value="${groupName1}${groupName2}${groupName3}"/>
 
                 <if>
@@ -191,6 +202,9 @@ under the License.
             </if-compare>
             <clear-field field="locations"/>
             <clear-field field="locationCount"/>
+            </else>
+            </if-compare>
+            <!-- End ZERO Grouping -->
 
             <iterate entry="orderItemShipGroup" list="orderItemShipGroupList">
                 <!-- get the order items and the order item inventory res entries -->
@@ -372,6 +386,7 @@ under the License.
                                 <set field="pickMoveInfoMap[groupName].groupName1" from-field="groupName1"/>
                                 <set field="pickMoveInfoMap[groupName].groupName2" from-field="groupName2"/>
                                 <set field="pickMoveInfoMap[groupName].groupName3" from-field="noOfOrderItems"/>
+                                <set field="pickMoveInfoMap[groupName].groupName4" from-field="groupName4"/>
                             </then>
                             <else>
                                 <log level="info" message="Order #${orderHeader.orderId} was not added to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>

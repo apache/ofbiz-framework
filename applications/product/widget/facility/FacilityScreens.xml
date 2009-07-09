@@ -1179,8 +1179,16 @@ under the License.
                 <set field="tabButtonItem" value="PicklistOptions"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="groupByShippingMethod" from-field="parameters.groupByShippingMethod"/>
+                <set field="groupByWarehouseArea" from-field="parameters.groupByWarehouseArea"/>
+                <set field="groupByNoOfOrderItems" from-field="parameters.groupByNoOfOrderItems"/>
+                <set field="groupByZero" from-field="parameters.groupByZero"/>
                 <service service-name="findOrdersToPickMove">
                     <field-map field-name="facilityId"/>
+                    <field-map field-name="groupByShippingMethod"/>
+                    <field-map field-name="groupByWarehouseArea"/>
+                    <field-map field-name="groupByNoOfOrderItems"/>
+                    <field-map field-name="groupByZero"/>
                 </service>
 
                 <entity-condition entity-name="Picklist" list="picklistActiveList">

@@ -108,6 +108,9 @@
         <value xml:lang="zh">没有场所</value>
         <value xml:lang="zh_CN">仓储设施</value>
     </property>
+    <property key="FacilityNoGrouping">
+        <value xml:lang="en">No Grouping</value>
+    </property>
     <property key="FacilityNoOtherShippingMethods">
         <value xml:lang="de">Benutze Voreinstellung: Keine anderen Liefermethoden verfügbar</value>
         <value xml:lang="en">Use Default: No other shipping methods available.</value>
