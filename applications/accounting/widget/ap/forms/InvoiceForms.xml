@@ -121,6 +121,9 @@ under the License.
     </form>
 
     <form name="FindPurchaseInvoices" type="single" target="FindPurchaseInvoices">
+        <actions>
+            <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+        </actions>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingVendorParty}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" position="2">
             <drop-down allow-empty="true">
@@ -129,6 +132,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="organizationPartyId"><hidden/></field>
         <field name="invoiceTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field name="fromInvoiceDate" position="1"><date-time/></field>
         <field name="thruInvoiceDate" position="2"><date-time/></field>

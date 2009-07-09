@@ -1095,6 +1095,9 @@
         <value xml:lang="th">ธนาคาร</value>
         <value xml:lang="zh">银行</value>
     </property>
+    <property key="AccountingBankAccount">
+        <value xml:lang="en">Bank Account</value>
+    </property>
     <property key="AccountingBankName">
         <value xml:lang="ar">إسم المصرف</value>
         <value xml:lang="cs">Jméno banky</value>
@@ -1601,6 +1604,9 @@
         <value xml:lang="ru">Проверить сумму</value>
         <value xml:lang="th">ตรวจสอบจำนวน</value>
         <value xml:lang="zh">支票金额</value>
+    </property>
+    <property key="AccountingCheckNumber">
+        <value xml:lang="en">Check Number</value>
     </property>
     <property key="AccountingCheckGiftCard">
         <value xml:lang="de">Prüfen Sie, ob Sie einen Geschenkgutschein für heute haben</value>
@@ -4530,6 +4536,9 @@
         <value xml:lang="ru">Накладные</value>
         <value xml:lang="th">ใบกำกับสินค้า</value>
         <value xml:lang="zh">发票</value>
+    </property>
+    <property key="AccountingIssueCheck">
+        <value xml:lang="en">Issue Check</value>
     </property>
     <property key="AccountingItemNr">
         <value xml:lang="en">ItemNr</value>
@@ -7615,6 +7624,9 @@
     </property>
     <property key="AccountingVendorParty">
         <value xml:lang="en">Vendor Party</value>
+    </property>
+    <property key="AccountingVendorPaymentMethod">
+        <value xml:lang="en">Vendor Payment Method</value>
     </property>
     <property key="AccountingVerifyTransaction">
         <value xml:lang="en">Verify Transaction</value>

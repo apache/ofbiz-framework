@@ -55,6 +55,13 @@ function getInvoiceRunningTotal(e) {
         $('showInvoiceRunningTotal').update("");
     }
 }
+function showIssueChecks(selection) {
+    if (selection.value == 'processMassCheckRun') {
+        Effect.BlindDown('issueChecks',{duration: 0.0});
+    } else {
+        Effect.BlindUp('issueChecks',{duration: 0.0});
+    }
+}
 -->
 </script>
 
@@ -63,7 +70,36 @@ function getInvoiceRunningTotal(e) {
     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
     <span class="label" id="showInvoiceRunningTotal"></span>
   </div>
-  <form name="listPurchaseInvoices" id="listPurchaseInvoices">
+  <form name="listPurchaseInvoices" id="listPurchaseInvoices"  method="post" action="javascript:void();">
+    <div align="right">
+      <!-- May add some more options in future like cancel selected invoices-->
+      <select name="serviceName" id="serviceName" onchange="javascript:showIssueChecks(this);">
+        <option value=""/>
+        <option value="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
+      </select>
+      <a href="#" id="runAction" class="buttontext">${uiLabelMap.OrderRunAction}</a><#--call the runAction-->
+    </div>
+    <input type="hidden" name="organizationPartyId" value="${organizationPartyId}"/>
+    <div id="issueChecks" style="display: none;" align="right">
+      <span class="label">${uiLabelMap.AccountingVendorPaymentMethod}</span>
+      <select name="vendorPaymentMethod">
+        <option value=""></option>
+        <#if paymentMethodType?has_content>
+          <option value="paymentMethodType.paymentMethodTypeId">${paymentMethodType.description}</option>
+        </#if>
+      </select>
+      <span class="label">${uiLabelMap.AccountingBankAccount}</span>
+      <select name="bankAccount">
+        <option value=""></option>
+        <#if finAccounts?has_content>
+          <#list finAccounts as finAccount>
+            <option value="${finAccount.get("finAccountId")}">${finAccount.get("finAccountName")} [${finAccount.get("finAccountId")}]</option>
+          </#list>
+        </#if>
+      </select>
+      <span class="label">${uiLabelMap.AccountingCheckNumber}</span>
+      <input type="text" name="checkNumber"/>
+    </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
       <tr class="header-row-2">

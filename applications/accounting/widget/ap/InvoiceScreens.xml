@@ -92,6 +92,14 @@ under the License.
                     </condition-list>
                     <order-by field-name="partyIdFrom"/>
                 </entity-condition>
+                <entity-one entity-name="PaymentMethodType" value-field="paymentMethodType">
+                    <field-map field-name="paymentMethodTypeId" value="COMPANY_CHECK"></field-map>
+                </entity-one>
+                <entity-and entity-name="FinAccount" list="finAccounts">
+                    <field-map field-name="finAccountTypeId" value="BANK_ACCOUNT"/>
+                    <field-map field-name="statusId" value="FNACT_ACTIVE"/>
+                </entity-and>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
