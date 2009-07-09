@@ -1303,7 +1303,7 @@ public class PartyServices {
                     String city = (String) context.get("city");
                     if (city != null && city.length() > 0) {
                         paramList = paramList + "&city=" + city;
-                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.LIKE, EntityFunction.UPPER("%" + city + "%")));
                     }
 
                     // filter on state geo
