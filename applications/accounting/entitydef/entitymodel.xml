@@ -1263,6 +1263,51 @@ under the License.
             <key-map field-name="salesOpportunityId"/>
       </relation>
     </entity>
+    
+    <entity entity-name="InvoiceItemAssoc"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Association Entity">
+      <field name="invoiceIdFrom" type="id-ne"></field>
+      <field name="invoiceItemSeqIdFrom" type="id-ne"></field>
+      <field name="invoiceIdTo" type="id-ne"></field>
+      <field name="invoiceItemSeqIdTo" type="id-ne"></field>
+      <field name="invoiceItemAssocTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="quantity" type="fixed-point"></field>
+      <field name="amount" type="currency-amount"></field>      
+      <prim-key field="invoiceIdFrom"/>
+      <prim-key field="invoiceItemSeqIdFrom"/>
+      <prim-key field="invoiceIdTo"/>
+      <prim-key field="invoiceItemSeqIdTo"/>
+      <prim-key field="invoiceItemAssocTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="IN_ITMASSC_TYP" rel-entity-name="InvoiceItemAssocType">
+        <key-map field-name="invoiceItemAssocTypeId"/>
+      </relation>
+      <relation type="one" fk-name="IN_ITMASSC_FIITM" title="From" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceIdFrom" rel-field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqIdFrom" rel-field-name="invoiceItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="IN_ITMASSC_TIITM" title="To" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceIdTo" rel-field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqIdTo" rel-field-name="invoiceItemSeqId"/>
+      </relation>
+    </entity>
+    
+    <entity entity-name="InvoiceItemAssocType"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Assoc Type Entity">
+      <field name="invoiceItemAssocTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="invoiceItemAssocTypeId"/>
+      <relation type="one" fk-name="IN_ITMASSC_TYP" title="Parent" rel-entity-name="InvoiceItemAssocType">
+        <key-map field-name="parentTypeId" rel-field-name="invoiceItemAssocTypeId"/>
+      </relation>
+    </entity>
+    
     <entity entity-name="InvoiceItemAttribute"
             package-name="org.ofbiz.accounting.invoice"
             title="Invoice Item Attribute Entity">
