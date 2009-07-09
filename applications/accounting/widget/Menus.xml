@@ -503,6 +503,17 @@ under the License.
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>-->
+        <menu-item name="cancelpaymentGroup" title="${uiLabelMap.CommonCancel}">
+            <condition>
+                <and>
+                    <not><if-empty field="paymentGroupMembers"/></not>
+                    <not><if-empty field="paymentGroup"/></not>
+                </and>
+            </condition>
+            <link target="cancelPaymentGroup">
+                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="FixedAssetMaintTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"

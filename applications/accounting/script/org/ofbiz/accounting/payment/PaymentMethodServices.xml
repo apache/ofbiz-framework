@@ -126,4 +126,9 @@ under the License.
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="deletePaymentGroupMember" short-description="Delete a Payment Group Member">
+        <entity-one entity-name="PaymentGroupMember" value-field="paymentGroupMember"/>
+        <now-timestamp field="paymentGroupMember.thruDate"/>
+        <store-value value-field="paymentGroupMember"/>
+    </simple-method>
 </simple-methods>

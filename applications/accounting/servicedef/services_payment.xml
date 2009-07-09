@@ -161,4 +161,9 @@ under the License.
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="paymentRunningTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
+    <service name="cancelPaymentBatch" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="cancelPaymentBatch" auth="true">
+        <description>cancel payment batch</description>
+        <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

@@ -85,6 +85,9 @@ under the License.
                 <set field="headerItem" value="PaymentGroup"/>
                 <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
                 <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+                <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
+                    <field-map field-name="paymentGroupId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
