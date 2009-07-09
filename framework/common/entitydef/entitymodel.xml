@@ -415,24 +415,27 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="StatusValidChangeToDetail"
-            package-name="org.ofbiz.common.status"
-            title="Status Valid Change To Detail View Entity">
-      <member-entity entity-alias="SVC" entity-name="StatusValidChange"/>
-      <member-entity entity-alias="SI" entity-name="StatusItem"/>
-      <alias-all entity-alias="SVC"/>
-      <alias-all entity-alias="SI"/>
-      <view-link entity-alias="SVC" rel-entity-alias="SI">
-        <key-map field-name="statusIdTo" rel-field-name="statusId"/>
-      </view-link>
-      <relation type="one" rel-entity-name="StatusValidChange">
-        <key-map field-name="statusId"/>
-        <key-map field-name="statusIdTo"/>
-      </relation>
-      <relation type="one" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
+        package-name="org.ofbiz.common.status"
+        title="Status Valid Change To Detail View Entity">
+        <member-entity entity-alias="SVC" entity-name="StatusValidChange"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <alias-all entity-alias="SVC"/>
+        <alias-all entity-alias="SI"/>
+        <view-link entity-alias="SVC" rel-entity-alias="SI">
+            <key-map field-name="statusIdTo" rel-field-name="statusId"/>
+        </view-link>
+        <relation type="one" rel-entity-name="StatusValidChange">
+            <key-map field-name="statusId"/>
+            <key-map field-name="statusIdTo"/>
+        </relation>
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <entity-condition>
+            <order-by field-name="sequenceId"/>
+        </entity-condition>
     </view-entity>
-
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.uom -->
   <!-- ========================================================= -->
