@@ -28,26 +28,13 @@ under the License.
   <div class="screenlet">
     <h3>${uiLabelMap.CommonCheckoutAnonymous}</h3>
     <p>${uiLabelMap.CommonCheckoutAnonymousMsg}:<p>
-    <form method="post" action="<@ofbizUrl>setCustomer</@ofbizUrl>" style="margin: 0;">
-      <div>
-        <input type="submit" class="button" value="${uiLabelMap.OrderCheckout}"/>
-      </div>
-    </form>
-    <form method="post" action="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">
-      <div>
-        <input type="submit" class="button" value="${uiLabelMap.OrderCheckoutQuick}"/>
-      </div>
-    </form>
-    <form method="post" action="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>">
-      <div>
-        <input type="submit" class="button" value="${uiLabelMap.EcommerceOnePageCheckout}"/>
-      </div>
-    </form>
-    <form method="post" action="<@ofbizUrl>googleCheckout</@ofbizUrl>">
-      <div>
-        <input type="submit" class="button" value="${uiLabelMap.EcommerceCartToGoogleCheckout}"/>
-      </div>
-    </form>
+    <ul>
+      <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>">${uiLabelMap.OrderCheckout}</a></li>
+      <li><a href="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">${uiLabelMap.OrderCheckoutQuick}</a></li>
+      <li><a href="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">${uiLabelMap.OrderCheckoutQuick}</a></li>
+      <li><a href="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
+      <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+    </ul>
   </div>
 </#if>
 
