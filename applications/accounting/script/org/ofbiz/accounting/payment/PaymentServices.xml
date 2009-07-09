@@ -459,4 +459,14 @@ under the License.
         </iterate>
         <field-to-result field="paymentRunningTotal"/>
     </simple-method>
+    <simple-method method-name="cancelPaymentBatch" short-description="cancel payment batch">
+        <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
+        <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
+            <field-map field-name="paymentGroupId"/>
+        </entity-and>
+        <iterate list="paymentGroupMembers" entry="paymentGroupMember">
+            <set-service-fields service-name="deletePaymentGroupMember" map="paymentGroupMember" to-map="deletePaymentGroupMemberMap"/>
+            <call-service service-name="deletePaymentGroupMember" in-map-name="deletePaymentGroupMemberMap"/>
+        </iterate>
+    </simple-method>
 </simple-methods>
