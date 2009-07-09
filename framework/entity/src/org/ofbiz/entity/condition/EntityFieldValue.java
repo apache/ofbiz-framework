@@ -25,17 +25,20 @@ import java.util.Map;
 import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelViewEntity;
 
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
+@SuppressWarnings("serial")
 public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     protected static final ObjectFactory<EntityFieldValue> entityFieldValueFactory = new ObjectFactory<EntityFieldValue>() {
@@ -46,10 +49,18 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     };
 
     protected String fieldName = null;
+    protected String entityAlias = null;
+    protected ModelViewEntity modelViewEntity = null;
 
     public static EntityFieldValue makeFieldValue(String fieldName) {
         EntityFieldValue efv = EntityFieldValue.entityFieldValueFactory.object();
-        efv.init(fieldName);
+        efv.init(fieldName, null, null);
+        return efv;
+    }
+
+    public static EntityFieldValue makeFieldValue(String fieldName, String entityAlias, ModelViewEntity modelViewEntity) {
+        EntityFieldValue efv = EntityFieldValue.entityFieldValueFactory.object();
+        efv.init(fieldName, entityAlias, modelViewEntity);
         return efv;
     }
 
@@ -58,11 +69,13 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     /** @deprecated Use EntityFieldValue.makeFieldValue() instead */
     @Deprecated
     public EntityFieldValue(String fieldName) {
-    this.init(fieldName);
+        this.init(fieldName, null, null);
     }
 
-    public void init(String fieldName) {
+    public void init(String fieldName, String entityAlias, ModelViewEntity modelViewEntity) {
         this.fieldName = fieldName;
+        this.entityAlias = entityAlias;
+        this.modelViewEntity = modelViewEntity;
     }
 
     public void reset() {
@@ -92,7 +105,19 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     @Override
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
-        sql.append(getColName(tableAliases, modelEntity, fieldName, includeTableNamePrefix, datasourceInfo));
+        if (this.modelViewEntity != null) {
+            if (UtilValidate.isNotEmpty(entityAlias)) {
+                ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(entityAlias);
+                ModelField modelField = memberModelEntity.getField(fieldName);
+                sql.append(entityAlias);
+                sql.append(".");
+                sql.append(modelField.getColName());
+            } else {
+                sql.append(getColName(tableAliases, modelViewEntity, fieldName, includeTableNamePrefix, datasourceInfo));
+            }
+        } else {
+            sql.append(getColName(tableAliases, modelEntity, fieldName, includeTableNamePrefix, datasourceInfo));
+        }
     }
 
     @Override

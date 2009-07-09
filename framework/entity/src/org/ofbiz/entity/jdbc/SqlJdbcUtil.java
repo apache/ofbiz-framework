@@ -176,6 +176,10 @@ public class SqlJdbcUtil {
                     if (condBuffer.length() == 0) {
                         throw new GenericModelException("No view-link/join key-maps found for the " + viewLink.getEntityAlias() + " and the " + viewLink.getRelEntityAlias() + " member-entities of the " + modelViewEntity.getEntityName() + " view-entity.");
                     }
+                    
+                    // TODO add expression from entity-condition on view-link
+                    
+                    
                     restOfStatement.append(condBuffer.toString());
 
                     // don't put ending parenthesis

@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javolution.lang.Reusable;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -45,6 +44,7 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityConditionBase implements Serializable {
 
     public static final List emptyList = Collections.unmodifiableList(FastList.newInstance());
