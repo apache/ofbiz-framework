@@ -321,7 +321,10 @@ public class CallService extends MethodOperation {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errorMessage);
+                ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()), 
+                		UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
+                // the old way, makes a mess of messages passed up the stack: methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errorMessage);
+                Debug.logError(new Exception(errorMessage), module);
             }
         }
 

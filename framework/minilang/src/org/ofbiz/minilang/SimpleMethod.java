@@ -89,19 +89,19 @@ import org.webslinger.invoker.Wrap;
  * SimpleMethod Mini Language Core Object
  */
 public class SimpleMethod {
-    private static final Map<String, MethodOperation.Factory> methodOperationFactories;
-    private static final Method simpleMethodExecMethod;
+    private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
+    // never read locally: private static final Method simpleMethodExecMethod;
     private static final Method methodOperationExecMethod;
     static {
-        Map<String, MethodOperation.Factory> mapFactories = new HashMap<String, MethodOperation.Factory>();
+        Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
         Iterator<MethodOperation.Factory> it = ServiceRegistry.lookupProviders(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader());
         while (it.hasNext()) {
-            MethodOperation.Factory factory = it.next();
+            MethodOperation.Factory<MethodOperation> factory = it.next();
             mapFactories.put(factory.getName(), factory);
         }
         methodOperationFactories = Collections.unmodifiableMap(mapFactories);
         try {
-            simpleMethodExecMethod = SimpleMethod.class.getDeclaredMethod("exec", MethodContext.class);
+            // never read locally: simpleMethodExecMethod = SimpleMethod.class.getDeclaredMethod("exec", MethodContext.class);
             methodOperationExecMethod = MethodOperation.class.getDeclaredMethod("exec", MethodContext.class);
         } catch (NoSuchMethodException e) {
             throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
@@ -447,6 +447,10 @@ public class SimpleMethod {
 
     public String getServiceErrorMessageListName() {
         return this.serviceErrorMessageListName;
+    }
+
+    public String getServiceErrorMessageMapName() {
+        return this.serviceErrorMessageMapName;
     }
 
     public String getServiceSuccessMessageName() {
