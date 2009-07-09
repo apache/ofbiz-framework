@@ -499,6 +499,10 @@ under the License.
     <InvoiceType description="Invoice Template" hasTable="N" invoiceTypeId="TEMPLATE"/>
     <InvoiceType description="Sales Invoice Template" hasTable="N" invoiceTypeId="SALES_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
     <InvoiceType description="Purchase Invoice Template" hasTable="N" invoiceTypeId="PUR_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
+    
+    <!-- InvoiceItemAssocType records can be used in InvoiceItemAssoc entity. This will help to distinguish the record in searching for the commission invoice or withdraw invoice. More assoc types can be added later on.  -->
+    <InvoiceItemAssocType description="Commission" hasTable="N" invoiceItemAssocTypeId="COMMISSION_INVOICE" parentTypeId=""/>
+    <InvoiceItemAssocType description="Withdraw" hasTable="N" invoiceItemAssocTypeId="WITHDRAW_INVOICE" parentTypeId=""/>
 
     <!-- maps line items such as order items to invoice item types.  separate mapping for sales and purchase invoices -->
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FINISHED_GOOD" invoiceItemTypeId="INV_FPROD_ITEM"/>
