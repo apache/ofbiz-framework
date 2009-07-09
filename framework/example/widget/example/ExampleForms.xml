@@ -112,7 +112,7 @@ under the License.
         </field>
         <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}"/>
+                <entity-options entity-name="ExampleStatusItem" description="${description}"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}">
