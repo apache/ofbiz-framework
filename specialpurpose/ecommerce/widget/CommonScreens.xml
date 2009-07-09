@@ -269,6 +269,9 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://ecommerce/webapp/ecommerce/login.ftl"/></html>
                         </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://ecommerce/webapp/ecommerce/order/startanoncheckout.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
