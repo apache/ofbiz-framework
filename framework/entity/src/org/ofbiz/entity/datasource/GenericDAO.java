@@ -745,9 +745,9 @@ public class GenericDAO {
         if (Debug.timingOn()) {
             long queryEndTime = System.currentTimeMillis();
             long queryTotalTime = queryEndTime - queryStartTime;
-            // TODO remove comment: if (queryTotalTime > 150) {
+            if (queryTotalTime > 150) {
                 Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + sql, module);
-            //}
+            }
         }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader);
     }
