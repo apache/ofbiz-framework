@@ -5974,8 +5974,14 @@
     <property key="AccountingPaymentGroup">
         <value xml:lang="en">Payment Group</value>
     </property>
+    <property key="AccountingPaymentGroupId">
+        <value xml:lang="en">Payment Group Id</value>
+    </property>
     <property key="AccountingPaymentGroupMember">
         <value xml:lang="en">Group Member</value>
+    </property>
+    <property key="AccountingPaymentGroupName">
+        <value xml:lang="en">Payment Group Name</value>
     </property>
     <property key="AccountingPaymentGroupOverview">
         <value xml:lang="en">Payment Group Overview</value>

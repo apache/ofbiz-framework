@@ -491,8 +491,7 @@ under the License.
             </condition>
             <link target="EditPaymentGroup"/>
         </menu-item>
-        <!-- To Do -->
-        <!--<menu-item name="depositSlip" title="${uiLabelMap.AccountingDepositSlip}">
+        <menu-item name="depositSlip" title="${uiLabelMap.AccountingDepositSlip}">
             <condition>
                 <and>
                     <if-compare field="display" operator="equals" value="true"/>
@@ -502,7 +501,7 @@ under the License.
             <link target="DepositSlip.pdf">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
-        </menu-item>-->
+        </menu-item>
         <menu-item name="cancelpaymentGroup" title="${uiLabelMap.CommonCancel}">
             <condition>
                 <and>
