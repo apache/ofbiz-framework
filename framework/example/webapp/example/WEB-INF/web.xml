@@ -20,8 +20,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Example Component</display-name>
-    <description>Example Component of the Open For Business Project</description>
+    <display-name>Open For Business - Example Application</display-name>
+    <description>Example Application of the Open For Business Project</description>
 
     <context-param>
         <param-name>webSiteId</param-name>

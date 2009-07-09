@@ -34,10 +34,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="EXAMPLE_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+                <entity-options description="${description}" key-field-name="statusId" entity-name="ExampleStatusItem"/>
             </drop-down>
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -115,17 +112,13 @@ under the License.
         </field>
         <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="EXAMPLE_STATUS"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
+                <entity-options entity-name="StatusItem" description="${description}"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" env-name="example.statusId"/>
-                    <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -152,10 +145,7 @@ under the License.
         <alt-target use-when="example==null" target="createExampleAjax"/>
         <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="EXAMPLE_STATUS"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
+                <entity-options entity-name="ExampleStatusItem" description="${description}"/>
             </drop-down>
         </field>
         <on-event-update-area event-type="submit" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
