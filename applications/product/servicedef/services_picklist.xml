@@ -45,6 +45,7 @@ under the License.
         <attribute name="groupByNoOfOrderItems" type="String" mode="IN" optional="true"/>
         <attribute name="groupByWarehouseArea" type="String" mode="IN" optional="true"/>
         <attribute name="groupByShippingMethod" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByZero" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -71,6 +72,7 @@ under the License.
         <attribute name="groupByNoOfOrderItems" type="String" mode="IN" optional="true"/>
         <attribute name="groupByWarehouseArea" type="String" mode="IN" optional="true"/>
         <attribute name="groupByShippingMethod" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByZero" type="String" mode="IN" optional="true"/>
         <attribute name="pickMoveInfoList" type="List" mode="OUT" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
