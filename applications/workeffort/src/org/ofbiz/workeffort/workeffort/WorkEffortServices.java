@@ -392,7 +392,7 @@ public class WorkEffortServices {
      * <ul>
      * <li>start - TimeStamp (Period start date/time)</li>
      * <li>numPeriods - Integer</li>
-     * <li>periodType - Integer (see com.ibm.icu.util.Calendar)</li>
+     * <li>periodType - Integer (see java.util.Calendar)</li>
      * <li>eventStatus - String</li>
      * <li>partyId - String</li>
      * <li>partyIds - List</li>
