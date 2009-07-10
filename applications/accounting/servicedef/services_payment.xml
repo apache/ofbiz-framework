@@ -148,13 +148,6 @@ under the License.
             INVOICE_READY if status is INVOICE_PAID, and reverses related AcctgTrans by calling copyAcctgTransAndEntries service</description>
         <attribute name="paymentId" mode="IN" optional="false" type="String"/>
     </service>
-    <service name="createPaymentBatch" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentBatch" auth="true">
-        <description>create batch for payments</description>
-        <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
-        <attribute name="paymentGroupName" type="String" mode="IN" optional="false"/>
-        <attribute name="paymentGroupId" type="String" mode="OUT" optional="false"/>
-    </service>
     <service name="getPaymentRunningTotal" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="getPaymentRunningTotal" auth="true">
         <description>calculate running total for payments</description>

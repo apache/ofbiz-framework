@@ -66,6 +66,7 @@ function getPaymentRunningTotal(e) {
                     <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
                     <input type="text" size='25' name='paymentGroupName'>
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
+                    <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
                 </div>
                 <div>
                     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>

@@ -428,22 +428,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="createPaymentBatch" short-description="create a batch of payments">
-        <now-timestamp field="nowTimestamp"/>
-        <set field="createPaymentGroupCtx.paymentGroupName" from-field="parameters.paymentGroupName"/>
-        <set field="createPaymentGroupCtx.paymentGroupTypeId" value="BATCH_PAYMENT"/>
-        <call-service service-name="createPaymentGroup" in-map-name="createPaymentGroupCtx">
-            <result-to-field result-name="paymentGroupId"/>
-        </call-service>
-        <set field="paymentIds" from-field="parameters.paymentIds"/>
-        <iterate list="paymentIds" entry="paymentId">
-            <set field="createPaymentGroupMemberCtx.paymentId" from-field="paymentId"/>
-            <set field="createPaymentGroupMemberCtx.paymentGroupId" from-field="paymentGroupId"/>
-            <set field="createPaymentGroupMemberCtx.fromDate" from-field="nowTimestamp"/>
-            <call-service service-name="createPaymentGroupMember" in-map-name="createPaymentGroupMemberCtx"/>
-        </iterate>
-        <field-to-result field="paymentGroupId"/>
-    </simple-method>
     <simple-method method-name="getPaymentRunningTotal" short-description="calculate running total for payments">
         <set field="paymentIds" from-field="parameters.paymentIds"/>
         <set field="paymentRunningTotal" type="BigDecimal" value="0"/>
@@ -471,7 +455,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createPaymentAndPaymentGroupForInvoices" short-description="Creates Payments, PaymentApplications and PaymentGroup for the same">
-        <now-timestamp field="nowTimestamp"/>
         <set field="invoices" type="List"/>
         <iterate list="parameters.invoiceIds" entry="invoiceId">  
             <entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
@@ -496,7 +479,6 @@ under the License.
         <if-not-empty field="paymentIds">
             <set field="createPaymentGroupAndMemberMap.paymentIds" from-field="paymentIds"/>
             <set field="createPaymentGroupAndMemberMap.paymentGroupTypeId" value="CHECK_RUN"/>
-            <set field="createPaymentGroupAndMemberMap.fromDate" from-field="nowTimestamp"/>
             <set field="createPaymentGroupAndMemberMap.paymentGroupName" value="Check Run for ${nowTimestamp}"/>
             <call-service service-name="createPaymentGroupAndMember" in-map-name="createPaymentGroupAndMemberMap">
                 <result-to-field result-name="paymentGroupId"/>
@@ -562,6 +544,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createPaymentGroupAndMember" short-description="creates PaymentGroup and PaymentGroupMembers">
+        <if-empty field="parameters.fromDate">
+            <now-timestamp field="parameters.fromDate"/>
+        </if-empty>
         <set-service-fields service-name="createPaymentGroup" map="parameters" to-map="createPaymentGroupMap"/>
         <call-service service-name="createPaymentGroup" in-map-name="createPaymentGroupMap">
             <result-to-field result-name="paymentGroupId"/>
