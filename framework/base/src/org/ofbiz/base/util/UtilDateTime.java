@@ -299,7 +299,7 @@ public class UtilDateTime {
         return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
 
-    public static com.ibm.icu.util.Calendar toCalendar(java.sql.Timestamp stamp) {
+    public static Calendar toCalendar(java.sql.Timestamp stamp) {
         Calendar cal = Calendar.getInstance();
         if (stamp != null) {
             cal.setTimeInMillis(stamp.getTime());
@@ -771,7 +771,7 @@ public class UtilDateTime {
      * @param timeZone
      * @param locale
      * @return Calendar object
-     * @see com.ibm.icu.util.Calendar
+     * @see java.util.Calendar
      */
     public static Calendar toCalendar(Date date, TimeZone timeZone, Locale locale) {
         Calendar cal = getCalendarInstance(timeZone, locale);
@@ -786,12 +786,12 @@ public class UtilDateTime {
      * perform date/time arithmetic across locales and time zones.
      *
      * @param stamp date/time to perform arithmetic on
-     * @param adjType the adjustment type to perform. Use one of the com.ibm.icu.util.Calendar fields.
+     * @param adjType the adjustment type to perform. Use one of the java.util.Calendar fields.
      * @param adjQuantity the adjustment quantity.
      * @param timeZone
      * @param locale
      * @return adjusted Timestamp
-     * @see com.ibm.icu.util.Calendar
+     * @see java.util.Calendar
      */
     public static Timestamp adjustTimestamp(Timestamp stamp, int adjType, int adjQuantity, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
