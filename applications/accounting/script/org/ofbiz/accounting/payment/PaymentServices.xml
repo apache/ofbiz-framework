@@ -435,11 +435,7 @@ under the License.
             <entity-one entity-name="Payment" value-field="payment">
                 <field-map field-name="paymentId" from-field="paymentId"/>
             </entity-one>
-            <calculate field="paymentRunningTotal">
-                <calcop operator="add" field="paymentRunningTotal">
-                    <calcop operator="get" field="payment.amount"/>
-                </calcop>
-            </calculate>
+            <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}"/>
         </iterate>
         <field-to-result field="paymentRunningTotal"/>
     </simple-method>
@@ -500,11 +496,7 @@ under the License.
                     <result-to-field result-name="invoicePaymentInfoList"/>
                 </call-service>
                 <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-                <calculate field="paymentAmount">
-                    <calcop operator="add" field="paymentAmount">
-                        <calcop operator="get" field="invoicePaymentInfo.outstandingAmount"/>
-                    </calcop>
-                </calculate>
+                <set field="paymentAmount" value="${paymentAmount + invoicePaymentInfo.outstandingAmount}"/>
             </if-compare>
         </iterate>
         <if-compare field="paymentAmount" operator="greater" type="BigDecimal" value="0">
