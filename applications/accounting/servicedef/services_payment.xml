@@ -166,4 +166,32 @@ under the License.
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="createPaymentAndPaymentGroupForInvoices" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
+        <description>Creates Payments, Payment Application and Payment Group for the same</description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
+        <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
+        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
+    </service>
+    <service name="createPaymentAndApplicationForParty" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentAndApplicationForParty" auth="true">
+        <description>create Payment and PaymentApplications for multiple invoices for one party</description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoices" type="List" mode="IN" optional="false"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="createPaymentGroupAndMember" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentGroupAndMember" auth="true">
+        <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
+        <attribute name="paymentGroupTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="paymentGroupName" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentGroupId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>
