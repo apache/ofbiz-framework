@@ -153,7 +153,7 @@ if (selPhones) {
 
 // Fax 
 faxNumbers = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "FAX_NUMBER"]);
-faxNumbers = EntityUtil.filterByDate(faxContactMechs, nowTimestamp, null, null, true);
+faxNumbers = EntityUtil.filterByDate(faxNumbers, nowTimestamp, null, null, true);
 if (faxNumbers) {  
     context.fax = delegator.findOne("TelecomNumber", [contactMechId : faxNumbers[0]], false);
 }
