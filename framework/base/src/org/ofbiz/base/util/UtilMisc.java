@@ -51,6 +51,30 @@ public class UtilMisc {
         return throwable;
     }
 
+    public static <T> int compare(T obj1, T obj2) {
+        if (obj1 == null) {
+            if (obj2 == null) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return ((Comparable<T>) obj1).compareTo(obj2);
+        }
+    }
+    
+    public static <T> int compare(Comparable<T> obj1, T obj2) {
+        if (obj1 == null) {
+            if (obj2 == null) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return obj1.compareTo(obj2);
+        }
+    }
+    
     /**
      * Get an iterator from a collection, returning null if collection is null
      * @param col The collection to be turned in to an iterator

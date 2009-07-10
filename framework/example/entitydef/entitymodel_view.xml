@@ -70,7 +70,6 @@ under the License.
         <view-link entity-alias="EXFTAP" rel-entity-alias="EXFTAPTP">
             <key-map field-name="exampleFeatureApplTypeId"/>
         </view-link>
-        <entity-condition filter-by-date="true"/>
     </view-entity>
     <view-entity entity-name="ExampleFeatureAndApplAndType" package-name="org.ofbiz.example.example">
         <member-entity entity-alias="EXFT" entity-name="ExampleFeature"/>
@@ -101,16 +100,36 @@ under the License.
             <order-by field-name="exampleName"/>
         </entity-condition>
     </view-entity>
-    <view-entity entity-name="AllExamplesWithDesiredCustomerFeaturesReport" package-name="org.ofbiz.example.example">
-        <member-entity entity-alias="EFAAFV" entity-name="ExampleFeatureAndApplFullView"/>
-        <alias-all entity-alias="EFAAFV"/>
+
+    <!-- example for nested view-entity with conditions on nested views -->
+    <view-entity entity-name="ExampleFeatureApplAndTypeDesired" package-name="org.ofbiz.example.example">
+        <member-entity entity-alias="EXFTAP" entity-name="ExampleFeatureAppl"/>
+        <member-entity entity-alias="EXFTAPTP" entity-name="ExampleFeatureApplType"/>
+        <alias-all entity-alias="EXFTAP"/>
+        <alias-all entity-alias="EXFTAPTP"/>
+        <view-link entity-alias="EXFTAP" rel-entity-alias="EXFTAPTP">
+            <key-map field-name="exampleFeatureApplTypeId"/>
+        </view-link>
         <entity-condition>
-            <condition-list combine="and">
-                <condition-expr field-name="featureSourceEnumId" value="EXFTSRC_CUSTOMER"/>
-                <condition-expr field-name="exampleFeatureApplTypeId" value="DESIRED"/>
-            </condition-list>
+            <condition-expr field-name="exampleFeatureApplTypeId" value="DESIRED"/>
+        </entity-condition>
+    </view-entity>
+    <view-entity entity-name="AllExamplesWithDesiredCustomerFeaturesReport" package-name="org.ofbiz.example.example">
+        <member-entity entity-alias="EFAATD" entity-name="ExampleFeatureApplAndTypeDesired"/>
+        <member-entity entity-alias="EXFT" entity-name="ExampleFeature"/>
+        <member-entity entity-alias="EX" entity-name="Example"/>
+        <alias-all entity-alias="EFAATD"/>
+        <alias-all entity-alias="EXFT"/>
+        <alias-all entity-alias="EX"/>
+        <view-link entity-alias="EFAATD" rel-entity-alias="EXFT">
+            <key-map field-name="exampleFeatureId"/>
+        </view-link>
+        <view-link entity-alias="EFAATD" rel-entity-alias="EX">
+            <key-map field-name="exampleId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr field-name="featureSourceEnumId" value="EXFTSRC_CUSTOMER"/>
             <order-by field-name="exampleName"/>
         </entity-condition>
     </view-entity>
-    <!-- TODO: add example for nested view-entity with conditions on nested views, and fix underlying code since probably won't work right now -->
 </entitymodel>
