@@ -1284,7 +1284,7 @@ under the License.
       <prim-key field="invoiceItemSeqIdTo"/>
       <prim-key field="invoiceItemAssocTypeId"/>
       <prim-key field="fromDate"/>
-      <relation type="one" fk-name="IN_ITMASSC_TYP" rel-entity-name="InvoiceItemAssocType">
+      <relation type="one" fk-name="IN_ITMASC_TYP_IIASC" rel-entity-name="InvoiceItemAssocType">
         <key-map field-name="invoiceItemAssocTypeId"/>
       </relation>
       <relation type="one" fk-name="IN_ITMASSC_FIITM" title="From" rel-entity-name="InvoiceItem">
@@ -1311,7 +1311,7 @@ under the License.
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="invoiceItemAssocTypeId"/>
-      <relation type="one" fk-name="IN_ITMASSC_TYP" title="Parent" rel-entity-name="InvoiceItemAssocType">
+      <relation type="one" fk-name="IN_ITASC_TYP_PARNT" title="Parent" rel-entity-name="InvoiceItemAssocType">
         <key-map field-name="parentTypeId" rel-field-name="invoiceItemAssocTypeId"/>
       </relation>
     </entity>
