@@ -486,12 +486,7 @@ under the License.
             <set field="createPaymentAndApplicationForPartyMap.partyId" from-field="partyId"/>
             <set field="createPaymentAndApplicationForPartyMap.invoices" from-field="invoices"/>
             <if-not-empty field="parameters.checkStartNumber">
-                <calculate field="parameters.checkStartNumber" type="Long">
-                    <calcop operator="add">
-                        <calcop operator="get" field="parameters.checkStartNumber"/>
-                        <number value="1"/>
-                    </calcop>
-            </calculate>
+                 <set field="parameters.checkStartNumber" value="${parameters.checkStartNumber + 1}" type="Long"/>
             </if-not-empty>
             <call-service service-name="createPaymentAndApplicationForParty" in-map-name="createPaymentAndApplicationForPartyMap">
                 <result-to-field result-name="paymentId" field="paymentId"/>
