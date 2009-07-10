@@ -78,7 +78,7 @@ under the License.
     <form name="ListPaymentGroupMember" type="list" list-name="paymentGroupMembers" target="updatePaymentGroupMember">
         <auto-fields-service service-name="updatePaymentGroupMember"/>
         <field name="paymentGroupId"><hidden/></field>
-        <field name="paymentId"><text size="20"/></field>
+        <field name="paymentId"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
@@ -94,7 +94,8 @@ under the License.
     <form name="AddPaymentGroupMember" type="single" target="createPaymentGroupMember">
         <auto-fields-service service-name="createPaymentGroupMember"/>
         <field name="paymentGroupId"><hidden/></field>
-        <field name="paymentId"><text size="30"/></field>
+        <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
+        <field name="fromDate"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="PaymentGroupMembers" type="list" list-name="paymentGroupMembers"
