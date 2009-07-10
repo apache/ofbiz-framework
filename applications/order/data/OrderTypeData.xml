@@ -322,7 +322,7 @@ under the License.
     <ReturnReason sequenceId="03" returnReasonId="RTN_MISSHIP_ITEM" description="Mis-Shipped Item"/>
     <ReturnReason sequenceId="04" returnReasonId="RTN_DIG_FILL_FAIL" description="Digital Fulfillment Failed"/>
     <ReturnReason sequenceId="05" returnReasonId="RTN_COD_REJECT" description="COD Payment Rejected"/>
-
+    <ReturnReason sequenceId="06" returnReasonId="RTN_SIZE_EXCHANGE" description="Size Exchange"/>
     <!-- Return Types -->
     <ReturnType sequenceId="01" returnTypeId="RTN_CREDIT" description="Store Credit"/>
     <ReturnType sequenceId="02" returnTypeId="RTN_REFUND" description="Refund"/>
