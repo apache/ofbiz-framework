@@ -151,6 +151,13 @@ if (selPhones) {
     context.phone = delegator.findByPrimaryKey("TelecomNumber", [contactMechId : selPhones[0].contactMechId]);
 }
 
+// Fax 
+faxNumbers = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "FAX_NUMBER"]);
+faxNumbers = EntityUtil.filterByDate(faxContactMechs, nowTimestamp, null, null, true);
+if (faxNumbers) {  
+    context.fax = delegator.findOne("TelecomNumber", [contactMechId : faxNumbers[0]], false);
+}
+
 //Email
 emails = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
 selEmails = EntityUtil.filterByDate(emails, nowTimestamp, "fromDate", "thruDate", true);
