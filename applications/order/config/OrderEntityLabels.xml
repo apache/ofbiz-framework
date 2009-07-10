@@ -609,6 +609,9 @@
         <value xml:lang="th">ไม่ต้องการรายการ</value>
         <value xml:lang="zh">不需要明细</value>
     </property>
+    <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
+        <value xml:lang="en">Size Exchange</value>
+    </property>
     <property key="ReturnType.description.RTN_CREDIT">
         <value xml:lang="de">Guthaben</value>
         <value xml:lang="en">Store Credit</value>
