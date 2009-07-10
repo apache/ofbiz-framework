@@ -29,16 +29,13 @@ under the License.
         <table class="basic-table" cellspacing='0'>
             <tr>
                 <td class='label'>${uiLabelMap.FacilityGroupByShippingMethod}</td>
-                <td><input type="checkbox" name="groupByShippingMethod" id="groupByShippingMethod" value="Y" <#if "${requestParameters.groupByWarehouseArea?if_exists}" != "Y" && "${requestParameters.groupByNoOfOrderItems?if_exists}" != "Y" && "${requestParameters.groupByZero?if_exists}" != "Y" || "${requestParameters.groupByShippingMethod?if_exists}" == "Y">checked</#if>/></td>
+                <td><input type="checkbox" name="groupByShippingMethod" value="Y" <#if "${requestParameters.groupByShippingMethod?if_exists}" == "Y">checked</#if>/></td>
 
                 <td class='label'>${uiLabelMap.FacilityGroupByWarehouseArea}</td>
-                <td><input type="checkbox" name="groupByWarehouseArea" id="groupByWarehouseArea" value="Y" <#if "${requestParameters.groupByWarehouseArea?if_exists}" == "Y">checked</#if>/></td>
+                <td><input type="checkbox" name="groupByWarehouseArea" value="Y" <#if "${requestParameters.groupByWarehouseArea?if_exists}" == "Y">checked</#if>/></td>
 
                 <td class='label'>${uiLabelMap.FacilityGroupByNoOfOrderItems}</td>
-                <td><input type="checkbox" name="groupByNoOfOrderItems" id="groupByNoOfOrderItems" value="Y" <#if "${requestParameters.groupByNoOfOrderItems?if_exists}" == "Y">checked</#if>/></td>
-
-                <td class='label'>${uiLabelMap.FacilityNoGrouping}</td>
-                <td><input type="checkbox" name="groupByZero" id="groupByZero" value="Y" <#if "${requestParameters.groupByZero?if_exists}" == "Y">checked</#if>/></td>
+                <td><input type="checkbox" name="groupByNoOfOrderItems" value="Y" <#if "${requestParameters.groupByNoOfOrderItems?if_exists}" == "Y">checked</#if>/></td>
             </tr>
             <tr>&nbsp;</tr>
         </table>
@@ -57,8 +54,9 @@ under the License.
             <a class="buttontext" align='right' href="<@ofbizUrl>ReviewOrdersNotPickedOrPacked?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.FormFieldTitle_reviewOrdersNotPickedOrPacked}</a>
         </div>
         <table cellspacing="0" class="basic-table">
+           <#if pickMoveInfoList?has_content>
             <tr class="header-row">
-                <#if requestParameters.groupByZero?exists && requestParameters.groupByZero == "Y">
+                <#if !((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                 <td>${uiLabelMap.OrderOrder} #</td>
                 <#else>
                 <td>${uiLabelMap.ProductShipmentMethod}</td>
@@ -71,6 +69,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
+            </#if>
             <#if rushOrderInfo?has_content>
                 <#assign orderReadyToPickInfoList = rushOrderInfo.orderReadyToPickInfoList?if_exists>
                 <#assign orderNeedsStockMoveInfoList = rushOrderInfo.orderNeedsStockMoveInfoList?if_exists>
@@ -103,7 +102,6 @@ under the License.
                     <#assign groupName1 = pickMoveInfo.groupName1?if_exists>
                     <#assign groupName2 = pickMoveInfo.groupName2?if_exists>
                     <#assign groupName3 = pickMoveInfo.groupName3?if_exists>
-                    <#assign groupName4 = pickMoveInfo.groupName4?if_exists>
                     <#assign orderReadyToPickInfoList = pickMoveInfo.orderReadyToPickInfoList?if_exists>
                     <#assign orderNeedsStockMoveInfoList = pickMoveInfo.orderNeedsStockMoveInfoList?if_exists>
                     <#assign orderReadyToPickInfoListSize = (orderReadyToPickInfoList.size())?default(0)>
@@ -116,9 +114,8 @@ under the License.
                             <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
                             <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
                             <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
-                            <input type="hidden" name="groupByZero" value="${requestParameters.groupByZero?if_exists}"/>
                             <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
-                            <#if !groupName4?has_content>
+                            <#if ((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                             <td>
                                 <#if groupName1?has_content>
                                     <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName1}</a>
@@ -136,19 +133,19 @@ under the License.
                             </td>
                             <#else>
                             <td>
-                              <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName4}</a>
+                              <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName?if_exists}</a>
                             </td>
                             </#if>
                         </form>
                         <td>
-                          <#if groupName4?has_content>
+                          <#if !((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                             <#if orderReadyToPickInfoListSize == 0 >${uiLabelMap.CommonN}<#else>${uiLabelMap.CommonY}</#if>
                           <#else>
                             ${orderReadyToPickInfoListSize}
                           </#if>
                         </td>
                         <td>
-                          <#if groupName4?has_content>
+                          <#if !((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                             <#if orderNeedsStockMoveInfoListSize == 0>${uiLabelMap.CommonN}<#else>${uiLabelMap.CommonY}</#if>
                           <#else>
                               ${orderNeedsStockMoveInfoListSize}
@@ -161,13 +158,12 @@ under the License.
                                     <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
                                     <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
                                     <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
-                                    <input type="hidden" name="groupByZero" value="${requestParameters.groupByZero?if_exists}"/>
                                     <input type="hidden" name="orderIdList" value=""/>
                                     <#assign orderIdsForPickList = orderReadyToPickInfoList?if_exists>
                                     <#list orderIdsForPickList as orderIdForPickList>
                                         <input type="hidden" name="orderIdList" value="${orderIdForPickList.orderHeader.orderId}"/>
                                     </#list>
-                                    <#if !groupName4?has_content>
+                                    <#if ((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                                     <span class="label">${uiLabelMap.ProductPickFirst}</span>
                                     <input type="text" size="4" name="maxNumberOfOrders" value="20"/>
                                     </#if>
@@ -185,10 +181,9 @@ under the License.
                                     <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
                                     <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
                                     <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
-                                    <input type="hidden" name="groupByZero" value="${requestParameters.groupByZero?if_exists}"/>
-                                    <#if groupName4?has_content>
+                                    <#if !((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                                       <input type="hidden" name="maxNumberOfOrdersToPrint" value="1"/>
-                                      <input type="hidden" name="orderId" value="${groupName4}"/>
+                                      <input type="hidden" name="orderId" value="${groupName?if_exists}"/>
                                     <#else>
                                     <span class="label">${uiLabelMap.FormFieldTitle_printPickSheetFirst}</span>
                                     <input type="text" size="4" name="maxNumberOfOrdersToPrint" value="20"/>
@@ -203,8 +198,8 @@ under the License.
                     <#-- toggle the row color -->
                     <#assign alt_row = !alt_row>
                 </#list>
-                <#if !groupName4?has_content>
-                <tr<#if !alt_row> class="alternate-row"</#if>>
+                <#if ((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
+                <tr<#if alt_row> class="alternate-row"</#if>>
                     <th>${uiLabelMap.CommonAllMethods}</div></th>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
