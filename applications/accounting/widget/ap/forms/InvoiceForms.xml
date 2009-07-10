@@ -68,6 +68,7 @@ under the License.
    </form>
     
     <form name="FindApInvoices" type="single" target="FindApInvoices" extends="FindInvoices" extends-resource="component://accounting/webapp/accounting/invoice/InvoiceForms.xml">
+        <field name="parentTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field position="1" name="invoiceTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceType" description="${description}">
