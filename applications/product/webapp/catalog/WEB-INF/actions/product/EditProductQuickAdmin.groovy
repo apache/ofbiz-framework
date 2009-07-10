@@ -72,9 +72,9 @@ context.addedFeatureTypeIds = addedFeatureTypes.keySet();
 context.addedFeatureTypes = addedFeatureTypes;
 context.featuresByType = featuresByType;
 
-productId = request.getParameter("productId");
+productId = parameters.get("productId");
 if (!productId) {
-    productId = request.getParameter("PRODUCT_ID");
+    productId = parameters.get("PRODUCT_ID");
 }
 if (!productId) {
     productId = request.getAttribute("productId");
