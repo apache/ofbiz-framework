@@ -36,6 +36,10 @@ under the License.
           <div>
             <input type="submit" class="button" value="${uiLabelMap.CommonLogin}"/>
           </div>
+          <div>
+            <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:
+            <a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.CommonMayCreate}</a>
+          </div>
         </fieldset>
       </form>
     </div>
@@ -53,6 +57,7 @@ under the License.
         </div>
       </form>
     </div>
+<#--    
     <div class="screenlet">
       <h3>${uiLabelMap.CommonNewUser}</h3>
       <form method="post" action="<@ofbizUrl>newcustomer</@ofbizUrl>">
@@ -62,7 +67,7 @@ under the License.
         <div>
       </form>
     </div>
-
+-->
   </div>
   <div class="endcolumns">&nbsp;</div>
 </div>
