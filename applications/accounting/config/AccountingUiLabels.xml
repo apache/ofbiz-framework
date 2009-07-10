@@ -1656,6 +1656,9 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
     </property>
+    <property key="AccountingCommissionRun">
+        <value xml:lang="en">Commission Run</value>
+    </property>
     <property key="AccountingCompanies">
         <value xml:lang="ar">شركات</value>
         <value xml:lang="de">Firmen</value>
@@ -6847,6 +6850,9 @@
         <value xml:lang="ru">Секретный код карты</value>
         <value xml:lang="th">หมายเลขบัตรประกัน</value>
         <value xml:lang="zh">卡的安全码</value>
+    </property>
+    <property key="AccountingSelectPartiesForCommissionInvoice">
+        <value xml:lang="en">Select The Parties For Commission Invoice</value>
     </property>
     <property key="AccountingSendChecks">
         <value xml:lang="ar">تعليم الصكوك كمرسلة</value>

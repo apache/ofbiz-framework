@@ -2158,6 +2158,11 @@ under the License.
         <response name="success" type="view" value="GlAccountTrialBalanceReportPdf"/>
     </request-map>
 
+    <request-map uri="CommissionRun">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CommissionRun"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2427,6 +2432,7 @@ under the License.
     <view-map name="AcctgTransDetailReportPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransDetailReportPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="GlAccountTrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalance"/>
     <view-map name="GlAccountTrialBalanceReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalanceReportPdf" content-type="application/pdf" encoding="none"/>
-
+    <view-map name="CommissionRun" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#CommissionRun"/>
+    
     <!-- end of view mappings -->
 </site-conf>
