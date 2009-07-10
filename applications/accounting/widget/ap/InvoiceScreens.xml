@@ -47,7 +47,12 @@ under the License.
                 <set field="titleProperty" value="AccountingFindApInvoices"/>
                 <set field="tabButtonItem" value="viewInvoices"/>
                 <set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
-                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/FindApInvoices.groovy"/>
+                <service service-name="performFind" result-map="invoiceMap">
+                    <field-map field-name="inputFields" from-field="parameters"/>
+                    <field-map field-name="entityName" value="InvoiceAndType"/>
+                    <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                </service>
+                <set field="invoices" from-field="invoiceMap.listIt"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
