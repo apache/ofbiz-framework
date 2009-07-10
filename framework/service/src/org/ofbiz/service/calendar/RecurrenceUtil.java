@@ -21,7 +21,7 @@ package org.ofbiz.service.calendar;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

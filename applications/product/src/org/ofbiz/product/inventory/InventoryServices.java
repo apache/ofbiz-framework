@@ -21,7 +21,7 @@ package org.ofbiz.product.inventory;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

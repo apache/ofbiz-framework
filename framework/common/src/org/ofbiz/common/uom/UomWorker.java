@@ -21,7 +21,7 @@ package org.ofbiz.common.uom;
 
 import org.ofbiz.entity.GenericDelegator;
 
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.sql.Timestamp;
 
 /**

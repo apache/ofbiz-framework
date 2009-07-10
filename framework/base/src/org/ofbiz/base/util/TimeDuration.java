@@ -19,7 +19,7 @@
 package org.ofbiz.base.util;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 
 /** A representation of a period of time. */
 @SuppressWarnings("serial")

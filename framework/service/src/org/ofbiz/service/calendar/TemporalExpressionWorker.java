@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service.calendar;
 
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;

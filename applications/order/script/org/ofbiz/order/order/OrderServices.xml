@@ -36,10 +36,11 @@ under the License.
 
         <if-not-empty field="monthsToInclude">
             <now-timestamp field="nowTimestamp"/>
+            <!-- TODO: Change this to use the <set-calendar> operation -->
             <call-bsh><![CDATA[
-                calendar = java.util.Calendar.getInstance();
+                calendar = com.ibm.icu.util.Calendar.getInstance();
                 calendar.setTimeInMillis(nowTimestamp.getTime());
-                calendar.add(java.util.Calendar.MONTH, -monthsToInclude.intValue());
+                calendar.add(com.ibm.icu.util.Calendar.MONTH, -monthsToInclude.intValue());
                 parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()));
             ]]></call-bsh>
             <set from-field="nowTimestamp" field="parameters.thruDate"/>

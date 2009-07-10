@@ -20,7 +20,7 @@ package org.ofbiz.manufacturing.techdata;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;

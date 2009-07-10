@@ -182,11 +182,12 @@ under the License.
                                     </else>
                                 </if-not-empty>
                             </if-empty>
+                            <!-- TODO: Convert this to a <set-calendar> operation -->
                             <call-bsh><![CDATA[
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
-                            java.util.Calendar cal = java.util.Calendar.getInstance();
+                            com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
                             cal.setTimeInMillis(orderDate.getTime());
-                            cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+                            cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
                             return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
                             ]]></call-bsh>
 
@@ -248,11 +249,12 @@ under the License.
                                     </else>
                                 </if-not-empty>
                             </if-empty>
+                            <!-- TODO: Convert this to a <set-calendar> operation -->
                             <call-bsh><![CDATA[
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
-                            java.util.Calendar cal = java.util.Calendar.getInstance();
+                            com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
                             cal.setTimeInMillis(orderDate.getTime());
-                            cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+                            cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
                             return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
                             ]]></call-bsh>
 
@@ -478,11 +480,12 @@ under the License.
         <if-empty field="daysToShip">
             <set field="daysToShip" value="30" type="Long"/>
         </if-empty>
+        <!-- TODO: Convert this to a <set-calendar> operation -->
         <call-bsh><![CDATA[
         java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
-        java.util.Calendar cal = java.util.Calendar.getInstance();
+        com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
         cal.setTimeInMillis(orderDate.getTime());
-        cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+        cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
         return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
         ]]></call-bsh>
     </simple-method>

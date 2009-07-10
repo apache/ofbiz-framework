@@ -19,7 +19,7 @@
 package org.ofbiz.service.calendar;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;

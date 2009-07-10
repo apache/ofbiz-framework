@@ -21,7 +21,7 @@ package org.ofbiz.widget.html;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;

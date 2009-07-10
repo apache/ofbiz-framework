@@ -1221,7 +1221,7 @@ any resulting litigation.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 MIT/X License:
-ofbiz/trunk/framework/base/lib/icu4j_3_6.jar
+ofbiz/trunk/framework/base/lib/icu4j-4_2_1.jar
 ofbiz/trunk/framework/entity/lib/ofbiz-minerva.jar
 ofbiz/trunk/framework/jetty/lib/jcl104-over-slf4j-1.3.1.jar
 ofbiz/trunk/framework/jetty/lib/slf4j-api-1.3.1.jar

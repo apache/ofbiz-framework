@@ -23,7 +23,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.accounting.util.UtilAccounting;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 
 if (organizationPartyId) {
     context.currentOrganization = delegator.findOne("PartyNameView", [partyId : organizationPartyId], false);

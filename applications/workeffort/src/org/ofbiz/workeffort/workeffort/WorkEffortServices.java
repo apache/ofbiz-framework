@@ -20,7 +20,7 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -392,7 +392,7 @@ public class WorkEffortServices {
      * <ul>
      * <li>start - TimeStamp (Period start date/time)</li>
      * <li>numPeriods - Integer</li>
-     * <li>periodType - Integer (see java.util.Calendar)</li>
+     * <li>periodType - Integer (see com.ibm.icu.util.Calendar)</li>
      * <li>eventStatus - String</li>
      * <li>partyId - String</li>
      * <li>partyIds - List</li>

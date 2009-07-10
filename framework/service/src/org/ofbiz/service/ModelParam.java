@@ -234,6 +234,8 @@ public class ModelParam implements Serializable {
             return "integer";
         } else if (ObjectType.instanceOf(java.util.Calendar.class, this.type)) {
             return "dateTime";
+        } else if (ObjectType.instanceOf(com.ibm.icu.util.Calendar.class, this.type)) {
+            return "dateTime";
         } else if (ObjectType.instanceOf(java.util.Date.class, this.type)) {
             return "dateTime";
         } else if (ObjectType.instanceOf(java.lang.Long.class, this.type)) {

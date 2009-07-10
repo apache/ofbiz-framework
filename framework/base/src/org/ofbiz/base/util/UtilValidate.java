@@ -19,7 +19,7 @@
 package org.ofbiz.base.util;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 
 import org.apache.commons.validator.EmailValidator;

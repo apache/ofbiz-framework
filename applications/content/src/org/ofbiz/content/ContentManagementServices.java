@@ -21,7 +21,7 @@ package org.ofbiz.content;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

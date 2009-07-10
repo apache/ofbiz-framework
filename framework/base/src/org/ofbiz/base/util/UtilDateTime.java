@@ -25,7 +25,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javolution.util.FastMap;
+import com.ibm.icu.util.Calendar;
 
 /**
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
@@ -300,7 +299,7 @@ public class UtilDateTime {
         return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
 
-    public static java.util.Calendar toCalendar(java.sql.Timestamp stamp) {
+    public static com.ibm.icu.util.Calendar toCalendar(java.sql.Timestamp stamp) {
         Calendar cal = Calendar.getInstance();
         if (stamp != null) {
             cal.setTimeInMillis(stamp.getTime());
@@ -760,6 +759,10 @@ public class UtilDateTime {
 
     // ----- New methods that take a timezone and locale -- //
 
+    public static Calendar getCalendarInstance(TimeZone timeZone, Locale locale) {
+        return Calendar.getInstance(com.ibm.icu.util.TimeZone.getTimeZone(timeZone.getID()), locale);
+    }
+
     /**
      * Returns a Calendar object initialized to the specified date/time, time zone,
      * and locale.
@@ -768,10 +771,10 @@ public class UtilDateTime {
      * @param timeZone
      * @param locale
      * @return Calendar object
-     * @see java.util.Calendar
+     * @see com.ibm.icu.util.Calendar
      */
     public static Calendar toCalendar(Date date, TimeZone timeZone, Locale locale) {
-        Calendar cal = Calendar.getInstance(timeZone, locale);
+        Calendar cal = getCalendarInstance(timeZone, locale);
         if (date != null) {
             cal.setTime(date);
         }
@@ -783,12 +786,12 @@ public class UtilDateTime {
      * perform date/time arithmetic across locales and time zones.
      *
      * @param stamp date/time to perform arithmetic on
-     * @param adjType the adjustment type to perform. Use one of the java.util.Calendar fields.
+     * @param adjType the adjustment type to perform. Use one of the com.ibm.icu.util.Calendar fields.
      * @param adjQuantity the adjustment quantity.
      * @param timeZone
      * @param locale
      * @return adjusted Timestamp
-     * @see java.util.Calendar
+     * @see com.ibm.icu.util.Calendar
      */
     public static Timestamp adjustTimestamp(Timestamp stamp, int adjType, int adjQuantity, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
@@ -1140,11 +1143,9 @@ public class UtilDateTime {
     }
 
     public static Date getEarliestDate() {
-        // According to java.util.Calendar docs, earliest accurate date
-        // using Gregorian calendar is March 1, 4 AD.
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        cal.set(Calendar.YEAR, 4);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        Calendar cal = getCalendarInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
+        cal.set(Calendar.YEAR, cal.getActualMinimum(Calendar.YEAR));
+        cal.set(Calendar.MONTH, cal.getActualMinimum(Calendar.MONTH));
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -1154,9 +1155,8 @@ public class UtilDateTime {
     }
 
     public static Date getLatestDate() {
-        // Return last day of 2999 AD.
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        cal.set(Calendar.YEAR, 2999);
+        Calendar cal = getCalendarInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
+        cal.set(Calendar.YEAR, cal.getActualMaximum(Calendar.YEAR));
         cal.set(Calendar.MONTH, cal.getActualMaximum(Calendar.MONTH));
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
         cal.set(Calendar.HOUR_OF_DAY, 23);
