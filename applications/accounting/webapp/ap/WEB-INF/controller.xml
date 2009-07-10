@@ -48,6 +48,12 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
+    <request-map uri="processMassCheckRun">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentAndPaymentGroupForInvoices"/>
+        <response name="success" type="request" value="FindPurchaseInvoices"/>
+        <response name="error" type="view" value="FindPurchaseInvoices"/>
+    </request-map>
 
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">

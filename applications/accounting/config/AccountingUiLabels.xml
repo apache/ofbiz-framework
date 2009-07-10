@@ -5335,6 +5335,9 @@
     <property key="AccountingNoAcctgTransFound">
         <value xml:lang="en">No Accounting Transactions Found.</value>
     </property>
+    <property key="AccountingNoInvoicesReadyOrOutstandingAmountZero">
+        <value xml:lang="en">Either no selected invoices in ready state or selected invoices outstanding amount equals to zero.</value>
+    </property>
     <property key="AccountingNoRecordFound">
         <value xml:lang="en">No Record Found.</value>
     </property>
