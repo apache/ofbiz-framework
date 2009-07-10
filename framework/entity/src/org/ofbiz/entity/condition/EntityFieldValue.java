@@ -24,7 +24,10 @@ import java.util.Map;
 
 import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
+import javolution.util.FastList;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
@@ -33,6 +36,7 @@ import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
@@ -40,6 +44,8 @@ import org.ofbiz.entity.model.ModelViewEntity;
  */
 @SuppressWarnings("serial")
 public class EntityFieldValue extends EntityConditionValue implements Reusable {
+
+    public static final String module = EntityFieldValue.class.getName();
 
     protected static final ObjectFactory<EntityFieldValue> entityFieldValueFactory = new ObjectFactory<EntityFieldValue>() {
         @Override
@@ -50,17 +56,18 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     protected String fieldName = null;
     protected String entityAlias = null;
+    protected List<String> entityAliasStack = null;
     protected ModelViewEntity modelViewEntity = null;
 
     public static EntityFieldValue makeFieldValue(String fieldName) {
         EntityFieldValue efv = EntityFieldValue.entityFieldValueFactory.object();
-        efv.init(fieldName, null, null);
+        efv.init(fieldName, null, null, null);
         return efv;
     }
 
-    public static EntityFieldValue makeFieldValue(String fieldName, String entityAlias, ModelViewEntity modelViewEntity) {
+    public static EntityFieldValue makeFieldValue(String fieldName, String entityAlias, List<String> entityAliasStack, ModelViewEntity modelViewEntity) {
         EntityFieldValue efv = EntityFieldValue.entityFieldValueFactory.object();
-        efv.init(fieldName, entityAlias, modelViewEntity);
+        efv.init(fieldName, entityAlias, entityAliasStack, modelViewEntity);
         return efv;
     }
 
@@ -69,17 +76,33 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     /** @deprecated Use EntityFieldValue.makeFieldValue() instead */
     @Deprecated
     public EntityFieldValue(String fieldName) {
-        this.init(fieldName, null, null);
+        this.init(fieldName, null, null, null);
     }
 
-    public void init(String fieldName, String entityAlias, ModelViewEntity modelViewEntity) {
+    public void init(String fieldName, String entityAlias, List<String> entityAliasStack, ModelViewEntity modelViewEntity) {
         this.fieldName = fieldName;
         this.entityAlias = entityAlias;
+        if (UtilValidate.isNotEmpty(entityAliasStack)) {
+            this.entityAliasStack = FastList.newInstance();
+            this.entityAliasStack.addAll(entityAliasStack);
+        }
         this.modelViewEntity = modelViewEntity;
+        if (UtilValidate.isNotEmpty(this.entityAliasStack) && UtilValidate.isEmpty(this.entityAlias)) {
+            // look it up on the view entity so it can be part of the big list, this only happens for aliased fields, so find the entity-alias and field-name for the alias
+            ModelAlias modelAlias = this.modelViewEntity.getAlias(this.fieldName);
+            if (modelAlias != null) {
+                this.entityAlias = modelAlias.getEntityAlias();
+                this.fieldName = modelAlias.getField();
+            }
+            // TODO/NOTE: this will ignore function, group-by, etc... should maybe support those in conditions too at some point
+        }
     }
 
     public void reset() {
-    this.fieldName = null;
+        this.fieldName = null;
+        this.entityAlias = null;
+        this.entityAliasStack = null;
+        this.modelViewEntity = null;
     }
 
     public String getFieldName() {
@@ -88,14 +111,21 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     @Override
     public int hashCode() {
-        return fieldName.hashCode();
+        int hash = fieldName.hashCode();
+        if (this.entityAlias != null) hash |= this.entityAlias.hashCode();
+        if (this.entityAliasStack != null) hash |= this.entityAliasStack.hashCode();
+        if (this.modelViewEntity != null) hash |= this.modelViewEntity.hashCode();
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityFieldValue)) return false;
         EntityFieldValue otherValue = (EntityFieldValue) obj;
-        return fieldName.equals(otherValue.fieldName);
+        if (!fieldName.equals(otherValue.fieldName)) return false;
+        if (UtilMisc.compare(this.entityAlias, otherValue.entityAlias) != 0) return false;
+        if (UtilMisc.compare(this.entityAliasStack, otherValue.entityAliasStack) != 0) return false;
+        return true;
     }
 
     @Override
@@ -106,12 +136,33 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     @Override
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         if (this.modelViewEntity != null) {
+            // NOTE: this section is a bit of a hack; the other code is terribly complex and really needs to be refactored to incorporate support for this
+            
             if (UtilValidate.isNotEmpty(entityAlias)) {
                 ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(entityAlias);
                 ModelField modelField = memberModelEntity.getField(fieldName);
-                sql.append(entityAlias);
-                sql.append(".");
-                sql.append(modelField.getColName());
+
+                // using entityAliasStack (ordered top to bottom) build a big long alias; not that dots will be replaced after it is combined with the column name in the SQL gen
+                if (UtilValidate.isNotEmpty(this.entityAliasStack)) {
+                    boolean dotUsed = false;
+                    for (String curEntityAlias: entityAliasStack) {
+                        sql.append(curEntityAlias);
+                        if (dotUsed) {
+                            sql.append("_");
+                        } else {
+                            sql.append(".");
+                            dotUsed = true;
+                        }
+                       
+                    }
+                    sql.append(entityAlias);
+                    sql.append("_");
+                    sql.append(modelField.getColName());
+                } else {
+                    sql.append(entityAlias);
+                    sql.append(".");
+                    sql.append(modelField.getColName());
+                }
             } else {
                 sql.append(getColName(tableAliases, modelViewEntity, fieldName, includeTableNamePrefix, datasourceInfo));
             }

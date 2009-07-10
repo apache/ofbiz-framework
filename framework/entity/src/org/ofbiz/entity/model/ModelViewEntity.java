@@ -32,25 +32,18 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionValue;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.finder.ByConditionFinder;
-import org.ofbiz.entity.finder.EntityFinderUtil.Condition;
-import org.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
-import org.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
-import org.ofbiz.entity.finder.EntityFinderUtil.ConditionObject;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -292,19 +285,41 @@ public class ModelViewEntity extends ModelEntity {
         this.viewLinks.add(viewLink);
     }
     
-    public EntityCondition getViewEntityConditionWhere(ModelFieldTypeReader modelFieldTypeReader) {
-        if (this.viewEntityCondition == null) return null;
-        EntityCondition viewEntityConditionWhere = this.viewEntityCondition.getWhereCondition(modelFieldTypeReader);
-        return viewEntityConditionWhere;
-    }
-    public EntityCondition getViewEntityConditionHaving(ModelFieldTypeReader modelFieldTypeReader) {
-        if (this.viewEntityCondition == null) return null;
-        EntityCondition viewEntityConditionHaving = this.viewEntityCondition.getHavingCondition(modelFieldTypeReader);
-        return viewEntityConditionHaving;
-    }
-    public List<String> getViewEntityConditionOrderBy() {
-        if (this.viewEntityCondition == null) return null;
-        return this.viewEntityCondition.getOrderByList();
+    public void populateViewEntityConditionInformation(ModelFieldTypeReader modelFieldTypeReader, List<EntityCondition> whereConditions, List<EntityCondition> havingConditions, List<String> orderByList, List<String> entityAliasStack) {
+        if (entityAliasStack == null) {
+            entityAliasStack = FastList.newInstance();
+        }
+        
+        if (this.viewEntityCondition != null) {
+            EntityCondition whereCondition = this.viewEntityCondition.getWhereCondition(modelFieldTypeReader, entityAliasStack);
+            if (whereCondition != null) {
+                whereConditions.add(whereCondition);
+            }
+        }
+        
+        if (this.viewEntityCondition != null) {
+            EntityCondition havingCondition = this.viewEntityCondition.getHavingCondition(modelFieldTypeReader, entityAliasStack);
+            if (havingCondition != null) {
+                havingConditions.add(havingCondition);
+            }
+        }
+        
+        // add the current one first so it overrides the lower level ones
+        if (this.viewEntityCondition != null) {
+            List<String> currentOrderByList = this.viewEntityCondition.getOrderByList();
+            if (currentOrderByList != null) {
+                orderByList.addAll(currentOrderByList);
+            }
+        }
+        
+        for (Map.Entry<String, ModelEntity> memberEntityEntry: this.memberModelEntities.entrySet()) {
+            if (memberEntityEntry.getValue() instanceof ModelViewEntity) {
+                ModelViewEntity memberViewEntity = (ModelViewEntity) memberEntityEntry.getValue();
+                entityAliasStack.add(memberEntityEntry.getKey());
+                memberViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, entityAliasStack);
+                entityAliasStack.remove(entityAliasStack.size() - 1);
+            }
+        }
     }
 
     @Override
@@ -1115,6 +1130,7 @@ public class ModelViewEntity extends ModelEntity {
     
     public static class ViewEntityCondition {
         protected ModelViewEntity modelViewEntity;
+        protected ModelViewLink modelViewLink;
         protected boolean filterByDate;
         protected boolean distinct;
         protected List<String> orderByList;
@@ -1123,6 +1139,7 @@ public class ModelViewEntity extends ModelEntity {
 
         public ViewEntityCondition(ModelViewEntity modelViewEntity, ModelViewLink modelViewLink, Element element) {
             this.modelViewEntity = modelViewEntity;
+            this.modelViewLink = modelViewLink;
             this.filterByDate = "true".equals(element.getAttribute("filter-by-date"));
             this.distinct = "true".equals(element.getAttribute("distinct"));
             // process order-by
@@ -1152,17 +1169,17 @@ public class ModelViewEntity extends ModelEntity {
             return this.orderByList;
         }
         
-        public EntityCondition getWhereCondition(ModelFieldTypeReader modelFieldTypeReader) {
+        public EntityCondition getWhereCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
             if (this.whereCondition != null) {
-                return this.whereCondition.createCondition(modelFieldTypeReader);
+                return this.whereCondition.createCondition(modelFieldTypeReader, entityAliasStack);
             } else {
                 return null;
             }
         }
         
-        public EntityCondition getHavingCondition(ModelFieldTypeReader modelFieldTypeReader) {
+        public EntityCondition getHavingCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
             if (this.havingCondition != null) {
-                return this.havingCondition.createCondition(modelFieldTypeReader);
+                return this.havingCondition.createCondition(modelFieldTypeReader, entityAliasStack);
             } else {
                 return null;
             }
@@ -1170,8 +1187,9 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static interface ViewCondition extends Serializable {
-        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader);
+        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack);
     }
+    
     public static class ViewConditionExpr implements ViewCondition {
         protected ViewEntityCondition viewEntityCondition;
         protected String entityAlias;
@@ -1192,10 +1210,20 @@ public class ModelViewEntity extends ModelEntity {
             this.relFieldName = conditionExprElement.getAttribute("rel-field-name");
             this.value = conditionExprElement.getAttribute("value");
             this.ignoreCase = "true".equals(conditionExprElement.getAttribute("ignore-case"));
+            
+            // if we are in a view-link, default to the entity-alias and rel-entity-alias there
+            if (this.viewEntityCondition.modelViewLink != null) {
+                if (UtilValidate.isEmpty(this.entityAlias)) {
+                    this.entityAlias = this.viewEntityCondition.modelViewLink.getEntityAlias();
+                }
+                if (UtilValidate.isEmpty(this.relEntityAlias)) {
+                    this.relEntityAlias = this.viewEntityCondition.modelViewLink.getRelEntityAlias();
+                }
+            }
         }
-
-        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader) {
-            EntityOperator operator = EntityOperator.lookup(this.operator);
+        
+        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
+            EntityOperator<?> operator = EntityOperator.lookup(this.operator);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + this.operator);
             }
@@ -1227,12 +1255,12 @@ public class ModelViewEntity extends ModelEntity {
 
             if (Debug.verboseOn()) Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
             
-            Object lhs = EntityFieldValue.makeFieldValue(fieldName, entityAlias, this.viewEntityCondition.modelViewEntity);
+            EntityConditionValue lhs = EntityFieldValue.makeFieldValue(this.fieldName, this.entityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             Object rhs = null;
             if (value != null) {
                 rhs = value;
             } else {
-                rhs = EntityFieldValue.makeFieldValue(relFieldName, relEntityAlias, this.viewEntityCondition.modelViewEntity);
+                rhs = EntityFieldValue.makeFieldValue(this.relFieldName, this.relEntityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             }
             
             if (operator == EntityOperator.NOT_EQUAL && value != null) {
@@ -1281,24 +1309,24 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
-        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader) {
+        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
             if (this.conditionList.size() == 0) {
                 return null;
             }
             if (this.conditionList.size() == 1) {
                 ViewCondition condition = this.conditionList.get(0);
-                return condition.createCondition(modelFieldTypeReader);
+                return condition.createCondition(modelFieldTypeReader, entityAliasStack);
             }
 
             List<EntityCondition> entityConditionList = FastList.<EntityCondition>newInstance();
             for (ViewCondition curCondition: conditionList) {
-                EntityCondition econd = curCondition.createCondition(modelFieldTypeReader);
+                EntityCondition econd = curCondition.createCondition(modelFieldTypeReader, entityAliasStack);
                 if (econd != null) {
                     entityConditionList.add(econd);
                 }
             }
 
-            EntityOperator operator = EntityOperator.lookup(this.combine);
+            EntityOperator<?> operator = EntityOperator.lookup(this.combine);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operator);
             }
