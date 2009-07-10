@@ -30,9 +30,11 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.property.*;
 
 import org.ofbiz.service.calendar.TemporalExpression;
-import org.ofbiz.service.calendar.TemporalExpressions;
 import org.ofbiz.service.calendar.TemporalExpressionVisitor;
+import org.ofbiz.service.calendar.TemporalExpressions;
 import org.ofbiz.service.calendar.TemporalExpressions.*;
+
+import com.ibm.icu.util.Calendar;
 
 /** Temporal Expression to iCalendar recurrence converter. The conversion results
  * (or conversion success) are unpredictable since the OFBiz Temporal Expressions
@@ -156,8 +158,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         dayList.add(dayOfWeekArray[startDay - 1]);
         while (startDay != endDay) {
             startDay++;
-            if (startDay > java.util.Calendar.SATURDAY) {
-                startDay = java.util.Calendar.SUNDAY;
+            if (startDay > Calendar.SATURDAY) {
+                startDay = Calendar.SUNDAY;
             }
             dayList.add(dayOfWeekArray[startDay - 1]);
         }
@@ -170,14 +172,14 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     public void visit(TemporalExpressions.MonthRange expr) {
         int startMonth = expr.getStartMonth();
         int endMonth = expr.getEndMonth();
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        int maxMonth = cal.getActualMaximum(java.util.Calendar.MONTH);
+        Calendar cal = Calendar.getInstance();
+        int maxMonth = cal.getActualMaximum(Calendar.MONTH);
         NumberList monthList = new NumberList();
         monthList.add(startMonth + 1);
         while (startMonth != endMonth) {
             startMonth++;
             if (startMonth > maxMonth) {
-                startMonth = java.util.Calendar.JANUARY;
+                startMonth = Calendar.JANUARY;
             }
             monthList.add(startMonth + 1);
         }
@@ -214,17 +216,17 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         int freqCount = expr.getFreqCount();
         int freqType = expr.getFreqType();
         switch (freqType) {
-        case java.util.Calendar.SECOND:
+        case Calendar.SECOND:
             this.state.addRecur((new Recur(Recur.SECONDLY, freqCount)));
-        case java.util.Calendar.MINUTE:
+        case Calendar.MINUTE:
             this.state.addRecur((new Recur(Recur.MINUTELY, freqCount)));
-        case java.util.Calendar.HOUR:
+        case Calendar.HOUR:
             this.state.addRecur((new Recur(Recur.HOURLY, freqCount)));
-        case java.util.Calendar.DAY_OF_MONTH:
+        case Calendar.DAY_OF_MONTH:
             this.state.addRecur((new Recur(Recur.DAILY, freqCount)));
-        case java.util.Calendar.MONTH:
+        case Calendar.MONTH:
             this.state.addRecur((new Recur(Recur.MONTHLY, freqCount)));
-        case java.util.Calendar.YEAR:
+        case Calendar.YEAR:
             this.state.addRecur((new Recur(Recur.YEARLY, freqCount)));
         }
     }

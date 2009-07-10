@@ -20,7 +20,7 @@ package org.ofbiz.bi.util;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

@@ -19,7 +19,7 @@
 package org.ofbiz.webapp.stats;
 
 import java.net.InetAddress;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

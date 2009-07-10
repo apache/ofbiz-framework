@@ -19,7 +19,7 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 

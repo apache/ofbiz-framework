@@ -20,7 +20,7 @@ package org.ofbiz.entityext.synchronization;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;

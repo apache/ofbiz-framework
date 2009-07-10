@@ -19,7 +19,7 @@
 package org.ofbiz.service.calendar;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;

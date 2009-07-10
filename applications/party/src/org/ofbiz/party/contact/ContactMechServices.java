@@ -21,7 +21,7 @@ package org.ofbiz.party.contact;
 
 import java.security.SecureRandom;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

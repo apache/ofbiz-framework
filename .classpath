@@ -86,7 +86,7 @@
     <classpathentry kind="lib" path="framework/base/lib/juel-2.1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdbm-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/icu4j-3_6.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/icu4j-4_2_1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpunit.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>

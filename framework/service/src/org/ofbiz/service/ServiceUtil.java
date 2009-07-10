@@ -19,7 +19,7 @@
 package org.ofbiz.service;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;

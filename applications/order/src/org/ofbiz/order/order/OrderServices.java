@@ -21,7 +21,7 @@ package org.ofbiz.order.order;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
+import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
