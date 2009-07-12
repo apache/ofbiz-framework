@@ -305,7 +305,7 @@ public class BOMTree {
 
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects all the productId it contains.
-     * @return ArrayLsit conatining all the tree's productId.
+     * @return ArrayList containing all the tree's productId.
      */
     public ArrayList getAllProductsId() {
         ArrayList nodeArr = new ArrayList();
