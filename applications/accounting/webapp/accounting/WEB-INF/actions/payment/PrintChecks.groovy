@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 
 // rounding mode
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
@@ -56,5 +59,9 @@ selected.each { row ->
         payments.add(payment);
     }
 }
+paymentGroupMembers = EntityUtil.filterByDate(delegator.findList("PaymentGroupMember", EntityCondition.makeCondition("paymentGroupId", EntityOperator.EQUALS, parameters.paymentGroupId), null, null, null, false));
+//in the case of a multiple payments, paymentId List is supplied.
+paymentGroupMembers.each { paymentGropupMember->
+    payments.add(paymentGropupMember.getRelatedOne("Payment"));
+}
 context.payments = payments;
-

@@ -5992,6 +5992,9 @@
     <property key="AccountingPaymentGroupOverview">
         <value xml:lang="en">Payment Group Overview</value>
     </property>
+    <property key="AccountingPaymentGroupOverviewFor">
+        <value xml:lang="en">Payment Group Overview For</value>
+    </property>
     <property key="AccountingPaymentHeader">
         <value xml:lang="ar">رأسية التسديد</value>
         <value xml:lang="en">Payment Header</value>

@@ -502,6 +502,17 @@ under the License.
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
+        <menu-item name="printCheck" title="${uiLabelMap.AccountingPrintChecks}">
+            <condition>
+                <and>
+                    <if-compare field="display" operator="equals" value="true"/>
+                    <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN"/>
+                </and>
+            </condition>
+            <link target="printChecks.pdf">
+                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </link>
+        </menu-item>
         <menu-item name="cancelpaymentGroup" title="${uiLabelMap.CommonCancel}">
             <condition>
                 <and>
