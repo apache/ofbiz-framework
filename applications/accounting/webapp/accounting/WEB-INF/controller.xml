@@ -2062,6 +2062,24 @@ under the License.
         <response name="error" type="view" value="ComparativeBalanceSheet"/>
     </request-map>
     <request-map uri="TransactionTotals"><security https="true" auth="true"/><response name="success" type="view" value="TransactionTotals"/></request-map>
+    <request-map uri="FindPaymentsForDepositOrWithdraw">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PaymentsDepositWithdraw"/>
+    </request-map>
+    <request-map uri="ListPaymentsForDepositOrWithdraw">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PaymentsDepositWithdraw"/>
+        <response name="error" type="view" value="PaymentsDepositWithdraw"/>
+    </request-map>
+    <request-map uri="getPaymentRunningTotal">
+        <event type="jsonservice" invoke="getPaymentRunningTotal"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+    <request-map uri="LookupCustomerName">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupCustomerName"/>
+    </request-map>
 
 
     <!-- ================ Depreciation Calculation Report requests ================ -->
@@ -2399,6 +2417,8 @@ under the License.
     <view-map name="BalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheet"/>
     <view-map name="ComparativeBalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheet"/>
     <view-map name="TransactionTotals" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotals"/>
+    <view-map name="PaymentsDepositWithdraw" type="screen" page="component://accounting/widget/FinAccountScreens.xml#PaymentsDepositWithdraw"/>
+    <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
 
     <!-- Assignment Mappings -->
     <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>

@@ -2291,8 +2291,17 @@
         <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
     </property>
+    <property key="AccountingDeposit">
+        <value xml:lang="en">Deposit</value>
+    </property>
     <property key="AccountingDepositSlip">
         <value xml:lang="en">Deposit Slip</value>
+    </property>
+    <property key="AccountingDepositWithdraw">
+        <value xml:lang="en">Deposit/Withdraw</value>
+    </property>
+    <property key="AccountingDepositOrWithdrawPayments">
+        <value xml:lang="en">Deposit Or Withdraw Payments</value>
     </property>
     <property key="AccountingDescr">
         <value xml:lang="ar">وصف</value>
@@ -3789,6 +3798,9 @@
         <value xml:lang="it">Configurazione Contabilità Generale</value>
         <value xml:lang="nl">Algemene configuratie boekhouding</value>
         <value xml:lang="th">การกำหนดบัญชีแยกประเภททั่วไป</value>
+    </property>
+    <property key="AccountingGroupInOneTransaction">
+        <value xml:lang="en">Group in one Transaction</value>
     </property>
     <property key="AccountingHideFields">
         <value xml:lang="ar">إخفاء الحقول</value>

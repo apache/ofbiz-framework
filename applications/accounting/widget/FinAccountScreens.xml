@@ -27,6 +27,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="FindFinAccount"/>
+                <entity-one value-field="finAccount" entity-name="FinAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -191,6 +192,42 @@ under the License.
                             <include-form name="AddFinAccountAuth" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                         <include-form name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PaymentsDepositWithdraw">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingDepositOrWithdrawPayments"/>
+                <set field="tabButtonItem" value="depositWithdraw"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
+                <set field="cardType" from-field="parameters.cardType"/>
+                <set field="fromDate" type="Timestamp" from-field="parameters.fromDate"/>
+                <set field="thruDate" type="Timestamp" from-field="parameters.thruDate"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/DepositWithdrawPayments.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="PaymentsDepositWithdraw" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section> 
+                                    <decorator-section name="search-results">
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/accounting/payment/depositWithdrawPayments.ftl"/></html>
+                                        </platform-specific>
+                                    </decorator-section>
+                                </decorator-screen>  
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
