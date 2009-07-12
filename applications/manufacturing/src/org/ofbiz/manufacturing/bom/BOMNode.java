@@ -466,7 +466,7 @@ public class BOMNode {
         this.depth = depth;
         this.quantity = quantity.multiply(quantityMultiplier).multiply(scrapFactor);
         // First of all we visit the current node.
-        if (this.getProduct().getString("shipmentBoxTypeId") != null) {
+        if (this.getProduct().getString("defaultShipmentBoxTypeId") != null) {
             arr.add(this);
         } else {
             GenericValue oneChild = null;
