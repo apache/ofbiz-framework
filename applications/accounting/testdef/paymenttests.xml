@@ -22,8 +22,8 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <!-- Test case for Batching Payments process-->
-    <test-case case-name="auto-create-batch-for-payments">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCreateBatchForPayments"/>
+    <test-case case-name="auto-create-payment-group-and-memebers">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCreatePaymentGroupAndMember"/>
     </test-case>
     
     <!--Test case for voiding payments -->

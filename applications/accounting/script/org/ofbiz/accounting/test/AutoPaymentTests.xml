@@ -21,17 +21,19 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
-    <simple-method method-name="testCreateBatchForPayments" short-description="auto test batching process" login-required="false">
+    <simple-method method-name="testCreatePaymentGroupAndMember" short-description="auto test createPaymentGroupAndMember service" login-required="false">
         <set field="paymentIds[]" value="demo10001"/>
         <set field="paymentIds[]" value="demo10010"/>
+        <set field="paymentGroupTypeId" value="BATCH_PAYMENT"/>
         <set field="paymentGroupName" value="Payment Batch"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceInMap.paymentIds" from-field="paymentIds"/>
+        <set field="serviceInMap.paymentGroupTypeId" from-field="paymentGroupTypeId"/>
         <set field="serviceInMap.paymentGroupName" from-field="paymentGroupName"/>
         <set field="serviceInMap.userLogin" from-field="userLogin"/>
-        <call-service service-name="createPaymentBatch" in-map-name="serviceInMap">
+        <call-service service-name="createPaymentGroupAndMember" in-map-name="serviceInMap">
             <result-to-field result-name="paymentGroupId"/>
         </call-service>
         <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
@@ -41,6 +43,7 @@ under the License.
         <assert>
             <not><if-empty field="paymentGroupMemberList"/></not>
             <if-compare-field field="paymentGroupName" operator="equals" to-field="paymentGroup.paymentGroupName"/>
+            <if-compare-field field="paymentGroupTypeId" operator="equals" to-field="paymentGroup.paymentGroupTypeId"/>
         </assert>
         <check-errors/>
         <iterate list="paymentGroupMemberList" entry="paymentGroupMember">
@@ -52,7 +55,7 @@ under the License.
             </assert>
             <check-errors/>
         </iterate>
-        <log level="info" message="Batch ${paymentGroupId} is created successfully for payments"/>
+        <log level="info" message="Payment Group ${paymentGroupId} is created successfully for payments"/>
     </simple-method>
 
     <simple-method method-name="testVoidPayment" short-description="Test case for voiding payments" login-required="false">
