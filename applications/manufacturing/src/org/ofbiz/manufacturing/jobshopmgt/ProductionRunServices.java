@@ -391,7 +391,7 @@ public class ProductionRunServices {
                 while (pb.hasNext()) {
                     // The components variable contains a list of BOMNodes:
                     // each node represents a product (component).
-                    BOMNode node = (org.ofbiz.manufacturing.bom.BOMNode) pb.next();
+                    BOMNode node = (BOMNode) pb.next();
                     GenericValue productBom = node.getProductAssoc();
                     if ((productBom.getString("routingWorkEffortId") == null && first) || (productBom.getString("routingWorkEffortId") != null && productBom.getString("routingWorkEffortId").equals(routingTask.getString("workEffortId")))) {
                         serviceContext.clear();
