@@ -142,4 +142,48 @@ under the License.
         </iterate>
         <check-errors/>
     </simple-method>
+    
+    <simple-method method-name="testCreatePaymentAndPaymentGroupForInvoices" short-description="Test case for validate service which is creating payment and payment group" login-required="false">
+        <!-- Precondition : Invoice is in ready status. 
+                            Invoice outstanding amount should be greater than zero -->
+
+        <!-- Following process is tested by test case:
+                This will call createPaymentAndPaymentGroupForInvoices service and return a paymentGroupId; 
+             1. Checked for paymentGroupId for not empty
+             2. Checked for associated paymentGroupMembers for not empty -->
+
+        <!-- Post condition : Invoice status should be changed to paid.
+                              Payment should be created with PaymentApplications.
+                              PaymentGroup and PaymentGroupMembers should be created. -->
+        
+        <entity-one entity-name="UserLogin" value-field="createPaymentAndPaymentGroupForInvoicesMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="createPaymentAndPaymentGroupForInvoicesMap.organizationPartyId" value="Company"/>
+        <set field="createPaymentAndPaymentGroupForInvoicesMap.checkStartNumber" type="Long" value="100101"/>
+        <string-to-list string="demo10001" list="invoiceIds"/>
+        <string-to-list string="8000" list="invoiceIds"/>
+        <string-to-list string="8001" list="invoiceIds"/>
+        <set field="createPaymentAndPaymentGroupForInvoicesMap.invoiceIds" from-field="invoiceIds"/>
+        <set field="createPaymentAndPaymentGroupForInvoicesMap.paymentMethodTypeId" value="COMPANY_CHECK"/>
+        <call-service service-name="createPaymentAndPaymentGroupForInvoices" in-map-name="createPaymentAndPaymentGroupForInvoicesMap">
+            <result-to-field result-name="paymentGroupId"/>
+        </call-service>
+        <assert>
+            <not>
+                <if-empty field="paymentGroupId"/>
+            </not>
+        </assert>
+        <check-errors/>
+        <entity-condition entity-name="PaymentGroupMember" list="paymentGroupMembers">
+            <condition-expr field-name="paymentGroupId" from-field="paymentGroupId"/>
+        </entity-condition>
+        <assert>
+            <not>
+                <if-empty field="paymentGroupMembers"/>
+            </not>
+        </assert>
+        <check-errors/>
+        <log level="info" message="Test case ran successfully for input - invoiceIds : ${invoiceIds} and output - paymentGroupId : ${paymentGroupId}"/>
+    </simple-method>
 </simple-methods>
