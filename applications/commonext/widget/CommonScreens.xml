@@ -61,7 +61,11 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field="userLogin"/></not>
+                        <and>
+                            <not><if-empty field="userLogin"/></not>
+                            <not><if-empty field="userLogin.hasLoggedOut"/></not>
+                            <if-compare field="userLogin.hasLoggedOut" operator="equals" value="N"/>
+                        </and>
                     </condition>
                     <actions>                
                         <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
