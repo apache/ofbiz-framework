@@ -51,7 +51,7 @@ under the License.
     <request-map uri="processMassCheckRun">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPaymentAndPaymentGroupForInvoices"/>
-        <response name="success" type="request" value="FindPurchaseInvoices"/>
+        <response name="success" type="request" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="FindPurchaseInvoices"/>
     </request-map>
 
