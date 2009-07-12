@@ -111,6 +111,14 @@ under the License.
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
+                <#else>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="2"/>
+                        <fo:table-cell padding="2pt">
+                            <fo:block>${uiLabelMap.AccountingNoRecordFound}</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2"/>
+                    </fo:table-row>
                 </#if>
             </fo:table-body>
         </fo:table>

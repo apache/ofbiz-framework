@@ -435,7 +435,7 @@ under the License.
             <entity-one entity-name="Payment" value-field="payment">
                 <field-map field-name="paymentId" from-field="paymentId"/>
             </entity-one>
-            <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}"/>
+            <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}" type="BigDecimal"/>
         </iterate>
         <field-to-result field="paymentRunningTotal"/>
     </simple-method>

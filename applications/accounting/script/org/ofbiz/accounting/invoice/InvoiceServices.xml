@@ -635,11 +635,7 @@ under the License.
                 <result-to-field result-name="invoicePaymentInfoList"/>
             </call-service>
             <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-            <calculate field="invoiceRunningTotal">
-                <calcop operator="add" field="invoiceRunningTotal">
-                    <calcop operator="get" field="invoicePaymentInfo.outstandingAmount"/>
-                </calcop>
-            </calculate>
+            <set field="invoiceRunningTotal" value="${invoiceRunningTotal + invoicePaymentInfo.outstandingAmount}" type="BigDecimal"/>
         </iterate>
         <field-to-result field="invoiceRunningTotal"/>
     </simple-method>
