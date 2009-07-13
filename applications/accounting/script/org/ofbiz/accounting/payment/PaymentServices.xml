@@ -551,4 +551,17 @@ under the License.
             <call-service service-name="createPaymentGroupMember" in-map-name="createPaymentGroupMemberMap"/>
         </iterate>
     </simple-method>
+    
+    <simple-method method-name="cancelCheckRunPayments" short-description="Cancel all payments for payment group">
+        <entity-condition entity-name="PaymentGroupMember" list="paymentGroupMembers">
+            <condition-expr field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
+        </entity-condition>
+        <iterate list="paymentGroupMembers" entry="paymentGroupMember">
+            <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
+            <set-service-fields service-name="voidPayment" map="payment" to-map="voidPaymentMap"/>
+            <call-service service-name="voidPayment" in-map-name="voidPaymentMap"/>
+            <set-service-fields service-name="deletePaymentGroupMember" map="paymentGroupMember" to-map="deletePaymentGroupMemberMap"/>
+            <call-service service-name="deletePaymentGroupMember" in-map-name="deletePaymentGroupMemberMap"/>
+        </iterate>
+    </simple-method>
 </simple-methods>

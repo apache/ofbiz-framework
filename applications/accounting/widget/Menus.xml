@@ -513,14 +513,27 @@ under the License.
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
-        <menu-item name="cancelpaymentGroup" title="${uiLabelMap.CommonCancel}">
+        <menu-item name="cancelpaymentGroup" title="${uiLabelMap.AccountingCancelBatchPayments}">
             <condition>
                 <and>
                     <not><if-empty field="paymentGroupMembers"/></not>
                     <not><if-empty field="paymentGroup"/></not>
+                    <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="BATCH_PAYMENT"/>
                 </and>
             </condition>
             <link target="cancelPaymentGroup">
+                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="cancelCheckRunPayments" title="${uiLabelMap.AccountingCancelCheckRun}">
+            <condition>
+                <and>
+                    <not><if-empty field="paymentGroupMembers"/></not>
+                    <not><if-empty field="paymentGroup"/></not>
+                    <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN"/>
+                </and>
+            </condition>
+            <link target="cancelCheckRunPayments">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
