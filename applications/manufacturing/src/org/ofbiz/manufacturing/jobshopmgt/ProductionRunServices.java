@@ -960,16 +960,19 @@ public class ProductionRunServices {
                 actualTotalMilliSeconds += actualMilliSeconds.doubleValue();
             }
             // Get the template (aka routing task) of the work effort
-            List routingTasks = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc",
-                                                                            UtilMisc.toMap("workEffortIdTo", productionRunTaskId,
-                                                                                           "workEffortAssocTypeId", "WORK_EFF_TEMPLATE")));
-            GenericValue routingTask = EntityUtil.getFirst(routingTasks);
+            GenericValue routingTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc",
+                                                            UtilMisc.toMap("workEffortIdTo", productionRunTaskId,
+                                                                           "workEffortAssocTypeId", "WORK_EFF_TEMPLATE"))));
+            GenericValue routingTask = null;
+            if (UtilValidate.isNotEmpty(routingTaskAssoc)) {
+                routingTask = routingTaskAssoc.getRelatedOne("FromWorkEffort");
+            }
             List workEffortCostCalcs = null;
             if (UtilValidate.isEmpty(routingTask)) {
                 // there is no template, try to get the cost entries for the actual production run task, if any
                 workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", productionRunTaskId));
             } else {
-                workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", routingTask.getString("workEffortIdFrom")));
+                workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", routingTask.getString("workEffortId")));
             }
             // Get all the valid CostComponentCalc entries
             workEffortCostCalcs = EntityUtil.filterByDate(workEffortCostCalcs);
@@ -1014,11 +1017,9 @@ public class ProductionRunServices {
             }
             // Now get the cost information associated to the fixed asset and compute the costs
             GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset");
-/* TODO     if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
-   field does not exist, workEffortAssoc does not have a fixedAssetId:              fixedAsset = routingTask.getRelatedOne("FixedAsset");
-   better?:						      												fixedAsset = routingTask.getRelatedOne("workEffortIdTo").getRelatedOne("FixedAsset");
+            if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
+                fixedAsset = routingTask.getRelatedOne("FixedAsset");
             }
-*/
             if (UtilValidate.isNotEmpty(fixedAsset)) {
                 List setupCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"));
                 GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
