@@ -40,4 +40,10 @@
     <test-case case-name="auto-tests-createPaymentAndPaymentGroupForInvoices">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCreatePaymentAndPaymentGroupForInvoices"/>
     </test-case>
+
+    <!--Test case for cancel check run-->
+    <test-case case-name="auto-test-CancelCheckRunPayments">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCancelCheckRunPayments"/>
+    </test-case>
+    
 </test-suite>
