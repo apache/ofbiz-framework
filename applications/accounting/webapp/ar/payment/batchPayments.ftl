@@ -34,15 +34,24 @@ function getPaymentRunningTotal(e) {
     var form = document.paymentBatchForm;
     var payments = form.elements.length;
     var isSingle = true;
+    var isAllSelected = true;
     for (var i = 0; i < payments; i++) {
         var element = form.elements[i];
-        if (element.name == "paymentIds" && element.checked) {
-            isSingle = false;
+        if (element.name == "paymentIds") {
+            if (element.checked) {
+                isSingle = false;
+            } else {
+                isAllSelected = false;
+            }
         }
     }
     if (!($(e).checked)) {
         $('checkAllPayments').checked = false;
+        
+    } else if (isAllSelected) {
+        $('checkAllPayments').checked = true;
     }
+    
     if (!isSingle) {
         new Ajax.Request('getPaymentRunningTotal', {
             asynchronous: false,
@@ -79,7 +88,7 @@ function getPaymentRunningTotal(e) {
                         <td>${uiLabelMap.CommonAmount}</td>
                         <td>${uiLabelMap.CommonDate}</td>
                         <td align="right">
-                            ${uiLabelMap.ProductSelectAll}&nbsp;
+                            ${uiLabelMap.CommonSelectAll}&nbsp;
                             <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
                         </td>
                     </tr>
@@ -101,12 +110,12 @@ function getPaymentRunningTotal(e) {
                             </td>
                         </tr>
                     </#list>
-                    <tr>
-                        <td align="right">
-                            <a href="javascript:document.paymentBatchForm.submit();" class="buttontext">${uiLabelMap.AccountingCreateBatch}</a>
-                        </td>
-                    </tr>
                 </table>
+                <div align="right">
+                    <a href="javascript:document.paymentBatchForm.submit();" class="buttontext">${uiLabelMap.AccountingCreateBatch}</a>
+                <div>
+            <#else>
+                <span class="label">${uiLabelMap.AccountingNoRecordFound}</span>
             </#if>
         </form>
     </div>

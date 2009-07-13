@@ -34,14 +34,21 @@ function getInvoiceRunningTotal(e) {
     var form = document.listPurchaseInvoices;
     var invoices = form.elements.length;
     var isSingle = true;
+    var isAllSelected = true;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if (element.name == "invoiceIds" && element.checked) {
-            isSingle = false;
+        if (element.name == "invoiceIds") {
+            if (element.checked) {
+                isSingle = false;
+            } else {
+                isAllSelected = false;
+            }
         }
     }
     if (!($(e).checked)) {
         $('checkAllInvoices').checked = false;
+    } else if (isAllSelected) {
+        $('checkAllInvoices').checked = true;
     }
     if (!isSingle) {
         new Ajax.Request('getInvoiceRunningTotal', {
