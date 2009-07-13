@@ -1014,9 +1014,11 @@ public class ProductionRunServices {
             }
             // Now get the cost information associated to the fixed asset and compute the costs
             GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset");
-            if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
-                fixedAsset = routingTask.getRelatedOne("FixedAsset");
+/* TODO     if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
+   field does not exist, workEffortAssoc does not have a fixedAssetId:              fixedAsset = routingTask.getRelatedOne("FixedAsset");
+   better?:						      												fixedAsset = routingTask.getRelatedOne("workEffortIdTo").getRelatedOne("FixedAsset");
             }
+*/
             if (UtilValidate.isNotEmpty(fixedAsset)) {
                 List setupCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"));
                 GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
