@@ -187,4 +187,9 @@ under the License.
         <attribute name="paymentGroupName" type="String" mode="IN" optional="true"/>
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="false"/>
     </service>
+    <service name="cancelCheckRunPayments" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="cancelCheckRunPayments" auth="true">
+        <description>Cancel all payments for payment group</description>
+        <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

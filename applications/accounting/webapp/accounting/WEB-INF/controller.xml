@@ -438,6 +438,13 @@ under the License.
         <response name="error" type="view" value="PaymentGroupOverview"/>
     </request-map>
     
+    <request-map uri="cancelCheckRunPayments">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelCheckRunPayments"/>
+        <response name="success" type="view" value="PaymentGroupOverview"/>
+        <response name="error" type="view" value="PaymentGroupOverview"/>
+    </request-map>
+    
     <request-map uri="DepositSlip.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="DepositSlipPdf"/>
