@@ -189,4 +189,43 @@ under the License.
         <check-errors/>
         <log level="info" message="Test case ran successfully for input - invoiceIds : ${invoiceIds} and output - paymentGroupId : ${paymentGroupId}"/>
     </simple-method>
+
+    <simple-method method-name="testCancelCheckRunPayments" short-description="Test case for cancelCheckRunPayments" login-required="false">
+        <!-- Pre condition : Invoice is in paid status.
+                             Payment should be present.
+                             thruDate for PaymentGroupMember should be Null -->
+
+        <!-- Following process is tested by test case:
+                This will call cancelCheckRunPayments service; 
+                1. Checked for thruDate for not empty
+                2. Checked for associated payment status as PMNT_VOID -->
+
+        <!-- Post condition : thruDate for PaymentGroupMember should be Not Null
+                              payment status should be changed to PMNT_VOID. -->
+
+        <set field="paymentGroupId" value="9000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="cancelCheckRunPaymentsMap.userLogin" from-field="userLogin"/>
+        <set field="cancelCheckRunPaymentsMap.paymentGroupId" from-field="paymentGroupId"/>
+        <call-service service-name="cancelCheckRunPayments" in-map-name="cancelCheckRunPaymentsMap"/>
+        <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
+            <field-map field-name="paymentGroupId"/>
+        </entity-and>
+        <iterate list="paymentGroupMembers" entry="paymentGroupMember">
+            <assert>
+                <not>
+                    <if-empty field="paymentGroupMember.thruDate"/>
+                </not>
+            </assert>
+            <check-errors/>
+            <get-related-one value-field="paymentGroupMember" relation-name="Payment" to-value-field="payment"/>
+            <assert>
+                <if-compare field="payment.statusId" operator="equals" value="PMNT_VOID"/>
+            </assert>
+        </iterate>
+        <log level="info" message="Test case for cancelCheckRunPayments ran successfully for paymentGroupId = ${paymentGroupId}"/>
+    </simple-method>
+    
 </simple-methods>
