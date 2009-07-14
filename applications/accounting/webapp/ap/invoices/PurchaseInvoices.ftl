@@ -114,7 +114,7 @@ function showIssueChecks(selection) {
         </#if>
       </select>
       <span class="label">${uiLabelMap.AccountingBankAccount}</span>
-      <select name="bankAccount">
+      <select name="finAccountId">
         <option value=""></option>
         <#if finAccounts?has_content>
           <#list finAccounts as finAccount>

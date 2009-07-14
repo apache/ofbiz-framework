@@ -166,18 +166,22 @@ under the License.
         <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
         <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
     <service name="createPaymentAndApplicationForParty" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentAndApplicationForParty" auth="true">
         <description>create Payment and PaymentApplications for multiple invoices for one party</description>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="organizationPartyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoices" type="List" mode="IN" optional="false"/>
         <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
         <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="invoiceIds" type="List" mode="OUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="createPaymentGroupAndMember" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentGroupAndMember" auth="true">
@@ -192,4 +196,11 @@ under the License.
         <description>Cancel all payments for payment group</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="createFinAccoutnTransFromPayment" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createFinAccoutnTransFromPayment" auth="true">
+        <auto-attributes entity-name="FinAccountTrans" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="FinAccountTrans" include="pk" mode="INOUT" optional="true"/>
+        <attribute name="invoiceIds" type="List" mode="IN" optional="true"/>
+    </service>
+    
 </services>

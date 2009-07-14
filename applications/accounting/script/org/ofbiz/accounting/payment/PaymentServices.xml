@@ -479,7 +479,7 @@ under the License.
         <if-not-empty field="paymentIds">
             <set field="createPaymentGroupAndMemberMap.paymentIds" from-field="paymentIds"/>
             <set field="createPaymentGroupAndMemberMap.paymentGroupTypeId" value="CHECK_RUN"/>
-            <set field="createPaymentGroupAndMemberMap.paymentGroupName" value="Check Run for ${nowTimestamp}"/>
+            <set field="createPaymentGroupAndMemberMap.paymentGroupName" value="Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"/>
             <call-service service-name="createPaymentGroupAndMember" in-map-name="createPaymentGroupAndMemberMap">
                 <result-to-field result-name="paymentGroupId"/>
                 <result-to-result result-name="paymentGroupId"/>
@@ -534,9 +534,29 @@ under the License.
                         <call-service service-name="createPaymentApplication" in-map-name="createPaymentApplicationMap"/>
                     </if-compare>
                 </if-compare>
+                <field-to-list field="invoice.invoiceId" list="invoiceIds"/>
                 <clear-field field="createPaymentApplicationMap"/>
             </iterate>
         </if-compare>
+        <field-to-result field="invoiceIds"/>
+        <set field="amount" type="BigDecimal" from-field="paymentAmount"/>
+        <field-to-result field="amount"/>
+    </simple-method>
+    
+    <simple-method method-name="createFinAccoutnTransFromPayment" short-description="Creates a record for FinAccountTrans on creation of payment.">
+        <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
+        <set field="createFinAccountTransMap.finAccountTransTypeId" value="WITHDRAWAL"/>
+        <set field="createFinAccountTransMap.partyId" from-field="parameters.organizationPartyId"/>
+        <now-timestamp field="createFinAccountTransMap.transactionDate"/>
+        <now-timestamp field="createFinAccountTransMap.entryDate"/>
+        <!-- set field="createFinAccountTransMap.statusId" value="CREATE"/>  --> <!-- TODO: It will uncomment when status Id field will add in FinAccountTrans Entity. -->
+        <set field="createFinAccountTransMap.comments" value="Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"/>
+        <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap">
+            <result-to-field result-name="finAccountTransId"/>
+        </call-service>
+        <set field="updatePaymentMap.finAccountTransId" from-field="finAccountTransId"/>
+        <set field="updatePaymentMap.paymentId" from-field="parameters.paymentId"/>
+        <call-service service-name="updatePayment" in-map-name="updatePaymentMap"/>
     </simple-method>
 
     <simple-method method-name="createPaymentGroupAndMember" short-description="creates PaymentGroup and PaymentGroupMembers">
