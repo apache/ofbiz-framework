@@ -89,7 +89,11 @@ under the License.
             <set-nonpk-fields value-field="newPayment" map="payment"/>
             <set-nonpk-fields value-field="oldPayment" map="payment"/>
             <set-nonpk-fields value-field="newPayment" map="parameters"/>
-            <set field="newPayment.statusId" from-field="oldPayment.statusId"/>
+            <!-- fields :- comments, paymentRefNum, finAccountTransId, statusId can editable for Payment -->
+            <set field="oldPayment.statusId" from-field="newPayment.statusId"/>
+            <set field="oldPayment.comments" from-field="newPayment.commets"/>
+            <set field="oldPayment.paymentRefNum" from-field="newPayment.paymentRefNum"/>
+            <set field="oldPayment.finAccountTransId" from-field="newPayment.finAccountTransId"/>
             <if-compare-field field="oldPayment" to-field="newPayment" operator="not-equals">
                 <log level="always" message="=========Old: ${oldPayment} ============New: ${newPayment}"></log>
                 <add-error>
