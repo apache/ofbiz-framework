@@ -92,7 +92,7 @@ public class PaymentGatewayServices {
 
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
-     * "errors" and "finished" which notify the user if there were any errors and if the authorizatoin was finished.
+     * "errors" and "finished" which notify the user if there were any errors and if the authorization was finished.
      * There is also a List "messages" for the authorization response messages and a BigDecimal, "processAmount" as the
      * amount processed.
      *
@@ -645,6 +645,9 @@ public class PaymentGatewayServices {
             toContext.put("orderItems", orderItems);
         } else if ("FIN_ACCOUNT".equals(paymentMethodTypeId)) {
             toContext.put("finAccountId", paymentPreference.getString("finAccountId"));
+        } else if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
+            GenericValue payPalPaymentMethod = paymentMethod.getRelatedOne("PayPalPaymentMethod");
+            toContext.put("payPalPaymentMethod", payPalPaymentMethod);
         } else {
             // add other payment types here; i.e. gift cards, etc.
             // unknown payment type; ignoring.
@@ -2690,18 +2693,27 @@ public class PaymentGatewayServices {
      * @return
      */
     public static GenericValue getAuthTransaction(GenericValue orderPaymentPreference) {
-        GenericValue authTrans = null;
+        return EntityUtil.getFirst(getAuthTransactions(orderPaymentPreference));
+    }
+    
+    /**
+     * Gets a chronologically ordered list of PaymentGatewayResponses from an OrderPaymentPreference which is either a PRDS_PAY_AUTH
+     * or PRDS_PAY_REAUTH.
+     * @param orderPaymentPreference
+     * @return
+     */
+    public static List<GenericValue> getAuthTransactions(GenericValue orderPaymentPreference) {
+        List<GenericValue> authTransactions = null;
         try {
             List<String> order = UtilMisc.toList("-transactionDate");
             List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
             List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, AUTH_SERVICE_TYPE),
                     EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, REAUTH_SERVICE_TYPE));
-            List<GenericValue> authTransactions = EntityUtil.filterByOr(transactions, exprs);
-            authTrans = EntityUtil.getFirst(authTransactions);
+            authTransactions = EntityUtil.filterByOr(transactions, exprs);
         } catch (GenericEntityException e) {
             Debug.logError(e, "ERROR: Problem getting authorization information from PaymentGatewayResponse", module);
         }
-        return authTrans;
+        return authTransactions;
     }
 
     public static Timestamp getAuthTime(GenericValue orderPaymentPreference) {

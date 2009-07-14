@@ -3118,6 +3118,9 @@ under the License.
       <field name="loggingLevel" type="numeric"><description>Logging level</description></field>
       <field name="maxLogFileSize" type="numeric"><description>Max log file size</description></field>
       <field name="stackTraceOn" type="indicator"><description>Stack trace on/off</description></field>
+      <field name="redirectUrl" type="value"><description>Express Checkout Redirect URL</description></field>
+      <field name="returnUrl" type="value"><description>Express Checkout Return URL</description></field>
+      <field name="cancelReturnUrl" type="value"><description>Express Checkout Return On Cancel URL</description></field>
       <prim-key field="paymentGatewayConfigId"/>
       <relation type="one" fk-name="PGPF_PGC" rel-entity-name="PaymentGatewayConfig">
         <key-map field-name="paymentGatewayConfigId"/>
@@ -3277,6 +3280,30 @@ under the License.
       </relation>
       <relation type="one" fk-name="PAYGRPMMBR_PAYMNT" rel-entity-name="Payment">
           <key-map field-name="paymentId"/>
+      </relation>
+    </entity>
+
+    <entity entity-name="PayPalPaymentMethod" 
+            package-name="org.ofbiz.accounting.payment">
+      <description>PayPal Payment Method Details</description>
+      <field name="paymentMethodId" type="id-ne"></field>
+      <field name="payerId" type="id"></field>
+      <field name="expressCheckoutToken" type="short-varchar"></field>
+      <field name="payerStatus" type="short-varchar"></field>
+      <field name="avsAddr" type="indicator"></field>
+      <field name="avsZip" type="indicator"></field>
+      <field name="correlationId" type="id"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="transactionId" type="short-varchar"></field>
+      <prim-key field="paymentMethodId"/>
+      <relation type="one" fk-name="PAYPAL_PMNTMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="PAYPAL_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="PAYPAL_PADDR" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
       </relation>
     </entity>
 

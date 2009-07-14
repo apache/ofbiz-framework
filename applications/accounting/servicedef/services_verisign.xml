@@ -48,4 +48,35 @@ under the License.
         <description>Credit Card Refund</description>
         <implements service="paymentRefundInterface"/>
     </service>
+    
+    <service name="payflowSetExpressCheckout" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="setExpressCheckout">
+        <implements service="payPalSetExpressCheckoutInterface"/>
+    </service>
+    <service name="payflowGetExpressCheckout" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="getExpressCheckout">
+        <implements service="payPalGetExpressCheckoutInterface"/>
+    </service>
+    <service name="payflowDoExpressCheckout" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="doExpressCheckout">
+        <implements service="payPalDoExpressCheckoutInterface"/>
+    </service>
+    
+    <service name="payflowPayPalProcessor" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccProcessor">
+        <implements service="payPalProcessInterface"/>
+    </service>
+    <service name="payflowPayPalCapture" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccCapture">
+        <implements service="payPalCaptureInterface"/>
+    </service>
+    <service name="payflowPayPalVoid" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccVoid">
+        <description>Credit Card Void</description>
+        <implements service="paymentReleaseInterface"/>
+    </service>
+    <service name="payflowPayPalRefund" engine="java"
+             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccRefund">
+        <implements service="paymentRefundInterface"/>
+    </service>
 </services>

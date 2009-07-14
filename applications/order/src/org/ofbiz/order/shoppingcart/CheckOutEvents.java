@@ -629,6 +629,31 @@ public class CheckOutEvents {
         return result;
     }
 
+    public static String checkExternalCheckout(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
+        GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
+        String paymentMethodTypeId = (String) request.getParameter("paymentMethodTypeId");
+        if (UtilValidate.isNotEmpty(paymentMethodTypeId)) {
+            if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
+                List<GenericValue> payPalProdStorePaySettings = null;
+                try {
+                    payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", "productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL");
+                    GenericValue payPalProdStorePaySetting = EntityUtil.getFirst(payPalProdStorePaySettings);
+                    if (payPalProdStorePaySetting != null) {
+                        GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig");
+                        if (gatewayConfig != null && "PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
+                            return "paypal";
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+        return "success";
+    }
+
     public static String checkExternalPayment(HttpServletRequest request, HttpServletResponse response) {
         // warning there can only be ONE payment preference for this to work
         // you cannot accept multiple payment type when using an external gateway

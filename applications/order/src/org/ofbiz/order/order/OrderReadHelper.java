@@ -77,7 +77,7 @@ public class OrderReadHelper {
     protected List orderItemAndShipGrp = null;
     protected List orderItems = null;
     protected List adjustments = null;
-    protected List paymentPrefs = null;
+    protected List<GenericValue> paymentPrefs = null;
     protected List orderStatuses = null;
     protected List orderItemPriceInfos = null;
     protected List orderItemShipGrpInvResList = null;
@@ -191,7 +191,7 @@ public class OrderReadHelper {
         return adjustments;
     }
 
-    public List getPaymentPreferences() {
+    public List<GenericValue> getPaymentPreferences() {
         if (paymentPrefs == null) {
             try {
                 paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("orderPaymentPreferenceId"));

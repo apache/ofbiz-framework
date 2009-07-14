@@ -339,7 +339,7 @@ under the License.
     </request-map>
     <request-map uri="processShipSettings">
         <security https="true" auth="false"/>
-        <event type="service" invoke="createUpdateShippingAddress"/>
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipSettings"/>
         <response name="success" type="request" value="setShipOptions"/>
         <response name="error" type="view" value="shipsetting"/>
     </request-map>
@@ -377,7 +377,9 @@ under the License.
 
     <request-map uri="setPaymentInformation">
         <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkExternalCheckout"/>
         <response name="success" type="view" value="paymentinformation"/>
+        <response name="paypal" type="request" value="setPayPalCheckout"/>
     </request-map>
 
     <request-map uri="enterCreditCardAndBillingAddress">
@@ -780,6 +782,31 @@ under the License.
         <event type="java" path="org.ofbiz.accounting.thirdparty.paypal.PayPalEvents" invoke="cancelPayPalOrder"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
+    </request-map>
+
+    <!-- PayPal Express Checkout Requests -->
+    <request-map uri="setPayPalCheckout">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="setExpressCheckout"/>
+        <response name="success" type="request" value="payPalCheckoutRedirect"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="payPalCheckoutRedirect">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="expressCheckoutRedirect"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="payPalCheckoutReturn">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="getExpressCheckoutDetails"/>
+        <response name="success" type="request" value="reviewOrder"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="payPalCheckoutCancel">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="expressCheckoutCancel"/>
+        <response name="success" type="view-last"/>
     </request-map>
 
     <!-- TO BE REMOVED

@@ -131,4 +131,28 @@ under the License.
         <now-timestamp field="paymentGroupMember.thruDate"/>
         <store-value value-field="paymentGroupMember"/>
     </simple-method>
+    
+    <simple-method method-name="createPayPalPaymentMethod" short-description="Create a PayPal Payment Method">
+        <make-value value-field="newPaymentMethod" entity-name="PaymentMethod"/>
+        <set-pk-fields value-field="newPaymentMethod" map="parameters"/>
+        <if-empty field="newPaymentMethod.paymentMethodId">
+            <sequenced-id sequence-name="PaymentMethod" field="newPaymentMethod.paymentMethodId"/>
+        </if-empty>
+        <set-nonpk-fields value-field="newPaymentMethod" map="parameters"/>
+        <set field="newPaymentMethod.paymentMethodTypeId" value="EXT_PAYPAL"/>
+        <create-value value-field="newPaymentMethod"/>
+
+        <make-value value-field="newPayPalPaymentMethod" entity-name="PayPalPaymentMethod"/>
+        <set field="newPayPalPaymentMethod.paymentMethodId" from-field="newPaymentMethod.paymentMethodId"/>
+        <set-nonpk-fields value-field="newPayPalPaymentMethod" map="parameters"/>
+        <create-value value-field="newPayPalPaymentMethod"/>
+        <field-to-result result-name="paymentMethodId" field="newPaymentMethod.paymentMethodId"/>
+    </simple-method>
+
+    <simple-method method-name="updatePayPalPaymentMethod" short-description="Update a PayPal Payment Method">
+        <entity-one value-field="payPalPaymentMethod" entity-name="PayPalPaymentMethod"/>
+        <set-nonpk-fields value-field="payPalPaymentMethod" map="parameters"/>
+        <store-value value-field="payPalPaymentMethod"/>
+        <field-to-result result-name="paymentMethodId" field="payPalPaymentMethod.paymentMethodId"/>
+    </simple-method>
 </simple-methods>
