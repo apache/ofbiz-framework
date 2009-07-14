@@ -78,7 +78,11 @@ under the License.
     <form name="ListPaymentGroupMember" type="list" list-name="paymentGroupMembers" target="updatePaymentGroupMember">
         <auto-fields-service service-name="updatePaymentGroupMember"/>
         <field name="paymentGroupId"><hidden/></field>
-        <field name="paymentId"><display/></field>
+        <field name="paymentId">
+            <hyperlink target="paymentOverview" description="${paymentId}">
+                <parameter param-name="paymentId"/>
+            </hyperlink>
+        </field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
@@ -100,7 +104,11 @@ under the License.
     </form>
     <form name="PaymentGroupMembers" type="list" list-name="paymentGroupMembers"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="paymentId"><display/></field>
+        <field name="paymentId">
+            <hyperlink target="paymentOverview" description="${paymentId}">
+                <parameter param-name="paymentId"/>
+            </hyperlink>
+        </field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
     </form>
