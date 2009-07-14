@@ -136,6 +136,7 @@ under the License.
 
     <!--
     <eca service="createFinAccountTrans" event="commit">
+        <condition-field field-name="statusId" operator="equals" value="FINACT_TRNS_APPROVED"/>
         <action service="postFinAccountTransToGl" mode="sync"/>
     </eca>
     -->
