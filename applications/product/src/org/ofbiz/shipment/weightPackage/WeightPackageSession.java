@@ -35,6 +35,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
@@ -526,4 +527,18 @@ public class WeightPackageSession implements Serializable {
             this.upsShipmentConfirm();
         }
     }
+
+    protected Integer getOrderedQuantity(String orderId) {
+        BigDecimal orderedQuantity = ZERO;
+        try {
+            List<GenericValue> orderItems = getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+            for (GenericValue orderItem : orderItems) {
+                orderedQuantity = orderedQuantity.add(orderItem.getBigDecimal("quantity"));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return orderedQuantity.intValue();
+    }
+
 }

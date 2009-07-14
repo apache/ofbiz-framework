@@ -20044,6 +20044,9 @@
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="zh">网站</value>
     </property>
+    <property key="ProductWeighPackageOnly">
+        <value xml:lang="en">Weigh Packages Only</value>
+    </property>
     <property key="ProductWeight">
         <value xml:lang="de">Gewicht</value>
         <value xml:lang="en">Weight</value>
@@ -20062,9 +20065,6 @@
         <value xml:lang="it">Intervallo peso</value>
         <value xml:lang="ru">Весовой порог</value>
         <value xml:lang="th">รหัสน้ำหนักที่เปิดเผย</value>
-    </property>
-    <property key="ProductWeightPackageOnly">
-        <value xml:lang="en">Weight Package Only</value>
     </property>
     <property key="ProductWeightTitle1">
         <value xml:lang="en">Weight charge</value>

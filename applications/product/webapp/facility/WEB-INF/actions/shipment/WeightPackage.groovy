@@ -154,6 +154,7 @@ if (orderId) {
         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderIdNotFound", [orderId : orderId], locale));
         orderId = null;
     }
+    context.orderedQuantity = weightPackageSession.getOrderedQuantity(orderId);
 }
 weightPackageSession.setCarrierPartyId(carrierPartyId);
 context.orderId = orderId;
