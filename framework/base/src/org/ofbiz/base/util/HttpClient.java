@@ -388,7 +388,7 @@ public class HttpClient {
 
     private InputStream sendHttpRequestStream(String method, boolean overrideTrust) throws HttpClientException {
         // setup some SSL variables
-        SSLUtil.loadJsseProperties();
+        SSLUtil.loadJsseProperties(this.debug);
 
         String arguments = null;
         InputStream in = null;

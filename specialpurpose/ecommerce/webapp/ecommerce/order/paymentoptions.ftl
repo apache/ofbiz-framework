@@ -46,6 +46,12 @@ under the License.
            <label for="paymentMethodTypeId_EFT_ACCOUNT" class="tabletext">${uiLabelMap.AccountingAHCElectronicCheck}</label>
          </div>
        </#if>
+       <#if productStorePaymentMethodTypeIdMap.EXT_PAYPAL?exists>
+         <div>
+           <input type="radio" id="paymentMethodTypeId_EXT_PAYPAL" name="paymentMethodTypeId" value="EXT_PAYPAL" <#if paymentMethodTypeId?exists && paymentMethodTypeId == "EXT_PAYPAL">checked</#if>/>
+           <label for="paymentMethodTypeId_EXT_PAYPAL" class="tabletext">${uiLabelMap.AccountingPayWithPayPal}</label>
+         </div>
+       </#if>
        <div class="buttons">
          <input type="submit" value="${uiLabelMap.CommonContinue}"/>
        </div>

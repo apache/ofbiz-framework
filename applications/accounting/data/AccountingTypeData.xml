@@ -685,7 +685,8 @@ under the License.
     
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYFLOWPRO" hasTable="N" description="Payflow Pro Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="PAYFLOWPRO_CONFIG" paymentGatewayConfigTypeId="PAYFLOWPRO" description="Payflow Pro Config"/>
-    <PaymentGatewayPayflowPro paymentGatewayConfigId="PAYFLOWPRO_CONFIG" certsPath="${sys:getProperty('ofbiz.home')}/applications/accounting/pfcerts" hostAddress="pilot-payflowpro.paypal.com" hostPort="443" timeout="80" proxyAddress="" proxyPort="80" proxyLogon="" proxyPassword="" vendor="[Vendor]" userId="[PayFlow UserID]" pwd="[PayFlow Password]" partner="[PayFlow Partner]" checkAvs="Y" checkCvv2="Y" preAuth="Y" enableTransmit="true" logFileName="${sys:getProperty('ofbiz.home')}/runtime/logs/payflow_java.log" loggingLevel="6" maxLogFileSize="1000000" stackTraceOn="N"/>
+    <PaymentGatewayPayflowPro paymentGatewayConfigId="PAYFLOWPRO_CONFIG" certsPath="${sys:getProperty('ofbiz.home')}/applications/accounting/pfcerts" hostAddress="pilot-payflowpro.paypal.com" hostPort="443" timeout="80" proxyAddress="" proxyPort="80" proxyLogon="" proxyPassword="" 
+        vendor="[Vendor]" userId="[PayFlow UserID]" pwd="[PayFlow Password]" partner="[PayFlow Partner]" checkAvs="Y" checkCvv2="Y" preAuth="Y" enableTransmit="true" logFileName="${sys:getProperty('ofbiz.home')}/runtime/logs/payflow_java.log" loggingLevel="6" maxLogFileSize="1000000" stackTraceOn="N" returnUrl="[Express Checkout Return URL]" cancelReturnUrl="[Express Checkout Cancel Return URL]" redirectUrl="[Express Checkout Customer Redirect URL]"/>
     
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYPAL" hasTable="N" description="PayPal Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="PAYPAL_CONFIG" paymentGatewayConfigTypeId="PAYPAL" description="PayPal Config"/>
@@ -719,6 +720,11 @@ under the License.
     <CustomMethodType customMethodTypeId="GIFT_REFUND" parentTypeId="" hasTable="N" description="GIFT card refund methods"/>
     <CustomMethodType customMethodTypeId="GIFT_RELEASE" parentTypeId="" hasTable="N" description="GIFT card release methods"/>
     
+    <CustomMethodType customMethodTypeId="PAYPAL_AUTH" parentTypeId="" hasTable="N" description="PayPal authorize methods"/>
+    <CustomMethodType customMethodTypeId="PAYPAL_CAPTURE" parentTypeId="" hasTable="N" description="PayPal capture methods"/>
+    <CustomMethodType customMethodTypeId="PAYPAL_REFUND" parentTypeId="" hasTable="N" description="PayPal refund methods"/>
+    <CustomMethodType customMethodTypeId="PAYPAL_RELEASE" parentTypeId="" hasTable="N" description="PayPal release methods"/>
+
     <CustomMethod customMethodId="CC_AUTH_TEST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessor" description="CC Test authorize"/>
     <CustomMethod customMethodId="CC_AUTH_CAPTURE_TST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessorWithCapture" description="CC Test authorize and capture"/>
     <CustomMethod customMethodId="CC_AUTH_RANDOM_TEST" customMethodTypeId="CC_AUTH" customMethodName="testRandomAuthorize" description="CC Test random authorize"/>
@@ -796,6 +802,11 @@ under the License.
     <CustomMethod customMethodId="GIFT_RELEASE_TEST" customMethodTypeId="GIFT_RELEASE" customMethodName="testGCRelease" description="GIFT card test release"/>
     <CustomMethod customMethodId="GIFT_RELEASE_VALUEL" customMethodTypeId="GIFT_RELEASE" customMethodName="valueLinkRelease" description="GIFT card ValueLink release"/>
     
+    <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>
+    <CustomMethod customMethodId="PAYPAL_CAPTURE_PFP" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payflowPayPalCapture" description="Payflow PayPal payment capture"/>
+    <CustomMethod customMethodId="PAYPAL_REFUND_PFP" customMethodTypeId="PAYPAL_REFUND" customMethodName="payflowPayPalRefund" description="Payflow PayPal payment refund"/>
+    <CustomMethod customMethodId="PAYPAL_RELEASE_PFP" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payflowPayPalVoid" description="CC Payflow Pro release"/>
+
     <!-- Credit Cart Types -->
     <EnumerationType description="Credit Card Type" enumTypeId="CREDIT_CARD_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Visa" enumCode="Visa" enumId="CCT_VISA" sequenceId="01" enumTypeId="CREDIT_CARD_TYPE"/>

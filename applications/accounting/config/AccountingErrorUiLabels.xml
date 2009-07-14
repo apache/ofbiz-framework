@@ -19,6 +19,12 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AccountingPayPalCommunicationError">
+        <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
+    </property>
+    <property key="AccountingPayPalShoppingCartIsEmpty">
+        <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
+    </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
         <value xml:lang="fr">Echec à l'exécution du service createPaymentFromPreference</value>

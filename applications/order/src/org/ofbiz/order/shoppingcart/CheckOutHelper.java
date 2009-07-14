@@ -46,6 +46,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -55,6 +56,7 @@ import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
+import org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -286,7 +288,7 @@ public class CheckOutHelper {
                 BigDecimal accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
                 BigDecimal amountToUse = cart.getBillingAccountAmount();
 
-                // if an amount was entered, check that it doesn't exceed availalble amount
+                // if an amount was entered, check that it doesn't exceed available amount
                 if (amountToUse.compareTo(BigDecimal.ZERO) > 0 && amountToUse.compareTo(accountCredit) > 0) {
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.insufficient_credit_available_on_account",
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -893,7 +895,7 @@ public class CheckOutHelper {
             RETRY_ON_ERROR = "Y";
         }
 
-        List allPaymentPreferences = null;
+        List<GenericValue> allPaymentPreferences = null;
         try {
             allPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
@@ -949,6 +951,17 @@ public class CheckOutHelper {
                     }
                 }
             }
+        }
+
+        // check for a paypal express checkout needing completion
+        List<EntityExpr> payPalExprs = UtilMisc.toList(
+                EntityCondition.makeCondition("paymentMethodId", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("paymentMethodTypeId", "EXT_PAYPAL")
+            );
+        List<GenericValue> payPalPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, payPalExprs);
+        if (UtilValidate.isNotEmpty(payPalPaymentPrefs)) {
+            GenericValue payPalPaymentPref = EntityUtil.getFirst(payPalPaymentPrefs);
+            ExpressCheckoutEvents.doExpressCheckout(productStore.getString("productStoreId"), orderId, payPalPaymentPref, userLogin, delegator, dispatcher);
         }
 
         // check for online payment methods needing authorization

@@ -18,20 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.verisign;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -39,7 +40,13 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCartItem;
+import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 import paypal.payflow.PayflowAPI;
@@ -66,70 +73,86 @@ public class PayflowPro {
         BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         GenericValue party = (GenericValue) context.get("billToParty");
         GenericValue cc = (GenericValue) context.get("creditCard");
+        GenericValue payPalPaymentMethod = (GenericValue) context.get("payPalPaymentMethod");
         GenericValue ps = (GenericValue) context.get("billingAddress");
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configString = (String) context.get("paymentConfig");
+
         if (configString == null) {
             configString = "payment.properties";
         }
 
-        if (authTrans == null) {
-            authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
+        boolean isPayPal = false;
+        // Are we doing a cc or a paypal payment?
+        if ("EXT_PAYPAL".equals(paymentPref.getString("paymentMethodTypeId"))) {
+            isPayPal = true;
         }
 
-        // set the orderId as comment1 so we can query in PF Manager
+        Map<String, String> data = FastMap.newInstance(); 
+
         boolean isReAuth = false;
-        Map<String, String> data = UtilMisc.toMap("COMMENT1", orderId);
-        data.put("PONUM", orderId);
-        data.put("CUSTCODE", party.getString("partyId"));
-
-        // transaction type
-        if (comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", configString, "payment.verisign.preAuth",  "Y")) {
+        if (isPayPal) {
             data.put("TRXTYPE", "A");
-            // only support re-auth for auth types; sale types don't do it
-            if (authTrans != null) {
-                String refNum = authTrans.getString("referenceNum");
-                data.put("ORIGID", refNum);
-                isReAuth = true;
-            }
+            data.put("TENDER", "P");
+            data.put("ORIGID", payPalPaymentMethod.getString("transactionId"));
         } else {
-            data.put("TRXTYPE", "S");
-        }
+            if (authTrans == null) {
+                authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
+            }
 
-        // credit card tender
-        data.put("TENDER", "C");
+            // set the orderId as comment1 so we can query in PF Manager
+            data.put("COMMENT1", orderId);
+            data.put("PONUM", orderId);
+            data.put("CUSTCODE", party.getString("partyId"));
 
-        // card security code
-        if (UtilValidate.isNotEmpty(cvv2)) {
-            data.put("CVV2", cvv2);
+            // transaction type
+            if (comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", configString, "payment.verisign.preAuth",  "Y")) {
+                data.put("TRXTYPE", "A");
+                // only support re-auth for auth types; sale types don't do it
+                if (authTrans != null) {
+                    String refNum = authTrans.getString("referenceNum");
+                    data.put("ORIGID", refNum);
+                    isReAuth = true;
+                }
+            } else {
+                data.put("TRXTYPE", "S");
+            }
+
+            // credit card tender
+            data.put("TENDER", "C");
+
+            // card security code
+            if (UtilValidate.isNotEmpty(cvv2)) {
+                data.put("CVV2", cvv2);
+            }
+
+            // get the payment information
+            data.put("ACCT", cc.getString("cardNumber"));
+
+            // name on card
+            String name = cc.getString("firstNameOnCard") + " " + cc.getString("lastNameOnCard");
+            data.put("FIRSTNAME", cc.getString("firstNameOnCard"));
+            data.put("LASTNAME", cc.getString("lastNameOnCard"));
+            data.put("COMMENT2", name);
+            if (cc.get("expireDate") != null) {
+                String exp = cc.getString("expireDate");
+                String expDate = exp.substring(0, 2);
+
+                expDate = expDate + exp.substring(exp.length() - 2);
+                data.put("EXPDATE", expDate);
+            }
+
+            // gather the address info
+            if (ps != null) {
+                String street = ps.getString("address1") + (ps.get("address2") != null && ps.getString("address2").length() > 0 ? " " + ps.getString("address2") : "");
+
+                data.put("STREET", street);
+                data.put("ZIP", ps.getString("postalCode"));
+            }
         }
 
         // set the amount
         data.put("AMT", processAmount.toString());
-
-        // get the payment information
-        data.put("ACCT", cc.getString("cardNumber"));
-
-        // name on card
-        String name = cc.getString("firstNameOnCard") + " " + cc.getString("lastNameOnCard");
-        data.put("FIRSTNAME", cc.getString("firstNameOnCard"));
-        data.put("LASTNAME", cc.getString("lastNameOnCard"));
-        data.put("COMMENT2", name);
-        if (cc.get("expireDate") != null) {
-            String exp = cc.getString("expireDate");
-            String expDate = exp.substring(0, 2);
-
-            expDate = expDate + exp.substring(exp.length() - 2);
-            data.put("EXPDATE", expDate);
-        }
-
-        // gather the address info
-        if (ps != null) {
-            String street = ps.getString("address1") + (ps.get("address2") != null && ps.getString("address2").length() > 0 ? " " + ps.getString("address2") : "");
-
-            data.put("STREET", street);
-            data.put("ZIP", ps.getString("postalCode"));
-        }
 
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, configString, context);
         
@@ -151,10 +174,14 @@ public class PayflowPro {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Response from Verisign: " + resp, module);
         }
+        if (isPayPal) {
+            // Attach the avs info returned in doExpressCheckout and stored in PayPalPaymentMethod
+            resp += "&AVSADDR=" + payPalPaymentMethod.getString("avsAddr") + "&AVSZIP=" + payPalPaymentMethod.getString("avsZip");
+        }
         
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        parseAuthResponse(delegator, paymentGatewayConfigId, resp, result, configString, isReAuth);
+        parseAuthResponse(delegator, paymentGatewayConfigId, resp, result, configString, isReAuth, isPayPal);
         result.put("processAmount", processAmount);
         return result;
     }
@@ -168,6 +195,12 @@ public class PayflowPro {
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
+        }
+
+        boolean isPayPal = false;
+        // Are we doing a cc or a paypal payment?
+        if ("EXT_PAYPAL".equals(paymentPref.getString("paymentMethodTypeId"))) {
+            isPayPal = true;
         }
 
         if (authTrans == null) {
@@ -185,12 +218,19 @@ public class PayflowPro {
         // tx type (Delayed Capture)
         data.put("TRXTYPE", "D");
 
-        // credit card tender
-        data.put("TENDER", "C");
+        if (isPayPal) {
+            // paypal tender
+            data.put("TENDER", "P");
+            data.put("CAPTURECOMPLETE", "N");
+        } else {
+            // credit card tender
+            data.put("TENDER", "C");
 
-        // get the orderID
-        String orderId = paymentPref.getString("orderId");
-        data.put("COMMENT1", orderId);
+            // get the orderID
+            String orderId = paymentPref.getString("orderId");
+            data.put("COMMENT1", orderId);
+        }
+
 
         // amount to capture
         data.put("AMT", amount.toString());
@@ -240,6 +280,12 @@ public class PayflowPro {
             return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot capture");
         }
 
+        boolean isPayPal = false;
+        // Are we doing a cc or a paypal payment?
+        if ("EXT_PAYPAL".equals(paymentPref.getString("paymentMethodTypeId"))) {
+            isPayPal = true;
+        }
+
         // auth ref number
         String refNum = authTrans.getString("referenceNum");
         Map<String, String> data = UtilMisc.toMap("ORIGID", refNum);
@@ -247,15 +293,23 @@ public class PayflowPro {
         // tx type (Void)
         data.put("TRXTYPE", "V");
 
-        // credit card tender
-        data.put("TENDER", "C");
-
         // get the orderID
         String orderId = paymentPref.getString("orderId");
-        data.put("COMMENT1", orderId);
 
-        // amount to capture
-        data.put("AMT", amount.toString());
+        if (isPayPal) {
+            data.put("TENDER", "P");
+
+            data.put("NOTE", orderId);
+        } else {
+            // credit card tender
+            data.put("TENDER", "C");
+
+            data.put("COMMENT1", orderId);
+
+            // amount to void
+            data.put("AMT", amount.toString());
+        }
+
 
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, configString, context);
 
@@ -299,6 +353,12 @@ public class PayflowPro {
             return ServiceUtil.returnError("No capture transaction found for the OrderPaymentPreference; cannot refund");
         }
 
+        boolean isPayPal = false;
+        // Are we doing a cc or a paypal payment?
+        if ("EXT_PAYPAL".equals(paymentPref.getString("paymentMethodTypeId"))) {
+            isPayPal = true;
+        }
+
         // auth ref number
         String refNum = captureTrans.getString("referenceNum");
         Map<String, String> data = UtilMisc.toMap("ORIGID", refNum);
@@ -306,12 +366,19 @@ public class PayflowPro {
         // tx type (Credit)
         data.put("TRXTYPE", "C");
 
-        // credit card tender
-        data.put("TENDER", "C");
-
         // get the orderID
         String orderId = paymentPref.getString("orderId");
-        data.put("COMMENT1", orderId);
+
+        if (isPayPal) {
+            data.put("TENDER", "P");
+
+            data.put("MEMO", orderId);
+        } else {
+            // credit card tender
+            data.put("TENDER", "C");
+
+            data.put("COMMENT1", orderId);
+        }
 
         // amount to capture
         data.put("AMT", amount.toString());
@@ -341,10 +408,255 @@ public class PayflowPro {
         result.put("refundAmount", amount);
         return result;
     }
+    
+    
+    public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        ShoppingCart cart = (ShoppingCart) context.get("cart");
+        Locale locale = cart.getLocale();
+        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, cart.getProductStoreId(), "EXT_PAYPAL", null, true);
+        String paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
+        String configString = "payment.properties";
+        
+        if (cart == null || cart.items().size() <= 0) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", "AccountingPayPalShoppingCartIsEmpty", locale));
+        }
 
-    private static void parseAuthResponse(GenericDelegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result, String resource, boolean isReAuth) {
+        Map<String, String> data = FastMap.newInstance();
+
+        data.put("TRXTYPE", "O");
+        data.put("TENDER", "P");
+        data.put("ACTION", "S");
+        String token = (String) cart.getAttribute("payPalCheckoutToken");
+        if (UtilValidate.isNotEmpty(token)) {
+            data.put("TOKEN", token);
+        }
+        data.put("RETURNURL", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "returnUrl", configString, "payment.verisign.returnUrl"));
+        data.put("CANCELURL", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cancelReturnUrl", configString, "payment.verisign.cancelReturnUrl"));
+        
+        try {
+            addCartDetails(data, cart);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            ServiceUtil.returnError("An error occurred while retreiving cart details");
+        }
+
+        PayflowAPI pfp = init(delegator, paymentGatewayConfigId, null, context);
+
+        // get the base params
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, null);
+
+        // parse the context parameters
+        params.append("&").append(parseContext(data));
+
+        // transmit the request
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        String resp;
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+            resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
+        } else {
+            resp = "RESULT=0&TOKEN=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        }
+
+        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
+
+        Map<String, String> responseMap = parseResponse(resp);
+        String result = responseMap.get("RESULT");
+        if (!"0".equals(result)) {
+            String respMsg = responseMap.get("RESPMSG");
+            Debug.logError("A problem occurred while requesting an express checkout token from paypal: Result = " + result + ", Message = " + respMsg, module);
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", "AccountingPayPalCommunicationError", locale));
+        }
+        token = responseMap.get("TOKEN");
+        cart.setAttribute("payPalCheckoutToken", token);
+        return ServiceUtil.returnSuccess();
+    }
+
+    private static void addCartDetails(Map<String, String> parameterMap, ShoppingCart cart) throws GenericEntityException {
+        parameterMap.put("CURRENCY", cart.getCurrency());
+        int line = 0;
+        for (ShoppingCartItem item : cart.items()) {
+            //paramMap.put("L_NUMBER" + line, item.getProductId());
+            parameterMap.put("L_NAME" + line, item.getName());
+            parameterMap.put("L_DESC" + line, item.getDescription());
+            parameterMap.put("L_AMT" + line, item.getBasePrice().setScale(2).toPlainString());
+            parameterMap.put("L_QTY" + line, item.getQuantity().toBigInteger().toString());
+            line++;
+            BigDecimal otherAdjustments = item.getOtherAdjustments();
+            if (otherAdjustments.compareTo(BigDecimal.ZERO) != 0) {
+                parameterMap.put("L_NAME" + line, item.getName() + " Adjustments");
+                parameterMap.put("L_DESC" + line, "Adjustments for item: " + item.getName());
+                parameterMap.put("L_AMT" + line, otherAdjustments.setScale(2).toPlainString());
+                parameterMap.put("L_QTY" + line, "1");
+                line++;
+            }
+        }
+        BigDecimal otherAdjustments = cart.getOrderOtherAdjustmentTotal();
+        if (otherAdjustments.compareTo(BigDecimal.ZERO) != 0) {
+            parameterMap.put("L_NAME" + line, "Order Adjustments");
+            parameterMap.put("L_AMT" + line, otherAdjustments.setScale(2).toPlainString());
+            parameterMap.put("L_QTY" + line, "1");
+            line++;
+        }
+        parameterMap.put("ITEMAMT", cart.getSubTotal().add(otherAdjustments).setScale(2).toPlainString());
+        parameterMap.put("TAXAMT", cart.getTotalSalesTax().setScale(2).toPlainString());
+        parameterMap.put("FREIGHTAMT", cart.getTotalShipping().setScale(2).toPlainString());
+        parameterMap.put("AMT", cart.getGrandTotal().setScale(2).toPlainString());
+
+        if (!cart.shippingApplies()) {
+            parameterMap.put("NOSHIPPING", "1");
+        } else {
+            GenericValue shippingAddress = cart.getShippingAddress();
+            parameterMap.put("ADDROVERRIDE", "1");
+            parameterMap.put("SHIPTOSTREET", StringUtils.left(shippingAddress.getString("address1"), 30));
+            parameterMap.put("SHIPTOSTREET2", StringUtils.left(shippingAddress.getString("address2"), 30));
+            parameterMap.put("SHIPTOCITY", StringUtils.left(shippingAddress.getString("city"), 40));
+            if (shippingAddress.getString("stateProvinceGeoId") != null && !"_NA_".equals(shippingAddress.getString("stateProvinceGeoId"))) {
+                GenericValue stateProvinceGeo = shippingAddress.getRelatedOne("StateProvinceGeo");
+                parameterMap.put("SHIPTOSTATE", StringUtils.left(stateProvinceGeo.getString("geoCode"), 40));
+            }
+            parameterMap.put("SHIPTOZIP", StringUtils.left(shippingAddress.getString("postalCode"), 16));
+            GenericValue countryGeo = shippingAddress.getRelatedOne("CountryGeo");
+            parameterMap.put("SHIPTOCOUNTRY", StringUtils.left(countryGeo.getString("geoCode"), 2));
+        }
+    }
+    
+    public static Map<String, Object> getExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        ShoppingCart cart = (ShoppingCart) context.get("cart");
+        Locale locale = cart.getLocale();
+        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, cart.getProductStoreId(), "EXT_PAYPAL", null, true);
+        String paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
+        String configString = "payment.properties";
+
+        Map<String, String> data = FastMap.newInstance();
+        data.put("TRXTYPE", "O");
+        data.put("TENDER", "P");
+        data.put("ACTION", "G");
+        String token = (String) cart.getAttribute("payPalCheckoutToken");
+        if (UtilValidate.isNotEmpty(token)) {
+            data.put("TOKEN", token);
+        }
+
+        PayflowAPI pfp = init(delegator, paymentGatewayConfigId, null, context);
+
+        // get the base params
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, null);
+
+        // parse the context parameters
+        params.append("&").append(parseContext(data));
+
+        // transmit the request
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        String resp;
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+            resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
+        } else {
+            resp = "RESULT=0&PAYERID=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        }
+
+        Map<String, String> responseMap = parseResponse(resp);
+        if (!"0".equals(responseMap.get("RESULT"))) {
+            Debug.logError("A problem occurred while requesting the checkout details from paypal: Result = " + responseMap.get("RESULT") + ", Message = " + responseMap.get("RESPMSG"), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", "AccountingPayPalCommunicationError", locale));
+        }
+        
+        Map<String, Object> inMap = FastMap.newInstance();
+        inMap.put("userLogin", cart.getUserLogin());
+        inMap.put("partyId", cart.getOrderPartyId());
+        inMap.put("contactMechId", cart.getShippingContactMechId());
+        inMap.put("fromDate", UtilDateTime.nowTimestamp());
+        inMap.put("payerId", responseMap.get("PAYERID"));
+        inMap.put("expressCheckoutToken", token);
+        inMap.put("payerStatus", responseMap.get("PAYERSTATUS"));
+        inMap.put("avsAddr", responseMap.get("AVSADDR"));
+        inMap.put("avsZip", responseMap.get("AVSZIP"));
+        inMap.put("correlationId", responseMap.get("CORRELATIONID"));
+        Map<String, Object> outMap = null;
+        try {
+            outMap = dispatcher.runSync("createPayPalPaymentMethod", inMap);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        String paymentMethodId = (String) outMap.get("paymentMethodId");
+        
+        cart.clearPayments();
+        cart.addPaymentAmount(paymentMethodId, cart.getGrandTotal(), true);
+        
+        return ServiceUtil.returnSuccess();
+
+    }
+
+    public static Map<String, Object> doExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
+        OrderReadHelper orh = new OrderReadHelper(delegator, paymentPref.getString("orderId"));
+        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, orh.getProductStoreId(), "EXT_PAYPAL", null, true);
+        String paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
+        String configString = "payment.properties";
+        GenericValue payPalPaymentMethod = null;
+        try {
+            payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod");
+            payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        BigDecimal processAmount = paymentPref.getBigDecimal("maxAmount");
+
+        Map<String, String> data = FastMap.newInstance();
+        data.put("TRXTYPE", "O");
+        data.put("TENDER", "P");
+        data.put("PAYERID", payPalPaymentMethod.getString("payerId"));
+        data.put("TOKEN", payPalPaymentMethod.getString("expressCheckoutToken"));
+        data.put("ACTION", "D");
+        // set the amount
+        data.put("AMT", processAmount.setScale(2).toPlainString());
+
+        PayflowAPI pfp = init(delegator, paymentGatewayConfigId, null, context);
+
+        // get the base params
+        StringBuilder params = makeBaseParams(delegator, paymentGatewayConfigId, null);
+
+        // parse the context parameters
+        params.append("&").append(parseContext(data));
+
+        // transmit the request
+        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        String resp;
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+            resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
+        } else {
+            resp = "RESULT=0&PAYERID=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        }
+
+        Map<String, String> responseMap = parseResponse(resp);
+
+        Map<String, Object> inMap = FastMap.newInstance();
+        inMap.put("userLogin", userLogin);
+        inMap.put("paymentMethodId", payPalPaymentMethod.get("paymentMethodId"));
+        inMap.put("transactionId", responseMap.get("PNREF"));
+        Map<String, Object> outMap = null;
+        try {
+            outMap = dispatcher.runSync("updatePayPalPaymentMethod", inMap);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(outMap)) {
+            Debug.logError(ServiceUtil.getErrorMessage(outMap), module);
+            return outMap;
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+    private static Map<String, String> parseResponse(String resp) {
         Debug.logInfo("Verisign response string: " + resp, module);
-        Map<Object, Object> parameters = FastMap.newInstance();
+        Map<String, String> parameters = FastMap.newInstance();
         List<String> params = StringUtil.split(resp, "&");
         Iterator<String> i = params.iterator();
 
@@ -353,13 +665,17 @@ public class PayflowPro {
 
             if (str.length() > 0) {
                 List<String> kv = StringUtil.split(str, "=");
-                Object k = kv.get(0);
-                Object v = kv.get(1);
+                String k = kv.get(0);
+                String v = kv.get(1);
 
                 if (k != null && v != null)
                     parameters.put(k, v);
             }
         }
+        return parameters;
+    }
+    private static void parseAuthResponse(GenericDelegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result, String resource, boolean isReAuth, boolean isPayPal) {
+        Map<String, String> parameters = parseResponse(resp);
 
         // txType
         boolean isSale = !comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", resource, "payment.verisign.preAuth", "Y");
@@ -379,10 +695,10 @@ public class PayflowPro {
             }
         }
 
-        // cvv2 checking - ignore on re-auth
+        // cvv2 checking - ignore on re-auth or paypal
         boolean cvv2CheckOkay = true;
         String cvvCode = null;
-        if (!isReAuth) {
+        if (!isReAuth && !isPayPal) {
             boolean checkCvv2 = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkCvv2", resource, "payment.verisign.checkCvv2", "Y");
             if (checkCvv2 && !isSale) {
                 cvvCode = (String) parameters.get("CVV2MATCH");
@@ -400,7 +716,9 @@ public class PayflowPro {
             Debug.logError(e, "Unable to parse response code; not a number!", module);
         }
 
+        
         result.put("authRefNum", parameters.get("PNREF"));
+
         if (codeInt == 0 && avsCheckOkay && cvv2CheckOkay) {
             result.put("authResult", Boolean.TRUE);
             result.put("authCode", parameters.get("AUTHCODE"));
@@ -432,22 +750,8 @@ public class PayflowPro {
     }
 
     private static void parseCaptureResponse(String resp, Map<String, Object> result) {
-        Map<Object, Object> parameters = FastMap.newInstance();
-        List<String> params = StringUtil.split(resp, "&");
-        Iterator<String> i = params.iterator();
-
-        while (i.hasNext()) {
-            String str = (String) i.next();
-
-            if (str.length() > 0) {
-                List<String> kv = StringUtil.split(str, "=");
-                Object k = kv.get(0);
-                Object v = kv.get(1);
-
-                if (k != null && v != null)
-                    parameters.put(k, v);
-            }
-        }
+        Map<String, String> parameters = parseResponse(resp);
+        
         String respCode = (String) parameters.get("RESULT");
         int codeInt = -999; // custom response code -- not from payflow docs
         try {
@@ -474,22 +778,8 @@ public class PayflowPro {
     }
 
     private static void parseVoidResponse(String resp, Map<String, Object> result) {
-        Map<Object, Object> parameters = FastMap.newInstance();
-        List<String> params = StringUtil.split(resp, "&");
-        Iterator<String> i = params.iterator();
-
-        while (i.hasNext()) {
-            String str = (String) i.next();
-
-            if (str.length() > 0) {
-                List<String> kv = StringUtil.split(str, "=");
-                Object k = kv.get(0);
-                Object v = kv.get(1);
-
-                if (k != null && v != null)
-                    parameters.put(k, v);
-            }
-        }
+        Map<String, String> parameters = parseResponse(resp);
+        
         String respCode = (String) parameters.get("RESULT");
         int codeInt = -999; // custom response code -- not from payflow docs
         try {
@@ -516,22 +806,8 @@ public class PayflowPro {
     }
 
     private static void parseRefundResponse(String resp, Map<String, Object> result) {
-        Map<Object, Object> parameters = FastMap.newInstance();
-        List<String> params = StringUtil.split(resp, "&");
-        Iterator<String> i = params.iterator();
-
-        while (i.hasNext()) {
-            String str = (String) i.next();
-
-            if (str.length() > 0) {
-                List<String> kv = StringUtil.split(str, "=");
-                Object k = kv.get(0);
-                Object v = kv.get(1);
-
-                if (k != null && v != null)
-                    parameters.put(k, v);
-            }
-        }
+        Map<String, String> parameters = parseResponse(resp);
+        
         String respCode = (String) parameters.get("RESULT");
         int codeInt = -999; // custom response code -- not from payflow docs
         try {
@@ -571,15 +847,7 @@ public class PayflowPro {
             } else {
                 String value = valueObj.toString();
 
-                // URL enocde each field to make sure it can pass to payflow properly
-                try {
-                    name = URLEncoder.encode(name, "UTF-8");
-                    value = URLEncoder.encode(value, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    Debug.logError(e, module);
-                    continue;
-                }
-
+                // Payflow expects an unencoded name/value pair string
                 buf.append(name).append("=");
                 buf.append(value);
                 if (i.hasNext())

@@ -112,7 +112,7 @@ public class ShoppingCart implements Serializable {
     private List<CartShipInfo> shipInfo = FastList.<CartShipInfo> newInstance();
     private Map contactMechIdsMap = new HashMap();
     private Map orderAttributes = new HashMap();
-    private Map attributes = new HashMap(); // user defined attributes
+    private Map<String, Object> attributes = new HashMap<String, Object>(); // user defined attributes
     // Lists of internal/public notes: when the order is stored they are transformed into OrderHeaderNotes
     private List internalOrderNotes = FastList.newInstance(); // internal notes
     private List orderNotes = FastList.newInstance(); // public notes (printed on documents etc.)
@@ -366,6 +366,10 @@ public class ShoppingCart implements Serializable {
 
     public void setAttribute(String name, Object value) {
         this.attributes.put(name, value);
+    }
+
+    public void removeAttribute(String name) {
+        this.attributes.remove(name);
     }
 
     public Object getAttribute(String name) {
@@ -874,8 +878,8 @@ public class ShoppingCart implements Serializable {
     }
 
     /** Returns a Collection of items in the cart object. */
-    public List items() {
-        List result = FastList.newInstance();
+    public List<ShoppingCartItem> items() {
+        List<ShoppingCartItem> result = FastList.newInstance();
         result.addAll(cartLines);
         return result;
     }
@@ -4622,6 +4626,8 @@ public class ShoppingCart implements Serializable {
                         pmObj = delegator.findByPrimaryKey("EftAccount", lookupFields);
                     } else if ("EXT_BILLACT".equals(paymentMethodTypeId)) {
                         pmObj = delegator.findByPrimaryKey("BillingAccount", lookupFields);
+                    } else if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
+                        pmObj = delegator.findByPrimaryKey("PayPalPaymentMethod", lookupFields);
                     }
                     if (pmObj != null) {
                         postalAddress = pmObj.getRelatedOne("PostalAddress");

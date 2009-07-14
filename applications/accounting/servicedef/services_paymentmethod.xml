@@ -179,6 +179,22 @@ under the License.
         <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="createPayPalPaymentMethod" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="createPayPalPaymentMethod" auth="true">
+        <description>Create a PayPal Payment Method</description>
+        <auto-attributes mode="INOUT" entity-name="PayPalPaymentMethod" include="pk" optional="true"/>
+        <auto-attributes mode="IN" entity-name="PayPalPaymentMethod" include="nonpk" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="updatePayPalPaymentMethod" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updatePayPalPaymentMethod" auth="true">
+        <description>Update a PayPal Payment Method</description>
+        <attribute name="paymentMethodId" mode="INOUT" type="String" optional="false"/>
+        <auto-attributes mode="IN" entity-name="PayPalPaymentMethod" include="nonpk" optional="true"/>
+    </service>
 
     <!-- Payment Auth/Capture Services -->
     <service name="manualForcedCcAuthTransaction" engine="java"
@@ -573,6 +589,41 @@ under the License.
         <description>EFT Account Processing Interface</description>
         <implements service="paymentProcessInterface"/>
         <attribute name="eftAccount" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+    </service>
+
+    <!-- PayPal Payment Interfaces -->
+    <service name="payPalProcessInterface" engine="interface" location="" invoke="">
+        <description>PayPal authorize Interface</description>
+        <implements service="paymentProcessInterface"/>
+        <attribute name="payPalPaymentMethod" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+    </service>
+    <service name="payPalCaptureInterface" engine="interface" location="" invoke="">
+        <description>PayPal Capture Interface</description>
+        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="BigDecimal" mode="INOUT" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="authTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="captureAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureRefNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="captureCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="payPalSetExpressCheckoutInterface" engine="interface" location="" invoke="">
+        <description>Interface for services performing the PayPal getExpressCheckout operation</description>
+        <attribute name="cart" mode="IN" type="org.ofbiz.order.shoppingcart.ShoppingCart" optional="false"></attribute>
+    </service>
+    <service name="payPalGetExpressCheckoutInterface" engine="interface" location="" invoke="">
+        <description>Interface for services performing the PayPal getExpressCheckoutDetails operation</description>
+        <attribute name="cart" mode="IN" type="org.ofbiz.order.shoppingcart.ShoppingCart" optional="false"></attribute>
+    </service>
+    <service name="payPalDoExpressCheckoutInterface" engine="interface" location="" invoke="">
+        <description>Interface for services performing the PayPal doExpressCheckout operation</description>
+        <attribute name="orderPaymentPreference" mode="IN" type="GenericValue" optional="false"></attribute>
     </service>
 
     <!-- Gift Card Interfaces -->
