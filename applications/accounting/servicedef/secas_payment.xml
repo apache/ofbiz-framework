@@ -41,4 +41,9 @@ under the License.
         <action service="checkPaymentInvoices" mode="sync"/>
      </eca>
 
+     <!-- Create finAccountTrans record for payment. -->
+     <eca service="createPaymentAndApplicationForParty" event="commit">
+        <condition field-name="finAccountId" operator="is-not-empty"/>
+        <action service="createFinAccoutnTransFromPayment" mode="sync"/>
+     </eca>
 </service-eca>
