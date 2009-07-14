@@ -188,6 +188,13 @@ under the License.
         <field name="entryDate"><date-time/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="FINACT_TRNS_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 

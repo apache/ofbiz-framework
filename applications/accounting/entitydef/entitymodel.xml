@@ -462,6 +462,7 @@ under the License.
         <field name="performedByPartyId" type="id"></field>
         <field name="reasonEnumId" type="id"></field>
         <field name="comments" type="comment"></field>
+        <field name="statusId" type="id"></field>
         <prim-key field="finAccountTransId"/>
         <relation type="one" fk-name="FINACCT_TX_TYPE" rel-entity-name="FinAccountTransType">
             <key-map field-name="finAccountTransTypeId"/>
@@ -487,6 +488,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="FIN_ACT_REAS_ENUM" title="Reason" rel-entity-name="Enumeration">
             <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="FIN_ACT_TX_STI" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTransAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute Entity">
