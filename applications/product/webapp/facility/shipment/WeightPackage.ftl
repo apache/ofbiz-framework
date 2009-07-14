@@ -80,7 +80,7 @@ under the License.
                 <td colspan="2">&nbsp;</td>
                 <td colspan="2">
                   <a href="javascript:document.selectOrderForm.action='<@ofbizUrl>PackOrder</@ofbizUrl>';document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
-                  <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
+                  <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductWeighPackageOnly}</a>
                 </td>
               </tr>
             </table>
@@ -102,7 +102,7 @@ under the License.
                 <td colspan="2">&nbsp;</td>
                 <td colspan="1">
                   <a href="javascript:document.selectPicklistBinForm.action='<@ofbizUrl>PackOrder</@ofbizUrl>';document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
-                  <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductWeightPackageOnly}</a>
+                  <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductWeighPackageOnly}</a>
                 </td>
               </tr>
             </table>
@@ -177,6 +177,7 @@ under the License.
                 <input type="hidden" name="newEstimatedShippingCost" value="${newEstimatedShippingCost?if_exists}"/>
               </form>
             </#if>
+            <#if (orderedQuantity > packedLines.size())>
             <table class="basic-table" cellpadding="2" cellspacing='0'>
               <form name="weightPackageForm" method ="post" action="<@ofbizUrl>setPackageInfo</@ofbizUrl>">
                 <input type="hidden" name = "shipGroupSeqId" value = "${shipGroupSeqId?if_exists}"/>
@@ -217,6 +218,7 @@ under the License.
                 </tr>
               </form>
             </table>
+            </#if>
           <#else>
             <table class="basic-table" cellpadding="2" cellspacing='0'> 
              <tr>
