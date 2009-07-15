@@ -374,4 +374,81 @@ under the License.
             </if-empty>
         </iterate>
     </simple-method>
+    
+    <simple-method method-name="depositWithdrawPayments" short-description="Deposit withdraw payments">
+        <set field="paymentIds" from-field="parameters.paymentIds"/>
+        <set field="finAccountId" from-field="parameters.finAccountId"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount"/>
+        <set field="paymentRunningTotal" type="BigDecimal" value="0"/>
+        <entity-condition entity-name="Payment" list="payments">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+        </entity-condition>
+        <iterate list="payments" entry="payment">
+            <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}" type="BigDecimal"/>
+            <if-not-empty field="payment.finAccountTransId">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentAlreadyAssociatedToFinAccountError"/></add-error>
+            </if-not-empty>
+            <check-errors/>
+            <if>
+                <condition>
+                    <not>
+                        <or>
+                            <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                            <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        </or>
+                    </not>
+                </condition>
+                <then>
+                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentStatusIsNotReceivedOrSentError"/></add-error>
+                </then>
+            </if>
+            <check-errors/>
+        </iterate>
+        <if-compare field="parameters.groupInOneTransaction" operator="equals" value="Y">
+            <set field="createFinAccountTransMap.finAccountId" from-field="finAccountId"/>
+            <set field="createFinAccountTransMap.finAccountTransTypeId" value="DEPOSIT"/>
+            <set field="createFinAccountTransMap.partyId" from-field="finAccount.ownerPartyId"/>
+            <set field="createFinAccountTransMap.amount" from-field="paymentRunningTotal"/>
+            <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
+            <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap">
+                <result-to-field result-name="finAccountTransId"/>
+                <result-to-result result-name="finAccountTransId"/>
+            </call-service>
+            <iterate list="payments" entry="payment">
+                <if-compare-field field="payment.partyIdTo" operator="not-equals" to-field="finAccount.ownerPartyId">
+                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/></add-error>
+                </if-compare-field>
+                <check-errors/>
+                <set field="updatePaymentCtx.paymentId" from-field="payment.paymentId"/>
+                <set field="updatePaymentCtx.finAccountTransId" from-field="finAccountTransId"/>
+                <call-service service-name="updatePayment" in-map-name="updatePaymentCtx"/>
+                <clear-field field="updatePaymentCtx"/>
+            </iterate>
+        <else>
+            <iterate list="payments" entry="payment">
+                <if-compare-field field="payment.partyIdTo" operator="equals" to-field="finAccount.ownerPartyId">
+                    <set field="createFinAccountTransMap.finAccountTransTypeId" value="DEPOSIT"/>
+                <else>
+                    <if-compare-field field="payment.partyIdFrom" operator="equals" to-field="finAccount.ownerPartyId">
+                        <set field="createFinAccountTransMap.finAccountTransTypeId" value="WITHDRAWAL"/>
+                    </if-compare-field>
+                </else>
+                </if-compare-field>
+                <set field="createFinAccountTransMap.finAccountId" from-field="finAccountId"/>
+                <set field="createFinAccountTransMap.partyId" from-field="finAccount.ownerPartyId"/>
+                <set field="createFinAccountTransMap.paymentId" from-field="payment.paymentId"/>
+                <set field="createFinAccountTransMap.amount" from-field="payment.amount"/>
+                <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
+                <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap">
+                    <result-to-field result-name="finAccountTransId"/>
+                </call-service>
+                <set field="updatePaymentCtx.paymentId" from-field="payment.paymentId"/>
+                <set field="updatePaymentCtx.finAccountTransId" from-field="finAccountTransId"/>
+                <call-service service-name="updatePayment" in-map-name="updatePaymentCtx"/>
+                <clear-field field="updatePaymentCtx"/>
+                <clear-field field="createFinAccountTransMap"/>
+            </iterate>
+        </else>
+        </if-compare>
+    </simple-method>
 </simple-methods>

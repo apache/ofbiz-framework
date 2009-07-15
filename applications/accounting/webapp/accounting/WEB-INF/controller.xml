@@ -2072,10 +2072,6 @@ under the License.
     <request-map uri="FindPaymentsForDepositOrWithdraw">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PaymentsDepositWithdraw"/>
-    </request-map>
-    <request-map uri="ListPaymentsForDepositOrWithdraw">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="PaymentsDepositWithdraw"/>
         <response name="error" type="view" value="PaymentsDepositWithdraw"/>
     </request-map>
     <request-map uri="getPaymentRunningTotal">
@@ -2086,6 +2082,12 @@ under the License.
     <request-map uri="LookupCustomerName">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupCustomerName"/>
+    </request-map>
+    <request-map uri="depositWithdrawPayments">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="depositWithdrawPayments"/>
+        <response name="success" type="view" value="PaymentsDepositWithdraw"/>
+        <response name="error" type="view" value="PaymentsDepositWithdraw"/>
     </request-map>
 
 

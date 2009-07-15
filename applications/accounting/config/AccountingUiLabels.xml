@@ -1503,6 +1503,9 @@
         <value xml:lang="th">ไม่สามารถชำระเงินสำหรับแอพพลิเคชัน [${payAppl}] เนื่องจาก ${msg}</value>
         <value xml:lang="zh">无法为应用[${payAppl}]获得支付，由于${msg}</value>
     </property>
+    <property key="AccountingCannotIncludeApPaymentError">
+        <value xml:lang="en">Cannot include AP payment in a deposit batch</value>
+    </property>
     <property key="AccountingCapture">
         <value xml:lang="ar">خطفة</value>
         <value xml:lang="de">erfassen</value>
@@ -5800,6 +5803,9 @@
         <value xml:lang="th">การชำระเงิน [${paymentId}] นำไปใช้ได้เต็มที่</value>
         <value xml:lang="zh">支付[${paymentId}]已完整应用</value>
     </property>
+    <property key="AccountingPaymentAlreadyAssociatedToFinAccountError">
+        <value xml:lang="en">Payment [${paymentId}] is already associated with other financial account.</value>
+    </property>
     <property key="AccountingPaymentAlreadyReceived">
         <value xml:lang="ar">تسديد مستلم مسبقا</value>
         <value xml:lang="de">Bezahlung bereits erhalten</value>
@@ -6424,6 +6430,9 @@
         <value xml:lang="ru">Отосланные платежи</value>
         <value xml:lang="th">ส่งการชำระเงิน</value>
         <value xml:lang="zh">已发送的支付</value>
+    </property>
+    <property key="AccountingPaymentStatusIsNotReceivedOrSentError">
+        <value xml:lang="en">Payment status must be received or sent</value>
     </property>
     <property key="AccountingPermissionError">
         <value xml:lang="ar">لا رخصة لديكم لهذه العملية</value>

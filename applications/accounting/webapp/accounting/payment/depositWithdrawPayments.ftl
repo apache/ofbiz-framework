@@ -67,9 +67,10 @@ function getPaymentRunningTotal(e) {
 </script>
 <div class="screenlet">
     <div class="screenlet-body">
-        <form id="depositWithdrawPaymentsForm" name="depositWithdrawPaymentsForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
+        <form id="depositWithdrawPaymentsForm" name="depositWithdrawPaymentsForm" method="post" action="<@ofbizUrl>depositWithdrawPayments</@ofbizUrl>">
             <#if paymentList?has_content>
                 <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
+                <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}">
                 <div>
                     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
                     <span class="label" id="showPaymentRunningTotal"></span>
@@ -111,12 +112,14 @@ function getPaymentRunningTotal(e) {
                             </td>
                         </tr>
                     </#list>
+                    <div align="right">
+                        ${uiLabelMap.AccountingGroupInOneTransaction}
+                        <input type="checkbox" name="groupInOneTransaction" value="Y"/>
+                        <a href="javascript:document.depositWithdrawPaymentsForm.submit();" class="buttontext">${uiLabelMap.AccountingDepositWithdraw}</a>
+                    </div>
                 </table>
-                <div align="right">
-                    ${uiLabelMap.AccountingGroupInOneTransaction}
-                    <input type="checkbox" name="groupInOneTransaction" value="Y"/>
-                    <a href="javascript:document.depositWithdrawPaymentsForm.submit();" class="buttontext">${uiLabelMap.AccountingDepositWithdraw}</a>
-                </div>
+            <#else>
+                <span class="label">${uiLabelMap.AccountingNoRecordFound}</span>
             </#if>
         </form>
     </div>
