@@ -20,6 +20,7 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -201,17 +202,20 @@ public class WorkEffortWorker {
     }
 
     public static List<GenericValue> removeDuplicateWorkEfforts(List<GenericValue> workEfforts) {
+        return removeDuplicateWorkEfforts(workEfforts.iterator());
+    }
+
+    public static List<GenericValue> removeDuplicateWorkEfforts(Iterator<GenericValue> workEfforts) {
         Set<String> keys = FastSet.newInstance();
-        Set<GenericValue> exclusions = FastSet.newInstance();
-        for (GenericValue workEffort : workEfforts) {
+        List<GenericValue> resultList = FastList.newInstance();
+        while (workEfforts.hasNext()) {
+            GenericValue workEffort = workEfforts.next();
             String workEffortId = workEffort.getString("workEffortId");
-            if (keys.contains(workEffortId)) {
-                exclusions.add(workEffort);
-            } else {
+            if (!keys.contains(workEffortId)) {
+                resultList.add(workEffort);
                 keys.add(workEffortId);
             }
         }
-        workEfforts.removeAll(exclusions);
-        return workEfforts;
+        return resultList;
     }
 }

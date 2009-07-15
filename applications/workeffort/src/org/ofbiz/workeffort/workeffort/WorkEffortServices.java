@@ -51,6 +51,7 @@ import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -1015,5 +1016,26 @@ public class WorkEffortServices {
             }
         }
         return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> removeDuplicateWorkEfforts(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        List<GenericValue> resultList = null;
+        EntityListIterator eli = (EntityListIterator) context.get("workEffortIterator");
+        if (eli != null) {
+            resultList = WorkEffortWorker.removeDuplicateWorkEfforts(eli);
+            try {
+                eli.close();
+            } catch (Exception e) {
+                Debug.logError(e, "Error while closing EntityListIterator: ", module);
+            }
+        } else {
+            List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts"));
+            if (workEfforts != null) {
+                resultList = WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
+            }
+        }
+        result.put("workEfforts", resultList);
+        return result;
     }
 }

@@ -186,19 +186,17 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="FindWorkEffort" default-map-name="workEffort" target="ListWorkEfforts" title="" type="single"
-        header-row-style="header-row" default-table-style="basic-table">
-        <!-- auto-fields-entity entity-name="WorkEffort" default-field-type="find"/-->
+    <form name="FindWorkEffort" default-map-name="workEffort" target="FindWorkEffort" type="single">
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
         <field name="workEffortParentId" position="2"><text-find/></field>
-        <field name="workEffortTypeId">
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortPurposeTypeId" position="2">
+        <field name="workEffortPurposeTypeId" position="2" title="${uiLabelMap.CommonPurpose}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="description"/>
@@ -254,6 +252,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
 
         <field name="workflowPackageId"><ignored/></field>
         <field name="workflowPackageVersion"><ignored/></field>
@@ -395,13 +394,16 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts"
+    <form name="ListWorkEfforts" type="list" list-name="workEfforts" paginate-target="ListWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="WorkEffort"/>
+                <field-map field-name="entityName" value="WorkEffortFindView"/>
                 <field-map field-name="orderBy" value="lastModifiedDate DESC"/>
+            </service>
+            <service service-name="removeDuplicateWorkEfforts" result-map="result" result-map-list="workEfforts">
+                <field-map field-name="workEffortIterator" from-field="listIt"/>
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
@@ -409,9 +411,9 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
-        <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType"/></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="WorkEffortPurposeType"/></field>
         <field name="description"><display/></field>
         <field name="priority"><display/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
@@ -444,6 +446,9 @@ under the License.
             </hyperlink>
         </field>
     </form>
+
+    <form name="FoundWorkEfforts" extends="ListWorkEfforts" paginate-target="FindWorkEffort" header-row-style="header-row-2"/>
+
     <form name="WorkEffortTreeLine"  hide-header="true" target="ListWorkEfforts" title="" type="list" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
