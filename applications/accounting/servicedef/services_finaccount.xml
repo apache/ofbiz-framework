@@ -385,4 +385,13 @@ under the License.
             accounting/data/AccountingTypeData.xml
         </description>
     </service>
+    
+    <service name="depositWithdrawPayments" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="depositWithdrawPayments">
+        <description>Deposit withdraw payments</description>
+        <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
+        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupInOneTransaction" type="String" mode="IN" optional="true"/>
+        <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
+    </service>
 </services>

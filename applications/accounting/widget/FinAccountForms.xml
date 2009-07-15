@@ -227,7 +227,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="PaymentsDepositWithdraw" type="single" target="ListPaymentsForDepositOrWithdraw" extends="FindBatchPayments" extends-resource="component://accounting/widget/ar/forms/ArPaymentForms.xml">
+    <form name="PaymentsDepositWithdraw" type="single" target="FindPaymentsForDepositOrWithdraw" extends="FindBatchPayments" extends-resource="component://accounting/widget/ar/forms/ArPaymentForms.xml">
         <field name="finAccountId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
