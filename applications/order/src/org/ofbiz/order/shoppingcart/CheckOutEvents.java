@@ -634,21 +634,19 @@ public class CheckOutEvents {
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         String paymentMethodTypeId = (String) request.getParameter("paymentMethodTypeId");
-        if (UtilValidate.isNotEmpty(paymentMethodTypeId)) {
-            if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
-                List<GenericValue> payPalProdStorePaySettings = null;
-                try {
-                    payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", "productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL");
-                    GenericValue payPalProdStorePaySetting = EntityUtil.getFirst(payPalProdStorePaySettings);
-                    if (payPalProdStorePaySetting != null) {
-                        GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig");
-                        if (gatewayConfig != null && "PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
-                            return "paypal";
-                        }
+        if ("EXT_PAYPAL".equals(paymentMethodTypeId) || cart.getPaymentMethodTypeIds().contains("EXT_PAYPAL")) {
+            List<GenericValue> payPalProdStorePaySettings = null;
+            try {
+                payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", "productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL");
+                GenericValue payPalProdStorePaySetting = EntityUtil.getFirst(payPalProdStorePaySettings);
+                if (payPalProdStorePaySetting != null) {
+                    GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig");
+                    if (gatewayConfig != null && "PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
+                        return "paypal";
                     }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
                 }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
             }
         }
         return "success";
