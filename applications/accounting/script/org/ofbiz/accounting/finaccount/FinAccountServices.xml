@@ -366,7 +366,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="migrateStatusToFinAccountTrans" short-description="Migrate statusId to FinAccountTrans entity">
-        <entity-condition entity-name="FinAccountTrans" list="finAccountTransList"/>
+        <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
+            <use-iterator/>
+        </entity-condition>    
         <iterate list="finAccountTransList" entry="finAccountTrans">
             <if-empty field="finAccountTrans.statusId">
                 <set field="finAccountTrans.statusId" value="FINACT_TRNS_APPROVED"/>
