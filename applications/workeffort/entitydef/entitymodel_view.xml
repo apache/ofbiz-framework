@@ -283,6 +283,32 @@ under the License.
         <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
       </view-link>
     </view-entity>
+
+    <view-entity entity-name="WorkEffortFindView"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Find Work Efforts View">
+      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+      <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
+      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+      <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
+      <alias-all entity-alias="WE">
+          <exclude field="workEffortParentId"/>
+          <exclude field="fixedAssetId"/>
+      </alias-all>
+      <alias name="workEffortParentId" entity-alias="WEA" field="workEffortIdFrom"/>
+      <alias name="partyId" entity-alias="WEPA" field="partyId"/>
+      <alias name="fixedAssetId" entity-alias="WEFAA" field="fixedAssetId"/>
+      <view-link entity-alias="WE" rel-entity-alias="WEA" rel-optional="true">
+        <key-map field-name="workEffortId" rel-field-name="workEffortIdTo"/>
+      </view-link>
+      <view-link entity-alias="WE" rel-entity-alias="WEPA" rel-optional="true">
+        <key-map field-name="workEffortId"/>
+      </view-link>
+      <view-link entity-alias="WE" rel-entity-alias="WEFAA" rel-optional="true">
+        <key-map field-name="workEffortId"/>
+      </view-link>
+    </view-entity>
+
     <!--
     <view-entity entity-name="WorkEffortAssocFromView"
             package-name="org.ofbiz.workeffort.workeffort"

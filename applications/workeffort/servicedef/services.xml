@@ -239,6 +239,12 @@ under the License.
         <attribute name="periods" type="java.util.List" mode="OUT" optional="false"/>
         <attribute name="maxConcurrentEntries" type="java.lang.Integer" mode="OUT" optional="false"/>
     </service>
+    <service name="removeDuplicateWorkEfforts" auth="true" engine="java"
+            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="removeDuplicateWorkEfforts">
+        <description>Removes duplicate work efforts from a list of work efforts.</description>
+        <attribute name="workEffortIterator" type="java.util.ListIterator" mode="IN" optional="true"/>
+        <attribute name="workEfforts" type="java.util.List" mode="INOUT" optional="true"/>
+    </service>
     <service name="getProductManufacturingSummaryByFacility" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getProductManufacturingSummaryByFacility">
         <description>

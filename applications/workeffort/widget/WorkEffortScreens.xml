@@ -151,35 +151,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="FindWorkEffort">
         <section>
             <actions>
+                <set field="headerItem" value="workeffort"/>
                 <set field="titleProperty" value="PageTitleFindWorkEffort"/>
-                <set field="tabButtonItem" value="WorkEffort"/>
-                <set field="labelTitleProperty" value="PageTitleFindWorkEffort"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindWorkEffort}"/>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <container style="button-bar">
+                                    <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
+                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                    </link>
+                                    <link  text="${uiLabelMap.CommonAdvancedSearch}" target="WorkEffortSearchOptions" style="buttontext"/>
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
-                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                        </link>
-                                        <link  text="${uiLabelMap.CommonAdvancedSearch}" target="WorkEffortSearchOptions" style="buttontext"/>
-                                        <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="FoundWorkEfforts" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
