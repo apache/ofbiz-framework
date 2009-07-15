@@ -89,7 +89,7 @@ under the License.
                 <service service-name="getProject" result-map="result">
                     <field-map field-name="projectId" from-field="projectId"/>
                 </service>
-                <set field="project" from-field="result.projectInfo"/>
+                <set field="projectInfo" from-field="result.projectInfo"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
