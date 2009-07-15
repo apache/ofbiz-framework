@@ -1019,11 +1019,20 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> removeDuplicateWorkEfforts(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = ServiceUtil.returnSuccess();
         List<GenericValue> resultList = null;
         EntityListIterator eli = (EntityListIterator) context.get("workEffortIterator");
         if (eli != null) {
-            resultList = WorkEffortWorker.removeDuplicateWorkEfforts(eli);
+            Set<String> keys = FastSet.newInstance();
+            resultList = FastList.newInstance();
+            GenericValue workEffort = eli.next();
+            while (workEffort != null) {
+                String workEffortId = workEffort.getString("workEffortId");
+                if (!keys.contains(workEffortId)) {
+                    resultList.add(workEffort);
+                    keys.add(workEffortId);
+                }
+                workEffort = eli.next();
+            }
             try {
                 eli.close();
             } catch (Exception e) {
@@ -1035,6 +1044,7 @@ public class WorkEffortServices {
                 resultList = WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
             }
         }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("workEfforts", resultList);
         return result;
     }
