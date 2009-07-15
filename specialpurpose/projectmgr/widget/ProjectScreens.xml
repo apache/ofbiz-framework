@@ -90,13 +90,14 @@ under the License.
                     <field-map field-name="projectId" from-field="projectId"/>
                 </service>
                 <set field="projectInfo" from-field="result.projectInfo"/>
+                <set field="projectId" from-field="projectInfo.projectId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                    <screenlet title="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}" >
-                        <include-form name="EditProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                    </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}" >
+                            <include-form name="EditProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -26,31 +26,31 @@
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-one>
             <entity-and entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments" filter-by-date="true">
-                <field-map field-name="workEffortId" from-field="projectInfo.projectId"/>
+                <field-map field-name="workEffortId" from-field="projectId"/>
                 <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
             </entity-and>
             <set field="projectInfo.clientBillingPartyId" from-field="workEffortPartyAssignments[0].partyId"/>
             <entity-and entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments" filter-by-date="true">
-                <field-map field-name="workEffortId" from-field="projectInfo.projectId"/>
+                <field-map field-name="workEffortId" from-field="projectId"/>
                 <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
             </entity-and>
             <set field="projectInfo.organizationPartyId" from-field="workEffortPartyAssignments[0].partyId"/>
         </actions>
-        <alt-target use-when="projectInfo==null" target="createProject"/>
-        <field name="templateId" use-when="projectInfo==null">
+        <alt-target use-when="projectId==null" target="createProject"/>
+        <field name="workEffortTypeId"><hidden value="PROJECT"/></field>
+        <field name="workEffortId"><hidden value="${projectId}"/></field>
+        <field name="projectId"><hidden/></field>
+        <field name="templateId" use-when="projectId==null">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="PROJECT_TEMPLATE"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortTypeId"><hidden value="PROJECT"/></field>
-        <field name="projectId"><hidden/></field>
-        <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}*"><text/></field>
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="currentStatusId" use-when="projectInfo!=null" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="currentStatusId" use-when="projectInfo==null"><hidden value="_NA_"/></field>
+        <field name="currentStatusId" use-when="projectId!=null" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="currentStatusId" use-when="projectId==null"><hidden value="_NA_"/></field>
         <field name="clientBillingPartyId">
             <lookup target-form-name="LookupPartyGroup">
                 <sub-hyperlink target="viewprofile" description="${partyGroup.groupName}">
@@ -80,10 +80,10 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="projectInfo!=null" name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
-        <field use-when="projectInfo!=null" name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
-        <field use-when="projectInfo!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
-        <field use-when="projectInfo!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
+        <field use-when="projectId!=null" name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
+        <field use-when="projectId!=null" name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
+        <field use-when="projectId!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
+        <field use-when="projectId!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <form name="AddSubProject" type="single" target="AddSubProject"
