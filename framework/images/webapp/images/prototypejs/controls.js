@@ -596,8 +596,24 @@ Ajax.InPlaceEditor = Class.create({
     if (this.options.loadTextURL)
       this.loadExternalText();
     this._form.appendChild(this._controls.editor);
-  },
-  createForm: function() {
+  },createHiddenFieldParam: function() {
+  	var allparam=this.url.substring(this.url.indexOf('?')+1,this.url.length);
+  	var strparam=allparam.split('&');
+  	if(strparam.length>0){
+  		var fldhd;
+  		for(var i=0;i<strparam.length;i++){
+  			var strvalues=strparam[i];
+  			if(strvalues.indexOf('=')!=0){
+  				var fieldValue=strvalues.split('=');
+  				fldhd = document.createElement('input');
+      			fldhd.type = 'hidden';
+      			fldhd.name=fieldValue[0];
+      			fldhd.value=fieldValue[1];
+      			this._form.appendChild(fldhd);
+  			}
+  		}
+  	}
+  },createForm: function() {
     var ipe = this;
     function addText(mode, condition) {
       var text = ipe.options['text' + mode + 'Controls'];
@@ -609,6 +625,10 @@ Ajax.InPlaceEditor = Class.create({
     this._form.addClassName(this.options.formClassName);
     this._form.onsubmit = this._boundSubmitHandler;
     this.createEditField();
+    if(this.url.indexOf('?')!=-1){
+    	this.createHiddenFieldParam();
+    	this.url=this.url.substring(0,this.url.indexOf('?'));
+    }
     if ('textarea' == this._controls.editor.tagName.toLowerCase())
       this._form.appendChild(document.createElement('br'));
     if (this.options.onFormCustomization)
@@ -676,7 +696,7 @@ Ajax.InPlaceEditor = Class.create({
       });
       new Ajax.Updater({ success: this.element }, this.url, options);
     } else {
-      var options = Object.extend({ method: this.options.method || 'get' }, this.options.ajaxOptions);
+      var options = Object.extend({ method: this.options.method || 'post' }, this.options.ajaxOptions);
       Object.extend(options, {
         parameters: params,
         onComplete: this._boundWrapperHandler,
