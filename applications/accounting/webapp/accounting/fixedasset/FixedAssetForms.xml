@@ -216,10 +216,10 @@ under the License.
             <display-entity entity-name="FixedAssetStdCostType"/>
         </field>
         <field name="amountUomId">
-            <drop-down allow-empty="true">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="abbreviation"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -244,9 +244,9 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"/>
         <field name="amountUomId">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="abbreviation"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
