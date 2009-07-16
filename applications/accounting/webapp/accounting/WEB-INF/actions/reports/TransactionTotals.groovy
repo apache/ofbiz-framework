@@ -29,6 +29,8 @@ import javolution.util.FastMap;
 
 debitTotal = BigDecimal.ZERO;
 creditTotal = BigDecimal.ZERO;
+openingCreditBalance = BigDecimal.ZERO;
+openingDebitBalance = BigDecimal.ZERO;
 
 exprs = [EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId)];
 if (fromDate) {
@@ -79,10 +81,19 @@ if (allTrans) {
 
 private void addTransToList(List transectionList, String prevGlAccountId, Map value) {
     if (!prevGlAccountId.equals(value.glAccountId)) {
+        if (parameters.selectedMonth){
+            resultMap = dispatcher.runSync("calculateGlAccountTrialBalance", 
+                    [fromDate : financialYearFromDate, thruDate : fromDate , glAccountId : prevGlAccountId, isPosted : value.isPosted, userLogin : userLogin]);
+    
+            openingCreditBalance = resultMap.openingCreditTotal;
+            openingDebitBalance = resultMap.openingDebitTotal;
+        }
         postedAndUnpostedMap = FastMap.newInstance();
         postedAndUnpostedMap.glAccountId = prevGlAccountId;
         postedAndUnpostedMap.credit = creditTotal;
         postedAndUnpostedMap.debit = debitTotal;
+        postedAndUnpostedMap.openingCreditBalance = openingCreditBalance;
+        postedAndUnpostedMap.openingDebitBalance = openingDebitBalance;
         transectionList.add(postedAndUnpostedMap);
         debitTotal = BigDecimal.ZERO;
         creditTotal = BigDecimal.ZERO;
@@ -131,10 +142,7 @@ private void getUnpostedTrans(int index, String prevGlAccountId) {
 private void getPostedAndUnpostedTrans(int index, String prevGlAccountId) {
     if (index != allTrans.size())
         value = allTrans.get(index);
-    else { 
-        tempValueMap.isPosted = "X";
-        value = tempValueMap;
-    }
+    value.isPosted = "";
     addTransToList(postedAndUnpostedTransTotalList, prevGlAccountId, value);  
     if (index < allTrans.size()) {
         index++; 

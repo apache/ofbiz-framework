@@ -2191,6 +2191,14 @@ under the License.
         <response name="success" type="view" value="CommissionRun"/>
     </request-map>
 
+    <request-map uri="MonthlyTrialBalance">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="MonthlyTrialBalance"/>
+    </request-map>
+    <request-map uri="MonthlyTrialBalance.pdf">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="MonthlyTrialBalancePdf"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2464,6 +2472,8 @@ under the License.
     <view-map name="GlAccountTrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalance"/>
     <view-map name="GlAccountTrialBalanceReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalanceReportPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="CommissionRun" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#CommissionRun"/>
-    
+    <view-map name="MonthlyTrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#MonthlyTrialBalance"/>
+    <view-map name="MonthlyTrialBalancePdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#MonthlyTrialBalancePdf" content-type="application/pdf"/>
+
     <!-- end of view mappings -->
 </site-conf>

@@ -587,4 +587,15 @@ under the License.
         <attribute name="creditTotal" type="BigDecimal" mode="OUT"/>
         <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT"/>
     </service>
+    <service name="calculateGlAccountTrialBalance" default-entity-name="GlAccount" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="calculateGlAccountTrialBalance" auth="true">
+        <description>Calculate Trial Balance for a GlAccount</description>
+        <attribute name="glAccountId" mode="IN" type="String"/>
+        <attribute name="isPosted" mode="IN" type="String" optional="true"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp"/>
+        <attribute name="openingDebitTotal" type="BigDecimal" mode="OUT"/>
+        <attribute name="openingCreditTotal" type="BigDecimal" mode="OUT"/>
+        <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT"/>
+    </service>
 </services>

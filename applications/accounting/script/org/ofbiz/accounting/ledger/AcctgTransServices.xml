@@ -472,5 +472,40 @@ under the License.
         <field-to-result field="debitTotal"/>
         <field-to-result field="creditTotal"/>
         <field-to-result field="debitCreditDifference"/>
+        
     </simple-method>
+
+    <!-- GlAccount Trial Balance based on isPosted flag -->
+    <simple-method method-name="calculateGlAccountTrialBalance" short-description="Calculate Trial Balance for a GlAccount">
+        <set field="openingDebitTotal" type="BigDecimal" value="0"/>
+        <set field="openingCreditTotal" type="BigDecimal" value="0"/>
+        <set field="debitCreditDifference" type="BigDecimal" value="0"/>
+        
+        <!-- iterate through all GlAccOrgAndAcctgTransAndEntry in this account and that are filter based on posted and unposted, and get totals of all debits and of all credits -->
+        <entity-condition entity-name="GlAccOrgAndAcctgTransAndEntry" list="glAccOrgAndAcctgTransAndEntries" use-cache="true">
+            <condition-list combine="and">
+                <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
+                <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate"/>
+                <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate"/>
+            </condition-list>
+            <use-iterator/>
+        </entity-condition>
+
+        <if-not-empty field="glAccOrgAndAcctgTransAndEntries">
+            <iterate entry="glAccOrgAndAcctgTransAndEntry" list="glAccOrgAndAcctgTransAndEntries">
+                <if-compare field="glAccOrgAndAcctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
+                    <set field="openingDebitTotal" value="${openingDebitTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
+                <else>
+                    <set field="openingCreditTotal" value="${openingCreditTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
+                </else>
+                </if-compare>
+            </iterate>
+            <set field="debitCreditDifference" value="${openingDebitTotal - openingCreditTotal}" type="BigDecimal"/>
+        </if-not-empty>
+        <field-to-result field="openingDebitTotal"/>
+        <field-to-result field="openingCreditTotal"/>
+        <field-to-result field="debitCreditDifference"/>
+    </simple-method>
+
 </simple-methods>
