@@ -492,20 +492,18 @@ under the License.
             <use-iterator/>
         </entity-condition>
 
-        <if-not-empty field="glAccOrgAndAcctgTransAndEntries">
-            <iterate entry="glAccOrgAndAcctgTransAndEntry" list="glAccOrgAndAcctgTransAndEntries">
-                <if-compare field="glAccOrgAndAcctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
-                    <set field="openingDebitTotal" value="${openingDebitTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
-                <else>
-                    <set field="openingCreditTotal" value="${openingCreditTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
-                </else>
-                </if-compare>
-            </iterate>
-            <set field="debitCreditDifference" value="${openingDebitTotal - openingCreditTotal}" type="BigDecimal"/>
-        </if-not-empty>
+        <iterate entry="glAccOrgAndAcctgTransAndEntry" list="glAccOrgAndAcctgTransAndEntries">
+            <if-compare field="glAccOrgAndAcctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
+                <set field="openingDebitTotal" value="${openingDebitTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
+            <else>
+                <set field="openingCreditTotal" value="${openingCreditTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
+            </else>
+            </if-compare>
+        </iterate>
+        <set field="debitCreditDifference" value="${openingDebitTotal - openingCreditTotal}" type="BigDecimal"/>
+
         <field-to-result field="openingDebitTotal"/>
         <field-to-result field="openingCreditTotal"/>
         <field-to-result field="debitCreditDifference"/>
     </simple-method>
-
 </simple-methods>
