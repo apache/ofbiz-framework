@@ -116,6 +116,9 @@ under the License.
     <StatusType statusTypeId="FINACT_TRNS_STATUS" description="Financial Account Trans Status" hasTable="N" parentTypeId=""/>
     <StatusItem statusId="FINACT_TRNS_APPROVED" statusTypeId="FINACT_TRNS_STATUS" statusCode="APPROVED" sequenceId="11" description="Approved"/>
     <StatusItem statusId="FINACT_TRNS_CREATED" statusTypeId="FINACT_TRNS_STATUS" statusCode="CREATED" sequenceId="12" description="Created"/>
+    <StatusItem statusId="FINACT_TRNS_CANCELED" statusTypeId="FINACT_TRNS_STATUS" statusCode="CANCELED" sequenceId="13" description="Canceled"/>
+    <StatusValidChange condition="" statusId="FINACT_TRNS_CREATED" statusIdTo="FINACT_TRNS_APPROVED" transitionName="Set Created to Approved"/>
+    <StatusValidChange condition="" statusId="FINACT_TRNS_CREATED" statusIdTo="FINACT_TRNS_CANCELED" transitionName="Set Created to Canceled"/>
 
     <!-- FinAccount Reasons for Purchase & Replenish -->
     <EnumerationType description="Service Debit Reasons" enumTypeId="FINACCT_TRANS_REASON" parentTypeId="" hasTable="N"/>
