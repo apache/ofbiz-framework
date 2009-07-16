@@ -731,21 +731,15 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewCommunicationEvent"/>
     </request-map>
-    <request-map uri="addContentToCommEvent">
-        <security https="true" auth="true"/>
-        <event type="simple" invoke="addContentToCommEvent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
-        <response name="success" type="request" value="EditCommunicationEvent"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
-    </request-map>
     <request-map uri="uploadAttachFiletoEmail">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <event type="simple" invoke="createCommunicationEventContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
         <response name="success" type="view" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="uploadAttachFile">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <event type="simple" invoke="createCommunicationEventContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
         <response name="success" type="view" value="ListCommContent"/>
         <response name="error" type="view" value="ListCommContent"/>
     </request-map>

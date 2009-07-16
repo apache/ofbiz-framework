@@ -21,43 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="addContentToCommEvent"
-        short-description="Add content to email communication">
-        <!-- Call layout to get field -->
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
-            method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <string value="partyId"/>
-        </call-class-method>
-
-        <!-- Create party content -->
-        <set-service-fields service-name="createPartyContent" map="formInput.formInput"
-            to-map="partycontent"/>
-        <set field="partycontent.contentId" from-field="formInput.formInput.contentId"/>
-        <set field="partycontent.partyContentTypeId"
-            from-field="formInput.formInput.partyContentTypeId"/>
-        <set field="partycontent.partyId" from-field="formInput.formInput.partyId"/>
-        <call-service service-name="createPartyContent" in-map-name="partycontent"/>
-
-        <!-- Create communication event and content association -->
-        <set-service-fields service-name="createCommEventContentAssoc"
-            map="formInput.formInput" to-map="contentAssoc"/>
-        <set field="contentAssoc.contentId" from-field="formInput.formInput.contentId"/>
-        <set field="contentAssoc.communicationEventId"
-            from-field="formInput.formInput.communicationEventId"/>
-        <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
-            <result-to-field result-name="fromDate" field="fromDate"/>
-        </call-service>
-
-        <!-- Return to request -->
-        <set field="communicationEventTypeId"
-            from-field="formInput.formInput.communicationEventTypeId"/>
-        <set field="communicationEventId" from-field="formInput.formInput.communicationEventId"/>
-        <field-to-request field="communicationEventTypeId"
-            request-name="communicationEventTypeId"/>
-        <field-to-request field="communicationEventId" request-name="communicationEventId"/>
-    </simple-method>
-    <simple-method method-name="createCommunicationContent"
+    <simple-method method-name="createCommunicationEventContent"
         short-description="Upload Content and Create Communication Content Association">
         <!-- Call layout to get field -->
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
@@ -65,6 +29,11 @@ under the License.
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="uploadedFile"/>
         </call-class-method>
+        <if-empty field="formInput.imageFileName">
+            <add-error><fail-message message="Upload file is missing..."/></add-error>
+        </if-empty>
+        <check-errors/>
+        
         <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
 
         <!-- Create Data Resource -->
@@ -74,7 +43,7 @@ under the License.
         <set field="data.dataTemplateTypeId" value="NONE"/>
         <set field="data.dataCategoryId" from-field="formInput.formInput.dataCategoryId"/>
 
-        <set field="data.statusId" from-field="formInput.formInput.statusId"/>
+        <set field="data.statusId" from-field="formInput.formInput.resourceStatusId"/>
         <set field="data.dataResourceName" from-field="formInput.imageFileName"/>
         <set field="data.mimeTypeId" from-field="mimeType.mimeTypeId"/>
         <set field="data.uploadedFile" from-field="formInput.imageData"/>
@@ -124,6 +93,10 @@ under the License.
         <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
             <result-to-field result-name="fromDate" field="fromDate"/>
         </call-service>
+
+        <!-- save header fields -->
+        <set-service-fields service-name="updateCommunicationEvent" map="formInput.formInput" to-map="updateMap"/>
+        <call-service service-name="updateCommunicationEvent" in-map-name="updateMap"/>
 
         <!-- Return to request -->
         <field-to-request field="formInput.formInput.communicationEventId" request-name="communicationEventId"/>

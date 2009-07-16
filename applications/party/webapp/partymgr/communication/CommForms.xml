@@ -23,6 +23,7 @@ under the License.
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
+        <field name="my"><hidden value="${my}"/></field>
         <field name="parentCommEventId" position="2">
             <lookup target-form-name="LookupCommEvent">
                 <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null">
@@ -120,7 +121,7 @@ under the License.
         <field name="messageId"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
-    <form name="EditEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+    <form name="EditEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent" id="EditEmail">
         <actions>
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
@@ -149,24 +150,24 @@ under the License.
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
         <field name="partyIdFrom"><hidden/></field>
-        <field name="my"><hidden value="${parameters.my}"/></field>
+        <field name="my"><hidden value="${my}"/></field>
         <field name="fromEmailAddr" parameter-name="contactMechIdFrom">
             <drop-down>
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
             </drop-down>
         </field>
-        <field name="partyIdTo">
+        <field name="partyIdTo" position="1">
             <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
         </field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
-        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}" position="2"><date-time type="date"/></field>
+        <field name="subject"><text size="74" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
         <field name="send" title=" " position="1" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.submit())"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.submit())"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
         <field name="dummy" position="320"><hidden/></field>
@@ -626,17 +627,21 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.PartyAddRole}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.PartyAddRole}"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="listCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent"
+    <form name="listCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
                 <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
         </actions>
-        <field name="contentName" widget-style="smallSubmit">
+        <field name="communicationEventId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="my"><hidden/></field>
+        <field name="contentName">
             <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="dataResourceId"/>
@@ -644,14 +649,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
-        <field name="fromDate"><display/></field>
-        <!-- <field name="drDataResourceName" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${drDataResourceName} [${drDataResourceId}]" target="/content/control/EditDataResource" target-type="inter-app">
-                <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
-            </hyperlink>
-        </field-->
-        <field name="drMimeTypeId"><display-entity entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/></field>
+        <field name="deleteButton"><submit button-type="text-link"/></field>
     </form>
 
     <form name="addCommContent" type="single" target="createCommContentDataResource"
@@ -774,16 +772,25 @@ under the License.
     <form name="uploadContent" type="upload" target="uploadAttachFiletoEmail">
         <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
-        <field name="statusId"><hidden value="CTNT_PUBLISHED"/></field>
+        <field name="resourceStatusId"><hidden value="CTNT_PUBLISHED"/></field>
         <field name="partyId"><hidden value="${partyIdFrom}"/></field>
         <field name="partyContentTypeId" ><hidden value="USERDEF"/></field>
         <field name="roleTypeId"><hidden value="CONTENT"/></field>
-        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
-        <field name="communicationEventTypeId"><hidden value="${communicationEventTypeId}"/></field>
-        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
-        <field name="originalCommEventId"><hidden value="${parameters.originalCommEventId}"/></field>
+        <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
+        <field name="communicationEventTypeId"><hidden value="${communicationEvent.communicationEventTypeId}"/></field>
+        <field name="parentCommEventId"><hidden value="${communicationEvent.parentCommEventId}"/></field>
+        <field name="originalCommEventId"><hidden value="${communicationEvent.originalCommEventId}"/></field>
+        <field name="subject"><hidden/></field>
+        <field name="content"><hidden/></field>
+        <field name="partyIdTo"><hidden/></field>
+        <field name="datetimeStarted"><hidden/></field>
+        <field name="my"><hidden value="${my}"/></field>
         <field name="uploadedFile"><file/></field>
-        <field name="upLoad" title="${uiLabelMap.CommonUpload}"><submit/></field>
+        <field name="send" title=" ">
+            <hyperlink also-hidden="true"
+                target-type="plain" description="${uiLabelMap.CommonUpload}"
+                target="javascript:(document.uploadContent.datetimeStarted.value=document.EditEmail.datetimeStarted.value),(document.uploadContent.partyIdTo.value=document.EditEmail.partyIdTo.value),(document.uploadContent.subject.value=document.EditEmail.subject.value),(document.uploadContent.content.value=document.EditEmail.content.value),(document.uploadContent.submit())"/>
+        </field>
     </form>
     <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile"/>    
 
