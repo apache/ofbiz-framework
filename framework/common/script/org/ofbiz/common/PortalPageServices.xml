@@ -73,10 +73,6 @@ under the License.
         <field-to-result field="newEntity.portletSeqId" result-name="portletSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <make-value entity-name="PortalPageColumn" value-field="newEntity1"/>
-        <set-pk-fields map="parameters" value-field="newEntity1"/>
-        <make-next-seq-id value-field="newEntity1" seq-field-name="columnSeqId"/>
-        <create-value value-field="newEntity1"/>
     </simple-method>
 
     <simple-method method-name="deletePortalPagePortlet" short-description="Delete a PortalPortlet from a PortalPageColumn">
