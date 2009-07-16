@@ -346,16 +346,16 @@ under the License.
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
+                                        <screenlet title="${uiLabelMap.CommonFrom}: ${communicationEvent.partyIdFrom}, CommunicationEventId: ${communicationEvent.communicationEventId}">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
+                                        </screenlet>
                                         <container style="lefthalf">
-                                            <screenlet title="${uiLabelMap.CommonFrom}: ${communicationEvent.partyIdFrom}, CommunicationEventId: ${communicationEvent.communicationEventId}">
-                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
-                                            </screenlet>
-                                        </container>
-                                        <container style="righthalf">
                                             <screenlet title="${uiLabelMap.PartyCommEventRoles}">
                                                 <include-form name="ListCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                                 <include-form name="AddEventRole" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                             </screenlet>
+                                        </container>
+                                        <container style="righthalf">
                                             <screenlet title="${uiLabelMap.PartyCommContent}">
                                                 <include-form name="listCommContent" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                                 <include-form  name="uploadContent" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
