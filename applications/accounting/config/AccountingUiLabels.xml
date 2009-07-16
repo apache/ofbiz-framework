@@ -4819,9 +4819,6 @@
         <value xml:lang="th">วิธี</value>
         <value xml:lang="zh">方法</value>
     </property>
-    <property key="AccountingMonthlyTrialBalance">
-        <value xml:lang="en">Monthly Trial Balance</value>
-    </property>
     <property key="AccountingMiddleNameCard">
         <value xml:lang="ar">الإسم الوسط على البطاقة</value>
         <value xml:lang="de">Mittlerer Name auf Karte</value>
@@ -4834,6 +4831,9 @@
         <value xml:lang="ru">Отчество для карты</value>
         <value xml:lang="th">ชื่อกลาง (บัตร)</value>
         <value xml:lang="zh">卡上姓名的中间一组字母</value>
+    </property>
+    <property key="AccountingMonthlyTrialBalance">
+        <value xml:lang="en">Monthly Trial Balance</value>
     </property>
     <property key="AccountingNameAccount">
         <value xml:lang="ar">الإسم على الحساب</value>
