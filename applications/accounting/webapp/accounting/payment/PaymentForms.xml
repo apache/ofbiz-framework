@@ -177,7 +177,7 @@ under the License.
             <entity-one entity-name="Party" value-field="partyFrom">
                 <field-map field-name="partyId" from-field="payment.partyIdFrom"/>
             </entity-one>
-            <set field="uomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultCurrencyUomId}"/>
+            <set field="payment.actualCurrencyUomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultCurrencyUomId}"/>
             <entity-one entity-name="StatusItem" value-field="currentStatus">
                 <field-map field-name="statusId" from-field="payment.statusId"/>
             </entity-one>
@@ -225,16 +225,16 @@ under the License.
         </field>
         <field name="amount" position="1"><text/></field>
         <field position="2" name="currencyUomId">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="abbreviation"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="actualAmount" position="1" title="${uiLabelMap.AccountingActualCurrencyAmount}"><text/></field>
         <field name="actualCurrencyUomId" position="2" title="${uiLabelMap.AccountingActualCurrencyUomId}">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
