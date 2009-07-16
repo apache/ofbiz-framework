@@ -1674,6 +1674,12 @@
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_CN">已取消</value>
     </property>
+    <property key="OrderCancelRemainingPOItems">
+        <value xml:lang="en">Cancel Remaining PO Items</value>
+    </property>
+    <property key="OrderCancelSelectedItems">
+        <value xml:lang="en">Cancel Selected Items</value>
+    </property>
     <property key="OrderCannotBeChanged">
         <value xml:lang="de">(kann nicht geändert werden, ohne den Auftrag zu löschen)</value>
         <value xml:lang="en">(cannot be changed without clearing order.)</value>
@@ -1730,9 +1736,6 @@
         <value xml:lang="ru">Позиция в корзине использована в акции</value>
         <value xml:lang="th">บัตรใช้ในโปรโมชัน</value>
         <value xml:lang="zh">购物车明细使用促销情况</value>
-    </property>
-    <property key="OrderCancelSelectedItems">
-        <value xml:lang="en">Cancel Selected Items</value>
     </property>
     <property key="OrderCartSummary">
         <value xml:lang="cs">Obsah košíku</value>

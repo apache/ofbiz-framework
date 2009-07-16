@@ -599,6 +599,10 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="massCancelOrders" auth="true">
         <implements service="massOrderChangeInterface"/>
     </service>
+    <service name="massCancelRemainingPurchaseOrderItems" engine="java" transaction-timeout="300"
+            location="org.ofbiz.order.order.OrderServices" invoke="massCancelRemainingPurchaseOrderItems" auth="true">
+        <implements service="massOrderChangeInterface"/>
+    </service>
     <service name="massRejectOrders" engine="java" transaction-timeout="300"
             location="org.ofbiz.order.order.OrderServices" invoke="massRejectOrders" auth="true">
         <implements service="massOrderChangeInterface"/>
