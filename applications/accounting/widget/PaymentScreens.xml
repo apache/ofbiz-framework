@@ -111,7 +111,6 @@ under the License.
                 <entity-one entity-name="Payment" value-field="payment">
                     <field-map field-name="paymentId" from-field="parameters.paymentId"/>
                 </entity-one>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
