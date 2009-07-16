@@ -439,4 +439,31 @@ under the License.
         </field>
         <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>
     </form>
+    <form name="MonthlyPostedTransactionList" type="list" list-name="postedTransTotalList" paginate-target="MonthlyTrialBalance"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+
+        <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
+        <field name="accountCode" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode}"/></field>
+        <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
+        <field name="openingCreditBalance"><display description="${openingCreditBalance}"/></field>
+        <field name="openingDebitBalance"><display description="${openingDebitBalance}"/></field>
+        <field name="monthlyCreditTotal"><display description="${credit}"/></field>
+        <field name="monthlyDebitTotal"><display description="${debit}"/></field>
+        <field name="closingBalanceCredit"><display description="${openingCreditBalance + credit}"/></field>
+        <field name="closingBalanceDebit"><display description="${openingDebitBalance + debit}"/></field>
+        <field name="yearToDateBalanceCredit"><display description="${openingCreditBalance + credit}"/></field>
+        <field name="yearToDateBalanceDebit"><display description="${openingDebitBalance + debit}"/></field>
+    </form>
+
+    <form name="MonthlyUnpostedTransactionList" type="list" list-name="unpostedTransTotalList" paginate-target="MonthlyTrialBalance"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
+            extends="MonthlyPostedTransactionList" extends-resource="component://accounting/widget/ReportFinancialSummaryForms.xml">
+        <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
+    </form>
+    
+    <form name="MonthlyPostedUnpostedTransactionList" type="list" list-name="postedAndUnpostedTransTotalList" paginate-target="MonthlyTrialBalance" 
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            extends="MonthlyPostedTransactionList" extends-resource="component://accounting/widget/ReportFinancialSummaryForms.xml">
+        <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
+    </form>
 </forms>

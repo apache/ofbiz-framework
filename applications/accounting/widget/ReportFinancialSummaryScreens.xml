@@ -913,4 +913,146 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="MonthlyTrialBalance">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingMonthlyTrialBalance"/>
+                <set field="labelTitleProperty" value="AccountingMonthlyTrialBalance"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="MonthlyTrialBalance"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
+                <set field="fromDate" from-field="monthlyTrialBalanceFromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="monthlyTrialBalanceThruDate" type="Timestamp"/>
+                <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://accounting/webapp/accounting/reports/MonthlyTrialBalance.ftl"/>
+                            </html>
+                        </platform-specific>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="parameters.selectedMonth"/></not>
+                                    <not><if-empty field="parameters.posted"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="MonthlyTrialBalance.pdf">
+                                    <parameter param-name="posted" from-field="parameters.posted"/>
+                                    <parameter param-name="selectedMonth" from-field="parameters.selectedMonth"/>
+                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                </link>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <if-compare field="parameters.posted" operator="equals" value="Y"/>
+                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingPostedTransactionTotals}">
+                                            <include-form name="MonthlyPostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <if-compare field="parameters.posted" operator="equals" value="N"/>
+                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingUnPostedTransactionTotals}">
+                                            <include-form name="MonthlyUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <if-compare field="parameters.posted" operator="equals" value="All"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}">
+                                            <include-form name="MonthlyPostedUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="MonthlyTrialBalancePdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
+                <set field="fromDate" from-field="monthlyTrialBalanceFromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="monthlyTrialBalanceThruDate" type="Timestamp"/>
+                <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <if-compare field="parameters.posted" operator="equals" value="Y"/>
+                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                                            <include-form name="MonthlyPostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <if-compare field="parameters.posted" operator="equals" value="N"/>
+                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
+                                            <include-form name="MonthlyUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <if-compare field="parameters.posted" operator="equals" value="All"/>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
+                                            <include-form name="MonthlyPostedUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
