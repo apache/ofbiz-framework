@@ -312,6 +312,9 @@ under the License.
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="ContactList" value-field="contactList"/>
+                <entity-and entity-name="CommunicationEventType" list="communicationEventTypes">
+                    <field-map field-name="contactMechTypeId" from-field="contactList.contactMechTypeId"/>
+                </entity-and>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
 
                 <entity-one entity-name="StatusItem" value-field="status"/>                

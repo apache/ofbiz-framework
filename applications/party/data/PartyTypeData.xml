@@ -117,7 +117,7 @@ under the License.
     <CommunicationEventType communicationEventTypeId="LETTER_CORRESPONDENC" description="Letter" hasTable="N" parentTypeId="" contactMechTypeId="POSTAL_ADDRESS"/>
     <CommunicationEventType communicationEventTypeId="PHONE_COMMUNICATION" description="Phone" hasTable="N" parentTypeId="" contactMechTypeId="TELECOM_NUMBER"/>
     <CommunicationEventType communicationEventTypeId="WEB_SITE_COMMUNICATI" description="Web Site" hasTable="N" parentTypeId="" contactMechTypeId="WEB_ADDRESS"/>
-    <CommunicationEventType communicationEventTypeId="COMMENT_NOTE" description="Comment/Note" hasTable="N" parentTypeId=""/>
+    <CommunicationEventType communicationEventTypeId="COMMENT_NOTE" description="Comment/Note" hasTable="N" parentTypeId="" contactMechTypeId="INTERNAL_PARTYID"/>
     <CommunicationEventType communicationEventTypeId="AUTO_EMAIL_COMM" description="Auto Email" hasTable="N" parentTypeId="" contactMechTypeId="EMAIL_ADDRESS"/>
     
     <!-- party content types -->

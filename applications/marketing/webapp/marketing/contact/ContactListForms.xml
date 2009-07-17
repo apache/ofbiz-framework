@@ -239,14 +239,7 @@ under the License.
         <alt-target target="createContactListCommEvent" use-when="communicationEvent==null"/>
 
         <field name="communicationEventId" use-when="communicationEvent!=null" title="${uiLabelMap.MarketingContactListCommEventId}"><display/></field>
-        <field name="communicationEventTypeId" title="${uiLabelMap.MarketingContactListCommEventTypeId}">
-            <drop-down no-current-selected-key="EMAIL_COMMUNICATION">
-                <entity-options entity-name="CommunicationEventType" description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-
+        <field name="communicationEventTypeId"><hidden value="${communicationEventTypes[0].communicationEventTypeId}"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" no-current-selected-key="COM_PENDING">
@@ -320,7 +313,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent} --${communicationEventTypes[0].communicationEventTypeId}"><textarea cols="60" rows="10"/></field>
         <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
         <field name="submitButton" title=" ${uiLabelMap.CommonSave} "><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
@@ -516,7 +509,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="communicationEventId"><hidden/></field>
-        <field name="contactListId"><display-entity entity-name="ContactList" description="${decription}"/></field>
+        <field name="contactListId"><display-entity entity-name="ContactList" description="${contactListName}[contactListId]"/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" description="${partyId}">
