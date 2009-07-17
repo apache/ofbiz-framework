@@ -39,7 +39,7 @@ under the License.
                         <fo:block>${uiLabelMap.FormFieldTitle_paymentId}</fo:block>
                     </fo:table-cell>
                     <fo:table-cell padding="2pt" background-color="#D4D0C8" border="1pt solid" border-width=".1mm">
-                        <fo:block text-align="center">${uiLabelMap.AccountingPaymentType}</fo:block>
+                        <fo:block text-align="center">${uiLabelMap.AccountingReferenceNumber}</fo:block>
                     </fo:table-cell>
                     <fo:table-cell padding="2pt" background-color="#D4D0C8" border="1pt solid" border-width=".1mm">
                         <fo:block text-align="right">${uiLabelMap.AccountingPaymentMethod}</fo:block>
@@ -65,6 +65,9 @@ under the License.
                         </#if>
                         <#if payment.paymentMethodTypeId?has_content>
                             <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, false)/>
+                            <#if payment.paymentMethodTypeId?if_exists == "CREDIT_CARD">
+                                <#assign creditCard = delegator.findOne("CreditCard", {"paymentMethodId" : payment.paymentMethodId}, false)/>
+                            </#if>
                         </#if>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
@@ -72,11 +75,11 @@ under the License.
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="center">
-                                    ${paymentType.description?if_exists}
+                                    ${payment.paymentRefNum?if_exists}
                                 </fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="right">${paymentMethodType.description?if_exists}</fo:block>
+                                <fo:block text-align="right">${paymentMethodType.description?if_exists} <#if creditCard?has_content>(${creditCard.cardType?if_exists})</#if></fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="right">
