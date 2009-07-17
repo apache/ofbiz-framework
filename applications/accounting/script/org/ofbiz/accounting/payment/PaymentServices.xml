@@ -420,7 +420,13 @@ under the License.
             <iterate list="acctgTransInvoiceList" entry="acctgTransInvoice">
                 <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransInvoice.acctgTransId"/>
                 <set field="copyAcctgTransCtx.revert" value="Y"/>
-                <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx"/>
+                <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx">
+                    <result-to-field field="postAcctgTransMap.acctgTransId" result-name="acctgTransId"/>
+                </call-service>
+                <if-compare field="acctgTransInvoice.isPosted" operator="equals" value="Y">
+                    <call-service service-name="postAcctgTrans" in-map-name="postAcctgTransMap"/>
+                </if-compare>
+                <clear-field field="postAcctgTransMap"/>
             </iterate>
         </iterate>
         <get-related relation-name="AcctgTrans" value-field="payment" list="acctgTransPaymentList"/>
@@ -428,7 +434,13 @@ under the License.
         <iterate list="acctgTransPaymentList" entry="acctgTransPayment">
             <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransPayment.acctgTransId"/>
             <set field="copyAcctgTransCtx.revert" value="Y"/>
-            <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx"/>
+            <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx">
+                <result-to-field field="postAcctgTransMap.acctgTransId" result-name="acctgTransId"/>
+            </call-service>
+            <if-compare field="acctgTransPayment.isPosted" operator="equals" value="Y">
+                <call-service service-name="postAcctgTrans" in-map-name="postAcctgTransMap"/>
+            </if-compare>
+            <clear-field field="postAcctgTransMap"/>
         </iterate>
     </simple-method>
 
