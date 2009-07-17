@@ -170,6 +170,13 @@ under the License.
         <field name="finAccountId"><hidden/></field>
         <field name="finAccountTransId"><display/></field>
         <field name="finAccountTransTypeId"><display-entity entity-name="FinAccountTransType" description="${description}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.AccountingCancelTransactionStatus}" use-when="${statusId=='FINACT_TRNS_CREATED'}" widget-style="buttontext">
+            <hyperlink target="setFinAccountTransStatus" description="${uiLabelMap.CommonCancel}" also-hidden="false">
+                <parameter param-name="finAccountTransId"/>
+                <parameter param-name="finAccountId"/>
+                <parameter param-name="statusId" value="FINACT_TRNS_CANCELED"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans"
         header-row-style="header-row" default-table-style="basic-table">

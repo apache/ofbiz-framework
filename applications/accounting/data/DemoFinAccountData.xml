@@ -23,12 +23,12 @@ under the License.
             currencyUomId="USD" organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="9000" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <FinAccountTrans finAccountTransId="9100" finAccountTransTypeId="DEPOSIT" finAccountId="9000" amount="50000.00" 
-            partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin"/>
+            partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
 
     <FinAccount finAccountId="9001" finAccountTypeId="BANK_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="ABN AMRO" finAccountCode="6577852521447" finAccountPin="1234" currencyUomId="USD" 
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="9001" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <FinAccountTrans finAccountTransId="9101" finAccountTransTypeId="DEPOSIT" finAccountId="9001" amount="75000.00" 
-            partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin"/>
+            partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
 
 </entity-engine-xml>

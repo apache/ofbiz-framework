@@ -288,8 +288,13 @@ under the License.
         <set field="actualBalanceSum" value="0" type="BigDecimal"/>
         <iterate entry="finAccountTrans" list="finAccountTransList">
             <if>
-                <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
-                <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
+                <condition>
+                    <if-compare field="finAccountTrans.statusId" operator="equals" value="FINACT_TRNS_APPROVED"/>
+                </condition>
+            <then>
+                <if>
+                    <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
+                    <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
                 <else-if>
                     <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
                     <then><calculate field="amountForCalc"><calcop operator="negative" field="finAccountTrans.amount"/></calculate></then>
@@ -298,13 +303,14 @@ under the License.
                     <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
                     <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
                 </else-if>
+                </if>
+                <set field="actualBalanceSum" value="${actualBalanceSum + amountForCalc}" type="BigDecimal"/>
+            </then>
             </if>
-            <calculate field="actualBalanceSum" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
-                <calcop operator="add" field="actualBalanceSum">
-                    <calcop operator="get" field="amountForCalc"/>
-                </calcop>
-            </calculate>
         </iterate>
+        <calculate field="actualBalanceSum" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="get" field="actualBalanceSum"/>
+        </calculate>
 
         <!-- start with the actual balance, and subtract off FinAccountAuth.amount -->
         <set field="availableBalanceSum" from-field="actualBalanceSum"/>
@@ -443,5 +449,35 @@ under the License.
             </iterate>
         </else>
         </if-compare>
+    </simple-method>
+
+    <simple-method method-name="setFinAccountTransStatus" short-description="set the financial account transaction status">
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <field-to-result field="finAccountTrans.statusId" result-name="oldStatusId"/>
+        <if-compare-field field="finAccountTrans.statusId" operator="not-equals" to-field="parameters.statusId">
+            <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
+                <field-map field-name="statusId" from-field="finAccountTrans.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
+            </entity-one>
+            <if-empty field="statusChange">
+                <add-error><fail-message message="${uiLabelMap.AccountingPSInvalidStatusChange}"/></add-error>
+                <log level="error" message="Cannot change from ${finAccountTrans.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+            <else>
+                <set field="finAccountTrans.statusId" from-field="parameters.statusId"/>
+                <store-value value-field="finAccountTrans"/>
+            </else>
+            </if-empty>
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="updatePaymentOnFinAccTransStatusSetToCancel" short-description="remove field finAccountTransId from Payment entity.">
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <get-related-one relation-name="Payment" value-field="finAccountTrans" to-value-field="payment"/>
+        <if-not-empty field="payment">
+            <set field="updatePaymentMap.paymentId" from-field="payment.paymentId"/>
+            <clear-field field="updatePaymentMap.finAccountTransId"/>
+            <call-service service-name="updatePayment" in-map-name="updatePaymentMap"/>
+        </if-not-empty>
     </simple-method>
 </simple-methods>
