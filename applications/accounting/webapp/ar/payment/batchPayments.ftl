@@ -64,6 +64,13 @@ function getPaymentRunningTotal(e) {
         $('showPaymentRunningTotal').update("");
     }
 }
+function enableSubmitButton() {
+    if ($('paymentGroupName').value == "") {
+        $('submitButton').disabled = true;
+    } else {
+        $('submitButton').disabled = false;
+    }
+}
 // -->
 
 </script>
@@ -73,7 +80,7 @@ function getPaymentRunningTotal(e) {
             <#if paymentList?has_content>
                 <div>
                     <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
-                    <input type="text" size='25' name='paymentGroupName'>
+                    <input type="text" size='25' id="paymentGroupName" name='paymentGroupName' onchange="javascript:enableSubmitButton();">
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
                     <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
                 </div>
@@ -110,10 +117,10 @@ function getPaymentRunningTotal(e) {
                             </td>
                         </tr>
                     </#list>
+                    <div align="right">
+                        <input id="submitButton" type="submit" value="${uiLabelMap.AccountingCreateBatch}" disabled/>
+                    <div>
                 </table>
-                <div align="right">
-                    <a href="javascript:document.paymentBatchForm.submit();" class="buttontext">${uiLabelMap.AccountingCreateBatch}</a>
-                <div>
             <#else>
                 <span class="label">${uiLabelMap.AccountingNoRecordFound}</span>
             </#if>
