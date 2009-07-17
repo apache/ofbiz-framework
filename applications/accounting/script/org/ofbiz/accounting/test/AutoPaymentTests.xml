@@ -228,4 +228,68 @@ under the License.
         <log level="info" message="Test case for cancelCheckRunPayments ran successfully for paymentGroupId = ${paymentGroupId}"/>
     </simple-method>
     
+    <simple-method method-name="testDepositWithdrawPayments" short-description="test depositWithdrawPayments service" login-required="false">
+        <set field="paymentIds[]" value="demo10010"/>
+        <set field="paymentIds[]" value="8000"/>
+        <set field="finAccountId" value="9000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="depositWithdrawPaymentsMap.paymentIds" from-field="paymentIds"/>
+        <set field="depositWithdrawPaymentsMap.finAccountId" from-field="finAccountId"/>
+        <set field="depositWithdrawPaymentsMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="depositWithdrawPayments" in-map-name="depositWithdrawPaymentsMap"/>
+        <entity-condition entity-name="Payment" list="payments">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+        </entity-condition>
+        <iterate list="payments" entry="payment">
+            <get-related-one value-field="payment" relation-name="FinAccountTrans" to-value-field="finAccountTrans"/>
+            <assert><not><if-empty field="finAccountTrans"/></not></assert>
+            <check-errors/>
+            <assert>
+                <or>
+                    <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/>
+                    <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/>
+                </or>
+                <if-compare-field field="finAccountTrans.amount" operator="equals" to-field="payment.amount"/>
+            </assert>
+            <check-errors/>
+        </iterate>
+        <log level="info" message="fin Account Trans has been created for passed payments"/>
+    </simple-method>
+    
+    <simple-method method-name="testDepositWithdrawPaymentsInSingleTrans" short-description="test depositWithdrawPayments service for single transaction" login-required="false">
+        <set field="paymentIds[]" value="demo10001"/>
+        <set field="finAccountId" value="9000"/>
+        <set field="groupInOneTransaction" value="Y"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="depositWithdrawPaymentsMap.paymentIds" from-field="paymentIds"/>
+        <set field="depositWithdrawPaymentsMap.finAccountId" from-field="finAccountId"/>
+        <set field="depositWithdrawPaymentsMap.groupInOneTransaction" from-field="groupInOneTransaction"/>
+        <set field="depositWithdrawPaymentsMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="depositWithdrawPayments" in-map-name="depositWithdrawPaymentsMap">
+            <result-to-field result-name="finAccountTransId"/>
+        </call-service>
+        <set field="paymentRunningTotal" type="BigDecimal" value="0"/>
+        <entity-condition entity-name="Payment" list="payments">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+        </entity-condition>
+        <iterate list="payments" entry="payment">
+            <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}" type="BigDecimal"/>
+        </iterate>
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <assert>
+            <if-compare-field field="finAccountTrans.amount" operator="equals" to-field="paymentRunningTotal"/>
+        </assert>
+        <check-errors/>
+        <iterate list="payments" entry="payment">
+            <assert>
+                <if-compare-field field="payment.finAccountTransId" operator="equals" to-field="finAccountTransId"/>
+            </assert>
+            <check-errors/>
+        </iterate>
+        <log level="info" message="fin Account Trans has been created with Id ${finAccountTransId}"/>
+    </simple-method>
 </simple-methods>
