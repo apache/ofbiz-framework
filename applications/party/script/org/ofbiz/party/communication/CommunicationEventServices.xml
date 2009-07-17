@@ -456,6 +456,7 @@ under the License.
     <simple-method method-name="sendEmailDated"
         short-description="Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email">
         <now-timestamp field="nowDate"/>
+        <!-- sending of email -->
         <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
             <condition-list combine="and">
                 <condition-list combine="or">
@@ -472,6 +473,32 @@ under the License.
         <iterate entry="communicationEvent" list="communicationEvents">
             <set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true" break-on-error="false"/>
+        </iterate>
+        <!-- sending of internal notes of a contactlist -->
+        <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
+            <condition-list combine="and">
+                <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE"/>
+                <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+                <condition-expr field-name="contactListId" operator="not-equals" from-field="nullValue"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="datetimeStarted" operator="less" from-field="nowDate"/>
+                    <condition-expr field-name="datetimeStarted" operator="equals" from-field="nullField"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+        <iterate entry="communicationEvent" list="communicationEvents">
+            <entity-and entity-name="ContactListParty" list="contactListParties">
+                <field-map field-name="contactListId" from-field="communicationEvent.contactListId"/>
+            </entity-and>
+            <set field="communicationEventRole.communicationEventId" from-field="communicationEvent.communicationEventId"/>
+            <set field="communicationEventRole.roleTypeId" value="ADDRESSEE"/>
+            <iterate entry="contactListParty" list="contactListParties">
+                <set field="communicationEventRole.partyId" from-field="contactListParty.partyId"/>
+                <call-service service-name="createCommunicationEventRole" in-map-name="communicationEventRole"/>
+            </iterate>
+            <set-service-fields service-name="setCommunicationEventStatus" map="communicationEvent" to-map="updCommEventStatus"/>
+            <set field="updCommEventStatus.statusId" value="COM_COMPLETE"/>
+            <call-service service-name="setCommunicationEventStatus" in-map-name="updCommEventStatus"/>
         </iterate>
     </simple-method>
 

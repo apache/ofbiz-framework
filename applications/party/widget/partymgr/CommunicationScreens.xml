@@ -224,17 +224,9 @@ under the License.
                             </screenlet>
                         </widgets>
                         <fail-widgets>
-                            <section>
-                                <actions>
-                                    <set field="entityName" value="ContactListCommStatus"/>
-                                    <set field="requestParameters.communicationEventId" from-field="parameters.communicationEventId"/>
-                                </actions>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.MarketingContactListCommStatus}">
-                                        <include-form name="ListContactListCommStatuses" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
-                                    </screenlet>                        
-                                </widgets>
-                            </section>
+                            <screenlet title="${uiLabelMap.MarketingContactListCommStatus}">
+                                <include-form name="ListContactListCommStatuses" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            </screenlet>                        
                         </fail-widgets>
                     </section>
                     <screenlet title="${uiLabelMap.PartyCommContent}">
