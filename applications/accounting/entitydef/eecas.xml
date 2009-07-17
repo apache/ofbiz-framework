@@ -23,6 +23,7 @@
 
     <!-- To maintain FinAccount.actualBalance and FinAccount.availableBalance -->
     <eca entity="FinAccountTrans" operation="create-store" event="return">
+        <condition  field-name="statusId" operator="equals" value="FINACT_TRNS_APPROVED"/>
         <action service="updateFinAccountBalancesFromTrans" mode="sync"/>
     </eca>
     <!-- To maintain FinAccount.availableBalance -->

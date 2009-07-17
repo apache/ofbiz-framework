@@ -1491,6 +1491,9 @@
     <property key="AccountingCancelCheckRun">
         <value xml:lang="en">Cancel Check Run</value>
     </property>
+    <property key="AccountingCancelTransactionStatus">
+        <value xml:lang="en">Cancel Transaction Status</value>
+    </property>
     <property key="AccountingCannotGetPaymentForApplication">
         <value xml:lang="ar">لا يمكن الحصول على التسديد للتطبيق  [${payAppl}] من أجل ${msg}</value>
         <value xml:lang="en">Cannot get payment for application [${payAppl}] due to ${msg}</value>

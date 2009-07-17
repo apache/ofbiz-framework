@@ -1860,6 +1860,14 @@ under the License.
         <response name="success" type="view" value="EditFinAccountTrans"/>
         <response name="error" type="view" value="EditFinAccountTrans"/>
     </request-map>
+
+    <request-map uri="setFinAccountTransStatus">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="setFinAccountTransStatus"/>
+        <response name="success" type="view" value="EditFinAccountTrans"/>
+        <response name="error" type="view" value="EditFinAccountTrans"/>
+    </request-map>
+
     <!-- Fin Account Authority-->
     <request-map uri="EditFinAccountAuths">
         <security https="true" auth="true"/>

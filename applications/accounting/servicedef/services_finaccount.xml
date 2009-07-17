@@ -120,6 +120,18 @@ under the License.
         <attribute name="expireDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
+    <service name="setFinAccountTransStatus" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="setFinAccountTransStatus">
+        <description>Set financial account transaction status</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="updatePaymentOnFinAccTransStatusSetToCancel" engine="simple" location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updatePaymentOnFinAccTransStatusSetToCancel">
+        <description>Update payment when FinAccountTrans status is set to Cancle, remove finAccountTransId form Payment entity.</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
+    </service>
     <!-- these services use the product store's fin account settings -->
     <service name="createFinAccountForStore" engine="java" default-entity-name="FinAccount"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createFinAccountForStore">
