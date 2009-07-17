@@ -391,19 +391,10 @@ under the License.
                 <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentAlreadyAssociatedToFinAccountError"/></add-error>
             </if-not-empty>
             <check-errors/>
-            <if>
-                <condition>
-                    <not>
-                        <or>
-                            <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
-                            <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
-                        </or>
-                    </not>
-                </condition>
-                <then>
-                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentStatusIsNotReceivedOrSentError"/></add-error>
-                </then>
-            </if>
+            <set field="isValidStatus" value="${payment.statusId == 'PMNT_SENT' @or payment.statusId == 'PMNT_RECEIVED'}" type="Boolean"/>
+            <if-compare field="isValidStatus" operator="equals" value="false">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentStatusIsNotReceivedOrSentError"/></add-error>
+            </if-compare>
             <check-errors/>
         </iterate>
         <if-compare field="parameters.groupInOneTransaction" operator="equals" value="Y">
