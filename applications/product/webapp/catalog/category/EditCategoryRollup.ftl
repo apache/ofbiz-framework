@@ -54,8 +54,7 @@ under the License.
                             <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}">
                         </td>
                         <td>
-                            <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
-                            ${uiLabelMap.CommonDelete}</a>
+                            <a href="javascript:document.removeProductCategoryFromCategory_${productCategoryRollup_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                         </td>
                     </tr>
                     <#-- toggle the row color -->
@@ -72,6 +71,14 @@ under the License.
                         </td>
                     </tr>
                 </form>
+                <#list currentProductCategoryRollups as productCategoryRollup>
+                    <form name="removeProductCategoryFromCategory_${productCategoryRollup_index}" method="post" action="<@ofbizUrl>removeProductCategoryFromCategory</@ofbizUrl>">
+                        <input type="hidden" name="showProductCategoryId" value="${productCategoryId}"/>
+                        <input type="hidden" name="productCategoryId" value="${productCategoryRollup.productCategoryId}"/>
+                        <input type="hidden" name="parentProductCategoryId" value="${productCategoryRollup.parentProductCategoryId}"/>
+                        <input type="hidden" name="fromDate" value="${productCategoryRollup.fromDate}"/>
+                    </form>
+                </#list>
             </#if>
             <#if currentProductCategoryRollups.size() == 0>
                 <tr valign="middle">
@@ -138,8 +145,7 @@ under the License.
                                 <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}">
                             </td>
                             <td>
-                                <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
-                                ${uiLabelMap.CommonDelete}</a>
+                                <a href="javascript:document.removeProductCategoryFromCategory_1_${productCategoryRollup_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                             </td>
                         </tr>
                         <#-- toggle the row color -->
@@ -156,6 +162,14 @@ under the License.
                         </td>
                     </tr>
                 </form>
+                <#list parentProductCategoryRollups as productCategoryRollup>
+                    <form name="removeProductCategoryFromCategory_1_${productCategoryRollup_index}" method="post" action="<@ofbizUrl>removeProductCategoryFromCategory</@ofbizUrl>">
+                        <input type="hidden" name="showProductCategoryId" value="${productCategoryId}"/>
+                        <input type="hidden" name="productCategoryId" value="${productCategoryRollup.productCategoryId}"/>
+                        <input type="hidden" name="parentProductCategoryId" value="${productCategoryRollup.parentProductCategoryId}"/>
+                        <input type="hidden" name="fromDate" value="${productCategoryRollup.fromDate}"/>
+                    </form>
+                </#list>
             </#if>
             <#if parentProductCategoryRollups.size() == 0>
                 <tr valign="middle">
