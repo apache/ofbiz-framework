@@ -99,7 +99,7 @@ under the License.
         <auto-fields-service service-name="createPaymentGroupMember"/>
         <field name="paymentGroupId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
-        <field name="fromDate"/>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="PaymentGroupMembers" type="list" list-name="paymentGroupMembers"
