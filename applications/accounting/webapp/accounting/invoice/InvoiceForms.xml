@@ -401,7 +401,8 @@ under the License.
         <field position="1" name="quantity"><text size="10"/></field>
         <field position="2" name="uomId">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="not-equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
