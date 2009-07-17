@@ -66,6 +66,8 @@ function getInvoiceRunningTotal(e) {
 function setServiceName(selection) {
     document.listPurchaseInvoices.action = '<@ofbizUrl>'+selection.value+'</@ofbizUrl>';
     showIssueChecks(selection);
+    $('submitButton').disabled = true;
+    $('paymentMethodTypeId').value = ""
 }
 
 function runAction() {
@@ -87,6 +89,13 @@ function showIssueChecks(selection) {
         Effect.BlindUp('issueChecks',{duration: 0.0});
     }
 }
+function enableSubmitButton() {
+    if ($('paymentMethodTypeId').value == "") {
+        $('submitButton').disabled = true;
+    } else {
+        $('submitButton').disabled = false;
+    }
+}
 -->
 </script>
 
@@ -102,12 +111,12 @@ function showIssueChecks(selection) {
         <option value=""/>
         <option value="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
       </select>
-      <a href="javascript:runAction();" id="runAction" class="buttontext">${uiLabelMap.OrderRunAction}</a>
+      <input id="submitButton" type="button"  onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
     </div>
     <input type="hidden" name="organizationPartyId" value="${organizationPartyId}"/>
     <div id="issueChecks" style="display: none;" align="right">
       <span class="label">${uiLabelMap.AccountingVendorPaymentMethod}</span>
-      <select name="paymentMethodTypeId">
+      <select name="paymentMethodTypeId" id="paymentMethodTypeId" onchange="javascript:enableSubmitButton();">
         <option value=""></option>
         <#if paymentMethodType?has_content>
           <option value="${paymentMethodType.paymentMethodTypeId}">${paymentMethodType.description}</option>
