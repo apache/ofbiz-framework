@@ -543,7 +543,7 @@ under the License.
         </if-empty>
 
         <!-- set the destination facility if it is a purchase order -->
-        <if-empty field="shipment.originFacilityId">
+        <if-empty field="shipment.destinationFacilityId">
             <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT">
                 <set from-field="shipment.destinationContactMechId" field="facilityLookup.contactMechId"/>
                 <find-by-and entity-name="FacilityContactMech" map="facilityLookup" list="facilities"/>
@@ -1409,6 +1409,7 @@ under the License.
 
     <simple-method method-name="quickShipPurchaseOrder" short-description="Quick ships an entire purchase order to a facility">
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
+        <entity-one entity-name="Facility" value-field="facility"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
         <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
         <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId}"/>
@@ -1496,7 +1497,7 @@ under the License.
                     <set value="SHIPMENT_INPUT" field="shipmentContext.statusId"/>
                   </then>
                   <else>
-                    <set from-field="facilityId" field="shipmentContext.destinationFacilityId"/>
+                    <set from-field="facility.facilityId" field="shipmentContext.destinationFacilityId"/>
                     <set value="PURCH_SHIP_CREATED" field="shipmentContext.statusId"/>
                   </else>
                 </if>
