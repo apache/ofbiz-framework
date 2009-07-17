@@ -371,6 +371,8 @@ under the License.
     <GlFiscalType description="Plan" glFiscalTypeId="PLAN"/>
     <GlFiscalType description="Scenario" glFiscalTypeId="SCENARIO"/>
 
+    <GlAccountGroupType glAccountGroupTypeId="COST_CENTER" description="Cost Center Group"/>
+
     <!-- invoice item types for sales (AR) invoices -->
     <InvoiceItemType description="Invoice Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Invoice Promotion" hasTable="N" invoiceItemTypeId="INV_PROMOTION_ADJ" parentTypeId="INVOICE_ADJ"/>

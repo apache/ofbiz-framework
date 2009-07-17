@@ -251,6 +251,11 @@ under the License.
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INV_ADJ_VAL" glAccountId="515000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="OPERATING_EXPENSE" glAccountId="600000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="TAX_ACCOUNT" glAccountId="900000"/>
+    
+    <!-- Demo Cost center  -->
+    <GlAccountGroup glAccountGroupId="9301" glAccountGroupTypeId="COST_CENTER" description="Cost Center 1"/>
+    <GlAccountGroup glAccountGroupId="9302" glAccountGroupTypeId="COST_CENTER" description="Cost Center 2"/>
+    <GlAccountGroup glAccountGroupId="9303" glAccountGroupTypeId="COST_CENTER" description="Cost Center 3"/>
 
     <!-- mappings for payments -->
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_REFUND" glAccountTypeId="CUSTOMER_CREDIT"/>
