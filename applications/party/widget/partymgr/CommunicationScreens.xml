@@ -214,13 +214,31 @@ under the License.
                 </container>
                 <container style="righthalf">
                     <label style="h1" text="${uiLabelMap.CommonRelatedInformation}"/>
-                    <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                        <include-form name="ViewCommRoles"
-                            location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                    </screenlet>
+                    <section>
+                        <condition>
+                            <if-empty field="communicationEvent.contactListId"/>
+                        </condition>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                <include-form name="ViewCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                        <fail-widgets>
+                            <section>
+                                <actions>
+                                    <set field="entityName" value="ContactListCommStatus"/>
+                                    <set field="requestParameters.communicationEventId" from-field="parameters.communicationEventId"/>
+                                </actions>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.MarketingContactListCommStatus}">
+                                        <include-form name="ListContactListCommStatuses" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                                    </screenlet>                        
+                                </widgets>
+                            </section>
+                        </fail-widgets>
+                    </section>
                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                        <include-form name="listCommContent"
-                            location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                        <include-form name="listCommContent" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                     </screenlet>
                     <section>
                         <actions>
@@ -244,22 +262,8 @@ under the License.
                         </actions>
                         <widgets>
                             <screenlet title="${uiLabelMap.OrderRequestList}">
-                                <include-form name="ListRequests"
-                                    location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-                        </widgets>
-                    </section>
-                    <section>
-                        <actions>
-                            <set field="entityName" value="ContactListCommStatus"/>
-                            <set field="requestParameters.communicationEventId"
-                                from-field="parameters.communicationEventId"/>
-                        </actions>
-                        <widgets>
-                            <screenlet title="${uiLabelMap.MarketingContactListCommStatus}">
-                                <include-form name="ListContactListCommStatuses"
-                                    location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
-                            </screenlet>                        
                         </widgets>
                     </section>
                 </container>
@@ -272,19 +276,19 @@ under the License.
                 <screenlet title="${parent} ${uiLabelMap.PartyCommunicationEvent}">
                     <section>
                         <condition>
-                            <or><!-- have for e-mails a special form -->
-                                <if-compare field="communicationEvent.communicationEventTypeId"
-                                    operator="equals" value="EMAIL_COMMUNICATION"/>
-                                <if-compare field="communicationEvent.communicationEventTypeId"
-                                    operator="equals" value="AUTO_EMAIL_COMM"/>
-                            </or>
+                            <and>
+                                <or><!-- have for e-mails a special form -->
+                                    <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                                    <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                                </or>
+                                <if-empty field="communicationEvent.contactListId"/>                                
+                            </and>
                         </condition>
                         <widgets>
                             <section>
                                 <condition>
                                     <or>
-                                        <if-compare field="communicationEvent.statusId"
-                                            operator="equals" value="COM_UNKNOWN_PARTY"/>
+                                        <if-compare field="communicationEvent.statusId" operator="equals" value="COM_UNKNOWN_PARTY"/>
                                         <if-empty field="communicationEvent.partyIdFrom"/>
                                     </or>
                                 </condition>
@@ -296,17 +300,14 @@ under the License.
                                         <container>
                                             <label style="h2" text="${uiLabelMap.PartyEmailMessage}"/>
                                         </container>
-                                        <include-form name="allocateMsgToPartyForm"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                                        <include-form name="allocateMsgToPartyForm" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>
-                            <include-form  name="ViewEmail"
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                            <include-form  name="ViewEmail" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </widgets>
                         <fail-widgets>
-                            <include-form name="ViewCommEvent"
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                            <include-form name="ViewCommEvent" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </fail-widgets>
                     </section>
                 </screenlet>

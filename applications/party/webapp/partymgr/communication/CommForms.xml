@@ -273,6 +273,11 @@ under the License.
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
+        <field name="contactListId" use-when="contactListId!=null">
+            <display-entity entity-name="ContactList" description="${contactListName}">
+                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" description="[${communicationEvent.contactListId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
         <field name="partyIdFrom" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyFrom}">
             <display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="viewprofile" description="[${partyIdFrom}]">
@@ -305,6 +310,7 @@ under the License.
         <sort-order>
             <field-group collapsible="false" initially-collapsed="false">
                 <sort-field name="communicationEventId"/>
+                <sort-field name="contactListId"/>
                 <sort-field name="partyIdFrom"/>
                 <sort-field name="partyIdTo"/>
                 <sort-field name="statusId"/>
