@@ -46,4 +46,11 @@
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCancelCheckRunPayments"/>
     </test-case>
     
+    <!-- Test case for deposit or withdraw payments -->
+    <test-case case-name="auto-tests-deposit-withdraw-payments">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testDepositWithdrawPayments"/>
+    </test-case>
+    <test-case case-name="auto-tests-deposit-withdraw-payments-In-single-trans">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testDepositWithdrawPaymentsInSingleTrans"/>
+    </test-case>
 </test-suite>
