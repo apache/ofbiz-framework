@@ -594,8 +594,8 @@ under the License.
         <attribute name="isPosted" mode="IN" type="String" optional="true"/>
         <attribute name="fromDate" mode="IN" type="Timestamp"/>
         <attribute name="thruDate" mode="IN" type="Timestamp"/>
-        <attribute name="openingDebitTotal" type="BigDecimal" mode="OUT"/>
-        <attribute name="openingCreditTotal" type="BigDecimal" mode="OUT"/>
+        <attribute name="openingBalanceDebit" type="BigDecimal" mode="OUT"/>
+        <attribute name="openingBalanceCredit" type="BigDecimal" mode="OUT"/>
         <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT"/>
     </service>
 </services>
