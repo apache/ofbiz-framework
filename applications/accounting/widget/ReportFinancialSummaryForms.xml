@@ -122,7 +122,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" widget-style="smallSubmit" tooltip="Please enter From and Thru date in fields above"><submit button-type="button"/></field>
     </form>
 
     <form name="IncomeStatementList" type="list" list-name="glAccountTotalsList"
