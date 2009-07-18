@@ -30,7 +30,7 @@
     <PortalPortlet portalPortletId="ProjectRequestList"
         portletName="Project Customer Request List"
         screenName="ProjectRequestList"
-        screenLocation="component://projectmgr/widget/RequestScreens.xml"
+        screenLocation="component://projectmgr/widget/CustRequestScreens.xml"
         description="Project Customer Request List" securityServiceName="projectMgrRequestPermission" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ProjectRequestList" portletCategoryId="PROJECTMANAGER"/>
     

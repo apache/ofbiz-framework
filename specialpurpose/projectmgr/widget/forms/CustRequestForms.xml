@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListRequests" type="list" extends="ListRequestList" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml"
+    <form name="ListRequests" type="list" extends="ListRequestList" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml"
             paginate-target="requestlist" >
         <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="/projectmgr/control/EditTaskFromRequest" target-type="inter-app">
@@ -29,7 +29,7 @@ under the License.
         </field>
     </form>
     <form name="EditCustRequest" type="single" target="createrequest" title="Request" default-map-name="custRequest"
-        extends="EditSmallCustRequest" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        extends="EditSmallCustRequest" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <alt-target use-when="custRequest!=null" target="updaterequest"/>
         <!--field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field-->
         <field name="shortDescription" parameter-name="description" use-when="custRequest==null" encode-output="false"><text/></field>
@@ -182,14 +182,14 @@ under the License.
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
     </form>
-    <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+    <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
     </form>
-    <form name="OverviewRequestItems" extends="OverviewRequestItems" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+    <form name="OverviewRequestItems" extends="OverviewRequestItems" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <field name="custRequestItemSeqId" title="${uiLabelMap.CommonNbr}"><display/></field>
         <field name="story" title="${uiLabelMap.CommonText}"><display/></field>
         <field name="productId"><ignored/></field>
@@ -197,7 +197,7 @@ under the License.
         <field name="quantity"><ignored/></field>
         <field name="description"><ignored/></field>
     </form>
-    <form name="ListRequestItemNotes" extends="ListRequestItemNotes" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+    <form name="ListRequestItemNotes" extends="ListRequestItemNotes" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <field name="custRequestItemSeqId" title="${uiLabelMap.CommonNbr}"><display/></field>
         <field name="noteDateTime"><ignored/></field>
         <field name="partyId"><ignored/></field>

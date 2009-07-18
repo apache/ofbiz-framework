@@ -1746,20 +1746,20 @@ under the License.
     <view-map name="ViewQuoteProfit" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteProfit"/>
     <view-map name="EditQuoteReportMail" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteReportMail"/>
 
-    <view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#FindRequest"/>
-    <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#ViewRequest"/>
-    <view-map name="EditRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequest"/>
-    <view-map name="EditRequestCustomer" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestCustomer"/>
-    <view-map name="EditRequestItem" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestItem"/>
-    <view-map name="RequestItems" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestItems"/>
-    <view-map name="RequestRoles" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestRoles"/>
-    <view-map name="RequestItemNotes" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestItemNotes"/>
-    <view-map name="RequestItemQuotes" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestItemQuotes"/>
-    <view-map name="RequestItemRequirements" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#RequestItemRequirements"/>
-    <view-map name="EditRequestItemWorkEfforts" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestItemWorkEfforts"/>
-    <view-map name="CreateQuoteAndQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#CreateQuoteAndQuoteItemForRequest"/>
-    <view-map name="EditQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditQuoteItemForRequest"/>
-    <view-map name="EditCustRequestContent" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditCustRequestContent"/>
+    <view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#FindRequest"/>
+    <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
+    <view-map name="EditRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequest"/>
+    <view-map name="EditRequestCustomer" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequestCustomer"/>
+    <view-map name="EditRequestItem" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequestItem"/>
+    <view-map name="RequestItems" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#RequestItems"/>
+    <view-map name="RequestRoles" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#RequestRoles"/>
+    <view-map name="RequestItemNotes" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#RequestItemNotes"/>
+    <view-map name="RequestItemQuotes" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#RequestItemQuotes"/>
+    <view-map name="RequestItemRequirements" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#RequestItemRequirements"/>
+    <view-map name="EditRequestItemWorkEfforts" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequestItemWorkEfforts"/>
+    <view-map name="CreateQuoteAndQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#CreateQuoteAndQuoteItemForRequest"/>
+    <view-map name="EditQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditQuoteItemForRequest"/>
+    <view-map name="EditCustRequestContent" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditCustRequestContent"/>
 
     <view-map name="AddQuoteWorkEffort" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#AddQuoteWorkEffort"/>
     <view-map name="EditQuoteWorkEffort" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#EditQuoteWorkEffort"/>

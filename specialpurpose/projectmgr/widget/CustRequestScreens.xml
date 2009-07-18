@@ -36,9 +36,9 @@ under the License.
                 <screenlet title="${uiLabelMap.ProjectMgrCustomerRequestList}" navigation-menu-name="ProjectRequestList">
                     <label style="h2" text="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}"/>
                     <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                    <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                    <include-form name="ListRequests" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                     <label style="h2" text="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}"/>
-                    <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                    <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
@@ -83,7 +83,7 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderRequest}">
-                            <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                            <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -131,7 +131,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
-                                <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="requestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                         </container>
                         <container style="righthalf">
@@ -139,19 +139,19 @@ under the License.
                                 <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                             </platform-specific>
                             <screenlet title="${uiLabelMap.OrderRequestRoles}">
-                                <include-form name="ViewRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="ViewRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
-                                <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="ViewRequestCommunicationEvents" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
-                                <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
                                 <!-- <link target="EditCustRequestContent" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentContent}">
                                     <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
                                     </link> -->
-                                <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="ListCustRequestContent" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                         </container>
                         <container style="clear"/>

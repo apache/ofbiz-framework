@@ -24,14 +24,14 @@
     <PortalPortlet portalPortletId="INCOM_CUST_REQUESTS"
         portletName="Incoming Cust.Requests"
         screenName="IncomingCustRequests"
-        screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
+        screenLocation="component://order/widget/ordermgr/CustRequestScreens.xml"
         description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"
         screenshot="/images/portlets/INCOM_CUST_REQUESTS.png"/>
     <PortletPortletCategory portalPortletId="INCOM_CUST_REQUESTS" portletCategoryId="CUST_REQUEST"/>
     <PortalPortlet portalPortletId="ViewCustRequest"
         portletName="View a specific customer request"
         screenName="ViewCustRequest"
-        screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
+        screenLocation="component://order/widget/ordermgr/CustRequestScreens.xml"
         description="View your own customer request inclusive of notes"/>
     <PortletPortletCategory portalPortletId="ViewCustRequest" portletCategoryId="CUST_REQUEST"/>
     
@@ -39,10 +39,10 @@
     <PortalPortlet portalPortletId="ListCustRequests"
         portletName="List Cust Requests for a customer"
         screenName="ListCustRequests"
-        screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
+        screenLocation="component://order/widget/ordermgr/CustRequestScreens.xml"
         description="List Cust Requests to the customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
         editFormName="EditCustReqStatusId"
-        editFormLocation="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+        editFormLocation="component://order/widget/ordermgr/CustRequestForms.xml"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
     
     <!--List of order(s) placed by a customer in order -->

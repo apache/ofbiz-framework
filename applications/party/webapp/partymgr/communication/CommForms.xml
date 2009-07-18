@@ -873,7 +873,7 @@ under the License.
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="70" rows="20"/></field>
         <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListRequests" extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+    <form name="ListRequests" extends="ListRequests" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <field name="custRequestName">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="/ordermgr/control/ViewRequest" target-type="inter-app">
                 <parameter param-name="custRequestId"/>
