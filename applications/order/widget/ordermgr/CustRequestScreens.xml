@@ -32,10 +32,10 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderFindRequests}" collapsible="true" id="findRequests">
                             <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                            <include-form name="FindRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="FindRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequests" >
-                            <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="ListRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -79,35 +79,35 @@ under the License.
             <widgets>
                 <container style="lefthalf">
                     <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
-                        <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="requestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <screenlet title="${uiLabelMap.OrderRequestRoles}">
-                        <include-form name="ViewRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ViewRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                 </container>
                 <container style="righthalf">
                     <screenlet title="${uiLabelMap.OrderCustRequestStatusList}" navigation-form-name="ViewRequest">
-                        <include-form name="ViewRequestStatus" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ViewRequestStatus" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <platform-specific>
                         <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                     </platform-specific>
                     <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequest">
-                        <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ViewRequestCommunicationEvents" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequest">
-                        <include-form name="ViewRequestWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ViewRequestWorkEfforts" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ViewRequest">
-                        <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ListCustRequestContent" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                 </container>
                 <container style="clear"/>
                 <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                    <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    <include-form name="OverviewRequestItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                 </screenlet>
                 <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
-                    <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    <include-form name="ListRequestItemNotes" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -152,10 +152,10 @@ under the License.
                                     <if-compare field="parameters.small" operator="equals" value="Y"/>
                                 </condition>
                                 <widgets>
-                                    <include-form name="EditSmallCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    <include-form name="EditSmallCustRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                 </widgets>
                                 <fail-widgets>
-                                    <include-form name="EditCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    <include-form name="EditCustRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                 </fail-widgets>
                             </section>
                         </screenlet>
@@ -176,7 +176,7 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderRequest}">
-                            <include-form name="EditRequestCustomer" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="EditRequestCustomer" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -199,9 +199,9 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
-                            <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="EditRequestRole" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -230,7 +230,7 @@ under the License.
                             <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
                                 <parameter param-name="custRequestId"/>
                             </link>
-                            <include-form name="ListRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="ListRequestItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -268,7 +268,7 @@ under the License.
                                                 <parameter param-name="custRequestId"/>
                                             </link>
                                         </container>
-                                        <include-form name="EditCustRequestItem" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="EditCustRequestItem" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                         <platform-specific>
                                             <html><html-template location="component://order/webapp/ordermgr/request/CopyRequestItem.ftl"/></html>
                                         </platform-specific>
@@ -309,8 +309,8 @@ under the License.
                                         <platform-specific>
                                             <html><html-template location="component://order/webapp/ordermgr/request/requestitemnotes.ftl"/></html>
                                         </platform-specific>
-                                        <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                        <include-form name="EditRequestItemNote" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="ListRequestItemNotes" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                        <include-form name="EditRequestItemNote" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -353,7 +353,7 @@ under the License.
                                                 <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
                                             </link>
                                         </container>
-                                        <include-form name="ListRequestItemRequirements" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="ListRequestItemRequirements" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -394,7 +394,7 @@ under the License.
                                         <platform-specific>
                                             <html><html-template location="component://order/webapp/ordermgr/request/QuoteLinks.ftl"/></html>
                                         </platform-specific>
-                                        <include-form name="ListRequestQuoteItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="ListRequestQuoteItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -434,7 +434,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditQuoteItemForRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="EditQuoteItemForRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -473,7 +473,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="CreateQuoteAndQuoteItemForRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="CreateQuoteAndQuoteItemForRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -509,9 +509,9 @@ under the License.
                             <link  target="EditRequestItem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
                                 <parameter param-name="custRequestId"/>
                             </link>
-                            <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="AddCustRequestItemWorkEffort" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
-                        <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ListCustRequestItemWorkEfforts" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -544,9 +544,9 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddCustRequestContentsPanel" title="${uiLabelMap.PageTitleAddContent}" collapsible="true">
-                            <include-form name="AddCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="AddCustRequestContent" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
-                        <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ListCustRequestContent" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -575,7 +575,7 @@ under the License.
                     <widgets>
                         <screenlet title="${uiLabelMap.OrderIncomingCustRequests}" navigation-menu-name="RequestScreenletMenu">
                             <include-menu name="RequestScreenletMenu" location="component://order/widget/ordermgr/Menus.xml"/>
-                            <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="ListRequestList" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </widgets>
                 </section>
@@ -678,7 +678,7 @@ under the License.
                                     <link target="EditRequestCustomer" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                                 </widgets>
                             </section>
-                            <include-form name="ListMyCustRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            <include-form name="ListMyCustRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -691,7 +691,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${screenletTitle}" navigation-form-name="ListCustRequests" >
-                                    <include-form name="ListCustRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    <include-form name="ListCustRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>

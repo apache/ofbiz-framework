@@ -45,7 +45,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                          <include-form name="ListRequests" location="component://workeffort/webapp/workeffort/request/RequestForms.xml"/>
+                                          <include-form name="ListRequests" location="component://workeffort/widget/CustRequestForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

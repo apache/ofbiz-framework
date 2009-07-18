@@ -731,9 +731,9 @@
     <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskView"/>
     <view-map name="Timesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#Timesheet"/>
     <view-map name="EditTaskFromRequest" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskFromRequest"/>
-    <view-map name="RequestList" type="screen" page="component://projectmgr/widget/RequestScreens.xml#RequestList"/>
-    <view-map name="EditRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#EditRequest"/>
-    <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
+    <view-map name="RequestList" type="screen" page="component://projectmgr/widget/CustRequestScreens.xml#RequestList"/>
+    <view-map name="EditRequest" type="screen" page="component://projectmgr/widget/CustRequestScreens.xml#EditRequest"/>
+    <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/CustRequestScreens.xml#ViewRequest"/>
     <view-map name="EditProjectContents" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectContents"/>
     <view-map name="EditTaskContents" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskContents"/>
     <view-map name="testWorkEffortSurvey" type="screen" page="component://projectmgr/widget/SurveyScreens.xml#TestWorkEffortSurvey"/>

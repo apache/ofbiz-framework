@@ -254,7 +254,7 @@ under the License.
                         </actions>
                         <widgets>
                             <screenlet title="${uiLabelMap.OrderRequestList}">
-                                <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="ListRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                         </widgets>
                     </section>

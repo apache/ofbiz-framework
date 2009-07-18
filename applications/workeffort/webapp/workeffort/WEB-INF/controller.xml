@@ -671,7 +671,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://workeffort/widget/CommonScreens.xml#main"/>
 
-    <view-map name="RequestList" type="screen" page="component://workeffort/widget/RequestScreens.xml#RequestList"/>
+    <view-map name="RequestList" type="screen" page="component://workeffort/widget/CustRequestScreens.xml#RequestList"/>
 
     <view-map name="mytasks" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#mytasks"/>
 

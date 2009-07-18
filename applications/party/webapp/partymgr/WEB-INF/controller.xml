@@ -1256,7 +1256,7 @@ under the License.
     <view-map name="AddCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommContent"/>
     <view-map name="EditCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommContent"/>
     <view-map name="EditRequestFromCommEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditRequestFromCommEvent"/>
-    <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#ViewRequest"/>
+    <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
 
     <view-map name="CreateNewParty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateNewParty"/>
     <view-map name="NewCustomer" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#NewCustomer"/>

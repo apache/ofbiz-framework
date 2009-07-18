@@ -1963,8 +1963,8 @@ under the License.
     <view-map name="ListQuotes" type="screen" page="component://ecommerce/widget/QuoteScreens.xml#ListQuotes"/>
     <view-map name="ViewQuote" type="screen" page="component://ecommerce/widget/QuoteScreens.xml#ViewQuote"/>
     <!-- Request Views -->
-    <view-map name="ListRequests" type="screen" page="component://ecommerce/widget/RequestScreens.xml#ListRequests"/>
-    <view-map name="ViewRequest" type="screen" page="component://ecommerce/widget/RequestScreens.xml#ViewRequest"/>
+    <view-map name="ListRequests" type="screen" page="component://ecommerce/widget/CustRequestScreens.xml#ListRequests"/>
+    <view-map name="ViewRequest" type="screen" page="component://ecommerce/widget/CustRequestScreens.xml#ViewRequest"/>
 
     <!-- Blog Views -->
     <view-map name="MainBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#MainBlog"/>
