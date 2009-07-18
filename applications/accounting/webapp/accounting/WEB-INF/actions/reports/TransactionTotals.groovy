@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -29,9 +30,11 @@ import javolution.util.FastMap;
 
 debitTotal = BigDecimal.ZERO;
 creditTotal = BigDecimal.ZERO;
-openingCreditBalance = BigDecimal.ZERO;
-openingDebitBalance = BigDecimal.ZERO;
+openingBalanceCredit = BigDecimal.ZERO;
+openingBalanceDebit = BigDecimal.ZERO;
 
+decimals = UtilNumber.getBigDecimalScale("ledger.decimals");
+rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding");
 exprs = [EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId)];
 if (fromDate) {
     exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
@@ -85,15 +88,15 @@ private void addTransToList(List transectionList, String prevGlAccountId, Map va
             resultMap = dispatcher.runSync("calculateGlAccountTrialBalance", 
                     [fromDate : financialYearFromDate, thruDate : fromDate , glAccountId : prevGlAccountId, isPosted : value.isPosted, userLogin : userLogin]);
     
-            openingCreditBalance = resultMap.openingCreditTotal;
-            openingDebitBalance = resultMap.openingDebitTotal;
+            openingBalanceCredit = resultMap.openingBalanceCredit;
+            openingBalanceDebit = resultMap.openingBalanceDebit;
         }
         postedAndUnpostedMap = FastMap.newInstance();
         postedAndUnpostedMap.glAccountId = prevGlAccountId;
-        postedAndUnpostedMap.credit = creditTotal;
-        postedAndUnpostedMap.debit = debitTotal;
-        postedAndUnpostedMap.openingCreditBalance = openingCreditBalance;
-        postedAndUnpostedMap.openingDebitBalance = openingDebitBalance;
+        postedAndUnpostedMap.credit = creditTotal.setScale(decimals, rounding);
+        postedAndUnpostedMap.debit = debitTotal.setScale(decimals, rounding);
+        postedAndUnpostedMap.openingBalanceCredit = openingBalanceCredit.setScale(decimals, rounding);
+        postedAndUnpostedMap.openingBalanceDebit = openingBalanceDebit.setScale(decimals, rounding);
         transectionList.add(postedAndUnpostedMap);
         debitTotal = BigDecimal.ZERO;
         creditTotal = BigDecimal.ZERO;

@@ -21,11 +21,14 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.accounting.util.UtilAccounting;
 import java.math.BigDecimal;
 import com.ibm.icu.util.Calendar;
 
 if (organizationPartyId) {
+    decimals = UtilNumber.getBigDecimalScale("ledger.decimals");
+    rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding");
     context.currentOrganization = delegator.findOne("PartyNameView", [partyId : organizationPartyId], false);
     if (parameters.glAccountId) {
         glAccount = delegator.findOne("GlAccount", [glAccountId : parameters.glAccountId], false);
@@ -71,16 +74,16 @@ if (organizationPartyId) {
             acctgTransEntriesAndTransTotal = dispatcher.runSync("getAcctgTransEntriesAndTransTotal", 
                     [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : organizationPartyId, glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin]);
             totalOfYearToDateDebit = totalOfYearToDateDebit + acctgTransEntriesAndTransTotal.debitTotal;
-            acctgTransEntriesAndTransTotal.totalOfYearToDateDebit = totalOfYearToDateDebit;
+            acctgTransEntriesAndTransTotal.totalOfYearToDateDebit = totalOfYearToDateDebit.setScale(decimals, rounding);
             totalOfYearToDateCredit = totalOfYearToDateCredit + acctgTransEntriesAndTransTotal.creditTotal;
-            acctgTransEntriesAndTransTotal.totalOfYearToDateCredit = totalOfYearToDateCredit;
+            acctgTransEntriesAndTransTotal.totalOfYearToDateCredit = totalOfYearToDateCredit.setScale(decimals, rounding);
 
             if (isDebitAccount) {
                 balanceOfTheAcctgForYear = balanceOfTheAcctgForYear + acctgTransEntriesAndTransTotal.debitCreditDifference;
-                acctgTransEntriesAndTransTotal.balanceOfTheAcctgForYear = balanceOfTheAcctgForYear;
+                acctgTransEntriesAndTransTotal.balanceOfTheAcctgForYear = balanceOfTheAcctgForYear.setScale(decimals, rounding);
             } else {
                 balanceOfTheAcctgForYear = balanceOfTheAcctgForYear + acctgTransEntriesAndTransTotal.debitCreditDifference;
-                acctgTransEntriesAndTransTotal.balanceOfTheAcctgForYear = balanceOfTheAcctgForYear;
+                acctgTransEntriesAndTransTotal.balanceOfTheAcctgForYear = balanceOfTheAcctgForYear.setScale(decimals, rounding);
             }
 
             glAcctgTrialBalanceList.add(acctgTransEntriesAndTransTotal);

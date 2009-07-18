@@ -441,7 +441,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getAcctgTransEntriesAndTransTotal" short-description="Calculate total of credit and debit and difference between both">
-
+        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries" distinct="true">
             <condition-list combine="and">
                 <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
@@ -466,7 +467,12 @@ under the License.
             </else>
             </if-compare>
         </iterate>
-
+        <calculate field="debitTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="get" field="debitTotal"/>
+        </calculate>
+        <calculate field="creditTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="get" field="creditTotal"/>
+        </calculate>
         <set field="debitCreditDifference" value="${debitTotal - creditTotal}" type="BigDecimal"/>
         <field-to-result field="acctgTransAndEntries"/>
         <field-to-result field="debitTotal"/>
@@ -477,8 +483,10 @@ under the License.
 
     <!-- GlAccount Trial Balance based on isPosted flag -->
     <simple-method method-name="calculateGlAccountTrialBalance" short-description="Calculate Trial Balance for a GlAccount">
-        <set field="openingDebitTotal" type="BigDecimal" value="0"/>
-        <set field="openingCreditTotal" type="BigDecimal" value="0"/>
+        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <set field="openingBalanceDebit" type="BigDecimal" value="0"/>
+        <set field="openingBalanceCredit" type="BigDecimal" value="0"/>
         <set field="debitCreditDifference" type="BigDecimal" value="0"/>
         
         <!-- iterate through all GlAccOrgAndAcctgTransAndEntry in this account and that are filter based on posted and unposted, and get totals of all debits and of all credits -->
@@ -494,16 +502,22 @@ under the License.
 
         <iterate entry="glAccOrgAndAcctgTransAndEntry" list="glAccOrgAndAcctgTransAndEntries">
             <if-compare field="glAccOrgAndAcctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
-                <set field="openingDebitTotal" value="${openingDebitTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
+                <set field="openingBalanceDebit" value="${openingBalanceDebit + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
             <else>
-                <set field="openingCreditTotal" value="${openingCreditTotal + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
+                <set field="openingBalanceCredit" value="${openingBalanceCredit + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
             </else>
             </if-compare>
         </iterate>
-        <set field="debitCreditDifference" value="${openingDebitTotal - openingCreditTotal}" type="BigDecimal"/>
+        <calculate field="openingBalanceDebit" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="get" field="openingBalanceDebit"/>
+        </calculate>
+        <calculate field="openingBalanceCredit" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="get" field="openingBalanceCredit"/>
+        </calculate>
+        <set field="debitCreditDifference" value="${openingBalanceDebit - openingBalanceCredit}" type="BigDecimal"/>
 
-        <field-to-result field="openingDebitTotal"/>
-        <field-to-result field="openingCreditTotal"/>
+        <field-to-result field="openingBalanceDebit"/>
+        <field-to-result field="openingBalanceCredit"/>
         <field-to-result field="debitCreditDifference"/>
     </simple-method>
 </simple-methods>

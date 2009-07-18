@@ -1655,6 +1655,12 @@
         <value xml:lang="nl">Afgesloten perioden</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
     </property>
+    <property key="AccountingClosingBalanceCredit">
+        <value xml:lang="en">Closing Balance Credit</value>
+    </property>
+    <property key="AccountingClosingBalanceDebit">
+        <value xml:lang="en">Closing Balance Debit</value>
+    </property>
     <property key="AccountingComments">
         <value xml:lang="ar">تعاليق</value>
         <value xml:lang="de">Kommentare</value>
@@ -4835,6 +4841,12 @@
         <value xml:lang="th">ชื่อกลาง (บัตร)</value>
         <value xml:lang="zh">卡上姓名的中间一组字母</value>
     </property>
+    <property key="AccountingMonthlyBalanceCredit">
+        <value xml:lang="en">Monthly Balance Credit</value>
+    </property>
+    <property key="AccountingMonthlyBalanceDebit">
+        <value xml:lang="en">Monthly Balance Debit</value>
+    </property>
     <property key="AccountingMonthlyTrialBalance">
         <value xml:lang="en">Monthly Trial Balance</value>
     </property>
@@ -5432,6 +5444,12 @@
         <value xml:lang="it">Periodi Fiscali Aperti</value>
         <value xml:lang="nl">Open perioden</value>
         <value xml:lang="th">เปิดช่วงเวลา</value>
+    </property>
+    <property key="AccountingOpeningBalanceCredit">
+        <value xml:lang="en">Opening Balance Credit</value>
+    </property>
+    <property key="AccountingOpeningBalanceDebit">
+        <value xml:lang="en">Opening Balance Debit</value>
     </property>
     <property key="AccountingOrderItemWithIdNotFound">
         <value xml:lang="en">Order Item with id ${orderItemSeqId} not found.</value>
@@ -7782,6 +7800,12 @@
     <property key="AccountingWorldPayWithDelivery">
         <value xml:lang="en">Delivery Address Editable</value>
         <value xml:lang="it">Indirizzo di spedizione editabile</value>
+    </property>
+    <property key="AccountingYearToDateBalanceCredit">
+        <value xml:lang="en">Year To Date Balance Credit</value>
+    </property>
+    <property key="AccountingYearToDateBalanceDebit">
+        <value xml:lang="en">Year To Date Balance Debit</value>
     </property>
     <property key="AcctgAssignGlAccount">
         <value xml:lang="ar">تعيين الحساب المحاسبي</value>
