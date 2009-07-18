@@ -439,6 +439,25 @@ under the License.
         </field>
         <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>
     </form>
+    <form name="MonthlyTrialBalance" type="single" target="MonthlyTrialBalance" title="Find list of monthly transaction totals"
+          header-row-style="header-row" default-table-style="basic-table">
+
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="selectedMonth">
+            <drop-down>
+                <option key="${month.value}" description="${month.description}"/>
+                <list-options list-name="monthList" key-name="value" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="posted">
+            <drop-down>
+                <option description="${uiLabelMap.CommonY}" key="Y"/>
+                <option description="${uiLabelMap.CommonN}" key="N"/>
+                <option description="${uiLabelMap.CommonAll}" key="All"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
     <form name="MonthlyPostedTransactionList" type="list" list-name="postedTransTotalList" paginate-target="MonthlyTrialBalance"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
 

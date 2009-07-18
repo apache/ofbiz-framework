@@ -20,7 +20,10 @@
 import java.sql.Timestamp;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.calendar.ExpressionUiHelper;
 
+context.monthList = ExpressionUiHelper.getMonthValueList(locale);
+context.month = (ExpressionUiHelper.getMonthValueList(locale)).get(UtilDateTime.getMonth(UtilDateTime.nowTimestamp(), timeZone, locale));
 if (organizationPartyId && parameters.selectedMonth) {
     selectedMonth = new Integer(parameters.selectedMonth);
     context.selectedMonth = selectedMonth;

@@ -930,11 +930,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://accounting/webapp/accounting/reports/MonthlyTrialBalance.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.AccountingMonthlyTrialBalance}">
+                            <include-form name="MonthlyTrialBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <and>
