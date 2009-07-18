@@ -122,8 +122,8 @@
     <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
     <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="IN and outgoing Communication list of a party"
         screenName="MyCommunicationEvents"
-        screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
-        editFormName="EditCommPortletParams" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml"
+        screenLocation="component://party/widget/partymgr/CommunicationEventScreens.xml"
+        editFormName="EditCommPortletParams" editFormLocation="component://party/widget/partymgr/CommunicationEventForms.xml"
         screenshot="/images/portlets/MyCommunications.png"/>
     <PortletPortletCategory portalPortletId="MyCommunications" portletCategoryId="COMMUNICATIONS"/>
 

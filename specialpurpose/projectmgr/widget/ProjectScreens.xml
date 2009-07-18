@@ -829,18 +829,18 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="widget-container">
-                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommEvent"/>
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditCommEvent"/>
                                         </container>
                                         <container style="widget-container">
-                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListChildCommEvents"/>
                                         </container>
                                     </widgets>
                                     <fail-widgets>
                                         <container style="widget-container">
-                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ViewCommEvent"/>
                                         </container>
                                         <container style="widget-container">
-                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListChildCommEvents"/>
                                         </container>
                                     </fail-widgets>
                                 </section>
