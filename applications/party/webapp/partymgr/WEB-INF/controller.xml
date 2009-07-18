@@ -1235,27 +1235,27 @@ under the License.
     <view-map name="editeftaccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editeftaccount"/>
     <view-map name="editavsoverride" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editavsoverride"/>
 
-    <view-map name="ListCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommContent"/>
-    <view-map name="PendingCommunications" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#PendingCommunications"/>
-    <view-map name="ListPartyCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListPartyCommEvents"/>
-    <view-map name="ListUnknownPartyComms" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListUnknownPartyComms"/>
-    <view-map name="MyCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#PartyCommunicationEvents"/>
-    <view-map name="FindCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#FindCommunicationEvents"/>
-    <view-map name="EditCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommunicationEvent"/>
-    <view-map name="ViewCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ViewCommunicationEvent"/>
-    <view-map name="UpdateCommPurposes" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommPurposes"/>
-    <view-map name="UpdateCommRoles" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommRoles"/>
+    <view-map name="ListCommContent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListCommContent"/>
+    <view-map name="PendingCommunications" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#PendingCommunications"/>
+    <view-map name="ListPartyCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListPartyCommEvents"/>
+    <view-map name="ListUnknownPartyComms" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListUnknownPartyComms"/>
+    <view-map name="MyCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#PartyCommunicationEvents"/>
+    <view-map name="FindCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#FindCommunicationEvents"/>
+    <view-map name="EditCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditCommunicationEvent"/>
+    <view-map name="ViewCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ViewCommunicationEvent"/>
+    <view-map name="UpdateCommPurposes" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommPurposes"/>
+    <view-map name="UpdateCommRoles" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommRoles"/>
 
     <!-- TODO
-    <view-map name="ListCommCustRequests" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommCustRequests"/>
+    <view-map name="ListCommCustRequests" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListCommCustRequests"/>
     -->
 
-    <view-map name="ListCommWorkEfforts" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommWorkEfforts"/>
-    <view-map name="AddCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommEventWorkEffort"/>
-    <view-map name="EditCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommEventWorkEffort"/>
-    <view-map name="AddCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommContent"/>
-    <view-map name="EditCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommContent"/>
-    <view-map name="EditRequestFromCommEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditRequestFromCommEvent"/>
+    <view-map name="ListCommWorkEfforts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListCommWorkEfforts"/>
+    <view-map name="AddCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#AddCommEventWorkEffort"/>
+    <view-map name="EditCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditCommEventWorkEffort"/>
+    <view-map name="AddCommContent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#AddCommContent"/>
+    <view-map name="EditCommContent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditCommContent"/>
+    <view-map name="EditRequestFromCommEvent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditRequestFromCommEvent"/>
     <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
 
     <view-map name="CreateNewParty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateNewParty"/>
