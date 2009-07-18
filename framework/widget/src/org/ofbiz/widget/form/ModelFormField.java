@@ -1611,7 +1611,7 @@ public class ModelFormField {
     public static class ListOptions extends OptionSource {
         protected FlexibleMapAccessor<List<? extends Object>> listAcsr;
         protected String listEntryName;
-        protected FlexibleMapAccessor<String> keyAcsr;
+        protected FlexibleMapAccessor<Object> keyAcsr;
         protected FlexibleStringExpander description;
 
         public ListOptions(String listName, String listEntryName, String keyName, String description, FieldInfo fieldInfo) {
@@ -1644,7 +1644,19 @@ public class ModelFormField {
                         Map<String, Object> dataMap = UtilGenerics.checkMap(data);
                         localContext.putAll(dataMap);
                     }
-                    optionValues.add(new OptionValue((String) keyAcsr.get(localContext), description.expandString(localContext)));
+                    Object keyObj = keyAcsr.get(localContext);
+                    String key = null;
+                    if (keyObj instanceof String) {
+                        key = (String) keyObj;
+                    } else {
+                        try {
+                            key = (String) ObjectType.simpleTypeConvert(keyObj, "String", null, null);
+                        } catch (GeneralException e) {
+                            String errMsg = "Could not convert field value for the field: [" + this.keyAcsr.toString() + "] to String for the value [" + keyObj + "]: " + e.toString();
+                            Debug.logError(e, errMsg, module);
+                        }
+                    }
+                    optionValues.add(new OptionValue(key, description.expandString(localContext)));
                 }
             }
         }
