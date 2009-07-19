@@ -144,7 +144,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditInvoice"/>
                 <set field="tabButtonItem" value="editInvoice"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-one entity-name="InvoiceType" value-field="invoiceType">
                     <field-map field-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
