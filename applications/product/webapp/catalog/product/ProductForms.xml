@@ -157,7 +157,7 @@ under the License.
         </field>
         <field position="1" name="quantityIncluded" title="${uiLabelMap.ProductQuantityIncluded}"><text size="10" maxlength="20"/></field>
         <field position="2" name="quantityUomId" title="${uiLabelMap.ProductQuantityUomId}">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -354,7 +354,7 @@ under the License.
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -802,7 +802,7 @@ under the License.
             <display/>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" use-when="supplierProduct==null">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -1164,7 +1164,7 @@ under the License.
             </drop-down>
         </field>
         <field name="costUomId" title="${uiLabelMap.CommonCurrency}">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -1184,7 +1184,7 @@ under the License.
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
                     <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>

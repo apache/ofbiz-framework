@@ -99,6 +99,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
+        <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
@@ -120,14 +121,6 @@ under the License.
             </drop-down>
         </field>
         <field name="amount" position="1"><text/></field>
-        <field position="2" name="currencyUomId" >
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
-                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field position="1" name="createButton" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -135,6 +128,7 @@ under the License.
     <form name="NewPaymentIn" type="single" target="createPayment" default-map-name="payment"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
+        <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdTo">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
@@ -159,14 +153,6 @@ under the License.
             </drop-down>
         </field>
         <field name="amount" position="1"><text/></field>
-        <field position="2" name="currencyUomId" >
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
-                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field position="1" name="createButton" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -177,7 +163,7 @@ under the License.
             <entity-one entity-name="Party" value-field="partyFrom">
                 <field-map field-name="partyId" from-field="payment.partyIdFrom"/>
             </entity-one>
-            <set field="payment.actualCurrencyUomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultCurrencyUomId}"/>
+            <set field="payment.actualCurrencyUomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
             <entity-one entity-name="StatusItem" value-field="currentStatus">
                 <field-map field-name="statusId" from-field="payment.statusId"/>
             </entity-one>
@@ -225,7 +211,7 @@ under the License.
         </field>
         <field name="amount" position="1"><text/></field>
         <field position="2" name="currencyUomId">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>

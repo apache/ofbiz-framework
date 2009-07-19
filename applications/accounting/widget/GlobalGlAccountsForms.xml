@@ -88,7 +88,7 @@ under the License.
         <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"></display-entity></field>
         <field name="parentGlAccountId"><display-entity entity-name="GlAccount" description="${accountName} [${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
         <field name="accountCode"><hidden/></field>
-        <field name="postedBalance" widget-area-style="align-text" title-area-style="align-text"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
+        <field name="postedBalance" widget-area-style="align-text" title-area-style="align-text"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
     </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
@@ -258,7 +258,7 @@ under the License.
         </field>
         <field name="rateAmount" position="1"><text/></field>
         <field name="rateCurrencyUomId" position="2">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
