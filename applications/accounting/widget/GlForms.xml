@@ -522,8 +522,16 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName" size="20" maxlength="20"/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
-        <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
-        <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
+        <field name="invoiceId">
+            <lookup target-form-name="LookupInvoice" size="20" maxlength="20">
+                <sub-hyperlink target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/>
+            </lookup>
+        </field>
+        <field name="paymentId">
+            <lookup target-form-name="LookupPayment" size="20" maxlength="20">
+                <sub-hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/>
+            </lookup>
+        </field>
         <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="inventoryItemId"><text/></field>
@@ -827,6 +835,8 @@ under the License.
     <form name="ViewAcctgTrans" type="single" default-map-name="acctgTrans"
             default-table-style="basic-table">
         <auto-fields-service service-name="updateAcctgTrans" default-field-type="display"/>
+        <field name="invoiceId"><hyperlink target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/></field>
+        <field name="paymentId"><hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <display-entity entity-name="AcctgTransType" description="${description}"/>
         </field>
