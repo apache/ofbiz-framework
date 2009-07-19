@@ -799,7 +799,7 @@ under the License.
         </field>
         <field name="rateAmount"  tooltip="${uiLabelMap.WorkEffortOverrideDefaultRateAmount}"><text/></field>
         <field name="rateCurrencyUomId" position="2">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="abbreviation"/>

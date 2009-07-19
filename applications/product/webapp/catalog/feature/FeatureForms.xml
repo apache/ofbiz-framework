@@ -363,7 +363,7 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" position="2"><date-time/></field>
         <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required" position="1"><text size="25"/></field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}" position="2">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>

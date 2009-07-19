@@ -178,7 +178,7 @@ under the License.
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}" position="2"><lookup target-form-name="LookupSalaryStep"/></field>
         <field name="rateAmount"><text/></field>
         <field name="rateCurrencyUomId" position="2">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>

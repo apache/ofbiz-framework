@@ -129,7 +129,7 @@ under the License.
         </field>
         <field name="baseCurrencyUomId" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;baseCurrencyUomId&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
-            <drop-down no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -309,7 +309,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -317,7 +317,7 @@ under the License.
             </drop-down>
         </field>
         <field name="uomIdTo" title="${uiLabelMap.CommonTo} ${uiLabelMap.CommonCurrency}">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
