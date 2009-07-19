@@ -223,6 +223,10 @@ under the License.
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
+                <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
+                    <condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
+                    <order-by field-name="acctgTransEntrySeqId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">

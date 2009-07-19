@@ -1761,6 +1761,7 @@ under the License.
       <alias entity-alias="ATE" name="debitCreditFlag"/>
       <alias entity-alias="ATE" name="amount"/>
       <alias entity-alias="ATE" name="currencyUomId"/>
+      <alias entity-alias="ATE" name="origAmount"/>
       <alias entity-alias="ATE" name="origCurrencyUomId"/>
       <alias entity-alias="ATE" name="organizationPartyId"/>
       <alias entity-alias="GLA" name="glAccountTypeId"/>

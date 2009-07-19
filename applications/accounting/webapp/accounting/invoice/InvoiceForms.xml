@@ -210,20 +210,29 @@ under the License.
     </form>
     <form name="AcctgTransAndEntries" type="list" title="Accounting Transactions" list-name="AcctgTransAndEntries"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="AcctgTransAndEntries">
-                <condition-expr field-name="invoiceId" from-field="invoiceId"/>
-                <order-by field-name="acctgTransEntrySeqId"/>
-            </entity-condition>
-        </actions>
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
-        <field name="paymentId"><hidden/></field>
+        <field name="invoiceId"><hidden/></field>
+        <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
+        <field name="acctgTransId"><hyperlink description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/></field>
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glJournalId"><display-entity entity-name="GlJournal" description="${glJournalName}"/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType" description="${description}"/></field>
         <field name="glAccountClassId"><display-entity entity-name="GlAccountClass" description="${description}"/></field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${lastName} ${groupName}"/></field>
         <field name="reconcileStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="origCurrencyUomId"><ignored/></field>
+        <field name="currencyUomId"><ignored/></field>
+        <field name="shipmentId"><ignored/></field>
+        <field name="receiptId"><ignored/></field>
+        <field name="inventoryItemId"><ignored/></field>
+        <field name="workEffortId"><ignored/></field>
+        <field name="physicalInventoryId"><ignored/></field>
+        <field name="transDescription"><ignored/></field>
+        <sort-order>
+            <sort-field name="acctgTransId"/>
+            <sort-field name="acctgTransEntrySeqId"/>
+        </sort-order>
     </form>
 
     <form name="NewSalesInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice"
