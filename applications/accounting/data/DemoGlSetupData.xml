@@ -147,6 +147,41 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="COMM_INV_ITEM" defaultGlAccountId="601300"/>
     <InvoiceItemType invoiceItemTypeId="COMM_INV_ADJ" defaultGlAccountId="601400"/>
 
+    <!-- invoice item types for payrol invoices PAYROL_EARN_HOURS-->
+    <InvoiceItemType invoiceItemTypeId="PAYROL_HRLY_RATE" defaultGlAccountId="601100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_HRLY_RATE_SIC" defaultGlAccountId="603100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_SALARY" defaultGlAccountId="601100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_SALARY_SICK" defaultGlAccountId="603100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_SALARY_VAC" defaultGlAccountId="602100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_BONUS" defaultGlAccountId="601000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_COMMISSION" defaultGlAccountId="601300"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_ADV_PAY" defaultGlAccountId="601100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_MIL_REIMB" defaultGlAccountId="601000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_OFF_EXP_REIMB" defaultGlAccountId="601000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_PAYPER_OVRPAY" defaultGlAccountId="601100"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_PAYPER_PAY" defaultGlAccountId="601100"/>
+    <!-- invoice item types for payrol invoices DEDUCTIONS-->
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_125COMPY" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_125PPO" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_125HSA" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_401K" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_REPAY" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_CHAR_DONAT" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_CHILD_SUPP" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_MISC" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_ROTH_401K" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_SIMP_IRA" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_UNION" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_SAL_TIMOFF" defaultGlAccountId="605000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_DD_WAG_GARN" defaultGlAccountId="605000"/>
+    <!-- invoice item types for payrol invoices TAXES-->
+    <InvoiceItemType invoiceItemTypeId="PAYROL_TAXES" defaultGlAccountId="604000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_TAX_FEDERAL" defaultGlAccountId="604000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_SOC_SEC_EMPL" defaultGlAccountId="604000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_TAX_MED_EMPL" defaultGlAccountId="604000"/>
+    <InvoiceItemType invoiceItemTypeId="PAYROL_TAX_MD_WITHOL" defaultGlAccountId="604000"/>
+    
     <PaymentMethodType paymentMethodTypeId="CREDIT_CARD" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="GIFT_CARD" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="GIFT_CERTIFICATE" defaultGlAccountId="122000"/>
@@ -223,8 +258,17 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="515000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="516100" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="600000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="601000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="601100" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="601200" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="601300" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="601400" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="602100" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="602200" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="603100" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="603200" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="604000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="605000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="625000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="650000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="804000" fromDate="2001-01-01 00:00:00.0"/>
