@@ -327,6 +327,10 @@ under the License.
                 <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment).toString()}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment).toString()}"/>
+                <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
+                    <condition-expr field-name="paymentId" from-field="paymentId"/>
+                    <order-by field-name="acctgTransEntrySeqId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -352,11 +356,10 @@ under the License.
                                         <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>
-                                <container style="screenlet clear">
-                                    <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
-                                        <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                    </screenlet>
-                                </container>
+                                <container style="clear"/>
+                                <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
+                                    <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <container style="lefthalf">
@@ -369,11 +372,10 @@ under the License.
                                         <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>
-                                <container style="screenlet clear">
-                                    <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
-                                        <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                    </screenlet>
-                                </container>
+                                <container style="clear"/>
+                                <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
+                                    <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>

@@ -456,16 +456,9 @@ under the License.
         <field name="amountApplied"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </form>
 
-    <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="AcctgTransAndEntries">
-                <condition-expr field-name="paymentId" from-field="paymentId"/>
-                <order-by field-name="acctgTransEntrySeqId"/>
-            </entity-condition>
-        </actions>
-        <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
+    <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries" extends="AcctgTransAndEntries" extends-resource="component://accounting/webapp/accounting/invoice/InvoiceForms.xml">
         <field name="paymentId"><hidden/></field>
+        <field name="invoiceId"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
     </form>
 
     <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true"
