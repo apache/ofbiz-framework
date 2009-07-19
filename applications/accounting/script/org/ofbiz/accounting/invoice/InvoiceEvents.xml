@@ -249,7 +249,7 @@ under the License.
         <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
             <condition-expr field-name="parentTypeId" value="PAYROL"/>
         </entity-condition>
-        <entity-condition entity-name="InvoiceItemType" list="PayrolList"></entity-condition>
+        <entity-condition entity-name="InvoiceItemType" list="PayrolList"/>
         <iterate entry="payrolGroup" list="PayrolGroup">
             <iterate entry="payrolList" list="PayrolList">
                 <if-compare field="payrolList.parentTypeId" value="${payrolGroup.invoiceItemTypeId}" operator="equals">
@@ -257,21 +257,23 @@ under the License.
                     <set field="createInvoiceItem.invoiceId" from-field="parameters.invoiceId"/>
                     <set field="createInvoiceItem.invoiceItemTypeId" from-field="payrolList.invoiceItemTypeId"/>
                     <set field="createInvoiceItem.description" value="${payrolGroup.description} : ${payrolList.description}"/>
-                    <!--                    <set field="createInvoiceItem.overrideGlAccountId" from-field=""/>-->
-                    <!--                    <set field="createInvoiceItem.inventoryItemId" from-field=""/>-->
-                    <!--                    <set field="createInvoiceItem.productId" from-field=""/>-->
-                    <!--                    <set field="createInvoiceItem.productFeatureId" from-field=""/>-->
                     <set field="createInvoiceItem.quantity" from-field="parameters.${payrolList.invoiceItemTypeId}_Quantity"/>
                     <if-not-empty field="parameters.${payrolList.invoiceItemTypeId}_Quantity">
                         <set field="AddInvoiceItem" value="Y"/>
                     </if-not-empty>
-                    <!--                    <set field="createInvoiceItem.uomId" from-field=""/>-->
                     <set field="createInvoiceItem.amount" from-field="parameters.${payrolList.invoiceItemTypeId}_Amount"/>
                     <if-not-empty field="parameters.${payrolList.invoiceItemTypeId}_Amount">
                         <set field="AddInvoiceItem" value="Y"/>
                     </if-not-empty>
-                    <!--                    <set field="createInvoiceItem.taxableFlag" from-field=""/>-->
                     <if-compare field="AddInvoiceItem" value="Y" operator="equals">
+                        <!-- negate amount if required -->
+                        <if-compare field="payrolGroup.invoiceItemTypeId" value="PAYROL_EARN_HOURS" operator="not-equals">
+                            <calculate field="createInvoiceItem.amount">
+                                <calcop operator="multiply" field="createInvoiceItem.amount">
+                                    <number value="-1"/>
+                                </calcop>
+                            </calculate>
+                        </if-compare>
                         <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItem"/>
                     </if-compare>
                 </if-compare>
