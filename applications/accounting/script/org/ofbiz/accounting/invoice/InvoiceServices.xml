@@ -123,35 +123,30 @@ under the License.
         <now-timestamp field="nowTimestamp"/>
 
         <make-value value-field="newEntity" entity-name="Invoice"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
                             else use it from the input -->
         <if-empty field="parameters.invoiceId">
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
-                <result-to-field result-name="invoiceId" field="newEntity.invoiceId"/>
+                <result-to-field result-name="invoiceId" field="parameters.invoiceId"/>
             </call-service>
-            <else>
-                <set field="newEntity.invoiceId" from-field="parameters.invoiceId"/>
-            </else>
         </if-empty>
-        <field-to-result field="newEntity.invoiceId" result-name="invoiceId"/>
+        <field-to-result field="parameters.invoiceId" result-name="invoiceId"/>
 
+        <!-- set the invoice date if not provided -->
         <if-empty field="parameters.invoiceDate">
-            <set from-field="nowTimestamp" field="newEntity.invoiceDate"/>
-        </if-empty>
-        <if-empty field="parameters.currencyUomId">
-            <!-- if provided set the default currency to the receiving party -->
-            <entity-one entity-name="Party" value-field="party"/>
-            <if-not-empty field="party.preferredCurrencyUomId">
-                <set field="newEntity.currencyUomId" from-field="party.preferredCurrencyUomId"/>
-                <else>
-                    <set field="newEntity.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                </else>
-            </if-not-empty>
+            <set from-field="nowTimestamp" field="parameters.invoiceDate"/>
         </if-empty>
 
+        <!-- use currency of receiving company -->
+        <entity-one entity-name="Party" value-field="party"/>
+        <if-not-empty field="party.preferredCurrencyUomId">
+            <set field="parameters.currencyUomId" from-field="party.preferredCurrencyUomId"/>
+        </if-not-empty>
+        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
 
         <!-- create new status entry, and set lastStatusUpdate date -->
