@@ -253,6 +253,7 @@ under the License.
     <form name="NewPurchaseInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="statusId"><hidden value="INVOICE_IN_PROCESS"/></field>
+        <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="2" name="invoiceTypeId">
             <drop-down allow-empty="false" no-current-selected-key="PURCHASE_INVOICE">
                 <entity-options description="${description}" entity-name="InvoiceType">
