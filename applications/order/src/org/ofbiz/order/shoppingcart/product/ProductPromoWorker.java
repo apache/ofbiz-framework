@@ -837,32 +837,34 @@ public class ProductPromoWorker {
             }
         } else if ("PPIP_PRODUCT_TOTAL".equals(inputParamEnumId)) {
             // this type of condition allows items involved to be involved in other quantity consuming cond/action, and does pro-rate the price
-            BigDecimal amountNeeded = new BigDecimal(condValue);
-            BigDecimal amountAvailable = BigDecimal.ZERO;
-
-            // Debug.logInfo("Doing Amount Not Counted Cond with Value: " + amountNeeded, module);
-
-            Set productIds = ProductPromoWorker.getPromoRuleCondProductIds(productPromoCond, delegator, nowTimestamp);
-
-            List lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
-            Iterator lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator();
-            while (lineOrderedByBasePriceIter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) lineOrderedByBasePriceIter.next();
-                // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
-                GenericValue product = cartItem.getProduct();
-                String parentProductId = cartItem.getParentProductId();
-                if (!cartItem.getIsPromo() &&
-                        (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
-                        (product == null || !"N".equals(product.getString("includeInPromotions")))) {
-
-                    // just count the entire sub-total of the item
-                    amountAvailable = amountAvailable.add(cartItem.getItemSubTotal());
+            if (UtilValidate.isNotEmpty(condValue)) {
+                BigDecimal amountNeeded = new BigDecimal(condValue);
+                BigDecimal amountAvailable = BigDecimal.ZERO;
+    
+                // Debug.logInfo("Doing Amount Not Counted Cond with Value: " + amountNeeded, module);
+    
+                Set productIds = ProductPromoWorker.getPromoRuleCondProductIds(productPromoCond, delegator, nowTimestamp);
+    
+                List lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
+                Iterator lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator();
+                while (lineOrderedByBasePriceIter.hasNext()) {
+                    ShoppingCartItem cartItem = (ShoppingCartItem) lineOrderedByBasePriceIter.next();
+                    // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
+                    GenericValue product = cartItem.getProduct();
+                    String parentProductId = cartItem.getParentProductId();
+                    if (!cartItem.getIsPromo() &&
+                            (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
+                            (product == null || !"N".equals(product.getString("includeInPromotions")))) {
+    
+                        // just count the entire sub-total of the item
+                        amountAvailable = amountAvailable.add(cartItem.getItemSubTotal());
+                    }
                 }
+    
+                // Debug.logInfo("Doing Amount Not Counted Cond with Value after finding applicable cart lines: " + amountNeeded, module);
+    
+                compareBase = Integer.valueOf(amountAvailable.compareTo(amountNeeded));
             }
-
-            // Debug.logInfo("Doing Amount Not Counted Cond with Value after finding applicable cart lines: " + amountNeeded, module);
-
-            compareBase = Integer.valueOf(amountAvailable.compareTo(amountNeeded));
         } else if ("PPIP_PRODUCT_QUANT".equals(inputParamEnumId)) {
             // for this type of promo force the operatorEnumId = PPC_EQ, effectively ignore that setting because the comparison is implied in the code
             operatorEnumId = "PPC_EQ";
@@ -958,20 +960,22 @@ public class ProductPromoWorker {
             }
         */
         } else if ("PPIP_NEW_ACCT".equals(inputParamEnumId)) {
-            BigDecimal acctDays = cart.getPartyDaysSinceCreated(nowTimestamp);
-            if (acctDays == null) {
-                // condition always fails if we don't know how many days since account created
-                return false;
+            if (UtilValidate.isNotEmpty(condValue)) {
+                BigDecimal acctDays = cart.getPartyDaysSinceCreated(nowTimestamp);
+                if (acctDays == null) {
+                    // condition always fails if we don't know how many days since account created
+                    return false;
+                }
+                compareBase = acctDays.compareTo(new BigDecimal(condValue));
             }
-            compareBase = acctDays.compareTo(new BigDecimal(condValue));
         } else if ("PPIP_PARTY_ID".equals(inputParamEnumId)) {
-            if (partyId != null) {
+            if (partyId != null && UtilValidate.isNotEmpty(condValue)) {
                 compareBase = Integer.valueOf(partyId.compareTo(condValue));
             } else {
                 compareBase = Integer.valueOf(1);
             }
         } else if ("PPIP_PARTY_GRP_MEM".equals(inputParamEnumId)) {
-            if (UtilValidate.isEmpty(partyId)) {
+            if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(condValue)) {
                 compareBase = Integer.valueOf(1);
             } else {
                 String groupPartyId = condValue;
@@ -991,7 +995,7 @@ public class ProductPromoWorker {
                 }
             }
         } else if ("PPIP_PARTY_CLASS".equals(inputParamEnumId)) {
-            if (UtilValidate.isEmpty(partyId)) {
+            if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(condValue)) {
                 compareBase = Integer.valueOf(1);
             } else {
                 String partyClassificationGroupId = condValue;
@@ -1007,7 +1011,7 @@ public class ProductPromoWorker {
                 }
             }
         } else if ("PPIP_ROLE_TYPE".equals(inputParamEnumId)) {
-            if (partyId != null) {
+            if (partyId != null && UtilValidate.isNotEmpty(condValue)) {
                 // if a PartyRole exists for this partyId and the specified roleTypeId
                 GenericValue partyRole = delegator.findByPrimaryKeyCache("PartyRole",
                         UtilMisc.toMap("partyId", partyId, "roleTypeId", condValue));
@@ -1022,12 +1026,14 @@ public class ProductPromoWorker {
                 compareBase = Integer.valueOf(1);
             }
         } else if ("PPIP_ORDER_TOTAL".equals(inputParamEnumId)) {
-            BigDecimal orderSubTotal = cart.getSubTotalForPromotions();
-            if (Debug.verboseOn()) Debug.logVerbose("Doing order total compare: orderSubTotal=" + orderSubTotal, module);
-            compareBase = Integer.valueOf(orderSubTotal.compareTo(new BigDecimal(condValue)));
+            if (UtilValidate.isNotEmpty(condValue)) {
+                BigDecimal orderSubTotal = cart.getSubTotalForPromotions();
+                if (Debug.verboseOn()) Debug.logVerbose("Doing order total compare: orderSubTotal=" + orderSubTotal, module);
+                compareBase = Integer.valueOf(orderSubTotal.compareTo(new BigDecimal(condValue)));
+            }
         } else if ("PPIP_ORST_HIST".equals(inputParamEnumId)) {
             // description="Order sub-total X in last Y Months"
-            if (partyId != null && userLogin != null) {
+            if (partyId != null && userLogin != null && UtilValidate.isNotEmpty(condValue)) {
                 // call the getOrderedSummaryInformation service to get the sub-total
                 int monthsToInclude = 12;
                 if (otherValue != null) {
@@ -1053,7 +1059,7 @@ public class ProductPromoWorker {
             }
         } else if ("PPIP_ORST_YEAR".equals(inputParamEnumId)) {
             // description="Order sub-total X since beginning of current year"
-            if (partyId != null && userLogin != null) {
+            if (partyId != null && userLogin != null && UtilValidate.isNotEmpty(condValue)) {
                 // call the getOrderedSummaryInformation service to get the sub-total
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(nowTimestamp);
@@ -1081,7 +1087,7 @@ public class ProductPromoWorker {
             }
         } else if ("PPIP_ORST_LAST_YEAR".equals(inputParamEnumId)) {
             // description="Order sub-total X since beginning of last year"
-            if (partyId != null && userLogin != null) {
+            if (partyId != null && userLogin != null && UtilValidate.isNotEmpty(condValue)) {
                 // call the getOrderedSummaryInformation service to get the sub-total
 
                 Calendar calendar = Calendar.getInstance();
@@ -1118,27 +1124,31 @@ public class ProductPromoWorker {
                 return false;
             }
         } else if ("PPIP_RECURRENCE".equals(inputParamEnumId)) {
-            compareBase = Integer.valueOf(1);
-            GenericValue recurrenceInfo = delegator.findByPrimaryKeyCache("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue));
-            if (recurrenceInfo != null) {
-                RecurrenceInfo recurrence = null;
-                try {
-                    recurrence = new RecurrenceInfo(recurrenceInfo);
-                } catch (RecurrenceInfoException e) {
-                    Debug.logError(e, module);
-                }
-
-                // check the current recurrence
-                if (recurrence != null) {
-                    if (recurrence.isValidCurrent()) {
-                        compareBase = Integer.valueOf(0);
+            if (UtilValidate.isNotEmpty(condValue)) {
+                compareBase = Integer.valueOf(1);
+                GenericValue recurrenceInfo = delegator.findByPrimaryKeyCache("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue));
+                if (recurrenceInfo != null) {
+                    RecurrenceInfo recurrence = null;
+                    try {
+                        recurrence = new RecurrenceInfo(recurrenceInfo);
+                    } catch (RecurrenceInfoException e) {
+                        Debug.logError(e, module);
+                    }
+    
+                    // check the current recurrence
+                    if (recurrence != null) {
+                        if (recurrence.isValidCurrent()) {
+                            compareBase = Integer.valueOf(0);
+                        }
                     }
                 }
             }
         } else if ("PPIP_ORDER_SHIPTOTAL".equals(inputParamEnumId) && shippingMethod.equals(cart.getShipmentMethodTypeId())) {
-            BigDecimal orderTotalShipping = cart.getTotalShipping();
-            if (Debug.verboseOn()) { Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module); }
-            compareBase = new Integer(orderTotalShipping.compareTo(new BigDecimal(condValue)));
+            if (UtilValidate.isNotEmpty(condValue)) {
+                BigDecimal orderTotalShipping = cart.getTotalShipping();
+                if (Debug.verboseOn()) { Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module); }
+                compareBase = new Integer(orderTotalShipping.compareTo(new BigDecimal(condValue)));
+            }
         } else {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondInputParameterLhs", UtilMisc.toMap("inputParamEnumId",productPromoCond.getString("inputParamEnumId")), cart.getLocale()), module);
             return false;
