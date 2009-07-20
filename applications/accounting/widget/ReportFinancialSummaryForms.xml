@@ -427,6 +427,7 @@ under the License.
         </field>
         <field name="timePeriod">
             <drop-down>
+                <option key="cutomTimePeriod.cutomTimePeriodId" description="${cutomTimePeriod.fromDate} - ${cutomTimePeriod.thruDate}"/> 
                 <list-options list-name="customTimePeriods" key-name="customTimePeriodId" description="${fromDate} - ${thruDate}"/>
             </drop-down>
         </field>

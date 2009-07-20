@@ -4841,12 +4841,6 @@
         <value xml:lang="th">ชื่อกลาง (บัตร)</value>
         <value xml:lang="zh">卡上姓名的中间一组字母</value>
     </property>
-    <property key="AccountingMonthlyBalanceCredit">
-        <value xml:lang="en">Monthly Balance Credit</value>
-    </property>
-    <property key="AccountingMonthlyBalanceDebit">
-        <value xml:lang="en">Monthly Balance Debit</value>
-    </property>
     <property key="AccountingMonthlyTrialBalance">
         <value xml:lang="en">Monthly Trial Balance</value>
     </property>
@@ -9273,6 +9267,12 @@
         <value xml:lang="nl">Minimum hoeveelheid</value>
         <value xml:lang="ru">Мин. кол-во</value>
         <value xml:lang="th">จำนวนน้อยสุด</value>
+    </property>
+    <property key="FormFieldTitle_monthlyTotalCredit">
+        <value xml:lang="en">Monthly Total Credit</value>
+    </property>
+    <property key="FormFieldTitle_monthlyTotalDebit">
+        <value xml:lang="en">Monthly Total Debit</value>
     </property>
     <property key="FormFieldTitle_name">
         <value xml:lang="ar">اسم</value>
