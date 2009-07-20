@@ -110,11 +110,16 @@ under the License.
         <field name="credit" use-when="showTotals" widget-style="tabletextright"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="IncomeStatementParameters" type="single" target="prepareIncomeStatement"
-        header-row-style="header-row" default-table-style="basic-table">
-        <field name="organizationPartyId"><hidden/></field>
-        <field name="fromDate"><date-time/></field>
-        <field name="thruDate"><date-time/></field>
+    <form name="IncomeStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
+        <field name="isIncomeStatement"><hidden value="true"/></field>
+        <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
+            <drop-down>
+                <option key="${month.value}" description="${month.description}"/>
+                <list-options list-name="monthList" key-name="value" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="fromDate" required-field="false"><date-time type="timestamp"/></field>
+        <field name="thruDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="glFiscalTypeId">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
@@ -122,24 +127,26 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" widget-style="smallSubmit" tooltip="Please enter From and Thru date in fields above"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" tooltip="Please enter From and Thru date in fields above"><submit button-type="button"/></field>
     </form>
 
     <form name="IncomeStatementList" type="list" list-name="glAccountTotalsList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId"/>
+                <field-map field-name="glAccountId" from-field="glAccountId"/>
             </entity-one>
         </row-actions>
         <field name="glAccountId" use-when="isPdf != true">
-            <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
+            <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="glAccountId"  use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="glAccountId"  use-when="isPdf == true"><display description="${glAccountId}"/></field>
+        <field name="accountName"><display description="${glAccount.accountName}"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet"
@@ -312,20 +319,23 @@ under the License.
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="quot5" title="&quot;"><display description="&quot;"/></field>
     </form>
-
     <form name="IncomeStatementListCsv" type="list" list-name="glAccountTotalsList" view-size="99999">
         <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount" auto-field-map="true"/>
-            <set field="totalAmount" from-field="${totalAmount}"/>
+            <entity-one entity-name="GlAccount" value-field="glAccount"/>
         </row-actions>
         <field name="quot0" title="&quot;"><display description="&quot;"/></field>
-        <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="glAccountId"><display description="${glAccountId}"/></field>
         <field name="quot1" title="&quot;"><display description="&quot;"/></field>
         <field name="seprator0" title=","><display description=","/></field>
-
+        <field name="glAccountName"><display description="${glAccount.accountName}"/></field>
+        <field name="seprator1" title=","><display description=","/></field>
         <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="quot3" title="&quot;"><display description="&quot;"/></field>
+        <field name="seprator2" title=","><display description=","/></field>
+        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
+        <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
     </form>
 
     <form name="BalanceSheetAssetListCsv" type="list" list-name="assetBalancesList" view-size="99999">
@@ -413,8 +423,8 @@ under the License.
             <entity-and entity-name="CustomTimePeriod" list="customTimePeriods">
                 <field-map field-name="organizationPartyId"/>
                 <field-map field-name="periodTypeId" value="FISCAL_YEAR"/>
-                <order-by field-name="fromDate"/>
             </entity-and>
+            
         </actions>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
@@ -475,10 +485,10 @@ under the License.
         <field name="openingBalanceDebit" title="${uiLabelMap.AccountingOpeningBalanceDebit}">
             <display description="${openingBalanceDebit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="monthlyBalanceCredit" title="${uiLabelMap.AccountingMonthlyBalanceCredit}">
+        <field name="monthAmountCredit">
             <display description="${credit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="monthlyBalanceDebit" title="${uiLabelMap.AccountingMonthlyBalanceDebit}">
+        <field name="monthAmountDebit">
             <display description="${debit}" type="currency" currency="${currencyUomId}"/>
         </field>
         <field name="closingBalanceCredit" title="${uiLabelMap.AccountingClosingBalanceCredit}">

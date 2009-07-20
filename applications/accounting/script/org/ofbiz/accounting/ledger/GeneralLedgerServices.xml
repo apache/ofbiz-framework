@@ -878,6 +878,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="prepareIncomeStatement" short-description="Prepare data for the Income Statement">
+        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
             <field-map field-name="glAccountClassId" value="EXPENSE"/>
         </entity-one>
@@ -913,6 +915,19 @@ under the License.
             <order-by field-name="acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
+
+        <set field="findCustomTimePeriodsMap.findDate" from-field="parameters.fromDate" type="Timestamp"/>
+        <set field="findCustomTimePeriodsMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <call-service service-name="findCustomTimePeriods" in-map-name="findCustomTimePeriodsMap">
+            <result-to-field result-name="customTimePeriodList"/>
+        </call-service>
+        <first-from-list list="customTimePeriodList" entry="customTimePeriod"/>
+
+        <set field="acctgTransEntriesAndTransTotalMap.isPosted" value="Y"/>
+        <set field="acctgTransEntriesAndTransTotalMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="acctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" from-field="customTimePeriod.fromDate" type="Timestamp"/>
+        <set field="acctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" from-field="parameters.thruDate" type="Timestamp"/>
+
         <set field="totalNetIncome" value="0.0" type="BigDecimal"/>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
             <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
@@ -974,12 +989,32 @@ under the License.
             <clear-field field="glAccountTotalMap"/>
             <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
             <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="acctgTransEntriesAndTransTotalMap.glAccountId" from-field="glAccountId"/>
+            <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="acctgTransEntriesAndTransTotalMap">
+                <result-to-field result-name="debitTotal"/>
+                <result-to-field result-name="creditTotal"/>
+            </call-service>
+            <set field="totalOfCurrentFiscalPeriod" value="${debitTotal - creditTotal}" type="BigDecimal"/>
+            <calculate field="totalOfCurrentFiscalPeriod" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="get" field="totalOfCurrentFiscalPeriod"/>
+            </calculate>
+            <set field="glAccountTotalMap.totalOfCurrentFiscalPeriod" from-field="totalOfCurrentFiscalPeriod" type="BigDecimal"/>
             <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
         </iterate-map>
         <iterate-map map="glAccountTotalsExpenseMap" key="glAccountId" value="totalAmount">
             <clear-field field="glAccountTotalMap"/>
             <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
             <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="acctgTransEntriesAndTransTotalMap.glAccountId" from-field="glAccountId"/>
+            <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="acctgTransEntriesAndTransTotalMap">
+                <result-to-field result-name="debitTotal"/>
+                <result-to-field result-name="creditTotal"/>
+            </call-service>
+            <set field="totalOfCurrentFiscalPeriod" value="${debitTotal - creditTotal}" type="BigDecimal"/>
+            <calculate field="totalOfCurrentFiscalPeriod" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="get" field="totalOfCurrentFiscalPeriod"/>
+            </calculate>
+            <set field="glAccountTotalMap.totalOfCurrentFiscalPeriod" from-field="totalOfCurrentFiscalPeriod" type="BigDecimal"/>
             <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
         </iterate-map>
 

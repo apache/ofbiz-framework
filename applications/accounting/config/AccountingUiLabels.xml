@@ -10256,6 +10256,9 @@
         <value xml:lang="fr">Montant total</value>
         <value xml:lang="it">Importo Totale</value>
     </property>
+    <property key="FormFieldTitle_totalOfCurrentFiscalPeriod">
+        <value xml:lang="en">Total of Current Fiscal Period</value>
+    </property>
     <property key="FormFieldTitle_transCodeEnumId">
         <value xml:lang="en">Trans Code Enum Id</value>
         <value xml:lang="es">Id Enum Código de Trans</value>

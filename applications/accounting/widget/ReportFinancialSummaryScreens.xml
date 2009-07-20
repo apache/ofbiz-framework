@@ -335,7 +335,7 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="glAccountTotalsList" from-field="parameters.glAccountTotalsList"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -352,7 +352,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <not><if-empty field="parameters.totalNetIncome"/></not>
+                                <not><if-empty field="totalNetIncome"/></not>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -365,18 +365,22 @@ under the License.
                                         <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="IncomeStatementListCsv.csv">
                                             <parameter param-name="fromDate" from-field="parameters.fromDate"/>
                                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                            <parameter param-name="isIncomeStatement" value="true"/>
+                                            <parameter param-name="selectedMonth" from-field="parameters.selectedMonth"/>
                                             <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
                                             <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
                                         </link>
                                         <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf">
                                             <parameter param-name="fromDate" from-field="parameters.fromDate"/>
                                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                            <parameter param-name="isIncomeStatement" value="true"/>
+                                            <parameter param-name="selectedMonth" from-field="parameters.selectedMonth"/>
                                             <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
                                             <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
                                         </link>
                                         <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                         <container>
-                                            <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${parameters.totalNetIncome}"/>
+                                            <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
                                         </container>
                                     </container>
                                 </container>
@@ -686,15 +690,9 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-
-                <service service-name="prepareIncomeStatement" result-map="result" auto-field-map="true"/>
-                <set field="glAccountTotalsList" from-field="result.glAccountTotalsList"/>
-                <set field="totalNetIncome" from-field="result.totalNetIncome"/>
                 <set field="isPdf" value="true" type="Boolean"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -713,14 +711,8 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-
-                <service service-name="prepareIncomeStatement" result-map="result" auto-field-map="true"/>
-                <set field="glAccountTotalsList" from-field="result.glAccountTotalsList"/>
-                <set field="totalNetIncome" from-field="result.totalNetIncome"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
             </actions>
             <widgets>
                 <include-form name="IncomeStatementListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
