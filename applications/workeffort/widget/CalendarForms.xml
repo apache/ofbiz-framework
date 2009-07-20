@@ -29,6 +29,7 @@ under the License.
                 <option key="month" description="${uiLabelMap.WorkEffortMonthView}"/>
             </drop-down>
         </field>
+        <field name="updateButton"><submit/></field>
     </form>
     <form name="editCalEvent" type="single" target="createWorkEffortAndPartyAssign" default-map-name="workEffort">
         <alt-target use-when="workEffort!=null" target="updateWorkEffort"/>
