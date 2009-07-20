@@ -860,6 +860,10 @@ under the License.
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=minimumOrderQuantity" header-link-style="buttontext">
             <display/>
         </field>
+        <field name="orderQtyIncrements" title="${uiLabelMap.ProductOrderQtyIncrements}"
+            header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=orderQtyIncrements" header-link-style="buttontext">
+            <display/>
+        </field>
         <field name="supplierPrefOrderId" header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=supplierPrefOrderId" header-link-style="buttontext">
             <display-entity entity-name="SupplierPrefOrder"/>
         </field>
