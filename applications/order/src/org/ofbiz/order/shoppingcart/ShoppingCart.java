@@ -231,38 +231,35 @@ public class ShoppingCart implements Serializable {
 
     /** Creates new empty ShoppingCart object. */
     public ShoppingCart(GenericDelegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom, String billToCustomerPartyId, String billFromVendorPartyId) {
+
         this.delegator = delegator;
         this.delegatorName = delegator.getDelegatorName();
         this.productStoreId = productStoreId;
         this.webSiteId = webSiteId;
-        this.currencyUom = currencyUom;
-        this.locale = locale;
-        if (this.locale == null) {
-            this.locale = Locale.getDefault();
-        }
-
-        if (productStoreId == null) {
-            throw new IllegalArgumentException("productStoreId cannot be null");
-        }
-
-        // set the default view cart on add for this store
-        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-        if (productStore == null) {
-            throw new IllegalArgumentException("Unable to locate ProductStore by ID [" + productStoreId + "]");
-        }
-
-        String storeViewCartOnAdd = productStore.getString("viewCartOnAdd");
-        if (storeViewCartOnAdd != null && "Y".equalsIgnoreCase(storeViewCartOnAdd)) {
-            this.viewCartOnAdd = true;
-        }
-
-        if (billFromVendorPartyId == null) {
-            // since default cart is of type SALES_ORDER, set to store's payToPartyId
-            this.billFromVendorPartyId = productStore.getString("payToPartyId");
-        } else {
-            this.billFromVendorPartyId = billFromVendorPartyId;
-        }
+        this.locale = (locale != null) ? locale : Locale.getDefault();
+        this.currencyUom = (currencyUom != null) ? currencyUom : UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         this.billToCustomerPartyId = billToCustomerPartyId;
+        this.billFromVendorPartyId = billFromVendorPartyId;
+
+        if (productStoreId != null) {
+
+            // set the default view cart on add for this store
+            GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+            if (productStore == null) {
+                throw new IllegalArgumentException("Unable to locate ProductStore by ID [" + productStoreId + "]");
+            }
+
+            String storeViewCartOnAdd = productStore.getString("viewCartOnAdd");
+            if (storeViewCartOnAdd != null && "Y".equalsIgnoreCase(storeViewCartOnAdd)) {
+                this.viewCartOnAdd = true;
+            }
+
+            if (billFromVendorPartyId == null) {
+                // since default cart is of type SALES_ORDER, set to store's payToPartyId
+                this.billFromVendorPartyId = productStore.getString("payToPartyId");
+            }
+        }
+
     }
 
 

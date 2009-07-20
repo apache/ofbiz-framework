@@ -139,34 +139,34 @@ under the License.
                     <textarea cols="30" rows="3" name="${shipGroupIndex?default("0")}_shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
-                <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-                <tr>
-                  <td colspan="2">
-                    <#if cart.getOrderType() = "PURCHASE_ORDER">
-                       <input type='hidden' name='${shipGroupIndex?default("0")}_is_gift' value='false'>
-                    <#else>
-                    <div>
-                      <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("Y") == "Y">checked</#if> name='${shipGroupIndex?default("0")}_is_gift' value='true'><span class='tabletext'>${uiLabelMap.CommonYes}</span>
-                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("N") == "N">checked</#if> name='${shipGroupIndex?default("0")}_is_gift' value='false'><span class='tabletext'>${uiLabelMap.CommonNo}</span>
-                    </div>
+
+                <#if cart.getOrderType() == 'PURCHASE_ORDER'>
+                    <input type="hidden" name="${shipGroupIndex?default('0')}_is_gift" value="false">
+                <#else>
+                    <#if (productStore.showCheckoutGiftOptions)?default('Y') != 'N'>
+                        <tr>
+                            <td colspan="2">
+                                <div>
+                                    <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
+                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('Y') == 'Y'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="true"><span class="tabletext">${uiLabelMap.CommonYes}</span>
+                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('N') == 'N'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="false"><span class="tabletext">${uiLabelMap.CommonNo}</span>
+                                </div>
+                            </td>
+                        </tr>
                     </#if>
-                  </td>
-                </tr>
-                <#if cart.getOrderType() != "PURCHASE_ORDER">
-                <tr><td colspan="2"><hr/></td></tr>
-                <tr>
-                  <td colspan="2">
-                    <h2>${uiLabelMap.OrderGiftMessage}</h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <textarea cols="30" rows="3" name="${shipGroupIndex?default("0")}_gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
-                  </td>
-                </tr>
-                 </#if>
+                    <tr><td colspan="2"><hr /></td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <h2>${uiLabelMap.OrderGiftMessage}</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <textarea cols="30" rows="3" name="${shipGroupIndex?default('0')}_gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
+                        </td>
+                    </tr>
                 </#if>
+
                    <tr>
                       <td colspan="2"></td>
                    </tr>

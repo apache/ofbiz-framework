@@ -128,7 +128,7 @@ under the License.
             <select name="currencyUomId">
               <option value=""></option>
               <#list currencies as currency>
-              <option value="${currency.uomId}" <#if (defaultCurrencyUomId?has_content) && (currency.uomId == defaultCurrencyUomId)>selected</#if>>${currency.uomId}</option>
+              <option value="${currency.uomId}" <#if currencyUomId?default('') == currency.uomId>selected="selected"</#if> >${currency.uomId}</option>
               </#list>
             </select>
           </div>
@@ -143,11 +143,9 @@ under the License.
         <td>&nbsp;</td>
         <td>
            <select name='CURRENT_CATALOG_ID'>
-            <option value='${currentCatalogId}'>${currentCatalogName}</option>
-            <option value='${currentCatalogId}'></option>
-            <#list catalogCol as catalogId>
+            <#list catalogCol?if_exists as catalogId>
               <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
-              <option value='${catalogId}'>${thisCatalogName}</option>
+              <option value="${catalogId}" <#if currentCatalogId?default('') == catalogId>selected="selected"</#if> >${thisCatalogName}</option>
             </#list>
           </select>
         </td>

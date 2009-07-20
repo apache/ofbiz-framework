@@ -386,9 +386,9 @@ if (orderHeader) {
     context.shippingContactMechList = shippingContactMechList;
 
     // list to find all the shipmentMethods from the view named "ProductStoreShipmentMethView".
-    productStoreId = orderHeader.getRelatedOne("ProductStore").productStoreId;
-    productStoreShipmentMethList = delegator.findByAndCache("ProductStoreShipmentMethView", [productStoreId : productStoreId], ["sequenceNumber"]);
-    context.productStoreShipmentMethList = productStoreShipmentMethList;
+    if (productStore) {
+        context.productStoreShipmentMethList = delegator.findByAndCache('ProductStoreShipmentMethView', [productStoreId: productStore.productStoreId], ['sequenceNumber']);
+    }
 
     // Get a map of returnable items
     returnableItems = [:];
@@ -400,8 +400,8 @@ if (orderHeader) {
 
     // get the catalogIds for appending items
     if (context.request != null) {
-        if ("SALES_ORDER".equals(orderType)) {
-            catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
+        if ("SALES_ORDER".equals(orderType) && productStore) {
+            catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStore.productStoreId, partyId);
         } else {
             catalogCol = CatalogWorker.getAllCatalogIds(request);
         }
@@ -441,8 +441,8 @@ if (orderItems) {
         context.shipmentRouteSegmentId = shipmentRouteSegment.shipmentRouteSegmentId;
         context.pickedShipmentId = pickedShipmentId;
         if (pickedShipmentId && shipmentRouteSegment.trackingIdNumber) {
-            if ("UPS" == shipmentRouteSegment.carrierPartyId) {
-                resultMap = dispatcher.runSync("upsShipmentAlternateRatesEstimate",[productStoreId : productStoreId, shipmentId : pickedShipmentId]);
+            if ("UPS" == shipmentRouteSegment.carrierPartyId && productStore) {
+                resultMap = dispatcher.runSync('upsShipmentAlternateRatesEstimate', [productStoreId: productStore.productStoreId, shipmentId: pickedShipmentId]);
                 shippingRates = resultMap.shippingRates;
                 shippingRateList = [];
                 shippingRates.each { shippingRate ->

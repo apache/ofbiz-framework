@@ -26,9 +26,13 @@ import org.ofbiz.product.store.*;
 
 cart = session.getAttribute("shoppingCart");
 context.cart = cart;
+
 productStore = ProductStoreWorker.getProductStore(request);
-productStoreId = productStore.productStoreId;
-context.productStore = productStore;
+if (productStore) {
+    context.productStore = productStore;
+    context.carrierShipmentMethodList = delegator.findByAndCache('ProductStoreShipmentMethView', [productStoreId: productStore.productStoreId], ['sequenceNumber']);
+}
+
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
 
@@ -39,7 +43,6 @@ if (orderPartyIdId) {
     context.orderPartyId = orderPartyId;
 }
 
-context.carrierShipmentMethodList = delegator.findByAndCache("ProductStoreShipmentMethView", [productStoreId : productStoreId], ["sequenceNumber"]);
 context.emailList = ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false);
 
 // create the beforeDate for calendar
@@ -65,3 +68,4 @@ toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
 toTs = new Timestamp(toCal.getTimeInMillis());
 toStr = toTs.toString();
 context.afterDateStr = toStr;
+
