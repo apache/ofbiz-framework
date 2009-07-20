@@ -22,7 +22,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="h3">${uiLabelMap.ProductWeightPackageOnly}&nbsp;in&nbsp;${facility.facilityName?if_exists} [${(facility.facilityId)?if_exists}]</li>
+          <li class="h3">${uiLabelMap.ProductWeighPackageOnly}&nbsp;in&nbsp;${facility.facilityName?if_exists} [${(facility.facilityId)?if_exists}]</li>
         </ul>
         <br class="clear"/>
       </div>
