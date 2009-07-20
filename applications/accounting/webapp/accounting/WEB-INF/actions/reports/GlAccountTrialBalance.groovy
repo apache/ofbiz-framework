@@ -27,6 +27,13 @@ import java.math.BigDecimal;
 import com.ibm.icu.util.Calendar;
 
 if (organizationPartyId) {
+    onlyIncludePeriodTypeIdList = [];
+    onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
+    customTimePeriodResults = dispatcher.runSync("findCustomTimePeriods", [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
+    customTimePeriodList = customTimePeriodResults.customTimePeriodList;
+    if (UtilValidate.isNotEmpty(customTimePeriodList)) {
+        context.cutomTimePeriod = EntityUtil.getFirst(customTimePeriodList);
+    }
     decimals = UtilNumber.getBigDecimalScale("ledger.decimals");
     rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding");
     context.currentOrganization = delegator.findOne("PartyNameView", [partyId : organizationPartyId], false);
