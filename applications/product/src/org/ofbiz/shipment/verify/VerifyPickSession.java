@@ -303,12 +303,16 @@ public class VerifyPickSession implements Serializable {
         // check reserved quantity, it should be equal to verified quantity
         this.checkReservedQty(orderId, locale);
         String shipmentId = this.createShipment((this.getPickRows(orderId)).get(0));
+
         this.issueItemsToShipment(shipmentId, locale);
-        invoiceId = this.createInvoice(orderId);
-        for (VerifyPickSessionRow line: this.getPickRows(orderId)) {
-            invoiceItemSeqId = this.createInvoiceItem(line, invoiceId, shipmentId);
-            line.setInvoiceItemSeqId(invoiceItemSeqId);
-        }
+
+        // Update the shipment status to Picked, this will trigger createInvoicesFromShipment and finally a invoice will be created
+        Map updateShipmentCtx = FastMap.newInstance();
+        updateShipmentCtx.put("shipmentId", shipmentId);
+        updateShipmentCtx.put("statusId", "SHIPMENT_PICKED");
+        updateShipmentCtx.put("userLogin", this.getUserLogin());
+        this.getDispatcher().runSync("updateShipment", updateShipmentCtx);
+
         return shipmentId;
     }
 
@@ -386,7 +390,7 @@ public class VerifyPickSession implements Serializable {
         newShipment.put("primaryShipGroupSeqId", line.getShipGroupSeqId());
         newShipment.put("primaryOrderId", orderId);
         newShipment.put("shipmentTypeId", "OUTGOING_SHIPMENT");
-        newShipment.put("statusId", "SHIPMENT_PICKED");
+        newShipment.put("statusId", "SHIPMENT_SCHEDULED");
         newShipment.put("userLogin", this.getUserLogin());
         GenericValue orderRoleShipTo = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "SHIP_TO_CUSTOMER")));
         if (UtilValidate.isNotEmpty(orderRoleShipTo)) {
@@ -418,46 +422,5 @@ public class VerifyPickSession implements Serializable {
         }
         String shipmentId = (String) newShipResp.get("shipmentId");
         return shipmentId;
-    }
-
-    protected String createInvoice(String orderId) throws GeneralException {
-        GenericDelegator delegator = this.getDelegator();
-        Map createInvoiceContext = FastMap.newInstance();
-        GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
-        GenericValue billingAccount = orderHeader.getRelatedOne("BillingAccount");
-        String billingAccountId = billingAccount != null ? billingAccount.getString("billingAccountId") : null;
-        createInvoiceContext.put("partyId", (EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER")))).getString("partyId"));
-        createInvoiceContext.put("partyIdFrom", (EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR")))).getString("partyId"));
-        createInvoiceContext.put("billingAccountId", billingAccountId);
-        createInvoiceContext.put("invoiceTypeId", "SALES_INVOICE");
-        createInvoiceContext.put("statusId", "INVOICE_IN_PROCESS");
-        createInvoiceContext.put("currencyUomId", orderHeader.getString("currencyUom"));
-        createInvoiceContext.put("userLogin", this.getUserLogin());
-        Map createInvoiceResult = this.getDispatcher().runSync("createInvoice", createInvoiceContext);
-        if (ServiceUtil.isError(createInvoiceResult)) {
-            throw new GeneralException(ServiceUtil.getErrorMessage(createInvoiceResult));
-        }
-        String invoiceId = (String) createInvoiceResult.get("invoiceId");
-        return invoiceId;
-    }
-
-    protected String createInvoiceItem(VerifyPickSessionRow line, String invoiceId, String shipmentId) throws GeneralException {
-        Map createInvoiceItemContext = FastMap.newInstance();
-        createInvoiceItemContext.put("invoiceId", invoiceId);
-        createInvoiceItemContext.put("orderId", line.getOrderId());
-        createInvoiceItemContext.put("invoiceItemTypeId", "INV_FPROD_ITEM");
-        createInvoiceItemContext.put("productId", line.getProductId());
-        createInvoiceItemContext.put("quantity", line.getReadyToVerifyQty());
-        createInvoiceItemContext.put("userLogin", this.getUserLogin());
-        Map createInvoiceItemResult = this.getDispatcher().runSync("createInvoiceItem", createInvoiceItemContext);
-        if (ServiceUtil.isError(createInvoiceItemResult)) {
-            throw new GeneralException(ServiceUtil.getErrorMessage(createInvoiceItemResult));
-        }
-        String invoiceItemSeqId = (String) createInvoiceItemResult.get("invoiceItemSeqId");
-        GenericValue shipmentItemBilling =  this.getDelegator().makeValue("ShipmentItemBilling", UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId));
-        shipmentItemBilling.put("shipmentId", shipmentId);
-        shipmentItemBilling.put("shipmentItemSeqId", line.getShipmentItemSeqId());
-        shipmentItemBilling.create();
-        return invoiceItemSeqId;
     }
 }
