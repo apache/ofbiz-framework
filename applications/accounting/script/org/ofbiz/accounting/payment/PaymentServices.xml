@@ -92,10 +92,9 @@ under the License.
             <!-- fields :- comments, paymentRefNum, finAccountTransId, statusId can editable for Payment -->
             <set field="oldPayment.statusId" from-field="newPayment.statusId"/>
             <set field="oldPayment.comments" from-field="newPayment.commets"/>
-            <set field="oldPayment.paymentRefNum" from-field="newPayment.paymentRefNum"/>
-            <set field="oldPayment.finAccountTransId" from-field="newPayment.finAccountTransId"/>
+            <set field="oldPayment.paymentRefNum" from-field="newPayment.paymentRefNum" set-if-null="true"/>
+            <set field="oldPayment.finAccountTransId" from-field="newPayment.finAccountTransId" set-if-null="true"/>
             <if-compare-field field="oldPayment" to-field="newPayment" operator="not-equals">
-                <log level="always" message="=========Old: ${oldPayment} ============New: ${newPayment}"></log>
                 <add-error>
                     <fail-property resource="AccountingUiLabels" property="AccountingPSUpdateNotAllowedBecauseOfStatus"/>
                 </add-error>
