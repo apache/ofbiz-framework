@@ -22,16 +22,33 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.calendar.ExpressionUiHelper;
 
+
 context.monthList = ExpressionUiHelper.getMonthValueList(locale);
 context.month = (ExpressionUiHelper.getMonthValueList(locale)).get(UtilDateTime.getMonth(UtilDateTime.nowTimestamp(), timeZone, locale));
 if (organizationPartyId && parameters.selectedMonth) {
-    selectedMonth = new Integer(parameters.selectedMonth);
-    context.selectedMonth = selectedMonth;
+    
+    selectedMonth = Integer.valueOf(parameters.selectedMonth);
     selectedMonthDate = UtilDateTime.toTimestamp((selectedMonth + 1), 1, UtilDateTime.getYear(UtilDateTime.nowTimestamp(), timeZone, locale), 0, 0, 0);
 
     selectedMonthStartDate = UtilDateTime.getMonthStart(selectedMonthDate, timeZone, locale);
     selectedMonthEndDate = UtilDateTime.getMonthEnd(selectedMonthDate, timeZone, locale);
-
+    if (parameters.isIncomeStatement) {
+        Timestamp incomeStatementFromDate = null;
+        Timestamp incomeStatementThruDate = null;
+        if (parameters.fromDate && parameters.thruDate) {
+            incomeStatementFromDate = Timestamp.valueOf(parameters.fromDate);
+            incomeStatementThruDate = Timestamp.valueOf(parameters.thruDate);
+        } else {
+            incomeStatementFromDate =  selectedMonthStartDate;
+            incomeStatementThruDate = selectedMonthEndDate;
+        }
+        prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement", 
+                [fromDate : incomeStatementFromDate, thruDate : incomeStatementThruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : parameters.glFiscalTypeId, userLogin : userLogin]);
+        if (prepareIncomeStatement) {
+            context.glAccountTotalsList = prepareIncomeStatement.glAccountTotalsList;
+            context.totalNetIncome = prepareIncomeStatement.totalNetIncome;
+        }
+    }
     onlyIncludePeriodTypeIdList = [];
     onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
     customTimePeriodResult = dispatcher.runSync("findCustomTimePeriods", [findDate : selectedMonthDate, organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
