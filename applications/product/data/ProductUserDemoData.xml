@@ -21,4 +21,5 @@ under the License.
 <entity-engine-xml>
     <!-- Limited user demo -->
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
 </entity-engine-xml>

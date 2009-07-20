@@ -46,6 +46,15 @@ under the License.
     <PartyRole partyId="ltdadmin" roleTypeId="LTD_ADMIN"/>
     <PartyRole partyId="ltdadmin" roleTypeId="_NA_"/>
     <PartyContactMech partyId="ltdadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+    
+    <!-- Adding another limited admin record(i.e with partyId ltdadmin1) to test role based security -->
+    
+    <Party partyId="ltdadmin1" partyTypeId="PERSON"/>
+    <Person firstName="Limited" lastName="Administrator1" middleName="" partyId="ltdadmin1" personalTitle="Mr."/>
+    <PartyRole partyId="ltdadmin1" roleTypeId="ORDER_CLERK"/>
+    <PartyRole partyId="ltdadmin1" roleTypeId="LTD_ADMIN"/>
+    <PartyRole partyId="ltdadmin1" roleTypeId="_NA_"/>
+    <PartyContactMech partyId="ltdadmin1" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
     <Party partyId="externaluser" partyTypeId="PERSON"/>
     <Person firstName="External" lastName="User" middleName="" partyId="externaluser" personalTitle="Mr."/>
@@ -68,12 +77,14 @@ under the License.
     <UserLogin userLoginId="flexadmin" partyId="admin"/>
     <UserLogin userLoginId="demoadmin" partyId="admin"/>
     <UserLogin userLoginId="ltdadmin" partyId="ltdadmin"/>
+    <UserLogin userLoginId="ltdadmin1" partyId="ltdadmin1"/>
     <UserLogin userLoginId="bizadmin" partyId="bizadmin"/>
 
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="admin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="FLEXADMIN" userLoginId="flexadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="demoadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>
 
 </entity-engine-xml>

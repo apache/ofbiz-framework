@@ -151,6 +151,9 @@ under the License.
     <ProductCategory categoryName="Test Limited Admin Category"
         longDescription="Test Limited Admin Category" productCategoryId="TSTLTDADMIN" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategoryRole productCategoryId="TSTLTDADMIN" partyId="ltdadmin" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <!-- Adding this record to test role based security -->
+    <ProductCategoryRole productCategoryId="TSTLTDADMIN" partyId="ltdadmin1" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
 
     <ProductCategory categoryName="Test Cross Sell Category"
         longDescription="Test Cross Sell Category" productCategoryId="TSTCSL" productCategoryTypeId="CROSS_SELL_CATEGORY"/>
@@ -486,7 +489,10 @@ under the License.
     <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-7000" fromDate="2003-03-04 19:12:32.389"/>
     <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-8544" fromDate="2003-03-04 18:46:46.557"/>
     <ProductCategoryMember productCategoryId="TSTCSL" productId="GZ-9290" fromDate="2003-03-04 18:55:14.547"/>
-
+    
+    <!-- Added record to check role based permission for limited admin user -->
+    <ProductCategoryMember productCategoryId="TSTLTDADMIN" productId="GZ-2644" fromDate="2003-03-04 18:55:14.547"/>
+    
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="100"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="101"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="102"/>
