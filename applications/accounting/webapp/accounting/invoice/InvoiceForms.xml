@@ -387,11 +387,9 @@ under the License.
        </field>
     </form>
 
-    <form name="EditInvoiceItem" type="single" target="updateInvoiceItem" title="" default-map-name="invoiceItem" default-entity-name="InvoiceItem"
+    <form name="EditInvoiceItem" type="single" target="createInvoiceItem" title="" default-map-name="invoiceItem" default-entity-name="InvoiceItem"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="invoiceItem==null" target="createInvoiceItem"/>
         <field name="invoiceId"><hidden/></field>
-        <field position="1" name="invoiceItemSeqId"><text size="5"/></field>
         <field position="1" name="invoiceItemTypeId">
             <drop-down allow-empty="false">
                 <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${description}"/>
