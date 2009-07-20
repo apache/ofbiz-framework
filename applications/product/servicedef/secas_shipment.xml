@@ -27,13 +27,22 @@ under the License.
         <condition field-name="statusId" operator="equals" value="SHIPMENT_CANCELLED"/>
         <action service="checkCancelItemIssuanceAndOrderShipmentFromShipment" mode="sync"/>
     </eca>
-    <!-- if new statusId of a SALES_SHIPMENT is SHIPMENT_PACKED, create invoice -->
+    <!-- if new statusId of a SALES_SHIPMENT is SHIPMENT_PICKED, create invoice -->
+    <eca service="updateShipment" event="commit">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <condition field-name="statusId" operator="equals" value="SHIPMENT_PICKED"/>
+        <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+        <action service="createInvoicesFromShipment" mode="sync" run-as-user="system"/>
+    </eca>
+
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
         <action service="createInvoicesFromShipment" mode="sync" run-as-user="system"/>
+        <action service="setInvoicesToReadyFromShipment" mode="sync" run-as-user="system"/>
     </eca>
+
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
@@ -120,6 +129,7 @@ under the License.
         <condition field-name="primaryOrderId" operator="is-not-empty"/>
         <action service="setShipmentSettingsFromPrimaryOrder" mode="sync"/>
     </eca>
+
     <eca service="updateShipment" event="commit">
         <condition-field field-name="primaryOrderId" operator="not-equals" to-field-name="oldPrimaryOrderId"/>
         <condition field-name="primaryOrderId" operator="is-not-empty"/>

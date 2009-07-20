@@ -206,6 +206,12 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="setInvoicesToReadyFromShipment" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="setInvoicesToReadyFromShipment">
+        <description>Set invoice(s) to Ready from Shipment</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+
     <service name="createSalesInvoicesFromDropShipment" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createSalesInvoicesFromDropShipment">
         <description>

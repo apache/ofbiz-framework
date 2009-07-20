@@ -20,11 +20,7 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
-    <eca service="createInvoiceForOrder" event="return">
-        <condition field-name="invoiceId" operator="is-not-empty"/>
-        <condition field-name="invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
-        <action service="capturePaymentsByInvoice" mode="sync"/>
-    </eca>
+
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>
@@ -164,4 +160,12 @@ under the License.
         <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
     </eca>
 
+    <eca service="setInvoiceStatus" event="commit">
+        <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
+        <action service="checkInvoicePaymentApplications" mode="sync"/>
+        <action service="capturePaymentsByInvoice" mode="sync"/>
+    </eca>
 </service-eca>
