@@ -416,7 +416,13 @@ public class WeightPackageSession implements Serializable {
             shipmentPackageMap.put("weightUomId", getWeightUomId());
             shipmentPackageMap.put("userLogin", userLogin);
 
-            Map<String, Object> shipmentPackageResult = this.getDispatcher().runSync("createShipmentPackage", shipmentPackageMap);
+            Map<String, Object> shipmentPackageResult = FastMap.newInstance();
+            GenericValue shipmentPackage = this.getDelegator().findOne("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId), false);
+            if (UtilValidate.isEmpty(shipmentPackage)) {
+                shipmentPackageResult = this.getDispatcher().runSync("createShipmentPackage", shipmentPackageMap);
+            } else {
+                shipmentPackageResult = this.getDispatcher().runSync("updateShipmentPackage", shipmentPackageMap);
+            }
             if (ServiceUtil.isError(shipmentPackageResult)) {
                 throw new GeneralException(ServiceUtil.getErrorMessage(shipmentPackageResult));
             }
