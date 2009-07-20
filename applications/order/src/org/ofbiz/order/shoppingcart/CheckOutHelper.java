@@ -789,8 +789,6 @@ public class CheckOutHelper {
     }
 
     private Map makeTaxContext(int shipGroup, GenericValue shipAddress, Map shoppingCartItemIndexMap) throws GeneralException {
-        String productStoreId = cart.getProductStoreId();
-        String billToPartyId = cart.getBillToCustomerPartyId();
         ShoppingCart.CartShipInfo csi = cart.getShipInfo(shipGroup);
         int totalItems = csi.shipItemInfo.size();
 
@@ -839,8 +837,9 @@ public class CheckOutHelper {
             }
         }
 
-        Map serviceContext = UtilMisc.toMap("productStoreId", productStoreId);
-        serviceContext.put("billToPartyId", billToPartyId);
+        Map serviceContext = UtilMisc.toMap("productStoreId", cart.getProductStoreId());
+        serviceContext.put("payToPartyId", cart.getBillFromVendorPartyId());
+        serviceContext.put("billToPartyId", cart.getBillToCustomerPartyId());
         serviceContext.put("itemProductList", product);
         serviceContext.put("itemAmountList", amount);
         serviceContext.put("itemPriceList", price);

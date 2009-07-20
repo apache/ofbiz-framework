@@ -111,8 +111,6 @@ under the License.
 
     <WebSite webSiteId="WebStore" siteName="eCommerce Web Site" productStoreId="9000" visualThemeSetId="ECOMMERCE"/>
     <WebSite webSiteId="WebStoreClone" siteName="Cloned eCommerce Web Site" productStoreId="9000" visualThemeSetId="ECOMMERCE"/>
-    <!-- the following item is defined in the OrderTypeData.xml file and just the productStoreId is being associated with it here -->
-    <WebSite webSiteId="OrderEntry" productStoreId="9000"/>
     
     <ProdCatalog prodCatalogId="DemoCatalog" catalogName="Demo Catalog" useQuickAdd="Y"/>
     <ProdCatalog prodCatalogId="TestCatalog" catalogName="Test Catalog" useQuickAdd="N"/>
