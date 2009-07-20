@@ -2082,7 +2082,7 @@
         <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
     </property>
     <property key="AccountingCreditCardEmailAddNotFoundError">
-        <value xml:lang="de">Rechnungs-Emai-Adresse nicht gefunden.</value>
+        <value xml:lang="de">Rechnungs-Email-Adresse nicht gefunden.</value>
         <value xml:lang="en">Bill To Email Address not found.</value>
         <value xml:lang="fr">Adresse courriel de facturation non trouvée</value>
         <value xml:lang="it">Indirizzo email carta di credito non trovato.</value>
@@ -2156,6 +2156,7 @@
         <value xml:lang="zh">检查你的余额时出现问题；请检查你的卡和密码，然后重试</value>
     </property>
     <property key="AccountingCurrentCustomTimePeriod">
+        <value xml:lang="de">Aktueller spezifischer Zeitraum</value>
         <value xml:lang="en">Current Custom Time Period</value>
         <value xml:lang="fr">Période de temps spécifique courante</value>
         <value xml:lang="it">Periodi di Tempo Personalizzati Attuale</value>
@@ -2268,6 +2269,7 @@
         <value xml:lang="en">Debit Amount</value>
     </property>
     <property key="AccountingDateAcquiredIsEmpty">
+        <value xml:lang="de">Das Feld Erwerbsdatum bei den Anlage-Daten ist leer.</value>
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ date acquise est vide dans les données d'immobilisation</value>
         <value xml:lang="it">Campo dateAcquired è vuoto in FixedAsset.</value>
@@ -2426,6 +2428,7 @@
         <value xml:lang="zh">编辑信用卡</value>
     </property>
     <property key="AccountingEditCustomTimePeriods">
+        <value xml:lang="de">Individuelle Zeiträume bearbeiten</value>
         <value xml:lang="en">Edit Custom Time Periods</value>
         <value xml:lang="fr">Modifier les périodes de temps</value>
         <value xml:lang="it">Aggiorna Periodi di Tempo Personalizzati</value>
@@ -2707,6 +2710,7 @@
         <value xml:lang="zh">从定单创建定单明细账单时出错</value>
     </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
+        <value xml:lang="de">Das Feld erwartetes End of Life bei den Anlage-Daten ist leer.</value>
         <value xml:lang="en">Field expectedEndOfLife is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ "Fin de vie estimée" est vide dans les données d'immobilisation</value>
         <value xml:lang="it">Il campo expectedEndOfLife è vuoto in FixedAsset.</value>
@@ -2738,6 +2742,7 @@
     </property>
     <property key="AccountingExternalAccountId">
         <value xml:lang="ar">دليل حساب محاسبي خارجي</value>
+        <value xml:lang="de">Externe Konten-Nr.</value>
         <value xml:lang="en">Accounting External Account Id</value>
         <value xml:lang="es">Id de cuenta de contable externa</value>
         <value xml:lang="fr">Réf. du compte externe</value>
@@ -2750,6 +2755,7 @@
     </property>
     <property key="AccountingFX">
         <value xml:lang="ar">نسب الصرف الأجنبية</value>
+        <value xml:lang="de">Fremdwährungskurse</value>
         <value xml:lang="en">Foreign Exchange Rates</value>
         <value xml:lang="es">Tipo de cambio foráneo</value>
         <value xml:lang="fr">Taux de change</value>
@@ -2770,6 +2776,7 @@
         <value xml:lang="th">งบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
     <property key="AccountingFinAccountAuth">
+        <value xml:lang="de">Autorisierungen</value>
         <value xml:lang="en">Authorizations</value>
         <value xml:lang="fr">Authentifications</value>
         <value xml:lang="it">Autorizzazioni</value>
@@ -2787,6 +2794,7 @@
         <value xml:lang="th">รายการ</value>
     </property>
     <property key="AccountingFinAccountTypeGlAccount">
+        <value xml:lang="de">Finanzkonto-Buchungskonto</value>
         <value xml:lang="en">FinAccount Type Gl Account</value>
         <value xml:lang="fr">Compte financier</value>
         <value xml:lang="it">Conto Gl Tipo Conto Finanaziario</value>
@@ -2794,6 +2802,7 @@
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingFinAccounts">
+        <value xml:lang="de">Finanzkonten</value>
         <value xml:lang="en">Financial Accounts</value>
         <value xml:lang="es">Cuentas financieras</value>
         <value xml:lang="fr">Comptes financiers</value>
@@ -2819,6 +2828,7 @@
     </property>
     <property key="AccountingFindInvoices">
         <value xml:lang="ar">إيجاد الفواتير</value>
+        <value xml:lang="de">Rechnungen suchen</value>
         <value xml:lang="en">Find Invoices</value>
         <value xml:lang="es">Encontrar Facturas</value>
         <value xml:lang="fr">Rechercher des factures</value>
@@ -2868,6 +2878,7 @@
     </property>
     <property key="AccountingFiscalMonth01">
         <value xml:lang="ar">01-يناير</value>
+        <value xml:lang="de">01-Jan</value>
         <value xml:lang="en">01-Jan</value>
         <value xml:lang="es">01-Ene</value>
         <value xml:lang="fr">01-Jan</value>
@@ -2880,6 +2891,7 @@
     </property>
     <property key="AccountingFiscalMonth02">
         <value xml:lang="ar">02-فبراير</value>
+        <value xml:lang="de">02-Feb</value>
         <value xml:lang="en">02-Feb</value>
         <value xml:lang="es">02-Feb</value>
         <value xml:lang="fr">02-Fév</value>
@@ -2892,6 +2904,7 @@
     </property>
     <property key="AccountingFiscalMonth03">
         <value xml:lang="ar">03-مارس</value>
+        <value xml:lang="de">03-Mär</value>
         <value xml:lang="en">03-Mar</value>
         <value xml:lang="es">03-Mar</value>
         <value xml:lang="fr">03-Mar</value>
@@ -2904,6 +2917,7 @@
     </property>
     <property key="AccountingFiscalMonth04">
         <value xml:lang="ar">04-أفريل</value>
+        <value xml:lang="de">04-Apr</value>
         <value xml:lang="en">04-Apr</value>
         <value xml:lang="es">04-Abr</value>
         <value xml:lang="fr">04-Avr</value>
@@ -2916,6 +2930,7 @@
     </property>
     <property key="AccountingFiscalMonth05">
         <value xml:lang="ar">05-ماي</value>
+        <value xml:lang="de">05-Mai</value>
         <value xml:lang="en">05-May</value>
         <value xml:lang="es">05-May</value>
         <value xml:lang="fr">05-Mai</value>
@@ -2928,6 +2943,7 @@
     </property>
     <property key="AccountingFiscalMonth06">
         <value xml:lang="ar">06-جوان</value>
+        <value xml:lang="de">06-Jun</value>
         <value xml:lang="en">06-Jun</value>
         <value xml:lang="es">06-Jun</value>
         <value xml:lang="fr">06-Jun</value>
@@ -2940,6 +2956,7 @@
     </property>
     <property key="AccountingFiscalMonth07">
         <value xml:lang="ar">07-جويلية</value>
+        <value xml:lang="de">07-Jul</value>
         <value xml:lang="en">07-Jul</value>
         <value xml:lang="es">07-Jul</value>
         <value xml:lang="fr">07-Jul</value>
@@ -2952,6 +2969,7 @@
     </property>
     <property key="AccountingFiscalMonth08">
         <value xml:lang="ar">08-أوت</value>
+        <value xml:lang="de">08-Aug</value>
         <value xml:lang="en">08-Aug</value>
         <value xml:lang="es">08-Ago</value>
         <value xml:lang="fr">08-Aoû</value>
@@ -2964,6 +2982,7 @@
     </property>
     <property key="AccountingFiscalMonth09">
         <value xml:lang="ar">09-سبتمبر</value>
+        <value xml:lang="de">09-Sep</value>
         <value xml:lang="en">09-Sep</value>
         <value xml:lang="es">09-Sep</value>
         <value xml:lang="fr">09-Sep</value>
@@ -2976,6 +2995,7 @@
     </property>
     <property key="AccountingFiscalMonth10">
         <value xml:lang="ar">10-أكتوبر</value>
+        <value xml:lang="de">10-Okt</value>
         <value xml:lang="en">10-Oct</value>
         <value xml:lang="es">10-Oct</value>
         <value xml:lang="fr">10-Oct</value>
@@ -2988,6 +3008,7 @@
     </property>
     <property key="AccountingFiscalMonth11">
         <value xml:lang="ar">11-نوفمبر</value>
+        <value xml:lang="de">11-Nov</value>
         <value xml:lang="en">11-Nov</value>
         <value xml:lang="es">11-Nov</value>
         <value xml:lang="fr">11-Nov</value>
@@ -3000,6 +3021,7 @@
     </property>
     <property key="AccountingFiscalMonth12">
         <value xml:lang="ar">12-ديسمبر</value>
+        <value xml:lang="de">12-Dez</value>
         <value xml:lang="en">12-Dec</value>
         <value xml:lang="es">12-Dic</value>
         <value xml:lang="fr">12-Déc</value>
@@ -3037,6 +3059,7 @@
         <value xml:lang="zh">日历</value>
     </property>
     <property key="AccountingFixedAssetClassEnumId">
+        <value xml:lang="en">Anlagen-Klasse</value>
         <value xml:lang="en">Fixed Asset Class Enum Id</value>
         <value xml:lang="fr">Réf. de la classe d'actif immobilisé</value>
         <value xml:lang="it">Classe cespite</value>
@@ -3050,6 +3073,7 @@
         <value xml:lang="th">ค่าเสื่อมราคา</value>
     </property>
     <property key="AccountingFixedAssetDepreciationMethodNotFound">
+        <value xml:lang="de">Abschreibungsmethode nicht vorhanden</value>
         <value xml:lang="en">Depreciation method not found</value>
         <value xml:lang="fr">Méthode de calcul de dépréciation non trouvée</value>
         <value xml:lang="it">Metodo di svalutazione non trovato</value>
@@ -3057,6 +3081,7 @@
     </property>
     <property key="AccountingFixedAssetEdit">
         <value xml:lang="ar">استحداث/تحديث أصل ثابت</value>
+        <value xml:lang="en">Anlage erstellen/ändern</value>
         <value xml:lang="en">Create/Update Fixed Asset</value>
         <value xml:lang="es">Crear/Actualizar Activo Fijo</value>
         <value xml:lang="fr">Créer/modifier une immobilisation</value>
@@ -3069,6 +3094,7 @@
     </property>
     <property key="AccountingFixedAssetGovAgencyPartyId">
         <value xml:lang="ar">وكالة حكومية</value>
+        <value xml:lang="de">Behörde</value>
         <value xml:lang="en">Government Agency</value>
         <value xml:lang="es">Agencia de Gobierno</value>
         <value xml:lang="fr">Agence gouvernementale</value>
@@ -3094,6 +3120,7 @@
     </property>
     <property key="AccountingFixedAssetIdAlreadyExists">
         <value xml:lang="ar">دليل الأصل الثابت [${parameters.fixedAssetId}] موجود</value>
+        <value xml:lang="de">Anlage [${parameters.fixedAssetId}] schon vorhanden</value>
         <value xml:lang="en">Fixed Asset Id [${parameters.fixedAssetId}] Already Exists</value>
         <value xml:lang="fr">Cet identifiant d'immobilisation [${parameters.fixedAssetId}] existe déjà</value>
         <value xml:lang="it">Cespite ${parameters.fixedAssetId} già esistente</value>
@@ -3103,6 +3130,7 @@
     </property>
     <property key="AccountingFixedAssetIdentIdValue">
         <value xml:lang="ar">القيمة</value>
+        <value xml:lang="de">Wert</value>
         <value xml:lang="en">Value</value>
         <value xml:lang="es">Valor</value>
         <value xml:lang="fr">Valeur</value>
@@ -3115,6 +3143,7 @@
     </property>
     <property key="AccountingFixedAssetIdentType">
         <value xml:lang="ar">نوع التعريف</value>
+        <value xml:lang="de">Identifikationsart</value>
         <value xml:lang="en">Identification Type</value>
         <value xml:lang="es">Tipo de Identificación</value>
         <value xml:lang="fr">Type d'identification</value>
@@ -3134,6 +3163,7 @@
     </property>
     <property key="AccountingFixedAssetIdents">
         <value xml:lang="ar">تعاريف</value>
+        <value xml:lang="de">Identifikationen</value>
         <value xml:lang="en">Identifications</value>
         <value xml:lang="es">Identificaciones</value>
         <value xml:lang="fr">Identifications</value>
@@ -3146,6 +3176,7 @@
     </property>
     <property key="AccountingFixedAssetLicenseNumber">
         <value xml:lang="ar">رقم الترخيص</value>
+        <value xml:lang="de">Lizenznummer</value>
         <value xml:lang="en">License Number</value>
         <value xml:lang="es">License Number</value>
         <value xml:lang="fr">Numéro de licence</value>
@@ -3158,6 +3189,7 @@
     </property>
     <property key="AccountingFixedAssetMaint">
         <value xml:lang="ar">الصيانة</value>
+        <value xml:lang="de">Wartung</value>
         <value xml:lang="en">Maintenance</value>
         <value xml:lang="es">Mantenimiento</value>
         <value xml:lang="fr">Maintenance</value>
@@ -3196,6 +3228,7 @@
     </property>
     <property key="AccountingFixedAssetMaintIntervalUom">
         <value xml:lang="ar">وحدة قياس المجال</value>
+        <value xml:lang="de">Intervaleinheit</value>
         <value xml:lang="en">Interval Uom</value>
         <value xml:lang="es">Intervalo Uom</value>
         <value xml:lang="fr">Unité de l'intervalle</value>
@@ -3241,6 +3274,7 @@
     </property>
     <property key="AccountingFixedAssetMaintName">
         <value xml:lang="ar">اسم الصيانة</value>
+        <value xml:lang="de">Wartungsname</value>
         <value xml:lang="en">Maintenace Name</value>
         <value xml:lang="es">Nombre de mantenimiento</value>
         <value xml:lang="fr">Nom de la maintenance</value>
@@ -3253,6 +3287,7 @@
     </property>
     <property key="AccountingFixedAssetMaintOrders">
         <value xml:lang="ar">طلبيات الشراء</value>
+        <value xml:lang="de">Bestellungen</value>
         <value xml:lang="en">Purchase Orders</value>
         <value xml:lang="fr">Commandes passées</value>
         <value xml:lang="it">Ordini di Acquisto</value>
@@ -3261,12 +3296,14 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
     </property>
     <property key="AccountingFixedAssetMaintSeqId">
+        <value xml:lang="de">Anlagenwartungsreihenfolge</value>
         <value xml:lang="en">Fixed Asset Maint Seq Id</value>
         <value xml:lang="fr">Réf. de maintenance de la classe d'actif immobilisé</value>
         <value xml:lang="it">Riga manutenzione cespite</value>
     </property>
     <property key="AccountingFixedAssetMaintType">
         <value xml:lang="ar">نوع الصيانة</value>
+        <value xml:lang="de">Wartungsart</value>
         <value xml:lang="en">Maintenance Type</value>
         <value xml:lang="es">Tipo de mantenimiento</value>
         <value xml:lang="fr">Type de maintenance</value>
@@ -3285,7 +3322,7 @@
     </property>
     <property key="AccountingFixedAssetMaintenanceTemplate">
         <value xml:lang="ar">نموذج الصيانة</value>
-        <value xml:lang="de">Verwaltungsvorlage</value>
+        <value xml:lang="de">Wartungsvorlage</value>
         <value xml:lang="en">Maintenance Template</value>
         <value xml:lang="fr">Schéma de maintenance</value>
         <value xml:lang="it">Manutenzione template</value>
@@ -3294,6 +3331,7 @@
     </property>
     <property key="AccountingFixedAssetMaints">
         <value xml:lang="ar">الصيانات</value>
+        <value xml:lang="de">Wartungen</value>
         <value xml:lang="en">Maintenances</value>
         <value xml:lang="es">Mantenimientos</value>
         <value xml:lang="fr">Maintenances</value>
@@ -3305,6 +3343,7 @@
         <value xml:lang="zh">维修保养</value>
     </property>
     <property key="AccountingFixedAssetManufacturerId">
+        <value xml:lang="de">Anlagen-Herstellernummer</value>
         <value xml:lang="en">Fixed Asset Manufacturer Id</value>
         <value xml:lang="fr">Réf. du fabricant de l'actif immobilisé</value>
         <value xml:lang="it">Produttore cespite</value>
@@ -3323,6 +3362,7 @@
     </property>
     <property key="AccountingFixedAssetMeterValue">
         <value xml:lang="ar">قيمة المقياس</value>
+        <value xml:lang="de">Messwert</value>
         <value xml:lang="en">Meter Value</value>
         <value xml:lang="es">Valor de Contador</value>
         <value xml:lang="fr">Valeur au compteur</value>
@@ -3335,6 +3375,7 @@
     </property>
     <property key="AccountingFixedAssetMeters">
         <value xml:lang="ar">قراءات المقاييس</value>
+        <value xml:lang="de">Messungen</value>
         <value xml:lang="en">Meter Readings</value>
         <value xml:lang="es">Lecturas de contador</value>
         <value xml:lang="fr">Lectures au compteur</value>
@@ -3371,6 +3412,7 @@
     </property>
     <property key="AccountingFixedAssetParent">
         <value xml:lang="ar">مجموعة الأصول</value>
+        <value xml:lang="de">Anlagengruppe</value>
         <value xml:lang="en">Asset Group </value>
         <value xml:lang="es">Grupo de Activos</value>
         <value xml:lang="fr">Groupe d'immobilisations</value>
@@ -3383,6 +3425,7 @@
     </property>
     <property key="AccountingFixedAssetParties">
         <value xml:lang="ar">أدوار الطرف</value>
+        <value xml:lang="de">Akteursrollen</value>
         <value xml:lang="en">Party Roles</value>
         <value xml:lang="es">Roles de grupo</value>
         <value xml:lang="fr">Acteurs et rôles</value>
@@ -3421,6 +3464,7 @@
     </property>
     <property key="AccountingFixedAssetProductTypeId">
         <value xml:lang="ar">نوع الإستعمال</value>
+        <value xml:lang="en">Art der Nutzung</value>
         <value xml:lang="en">Type of usage</value>
         <value xml:lang="es">Tipo de uso</value>
         <value xml:lang="fr">Type d'utilisation</value>
@@ -3444,6 +3488,7 @@
     </property>
     <property key="AccountingFixedAssetProducts">
         <value xml:lang="ar">السلع</value>
+        <value xml:lang="de">Produkte</value>
         <value xml:lang="en">Products</value>
         <value xml:lang="es">Productos</value>
         <value xml:lang="fr">Produits</value>
@@ -3456,6 +3501,7 @@
     </property>
     <property key="AccountingFixedAssetRegNumber">
         <value xml:lang="ar">رقم التسجيل</value>
+        <value xml:lang="de">Registrierungsnummer</value>
         <value xml:lang="en">Registration Number</value>
         <value xml:lang="es">Número de Registro</value>
         <value xml:lang="fr">Numéro d'enregistrement</value>
@@ -3468,6 +3514,7 @@
     </property>
     <property key="AccountingFixedAssetRegistrations">
         <value xml:lang="ar">التسجيلات</value>
+        <value xml:lang="de">Registrierungsnummer</value>
         <value xml:lang="en">Registrations</value>
         <value xml:lang="es">Registros</value>
         <value xml:lang="fr">Enregistrements</value>
