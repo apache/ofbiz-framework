@@ -57,7 +57,7 @@ conditionList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS
 conditionList.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
 conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
-selectedFields = ["productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity"] as Set;
+selectedFields = ["productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity", "orderQtyIncrements"] as Set;
 selectedFields.add("availableFromDate");
 selectedFields.add("availableThruDate");
 supplierProducts = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
