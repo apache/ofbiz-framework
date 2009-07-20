@@ -1931,6 +1931,7 @@ under the License.
       <field name="glAccountId" type="id-ne"></field>
       <field name="glAccountGroupTypeId" type="id-ne"></field>
       <field name="glAccountGroupId" type="id-ne"></field>
+      <field name="amontPercentage" type="fixed-point"></field>
       <prim-key field="glAccountId"/>
       <prim-key field="glAccountGroupTypeId"/>
       <relation type="one" fk-name="GLACT_GPMBR_AC" rel-entity-name="GlAccount">
