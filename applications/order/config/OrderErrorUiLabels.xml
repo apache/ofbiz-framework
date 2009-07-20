@@ -658,7 +658,7 @@
         <value xml:lang="zh">错误：没有为订单标识：${orderId} 找到有效的订单头 </value>
     </property>
     <property key="OrderErrorOrderHasBeenAlreadyVerified">
-        <value xml:lang="en">ERROR: Order #${orderId} has been already verified, go to Weight Package Only screen for further processing</value>
+        <value xml:lang="en">ERROR: Order #${orderId} has been already verified, go to Weigh Package Only screen for further processing</value>
     </property>
     <property key="OrderErrorOrderIdNotFound">
         <value xml:lang="en">ERROR: Order with ID [${orderId}] not found</value>
@@ -709,7 +709,7 @@
         <value xml:lang="th">ใบสั่งซื้อสินค้า ${orderId} ไม่เป็นรายการสั่งซื้อ</value>
     </property>
     <property key="OrderErrorOrderNotVerified">
-        <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weight Package Only for further processing</value>
+        <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weigh Package Only for further processing</value>
     </property>
     <property key="OrderErrorOrderNotVerifiedForPacking">
         <value xml:lang="en">ERROR: Order #${orderId} is not verified for packing</value>

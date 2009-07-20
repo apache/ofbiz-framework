@@ -94,9 +94,11 @@ if (shipmentId) {
         invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, "invoiceId", true);
         if (invoiceIds) {
             context.invoiceIds = invoiceIds;
-            orderId = null;
             
         }
+    }
+    if (shipment.statusId && "SHIPMENT_PACKED" == shipment.statusId) {
+        orderId = null;
     }
     shipmentPackageRouteSegs = delegator.findByAnd("ShipmentPackageRouteSeg",  [shipmentId : shipmentId]);
     shipmentPackageRouteSegList = [];

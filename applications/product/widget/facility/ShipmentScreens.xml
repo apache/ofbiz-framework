@@ -301,7 +301,7 @@ under the License.
     <screen name="WeightPackageOnly">
         <section>
             <actions>
-                <set field="titleProperty" value="ProductWeightPackageOnly"/>
+                <set field="titleProperty" value="ProductWeighPackageOnly"/>
                 <set field="headerItem" value="shipment"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/WeightPackage.groovy"/>
             </actions>
