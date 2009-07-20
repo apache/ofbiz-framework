@@ -292,4 +292,32 @@ under the License.
         </iterate>
         <log level="info" message="fin Account Trans has been created with Id ${finAccountTransId}"/>
     </simple-method>
+
+    <simple-method method-name="testSetFinAccountTransStatus" short-description="test case for setFinAccountTransStatus service" login-required="false">
+        <!-- Precondition : FinAccountTrans should be in CREATED status -->
+
+        <!-- Post condition : FinAccountTrans status changes to CANCELED 
+                              Clear finAccountTransId field and update associated Payment record  -->
+        <set field="finAccountTransId" value="9102"/>
+        <set field="statusId" value="FINACT_TRNS_CANCELED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="setFinAccountTransStatusMap.finAccountTransId" from-field="finAccountTransId"/>
+        <set field="setFinAccountTransStatusMap.statusId" from-field="statusId"/>
+        <set field="setFinAccountTransStatusMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>    
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <assert>
+            <if-compare-field field="finAccountTrans.statusId" operator="equals" to-field="statusId"/>
+        </assert>
+        <check-errors/>
+        <get-related-one relation-name="Payment" value-field="finAccountTrans" to-value-field="payment"/>
+        <if-not-empty field="payment">
+            <assert>
+                <if-empty field="payment.finAccountTransId"/>
+            </assert>
+            <check-errors/>            
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

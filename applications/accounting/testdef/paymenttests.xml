@@ -53,4 +53,9 @@
     <test-case case-name="auto-tests-deposit-withdraw-payments-In-single-trans">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testDepositWithdrawPaymentsInSingleTrans"/>
     </test-case>
+
+    <!--Test case for fin account trans-->
+    <test-case case-name="auto-tests-setFinAccountTransStatus">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testSetFinAccountTransStatus"/>
+    </test-case>    
 </test-suite>
