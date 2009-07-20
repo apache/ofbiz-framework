@@ -1264,10 +1264,13 @@ public class CheckOutHelper {
                 GenericValue paymentPreference = EntityUtil.getFirst(paymentPrefs);
                 String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
                 if (paymentMethodTypeId.startsWith("EXT_")) {
-                    String type = paymentMethodTypeId.substring(4);
-                    result = ServiceUtil.returnSuccess();
-                    result.put("type", type.toLowerCase());
-                    return result;
+                    // PayPal with a PaymentMethod is not an external payment method
+                    if (!(paymentMethodTypeId.equals("EXT_PAYPAL") && UtilValidate.isNotEmpty(paymentPreference.getString("paymentMethodId")))) {
+                        String type = paymentMethodTypeId.substring(4);
+                        result = ServiceUtil.returnSuccess();
+                        result.put("type", type.toLowerCase());
+                        return result;
+                    }
                 }
             }
             result = ServiceUtil.returnSuccess();
