@@ -46,6 +46,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -814,12 +815,6 @@ public class InvoiceServices {
                 }
             }
 
-            // check to see if we are all paid up
-            Map checkResp = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "userLogin", userLogin));
-            if (ServiceUtil.isError(checkResp)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrderCheckPaymentAppl",locale), null, null, checkResp);
-            }
-
             Map resp = ServiceUtil.returnSuccess();
             resp.put("invoiceId", invoiceId);
             resp.put("invoiceTypeId", invoiceType);
@@ -1066,6 +1061,99 @@ public class InvoiceServices {
         Map response = ServiceUtil.returnSuccess();
         response.put("invoicesCreated", invoicesCreated);
         return response;
+    }
+
+    public static Map setInvoicesToReadyFromShipment(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        String shipmentId = (String) context.get("shipmentId");
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        // 1. Find all the orders for this shipment
+        // 2. For every order check the invoice
+        // 2.a If the invoice is in In-Process status, then move its status to ready and capture the payment.
+        // 2.b If the invoice is in status other then IN-Process, skip this. These would be already paid and captured.
+
+        GenericValue shipment = null;
+        try {
+            shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+        } catch (GenericEntityException e) {
+            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleGettingShipmentEntity", UtilMisc.toMap("shipmentId",shipmentId), locale);
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        List<GenericValue> itemIssuances = FastList.newInstance();
+        try {
+            EntityFindOptions findOptions = new EntityFindOptions();
+            findOptions.setDistinct(true);
+            Set<String> fieldsToSelect = UtilMisc.toSet("orderId", "shipmentId");
+            itemIssuances = delegator.findList("ItemIssuance", EntityCondition.makeCondition("shipmentId", shipmentId), fieldsToSelect, UtilMisc.toList("orderId"), findOptions, false);
+        } catch (GenericEntityException e) {
+            String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingItemsFromShipments", locale);
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        if (itemIssuances.size() == 0) {
+            Debug.logInfo("No items issued for shipments", module);
+            return ServiceUtil.returnSuccess();
+        }
+        // The orders can now be placed in separate groups, each for
+        // 1. The group of orders for which payment is already captured. No grouping and action required. 
+        // 2. The group of orders for which invoice is IN-Process status.
+        Map ordersWithInProcessInvoice = FastMap.newInstance();
+
+        for (GenericValue itemIssuance : itemIssuances) {
+            String orderId = itemIssuance.getString("orderId");
+            Map billFields = FastMap.newInstance();
+            billFields.put("orderId", orderId);
+
+            List orderItemBillings = FastList.newInstance();
+            try {
+                orderItemBillings = delegator.findByAnd("OrderItemBilling", billFields);
+            } catch (GenericEntityException e) {
+                String errMsg = UtilProperties.getMessage(resource, "AccountingProblemLookingUpOrderItemBilling", UtilMisc.toMap("billFields", billFields), locale);
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+            // if none found, the order does not have any invoice
+            if (orderItemBillings.size() != 0) {
+                // orders already have an invoice
+                GenericValue orderItemBilling = EntityUtil.getFirst(orderItemBillings);
+                GenericValue invoice = null;
+                try {
+                    invoice = orderItemBilling.getRelatedOne("Invoice");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if (invoice != null) {
+                    if ("INVOICE_IN_PROCESS".equals(invoice.getString("statusId"))) {
+                        ordersWithInProcessInvoice.put(orderId, invoice);
+                    }
+                }
+            }
+        }
+
+     // For In-Process invoice, move the status to ready and capture the payment
+        Set invoicesInProcess = ordersWithInProcessInvoice.keySet();
+        Iterator iter = invoicesInProcess.iterator();
+        while (iter.hasNext()) {
+            String orderId = (String) iter.next();
+            GenericValue invoice = (GenericValue) ordersWithInProcessInvoice.get(orderId);
+            String invoiceId = invoice.getString("invoiceId");
+            Map setInvoiceStatusResult = FastMap.newInstance();
+            try {
+                setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", "INVOICE_READY", "userLogin", userLogin));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (ServiceUtil.isError(setInvoiceStatusResult)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, setInvoiceStatusResult);
+            }
+        }
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map createSalesInvoicesFromDropShipment(DispatchContext dctx, Map context) {
