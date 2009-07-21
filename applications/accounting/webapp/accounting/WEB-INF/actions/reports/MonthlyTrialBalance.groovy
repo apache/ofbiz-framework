@@ -23,51 +23,53 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.calendar.ExpressionUiHelper;
 
 
-context.monthList = ExpressionUiHelper.getMonthValueList(locale);
-context.month = (ExpressionUiHelper.getMonthValueList(locale)).get(UtilDateTime.getMonth(UtilDateTime.nowTimestamp(), timeZone, locale));
-if (organizationPartyId && parameters.selectedMonth) {
-    
-    selectedMonth = Integer.valueOf(parameters.selectedMonth);
-    selectedMonthDate = UtilDateTime.toTimestamp((selectedMonth + 1), 1, UtilDateTime.getYear(UtilDateTime.nowTimestamp(), timeZone, locale), 0, 0, 0);
+fromDate=null;
+thruDate=null;
 
-    selectedMonthStartDate = UtilDateTime.getMonthStart(selectedMonthDate, timeZone, locale);
-    selectedMonthEndDate = UtilDateTime.getMonthEnd(selectedMonthDate, timeZone, locale);
-    if (parameters.isIncomeStatement) {
-        Timestamp incomeStatementFromDate = null;
-        Timestamp incomeStatementThruDate = null;
-        if (parameters.fromDate && parameters.thruDate) {
-            incomeStatementFromDate = Timestamp.valueOf(parameters.fromDate);
-            incomeStatementThruDate = Timestamp.valueOf(parameters.thruDate);
-        } else {
-            incomeStatementFromDate =  selectedMonthStartDate;
-            incomeStatementThruDate = selectedMonthEndDate;
-        }
-        prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement", 
-                [fromDate : incomeStatementFromDate, thruDate : incomeStatementThruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : parameters.glFiscalTypeId, userLogin : userLogin]);
-        if (prepareIncomeStatement) {
-            context.glAccountTotalsList = prepareIncomeStatement.glAccountTotalsList;
-            context.totalNetIncome = prepareIncomeStatement.totalNetIncome;
-        }
-    }
-    onlyIncludePeriodTypeIdList = [];
-    onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
-    customTimePeriodResult = dispatcher.runSync("findCustomTimePeriods", [findDate : selectedMonthDate, organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
-
-    if (customTimePeriodResult) {
-        customTimePeriod = EntityUtil.getFirst(customTimePeriodResult.customTimePeriodList);
-        if (customTimePeriod) {
-            fromDate = new Timestamp((customTimePeriod.fromDate).getTime());
-            thruDate = new Timestamp((customTimePeriod.thruDate).getTime());
-            customTimePeriodFromDate = new Timestamp((customTimePeriod.fromDate).getTime());
-            if (selectedMonthStartDate.compareTo(fromDate) > 0) {
-                fromDate =  selectedMonthStartDate;
-            }
-            if (selectedMonthEndDate.compareTo(thruDate) < 0) {
-                thruDate =  selectedMonthEndDate;
-            }
-            context.monthlyTrialBalanceFromDate = fromDate;
-            context.monthlyTrialBalanceThruDate = thruDate;
-            context.financialYearFromDate = customTimePeriodFromDate;
-        }
-    }
+if (parameters.fromDate && parameters.thruDate) {
+  fromDate = Timestamp.valueOf(parameters.fromDate);
+  thruDate = Timestamp.valueOf(parameters.thruDate);
+} else if (parameters.selectedMonth) {
+  selectedMonth = Integer.valueOf(parameters.selectedMonth);
+  selectedMonthDate = UtilDateTime.toTimestamp((selectedMonth + 1), 1, UtilDateTime.getYear(UtilDateTime.nowTimestamp(), timeZone, locale), 0, 0, 0);
+  fromDate = UtilDateTime.getMonthStart(selectedMonthDate, timeZone, locale);
+  thruDate = UtilDateTime.getMonthEnd(selectedMonthDate, timeZone, locale);
+} else {
+  context.selectedMonth =   UtilDateTime.getMonth(UtilDateTime.nowTimestamp(), timeZone, locale);
 }
+
+if(fromDate && thruDate && organizationPartyId) {
+
+  onlyIncludePeriodTypeIdList = [];
+  onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
+  customTimePeriodResult = dispatcher.runSync("findCustomTimePeriods", [findDate : thruDate, organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
+
+  if (customTimePeriodResult) {
+      customTimePeriod = EntityUtil.getFirst(customTimePeriodResult.customTimePeriodList);
+      if (customTimePeriod) {
+          customTimePeriodFromDate = new Timestamp((customTimePeriod.fromDate).getTime());
+          customTimePeriodThruDate = new Timestamp((customTimePeriod.thruDate).getTime());
+
+          if (customTimePeriodFromDate.compareTo(fromDate) > 0) {
+
+              fromDate =  customTimePeriodFromDate;
+          }
+          if (customTimePeriodThruDate.compareTo(thruDate) < 0) {
+              thruDate =  customTimePeriodThruDate;
+          }
+          context.financialYearFromDate = customTimePeriodFromDate;
+      }
+  }
+
+
+  if (parameters.isIncomeStatement) {
+      prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement",
+              [fromDate : fromDate, thruDate : thruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : parameters.glFiscalTypeId, userLogin : userLogin]);
+      context.glAccountTotalsList = prepareIncomeStatement.glAccountTotalsList;
+      context.totalNetIncome = prepareIncomeStatement.totalNetIncome;
+  }
+}
+
+context.fromDate = fromDate;
+context.thruDate = thruDate;
+context.monthList = ExpressionUiHelper.getMonthValueList(locale);
