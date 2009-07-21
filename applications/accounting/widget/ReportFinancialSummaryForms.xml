@@ -114,7 +114,6 @@ under the License.
         <field name="isIncomeStatement"><hidden value="true"/></field>
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
             <drop-down>
-                <option key="${month.value}" description="${month.description}"/>
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
             </drop-down>
         </field>
