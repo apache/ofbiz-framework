@@ -44,27 +44,27 @@ under the License.
               <td></td>
             </tr>
             <#list receivedItems as item>
-            <form name="cancelReceivedItemsForm_${item_index}" method="post" action="<@ofbizUrl>cancelReceivedItems</@ofbizUrl>">
-              <input type="hidden" name="receiptId" value ="${(item.receiptId)?if_exists}"/>
-              <input type="hidden" name="purchaseOrderId" value ="${(item.orderId)?if_exists}"/>
-              <input type="hidden" name="facilityId" value ="${facilityId?if_exists}"/>
-              <tr>
-                <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${item.shipmentId?if_exists}</@ofbizUrl>" class="buttontext">${item.shipmentId?if_exists}</a></td>
-                <td>${item.receiptId}</td>
-                <td>${item.getString("datetimeReceived").toString()}</td>
-                <td><a href="/ordermgr/control/orderview?orderId=${item.orderId}" class="buttontext">${item.orderId}</a></td>
-                <td>${item.orderItemSeqId}</td>
-                <td>${item.productId?default("Not Found")}</td>
-                <td>${item.unitCost?default(0)?string("##0.00")}</td>
-                <td>${item.quantityRejected?default(0)?string.number}</td>
-                <td>${item.quantityAccepted?string.number}</td>
-                <td>
-                  <#if (item.quantityAccepted?int > 0 || item.quantityRejected?int > 0)>
-                  <a href="javascript:document.cancelReceivedItemsForm_${item_index}.submit();" class="buttontext">${uiLabelMap.CommonCancel}</a>
-                  </#if>
-                </td>
-              </tr>
-            </form>
+              <form name="cancelReceivedItemsForm_${item_index}" method="post" action="<@ofbizUrl>cancelReceivedItems</@ofbizUrl>">
+                <input type="hidden" name="receiptId" value ="${(item.receiptId)?if_exists}"/>
+                <input type="hidden" name="purchaseOrderId" value ="${(item.orderId)?if_exists}"/>
+                <input type="hidden" name="facilityId" value ="${facilityId?if_exists}"/>
+                <tr>
+                  <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${item.shipmentId?if_exists}</@ofbizUrl>" class="buttontext">${item.shipmentId?if_exists}</a></td>
+                  <td>${item.receiptId}</td>
+                  <td>${item.getString("datetimeReceived").toString()}</td>
+                  <td><a href="/ordermgr/control/orderview?orderId=${item.orderId}" class="buttontext">${item.orderId}</a></td>
+                  <td>${item.orderItemSeqId}</td>
+                  <td>${item.productId?default("Not Found")}</td>
+                  <td>${item.unitCost?default(0)?string("##0.00")}</td>
+                  <td>${item.quantityRejected?default(0)?string.number}</td>
+                  <td>${item.quantityAccepted?string.number}</td>
+                  <td>
+                    <#if (item.quantityAccepted?int > 0 || item.quantityRejected?int > 0)>
+                      <a href="javascript:document.cancelReceivedItemsForm_${item_index}.submit();" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                    </#if>
+                  </td>
+                </tr>
+              </form>
             </#list>
             <tr><td colspan="10"><hr/></td></tr>
           </table>
