@@ -1312,7 +1312,7 @@ public class ModelForm extends ModelWidget {
         int listSize = ((Integer) context.get("listSize")).intValue();
         int lowIndex = ((Integer) context.get("lowIndex")).intValue();
         int highIndex = ((Integer) context.get("highIndex")).intValue();
-        Debug.logInfo("preparePager: low - high = " + lowIndex + " - " + highIndex, module);
+        // Debug.logInfo("preparePager: low - high = " + lowIndex + " - " + highIndex, module);
 
         // we're passed a subset of the list, so use (0, viewSize) range
         if (isOverridenListSize()) {
@@ -1330,7 +1330,7 @@ public class ModelForm extends ModelWidget {
             item = this.safeNext(iter);
         }
 
-        Debug.logInfo("preparePager: Found rows = " + itemIndex, module);
+        // Debug.logInfo("preparePager: Found rows = " + itemIndex, module);
 
         // reduce the highIndex if number of items falls short
         if ((itemIndex + 1) < highIndex) {
