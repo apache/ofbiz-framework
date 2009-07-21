@@ -2732,6 +2732,8 @@ public class PaymentGatewayServices {
         if (authTime == null) {
             return false;
         }
+        
+        String reauthDays = null;
 
         GenericValue paymentMethod = null;
         try {
@@ -2749,7 +2751,6 @@ public class PaymentGatewayServices {
             }
             if (creditCard != null) {
                 String cardType = creditCard.getString("cardType");
-                String reauthDays = null;
                 // add more types as necessary -- maybe we should create seed data for credit card types??
                 if ("Discover".equals(cardType)) {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.disc.days", "90");
@@ -2763,22 +2764,27 @@ public class PaymentGatewayServices {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.other.days", "7");
                 }
 
-                int days = 0;
-                try {
-                    days = Integer.parseInt(reauthDays);
-                } catch (Exception e) {
-                    Debug.logError(e, module);
-                }
+            }
+        } else if (paymentMethod != null && "EXT_PAYPAL".equals(paymentMethod.get("paymentMethodTypeId"))) {
+            reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.paypal.days", "3");
+        }
 
-                if (days > 0) {
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTimeInMillis(authTime.getTime());
-                    cal.add(Calendar.DAY_OF_YEAR, days);
-                    Timestamp validTime = new Timestamp(cal.getTimeInMillis());
-                    Timestamp nowTime = UtilDateTime.nowTimestamp();
-                    if (nowTime.after(validTime)) {
-                        return false;
-                    }
+        if (reauthDays != null) {
+            int days = 0;
+            try {
+                days = Integer.parseInt(reauthDays);
+            } catch (Exception e) {
+                Debug.logError(e, module);
+            }
+
+            if (days > 0) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(authTime.getTime());
+                cal.add(Calendar.DAY_OF_YEAR, days);
+                Timestamp validTime = new Timestamp(cal.getTimeInMillis());
+                Timestamp nowTime = UtilDateTime.nowTimestamp();
+                if (nowTime.after(validTime)) {
+                    return false;
                 }
             }
         }
