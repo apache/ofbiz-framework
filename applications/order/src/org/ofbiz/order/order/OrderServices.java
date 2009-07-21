@@ -4242,7 +4242,7 @@ public class OrderServices {
     }
 
     public static Map massChangeApproved(DispatchContext dctx, Map context) {
-        return massChangeItemStatus(dctx, context, "ITEM_APPROVED");
+        return massChangeOrderStatus(dctx, context, "ORDER_APPROVED");
     }
 
     public static Map massCancelOrders(DispatchContext dctx, Map context) {
@@ -4286,6 +4286,7 @@ public class OrderServices {
             Map ctx = FastMap.newInstance();
             ctx.put("statusId", statusId);
             ctx.put("orderId", orderId);
+            ctx.put("setItemStatus", "Y");
             ctx.put("userLogin", userLogin);
             Map resp = null;
             try {
@@ -4295,7 +4296,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (ServiceUtil.isError(resp)) {
-                return ServiceUtil.returnError("Error changing order item status: ", null, null, resp);
+                return ServiceUtil.returnError("Error changing order status: ", null, null, resp);
             }
         }
         return ServiceUtil.returnSuccess();
