@@ -1276,7 +1276,11 @@ public class InvoiceServices {
             }
 
             // check and make sure we haven't already billed for this issuance or shipment receipt
-            Map billFields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId);
+            List<EntityCondition> billFields = FastList.newInstance();
+            billFields.add(EntityCondition.makeCondition("orderId", orderId));
+            billFields.add(EntityCondition.makeCondition("orderItemSeqId", orderItemSeqId));
+            billFields.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"));
+            
             if (dropShipmentFound) {
 
                 // Drop shipments have neither issuances nor receipts, so this check is meaningless
@@ -1284,13 +1288,13 @@ public class InvoiceServices {
                 shippedOrderItems.put(orderId, itemsByOrder);
                 continue;
             } else if (item.getEntityName().equals("ItemIssuance")) {
-                billFields.put("itemIssuanceId", item.get("itemIssuanceId"));
+                billFields.add(EntityCondition.makeCondition("itemIssuanceId", item.get("itemIssuanceId")));
             } else if (item.getEntityName().equals("ShipmentReceipt")) {
-                billFields.put("shipmentReceiptId", item.getString("receiptId"));
+                billFields.add(EntityCondition.makeCondition("shipmentReceiptId", item.getString("receiptId")));
             }
             List itemBillings = null;
             try {
-                itemBillings = delegator.findByAnd("OrderItemBilling", billFields);
+                itemBillings = delegator.findList("OrderItemBillingAndInvoiceAndItem", EntityCondition.makeCondition(billFields, EntityOperator.AND), null, null, null, false);
             } catch (GenericEntityException e) {
                 String errMsg = UtilProperties.getMessage(resource, "AccountingProblemLookingUpOrderItemBilling",UtilMisc.toMap("billFields",billFields), locale);
                 Debug.logError(e, errMsg, module);
@@ -1335,7 +1339,10 @@ public class InvoiceServices {
 
                 BigDecimal billAvail = (BigDecimal) itemQtyAvail.get(issue.getString("orderItemSeqId"));
                 if (billAvail == null) {
-                    Map lookup = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", issue.get("orderItemSeqId"));
+                    List<EntityCondition> lookup = FastList.newInstance();
+                    lookup.add(EntityCondition.makeCondition("orderId", orderId));
+                    lookup.add(EntityCondition.makeCondition("orderItemSeqId", issue.get("orderItemSeqId")));
+                    lookup.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"));
                     GenericValue orderItem = null;
                     List billed = null;
                     BigDecimal orderedQty = null;
@@ -1353,8 +1360,7 @@ public class InvoiceServices {
                             orderItem.set("quantity", purchaseOrderItem.getBigDecimal("quantity"));
                             issueQty = purchaseOrderItem.getBigDecimal("quantity");
                         }
-
-                        billed = delegator.findByAnd("OrderItemBilling", lookup);
+                        billed = delegator.findList("OrderItemBillingAndInvoiceAndItem", EntityCondition.makeCondition(lookup, EntityOperator.AND), null, null, null, false);
                     } catch (GenericEntityException e) {
                         String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingOrderItemOrderItemBilling",UtilMisc.toMap("lookup",lookup), locale);
                         Debug.logError(e, errMsg, module);
