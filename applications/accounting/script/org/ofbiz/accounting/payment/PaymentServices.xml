@@ -446,10 +446,10 @@ under the License.
     <simple-method method-name="getPaymentRunningTotal" short-description="calculate running total for payments">
         <set field="paymentIds" from-field="parameters.paymentIds"/>
         <set field="paymentRunningTotal" type="BigDecimal" value="0"/>
-        <iterate list="paymentIds" entry="paymentId">
-            <entity-one entity-name="Payment" value-field="payment">
-                <field-map field-name="paymentId" from-field="paymentId"/>
-            </entity-one>
+        <entity-condition entity-name="Payment" list="payments">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+        </entity-condition>
+        <iterate list="payments" entry="payment">
             <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}" type="BigDecimal"/>
         </iterate>
         <field-to-result field="paymentRunningTotal"/>
