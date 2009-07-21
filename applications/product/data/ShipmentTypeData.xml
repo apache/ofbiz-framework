@@ -70,6 +70,7 @@ under the License.
     <StatusValidChange condition="" statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
     <StatusValidChange condition="" statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
     <StatusValidChange condition="" statusId="PURCH_SHIP_SHIPPED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange condition="" statusId="PURCH_SHIP_RECEIVED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
 
     <!-- ShipmentRouteSegment CarrierService status -->
     <StatusType description="ShipmentRouteSegment:CarrierService" hasTable="N" parentTypeId="" statusTypeId="SHPRTSG_CS_STATUS"/>

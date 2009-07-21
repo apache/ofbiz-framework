@@ -142,11 +142,13 @@ under the License.
     <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
     <StatusValidChange condition="" statusId="ORDER_SENT" statusIdTo="ORDER_COMPLETED" transitionName="Order Completed"/>
     <StatusValidChange condition="" statusId="ORDER_SENT" statusIdTo="ORDER_CANCELLED" transitionName="Order Cancelled"/>
+    <StatusValidChange condition="" statusId="ORDER_COMPLETED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
     <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
     <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_REJECTED" transitionName="Reject Item"/>
     <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
     <StatusValidChange condition="" statusId="ITEM_APPROVED" statusIdTo="ITEM_COMPLETED" transitionName="Complete Item"/>
     <StatusValidChange condition="" statusId="ITEM_APPROVED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
+    <StatusValidChange condition="" statusId="ITEM_COMPLETED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
 
     <!-- order payment pref status -->
     <StatusType description="Payment Preference" hasTable="N" parentTypeId="" statusTypeId="PAYMENT_PREF_STATUS"/>
