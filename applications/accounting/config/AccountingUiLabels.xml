@@ -2863,6 +2863,9 @@
         <value xml:lang="nl">Vind verkoopfacturen op vervaldatum</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าการขายโดยวันที่</value>
     </property>
+    <property key="AccountingFindSalesInvoicesForCommissionRun">
+        <value xml:lang="en">Find Sales Invoices For Commission Run</value>
+    </property>
     <property key="AccountingFirstNameCard">
         <value xml:lang="ar">الإسم على البطاقة</value>
         <value xml:lang="de">Vorname auf Karte</value>
