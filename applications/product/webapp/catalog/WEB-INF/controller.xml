@@ -2464,6 +2464,12 @@ under the License.
         <response name="error" type="view" value="EditProductWorkEfforts"/>
     </request-map>
 
+    <request-map uri="viewProductOrder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="findOrders"/>
+        <response name="success" type="view" value="ViewProductOrder"/>
+        <response name="error" type="view" value="EditProduct"/>
+    </request-map>
 
    <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
@@ -2629,6 +2635,8 @@ under the License.
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>
+
+    <view-map name="ViewProductOrder" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductOrder"/>
 
     <!-- Product Configuration views -->
     <view-map name="ProductConfigItemArticle" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#ProductConfigItemArticle"/>

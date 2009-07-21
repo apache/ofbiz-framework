@@ -1842,4 +1842,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ViewProductOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProductOrders"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/ViewProductOrders.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
