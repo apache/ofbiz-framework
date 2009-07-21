@@ -1960,7 +1960,8 @@ under the License.
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
-        <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
+        <get-related-one value-field="invoice" relation-name="InvoiceType" to-value-field="invoiceType"/>
+        <if-compare field="invoiceType.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
             <get-related value-field="invoice" relation-name="InvoiceItem" list="invoiceItems"/>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <set field="amountFromOrder" type="BigDecimal" value="0"/>
