@@ -637,8 +637,10 @@ under the License.
     <simple-method method-name="getInvoiceRunningTotal" short-description="calculate running total for Invoices">
         <set field="invoiceIds" from-field="parameters.invoiceIds"/>
         <set field="invoiceRunningTotal" type="BigDecimal" value="0"/>
-        <iterate list="invoiceIds" entry="invoiceId">
-            <entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
+        <entity-condition entity-name="Invoice" list="invoiceList">
+            <condition-expr field-name="invoiceId" operator="in" from-field="invoiceIds"/>
+        </entity-condition>
+        <iterate list="invoiceList" entry="invoice">
             <set field="getInvoicePaymentInfoListCtx.invoiceId" from-field="invoice.invoiceId"/>
             <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListCtx">
                 <result-to-field result-name="invoicePaymentInfoList"/>
