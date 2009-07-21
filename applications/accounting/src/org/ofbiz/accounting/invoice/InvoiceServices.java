@@ -206,10 +206,10 @@ public class InvoiceServices {
             OrderReadHelper orh = new OrderReadHelper(orderHeader);
 
             // get the product store
-            GenericValue productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", orh.getProductStoreId()));
+            GenericValue productStore = orh.getProductStore();
 
             // get the shipping adjustment mode (Y = Pro-Rate; N = First-Invoice)
-            String prorateShipping = productStore.getString("prorateShipping");
+            String prorateShipping = productStore != null ? productStore.getString("prorateShipping") : "Y";
             if (prorateShipping == null) {
                 prorateShipping = "Y";
             }
@@ -730,7 +730,7 @@ public class InvoiceServices {
             }
 
             // last do the tax adjustments
-            String prorateTaxes = productStore.getString("prorateTaxes");
+            String prorateTaxes = productStore != null ? productStore.getString("prorateTaxes") : "Y";
             if (prorateTaxes == null) {
                 prorateTaxes = "Y";
             }
@@ -801,14 +801,10 @@ public class InvoiceServices {
                 }
             }
 
-            // Should all be in place now. Depending on the ProductStore.autoApproveInvoice setting, set status to INVOICE_READY (unless it's a purchase
-            //  invoice, which we set to INVOICE_IN_PROCESS)
-            boolean autoApproveInvoice = UtilValidate.isEmpty(productStore.get("autoApproveInvoice")) || "Y".equals(productStore.getString("autoApproveInvoice"));
-            if (autoApproveInvoice) {
-                String nextStatusId = "INVOICE_READY";
-                if (invoiceType.equals("PURCHASE_INVOICE")) {
-                    nextStatusId = "INVOICE_IN_PROCESS";
-                }
+            // Should all be in place now. Depending on the ProductStore.autoApproveInvoice setting, set status to INVOICE_READY (unless it's a purchase invoice, which we set to INVOICE_IN_PROCESS)
+            String autoApproveInvoice = productStore != null ? productStore.getString("autoApproveInvoice") : "Y";
+            if (!"N".equals(autoApproveInvoice)) {
+                String nextStatusId = "PURCHASE_INVOICE".equals(invoiceType) ? "INVOICE_IN_PROCESS" : "INVOICE_READY";
                 Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
                 if (ServiceUtil.isError(setInvoiceStatusResult)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, setInvoiceStatusResult);
@@ -1410,10 +1406,12 @@ public class InvoiceServices {
             }
 
             OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+
             GenericValue productStore = orh.getProductStore();
+            String prorateShipping = productStore != null ? productStore.getString("prorateShipping") : "N";
 
             // If shipping charges are not prorated, the shipments need to be examined for additional shipping charges
-            if ("N".equalsIgnoreCase(productStore.getString("prorateShipping"))) {
+            if ("N".equalsIgnoreCase(prorateShipping)) {
 
                 // Get the set of filtered shipments
                 List invoiceableShipments = null;
@@ -1649,7 +1647,7 @@ public class InvoiceServices {
                     }
                 }
             } else {
-                Debug.logInfo(UtilProperties.getMessage(resource, "AccountingIgnoringAdditionalShipCharges", productStore.getAllFields(), locale), module);
+                Debug.logInfo(UtilProperties.getMessage(resource, "AccountingIgnoringAdditionalShipCharges", UtilMisc.toMap("productStoreId", orh.getProductStoreId()), locale), module);
             }
 
             String invoiceId = null;
