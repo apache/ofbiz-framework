@@ -54,6 +54,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>

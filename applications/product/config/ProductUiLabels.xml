@@ -5732,6 +5732,9 @@
         <value xml:lang="th">แสดงการผลิตสินค้า</value>
         <value xml:lang="zh">浏览产品制造</value>
     </property>
+    <property key="PageTitleViewProductOrders">
+        <value xml:lang="en">View Product Orders</value>
+    </property>
     <property key="PageTitleViewProductStoreSegments">
         <value xml:lang="de">Läden Segmente anzeigen</value>
         <value xml:lang="en">View Product Store Segments</value>
