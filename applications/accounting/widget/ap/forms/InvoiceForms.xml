@@ -143,7 +143,7 @@ under the License.
     </form>
 
     <form name="CommissionRun" type="single" target="CommissionRun">
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true">
+        <field name="partyId" required-field="true">
             <drop-down allow-multiple="true">
                 <entity-options entity-name="PartyRole" description="${partyId}">
                     <entity-constraint name="roleTypeId" operator="equals" value="SALES_REP"/>

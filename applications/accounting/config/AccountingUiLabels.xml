@@ -1655,12 +1655,6 @@
         <value xml:lang="nl">Afgesloten perioden</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
     </property>
-    <property key="AccountingClosingBalanceCredit">
-        <value xml:lang="en">Closing Balance Credit</value>
-    </property>
-    <property key="AccountingClosingBalanceDebit">
-        <value xml:lang="en">Closing Balance Debit</value>
-    </property>
     <property key="AccountingComments">
         <value xml:lang="ar">تعاليق</value>
         <value xml:lang="de">Kommentare</value>
@@ -5489,12 +5483,6 @@
         <value xml:lang="nl">Open perioden</value>
         <value xml:lang="th">เปิดช่วงเวลา</value>
     </property>
-    <property key="AccountingOpeningBalanceCredit">
-        <value xml:lang="en">Opening Balance Credit</value>
-    </property>
-    <property key="AccountingOpeningBalanceDebit">
-        <value xml:lang="en">Opening Balance Debit</value>
-    </property>
     <property key="AccountingOrderItemWithIdNotFound">
         <value xml:lang="en">Order Item with id ${orderItemSeqId} not found.</value>
         <value xml:lang="fr">La ligne de commande avec identifiant  ${orderItemSeqId} n'a pas été trouvée</value>
@@ -7845,12 +7833,6 @@
         <value xml:lang="en">Delivery Address Editable</value>
         <value xml:lang="it">Indirizzo di spedizione editabile</value>
     </property>
-    <property key="AccountingYearToDateBalanceCredit">
-        <value xml:lang="en">Year To Date Balance Credit</value>
-    </property>
-    <property key="AccountingYearToDateBalanceDebit">
-        <value xml:lang="en">Year To Date Balance Debit</value>
-    </property>
     <property key="AcctgAssignGlAccount">
         <value xml:lang="ar">تعيين الحساب المحاسبي</value>
         <value xml:lang="de">zuweisen Hauptbuchkonto</value>
@@ -8417,6 +8399,12 @@
         <value xml:lang="en">Client Id</value>
         <value xml:lang="it">Id client</value>
     </property>
+    <property key="FormFieldTitle_closingBalanceCredit">
+        <value xml:lang="en">Closing Balance Credit</value>
+    </property>
+    <property key="FormFieldTitle_closingBalanceDebit">
+        <value xml:lang="en">Closing Balance Debit</value>
+    </property>
     <property key="FormFieldTitle_cogsMethodId">
         <value xml:lang="en">Cost Of Goods Sold (COGS) Method</value>
         <value xml:lang="es">Método de costo de bienes vendidos</value>
@@ -8680,6 +8668,9 @@
         <value xml:lang="th">Expected End Of Life</value>
         <value xml:lang="zh">期望使用寿命</value>
     </property>
+    <property key="FormFieldTitle_externalAccountId">
+        <value xml:lang="en">External Account Id</value>
+    </property>
     <property key="FormFieldTitle_finAccountAuthId">
         <value xml:lang="en">Fin Account Auth Id</value>
         <value xml:lang="fr">Réf. d'autorisation de compte financier</value>
@@ -8808,6 +8799,12 @@
         <value xml:lang="ru">Тип ОС</value>
         <value xml:lang="th">รหัสประเภทไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产类型标识</value>
+    </property>
+    <property key="FormFieldTitle_fromDueDate">
+        <value xml:lang="en">From Due Date</value>
+    </property>
+    <property key="FormFieldTitle_fromInvoiceDate">
+        <value xml:lang="en">From Invoice Date</value>
     </property>
     <property key="FormFieldTitle_gatewayAvsResult">
         <value xml:lang="en">Gateway Avs Result</value>
@@ -9121,6 +9118,9 @@
         <value xml:lang="th">ลำดับใบกำกับสินค้า</value>
         <value xml:lang="zh">发票序号</value>
     </property>
+    <property key="FormFieldTitle_invoiceTermId">
+        <value xml:lang="en">Invoice Term Id</value>
+    </property>
     <property key="FormFieldTitle_invoiceTypeId">
         <value xml:lang="ar">نوع الفاتورة</value>
         <value xml:lang="de">Rechnungs-Art</value>
@@ -9318,11 +9318,11 @@
         <value xml:lang="ru">Мин. кол-во</value>
         <value xml:lang="th">จำนวนน้อยสุด</value>
     </property>
-    <property key="FormFieldTitle_monthlyTotalCredit">
-        <value xml:lang="en">Monthly Total Credit</value>
+    <property key="FormFieldTitle_monthAmountCredit">
+        <value xml:lang="en">Month Amount Credit</value>
     </property>
-    <property key="FormFieldTitle_monthlyTotalDebit">
-        <value xml:lang="en">Monthly Total Debit</value>
+    <property key="FormFieldTitle_monthAmountDebit">
+        <value xml:lang="en">Month Amount Debit</value>
     </property>
     <property key="FormFieldTitle_name">
         <value xml:lang="ar">اسم</value>
@@ -9344,6 +9344,12 @@
     <property key="FormFieldTitle_notifyUrl">
         <value xml:lang="en">Notify Url</value>
         <value xml:lang="it">URL di notifica</value>
+    </property>
+    <property key="FormFieldTitle_openingBalanceCredit">
+        <value xml:lang="en">Opening Balance Credit</value>
+    </property>
+    <property key="FormFieldTitle_openingBalanceDebit">
+        <value xml:lang="en">Opening Balance Debit</value>
     </property>
     <property key="FormFieldTitle_orderIdPrefix">
         <value xml:lang="en">Order Id Prefix</value>
@@ -9502,6 +9508,9 @@
         <value xml:lang="en">Partner</value>
         <value xml:lang="it">Partner</value>
     </property>
+    <property key="FormFieldTitle_paymentApplicationId">
+        <value xml:lang="en">Payment Application Id</value>
+    </property>
     <property key="FormFieldTitle_paymentApplied">
         <value xml:lang="en">Already Applied</value>
         <value xml:lang="es">Ya aplicado</value>
@@ -9534,6 +9543,15 @@
         <value xml:lang="ru">Код ответа платежного шлюза</value>
         <value xml:lang="th">รหัสการตอบสนองวิธีการชำระเงิน</value>
         <value xml:lang="zh">支付网关响应标识</value>
+    </property>
+    <property key="FormFieldTitle_paymentGroupId">
+        <value xml:lang="en">Payment Group Id</value>
+    </property>
+    <property key="FormFieldTitle_paymentGroupName">
+        <value xml:lang="en">Payment Group Name</value>
+    </property>
+    <property key="FormFieldTitle_paymentGroupTypeId">
+        <value xml:lang="en">Payment Group Type Id</value>
     </property>
     <property key="FormFieldTitle_paymentId">
         <value xml:lang="en">Payment Id</value>
@@ -9674,6 +9692,9 @@
         <value xml:lang="fr">Réf. de type d'exercice</value>
         <value xml:lang="it">Tipo Periodo Fiscale</value>
         <value xml:lang="th">รหัสประเภทช่วงเวลา</value>
+    </property>
+    <property key="FormFieldTitle_posted">
+        <value xml:lang="en">Posted</value>
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="de">auf Hauptbuchkonto-Nr. buchen</value>
@@ -10199,6 +10220,12 @@
         <value xml:lang="fr">Leur réf. de transcation comptable</value>
         <value xml:lang="it">Loro Numero Transazione Contabilità</value>
     </property>
+    <property key="FormFieldTitle_thruDueDate">
+        <value xml:lang="en">Thru Due Date</value>
+    </property>
+    <property key="FormFieldTitle_thruInvoiceDate">
+        <value xml:lang="en">Thru Invoice Date</value>
+    </property>
     <property key="FormFieldTitle_timeEntryId">
         <value xml:lang="en">Time Entry Id</value>
         <value xml:lang="fr">Réf. de date d'écriture</value>
@@ -10347,6 +10374,12 @@
         <value xml:lang="ru">Ссылка на ваучер</value>
         <value xml:lang="th">อ้างอิงใบสำคัญ</value>
         <value xml:lang="zh">优惠券证明</value>
+    </property>
+    <property key="FormFieldTitle_yearToDateBalanceCredit">
+        <value xml:lang="en">Year To Date Balance Credit</value>
+    </property>
+    <property key="FormFieldTitle_yearToDateBalanceDebit">
+        <value xml:lang="en">Year To Date Balance Debit</value>
     </property>
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="en">Add Agreement Roles</value>

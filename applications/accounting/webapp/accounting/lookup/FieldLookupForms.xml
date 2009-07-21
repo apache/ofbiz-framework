@@ -24,8 +24,8 @@ under the License.
     <form name="lookupFixedAsset" target="LookupFixedAsset" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FixedAsset" default-field-type="hidden"/>
-        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}"><text-find/></field>
-        <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}"><text-find/></field>
+        <field name="fixedAssetId"><text-find/></field>
+        <field name="fixedAssetName"><text-find/></field>
         <field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FixedAssetType" description="${description}">
@@ -44,7 +44,7 @@ under the License.
                 <field-map field-name="entityName" value="FixedAsset"/>
             </service>
         </actions>
-        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}" widget-style="buttontext">
+        <field name="fixedAssetId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')"/>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
@@ -72,7 +72,7 @@ under the License.
         <field name="billingAccountId" title="${uiLabelMap.AccountingBillingAccountId}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${billingAccountId}" target="javascript:set_value('${billingAccountId}')"/>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="description"><display/></field>
         <field name="externalAccountId" title="${uiLabelMap.AccountingExternalAccountId}"><display/></field>
     </form>
 
@@ -246,8 +246,8 @@ under the License.
     <form name="lookupPaymentGroupMember" target="LookupPaymentGroupMember" title="" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentGroupId"><text-find/></field>
         <field name="paymentId"><text-find/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" position="1"><date-time/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" position="2"><date-time/></field>
+        <field name="fromDate" position="1"><date-time/></field>
+        <field name="thruDate" position="2"><date-time/></field>
         <field name="sequenceNum"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>

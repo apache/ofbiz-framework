@@ -477,10 +477,10 @@ under the License.
         <field name="accountName" title="${uiLabelMap.FormFieldTitle_accountName}" entry-name="glAccountId">
             <display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/>
         </field>
-        <field name="openingBalanceCredit" title="${uiLabelMap.AccountingOpeningBalanceCredit}">
+        <field name="openingBalanceCredit">
             <display description="${openingBalanceCredit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="openingBalanceDebit" title="${uiLabelMap.AccountingOpeningBalanceDebit}">
+        <field name="openingBalanceDebit">
             <display description="${openingBalanceDebit}" type="currency" currency="${currencyUomId}"/>
         </field>
         <field name="monthAmountCredit">
@@ -489,16 +489,16 @@ under the License.
         <field name="monthAmountDebit">
             <display description="${debit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="closingBalanceCredit" title="${uiLabelMap.AccountingClosingBalanceCredit}">
+        <field name="closingBalanceCredit">
             <display description="${openingBalanceCredit + credit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="closingBalanceDebit" title="${uiLabelMap.AccountingClosingBalanceDebit}">
+        <field name="closingBalanceDebit">
             <display description="${openingBalanceDebit + debit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="yearToDateBalanceCredit" title="${uiLabelMap.AccountingYearToDateBalanceCredit}">
+        <field name="yearToDateBalanceCredit">
             <display description="${openingBalanceCredit + credit}" type="currency" currency="${currencyUomId}"/>
         </field>
-        <field name="yearToDateBalanceDebit" title="${uiLabelMap.AccountingYearToDateBalanceDebit}">
+        <field name="yearToDateBalanceDebit">
             <display description="${openingBalanceDebit + debit}" type="currency" currency="${currencyUomId}"/>
         </field>
     </form>
