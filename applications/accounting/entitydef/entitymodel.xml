@@ -1777,10 +1777,10 @@ under the License.
       <view-link entity-alias="ATR" rel-entity-alias="ATT">
         <key-map field-name="acctgTransTypeId"/>
       </view-link>
-      <view-link entity-alias="ATE" rel-entity-alias="GLA">
+      <view-link entity-alias="ATE" rel-entity-alias="GLA" rel-optional="true">
         <key-map field-name="glAccountId"/>
       </view-link>
-      <view-link entity-alias="GLA" rel-entity-alias="GLAC">
+      <view-link entity-alias="GLA" rel-entity-alias="GLAC" rel-optional="true">
         <key-map field-name="glAccountClassId"/>
       </view-link>
       <relation type="one" fk-name="ATAE_GLACT" rel-entity-name="GlAccount">
