@@ -157,17 +157,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindSalesInvoicesForCommissionRun"/>
                 <set field="tabButtonItem" value="commissionRun"/>
-                <set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
-                <entity-condition entity-name="Invoice" list="invoices">
-                    <condition-list combine="and">
-                        <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
-                        <condition-expr field-name="invoiceTypeId" operator="equals" from-field="parameters.invoiceTypeId" ignore-if-empty="false"/>
-                        <condition-expr field-name="invoiceDate" operator="greater-equals" from-field="parameters.fromInvoiceDate" ignore-if-empty="true"/>
-                        <condition-expr field-name="invoiceDate" operator="less-equals" from-field="parameters.thruInvoiceDate" ignore-if-empty="true"/>
-                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
-                    </condition-list>
-                    <order-by field-name="invoiceId"/>
-                </entity-condition>
+                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionRun.groovy"/>
+                <set field="parameters.partyIds" value=""/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApInvoiceDecorator" location="component://accounting/widget/ap/CommonScreens.xml">

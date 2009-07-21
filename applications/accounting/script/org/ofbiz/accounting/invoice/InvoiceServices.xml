@@ -648,5 +648,20 @@ under the License.
         </iterate>
         <field-to-result field="invoiceRunningTotal"/>
     </simple-method>
+    
+    <simple-method method-name="getInvoicesFilterByAssocType" short-description="Filter invoices by invoiceItemAssocTypeId">
+        <set field="invoiceList" from-field="parameters.invoiceList"/>
+        <set field="invoiceItemAssocTypeId" from-field="parameters.invoiceItemAssocTypeId"/>
+        <iterate list="invoiceList" entry="invoice">
+            <entity-and entity-name="InvoiceItemAssoc" list="invoiceItemAssocList" filter-by-date="true">
+                <field-map field-name="invoiceIdFrom" from-field="invoice.invoiceId"/>
+                <field-map field-name="invoiceItemAssocTypeId"/>
+            </entity-and>
+            <if-empty field="invoiceItemAssocList">
+                <field-to-list field="invoice" list="filteredInvoiceList"/>
+            </if-empty>
+        </iterate>
+        <field-to-result field="filteredInvoiceList"/>
+    </simple-method>
 
 </simple-methods>
