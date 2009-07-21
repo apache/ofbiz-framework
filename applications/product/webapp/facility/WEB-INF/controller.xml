@@ -515,7 +515,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindFacilityPhysicalInventory"/>
     </request-map>
-
+    <request-map uri="cancelReceivedItems">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelReceivedItems"/>
+        <response name="success" type="view" value="ReceiveInventory"/>
+        <response name="error" type="view" value="ReceiveInventory"/>
+    </request-map>
 
     <!-- ================ Inventory Transfer Requests ================= -->
     <request-map uri="TransferInventoryItem">

@@ -465,4 +465,57 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="cancelReceivedItems" short-description="Cancel Received Items against a purchase order if received something incorrectly">
+        <!-- TODO: When items are received against a Purchase Order, service listed below changes certain things in the system. Changes done by these 
+                   services also need to be reverted and missing logic can be added later.
+            1. addProductsBackToCategory 
+            2. setUnitPriceAsLastPrice 
+            3. createAcctgTransForShipmentReceipt
+            4. updateProductIfAvailableFromShipment 
+         -->
+        <!-- update the accepted and received quantity to zero in ShipmentReceipt entity -->
+        <entity-one entity-name="ShipmentReceipt" value-field="shipmentReceipt"/>
+        <set field="shipmentReceipt.quantityAccepted" value="0" type="BigDecimal"/>
+        <set field="shipmentReceipt.quantityRejected" value="0" type="BigDecimal"/>
+        <store-value value-field="shipmentReceipt"/>
+
+        <!-- create record for InventoryItemDetail entity -->
+        <get-related-one value-field="shipmentReceipt" relation-name="InventoryItem" to-value-field="inventoryItem"/>
+        <set field="inventoryItemDetailMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+        <set field="inventoryItemDetailMap.quantityOnHandDiff" value="${-1 * inventoryItem.quantityOnHandTotal}" type="BigDecimal"/>
+        <set field="inventoryItemDetailMap.availableToPromiseDiff" value="${-1 * inventoryItem.availableToPromiseTotal}" type="BigDecimal"/>
+        <call-service service-name="createInventoryItemDetail" in-map-name="inventoryItemDetailMap"/>
+        
+        <!-- Balance the inventory item -->
+        <set field="balanceInventoryItemMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+        <set field="balanceInventoryItemMap.priorityOrderId" from-field="shipmentReceipt.orderId"/>
+        <set field="balanceInventoryItemMap.priorityOrderItemSeqId" from-field="shipmentReceipt.orderItemSeqId"/>
+        <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemMap"/>
+
+        <!-- update the shipment status, if shipment was received -->
+        <get-related-one value-field="shipmentReceipt" relation-name="Shipment" to-value-field="shipment"/>
+        <if-compare field="shipment.statusId" operator="equals" value="PURCH_SHIP_RECEIVED">
+            <set field="shipmentStatusMap.shipmentId" from-field="shipment.shipmentId"/>
+            <set field="shipmentStatusMap.statusId" value="PURCH_SHIP_SHIPPED"/>
+            <call-service service-name="updateShipment" in-map-name="shipmentStatusMap"/>
+        </if-compare>
+        
+        <!-- change order item and order status -->
+        <get-related-one value-field="shipmentReceipt" relation-name="OrderItem" to-value-field="orderItem"/>
+        <if-compare field="orderItem.statusId" operator="equals" value="ITEM_COMPLETED">
+            <!-- update the order item status -->
+            <set field="orderItem.statusId" value="ITEM_APPROVED"/>
+            <set-service-fields service-name="changeOrderItemStatus" map="orderItem" to-map="orderItemCtx"/>
+            <call-service service-name="changeOrderItemStatus" in-map-name="orderItemCtx"/>
+            <get-related-one value-field="orderItem" relation-name="OrderHeader" to-value-field="orderHeader"/>
+            <!-- cancel the invoice -->
+            <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
+            </entity-and>
+            <first-from-list list="orderItemBillings" entry="orderItemBilling"/>
+            <set field="invoiceStatusMap.invoiceId" from-field="orderItemBilling.invoiceId"/>
+            <set field="invoiceStatusMap.statusId" value="INVOICE_CANCELLED"/>
+            <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap"/>
+        </if-compare>
+    </simple-method>
 </simple-methods>

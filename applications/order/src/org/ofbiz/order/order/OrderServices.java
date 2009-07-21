@@ -1743,6 +1743,7 @@ public class OrderServices {
         }
 
         String orderHeaderStatusId = orderHeader.getString("statusId");
+        String orderTypeId = orderHeader.getString("orderTypeId");
 
         boolean allCanceled = true;
         boolean allComplete = true;
@@ -1804,7 +1805,11 @@ public class OrderServices {
                 }
 
                 if ("ORDER_SENT".equals(orderHeaderStatusId)) changeToApprove = false;
-                if ("ORDER_COMPLETED".equals(orderHeaderStatusId)) changeToApprove = false;
+                if ("ORDER_COMPLETED".equals(orderHeaderStatusId)) {
+                    if ("SALES_ORDER".equals(orderTypeId)) {
+                        changeToApprove = false;
+                    }
+                }
                 if ("ORDER_CANCELLED".equals(orderHeaderStatusId)) changeToApprove = false;
 
                 if (changeToApprove) {

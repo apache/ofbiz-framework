@@ -809,6 +809,13 @@ under the License.
         <implements service="calcShipmentEstimateInterface"/>
     </service>
 
+    <service name="cancelReceivedItems" engine="simple"
+            location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="cancelReceivedItems" auth="true">
+        <description>Cancel Received Items against a purchase order if received something incorrectly</description>
+        <attribute name="receiptId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <!-- QuantityBreak services -->
     <service name="createQuantityBreak" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createQuantityBreak" auth="true">
