@@ -1847,6 +1847,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewProductOrders"/>
+                <set field="labelTitleProperty" value="OrderOrders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
             </actions>
             <widgets>
