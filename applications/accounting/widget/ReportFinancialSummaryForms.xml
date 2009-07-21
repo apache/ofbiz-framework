@@ -455,7 +455,6 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="selectedMonth">
             <drop-down>
-                <option key="${month.value}" description="${month.description}"/>
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
             </drop-down>
         </field>
