@@ -1556,6 +1556,16 @@ under the License.
     </relation>
   </view-entity>
 
+    <view-entity entity-name="InvoiceAndRole" package-name="org.ofbiz.accounting.invoice">
+        <member-entity entity-alias="INV" entity-name="Invoice"/>
+        <member-entity entity-alias="INR" entity-name="InvoiceRole"/>
+        <alias-all entity-alias="INV"/>
+        <alias name="invoiceRolePartyId" entity-alias="INR" field="partyId"/>
+        <alias name="invoiceRoleTypeId" entity-alias="INR" field="roleTypeId"/>
+        <view-link entity-alias="INV" rel-entity-alias="INR" rel-optional="true">
+            <key-map field-name="invoiceId"/>
+        </view-link>
+    </view-entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.ledger -->

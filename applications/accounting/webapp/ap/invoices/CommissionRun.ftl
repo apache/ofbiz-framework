@@ -60,7 +60,7 @@ function toggleInvoiceId(master) {
       <#list invoices as invoice>
         <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)?if_exists>
-        <#assign statusItem = invoice.getRelatedOneCache("StatusItem")>
+        <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, false)?if_exists/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}"/></td>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>

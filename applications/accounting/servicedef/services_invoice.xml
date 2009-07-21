@@ -306,4 +306,11 @@ under the License.
         <attribute name="invoiceRunningTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
+    <service name="getInvoicesFilterByAssocType" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoicesFilterByAssocType" auth="true">
+        <description>Filter invoices by invoiceItemAssocTypeId</description>
+        <attribute name="invoiceList" type="List" mode="IN" optional="false"/>
+        <attribute name="invoiceItemAssocTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="filteredInvoiceList" type="List" mode="OUT" optional="true"/>
+    </service>
 </services>
