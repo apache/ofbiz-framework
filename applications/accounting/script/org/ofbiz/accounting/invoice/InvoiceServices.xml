@@ -478,25 +478,39 @@ under the License.
                 <create-value value-field="newEntity"/>
 
                 <!-- if the invoice is a payrol invoice, create the payment in the not-paid status -->
-                <if-compare field="parameters.statusId" operator="equals" value="INVOICE_APPROVED">
-                    <if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE">
-                        <set field="newp.partyIdFrom" from-field="invoice.partyId"/>
-                        <set field="newp.partyIdTo" from-field="invoice.partyIdFrom"/>
-                        <set field="newp.paymentMethodTypeId" value="COMPANY_CHECK"/>
-                        <set field="newp.paymentTypeId" value="PAYROL_PAYMENT"/>
-                        <set field="newp.statusId" value="PMNT_NOT_PAID"/>
-                        <set field="newp.currencyUomId" from-field="invoice.currencyUomId"/>
-                        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotal" ret-field="newp.amount">
-                            <field field="invoice" type="GenericValue"/>
-                        </call-class-method>
-                        <call-service service-name="createPayment" in-map-name="newp">
-                            <result-to-field result-name="paymentId" field="payment.paymentId"/>
-                        </call-service>
-                        <set field="payAppl.invoiceId" from-field="invoice.invoiceId"/>
-                        <set field="payAppl.paymentId" from-field="payment.paymentId"/>
-                        <set field="payAppl.amountApplied" from-field="newp.amount"/>
-                        <call-service service-name="createPaymentApplication" in-map-name="payAppl"/>
-                    </if-compare>
+                <if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE">
+                    <if>
+                        <condition>
+                            <or>
+                                <if-compare field="parameters.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                                <if-compare field="parameters.statusId" operator="equals" value="INVOICE_READY"/>
+                            </or>
+                        </condition>
+                        <then>
+                            <!-- only generate payment if no application exist yet -->
+                            <entity-and entity-name="PaymentApplication" list="paymentApplications">
+                                <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                            </entity-and>
+                            <if-empty field="paymentApplications">
+                                <set field="newp.partyIdFrom" from-field="invoice.partyId"/>
+                                <set field="newp.partyIdTo" from-field="invoice.partyIdFrom"/>
+                                <set field="newp.paymentMethodTypeId" value="COMPANY_CHECK"/>
+                                <set field="newp.paymentTypeId" value="PAYROL_PAYMENT"/>
+                                <set field="newp.statusId" value="PMNT_NOT_PAID"/>
+                                <set field="newp.currencyUomId" from-field="invoice.currencyUomId"/>
+                                <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotal" ret-field="newp.amount">
+                                    <field field="invoice" type="GenericValue"/>
+                                </call-class-method>
+                                <call-service service-name="createPayment" in-map-name="newp">
+                                    <result-to-field result-name="paymentId" field="payment.paymentId"/>
+                                </call-service>
+                                <set field="payAppl.invoiceId" from-field="invoice.invoiceId"/>
+                                <set field="payAppl.paymentId" from-field="payment.paymentId"/>
+                                <set field="payAppl.amountApplied" from-field="newp.amount"/>
+                                <call-service service-name="createPaymentApplication" in-map-name="payAppl"/>
+                            </if-empty>
+                        </then>
+                    </if>
                 </if-compare>
             </else>
             </if-empty>
