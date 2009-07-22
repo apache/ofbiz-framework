@@ -567,7 +567,7 @@ under the License.
                     <div>
                         ${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
                         <#assign shipmentRoutSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId":shipment.shipmentId}))>
-                        <#if "UPS" == shipmentRoutSegment.carrierPartyId && "ORDER_COMPLETED" == orderHeader.statusId>
+                        <#if "UPS" == shipmentRoutSegment.carrierPartyId?if_exists && "ORDER_COMPLETED" == orderHeader.statusId>
                             <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
                         </#if>
                         <a href="/facility/control/PackingSlip.pdf?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
