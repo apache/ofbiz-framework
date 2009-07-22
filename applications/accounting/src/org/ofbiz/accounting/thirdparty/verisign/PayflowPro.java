@@ -373,6 +373,9 @@ public class PayflowPro {
             data.put("TENDER", "P");
 
             data.put("MEMO", orderId);
+            // PayPal won't allow us to refund more than the capture amount
+            BigDecimal captureAmount = captureTrans.getBigDecimal("amount");
+            amount = amount.min(captureAmount);
         } else {
             // credit card tender
             data.put("TENDER", "C");

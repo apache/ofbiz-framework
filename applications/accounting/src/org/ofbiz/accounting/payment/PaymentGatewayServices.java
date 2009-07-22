@@ -2407,10 +2407,8 @@ public class PaymentGatewayServices {
 
                     // The refund amount could be different from what we tell the payment gateway due to issues
                     // such as having to void the entire original auth amount and re-authorize the new order total.
-                    // However, since some legacy services might be non-compliant, so as a safety measure we will
-                    // override the original refund amount if the refund response has a positive value
                     BigDecimal actualRefundAmount = (BigDecimal) refundResponse.get("refundAmount");
-                    if (actualRefundAmount != null && actualRefundAmount.compareTo(BigDecimal.ZERO) > 0) {
+                    if (actualRefundAmount != null && actualRefundAmount.compareTo(processAmount) != 0) {
                         refundResCtx.put("refundAmount", refundResponse.get("refundAmount"));
                     }
                     refundResRes = dispatcher.runSync(model.name, refundResCtx);
@@ -2524,6 +2522,7 @@ public class PaymentGatewayServices {
 
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("paymentId", paymentId);
+            result.put("refundAmount", context.get("refundAmount"));
             return result;
         } else {
             return ServiceUtil.returnFailure("The refund failed");

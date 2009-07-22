@@ -1284,7 +1284,7 @@ public class OrderReturnServices {
                     BigDecimal orderPayPrefAvailableTotal = orderPayPrefReceivedTotal.subtract(orderPayPrefRefundedTotal);
 
                     // add the refundable amount and orderPaymentPreference to the paymentMethodTypeId map
-                    if (orderPayPrefAvailableTotal.compareTo(ZERO) == 1) {
+                    if (orderPayPrefAvailableTotal.compareTo(ZERO) > 0) {
                         Map orderPayPrefDetails = new HashMap();
                         orderPayPrefDetails.put("orderPaymentPreference", orderPayPref);
                         orderPayPrefDetails.put("availableTotal", orderPayPrefAvailableTotal);
@@ -1345,6 +1345,8 @@ public class OrderReturnServices {
 
                             // Refund up to the maxAmount for the paymentPref, or whatever is left to refund if that's less than the maxAmount
                             BigDecimal amountToRefund = orderPaymentPreferenceAvailable.min(amountLeftToRefund);
+                            // The amount actually refunded for the paymentPref, default to requested amount
+                            BigDecimal amountRefunded = amountToRefund;
 
                             String paymentId = null;
                             String returnItemStatusId = "RETURN_COMPLETED";  // generally, the return item will be considered complete after this
@@ -1358,6 +1360,7 @@ public class OrderReturnServices {
                                         continue;
                                     }
                                     paymentId = (String) serviceResult.get("paymentId");
+                                    amountRefunded = (BigDecimal) serviceResult.get("refundAmount");
                                 } catch (GenericServiceException e) {
                                     Debug.logError(e, "Problem running the refundPayment service", module);
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
@@ -1402,7 +1405,7 @@ public class OrderReturnServices {
                             // Fill out the data for the new ReturnItemResponse
                             Map response = FastMap.newInstance();
                             response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
-                            response.put("responseAmount", amountToRefund.setScale(decimals, rounding));
+                            response.put("responseAmount", amountRefunded.setScale(decimals, rounding));
                             response.put("responseDate", now);
                             response.put("userLogin", userLogin);
                             response.put("paymentId", paymentId);
@@ -1454,7 +1457,7 @@ public class OrderReturnServices {
                             }
 
                             // Update the amount necessary to refund
-                            amountLeftToRefund = amountLeftToRefund.subtract(amountToRefund);
+                            amountLeftToRefund = amountLeftToRefund.subtract(amountRefunded);
                         }
                     }
                 }
