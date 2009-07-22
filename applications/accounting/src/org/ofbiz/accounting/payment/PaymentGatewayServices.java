@@ -163,7 +163,7 @@ public class PaymentGatewayServices {
         if ((transAmount != null) && (transAmount.compareTo(BigDecimal.ZERO) <= 0)) {
             Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("finished", Boolean.TRUE); // finished is true since there is nothing to do
-            results.put("errors", Boolean.FALSE); // errors is false since no error occured
+            results.put("errors", Boolean.FALSE); // errors is false since no error occurred
             return results;
         }
 
@@ -1369,7 +1369,12 @@ public class PaymentGatewayServices {
         String orderId = paymentPref.getString("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
 
-        String statusId = ("EXT_BILLACT".equals(paymentPref.getString("paymentMethodTypeId"))? "PAYMENT_NOT_RECEIVED": "PAYMENT_NOT_AUTH");
+        String statusId = "PAYMENT_NOT_AUTH";
+        if ("EXT_BILLACT".equals(paymentPref.getString("paymentMethodTypeId"))) {
+            statusId = "PAYMENT_NOT_RECEIVED";
+        } else if ("EXT_PAYPAL".equals(paymentPref.get("paymentMethodTypeId"))) {
+            statusId = "PAYMENT_AUTHORIZED";
+        }
         // create a new payment preference
         Debug.logInfo("Creating payment preference split", module);
         String newPrefId = delegator.getNextSeqId("OrderPaymentPreference");
@@ -1390,7 +1395,17 @@ public class PaymentGatewayServices {
             // create the new payment preference
             delegator.create(newPref);
 
-            if ("PAYMENT_NOT_AUTH".equals(statusId)) {
+            // PayPal requires us to reuse the existing authorization, so we'll 
+            // fake it and copy the existing auth with the remaining amount
+            if ("EXT_PAYPAL".equals(paymentPref.get("paymentMethodTypeId"))) {
+                String newAuthId = delegator.getNextSeqId("PaymentGatewayResponse");
+                GenericValue authTrans = getAuthTransaction(paymentPref);
+                GenericValue newAuthTrans = delegator.makeValue("PaymentGatewayResponse", authTrans);
+                newAuthTrans.set("paymentGatewayResponseId", newAuthId);
+                newAuthTrans.set("orderPaymentPreferenceId", newPref.get("orderPaymentPreferenceId"));
+                newAuthTrans.set("amount", splitAmount);
+                savePgr(dctx, newAuthTrans);
+            } else if ("PAYMENT_NOT_AUTH".equals(statusId)) {
                 // authorize the new preference
                 processorResult = authPayment(dispatcher, userLogin, orh, newPref, splitAmount, false, null);
                 if (processorResult != null) {
