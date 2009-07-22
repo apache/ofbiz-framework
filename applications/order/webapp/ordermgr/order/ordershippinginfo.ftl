@@ -624,8 +624,20 @@ under the License.
                     </form>
                     </div>
                <#else>
-                   <a href="<@ofbizUrl>quickDropShipOrder?orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductShipmentQuickComplete}</a>
-                   <a href="/facility/control/createShipment?primaryOrderId=${orderId}&amp;primaryShipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;shipmentTypeId=DROP_SHIPMENT&amp;statusId=PURCH_SHIP_CREATED&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
+                   <a href="javascript:document.quickDropShipOrder_${shipGroup_index}.submit();" class="buttontext">${uiLabelMap.ProductShipmentQuickComplete}</a>
+                   <a href="javascript:document.createShipment3.submit();" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
+                   <form name="quickDropShipOrder_${shipGroup_index}" method="post" action="<@ofbizUrl>quickDropShipOrder</@ofbizUrl>">
+                        <input type="hidden" name="orderId" value="${orderId}"/>
+                        <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
+                    </form>
+                    <form name="createShipment3" method="post" action="/facility/control/createShipment">
+                        <input type="hidden" name="primaryOrderId" value="${orderId}"/>
+                        <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                        <input type="hidden" name="shipmentTypeId" value="DROP_SHIPMENT">
+                        <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED">
+                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
+                    </form>
                </#if>
              </#if>
             </td>
