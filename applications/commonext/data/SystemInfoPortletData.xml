@@ -35,5 +35,6 @@
         screenLocation="component://commonext/widget/SystemInfoScreens.xml" description="List of system notes for this specific party"
         screenshot="/images/portlets/SystemInfoStatus.png"/>
     <PortletPortletCategory portalPortletId="SystemInfoStatus" portletCategoryId="SYSTEMINFO"/>
+    <PortletCategory portletCategoryId="REPORT" description="Reports"/>
 
 </entity-engine-xml>
