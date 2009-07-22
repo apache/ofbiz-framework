@@ -165,7 +165,7 @@ public class ShoppingCartEvents {
             try {
                 productId = (String) object;
             } catch (ClassCastException e) {
-                productId = (String)((List)object).get(0);
+                productId = (String) ((List) object).get(0);
             }
         }
         if (paramMap.containsKey("PRODUCT_ID")) {
@@ -174,8 +174,8 @@ public class ShoppingCartEvents {
             parentProductId = (String) paramMap.remove("product_id");
         }
 
-        Debug.logInfo("adding item product " + productId,module);
-        Debug.logInfo("adding item parent product " + parentProductId,module);
+        Debug.logInfo("adding item product " + productId, module);
+        Debug.logInfo("adding item parent product " + parentProductId, module);
 
         if (paramMap.containsKey("ADD_CATEGORY_ID")) {
             productCategoryId = (String) paramMap.remove("ADD_CATEGORY_ID");
@@ -228,11 +228,11 @@ public class ShoppingCartEvents {
                 try {
                     configWrapper.loadConfig(delegator, (String) paramMap.remove("configId"));
                 } catch (Exception e) {
-                    Debug.logWarning(e,"Could not load configuration", module);
+                    Debug.logWarning(e, "Could not load configuration", module);
                 }
             } else {
-            // The choices selected by the user are taken from request and set in the wrapper
-            ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
+                // The choices selected by the user are taken from request and set in the wrapper
+                ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
             }
             if (!configWrapper.isCompleted()) {
                 // The configuration is not valid
@@ -251,10 +251,10 @@ public class ShoppingCartEvents {
 
             if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
                 // get the selected features.
-                List <String> selectedFeatures = new LinkedList<String>();
+                List<String> selectedFeatures = new LinkedList<String>();
                 java.util.Enumeration paramNames = request.getParameterNames();
                 while (paramNames.hasMoreElements()) {
-                    String paramName = (String)paramNames.nextElement();
+                    String paramName = (String) paramNames.nextElement();
                     if (paramName.startsWith("FT")) {
                         selectedFeatures.add(request.getParameterValues(paramName)[0]);
                     }
@@ -263,7 +263,7 @@ public class ShoppingCartEvents {
                 // check if features are selected
                 if (UtilValidate.isEmpty(selectedFeatures)) {
                     request.setAttribute("product_id", productId);
-                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+                    request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
                     return "product";
                 }
 
@@ -298,40 +298,38 @@ public class ShoppingCartEvents {
             if (paramMap.containsKey("reservStart")) {
                 reservStartStr = (String) paramMap.remove("reservStart");
                 if (reservStartStr.length() == 10) // only date provided, no time string?
-                        reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
-                if (reservStartStr.length() >0) {
+                    reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
+                if (reservStartStr.length() > 0) {
                     try {
                         reservStart = java.sql.Timestamp.valueOf(reservStartStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e,"Problems parsing Reservation start string: "
-                                    + reservStartStr, module);
+                        Debug.logWarning(e, "Problems parsing Reservation start string: "
+                                + reservStartStr, module);
                         reservStart = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"cart.addToCart.rental.startDate", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.startDate", locale));
                         return "error";
                     }
-                }
-                else reservStart = null;
+                } else reservStart = null;
             }
 
             if (paramMap.containsKey("reservEnd")) {
                 reservEndStr = (String) paramMap.remove("reservEnd");
                 if (reservEndStr.length() == 10) // only date provided, no time string?
-                        reservEndStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
+                    reservEndStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                 if (reservEndStr.length() > 0) {
                     try {
                         reservEnd = java.sql.Timestamp.valueOf(reservEndStr);
                     } catch (Exception e) {
-                        Debug.logWarning(e,"Problems parsing Reservation end string: " + reservEndStr, module);
+                        Debug.logWarning(e, "Problems parsing Reservation end string: " + reservEndStr, module);
                         reservEnd = null;
-                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"cart.addToCart.rental.endDate", locale));
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.endDate", locale));
                         return "error";
                     }
-                }
-                else reservEnd = null;
+                } else reservEnd = null;
             }
 
             if (reservStart != null && reservEnd != null) {
-                reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart,reservEnd)).divide(new BigDecimal("86400000"), generalRounding);
+                reservLength = new BigDecimal(UtilDateTime.getInterval(reservStart, reservEnd)).divide(new BigDecimal("86400000"), generalRounding);
             }
 
             if (reservStart != null && paramMap.containsKey("reservLength")) {
@@ -340,10 +338,10 @@ public class ShoppingCartEvents {
                 try {
                     reservLength = new BigDecimal(nf.parse(reservLengthStr).doubleValue());
                 } catch (Exception e) {
-                    Debug.logWarning(e,"Problems parsing reservation length string: "
-                                    + reservLengthStr, module);
+                    Debug.logWarning(e, "Problems parsing reservation length string: "
+                            + reservLengthStr, module);
                     reservLength = BigDecimal.ONE;
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderReservationLengthShouldBeAPositiveNumber", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderReservationLengthShouldBeAPositiveNumber", locale));
                     return "error";
                 }
             }
@@ -354,9 +352,9 @@ public class ShoppingCartEvents {
                 try {
                     reservPersons = new BigDecimal(nf.parse(reservPersonsStr).doubleValue());
                 } catch (Exception e) {
-                    Debug.logWarning(e,"Problems parsing reservation number of persons string: " + reservPersonsStr, module);
+                    Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, module);
                     reservPersons = BigDecimal.ONE;
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderNumberOfPersonsShouldBeOneOrLarger", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderNumberOfPersonsShouldBeOneOrLarger", locale));
                     return "error";
                 }
             }
@@ -423,7 +421,7 @@ public class ShoppingCartEvents {
         // check for required amount
         if ((ProductWorker.isAmountRequired(delegator, productId)) && (amount == null || amount.doubleValue() == 0.0)) {
             request.setAttribute("product_id", productId);
-            request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.enterAmountBeforeAddingToCart",locale));
+            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.enterAmountBeforeAddingToCart", locale));
             return "product";
         }
 
@@ -487,48 +485,29 @@ public class ShoppingCartEvents {
 
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore != null) {
-        String addToCartRemoveIncompat = productStore.getString("addToCartRemoveIncompat");
-        String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
-        try {
-            if ("Y".equals(addToCartRemoveIncompat)) {
-                List productAssocs = null;
-                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
-                        EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
-                productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
-                productAssocs = EntityUtil.filterByDate(productAssocs);
-                List productList = FastList.newInstance();
-                Iterator iter = productAssocs.iterator();
-                while (iter.hasNext()) {
-                    GenericValue productAssoc = (GenericValue) iter.next();
-                    if (productId.equals(productAssoc.getString("productId"))) {
-                        productList.add(productAssoc.getString("productIdTo"));
-                        continue;
-                    }
-                    if (productId.equals(productAssoc.getString("productIdTo"))) {
-                        productList.add(productAssoc.getString("productId"));
-                        continue;
-                    }
-                }
-                Iterator sciIter = cart.iterator();
-                while (sciIter.hasNext()) {
-                    ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
-                    if (productList.contains(sci.getProductId())) {
-                        try {
-                            cart.removeCartItem(sci, dispatcher);
-                        } catch (CartItemModifyException e) {
-                            Debug.logError(e.getMessage(), module);
+            String addToCartRemoveIncompat = productStore.getString("addToCartRemoveIncompat");
+            String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
+            try {
+                if ("Y".equals(addToCartRemoveIncompat)) {
+                    List productAssocs = null;
+                    EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
+                            EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
+                    productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
+                    productAssocs = EntityUtil.filterByDate(productAssocs);
+                    List productList = FastList.newInstance();
+                    Iterator iter = productAssocs.iterator();
+                    while (iter.hasNext()) {
+                        GenericValue productAssoc = (GenericValue) iter.next();
+                        if (productId.equals(productAssoc.getString("productId"))) {
+                            productList.add(productAssoc.getString("productIdTo"));
+                            continue;
+                        }
+                        if (productId.equals(productAssoc.getString("productIdTo"))) {
+                            productList.add(productAssoc.getString("productId"));
+                            continue;
                         }
                     }
-                }
-            }
-            if ("Y".equals(addToCartReplaceUpsell)) {
-                List productList = null;
-                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId),
-                        EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
-                productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
-                if (productList != null) {
                     Iterator sciIter = cart.iterator();
                     while (sciIter.hasNext()) {
                         ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
@@ -541,10 +520,29 @@ public class ShoppingCartEvents {
                         }
                     }
                 }
+                if ("Y".equals(addToCartReplaceUpsell)) {
+                    List productList = null;
+                    EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId),
+                            EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
+                    productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
+                    if (productList != null) {
+                        Iterator sciIter = cart.iterator();
+                        while (sciIter.hasNext()) {
+                            ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
+                            if (productList.contains(sci.getProductId())) {
+                                try {
+                                    cart.removeCartItem(sci, dispatcher);
+                                } catch (CartItemModifyException e) {
+                                    Debug.logError(e.getMessage(), module);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e.getMessage(), module);
             }
-        } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
-        }
         }
 
         // Translate the parameters and add to the cart
