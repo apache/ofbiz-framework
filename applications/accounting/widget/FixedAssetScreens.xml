@@ -75,6 +75,8 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="ListFixedAssets"/>
+                <set field="fixedAssetId" from-field="fixedAsset.fixedAssetId" default-value="${parameters.fixedAssetId}"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -248,6 +250,39 @@ under the License.
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
             </actions>
             <widgets>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.period" operator="equals" value="day"/>
+                    </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarDay"/>
+                        <set field="tabButtonItem" value="day"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition>
+                        <or>
+                            <if-compare field="parameters.period" operator="equals" value="week"/>
+                            <if-empty field="parameters.period"/>
+                        </or>
+                    </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarWeek"/>
+                        <set field="tabButtonItem" value="week"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.period" operator="equals" value="month"/>
+                    </condition>
+                    <actions>
+                        <set field="titleProperty" value="PageTitleCalendarMonth"/>
+                        <set field="tabButtonItem" value="month"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="Calendar" location="component://workeffort/widget/CalendarScreens.xml"/>
