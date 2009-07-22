@@ -355,7 +355,7 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
         <description>Refunds A Payment</description>
         <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-        <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
     
@@ -434,7 +434,7 @@ under the License.
         <attribute name="payFromPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="refundResult" type="Boolean" mode="IN" optional="false"/>
         <attribute name="refundAltRefNum" type="String" mode="IN" optional="true"/>
