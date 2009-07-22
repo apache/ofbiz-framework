@@ -35,6 +35,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -49,6 +50,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.LoginWorker;
 import org.ofbiz.widget.cache.GenericWidgetOutput;
@@ -159,6 +161,12 @@ public class ScreenRenderer {
         context.put("locale", locale);
         context.put("userLogin", userLogin);
         context.put("nowTimestamp", UtilDateTime.nowTimestamp());
+        try {
+            Map<String, Object> result = dispatcher.runSync("getUserPreferenceGroup", UtilMisc.toMap("userLogin", userLogin, "userPrefGroupTypeId", "GLOBAL_PREFERENCES"));
+            context.put("userPreferences", result.get("userPrefMap"));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Error while getting user preferences: ", module);
+        }
     }
 
     /**
