@@ -486,6 +486,7 @@ public class ShoppingCartEvents {
         }
 
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
+        if (productStore != null) {
         String addToCartRemoveIncompat = productStore.getString("addToCartRemoveIncompat");
         String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
         try {
@@ -543,6 +544,7 @@ public class ShoppingCartEvents {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
+        }
         }
 
         // Translate the parameters and add to the cart
