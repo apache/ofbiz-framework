@@ -72,6 +72,8 @@ if (toPrintOrders) {
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId;
                             orderMap.shipGroupSeqId = orderItemShipGroup.shipGroupSeqId;
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId;
+                            orderMap.isGift = orderItemShipGroup.isGift;
+                            orderMap.giftMessage = orderItemShipGroup.giftMessage;
                         }
                         orderMap.shippingAddress = shippingAddress;
                         if (billingOrderContactMechs.size() > 0) {
