@@ -4073,6 +4073,8 @@ under the License.
       <field name="excludeGeoId" type="id"></field>
       <field name="serviceName" type="long-varchar"></field>
       <field name="configProps" type="long-varchar"></field>
+      <field name="shipmentCustomMethodId" type="id"></field>
+      <field name="shipmentGatewayConfigId" type="id"></field>
       <field name="sequenceNumber" type="numeric"></field>
       <prim-key field="productStoreShipMethId"/>
       <relation type="one-nofk" rel-entity-name="Party">
@@ -4083,6 +4085,12 @@ under the License.
       </relation>
       <relation type="one-nofk" title="Exclude" rel-entity-name="Geo">
         <key-map field-name="excludeGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="PRDS_SM_SGC" rel-entity-name="ShipmentGatewayConfig">
+        <key-map field-name="shipmentGatewayConfigId"/>
+      </relation>
+      <relation type="one" fk-name="PRDS_SM_CUS_MET" rel-entity-name="CustomMethod">
+        <key-map field-name="shipmentCustomMethodId" rel-field-name="customMethodId"/>
       </relation>
     </entity>
     <view-entity entity-name="ProductStoreShipmentMethView"
@@ -4111,6 +4119,10 @@ under the License.
       <alias entity-alias="PSSM" name="excludeGeoId"/>
       <alias entity-alias="PSSM" name="includeFeatureGroup"/>
       <alias entity-alias="PSSM" name="excludeFeatureGroup"/>
+      <alias entity-alias="PSSM" name="serviceName"/>
+      <alias entity-alias="PSSM" name="configProps"/>
+      <alias entity-alias="PSSM" name="shipmentCustomMethodId"/>
+      <alias entity-alias="PSSM" name="shipmentGatewayConfigId"/>
       <alias entity-alias="PSSM" name="sequenceNumber"/>
       <alias entity-alias="SM" name="description"/>
       <view-link entity-alias="PSSM" rel-entity-alias="SM">

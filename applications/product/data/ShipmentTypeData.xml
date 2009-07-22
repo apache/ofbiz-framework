@@ -112,4 +112,29 @@ under the License.
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKITEM_CANCELLED" statusTypeId="PICKITEM_STATUS"/>
     <StatusValidChange condition="" statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_COMPLETED" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_CANCELLED" transitionName="Cancel"/>
+    
+    <!-- Shipment Gateway Config -->
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="DHL" hasTable="N" description="DHL Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="DHL_CONFIG" shipmentGatewayConfTypeId="DHL" description="DHL Config"/>
+    <ShipmentGatewayDhl shipmentGatewayConfigId="DHL_CONFIG" connectUrl="https://eCommerce.airborne.com/ApiLandingTest.asp" connectTimeout="60" headVersion="1.1" headAction="Request" accessUserId="YOUR DHL ShipIT USER ID" accessPassword="YOUR DHL ShipIT ACCESS PASSWORD" accessAccountNbr="YOUR DHL ShipIT ACCOUNT NUMBER" accessShippingKey="YOUR DHL ShipIT SHIPPING KEY" labelImageFormat="PNG" rateEstimateTemplate="api.schema.DHL"/>
+    
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="FEDEX" hasTable="N" description="Fedex Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="FEDEX_CONFIG" shipmentGatewayConfTypeId="FEDEX" description="Fedex Config"/>
+    <ShipmentGatewayFedex shipmentGatewayConfigId="FEDEX_CONFIG" connectUrl="https://gatewaybeta.fedex.com/GatewayDC" connectSoapUrl="https://gatewaybeta.fedex.com:443/web-services" connectTimeout="60" accessAccountNbr="" accessMeterNumber="" accessUserKey="" accessUserPwd="" labelImageType="PNG" defaultDropoffType="REGULARPICKUP" defaultPackagingType="YOURPACKNG" templateShipment="component://product/templates/shipment/FedexShipRequestTemplate.xml.ftl" templateSubscription="component://product/templates/shipment/FedexSubscriptionRequestTemplate.xml.ftl" rateEstimateTemplate="component://product/templates/shipment/FedexRateEstimateRequestTemplate.xml.ftl"/>
+    
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="UPS" hasTable="N" description="UPS Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="UPS_CONFIG" shipmentGatewayConfTypeId="UPS" description="UPS Config"/>
+    <ShipmentGatewayUps shipmentGatewayConfigId="UPS_CONFIG" connectUrl="https://wwwcie.ups.com/ups.app/xml" connectTimeout="60" shipperNumber="12345E" billShipperAccountNumber="12345E" accessLicenseNumber="TEST262223144CAT" accessUserId="REG111111" accessPassword="REG111111" saveCertInfo="true" saveCertPath="${sys:getProperty('ofbiz.home')}/runtime/output/upscert" shipperPickupType="06" maxEstimateWeight="90" minEstimateWeight="0.1" codAllowCod="true" codSurchargeAmount="9" codSurchargeCurrencyUomId="USD" codSurchargeApplyToPackage="first" codFundsCode="0" defaultReturnLabelMemo="UPS Shipment Return Memo" defaultReturnLabelSubject="UPS Shipment Return Label"/>
+    
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="USPS" hasTable="N" description="USPS Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="USPS_CONFIG" shipmentGatewayConfTypeId="USPS" description="USPS Config"/>
+    <ShipmentGatewayUsps shipmentGatewayConfigId="USPS_CONFIG" connectUrl="http://production.shippingapis.com/ShippingAPITest.dll" connectTimeout="60" accessUserId="000000000000" accessPassword="999999999999" maxEstimateWeight="70"/>
+    
+    <!-- Shipment Gateway custom methods by type -->
+    <CustomMethodType customMethodTypeId="SHIP_EST" parentTypeId="" hasTable="N" description="Shipment Gateway rate estimate methods"/>
+    
+    <CustomMethod customMethodId="SHIP_EST_DHL"   customMethodTypeId="SHIP_EST" customMethodName="dhlRateEstimate"   description="DHL rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_FEDEX" customMethodTypeId="SHIP_EST" customMethodName="fedexRateEstimate" description="FedEx rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_UPS"   customMethodTypeId="SHIP_EST" customMethodName="upsRateEstimate"   description="UPS rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_USPS"  customMethodTypeId="SHIP_EST" customMethodName="uspsRateInquire"   description="USPS rate estimate"/>
 </entity-engine-xml>

@@ -305,6 +305,10 @@ under the License.
                 <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
+                <entity-condition entity-name="CustomMethod" list="shipmentCustomMethods">
+                    <condition-expr field-name="customMethodTypeId" value="SHIP_EST"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">

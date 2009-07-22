@@ -602,6 +602,18 @@
         <field name="excludeGeoId">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
+        <field name="serviceName" title="${uiLabelMap.FacilityShipmentServiceName}">
+            <display/>
+        </field>
+        <field name="configProps" title="${uiLabelMap.FacilityShipmentConfigProps}">
+            <display/>
+        </field>
+        <field name="shipmentCustomMethodId" title="${uiLabelMap.FacilityShipmentCustomMethod}">
+            <display-entity entity-name="CustomMethod" key-field-name="customMethodId" description="${description} (${customMethodName})"/>
+        </field>
+        <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}">
+            <display-entity entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId"  description="${description}"/>
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="storeRemoveShipMeth" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
@@ -620,7 +632,6 @@
         </field>
         <field name="roleTypeId"><display/></field>
         <field name="partyId"><display/></field>
-
         <field name="minSize" tooltip="${uiLabelMap.ProductMinSizeMessage}"><text/></field>
         <field name="maxSize" tooltip="${uiLabelMap.ProductMaxSizeMessage}"><text/></field>
         <field name="minWeight" tooltip="${uiLabelMap.ProductMinWeightMessage}"><text/></field>
@@ -645,7 +656,6 @@
         <field name="includeNoChargeItems" title="${uiLabelMap.ProductIncludeFreeship}" tooltip="${uiLabelMap.ProductIncludeFreeshipMessage}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-
         <field name="includeGeoId" title="${uiLabelMap.ProductIncludeGeo}" tooltip="${uiLabelMap.ProductIncludeGeoMessage}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
@@ -664,8 +674,24 @@
         </field>
         <field name="includeFeatureGroup" title="${uiLabelMap.ProductIncludeFeature}" tooltip="${uiLabelMap.ProductIncludeFeatureMessage}"><text/></field>
         <field name="excludeFeatureGroup" title="${uiLabelMap.ProductExcludeFeature}" tooltip="${uiLabelMap.ProductExcludeFeatureMessage}"><text/></field>
-        <field name="serviceName"><text/></field>
-        <field name="configProps"><text/></field>
+        <field name="serviceName" title="${uiLabelMap.FacilityShipmentServiceName}">
+            <text/>
+        </field>
+        <field name="configProps" title="${uiLabelMap.FacilityShipmentConfigProps}">
+            <text/>
+        </field>
+        <field name="shipmentCustomMethodId" title="${uiLabelMap.FacilityShipmentCustomMethod}">
+            <drop-down allow-empty="true">
+                <list-options key-name="customMethodId" description="${description} (${customMethodName})" list-name="shipmentCustomMethods"/>
+            </drop-down>
+        </field>
+        <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="sequenceNumber" title="${uiLabelMap.FormFieldTitle_sequenceNum}" tooltip="${uiLabelMap.ProductUsedForDisplayOrdering}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -25,6 +25,12 @@ under the License.
         <menu-item name="facility" title="${uiLabelMap.ProductFacilities}"><link target="FindFacility"/></menu-item>
         <menu-item name="facilityGroup" title="${uiLabelMap.ProductFacilityGroups}"><link target="FindFacilityGroup"/></menu-item>
         <menu-item name="inventoryItemLabel" title="${uiLabelMap.ProductInventoryItemLabels}"><link target="FindInventoryItemLabels"/></menu-item>
+        <menu-item name="ShipmentGatewayConfig" title="${uiLabelMap.FacilityShipmentGatewayConfig}">
+            <condition>
+                <if-has-permission permission="PAYPROC" action="_ADMIN"/>
+            </condition>
+            <link target="FindShipmentGatewayConfig"/>
+        </menu-item>
         <menu-item name="shipment" title="${uiLabelMap.ProductShipments}"><link target="FindShipment"/></menu-item>
         <menu-item name="reports" title="${uiLabelMap.CommonReports}">
             <condition>
@@ -187,6 +193,15 @@ under the License.
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="facilityId"/>
             </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ShipmentGatewayConfigTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="shipmentGatewayConfigTab" title="${uiLabelMap.FacilityShipmentGatewayConfig}">
+            <link target="FindShipmentGatewayConfig"/>
+        </menu-item>
+        <menu-item name="shipmentGatewayConfigTypesTab" title="${uiLabelMap.FacilityShipmentGatewayConfigTypes}">
+            <link target="FindShipmentGatewayConfigTypes"/>
         </menu-item>
     </menu>
 </menus>
