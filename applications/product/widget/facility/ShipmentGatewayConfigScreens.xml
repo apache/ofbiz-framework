@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="GenericShipmentGatewayConfigDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="shipmentGatewayConfig"/> 
+            </actions>
+            <widgets>
+                <!-- main defines the regions of the HTML page -->
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <!-- body is the primary display for this page and is called recursively -->
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-menu name="ShipmentGatewayConfigTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                <container>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
+                                </container>
+                                
+                                <!-- Now call the SimpleScreen form -->
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindShipmentGatewayConfig">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindShipmentGatewayConfig"/>
+                <set field="tabButtonItem" value="shipmentGatewayConfigTab"/> 
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GenericShipmentGatewayConfigDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditShipmentGatewayConfig">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleUpdateShipmentGatewayConfig"/>
+                <set field="tabButtonItem" value="shipmentGatewayConfigTab"/> 
+                
+                <set field="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
+                <entity-one entity-name="ShipmentGatewayConfig" value-field="shipmentGatewayConfig"/>
+                <entity-one entity-name="ShipmentGatewayDhl" value-field="shipmentGatewayDhl">
+                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
+                </entity-one>
+                <entity-one entity-name="ShipmentGatewayFedex" value-field="shipmentGatewayFedex">
+                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
+                </entity-one>
+                <entity-one entity-name="ShipmentGatewayUsps" value-field="shipmentGatewayUsps">
+                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
+                </entity-one>
+                <entity-one entity-name="ShipmentGatewayUps" value-field="shipmentGatewayUps">
+                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="GenericShipmentGatewayConfigDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfig}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <section>
+                            <condition>
+                                <not><if-empty field="shipmentGatewayDhl"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigDhl}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditShipmentGatewayConfigDhl" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="shipmentGatewayFedex"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigFedex}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditShipmentGatewayConfigFedex" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="shipmentGatewayUps"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUps}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditShipmentGatewayConfigUps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="shipmentGatewayUsps"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUsps}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditShipmentGatewayConfigUsps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindShipmentGatewayConfigTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindShipmentGatewayConfigTypes"/>
+                <set field="tabButtonItem" value="shipmentGatewayConfigTypesTab"/> 
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GenericShipmentGatewayConfigDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindShipmentGatewayConfigTypes" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListShipmentGatewayConfigTypes" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditShipmentGatewayConfigType">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleUpdateShipmentGatewayConfigType"/>
+                <set field="tabButtonItem" value="shipmentGatewayConfigTypesTab"/> 
+                
+                <set field="shipmentGatewayConfTypeId" from-field="parameters.shipmentGatewayConfTypeId"/>
+                <entity-one entity-name="ShipmentGatewayConfigType" value-field="shipmentGatewayConfigType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GenericShipmentGatewayConfigDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditShipmentGatewayConfigType" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

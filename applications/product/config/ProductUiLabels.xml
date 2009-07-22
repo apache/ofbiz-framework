@@ -67,14 +67,14 @@
         <value xml:lang="zh">场所</value>
         <value xml:lang="zh_CN">仓储设施</value>
     </property>
+    <property key="FacilityGroupByNoOfOrderItems">
+        <value xml:lang="en">Group by number of order items</value>
+    </property>
     <property key="FacilityGroupByShippingMethod">
         <value xml:lang="en">Group by shipping method</value>
     </property>
     <property key="FacilityGroupByWarehouseArea">
         <value xml:lang="en">Group by warehouse area</value>
-    </property>
-    <property key="FacilityGroupByNoOfOrderItems">
-        <value xml:lang="en">Group by number of order items</value>
     </property>
     <property key="FacilityGroupName">
         <value xml:lang="en">Group Name</value>
@@ -94,6 +94,9 @@
         <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存</value>
         <value xml:lang="zh_CN">库存</value>
+    </property>
+    <property key="FacilityMultipleLocations">
+        <value xml:lang="en">Multiple Locations</value>
     </property>
     <property key="FacilityNoFacility">
         <value xml:lang="de">Kein Lager</value>
@@ -130,16 +133,13 @@
     <property key="FacilityNumberOfItemsThreeOrMore">
         <value xml:lang="en">Items 3 or more</value>
     </property>
-    <property key="FacilityMultipleLocations">
-        <value xml:lang="en">Multiple Locations</value>
+    <property key="FacilitySelectOptionsToGroupBy">
+        <value xml:lang="en">Select Options To Group</value>
     </property>
     <property key="FacilitySelection">
         <value xml:lang="en">Facility Selection</value>
         <value xml:lang="fr">Choix du lieu de stockage</value>
         <value xml:lang="it">Seleziona stabilimento</value>
-    </property>
-    <property key="FacilitySelectOptionsToGroupBy">
-        <value xml:lang="en">Select Options To Group</value>
     </property>
     <property key="FacilityShip">
         <value xml:lang="en">Ship</value>
@@ -157,9 +157,6 @@
         <value xml:lang="zh">当我订的明细有货时请送货 (你可能要支付额外的运费)。</value>
         <value xml:lang="zh_CN">当所订商品个别项可用时即刻发货（不是一起发货，你可能需要另付发货费用）。</value>
     </property>
-    <property key="FacilityShipmentCreatedAndMarkedAsPacked">
-        <value xml:lang="en">Shipment #${shipmentId} created and marked as packed</value>
-    </property>
     <property key="FacilityShipOnceOrAvailable">
         <value xml:lang="de">Alles zusammen liefern oder 'sobald etwas verfügbar'?</value>
         <value xml:lang="en">Ship all at once, or 'as available'?</value>
@@ -172,6 +169,365 @@
         <value xml:lang="th">ส่งสินค้าทั้งหมดหนึ่งครั้ง หรือ เท่าที่จะหาได้</value>
         <value xml:lang="zh">一次全部送货，或者“到货即送”？</value>
         <value xml:lang="zh_CN">同时货运全部商品，或单项可用即刻发货？</value>
+    </property>
+    <property key="FacilityShipmentConfigProps">
+        <value xml:lang="en">Config Properties (deprecated use)</value>
+        <value xml:lang="it">Property per configurazione spedizioniere (uso deprecato)</value>
+    </property>
+    <property key="FacilityShipmentCreatedAndMarkedAsPacked">
+        <value xml:lang="en">Shipment #${shipmentId} created and marked as packed</value>
+    </property>
+    <property key="FacilityShipmentCustomMethod">
+        <value xml:lang="en">Shipment Custom Method</value>
+        <value xml:lang="it">Metodo personalizzato spedizione</value>
+    </property>
+    <property key="FacilityShipmentDhlAccessAccountNbr">
+        <value xml:lang="en">Your DHL ShipIT Account Number</value>
+        <value xml:lang="it">Il tuo numero conto DHL ShipIT</value>
+    </property>
+    <property key="FacilityShipmentDhlAccessPassword">
+        <value xml:lang="en">Your DHL ShipIT Access Password</value>
+        <value xml:lang="it">La tua password DHL ShipIT</value>
+    </property>
+    <property key="FacilityShipmentDhlAccessShippingKey">
+        <value xml:lang="en">Your DHL ShipIT Shipping Key</value>
+        <value xml:lang="it">La tua chiave spedizione DHL ShipIT</value>
+    </property>
+    <property key="FacilityShipmentDhlAccessUserId">
+        <value xml:lang="en">Your DHL ShipIT User Id</value>
+        <value xml:lang="it">Il tuo id utente DHL ShipIT</value>
+    </property>
+    <property key="FacilityShipmentDhlConnectTimeout">
+        <value xml:lang="en">Conntect Timeout</value>
+        <value xml:lang="it">Timeout connessione a DHL</value>
+    </property>
+    <property key="FacilityShipmentDhlConnectUrl">
+        <value xml:lang="en">Conntect URL</value>
+        <value xml:lang="it">URL Connessione a DHL</value>
+    </property>
+    <property key="FacilityShipmentDhlHeadAction">
+        <value xml:lang="en">Head action attribute</value>
+        <value xml:lang="it">Attributo azione</value>
+    </property>
+    <property key="FacilityShipmentDhlHeadActionRequest">
+        <value xml:lang="en">Request</value>
+        <value xml:lang="it">Richiesta</value>
+    </property>
+    <property key="FacilityShipmentDhlHeadVersion">
+        <value xml:lang="en">Head version attribute</value>
+        <value xml:lang="it">Attributo versione</value>
+    </property>
+    <property key="FacilityShipmentDhlLabelImageFormat">
+        <value xml:lang="en">Label Image Format</value>
+        <value xml:lang="it">Formato immagine etichetta</value>
+    </property>
+    <property key="FacilityShipmentDhlLabelImageFormatPng">
+        <value xml:lang="en">PNG</value>
+        <value xml:lang="it">PNG</value>
+    </property>
+    <property key="FacilityShipmentDhlRateEstimate">
+        <value xml:lang="en">Rate Estimate API schema</value>
+        <value xml:lang="it">API schema per stima spedizione</value>
+    </property>
+    <property key="FacilityShipmentFedexAccessAccountNumber">
+        <value xml:lang="en">Access Account Number</value>
+        <value xml:lang="it">Numero conto di accesso</value>
+    </property>
+    <property key="FacilityShipmentFedexAccessMeterNumber">
+        <value xml:lang="en">Access Meter Number</value>
+        <value xml:lang="it">Contatore di accesso</value>
+    </property>
+    <property key="FacilityShipmentFedexAccessUserKey">
+        <value xml:lang="en">Access User Key</value>
+        <value xml:lang="it">Chiave utente di accesso</value>
+    </property>
+    <property key="FacilityShipmentFedexAccessUserPwd">
+        <value xml:lang="en">Access User Password</value>
+        <value xml:lang="it">Password utente di accesso</value>
+    </property>
+    <property key="FacilityShipmentFedexConnectSoapUrl">
+        <value xml:lang="en">Conntect Soap URL</value>
+        <value xml:lang="it">URL Soap Connessione a FedEx</value>
+    </property>
+    <property key="FacilityShipmentFedexConnectTimeout">
+        <value xml:lang="en">Conntect Timeout</value>
+        <value xml:lang="it">Timeout connessione a FedEx</value>
+    </property>
+    <property key="FacilityShipmentFedexConnectUrl">
+        <value xml:lang="en">Conntect URL</value>
+        <value xml:lang="it">URL Connessione a FedEx</value>
+    </property>
+    <property key="FacilityShipmentFedexDropoffType">
+        <value xml:lang="en">Dropoff Type</value>
+        <value xml:lang="it">Tipo di prelievo</value>
+    </property>
+    <property key="FacilityShipmentFedexDropoffTypeBusinessService">
+        <value xml:lang="en">Business Service Center</value>
+        <value xml:lang="it">Centro servizi business</value>
+    </property>
+    <property key="FacilityShipmentFedexDropoffTypeDropBox">
+        <value xml:lang="en">Drop-Box</value>
+        <value xml:lang="it">Drop-Box</value>
+    </property>
+    <property key="FacilityShipmentFedexDropoffTypeRegularPickup">
+        <value xml:lang="en">Regular Pickup</value>
+        <value xml:lang="it">Prelievo normale</value>
+    </property>
+    <property key="FacilityShipmentFedexDropoffTypeRequestCourier">
+        <value xml:lang="en">Request Courier</value>
+        <value xml:lang="it">Richiesta Corriere</value>
+    </property>
+    <property key="FacilityShipmentFedexDropoffTypeStation">
+        <value xml:lang="en">Station</value>
+        <value xml:lang="it">Stazione</value>
+    </property>
+    <property key="FacilityShipmentFedexLabelImageType">
+        <value xml:lang="en">Label Image Type</value>
+        <value xml:lang="it">Tipo immagine etichetta</value>
+    </property>
+    <property key="FacilityShipmentFedexLabelImageTypePdf">
+        <value xml:lang="en">PDF</value>
+        <value xml:lang="it">PDF</value>
+    </property>
+    <property key="FacilityShipmentFedexLabelImageTypePng">
+        <value xml:lang="en">PNG</value>
+        <value xml:lang="it">PNG</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingBox10Kg">
+        <value xml:lang="en">10KG Box</value>
+        <value xml:lang="it">Scatola 10Kg</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingBox25Kg">
+        <value xml:lang="en">25KG Box</value>
+        <value xml:lang="it">Scatola 25Kg</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingBoxLarge">
+        <value xml:lang="en">Box Large</value>
+        <value xml:lang="it">Scatola grande</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingBoxMedium">
+        <value xml:lang="en">Box Medium</value>
+        <value xml:lang="it">Scatola media</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingBoxSmall">
+        <value xml:lang="en">Box Small</value>
+        <value xml:lang="it">Scatola piccola</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingEnveloper">
+        <value xml:lang="en">Enveloper</value>
+        <value xml:lang="it">Busta</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingEnveloperLegal">
+        <value xml:lang="en">Enveloper Legal</value>
+        <value xml:lang="it">Busta legale</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingPakLarge">
+        <value xml:lang="en">Pak Large</value>
+        <value xml:lang="it">Pacco grande</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingPakSmall">
+        <value xml:lang="en">Pak Small</value>
+        <value xml:lang="it">Pacco piccolo</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingTube">
+        <value xml:lang="en">Tube</value>
+        <value xml:lang="it">Tubo</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingType">
+        <value xml:lang="en">Packing Type</value>
+        <value xml:lang="it">Tipo pacco</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingYour">
+        <value xml:lang="en">Your Packaging</value>
+        <value xml:lang="it">Pacco personalizzato</value>
+    </property>
+    <property key="FacilityShipmentFedexRateEstimateTemplateLocation">
+        <value xml:lang="en">Rate Estimate Template Location</value>
+        <value xml:lang="it">Posizione template stima spedizione</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateLocation">
+        <value xml:lang="en">Shipment Template Location</value>
+        <value xml:lang="it">Posizione template spedizione</value>
+    </property>
+    <property key="FacilityShipmentFedexSubscriptionTemplateLocation">
+        <value xml:lang="en">Subscription Template Location</value>
+        <value xml:lang="it">Posizione template abbonamento</value>
+    </property>
+    <property key="FacilityShipmentGatewayConfig">
+        <value xml:lang="en">Shipment Gateway Config</value>
+        <value xml:lang="it">Configurazione gateway spedizione</value>
+    </property>
+    <property key="FacilityShipmentGatewayConfigDescription">
+        <value xml:lang="en">Shipment Gateway Config Description</value>
+        <value xml:lang="it">Descrizione configurazione gateway spedizione</value>
+    </property>
+    <property key="FacilityShipmentGatewayConfigId">
+        <value xml:lang="en">Shipment Gateway Config Id</value>
+        <value xml:lang="it">Codice configurazione gateway spedizione</value>
+    </property>
+    <property key="FacilityShipmentGatewayConfigTypeDescription">
+        <value xml:lang="en">Shipment Gateway Config Type Description</value>
+        <value xml:lang="it">Descrizione tipo configurazione gateway spedizione</value>
+    </property>
+    <property key="FacilityShipmentGatewayConfigTypeId">
+        <value xml:lang="en">Shipment Gateway Config Type Id</value>
+        <value xml:lang="it">Tipo configurazione gateway spedizione</value>
+    </property>
+    <property key="FacilityShipmentGatewayConfigTypes">
+        <value xml:lang="en">Shipment Gateway Config Types</value>
+        <value xml:lang="it">Tipi configurazione gateway spedizione</value>
+    </property>
+    <property key="FacilityShipmentServiceName">
+        <value xml:lang="en">Shipment Service Name (deprecated use)</value>
+        <value xml:lang="it">Nome servizio spedizione (uso deprecato)</value>
+    </property>
+    <property key="FacilityShipmentUpsAccessLicenseNumber">
+        <value xml:lang="en">Access License Number</value>
+        <value xml:lang="it">Numero licenza d'accesso</value>
+    </property>
+    <property key="FacilityShipmentUpsAccessPassword">
+        <value xml:lang="en">Access Password</value>
+        <value xml:lang="it">Password d'accesso</value>
+    </property>
+    <property key="FacilityShipmentUpsAccessUserId">
+        <value xml:lang="en">Access User Id</value>
+        <value xml:lang="it">Id utente d'accesso</value>
+    </property>
+    <property key="FacilityShipmentUpsAllowCod">
+        <value xml:lang="en">Allow Cash On Delivery</value>
+        <value xml:lang="it">Permetti pagamento in contanti alla consegna</value>
+    </property>
+    <property key="FacilityShipmentUpsBillShipperAccountNumber">
+        <value xml:lang="en">Bill Shipper Account Number</value>
+        <value xml:lang="it">Numero conto fatturazione/spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsConnectTimeout">
+        <value xml:lang="en">Conntect Timeout</value>
+        <value xml:lang="it">Timeout connessione a UPS</value>
+    </property>
+    <property key="FacilityShipmentUpsConnectUrl">
+        <value xml:lang="en">Conntect URL</value>
+        <value xml:lang="it">URL Connessione a UPS</value>
+    </property>
+    <property key="FacilityShipmentUpsDefaultReturnLabelMemo">
+        <value xml:lang="en">Default Return Label Memo</value>
+        <value xml:lang="it">Email e memo di default sull'etichetta del reso</value>
+    </property>
+    <property key="FacilityShipmentUpsDefaultReturnLabelSubject">
+        <value xml:lang="en">Default Return Label Subject</value>
+        <value xml:lang="it">Soggetto di default sull'etichetta del reso</value>
+    </property>
+    <property key="FacilityShipmentUpsFundsCode">
+        <value xml:lang="en">Funds for Cash on Delivery</value>
+        <value xml:lang="it">Fondi per il pagamento in contanti alla consegna</value>
+    </property>
+    <property key="FacilityShipmentUpsMaxEstimateWeight">
+        <value xml:lang="en">Max weight per package</value>
+        <value xml:lang="it">Peso massimo per pacco</value>
+    </property>
+    <property key="FacilityShipmentUpsMinEstimateWeight">
+        <value xml:lang="en">Minimum weight for a package</value>
+        <value xml:lang="it">Peso minimo per un pacco</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupAirServiceCenter">
+        <value xml:lang="en">Air Service Center</value>
+        <value xml:lang="it">Prelievo per centro servizio aereo</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupCustomerCounter">
+        <value xml:lang="en">Customer Counter</value>
+        <value xml:lang="it">Bancone del cliente</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupDaily">
+        <value xml:lang="en">Daily Pickup</value>
+        <value xml:lang="it">Prelievo giornaliero</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupLetterCenter">
+        <value xml:lang="en">Letter Center</value>
+        <value xml:lang="it">Centro di prelievo</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupOnCallAir">
+        <value xml:lang="en">On Call Air Pickup</value>
+        <value xml:lang="it">Prelievo aereo a chiamata</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupOneTime">
+        <value xml:lang="en">One Time Pickup</value>
+        <value xml:lang="it">Prelievo in una volta</value>
+    </property>
+    <property key="FacilityShipmentUpsPickupSuggestedRetailRates">
+        <value xml:lang="en">Suggested Retail Rates</value>
+        <value xml:lang="it">Costo suggerito al dettaglio</value>
+    </property>
+    <property key="FacilityShipmentUpsSaveCertInfo">
+        <value xml:lang="en">Save Cert Info</value>
+        <value xml:lang="it">Salva informazioni certificato</value>
+    </property>
+    <property key="FacilityShipmentUpsSaveCertPath">
+        <value xml:lang="en">Save Cert Path</value>
+        <value xml:lang="it">Path certificato</value>
+    </property>
+    <property key="FacilityShipmentUpsSecuredFundsOnly">
+        <value xml:lang="en">Secured Funds Only</value>
+        <value xml:lang="it">Solo fondi sicuri</value>
+    </property>
+    <property key="FacilityShipmentUpsShipperNumber">
+        <value xml:lang="en">Shipper Number</value>
+        <value xml:lang="it">Numero spedizioniere</value>
+    </property>
+    <property key="FacilityShipmentUpsShipperPickupType">
+        <value xml:lang="en">Shipper Pickup Type</value>
+        <value xml:lang="it">Tipo prelievo spedizioniere</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeAll">
+        <value xml:lang="en">Surcharge amount will be applied to each shipment package</value>
+        <value xml:lang="it">Importo supplementare sar√† applicato ad ogni pacco di spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeAmount">
+        <value xml:lang="en">Surcharge Amount for Cash On Delivery</value>
+        <value xml:lang="it">Importo supplementare per pagamento in contanti alla consegna</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeApplyToPackage">
+        <value xml:lang="en">Surcharge Apply to Package</value>
+        <value xml:lang="it">Applica importo supplementare al pacco</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeCurrencyUomId">
+        <value xml:lang="en">Surcharge Currency</value>
+        <value xml:lang="it">Valuta importo supplementare</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeFirst">
+        <value xml:lang="en">Surcharge amount will be applied to the first package in the shipment</value>
+        <value xml:lang="it">Importo supplementare sar√† applicato al primo pacco di spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeNone">
+        <value xml:lang="en">Surcharge will not be applied to any packages </value>
+        <value xml:lang="it">Importo supplementare non sar√† applicato a nessun pacco della spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeSplit">
+        <value xml:lang="en">Surcharge amount will be split between shipment packages</value>
+        <value xml:lang="it">Importo supplementare sar√† suddiviso fra i pacchi della spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsUnsecuredFundsAllowed">
+        <value xml:lang="en">Unsecured Funds Allowed</value>
+        <value xml:lang="it">Consentiti fondi non sicuri</value>
+    </property>
+    <property key="FacilityShipmentUspsAccessPassword">
+        <value xml:lang="en">Access Password</value>
+        <value xml:lang="it">Password d'accesso</value>
+    </property>
+    <property key="FacilityShipmentUspsAccessUserId">
+        <value xml:lang="en">Access User Id</value>
+        <value xml:lang="it">Id utente d'accesso</value>
+    </property>
+    <property key="FacilityShipmentUspsConnectTimeout">
+        <value xml:lang="en">Conntect Timeout</value>
+        <value xml:lang="it">Timeout connessione a USPS</value>
+    </property>
+    <property key="FacilityShipmentUspsConnectUrl">
+        <value xml:lang="en">Conntect URL</value>
+        <value xml:lang="it">URL Connessione a USPS</value>
+    </property>
+    <property key="FacilityShipmentUspsMaxEstimateWeight">
+        <value xml:lang="en">Estimate split into packages</value>
+        <value xml:lang="it">Stima spezzatura pacchi</value>
     </property>
     <property key="FacilityShipments">
         <value xml:lang="de">Auslieferungen</value>
@@ -2146,6 +2502,9 @@
         <value xml:lang="th">หมายเลขนำหน้ารายการสั่งซื้อ</value>
         <value xml:lang="zh">订单编号前缀</value>
     </property>
+    <property key="FormFieldTitle_orderPickSheetPrintedDate">
+        <value xml:lang="en">Pick Sheet Printed Date</value>
+    </property>
     <property key="FormFieldTitle_orderPricePercent">
         <value xml:lang="de">Auftragspreis Prozent</value>
         <value xml:lang="en">Order Price Percent</value>
@@ -2153,7 +2512,7 @@
         <value xml:lang="fr">Pourcentage du prix de commande</value>
         <value xml:lang="it">Percentual Prezzo Ordine</value>
         <value xml:lang="ru">Процент цены заказа</value>
-        <value xml:lang="th">เปอร์เซ็นราคารายการสั่งซื้อ</value>
+        <value xml:lang="th">เปอร์เซ็นราคารายการสั่งซ&#139;ื้อ</value>
     </property>
     <property key="FormFieldTitle_orderQtyIncrements">
         <value xml:lang="de">Auftragsmenge Erhöhungen</value>
@@ -2165,9 +2524,6 @@
         <value xml:lang="ru">Шаг увеличения кол-ва в заказе</value>
         <value xml:lang="th">การเพิ่มจำนวนรายการสั่งซื้อ</value>
         <value xml:lang="zh">订单数量增加</value>
-    </property>
-    <property key="FormFieldTitle_orderPickSheetPrintedDate">
-        <value xml:lang="en">Pick Sheet Printed Date</value>
     </property>
     <property key="FormFieldTitle_originatedFromPartyId">
         <value xml:lang="de">Herkunft von Akteur ID</value>
@@ -2367,6 +2723,12 @@
         <value xml:lang="th">รหัสกลุ่มคลังสินค้าขั้นพื้นฐาน</value>
         <value xml:lang="zh">主要店铺组标识</value>
     </property>
+    <property key="FormFieldTitle_printPickSheet">
+        <value xml:lang="en">Print Pick Sheet</value>
+    </property>
+    <property key="FormFieldTitle_printPickSheetFirst">
+        <value xml:lang="en">Print First</value>
+    </property>
     <property key="FormFieldTitle_prodCatContentTypeId">
         <value xml:lang="de">Produktkategorie Inhalt Typ ID</value>
         <value xml:lang="en">Prod Cat Content Type Id</value>
@@ -2439,12 +2801,6 @@
         <value xml:lang="ru">Тип конф. поз. продукта</value>
         <value xml:lang="th">ประเภทรายการสร้างสินค้า</value>
         <value xml:lang="zh">产品配置明细类型</value>
-    </property>
-    <property key="FormFieldTitle_printPickSheet">
-        <value xml:lang="en">Print Pick Sheet</value>
-    </property>
-    <property key="FormFieldTitle_printPickSheetFirst">
-        <value xml:lang="en">Print First</value>
     </property>
     <property key="FormFieldTitle_productContentTypeId">
         <value xml:lang="de">Produkt Inhalt Typ ID</value>
@@ -5304,6 +5660,14 @@
         <value xml:lang="fr">Inventaire d'un article</value>
         <value xml:lang="it">Ricerca prodotti in stock</value>
     </property>
+    <property key="PageTitleFindShipmentGatewayConfig">
+        <value xml:lang="en">Find Shipment Gateway Config</value>
+        <value xml:lang="it">Ricerca configurazione gateway spedizione</value>
+    </property>
+    <property key="PageTitleFindShipmentGatewayConfigTypes">
+        <value xml:lang="en">Find Shipment Gateway Config Types</value>
+        <value xml:lang="it">Ricerca tipi configurazione gateway spedizione</value>
+    </property>
     <property key="PageTitleFindSubscription">
         <value xml:lang="de">Abonnemente suchen</value>
         <value xml:lang="en">Find Subscription</value>
@@ -5692,6 +6056,30 @@
         <value xml:lang="ru">Переместить позицию реестра</value>
         <value xml:lang="th">การเปลี่ยนรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">转运库存明细</value>
+    </property>
+    <property key="PageTitleUpdateShipmentGatewayConfig">
+        <value xml:lang="en">Update Shipment Gateway Config</value>
+        <value xml:lang="it">Aggiorna configurazione gateway spedizione</value>
+    </property>
+    <property key="PageTitleUpdateShipmentGatewayConfigDhl">
+        <value xml:lang="en">Update Shipment Gateway Config DHL</value>
+        <value xml:lang="it">Aggiorna configurazione gateway spedizione DHL</value>
+    </property>
+    <property key="PageTitleUpdateShipmentGatewayConfigFedex">
+        <value xml:lang="en">Update Shipment Gateway Config FedEx</value>
+        <value xml:lang="it">Aggiorna configurazione gateway spedizione FedEx</value>
+    </property>
+    <property key="PageTitleUpdateShipmentGatewayConfigType">
+        <value xml:lang="en">Update Shipment Gateway Config Type</value>
+        <value xml:lang="it">Aggiorna tipo configurazione gateway spedizione</value>
+    </property>
+    <property key="PageTitleUpdateShipmentGatewayConfigUps">
+        <value xml:lang="en">Update Shipment Gateway Config UPS</value>
+        <value xml:lang="it">Aggiorna configurazione gateway spedizione UPS</value>
+    </property>
+    <property key="PageTitleUpdateShipmentGatewayConfigUsps">
+        <value xml:lang="en">Update Shipment Gateway Config USPS</value>
+        <value xml:lang="it">Aggiorna configurazione gateway spedizione USPS</value>
     </property>
     <property key="PageTitleViewFacilityContactMechanism">
         <value xml:lang="de">Einrichtungs-Kontaktmechanismus anzeigen für ${facility.facilityName} [${facility.facilityId}]</value>
@@ -7209,9 +7597,6 @@
         <value xml:lang="th">ราคาพื้นฐาน</value>
         <value xml:lang="zh">价格底线</value>
     </property>
-    <property key="ProductBestSellingProductsOf">
-        <value xml:lang="en">Best Selling Products of</value>
-    </property>
     <property key="ProductBeTheFirstToReviewThisProduct">
         <value xml:lang="cs">Staňte se prvním, kdo zhodnotí tetnto výrobek</value>
         <value xml:lang="de">Seien Sie der Erste, der dieses Produkt beurteilt!</value>
@@ -7226,6 +7611,9 @@
         <value xml:lang="ru">Первыми оставьте отзыв о этом продукте!</value>
         <value xml:lang="th">กลับไปดูสินค้านี้ก่อน!</value>
         <value xml:lang="zh">做这个产品的第一个评论者</value>
+    </property>
+    <property key="ProductBestSellingProductsOf">
+        <value xml:lang="en">Best Selling Products of</value>
     </property>
     <property key="ProductBillingWeightUom">
         <value xml:lang="de">Verrechnung Gewicht Einheit</value>
@@ -8820,6 +9208,10 @@
         <value xml:lang="en">Current package sequence</value>
         <value xml:lang="fr">Séquence d'empaquetage actuelle</value>
     </property>
+    <property key="ProductCustomMethod">
+        <value xml:lang="en">Custom Method</value>
+        <value xml:lang="it">Metodo personalizzato pagamento</value>
+    </property>
     <property key="ProductCustomer">
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
@@ -8829,10 +9221,6 @@
         <value xml:lang="ru">Заказчик</value>
         <value xml:lang="th">ลุกค้า</value>
         <value xml:lang="zh">客户</value>
-    </property>
-    <property key="ProductCustomMethod">
-        <value xml:lang="en">Custom Method</value>
-        <value xml:lang="it">Metodo personalizzato pagamento</value>
     </property>
     <property key="ProductCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
@@ -10881,6 +11269,17 @@
         <value xml:lang="ru">Нисходящий</value>
         <value xml:lang="th">สูงถึงต่ำ</value>
         <value xml:lang="zh">从高到低</value>
+    </property>
+    <property key="ProductHighlightedExplanation">
+        <value xml:lang="de"> Datum/Zeit Angaben sind rot markiert wenn die aktuelle Zeit vor dem Von Datum oder nach dem Bis Datum ist. Wenn das Von Datum rot ist, ist die Zuordnung noch nicht aktiv; falls das Bis Datum rot ist, ist die Zuordnung abgelaufen (und sollte vermutlich gelöscht werden).</value>
+        <value xml:lang="en"> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is red, association has not started yet; if Thru Date is red, association has expired (and should probably be deleted).</value>
+        <value xml:lang="es"> entrades de fecha/hora indican que la hora actual es anterior a la Fecha de Inicio o después de la Fecha de Fin. Si la fecha de inicio es red, la asociación no ha comenzado aún; si la fecha de fin es red, la asociación ha expirado (y probablemente debe ser eliminada).</value>
+        <value xml:lang="fr"> date/heure sont notées en rouge lorsque l'heure précède la date de début ou dépasse la date de fin. Si la date de début est en rouge, l'association n'a pas pu encore débuter ; si la date de fin est en rouge, l'association a déjà expiré (et il faudra sûrement la supprimer).</value>
+        <value xml:lang="it"> voci data/ora denotano che l'ora attuale è prima della Data Da o dopo la Data A. Se la Data Da è rossa, associazione non è stata ancora iniziata; se la Data A è rosso, associazione è scaduta (e dovrebbe essere probabilmente cancellata).</value>
+        <value xml:lang="ro"> data/ora de culoare Rosie arata ca ora curenta este inainte de Data De La sau dupa Data Pina La. Daca Data De La este de culoare rosie, asocierea nu a fost inca initiata; daca Data Pina la este rosie, asocierea este expirata (si ar trebui sa fie probabil stearsa).</value>
+        <value xml:lang="ru"> цвет даты/времени означает что текущее время имеет значение более раннее чем 'От даты' или позднее 'По дату'. Если 'С даты' красного цвета, ассоциация еще не действует; если красным выделена 'По дату', ассоциация устарела (и ее вероятно можно удалить).</value>
+        <value xml:lang="th"> วัน/เวลา กรอกข้อมูลบ่งชี้ถึงแนวโน้มเวลาก่อนจากวันที่หรือหลังถึงวันที่. ถ้าก่อนวันที่คือ แดง, กลุ่มไม่เริ่ม; ถ้าถึงวันที่คือ แดง, กลุ่มหมดอายุ (แลบางทีควรจะลบ).</value>
+        <value xml:lang="zh"> 日期/时间记录表示当前时间在开始日期之前或结束日期之后。如果开始日期是红色， 那么关联还没有开始；如果结束日期是红色， 那么关联已经过期了 (并且可能应该删除)。</value>
     </property>
     <property key="ProductHost">
         <value xml:lang="de">Server</value>
@@ -16498,17 +16897,6 @@
         <value xml:lang="ru">(Чтобы это изменить вы должны повторно создать ассоциацию.)</value>
         <value xml:lang="th">(คุณต้องสร้างกลุ่มถึงการเปลี่ยนแปลงนี้อีกครั้ง)</value>
         <value xml:lang="zh">(要修改这个，你必须重新创建关联。)</value>
-    </property>
-    <property key="ProductHighlightedExplanation">
-        <value xml:lang="de"> Datum/Zeit Angaben sind rot markiert wenn die aktuelle Zeit vor dem Von Datum oder nach dem Bis Datum ist. Wenn das Von Datum rot ist, ist die Zuordnung noch nicht aktiv; falls das Bis Datum rot ist, ist die Zuordnung abgelaufen (und sollte vermutlich gelöscht werden).</value>
-        <value xml:lang="en"> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is red, association has not started yet; if Thru Date is red, association has expired (and should probably be deleted).</value>
-        <value xml:lang="es"> entrades de fecha/hora indican que la hora actual es anterior a la Fecha de Inicio o después de la Fecha de Fin. Si la fecha de inicio es red, la asociación no ha comenzado aún; si la fecha de fin es red, la asociación ha expirado (y probablemente debe ser eliminada).</value>
-        <value xml:lang="fr"> date/heure sont notées en rouge lorsque l'heure précède la date de début ou dépasse la date de fin. Si la date de début est en rouge, l'association n'a pas pu encore débuter ; si la date de fin est en rouge, l'association a déjà expiré (et il faudra sûrement la supprimer).</value>
-        <value xml:lang="it"> voci data/ora denotano che l'ora attuale è prima della Data Da o dopo la Data A. Se la Data Da è rossa, associazione non è stata ancora iniziata; se la Data A è rosso, associazione è scaduta (e dovrebbe essere probabilmente cancellata).</value>
-        <value xml:lang="ro"> data/ora de culoare Rosie arata ca ora curenta este inainte de Data De La sau dupa Data Pina La. Daca Data De La este de culoare rosie, asocierea nu a fost inca initiata; daca Data Pina la este rosie, asocierea este expirata (si ar trebui sa fie probabil stearsa).</value>
-        <value xml:lang="ru"> цвет даты/времени означает что текущее время имеет значение более раннее чем 'От даты' или позднее 'По дату'. Если 'С даты' красного цвета, ассоциация еще не действует; если красным выделена 'По дату', ассоциация устарела (и ее вероятно можно удалить).</value>
-        <value xml:lang="th"> วัน/เวลา กรอกข้อมูลบ่งชี้ถึงแนวโน้มเวลาก่อนจากวันที่หรือหลังถึงวันที่. ถ้าก่อนวันที่คือ แดง, กลุ่มไม่เริ่ม; ถ้าถึงวันที่คือ แดง, กลุ่มหมดอายุ (แลบางทีควรจะลบ).</value>
-        <value xml:lang="zh"> 日期/时间记录表示当前时间在开始日期之前或结束日期之后。如果开始日期是红色， 那么关联还没有开始；如果结束日期是红色， 那么关联已经过期了 (并且可能应该删除)。</value>
     </property>
     <property key="ProductRefineSearch">
         <value xml:lang="cs">Detailní hledání</value>

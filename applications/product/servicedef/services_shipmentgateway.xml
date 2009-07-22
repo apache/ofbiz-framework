@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Accounting Shipment Gateway Config Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <!-- Shipment Gateway Config Method services -->
+    <service name="updateShipmentGatewayConfig" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfig">
+        <description>Update Shipment Gateway Config</description>
+        <auto-attributes entity-name="ShipmentGatewayConfig" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateShipmentGatewayConfigDhl" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigDhl">
+        <description>Update Shipment Gateway Config DHL</description>
+        <auto-attributes entity-name="ShipmentGatewayDhl" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayDhl" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateShipmentGatewayConfigFedex" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigFedex">
+        <description>Update Shipment Gateway Config FedEx</description>
+        <auto-attributes entity-name="ShipmentGatewayFedex" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayFedex" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateShipmentGatewayConfigUps" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUps">
+        <description>Update Shipment Gateway Config UPS</description>
+        <auto-attributes entity-name="ShipmentGatewayUps" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayUps" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateShipmentGatewayConfigUsps" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUsps">
+        <description>Update Shipment Gateway Config USPS</description>
+        <auto-attributes entity-name="ShipmentGatewayUsps" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayUsps" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateShipmentGatewayConfigType" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigType">
+        <description>Update Shipment Gateway Config Type</description>
+        <auto-attributes entity-name="ShipmentGatewayConfigType" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayConfigType" include="nonpk" mode="IN" optional="true"/>
+    </service>
+</services>

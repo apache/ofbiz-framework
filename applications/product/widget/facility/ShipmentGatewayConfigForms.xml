@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    
+    <!-- form whose input filters the FindPaymentGatewayConfig -->
+    <form name="FindShipmentGatewayConfig" type="single" target="FindShipmentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
+        <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ShipmentGatewayConfigType" description="${description}" key-field-name="shipmentGatewayConfTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="performSearch"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="ListShipmentGatewayConfig" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="ShipmentGatewayConfig"/>
+                <field-map field-name="orderBy" value="description"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="ShipmentGatewayConfig" default-field-type="display"/>
+        <field name="shipmentGatewayConfigId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}">
+            <hyperlink description="${description}" target="EditShipmentGatewayConfig?shipmentGatewayConfigId=${shipmentGatewayConfigId}"/>
+        </field>
+        <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}">
+            <display-entity entity-name="ShipmentGatewayConfigType" key-field-name="shipmentGatewayConfTypeId" description="${description}"/>
+        </field>
+    </form>
+    
+    <form name="EditShipmentGatewayConfig" type="single" target="UpdateShipmentGatewayConfig" default-map-name="shipmentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
+        <field name="shipmentGatewayConfigId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text size="60" maxlength="60"/></field>
+        <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}">
+            <display-entity entity-name="ShipmentGatewayConfigType" key-field-name="shipmentGatewayConfTypeId" description="${description}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="EditShipmentGatewayConfigDhl" type="single" target="UpdateShipmentGatewayConfigDhl" default-map-name="shipmentGatewayDhl" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ShipmentGatewayDhl" default-field-type="edit"/>
+        <field name="shipmentGatewayConfigId"><hidden/></field>
+        <field name="connectUrl" title="${uiLabelMap.FacilityShipmentDhlConnectUrl}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="connectTimeout" title="${uiLabelMap.FacilityShipmentDhlConnectTimeout}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="headVersion" title="${uiLabelMap.FacilityShipmentDhlHeadVersion}">
+            <text size="5" maxlength="5"/>
+        </field>
+        <field name="headAction" title="${uiLabelMap.FacilityShipmentDhlHeadAction}">
+            <drop-down>
+                <option key="Request" description="${uiLabelMap.FacilityShipmentDhlHeadActionRequest}"/>
+            </drop-down>
+        </field>
+        <field name="accessUserId" title="${uiLabelMap.FacilityShipmentDhlAccessUserId}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="accessPassword" title="${uiLabelMap.FacilityShipmentDhlAccessPassword}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="accessAccountNbr" title="${uiLabelMap.FacilityShipmentDhlAccessAccountNbr}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="accessShippingKey" title="${uiLabelMap.FacilityShipmentDhlAccessShippingKey}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="labelImageFormat" title="${uiLabelMap.FacilityShipmentDhlLabelImageFormat}">
+            <drop-down>
+                <option key="PNG" description="${uiLabelMap.FacilityShipmentDhlLabelImageFormatPng}"/>
+            </drop-down>
+        </field>
+        <field name="rateEstimateTemplate" title="${uiLabelMap.FacilityShipmentDhlRateEstimate}">
+            <drop-down>
+                <option key="api.schema.DHL" description="${uiLabelMap.FacilityShipmentDhlRateEstimate}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="EditShipmentGatewayConfigFedex" type="single" target="UpdateShipmentGatewayConfigFedex" default-map-name="shipmentGatewayFedex" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ShipmentGatewayFedex" default-field-type="edit"/>
+        <field name="shipmentGatewayConfigId"><hidden/></field>
+        <field name="connectUrl" title="${uiLabelMap.FacilityShipmentFedexConnectUrl}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="connectSoapUrl" title="${uiLabelMap.FacilityShipmentFedexConnectSoapUrl}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="connectTimeout" title="${uiLabelMap.FacilityShipmentFedexConnectTimeout}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="accessAccountNbr" title="${uiLabelMap.FacilityShipmentFedexAccessAccountNumber}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessMeterNumber" title="${uiLabelMap.FacilityShipmentFedexAccessMeterNumber}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessUserKey" title="${uiLabelMap.FacilityShipmentFedexAccessUserKey}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessUserPwd" title="${uiLabelMap.FacilityShipmentFedexAccessUserPwd}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="labelImageType" title="${uiLabelMap.FacilityShipmentFedexLabelImageType}">
+            <drop-down>
+                <option key="PDF" description="${uiLabelMap.FacilityShipmentFedexLabelImageTypePdf}"/>
+                <option key="PNG" description="${uiLabelMap.FacilityShipmentFedexLabelImageTypePng}"/>
+            </drop-down>
+        </field>
+        <field name="defaultDropoffType" title="${uiLabelMap.FacilityShipmentFedexDropoffType}">
+            <drop-down>
+                <option key="REGULARPICKUP" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeRegularPickup}"/>
+                <option key="REQUESTCOURIER" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeRequestCourier}"/>
+                <option key="DROPBOX" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeDropBox}"/>
+                <option key="BUSINESSSERVICECTR" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeBusinessService}"/>
+                <option key="STATION" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeStation}"/>
+            </drop-down>
+        </field>
+        <field name="defaultPackagingType" title="${uiLabelMap.FacilityShipmentFedexPackingType}">
+            <drop-down>
+                <option key="FXENV" description="${uiLabelMap.FacilityShipmentFedexPackingEnveloper}"/>
+                <option key="FXENV_LGL" description="${uiLabelMap.FacilityShipmentFedexPackingEnveloperLegal}"/>
+                <option key="FXPAK_SM" description="${uiLabelMap.FacilityShipmentFedexPackingPakSmall}"/>
+                <option key="FXPAK_LRG" description="${uiLabelMap.FacilityShipmentFedexPackingPakLarge}"/>
+                <option key="FXBOX_SM" description="${uiLabelMap.FacilityShipmentFedexPackingBoxSmall}"/>
+                <option key="FXBOX_MED" description="${uiLabelMap.FacilityShipmentFedexPackingBoxMedium}"/>
+                <option key="FXBOX_LRG" description="${uiLabelMap.FacilityShipmentFedexPackingBoxLarge}"/>
+                <option key="FXTUBE" description="${uiLabelMap.FacilityShipmentFedexPackingTube}"/>
+                <option key="FX10KGBOX" description="${uiLabelMap.FacilityShipmentFedexPackingBox10Kg}"/>
+                <option key="FX25KGBOX" description="${uiLabelMap.FacilityShipmentFedexPackingBox25Kg}"/>
+                <option key="YOURPACKNG" description="${uiLabelMap.FacilityShipmentFedexPackingYour}"/>
+            </drop-down>
+        </field>
+        <field name="templateShipment" title="${uiLabelMap.FacilityShipmentFedexShipmentTemplateLocation}">
+            <text size="80" maxlength="80"/>
+        </field>
+        <field name="templateSubscription" title="${uiLabelMap.FacilityShipmentFedexSubscriptionTemplateLocation}">
+            <text size="80" maxlength="80"/>
+        </field>
+        <field name="rateEstimateTemplate" title="${uiLabelMap.FacilityShipmentFedexRateEstimateTemplateLocation}">
+            <text size="80" maxlength="80"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="EditShipmentGatewayConfigUps" type="single" target="UpdateShipmentGatewayConfigUps" default-map-name="shipmentGatewayUps" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ShipmentGatewayUps" default-field-type="edit"/>
+        <field name="shipmentGatewayConfigId"><hidden/></field>
+        <field name="connectUrl" title="${uiLabelMap.FacilityShipmentUpsConnectUrl}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="connectTimeout" title="${uiLabelMap.FacilityShipmentUpsConnectTimeout}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="shipperNumber" title="${uiLabelMap.FacilityShipmentUpsShipperNumber}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="billShipperAccountNumber" title="${uiLabelMap.FacilityShipmentUpsBillShipperAccountNumber}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessLicenseNumber" title="${uiLabelMap.FacilityShipmentUpsAccessLicenseNumber}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessUserId" title="${uiLabelMap.FacilityShipmentUpsAccessUserId}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessPassword" title="${uiLabelMap.FacilityShipmentUpsAccessPassword}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="saveCertInfo" title="${uiLabelMap.FacilityShipmentUpsSaveCertInfo}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="saveCertPath" title="${uiLabelMap.FacilityShipmentUpsSaveCertPath}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="shipperPickupType" title="${uiLabelMap.FacilityShipmentUpsShipperPickupType}">
+            <drop-down>
+                <option key="01" description="${uiLabelMap.FacilityShipmentUpsPickupDaily}"/>
+                <option key="03" description="${uiLabelMap.FacilityShipmentUpsPickupCustomerCounter}"/>
+                <option key="06" description="${uiLabelMap.FacilityShipmentUpsPickupOneTime}"/>
+                <option key="07" description="${uiLabelMap.FacilityShipmentUpsPickupOnCallAir}"/>
+                <option key="11" description="${uiLabelMap.FacilityShipmentUpsPickupSuggestedRetailRates}"/>
+                <option key="19" description="${uiLabelMap.FacilityShipmentUpsPickupLetterCenter}"/>
+                <option key="20" description="${uiLabelMap.FacilityShipmentUpsPickupAirServiceCenter}"/>
+            </drop-down>
+        </field>
+        <field name="maxEstimateWeight" title="${uiLabelMap.FacilityShipmentUpsMaxEstimateWeight}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="minEstimateWeight" title="${uiLabelMap.FacilityShipmentUpsMinEstimateWeight}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="codAllowCod" title="${uiLabelMap.FacilityShipmentUpsAllowCod}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="codSurchargeAmount" title="${uiLabelMap.FacilityShipmentUpsSurchargeAmount}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="codSurchargeCurrencyUomId" title="${uiLabelMap.FacilityShipmentUpsSurchargeCurrencyUomId}">
+            <text size="3" maxlength="3"/>
+        </field>
+        <field name="codSurchargeApplyToPackage" title="${uiLabelMap.FacilityShipmentUpsSurchargeApplyToPackage}">
+            <drop-down>
+                <option key="all" description="${uiLabelMap.FacilityShipmentUpsSurchargeAll}"/>
+                <option key="first" description="${uiLabelMap.FacilityShipmentUpsSurchargeFirst}"/>
+                <option key="split" description="${uiLabelMap.FacilityShipmentUpsSurchargeSplit}"/>
+                <option key="none" description="${uiLabelMap.FacilityShipmentUpsSurchargeNone}"/>
+            </drop-down>
+        </field>
+        <field name="codFundsCode" title="${uiLabelMap.FacilityShipmentUpsFundsCode}">
+            <drop-down>
+                <option key="0" description="${uiLabelMap.FacilityShipmentUpsUnsecuredFundsAllowed}"/>
+                <option key="8" description="${uiLabelMap.FacilityShipmentUpsSecuredFundsOnly}"/>
+            </drop-down>
+        </field>
+        <field name="defaultReturnLabelMemo" title="${uiLabelMap.FacilityShipmentUpsDefaultReturnLabelMemo}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="defaultReturnLabelSubject" title="${uiLabelMap.FacilityShipmentUpsDefaultReturnLabelSubject}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="EditShipmentGatewayConfigUsps" type="single" target="UpdateShipmentGatewayConfigUsps" default-map-name="shipmentGatewayUsps" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ShipmentGatewayUsps" default-field-type="edit"/>
+        <field name="shipmentGatewayConfigId"><hidden/></field>
+        <field name="connectUrl" title="${uiLabelMap.FacilityShipmentUspsConnectUrl}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="connectTimeout" title="${uiLabelMap.FacilityShipmentUspsConnectTimeout}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="accessUserId" title="${uiLabelMap.FacilityShipmentUspsAccessUserId}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="accessPassword" title="${uiLabelMap.FacilityShipmentUspsAccessPassword}">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="maxEstimateWeight" title="${uiLabelMap.FacilityShipmentUspsMaxEstimateWeight}">
+            <text size="9" maxlength="9"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="FindShipmentGatewayConfigTypes" type="single" target="FindShipmentGatewayConfigTypes" header-row-style="header-row" default-table-style="basic-table">
+        <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="performSearch"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="ListShipmentGatewayConfigTypes" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="ShipmentGatewayConfigType"/>
+                <field-map field-name="orderBy" value="description DESC"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="ShipmentGatewayConfigType" default-field-type="display"/>
+        <field name="shipmentGatewayConfTypeId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeDescription}">
+            <hyperlink description="${description}" target="EditShipmentGatewayConfigType?shipmentGatewayConfTypeId=${shipmentGatewayConfTypeId}"/>
+        </field>
+    </form>
+    
+    <form name="EditShipmentGatewayConfigType" type="single" target="UpdateShipmentGatewayConfigType" default-map-name="shipmentGatewayConfigType" header-row-style="header-row" default-table-style="basic-table">
+        <field name="shipmentGatewayConfTypeId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeDescription}"><text size="60" maxlength="60"/></field>
+        <field name="parentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ShipmentGatewayConfigType" description="${description}" key-field-name="shipmentGatewayConfTypeId">
+                    <entity-constraint name="shipmentGatewayConfTypeId" operator="not-equals" env-name="shipmentGatewayConfTypeId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="hasTable">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+</forms>

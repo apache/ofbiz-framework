@@ -1220,8 +1220,61 @@ under the License.
         <response name="success" type="view" value="FacilityLocationGeoLocation"/>
         <response name="error" type="view" value="EditFacility"/>
     </request-map>
-
-
+    
+    <!-- Shipment Gateway Config --> 
+    <request-map uri="FindShipmentGatewayConfig">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="EditShipmentGatewayConfig">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="UpdateShipmentGatewayConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentGatewayConfig"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
+        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="UpdateShipmentGatewayConfigDhl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentGatewayConfigDhl"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
+        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="UpdateShipmentGatewayConfigFedex">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentGatewayConfigFedex"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
+        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="UpdateShipmentGatewayConfigUps">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentGatewayConfigUps"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
+        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="UpdateShipmentGatewayConfigUsps">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentGatewayConfigUsps"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
+        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
+    </request-map>
+    <request-map uri="FindShipmentGatewayConfigTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindShipmentGatewayConfigTypes"/>
+    </request-map>
+    <request-map uri="EditShipmentGatewayConfigType">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfigType"/>
+    </request-map>
+    <request-map uri="UpdateShipmentGatewayConfigType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentGatewayConfigType"/>
+        <response name="success" type="view" value="EditShipmentGatewayConfigType"/>
+        <response name="error" type="view" value="EditShipmentGatewayConfigType"/>
+    </request-map>
+    
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
     <request-map uri="LookupPurchaseOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupPurchaseOrderHeaderAndShipInfo"/></request-map>
@@ -1330,5 +1383,11 @@ under the License.
     <view-map name="LookupProductInventoryLocation" page="component://product/widget/facility/LookupScreens.xml#LookupProductInventoryLocation" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupInventoryItem" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupInventoryItem"/>
+    
+    <!-- Shipment Gateway Config -->
+    <view-map name="FindShipmentGatewayConfig" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#FindShipmentGatewayConfig" type="screen"/>
+    <view-map name="EditShipmentGatewayConfig" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#EditShipmentGatewayConfig" type="screen"/>
+    <view-map name="FindShipmentGatewayConfigTypes" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#FindShipmentGatewayConfigTypes" type="screen"/>
+    <view-map name="EditShipmentGatewayConfigType" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#EditShipmentGatewayConfigType" type="screen"/>
     <!-- end of view mappings -->
 </site-conf>

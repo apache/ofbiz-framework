@@ -799,6 +799,115 @@ under the License.
         <key-map field-name="priceBreakId" rel-field-name="quantityBreakId"/>
       </relation>
     </entity>
+    <entity entity-name="ShipmentGatewayConfigType"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Gateway Config Type">
+      <field name="shipmentGatewayConfTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="shipmentGatewayConfTypeId"/>
+      <relation type="one" fk-name="SGCT_PAR" title="Parent" rel-entity-name="ShipmentGatewayConfigType">
+        <key-map field-name="parentTypeId" rel-field-name="shipmentGatewayConfTypeId"/>
+      </relation>
+      <relation type="many" title="Sibling" rel-entity-name="ShipmentGatewayConfigType">
+        <key-map field-name="parentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentGatewayConfig"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Gateway Config">
+      <field name="shipmentGatewayConfigId" type="id-ne"></field>
+      <field name="shipmentGatewayConfTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="shipmentGatewayConfigId"/>
+      <relation type="one" fk-name="SGC_SGCT" rel-entity-name="ShipmentGatewayConfigType">
+        <key-map field-name="shipmentGatewayConfTypeId" rel-field-name="shipmentGatewayConfTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentGatewayDhl"
+            package-name="org.ofbiz.shipment.shipment"
+            title="DHL Shipment Gateway Configuration">
+      <field name="shipmentGatewayConfigId" type="id-ne"></field>
+      <field name="connectUrl" type="value"><description>DHL Connection URL</description></field>
+      <field name="connectTimeout" type="numeric"><description>Timeout in seconds</description></field>
+      <field name="headVersion" type="short-varchar"><description>Head version attribute</description></field>
+      <field name="headAction" type="value"><description>Head action attribute</description></field>
+      <field name="accessUserId" type="value" encrypt="true"><description>Your DHL ShipIT User Id</description></field>
+      <field name="accessPassword" type="value" encrypt="true"><description>Your DHL ShipIT Access Password</description></field>
+      <field name="accessAccountNbr" type="value" encrypt="true"><description>Your DHL ShipIT Account Number</description></field>
+      <field name="accessShippingKey" type="value" encrypt="true"><description>Your DHL ShipIT Shipping Key</description></field>
+      <field name="labelImageFormat" type="short-varchar"><description>Label image format</description></field>
+      <field name="rateEstimateTemplate" type="value"><description>API Schema Templates</description></field>
+      <prim-key field="shipmentGatewayConfigId"/>
+      <relation type="one" fk-name="SGDHL_SGC" rel-entity-name="ShipmentGatewayConfig">
+        <key-map field-name="shipmentGatewayConfigId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentGatewayFedex"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Fedex Shipment Gateway Configuration">
+      <field name="shipmentGatewayConfigId" type="id-ne"></field>
+      <field name="connectUrl" type="value"><description>Fedex Connection URL</description></field>
+      <field name="connectSoapUrl" type="value"><description>Fedex Soap Connection URL</description></field>
+      <field name="connectTimeout" type="numeric"><description>Timeout in seconds</description></field>
+      <field name="accessAccountNbr" type="value" encrypt="true"><description>Your Fedex account number</description></field>
+      <field name="accessMeterNumber" type="value" encrypt="true"><description>Your Fedex meter number</description></field>
+      <field name="accessUserKey" type="value" encrypt="true"><description>Your Fedex user credential key</description></field>
+      <field name="accessUserPwd" type="value" encrypt="true"><description>Your Fedex user credential password</description></field>
+      <field name="labelImageType" type="short-varchar"><description>Label image type</description></field>
+      <field name="defaultDropoffType" type="value"><description>Default dropoff type</description></field>
+      <field name="defaultPackagingType" type="value"><description>Default packaging type</description></field>
+      <field name="templateShipment" type="value"><description>Shipment Template location</description></field>
+      <field name="templateSubscription" type="value"><description>Subscription Template location</description></field>
+      <field name="rateEstimateTemplate" type="value"><description>FedEx API Rate Estimate Template</description></field>
+      <prim-key field="shipmentGatewayConfigId"/>
+      <relation type="one" fk-name="SGFED_SGC" rel-entity-name="ShipmentGatewayConfig">
+        <key-map field-name="shipmentGatewayConfigId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentGatewayUps"
+            package-name="org.ofbiz.shipment.shipment"
+            title="UPS Shipment Gateway Configuration">
+      <field name="shipmentGatewayConfigId" type="id-ne"></field>
+      <field name="connectUrl" type="value"><description>UPS Connection URL</description></field>
+      <field name="connectTimeout" type="numeric"><description>Timeout in seconds</description></field>
+      <field name="shipperNumber" type="value"><description>UPS Shipper Number</description></field>
+      <field name="billShipperAccountNumber" type="value"><description>UPS Bill Shipper Account Number</description></field>
+      <field name="accessLicenseNumber" type="value" encrypt="true"><description>UPS XPCI Access License Number</description></field>
+      <field name="accessUserId" type="value" encrypt="true"><description>UPS XPCI Access User ID</description></field>
+      <field name="accessPassword" type="value" encrypt="true"><description>UPS XPCI Access Password</description></field>
+      <field name="saveCertInfo" type="short-varchar"><description>Setting to save files needed for UPS certification (true|false)</description></field>
+      <field name="saveCertPath" type="value"><description>UPS file certificate path</description></field>
+      <field name="shipperPickupType" type="short-varchar"><description>Shipper Default Pickup Type</description></field>
+      <field name="maxEstimateWeight" type="fixed-point"><description>Estimate split into packages</description></field>
+      <field name="minEstimateWeight" type="fixed-point"><description>Minimum weight for a package</description></field>
+      <field name="codAllowCod" type="value"><description>All shipment package items are from orders which have been fully paid via EXT_COD</description></field>
+      <field name="codSurchargeAmount" type="fixed-point"><description>Surcharge amount</description></field>
+      <field name="codSurchargeCurrencyUomId" type="short-varchar"><description>Surcharge currency</description></field>
+      <field name="codSurchargeApplyToPackage" type="short-varchar"><description>Surcharge amount will be applied to each shipment package</description></field>
+      <field name="codFundsCode" type="short-varchar"><description>The code that indicates the type of funds used for the COD payment</description></field>
+      <field name="defaultReturnLabelMemo" type="value"><description>Return label email memo</description></field>
+      <field name="defaultReturnLabelSubject" type="value"><description>Return label subject</description></field>
+      <prim-key field="shipmentGatewayConfigId"/>
+      <relation type="one" fk-name="SGUPS_SGC" rel-entity-name="ShipmentGatewayConfig">
+        <key-map field-name="shipmentGatewayConfigId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentGatewayUsps"
+            package-name="org.ofbiz.shipment.shipment"
+            title="USPS Shipment Gateway Configuration">
+      <field name="shipmentGatewayConfigId" type="id-ne"></field>
+      <field name="connectUrl" type="value"><description>USPS Connection URL</description></field>
+      <field name="connectTimeout" type="numeric"><description>Timeout in seconds</description></field>
+      <field name="accessUserId" type="value" encrypt="true"><description>USPS Access User ID</description></field>
+      <field name="accessPassword" type="value" encrypt="true"><description>USPS Access Password</description></field>
+      <field name="maxEstimateWeight" type="numeric"><description>Estimate split into packages</description></field>
+      <prim-key field="shipmentGatewayConfigId"/>
+      <relation type="one" fk-name="SGUSPS_SGC" rel-entity-name="ShipmentGatewayConfig">
+        <key-map field-name="shipmentGatewayConfigId"/>
+      </relation>
+    </entity>
     <entity entity-name="ShipmentItem"
             package-name="org.ofbiz.shipment.shipment"
             title="Shipment Item Entity">
