@@ -121,11 +121,6 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
-                <service service-name="getUserPreferenceGroup" result-map="prefResult">
-                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
-                </service>
-                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
-                
                 <property-map resource="general" map-name="generalProperties" global="true"/>
                 <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
