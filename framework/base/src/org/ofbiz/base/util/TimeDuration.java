@@ -288,8 +288,5 @@ public class TimeDuration implements Serializable {
         public Calendar addToCalendar(Calendar cal) {
             return cal;
         }
-        public Calendar subtractFromCalendar(Calendar cal) {
-            return cal;
-        }
     }
 }
