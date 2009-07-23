@@ -5293,6 +5293,7 @@ public class OrderServices {
         try {
             GenericValue orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId,"shipGroupSeqId",shipGroupSeqId)));
             orderItemShipGroup.set("giftMessage", giftMessage);
+            orderItemShipGroup.set("isGift", "Y");
             orderItemShipGroup.store();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
