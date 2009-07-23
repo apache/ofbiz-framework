@@ -249,7 +249,8 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>Will use the view from the last request unless there
                                 is a saved from some previous request (using the save-last-view
-                                attribute).</xs:documentation>
+                                attribute).  Use the value attribute to specify a default view
+                                in case no previous view can be retrieved.</xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="view-home">
