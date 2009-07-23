@@ -315,8 +315,7 @@ under the License.
     </service>
 
     <!-- Invoice Association Services -->
-    <service name="createInvoiceItemAssoc" default-entity-name="InvoiceItemAssoc" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceItemAssoc" auth="true">
+    <service name="createInvoiceItemAssoc" default-entity-name="InvoiceItemAssoc" engine="entity-auto" invoke="create" auth="true">
         <description>Create a InvoiceItemAssoc</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
