@@ -313,4 +313,22 @@ under the License.
         <attribute name="invoiceItemAssocTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="filteredInvoiceList" type="List" mode="OUT" optional="true"/>
     </service>
+
+    <!-- Invoice Association Services -->
+    <service name="createInvoiceItemAssoc" default-entity-name="InvoiceItemAssoc" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceItemAssoc" auth="true">
+        <description>Create a InvoiceItemAssoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateInvoiceItemAssoc" default-entity-name="InvoiceItemAssoc" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceItemAssoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceItemAssoc" default-entity-name="InvoiceItemAssoc" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceItemAssoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
