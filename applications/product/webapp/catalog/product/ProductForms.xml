@@ -1900,4 +1900,26 @@ under the License.
         <field name="amount"><display/></field>
         <field name="qtyOrdered"><display/></field>
     </form>
+
+    <form name="ListCommEvents" list-name="communicationEvents" type="list" header-row-style="header-row" default-table-style="basic-table">
+        <field name="communicationEventId" widget-style="buttontext">
+            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
+        </field>
+        <field name="subject"><display/></field>
+        <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="statusId" title="${uiLabelMap.ProductStatus}">
+            <display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+        <field name="lastUpdatedStampCE" title="Email Sent On"><display/></field>
+        <field name="contactMechIdTo" title="To Email Address">
+            <display-entity  entity-name="ContactMech" key-field-name="contactMechId" description="${infoString}"/>
+        </field>
+        <field name="content"><display/></field>
+        <field map-name="subjectMap" name="subject"><display/></field>
+    </form>
+
+    <form name="EditCommEvent" extends="EditCommEvent" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
+        <field name="productId" map-name="parameters"><hidden/></field>
+    </form>
  </forms>
