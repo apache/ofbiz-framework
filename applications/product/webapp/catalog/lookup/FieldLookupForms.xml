@@ -66,6 +66,7 @@ under the License.
     </form>
     <form name="lookupSupplierProduct" target="LookupSupplierProduct" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains"/></field>
