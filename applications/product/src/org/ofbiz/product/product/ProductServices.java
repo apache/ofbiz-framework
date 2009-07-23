@@ -329,7 +329,7 @@ public class ProductServices {
      * Gets the product features of a product.
      */
     public static Map<String, Object> prodGetFeatures(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Product ID to fond
+        // * String productId      -- Product ID to find
         // * String type           -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
         // * String distinct       -- Distinct feature (SIZE, COLOR)
         GenericDelegator delegator = dctx.getDelegator();

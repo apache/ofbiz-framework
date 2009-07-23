@@ -1052,6 +1052,104 @@ public class ProductEvents {
         }
         return Double.valueOf(doubleString);
     }
+
+    public static List<GenericValue> getProductCompareList(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object compareListObj = session.getAttribute("productCompareList");
+        List<GenericValue> compareList = null;
+        if (compareListObj == null) {
+            compareList = FastList.newInstance();
+        } else if (!(compareListObj instanceof List)) {
+            Debug.logWarning("Session attribute productCompareList contains something other than the expected product list, overwriting.", module);
+            compareList = FastList.newInstance();
+        } else {
+            compareList = (List) compareListObj;
+        }
+        return compareList;
+    }
+
+    public static String addProductToComparisonList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        
+        String productId = request.getParameter("productId");
+        GenericValue product = null;
+        if (UtilValidate.isNotEmpty(productId)) {
+            try {
+                product = ProductWorker.findProduct(delegator, productId);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        
+        if (product == null) {
+            String errMsg = UtilProperties.getMessage(resource, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId), UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+        
+        List<GenericValue> compareList = getProductCompareList(request);
+        boolean alreadyInList = false; 
+        for (GenericValue compProduct : compareList) {
+            if (product.getString("productId").equals(compProduct.getString("productId"))) {
+                alreadyInList = true;
+                break;
+            }
+        }
+        if (!alreadyInList) {
+            compareList.add(product);
+        }
+        session.setAttribute("productCompareList", compareList);
+        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request);
+        String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductAddToCompareListSuccess", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request));
+        request.setAttribute("_EVENT_MESSAGE_", eventMsg);
+        return "success";
+    }
+
+    public static String removeProductFromComparisonList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        
+        String productId = request.getParameter("productId");
+        GenericValue product = null;
+        if (UtilValidate.isNotEmpty(productId)) {
+            try {
+                product = ProductWorker.findProduct(delegator, productId);
+            } catch (GenericEntityException e) {
+                productId =  null;
+                Debug.logError(e, module);
+            }
+        }
+        
+        if (product == null) {
+            String errMsg = UtilProperties.getMessage(resource, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId), UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+        
+        List<GenericValue> compareList = getProductCompareList(request);
+        Iterator<GenericValue> it = compareList.iterator();
+        while (it.hasNext()) {
+            GenericValue compProduct = it.next();
+            if (product.getString("productId").equals(compProduct.getString("productId"))) {
+                it.remove();
+                break;
+            }
+        }
+        session.setAttribute("productCompareList", compareList);
+        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request);
+        String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductRemoveFromCompareListSuccess", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request));
+        request.setAttribute("_EVENT_MESSAGE_", eventMsg);
+        return "success";
+    }
+
+    public static String clearProductComparisonList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.setAttribute("productCompareList", FastList.newInstance());
+        String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductClearCompareListSuccess", UtilHttp.getLocale(request));
+        request.setAttribute("_EVENT_MESSAGE_", eventMsg);
+        return "success";
+    }
     
     /**
      * Return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks

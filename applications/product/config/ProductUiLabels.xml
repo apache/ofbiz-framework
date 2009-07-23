@@ -6874,6 +6874,12 @@
         <value xml:lang="th">เพิ่มไปยังหมวดหมู่</value>
         <value xml:lang="zh">添加到分类</value>
     </property>
+    <property key="ProductAddToCompare">
+        <value xml:lang="en">Add To Compare</value>
+    </property>
+    <property key="ProductAddToCompareListSuccess">
+        <value xml:lang="en">Product ${name} successfully added to compare list</value>
+    </property>
     <property key="ProductAddToPackage">
         <value xml:lang="de">Zu Paket hinzufügen</value>
         <value xml:lang="en">Add to Package</value>
@@ -8376,6 +8382,9 @@
         <value xml:lang="th">เลือกหมวดหมู่</value>
         <value xml:lang="zh">选择顶级分类</value>
     </property>
+    <property key="ProductClearCompareListSuccess">
+        <value xml:lang="en">Compare list successfully cleared</value>
+    </property>
     <property key="ProductComments">
         <value xml:lang="de">Kommentare</value>
         <value xml:lang="en">Comments</value>
@@ -8435,6 +8444,9 @@
         <value xml:lang="ru">Сравнить с</value>
         <value xml:lang="th">เปรียบเทียบ</value>
         <value xml:lang="zh">参考价格</value>
+    </property>
+    <property key="ProductCompareProducts">
+        <value xml:lang="en">Compare Products</value>
     </property>
     <property key="ProductComplete">
         <value xml:lang="de">Abschliessen</value>
@@ -13760,6 +13772,9 @@
         <value xml:lang="th">ไม่มีสินค้าในหมวดหมู่นี้</value>
         <value xml:lang="zh">在这个分类里没有产品</value>
     </property>
+    <property key="ProductNoProductsToCompare">
+        <value xml:lang="en">You have no products to compare.</value>
+    </property>
     <property key="ProductNoResultsFound">
         <value xml:lang="cs">Nenalezeny žádné výsledky</value>
         <value xml:lang="de">Es wurden keine Ergebnisse gefunden</value>
@@ -17008,6 +17023,9 @@
         <value xml:lang="ru">Удалить особенность из результатов</value>
         <value xml:lang="th">ลบลักษณะจากผลลัพธ์</value>
         <value xml:lang="zh">从结果中删除特征</value>
+    </property>
+    <property key="ProductRemoveFromCompareListSuccess">
+        <value xml:lang="en">Product ${name} successfully removed from compare list</value>
     </property>
     <property key="ProductRemoveFromSite">
         <value xml:lang="de">Von Seite löschen</value>

@@ -635,6 +635,27 @@ under the License.
         <response name="success" type="view" value="product"/>
     </request-map>
 
+    <!-- Product Comparison Requests -->
+    <request-map uri="addToCompare">
+        <security auth="true" https="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="addProductToComparisonList"/>
+        <response name="success" type="view-last"/>
+    </request-map>
+    <request-map uri="removeFromCompare">
+        <security auth="true" https="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="removeProductFromComparisonList"/>
+        <response name="success" type="view-last"/>
+    </request-map>
+    <request-map uri="clearCompareList">
+        <security auth="true" https="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="clearProductComparisonList"/>
+        <response name="success" type="view-last"/>
+    </request-map>
+    <request-map uri="compareProducts">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="compareProducts" save-last-view="true"/>
+    </request-map>
+
     <request-map uri="finalizeOrder">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntry"/>
@@ -1683,6 +1704,7 @@ under the License.
 
     <view-map name="category" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#category"/>
     <view-map name="product" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#product"/>
+    <view-map name="compareProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#compareProducts"/>
     <view-map name="quickadd" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickadd"/>
 
     <view-map name="custsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#CustSettings"/>
