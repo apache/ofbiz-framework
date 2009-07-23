@@ -552,6 +552,8 @@ public class RequestHandler {
                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
                     urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_LAST_VIEW_PARAMS_"));
+                } else if (UtilValidate.isNotEmpty(nextRequestResponse.value)) {
+                    viewName = nextRequestResponse.value;
                 }
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {
