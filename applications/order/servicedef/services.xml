@@ -923,12 +923,12 @@ under the License.
         <attribute name="userLogin" mode="IN" type="org.ofbiz.entity.GenericValue" optional="true"/>
         <attribute name="billToAttnName" mode="IN" type="String" optional="true"/>
         <attribute name="billToName" mode="IN" type="String" optional="true"/>
-        <attribute name="billToAddress1" mode="IN" type="String" optional="false"/>
+        <attribute name="billToAddress1" mode="IN" type="String" optional="true"/>
         <attribute name="billToAddress2" mode="IN" type="String" optional="true"/>
-        <attribute name="billToCity" mode="IN" type="String" optional="false"/>
-        <attribute name="billToStateProvinceGeoId" mode="IN" type="String" optional="false"/>
-        <attribute name="billToPostalCode" mode="IN" type="String" optional="false"/>
-        <attribute name="billToCountryGeoId" mode="IN" type="String" optional="false"/>
+        <attribute name="billToCity" mode="IN" type="String" optional="true"/>
+        <attribute name="billToStateProvinceGeoId" mode="IN" type="String" optional="true"/>
+        <attribute name="billToPostalCode" mode="IN" type="String" optional="true"/>
+        <attribute name="billToCountryGeoId" mode="IN" type="String" optional="true"/>
         <attribute name="shipToContactMechId" mode="IN" type="String" optional="true"/>
         <attribute name="billToContactMechId" mode="IN" type="String" optional="true"/>
         <attribute name="contactMechId" mode="OUT" type="String" optional="false"/>
