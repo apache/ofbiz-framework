@@ -775,7 +775,8 @@ public class ShoppingCartHelper {
                                             }
                                         }
                                     } else {
-                                        item.setQuantity(quantity, dispatcher, this.cart);
+                                        item.setQuantity(quantity, dispatcher, this.cart, true, false);
+                                        cart.setItemShipGroupQty(item, quantity, 0);
                                     }
                                 } catch (CartItemModifyException e) {
                                     errorMsgs.add(e.getMessage());
