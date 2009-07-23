@@ -666,13 +666,4 @@ under the License.
         <field-to-result field="filteredInvoiceList"/>
     </simple-method>
 
-    <simple-method method-name="createInvoiceItemAssoc" short-description="Create an association between two invoice items">
-        <make-value entity-name="InvoiceItemAssoc" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
 </simple-methods>
