@@ -29,6 +29,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -74,12 +75,15 @@ public class VerifyPickServices {
             for (String rowKey : selectedMap.keySet()) {
                 String orderItemSeqId = itemMap.get(rowKey);
                 String productId = productMap.get(rowKey);
-                BigDecimal quantity = new BigDecimal(quantityMap.get(rowKey));
-                if (quantity.compareTo(ZERO) > 0) {
-                    try {
-                        pickSession.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, locale);
-                    } catch (Exception ex) {
-                        return ServiceUtil.returnError(ex.getMessage());
+                String quantityStr = quantityMap.get(rowKey);
+                if (UtilValidate.isNotEmpty(quantityStr)) {
+                    BigDecimal quantity = new BigDecimal(quantityStr);
+                    if (quantity.compareTo(ZERO) > 0) {
+                        try {
+                            pickSession.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, locale);
+                        } catch (Exception ex) {
+                            return ServiceUtil.returnError(ex.getMessage());
+                        }
                     }
                 }
             }
