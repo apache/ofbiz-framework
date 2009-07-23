@@ -24,7 +24,6 @@ under the License.
     <screen name="Calendar">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleCalendar"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
@@ -109,6 +108,9 @@ under the License.
 
     <screen name="CalendarWithDecorator">
         <section>
+            <actions>
+                <set field="titleProperty" value="WorkEffortCalendar"/>
+            </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
