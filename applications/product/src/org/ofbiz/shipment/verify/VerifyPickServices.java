@@ -20,29 +20,21 @@
 package org.ofbiz.shipment.verify;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.LocalDispatcher;
 
 public class VerifyPickServices {
 
     private static BigDecimal ZERO = BigDecimal.ZERO;
 
     public static Map<String, Object> verifySingleItem(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         VerifyPickSession pickSession = (VerifyPickSession) context.get("verifyPickSession");
         String orderId = (String) context.get("orderId");
@@ -60,13 +52,10 @@ public class VerifyPickServices {
     }
 
     public static Map<String, Object> verifyBulkItem(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         VerifyPickSession pickSession = (VerifyPickSession) context.get("verifyPickSession");
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map<String, ?> selectedMap = UtilGenerics.checkMap(context.get("selectedMap"));
         Map<String, String> itemMap = UtilGenerics.checkMap(context.get("itemMap"));
         Map<String, String> productMap = UtilGenerics.checkMap(context.get("productMap"));
@@ -92,8 +81,6 @@ public class VerifyPickServices {
     }
 
     public static Map<String, Object> completeVerifiedPick(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         String shipmentId = null;
         VerifyPickSession pickSession = (VerifyPickSession) context.get("verifyPickSession");
