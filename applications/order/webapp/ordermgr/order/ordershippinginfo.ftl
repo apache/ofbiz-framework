@@ -495,19 +495,6 @@ under the License.
         </tr>
 
         <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
-          <tr><td colspan="3"><hr/></td></tr>
-          <tr>
-            <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.OrderGift}</span>
-            </td>
-            <td width="5">&nbsp;</td>
-            <td valign="top" width="80%">
-              <#if shipGroup.isGift?upper_case == "N">
-                ${uiLabelMap.OrderThisOrderNotGift}<#else>${uiLabelMap.OrderThisOrderGift}</#if>
-            </td>
-          </tr>
-        </#if>
-        <#if shipGroup.isGift?upper_case == "Y">
           <form name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
             <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
             <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
