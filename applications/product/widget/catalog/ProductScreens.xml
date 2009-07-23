@@ -1861,4 +1861,62 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditProductCommunicationEvents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCommEvents"/>
+                <set field="tabButtonItem" value="EditProductCommunicationEvents"/>
+                <set field="labelTitleProperty" value="PageTitleCommEvents"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-and entity-name="CommunicationEventAndProduct" list="communicationEvents">
+                    <field-map field-name="productId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <link style="buttontext" target="AddCommEventForProduct" text="${uiLabelMap.CommonNew}">
+                            <parameter param-name="productId"/>
+                        </link>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label text="${uiLabelMap.PageTitleCommEvents}" style="h3"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListCommEvents" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCommunicationEvent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCommEvents"/>
+                <set field="tabButtonItem" value="EditProductCommunicationEvents"/>
+                <set field="labelTitleProperty" value="ProductAddCommunicationEvent"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label text="${uiLabelMap.ProductAddCommunicationEvent}" style="h3"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="EditCommEvent" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

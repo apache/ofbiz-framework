@@ -6400,6 +6400,9 @@
         <value xml:lang="it">Aggiungi Categoria Padre</value>
         <value xml:lang="th">เพิ่มหมวดหมู่</value>
     </property>
+    <property key="ProductAddCommunicationEvent">
+        <value xml:lang="en">Add Communication Event</value>
+    </property>
     <property key="ProductAddContentCategory">
         <value xml:lang="de">Inhalt zu Kategorie hinzufügen</value>
         <value xml:lang="en">Add Content to Category</value>

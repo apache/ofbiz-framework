@@ -2471,6 +2471,21 @@ under the License.
         <response name="error" type="view" value="EditProduct"/>
     </request-map>
 
+    <request-map uri="EditProductCommunicationEvents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductCommunicationEvents"/>
+    </request-map>
+    <request-map uri="AddCommEventForProduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    <request-map uri="createCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEvent"/>
+        <response name="success" type="view" value="EditProductCommunicationEvents"/>
+        <response name="error" type="view" value="EditProductCommunicationEvents"/>
+    </request-map>
+
    <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
     <request-map uri="LookupFixedAsset"><security auth="true" https="true"/><response name="success" type="view" value="LookupFixedAsset"/></request-map>
@@ -2490,6 +2505,8 @@ under the License.
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
     <request-map uri="LookupDataResource"><security auth="true" https="true"/><response name="success" type="view" value="LookupDataResource"/></request-map>
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
+    <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
+    <request-map uri="LookupContactList"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactList"/></request-map>
 
     <!-- ================ Vendor Product Requests ================= -->
     <request-map uri="EditVendorProduct">
@@ -2637,6 +2654,8 @@ under the License.
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>
 
     <view-map name="ViewProductOrder" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductOrder"/>
+    <view-map name="EditProductCommunicationEvents" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductCommunicationEvents"/>
+    <view-map name="EditCommunicationEvent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditCommunicationEvent"/>
 
     <!-- Product Configuration views -->
     <view-map name="ProductConfigItemArticle" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#ProductConfigItemArticle"/>
@@ -2671,5 +2690,7 @@ under the License.
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
     <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
+    <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
+    <view-map name="LookupContactList" type="screen" page="component://party/widget/partymgr/PartyContactListScreens.xml#ListLookupContactList"/>
     <!-- end of view mappings -->
 </site-conf>
