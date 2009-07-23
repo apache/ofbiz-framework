@@ -163,6 +163,23 @@ function popUpPrint(printserver, screen1, screen2, screen3) {
     }
 }
 
+// Post a form from a pop up using the parent window
+function doPostViaParent(formName) {
+    var theForm = document[formName];
+    var newForm = theForm.cloneNode(true);
+    var hiddenDiv = document.createElement('div');
+    hiddenDiv.style.visibility = 'hidden';
+    hiddenDiv.appendChild(newForm);
+    window.opener.document.body.appendChild(hiddenDiv);
+    newForm.submit();
+    window.opener.focus();    
+}
+// From a child window, navigate the parent window to the supplied url
+function doGetViaParent(url) {
+    window.opener.location = url;
+    window.opener.focus();
+}
+
 // hidden div functions
 
 function getStyleObject(objectId) {
