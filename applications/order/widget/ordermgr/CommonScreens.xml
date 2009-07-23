@@ -47,7 +47,7 @@ under the License.
                 <set field="applicationMenuName" value="OrderAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://order/widget/ordermgr/Menus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.OrderManagerApplication}" global="true"/>
-                <!-- globally parametrize the link to a customer's detail information, to help with cases when such details are accessed via external application. -->
+                <!-- globally parameterize the link to a customer's detail information, to help with cases when such details are accessed via external application. -->
                 <set field="customerDetailLink" value="/partymgr/control/viewprofile?partyId=" global="true"/>
             </actions>
             <widgets>
@@ -160,6 +160,31 @@ under the License.
                                 <label style="h3">${uiLabelMap.OrderQuotePricePermissionError}</label>
                             </fail-widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonPopUpDecorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderErrorUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.OrderCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OrderCompanySubtitle" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

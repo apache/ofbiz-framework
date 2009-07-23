@@ -153,6 +153,10 @@ under the License.
           <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?long > 2)>
               <div>${uiLabelMap.OrderAverageRating}: ${averageRating} (${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</div>
           </#if>
+          <form method="post" action="<@ofbizUrl secure="${request.isSecure()?string}">addToCompare</@ofbizUrl>" name="addToCompare${requestAttributes.listIndex?if_exists}form">
+              <input type="hidden" name="productId" value="${product.productId}"/>
+          </form>
+          <a href="javascript:document.addToCompare${requestAttributes.listIndex?if_exists}form.submit()" class="buttontext">${uiLabelMap.ProductAddToCompare}</a>
         </div>
     </div>
 <#else>

@@ -76,6 +76,13 @@ under the License.
         </section>
     </screen>
 
+    <screen name="compareproductslist">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/compareproductslist.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
     <!-- =========== Top-Level and Stand-Alone Screens =========== -->
 
     <!-- Category Screens -->
@@ -269,6 +276,27 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/quickaddsummary.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="compareProducts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductCompareProducts"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" from-field="uiLabelMap.ProductCompareProducts"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/CompareProducts.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPopUpDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://order/webapp/ordermgr/entry/catalog/compareproducts.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

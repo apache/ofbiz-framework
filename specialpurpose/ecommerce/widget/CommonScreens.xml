@@ -107,6 +107,7 @@ under the License.
             <widgets>
                     <include-screen name="language"/>
                     <include-screen name="minicart" location="component://ecommerce/widget/CartScreens.xml"/>
+                    <include-screen name="compareproductslist" location="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml"/>
                     <include-screen name="minipromotext" location="component://ecommerce/widget/CartScreens.xml"/>
                     <include-screen name="miniassocprods" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="factoids" location="component://ecommerce/widget/ContentScreens.xml"/>
@@ -217,6 +218,55 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonPopUpDecorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="MainColumnStyle" value="nocolumns" global="true"/>
+
+                <!-- The default (global) shortcut icon -->
+                <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
+
+                <!-- The default (main) java scripts -->
+                <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
+                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
+
+                <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
+
+                <!-- Get the store VisualTheme -->
+                <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/headerHead.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/openhtmlbody.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+
+                <decorator-section-include name="body"/>
+
+                <platform-specific><html><html-template location="component://common/webcommon/includes/closehtmlbody.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
