@@ -459,7 +459,7 @@ ${item.description}</div>
 
 <#macro renderTooltip tooltip tooltipStyle><#if tooltip?has_content><span class="<#if tooltipStyle?has_content>${tooltipStyle}<#else>tooltip</#if>">${tooltip}</span><#rt/></#if></#macro>
 <#macro renderClass className="" alert="">
-<#if className?has_content> class="${className}<#if alert?has_content> ${alert}</#if>" </#if>
+<#if className?has_content || (alert?has_content && alert=="true")> class="${className}<#if alert?has_content && alert=="true"> alert</#if>" </#if>
 </#macro>
 <#macro renderAsterisks requiredField requiredStyle>
 <#if requiredField=="true"><#if requiredStyle?has_content>*</#if></#if>
