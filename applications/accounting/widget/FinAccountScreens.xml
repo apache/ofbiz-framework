@@ -42,6 +42,9 @@ under the License.
                                     <widgets>
                                         <include-menu name="FinAccountTabBar" location="component://accounting/widget/Menus.xml"/>
                                     </widgets>
+                                    <fail-widgets>
+                                        <include-menu name="FinAccountMainTabBar" location="component://accounting/widget/Menus.xml"/>
+                                    </fail-widgets>
                                 </section>
                             </widgets>
                             <fail-widgets>
@@ -59,7 +62,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindFinAccount"/>
-                <set field="headerItem" value="FindFinAccount"/>
+                <set field="tabButtonItem" value="FindFinAccount"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
@@ -230,6 +233,41 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FinAccountMain">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="finAccountMain"/>
+                <set field="parameters.portalPageId" value="FinAccountPortalPage"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
+                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListBankAccount">
+        <section>
+            <widgets>
+                <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.AccountingBankAccount}">
+                    <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
