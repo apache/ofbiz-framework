@@ -914,6 +914,13 @@ under the License.
         </call-service>
         <field-to-request field="parameters.shipToPhoneContactMechId" request-name="shipToPhoneContactMechId"/>
 
+        <if-not-empty field="parameters.shipToPhoneContactMechId">
+            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
+                <string value="PHONE_SHIPPING"/>
+                <field field="parameters.shipToPhoneContactMechId"/>
+            </call-object-method>
+       </if-not-empty>
+
         <!-- Create Update email address -->
         <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
@@ -928,6 +935,12 @@ under the License.
         </call-service>
         <field-to-request field="parameters.emailContactMechId" request-name="emailContactMechId"/>
 
+        <if-not-empty field="parameters.emailContactMechId">
+            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
+                <string value="ORDER_EMAIL"/>
+                <field field="parameters.emailContactMechId"/>
+            </call-object-method>
+       </if-not-empty>
         <!-- Set partyId, in shoppingCart -->
         <call-object-method obj-field="shoppingCart" method-name="setUserLogin">
             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
@@ -1200,6 +1213,12 @@ under the License.
             <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
         </call-service>
         <field-to-request field="parameters.billToContactMechId" request-name="billToContactMechId"/>
+        <if-not-empty field="parameters.billToContactMechId">
+            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
+                <string value="BILLING_LOCATION"/>
+                <field field="parameters.billToContactMechId"/>
+            </call-object-method>
+        </if-not-empty>
 
         <!-- Create Update Billing Telecom Number -->
         <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
@@ -1216,6 +1235,12 @@ under the License.
             <result-to-field result-name="contactMechId" field="parameters.billToPhoneContactMechId"/>
         </call-service>
         <field-to-request field="parameters.billToPhoneContactMechId" request-name="billToPhoneContactMechId"/>
+        <if-not-empty field="parameters.billToPhoneContactMechId">
+            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
+                <string value="PHONE_BILLING"/>
+                <field field="parameters.billToPhoneContactMechId"/>
+            </call-object-method>
+        </if-not-empty>
 
         <!-- Create Update credit card -->
         <set-service-fields service-name="createUpdateCreditCard" map="parameters" to-map="creditCardContext"/>
