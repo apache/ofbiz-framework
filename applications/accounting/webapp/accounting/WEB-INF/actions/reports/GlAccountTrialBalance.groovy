@@ -55,9 +55,11 @@ if (organizationPartyId) {
         if (UtilValidate.isNotEmpty(previousTimePeriod)) {
             glAccountHistory = delegator.findOne("GlAccountHistory", 
                     [customTimePeriodId : previousTimePeriod.customTimePeriodId, glAccountId : parameters.glAccountId, organizationPartyId : organizationPartyId], false);
-            if (glAccountHistory) {
+            if (glAccountHistory && glAccountHistory.endingBalance != null) {
                 context.openingBalance = glAccountHistory.endingBalance;
                 balanceOfTheAcctgForYear = glAccountHistory.endingBalance;
+            } else {
+                context.openingBalance = BigDecimal.ZERO;
             }
         }
     }
