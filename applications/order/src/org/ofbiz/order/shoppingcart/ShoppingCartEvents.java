@@ -1168,75 +1168,77 @@ public class ShoppingCartEvents {
         return "success";
     }
 
-    /** Add order term **/
+    /**
+     * Add an order term *
+     */
     public static String addOrderTerm(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+
         ShoppingCart cart = getCartObject(request);
-        ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
+        Locale locale = UtilHttp.getLocale(request);
+
         String termTypeId = request.getParameter("termTypeId");
         String termValueStr = request.getParameter("termValue");
         String termDaysStr = request.getParameter("termDays");
-        String termIndex = request.getParameter("termIndex");
         String textValue = request.getParameter("textValue");
-        Locale locale = UtilHttp.getLocale(request);
+
 
         BigDecimal termValue = null;
         Long termDays = null;
-        Boolean checkTermValueAndDays = true;
 
-        if (termValueStr.trim().equals("")) {
-            termValue = null;
-            checkTermValueAndDays = false;
-        }
-        if (termDaysStr.trim().equals("")) {
-            termDays = null;
-            checkTermValueAndDays = false;
-        }
         if (UtilValidate.isEmpty(termTypeId)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermTypeIsRequired", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermTypeIsRequired", locale));
             return "error";
-        }
-        if (!UtilValidate.isSignedDouble(termValueStr)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermValueError", UtilMisc.toMap("orderTermValue",UtilValidate.isSignedFloatMsg), locale));
-            return "error";
-        }
-        if (checkTermValueAndDays) {
-            termValue = new BigDecimal(termValueStr);
-        }
-        if (!UtilValidate.isInteger(termDaysStr)) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays",UtilValidate.isLongMsg), locale));
-            return "error";
-        }
-        if (checkTermValueAndDays) {
-            termDays = Long.valueOf(termDaysStr);
-        }
-        if ((termIndex != null) && (!"-1".equals(termIndex)) && (UtilValidate.isInteger(termIndex))) {
-            cartHelper.removeOrderTerm(Integer.parseInt(termIndex));
         }
 
-        Map result = cartHelper.addOrderTerm(termTypeId, termValue, termDays, textValue);
-        if (ServiceUtil.isError(result)) {
-            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
-            return "error";
+        if (UtilValidate.isNotEmpty(termValueStr)) {
+            try {
+                termValue = new BigDecimal(termValueStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermValueError", UtilMisc.toMap("orderTermValue", termValueStr), locale));
+                return "error";
+            }
         }
+
+        if (UtilValidate.isNotEmpty(termDaysStr)) {
+            try {
+                termDays = Long.valueOf(termDaysStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermDaysError", UtilMisc.toMap("orderTermDays", termDaysStr), locale));
+                return "error";
+            }
+        }
+
+        removeOrderTerm(request, response);
+
+        cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
+
         return "success";
     }
 
-   /** Add order term **/
-   public static String removeOrderTerm(HttpServletRequest request, HttpServletResponse response) {
-       GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-       LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-       ShoppingCart cart = getCartObject(request);
-       ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
-       String index = request.getParameter("termIndex");
-       Map result = cartHelper.removeOrderTerm(Integer.parseInt(index));
-       if (ServiceUtil.isError(result)) {
-           request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
-           return "error";
-       }
-       return "success";
-   }
+    /**
+     * Remove an order term *
+     */
+    public static String removeOrderTerm(HttpServletRequest request, HttpServletResponse response) {
+
+        ShoppingCart cart = getCartObject(request);
+
+        String termIndexStr = request.getParameter("termIndex");
+        if (UtilValidate.isNotEmpty(termIndexStr)) {
+            try {
+                Integer termIndex = Integer.parseInt(termIndexStr);
+                if (termIndex >= 0) {
+                    List orderTerms = cart.getOrderTerms();
+                    if (orderTerms != null && orderTerms.size() > termIndex) {
+                        cart.removeOrderTerm(termIndex);
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Debug.logWarning(e, "Error parsing termIndex: " + termIndexStr, module);
+            }
+        }
+
+        return "success";
+    }
 
     /** Initialize order entry from a shopping list **/
     public static String loadCartFromShoppingList(HttpServletRequest request, HttpServletResponse response) {

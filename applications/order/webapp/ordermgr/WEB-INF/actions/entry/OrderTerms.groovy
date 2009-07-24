@@ -17,30 +17,39 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
 import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.catalog.*;
 
-cart = session.getAttribute("shoppingCart");
+
+cart = ShoppingCartEvents.getCartObject(request);
 context.cart = cart;
 
 orderTerms = cart.getOrderTerms();
 context.orderTerms = orderTerms;
 
-termTypes = delegator.findList("TermType", null, null, null, null,false);
-context.termTypes = termTypes;
-createNew = request.getParameter("createNew");
+if (request.getParameter('createNew') == 'Y') {
 
-termIndex = request.getParameter("termIndex");
-if ("Y".equals(createNew) && (!"-1".equals(termIndex))) {
-    context.termIndex = termIndex;
-    orderTerm = orderTerms[Integer.parseInt(termIndex)];
-    if (orderTerm) {
-       context.termTypeId = orderTerm.termTypeId;
-       context.termValue = orderTerm.termValue;
-       context.termDays = orderTerm.termDays;
-       context.textValue = orderTerm.textValue;
+    termIndexStr = request.getParameter('termIndex');
+    if (termIndexStr) {
+        try {
+            termIndex = Integer.parseInt(termIndexStr);
+
+            orderTerm = orderTerms[termIndex];
+            if (orderTerm) {
+               context.termTypeId = orderTerm.termTypeId;
+               context.termValue = orderTerm.termValue;
+               context.termDays = orderTerm.termDays;
+               context.textValue = orderTerm.textValue;
+
+               context.termIndex = termIndexStr;
+            }
+
+        } catch (NumberFormatException nfe) {
+            Debug.log("Error parsing termIndex: ${termIndexStr}");
+        }
     }
+
 }
+
+context.termTypes = delegator.findList('TermType', null, null, null, null, false);
