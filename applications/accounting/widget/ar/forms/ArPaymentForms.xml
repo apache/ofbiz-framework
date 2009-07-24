@@ -33,7 +33,7 @@ under the License.
             </drop-down>
         </field>
         <field name="organizationPartyId"><hidden/></field>
-        <field name="cardType">
+        <field name="cardType" tooltip="Select Credit Card from above list of Payment Method Types.">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="enumCode">
                     <entity-constraint name="enumTypeId" operator="equals" value="CREDIT_CARD_TYPE"/>
