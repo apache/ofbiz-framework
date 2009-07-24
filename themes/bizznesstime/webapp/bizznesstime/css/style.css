@@ -424,6 +424,11 @@ span#modal-close-btn{
 	font-weight: bold;
 }
 
+.alert {
+/* Used for alert text */
+    color: #ff0000;
+}
+
 /***********************************************
 Header
 ***********************************************/
