@@ -1825,6 +1825,10 @@ under the License.
         <response name="success" type="view" value="FindFinAccount"/>
         <response name="error" type="view" value="FindFinAccount"/>
     </request-map>
+    <request-map uri="FinAccountMain">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FinAccountMain"/>
+    </request-map>
     <!-- Fin Account Roles -->
     <request-map uri="EditFinAccountRoles">
         <security https="true" auth="true"/>
@@ -2287,6 +2291,7 @@ under the License.
 
     <!-- FinAccount -->
     <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>
+    <view-map name="FinAccountMain" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FinAccountMain"/>
 
     <!-- TO BE REMOVED
     <view-map name="ListFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ListFinAccount"/>

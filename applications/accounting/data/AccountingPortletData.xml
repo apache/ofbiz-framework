@@ -28,4 +28,12 @@
         securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ListCustomerInvoices" portletCategoryId="ACCOUNTING"/>
 
+    <PortalPortlet portalPortletId="ListBankAccount"
+        portletName="List bank account"
+        screenName="ListBankAccount"
+        screenLocation="component://accounting/widget/FinAccountScreens.xml"
+        description="List all financial account with type BANK_ACCOUNT" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
+    <PortalPage portalPageId="FinAccountPortalPage" sequenceNum="0" portalPageName="Fin account portal page" description="Fin account main screen using flexible portal technology" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="FinAccountPortalPage" columnSeqId="00001"/>
+    <PortalPagePortlet portalPageId="FinAccountPortalPage" portalPortletId="ListBankAccount" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
 </entity-engine-xml>
