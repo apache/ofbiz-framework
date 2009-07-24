@@ -1148,6 +1148,41 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
 
+    <!-- Order communication event requests -->
+    <request-map uri="UpdateCommOrders">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UpdateCommOrders"/>
+    </request-map>
+    <request-map uri="createCommunicationEventOrder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEventOrder"/>
+        <response name="success" type="view" value="UpdateCommOrders"/>
+        <response name="error" type="view" value="UpdateCommOrders"/>
+    </request-map>
+    <request-map uri="deleteCommunicationEventOrder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommunicationEventOrder"/>
+        <response name="success" type="view" value="UpdateCommOrders"/>
+        <response name="error" type="view" value="UpdateCommOrders"/>
+    </request-map>
+
+    <!-- Product communication event requests -->
+    <request-map uri="UpdateCommProducts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UpdateCommProducts"/>
+    </request-map>
+    <request-map uri="createCommunicationEventProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEventProduct"/>
+        <response name="success" type="view" value="UpdateCommProducts"/>
+        <response name="error" type="view" value="UpdateCommProducts"/>
+    </request-map>
+    <request-map uri="deleteCommunicationEventProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommunicationEventProduct"/>
+        <response name="success" type="view" value="UpdateCommProducts"/>
+        <response name="error" type="view" value="UpdateCommProducts"/>
+    </request-map>
 
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
@@ -1169,6 +1204,8 @@ under the License.
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
     <request-map uri="LookupEmploymentApp"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmploymentApp"/></request-map>
     <request-map uri="LookupEmplPosition"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmplPosition"/></request-map>
+    <request-map uri="LookupOrderHeader"><security auth="true" https="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
+    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
 
     <!-- Financial History Report-->
     <request-map uri="PartyFinancialHistory">
@@ -1300,6 +1337,8 @@ under the License.
     <view-map name="LookupEmplPosition"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupEmplPosition"/>
 
     <view-map name="LookupSegmentGroup" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSegmentGroup"/>
+    <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
+    <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
 
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
 
@@ -1318,5 +1357,8 @@ under the License.
     <view-map name="PartyFinancialHistory" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyFinancialHistory"/>
     <view-map name="Preferences" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#Preferences"/>
     <view-map name="PartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyGeoLocation"/>
+
+    <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
+    <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -1995,6 +1995,12 @@
         <value xml:lang="th">เพิ่มหัวข้อการติดต่อ</value>
         <value xml:lang="zh">添加沟通内容</value>
     </property>
+    <property key="PartyAddCommEventOrder">
+        <value xml:lang="en">Add Communication Event Order</value>
+    </property>
+    <property key="PartyAddCommEventProduct">
+        <value xml:lang="en">Add Communication Event Product</value>
+    </property>
     <property key="PartyAddListToCart">
         <value xml:lang="de">Liste zum Einkaufswagen hinzufügen</value>
         <value xml:lang="en">Add List To Cart</value>
@@ -2993,6 +2999,12 @@
         <value xml:lang="ru">Комм. события</value>
         <value xml:lang="th">ผลการติดต่อ</value>
         <value xml:lang="zh">沟通事件</value>
+    </property>
+    <property key="PartyCommEventOrders">
+        <value xml:lang="en">Communication Event Orders</value>
+    </property>
+    <property key="PartyCommEventProducts">
+        <value xml:lang="en">Communication Event Products</value>
     </property>
     <property key="PartyCommEventPurposes">
         <value xml:lang="de">Kommunikationsereignis Zweck</value>
@@ -6433,6 +6445,9 @@
         <value xml:lang="nl">Optioneel</value>
         <value xml:lang="th">ทางเลือก</value>
     </property>
+    <property key="PartyOrderAdd">
+        <value xml:lang="en">Order Add</value>
+    </property>
     <property key="PartyOrderInLast">
         <value xml:lang="de">Aufträge in den letzten</value>
         <value xml:lang="en">order(s) in the last</value>
@@ -7232,6 +7247,9 @@
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">产品</value>
+    </property>
+    <property key="PartyProductAdd">
+        <value xml:lang="en">Product Add</value>
     </property>
     <property key="PartyProductId">
         <value xml:lang="de">Produkt ID</value>
@@ -8898,6 +8916,12 @@
         <value xml:lang="nl">Certificaat bekijken</value>
         <value xml:lang="ru">Просмотр сертификата</value>
         <value xml:lang="th">แสดงความมั่นใจ</value>
+    </property>
+    <property key="PartyViewCommOrders">
+        <value xml:lang="en">View Communication Orders</value>
+    </property>
+    <property key="PartyViewCommProducts">
+        <value xml:lang="en">View Communication Products</value>
     </property>
     <property key="PartyViewCommunicationEvent">
         <value xml:lang="de">Kommunikationsereignis anzeigen</value>

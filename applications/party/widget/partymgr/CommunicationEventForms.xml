@@ -908,4 +908,52 @@ under the License.
         <field name="startDate"><display type="date-time"/></field>
         <field name="removeButton" widget-style="smallSubmit"><submit/></field>
     </form>
+    <form name="ListCommOrders" list-name="ordersList" type="list" target="deleteCommunicationEventOrder" paginate-target="UpdateCommOrders" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="20">
+        <actions>
+            <entity-and entity-name="CommunicationEventOrder" list="ordersList">
+                <field-map field-name="communicationEventId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
+            <set field="orderTypeId" from-field="orderHeader.orderTypeId"/>
+        </row-actions>
+        <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="inter-app"/>
+        </field>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="orderTypeId" title="${uiLabelMap.OrderOrderType}">
+            <display-entity entity-name="OrderType" key-field-name="orderTypeId" description="${description}"/>
+        </field>
+        <field name="createdBy" title="${uiLabelMap.OrderCreatedBy}">
+            <display description="${orderHeader.createdBy}"/>
+        </field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddCommOrder" type="single" target="createCommunicationEventOrder" header-row-style="header-row" default-table-style="basic-table">
+        <field name="communicationEventId"><hidden/></field>
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
+        <field name="submitButton" title="${uiLabelMap.PartyOrderAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListCommProducts" list-name="productsList" type="list" target="deleteCommunicationEventProduct" paginate-target="ListCommProducts" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="20">
+        <actions>
+            <entity-and entity-name="CommunicationEventProduct" list="productsList">
+                <field-map field-name="communicationEventId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
+        </row-actions>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.PartyProductId}"><display/></field>
+        <field name="internalName">
+            <display description="${product.internalName}"/>
+        </field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddCommProduct" type="single" target="createCommunicationEventProduct" header-row-style="header-row" default-table-style="basic-table">
+        <field name="communicationEventId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.PartyProductId}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="submitButton" title="${uiLabelMap.PartyProductAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

@@ -838,4 +838,54 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="UpdateCommOrders">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PartyViewCommOrders"/>
+                <set field="tabButtonItem" value="UpdateCommOrders"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo" default-value="${userLogin.partyId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyCommEventOrders}">
+                            <include-form name="ListCommOrders" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyAddCommEventOrder}">
+                            <include-form name="AddCommOrder" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+           </section>
+    </screen>
+    <screen name="UpdateCommProducts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PartyViewCommProducts"/>
+                <set field="tabButtonItem" value="UpdateCommProducts"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo" default-value="${userLogin.partyId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyCommEventProducts}">
+                            <include-form name="ListCommProducts" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyAddCommEventProduct}">
+                            <include-form name="AddCommProduct" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+           </section>
+    </screen>
 </screens>
