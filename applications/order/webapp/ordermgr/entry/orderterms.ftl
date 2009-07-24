@@ -17,114 +17,99 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table border="0" width="100%" cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width="100%">
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-        <tr>
-          <td>
-            <#if orderTerms?has_content && !requestParameters.createNew?exists>
-            <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
-            <input type="hidden" name="finalizeMode" value="term"/>
-             <table width="100%" border="0" cellpadding="1" cellspacing="0">
-               <tr>
-                <td colspan="5">
-                  <a href="<@ofbizUrl>setOrderTerm?createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
-                </td>
-               </tr>
-               <tr>
-                <td><div><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
-                <td><div><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
-                <td><div><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
-                <td><div><b>${uiLabelMap.CommonDescription}</b></div></td>
-                <td align="right">&nbsp;</td>
-               </tr>
-               <tr><td colspan="5"><hr/></td></tr>
-                <#assign index=0>
-                <#list orderTerms as orderTerm>
-                  <tr>
-                  <td><div>${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
-                  <td><div>${orderTerm.termValue?default("")}</div></td>
-                  <td><div>${orderTerm.termDays?default("")}</div></td>
-                  <td><div>${orderTerm.textValue?default("")}</div></td>
-                  <td align="right">
-                    <a href="<@ofbizUrl>setOrderTerm?termIndex=${index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="<@ofbizUrl>removeCartOrderTerm?termIndex=${index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
-                  </td>
-                  </tr>
-                  <#if orderTerms.size()&lt;index >
-                    <tr><td colspan="5"><hr/></td></tr>
-                  </#if>
-                  <#assign index=index+1>
-                </#list>
-             </table>
-            </form>
-           </td>
-          </tr>
-          </table>
-            <#else>
-              <#if !orderTerms?has_content || requestParameters.createNew?exists>
-               <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
-                 <input type="hidden" name="finalizeMode" value="term"/>
-               </form>
-               <form method="post" action="<@ofbizUrl>addOrderTerm</@ofbizUrl>" name="termform">
-                <input type="hidden" name="partyId" value="${cart.partyId?default("_NA_")}"/>
-                <input type="hidden" name="finalizeMode" value="term"/>
-                <input type="hidden" name="termIndex" value="${termIndex?default(-1)}"/>
-                <table width="100%" border="0" cellpadding="1" cellspacing="0">
-                  <tr>
-                    <td width="26%" align="right" valign="top">
-                       <div>${uiLabelMap.OrderOrderTermType}</div>
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
+    <tr>
+        <td width="100%">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
+                <tr>
+                    <td>
+                        <#if orderTerms?has_content && parameters.createNew?default('') != 'Y'>
+                            <table class="basic-table hover-bar">
+                                <tr class="header-row">
+                                    <td>${uiLabelMap.OrderOrderTermType}</td>
+                                    <td align="center">${uiLabelMap.OrderOrderTermValue}</td>
+                                    <td align="center">${uiLabelMap.OrderOrderTermDays}</td>
+                                    <td>${uiLabelMap.CommonDescription}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <#list orderTerms as orderTerm>
+                                    <tr <#if orderTerm_index % 2 != 0>class="alternate-row"</#if> >
+                                        <td nowrap="nowrap">${orderTerm.getRelatedOne('TermType').get('description', locale)}</td>
+                                        <td align="center">${orderTerm.termValue?if_exists}</td>
+                                        <td align="center">${orderTerm.termDays?if_exists}</td>
+                                        <td nowrap="nowrap">${orderTerm.textValue?if_exists}</td>
+                                        <td align="right">
+                                            <a href="<@ofbizUrl>setOrderTerm?termIndex=${orderTerm_index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+                                            <a href="<@ofbizUrl>removeCartOrderTerm?termIndex=${orderTerm_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
+                                        </td>
+                                    </tr>
+                                </#list>
+                                <tr>
+                                    <td colspan="5">
+                                        <a href="<@ofbizUrl>setOrderTerm?createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        <#else>
+                            <form method="post" action="<@ofbizUrl>addOrderTerm</@ofbizUrl>" name="termform">
+                                <input type="hidden" name="termIndex" value="${termIndex?if_exists}" />
+                                <table class="basic-table">
+                                    <tr>
+                                        <td width="26%" align="right" valign="top">
+                                            ${uiLabelMap.OrderOrderTermType}
+                                        </td>
+                                        <td width="5">&nbsp;</td>
+                                        <td width="74%">
+                                            <select name="termTypeId">
+                                                <option value=""></option>
+                                                <#list termTypes?if_exists as termType>
+                                                    <option value="${termType.termTypeId}"
+                                                        <#if termTypeId?default('') == termType.termTypeId>selected="selected"</#if>
+                                                    >${termType.get('description', locale)}</option>
+                                                </#list>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="26%" align="right" valign="top">
+                                        ${uiLabelMap.OrderOrderTermValue}
+                                    </td>
+                                    <td width="5">&nbsp;</td>
+                                    <td width="74%">
+                                        <input type="text" size="30" maxlength="60" name="termValue" value="${termValue?if_exists}" />
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="26%" align="right" valign="top">
+                                            ${uiLabelMap.OrderOrderTermDays}
+                                        </td>
+                                        <td width="5">&nbsp;</td>
+                                        <td width="74%">
+                                            <input type="text" size="30" maxlength="60" name="termDays" value="${termDays?if_exists}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="26%" align="right" valign="top">
+                                            ${uiLabelMap.CommonDescription}
+                                        </td>
+                                        <td width="5">&nbsp;</td>
+                                        <td width="74%">
+                                            <input type="text" size="30" maxlength="255" name="textValue" value="${textValue?if_exists}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="26%" align="right" valign="top">&nbsp;</td>
+                                        <td width="5">&nbsp;</td>
+                                        <td width="74%">
+                                            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </#if>
                     </td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                       <select name="termTypeId">
-                          <#if termTypes?has_content>
-                               <option value=""/>
-                             <#list termTypes as termType>
-                               <option value="${termType.termTypeId}" <#if termTypeId?default("")==termType.termTypeId> selected</#if>>${termType.get("description",locale)}</option>
-                             </#list>
-                          </#if>
-                       </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top">
-                       <div>${uiLabelMap.OrderOrderTermValue}</div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" size="30" maxlength="60" name="termValue" value="${termValue?if_exists}"/>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top">
-                       <div>${uiLabelMap.OrderOrderTermDays}</div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" size="30" maxlength="60" name="termDays" value="${termDays?if_exists}"/>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top">
-                       <div>${uiLabelMap.CommonDescription}</div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" size="30" maxlength="255" name="textValue" value="${textValue?if_exists}"/>
-                    </td>
-                  </tr>
-                  <tr><td colspan="3" align="middle"><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/></td></tr>
-                </table>
-              </form>
-            </#if>
-          </td>
-        </tr>
-      </table>
-     </#if>
-    </td>
-  </tr>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
-<br/>
