@@ -23,6 +23,10 @@ under the License.
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
                 <tr>
                     <td>
+                        <#-- checkoutsetupform is used for the order entry "continue" link -->
+                        <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
+                            <input type="hidden" name="finalizeMode" value="term" />
+                        </form>
                         <#if orderTerms?has_content && parameters.createNew?default('') != 'Y'>
                             <table class="basic-table hover-bar">
                                 <tr class="header-row">
