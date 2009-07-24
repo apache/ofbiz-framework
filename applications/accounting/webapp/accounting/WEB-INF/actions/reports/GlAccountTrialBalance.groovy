@@ -32,7 +32,7 @@ if (organizationPartyId) {
     customTimePeriodResults = dispatcher.runSync("findCustomTimePeriods", [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
     customTimePeriodList = customTimePeriodResults.customTimePeriodList;
     if (UtilValidate.isNotEmpty(customTimePeriodList)) {
-        context.cutomTimePeriod = EntityUtil.getFirst(customTimePeriodList);
+        context.timePeriod = (EntityUtil.getFirst(customTimePeriodList)).customTimePeriodId;
     }
     decimals = UtilNumber.getBigDecimalScale("ledger.decimals");
     rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding");
