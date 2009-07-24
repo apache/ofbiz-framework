@@ -16,6 +16,22 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#macro maskCreditCardNumber cardNumber>
+  <#assign cardNumberDisplay = "">
+  <#if cardNumber?has_content>
+    <#assign size = cardNumber?length - 4>
+    <#if (size > 0)>
+      <#list 0 .. size-1 as foo>
+        <#assign cardNumberDisplay = cardNumberDisplay + "*">
+      </#list>
+      <#assign cardNumberDisplay = cardNumberDisplay + cardNumber[size .. size + 3]>
+    <#else>
+      <#-- but if the card number has less than four digits (ie, it was entered incorrectly), display it in full -->
+      <#assign cardNumberDisplay = cardNumber>
+    </#if>
+  </#if>
+  ${cardNumberDisplay?if_exists}
+</#macro>
 
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -203,7 +219,8 @@ under the License.
 
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
                         ${creditCard.cardType}
-                        ${creditCard.cardNumber}
+                        <#assign cardNumber = creditCard.cardNumber?if_exists>
+                        <@maskCreditCardNumber cardNumber=cardNumber/>
                         ${creditCard.expireDate}
                         &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
@@ -446,7 +463,7 @@ under the License.
                  <#assign creditCard = paymentMethodValueMap.creditCard/>
                  <#if (creditCard?has_content)>
                    <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
-                     ${creditCard.cardType?if_exists} ${creditCard.cardNumber?if_exists} ${creditCard.expireDate?if_exists}
+                     ${creditCard.cardType?if_exists} <@maskCreditCardNumber cardNumber=creditCard.cardNumber?if_exists/> ${creditCard.expireDate?if_exists}
                    <#else>
                      ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                    </#if>
