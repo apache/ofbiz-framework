@@ -34,6 +34,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -64,7 +66,7 @@ public class DojoJSONServiceEventHandler implements EventHandler {
 
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // call into the service handler for parameters parsing and invocation
-        String respCode = service.invoke(null, requestMap, request, response);
+        String respCode = service.invoke(event, requestMap, request, response);
 
         // pull out the service response from the request attribute
         Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
@@ -112,13 +114,13 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         if (jsonStr == null) {
             throw new EventHandlerException("JSON Object was empty; fatal error!");
         }
-
-        String htmlJsonStr = "<html><head></head><body><textarea style=\"width: 100%%; height: 100px;\">" + jsonStr + "</textarea></body></html>";
+        String htmlJsonStr = "<html><head></head><body><textarea style=\"width: 350px; height: 100px;\">" + jsonStr + "</textarea></body></html>";
+        Debug.logInfo( "htmlJsonStr:" + htmlJsonStr, module);
         // set the X-JSON content type
         response.setContentType("text/html");
         // jsonStr.length is not reliable for unicode characters
         try {
-            response.setContentLength(jsonStr.getBytes("UTF8").length);
+            response.setContentLength(htmlJsonStr.getBytes("UTF8").length);
         } catch (UnsupportedEncodingException e) {
             throw new EventHandlerException("Problems with Json encoding", e);
         }
