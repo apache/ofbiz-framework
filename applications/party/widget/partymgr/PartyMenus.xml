@@ -552,6 +552,18 @@
         <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
             <link target="listUnknownPartyComms"/>
         </menu-item>
+        <menu-item name="UpdateCommOrders" title="${uiLabelMap.OrderOrders}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="UpdateCommOrders">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </link>
+        </menu-item>
+        <menu-item name="UpdateCommProducts" title="${uiLabelMap.ProductProducts}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="UpdateCommProducts">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="CommFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="find">
