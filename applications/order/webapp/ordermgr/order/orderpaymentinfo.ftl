@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#macro maskCreditCardNumber cardNumber>
+<#macro maskSensitiveNumber cardNumber>
   <#assign cardNumberDisplay = "">
   <#if cardNumber?has_content>
     <#assign size = cardNumber?length - 4>
@@ -219,8 +219,7 @@ under the License.
 
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
                         ${creditCard.cardType}
-                        <#assign cardNumber = creditCard.cardNumber?if_exists>
-                        <@maskCreditCardNumber cardNumber=cardNumber/>
+                        <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/>
                         ${creditCard.expireDate}
                         &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
@@ -334,22 +333,8 @@ under the License.
                         ${giftCard.cardNumber?default("N/A")} [${giftCard.pinNumber?default("N/A")}]
                         &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
-                        <#if giftCard?has_content && giftCard.cardNumber?has_content>
-                          <#assign giftCardNumber = "">
-                          <#assign pcardNumber = giftCard.cardNumber>
-                          <#if pcardNumber?has_content>
-                            <#assign psize = pcardNumber?length - 4>
-                            <#if (psize > 0)>
-                              <#list 0 .. psize-1 as foo>
-                                <#assign giftCardNumber = giftCardNumber + "*">
-                              </#list>
-                              <#assign giftCardNumber = giftCardNumber + pcardNumber[psize .. psize + 3]>
-                            <#else>
-                              <#assign giftCardNumber = pcardNumber>
-                            </#if>
-                          </#if>
-                        </#if>
-                        ${giftCardNumber?default("N/A")}
+                      <@maskSensitiveNumber cardNumber=giftCard.cardNumber?if_exists/>
+                      <#if !cardNumberDisplay?has_content>N/A</#if>
                         &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       </#if>
                     <#else>
@@ -463,7 +448,7 @@ under the License.
                  <#assign creditCard = paymentMethodValueMap.creditCard/>
                  <#if (creditCard?has_content)>
                    <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
-                     ${creditCard.cardType?if_exists} <@maskCreditCardNumber cardNumber=creditCard.cardNumber?if_exists/> ${creditCard.expireDate?if_exists}
+                     ${creditCard.cardType?if_exists} <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/> ${creditCard.expireDate?if_exists}
                    <#else>
                      ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                    </#if>
