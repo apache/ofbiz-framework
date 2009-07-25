@@ -104,11 +104,20 @@ under the License.
     </form>
     <form name="PaymentGroupMembers" type="list" list-name="paymentGroupMembers"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="Payment" value-field="payment"/>
+            <set field="statusId" from-field="payment.statusId"/>
+            <set field="amount" from-field="payment.amount"/>
+            <set field="paymentTypeId" from-field="payment.paymentTypeId"/>
+        </row-actions>
         <field name="paymentId">
             <hyperlink target="paymentOverview" description="${paymentId}">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
+        <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="amount"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
     </form>

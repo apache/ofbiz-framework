@@ -28,11 +28,11 @@ under the License.
     <fo:block><fo:leader/></fo:block>
     <fo:block space-after.optimum="10pt" font-size="10pt">
         <fo:table>
+            <fo:table-column column-width="75pt"/>
             <fo:table-column column-width="100pt"/>
-            <fo:table-column column-width="100pt"/>
-            <fo:table-column column-width="100pt"/>
-            <fo:table-column column-width="100pt"/>
-            <fo:table-column column-width="100pt"/>
+            <fo:table-column column-width="135pt"/>
+            <fo:table-column column-width="150pt"/>
+            <fo:table-column column-width="60pt"/>
             <fo:table-header>
                 <fo:table-row font-weight="bold">
                     <fo:table-cell padding="2pt" background-color="#D4D0C8" border="1pt solid" border-width=".1mm">
