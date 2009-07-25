@@ -588,6 +588,9 @@ under the License.
             <now-timestamp field="parameters.fromDate"/>
         </if-empty>
         <set-service-fields service-name="createPaymentGroup" map="parameters" to-map="createPaymentGroupMap"/>
+        <if-empty field="parameters.paymentGroupName">
+            <set field="createPaymentGroupMap.paymentGroupName" value="Payment Group Name"/>
+        </if-empty>
         <call-service service-name="createPaymentGroup" in-map-name="createPaymentGroupMap">
             <result-to-field result-name="paymentGroupId"/>
             <result-to-result result-name="paymentGroupId"/>
