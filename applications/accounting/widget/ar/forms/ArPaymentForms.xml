@@ -25,6 +25,14 @@ under the License.
         <actions>
             <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
         </actions>
+        <field name="finAccountId">
+            <drop-down>
+                <entity-options entity-name="FinAccount" description="${finAccountName} [${finAccountId}]" filter-by-date="true">
+                    <entity-constraint name="ownerPartyId" env-name="organizationPartyId"/>
+                    <entity-constraint name="finAccountTypeId" value="BANK_ACCOUNT"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.FormFieldTitle_paymentMethodTypeId}*" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}">

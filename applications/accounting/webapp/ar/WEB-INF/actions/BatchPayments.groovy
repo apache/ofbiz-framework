@@ -23,7 +23,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 
 List paymentCond = [];
-if (paymentMethodTypeId) {
+if (paymentMethodTypeId && finAccountId) {
     paymentCond.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
     if (fromDate) {
         paymentCond.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
@@ -36,6 +36,12 @@ if (paymentMethodTypeId) {
     }
     if (organizationPartyId) {
         paymentCond.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, organizationPartyId));
+    }
+    
+    finAccountTransList = delegator.findList("FinAccountTrans", EntityCondition.makeCondition([finAccountId : finAccountId]), null, null, null, false);
+    if (finAccountTransList) {
+        finAccountTransIds = EntityUtil.getFieldListFromEntityList(finAccountTransList, "finAccountTransId", true);
+        paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.IN, finAccountTransIds));
     }
     payments = delegator.findList("Payment", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
     paymentListWithCreditCard = [];
