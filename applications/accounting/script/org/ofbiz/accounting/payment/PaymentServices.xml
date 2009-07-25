@@ -512,6 +512,10 @@ under the License.
                 </call-service>
                 <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
                 <set field="paymentAmount" value="${paymentAmount + invoicePaymentInfo.outstandingAmount}"/>
+            <else>
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvoicesRequiredInReadyStatus"/></add-error>
+                <check-errors/>
+            </else>
             </if-compare>
         </iterate>
         <if-compare field="paymentAmount" operator="greater" type="BigDecimal" value="0">
