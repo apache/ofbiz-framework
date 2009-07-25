@@ -53,6 +53,7 @@ function getPaymentRunningTotal(e) {
     }
     
     if (!isSingle) {
+        $('submitButton').disabled = false;
         new Ajax.Request('getPaymentRunningTotal', {
             asynchronous: false,
             onSuccess: function(transport) {
@@ -61,6 +62,7 @@ function getPaymentRunningTotal(e) {
             }, parameters: $('paymentBatchForm').serialize(), requestHeaders: {Accept: 'application/json'}
         });
     } else {
+        $('submitButton').disabled = true;
         $('showPaymentRunningTotal').update("");
     }
 }
