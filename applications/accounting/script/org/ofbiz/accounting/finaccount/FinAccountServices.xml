@@ -473,11 +473,20 @@ under the License.
     
     <simple-method method-name="updatePaymentOnFinAccTransStatusSetToCancel" short-description="remove field finAccountTransId from Payment entity.">
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
-        <get-related-one relation-name="Payment" value-field="finAccountTrans" to-value-field="payment"/>
-        <if-not-empty field="payment">
+        <if-empty field="finAccountTrans.paymentId">
+            <entity-and entity-name="Payment" list="payments">
+                <field-map field-name="finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+            </entity-and>
+            <else>
+                <get-related-one relation-name="Payment" value-field="finAccountTrans" to-value-field="payment"/>
+                <field-to-list field="payment" list="payments"/>
+            </else>
+        </if-empty>
+        <iterate list="payments" entry="payment">
             <set field="updatePaymentMap.paymentId" from-field="payment.paymentId"/>
             <clear-field field="updatePaymentMap.finAccountTransId"/>
             <call-service service-name="updatePayment" in-map-name="updatePaymentMap"/>
-        </if-not-empty>
+            <clear-field field="updatePaymentMap"/>
+        </iterate>
     </simple-method>
 </simple-methods>
