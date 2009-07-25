@@ -152,7 +152,8 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="getPaymentRunningTotal" auth="true">
         <description>calculate running total for payments</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
-        <attribute name="paymentRunningTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="cancelPaymentBatch" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="cancelPaymentBatch" auth="true">

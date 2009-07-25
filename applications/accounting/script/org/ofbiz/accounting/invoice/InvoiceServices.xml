@@ -636,7 +636,7 @@ under the License.
 
     <simple-method method-name="getInvoiceRunningTotal" short-description="calculate running total for Invoices">
         <set field="invoiceIds" from-field="parameters.invoiceIds"/>
-        <set field="invoiceRunningTotal" type="BigDecimal" value="0"/>
+        <set field="runningTotal" type="BigDecimal" value="0"/>
         <entity-condition entity-name="Invoice" list="invoiceList">
             <condition-expr field-name="invoiceId" operator="in" from-field="invoiceIds"/>
         </entity-condition>
@@ -646,8 +646,17 @@ under the License.
                 <result-to-field result-name="invoicePaymentInfoList"/>
             </call-service>
             <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
-            <set field="invoiceRunningTotal" value="${invoiceRunningTotal + invoicePaymentInfo.outstandingAmount}" type="BigDecimal"/>
+            <set field="runningTotal" value="${runningTotal + invoicePaymentInfo.outstandingAmount}" type="BigDecimal"/>
         </iterate>
+        <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
+            <result-to-field result-name="partyAccountingPreference"/>
+        </call-service>
+        <set field="currencyUomId" from-field="partyAccountingPreference.baseCurrencyUomId"/>
+        <if-empty field="currencyUomId">
+            <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
+        </if-empty>
+        <set field="invoiceRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
         <field-to-result field="invoiceRunningTotal"/>
     </simple-method>
     
