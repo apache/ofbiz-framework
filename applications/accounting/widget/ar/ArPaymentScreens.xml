@@ -61,6 +61,7 @@ under the License.
                 <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="batchPayments"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="cardType" from-field="parameters.cardType"/>
                 <set field="fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <set field="thruDate" type="Timestamp" from-field="parameters.thruDate"/>
