@@ -53,6 +53,7 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType" description="${description}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFinAccount" description="${uiLabelMap.CommonDelete}" also-hidden="false">
