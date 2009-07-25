@@ -303,7 +303,8 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoiceRunningTotal" auth="true">
         <description>calculate running total for selected Invoices</description>
         <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
-        <attribute name="invoiceRunningTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
 
     <service name="getInvoicesFilterByAssocType" engine="simple"
