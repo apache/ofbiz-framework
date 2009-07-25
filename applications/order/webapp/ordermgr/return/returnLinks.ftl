@@ -36,20 +36,24 @@ under the License.
         <#assign partyId = "${(returnHeader.fromPartyId)?if_exists}"/>
         <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId?if_exists}&originOrderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId?if_exists}</a>
       </#if>
-      <#assign returnItems = delegator.findByAnd("ReturnItem", {"returnId":returnId})/>
-      <#assign orderId = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
-      <#assign shipGroupAssoc = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("OrderItemShipGroupAssoc", {"orderId":orderId}))/>
-      <#assign shipGroup = delegator.findOne("OrderItemShipGroup", {"orderId":orderId, "shipGroupSeqId":shipGroupAssoc.shipGroupSeqId}, false)>
-      <#assign shipGroupShipment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Shipment", {"primaryOrderId":shipGroup.orderId, "primaryShipGroupSeqId":shipGroup.shipGroupSeqId}))/>
-      <#assign shipmentRoutSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId":shipGroupShipment.shipmentId}))>
-      <#if "UPS" == shipmentRoutSegment.carrierPartyId && "RETURN_ACCEPTED" == returnHeader.statusId>
-        <a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
+      <#if "RETURN_ACCEPTED" == returnHeader.statusId>
+        <#assign returnItems = delegator.findByAnd("ReturnItem", {"returnId" : returnId})/>
+        <#if returnItems?has_content>
+          <#assign orderId = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
+          <#assign shipGroupAssoc = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("OrderItemShipGroupAssoc", {"orderId" : orderId}))/>
+          <#assign shipGroup = delegator.findOne("OrderItemShipGroup", {"orderId" : orderId, "shipGroupSeqId" : shipGroupAssoc.shipGroupSeqId}, false)>
+          <#assign shipGroupShipment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Shipment", {"primaryOrderId" : shipGroup.orderId, "primaryShipGroupSeqId" : shipGroup.shipGroupSeqId}))/>
+          <#assign shipmentRoutSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipGroupShipment.shipmentId}))>
+          <#if "UPS" == shipmentRoutSegment.carrierPartyId>
+          <a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
+            <form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
+              <input type="hidden" name="returnId" value="${returnId}"/>
+              <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
+              <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRoutSegment.shipmentRouteSegmentId}>
+            </form>
+          </#if>
+        </#if>
       </#if>
-      <form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
-        <input type="hidden" name="returnId" value="${returnId}"/>
-        <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
-        <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRoutSegment.shipmentRouteSegmentId}>
-      </form>
     </#if>
     </#if>
 </div>
