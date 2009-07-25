@@ -4614,6 +4614,9 @@
         <value xml:lang="th">ใบกำกับสินค้า</value>
         <value xml:lang="zh">发票</value>
     </property>
+    <property key="AccountingInvoicesRequiredInReadyStatus">
+        <value xml:lang="en">All Invoices should be in READY status for Check Run process.</value>
+    </property>
     <property key="AccountingIssueCheck">
         <value xml:lang="en">Issue Check</value>
     </property>
