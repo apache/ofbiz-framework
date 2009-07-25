@@ -51,6 +51,7 @@ function getPaymentRunningTotal(e) {
         $('checkAllPayments').checked = true;
     }
     if (!isSingle) {
+        $('submitButton').disabled = false;
         new Ajax.Request('getPaymentRunningTotal', {
             asynchronous: false,
             onSuccess: function(transport) {
@@ -60,6 +61,7 @@ function getPaymentRunningTotal(e) {
         });
     } else {
         $('showPaymentRunningTotal').update("");
+        $('submitButton').disabled = true;
     }
 }
 // -->
@@ -115,7 +117,7 @@ function getPaymentRunningTotal(e) {
                     <div align="right">
                         ${uiLabelMap.AccountingGroupInOneTransaction}
                         <input type="checkbox" name="groupInOneTransaction" value="Y"/>
-                        <a href="javascript:document.depositWithdrawPaymentsForm.submit();" class="buttontext">${uiLabelMap.AccountingDepositWithdraw}</a>
+                        <input id="submitButton" type="button"  onclick="javascript:document.depositWithdrawPaymentsForm.submit();" value="${uiLabelMap.AccountingDepositWithdraw}" disabled/>
                     </div>
                 </table>
             <#else>

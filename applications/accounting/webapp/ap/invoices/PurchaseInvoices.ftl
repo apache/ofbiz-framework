@@ -51,6 +51,8 @@ function getInvoiceRunningTotal(e) {
         $('checkAllInvoices').checked = true;
     }
     if (!isSingle) {
+        if ($('paymentMethodTypeId').value != "")
+            $('submitButton').disabled = false;
         new Ajax.Request('getInvoiceRunningTotal', {
             asynchronous: false,
             onSuccess: function(transport) {
@@ -59,6 +61,7 @@ function getInvoiceRunningTotal(e) {
             }, parameters: $('listPurchaseInvoices').serialize(), requestHeaders: {Accept: 'application/json'}
         });
     } else {
+        $('submitButton').disabled = true;
         $('showInvoiceRunningTotal').update("");
     }
 }
@@ -95,6 +98,7 @@ function enableSubmitButton() {
     } else {
         $('submitButton').disabled = false;
     }
+    getInvoiceRunningTotal('checkAllInvoices');
 }
 -->
 </script>
