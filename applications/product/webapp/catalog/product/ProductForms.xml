@@ -885,8 +885,11 @@ under the License.
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeSupplierProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="productId"/><parameter param-name="partyId"/><parameter param-name="currencyUomId"/>
-                <parameter param-name="minimumOrderQuantity"/><parameter param-name="availableFromDate"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="currencyUomId"/>
+                <parameter param-name="minimumOrderQuantity"/>
+                <parameter param-name="availableFromDate"/>
             </hyperlink>
         </field>
     </form>
