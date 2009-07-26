@@ -86,6 +86,12 @@ under the License.
         </xs:attribute>
         <xs:attribute name="default-entity-name" type="xs:string"/>
         <xs:attribute name="use-transaction" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If set to true and there is no transaction already in place the Service Engine will begin one.
+                    If set to false or there is a transaction already in place the Service Engine will do nothing (this also means that if set to false and a transaction is already in place it will do nothing).
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -94,6 +100,13 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="require-new-transaction" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If set to true and there is a transaction already in place the Service Engine will suspend that transaction, begin a new one just for this service, commit or rollback the local transaction when the service is complete, and will resume the original transaction.
+                    If set to true and there is no transaction already in place it will just begin a transaction and manage it as would be done for a normal user-transaction=true.
+                    If use-transaction=false this setting is ignored.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -106,6 +119,8 @@ under the License.
                 <xs:documentation>
                     Defines the timeout for the transaction, in seconds.
                     Defaults to the value set in the TransactionFactory being used (typically 60 seconds).
+                    This value is only used if this service begins a transaction (either require-new-transaction=true, or use-transaction=true and there is no other transaction already in place).
+                    If use-transaction=false this setting is ignored.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
