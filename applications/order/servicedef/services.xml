@@ -47,6 +47,7 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="sendOrderConfirmNotification">
         <description>Send a order confirmation</description>
         <implements service="orderNotificationInterface"/>
+        <attribute name="subject" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="sendOrderChangeNotification" engine="java" require-new-transaction="true" max-retry="3"
             location="org.ofbiz.order.order.OrderServices" invoke="sendOrderChangeNotification">
