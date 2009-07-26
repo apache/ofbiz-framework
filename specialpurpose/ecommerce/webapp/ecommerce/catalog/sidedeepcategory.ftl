@@ -44,8 +44,13 @@ under the License.
       <div class="browsecategorylist">
   </#if>
         <li class="browsecategorytext">
-          <a href="${Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, parentCategory.productCategoryId)}" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
-        
+          <#if parentCategory?has_content>
+            <#assign parentCategoryId = parentCategory.productCategoryId/>
+          <#else>
+            <#assign parentCategoryId = ""/>
+          </#if>
+          <a href="${Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, parentCategoryId)}" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
+
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
     <#if subCatList?exists>
@@ -70,7 +75,7 @@ under the License.
     <div class="screenlet-body">
         <ul class="browsecategorylist">
           <#list topLevelList as category>
-            <@categoryList parentCategory=category category=category wrapInBox="N"/>
+            <@categoryList parentCategory="" category=category wrapInBox="N"/>
           </#list>
         </ul>
     </div>
