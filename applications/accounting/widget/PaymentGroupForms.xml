@@ -115,8 +115,8 @@ under the License.
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
-        <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.AccountingPaymentStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="amount"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
