@@ -6490,6 +6490,9 @@
         <value xml:lang="th">ส่งการชำระเงิน</value>
         <value xml:lang="zh">已发送的支付</value>
     </property>
+    <property key="AccountingPaymentStatus">
+        <value xml:lang="en">Payment Status</value>
+    </property>
     <property key="AccountingPaymentStatusIsNotReceivedOrSentError">
         <value xml:lang="en">Payment status must be received or sent</value>
     </property>
