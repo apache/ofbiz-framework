@@ -190,7 +190,7 @@ under the License.
     <Uom abbreviation="TZS" description="Tanzanian Shilling" uomId="TZS" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UAH" description="Ukrainian Hryvnia" uomId="UAH" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UGS" description="Ugandan Shilling" uomId="UGS" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="USD" description="American Dollar" uomId="USD" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="USD" description="United States Dollar" uomId="USD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UYP" description="Uruguayan New Peso" uomId="UYP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UYU" description="Uruguay" uomId="UYU" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="VEB" description="Venezuelan Bolivar" uomId="VEB" uomTypeId="CURRENCY_MEASURE"/>
