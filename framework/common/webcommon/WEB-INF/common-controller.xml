@@ -35,6 +35,7 @@ under the License.
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
+    <handler name="jsonservice-multi" type="request" class="org.ofbiz.webapp.event.JSONServiceMultiEventHandler"/>
     <handler name="jsonsimple" type="request" class="org.ofbiz.webapp.event.JSONSimpleEventHandler"/>
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
 
