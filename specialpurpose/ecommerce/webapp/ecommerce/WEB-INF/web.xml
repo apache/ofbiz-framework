@@ -49,6 +49,14 @@ under the License.
         <param-value>component://ecommerce/widget/CommonScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
+    <context-param>
+        <param-name>forceHttpSession</param-name>
+        <param-value>true</param-value>
+        <description>
+            Forces the JSESSIONID cookie to be sent via http rather https, helps prevent lost sessions in web apps that
+            frequently switch between http and https.
+        </description>
+    </context-param>
 
     <filter>
         <filter-name>ContextFilter</filter-name>

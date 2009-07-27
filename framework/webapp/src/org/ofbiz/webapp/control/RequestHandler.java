@@ -174,10 +174,10 @@ public class RequestHandler {
                     requestMap = controllerConfig.requestMapMap.get(controllerConfig.defaultRequest);
                 }
             }
-
+            boolean forceHttpSession = "true".equals(context.getInitParameter("forceHttpSession"));
             // Check if we SHOULD be secure and are not.
             if (!request.isSecure() && requestMap.securityHttps) {
-                // If the requet method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
+                // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
                 if (request.getMethod().equalsIgnoreCase("POST")) {
                     // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
                     Locale locale = UtilHttp.getLocale(request);
@@ -215,6 +215,19 @@ public class RequestHandler {
                         // if we are supposed to be secure, redirect secure.
                         callRedirect(newUrl, response, request);
                     }
+                }
+            // if this is a new session and the request is secure and forceHttpSession is true then we need the 
+            // session cookie to be created via an http response (rather than https) so we'll redirect to an
+            // unsecure request and then if necessary another redirect will occur to transfer back to https
+            } else if (forceHttpSession && request.isSecure() && session.isNew()) {
+                StringBuilder urlBuf = new StringBuilder();
+                urlBuf.append(request.getPathInfo());
+                if (request.getQueryString() != null) {
+                    urlBuf.append("?").append(request.getQueryString());
+                }
+                String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString(), true, false, false);
+                if (newUrl.toUpperCase().startsWith("HTTP")) {
+                    callRedirect(newUrl, response, request);
                 }
             }
 
