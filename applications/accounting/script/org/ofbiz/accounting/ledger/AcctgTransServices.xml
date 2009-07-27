@@ -520,4 +520,36 @@ under the License.
         <field-to-result field="openingBalanceCredit"/>
         <field-to-result field="debitCreditDifference"/>
     </simple-method>
+
+    <simple-method method-name="revertAcctgTransOnRemovePaymentApplications" short-description="Create Reverse Accounting Transaction and Entries on removing PaymentApplication records.">
+        <entity-one entity-name="PaymentApplication" value-field="paymentApplication"/>
+        <entity-condition entity-name="AcctgTrans" list="acctgTransPaymentList">
+            <condition-list combine="and">
+                <condition-expr field-name="invoiceId" from-field="paymentApplication.invoiceId"/>
+                <condition-expr field-name="paymentId" from-field="paymentApplication.paymentId"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="acctgTransPaymentList" entry="acctgTransPayment">
+            <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransPayment.acctgTransId"/>
+            <set field="copyAcctgTransCtx.revert" value="Y"/>
+            <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx"/>
+            <clear-field field="copyAcctgTransCtx"/>
+        </iterate>        
+    </simple-method>
+
+    <simple-method method-name="revertAcctgTransOnCancelInvoice" short-description="Reverting Accounting Transaction And Entries on Canceling an Invoice">
+        <entity-condition entity-name="AcctgTrans" list="acctgTransInvoiceList">
+            <condition-list combine="and">
+                <condition-expr field-name="paymentId" operator="equals" from-field="nullField"/>
+                <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="acctgTransInvoiceList" entry="acctgTransInvoice">
+            <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransInvoice.acctgTransId"/>
+            <set field="copyAcctgTransCtx.revert" value="Y"/>
+            <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx"/>
+            <clear-field field="copyAcctgTransCtx"/>
+        </iterate>
+    </simple-method>
+
 </simple-methods>

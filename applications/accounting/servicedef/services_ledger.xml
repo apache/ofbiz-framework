@@ -598,4 +598,16 @@ under the License.
         <attribute name="openingBalanceCredit" type="BigDecimal" mode="OUT"/>
         <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT"/>
     </service>
+    
+    <service name="revertAcctgTransOnCancelInvoice" engine="simple" 
+            location="component://accounting/script/org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="revertAcctgTransOnCancelInvoice" auth="true">
+        <description>Reverting Accounting Transaction And Entries on Canceling an Invoice</description>
+        <attribute name="invoiceId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="revertAcctgTransOnRemovePaymentApplications" engine="simple"
+           location="component://accounting/script/org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="revertAcctgTransOnRemovePaymentApplications" auth="true">
+        <description>Create Reverse Accounting Transaction and Entries on removing PaymentApplication records.</description>
+        <attribute name="paymentApplicationId" mode="IN" type="String" optional="false"/>       
+    </service>
+    
 </services>
