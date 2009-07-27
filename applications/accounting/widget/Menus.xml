@@ -647,6 +647,9 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="EditFinAccountAuths" title="${uiLabelMap.AccountingFinAccountAuth}">
+            <condition>
+                <if-compare field="finAccount.finAccountTypeId" operator="not-equals" value="BANK_ACCOUNT"/>
+            </condition>
             <link target="EditFinAccountAuths">
                 <parameter param-name="finAccountId"/>
             </link>
