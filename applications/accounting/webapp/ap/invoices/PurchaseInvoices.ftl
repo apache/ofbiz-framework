@@ -118,6 +118,12 @@ function enableSubmitButton() {
       <input id="submitButton" type="button"  onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
     </div>
     <input type="hidden" name="organizationPartyId" value="${organizationPartyId}"/>
+    <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom?if_exists}"/>
+    <input type="hidden" name="statusId" value="${parameters.statusId?if_exists}"/>
+    <input type="hidden" name="fromInvoiceDate" value="${parameters.fromInvoiceDate?if_exists}"/>
+    <input type="hidden" name="thruInvoiceDate" value="${parameters.thruInvoiceDate?if_exists}"/>
+    <input type="hidden" name="fromDueDate" value="${parameters.fromDueDate?if_exists}"/>
+    <input type="hidden" name="thruDueDate" value="${parameters.thruDueDate?if_exists}"/>
     <div id="issueChecks" style="display: none;" align="right">
       <span class="label">${uiLabelMap.AccountingVendorPaymentMethod}</span>
       <select name="paymentMethodTypeId" id="paymentMethodTypeId" onchange="javascript:enableSubmitButton();">

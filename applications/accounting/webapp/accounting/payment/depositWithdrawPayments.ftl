@@ -73,6 +73,11 @@ function getPaymentRunningTotal(e) {
             <#if paymentList?has_content>
                 <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
                 <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}">
+                <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId?if_exists}">
+                <input type="hidden" name='cardType' value="${cardType?if_exists}">
+                <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}">
+                <input type="hidden" name='fromDate' value="${fromDate?if_exists}">
+                <input type="hidden" name='thruDate' value="${thruDate?if_exists}">
                 <div>
                     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
                     <span class="label" id="showPaymentRunningTotal"></span>
