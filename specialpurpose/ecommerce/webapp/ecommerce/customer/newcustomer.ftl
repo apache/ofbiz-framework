@@ -213,7 +213,7 @@ will generally always be reserved for the logo at the top of the page.
     <div class="form-row">
       <label for="CUSTOMER_STATE">${uiLabelMap.PartyState}*</label>
       <@fieldErrors fieldName="CUSTOMER_STATE"/>
-      <select name="CUSTOMER_STATE">
+      <select name="CUSTOMER_STATE" id="customerState">
         <#if requestParameters.CUSTOMER_STATE?exists>
           <option value='${requestParameters.CUSTOMER_STATE}'>${selectedStateName?default(requestParameters.CUSTOMER_STATE)}</option>
         </#if>
