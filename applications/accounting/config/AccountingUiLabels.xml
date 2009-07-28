@@ -2318,7 +2318,7 @@
         <value xml:lang="en">Deposit/Withdraw</value>
     </property>
     <property key="AccountingDepositOrWithdrawPayments">
-        <value xml:lang="en">Deposit Or Withdraw Payments</value>
+        <value xml:lang="en">Deposit Or Withdraw Payments for Financial Account: ${finAccountId}</value>
     </property>
     <property key="AccountingDescr">
         <value xml:lang="ar">وصف</value>
