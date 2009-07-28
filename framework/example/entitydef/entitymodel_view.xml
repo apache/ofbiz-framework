@@ -37,7 +37,10 @@ under the License.
             <exclude field="statusId"/>
         </alias-all>
         <alias-all entity-alias="EXST"/>
-        <alias-all entity-alias="STIT"/>
+        <alias-all entity-alias="STIT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="statusDescription" entity-alias="STIT" field="description"/>
         <alias entity-alias="EXPL" name="currentStatusId" field="statusId"/>
         <alias name="statusDelay">
             <complex-alias operator="-">
