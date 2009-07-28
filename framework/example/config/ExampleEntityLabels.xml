@@ -24,36 +24,42 @@
         <value xml:lang="fr">Désiré</value>
         <value xml:lang="it">Desiderato</value>
         <value xml:lang="th">ความต้องการ</value>
+        <value xml:lang="zh">期望的</value>
     </property>
     <property key="ExampleFeatureApplType.description.NOT_ALLOWED">
         <value xml:lang="en">Not Allowed</value>
         <value xml:lang="fr">Non laissé</value>
         <value xml:lang="it">Non Permesso</value>
         <value xml:lang="th">ไม่อนุญาต</value>
+        <value xml:lang="zh">不允许</value>
     </property>
     <property key="ExampleFeatureApplType.description.REQUIRED">
         <value xml:lang="en">Required</value>
         <value xml:lang="fr">Requis</value>
         <value xml:lang="it">Richiesto</value>
         <value xml:lang="th">ความต้องการ</value>
+        <value xml:lang="zh">必须的</value>
     </property>
     <property key="ExampleType.description.CONTRIVED">
         <value xml:lang="en">Contrived</value>
         <value xml:lang="fr">Arrangé</value>
         <value xml:lang="it">Inventato</value>
         <value xml:lang="th">เป็นไปตามที่วางแผนไว้</value>
+        <value xml:lang="zh">人为的</value>
     </property>
     <property key="ExampleType.description.INSPIRED">
         <value xml:lang="en">Inspired</value>
         <value xml:lang="fr">Inspiré</value>
         <value xml:lang="it">Ispirato</value>
         <value xml:lang="th">ยอดเยี่ยม</value>
+        <value xml:lang="zh">受启发的</value>
     </property>
     <property key="ExampleType.description.MADE_UP">
         <value xml:lang="en">Made Up</value>
         <value xml:lang="fr">Composé</value>
         <value xml:lang="it">Composto</value>
         <value xml:lang="th">ทำขึ้น</value>
+        <value xml:lang="zh">制定</value>
     </property>
     <!-- Example entity labels -->
     <property key="ExampleType.description.REAL_WORLD">
@@ -61,24 +67,28 @@
         <value xml:lang="fr">Monde réel</value>
         <value xml:lang="it">Mondo Reale</value>
         <value xml:lang="th">สภาพที่เป็นจริง</value>
+        <value xml:lang="zh">真实世界</value>
     </property>
     <property key="FieldDescription.Example.exampleId">
         <value xml:lang="en">A unique Example ID. If you don't assign an ID, one will be generated automatically</value>
         <value xml:lang="fr">Une réf. unique d'exemple. Si vous n'assignez pas une réf., une sera généré automatiquement</value>
         <value xml:lang="it">Un codice esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่าง ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
+        <value xml:lang="zh">一个唯一的样例表示。如果你没有指定一个标识，那么会自动生成一个</value>
     </property>
     <property key="FieldDescription.ExampleItem.exampleItemSeqId">
         <value xml:lang="en">A unique Example Item sequence ID. If you don't assign an ID, one will be generated automatically</value>
         <value xml:lang="fr">Une réf. unique d'article exemple. Si vous n'assignez pas une réf., une sera généré automatiquement</value>
         <value xml:lang="it">Un codice riga esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่างสินค้า ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
+        <value xml:lang="zh">一个唯一的样例明细序号。如果你没有指定一个标识，那么会自动生成一个</value>
     </property>
     <property key="FieldDescription.ExampleType.exampleTypeId">
         <value xml:lang="en">A unique Example Type ID. If you don't assign an ID, one will be generated automatically</value>
         <value xml:lang="fr">Une réf. unique de type exemple. Si vous n'assignez pas une réf., une sera généré automatiquement</value>
         <value xml:lang="it">Un tipo esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่างประเภท ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
+        <value xml:lang="zh">一个唯一的样例类型序号。如果你没有指定一个标识，那么会自动生成一个</value>
     </property>
     <property key="FieldDescription.amount">
         <value xml:lang="de">Betrag</value>
@@ -87,18 +97,21 @@
         <value xml:lang="it">Importo</value>
         <value xml:lang="ro">Import</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="zh">金额</value>
     </property>
     <property key="FieldDescription.anotherDate">
         <value xml:lang="en">Another Date</value>
         <value xml:lang="fr">Une autre date</value>
         <value xml:lang="it">Altra Data</value>
         <value xml:lang="th">วันที่อื่น ๆ</value>
+        <value xml:lang="zh">另一个日期</value>
     </property>
     <property key="FieldDescription.anotherText">
         <value xml:lang="en">Another Text</value>
         <value xml:lang="fr">Une autre texte</value>
         <value xml:lang="it">Altro Testo</value>
         <value xml:lang="th">ตัวอักษรอื่น ๆ</value>
+        <value xml:lang="zh">另一个文本</value>
     </property>
     <property key="FieldDescription.comments">
         <value xml:lang="de">Kommentare</value>
@@ -107,6 +120,7 @@
         <value xml:lang="it">Commenti</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="zh">评论</value>
     </property>
     <property key="FieldDescription.exampleDate">
         <value xml:lang="en">Example Date</value>
@@ -114,6 +128,7 @@
         <value xml:lang="it">Esempio Data</value>
         <value xml:lang="ro">Data Exemplu</value>
         <value xml:lang="th">ตัวอย่างวันที่</value>
+        <value xml:lang="zh">样例日期</value>
     </property>
     <!-- Entity field descriptions. The Webtools component will use these properties
         for online documentation. Field description properties have two forms:
@@ -127,12 +142,14 @@
         <value xml:lang="it">Codice Esempio</value>
         <value xml:lang="ro">Cod Exemplu</value>
         <value xml:lang="th">รหัสตัวอย่าง</value>
+        <value xml:lang="zh">样例标识</value>
     </property>
     <property key="FieldDescription.exampleItemSeqId">
         <value xml:lang="en">Example Item sequence ID</value>
         <value xml:lang="fr">Réf. de séquence exemple d'article</value>
         <value xml:lang="it">Riga esempio</value>
         <value xml:lang="th">รหัสลำดับตัวอย่างสินค้า</value>
+        <value xml:lang="zh">样例明细序号</value>
     </property>
     <property key="FieldDescription.exampleName">
         <value xml:lang="en">Example Name</value>
@@ -140,6 +157,7 @@
         <value xml:lang="it">Nome Esempio</value>
         <value xml:lang="ro">Nume Exemplu</value>
         <value xml:lang="th">ชื่อตัวอย่าง</value>
+        <value xml:lang="zh">样例名称</value>
     </property>
     <property key="FieldDescription.exampleSize">
         <value xml:lang="en">Example Size</value>
@@ -147,12 +165,14 @@
         <value xml:lang="it">Esempio Taglia</value>
         <value xml:lang="ro">Marime-size Exemplu</value>
         <value xml:lang="th">ขนาดตัวอย่าง</value>
+        <value xml:lang="zh">样例尺寸</value>
     </property>
     <property key="FieldDescription.exampleTypeId">
         <value xml:lang="en">Example Type ID</value>
         <value xml:lang="fr">Réf. de type d'exemple</value>
         <value xml:lang="it">Tipo esempio</value>
         <value xml:lang="th">รหัสประเภทตัวอย่าง</value>
+        <value xml:lang="zh">样例类型标识</value>
     </property>
     <property key="FieldDescription.longDescription">
         <value xml:lang="en">Long Description</value>
@@ -160,5 +180,6 @@
         <value xml:lang="it">Descrizione Lunga</value>
         <value xml:lang="ro">Descriere Lunga</value>
         <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="zh">详细描述</value>
     </property>
 </resource>
