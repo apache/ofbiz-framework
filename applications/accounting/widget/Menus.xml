@@ -510,6 +510,7 @@ under the License.
                 <and>
                     <if-compare field="display" operator="equals" value="true"/>
                     <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN"/>
+                    <not><if-empty field="paymentGroupMembers"/></not>
                 </and>
             </condition>
             <link target="printChecks.pdf">
