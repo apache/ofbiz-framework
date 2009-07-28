@@ -730,7 +730,10 @@ under the License.
         <member-entity entity-alias="PP" entity-name="PortalPage"/>
         <member-entity entity-alias="PPP" entity-name="PortalPagePortlet"/>
         <alias-all entity-alias="PP"/>
-        <alias-all entity-alias="PPP"/>
+        <alias-all entity-alias="PPP">
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        <alias field="sequenceNum" entity-alias="PPP" name="portletSequenceNum"/>
         <view-link entity-alias="PP" rel-entity-alias="PPP">
             <key-map field-name="portalPageId"/>
         </view-link>
