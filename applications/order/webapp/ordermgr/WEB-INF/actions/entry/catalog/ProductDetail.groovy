@@ -261,7 +261,7 @@ if (product) {
 
                 if (variantTree && imageMap) {
                     jsBuf = new StringBuffer();
-                    jsBuf.append("<script language=\"JavaScript\">");
+                    jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">");
                     jsBuf.append("var DET = new Array(" + variantTree.size() + ");");
                     jsBuf.append("var IMG = new Array(" + variantTree.size() + ");");
                     jsBuf.append("var OPT = new Array(" + featureOrder.size() + ");");
