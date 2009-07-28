@@ -397,6 +397,9 @@ under the License.
             <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
         </check-permission>
         <entity-one entity-name="Payment" value-field="payment"/>
+        <field-to-result field="payment.finAccountTransId" result-name="finAccountTransId"/>
+        <set field="transStatusId" value="FINACT_TRNS_CANCELED"/>
+        <field-to-result field="transStatusId" result-name="statusId"/>
         <if-empty field="payment">
             <add-error><fail-message message="${uiLabelMap.AccountingNoPaymentsfound}"/></add-error>
             <check-errors/>

@@ -147,6 +147,8 @@ under the License.
         <description>Sets payment status to PMNT_VOID, removes all PaymentApplications, changes related invoice statuses to 
             INVOICE_READY if status is INVOICE_PAID, and reverses related AcctgTrans by calling copyAcctgTransAndEntries service</description>
         <attribute name="paymentId" mode="IN" optional="false" type="String"/>
+        <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getPaymentRunningTotal" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="getPaymentRunningTotal" auth="true">
