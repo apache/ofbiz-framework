@@ -117,6 +117,7 @@
     <property key="FormFieldTitle_communicationDate">
         <value xml:lang="en">Communication Date</value>
         <value xml:lang="it">Data comunicazione</value>
+        <value xml:lang="zh">沟通日期</value>
     </property>
     <property key="FormFieldTitle_company">
         <value xml:lang="en">Company</value>
@@ -299,21 +300,24 @@
     <property key="FormFieldTitle_perfRatingTypeId">
         <value xml:lang="en">Perf Rating Type Id</value>
         <value xml:lang="it">Tipo percentuale prestazioni</value>
+        <value xml:lang="zh">绩效评级类型标识</value>
     </property>
     <property key="FormFieldTitle_perfReviewId">
         <value xml:lang="en">Perf Review Id</value>
         <value xml:lang="fr">Réf. d'évaluation des performances</value>
         <value xml:lang="it">Rassegna Prestazioni</value>
         <value xml:lang="th">Perf Review Id</value>
-        <value xml:lang="zh">绩效评定编号</value>
+        <value xml:lang="zh">绩效评定标识</value>
     </property>
     <property key="FormFieldTitle_perfReviewItemSeqId">
         <value xml:lang="en">Perf Review Item Seq Id</value>
         <value xml:lang="it">Riga rassegna prestazioni</value>
+        <value xml:lang="zh">绩效评定明细子标识</value>
     </property>
     <property key="FormFieldTitle_perfReviewItemTypeId">
         <value xml:lang="en">Perf Review Item Type Id</value>
         <value xml:lang="it">Tipo riga rassegna prestazioni</value>
+        <value xml:lang="zh">绩效评定明细类型标识</value>
     </property>
     <property key="FormFieldTitle_position">
         <value xml:lang="en">Position</value>
@@ -358,19 +362,19 @@
         <value xml:lang="en">Resume Date</value>
         <value xml:lang="fr">Date de CV</value>
         <value xml:lang="it">Data curriculum vitae</value>
-        <value xml:lang="zh">履历日期</value>
+        <value xml:lang="zh">交简历日期</value>
     </property>
     <property key="FormFieldTitle_resumeId">
         <value xml:lang="en">Resume Id</value>
         <value xml:lang="fr">Réf. de CV</value>
         <value xml:lang="it">Rif. curriculum vitae</value>
-        <value xml:lang="zh">履历编号</value>
+        <value xml:lang="zh">简历编号</value>
     </property>
     <property key="FormFieldTitle_resumeText">
         <value xml:lang="en">Resume Text</value>
         <value xml:lang="fr">Texte de CV</value>
         <value xml:lang="it">Testo curriculum vitae</value>
-        <value xml:lang="zh">履历正文</value>
+        <value xml:lang="zh">简历正文</value>
     </property>
     <property key="FormFieldTitle_routingNumber">
         <value xml:lang="en">Routing Number</value>
@@ -617,14 +621,14 @@
         <value xml:lang="fr">OFBiz : gestion de ressources humaines</value>
         <value xml:lang="it">OFBiz: Gestione Risorse Umane</value>
         <value xml:lang="th">OFBiz: การจัดการบุคคล</value>
-        <value xml:lang="zh">人力资源管理</value>
+        <value xml:lang="zh">OFBiz: 人力资源管理</value>
     </property>
     <property key="HumanResCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="fr">Partie de l'ouverture pour la famille d'affaires du logiciel libre</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <value xml:lang="zh">草帽软件开发</value>
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
     </property>
     <property key="HumanResCurrentEmploymentData">
         <value xml:lang="en">Current Employment information</value>
@@ -768,6 +772,7 @@
     <property key="HumanResEmplPartyIdFromNotSpecified">
         <value xml:lang="en">Not specified</value>
         <value xml:lang="it">Non specificato</value>
+        <value xml:lang="zh">未指定</value>
     </property>
     <property key="HumanResEmplPositionId">
         <value xml:lang="en">Employee Position Id</value>
@@ -1468,19 +1473,19 @@
         <value xml:lang="en">Fulfillments</value>
         <value xml:lang="fr">"Pourvoiements"</value>
         <value xml:lang="it">Adempimento</value>
-        <value xml:lang="zh">职位雇员</value>
+        <value xml:lang="zh">职责</value>
     </property>
     <property key="HumanResReportedTo">
         <value xml:lang="en">ReportedTo</value>
         <value xml:lang="fr">Rapporté à</value>
         <value xml:lang="it">a cui riportare</value>
-        <value xml:lang="zh">上级为</value>
+        <value xml:lang="zh">接受汇报</value>
     </property>
     <property key="HumanResReportsTo">
         <value xml:lang="en">ReportsTo</value>
         <value xml:lang="fr">Rapports à</value>
         <value xml:lang="it">Riporta a</value>
-        <value xml:lang="zh">上级为</value>
+        <value xml:lang="zh">汇报给</value>
     </property>
     <property key="HumanResResponsibilityType">
         <value xml:lang="de">Verantwortungsarten</value>
@@ -1501,7 +1506,7 @@
         <value xml:lang="en">Resume Id</value>
         <value xml:lang="fr">Réf. de CV</value>
         <value xml:lang="it">Verifica</value>
-        <value xml:lang="zh">履历编号</value>
+        <value xml:lang="zh">简历编号</value>
     </property>
     <property key="HumanResSalaryStepSeqId">
         <value xml:lang="en">Salary Step Sequence Id</value>
