@@ -479,6 +479,7 @@
     <screen name="partyRelContacts">
         <section>
             <actions>
+                <entity-one entity-name="Party" value-field="party"></entity-one>
                 <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdFrom" from-field="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
@@ -489,10 +490,19 @@
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field="contacts"/></not>
+                        <if-compare field="party.partyTypeId" operator="equals" value="PARTY_GROUP"/>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-form-name="ListContacts">
+                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-menu-name="addRelContactAccounts">
+                            <include-menu name="addRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="parameters.editPartyRel"/></not>
+                                </condition>
+                                <widgets>
+                                    <include-form name="AddContact" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </widgets>
+                            </section>
                             <include-form name="ListRelatedContacts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>
                     </widgets>
@@ -514,11 +524,20 @@
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field="accounts"/></not>
+                        <if-compare field="party.partyTypeId" operator="equals" value="PERSON"/>
                     </condition>
-                    <widgets>
-                        <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-form-name="ListAccounts">
-                            <include-form name="ListRelatedAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                    <widgets>                        
+                        <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-menu-name="addRelContactAccounts">  
+                            <include-menu name="addRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="parameters.editPartyRel"/></not>
+                                </condition>
+                                <widgets>
+                                    <include-form name="AddAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </widgets>
+                            </section>
+                            <include-form name="ListRelatedAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>                                                 
                         </screenlet>
                     </widgets>
                 </section>
