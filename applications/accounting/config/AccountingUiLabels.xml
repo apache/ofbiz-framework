@@ -6816,6 +6816,9 @@
         <value xml:lang="nl">Aantal</value>
         <value xml:lang="th">จำนวน</value>
     </property>
+    <property key="AccountingQuickSearch">
+        <value xml:lang="en">Quick Search</value>
+    </property>
     <property key="AccountingRateAmounts">
         <value xml:lang="en">Rate Amounts</value>
         <value xml:lang="fr">Valeurs de taux</value>
