@@ -1935,6 +1935,9 @@
         <value xml:lang="th">สร้างบัตรเครดิตใหม่</value>
         <value xml:lang="zh">创建新信用卡</value>
     </property>
+    <property key="AccountingCreateNewDepositSlip">
+        <value xml:lang="en">Create New Deposit Slip for Financial Account: ${finAccountId}</value>
+    </property>
     <property key="AccountingCreateNewEftAccount">
         <value xml:lang="ar">استحداث  حساب EFT  جديد</value>
         <value xml:lang="de">Neue Bankverbindung erstellen</value>
@@ -2353,6 +2356,9 @@
         <value xml:lang="it">Duplicazione Prima Nota</value>
         <value xml:lang="nl">Kopiëer boekhoudtransactie</value>
         <value xml:lang="th">จำลองรายการบัญชี</value>
+    </property>
+    <property key="AccountingCreateNewDepositSlip">
+        <value xml:lang="en">Create New Deposit Slip</value>
     </property>
     <property key="AccountingEFTAccount">
         <value xml:lang="ar">حساب EFT</value>

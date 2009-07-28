@@ -294,6 +294,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
+                                <container style="button-bar">
+                                    <link target="NewDepositSlip" text="${uiLabelMap.AccountingCreateNewDepositSlip}" style="buttontext">
+                                        <parameter param-name="finAccountId" from-field="parameters.finAccountId"/>
+                                        <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                    </link>
+                                </container>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="FindDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
@@ -334,6 +340,44 @@ under the License.
                                     <include-form name="AddDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                                     <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewDepositSlip">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingCreateNewDepositSlip"/>
+                <set field="tabButtonItem" value="findDepositSlips"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="headerItem" value="FindFinAccount"/>
+                <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="cardType" from-field="parameters.cardType"/>
+                <set field="fromDate" type="Timestamp" from-field="parameters.fromDate"/>
+                <set field="thruDate" type="Timestamp" from-field="parameters.thruDate"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <script location="component://accounting/webapp/ar/WEB-INF/actions/BatchPayments.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindBatchPaymentsForDepositSlip" location="component://accounting/widget/ar/forms/ArPaymentForms.xml"/>
+                                    </decorator-section> 
+                                    <decorator-section name="search-results">
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/ar/payment/batchPayments.ftl"/></html>
+                                        </platform-specific>
+                                    </decorator-section>
+                                </decorator-screen>  
                             </widgets>
                         </section>
                     </decorator-section>

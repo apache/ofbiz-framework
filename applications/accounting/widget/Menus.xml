@@ -668,6 +668,7 @@ under the License.
         <menu-item name="findDepositSlips" title="${uiLabelMap.AccountingDepositSlips}">
             <link target="FindDepositSlips">
                 <parameter param-name="finAccountId"/>
+                <parameter param-name="organizationPartyId" from-field="finAccount.ownerPartyId"/>
             </link>
         </menu-item>
     </menu>
