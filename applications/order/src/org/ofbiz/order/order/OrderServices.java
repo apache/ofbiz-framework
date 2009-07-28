@@ -21,7 +21,6 @@ package org.ofbiz.order.order;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.transaction.Transaction;
 
@@ -56,10 +56,10 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
@@ -81,6 +81,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
+import com.ibm.icu.util.Calendar;
+
 /**
  * Order Processing Services
  */
@@ -91,8 +93,8 @@ public class OrderServices {
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
-    public static Map salesAttributeRoleMap = FastMap.newInstance();
-    public static Map purchaseAttributeRoleMap = FastMap.newInstance();
+    public static Map<String, String> salesAttributeRoleMap = FastMap.newInstance();
+    public static Map<String, String> purchaseAttributeRoleMap = FastMap.newInstance();
     static {
         salesAttributeRoleMap.put("placingCustomerPartyId", "PLACING_CUSTOMER");
         salesAttributeRoleMap.put("billToCustomerPartyId", "BILL_TO_CUSTOMER");
@@ -145,7 +147,7 @@ public class OrderServices {
                     hasPermission = true;
                 } else {
                     // check sales agent/customer relationship
-                    List repsCustomers = new LinkedList();
+                    List<GenericValue> repsCustomers = new LinkedList<GenericValue>();
                     try {
                         repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship",
                                 UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
@@ -5298,6 +5300,147 @@ public class OrderServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> createAlsoBoughtProductAssocs(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        // All orders with an entryDate > orderEntryFromDateTime will be processed
+        Timestamp orderEntryFromDateTime = (Timestamp) context.get("orderEntryFromDateTime");
+        // If true all orders ever created will be processed and any pre-existing ALSO_BOUGHT ProductAssocs will be expired 
+        boolean processAllOrders = context.get("processAllOrders") == null ? false : (Boolean) context.get("processAllOrders");
+        if (orderEntryFromDateTime == null && !processAllOrders) {
+            // No from date supplied, check to see when this service last ran and use the startDateTime
+            EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toMap("statusId", "SERVICE_FINISHED", "serviceName", "createAlsoBoughtProductAssocs"));
+            EntityFindOptions efo = new EntityFindOptions();
+            efo.setMaxRows(1);
+            try {
+                GenericValue lastRunJobSandbox = EntityUtil.getFirst(delegator.findList("JobSandbox", cond, null, UtilMisc.toList("startDateTime DESC"), efo, false));
+                if (lastRunJobSandbox != null) {
+                    orderEntryFromDateTime = lastRunJobSandbox.getTimestamp("startDateTime");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (orderEntryFromDateTime == null) {
+                // Still null, process all orders
+                processAllOrders = true;
+            }
+        }
+        if (processAllOrders) {
+            // Expire any pre-existing ALSO_BOUGHT ProductAssocs in preparation for reprocessing
+            EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("productAssocTypeId", "ALSO_BOUGHT"),
+                    EntityCondition.makeConditionDate("fromDate", "thruDate")
+            ));
+            try {
+                delegator.storeByCondition("ProductAssoc", UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp()), cond);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        EntityListIterator eli = null;
+        try {
+            List<EntityExpr> orderCondList = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", "SALES_ORDER"));
+            if (!processAllOrders && orderEntryFromDateTime != null) {
+                orderCondList.add(EntityCondition.makeCondition("entryDate", EntityOperator.GREATER_THAN, orderEntryFromDateTime));
+            }
+            EntityCondition cond = EntityCondition.makeCondition(orderCondList);
+            eli = delegator.find("OrderHeader", cond, null, null, UtilMisc.toList("entryDate ASC"), null);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (eli != null) {
+            GenericValue orderHeader = null;
+            while ((orderHeader = eli.next()) != null) {
+                Map svcIn = FastMap.newInstance();
+                svcIn.put("userLogin", context.get("userLogin"));
+                svcIn.put("orderId", orderHeader.get("orderId"));
+                try {
+                    dispatcher.runSync("createAlsoBoughtProductAssocsForOrder", svcIn);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                }
+            }
+            try {
+                eli.close();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
+    
+    public static Map<String, Object> createAlsoBoughtProductAssocsForOrder(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        String orderId = (String) context.get("orderId");
+        OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+        List<GenericValue> orderItems = orh.getOrderItems();
+        // In order to improve efficiency a little bit, we will always create the ProductAssoc records 
+        // with productId < productIdTo when the two are compared.  This way when checking for an existing
+        // record we don't have to check both possible combinations of productIds
+        TreeSet<String> productIdSet = new TreeSet<String>();
+        if (orderItems != null) {
+            for (GenericValue orderItem : orderItems) {
+                String productId = orderItem.getString("productId");
+                if (productId != null) {
+                    GenericValue parentProduct = ProductWorker.getParentProduct(productId, delegator);
+                    if (parentProduct != null) productId = parentProduct.getString("productId");
+                    productIdSet.add(productId);
+                }
+            }
+        }
+        TreeSet<String> productIdToSet = new TreeSet<String>(productIdSet);
+        for (String productId : productIdSet) {
+            productIdToSet.remove(productId);
+            for (String productIdTo : productIdToSet) {
+                EntityCondition cond = EntityCondition.makeCondition(
+                        UtilMisc.toList(
+                                EntityCondition.makeCondition("productId", productId),
+                                EntityCondition.makeCondition("productIdTo", productIdTo),
+                                EntityCondition.makeCondition("productAssocTypeId", "ALSO_BOUGHT"),
+                                EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
+                                EntityCondition.makeCondition("thruDate", null)
+                        )
+                );
+                GenericValue existingProductAssoc = null;
+                try {
+                    // No point in using the cache because of the filterByDateExpr
+                    existingProductAssoc = EntityUtil.getFirst(delegator.findList("ProductAssoc", cond, null, UtilMisc.toList("fromDate DESC"), null, false));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                try {
+                    if (existingProductAssoc != null) {
+                        BigDecimal newQuantity = existingProductAssoc.getBigDecimal("quantity");
+                        if (newQuantity == null || newQuantity.compareTo(BigDecimal.ZERO) < 0) {
+                            newQuantity = BigDecimal.ZERO;
+                        }
+                        newQuantity = newQuantity.add(BigDecimal.ONE);
+                        ModelService updateProductAssoc = dctx.getModelService("updateProductAssoc");
+                        Map<String, Object> updateCtx = updateProductAssoc.makeValid(context, ModelService.IN_PARAM, true, null);
+                        updateCtx.putAll(updateProductAssoc.makeValid(existingProductAssoc, ModelService.IN_PARAM));
+                        updateCtx.put("quantity", newQuantity);
+                        dispatcher.runSync("updateProductAssoc", updateCtx);
+                    } else {
+                        Map<String, Object> createCtx = FastMap.newInstance();
+                        createCtx.put("userLogin", context.get("userLogin"));
+                        createCtx.put("productId", productId);
+                        createCtx.put("productIdTo", productIdTo);
+                        createCtx.put("productAssocTypeId", "ALSO_BOUGHT");
+                        createCtx.put("fromDate", UtilDateTime.nowTimestamp());
+                        createCtx.put("quantity", BigDecimal.ONE);
+                        dispatcher.runSync("createProductAssoc", createCtx);
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+        
         return ServiceUtil.returnSuccess();
     }
 }

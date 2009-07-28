@@ -7061,6 +7061,9 @@
         <value xml:lang="th">Allow USPS Addr (PO Box, RR, etc)</value>
         <value xml:lang="zh">允许USPS地址 (邮箱、 退货率等)</value>
     </property>
+    <property key="ProductAlsoBought">
+        <value xml:lang="en">Customers who bought this item also bought:</value>
+    </property>
     <property key="ProductAlternate">
         <value xml:lang="de">Alternative</value>
         <value xml:lang="en">Alternate</value>

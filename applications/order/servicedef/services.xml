@@ -1008,4 +1008,25 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="giftMessage" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="createAlsoBoughtProductAssocs" engine="java" auth="true" 
+            location="org.ofbiz.order.order.OrderServices" invoke="createAlsoBoughtProductAssocs">
+        <description>
+            Cycles through all newly created sales orders and creates ProductAssoc records (of type ALSO_BOUGHT) for products 
+            that were purchased together.  If a ProductAssoc record already exists then the quantity field is incremented by one.
+            Newly created orders are determined by looking for orders that were created after the JobSandbox.startDateTime of the
+            previous async execution of this service, alternatively the service can be supplied with a orderEntryFromDateTime 
+            parameter which will process all orders placed after that date/time or as a final option processAllOrders can be set
+            to true to force a calculation of all orders ever placed with orderEntryFromDateTime being ignored.
+        </description>
+        <attribute name="orderEntryFromDateTime" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="processAllOrders" mode="IN" type="Boolean" optional="true"/>
+    </service>
+    <service name="createAlsoBoughtProductAssocsForOrder" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderServices" invoke="createAlsoBoughtProductAssocsForOrder">
+        <description>
+            Creates ProductAssoc records (of type ALSO_BOUGHT) for products that were purchased together in the Order.  If a ProductAssoc record already exists then the quantity field is incremented by one.  If a variant product has
+            been ordered then the association is made to its parent product.
+        </description>
+        <attribute name="orderId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>

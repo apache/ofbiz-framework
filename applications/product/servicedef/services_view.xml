@@ -63,12 +63,19 @@ under the License.
     </service>
     <service name="getAssociatedProducts" engine="java"
             location="org.ofbiz.product.product.ProductServices" invoke="prodFindAssociatedByType">
-        <description>Finds associated products by the defined type.</description>
+        <description>
+            Finds associated products by the defined type.  Only one of either productId or productIdTo can be supplied,
+            not both.  If bidirectional is set to true then the passed in productId will be treated as both a productId
+            and a productIdTo (defaults to false).  If sortDescending is true then assocProducts will be returned sorted
+            by sequenceNum descending (defaults to false).
+        </description>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="productIdTo" type="String" mode="IN" optional="true"/>
         <attribute name="checkViewAllow" type="Boolean" mode="IN" optional="true"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
         <attribute name="type" type="String" mode="IN"/>
+        <attribute name="bidirectional" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="sortDescending" type="Boolean" mode="IN" optional="true"/>
         <attribute name="assocProducts" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
     <service name="getProductFeatures" engine="java"
