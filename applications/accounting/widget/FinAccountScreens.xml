@@ -271,4 +271,63 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="FindDepositSlips">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingFindDepositSlip"/>
+                <set field="tabButtonItem" value="findDepositSlips"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDepositSlipAndMembers">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingFindDepositSlip"/>
+                <set field="tabButtonItem" value="findDepositSlips"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+                <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
+                    <field-map field-name="paymentGroupId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroup} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]">
+                                    <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMember} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]">
+                                    <include-form name="AddDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

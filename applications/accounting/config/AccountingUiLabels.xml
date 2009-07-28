@@ -2311,6 +2311,9 @@
     <property key="AccountingDepositSlip">
         <value xml:lang="en">Deposit Slip</value>
     </property>
+    <property key="AccountingDepositSlips">
+        <value xml:lang="en">Deposit Slips</value>
+    </property>
     <property key="AccountingDepositWithdraw">
         <value xml:lang="en">Deposit/Withdraw</value>
     </property>
@@ -2807,6 +2810,9 @@
     </property>
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
+    </property>
+    <property key="AccountingFindDepositSlip">
+        <value xml:lang="en">Find Deposit Slips for finAccount ${finAccountId}</value>
     </property>
     <property key="AccountingFindFixedAssets">
         <value xml:lang="de">Suche Anlagen</value>

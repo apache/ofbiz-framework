@@ -1829,6 +1829,44 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FinAccountMain"/>
     </request-map>
+    <request-map uri="FindDepositSlips">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindDepositSlips"/>
+    </request-map>
+    <request-map uri="updateDepositSlip">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGroup"/>
+        <response name="success" type="view" value="EditDepositSlipAndMembers"/>
+        <response name="error" type="view" value="EditDepositSlipAndMembers"/>
+    </request-map>
+    <request-map uri="addDepositSlipMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentGroupMember"/>
+        <response name="success" type="view" value="EditDepositSlipAndMembers"/>
+        <response name="error" type="view" value="EditDepositSlipAndMembers"/>
+    </request-map>
+    <request-map uri="updateDepositSlipMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGroupMember"/>
+        <response name="success" type="view" value="EditDepositSlipAndMembers"/>
+        <response name="error" type="view" value="EditDepositSlipAndMembers"/>
+    </request-map>
+    <request-map uri="deleteDepositSlipMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePaymentGroupMember"/>
+        <response name="success" type="view" value="EditDepositSlipAndMembers"/>
+        <response name="error" type="view" value="EditDepositSlipAndMembers"/>
+    </request-map>
+    <request-map uri="EditDepositSlipAndMembers">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditDepositSlipAndMembers"/>
+    </request-map>
+    <request-map uri="deleteDepositSlip">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelPaymentBatch"/>
+        <response name="success" type="view" value="FindDepositSlips"/>
+        <response name="error" type="view" value="FindDepositSlips"/>
+    </request-map>
     <!-- Fin Account Roles -->
     <request-map uri="EditFinAccountRoles">
         <security https="true" auth="true"/>
@@ -2292,6 +2330,8 @@ under the License.
     <!-- FinAccount -->
     <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>
     <view-map name="FinAccountMain" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FinAccountMain"/>
+    <view-map name="FindDepositSlips" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindDepositSlips"/>
+    <view-map name="EditDepositSlipAndMembers" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditDepositSlipAndMembers"/>
 
     <!-- TO BE REMOVED
     <view-map name="ListFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ListFinAccount"/>

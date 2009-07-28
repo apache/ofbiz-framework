@@ -44,8 +44,18 @@ under the License.
         </field>
         <field name="paymentGroupTypeId"><display-entity entity-name="PaymentGroupType" description="${description}"/></field>
         <field name="paymentGroupName"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePaymentGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'}">
+            <hyperlink target="cancelPaymentGroup" description="${uiLabelMap.CommonCancel}" also-hidden="false">
+                <parameter param-name="paymentGroupId"/>
+            </hyperlink>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'}">
+            <hyperlink target="cancelCheckRunPayments" description="${uiLabelMap.CommonCancel}" also-hidden="false">
+                <parameter param-name="paymentGroupId"/>
+            </hyperlink>
+        </field>
+        <field name="depositSlip" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="DepositSlip.pdf" description="${uiLabelMap.AccountingInvoicePDF}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
