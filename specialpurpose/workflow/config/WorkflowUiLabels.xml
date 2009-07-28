@@ -39,30 +39,35 @@ under the License.
         <value xml:lang="fr">Réf. d'activité</value>
         <value xml:lang="it">Attività</value>
         <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="zh">有效标识</value>
     </property>
     <property key="WorkflowWorkflowActivityListFor">
         <value xml:lang="en">Activity list for</value>
         <value xml:lang="fr">Liste d'activité pour</value>
         <value xml:lang="it">Lista Actività per</value>
         <value xml:lang="th">รายการทำงานสำหรับ</value>
+        <value xml:lang="zh">有效列表用于</value>
     </property>
     <property key="WorkflowWorkflowActualCompleteDate">
         <value xml:lang="en">Actual Complete Date</value>
         <value xml:lang="fr">Date réelle de fin</value>
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="th">วันที่เสร็จจริง</value>
+        <value xml:lang="zh">实际完成日期</value>
     </property>
     <property key="WorkflowWorkflowAssignments">
         <value xml:lang="en">Assignation(s)</value>
         <value xml:lang="fr">Tâche (s)</value>
         <value xml:lang="it">Assegnato(i)</value>
         <value xml:lang="th">งานที่ได้รับมอบหมาย</value>
+        <value xml:lang="zh">指定</value>
     </property>
     <property key="WorkflowWorkflowCurrentStatus">
         <value xml:lang="en">Current Status</value>
         <value xml:lang="fr">Statut "Current"</value>
         <value xml:lang="it">Stato attuale</value>
         <value xml:lang="th">สถานะทั่ว ๆ ไป</value>
+        <value xml:lang="zh">当前状态</value>
     </property>
     <property key="WorkflowWorkflowMonitor">
         <value xml:lang="en">Workflow Monitor</value>
@@ -77,65 +82,76 @@ under the License.
         <value xml:lang="fr">Package/Version</value>
         <value xml:lang="it">Pacchetto/Versione</value>
         <value xml:lang="th">แพ็คเกจ/เวอร์ชั่น</value>
+        <value xml:lang="zh">包/版本</value>
     </property>
     <property key="WorkflowWorkflowPageDescription">
         <value xml:lang="en">This page is used to view the status of running workflows.</value>
         <value xml:lang="fr">Cette page est utilisée pour voir le statut du déroulement des opérations du workflow</value>
         <value xml:lang="it">Questa pagina è usata per mostrare lo stato del flussi di lavoro in esecuzione.</value>
         <value xml:lang="th">หน้านี้ใช้ตรวจสอบค่าสถานะของการดำเนินงานโครงสร้าง</value>
+        <value xml:lang="zh">这个页面用来浏览运行中的工作流的状态。</value>
     </property>
     <property key="WorkflowWorkflowProcessVersion">
         <value xml:lang="en">Process/Version</value>
         <value xml:lang="fr">Processus/Version</value>
         <value xml:lang="it">Processo/Versione</value>
         <value xml:lang="th">โปรเซส/เวอร์ชั่น</value>
+        <value xml:lang="zh">流程/版本</value>
     </property>
     <property key="WorkflowWorkflowSourceReferenceId">
         <value xml:lang="en">Source Reference ID</value>
         <value xml:lang="fr">Réf. de référence de source</value>
         <value xml:lang="it">Riferimento Origine</value>
         <value xml:lang="th">รหัสอ้างอิงที่มา</value>
+        <value xml:lang="zh">源索引标识</value>
     </property>
     <property key="WorkflowWorkflows">
         <value xml:lang="en">Workflows</value>
         <value xml:lang="fr">Workflows</value>
         <value xml:lang="it">Flussi di Lavoro</value>
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">工作流</value>
     </property>
     <property key="WorkflowImportUpdateToDB">
         <value xml:lang="en">Import/Update to DB?</value>
         <value xml:lang="fr">Import/ Mise à jour vers DB ?</value>
         <value xml:lang="it">Importa/Aggiorna sul DB?</value>
         <value xml:lang="th">นำเข้า/เปลี่ยนแปลง ฐานข้อมูล?</value>
+        <value xml:lang="zh">导入/更新到数据库？</value>
     </property>
     <property key="WorkflowImportXPDLPageDescription">
         <value xml:lang="en">This page is used to read and import XPDL files into the workflow process repository.</value>
         <value xml:lang="fr">Cette page est utilisée pour lire et importer des fichiers XPDL dans le dépôt de processus du workflow.</value>
         <value xml:lang="it">Questa pagina è usata per leggere e importare files XPDL nel repository processi flussi di lavoro.</value>
         <value xml:lang="th">หน้านี้ใช้อ่านและนำเข้าไฟล์ XPDL เข้าสู่ที่เก็บขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">这个页面用来读取和导入XPDL文件到工作流流程库。</value>
     </property>
     <property key="WorkflowXpdlFilenameOrUrl">
         <value xml:lang="en">XPDL Filename or URL</value>
         <value xml:lang="fr">Nom de fichier XPDL ou URL</value>
         <value xml:lang="it">Nome file XPDL o URL</value>
         <value xml:lang="th">ชื่อไฟล์ XPDL หรือ URL</value>
+        <value xml:lang="zh">XPDL文件名或网址</value>
     </property>
     <property key="WorkflowPermissionWorkflow">
         <value xml:lang="en">You do not have permission to use this page (WORKFLOW_MAINT needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (WORKFLOW_MAINT est nécessaire)</value>
         <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario WORKFLOW_MAINT)</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (WORKFLOW_MAINT ที่ต้องการ)</value>
+        <value xml:lang="zh">你没有权限使用这个页面(需要WORKFLOW_MAINT)</value>
     </property>
     <property key="WorkflowActiveWorkflowMonitor">
         <value xml:lang="en">Active Workflow Monitor</value>
         <value xml:lang="fr">Moniteur actif du Workflow</value>
         <value xml:lang="it">Monitor Flussi di Lavoro Attivi</value>
         <value xml:lang="th">ตรวจสอบขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">有效工作流监控</value>
     </property>
     <property key="WorkflowNoStepsFoundForRunningWorkflow">
         <value xml:lang="en">No steps found for running workflow process: ${workflow}</value>
         <value xml:lang="fr">Aucune étape trouvée pour exécuter une opération de workflow: ${workflow}</value>
         <value xml:lang="it">Nessun passo trovato per l'esecuzione del processo flusso di lavoro: ${workflow}</value>
         <value xml:lang="th">ไม่พบขั้นตอนการดำเนินงาน: ${workflow}</value>
+        <value xml:lang="zh">没有找到运行工作流流程的步骤：${workflow}</value>
     </property>
 </resource>
