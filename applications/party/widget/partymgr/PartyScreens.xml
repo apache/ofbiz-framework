@@ -269,21 +269,6 @@ under the License.
                         <container style="lefthalf">
                         <section>
                             <condition>
-                                <if-compare field="party.partyTypeId" operator="equals" value="PERSON"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PartyAddRelatedAccount}">
-                                    <include-form name="AddAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <screenlet title="${uiLabelMap.PartyAddRelatedContact}">
-                                    <include-form name="AddContact" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </screenlet>
-                            </fail-widgets>
-                        </section>
-                        <section>
-                            <condition>
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <widgets>

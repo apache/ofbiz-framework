@@ -651,4 +651,10 @@
         </menu-item>
     </menu>
 
+    <menu name="addRelContactAccounts">
+        <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
+            <link target="${parameters._LAST_VIEW_NAME_}?portalPageId=${parameters.portalPageId}&amp;partyId=${parameters.partyId}&amp;editPartyRel=Y"/>
+        </menu-item>  
+    </menu>
+    
 </menus>
