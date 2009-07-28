@@ -2249,6 +2249,48 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="MonthlyTrialBalancePdf"/>
     </request-map>
+
+    <request-map uri="FindGlAccountCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGlAccountCategory"/>
+    </request-map>
+    <request-map uri="EditGlAccountCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditGlAccountCategory"/>
+    </request-map>
+    <request-map uri="createGlAccountCategory">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createGlAccountCategory"/>
+        <response name="success" type="view" value="EditGlAccountCategory"/>
+    </request-map>
+    <request-map uri="updateGlAccountCategory">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGlAccountCategory"/>
+        <response name="success" type="view" value="EditGlAccountCategory"/>
+    </request-map>
+    <request-map uri="EditGlAccountCategoryMember">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditGlAccountCategoryMember"/>
+    </request-map>
+    <request-map uri="updateGlAccountCategoryMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGlAccountCategoryMember"/>
+        <response name="success" type="request-redirect" value="EditGlAccountCategoryMember">
+            <redirect-parameter name="glAccountCategoryId"/>
+        </response>
+    </request-map>
+    <request-map uri="createGlAccountCategoryMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createGlAccountCategoryMember"/>
+        <response name="success" type="request-redirect" value="EditGlAccountCategoryMember">
+            <redirect-parameter name="glAccountCategoryId"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteGlAccountCategoryMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteGlAccountCategoryMember"/>
+        <response name="success" type="view" value="EditGlAccountCategoryMember"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2527,6 +2569,8 @@ under the License.
     <view-map name="CommissionRun" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#CommissionRun"/>
     <view-map name="MonthlyTrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#MonthlyTrialBalance"/>
     <view-map name="MonthlyTrialBalancePdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#MonthlyTrialBalancePdf" content-type="application/pdf"/>
-
+    <view-map name="EditGlAccountCategory" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategory"/>
+    <view-map name="FindGlAccountCategory" type="screen" page="component://accounting/widget/GlSetupScreens.xml#FindGlAccountCategory"/>
+    <view-map name="EditGlAccountCategoryMember" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategoryMember"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -590,4 +590,98 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="FindGlAccountCategory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="FormFieldTitle_findGlAccountCategory"/>
+                <set field="tabButtonItem" value="FindGlAccountCategory"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar">
+                                            <link target="EditGlAccountCategory" text="${uiLabelMap.FormFieldTitle_newGlAccountCategory}" style="buttontext"/>
+                                        </container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindGlAccountCategory" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </decorator-section>
+                                     <decorator-section name="search-results">
+                                        <include-form name="ListGlAccountCategory" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                             <fail-widgets>
+                                <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditGlAccountCategory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="FormFieldTitle_glAccountCategory"/>
+                <set field="tabButtonItem" value="FindGlAccountCategory"/>
+                <set field="tabButtonItem2" value="EditGlAccountCategory"/>
+                <set field="glAccountCategoryId" from-field="parameters.glAccountCategoryId"/>
+                <set field="glAccountCategoryTypeId" from-field="parameters.glAccountCategoryTypeId"/>
+                <entity-one entity-name="GlAccountCategory" value-field="glAccountCategory" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="glAccountCategory"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="h1"><label>${uiLabelMap.FormFieldTitle_editGlAccountCategory}</label></container>
+                                <include-menu name="GlAccountCategoryTabBar" location="component://accounting/widget/Menus.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <container style="h1"><label>${uiLabelMap.FormFieldTitle_newGlAccountCategory}</label></container>
+                            </fail-widgets>
+                        </section>
+                        <include-form name="EditGlAccountCategory" location="component://accounting/widget/GlSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditGlAccountCategoryMember">
+        <section>
+            <actions>
+                <set field="titleProperty" value="FormFieldTitle_editGlAccountCategoryMember"/>
+                <set field="tabButtonItem" value="FindGlAccountCategory"/>
+                <set field="tabButtonItem2" value="EditGlAccountCategoryMember"/>
+                <set field="glAccountCategoryId" from-field="parameters.glAccountCategoryId"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <container style="h1"><label>${uiLabelMap.FormFieldTitle_editGlAccountCategoryMember}</label></container>
+                            <include-menu name="GlAccountCategoryTabBar" location="component://accounting/widget/Menus.xml"/>
+                            <include-form  name="ListGlAccountCategoryMember" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <include-form name="AddGlAccountCategoryMember" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

@@ -8609,6 +8609,12 @@
         <value xml:lang="th">ถึงกำหนดวันที่</value>
         <value xml:lang="zh">支付日</value>
     </property>
+    <property key="FormFieldTitle_editGlAccountCategory">
+        <value xml:lang="en">Edit GL Account Category</value>
+    </property>
+    <property key="FormFieldTitle_editGlAccountCategoryMember">
+        <value xml:lang="en">Edit GL Account Category Member</value>
+    </property>
     <property key="FormFieldTitle_effectiveAlias">
         <value xml:lang="en">effective Alias</value>
         <value xml:lang="it">Alias effettivo</value>
@@ -8750,6 +8756,9 @@
         <value xml:lang="ru">Код типа финансового счета</value>
         <value xml:lang="th">รหัสประเภทบัญชีการเงิน</value>
     </property>
+    <property key="FormFieldTitle_findGlAccountCategory">
+        <value xml:lang="en">Find Gl Account Category</value>
+    </property>
     <property key="FormFieldTitle_fiscalYearStartDay">
         <value xml:lang="ar">يوم بداية العام الضريبي</value>
         <value xml:lang="en">Fiscal Year Start Day</value>
@@ -8880,6 +8889,9 @@
         <value xml:lang="ru">Результат шлюза в баллах</value>
         <value xml:lang="th">Gateway Score Result</value>
         <value xml:lang="zh">网关(风险)评分结果</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategory">
+        <value xml:lang="en">GL Account Category</value>
     </property>
     <property key="FormFieldTitle_glAccountClassId">
         <value xml:lang="ar">دليل صنف الحساب المحاسبي</value>
@@ -9347,6 +9359,18 @@
         <value xml:lang="ru">Название</value>
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名称</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryId">
+        <value xml:lang="en">GL Account Category Id</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryMember">
+        <value xml:lang="en">GL Account Category Member</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryTypeId">
+        <value xml:lang="en">GL Account Category Type Id</value>
+    </property>
+    <property key="FormFieldTitle_newGlAccountCategory">
+        <value xml:lang="en">New GL Account Category</value>
     </property>
     <property key="FormFieldTitle_notApplied">
         <value xml:lang="en">Not Applied</value>
