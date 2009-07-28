@@ -55,4 +55,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="FindBatchPaymentsForDepositSlip" target="NewDepositSlip" extends="FindBatchPayments" extends-resource="component://accounting/widget/ar/forms/ArPaymentForms.xml">
+        <field name="finAccountId"><display description="${finAccountId}"/></field>
+    </form>
 </forms>
