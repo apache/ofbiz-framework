@@ -43,6 +43,8 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.image.ScaleImage;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -423,8 +425,12 @@ public class ProductServices {
         String errMsg = null;
 
         Boolean cvaBool = (Boolean) context.get("checkViewAllow");
-        boolean checkViewAllow = (cvaBool == null ? false : cvaBool.booleanValue());
+        boolean checkViewAllow = (cvaBool == null ? false : cvaBool);
         String prodCatalogId = (String) context.get("prodCatalogId");
+        Boolean bidirectional = (Boolean) context.get("bidirectional");
+        bidirectional = bidirectional == null ? false : bidirectional;
+        Boolean sortDescending = (Boolean) context.get("sortDescending");
+        sortDescending = sortDescending == null ? false : sortDescending;
 
         if (productId == null && productIdTo == null) {
             errMsg = UtilProperties.getMessage(resource,"productservices.both_productId_and_productIdTo_cannot_be_null", locale);
@@ -462,11 +468,28 @@ public class ProductServices {
 
         try {
             List<GenericValue> productAssocs = null;
-
-            if (productIdTo == null) {
-                productAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", type), UtilMisc.toList("sequenceNum"));
+            
+            List<String> orderBy = FastList.newInstance();
+            if (sortDescending) {
+                orderBy.add("sequenceNum DESC");
             } else {
-                productAssocs = product.getRelatedCache("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", type), UtilMisc.toList("sequenceNum"));
+                orderBy.add("sequenceNum");
+            }
+
+            if (bidirectional) {
+                EntityCondition cond = EntityCondition.makeCondition(
+                        UtilMisc.toList(
+                                EntityCondition.makeCondition("productId", productId), 
+                                EntityCondition.makeCondition("productIdTo", productId)
+                        ), EntityJoinOperator.OR);
+                cond = EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type));
+                productAssocs = delegator.findList("ProductAssoc", cond, null, orderBy, null, true);
+            } else {
+                if (productIdTo == null) {
+                    productAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy);
+                } else {
+                    productAssocs = product.getRelatedCache("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy);
+                }
             }
             // filter the list by date
             productAssocs = EntityUtil.filterByDate(productAssocs);

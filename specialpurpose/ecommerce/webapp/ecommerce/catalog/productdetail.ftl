@@ -696,13 +696,20 @@ ${virtualJavaScript?if_exists}
 
     <div class="productsummary-container">
     <#list assocProducts as productAssoc>
+        <#if productAssoc.productId == product.productId>
+            <#assign assocProductId = productAssoc.productIdTo/>
+        <#else/>
+            <#assign assocProductId = productAssoc.productId/>
+        </#if>
         <div>
-          <a href="<@ofbizUrl>${targetRequest}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo?if_exists}</@ofbizUrl>" class="buttontext">
-            ${productAssoc.productIdTo?if_exists}
+          <a href="<@ofbizUrl>${targetRequest}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${assocProductId}</@ofbizUrl>" class="buttontext">
+            ${assocProductId}
           </a>
-          - <b>${productAssoc.reason?if_exists}</b>
+        <#if productAssoc.reason?has_content>
+          - <b>${productAssoc.reason}</b>
+        </#if>
         </div>
-      ${setRequestAttribute("optProductId", productAssoc.productIdTo)}
+      ${setRequestAttribute("optProductId", assocProductId)}
       ${setRequestAttribute("listIndex", listIndex)}
       ${setRequestAttribute("formNamePrefix", formNamePrefix)}
       <#if targetRequestName?has_content>
@@ -723,6 +730,8 @@ ${virtualJavaScript?if_exists}
 <#assign listIndex = 1>
 ${setRequestAttribute("productValue", productValue)}
 <div id="associated-products">
+    <#-- also bought -->
+    <@associated assocProducts=alsoBoughtProducts beforeName="" showName="N" afterName="${uiLabelMap.ProductAlsoBought}" formNamePrefix="albt" targetRequestName=""/>
     <#-- obsolete -->
     <@associated assocProducts=obsoleteProducts beforeName="" showName="Y" afterName=" ${uiLabelMap.ProductObsolete}" formNamePrefix="obs" targetRequestName=""/>
     <#-- cross sell -->

@@ -29,5 +29,6 @@ under the License.
     <JobSandbox jobId="8005" jobName="Extend expired Subscriptions" runTime="2000-01-01 03:00:00.000" serviceName="runSubscriptionAutoReorders" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     <JobSandbox jobId="8006" jobName="Cancels all orders after date" runTime="2009-12-03 03:00:00.000" serviceName="cancelAllBackOrders" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     <JobSandbox jobId="8007" jobName="Replacement Held Order Auto-Cancel" runTime="2000-01-01 00:00:00.000" serviceName="autoCancelReplacementOrders" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
+    <JobSandbox jobId="8008" jobName="Create Also Bought Product Associations" runTime="2000-01-01 00:00:00.000" serviceName="createAlsoBoughtProductAssocs" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
 
 </entity-engine-xml>

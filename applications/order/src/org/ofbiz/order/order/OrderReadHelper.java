@@ -75,7 +75,7 @@ public class OrderReadHelper {
 
     protected GenericValue orderHeader = null;
     protected List orderItemAndShipGrp = null;
-    protected List orderItems = null;
+    protected List<GenericValue> orderItems = null;
     protected List adjustments = null;
     protected List<GenericValue> paymentPrefs = null;
     protected List orderStatuses = null;
@@ -1366,7 +1366,7 @@ public class OrderReadHelper {
     // ========== Order Item Methods ==========
     // ========================================
 
-    public List getOrderItems() {
+    public List<GenericValue> getOrderItems() {
         if (orderItems == null) {
             try {
                 orderItems = orderHeader.getRelated("OrderItem", UtilMisc.toList("orderItemSeqId"));
