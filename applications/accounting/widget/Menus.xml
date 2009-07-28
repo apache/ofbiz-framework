@@ -901,8 +901,11 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
+        <menu-item name="FindGlAccountCategory" title="${uiLabelMap.FormFieldTitle_glAccountCategory}">
+            <link target="FindGlAccountCategory"/>
+        </menu-item>
     </menu>
-
+    
     <menu name="AgreementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="AgreementMain" title="${uiLabelMap.AccountingAgreement}">
             <link target="EditAgreement">
@@ -1075,6 +1078,21 @@ under the License.
         </menu-item>
         <menu-item name="FindFinAccount" title="${uiLabelMap.PageTitleFindFinAccount}">
             <link target="FindFinAccount"/>
+        </menu-item>
+    </menu>
+
+    <menu name="GlAccountCategoryTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" 
+          selected-menuitem-context-field-name="tabButtonItem2">
+        <menu-item name="EditGlAccountCategory" title="${uiLabelMap.FormFieldTitle_glAccountCategory}">
+            <link target="EditGlAccountCategory">
+                <parameter param-name="glAccountCategoryId"/>
+                <parameter param-name="glAccountCategoryTypeId"/>                
+            </link>
+        </menu-item>
+        <menu-item name="EditGlAccountCategoryMember" title="${uiLabelMap.FormFieldTitle_glAccountCategoryMember}">
+            <link target="EditGlAccountCategoryMember">
+                <parameter param-name="glAccountCategoryId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

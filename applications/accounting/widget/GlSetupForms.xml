@@ -1029,4 +1029,79 @@ under the License.
         <field name="postedBalance"><display description="${postedBalance}"/></field>
         <field name="quot13" title="&quot;"><display description="&quot;"/></field>
     </form>
+    
+    <form name="FindGlAccountCategory" type="single" target="FindGlAccountCategory" default-entity-name="GlAccountCategory">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="glAccountCategoryId"><text-find/></field>
+        <field name="glAccountCategoryTypeId">
+            <drop-down>
+                <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListGlAccountCategory" type="list" list-name="listIt" paginate-target="FindGlAccountCategory" default-entity-name="GlAccountCategory" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="GlAccountCategory"/>
+            </service>
+        </actions>
+        <field name="glAccountCategoryId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${glAccountCategoryId}" target="EditGlAccountCategory">
+                <parameter param-name="glAccountCategoryId"/>
+                <parameter param-name="glAccountCategoryTypeId"/>
+            </hyperlink>
+        </field>
+        <field name="glAccountCategoryTypeId"><display-entity entity-name="GlAccountCategoryType"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" sort-field="true"><display/></field>
+    </form>
+
+    <form name="EditGlAccountCategory" type="single"  target="updateGlAccountCategory" default-map-name="glAccountCategory">
+        <alt-target use-when="glAccountCategory==null" target="createGlAccountCategory"/>
+        <auto-fields-entity entity-name="GlAccountCategory" default-field-type="edit"/>
+        <field name="glAccountCategoryId" use-when="glAccountCategoryId!=null"><display/></field>
+        <field name="glAccountCategoryId" use-when="glAccountCategoryId==null"><hidden/></field>
+        <field name="glAccountCategoryTypeId">
+            <drop-down>
+                <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submit" use-when="glAccountCategory==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field name="submit" use-when="glAccountCategory!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListGlAccountCategoryMember" type="list" list-name="glAccountCategoryMemberList" target="updateGlAccountCategoryMember">
+        <actions>
+            <entity-condition entity-name="GlAccountCategoryMember" list="glAccountCategoryMemberList">
+                <condition-expr field-name="glAccountCategoryId" from-field="glAccountCategoryId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="GlAccountCategoryMember" default-field-type="edit"/>
+        <field name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${glAccountId}-${accountName}"/></field>
+        <field name="glAccountCategoryId"><display/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteGlAccountCategoryMember" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="glAccountId" from-field="glAccountId"/>
+                <parameter param-name="glAccountCategoryId" from-field="glAccountCategoryId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddGlAccountCategoryMember" type="single" target="createGlAccountCategoryMember">
+        <field name="glAccountCategoryId"><display/></field>
+        <field name="glAccountId">
+            <drop-down allow-empty="false">
+                <entity-options description="${glAccountId}" entity-name="GlAccount"/>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="amountPercentage"><text/></field>
+        <field name="submit" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
 </forms>

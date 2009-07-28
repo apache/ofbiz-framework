@@ -1941,7 +1941,6 @@ under the License.
       <field name="glAccountId" type="id-ne"></field>
       <field name="glAccountGroupTypeId" type="id-ne"></field>
       <field name="glAccountGroupId" type="id-ne"></field>
-      <field name="amountPercentage" type="fixed-point"></field>
       <prim-key field="glAccountId"/>
       <prim-key field="glAccountGroupTypeId"/>
       <relation type="one" fk-name="GLACT_GPMBR_AC" rel-entity-name="GlAccount">
@@ -3733,4 +3732,42 @@ under the License.
     </relation>
   </entity>
 
+  <entity entity-name="GlAccountCategory"
+          package-name="org.ofbiz.accounting.ledger"
+          title="General Ledger Account Category Entity">
+      <field name="glAccountCategoryId" type="id-ne"></field>
+      <field name="glAccountCategoryTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glAccountCategoryId"/>
+      <relation type="one" fk-name="GLACT_CAT_TP" rel-entity-name="GlAccountCategoryType">
+        <key-map field-name="glAccountCategoryTypeId"/>
+      </relation>
+  </entity>
+
+  <entity entity-name="GlAccountCategoryMember"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Account Category Member Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountCategoryId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="amountPercentage" type="fixed-point"></field>
+      <prim-key field="glAccountId"/>
+      <prim-key field="glAccountCategoryId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="GLACT_CATMBR_AC" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLACT_CATMBR_CAT" rel-entity-name="GlAccountCategory">
+        <key-map field-name="glAccountCategoryId"/>
+      </relation>
+  </entity>
+
+  <entity entity-name="GlAccountCategoryType"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Account Category Type Entity">
+      <field name="glAccountCategoryTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glAccountCategoryTypeId"/>
+  </entity>
 </entitymodel>
