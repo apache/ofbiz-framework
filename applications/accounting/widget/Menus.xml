@@ -1095,4 +1095,23 @@ under the License.
             </link>
         </menu-item>
     </menu>
+    <menu name="FinAccountSubTabBar" menu-container-style="button-bar button-style-2" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}">
+            <link target="EditFinAccount"/>
+        </menu-item>
+        <menu-item name="advancedFinAccountSearch" title="${uiLabelMap.CommonAdvancedSearch}">
+            <condition>
+                <if-compare field="displayAdvancedSearch" operator="not-equals" value="true"/>
+            </condition>
+            <link target="FindFinAccount">
+                <parameter param-name="displayAdvancedSearch" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="quickFinAccountSearch" title="${uiLabelMap.AccountingQuickSearch}">
+            <condition>
+                <if-compare field="displayAdvancedSearch" operator="equals" value="true"/>
+            </condition>
+            <link target="FindFinAccount"/>
+        </menu-item>
+    </menu>
 </menus>
