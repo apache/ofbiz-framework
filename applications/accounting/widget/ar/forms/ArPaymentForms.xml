@@ -24,7 +24,6 @@ under the License.
     <form name="FindBatchPayments" type="single" target="batchPayments">
         <actions>
             <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
-            <set field="defauldPaymentMethodTypeId" value="PERSONAL_CHECK"/>
         </actions>
         <field name="finAccountId">
             <drop-down allow-empty="true">
@@ -34,8 +33,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="paymentMethodTypeId" title="${uiLabelMap.FormFieldTitle_paymentMethodTypeId}*" required-field="true">
-            <drop-down allow-empty="false" no-current-selected-key="${defauldPaymentMethodTypeId}">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.FormFieldTitle_paymentMethodTypeId}">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>

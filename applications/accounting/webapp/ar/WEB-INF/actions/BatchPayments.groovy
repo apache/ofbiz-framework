@@ -23,8 +23,9 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 
 List paymentCond = [];
-if (paymentMethodTypeId) {
+    if (paymentMethodTypeId) {
     paymentCond.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
+    }
     if (fromDate) {
         paymentCond.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
     }
@@ -68,4 +69,3 @@ if (paymentMethodTypeId) {
             context.paymentList = paymentListWithoutCreditCard;
         }
     }
-}
