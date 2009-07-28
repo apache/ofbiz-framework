@@ -24,17 +24,20 @@
         <value xml:lang="fr">Impossible de continuer : XUI n'est pas configuré correctement</value>
         <value xml:lang="it">Non è possibile fare il log in; XUI non configurato propriamente</value>
         <value xml:lang="th">ไม่สามารถเข้าสู่ระบบได้ : XUI ไม่สามารถจัดการข้อมูลได้อย่างถูกต้อง</value>
+        <value xml:lang="zh">无法登录；XUI配置不正确</value>
     </property>
     <property key="XuiUserLoginNotValid">
         <value xml:lang="en">UserLogin returned not valid (null)</value>
         <value xml:lang="fr">Identifiant de connexion retourné non valide (null)</value>
         <value xml:lang="it">UserLogin restituito non valido (null)</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ถูกต้อง (ค่าว่าง)</value>
+        <value xml:lang="zh">返回的用户登录无效(null)</value>
     </property>
     <property key="XuiUsernameDoesNotMatchLoggedUser">
         <value xml:lang="en">User name does not match already logged in user!</value>
         <value xml:lang="fr">Cet identifiant ne correspond pas à celui en cours !</value>
         <value xml:lang="it">Nome utente non confrontato per l'utente autenticato!</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ตรงกับข้อมูลที่บันทึกไว้กรุณาตรวจสอบ</value>
+        <value xml:lang="zh">用户名与已经登录的用户不一致！</value>
     </property>
 </resource>

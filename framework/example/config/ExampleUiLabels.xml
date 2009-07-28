@@ -23,11 +23,13 @@
         <value xml:lang="en">Ajax Examples</value>
         <value xml:lang="fr">Exemples Ajax</value>
         <value xml:lang="it">Esempi Ajax</value>
+        <value xml:lang="zh">Ajax样例</value>
     </property>
     <property key="ExampleAjaxIntro">
         <value xml:lang="en">To use this Ajax demonstration, you must have JavaScript enabled on your browser.</value>
         <value xml:lang="fr">Pour utiliser cette démonstration Ajax, vous devez avoir activé Javascript </value>
         <value xml:lang="it">Per usare questa dimostrazione Ajax, tu devi avere JavaScript abilitato sul tuo browser.</value>
+        <value xml:lang="zh">要使用这个Ajax演示，你必须让你的浏览器启用JavaScript。</value>
     </property>
     <!-- Example component properties -->
     <property key="ExampleApplication">
@@ -76,99 +78,119 @@
         <value xml:lang="en">Dashboard</value>
         <value xml:lang="fr">Tableau de bord</value>
         <value xml:lang="it">Cruscotto</value>
+        <value xml:lang="zh">个人主页</value>
     </property>
     <property key="ExampleDateField10Title">
         <value xml:lang="en">Field10: date and time selection field with default value</value>
         <value xml:lang="fr">Champ 10 : sélection de date et temps (valeur par défaut)</value>
         <value xml:lang="it">Campo10: campo di selezione con valore di default per data e ora</value>
+        <value xml:lang="zh">数据项10：带有缺省值的日期和时间选择</value>
     </property>
     <property key="ExampleDateField10Tooltip">
         <value xml:lang="en">Same as above, uses the nowTimestamp variable (always available in the form context) to set the default value to now</value>
         <value xml:lang="fr">La même chose mais la variable nowTimestamp (toujours disponible dans context) est utilisée pour affecter la valeur par défaut à "maintenant"</value>
         <value xml:lang="it">Lo stesso di sopra, usare la variabile nowTimestamp (sempre disponibile nel contesto della form) per impostare il valore di default ad adesso</value>
+        <value xml:lang="zh">同上，使用nowTimstamp变量(在表单中总是可用的)来把缺省值设置为现在</value>
     </property>
     <property key="ExampleDateField11Title">
         <value xml:lang="en">Field11: date and time selection field with default value</value>
         <value xml:lang="fr">Champ 11 : sélection de date et temps (valeur par défaut)</value>
         <value xml:lang="it">Campo11: campo di selezione con valore di default per data e ora</value>
+        <value xml:lang="zh">数据项11：带有缺省值的日期和时间选择</value>
     </property>
     <property key="ExampleDateField11Tooltip">
         <value xml:lang="en">Uses the \${date:dayStart(nowTimestamp, timeZone, locale)} UEL expression to set the default value to the start of today</value>
+        <value xml:lang="zh">使用\${date:dayStart(nowTimestamp, timeZone, locale)}表达式来把缺省值设置为今天的开始时间</value>
     </property>
     <property key="ExampleDateField1Title">
         <value xml:lang="en">Field1: date and time selection field</value>
         <value xml:lang="fr">Champ 1 : sélection de date et temps</value>
         <value xml:lang="it">Campo1: campo di selezione data e ora</value>
+        <value xml:lang="zh">数据项1：日期和时间选择</value>
     </property>
     <property key="ExampleDateField2Title">
         <value xml:lang="en">Field2: date selection field</value>
         <value xml:lang="fr">Champ 2 : sélection de date</value>
         <value xml:lang="it">Campo2: campo di selezione data</value>
+        <value xml:lang="zh">数据项2：日期选择</value>
     </property>
     <property key="ExampleDateField3Title">
         <value xml:lang="en">Field3: time selection field</value>
         <value xml:lang="fr">Champ 3 : sélection de temps</value>
         <value xml:lang="it">Campo3: campo di selezione ora</value>
+        <value xml:lang="zh">数据项3：时间选择</value>
     </property>
     <property key="ExampleDateField4Title">
         <value xml:lang="en">Field4: advanced date time selection</value>
         <value xml:lang="fr">Champ 4 : sélection avancée de date et temps </value>
         <value xml:lang="it">Campo4: selezione avanzata data e ora</value>
+        <value xml:lang="zh">数据项4：高级日期时间选择</value>
     </property>
     <property key="ExampleDateField4Tooltip">
         <value xml:lang="en">Use the input-method (time-dropdown) and clock (24) attributes to create drop down boxes for hour and minute selections</value>
         <value xml:lang="fr">Utilise des listes déroulantes pour définir les heures et minutes</value>
         <value xml:lang="it">Usare il metodo di input (time-dropdown) e gli attributi ora (24) per creare i box per la selezione ore e minuti</value>
+        <value xml:lang="zh">使用输入方法(时间下拉框)和时钟(24)属性来创建小时和分钟的下拉框</value>
     </property>
     <property key="ExampleDateField5Title">
         <value xml:lang="en">Field5: advanced date time selection (AM/PM)</value>
         <value xml:lang="fr">Champ 5 : sélection avancée de date et temps (AM/PM)</value>
         <value xml:lang="it">Campo5: selezione avanzata data e ora (AM/PM)</value>
+        <value xml:lang="zh">数据项5：高级日期时间选择(上午/下午)</value>
     </property>
     <property key="ExampleDateField6Title">
         <value xml:lang="en">Field6: date and time simple display</value>
         <value xml:lang="fr">Champ 5 : affichage simple de date et temps</value>
         <value xml:lang="it">Campo6: data e ora semplice da visualizzare</value>
+        <value xml:lang="zh">数据项6：日期和时间简单显示</value>
     </property>
     <property key="ExampleDateField7Title">
         <value xml:lang="en">Field7: date and time display with custom format</value>
         <value xml:lang="fr">Champ 7 : affichage de date et temps à un format spécifique</value>
         <value xml:lang="it">Campo7: data e ora da visualizzare con un formato personalizzato</value>
+        <value xml:lang="zh">数据项7：使用定制格式显示日期和时间</value>
     </property>
     <property key="ExampleDateField7Tooltip">
         <value xml:lang="en">This is an example of MM/dd/yyyy format</value>
         <value xml:lang="fr">Exemple auformat MM/dd/yyyy</value>
         <value xml:lang="it">Questo è un'esempio di formato data MM/gg/aaaa</value>
+        <value xml:lang="zh">这是MM/dd/yyyy格式样例</value>
     </property>
     <property key="ExampleDateField8Title">
         <value xml:lang="en">Field8: date and time display with custom format</value>
         <value xml:lang="fr">Champ 8 : affichage de date et temps à un format spécifique</value>
         <value xml:lang="it">Campo8: data e ora da visualizzare con un formato personalizzato</value>
+        <value xml:lang="zh">数据项8：使用定制格式显示日期和时间</value>
     </property>
     <property key="ExampleDateField8Tooltip">
         <value xml:lang="en">This is an example of MMMM, dd, yyyy format</value>
         <value xml:lang="fr">Exemple au format MMMM, dd, yyyy</value>
         <value xml:lang="it">Questo è un'esempio di formato data MMMM, gg, aaaa</value>
+        <value xml:lang="zh">这是MMMM, dd, yyyy格式样例</value>
     </property>
     <property key="ExampleDateField9Title">
         <value xml:lang="en">Field9: date and time selection field with default value</value>
         <value xml:lang="fr">Champ 9 : sélection de date et temps avec valeur par défaut</value>
         <value xml:lang="it">Campo9: campo di selezione con valore di default per data e ora</value>
+        <value xml:lang="zh">数据项9：日期和时间选择带有缺省值</value>
     </property>
     <property key="ExampleDateField9Tooltip">
         <value xml:lang="en">Same as above, uses the \${groovy:...} notation to call an util method to get the now timestamp</value>
         <value xml:lang="fr">La même chose mais utilise la notation \${groovy:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
         <value xml:lang="it">Lo stesso di sopra, usare la notazione \${groovy:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
+        <value xml:lang="zh">同上，使用\${groovy:...}来调用一个应用方法来获得现在的时间戳</value>
     </property>
     <property key="ExampleDateTimeFields">
         <value xml:lang="en">Date/Time fields</value>
         <value xml:lang="fr">Champs de date et temps</value>
         <value xml:lang="it">Campi data/ora</value>
+        <value xml:lang="zh">日期/时间数据项</value>
     </property>
     <property key="ExampleDefinitionFile">
         <value xml:lang="en">in the file: </value>
         <value xml:lang="fr">dans le fichier : </value>
         <value xml:lang="it">nel file: </value>
+        <value xml:lang="zh">在文件：</value>
     </property>
     <property key="ExampleDefinitionFileTooltip">
         <value xml:lang="en">framework/example/widget/example/FormWidgetExampleForms.xml</value>
@@ -179,101 +201,121 @@
         <value xml:lang="en"> - see the form definition with name</value>
         <value xml:lang="fr"> - voir la défintion avec la form de nom </value>
         <value xml:lang="it"> - vedi la definizione della form con il nome</value>
+        <value xml:lang="zh"> - 参见表单定义，名称为</value>
     </property>
     <property key="ExampleDropDown">
         <value xml:lang="en">drop-down</value>
         <value xml:lang="fr">liste déroulante</value>
         <value xml:lang="it">drop-down</value>
+        <value xml:lang="zh">下拉框</value>
     </property>
     <property key="ExampleDropDownEntityOptions">
         <value xml:lang="en">entity-options</value>
         <value xml:lang="fr">entity-options</value>
         <value xml:lang="it">entity-options</value>
+        <value xml:lang="zh">实体选项</value>
     </property>
     <property key="ExampleDropDownEntityOptionsTooltip1">
         <value xml:lang="en">All these fields retrieve the list of values from another entity by using the entity-options element.</value>
         <value xml:lang="fr">Tous ces champs récupèrent leurs listes de valeurs depuis une autre entité en utilisant l'élement entity-options</value>
         <value xml:lang="it">Tutti questi campi ricavano la lista di valori da un'altra entità che usa l'elemento entity-options.</value>
+        <value xml:lang="zh">全部这些数据项是通过使用实体选项元素从另一个实体抽取数据列表得到的。</value>
     </property>
     <property key="ExampleDropDownEntityOptionsTooltip2">
         <value xml:lang="en">entity-options will look up options for the field in the given entity.</value>
         <value xml:lang="fr">entity-options recherchera les options de ce champ en fonction de l'entité utilisée</value>
         <value xml:lang="it">entity-options ricercherà le opzioni per il campo nell'entità specificata.</value>
+        <value xml:lang="zh">实体选项会查找指定实体的数据项选项</value>
     </property>
     <property key="ExampleDropDownEntityOptionsTooltip3">
         <value xml:lang="en">The complete syntax is... TODO</value>
         <value xml:lang="fr">La syntaxe complète est... A FAIRE </value>
         <value xml:lang="it">La sintassi completa è.... DA FARE</value>
+        <value xml:lang="zh">完整的语法是... 待实现</value>
     </property>
     <property key="ExampleDropDownField1Title">
         <value xml:lang="en">Field1: optional</value>
         <value xml:lang="fr">Champ1 : optionnel</value>
         <value xml:lang="it">Campo1: opzionale</value>
+        <value xml:lang="zh">数据项1：可选的</value>
     </property>
     <property key="ExampleDropDownField1Tooltip">
         <value xml:lang="en">This is an example of a drop-down field with allow-empty set to true: as you can see, an empty entry is automatically added.</value>
         <value xml:lang="fr">Exemple de champ à liste déroulante ayant allow-empty définit comme vrai. Comme vous le voyez, une option vide est automatiquement ajoutée en tête</value>
         <value xml:lang="it">Questo è un'esempio di un campo drop-down con allow-empty impostato a vero: come tu puoi vedere, una riga automatica verrà aggiunta</value>
+        <value xml:lang="zh">这是一个下拉数据项的例子，允许空设置为是：如你所见，会自动添加一个空的记录。</value>
     </property>
     <property key="ExampleDropDownField2Title">
         <value xml:lang="en">Field2: mandatory</value>
         <value xml:lang="fr">Champ 2 : obligatoire</value>
         <value xml:lang="it">Campo2: obbligatorio</value>
+        <value xml:lang="zh">数据项2：强制</value>
     </property>
     <property key="ExampleDropDownField2Tooltip">
         <value xml:lang="en">The same as above, but here allow-empty is set to false (the default, if not specified): as you can see, there is no empty selection.</value>
         <value xml:lang="fr">La même chose mais ici allow-empty est faux (la valeur par défaut n'est pas spécifiée). Comme vous pouvez le voir, il n'y a pas d'option vide en tête</value>
         <value xml:lang="it">Lo stesso di spota, ma qui allow-empty è falso (di default, se non specificato): come puoi vedere, non c'è nessuna selezione vuota.</value>
+        <value xml:lang="zh">同上，但是这里允许空设置为否(如果没有指明的话，否是缺省值)：如你所见，没有空的选择。</value>
     </property>
     <property key="ExampleDropDownField3Title">
         <value xml:lang="en">Field3: sort in descending order</value>
         <value xml:lang="fr">Champ 3 : tri descendant</value>
         <value xml:lang="it">Campo3: ordinato in ordine discendente</value>
+        <value xml:lang="zh">数据项3：按降序排序</value>
     </property>
     <property key="ExampleDropDownField4Title">
         <value xml:lang="en">Field4: combined description</value>
         <value xml:lang="fr">Champ 4 : description combinée</value>
         <value xml:lang="it">Campo4: descrizione combinata</value>
+        <value xml:lang="zh">数据项4：组合的描述</value>
     </property>
     <property key="ExampleDropDownField5Title">
         <value xml:lang="en">Field5: selection of a default value from the list</value>
         <value xml:lang="fr">Champ 5 : choix d'une valeur par défaut dans la liste</value>
         <value xml:lang="it">Campo5: seleziona un valore di default dalla lista</value>
+        <value xml:lang="zh">数据项5：从列表选择一个缺省值</value>
     </property>
     <property key="ExampleDropDownField5Tooltip">
         <value xml:lang="en">How to use the no-current-selected-key to select a default value from the options</value>
         <value xml:lang="fr">Comment utiliser no-current-selected-key pour choisir une valeur par défaut parmi les options</value>
         <value xml:lang="it">Come usare no-current-selected-key per selezionare un valore di default dalle opzioni</value>
+        <value xml:lang="zh">怎样使用没有当前选择键来从选项中选择一个缺省值</value>
     </property>
     <property key="ExampleDropDownField6Title">
         <value xml:lang="en">Field6: (exampleTypeId): shortest notation</value>
         <value xml:lang="fr">Champ 6 : (exampleTypeId): notation plus courte</value>
         <value xml:lang="it">Campo6: (exampleTypeId): notazione breve</value>
+        <value xml:lang="zh">数据项6：(样例类型标识)：最短注释</value>
     </property>
     <property key="ExampleDropDownField7Title">
         <value xml:lang="en">Field7: additional constraint</value>
         <value xml:lang="fr">Champ 8 : contrainte additionnelle</value>
         <value xml:lang="it">Campo7: costrizioni aggiuntive</value>
+        <value xml:lang="zh">数据项7：额外限制</value>
     </property>
     <property key="ExampleDropDownField8Title">
         <value xml:lang="en">Field8: Javascript event</value>
         <value xml:lang="fr">Champ 8 : évènement Javascript</value>
         <value xml:lang="it">Campo8: evento Javascript</value>
+        <value xml:lang="zh">数据项8：Javascript事件</value>
     </property>
     <property key="ExampleDropDownField8Tooltip">
         <value xml:lang="en">How to use the event and action attributes (in the field element) to trigger a Javascript action (in this example a popup message when the option is changed).</value>
         <value xml:lang="fr">Comment utiliser les attributs évènement (event) et action, dans l'élément champ (field) pour déclencher une action Javascript, dans cet exemple un message surgissant quand l'option est changée</value>
         <value xml:lang="it">Come usare gli eventi a l'azione attributi (nell'elemento field) per avviare l'azione Javascript (nell'esempio un messaggio popup quando l'opzione viene cambiata).</value>
+        <value xml:lang="zh">怎样使用事件和操作属性(在数据项元素(field))中触发一个Javascript操作(在这个样例中，当选项变化时会弹出一个信息)。</value>
     </property>
     <property key="ExampleDropDownFields">
         <value xml:lang="en">Drop down fields</value>
         <value xml:lang="fr">Champs à listes déroulantes</value>
         <value xml:lang="it">Campi drop down</value>
+        <value xml:lang="zh">下拉框数据项</value>
     </property>
     <property key="ExampleDropDownTooltip">
         <value xml:lang="en">First of all you have to define a drop-down element inside of the field element that you want to render as a drop down field.</value>
         <value xml:lang="fr">Pour commencer vous définissez un élément liste déroulante (drop-down) à l'intérieur de l'élément champ (field) que vous voulez créer comme liste déroulante</value>
         <value xml:lang="it">Prima di tutto tu devi definire un'elemento drop-down dentro un'elemento field che tu visualizzerai come campo drop down.</value>
+        <value xml:lang="zh">首先，你必须在数据项元素内定义一个下拉元素，来修饰为下拉数据项。</value>
     </property>
     <property key="ExampleExample">
         <value xml:lang="en">Example</value>
@@ -325,6 +367,7 @@
         <value xml:lang="fr">Option explicite</value>
         <value xml:lang="it">Opzione Esplicita</value>
         <value xml:lang="th">ทางเลือกที่ชัดเจน</value>
+        <value xml:lang="zh">显在选项</value>
     </property>
     <property key="ExampleFeature">
         <value xml:lang="en">Feature</value>
@@ -356,35 +399,42 @@
     <property key="ExampleField">
         <value xml:lang="en">Field</value>
         <value xml:lang="it">Campo</value>
+        <value xml:lang="zh">数据项</value>
     </property>
     <property key="ExampleFopFonts">
         <value xml:lang="en">This will print a simple PDF file which will show the FOP fonts avalaible in OFBiz</value>
         <value xml:lang="fr">Impression d'un simple fichier PDF qui montre les polices FOP disponibles dans OFBiz</value>
         <value xml:lang="it">Questo stampa un file PDF semplice che mostrerà i font FOP disponibili in OFBiz</value>
+        <value xml:lang="zh">这将打印一个简单的PDF文件，这个文件会显示OFBiz中可用的FOP字体</value>
     </property>
     <property key="ExampleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
         <value xml:lang="fr">Exemple de Form Widget</value>
         <value xml:lang="it">Esempi form widget</value>
         <value xml:lang="th">ตัวอย่างรูปแบบ Widget</value>
+        <value xml:lang="zh">表单挂件样例</value>
     </property>
     <property key="ExampleGroupField">
         <value xml:lang="en">Group</value>
         <value xml:lang="it">Gruppo</value>
+        <value xml:lang="zh">组</value>
     </property>
     <property key="ExampleGroupFields">
         <value xml:lang="en">Fields groups</value>
         <value xml:lang="it">Gruppi campi</value>
+        <value xml:lang="zh">数据项组</value>
     </property>
     <property key="ExampleLongDescription">
         <value xml:lang="en">Long Description</value>
         <value xml:lang="it">Descrizione lunga</value>
+        <value xml:lang="zh">详细描述</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
         <value xml:lang="fr">Exemple de page principale</value>
         <value xml:lang="it">Pagina principale esempi</value>
         <value xml:lang="th">ตัวอย่างหน้าหลัก</value>
+        <value xml:lang="zh">样例首页</value>
     </property>
     <property key="ExampleMessage">
         <value xml:lang="en">For something interesting make sure you are logged in, try username:admin, password:ofbiz.</value>
@@ -419,6 +469,7 @@
         <value xml:lang="it">Esempio originale</value>
         <value xml:lang="ru">Оригинальный пример</value>
         <value xml:lang="th">ตัวอย่างเดิม</value>
+        <value xml:lang="zh">原样例</value>
     </property>
     <property key="ExamplePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the EXAMPLE_${mainAction} or EXAMPLE_ADMIN permission</value>
@@ -432,38 +483,47 @@
     <property key="ExamplePortletFirst">
         <value xml:lang="en">Hi, this is a first example of portlet</value>
         <value xml:lang="it">Salve, questo è il primo esempio di portlet</value>
+        <value xml:lang="zh">你好，这是第一个Portlet样例</value>
     </property>
     <property key="ExamplePortletSecond">
         <value xml:lang="en">Hi, this is a second example of portlet</value>
         <value xml:lang="it">Salve, questo è il secondo esempio di portlet</value>
+        <value xml:lang="zh">你好，这是第二个Portlet样例</value>
     </property>
     <property key="ExamplePortletSpecificSubTitle">
         <value xml:lang="en">Specific Sub Title</value>
         <value xml:lang="it">Sotto-titolo specifico</value>
+        <value xml:lang="zh">指定的子标题</value>
     </property>
     <property key="ExamplePortletSpecificTitle">
         <value xml:lang="en">Specific Title</value>
         <value xml:lang="it">Titolo specifico</value>
+        <value xml:lang="zh">指定的标题</value>
     </property>
     <property key="ExamplePortletThird">
         <value xml:lang="en">Hi, this is a third example of portlet with editable parameters.</value>
         <value xml:lang="it">Salve, questo è il terzo esempio di portlet con parametri modificabili.</value>
+        <value xml:lang="zh">你好，这是第三个Portlet样例，具有编辑参数。</value>
     </property>
     <property key="ExamplePrintButton">
         <value xml:lang="en">Print Button</value>
         <value xml:lang="it">Bottone di stampa</value>
+        <value xml:lang="zh">打印按钮</value>
     </property>
     <property key="ExampleSourceCode">
         <value xml:lang="en">Source Code</value>
         <value xml:lang="it">Codice sorgente</value>
+        <value xml:lang="zh">源代码</value>
     </property>
     <property key="ExampleTextDescription">
         <value xml:lang="en">This example text means we are in the extended form.</value>
         <value xml:lang="it">Questo testo di esempio significa che noi siamo nella form estesa di esempio.</value>
+        <value xml:lang="zh">这个样例文本意味着我们处于扩展表单中。</value>
     </property>
     <property key="ExampleToDo">
         <value xml:lang="en">TODO</value>
         <value xml:lang="it">DA FARE</value>
+        <value xml:lang="zh">待实现</value>
     </property>
     <property key="ExampleViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("EXAMPLE_VIEW" or "EXAMPLE_ADMIN" needed)</value>
@@ -488,16 +548,19 @@
         <value xml:lang="fr">Une autre date</value>
         <value xml:lang="it">Altra Data</value>
         <value xml:lang="th">วันที่อื่น ๆ</value>
+        <value xml:lang="zh">另一个日期</value>
     </property>
     <property key="FormFieldTitle_anotherText">
         <value xml:lang="en">Another Text</value>
         <value xml:lang="fr">Un autre texte</value>
         <value xml:lang="it">Altro testo</value>
         <value xml:lang="th">ตัวหนังสืออื่น ๆ</value>
+        <value xml:lang="zh">另一个文本</value>
     </property>
     <property key="FormFieldTitle_displayAnotherText">
         <value xml:lang="en">Another Text</value>
         <value xml:lang="it">Testo alternativo</value>
+        <value xml:lang="zh">另一个文本</value>
     </property>
     <property key="FormFieldTitle_exampleDate">
         <value xml:lang="en">Example Date</value>
@@ -530,6 +593,7 @@
     <property key="FormFieldTitle_exampleText">
         <value xml:lang="en">Example Text</value>
         <value xml:lang="it">Testo esempio</value>
+        <value xml:lang="zh">样例文本</value>
     </property>
     <property key="PageTitleEditExample">
         <value xml:lang="en">Edit Example</value>
@@ -600,6 +664,7 @@
         <value xml:lang="fr">Exemples Form Widget</value>
         <value xml:lang="it">Esempio form widget</value>
         <value xml:lang="th">ตัวอย่าง Widget</value>
+        <value xml:lang="zh">表单挂件样例</value>
     </property>
     <property key="PageTitleLookupExampleFeature">
         <value xml:lang="en">Lookup Example Feature</value>

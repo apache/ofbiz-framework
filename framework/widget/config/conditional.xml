@@ -153,6 +153,7 @@
         <value xml:lang="fr">Différent</value>
         <value xml:lang="it">Diverso da</value>
         <value xml:lang="th">ไม่เท่ากับ</value>
+        <value xml:lang="zh">不等于</value>
     </property>
     <property key="same_day">
         <value xml:lang="ar">نفس اليوم</value>
