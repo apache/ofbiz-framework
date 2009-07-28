@@ -119,6 +119,7 @@ under the License.
     <StatusItem statusId="FINACT_TRNS_CANCELED" statusTypeId="FINACT_TRNS_STATUS" statusCode="CANCELED" sequenceId="13" description="Canceled"/>
     <StatusValidChange condition="" statusId="FINACT_TRNS_CREATED" statusIdTo="FINACT_TRNS_APPROVED" transitionName="Set Created to Approved"/>
     <StatusValidChange condition="" statusId="FINACT_TRNS_CREATED" statusIdTo="FINACT_TRNS_CANCELED" transitionName="Set Created to Canceled"/>
+    <StatusValidChange condition="" statusId="FINACT_TRNS_APPROVED" statusIdTo="FINACT_TRNS_CANCELED" transitionName="Set Approved to Canceled"/>
 
     <!-- FinAccount Reasons for Purchase & Replenish -->
     <EnumerationType description="Service Debit Reasons" enumTypeId="FINACCT_TRANS_REASON" parentTypeId="" hasTable="N"/>

@@ -52,10 +52,18 @@ under the License.
          <condition field-name="finAccountTransId" operator="is-not-empty"/>
          <condition field-name="statusId" operator="equals" value="FINACT_TRNS_CANCELED"/>
          <action service="updatePaymentOnFinAccTransStatusSetToCancel" mode="sync"/>
+         <action service="updateFinAccountBalancesFromTrans" mode="sync"/>
      </eca>
      
      <!-- Create Reverse Accouting Transaction and Entries on removing PaymentApplication -->
      <eca service="removePaymentApplication" event="invoke">
          <action service="revertAcctgTransOnRemovePaymentApplications" mode="sync"/>
+     </eca>
+     
+     <!-- set FinAccountTrans Status to CANCELED on Void Payment -->
+     <eca service="voidPayment" event="commit">
+         <condition field-name="finAccountTransId" operator="is-not-empty"/>
+         <condition field-name="statusId" operator="equals" value="FINACT_TRNS_CANCELED"/>
+         <action service="setFinAccountTransStatus" mode="sync"/>
      </eca>
 </service-eca>
