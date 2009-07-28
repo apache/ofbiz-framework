@@ -59,6 +59,7 @@
         <value xml:lang="it">Applicazione flussi di lavoro</value>
         <value xml:lang="ro">Aplictie Fluxuri de Lucru</value>
         <value xml:lang="th">Framework Shark</value>
+        <value xml:lang="zh">Shark工作流</value>
     </property>
     <property key="SharkMainPage">
         <value xml:lang="en">Shark Manager Main Page</value>
@@ -66,29 +67,36 @@
         <value xml:lang="it">Pagina principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลักของการจัดการ Shark</value>
+        <value xml:lang="zh">Shark工作流管理主页</value>
     </property>
     <property key="SharkProcessDetailList">
         <value xml:lang="en">Process Detail List</value>
         <value xml:lang="it">Lista dettagli processi</value>
+        <value xml:lang="zh">流程详细信息列表</value>
     </property>
     <property key="SharkProcessHistory">
         <value xml:lang="en">Process History</value>
         <value xml:lang="it">Storia processi</value>
+        <value xml:lang="zh">流程历史记录</value>
     </property>
     <property key="SharkProcessList">
         <value xml:lang="en">Process List</value>
         <value xml:lang="it">Lista processi</value>
+        <value xml:lang="zh">流程列表</value>
     </property>
     <property key="SharkProcessSteps">
         <value xml:lang="en">Process Steps</value>
         <value xml:lang="it">Passi processi</value>
+        <value xml:lang="zh">流程步骤</value>
     </property>
     <property key="SharkWorkList">
         <value xml:lang="en">Work List</value>
         <value xml:lang="it">Lista lavoro</value>
+        <value xml:lang="zh">作业列表</value>
     </property>
     <property key="SharkXPDLRepository">
         <value xml:lang="en">XPDL Repository</value>
         <value xml:lang="it">Repository XPDL</value>
+        <value xml:lang="zh">XPDL库</value>
     </property>
 </resource>

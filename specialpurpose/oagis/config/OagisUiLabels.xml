@@ -22,76 +22,94 @@
     <property key="FormFieldTitle_authId">
         <value xml:lang="en">Auth Id</value>
         <value xml:lang="it">Codice autorizzazione</value>
+        <value xml:lang="zh">认证标识</value>
     </property>
     <property key="FormFieldTitle_bsrNoun">
         <value xml:lang="en">bsr Noun</value>
         <value xml:lang="it">Nome bsr</value>
+        <value xml:lang="zh">商务服务请求名词</value>
     </property>
     <property key="FormFieldTitle_bsrRevision">
         <value xml:lang="en">bsr Revision</value>
         <value xml:lang="it">Revisione bsr</value>
+        <value xml:lang="zh">商务服务请求修正</value>
     </property>
     <property key="FormFieldTitle_bsrVerb">
         <value xml:lang="en">bsr Verb</value>
         <value xml:lang="it">Verbo bsr</value>
+        <value xml:lang="zh">商务服务请求动词</value>
     </property>
     <property key="FormFieldTitle_component">
         <value xml:lang="en">Component</value>
         <value xml:lang="it">Componente</value>
+        <value xml:lang="zh">组件</value>
     </property>
     <property key="FormFieldTitle_confirmation">
         <value xml:lang="en">Confirmation</value>
         <value xml:lang="it">Conferma</value>
+        <value xml:lang="zh">确认</value>
     </property>
     <property key="FormFieldTitle_errorSeqId">
         <value xml:lang="en">Error Seq Id</value>
         <value xml:lang="it">Seq. errore</value>
+        <value xml:lang="zh">序号错误</value>
     </property>
     <property key="FormFieldTitle_fullMessageXml">
         <value xml:lang="en">Full Message Xml</value>
         <value xml:lang="it">Messaggio xml completo</value>
+        <value xml:lang="zh">完整信息XML</value>
     </property>
     <property key="FormFieldTitle_logicalId">
         <value xml:lang="en">Logical Id</value>
         <value xml:lang="it">Logico</value>
+        <value xml:lang="zh">逻辑标识</value>
     </property>
     <property key="FormFieldTitle_origRef">
         <value xml:lang="en">Orig Ref</value>
         <value xml:lang="it">Rif. origine</value>
+        <value xml:lang="zh">原引用</value>
     </property>
     <property key="FormFieldTitle_outgoingMessage">
         <value xml:lang="en">Outgoing Message</value>
         <value xml:lang="it">Messaggio in uscita</value>
+        <value xml:lang="zh">输出消息</value>
     </property>
     <property key="FormFieldTitle_processingStatusId">
         <value xml:lang="en">Processing Status Id</value>
         <value xml:lang="it">Stato esecuzione</value>
+        <value xml:lang="zh">处理状态标识</value>
     </property>
     <property key="FormFieldTitle_reasonCode">
         <value xml:lang="en">Reason Code</value>
         <value xml:lang="it">Codice motivazione</value>
+        <value xml:lang="zh">原因代码</value>
     </property>
     <property key="FormFieldTitle_receivedDate">
         <value xml:lang="en">Received Date</value>
         <value xml:lang="it">Data di ricezione</value>
+        <value xml:lang="zh">接收日期</value>
     </property>
     <property key="FormFieldTitle_referenceId">
         <value xml:lang="en">Reference Id</value>
         <value xml:lang="it">Riferimento</value>
+        <value xml:lang="zh">引用标识</value>
     </property>
     <property key="FormFieldTitle_sentDate">
         <value xml:lang="en">Sent Date</value>
         <value xml:lang="it">Data di spedizione</value>
+        <value xml:lang="zh">发送日期</value>
     </property>
     <property key="FormFieldTitle_task">
         <value xml:lang="en">Task</value>
         <value xml:lang="it">Compito</value>
+        <value xml:lang="zh">任务</value>
     </property>
     <property key="OagisApplication">
         <value xml:lang="en">Oagis Implementation</value>
         <value xml:lang="fr">Implémentation Oagis</value>
         <value xml:lang="it">Implementazione Oagis</value>
         <value xml:lang="th">Oagis Implementation</value>
+        <value xml:lang="zh">Oagis实现</value>
     </property>
     <property key="OagisCompanyName">
         <value xml:lang="en">OFBiz: Oagis</value>
@@ -131,95 +149,111 @@
         <value xml:lang="fr">Modifier l'information du message d'erreur</value>
         <value xml:lang="it">Aggiorna Informazioni sui Messaggi di Errore</value>
         <value xml:lang="th">แก้ไขข้อมูลของข้อความผิดพลาด</value>
+        <value xml:lang="zh">编辑消息错误信息</value>
     </property>
     <property key="OagisEditMessageInfo">
         <value xml:lang="en">Edit Message Info</value>
         <value xml:lang="fr">Modifier l'information du message</value>
         <value xml:lang="it">Aggiorna Informazioni sui Messaggi</value>
         <value xml:lang="th">แก้ไขข้อมูลของข้อความ</value>
+        <value xml:lang="zh">编辑消息信息</value>
     </property>
     <property key="OagisErrorInCreatingDataForOagisMessageInfoEntity">
         <value xml:lang="en">Error in creating data for OagisMessageInfo Entity</value>
         <value xml:lang="fr">Erreur à la création de la date pour l'entité OagisMessageInfo</value>
         <value xml:lang="it">Errore nella creazioni dei dati per Entità OagisMessageInfo</value>
         <value xml:lang="th">ผิดพลาดในการสร้างข้อมูลสำหรับเอนทิตีข้อมูลของข้อความการรวมภาษาทางธุรกิจ</value>
+        <value xml:lang="zh">为Oagis消息信息实体创建数据时出错</value>
     </property>
     <property key="OagisErrorInExportingMessageFromScreen">
         <value xml:lang="en">Error in exporting message from screen</value>
         <value xml:lang="fr">Erreur en exportant le message depuis l'écran</value>
         <value xml:lang="it">Errore nell'esportazione del messaggio sullo schermo</value>
         <value xml:lang="th">ผิดพลาดในการส่งออกข้อความจากหน้าจอ</value>
+        <value xml:lang="zh">从屏幕导出消息时出错</value>
     </property>
     <property key="OagisInventoryDescription">
         <value xml:lang="en">Inventory Description</value>
         <value xml:lang="fr">Description de stock</value>
         <value xml:lang="it">Descrizione Inventario</value>
         <value xml:lang="th">รายละเอียดสินค้าคงเหลือ</value>
+        <value xml:lang="zh">库存描述</value>
     </property>
     <property key="OagisInventoryLevelDateTime">
         <value xml:lang="en">date/time</value>
         <value xml:lang="fr">date/heure</value>
         <value xml:lang="it">data/ora</value>
         <value xml:lang="th">วันที่/เวลา</value>
+        <value xml:lang="zh">日期/时间</value>
     </property>
     <property key="OagisListMessageErrorInfo">
         <value xml:lang="en">Message Error Infos</value>
         <value xml:lang="fr">Informations du message d'erreur</value>
         <value xml:lang="it">Informazioni sui Messaggi di Errore</value>
         <value xml:lang="th">ข้อมูลความผิดพลาดของข้อความ</value>
+        <value xml:lang="zh">消息错误信息</value>
     </property>
     <property key="OagisListMessageInfo">
         <value xml:lang="en">Message Infos</value>
         <value xml:lang="fr">Informations du message</value>
         <value xml:lang="it">Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความ</value>
+        <value xml:lang="zh">消息信息</value>
     </property>
     <property key="OagisMessageDataFileUpload">
         <value xml:lang="en">Oagis Message DataFile Upload</value>
         <value xml:lang="fr">Téléchargement du message Oagis par fichier de données vers le serveur</value>
         <value xml:lang="it">Oagis Carica File Dati Messaggi</value>
         <value xml:lang="th">อัพโหลดไฟล์ข้อมูลข้อความการรวมภาษาทางธุรกิจ</value>
+        <value xml:lang="zh">Oagis消息数据文件上传</value>
     </property>
     <property key="OagisMessageErrorInfo">
         <value xml:lang="en">Message Error Info</value>
         <value xml:lang="fr">Information du message d'erreur</value>
         <value xml:lang="it">Informazioni sui Messaggi di Errore</value>
         <value xml:lang="th">ข้อมูลความผิดพลาดของข้อความ</value>
+        <value xml:lang="zh">消息错误信息</value>
     </property>
     <property key="OagisMessageInfo">
         <value xml:lang="en">Message Info</value>
         <value xml:lang="fr">Informations du message</value>
         <value xml:lang="it">Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความ</value>
+        <value xml:lang="zh">消息信息</value>
     </property>
     <property key="OagisMessageUpload">
         <value xml:lang="en">Upload Oagis Message</value>
         <value xml:lang="fr">Téléchargement du message Oagis vers le serveur</value>
         <value xml:lang="it">Carica Messaggio Oagis</value>
         <value xml:lang="th">อัพโหลดข้อความการรวมภาษาทางธุรกิจ</value>
+        <value xml:lang="zh">上传Oagis消息</value>
     </property>
     <property key="OagisNewMessageErrorInfo">
         <value xml:lang="en">New Message Error Info</value>
         <value xml:lang="fr">Nouvelle information du message d'erreur</value>
         <value xml:lang="it">Nuove Informazioni sui Messaggi Errori</value>
         <value xml:lang="th">ข้อมูลความผิดพลาดของข้อความใหม่</value>
+        <value xml:lang="zh">新建消息错误信息</value>
     </property>
     <property key="OagisNewMessageInfo">
         <value xml:lang="en">New Message Info</value>
         <value xml:lang="fr">Nouvelle information du message</value>
         <value xml:lang="it">Nuove Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความใหม่</value>
+        <value xml:lang="zh">新建消息信息</value>
     </property>
     <property key="OagisQuantityDiff">
         <value xml:lang="en">Qty Difference</value>
         <value xml:lang="fr">Différence en Qté </value>
         <value xml:lang="it">Differenza Qnt</value>
         <value xml:lang="th">จำนวนที่แตกต่าง</value>
+        <value xml:lang="zh">数量差异</value>
     </property>
     <property key="PageTitleOagisInventoryMismatchNotice">
         <value xml:lang="en">Inventory Mismatch Notice</value>
         <value xml:lang="fr">Notice de disparité de stock</value>
         <value xml:lang="it">Notizia Non Corrispondenza di Inventario</value>
         <value xml:lang="th">ข้อสังเกตการจับคู่ผิดของสินค้าคงเหลือ</value>
+        <value xml:lang="zh">库存不一致通知</value>
     </property>
 </resource>

@@ -24,42 +24,49 @@
         <value xml:lang="fr">Type d'action</value>
         <value xml:lang="it">Tipo Azione</value>
         <value xml:lang="th">ประเภทการปฏิบัติ</value>
+        <value xml:lang="zh">操作类型</value>
     </property>
     <property key="FormFieldTitle_countryCode">
         <value xml:lang="en">Country Code</value>
         <value xml:lang="fr">Code pays</value>
         <value xml:lang="it">Codice Paese</value>
         <value xml:lang="th">รหัสประเทศ</value>
+        <value xml:lang="zh">国家代码</value>
     </property>
     <property key="FormFieldTitle_testMode">
         <value xml:lang="en">Test mode</value>
         <value xml:lang="fr">Mode test</value>
         <value xml:lang="it">In Modo Test</value>
         <value xml:lang="th">วิธีการทดสอบ</value>
+        <value xml:lang="zh">测试状态</value>
     </property>
     <property key="FormFieldTitle_trackingCodeId">
         <value xml:lang="en">Tracking Code Id</value>
         <value xml:lang="fr">Réf. de code de traçage</value>
         <value xml:lang="it">Codice Tracciatura</value>
         <value xml:lang="th">Tracking Code Id</value>
+        <value xml:lang="zh">跟踪码标识</value>
     </property>
     <property key="FormFieldTitle_webSiteMountPoint">
         <value xml:lang="en">Web Site Mount Point</value>
         <value xml:lang="fr">Point de montage de site Web</value>
         <value xml:lang="it">Mount Point Sito Web</value>
         <value xml:lang="th">Web Site Mount Point</value>
+        <value xml:lang="zh">网站加载点</value>
     </property>
     <property key="FormFieldTitle_webSiteUrl">
         <value xml:lang="en">Web Site Url</value>
         <value xml:lang="fr">Url de site Web</value>
         <value xml:lang="it">Url Sito Web</value>
         <value xml:lang="th">Web Site Url</value>
+        <value xml:lang="zh">网站网址</value>
     </property>
     <property key="GoogleBaseApplication">
         <value xml:lang="en">Google Base Integration</value>
         <value xml:lang="fr">Intégration de Google Base</value>
         <value xml:lang="it">Applicazione Per Esportare i Prodotti Su Google Base</value>
         <value xml:lang="th">ฐานข้อมูลสาธารณะทั้งหมด</value>
+        <value xml:lang="zh">Google Base集成</value>
     </property>
     <property key="GoogleBaseCompanyName">
         <value xml:lang="en">Ofbiz</value>
@@ -72,12 +79,14 @@
         <value xml:lang="fr">Sélectionner votre pays de destination</value>
         <value xml:lang="it">Seleziona il paese di destinazione</value>
         <value xml:lang="th">เลือกประเทศเป้าหมายของคุณ</value>
+        <value xml:lang="zh">选择你的国家和目标</value>
     </property>
     <property key="GoogleBaseExportCountryCodeDE">
         <value xml:lang="en">DE - euro</value>
         <value xml:lang="fr">DE- euro</value>
         <value xml:lang="it">DE - euro</value>
         <value xml:lang="th">DE - euro</value>
+        <value xml:lang="zh">DE - 欧元</value>
     </property>
     <property key="GoogleBaseExportCountryCodeGB">
         <value xml:lang="en">UK - £</value>
@@ -90,6 +99,7 @@
         <value xml:lang="fr">IT - euro</value>
         <value xml:lang="it">IT - euro</value>
         <value xml:lang="th">IT - euro</value>
+        <value xml:lang="zh">IT - 欧元</value>
     </property>
     <property key="GoogleBaseExportCountryCodeUS">
         <value xml:lang="en">US - $</value>
@@ -102,42 +112,49 @@
         <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disattiva</value>
         <value xml:lang="th">ใช้การไม่ได้</value>
+        <value xml:lang="zh">失效</value>
     </property>
     <property key="GoogleBaseExportNoTrackingRequested">
         <value xml:lang="en">Not Requested</value>
         <value xml:lang="fr">Non demandé</value>
         <value xml:lang="it">Non Richiesto</value>
         <value xml:lang="th">ไม่ต้องการ</value>
+        <value xml:lang="zh">未请求的</value>
     </property>
     <property key="GoogleBaseExportPublish">
         <value xml:lang="en">Publish</value>
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Pubblica</value>
         <value xml:lang="th">ประกาศ</value>
+        <value xml:lang="zh">发布</value>
     </property>
     <property key="GoogleBaseExportPublishDraft">
         <value xml:lang="en">Publish Draft</value>
         <value xml:lang="fr">Publié l'ébauche </value>
         <value xml:lang="it">Pubblica come Bozza</value>
         <value xml:lang="th">ประกาศเอกสารฉบับร่าง</value>
+        <value xml:lang="zh">发布草稿</value>
     </property>
     <property key="GoogleBaseExportTestMode">
         <value xml:lang="en">(Yes=Validate the xml document request to Google Base, No=Send the xml document request to Google Base)</value>
         <value xml:lang="fr">(Oui=Valider la demande de document xml  à Google Base, Non=Envoyer la demande de document xml à Google Base)</value>
         <value xml:lang="it">(Si=Valida la richiesta del documento xml su Google Base, No=Invia la richiesta del documento xml a Google Base)</value>
         <value xml:lang="th">(Yes=Validate the xml document request to Google Base, No=Send the xml document request to Google Base)</value>
+        <value xml:lang="zh">(Yes=验证请求Google Base的xml文档，No=发送xml文档请求到Google Base)</value>
     </property>
     <property key="GoogleBaseExportToGoogle">
         <value xml:lang="en">Export To Google Base</value>
         <value xml:lang="fr">Exporter vers Google Base</value>
         <value xml:lang="it">Esporta Su Google Base</value>
         <value xml:lang="th">การส่งออกถึงฐานข้อมูลสาธารณะ</value>
+        <value xml:lang="zh">导出到Google Base</value>
     </property>
     <property key="GoogleBaseViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("GOOGLEBASE_VIEW" needed)</value>
         <value xml:lang="fr">Vous n'avez pas la permission de voir cette page (nécessite l'autorisation "GOOGLEBASE_VIEW" )</value>
         <value xml:lang="it">Tu non sei autorizzato per vedere questa pagina. (necessario permesso "GOOGLEBASE_VIEW")</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตให้แสดงหน้านี้. ("GOOGLEBASE_VIEW" ต้องการ)</value>
+        <value xml:lang="zh">你没有浏览这个页面的权限(需要GOOGLEBASE_VIEW)。</value>
     </property>
     <property key="PageTitleGoogleBaseProductsExportToGoogle">
         <value xml:lang="en">Export Products to Google Base</value>
@@ -145,89 +162,104 @@
         <value xml:lang="it">Esportazioni Prodotti su Google Base</value>
         <value xml:lang="th">การส่งออกสินค้าไปยังฐานข้อมูลสาธารณะ
 </value>
+        <value xml:lang="zh">导出产品到Google Base</value>
     </property>
     <property key="googlebasesearchevents.error_getting_search_results">
         <value xml:lang="en">Error getting search results: ${errSearchResult}.</value>
         <value xml:lang="fr">Erreur d'obtention des résultats de recherche: ${errSearchResult}.</value>
         <value xml:lang="it">Error getting search results: ${errSearchResult}.</value>
         <value xml:lang="th">ผิดพลาดการเรียกผลลัพธ์ที่ได้จากการค้นหา: ${errSearchResult}.</value>
+        <value xml:lang="zh">得到搜索结果时出错：${errSearchResult}。</value>
     </property>
     <property key="googlebasesearchevents.exceptionCallingExportToGoogle">
         <value xml:lang="en">Exception during exporting product to Google Base.</value>
         <value xml:lang="fr">Exception pendant l'exportation de l'article vers Google Base.</value>
         <value xml:lang="it">Exception during exporting product to Google Base.</value>
         <value xml:lang="th">ข้อยกเว้นระหว่างการส่งออกสินค้าถึงฐานข้อมูลสาธารณะ</value>
+        <value xml:lang="zh">导出产品到Google Base时出错。</value>
     </property>
     <property key="googlebasesearchevents.no_results_found_probably_error_constraints">
         <value xml:lang="en">No results found, probably because there was an error or were no constraints.</value>
         <value xml:lang="fr">Aucun résultats trouvés, probablement parce qu'il y a eu une erreur ou il n'y avait pas de contraintes</value>
         <value xml:lang="it">No results found, probably because there was an error or were no constraints.</value>
         <value xml:lang="th">ไม่พบผลลัพธ์, บางทีเพราะว่ามีข้อผิดพลาดหรือไม่มีข้อจำกัด</value>
+        <value xml:lang="zh">没有找到结果，可能是因为有错误或没有约束条件。</value>
     </property>
     <property key="productsExportToGoogle.cannotRetrieveUserLogin">
         <value xml:lang="en">Cannot retrieve User Login</value>
         <value xml:lang="fr">Impossible de récupérer l'identifiant de connexion</value>
         <value xml:lang="it">Non è ricavare User Login</value>
         <value xml:lang="th">ไม่สามารถเรียกข้อมูลการลอกอินเข้าสู่ระบบของผู้ใช้คืนมา</value>
+        <value xml:lang="zh">无法获得登录用户</value>
     </property>
     <property key="productsExportToGoogle.errorDuringAuthenticationToGoogle">
         <value xml:lang="en">Error during authentication with Google Account</value>
         <value xml:lang="fr">Erreur durant l'authentification du compte Google</value>
         <value xml:lang="it">Errore durante l'autenticazione su Google Account</value>
         <value xml:lang="th">ผิดพลาดระหว่างเครื่องหมายที่รับรองว่าเป็นของแท้ด้วยบัญชีกูเกิล</value>
+        <value xml:lang="zh">认证Google账户时出错</value>
     </property>
     <property key="productsExportToGoogle.errorInTheResponseFromGoogle">
         <value xml:lang="en">Error in the response from Google:</value>
         <value xml:lang="fr">Erreur dans la réponse de Google</value>
         <value xml:lang="it">Errore nella risposta di Google :</value>
         <value xml:lang="th">ผิดพลาดในตอบสนองจากกูเกิล:</value>
+        <value xml:lang="zh">从Google得到的响应中有错误：</value>
     </property>
     <property key="productsExportToGoogle.exceptionDuringBuildingDataItemsToGoogle">
         <value xml:lang="en">Exception occurred during building data items to Google Base</value>
         <value xml:lang="fr">Une exception s'est produite durant la contruction des données d'articles vers Google Base</value>
         <value xml:lang="it">Eccezione accaduta durante la creazione dei dati prodotti per Google Base</value>
         <value xml:lang="th">ข้อยกเว้นที่เกิดขึ้นระหว่างการสร้างรายการข้อมูลไปยังฐานข้อมูลสาธารณะ</value>
+        <value xml:lang="zh">生成到Google Base的数据明细时出错</value>
     </property>
     <property key="productsExportToGoogle.exceptionInExportProductCategoryToGoogle">
         <value xml:lang="en">Exception in exportProductCategoryToGoogle</value>
         <value xml:lang="fr">Exception dans l'export des catégories d'articles vers Google</value>
         <value xml:lang="it">Eccezione in exportProductCategoryToGoogle</value>
         <value xml:lang="th">ข้อยกเว้นในการส่งออกหมวดหมู่สินค้าไปยังกูเกิล</value>
+        <value xml:lang="zh">导出产品分类到Google时出错</value>
     </property>
     <property key="productsExportToGoogle.exceptionInExportToGoogle">
         <value xml:lang="en">Exception in exportToGoogle</value>
         <value xml:lang="fr">Exception dans l'export vers Google</value>
         <value xml:lang="it">Eccezione in exportToGoogle</value>
         <value xml:lang="th">ข้อยกเว้นในการส่งออกไปยังกูเกิล</value>
+        <value xml:lang="zh">导出到Google时出错</value>
     </property>
     <property key="productsExportToGoogle.exceptionReadingResponseFromGoogle">
         <value xml:lang="en">Exception reading response from Google</value>
         <value xml:lang="fr">Exception dans la lecture de réponse de Google</value>
         <value xml:lang="it">Eccezione leggendo la risposta da Google</value>
         <value xml:lang="th">ข้อยกเว้นการตอบสนองการอ่านจากกูเกิล</value>
+        <value xml:lang="zh">读取从Google获得的响应时出错</value>
     </property>
     <property key="productsExportToGoogle.invalidCountryCode">
         <value xml:lang="en">Country Code must be either US, UK or DE.</value>
         <value xml:lang="fr">Code de pays doit être l'un ou l'autre US, UK ou DE</value>
         <value xml:lang="it">Codice paese deve essere US, UK o DE.</value>
         <value xml:lang="th">รหัสประเทศต้องเป็น US , UK หรือไม่ก็ DE</value>
+        <value xml:lang="zh">国家代码必须是US、UK或DE。</value>
     </property>
     <property key="productsExportToGoogle.missingParameterProductCategoryId">
         <value xml:lang="en">Missing parameter productCategoryId</value>
         <value xml:lang="fr">La réf. de paramètre de catégorie d'article manque</value>
         <value xml:lang="it">Parametro productCategoryId mancante</value>
         <value xml:lang="th">ไม่พบพารามิเตอร์รหัสหมวดหมู่สินค้า</value>
+        <value xml:lang="zh">缺少productCategoryId参数</value>
     </property>
     <property key="productsExportToGoogle.noProductsAvailableInProductCategory">
         <value xml:lang="en">No products available in the selected productCategoryId</value>
         <value xml:lang="fr">Aucun article disponible dans la réf. de catégorie d'articles sélectionnée</value>
         <value xml:lang="it">Nessun prodotto disponibile nella categoria prodotto selezionata</value>
         <value xml:lang="th">ไม่มีสินค้าที่ใช้ได้ในการลือกรหัสหมวดหมู่สินค้า</value>
+        <value xml:lang="zh">没有与所选的productCategoryId对应的产品</value>
     </property>
     <property key="productsExportToGoogle.productItemsSentCorrecltyToGoogle">
         <value xml:lang="en">Product items sent correclty to Google Base</value>
         <value xml:lang="fr">Les données d'articles ont été envoyés correctement vers Google</value>
         <value xml:lang="it">Prodotti inviati correttamente su Google Base</value>
         <value xml:lang="th">ส่งรายการสินค้าอย่างถูกต้องไปยังฐานข้อมูลสาธารณะ</value>
+        <value xml:lang="zh">成功发送产品明细到Google Base</value>
     </property>
 </resource>
