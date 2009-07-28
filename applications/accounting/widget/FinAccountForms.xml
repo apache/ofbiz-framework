@@ -239,4 +239,39 @@ under the License.
         <field name="finAccountId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="FindDepositSlips" type="single" target="FindDepositSlips" extends="FindPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="finAccountId"><hidden/></field>
+        <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
+    </form>
+    <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="paymentGroupId" widget-style="buttontext">
+            <hyperlink description="${paymentGroupId}" target="EditDepositSlipAndMembers">
+                <parameter param-name="paymentGroupId"/>
+                <parameter param-name="finAccountId"/>
+            </hyperlink>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'}">
+            <hyperlink target="deleteDepositSlip" description="${uiLabelMap.CommonCancel}" also-hidden="false">
+                <parameter param-name="paymentGroupId"/>
+                <parameter param-name="finAccountId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditDepositSlip" type="single" target="updateDepositSlip" extends="EditPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="finAccountId"><hidden value="${finAccountId}"/></field>
+    </form>
+    <form name="AddDepositSlipMember" type="single" target="addDepositSlipMember" extends="AddPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="finAccountId"><hidden value="${finAccountId}"/></field>
+    </form>
+    <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteDepositSlipMember" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="paymentGroupId"/>
+                <parameter param-name="paymentId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="finAccountId"/>
+            </hyperlink>
+        </field>
+        <field name="finAccountId"><hidden value="${finAccountId}"/></field>
+    </form>
 </forms>
