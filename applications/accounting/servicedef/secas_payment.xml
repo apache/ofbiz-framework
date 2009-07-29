@@ -47,10 +47,11 @@ under the License.
         <action service="createFinAccoutnTransFromPayment" mode="sync"/>
      </eca>
      
-     <!-- Update payment when FinAccountTrans status is set to Cancle, remove finAccountTransId form Payment entity. -->
+     <!-- Update payment and payment associations when FinAccountTrans status is set to Cancle, remove finAccountTransId form Payment entity. -->
      <eca service="setFinAccountTransStatus" event="commit">
          <condition field-name="finAccountTransId" operator="is-not-empty"/>
          <condition field-name="statusId" operator="equals" value="FINACT_TRNS_CANCELED"/>
+         <action service="expirePaymentAssociationsOnFinAccountTransCancel" mode="sync"/>
          <action service="updatePaymentOnFinAccTransStatusSetToCancel" mode="sync"/>
          <action service="updateFinAccountBalancesFromTrans" mode="sync"/>
      </eca>

@@ -44,6 +44,8 @@ if (finAccountId) {
         finAccountTransIds = EntityUtil.getFieldListFromEntityList(finAccountTransList, "finAccountTransId", true);
         paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.IN, finAccountTransIds));
     }
+} else {
+    paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.NOT_EQUAL, null));
 }
 payments = delegator.findList("Payment", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
 paymentListWithCreditCard = [];
