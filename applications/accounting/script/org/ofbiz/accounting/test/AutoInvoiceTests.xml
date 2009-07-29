@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <!-- Test case for Commission Run -->
+    <simple-method method-name="testCommissionRun" short-description="Test case for Commission Run" login-required="false">
+
+        <!-- Precondition : For Creating Commission invoice following data should be there :
+                1 ) Sales invoices with paid status.(invoiceId = "8100")
+                2 ) Sales Representative with agreement to Company on product (DemoCustAgent and DemoRepAll). -->
+        <!-- Postcondition :
+                1 ) Two commission will be creating for the parties DemoCustAgent and DemoRepAll (like 10000 and 10001 invoiceId).
+                2 ) Its amountTotal will be same as commission cost of associated products. -->
+ 
+        <set field="invoiceId" value="8100"/>
+        <set field="invoiceIds[]" from-field="invoiceId"/>
+        <set field="partyIds[]" value="DemoRepAll"/>
+        <set field="partyIds[]" value="DemoCustAgent"/>
+        <set field="partyIds[]" value="DemoRepStore"/>
+        <set field="invoiceTotal" type="BigDecimal" value="0"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <entity-and  entity-name="InvoiceItem" list="invoiceItems">
+            <field-map field-name="invoiceId" from-field="invoiceId"/>
+        </entity-and>
+        <iterate list="invoiceItems" entry="invoiceItem">
+            <if-compare field="invoiceItem.productId" operator="equals" value="WG-9943-B3">
+                <set field="invoiceTotal" value="${invoiceTotal + (invoiceItem.quantity * (invoiceItem.amount * 3 / 100 + 1))}" type="BigDecimal"/>
+            </if-compare>
+        </iterate>
+        <set field="createCommissionInvoicesMap.invoiceIds" from-field="invoiceIds"/>
+        <set field="createCommissionInvoicesMap.partyIds" from-field="partyIds"/>
+        <set field="createCommissionInvoicesMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="createCommissionInvoices"  in-map-name="createCommissionInvoicesMap">
+            <result-to-field result-name="invoicesCreated"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="invoicesCreated"/></not>
+        </assert>
+        <check-errors/>
+        <iterate list="invoicesCreated" entry="invoice">
+            <call-class-method method-name="getInvoiceTotal" ret-field="amountTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker">
+                <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+                <field field="invoice" type="String"/> 
+            </call-class-method>
+            <assert>
+                <or>
+                    <if-compare-field field="amountTotal" operator="equals" to-field="invoiceTotal"/>
+                </or>
+            </assert>
+            <check-errors/>
+        </iterate>
+        <log level="info" message="Commission Invoice ${invoicesCreated} is created successfully for ${partyIds}"/>
+    </simple-method>
+</simple-methods>

@@ -29,31 +29,49 @@ function toggleInvoiceId(master) {
         }
     }
 }
+function setServiceName(selection) {
+    document.listSalesInvoices.action = '<@ofbizUrl>'+selection.value+'</@ofbizUrl>';
+}
+function runAction() {
+    var form = document.listSalesInvoices;
+    var invoices = form.elements.length;
+    for (var i = 0; i < invoices; i++) {
+        var element = form.elements[i];
+        if (element.name == "invoiceIds") {
+            element.disabled = false;
+        }
+    }
+    form.submit();
+}
 -->
 </script>
 
 <#if invoices?has_content >
-  <form name="listSalesInvoices" id="listSalesInvoices">
+  <form name="listSalesInvoices" id="listSalesInvoices" method="post">
+    <#if parties?has_content>
+      <input type="hidden" name="partyIds" value="${parties?if_exists}"/>
+    </#if>
     <div align="right">
-      <select name="serviceName" id="serviceName">
+      <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
         <option value=""/>
-        <option value="commissionRun">${uiLabelMap.AccountingCommissionRun}</option>
+        <option value="processCommissionRun">${uiLabelMap.AccountingCommissionRun}</option>
       </select>
-      <a href="#" id="runAction" class="buttontext">${uiLabelMap.OrderRunAction}</a>
+      <a href="javascript:runAction();" id="runAction" class="buttontext">${uiLabelMap.OrderRunAction}</a>
     </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
       <tr class="header-row-2">
-        <td width="8%"><input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/> ${uiLabelMap.CommonSelectAll}</td>
+        <td width="10%"><input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/> ${uiLabelMap.CommonSelectAll}</td>
         <td width="10%">${uiLabelMap.FormFieldTitle_invoiceId}</td>
-        <td width="15%">${uiLabelMap.AccountingVendorParty}</td>
-        <td width="10%">${uiLabelMap.CommonStatus}</td>
+        <td width="10%">${uiLabelMap.AccountingVendorParty}</td>
+        <td width="8%">${uiLabelMap.CommonStatus}</td>
         <td width="10%">${uiLabelMap.AccountingReferenceNumber}</td>
+        <td width="15%">${uiLabelMap.CommonDescription}</td>
         <td width="10%">${uiLabelMap.AccountingInvoiceDate}</td>
-        <td width="10%">${uiLabelMap.AccountingDueDate}</td>
-        <td width="9%">${uiLabelMap.AccountingAmount}</td>
-        <td width="9%">${uiLabelMap.FormFieldTitle_paidAmount}</td>
-        <td width="9%">${uiLabelMap.FormFieldTitle_outstandingAmount}</td>
+        <td width="8%">${uiLabelMap.AccountingDueDate}</td>
+        <td width="8%">${uiLabelMap.AccountingAmount}</td>
+        <td width="8%">${uiLabelMap.FormFieldTitle_paidAmount}</td>
+        <td width="8%">${uiLabelMap.FormFieldTitle_outstandingAmount}</td>
       </tr>
       <#-- Header Ends-->
       <#assign alt_row = false>
@@ -67,6 +85,7 @@ function toggleInvoiceId(master) {
           <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</td>
           <td>${statusItem.get("description")?if_exists}</td>
           <td>${invoice.get("referenceNumber")?if_exists}</td>
+          <td>${invoice.get("description")?if_exists}</td>
           <td>${invoice.get("invoiceDate")?if_exists}</td>
           <td>${invoice.get("dueDate")?if_exists}</td>
           <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>

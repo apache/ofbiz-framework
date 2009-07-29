@@ -24,7 +24,6 @@ under the License.
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>
-        <action service="createCommissionInvoices" mode="sync" run-as-user="system"/>
     </eca>
 
     <!--  Uncomment this if you want commission invoices to be set to READY automatically, which means they are official

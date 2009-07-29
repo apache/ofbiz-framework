@@ -54,6 +54,11 @@ under the License.
         <response name="success" type="request" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="FindPurchaseInvoices"/>
     </request-map>
+    <request-map uri="processCommissionRun">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommissionInvoices"/>
+        <response name="success" type="view" value="CommissionRun"/>
+    </request-map>
 
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">

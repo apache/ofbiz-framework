@@ -227,6 +227,8 @@ under the License.
         </description>
         <permission-service service-name="acctgCommissionPermissionCheck" main-action="VIEW"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceItemTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>

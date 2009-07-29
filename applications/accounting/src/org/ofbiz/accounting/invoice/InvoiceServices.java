@@ -32,6 +32,7 @@ import javolution.util.FastList;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.ofbiz.accounting.payment.BillingAccountWorker;
 import org.ofbiz.accounting.payment.PaymentWorker;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
@@ -832,187 +833,225 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-        List invoicesCreated = FastList.newInstance();
-
-        String invoiceIdIn = (String) context.get("invoiceId");
-        String invoiceItemSeqIdIn = (String) context.get("invoiceItemSeqId");
-        BigDecimal amountTotal = InvoiceWorker.getInvoiceTotal(delegator, invoiceIdIn);
-        // never use equals for BigDecimal - use either signum or compareTo
-        if (amountTotal.signum() == 0) {
-            Debug.logWarning("Invoice [" + invoiceIdIn + "] has an amount total of [" + amountTotal + "], so no commission invoice will be created", module);
-            return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionZeroInvoiceAmount",locale));
-        }
-
-        try {
-            List billFromVendorInvoiceRoles = EntityUtil.getFieldListFromEntityList(delegator.findByAnd("InvoiceRole", UtilMisc.<String, Object>toMap("invoiceId", invoiceIdIn, "roleTypeId", "BILL_FROM_VENDOR")), "partyId", true);
-            List salesRepInvoiceRoles = EntityUtil.getFieldListFromEntityList(delegator.findByAnd("InvoiceRole", UtilMisc.<String, Object>toMap("invoiceId", invoiceIdIn, "roleTypeId", "SALES_REP")), "partyId", true);
-            if (UtilValidate.isEmpty(billFromVendorInvoiceRoles) || UtilValidate.isEmpty(salesRepInvoiceRoles)) {
-                return ServiceUtil.returnSuccess();
+        List<String> salesInvoiceIds = (List) context.get("invoiceIds");
+        List<Map> invoicesCreated = FastList.newInstance();
+        Map commissionParties = FastMap.newInstance();
+        for (String salesInvoiceId : salesInvoiceIds) {
+            List<String> salesRepPartyIds = (List) context.get("partyIds");
+            BigDecimal amountTotal =  InvoiceWorker.getInvoiceTotal(delegator, salesInvoiceId);
+            if (amountTotal.signum() == 0) {
+                Debug.logWarning("Invoice [" + salesInvoiceId + "] has an amount total of [" + amountTotal + "], so no commission invoice will be created", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionZeroInvoiceAmount",locale));
             }
-            // Change this when amountApplied is BigDecimal, 18 digit scale to keep all the precision
-            BigDecimal appliedFraction = ((BigDecimal)context.get("amountApplied")).divide(amountTotal, 12, rounding);
-            Map inMap = UtilMisc.toMap("invoiceId", invoiceIdIn);
-            GenericValue invoice = delegator.findByPrimaryKey("Invoice", inMap);
-            String invoiceTypeId = invoice.getString("invoiceTypeId");
-
-            // Determine sales or return
+            BigDecimal appliedFraction = amountTotal.divide(amountTotal, 12, rounding);
+            GenericValue invoice = null;
             boolean isReturn = false;
-            if ("SALES_INVOICE".equals(invoiceTypeId)) {
-                isReturn = false;
-            } else if ("CUST_RTN_INVOICE".equals(invoiceTypeId)) {
-                isReturn = true;
-            } else {
-                Debug.logWarning("This type of invoice has no commission; returning success", module);
-                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionInvalid",locale));
+            List<String> billFromVendorInvoiceRoles = new ArrayList<String>();
+            List<GenericValue> invoiceItems = new ArrayList<GenericValue>();
+            try {
+                List invoiceRoleConds = UtilMisc.toList(
+                        EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, salesInvoiceId),
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_FROM_VENDOR"));
+                billFromVendorInvoiceRoles = EntityUtil.getFieldListFromEntityList(delegator.findList("InvoiceRole", EntityCondition.makeCondition(invoiceRoleConds, EntityOperator.AND), null, null, null, false), "partyId", true);
+                invoiceRoleConds = UtilMisc.toList(
+                        EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, salesInvoiceId),
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SALES_REP"));
+                // if the receiving parties is empty then we will create commission invoices for all sales agent associated to sales invoice.
+                if (UtilValidate.isEmpty(salesRepPartyIds)) {
+                    salesRepPartyIds = EntityUtil.getFieldListFromEntityList(delegator.findList("InvoiceRole", EntityCondition.makeCondition(invoiceRoleConds, EntityOperator.AND), null, null, null, false), "partyId", true);
+                    if (UtilValidate.isEmpty(salesRepPartyIds)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,"No party found with role sales representative for sales invoice "+ salesInvoiceId,locale));
+                    }
+                } else {
+                    List<String> salesInvoiceRolePartyIds = EntityUtil.getFieldListFromEntityList(delegator.findList("InvoiceRole", EntityCondition.makeCondition(invoiceRoleConds, EntityOperator.AND), null, null, null, false), "partyId", true);
+                    if (UtilValidate.isNotEmpty(salesInvoiceRolePartyIds)) {
+                        salesRepPartyIds = (List) CollectionUtils.intersection(salesRepPartyIds, salesInvoiceRolePartyIds);
+                    } 
+                }
+                invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", salesInvoiceId), false);
+                String invoiceTypeId = invoice.getString("invoiceTypeId");
+                if ("CUST_RTN_INVOICE".equals(invoiceTypeId)) {
+                    isReturn = true;
+                } else if (!"SALES_INVOICE".equals(invoiceTypeId)) {
+                    Debug.logWarning("This type of invoice has no commission; returning success", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionInvalid",locale));
+                }
+                invoiceItems = delegator.findList("InvoiceItem", EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, salesInvoiceId), null, null, null, false);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
             }
-
-            if (invoiceItemSeqIdIn != null) {
-                inMap.put("invoiceItemSeqId", invoiceItemSeqIdIn);
-            }
-            List invoiceItems = delegator.findByAnd("InvoiceItem", inMap);
-
-            // Map of commission Lists (of Maps) for each party
-            Map commissionParties = FastMap.newInstance();
-            // Determine commissions for various parties
-            Iterator itemIter = invoiceItems.iterator();
-            while (itemIter.hasNext()) {
-                GenericValue invoiceItem = (GenericValue) itemIter.next();
+            // Map of commission Lists (of Maps) for each party.
+            // Determine commissions for various parties.
+            for (GenericValue invoiceItem : invoiceItems) {
                 BigDecimal amount = ZERO;
                 BigDecimal quantity = ZERO;
                 quantity = invoiceItem.getBigDecimal("quantity");
                 amount = invoiceItem.getBigDecimal("amount");
                 amount = isReturn ? amount.negate() : amount;
                 String productId = invoiceItem.getString("productId");
-
+                String invoiceItemSeqId = invoiceItem.getString("invoiceItemSeqId");
+                String invoiceId = invoiceItem.getString("invoiceId");
                 // Determine commission parties for this invoiceItem
                 if (productId != null && productId.length() > 0) {
-                    Map outMap = dispatcher.runSync("getCommissionForProduct", UtilMisc.<String, Object>toMap(
-                            "productId", productId,
-                            "invoiceItemTypeId", invoiceItem.getString("invoiceItemTypeId"),
-                            "amount", amount,
-                            "quantity", quantity,
-                            "userLogin", userLogin));
-                    if (ServiceUtil.isError(outMap)) {
-                        return outMap;
+                    Map resultMap = null;
+                    try{
+                        resultMap = dispatcher.runSync("getCommissionForProduct", UtilMisc.<String, Object>toMap(
+                                "productId", productId,
+                                "invoiceId", invoiceId,
+                                "invoiceItemSeqId", invoiceItemSeqId,
+                                "invoiceItemTypeId", invoiceItem.getString("invoiceItemTypeId"),
+                                "amount", amount,
+                                "quantity", quantity,
+                                "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        return ServiceUtil.returnError(e.getMessage());
                     }
-
                     // build a Map of partyIds (both to and from) in a commission and the amounts
                     // Note that getCommissionForProduct returns a List of Maps with a lot values.  See services.xml definition for reference.
-                    List itemComms = (List) outMap.get("commissions");
-                    if (UtilValidate.isNotEmpty(itemComms)) {
-                        Iterator it = itemComms.iterator();
-                        while (it.hasNext()) {
-                            Map commMap = (Map)it.next();
-                            if (!billFromVendorInvoiceRoles.contains(commMap.get("partyIdFrom")) || !salesRepInvoiceRoles.contains(commMap.get("partyIdTo"))) {
+                    List<Map> itemCommissions = (List) resultMap.get("commissions");
+                    if (UtilValidate.isNotEmpty(itemCommissions)) {
+                        for (Map commissionMap : itemCommissions) {
+                            commissionMap.put("invoice", invoice);
+                            commissionMap.put("appliedFraction", appliedFraction);
+                            if (!billFromVendorInvoiceRoles.contains(commissionMap.get("partyIdFrom")) || !salesRepPartyIds.contains(commissionMap.get("partyIdTo"))) {
                                 continue;
                             }
-                            String partyIdFromTo = (String) commMap.get("partyIdFrom") + (String) commMap.get("partyIdTo");
+                            String partyIdFromTo = (String) commissionMap.get("partyIdFrom") + (String) commissionMap.get("partyIdTo");
                             if (!commissionParties.containsKey(partyIdFromTo)) {
-                                commissionParties.put(partyIdFromTo, UtilMisc.toList(commMap));
+                                commissionParties.put(partyIdFromTo, UtilMisc.toList(commissionMap));
                             } else {
-                                ((List)commissionParties.get(partyIdFromTo)).add(commMap);
+                                ((List)commissionParties.get(partyIdFromTo)).add(commissionMap);
                             }
                         }
                     }
                 }
             }
-
-            String invoiceType = "COMMISSION_INVOICE";
-            Timestamp now = UtilDateTime.nowTimestamp();
-
-            // Create invoice for each commission receiving party
-            Iterator it = commissionParties.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                List toStore = FastList.newInstance();
-                List commList = (List)pair.getValue();
-                // get the billing parties
-                if (UtilValidate.isEmpty(commList)) {
-                    continue;
-                }
-
-                // From and To are reversed between commission and invoice
-                String partyIdBillTo = (String) ((Map)commList.get(0)).get("partyIdFrom");
-                String partyIdBillFrom = (String) ((Map)commList.get(0)).get("partyIdTo");
-                Long days = (Long) ((Map)commList.get(0)).get("days");
-
-                // create the invoice record
-                // To and From are in commission's sense, opposite for invoice
-                Map createInvoiceContext = FastMap.newInstance();
-                createInvoiceContext.put("partyId", partyIdBillTo);
-                createInvoiceContext.put("partyIdFrom", partyIdBillFrom);
-                createInvoiceContext.put("invoiceDate", now);
-                // if there were days associated with the commission agreement, then set a dueDate for the invoice.
-                if (days != null) {
-                    createInvoiceContext.put("dueDate", UtilDateTime.getDayEnd(now, days));
-                }
-                createInvoiceContext.put("invoiceTypeId", invoiceType);
-                // start with INVOICE_IN_PROCESS, in the INVOICE_READY we can't change the invoice (or shouldn't be able to...)
-                createInvoiceContext.put("statusId", "INVOICE_IN_PROCESS");
-                createInvoiceContext.put("currencyUomId", invoice.getString("currencyUomId"));
-                createInvoiceContext.put("userLogin", userLogin);
-
-                // store the invoice first
-                Map createInvoiceResult = dispatcher.runSync("createInvoice", createInvoiceContext);
-                if (ServiceUtil.isError(createInvoiceResult)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionError",locale), null, null, createInvoiceResult);
-                }
-                String invoiceId = (String) createInvoiceResult.get("invoiceId");
-
-                // create the bill-from (or pay-to) contact mech as the primary PAYMENT_LOCATION of the party from the store
-                List contactMechs = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyIdBillTo, "contactMechPurposeTypeId", "BILLING_LOCATION"));
-                if (contactMechs.size() > 0) {
-                    GenericValue address = (GenericValue) contactMechs.get(0);
-                    GenericValue payToCm = delegator.makeValue("InvoiceContactMech", UtilMisc.toMap(
+        }
+        Timestamp now = UtilDateTime.nowTimestamp();
+        // Create invoice for each commission receiving party
+        for (Object commissionParty : commissionParties.entrySet()) {
+            Map.Entry pair = (Map.Entry)commissionParty;
+            List toStore = FastList.newInstance();
+            List<Map> commList = (List)pair.getValue();
+            // get the billing parties
+            if (UtilValidate.isEmpty(commList)) {
+                continue;
+            }
+            // From and To are reversed between commission and invoice
+            String partyIdBillTo = (String) (commList.get(0)).get("partyIdFrom");
+            String partyIdBillFrom = (String) (commList.get(0)).get("partyIdTo");
+            GenericValue invoice = (GenericValue) (commList.get(0)).get("invoice");
+            BigDecimal appliedFraction = (BigDecimal) (commList.get(0)).get("appliedFraction");
+            Long days = (Long) (commList.get(0)).get("days");
+            // create the invoice record
+            // To and From are in commission's sense, opposite for invoice
+            Map createInvoiceMap = FastMap.newInstance();
+            createInvoiceMap.put("partyId", partyIdBillTo);
+            createInvoiceMap.put("partyIdFrom", partyIdBillFrom);
+            createInvoiceMap.put("invoiceDate", now);
+            // if there were days associated with the commission agreement, then set a dueDate for the invoice.
+            if (days != null) {
+                createInvoiceMap.put("dueDate", UtilDateTime.getDayEnd(now, days));
+            }
+            createInvoiceMap.put("invoiceTypeId", "COMMISSION_INVOICE");
+            // start with INVOICE_IN_PROCESS, in the INVOICE_READY we can't change the invoice (or shouldn't be able to...)
+            createInvoiceMap.put("statusId", "INVOICE_IN_PROCESS");
+            createInvoiceMap.put("currencyUomId", invoice.getString("currencyUomId"));
+            createInvoiceMap.put("userLogin", userLogin);
+            // store the invoice first
+            Map createInvoiceResult = null;
+            try{
+                createInvoiceResult = dispatcher.runSync("createInvoice", createInvoiceMap);
+            } catch (GenericServiceException e) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionError",locale), null, null, createInvoiceResult);
+            }
+            String invoiceId = (String) createInvoiceResult.get("invoiceId");
+            // create the bill-from (or pay-to) contact mech as the primary PAYMENT_LOCATION of the party from the store
+            List partyContactMechPurposeConds = UtilMisc.toList(
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyIdBillTo),
+                    EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "BILLING_LOCATION"));
+            List<GenericValue> partyContactMechPurposes = new ArrayList<GenericValue>();
+            try {
+                partyContactMechPurposes = delegator.findList("PartyContactMechPurpose",
+                        EntityCondition.makeCondition(partyContactMechPurposeConds, EntityOperator.AND), null, null, null, false);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (partyContactMechPurposes.size() > 0) {
+                GenericValue address = partyContactMechPurposes.get(0);
+                GenericValue invoiceContactMech = delegator.makeValue("InvoiceContactMech", UtilMisc.toMap(
+                        "invoiceId", invoiceId,
+                        "contactMechId", address.getString("contactMechId"),
+                        "contactMechPurposeTypeId", "BILLING_LOCATION"));
+                toStore.add(invoiceContactMech);
+            }
+            partyContactMechPurposeConds = UtilMisc.toList(
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyIdBillTo),
+                    EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PAYMENT_LOCATION"));
+            try {
+                partyContactMechPurposes = delegator.findList("PartyContactMechPurpose",
+                        EntityCondition.makeCondition(partyContactMechPurposeConds, EntityOperator.AND), null, null, null, false);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (partyContactMechPurposes.size() > 0) {
+                GenericValue address = partyContactMechPurposes.get(0);
+                GenericValue invoiceContactMech = delegator.makeValue("InvoiceContactMech", UtilMisc.toMap(
+                        "invoiceId", invoiceId,
+                        "contactMechId", address.getString("contactMechId"),
+                        "contactMechPurposeTypeId", "PAYMENT_LOCATION"));
+                toStore.add(invoiceContactMech);
+            }
+            // create the item records
+            for (Map commissionMap : commList) {
+                BigDecimal elemAmount = ((BigDecimal)commissionMap.get("commission")).multiply(appliedFraction);
+                BigDecimal quantity = (BigDecimal)commissionMap.get("quantity");
+                String invoiceIdFrom = (String)commissionMap.get("invoiceId");
+                String invoiceItemSeqIdFrom = (String)commissionMap.get("invoiceItemSeqId");
+                elemAmount = elemAmount.setScale(decimals, rounding);
+                Map resMap = null;
+                Map invoiceItemAssocResultMap = null;
+                try {
+                    resMap = dispatcher.runSync("createInvoiceItem", UtilMisc.toMap(
                             "invoiceId", invoiceId,
-                            "contactMechId", address.getString("contactMechId"),
-                            "contactMechPurposeTypeId", "BILLING_LOCATION"));
-                    toStore.add(payToCm);
-                }
-                contactMechs = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyIdBillFrom, "contactMechPurposeTypeId", "PAYMENT_LOCATION"));
-                if (contactMechs.size() > 0) {
-                    GenericValue address = (GenericValue) contactMechs.get(0);
-                    GenericValue payToCm = delegator.makeValue("InvoiceContactMech", UtilMisc.toMap(
-                            "invoiceId", invoiceId,
-                            "contactMechId", address.getString("contactMechId"),
-                            "contactMechPurposeTypeId", "PAYMENT_LOCATION"));
-                    toStore.add(payToCm);
-                }
-
-                // create the item records
-                Iterator itt = commList.iterator();
-                while (itt.hasNext()) {
-                    Map elem = (Map) itt.next();
-                    BigDecimal elemAmount = ((BigDecimal)elem.get("commission")).multiply(appliedFraction);
-                    BigDecimal quantity = (BigDecimal)elem.get("quantity");
-                    elemAmount = elemAmount.setScale(decimals, rounding);
-                    Map resMap = dispatcher.runSync("createInvoiceItem", UtilMisc.toMap(
-                            "invoiceId", invoiceId,
-                            "productId", elem.get("productId"),
+                            "productId", commissionMap.get("productId"),
                             "invoiceItemTypeId", "COMM_INV_ITEM",
                             "quantity",quantity,
                             "amount", elemAmount,
                             "userLogin", userLogin));
-                    if (ServiceUtil.isError(resMap)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionErrorItem",locale), null, null, resMap);
-                    }
+                    invoiceItemAssocResultMap = dispatcher.runSync("createInvoiceItemAssoc", UtilMisc.toMap(
+                            "invoiceIdFrom", invoiceIdFrom,
+                            "invoiceItemSeqIdFrom", invoiceItemSeqIdFrom,
+                            "invoiceIdTo", invoiceId,
+                            "invoiceItemSeqIdTo", resMap.get("invoiceItemSeqId"),
+                            "invoiceItemAssocTypeId", "COMMISSION_INVOICE",
+                            "partyIdFrom", partyIdBillFrom,
+                            "partyIdTo", partyIdBillTo,
+                            "quantity", quantity,
+                            "amount", elemAmount,
+                            "userLogin", userLogin));
+                } catch (GenericServiceException e) {
+                    return ServiceUtil.returnError(e.getMessage());
                 }
-                // store value objects
-                delegator.storeAll(toStore);
-                invoicesCreated.add(invoiceId);
+                GenericValue invoiceItemAssoc = null;
+                if (ServiceUtil.isError(resMap)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionErrorItem",locale), null, null, resMap);
+                }
             }
-            Map resp = ServiceUtil.returnSuccess();
-            resp.put("invoicesCreated", invoicesCreated);
-            return resp;
-        } catch (GenericEntityException e) {
-            String errMsg = UtilProperties.getMessage(resource,"AccountingInvoiceCommissionEntityDataProblem",UtilMisc.toMap("reason",e.toString()),locale);
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        } catch (GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage(resource,"AccountingInvoiceCommissionEntityDataProblem",UtilMisc.toMap("reason",e.toString()),locale);
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            // store value objects
+            try {
+                delegator.storeAll(toStore);
+            } catch (GenericEntityException e) {
+                String errMsg = UtilProperties.getMessage(resource,"AccountingInvoiceCommissionEntityDataProblem",UtilMisc.toMap("reason",e.toString()),locale);
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+            invoicesCreated.add(UtilMisc.toMap("commissionInvoiceId",invoiceId, "salesRepresentative ",partyIdBillFrom));
         }
+        Map result = ServiceUtil.returnSuccess("Created Commission invoices for each commission receiving parties " + invoicesCreated);
+        Debug.logInfo("Created Commission invoices for each commission receiving parties " + invoicesCreated, module);
+        result.put("invoicesCreated", invoicesCreated);
+        return result;
     }
 
     public static Map readyInvoices(DispatchContext dctx, Map context) {
