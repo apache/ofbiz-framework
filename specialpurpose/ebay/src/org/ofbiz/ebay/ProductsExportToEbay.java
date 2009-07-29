@@ -193,6 +193,7 @@ public class ProductsExportToEbay {
                     UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Location", (String)context.get("location"), itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Currency", "USD", itemDocument);
+                    UtilXml.addChildElementValue(itemElem, "ApplicationData", prod.getString("productId"), itemDocument);
                     UtilXml.addChildElementValue(itemElem, "SKU", prod.getString("productId"), itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Title", title, itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Description", description, itemDocument);
