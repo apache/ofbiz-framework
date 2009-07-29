@@ -287,36 +287,21 @@ under the License.
             <!-- get QOH, ATP quantities and find ProductFacility which has the minimum stock -->
             <call-simple-method method-name="getProductFacilityAndQuantities"/>
 
-            <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
-            <entity-one entity-name="ProductStore" value-field="productStore">
-                <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
-            </entity-one>
-            <set field="minimumStock" from-field="productFacility.minimumStock"/>
-            <set field="reorderQuantity" from-field="productFacility.reorderQuantity"/>
-            <if-compare-field field="productStore.isSpecialPeriod" operator="equals" to-field="productFacility.specialPeriodTypeId">
-                <if-not-empty field="productFacility.specialMinimumStock">
-                    <set field="minimumStock" from-field="productFacility.specialMinimumStock"/>
-                </if-not-empty>
-                <if-not-empty field="productFacility.specialReorderQuantity">
-                   <set field="reorderQuantity" from-field="productFacility.specialReorderQuantity"/>
-                </if-not-empty>
-            </if-compare-field>
-
-            <if-not-empty field="minimumStock">
+            <if-not-empty field="productFacility.minimumStock">
                 <!-- No requirements are created if we are not under stock -->
                 <!-- this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
-                <if-compare-field field="availableToPromiseTotal" to-field="minimumStock" operator="less" type="BigDecimal">
+                <if-compare-field field="availableToPromiseTotal" to-field="productFacility.minimumStock" operator="less" type="BigDecimal">
                     <calculate field="oldAvailableToPromise">
                         <calcop field="availableToPromiseTotal" operator="add">
                             <calcop operator="get" field="parameters.quantity"/>
                         </calcop>
                     </calculate>
                     <!-- If before this reservation the availableToPromiseTotal was over minimumStock, create a new requirement -->
-                    <if-compare-field field="oldAvailableToPromise" to-field="minimumStock" operator="greater-equals" type="BigDecimal">
+                    <if-compare-field field="oldAvailableToPromise" to-field="productFacility.minimumStock" operator="greater-equals" type="BigDecimal">
                         <set from-field="inventoryItem.productId" field="inputMap.productId"/>
                         <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
-                        <if-not-empty field="reorderQuantity">
-                            <set from-field="reorderQuantity" field="inputMap.quantity"/>
+                        <if-not-empty field="productFacility.reorderQuantity">
+                            <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
                             <set from-field="parameters.quantity" field="inputMap.quantity"/>
                         </else>
