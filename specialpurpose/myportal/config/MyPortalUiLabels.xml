@@ -24,6 +24,7 @@
         <value xml:lang="fr">Menu des applications</value>
         <value xml:lang="it">Mia pagina</value>
         <value xml:lang="th">แอปพริเคชันของฉัน</value>
+        <value xml:lang="zh">我的页面应用程序栏</value>
     </property>
     <property key="MyPortalBillToCustomer">
         <value xml:lang="en">Bill To Customer</value>
@@ -33,46 +34,54 @@
         <value xml:lang="fr">Vérifier le code captcha, il est absent ou erroné</value>
         <value xml:lang="it">Verifica il codice captcha, è mancante o errato</value>
         <value xml:lang="th">รหัสตัวเลขที่ท่านกรอกมีข้อผิดพลาด</value>
+        <value xml:lang="zh">缺少验证码或验证码错误</value>
     </property>
     <property key="MyPortalCommunicationEventId">
         <value xml:lang="en">Communication Event id:</value>
         <value xml:lang="fr">Réf. d'évènement de comm.</value>
         <value xml:lang="it">Evento comunicazione:</value>
         <value xml:lang="th">เหตุการณ์ที่ทำการติดต่อ</value>
+        <value xml:lang="zh">沟通事件标识：</value>
     </property>
     <property key="MyPortalCommunications">
         <value xml:lang="en">My Communications</value>
         <value xml:lang="fr">Mes communications</value>
         <value xml:lang="it">Mie comunicazioni</value>
         <value xml:lang="th">การติดต่อฉัน</value>
+        <value xml:lang="zh">我的沟通</value>
     </property>
     <property key="MyPortalCommunicationsOfParty">
         <value xml:lang="en">Communications Of Party</value>
         <value xml:lang="it">Comunicazioni dai soggetti</value>
+        <value xml:lang="zh">会员的沟通</value>
     </property>
     <property key="MyPortalCompanyComms">
         <value xml:lang="en">Company communications</value>
         <value xml:lang="fr">Communications de l'entreprise</value>
         <value xml:lang="it">Comunicazioni aziendali</value>
         <value xml:lang="th">การติดต่อบริษัท</value>
+        <value xml:lang="zh">公司沟通</value>
     </property>
     <property key="MyPortalCompletedCustomerRequests">
         <value xml:lang="en">My Completed Customer Requests</value>
         <value xml:lang="fr">Mes demandes de clients achevées</value>
         <value xml:lang="it">Mie richieste cliente completate</value>
         <value xml:lang="th">งานที่แก้ไขให้ลูกค้าเรียยร้อยแล้ว</value>
+        <value xml:lang="zh">我完成的客户请求</value>
     </property>
     <property key="MyPortalCustRequests">
         <value xml:lang="en">My customer requests</value>
         <value xml:lang="fr">Mes demandes utilisateur</value>
         <value xml:lang="it">Mie richieste cliente</value>
         <value xml:lang="th">ลูกค้าเรียกร้อง</value>
+        <value xml:lang="zh">我的客户请求</value>
     </property>
     <property key="MyPortalDashboard">
         <value xml:lang="en">My Portal</value>
         <value xml:lang="fr">Mon portail</value>
         <value xml:lang="it">Mio portale</value>
         <value xml:lang="th">ส่วนตัว</value>
+        <value xml:lang="zh">我的门户</value>
     </property>
     <property key="MyPortalEndUserCustomer">
         <value xml:lang="en">End User Customer</value>
@@ -82,18 +91,21 @@
         <value xml:lang="fr">Votre prénom est absent</value>
         <value xml:lang="it">Nome mancante</value>
         <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
+        <value xml:lang="zh">缺少你的名</value>
     </property>
     <property key="MyPortalInformation">
         <value xml:lang="en">My Information</value>
         <value xml:lang="fr">Mes informations </value>
         <value xml:lang="it">Mie informazioni</value>
         <value xml:lang="th">ข้อมูลของฉัน</value>
+        <value xml:lang="zh">我的信息</value>
     </property>
     <property key="MyPortalLastNameMissing">
         <value xml:lang="en">Your lastname is missing</value>
         <value xml:lang="fr">Votre nom est absent</value>
         <value xml:lang="it">Cognome mancante</value>
         <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
+        <value xml:lang="zh">缺少你的姓</value>
     </property>
     <property key="MyPortalMyOrders">
         <value xml:lang="en">My Orders</value>
@@ -101,28 +113,33 @@
     <property key="MyPortalMyTasks">
         <value xml:lang="en">myTasks</value>
         <value xml:lang="it">Miei compiti</value>
+        <value xml:lang="zh">我的任务</value>
     </property>
     <property key="MyPortalMyTime">
         <value xml:lang="en">myTime</value>
         <value xml:lang="it">Mio tempo</value>
+        <value xml:lang="zh">我的时间</value>
     </property>
     <property key="MyPortalNewMessage">
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
         <value xml:lang="it">Nuovo messaggio</value>
         <value xml:lang="th">ข้อความใหม่</value>
+        <value xml:lang="zh">新消息</value>
     </property>
     <property key="MyPortalNewRegistration">
         <value xml:lang="en">New Registration </value>
         <value xml:lang="fr">Nouvel enregistrement</value>
         <value xml:lang="it">Nuova utente</value>
         <value xml:lang="th">ลงทะเบียน </value>
+        <value xml:lang="zh">新注册</value>
     </property>
     <property key="MyPortalNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
         <value xml:lang="fr">Aucun accès privilégié n'a été paramétré.</value>
         <value xml:lang="it">Non è stato configurato nessun accesso privilegiato.</value>
         <value xml:lang="th">ไม่สามารถเข้าไปติดตั้งระบบ</value>
+        <value xml:lang="zh">没有设置访问权限。</value>
     </property>
     <property key="MyPortalNoAccess2">
         <value xml:lang="en">You do not have access to any functions in the MyPortal subsystem, please contact your system admin</value>
@@ -130,6 +147,7 @@
         <value xml:lang="it">Non hai l'accesso alle funzioni nel sottosistam Mia pagina, per favore contatta l'amministratore del sistema</value>
         <value xml:lang="th">ท่านไม่เข้าถึงฟังก์ชันการทำงานส่วนอื่นๆใน MyPortal ได้,
             กรุณาติดต่อผู้ดูแลระบบของท่าน</value>
+        <value xml:lang="zh">你没有权限访问我的门户子系统中的任何功能，请与你的系统管理员联系</value>
     </property>
     <property key="MyPortalNoAccess3">
         <value xml:lang="en">At least MyPortal_CUSTOMER or MyPortal_EMPLOYEE permission is required</value>
@@ -137,42 +155,49 @@
         <value xml:lang="it">E' richiesto almeno il permesso MyPortal_CUSTOMER o MyPortal_EMPLOYEE</value>
         <value xml:lang="th">อย่างน้อยที่สุด MyPortal_CUSTOMER หรือ MyPortal_EMPLOYEE
             ถูกกำหนดการใข้สิทธิ์ </value>
+        <value xml:lang="zh">需要至少MyPortal_CUSTOMER或MyPortal_EMPLOYEE权限</value>
     </property>
     <property key="MyPortalNoAccess4">
         <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a demo.</value>
         <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer' ou 'DemoEmployee'pour une démonstration.</value>
         <value xml:lang="it">Usare l'utente 'DemoCustomer' o 'DemoEmployee' per una dimostrazione.</value>
         <value xml:lang="th">จำลองผู้ใช้เป็น DemoCustomer และ DemoEmployee ในการทำงาน</value>
+        <value xml:lang="zh">使用演示登录用户'DemoCustomer'和'DemoEmployee'来做演示。</value>
     </property>
     <property key="MyPortalOtherCommunications">
         <value xml:lang="en">Other Communications</value>
         <value xml:lang="fr">Autres communications</value>
         <value xml:lang="it">Altre comunicazioni</value>
         <value xml:lang="th">การติดต่อรูปแบบต่างๆ</value>
+        <value xml:lang="zh">其它沟通</value>
     </property>
     <property key="MyPortalOtherCompanyCustomerRequests">
         <value xml:lang="en">Customer Requests from other contacts of my company</value>
         <value xml:lang="fr">Demandes client depuis d'autres contacts de mon entreprise</value>
         <value xml:lang="it">Richieste cliente da altri contatti della mia azienda</value>
         <value xml:lang="th">ลูกค้าต้องการติดต่อรูปแบบอื่นจากบริษัทของเรา</value>
+        <value xml:lang="zh">来自我的公司的其他联系的客户请求</value>
     </property>
     <property key="MyPortalPagesVisible">
         <value xml:lang="en">pages visible on the main screen.</value>
         <value xml:lang="fr">Pages visibles sur l'écran principal.</value>
         <value xml:lang="it">pagine visibili dalla pagina principale.</value>
         <value xml:lang="th">สามารถเห็นหน้าอื่นบนหน้าหลักได้</value>
+        <value xml:lang="zh">页面在首页上可见。</value>
     </property>
     <property key="MyPortalPicCaptcha">
         <value xml:lang="en">Code Captcha</value>
         <value xml:lang="fr">Code captcha</value>
         <value xml:lang="it">Codice captcha</value>
         <value xml:lang="th">รหัสตรวจสอบ</value>
+        <value xml:lang="zh">验证码</value>
     </property>
     <property key="MyPortalProfile">
         <value xml:lang="en">My Profile</value>
         <value xml:lang="fr">Mon Profil</value>
         <value xml:lang="it">Mio profilo</value>
         <value xml:lang="th">ประวัติส่วนตัวของฉัน</value>
+        <value xml:lang="zh">我的个人信息</value>
     </property>
     <property key="MyPortalPlacingCustomer">
         <value xml:lang="en">Placing Customer</value>
@@ -182,22 +207,26 @@
         <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
         <value xml:lang="it">Creazione nuovo utente completata...prego </value>
         <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
+        <value xml:lang="zh">完成新人员注册...请</value>
     </property>
     <property key="MyPortalRegisterForCustomer">
         <value xml:lang="en">Register for customer</value>
         <value xml:lang="fr">Enregistrement pour le client</value>
         <value xml:lang="it">Registrazione per cliente</value>
         <value xml:lang="th">ลงทะเบียนสำหรับลูกค้า</value>
+        <value xml:lang="zh">客户注册</value>
     </property>
     <property key="MyPortalReloadImage">
         <value xml:lang="en">reload image</value>
         <value xml:lang="it">Ricarica immagine</value>
+        <value xml:lang="zh">刷新图片</value>
     </property>
     <property key="MyPortalSendMailEveryCust">
         <value xml:lang="en">Send Email To Every Customer Request Change</value>
         <value xml:lang="fr">Envoyer le courriel à chaque demande de changement d'un client</value>
         <value xml:lang="it">Invia email ad ogni modifica della richiesta cliente</value>
         <value xml:lang="th">ส่งอีเมล์ถึงลูกค้าที่เปลี่ยนความต้องการ</value>
+        <value xml:lang="zh">发送电子邮件给每个客户请求变更</value>
     </property>
     <property key="MyPortalShipToCustomer">
         <value xml:lang="en">Ship To Customer</value>
@@ -207,69 +236,81 @@
         <value xml:lang="fr">Fin réelle de de la tâche</value>
         <value xml:lang="it">Fine compito effettiva</value>
         <value xml:lang="th">เสร็จสิ้นการทำ</value>
+        <value xml:lang="zh">任务操作结束</value>
     </property>
     <property key="MyPortalTaskActStartDate">
         <value xml:lang="en">Task Act Start</value>
         <value xml:lang="fr">Début réel de de la tâche</value>
         <value xml:lang="it">Inizio compito effettivo</value>
         <value xml:lang="th">เรื่มต้นการทำ</value>
+        <value xml:lang="zh">任务操作开始</value>
     </property>
     <property key="MyPortalTaskPlanEndDate">
         <value xml:lang="en">Task Plan End</value>
         <value xml:lang="fr">Fin prévue de la tâche</value>
         <value xml:lang="it">Fine compito pianificata</value>
         <value xml:lang="th">สิ้นสุดชิ้นงาน</value>
+        <value xml:lang="zh">任务计划结束</value>
     </property>
     <property key="MyPortalTaskPlanStartDate">
         <value xml:lang="en">Task Plan Start</value>
         <value xml:lang="fr">Début prévu de la tâche</value>
         <value xml:lang="it">Inizio compito pianificato</value>
         <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
+        <value xml:lang="zh">任务计划开始</value>
     </property>
     <property key="MyPortalTaskStatus">
         <value xml:lang="en">Task Status</value>
         <value xml:lang="fr">Status de la tâche</value>
         <value xml:lang="it">Stato compito</value>
         <value xml:lang="th">สถานะของงาน</value>
+        <value xml:lang="zh">任务状态</value>
     </property>
     <property key="MyPortalTasks">
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="fr">Mes Tâches</value>
         <value xml:lang="it">Miei compiti</value>
         <value xml:lang="th">งานของฉัน</value>
+        <value xml:lang="zh">我的任务</value>
     </property>
     <property key="MyPortalTimeSheets">
         <value xml:lang="en">My Time Sheets</value>
         <value xml:lang="fr">Mes feuilles d'activité</value>
         <value xml:lang="it">Mie timbrature</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
+        <value xml:lang="zh">我的工时单</value>
     </property>
     <property key="MyPortalToComplete">
         <value xml:lang="en">To Complete</value>
         <value xml:lang="it">Da completare</value>
+        <value xml:lang="zh">要完成</value>
     </property>
     <property key="MyPortalUserLogin">
         <value xml:lang="en">User Login</value>
         <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="it">Login utente</value>
         <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
+        <value xml:lang="zh">用户登录</value>
     </property>
     <property key="MyPortalVerifyCaptcha">
         <value xml:lang="en">Verify captcha code</value>
         <value xml:lang="fr">Vérifier le code captcha</value>
         <value xml:lang="it">Verifica codice captcha</value>
         <value xml:lang="th">ใส่รหัสตามรูป</value>
+        <value xml:lang="zh">验证验证码</value>
     </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>
         <value xml:lang="fr">Mon portail pour : </value>
         <value xml:lang="it">Mio portale per : </value>
         <value xml:lang="th">ส่วนตัวสำหรับ </value>
+        <value xml:lang="zh">我的门户用于：</value>
     </property>
     <property key="PageTitleMyPortalForNoLogin">
         <value xml:lang="en">My Portal Page</value>
         <value xml:lang="fr">Ma page de portail</value>
         <value xml:lang="it">Pagina mio portale</value>
         <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
+        <value xml:lang="zh">我的门户页面</value>
     </property>
 </resource>
