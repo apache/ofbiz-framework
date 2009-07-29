@@ -274,9 +274,12 @@ under the License.
     </screen>
     <screen name="ListBankAccount">
         <section>
+            <actions>
+                <set field="parameters.finAccountTypeId" value="BANK_ACCOUNT"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.AccountingBankAccount}">
-                    <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+                    <include-screen name="FinAccountPortlets"/>
                 </screenlet>
             </widgets>
         </section>
@@ -466,6 +469,13 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FinAccountPortlets">
+        <section>
+            <widgets>
+                <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
             </widgets>
         </section>
     </screen>

@@ -1072,10 +1072,7 @@ under the License.
     </menu>
     <menu name="FinAccountMainTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="finAccountMain" title="${uiLabelMap.CommonMain}">
-            <link target="FinAccountMain">
-                <parameter param-name="finAccountTypeId" value="BANK_ACCOUNT"/>
-                <parameter param-name="organizationPartyId" from-field="defaultOrganizationPartyId"/>
-            </link>
+            <link target="FinAccountMain"/>
         </menu-item>
         <menu-item name="FindFinAccount" title="${uiLabelMap.PageTitleFindFinAccount}">
             <link target="FindFinAccount"/>
