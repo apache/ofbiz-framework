@@ -34,7 +34,7 @@ under the License.
             <li><a href="<@ofbizUrl>createCustRequestFromCart?destroyCart=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateCustRequestFromCart}</a></li>
             </#if>
             <li><a href="/partymgr/control/findparty?${externalKeyParam?if_exists}" class="buttontext">${uiLabelMap.PartyFindParty}</a></li>
-            <#if shoppingCart.getOrderType() == "SALES_ORDER" && shoppingCart.items()?has_content>
+            <#if shoppingCart.getOrderType() == "SALES_ORDER">
             <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyCreateNewCustomer}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>checkinits</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyChangeParty}</a></li>
