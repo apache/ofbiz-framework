@@ -23,6 +23,7 @@
         <value xml:lang="en">Absolute File</value>
         <value xml:lang="fr">Fichier à nom absolu</value>
         <value xml:lang="it">File assoluto</value>
+        <value xml:lang="zh">绝对地址文件</value>
     </property>
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
@@ -83,61 +84,73 @@
         <value xml:lang="en">Attribute Name</value>
         <value xml:lang="fr">Nom d'attribut</value>
         <value xml:lang="it">Nome attributo</value>
+        <value xml:lang="zh">属性名称</value>
     </property>
     <property key="ContentBlog">
         <value xml:lang="en">Blog</value>
         <value xml:lang="fr">Blog</value>
         <value xml:lang="it">Blog</value>
+        <value xml:lang="zh">博客</value>
     </property>
     <property key="ContentBlogArticle">
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
+        <value xml:lang="zh">文章</value>
     </property>
     <property key="ContentBlogArticleList">
         <value xml:lang="en">List of Blog articles</value>
         <value xml:lang="fr">Liste des articles du blog</value>
         <value xml:lang="it">Lista degli articoli Blog</value>
+        <value xml:lang="zh">博客文章列表</value>
     </property>
     <property key="ContentBlogDescription">
         <value xml:lang="en">Blog Description</value>
         <value xml:lang="fr">Description du blog</value>
         <value xml:lang="it">Descrizione blog</value>
+        <value xml:lang="zh">博客描述</value>
     </property>
     <property key="ContentBlogEdit">
         <value xml:lang="en">Edit a Blog</value>
         <value xml:lang="fr">Modifier un blog</value>
         <value xml:lang="it">Aggiorna un Blog</value>
+        <value xml:lang="zh">编辑一个博客</value>
     </property>
     <property key="ContentBlogList">
         <value xml:lang="en">List of Blogs</value>
         <value xml:lang="fr">Liste des blogs</value>
         <value xml:lang="it">Lista dei Blog</value>
+        <value xml:lang="zh">博客列表</value>
     </property>
     <property key="ContentBlogName">
         <value xml:lang="en">Blog Name</value>
         <value xml:lang="fr">Nom du blog</value>
         <value xml:lang="it">Nome blog</value>
+        <value xml:lang="zh">博客名称</value>
     </property>
     <property key="ContentBlogPost">
         <value xml:lang="en">POST</value>
         <value xml:lang="fr">POST</value>
         <value xml:lang="it">Inviare</value>
+        <value xml:lang="zh">发表</value>
     </property>
     <property key="ContentBlogSummary">
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Summario</value>
         <value xml:lang="it">Sommario</value>
+        <value xml:lang="zh">摘要</value>
     </property>
     <property key="ContentBlogs">
         <value xml:lang="en">Blogs</value>
         <value xml:lang="fr">Blogs</value>
         <value xml:lang="it">Blogs</value>
+        <value xml:lang="zh">博客</value>
     </property>
     <property key="ContentBrowse">
         <value xml:lang="en">Browse</value>
         <value xml:lang="fr">Consulter</value>
         <value xml:lang="it">Sfoglia</value>
+        <value xml:lang="zh">浏览</value>
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
@@ -154,11 +167,13 @@
         <value xml:lang="en">CMS Content Add Sub Content</value>
         <value xml:lang="fr">Ajout d'un sous-contenu au contenu de CMS</value>
         <value xml:lang="it">CMS aggiungi sotto contenuto</value>
+        <value xml:lang="zh">内容管理系统内容添加子内容</value>
     </property>
     <property key="ContentCMSEditPage">
         <value xml:lang="en">CMS Content Edit Page</value>
         <value xml:lang="fr">Modifier la page du contenu de CMS</value>
         <value xml:lang="it">CMS aggiorna pagina</value>
+        <value xml:lang="zh">内容管理系统内容编辑页面</value>
     </property>
     <property key="ContentCMSNotExist">
         <value xml:lang="de">Es gibt keinen Inhalt PUBLISH_POINT (Veröffentlichungsort) für diese Webseite!</value>
@@ -166,11 +181,13 @@
         <value xml:lang="fr">Il n'y a aucun contenu PUBLISH_POINT pour ce site Web !</value>
         <value xml:lang="it">Non c'è nessun Contenuto PUBLISH_POINT per questo Sito Web!</value>
         <value xml:lang="th">ไม่มีหัวข้อ PUBLISH_POINT สำหรับเว็บไซต์นี้</value>
+        <value xml:lang="zh">这个网站没有内容发布点！</value>
     </property>
     <property key="ContentCMSSearchPage">
         <value xml:lang="en">CMS Search Page</value>
         <value xml:lang="fr">Recherche de la page de CMS</value>
         <value xml:lang="it">CMS pagina di ricerca</value>
+        <value xml:lang="zh">内容管理系统搜索页面</value>
     </property>
     <property key="ContentCategory">
         <value xml:lang="ar">الفئة</value>
@@ -198,6 +215,7 @@
         <value xml:lang="en">Clip</value>
         <value xml:lang="fr">Extraire</value>
         <value xml:lang="it">Taglia</value>
+        <value xml:lang="zh">剪辑</value>
     </property>
     <property key="ContentCloneLayout">
         <value xml:lang="de">Layout duplizieren</value>
@@ -205,6 +223,7 @@
         <value xml:lang="fr">Répliquer une mise en page</value>
         <value xml:lang="it">Clona Layout</value>
         <value xml:lang="th">คัดลอกแผนงาน</value>
+        <value xml:lang="zh">克隆版式</value>
     </property>
     <property key="ContentCompDoc">
         <value xml:lang="ar">Composite document</value>
@@ -221,16 +240,19 @@
         <value xml:lang="en">Add Composite Document Instance Page for Template</value>
         <value xml:lang="fr">Ajouter une page, instance de document composite pour modèle</value>
         <value xml:lang="it">Aggiungi composizione documenti pagina istanza per template.</value>
+        <value xml:lang="zh">为模板添加合成文档实例页面</value>
     </property>
     <property key="ContentCompDocAfter">
         <value xml:lang="en">+Aft</value>
         <value xml:lang="fr">+Après</value>
         <value xml:lang="it">+Dopo</value>
+        <value xml:lang="zh">+之后</value>
     </property>
     <property key="ContentCompDocApprovalStatus">
         <value xml:lang="en">Approval Status</value>
         <value xml:lang="fr">Statut de l'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
+        <value xml:lang="zh">审批状态</value>
     </property>
     <property key="ContentCompDocApprovals">
         <value xml:lang="de">Genehmigungen</value>
@@ -238,6 +260,7 @@
         <value xml:lang="fr">Approbations</value>
         <value xml:lang="it">Approvazioni</value>
         <value xml:lang="th">อนุญาต</value>
+        <value xml:lang="zh">审批</value>
     </property>
     <property key="ContentCompDocApprovalsFor">
         <value xml:lang="de">Inhalt Genehmigungen für</value>
@@ -245,51 +268,61 @@
         <value xml:lang="fr">Approbations de contenu pour</value>
         <value xml:lang="it">Approvazioni Contenuto</value>
         <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
+        <value xml:lang="zh">内容审批：</value>
     </property>
     <property key="ContentCompDocBefore">
         <value xml:lang="en">+Bef</value>
         <value xml:lang="fr">+Avant</value>
         <value xml:lang="it">+Prima</value>
+        <value xml:lang="zh">+之前</value>
     </property>
     <property key="ContentCompDocChild">
         <value xml:lang="en">+Child</value>
         <value xml:lang="fr">+Enfant</value>
         <value xml:lang="it">+Figlio</value>
+        <value xml:lang="zh">+下级</value>
     </property>
     <property key="ContentCompDocContentRoleEditPage">
         <value xml:lang="en">Content Role Edit Page</value>
         <value xml:lang="fr">Page d'étition des rôles de contenu</value>
         <value xml:lang="it">Pagina aggiornamento ruolo contenuto composizione documenti</value>
+        <value xml:lang="zh">内容角色编辑页面</value>
     </property>
     <property key="ContentCompDocCurrentInstance">
         <value xml:lang="en">Comp Doc Current Instance</value>
         <value xml:lang="fr">Instance courante de document composite</value>
         <value xml:lang="it">Istanza attuale</value>
+        <value xml:lang="zh">合成文档当前实例</value>
     </property>
     <property key="ContentCompDocCurrentTemplate">
         <value xml:lang="en">Current Template CompDoc</value>
         <value xml:lang="fr">Modèle courant de document composite</value>
         <value xml:lang="it">Template attuale</value>
+        <value xml:lang="zh">合成文档当前模板</value>
     </property>
     <property key="ContentCompDocDown">
         <value xml:lang="en">vDn</value>
         <value xml:lang="fr">vBas</value>
         <value xml:lang="it">vGiù</value>
+        <value xml:lang="zh">v下</value>
     </property>
     <property key="ContentCompDocGeneratePDF">
         <value xml:lang="en">Generate Composite PDF</value>
         <value xml:lang="fr">Générer un document PDF composite</value>
         <value xml:lang="it">Genera PDF composizione</value>
+        <value xml:lang="zh">生成PDF</value>
     </property>
     <property key="ContentCompDocGoBack">
         <value xml:lang="en">Go Back to CompDoc Root</value>
         <value xml:lang="fr">Retourner à la racine du document composite</value>
         <value xml:lang="it">Torna indietro alla composizione documenti</value>
+        <value xml:lang="zh">返回合成文档根目录</value>
     </property>
     <property key="ContentCompDocParentContentId">
         <value xml:lang="en">Parent Content ID</value>
         <value xml:lang="fr">Réf. du contenu parent</value>
         <value xml:lang="it">Contenuto padre</value>
+        <value xml:lang="zh">上级内容标识</value>
     </property>
     <property key="ContentCompDocRev">
         <value xml:lang="de">Ver.</value>
@@ -297,6 +330,7 @@
         <value xml:lang="fr">Ver.</value>
         <value xml:lang="it">rev.</value>
         <value xml:lang="th">รายได้</value>
+        <value xml:lang="zh">版本</value>
     </property>
     <property key="ContentCompDocRevisionItemEditPage">
         <value xml:lang="de">Seite zum Bearbeiten Inhalt Version</value>
@@ -304,6 +338,7 @@
         <value xml:lang="fr">Page de modification de révision d'article</value>
         <value xml:lang="it">Riga Revisione Pagina Aggiornamento per Contenuto</value>
         <value xml:lang="th">ปรับปรุงรายการในหน้าแก้ไข</value>
+        <value xml:lang="zh">修订明细编辑页面</value>
     </property>
     <property key="ContentCompDocRevisionListPageForContent">
         <value xml:lang="de">Seite mit Liste der Versionen des Inhalts</value>
@@ -311,6 +346,7 @@
         <value xml:lang="fr">Page de liste de révision pour le contenu</value>
         <value xml:lang="it">Lista Revisioni Pagina per Contenuto</value>
         <value xml:lang="th">ปรับปรุงหน้ารายการสำหรับหัวข้อ</value>
+        <value xml:lang="zh">内容的修订列表页面</value>
     </property>
     <property key="ContentCompDocRevisions">
         <value xml:lang="de">Versionen</value>
@@ -318,21 +354,25 @@
         <value xml:lang="fr">Révisions</value>
         <value xml:lang="it">Revisioni</value>
         <value xml:lang="th">ปรับปรุงใหม่</value>
+        <value xml:lang="zh">版本</value>
     </property>
     <property key="ContentCompDocStartApprovalProcess">
         <value xml:lang="en">Start Approval Process</value>
         <value xml:lang="fr">Démarrer le processus d'approbation</value>
         <value xml:lang="it">Inizio processo approvazione</value>
+        <value xml:lang="zh">启动审批流程</value>
     </property>
     <property key="ContentCompDocTemplateName">
         <value xml:lang="en">Comp Doc Template Name</value>
         <value xml:lang="fr">Nom du modèle de document composite</value>
         <value xml:lang="it">Nome template composizione documenti</value>
+        <value xml:lang="zh">合成文档模板名称</value>
     </property>
     <property key="ContentCompDocUp">
         <value xml:lang="en">^Up</value>
         <value xml:lang="fr">^Haut</value>
         <value xml:lang="it">^Sù</value>
+        <value xml:lang="zh">^上</value>
     </property>
     <property key="ContentCompDocViewInstances">
         <value xml:lang="de">Instanz Anzeigen</value>
@@ -340,6 +380,7 @@
         <value xml:lang="fr">Exemples de vue</value>
         <value xml:lang="it">Mostra Istanze di CompDoc</value>
         <value xml:lang="th">ดูตัวอย่าง</value>
+        <value xml:lang="zh">浏览实例</value>
     </property>
     <property key="ContentCompDocViewTree">
         <value xml:lang="de">Baum anzeigen</value>
@@ -347,6 +388,7 @@
         <value xml:lang="fr">Voir l'arborescence</value>
         <value xml:lang="it">Mostra Albero</value>
         <value xml:lang="th">แสดงแผนผังรูปต้นไม้</value>
+        <value xml:lang="zh">树状浏览</value>
     </property>
     <property key="ContentCompDocViewWaitingApprovals">
         <value xml:lang="de">Auf Freigabe wartende Genehmigungen zeigen</value>
@@ -354,6 +396,7 @@
         <value xml:lang="fr">Voir les approbations en attente</value>
         <value xml:lang="it">Mostra Approvazioni in Attesa</value>
         <value xml:lang="th">รอการอนุมัติ</value>
+        <value xml:lang="zh">浏览待审</value>
     </property>
     <property key="ContentCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحتوى</value>
@@ -420,6 +463,7 @@
         <value xml:lang="en">Content Entries Associated to this Data Resource</value>
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
         <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
+        <value xml:lang="zh">关联到这个数据资源的内容记录</value>
     </property>
     <property key="ContentCreateFile">
         <value xml:lang="de">Datei erstellen</value>
@@ -427,25 +471,30 @@
         <value xml:lang="fr">Créer le fichier</value>
         <value xml:lang="it">Creare File</value>
         <value xml:lang="th">สร้างไฟล์</value>
+        <value xml:lang="zh">新建文件</value>
     </property>
     <property key="ContentCreateNewBlog">
         <value xml:lang="en">Create New Blog</value>
         <value xml:lang="fr">Créer un nouveau blog</value>
         <value xml:lang="it">Creare nuovo Blog</value>
+        <value xml:lang="zh">新建博客</value>
     </property>
     <property key="ContentCreateNewBlogArticle">
         <value xml:lang="en">Create New Art.</value>
         <value xml:lang="fr">Créer un nouvel article</value>
         <value xml:lang="it">Creare nuovo articolo</value>
+        <value xml:lang="zh">新建文章</value>
     </property>
     <property key="ContentCreateNewRootCompDocTemplate">
         <value xml:lang="en">Create New Root CompDoc Template</value>
         <value xml:lang="fr">Créer une nouvelle racine de modèle de document composite</value>
+        <value xml:lang="zh">新建根合成文档模板</value>
     </property>
     <property key="ContentDataBaseText">
         <value xml:lang="en">DataBase Text</value>
         <value xml:lang="fr">Texte de base de données</value>
         <value xml:lang="it">Testo database</value>
+        <value xml:lang="zh">数据库文本</value>
     </property>
     <property key="ContentDataResource">
         <value xml:lang="ar">مورد معلومات</value>
@@ -541,22 +590,26 @@
         <value xml:lang="fr">Type de données</value>
         <value xml:lang="it">Tipo Dati</value>
         <value xml:lang="th">ประเภทข้อมูล</value>
+        <value xml:lang="zh">数据类型</value>
     </property>
     <property key="ContentDecorator">
         <value xml:lang="en">Decorator</value>
         <value xml:lang="fr">Décorateur</value>
         <value xml:lang="it">Decorazione</value>
+        <value xml:lang="zh">修饰程序</value>
     </property>
     <property key="ContentDeleteFolder">
         <value xml:lang="en">Delete Folder</value>
         <value xml:lang="fr">Suppression de répertoire</value>
         <value xml:lang="it">Cancella cartella</value>
         <value xml:lang="th">ลบกล่อง</value>
+        <value xml:lang="zh">删除文件夹</value>
     </property>
     <property key="ContentDocumentType">
         <value xml:lang="en">Document Type</value>
         <value xml:lang="fr">Type de document</value>
         <value xml:lang="it">Tipo documento</value>
+        <value xml:lang="zh">文档类型</value>
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
@@ -573,6 +626,7 @@
         <value xml:lang="en">Editing Latest Revision</value>
         <value xml:lang="fr">Modification de la dernière version</value>
         <value xml:lang="it">Aggiorna ultima revisione</value>
+        <value xml:lang="zh">编辑最新修订</value>
     </property>
     <property key="ContentFile">
         <value xml:lang="ar">ملف</value>
@@ -611,11 +665,13 @@
         <value xml:lang="en">File Rel. to OFBIZ_HOME</value>
         <value xml:lang="fr">Fichier au nom relatif à OFBIZ_HOME</value>
         <value xml:lang="it">File relativo alla OFBIZ_HOME</value>
+        <value xml:lang="zh">文件相对于OFBIZ_HOME</value>
     </property>
     <property key="ContentFileRelToWebappRoot">
         <value xml:lang="en">File Rel. to webapp root</value>
         <value xml:lang="fr">Fichier au nom relatif à la racine de l'application (webapp)</value>
         <value xml:lang="it">File relativo alla webapp root</value>
+        <value xml:lang="zh">文件相对于webapp根目录</value>
     </property>
     <property key="ContentForum">
         <value xml:lang="ar">منتدى</value>
@@ -644,6 +700,7 @@
         <value xml:lang="fr">Ajouter une réponse au message</value>
         <value xml:lang="it">Aggiungi una risposta al messaggio</value>
         <value xml:lang="th">ผลตอบรับถึงข้อความ</value>
+        <value xml:lang="zh">把一个回答添加到消息</value>
     </property>
     <property key="ContentForumAddRoleTo">
         <value xml:lang="ar">إضافة  جور إلى</value>
@@ -679,6 +736,7 @@
         <value xml:lang="en">Thread description</value>
         <value xml:lang="fr">Description du fil de discussion</value>
         <value xml:lang="it">Descrizione discussione</value>
+        <value xml:lang="zh">线索描述</value>
     </property>
     <property key="ContentForumGroupCreate">
         <value xml:lang="ar">إستحداث مجموعة منتدى جديد</value>
@@ -696,6 +754,7 @@
         <value xml:lang="fr">Message</value>
         <value xml:lang="it">Messaggio</value>
         <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="zh">消息</value>
     </property>
     <property key="ContentForumMessages">
         <value xml:lang="de">Meldungen</value>
@@ -703,6 +762,7 @@
         <value xml:lang="fr">Messages</value>
         <value xml:lang="it">Messaggi</value>
         <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="zh">消息</value>
     </property>
     <property key="ContentForumThread">
         <value xml:lang="de">Thema</value>
@@ -710,11 +770,13 @@
         <value xml:lang="fr">Fil de discussion</value>
         <value xml:lang="it">Discussione</value>
         <value xml:lang="th">Thread</value>
+        <value xml:lang="zh">线索</value>
     </property>
     <property key="ContentForums">
         <value xml:lang="en">Forums</value>
         <value xml:lang="fr">Forums</value>
         <value xml:lang="it">Forums</value>
+        <value xml:lang="zh">论坛</value>
     </property>
     <property key="ContentGIF">
         <value xml:lang="en">GIF</value>
@@ -725,6 +787,7 @@
         <value xml:lang="en">Go to Content</value>
         <value xml:lang="fr">Aller au contenu</value>
         <value xml:lang="it">Vai al contenuto</value>
+        <value xml:lang="zh">转到内容</value>
     </property>
     <property key="ContentGoToDataResource">
         <value xml:lang="ar">اذهب إلى مورد المعلومات</value>
@@ -741,6 +804,7 @@
         <value xml:lang="en">Goto Find"</value>
         <value xml:lang="fr">Aller à la recherche</value>
         <value xml:lang="it">Torna alla ricerca</value>
+        <value xml:lang="zh">转到查找</value>
     </property>
     <property key="ContentHtml">
         <value xml:lang="ar">Html</value>
@@ -757,6 +821,7 @@
         <value xml:lang="en">Html Text</value>
         <value xml:lang="fr">Texte HTML</value>
         <value xml:lang="it">Teso html</value>
+        <value xml:lang="zh">网页文本</value>
     </property>
     <property key="ContentImage">
         <value xml:lang="ar">صورة</value>
@@ -810,6 +875,7 @@
         <value xml:lang="en">Latest</value>
         <value xml:lang="fr">Dernier</value>
         <value xml:lang="it">Ultimo</value>
+        <value xml:lang="zh">最新</value>
     </property>
     <property key="ContentLayout">
         <value xml:lang="ar">الوضعية</value>
@@ -826,6 +892,7 @@
         <value xml:lang="en">List own created Templates</value>
         <value xml:lang="fr">Voir vos propres modèles</value>
         <value xml:lang="it">Lista templates personali creati</value>
+        <value xml:lang="zh">列出自建模板</value>
     </property>
     <property key="ContentMSWord">
         <value xml:lang="en">MS Word</value>
@@ -849,6 +916,7 @@
         <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
+        <value xml:lang="zh">映射按键</value>
     </property>
     <property key="ContentMetaDataPred">
         <value xml:lang="ar">MetaData Predicate</value>
@@ -858,13 +926,14 @@
         <value xml:lang="it">Predicato MetaData</value>
         <value xml:lang="ro">Predicat MetaData</value>
         <value xml:lang="th">ข้อมูลยืนยัน</value>
-        <value xml:lang="zh">元数据谓词</value>
+        <value xml:lang="zh">Meta数据属性</value>
     </property>
     <property key="ContentMetaTags">
         <value xml:lang="de">Meta Auszeichnungen (Tags)</value>
         <value xml:lang="en">Meta Tags</value>
         <value xml:lang="fr">Méta-étiquettes</value>
         <value xml:lang="it">Meta Tags</value>
+        <value xml:lang="zh">Meta标签</value>
     </property>
     <property key="ContentMetadata">
         <value xml:lang="ar">Metadata</value>
@@ -874,7 +943,7 @@
         <value xml:lang="it">Metadati</value>
         <value xml:lang="ro">Metadate</value>
         <value xml:lang="th">ที่มาของข้อมูล</value>
-        <value xml:lang="zh">元数据</value>
+        <value xml:lang="zh">Meta数据</value>
     </property>
     <property key="ContentMimeType">
         <value xml:lang="ar">Mime Type</value>
@@ -893,6 +962,7 @@
         <value xml:lang="fr">Type modèle Mime</value>
         <value xml:lang="it">Tipo Mime Template</value>
         <value xml:lang="th">รูปแบบประเภทแบบจำลอง</value>
+        <value xml:lang="zh">Mime类型模板</value>
     </property>
     <property key="ContentNavigate">
         <value xml:lang="de">Navigieren</value>
@@ -900,6 +970,7 @@
         <value xml:lang="fr">Naviguer</value>
         <value xml:lang="it">Naviga</value>
         <value xml:lang="th">หาเส้นทาง</value>
+        <value xml:lang="zh">导航</value>
     </property>
     <property key="ContentNewContentInFolder">
         <value xml:lang="de">New Content in Folder</value>
@@ -907,6 +978,7 @@
         <value xml:lang="fr">New Content in Folder</value>
         <value xml:lang="it">New Content in Folder</value>
         <value xml:lang="th">สร้างเนื้อหาใหม่ในกล่อง</value>
+        <value xml:lang="zh">新建内容属于文件夹</value>
     </property>
     <property key="ContentNewFolder">
         <value xml:lang="de">New Folder</value>
@@ -914,6 +986,7 @@
         <value xml:lang="fr">New Folder</value>
         <value xml:lang="it">New Folder</value>
         <value xml:lang="th">สร้างกล่องใหม่</value>
+        <value xml:lang="zh">新建文件夹</value>
     </property>
     <property key="ContentOtherLayout">
         <value xml:lang="ar">الوضعيات الأخرى المستعملة لهذا المحتوى التحتي</value>
@@ -939,16 +1012,19 @@
         <value xml:lang="en">PDF File</value>
         <value xml:lang="fr">Fichier PDF</value>
         <value xml:lang="it">File PDF</value>
+        <value xml:lang="zh">PDF文件</value>
     </property>
     <property key="ContentPDFFilePath">
         <value xml:lang="en">Enter a PDF file path to automatically create a survey.</value>
         <value xml:lang="fr">Entrez un chemin vers un fichier PDF pour créer automatiquement le sondage</value>
         <value xml:lang="it">Inserire un path file PDF che automaticamente creerà un sondaggio.</value>
+        <value xml:lang="zh">输入PDF文件路径来自动创建一份调查。</value>
     </property>
     <property key="ContentPDFSurveyName">
         <value xml:lang="en">PDF/Survey Name</value>
         <value xml:lang="fr">PDF/Nom de sondage</value>
         <value xml:lang="it">PDF/Nome sondaggio</value>
+        <value xml:lang="zh">PDF/调查名称</value>
     </property>
     <property key="ContentPNG">
         <value xml:lang="en">PNG</value>
@@ -961,6 +1037,7 @@
         <value xml:lang="fr">Contenu parent</value>
         <value xml:lang="it">Contenuto Padre</value>
         <value xml:lang="th">ครอบครัว</value>
+        <value xml:lang="zh">上级内容</value>
     </property>
     <property key="ContentPaste">
         <value xml:lang="ar">الصق</value>
@@ -977,21 +1054,25 @@
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
         <value xml:lang="it">Path alias</value>
+        <value xml:lang="zh">路径别名</value>
     </property>
     <property key="ContentPathAliasList">
         <value xml:lang="en">Path Alias list</value>
         <value xml:lang="fr">Liste d'alias de chemin d'accès</value>
         <value xml:lang="it">Lista path alias</value>
+        <value xml:lang="zh">路径别名列表</value>
     </property>
     <property key="ContentPlainText">
         <value xml:lang="en">Plain Text</value>
         <value xml:lang="fr">Texte simple</value>
         <value xml:lang="it">Testo fisso</value>
+        <value xml:lang="zh">纯文本</value>
     </property>
     <property key="ContentPublishToContent">
         <value xml:lang="en">Publish-to content</value>
         <value xml:lang="fr">Contenu à publier</value>
         <value xml:lang="it">Pubblica sul contenuto</value>
+        <value xml:lang="zh">发布到内容</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
@@ -1009,17 +1090,20 @@
         <value xml:lang="fr">Sous-contenu rapide</value>
         <value xml:lang="it">Sotto-contenuto veloce</value>
         <value xml:lang="th">หัวข้อย่อยอย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速下级内容</value>
     </property>
     <property key="ContentRejected">
         <value xml:lang="en">Rejected</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="zh">被拒绝了</value>
     </property>
     <property key="ContentRenameFolder">
         <value xml:lang="en">Rename Folder</value>
         <value xml:lang="fr">Renommer le répertoire</value>
         <value xml:lang="it">Rinomina cartella</value>
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
+        <value xml:lang="zh">重命名文件夹</value>
     </property>
     <property key="ContentResourceAudio">
         <value xml:lang="de">Audio</value>
@@ -1027,6 +1111,7 @@
         <value xml:lang="fr">Audio</value>
         <value xml:lang="it">Audio</value>
         <value xml:lang="th">เสียง</value>
+        <value xml:lang="zh">音频</value>
     </property>
     <property key="ContentResourceLongText">
         <value xml:lang="de">Ausführlicher Text</value>
@@ -1034,6 +1119,7 @@
         <value xml:lang="fr">Texte long</value>
         <value xml:lang="it">Testo Lungo</value>
         <value xml:lang="th">ตัวอักษรยาว</value>
+        <value xml:lang="zh">长文本</value>
     </property>
     <property key="ContentResourceNone">
         <value xml:lang="de">Keine (Baum, Kategorie, etc.)</value>
@@ -1041,6 +1127,7 @@
         <value xml:lang="fr">Aucun (arborescence, catégorie, etc.)</value>
         <value xml:lang="it">Nessuno (Albero, Categoria, etc)</value>
         <value xml:lang="th">ไม่มี</value>
+        <value xml:lang="zh">无（树、分类等）</value>
     </property>
     <property key="ContentResourceOther">
         <value xml:lang="de">Andere</value>
@@ -1048,6 +1135,7 @@
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="th">อื่น ๆ</value>
+        <value xml:lang="zh">其它</value>
     </property>
     <property key="ContentResourceShortText">
         <value xml:lang="de">Kurzer Text (255 Zeichen)</value>
@@ -1055,6 +1143,7 @@
         <value xml:lang="fr">Texte court (255 caract.))</value>
         <value xml:lang="it">Testo Breve (255 carat.)</value>
         <value xml:lang="th">ตัวอักษรสั้น</value>
+        <value xml:lang="zh">短文本（255个字符）</value>
     </property>
     <property key="ContentResourceUrlResource">
         <value xml:lang="de">URL Ressource</value>
@@ -1062,6 +1151,7 @@
         <value xml:lang="fr">URL de ressource</value>
         <value xml:lang="it">Risorsa URL</value>
         <value xml:lang="th">ที่มาของ Url</value>
+        <value xml:lang="zh">网址资源</value>
     </property>
     <property key="ContentResourceVideo">
         <value xml:lang="de">Video</value>
@@ -1069,16 +1159,19 @@
         <value xml:lang="fr">Video</value>
         <value xml:lang="it">Video</value>
         <value xml:lang="th">วิดีโอ</value>
+        <value xml:lang="zh">视频</value>
     </property>
     <property key="ContentRoot">
         <value xml:lang="en">Root</value>
         <value xml:lang="fr">Racine</value>
         <value xml:lang="it">Principale</value>
+        <value xml:lang="zh">根</value>
     </property>
     <property key="ContentSoftRejected">
         <value xml:lang="en">Soft Rejected</value>
         <value xml:lang="fr">Rejeté publiquement(?)</value>
         <value xml:lang="it">Rifiutato leggermente</value>
+        <value xml:lang="zh">柔和地拒绝</value>
     </property>
     <property key="ContentSubContent">
         <value xml:lang="ar">محتوى تحتي</value>
@@ -1427,36 +1520,43 @@
         <value xml:lang="en">Template Child</value>
         <value xml:lang="fr">Modèle enfant</value>
         <value xml:lang="it">Template figlio</value>
+        <value xml:lang="zh">子模板</value>
     </property>
     <property key="ContentTemplateImageCentered">
         <value xml:lang="en">Image centered above</value>
         <value xml:lang="fr">Image centrée au-dessus</value>
         <value xml:lang="it">Immagine centrata sopra</value>
+        <value xml:lang="zh">图像居中置顶</value>
     </property>
     <property key="ContentTemplateImageLeft">
         <value xml:lang="en">Image left, text flows around.</value>
         <value xml:lang="fr">Image à gauche, texte flottant autour</value>
         <value xml:lang="it">Immagine a sinistra.</value>
+        <value xml:lang="zh">图像居左，文本环绕</value>
     </property>
     <property key="ContentTemplateInstanceChild">
         <value xml:lang="en">Instance Child</value>
         <value xml:lang="fr">Instance enfant</value>
         <value xml:lang="it">Istanza figlia</value>
+        <value xml:lang="zh">子实例</value>
     </property>
     <property key="ContentTemplateRoot">
         <value xml:lang="en">Root Template</value>
         <value xml:lang="fr">Racine du modèle</value>
         <value xml:lang="it">Template principale</value>
+        <value xml:lang="zh">根模板</value>
     </property>
     <property key="ContentTemplateRootInstance">
         <value xml:lang="en">Root Instance</value>
         <value xml:lang="fr">Instance racine</value>
         <value xml:lang="it">Istanza principale</value>
+        <value xml:lang="zh">根实例</value>
     </property>
     <property key="ContentTemplateTextOnly">
         <value xml:lang="en">Text only</value>
         <value xml:lang="fr">Texte seulement</value>
         <value xml:lang="it">Solo testo</value>
+        <value xml:lang="zh">仅文本</value>
     </property>
     <property key="ContentTemplates">
         <value xml:lang="ar">نماذج</value>
@@ -1472,6 +1572,7 @@
         <value xml:lang="en">Test Permission</value>
         <value xml:lang="fr">Tester l'autorisation</value>
         <value xml:lang="it">Test Permesso</value>
+        <value xml:lang="zh">测试权限</value>
     </property>
     <property key="ContentText">
         <value xml:lang="ar">نص</value>
@@ -1499,6 +1600,7 @@
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
         <value xml:lang="th">หัวข้อประเภท</value>
+        <value xml:lang="zh">内容类型</value>
     </property>
     <property key="ContentTypeAttr">
         <value xml:lang="ar">نوع الخاصية</value>
@@ -1523,6 +1625,7 @@
         <value xml:lang="en">Uploaded File</value>
         <value xml:lang="fr">Fichier téléversé</value>
         <value xml:lang="it">File caricato</value>
+        <value xml:lang="zh">已上传的文件</value>
     </property>
     <property key="ContentUrl">
         <value xml:lang="ar">Url</value>
@@ -1560,6 +1663,7 @@
         <value xml:lang="fr">Ajouter un menu</value>
         <value xml:lang="it">Aggiungi Menu</value>
         <value xml:lang="th">เพิ่มเมนู</value>
+        <value xml:lang="zh">添加菜单</value>
     </property>
     <property key="ContentWebSiteAddNewMenus">
         <value xml:lang="de">*Klick mit der rechten Maustaste um neues Menü hinzuzufügen</value>
@@ -1567,6 +1671,7 @@
         <value xml:lang="fr">*Cliquer droit pour ajouter de nouveaux menus</value>
         <value xml:lang="it">*Click destro per aggiungere un nuovo menu</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มเมนูใหม่</value>
+        <value xml:lang="zh">*点击右键添加新菜单</value>
     </property>
     <property key="ContentWebSiteAddSubdContent">
         <value xml:lang="de">*Klick mit der rechten Maustaste um untergeordneten Inhalt hinzuzufügen</value>
@@ -1574,6 +1679,7 @@
         <value xml:lang="fr">*Cliquer droit pour ajouter un nouveau sous-contenu</value>
         <value xml:lang="it">*Click destro per aggiungere il sotto-contenuto</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มหัวข้อย่อย</value>
+        <value xml:lang="zh">*点击右键添加子内容</value>
     </property>
     <property key="ContentWebSiteAddTree">
         <value xml:lang="de">Baum hinzufügen</value>
@@ -1581,6 +1687,7 @@
         <value xml:lang="fr">AJouter une arborescence</value>
         <value xml:lang="it">Aggiungi Albero</value>
         <value xml:lang="th">เพิ่มแผนผังต้นไม้</value>
+        <value xml:lang="zh">添加树</value>
     </property>
     <property key="ContentWebSiteAttachedToContent">
         <value xml:lang="de">Angehängt am Inhalt</value>
@@ -1588,6 +1695,7 @@
         <value xml:lang="fr">Attaché au contenu</value>
         <value xml:lang="it">allegato al Contenuto</value>
         <value xml:lang="th">เชื่อมกับหัวข้อ</value>
+        <value xml:lang="zh">附加到内容</value>
     </property>
     <property key="ContentWebSiteContent">
         <value xml:lang="de">Webseite Inhalt</value>
@@ -1595,6 +1703,7 @@
         <value xml:lang="fr">Contenu du site Web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
         <value xml:lang="th">หัวข้อเว็บไซต์</value>
+        <value xml:lang="zh">网站内容</value>
     </property>
     <property key="ContentWebSiteMenus">
         <value xml:lang="de">Webseite Menüs</value>
@@ -1602,6 +1711,7 @@
         <value xml:lang="fr">Menus du site Web</value>
         <value xml:lang="it">Menu Sito Web</value>
         <value xml:lang="th">เมนูเว็บไซต์</value>
+        <value xml:lang="zh">网站菜单</value>
     </property>
     <property key="ContentWebSites">
         <value xml:lang="ar">مواقع الويب</value>
@@ -1618,6 +1728,7 @@
         <value xml:lang="en">Welcome to the Content Manager!</value>
         <value xml:lang="fr">Gestionnaire de contenu : bienvenue !</value>
         <value xml:lang="it">Benvenuti nella gestione contenuti!</value>
+        <value xml:lang="zh">欢迎使用内容管理程序！</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
         <value xml:lang="ar">AcroForm (PDF) Content ID</value>
@@ -1663,6 +1774,7 @@
         <value xml:lang="en">Approval Status Id</value>
         <value xml:lang="fr">Réf. de statu d'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
+        <value xml:lang="zh">批准状态标识</value>
     </property>
     <property key="FormFieldTitle_caContentAssocPredicateId">
         <value xml:lang="ar">تعريف توقعة ارتباط المحتوى</value>
@@ -1690,6 +1802,7 @@
         <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
         <value xml:lang="th">จากวัน เวลา</value>
+        <value xml:lang="zh">自日期和时间</value>
     </property>
     <property key="FormFieldTitle_caMapKey">
         <value xml:lang="ar">مفتاح التوافق</value>
@@ -1699,7 +1812,7 @@
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
-        <value xml:lang="zh">变换键</value>
+        <value xml:lang="zh">键值表的键</value>
     </property>
     <property key="FormFieldTitle_childBranchCount">
         <value xml:lang="ar">عدد الفروع</value>
@@ -1709,7 +1822,7 @@
         <value xml:lang="it">Conta Rami Figli</value>
         <value xml:lang="ro">Contorizeaza Ramuri Fii</value>
         <value xml:lang="th">นับแผนกเด็ก</value>
-        <value xml:lang="zh">子枝计数</value>
+        <value xml:lang="zh">下级分支计数</value>
     </property>
     <property key="FormFieldTitle_childLeafCount">
         <value xml:lang="ar">عدد الأوراق</value>
@@ -1719,7 +1832,7 @@
         <value xml:lang="it">Conta Foglie Figli</value>
         <value xml:lang="ro">Contorizeaza File Fii</value>
         <value xml:lang="th">นับหน้ากระดาษของเด็ก</value>
-        <value xml:lang="zh">子叶子计数</value>
+        <value xml:lang="zh">下级内容资源计数</value>
     </property>
     <property key="FormFieldTitle_coContentId">
         <value xml:lang="de">Inhalt ID</value>
@@ -1727,6 +1840,7 @@
         <value xml:lang="fr">Ref. de contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
+        <value xml:lang="zh">内容标识</value>
     </property>
     <property key="FormFieldTitle_coContentName">
         <value xml:lang="de">Inhalt Name</value>
@@ -1734,6 +1848,7 @@
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome Conteunto</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
+        <value xml:lang="zh">内容名称</value>
     </property>
     <property key="FormFieldTitle_coDescription">
         <value xml:lang="de">Inhalt Beschreibung</value>
@@ -1741,6 +1856,7 @@
         <value xml:lang="fr">Description de contenu</value>
         <value xml:lang="it">Descrizione Contenuto</value>
         <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="zh">内容描述</value>
     </property>
     <property key="FormFieldTitle_columnTitle">
         <value xml:lang="ar">عنوان العمود</value>
@@ -2022,6 +2138,7 @@
     <property key="FormFieldTitle_decoratorContentId">
         <value xml:lang="en">Decorator Content Id</value>
         <value xml:lang="it">Decoratore contenuto</value>
+        <value xml:lang="zh">修饰程序内容标识</value>
     </property>
     <property key="FormFieldTitle_displayFailCond">
         <value xml:lang="ar">عرض ظروف الإخفاق</value>
@@ -2164,6 +2281,7 @@
         <value xml:lang="en">Enum Type Id</value>
         <value xml:lang="fr">Réf. de type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
+        <value xml:lang="zh">枚举类型标识</value>
     </property>
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
@@ -2179,6 +2297,7 @@
         <value xml:lang="en">Format String</value>
         <value xml:lang="fr">Format chaîne de caractères</value>
         <value xml:lang="it">Formato Stringa</value>
+        <value xml:lang="zh">格式字符串</value>
     </property>
     <property key="FormFieldTitle_forumDescription">
         <value xml:lang="ar">وصف المنتدى</value>
@@ -2263,6 +2382,7 @@
     <property key="FormFieldTitle_ftlContentId">
         <value xml:lang="en">Ftl Content Id</value>
         <value xml:lang="it">Contenuto ftl</value>
+        <value xml:lang="zh">Ftl内容标识</value>
     </property>
     <property key="FormFieldTitle_generalFeedback">
         <value xml:lang="ar">ردود عامة</value>
@@ -2445,7 +2565,7 @@
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
-        <value xml:lang="zh">变换键</value>
+        <value xml:lang="zh">键值表的键</value>
     </property>
     <property key="FormFieldTitle_messageList">
         <value xml:lang="ar">قائمة الرسائل</value>
@@ -2495,7 +2615,7 @@
         <value xml:lang="it">Predicato Meta Data</value>
         <value xml:lang="ro">Predicat Meta Data</value>
         <value xml:lang="th">รหัสข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
-        <value xml:lang="zh">元数据谓词标识</value>
+        <value xml:lang="zh">Meta数据属性标识</value>
     </property>
     <property key="FormFieldTitle_metaDataValue">
         <value xml:lang="ar">قيمة الميتا معلومات</value>
@@ -2505,7 +2625,7 @@
         <value xml:lang="it">Valore Meta Data</value>
         <value xml:lang="ro">Valoare Meta Data</value>
         <value xml:lang="th">ข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
-        <value xml:lang="zh">元数据值</value>
+        <value xml:lang="zh">Meta数据值</value>
     </property>
     <property key="FormFieldTitle_mimeTypeId">
         <value xml:lang="ar">نعريف نوع المايم</value>
@@ -2609,14 +2729,17 @@
         <value xml:lang="fr">Coller le contenu</value>
         <value xml:lang="it">Incolla Contenuto</value>
         <value xml:lang="th">หัวข้อที่ผ่านมา</value>
+        <value xml:lang="zh">粘贴内容</value>
     </property>
     <property key="FormFieldTitle_pathAlias">
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="it">Path alias</value>
+        <value xml:lang="zh">路径别名</value>
     </property>
     <property key="FormFieldTitle_pathAliasTo">
         <value xml:lang="en">Path Alias To</value>
         <value xml:lang="it">Path alias a</value>
+        <value xml:lang="zh">路径别名到</value>
     </property>
     <property key="FormFieldTitle_pdfFileNameIn">
         <value xml:lang="ar">اسم ملف Pdf الداخل</value>
@@ -2653,6 +2776,7 @@
     <property key="FormFieldTitle_queryLine">
         <value xml:lang="en">Query Line</value>
         <value xml:lang="it">Riga query</value>
+        <value xml:lang="zh">查询行</value>
     </property>
     <property key="FormFieldTitle_question">
         <value xml:lang="ar">سؤال</value>
@@ -2690,6 +2814,7 @@
         <value xml:lang="fr">Remplacer</value>
         <value xml:lang="it">Sostituisci</value>
         <value xml:lang="th">แทนที่</value>
+        <value xml:lang="zh">替换</value>
     </property>
     <property key="FormFieldTitle_reponse">
         <value xml:lang="ar">جواب</value>
@@ -2707,6 +2832,7 @@
         <value xml:lang="fr">Description de ressource</value>
         <value xml:lang="it">Descrizione Risorsa</value>
         <value xml:lang="th">รายละเอียดแหล่งที่มา</value>
+        <value xml:lang="zh">资源描述</value>
     </property>
     <property key="FormFieldTitle_responseDate">
         <value xml:lang="ar">تاريخ الجواب</value>
@@ -2731,6 +2857,7 @@
     <property key="FormFieldTitle_section">
         <value xml:lang="en">section</value>
         <value xml:lang="it">sezione</value>
+        <value xml:lang="zh">节</value>
     </property>
     <property key="FormFieldTitle_secureContentPrefix">
         <value xml:lang="ar">مقدمة محتوى مؤمن</value>
@@ -2922,10 +3049,12 @@
         <value xml:lang="fr">Emplacement du modèle</value>
         <value xml:lang="it">Posizione Template</value>
         <value xml:lang="th">ที่ตั้ง template</value>
+        <value xml:lang="zh">模板位置</value>
     </property>
     <property key="FormFieldTitle_templateTree">
         <value xml:lang="en">Template Tree</value>
         <value xml:lang="it">Albero template</value>
+        <value xml:lang="zh">模板树</value>
     </property>
     <property key="FormFieldTitle_textDataTitle">
         <value xml:lang="ar">نص</value>
@@ -2941,6 +3070,7 @@
         <value xml:lang="en">Topic</value>
         <value xml:lang="fr">Sujet</value>
         <value xml:lang="it">Argomento</value>
+        <value xml:lang="zh">主题</value>
     </property>
     <property key="FormFieldTitle_tree">
         <value xml:lang="ar">شجرة</value>
@@ -2955,6 +3085,7 @@
     <property key="FormFieldTitle_updateSurveyResponse">
         <value xml:lang="en">Update Survey Response</value>
         <value xml:lang="it">Aggiorna risposta sondaggio</value>
+        <value xml:lang="zh">更新调查回答</value>
     </property>
     <property key="FormFieldTitle_upperCoordinate">
         <value xml:lang="ar">الإحداثيات العليا</value>
@@ -2970,6 +3101,7 @@
         <value xml:lang="en">Visual Theme Set</value>
         <value xml:lang="fr">Ensemble de thèmes visuels</value>
         <value xml:lang="it">Set di temi grafici</value>
+        <value xml:lang="zh">视觉效果集合</value>
     </property>
     <property key="FormFieldTitle_webSiteContentTypeId">
         <value xml:lang="de">Webseite Inhaltstyp ID</value>
@@ -2977,6 +3109,7 @@
         <value xml:lang="fr">Réf. type de contenu de site Web</value>
         <value xml:lang="it">Tipo Contenuto Sito Web</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ Web Site</value>
+        <value xml:lang="zh">网站内容类型标识</value>
     </property>
     <property key="FormFieldTitle_webSiteId">
         <value xml:lang="ar">تعريف موقع الويب</value>
@@ -2999,7 +3132,7 @@
         <value xml:lang="it">Fattore Peso</value>
         <value xml:lang="ro">Factor Greutate</value>
         <value xml:lang="th">มาตรฐานน้ำหนัก</value>
-        <value xml:lang="zh">重量系数</value>
+        <value xml:lang="zh">权重系数</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
@@ -3025,16 +3158,19 @@
         <value xml:lang="en">Add CompDoc Instance</value>
         <value xml:lang="fr">Ajouter une instance de document composite</value>
         <value xml:lang="it">Aggiungi Istanza CompDoc</value>
+        <value xml:lang="zh">添加合成文档实例</value>
     </property>
     <property key="PageTitleAddCompositeDocumentInstance">
         <value xml:lang="en">Add Composite Document Instance Part Page</value>
         <value xml:lang="fr">Ajouter une instance d'une partie de page de document composite</value>
         <value xml:lang="it">Aggiungi instanza composizione documenti</value>
+        <value xml:lang="zh">添加合成文档的文档实例页面</value>
     </property>
     <property key="PageTitleAddCompositeDocumentTemplate">
         <value xml:lang="en">Add Composite Document Template Page</value>
         <value xml:lang="fr">Ajouter une page de modèle de document composite</value>
         <value xml:lang="it">Aggiungi template composizione documenti</value>
+        <value xml:lang="zh">添加合成文档的模板页面</value>
     </property>
     <property key="PageTitleAddContent">
         <value xml:lang="ar">إضافة محتوى</value>
@@ -3116,7 +3252,7 @@
         <value xml:lang="it">Aggiungi Metadati</value>
         <value xml:lang="ro">Adauga Metadate</value>
         <value xml:lang="th">เพิ่มข้อมูล</value>
-        <value xml:lang="zh">新建元数据</value>
+        <value xml:lang="zh">新建Meta数据</value>
     </property>
     <property key="PageTitleAddPurpose">
         <value xml:lang="ar">إضافة هدف</value>
@@ -3153,6 +3289,7 @@
         <value xml:lang="fr">Créer automatiquement un contenu de points publiés</value>
         <value xml:lang="it">Creazioni-Automatica Contenuto Punti Pubblicati</value>
         <value xml:lang="th">สร้างหัวข้อความคิดเห็นอัตโนมัติ</value>
+        <value xml:lang="zh">自动创建的内容发布点</value>
     </property>
     <property key="PageTitleCreateInstanceOfThisTemplate">
         <value xml:lang="de">Eine Instanz dieser Vorlage erstellen</value>
@@ -3160,6 +3297,7 @@
         <value xml:lang="fr">Créer une instance de ce modèle</value>
         <value xml:lang="it">Creare Istanza per Questo Template</value>
         <value xml:lang="th">สร้างตัวอย่างของ Template นี้</value>
+        <value xml:lang="zh">创建这个模板的实例</value>
     </property>
     <property key="PageTitleCreateNewRootCompDocTemplate">
         <value xml:lang="de">Neue Basis CompDoc Vorlage erstellen</value>
@@ -3167,6 +3305,7 @@
         <value xml:lang="fr">Créer un nouveau modèle de racine de document composite</value>
         <value xml:lang="it">Creare Nuovo Template Radice CompDoc</value>
         <value xml:lang="th">สร้างที่มาของ Template เอกสารใหม่</value>
+        <value xml:lang="zh">创建新的根合成文档的模板</value>
     </property>
     <property key="PageTitleCreateSurvey">
         <value xml:lang="ar">إستحداث تصويت</value>
@@ -3185,6 +3324,7 @@
         <value xml:lang="fr">Créer le contenu du site Web</value>
         <value xml:lang="it">Creare Contenuto Sito Web</value>
         <value xml:lang="th">สร้างหัวข้อเว็บไซต์</value>
+        <value xml:lang="zh">新建网站内容</value>
     </property>
     <property key="PageTitleCreateWebSiteParties">
         <value xml:lang="de">Webseite Akteure erstellen</value>
@@ -3192,6 +3332,7 @@
         <value xml:lang="fr">Créer les acteurs du site Web</value>
         <value xml:lang="it">Creare Soggetti Sito Web</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้เว็บไซต์</value>
+        <value xml:lang="zh">新建网站会员</value>
     </property>
     <property key="PageTitleEditAssociation">
         <value xml:lang="ar">تحرير إرتباط</value>
@@ -3207,6 +3348,7 @@
         <value xml:lang="en">Permissions failed to edit Article</value>
         <value xml:lang="fr">Les autorisations ne permettent pas de modifier l'article</value>
         <value xml:lang="it">Aggiorna una associazione</value>
+        <value xml:lang="zh">无权编辑文章</value>
     </property>
     <property key="PageTitleEditCMSContent">
         <value xml:lang="de">CMS Inhalt bearbeiten</value>
@@ -3214,6 +3356,7 @@
         <value xml:lang="fr">Modifier le contenu CMS</value>
         <value xml:lang="it">Aggiorna Contenuto CMS</value>
         <value xml:lang="th">แก้ไขหัวข้อ CMS</value>
+        <value xml:lang="zh">内容管理系统内容编辑</value>
     </property>
     <property key="PageTitleEditCompDocInstance">
         <value xml:lang="de">CompDoc Instanz bearbeiten</value>
@@ -3221,6 +3364,7 @@
         <value xml:lang="fr">Modifier l'instance de document composite</value>
         <value xml:lang="it">Aggiorna Istanza CompDoc</value>
         <value xml:lang="th">แก้ไขตัวอย่างเอกสาร</value>
+        <value xml:lang="zh">编辑合成文档实例</value>
     </property>
     <property key="PageTitleEditCompDocTemplate">
         <value xml:lang="de">CompDoc Vorlage bearbeiten</value>
@@ -3228,6 +3372,7 @@
         <value xml:lang="fr">Modifier le modèle de document composite</value>
         <value xml:lang="it">Aggiorna Template CompDoc</value>
         <value xml:lang="th">แก้ไข Template เอกสาร</value>
+        <value xml:lang="zh">编辑合成文档模板</value>
     </property>
     <property key="PageTitleEditContent">
         <value xml:lang="ar">تعرير محتوى</value>
@@ -3249,6 +3394,7 @@
         <value xml:lang="fr">Modifier le contenu d'approbation de modification de page</value>
         <value xml:lang="it">Pagina per Editare Approvazione Contenuto per</value>
         <value xml:lang="th">แก้ไขหัวข้อการอนุมัติในหน้าแก้ไข</value>
+        <value xml:lang="zh">编辑内容批准的编辑页面</value>
     </property>
     <property key="PageTitleEditContentAssoc">
         <value xml:lang="ar">تعرير إرتباط محتوى</value>
@@ -3297,7 +3443,7 @@
         <value xml:lang="it">Aggiorna Metadata Contenuto</value>
         <value xml:lang="ro">Actualizeaza Metadata Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อข้อมูล</value>
-        <value xml:lang="zh">编辑内容元数据</value>
+        <value xml:lang="zh">编辑内容Meta数据</value>
     </property>
     <property key="PageTitleEditContentOperation">
         <value xml:lang="ar">تعرير عملية محتوى</value>
@@ -3412,6 +3558,7 @@
         <value xml:lang="fr">Modifier la catégorie de ressources de données</value>
         <value xml:lang="it">Aggiorna Categoria Risorsa Dati</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลหมวดหมู่</value>
+        <value xml:lang="zh">编辑数据资源分类</value>
     </property>
     <property key="PageTitleEditDataResourceCharacterSet">
         <value xml:lang="de">Zeichensatz bearbeiten</value>
@@ -3419,6 +3566,7 @@
         <value xml:lang="fr">Modifier le jeu de caractères</value>
         <value xml:lang="it">Aggiorna Set di Caratteri</value>
         <value xml:lang="th">แก้ไขการเซ็ตลักษณะ</value>
+        <value xml:lang="zh">编辑字符集</value>
     </property>
     <property key="PageTitleEditDataResourceFileExtension">
         <value xml:lang="de">Dateierweiterung bearbeiten</value>
@@ -3426,6 +3574,7 @@
         <value xml:lang="fr">Modifier l'extension de fichier</value>
         <value xml:lang="it">Aggiorna Estensione File</value>
         <value xml:lang="th">แก้ไขไฟล์ที่เพิ่ม</value>
+        <value xml:lang="zh">编辑文件扩展名</value>
     </property>
     <property key="PageTitleEditDataResourceMetaDataPredicate">
         <value xml:lang="de">Metadaten Prädikat bearbeiten</value>
@@ -3433,6 +3582,7 @@
         <value xml:lang="fr">Modifier le prédicat de méta-données</value>
         <value xml:lang="it">Aggiorna Predicato Meta Data</value>
         <value xml:lang="th">แก้ไขการสรุปข้อมูล</value>
+        <value xml:lang="zh">编辑Meta数据属性</value>
     </property>
     <property key="PageTitleEditDataResourceMimeType">
         <value xml:lang="de">Mimetyp bearbeiten</value>
@@ -3440,6 +3590,7 @@
         <value xml:lang="fr">Modifier le type MIME</value>
         <value xml:lang="it">Aggiorna Tipo Mime</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา</value>
+        <value xml:lang="zh">编辑Mime类型</value>
     </property>
     <property key="PageTitleEditDataResourceMimeTypeHtmlTemplate">
         <value xml:lang="de">Mimetyp Html Vorlage bearbeiten</value>
@@ -3447,6 +3598,7 @@
         <value xml:lang="fr">Modifier le modèle de type de mime HTML</value>
         <value xml:lang="it">Aggiorna Tipo Mime Template Html</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา Template Html</value>
+        <value xml:lang="zh">编辑Mime类型网页模板</value>
     </property>
     <property key="PageTitleEditDataResourceProductFeatures">
         <value xml:lang="ar">تعرير خواص منتوج مورد معلومات</value>
@@ -3494,6 +3646,7 @@
         <value xml:lang="fr">Modifier la ressource de données (type d'attibut)</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Risorsa Dati</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของประเภทคุณสมบัติ</value>
+        <value xml:lang="zh">编辑数据资源类型属性</value>
     </property>
     <property key="PageTitleEditDataResourceUpload">
         <value xml:lang="ar">Edit Data Resource Upload</value>
@@ -3551,6 +3704,7 @@
         <value xml:lang="fr">Modifier la mise en page</value>
         <value xml:lang="it">Aggiorna Layout</value>
         <value xml:lang="th">แก้ไข Layout</value>
+        <value xml:lang="zh">编辑版式</value>
     </property>
     <property key="PageTitleEditLayoutSubContent">
         <value xml:lang="de">Layout untergeordneter Inhalt bearbeiten</value>
@@ -3558,6 +3712,7 @@
         <value xml:lang="fr">Modifier le sous-contenu de la mise en page</value>
         <value xml:lang="it">Aggiorna Layout Sotto-Contenuto</value>
         <value xml:lang="th">แก้ไข Layout หัวข้อย่อย</value>
+        <value xml:lang="zh">编辑版式子内容</value>
     </property>
     <property key="PageTitleEditRootCompDoc">
         <value xml:lang="ar">تحرير وثيقة مركبة للجذر</value>
@@ -3641,6 +3796,7 @@
         <value xml:lang="fr">Modifier le site web CMS</value>
         <value xml:lang="it">Aggiorna CMS Sito Web</value>
         <value xml:lang="th">แก้ไข WebSite CMS</value>
+        <value xml:lang="zh">编辑网站内容管理系统</value>
     </property>
     <property key="PageTitleEditWebSiteContent">
         <value xml:lang="de">Webseite Inhalt bearbeiten</value>
@@ -3648,6 +3804,7 @@
         <value xml:lang="fr">Modifier le contenu du site web</value>
         <value xml:lang="it">Aggiorna Contenuto Sito Web</value>
         <value xml:lang="th">แก้ไขหัวข้อ WebSite</value>
+        <value xml:lang="zh">编辑网站内容</value>
     </property>
     <property key="PageTitleEditWebSiteParties">
         <value xml:lang="ar">تحرير أطراف موقع الويب</value>
@@ -3665,6 +3822,7 @@
         <value xml:lang="fr">Rechercher le contenu CMS</value>
         <value xml:lang="it">Ricerca Contenuto CMS</value>
         <value xml:lang="th">ค้นหาหัวข้อ CMS</value>
+        <value xml:lang="zh">查找内容管理系统内容</value>
     </property>
     <property key="PageTitleFindCompDoc">
         <value xml:lang="ar">إيجاد وثيقة مركبة</value>
@@ -3732,6 +3890,7 @@
         <value xml:lang="fr">Rechercher la mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
         <value xml:lang="th">ค้นหา Layout</value>
+        <value xml:lang="zh">查找版式</value>
     </property>
     <property key="PageTitleFindSurvey">
         <value xml:lang="ar">إيجاد تصويت</value>
@@ -3811,6 +3970,7 @@
         <value xml:lang="fr">Liste d'autorisations de contenu</value>
         <value xml:lang="it">Lista Approvazione Contenuto</value>
         <value xml:lang="th">รายการหัวข้อที่อนุมัติ</value>
+        <value xml:lang="zh">内容审批列表</value>
     </property>
     <property key="PageTitleListDataResource">
         <value xml:lang="ar">قائمة مورد المعلومات</value>
@@ -3828,6 +3988,7 @@
         <value xml:lang="fr">Liste de mises en page</value>
         <value xml:lang="it">Lista Layout</value>
         <value xml:lang="th">รายการ Layout</value>
+        <value xml:lang="zh">版式列表</value>
     </property>
     <property key="PageTitleListSurveyResponse">
         <value xml:lang="de">Liste der Antworten Befragung</value>
@@ -3835,6 +3996,7 @@
         <value xml:lang="fr">Liste des réponses au sondage</value>
         <value xml:lang="it">Lista Risposte Sondaggio</value>
         <value xml:lang="th">รายการสำรวจคำตอบ</value>
+        <value xml:lang="zh">调查回答列表</value>
     </property>
     <property key="PageTitleListWebSite">
         <value xml:lang="ar">قائمة مواقع الويب</value>
@@ -3871,6 +4033,7 @@
         <value xml:lang="en">Lookup List Layout</value>
         <value xml:lang="fr">Recherche de mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
+        <value xml:lang="zh">查找列表版式</value>
     </property>
     <property key="PageTitleLookupSubContent">
         <value xml:lang="de">Untergeordneten Inhalt suchen</value>
@@ -3878,6 +4041,7 @@
         <value xml:lang="fr">Recherche de sous-contenu</value>
         <value xml:lang="it">Ricerca Sotto-Contenuto</value>
         <value xml:lang="th">ค้นหาหัวข้อย่อย</value>
+        <value xml:lang="zh">查找子内容</value>
     </property>
     <property key="PageTitleLookupSurvey">
         <value xml:lang="ar">البحث عن التصويت</value>
@@ -3904,6 +4068,7 @@
         <value xml:lang="fr">Naviguer dans le contenu</value>
         <value xml:lang="it">Naviga contenuto</value>
         <value xml:lang="th">เลือกดูเนื้อหา</value>
+        <value xml:lang="zh">内容导航</value>
     </property>
     <property key="PageTitleNavigateDataResources">
         <value xml:lang="de">Durch Datenressourcen navigieren mittels Datenkategorien</value>
@@ -3911,11 +4076,13 @@
         <value xml:lang="fr">Parcourir les ressources de données utilisant des catégories de données</value>
         <value xml:lang="it">Naviga nelle Risorse Dati usando i Dati Categorie</value>
         <value xml:lang="th">หาแหล่งที่มาของข้อมูลที่ใช้ในหมวดหมู่ของข้อมูล</value>
+        <value xml:lang="zh">用数据分类导航数据资源</value>
     </property>
     <property key="PageTitleSearchContent">
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Recherche de contenu</value>
         <value xml:lang="it">Ricerca contenuti</value>
+        <value xml:lang="zh">搜索内容</value>
     </property>
     <property key="PageTitleUploadImageDataResource">
         <value xml:lang="ar">إشحن علويا الصورة</value>
@@ -3931,24 +4098,29 @@
         <value xml:lang="en">View CompDoc Content</value>
         <value xml:lang="fr">Voir le contenu du document composite</value>
         <value xml:lang="it">Mostra contenuto composizione documenti</value>
+        <value xml:lang="zh">浏览合成文档内容</value>
     </property>
     <property key="PageTitleViewCompDocContentBinary">
         <value xml:lang="en">View CompDoc Content Binary</value>
         <value xml:lang="fr">Voir le contenu du document composite au format binaire</value>
+        <value xml:lang="zh">浏览合成文档二进制内容</value>
     </property>
     <property key="PageTitleViewCompDocContentHtml">
         <value xml:lang="en">View CompDoc Content Html</value>
         <value xml:lang="fr">Voir le contenu du document composite au format HTML</value>
+        <value xml:lang="zh">浏览合成文档网页内容</value>
     </property>
     <property key="PageTitleViewCompDocTemplateTree">
         <value xml:lang="en">View Template Tree</value>
         <value xml:lang="fr">Voir l'arborescence modèle</value>
         <value xml:lang="it">Mostra albero template</value>
+        <value xml:lang="zh">浏览模板树</value>
     </property>
     <property key="PageTitleViewCompDocTree">
         <value xml:lang="en">View Tree</value>
         <value xml:lang="fr">Voir l'arborescence</value>
         <value xml:lang="it">Mostra albero</value>
+        <value xml:lang="zh">浏览树</value>
     </property>
     <property key="PageTitleViewSurveyResponses">
         <value xml:lang="ar">مشاهدة أجوبة التصويت</value>
@@ -3967,6 +4139,7 @@
         <value xml:lang="fr">Contenu du site Web CMS</value>
         <value xml:lang="it">Sito Web CMS Contenuto</value>
         <value xml:lang="th">เว็บไซต์หัวข้อ CMS</value>
+        <value xml:lang="zh">网站内容管理系统内容</value>
     </property>
     <property key="PageTitleWebSiteCMSNav">
         <value xml:lang="de">Navigation (Webseite CMS)</value>
@@ -3974,6 +4147,7 @@
         <value xml:lang="fr">Navigation (site Web CMS)</value>
         <value xml:lang="it">Sito Web CMS Navigazione</value>
         <value xml:lang="th">เว็บไซต์ CMSNav</value>
+        <value xml:lang="zh">网站内容管理系统导航</value>
     </property>
     <property key="PageTitleWebSiteContent">
         <value xml:lang="de">Webseite Inhalt</value>
@@ -3981,5 +4155,6 @@
         <value xml:lang="fr">Contenu de site web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
         <value xml:lang="th">หัวข้อ WebSite</value>
+        <value xml:lang="zh">网站内容</value>
     </property>
 </resource>

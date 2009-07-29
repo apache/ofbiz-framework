@@ -162,6 +162,7 @@
     <property key="OrderCaughtGenericServiceExceptionWhileGettingOrderId">
         <value xml:lang="en">Caught generic service exception while getting order Id </value>
         <value xml:lang="fr">Erreur générique de service lors de l'acquisition de la réf. de commande </value>
+        <value xml:lang="zh">获得订单标识时发生一般服务意外错误 </value>
     </property>
     <property key="OrderCaughtNumberFormatExceptionOnCartUpdate">
         <value xml:lang="en">Caught number format exception on cart update. </value>
@@ -231,6 +232,7 @@
         <value xml:lang="ro">Nu este posibila citirea termenelor acord prin intermediul ${agreementId}</value>
         <value xml:lang="ru">Невозможно получить agreementTerms для ${agreementId}</value>
         <value xml:lang="th">ไม่สามารถเรียกระยะเวลาสัญญาเนื่องจาก ${agreementId}</value>
+        <value xml:lang="zh">无法通过${agreementId}获得合同条件</value>
     </property>
     <property key="OrderCouldNotInitPurchaseOrder">
         <value xml:lang="en">Could not init an empty purchase order.</value>
@@ -239,6 +241,7 @@
         <value xml:lang="it">Non è possibile inizializzare un'ordine di acquisto vuoto.</value>
         <value xml:lang="ru">Невозможно инициализировать пустой закупочный заказ.</value>
         <value xml:lang="th">ไม่สามารถเริ่มดำเนินการรายการสั่งซื้อว่าง</value>
+        <value xml:lang="zh">无法初始化一个空的采购订单。</value>
     </property>
     <property key="OrderCouldNotLocateTheSelectedParty">
         <value xml:lang="en">Could not locate the selected party. </value>
@@ -293,6 +296,7 @@
     <property key="OrderCreateCommunicationEventProductPermissionError">
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
+        <value xml:lang="zh">创建沟通事件时出现产品权限错误</value>
     </property>
     <property key="OrderDispatcherOrDelegatorOrCartArgumentIsNull">
         <value xml:lang="en">Dispatcher or Delegator or Cart argument is null</value>
@@ -465,6 +469,7 @@
         <value xml:lang="fr">Erreur : impossible d'avoir une unité de mesure sans valeur par défaut</value>
         <value xml:lang="it">Errore: non è possibile ricavare Udm senza la Udm di default</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด !  ไม่สามารถมีหน่วยวัดโดยไม่มีค่าเริ่มต้นของหน่วยวัด</value>
+        <value xml:lang="zh">错误：没有缺省度量单位的话就不能有度量单位</value>
     </property>
     <property key="OrderErrorCannotResetOrderTotals">
         <value xml:lang="en">ERROR : Cannot reset order totals - ${orderId} : ${resetResult}</value>
@@ -552,6 +557,7 @@
         <value xml:lang="fr">Erreur:  impossible de trouver la conversion</value>
         <value xml:lang="it">Errore : non è possibile trovare la conversione</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามารถค้นพบการสนทนา</value>
+        <value xml:lang="zh">错误：无法找到转换方法</value>
     </property>
     <property key="OrderErrorCouldNotFindProductStoreWithID">
         <value xml:lang="en">ERROR : Could not find ProductStore with ID [ ${productStoreId} ]</value>
@@ -606,6 +612,7 @@
     <property key="OrderErrorGettingNextOrderIdWhileCreatingOrder">
         <value xml:lang="en">Error getting next order Id while creating order </value>
         <value xml:lang="fr">Erreur lors de l'acquisition de la prochaine réf. de commande durant sa création </value>
+        <value xml:lang="zh">在创建订单时发生无法获得下一个订单标识的错误</value>
     </property>
     <property key="OrderErrorGettingOrderHeaderInformationNull">
         <value xml:lang="en">Error getting order header information; null</value>
@@ -666,6 +673,7 @@
         <value xml:lang="it">ERRORE: Ordine ${orderId} non trovato</value>
         <value xml:lang="ru">ОШИБКА: Заказ с кодом [${orderId}] не найден</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่พบรายการสั่งซื้อด้วยรหัส [${orderId}]</value>
+        <value xml:lang="zh">错误：没有找到标识为${orderId}的订单 </value>
     </property>
     <property key="OrderErrorOrderItemAndOrOrderHeaderDontExist">
         <value xml:lang="en">ERROR : OrderItem and/or OrderHeader don't exist</value>
@@ -693,6 +701,7 @@
         <value xml:lang="it">ERRORE: ordine ${orderId} e riga ordine ${orderItemSeqId} non trovata</value>
         <value xml:lang="ru">ОШИБКА: Позиция заказа с кодом [${orderId}] и orderItemSeqId [${orderItemSeqId}] не найдены</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! รายการสั่งซื้อด้วยรหัส [${orderId}] และรหัสรายการสั่งซื้อ[${orderItemSeqId}] ไม่พบ</value>
+        <value xml:lang="zh">错误：没有找到标识为[${orderId}]、订单明细序列号为[${orderItemSeqId}]的订单明细 </value>
     </property>
     <property key="OrderErrorOrderNotApprovedForPacking">
         <value xml:lang="en">ERROR: Order #${orderId} is not approved for packing</value>
@@ -707,6 +716,7 @@
         <value xml:lang="it">Ordine ${orderId} non è un'ordine di acquisto</value>
         <value xml:lang="ru">Заказ ${orderId} не является закупочным заказом</value>
         <value xml:lang="th">ใบสั่งซื้อสินค้า ${orderId} ไม่เป็นรายการสั่งซื้อ</value>
+        <value xml:lang="zh">订单${orderId}不是一个采购订单</value>
     </property>
     <property key="OrderErrorOrderNotVerified">
         <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weigh Package Only for further processing</value>
@@ -740,6 +750,7 @@
         <value xml:lang="fr">Le statut du retour n'a pas été changé : ${statusId} -&gt; ${statusIdTo} ce changement n'est pas valide.</value>
         <value xml:lang="it">Stato reso non modificato ${statusId} -&gt; ${statusIdTo} non è un cambio di stato valido. </value>
         <value xml:lang="th">ไม่เปลี่ยนการคืนค่าสถานะ ${statusId} -&gt; ${statusIdTo} ไม่มีการเปลี่ยนค่า</value>
+        <value xml:lang="zh">退货状态没有改变，从${statusId} -&gt; ${statusIdTo}不是一个可行的改变。</value>
     </property>
     <property key="OrderErrorTheProductStoreIdCanOnlyBeNullForPurchaseOrders">
         <value xml:lang="en">ERROR: The productStoreId can only be null for purchase orders</value>
@@ -875,6 +886,7 @@
     <property key="OrderErrorUnableToGetTheItemReturnableProduct">
         <value xml:lang="en">ERROR : Unable to get the item returnable product.</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere il prodotto riga resa.</value>
+        <value xml:lang="zh">错误：无法获得明细的可退货产品</value>
     </property>
     <property key="OrderErrorUnableToGetTheItemReturnableQuantity">
         <value xml:lang="en">ERROR : Unable to get the item returnable quantity.</value>
@@ -969,6 +981,7 @@
     <property key="OrderIdAlreadyExistsPleaseChooseAnother">
         <value xml:lang="en">Order Id already exists please choose another </value>
         <value xml:lang="fr">Cette réf. de commande existe déjà, SVP chjoisissez en une autre </value>
+        <value xml:lang="zh">订单标识已经存在了，请另外选择一个</value>
     </property>
     <property key="OrderIllegalCharacterInSelectedItemField">
         <value xml:lang="en">Illegal character in selectedItem field</value>
@@ -1189,6 +1202,7 @@
         <value xml:lang="fr">Aucun fournisseur n'a été trouvé pour cet article</value>
         <value xml:lang="it">Nessun fornitore trovato per questo prodotto</value>
         <value xml:lang="th">ไม่บผู้จัดหาสิ่งของสำหรับสินค้านี้</value>
+        <value xml:lang="zh">没有找到这个产品的供货商</value>
     </property>
     <property key="OrderNoTaxEntryFoundFor">
         <value xml:lang="en">No tax entry found for : ${zipCode} / ${city} - ${itemAmount}</value>
@@ -1226,6 +1240,7 @@
         <value xml:lang="fr">Aucune configuration trouvée</value>
         <value xml:lang="it">Nessuna impostazione trovata</value>
         <value xml:lang="th">ไม่พบการตั้งค่า</value>
+        <value xml:lang="zh">没有找到设置</value>
     </property>
     <property key="OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction">
         <value xml:lang="en">Not applying GWP because productId [ ${productId} ] is out of stock for productPromoAction: ${productPromoAction}</value>
@@ -1443,6 +1458,7 @@
         <value xml:lang="it">Problema nel ricavare i records da ProductStore</value>
         <value xml:lang="ru">Проблема при получении записей ProductStore</value>
         <value xml:lang="th">ปัญหาการเรียกบันทึกคลังสินค้า</value>
+        <value xml:lang="zh">获得产品店铺记录时出错</value>
     </property>
     <property key="OrderProblemGettingTheRecordIterator">
         <value xml:lang="en">Problem getting the Record Iterator</value>
@@ -1537,6 +1553,7 @@
     <property key="OrderProblemWithInvoiceCreationServiceItems">
         <value xml:lang="en">Problem with invoice creation service items</value>
         <value xml:lang="it">Problema con il servizio di creazione righe fattura</value>
+        <value xml:lang="zh">随发票创建服务明细时出错</value>
     </property>
     <property key="OrderProblemsAddingItemFromListToCart">
         <value xml:lang="en">Problems adding item from list to cart</value>
@@ -1662,16 +1679,19 @@
     <property key="OrderProblemsWithCheckPaymentAmountForRefund">
         <value xml:lang="en">Problems with check payment amount for refund</value>
         <value xml:lang="it">Problema nel controllo importo pagamento per reso</value>
+        <value xml:lang="zh">检查退款支付金额时出现问题</value>
     </property>
     <property key="OrderProblemsWithGetPartyAcctgPreferences">
         <value xml:lang="en">Problems with getting PartyAcctgPreference. </value>
         <value xml:lang="es">Hay problemas al obtener preferencias de contabilidad de participante.</value>
         <value xml:lang="fr">Problème à l'obtention des préférences comptabilité de l'acteur</value>
         <value xml:lang="it">Problema nell'ottenere PartyAcctgPreference.</value>
+        <value xml:lang="zh">获取会员优先使用的账户时出现问题</value>
     </property>
     <property key="OrderProblemsWithGetReturnAmountByOrder">
         <value xml:lang="en">Problems with getting return amount by order</value>
         <value xml:lang="it">Problema nell'ottenere importo reso dell'ordine</value>
+        <value xml:lang="zh">按订单获取退货金额时出现问题</value>
     </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
         <value xml:lang="en">Problems with PaymentType lookup. </value>
@@ -1729,6 +1749,7 @@
         <value xml:lang="fr">Ajout rapide d'une ligne de commande</value>
         <value xml:lang="it">Aggiungi riga ordine velocemente</value>
         <value xml:lang="th">เพิ่มรายการสั่งซื้อย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速添加订单明细</value>
     </property>
     <property key="OrderQuotePercent">
         <value xml:lang="en">Quote Percent</value>
@@ -1736,6 +1757,7 @@
         <value xml:lang="fr">Pourcentage de devis</value>
         <value xml:lang="it">Percentuale preventivo</value>
         <value xml:lang="th">อัตราร้อยละของคำร้อง</value>
+        <value xml:lang="zh">询价百分比</value>
     </property>
     <property key="OrderReceivedNullForOrderItemRecordsOrderId">
         <value xml:lang="en">Received NULL for OrderItem records orderId : ${orderId}</value>
@@ -1750,10 +1772,12 @@
     <property key="OrderRefundAmountExceedsOrderTotal">
         <value xml:lang="en">Refund Amount Exceeds Order Total</value>
         <value xml:lang="it">Importo restituito eccede il totale ordine</value>
+        <value xml:lang="zh">退款金额超出订单总额</value>
     </property>
     <property key="OrderRemoveCommunicationEventOrderPermissionError">
         <value xml:lang="en">Remove Communication Event Order Permission Error</value>
         <value xml:lang="it">Errore permesso durante la rimozione di un'evento comunicazione</value>
+        <value xml:lang="zh">删除沟通事件时发生订单权限错误</value>
     </property>
     <property key="OrderRentalOrderItems">
         <value xml:lang="en">Rental order items in the order, however no workEfforts with start/end date and number of persons</value>
@@ -1792,6 +1816,7 @@
         <value xml:lang="it">Un metodo di pagamento deve essere impostato per questo tipo di reso</value>
         <value xml:lang="ru">Для этого типа возврата должен быть установлен способ платежа</value>
         <value xml:lang="th">วิธีการชำระเงินต้องเป็นการตั้งค่าสำหรับประเภทของการคืนค่านี้</value>
+        <value xml:lang="zh">必须为这个退货类型设置支付方法</value>
     </property>
     <property key="OrderReturnPriceCannotExceedTheOrderTotal">
         <value xml:lang="en">Return total of all return items [${returnTotal}] cannot exceed the order total of [ ${orderTotal} ].</value>
@@ -1840,6 +1865,7 @@
         <value xml:lang="it">Esecuzione servizio [getInventoryAvailableByFacility] in errore :</value>
         <value xml:lang="ru">Ошибка выполнения службы [getInventoryAvailableByFacility]:</value>
         <value xml:lang="th">ดำเนินการบริการ [getInventoryAvailableByFacility] ผิดพลาด :</value>
+        <value xml:lang="zh">运行服务 [getInventoryAvailableByFacility] 出错：</value>
     </property>
     <property key="OrderRunServiceGetSuppliersForProductError">
         <value xml:lang="en">Run service [getSuppliersForProduct] error :</value>
@@ -1863,10 +1889,12 @@
     <property key="OrderSecurityErrorToRunAutoCreateOrderAdjustments">
         <value xml:lang="en">Security Error To Run Auto Create Order Adjustments</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione automatica aggiustamenti ordine</value>
+        <value xml:lang="zh">要运行自动创建订单调整时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunAutoCreateQuoteAdjustments">
         <value xml:lang="en">Security Error To Run Auto Create Quote Adjustments</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione automatica aggiustamenti preventivo</value>
+        <value xml:lang="zh">要运行自动创建询价调整时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunAutoUpdateQuotePrice">
         <value xml:lang="en">Security Error : to run autoUpdateQuotePrice you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -1930,22 +1958,27 @@
     <property key="OrderSecurityErrorToRunCheckUpdateQuoteStatus">
         <value xml:lang="en">Security Error To Run Check Update Quote Status</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione del controllo dello stato aggiornamento preventivo</value>
+        <value xml:lang="zh">要运行检查更新询价状态时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCopyCustRequestItem">
         <value xml:lang="en">Security Error To Run Copy Cust Request Item</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia riga richiesta cliente</value>
+        <value xml:lang="zh">要运行复制客户请求明细时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCopyQuote">
         <value xml:lang="en">Security Error To Run Copy Quote</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia preventivo</value>
+        <value xml:lang="zh">要运行复制询价时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCopyQuoteItem">
         <value xml:lang="en">Security Error To Run Copy Quote Item</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia riga preventivo</value>
+        <value xml:lang="zh">要运行复制询价明细时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateCustRequest">
         <value xml:lang="en">Security Error To Run Create Cust Request</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione richiesta cliente</value>
+        <value xml:lang="zh">要运行创建客户请求时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateOrderAdjustement">
         <value xml:lang="en">Security Error : to run createOrderAdjustment you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -1979,10 +2012,12 @@
     <property key="OrderSecurityErrorToRunCreateOrderTerm">
         <value xml:lang="en">Security Error To Run Create Order Term</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione termine ordine</value>
+        <value xml:lang="zh">要运行创建订单条件时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuantityBreak">
         <value xml:lang="en">Security Error To Run Create Quantity Break</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione intervallo quantità</value>
+        <value xml:lang="zh">要运行创建数量阶梯时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuote">
         <value xml:lang="en">Security Error : to run createQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -1997,6 +2032,7 @@
     <property key="OrderSecurityErrorToRunCreateQuoteAdjustment">
         <value xml:lang="en">Security Error To Run Create Quote Adjustment</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione aggiustamenti preventivo</value>
+        <value xml:lang="zh">要运行创建询价调整时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest">
         <value xml:lang="en">Security Error : to run createQuoteAndQuoteItemForRequest you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2031,10 +2067,12 @@
     <property key="OrderSecurityErrorToRunCreateQuoteFromCart">
         <value xml:lang="en">Security Error To Run Create Quote From Cart</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione preventivo dal carrello</value>
+        <value xml:lang="zh">要运行从购物车创建询价时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteFromCustRequest">
         <value xml:lang="en">Security Error To Run Create Quote From Cust Request</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione preventivo dalla richiesta cliente</value>
+        <value xml:lang="zh">要运行从客户请求创建询价时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteItem">
         <value xml:lang="en">Security Error : to run createQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2049,6 +2087,7 @@
     <property key="OrderSecurityErrorToRunCreateReturnItemShipment">
         <value xml:lang="en">Security Error To Run Create Return Item Shipment</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione riga reso spedizione</value>
+        <value xml:lang="zh">要运行创建退货明细运输时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateRequirementFromItemATP">
         <value xml:lang="en">Security Error: to run createRequirementFromItemATP you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2149,10 +2188,12 @@
     <property key="OrderSecurityErrorToRunRemoveOrderTerm">
         <value xml:lang="en">Security Error while running removeOrderTerm</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione del servizio removeOrderTerm</value>
+        <value xml:lang="zh">运行删除订单条件时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuantityBreak">
         <value xml:lang="en">Security Error while running removeQuantityBreak</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione del servizio removeQuantityBreak</value>
+        <value xml:lang="zh">运行删除数量阶梯时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteAttribute">
         <value xml:lang="en">Security Error : to run removeQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2167,6 +2208,7 @@
     <property key="OrderSecurityErrorToRunRemoveQuoteAdjustment">
         <value xml:lang="en">Security Error while running removeQuoteAdjustment</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione del servizio removeQuoteAdjustment</value>
+        <value xml:lang="zh">运行删除询价调整时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteCoefficient">
         <value xml:lang="en">Security Error : to run removeQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
@@ -2306,14 +2348,17 @@
     <property key="OrderSecurityErrorToRunUpdateOrderTerm">
         <value xml:lang="en">Security Error while running service updateOrderTerm</value>
         <value xml:lang="it">Errore Sicurezza durante l'esecuzione del servizio updateOrderTerm</value>
+        <value xml:lang="zh">运行更新订单条件服务时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateQuantityBreak">
         <value xml:lang="en">Security Error while running service updateQuantityBreak</value>
         <value xml:lang="it">Errore Sicurezza durante l'esecuzione del servizio updateQuantityBreak</value>
+        <value xml:lang="zh">运行更新数量阶梯时发生安全错误</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateQuoteAdjustment">
         <value xml:lang="en">Security Error while running service updateQuoteAdjustment</value>
         <value xml:lang="it">Errore Sicurezza durante l'esecuzione del servizio updateQuoteAdjustment</value>
+        <value xml:lang="zh">运行更新询价调整服务时发生安全错误</value>
     </property>
     <property key="OrderSelectASuplierOrAProduct">
         <value xml:lang="en">Select A Suplier Or A Product</value>
@@ -2321,6 +2366,7 @@
         <value xml:lang="fr">Sélectionner un fournisseur ou un article</value>
         <value xml:lang="it">Seleziona un fornitore o un prodotto</value>
         <value xml:lang="th">เลือกผู้จัดหาสิ่งของหรือสินค้า</value>
+        <value xml:lang="zh">选择一个供应商或产品</value>
     </property>
     <property key="OrderSelectOnlySupplierOrProduct">
         <value xml:lang="en">Select Only Supplier Or Product</value>
@@ -2328,6 +2374,7 @@
         <value xml:lang="fr">Sélectionner seulement un fournisseur ou seulement un article</value>
         <value xml:lang="it">Seleziona solo fornitore o prodotto</value>
         <value xml:lang="th">เลือกเฉพาะผู้จัดหาสิ่งของหรือสินค้า</value>
+        <value xml:lang="zh">只选择供应商或产品</value>
     </property>
     <property key="OrderSendMailServiceFailed">
         <value xml:lang="en">SendMail service failed : </value>
@@ -2385,6 +2432,7 @@
         <value xml:lang="fr">Donnée fournisseur</value>
         <value xml:lang="it">Dati fornitore</value>
         <value xml:lang="th">ข้อมูลผู้จัดหาสิ่งของ</value>
+        <value xml:lang="zh">供货商数据</value>
     </property>
     <property key="OrderSupplierFinancialDataError">
         <value xml:lang="en">Supplier Financial Data</value>
@@ -2392,6 +2440,7 @@
         <value xml:lang="fr">Donnée financière du fournisseur</value>
         <value xml:lang="it">Dati finanziari fornitore</value>
         <value xml:lang="th">ข้อมูลการเงินผู้จัดหาสิ่งของ</value>
+        <value xml:lang="zh">供货商财务数据</value>
     </property>
     <property key="OrderTheQuoteIsAlreadyInTheCartNotAdding">
         <value xml:lang="en">The quote [ ${quoteId} ] is already in the cart, not adding. </value>
@@ -2419,6 +2468,7 @@
         <value xml:lang="fr">Ceci ne peut être changé sans recréation de la configuration</value>
         <value xml:lang="it">Questo non può essere cambiato senza ricrearlo</value>
         <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างการตั้งค่าใหม่</value>
+        <value xml:lang="zh">不重建设置的话不能修改这里</value>
     </property>
     <property key="OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId">
         <value xml:lang="en">Tried to setOrderStatus with the same statusId [ ${statusId} ] for order with ID [ ${orderId} ]</value>
@@ -2438,7 +2488,7 @@
         <value xml:lang="ro">Problema la citerea ItemIssuance(s)</value>
         <value xml:lang="ru">Сбой получения ItemIssuance(s)</value>
         <value xml:lang="th">ปัญหาในการเรียกรายการ</value>
-        <value xml:lang="zh">获得保险明细时出现问题</value>
+        <value xml:lang="zh">获得交付明细时出现问题</value>
     </property>
     <property key="OrderTroubleGettingOrderItemShipGrpInvResList">
         <value xml:lang="en">Trouble Getting Order Item Ship Grp Inv Res List</value>
@@ -2446,6 +2496,7 @@
         <value xml:lang="fr">Problème à l'obtention de OrderItemShipGrpInvResList</value>
         <value xml:lang="it">Problema nel reperire la lista dei gruppo di spedizione</value>
         <value xml:lang="th">TroubleGettingOrderItemShipGrpInvResList</value>
+        <value xml:lang="zh">获得订单明细的运输组相关资源列表时出现问题</value>
     </property>
     <property key="OrderUnableToAddItemToShoppingList">
         <value xml:lang="en">Unable to add item to shopping list - ${shoppingListId}</value>
@@ -2723,7 +2774,7 @@
         <value xml:lang="it">Tu non sei autorizzato a cambiare questo stato ordine(i). </value>
         <value xml:lang="ru">У вас нет прав на изменение статуса этого заказа. </value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการเปลี่ยนแปลงสถานะรายการสั่งซื้อนี้</value>
-        <value xml:lang="zh">你没有修改这个订单状态的权限。 </value>
+        <value xml:lang="zh">你没有权限修改这个订单的状态。 </value>
     </property>
     <property key="OrderYouDoNotHavePermissionToLoadTaxTables">
         <value xml:lang="en">You do not have permission to load tax tables</value>
@@ -2743,7 +2794,7 @@
         <value xml:lang="ro">Tu nu esti autorizat sa preiei comenzi de la acest magazin.</value>
         <value xml:lang="ru">У вас нет прав для получения заказов этой торговой точки. </value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการใส่รายการสินค้าสำหรับคลังนี้</value>
-        <value xml:lang="zh">你没有为这个店铺处理订单的权限。 </value>
+        <value xml:lang="zh">你没有权限为这个店铺处理订单。 </value>
     </property>
     <property key="OrderYouDoNotHavePermissionToViewThisPage">
         <value xml:lang="en">You  Do  Not  Have  Permission  To View This Page</value>
@@ -2751,6 +2802,7 @@
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page</value>
         <value xml:lang="it">Tu non hai il permesso di visualizzare questa pagina</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการแสดงหน้านี้</value>
+        <value xml:lang="zh">你没有权限浏览这个页面</value>
     </property>
     <property key="ShipBeforeDateOrderTroubleGettingOrderItemShipGrpInvResList">
         <value xml:lang="en">Trouble getting OrderItemShipGrpInvRes List</value>
@@ -2768,6 +2820,7 @@
         <value xml:lang="fr">Erreur à l'appel de updateShoppingListItem  OU  handleShoppingListItemVariant</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio updateShoppingListItem o handleShoppingListItemVariant</value>
         <value xml:lang="th">Error : ข้อผิดพลาดาการเรียก updateShoppingListItem  หรือ  handleShoppingListItemVariant</value>
+        <value xml:lang="zh">调用updateShoppingListItem或handleShoppingListItemVariant时出错</value>
     </property>
     <property key="cart.addToCart.chooseVariationBeforeAddingToCart">
         <value xml:lang="en">Choose Variation Before Adding to Cart</value>
@@ -2775,6 +2828,7 @@
         <value xml:lang="fr">Choisir la variante avant d'ajouter au panier</value>
         <value xml:lang="it">Scegli variante prima di aggiungerlo al carrello</value>
         <value xml:lang="th">เลือกการเปลี่ยนแปลงก่อนที่จะเพิ่มลงตระกร้า</value>
+        <value xml:lang="zh">在添加到购物车之前请选择多样化的产品</value>
     </property>
     <property key="cart.addToCart.configureProductBeforeAddingToCart">
         <value xml:lang="de">Produkt Konfigurieren vor dem Hinzufügen zum Warenkorb</value>
@@ -2783,11 +2837,13 @@
         <value xml:lang="fr">Configurer l'article avant de l'ajouter au panier</value>
         <value xml:lang="it">Configura prodotto prima di aggiungerlo al carrello</value>
         <value xml:lang="th">สร้างสินค้าก่อนที่จะเพิ่มลงตระกร้า</value>
+        <value xml:lang="zh">在添加到购物车之前请配置产品</value>
     </property>
     <property key="cart.addToCart.enterAmountBeforeAddingToCart">
         <value xml:lang="en">Enter Amount Before Adding to Cart</value>
         <value xml:lang="fr">Entrez une quantité avant d'ajouter au panier</value>
         <value xml:lang="it">Inserire importo prima di aggiungerlo al carrello</value>
+        <value xml:lang="zh">在添加到购物车之前请输入数量</value>
     </property>
     <property key="cart.addToCart.enterBookingInforamtionBeforeAddingToCart">
         <value xml:lang="de">Reservationsinformationen erfassen vor dem Hinzufügen zum Warenkorb</value>
@@ -2796,14 +2852,17 @@
         <value xml:lang="fr">Entrer la réservation avant d'ajouter au panier</value>
         <value xml:lang="it">Inserire informazioni prenotazione prima di aggiungerlo al carrello</value>
         <value xml:lang="th">เข้าสู่ข้อมูลการจองก่อนที่จะเพิ่มลงตระกร้า</value>
+        <value xml:lang="zh">在添加到购物车之前请输入登记信息</value>
     </property>
     <property key="cart.addToCart.dependencyVariantFeature">
         <value xml:lang="en">Error: a dependency to another feature as not been resolved.</value>
         <value xml:lang="fr">Erreur : une dépendance envers une autre option n'a pu être résolue.</value>
+        <value xml:lang="zh">错误：尚未解决对另一个特性的依赖。</value>
     </property>
     <property key="cart.addToCart.incompatibilityVariantFeature">
         <value xml:lang="en">Sorry, selected options are incompatible.</value>
         <value xml:lang="fr">Désolé, les options choisies sont incompatibles entre-elles.</value>
+        <value xml:lang="zh">对不起，所选的选项不兼容。</value>
     </property>
     <property key="cart.addToCart.noProductInfoPassed">
         <value xml:lang="de">Keine Produktinformationen übergeben. Warenkorb bleibt unverändert.</value>
@@ -2847,10 +2906,12 @@
     <property key="cart.addToCart.rental.endDate">
         <value xml:lang="en">Problems parsing Reservation end string.</value>
         <value xml:lang="it">Problema durante il parsing della stringa reservation end</value>
+        <value xml:lang="zh">解析预订结束字符串时出错。</value>
     </property>
     <property key="cart.addToCart.rental.startDate">
         <value xml:lang="en">Problems parsing Reservation start string.</value>
         <value xml:lang="it">Problema durante il parsing della stringa reservation start</value>
+        <value xml:lang="zh">解析预订开始字符串时出错。</value>
     </property>
     <property key="cart.agreement_not_specified_to_add_from">
         <value xml:lang="de">Kein Vertrag angegeben, aus dem hinzugefügt werden kann.</value>
@@ -2869,10 +2930,12 @@
         <value xml:lang="en">Amount must be a positive number</value>
         <value xml:lang="fr">La quantité doit être un nombre positif</value>
         <value xml:lang="it">Importo deve essere un numero positivo</value>
+        <value xml:lang="zh">数量必须是个正数</value>
     </property>
     <property key="cart.cart_is_in_read_only_mode">
         <value xml:lang="en">Cart is in read only mode</value>
         <value xml:lang="it">Carrello è in modalità sola lettura</value>
+        <value xml:lang="zh">购物车处于只读模式</value>
     </property>
     <property key="cart.category_not_specified_to_add_from">
         <value xml:lang="de">Keine Kategorie angegeben, aus der hinzugefügt werden kann.</value>
@@ -3088,6 +3151,7 @@
         <value xml:lang="es">El cambio no puede ser mayor que el importe.</value>
         <value xml:lang="fr">La monnaie rendue ne peut être supérieure au paiement.</value>
         <value xml:lang="it">Il cambio restituito non può essere maggiore dei soldi consegnati.</value>
+        <value xml:lang="zh">退货的修改不能大于给付的金额。</value>
     </property>
     <property key="checkhelper.could_not_create_order_invoking_service">
         <value xml:lang="de">FEHLER: Auftrag konnte nicht erstellt werden (Problem beim Aufruf des Service: ${service})</value>
@@ -3328,6 +3392,7 @@
         <value xml:lang="fr">Erreur : les lignes de commande ne semblent pas correctes.</value>
         <value xml:lang="it">Error : ricerca righe ordine di vendita fallita</value>
         <value xml:lang="th">Error : ผิดพลาด !</value>
+        <value xml:lang="zh">错误：查找销售订单行失败</value>
     </property>
     <property key="checkhelper.select_method_of_payment">
         <value xml:lang="de">Bitte wählen sie eine Zahlweise.</value>
@@ -3748,6 +3813,7 @@
     </property>
     <property key="shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string">
         <value xml:lang="en">Problem in parsing item desired delivery date string</value>
+        <value xml:lang="zh">解析明细期望送货日期字符串时出错。</value>
     </property>
     <property key="shoppingCartHelper.no_items_found_to_add">
         <value xml:lang="en">No items found to add</value>

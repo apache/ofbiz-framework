@@ -22,34 +22,42 @@
     <property key="ScaleImage.error_occurs_during_writing">
         <value xml:lang="en">An error occurs during writing</value>
         <value xml:lang="fr">Une erreur est survenue lors de l'écriture</value>
+        <value xml:lang="zh">写的过程中发生一个错误</value>
     </property>
     <property key="ScaleImage.one_current_image_dimension_is_null">
         <value xml:lang="en">One current image dimension is null</value>
         <value xml:lang="fr">Une des dimensions de l'image courrante est nulle</value>
+        <value xml:lang="zh">一个当前图像尺寸是null</value>
     </property>
     <property key="ScaleImage.one_parameter_is_null">
         <value xml:lang="en">One parameter is null</value>
         <value xml:lang="fr">Un des paramètres est nul</value>
+        <value xml:lang="zh">一个参数是null</value>
     </property>
     <property key="ScaleImage.transform_is_non_invertible">
         <value xml:lang="en">Transform is non-invertible</value>
         <value xml:lang="fr">La transformation n'est pas réversible</value>
+        <value xml:lang="zh">转换是不可逆的</value>
     </property>
     <property key="ScaleImage.unable_to_create_target_directory">
         <value xml:lang="en">Unable to create target directory</value>
         <value xml:lang="fr">Impossible de créer le dossier cible</value>
+        <value xml:lang="zh">无法创建目标目录</value>
     </property>
     <property key="ScaleImage.unable_to_parse">
         <value xml:lang="en">Unable to parse</value>
         <value xml:lang="fr">Impossible d'analyser</value>
+        <value xml:lang="zh">无法解析</value>
     </property>
     <property key="ScaleImage.unable_to_scale_original_image">
         <value xml:lang="en">Unable to scale original image</value>
         <value xml:lang="fr">Impossible de redimensionner l'image originale</value>
+        <value xml:lang="zh">无法缩放原始图像</value>
     </property>
     <property key="ProductCreateCommunicationEventProductPermissionError">
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
+        <value xml:lang="zh">创建沟通事件产品权限时出错</value>
     </property>
     <property key="ProductErrorAllOrderItemsAreNotPacked">
         <value xml:lang="en">ERROR: All order items are not packed</value>
@@ -69,6 +77,7 @@
     <property key="ProductErrorInventoryItemLabelIdNotFound">
         <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
         <value xml:lang="it">Errore riga etichetta inventario non trovata</value>
+        <value xml:lang="zh">发生库存明细标签标识无法找到的错误</value>
     </property>
     <property key="ProductErrorIssueItemDidNotReturnAValidShipmentItemSeqId">
         <value xml:lang="en">ERROR: Issue item did not return a valid shipmentItemSeqId</value>
@@ -99,9 +108,11 @@
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
         <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
         <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
+        <value xml:lang="zh">产品特征类型标识必须只包含字符、下划线和数字。请重新输入</value>
     </property>
     <property key="ProductNotInAnyLocation">
         <value xml:lang="en">This Product is not in any Location</value>
+        <value xml:lang="zh">这个产品不在任何地方</value>
     </property>
     <property key="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet">
         <value xml:lang="en">The number of orders must not be empty. Please re-enter to print pick sheet.</value>
@@ -112,6 +123,7 @@
     <property key="ProductRemoveCommunicationEventProductPermissionError">
         <value xml:lang="en">Remove Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore permesso durante la rimozione dell'evento comunicazione prodotto</value>
+        <value xml:lang="zh">删除沟通事件时发生产品权限出错</value>
     </property>
     <property key="ProductReturnNotYetAcceptedOrAlreadyReceived">
         <value xml:lang="de">Diese Retoure wurde noch nicht akzeptiert oder wurde schon erhalten.</value>
@@ -137,6 +149,7 @@
         <value xml:lang="fr">La validation de l'adresse USPS demande l'un ou l'autre : zip5 ou ville et état</value>
         <value xml:lang="it">USPS richiedere validazione indirizzo entrambi zip5 o città e stato</value>
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
+        <value xml:lang="zh">USPS地址验证需要zip5或者省和市</value>
     </property>
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
@@ -689,6 +702,7 @@
     <property key="productservices.entity_error_quick_add_variant_data">
         <value xml:lang="en">Entity error quick add variant data</value>
         <value xml:lang="it">Errore durante la lettura dei dati per l'aggiunta variante veloce.</value>
+        <value xml:lang="zh">快速添加多样化产品数据时发生实体错误</value>
     </property>
     <property key="productservices.error_finding_associated_variant_with_ID_error">
         <value xml:lang="de">Fehler bei zugeordneter Variante mit ID ${productIdTo}, Fehler war: ${errMessage}.</value>
@@ -803,7 +817,8 @@
     <property key="productservices.product_not_found_with_ID">
         <value xml:lang="en">Product not found with ID</value>
         <value xml:lang="it">Prodotto non trovato per codice</value>
-    </property>>
+        <value xml:lang="zh">没有找到产品，标识是</value>
+    </property>
     <property key="productutilservices.did_not_find_any_valid_variants_for_virtual_ID">
         <value xml:lang="de">Keine gültigen Varianten gefunden für virtuelles Produkt mit der ID [${productId}], keinen Merge durchgeführt...</value>
         <value xml:lang="en">Did not find any valid variants for virtual ID [${productId}], not doing merge...</value>
@@ -906,6 +921,7 @@
     <property key="productworker.null_product_entity_not_valid">
         <value xml:lang="en">Null Product entity not valid</value>
         <value xml:lang="it">Entità Product nulla non valida</value>
+        <value xml:lang="zh">Null不能作为产品实体</value>
     </property>
     <property key="variantevents.entity_error_quick_add_variant_data">
         <value xml:lang="de">Entitätenfehler beim raschen Hinzufügen Variantendaten: ${errMessage}.</value>

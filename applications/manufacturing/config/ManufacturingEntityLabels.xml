@@ -94,6 +94,7 @@
     <property key="TechDataCalendar.description.DEMO_CALENDAR">
         <value xml:lang="en">Demo Workcenter Calendar</value>
         <value xml:lang="it">Calendario demo</value>
+        <value xml:lang="zh">演示作业中心日历</value>
     </property>
     <property key="TechDataCalendar.description.DRYING">
         <value xml:lang="en">DRYING</value>
@@ -134,6 +135,7 @@
     <property key="TechDataCalendarWeek.description.DEMO_WEEK">
         <value xml:lang="en">Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday</value>
         <value xml:lang="it">Calendario settimanale demo di 8 ore/giorno 5 giorni/settimana iniziando alle 8:30 dal lunedì al venerdì</value>
+        <value xml:lang="zh">演示每周5天、每天8小时、周一至周五从8:30开始的日历周</value>
     </property>
     <property key="TechDataCalendarWeek.description.HOLIDAY">
         <value xml:lang="en">HOLIDAY</value>
