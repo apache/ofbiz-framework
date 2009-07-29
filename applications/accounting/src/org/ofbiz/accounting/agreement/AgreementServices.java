@@ -92,6 +92,8 @@ public class AgreementServices {
             quantity = quantity.abs();
             String productId = (String) context.get("productId");
             String invoiceItemTypeId = (String) context.get("invoiceItemTypeId");
+            String invoiceItemSeqId = (String) context.get("invoiceItemSeqId");
+            String invoiceId = (String) context.get("invoiceId");
 
             // Collect agreementItems applicable to this orderItem/returnItem
             // TODO: partyIds should be part of this query!
@@ -165,6 +167,8 @@ public class AgreementServices {
                     Map<String, Object> partyCommissionResult = UtilMisc.toMap(
                             "partyIdFrom", agreementItem.getString("partyIdFrom"),
                             "partyIdTo", agreementItem.getString("partyIdTo"),
+                            "invoiceItemSeqId", invoiceItemSeqId,
+                            "invoiceId", invoiceId,
                             "commission", commission,
                             "quantity", quantity,
                             "currencyUomId", agreementItem.getString("currencyUomId"),
@@ -172,7 +176,9 @@ public class AgreementServices {
                     if (days >= 0) {
                         partyCommissionResult.put("days", Long.valueOf(days));
                     }
-                    commissions.add(partyCommissionResult);
+                    if(!commissions.contains(partyCommissionResult)) {
+                        commissions.add(partyCommissionResult);
+                    }
                 }
             }
         } catch (GenericEntityException e) {

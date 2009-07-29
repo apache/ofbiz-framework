@@ -168,14 +168,9 @@ under the License.
     </service>
     <service name="createCommissionInvoices" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createCommissionInvoices">
-        <description>
-            Create commission invoices from an order or return invoice. It
-            does not create any OrderItemBilling or ReturnItemBilling entities for partial commissions. Therefore, correct value
-            of the amountApplied needs to be supplied.
-        </description>
-        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="amountApplied" type="BigDecimal" mode="IN" optional="false"/>
+        <description>Create commission invoice for the list of sales invoices</description>
+        <attribute name="partyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="sampleInvoiceAffiliateCommission" engine="simple"
