@@ -78,6 +78,7 @@ function getPaymentRunningTotal(e) {
                 <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}">
                 <input type="hidden" name='fromDate' value="${fromDate?if_exists}">
                 <input type="hidden" name='thruDate' value="${thruDate?if_exists}">
+                <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
                 <div>
                     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
                     <span class="label" id="showPaymentRunningTotal"></span>
@@ -121,7 +122,7 @@ function getPaymentRunningTotal(e) {
                     </#list>
                     <div align="right">
                         ${uiLabelMap.AccountingGroupInOneTransaction}
-                        <input type="checkbox" name="groupInOneTransaction" value="Y"/>
+                        <input type="checkbox" name="groupInOneTransaction" value="Y" checked/>
                         <input id="submitButton" type="button"  onclick="javascript:document.depositWithdrawPaymentsForm.submit();" value="${uiLabelMap.AccountingDepositWithdraw}" disabled/>
                     </div>
                 </table>

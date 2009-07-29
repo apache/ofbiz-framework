@@ -826,9 +826,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="deletePaymentGroupMember" auth="true">
+    <service name="deletePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Payment Group Member</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="expirePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="expirePaymentGroupMember" auth="true">
+        <description>expire a Payment Group Member</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>

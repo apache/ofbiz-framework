@@ -489,4 +489,27 @@ under the License.
             <clear-field field="updatePaymentMap"/>
         </iterate>
     </simple-method>
+    <simple-method method-name="expirePaymentAssociationsOnFinAccountTransCancel" short-description="expire payment associations with paymentGroup on finAccountTrans cancel">
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <if-empty field="finAccountTrans.paymentId">
+            <entity-and entity-name="Payment" list="payments">
+                <field-map field-name="finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+            </entity-and>
+            <else>
+                <get-related-one relation-name="Payment" value-field="finAccountTrans" to-value-field="payment"/>
+                <field-to-list field="payment" list="payments"/>
+            </else>
+        </if-empty>
+        <iterate list="payments" entry="payment">
+            <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
+                <field-map field-name="paymentId" from-field="payment.paymentId"/>
+            </entity-and>
+            <if-not-empty field="paymentGroupMembers">
+                <first-from-list entry="paymentGroupMember" list="paymentGroupMembers"/>
+                <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
+                <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
+                <clear-field field="expirePaymentGroupMemberMap"/>
+            </if-not-empty>
+        </iterate>
+    </simple-method>
 </simple-methods>
