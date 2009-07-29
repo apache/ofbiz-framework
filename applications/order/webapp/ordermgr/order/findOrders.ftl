@@ -40,7 +40,6 @@ function toggleOrderId(master) {
         var element = form.elements[i];
         if (element.name == "orderIdList") {
             element.checked = master.checked;
-            element.disabled = !element.disabled;
         }
     }
 }
@@ -49,15 +48,21 @@ function setServiceName(selection) {
 }
 function runAction() {
     var form = document.massOrderChangeForm;
-    var orders = form.elements.length;
-    for (var i = 0; i < orders; i++) {
-        var element = form.elements[i];
-        if (element.name == "orderIdList") {
-            element.disabled = false;
-        }
-    }
     form.submit();
 }
+
+function toggleOrderIdList() {
+    var form = document.massOrderChangeForm;
+    var orders = form.elements.length;
+    var isAllSelected = true;
+    for (var i = 0; i < orders; i++) {
+        var element = form.elements[i];
+        if (element.name == "orderIdList" && !element.checked)
+            isAllSelected = false;
+    }
+    $('checkAllOrders').checked = isAllSelected;
+}
+
 // -->
 
     function paginateOrderList(viewSize, viewIndex, hideFields) {
@@ -521,7 +526,6 @@ document.lookuporder.orderId.focus();
     <form name="massOrderChangeForm" method="post" action="javascript:void();">
       <div>&nbsp;</div>
       <div align="right">
-        <input type="hidden" name="orderIdList" value=""/>
         <input type="hidden" name="screenLocation" value="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF"/>
         <select name="serviceName" onchange="javascript:setServiceName(this);">
            <option value="javascript:void();">&nbsp;</option>
@@ -548,7 +552,7 @@ document.lookuporder.orderId.focus();
       <table class="basic-table hover-bar" cellspacing='0'>
         <tr class="header-row">
           <td width="1%">
-            <input type="checkbox" name="checkAllOrders" value="1" onchange="javascript:toggleOrderId(this);"/>
+            <input type="checkbox" id="checkAllOrders" name="checkAllOrders" value="1" onchange="javascript:toggleOrderId(this);"/>
           </td>
           <td width="5%">${uiLabelMap.OrderOrderType}</td>
           <td width="5%">${uiLabelMap.OrderOrderId}</td>
@@ -584,7 +588,7 @@ document.lookuporder.orderId.focus();
             <#assign partyId = displayParty.partyId?default("_NA_")>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>
-                 <input type="checkbox" name="orderIdList" value="${orderHeader.orderId}"/>
+                 <input type="checkbox" name="orderIdList" value="${orderHeader.orderId}" onchange="javascript:toggleOrderIdList();"/>
               </td>
               <td>${orderType.get("description",locale)?default(orderType.orderTypeId?default(""))}</td>
               <td><a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class='buttontext'>${orderHeader.orderId}</a></td>
