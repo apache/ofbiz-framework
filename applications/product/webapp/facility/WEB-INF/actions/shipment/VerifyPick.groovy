@@ -22,6 +22,8 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.shipment.verify.VerifyPickSession;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.condition.EntityOperator;
 
 verifyPickSession = session.getAttribute("verifyPickSession");
 if (!verifyPickSession) {
@@ -87,9 +89,11 @@ if (orderId) {
         context.orderId = orderId;
         context.orderHeader = orderHeader;
         context.orderReadHelper = orh;
+        
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
         context.orderItemShipGroup = orderItemShipGroup;
-        orderItems = orh.getOrderItems();
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+        orderItems = orh.getOrderItemsByCondition(exprs);
         context.orderItems = orderItems;
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
             context.isOrderStatusApproved = true;
