@@ -889,6 +889,9 @@
         <value xml:lang="th">นำรายการใบกำกับสินค้าไปใช้</value>
         <value xml:lang="zh">支付的发票明细</value>
     </property>
+    <property key="AccountingApprovedGrandTotal">
+        <value xml:lang="en">Approved Grand Total</value>
+    </property>
     <property key="AccountingAr">
         <value xml:lang="de">Hauptseite Debitorenbuchhaltung</value>
         <value xml:lang="en">Main Page Account Receivable</value>
@@ -1114,6 +1117,9 @@
         <value xml:lang="ru">Название банка</value>
         <value xml:lang="th">ชื่อธนาคาร</value>
         <value xml:lang="zh">银行名称</value>
+    </property>
+    <property key="AccountingBankReconciliation">
+        <value xml:lang="en">Bank Reconciliation</value>
     </property>
     <property key="AccountingBillToAddress1">
         <value xml:lang="ar">وضع المستحقات على العنوان 1</value>
@@ -1911,6 +1917,12 @@
         <value xml:lang="it">Creare Nuovo Calcolo Costo Componente</value>
         <value xml:lang="nl">Maak nieuwe calculatie voor kostencomponent</value>
         <value xml:lang="th">Create New Cost Component Calc</value>
+    </property>
+    <property key="AccountingCreatedApprovedGrandTotal">
+        <value xml:lang="en">Created/Approved Grand Total</value>
+    </property>
+    <property key="AccountingCreatedGrandTotal">
+        <value xml:lang="en">Created Grand Total</value>
     </property>
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
@@ -5436,6 +5448,12 @@
     <property key="AccountingNoRecordFound">
         <value xml:lang="en">No Record Found.</value>
     </property>
+    <property key="AccountingNotAdjustmentFinAccountTrans">
+        <value xml:lang="en">Not a adjustment financial account transaction.</value>
+    </property>
+    <property key="AccountingNotDepositFinAccountTrans">
+        <value xml:lang="en">Not a deposit financial account transaction.</value>
+    </property>
     <property key="AccountingNotModificationRecrationGlAccount">
         <value xml:lang="ar">لا يمكن تعيير هذا دون إعادة إستحداث حساب المحاسبي</value>
         <value xml:lang="en">This cannot be changed without re-creating the GL Account.</value>
@@ -5447,6 +5465,9 @@
         <value xml:lang="ru">Невозможно изменит без повторного создания счета ГК.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนโดยปราศจากการสร้างบัญชีแยกประเภททั่วไปอีกครั้ง.</value>
         <value xml:lang="zh">只有重新新建总账账户才能改变这个数据项。</value>
+    </property>
+    <property key="AccountingNotWithdrawlFinAccountTrans">
+        <value xml:lang="en">Not a withdrawl financial account transaction.</value>
     </property>
     <property key="AccountingNumber">
         <value xml:lang="cs">Číslo</value>
@@ -6847,6 +6868,9 @@
         <value xml:lang="ru">Получить платеж</value>
         <value xml:lang="th">ได้รับการชำระเงิน</value>
         <value xml:lang="zh">接收支付</value>
+    </property>
+    <property key="AccountingReconcile">
+        <value xml:lang="en">Reconcile</value>
     </property>
     <property key="AccountingReferenceNumber">
         <value xml:lang="ar">رقم المرجع</value>
@@ -10955,6 +10979,9 @@
         <value xml:lang="nl">Vind financiele rekening</value>
         <value xml:lang="ru">Поиск финансовых счетов</value>
         <value xml:lang="th">ค้นหางบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
+    </property>
+    <property key="PageTitleFindFinAccountTrans">
+        <value xml:lang="en">Find Financial Account Transactions</value>
     </property>
     <property key="PageTitleFindPaymentGatewayConfig">
         <value xml:lang="en">Find Payment Gateway Config</value>

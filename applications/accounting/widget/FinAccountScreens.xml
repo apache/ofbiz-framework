@@ -171,7 +171,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountTrans"/>
-                <set field="tabButtonItem" value="EditFinAccountTrans"/>
+                <set field="tabButtonItem" value="FinAccountTrans"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
@@ -182,7 +182,6 @@ under the License.
                         <screenlet id="FinAccountTransPanel" title="${uiLabelMap.PageTitleEditFinAccountTrans} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]" collapsible="true">
                             <include-form name="AddFinAccountTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -378,6 +377,91 @@ under the License.
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>  
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindFinAccountTrans">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindFinAccountTrans"/>
+                <set field="tabButtonItem" value="FinAccountTrans"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
+                <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
+                <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
+                <set field="grandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.grandTotal"/>
+                <set field="createdGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.createdGrandTotal"/>
+                <set field="approvedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.approvedGrandTotal"/>
+                <set field="createdApprovedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.createdApprovedGrandTotal"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                            <parameter param-name="finAccountId" from-field="finAccountId"/>
+                        </link>
+                        <section>
+                            <condition>
+                                <if-compare field="finAccount.finAccountTypeId" operator="equals" value="BANK_ACCOUNT"/>
+                            </condition>
+                            <widgets>
+                                <link target="BankReconciliation" text="${uiLabelMap.AccountingBankReconciliation}" style="buttontext">
+                                    <parameter param-name="finAccountId" from-field="finAccountId"/>
+                                    <parameter param-name="statusId" value="FINACT_TRNS_CREATED"/>
+                                </link>
+                            </widgets>
+                        </section>
+                        <screenlet id="FinAccountTransPanel" collapsible="true">
+                            <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
+                        </screenlet>
+                        <platform-specific>
+                            <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BankReconciliation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingBankReconciliation"/>
+                <set field="tabButtonItem" value="FinAccountTrans"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
+                <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
+                <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
+                <set field="createdApprovedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.createdApprovedGrandTotal"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                            <parameter param-name="finAccountId" from-field="finAccountId"/>
+                        </link>
+                        <section>
+                            <actions>
+                                <entity-condition entity-name="GlAccountOrganizationAndClass" list="glAccountOrgAndClassList">
+                                    <condition-expr field-name="organizationPartyId" from-field="defaultOrganizationPartyId"/>
+                                    <order-by field-name="glAccountId"/>
+                                </entity-condition>
+                            </actions>
+                            <widgets>
+                                <screenlet id="FinAccountTransPanel" collapsible="true">
+                                    <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
+                                </screenlet>
+                                <platform-specific>
+                                    <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                </platform-specific>
                             </widgets>
                         </section>
                     </decorator-section>

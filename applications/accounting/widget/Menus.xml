@@ -643,8 +643,8 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </link>
         </menu-item>
-        <menu-item name="EditFinAccountTrans" title="${uiLabelMap.AccountingFinAccountTransations}">
-            <link target="EditFinAccountTrans">
+        <menu-item name="FinAccountTrans" title="${uiLabelMap.AccountingFinAccountTransations}">
+            <link target="FindFinAccountTrans">
                 <parameter param-name="finAccountId"/>
             </link>
         </menu-item>

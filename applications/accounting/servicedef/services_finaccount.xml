@@ -206,6 +206,59 @@ under the License.
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="getFinAccountTransListAndTotals" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransListAndTotals">
+        <description>Financial Account Transaction List and Totals</description>
+        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="finAccountTransTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromTransactionDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruTransactionDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="fromEntryDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruEntryDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="finAccountTransList" type="List" mode="OUT" optional="true"/>
+        <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="createdGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="approvedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="createdApprovedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
+    <service name="getFinAccountTransRunningTotal" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransRunningTotal">
+        <description>Financial Account Running Total</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="runningTotal" type="BigDecimal" mode="INOUT" optional="true"/>
+        <attribute name="finAccountTransRunningTotal" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="reconcileFinAccountTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileFinAccountTrans">
+        <description>Reconcile Financial Accounting Financial Transactions</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="glAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="debitCreditFlag" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="reconcileAdjustmentFinAcctgTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileAdjustmentFinAcctgTrans">
+        <description>Reconcile Financial Accounting Financial Transactions</description>
+        <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="debitCreditFlag" type="String" mode="IN" optional="false"/>
+        <attribute name="errorMessage" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="reconcileDepositFinAcctgTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileDepositFinAcctgTrans">
+        <description>Reconcile Financial Accounting Financial Transactions</description>
+        <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="errorMessage" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="reconcileWithdrawalFinAcctgTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileWithdrawalFinAcctgTrans">
+        <description>Reconcile Financial Accounting Financial Transactions</description>
+        <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="errorMessage" type="String" mode="OUT" optional="true"/>
+    </service>
 
     <!-- service credit account w/ transaction -->
     <service name="createServiceCredit" engine="java"
