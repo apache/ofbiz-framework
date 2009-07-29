@@ -436,7 +436,7 @@ public class WeightPackageSession implements Serializable {
                 packedLine.setShipmentItemSeqId(shipmentItem.getString("shipmentItemSeqId"));
             }
         }
-        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"));
         for (GenericValue orderItem : orderItems) {
             List<GenericValue> orderItemShipGrpInvReserves = orderItem.getRelated("OrderItemShipGrpInvRes");
             if (UtilValidate.isEmpty(orderItemShipGrpInvReserves)) {
@@ -537,7 +537,7 @@ public class WeightPackageSession implements Serializable {
     protected Integer getOrderedQuantity(String orderId) {
         BigDecimal orderedQuantity = ZERO;
         try {
-            List<GenericValue> orderItems = getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+            List<GenericValue> orderItems = getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"));
             for (GenericValue orderItem : orderItems) {
                 orderedQuantity = orderedQuantity.add(orderItem.getBigDecimal("quantity"));
             }

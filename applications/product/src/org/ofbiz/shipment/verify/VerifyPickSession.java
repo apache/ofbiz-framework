@@ -347,7 +347,7 @@ public class VerifyPickSession implements Serializable {
         BigDecimal verifiedQty = ZERO;
         BigDecimal orderedQty = ZERO;
 
-        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+        List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"));
         for (GenericValue orderItem : orderItems) {
             orderedQty = orderedQty.add(orderItem.getBigDecimal("quantity"));
         }
