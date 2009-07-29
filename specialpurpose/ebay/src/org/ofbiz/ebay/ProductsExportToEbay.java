@@ -187,7 +187,7 @@ public class ProductsExportToEbay {
                     GenericValue prod = (GenericValue)productsListItr.next();
                     String title = parseText(prod.getString("internalName"));
                     String description = parseText(prod.getString("internalName"));
-                    String qnt = (String)context.get("qnt");
+                    String qnt = (String)context.get("quantity");
 
                     Element itemElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);

@@ -90,7 +90,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.CommonQuantity}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="text" name="qnt" size="12" maxlength="12" value="1"/>
+                    <input type="text" name="quantity" size="12" maxlength="12" value="1"/>
                 </td>
             </tr>
             <tr>
@@ -139,7 +139,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.FormFieldTitle_payPalEmail}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="text" name="quantity" size="50" maxlength="50"/>
+                    <input type="text" name="payPalEmail" size="50" maxlength="50"/>
                 </td>
             </tr>
             <tr>
