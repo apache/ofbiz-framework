@@ -128,8 +128,9 @@ under the License.
     </simple-method>
     <simple-method method-name="expirePaymentGroupMember" short-description="expire a Payment Group Member">
         <entity-one entity-name="PaymentGroupMember" value-field="paymentGroupMember"/>
-        <now-timestamp field="paymentGroupMember.thruDate"/>
-        <store-value value-field="paymentGroupMember"/>
+        <set-service-fields service-name="updatePaymentGroupMember" map="paymentGroupMember" to-map="updatePaymentGroupMemberMap"/>
+        <now-timestamp field="updatePaymentGroupMemberMap.thruDate"/>
+        <call-service service-name="updatePaymentGroupMember" in-map-name="updatePaymentGroupMemberMap"/>
     </simple-method>
     
     <simple-method method-name="createPayPalPaymentMethod" short-description="Create a PayPal Payment Method">

@@ -96,7 +96,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deletePaymentGroupMember" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="expirePaymentGroupMember" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
                 <parameter param-name="paymentId"/>
                 <parameter param-name="fromDate"/>
