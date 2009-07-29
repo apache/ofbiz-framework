@@ -22,13 +22,15 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 
 List exprListForParameters = [];
-if (paymentMethodTypeId) {
+
     partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, organizationPartyId),
                                                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId)], EntityOperator.OR);
     statusCond = EntityCondition.makeCondition([EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
                                                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR);
- 
+
+    if (paymentMethodTypeId) {
     exprListForParameters.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
+    }
     if (fromDate) {
         exprListForParameters.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
     }
@@ -59,4 +61,3 @@ if (paymentMethodTypeId) {
     } else {
         context.paymentList = paymentListWithoutCreditCard;
     }
-}
