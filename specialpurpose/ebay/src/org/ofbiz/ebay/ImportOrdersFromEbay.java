@@ -573,7 +573,10 @@ public class ImportOrdersFromEbay {
 
                                 String productId = UtilXml.childElementValue(itemElement, "SKU", "");
                                 if (UtilValidate.isEmpty(productId)) {
-                                    productId = retrieveProductIdFromTitle(delegator, (String)order.get("title"));
+                                    productId = UtilXml.childElementValue(itemElement, "ApplicationData", "");
+                                    if (UtilValidate.isEmpty(productId)) {
+                                         productId = retrieveProductIdFromTitle(delegator, (String)order.get("title"));
+                                    }
                                 }
                                 order.put("productId", productId);
 
@@ -1047,6 +1050,7 @@ public class ImportOrdersFromEbay {
         try {
             Map context = FastMap.newInstance();
             context.put("partyId", partyId);
+            context.put("toName", (String)address.get("buyerName"));
             context.put("address1", (String)address.get("shippingAddressStreet1"));
             context.put("address2", (String)address.get("shippingAddressStreet2"));
             context.put("postalCode", (String)address.get("shippingAddressPostalCode"));
@@ -1060,6 +1064,13 @@ public class ImportOrdersFromEbay {
 
             Map summaryResult = dispatcher.runSync("createPartyPostalAddress",context);
             contactMechId = (String)summaryResult.get("contactMechId");
+            // Set also as a billing address
+            context = FastMap.newInstance();
+            context.put("partyId", partyId);
+            context.put("contactMechId", contactMechId);
+            context.put("contactMechPurposeTypeId", "BILLING_LOCATION");
+            context.put("userLogin", userLogin);
+            dispatcher.runSync("createPartyContactMechPurpose", context);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to createAddress", module);
         }
