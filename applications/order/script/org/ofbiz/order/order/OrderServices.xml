@@ -1040,15 +1040,22 @@ under the License.
 	                    <clear-field field="serviceInMap"/>
                     </if-not-empty>
                     <if-compare field="keepAddressBook" operator="equals" value="N">
-                        <set-service-fields service-name="deletePartyContactMech" map="pcmp" to-map="serviceInMap"/>
+                        <set field="serviceInMap.contactMechId" from-field="parameters.billToContactMechId"/>
                         <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
                     </if-compare>
-                    <set field="billToAddressCtx.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
-                    <set-service-fields service-name="createPartyContactMechPurpose" map="billToAddressCtx" to-map="serviceInMap"/>
-                    <set field="serviceInMap.contactMechId" from-field="parameters.shipToContactMechId"/>
-                    <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap">
-                    </call-service>
+                    <!-- Check that the ship-to address doesn't already have a bill-to purpose -->
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
+                        <field-map field-name="contactMechId" from-field="parameters.shipToContactMechId"/>
+                        <field-map field-name="partyId" from-field="partyId"/>
+                        <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                    </entity-and>
+                    <if-empty field="pcmpList">
+	                    <set field="billToAddressCtx.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+	                    <set-service-fields service-name="createPartyContactMechPurpose" map="billToAddressCtx" to-map="serviceInMap"/>
+	                    <set field="serviceInMap.contactMechId" from-field="parameters.shipToContactMechId"/>
+	                    <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap"/>
+                    </if-empty>
                     <log level="info" message="Billing address updated with contactMechId ${parameters.billToContactMechId}"/>
                 </if-compare-field>
             </else>
