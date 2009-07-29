@@ -55,10 +55,12 @@
     <property key="CustomMethod.description.DBL_DECL_DEP_FORMULA">
         <value xml:lang="en">Double decline depreciatiion algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="it">Declina algoritmo doppio svalutazione per cespiti((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
+        <value xml:lang="zh">固定资产双倍下降折旧算法((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
     </property>
     <property key="CustomMethod.description.STR_LINE_DEP_FORMULA">
         <value xml:lang="en">Straight Line depreciatiion algorithm for fixed asset((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="it">Riga semplice algoritmo svalutazione per cespiti((purchaseCost - salvageCost)/expectedLifeInYears)</value>
+        <value xml:lang="zh">固定资产直线折旧算法((purchaseCost - salvageCost)/expectedLifeInYears)</value>
     </property>
     <property key="DataSource.description.ECOMMERCE_SITE">
         <value xml:lang="en">ECOMMERCE_SITE</value>
@@ -79,7 +81,7 @@
         <value xml:lang="fr">Télémarketing</value>
         <value xml:lang="it">Telefonata leader</value>
         <value xml:lang="th">LEAD_COLDCALL</value>
-        <value xml:lang="zh">冷电话</value>
+        <value xml:lang="zh">电话促销</value>
     </property>
     <property key="DataSource.description.LEAD_CONFERENCE">
         <value xml:lang="en">LEAD_CONFERENCE</value>
@@ -173,50 +175,59 @@
         <value xml:lang="en">Banking during the day</value>
         <value xml:lang="fr">Opération banquaire</value>
         <value xml:lang="it">Motivazione ingresso in banca</value>
+        <value xml:lang="zh">日银行交易</value>
     </property>
     <property key="Enumeration.description.BANKING_OUT_REASON">
         <value xml:lang="en">Banking during the day</value>
         <value xml:lang="fr">Opération banquaire</value>
         <value xml:lang="it">Motivazione uscita dalla banca</value>
+        <value xml:lang="zh">日银行交易</value>
     </property>
     <property key="Enumeration.description.CASH_IN_REASON">
         <value xml:lang="en">Petty Cash Paid into Till</value>
         <value xml:lang="fr">Entrée d'espèces dans la caisse</value>
         <value xml:lang="it">Contanti messi in cassa</value>
+        <value xml:lang="zh">零用现金存入备用金</value>
     </property>
     <property key="Enumeration.description.CASH_OUT_REASON">
         <value xml:lang="en">Petty Cash out</value>
         <value xml:lang="fr">Sortie d'espèces de la caisse</value>
         <value xml:lang="it">Contanti usciti dalla cassa</value>
+        <value xml:lang="zh">零用现金取出</value>
     </property>
     <property key="Enumeration.description.CHANGE_IN_REASON">
         <value xml:lang="en">Change added to Till's float</value>
         <value xml:lang="fr">Monnaie ajoutée à l'encours de caisse</value>
         <value xml:lang="it">Cambio aggiunti alla cassa</value>
+        <value xml:lang="zh">添加到备用金的零钱</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_BRONZE">
         <value xml:lang="en">CNT_PRV_BRONZE</value>
         <value xml:lang="fr">Niveau Bronze</value>
         <value xml:lang="it">Bronzo</value>
         <value xml:lang="th">บรอนซ์</value>
+        <value xml:lang="zh">铜</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_GOLD">
         <value xml:lang="en">CNT_PRV_GOLD</value>
         <value xml:lang="fr">Niveau Or</value>
         <value xml:lang="it">Oro</value>
         <value xml:lang="th">ทอง</value>
+        <value xml:lang="zh">金</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_NA_">
         <value xml:lang="en">CNT_PRV_NA_</value>
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
+        <value xml:lang="zh">不可用</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_SILVER">
         <value xml:lang="en">CNT_PRV_SILVER</value>
         <value xml:lang="fr">Niveau argent</value>
         <value xml:lang="it">Argento</value>
         <value xml:lang="th">เงิน</value>
+        <value xml:lang="zh">银</value>
     </property>
     <property key="Enumeration.description.COGS_AVG_COST">
         <value xml:lang="de">Durchschnittliche Kosten</value>
@@ -258,6 +269,7 @@
         <value xml:lang="it">Canale eBay</value>
         <value xml:lang="pt">Canal eBay</value>
         <value xml:lang="th">ช่องทาง eBay</value>
+        <value xml:lang="zh">EBay渠道</value>
     </property>
     <property key="Enumeration.description.EMAIL_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: E-Mail</value>
@@ -268,25 +280,28 @@
         <value xml:lang="ro">Canal E-Mail</value>
         <value xml:lang="ru">Эл. почта</value>
         <value xml:lang="th">ช่องทางอีเมล</value>
-        <value xml:lang="zh">点子邮件渠道</value>
+        <value xml:lang="zh">电子邮件渠道</value>
     </property>
     <property key="Enumeration.description.ESIA_ALWAYS">
         <value xml:lang="en">ESIA_ALWAYS</value>
         <value xml:lang="fr">Toujours inclure</value>
         <value xml:lang="it">Sempre</value>
         <value xml:lang="th">ESIA_ALWAYS</value>
+        <value xml:lang="zh">总是</value>
     </property>
     <property key="Enumeration.description.ESIA_EXCLUDE">
         <value xml:lang="en">ESIA_EXCLUDE</value>
         <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escluso</value>
         <value xml:lang="th">ยกเว้น</value>
+        <value xml:lang="zh">排除</value>
     </property>
     <property key="Enumeration.description.ESIA_INCLUDE">
         <value xml:lang="en">ESIA_INCLUDE</value>
         <value xml:lang="fr">Inclure</value>
         <value xml:lang="it">Incluso</value>
         <value xml:lang="th">รวม</value>
+        <value xml:lang="zh">包含</value>
     </property>
     <property key="Enumeration.description.FAC_BOAT">
         <value xml:lang="de">Boot</value>
@@ -466,12 +481,14 @@
         <value xml:lang="fr">Activer</value>
         <value xml:lang="it">Attiva</value>
         <value xml:lang="th">กระตุ้น</value>
+        <value xml:lang="zh">激活</value>
     </property>
     <property key="Enumeration.description.GC_RELOAD">
         <value xml:lang="en">GC_RELOAD</value>
         <value xml:lang="fr">Recharger</value>
         <value xml:lang="it">Ricaricata</value>
         <value xml:lang="th">ใส่เพิ่ม</value>
+        <value xml:lang="zh">重新加载</value>
     </property>
     <property key="Enumeration.description.IND_AEROSPACE">
         <value xml:lang="en">IND_AEROSPACE</value>
@@ -760,6 +777,7 @@
         <value xml:lang="it">Lingua: Olandese</value>
         <value xml:lang="nl">Taal: Nederlands</value>
         <value xml:lang="th">ภาษา : เนเธอร์แลนด์</value>
+        <value xml:lang="zh">语言：荷兰语</value>
     </property>
     <property key="Enumeration.description.KWTR_LANG_SP">
         <value xml:lang="de">Sprache: Spanisch</value>
@@ -858,6 +876,7 @@
         <value xml:lang="fr">Langue : Français</value>
         <value xml:lang="it">Lingua : Francese</value>
         <value xml:lang="th">ภาษา : ฝรั่งเศส</value>
+        <value xml:lang="zh">语言：法语</value>
     </property>
     <property key="Enumeration.description.ODRSQ_ENF_SEQ">
         <value xml:lang="de">Fortlaufende Folgenummer (keine Lücken, pro Organisation)</value>
@@ -1234,11 +1253,13 @@
         <value xml:lang="en">Order sub-total X last year</value>
         <value xml:lang="fr">Sous-total X commandé l'année dernière</value>
         <value xml:lang="it">Sub-totale ordine X ultimo anno</value>
+        <value xml:lang="zh">去年订单小计X</value>
     </property>
     <property key="Enumeration.description.PPIP_ORST_YEAR">
         <value xml:lang="en">Order sub-total X since beginning of current year</value>
         <value xml:lang="fr">Sous-total X commandé depuis le début de l'année</value>
         <value xml:lang="it">Sub-totale ordine X dall'inizio dell'anno corrente</value>
+        <value xml:lang="zh">今年以来的订单小计X</value>
     </property>
     <property key="Enumeration.description.PPIP_PARTY_CLASS">
         <value xml:lang="de">Akteur Klassifizierung</value>
@@ -1826,6 +1847,7 @@
         <value xml:lang="en">Requirement for order when ATP Reaches Minimum Stock for Product-Facility</value>
         <value xml:lang="fr">Besoin créé quand la quantité disponible (ATP) atteint le stock minimum fixé</value>
         <value xml:lang="it">Fabbisogno per un'ordine quando ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
+        <value xml:lang="zh">当承诺提供数量达到产品-场所的最小存货时的需求订单</value>
     </property>
     <property key="Enumeration.description.PRODRQM_AUTO">
         <value xml:lang="de">Automatisch für jeden Verkaufsauftrag</value>
@@ -1842,11 +1864,13 @@
         <value xml:lang="en">Drop-ship only</value>
         <value xml:lang="fr">Expédition par un tiers seulement</value>
         <value xml:lang="it">Solo spedizione conto terzi</value>
+        <value xml:lang="zh">仅直接送货</value>
     </property>
     <property key="Enumeration.description.PRODRQM_DSATP">
         <value xml:lang="en">Auto drop-ship on low quantity</value>
         <value xml:lang="fr">Expédition par un tiers automatique sur faible quantité</value>
         <value xml:lang="it">Spedizione conto terzi automatica sulla bassa quantità</value>
+        <value xml:lang="zh">在低数量时自动直接送货</value>
     </property>
     <property key="Enumeration.description.PRODRQM_NONE">
         <value xml:lang="de">Kein Bedarf erstellt</value>
@@ -2016,6 +2040,7 @@
         <value xml:lang="fr">Niveau Bronze</value>
         <value xml:lang="it">Sottoscrizione bronzo</value>
         <value xml:lang="th">บรอนซ์</value>
+        <value xml:lang="zh">铜牌</value>
     </property>
     <property key="Enumeration.description.SUBSCRIBE_GOLD">
         <value xml:lang="en">SUBSCRIBE_GOLD</value>
@@ -2023,6 +2048,7 @@
         <value xml:lang="fr">Niveau or</value>
         <value xml:lang="it">Sottoscrizione oro</value>
         <value xml:lang="th">ทอง</value>
+        <value xml:lang="zh">金牌</value>
     </property>
     <property key="Enumeration.description.SUBSCRIBE_SILVER">
         <value xml:lang="en">SUBSCRIBE_SILVER</value>
@@ -2030,6 +2056,7 @@
         <value xml:lang="fr">Niveau argent</value>
         <value xml:lang="it">Sottoscrizione argento</value>
         <value xml:lang="th">เงิน</value>
+        <value xml:lang="zh">银牌</value>
     </property>
     <property key="Enumeration.description.TKCDSRC_COOKIE">
         <value xml:lang="de">Cookie</value>
@@ -2071,6 +2098,7 @@
         <value xml:lang="fr">Mode automatique</value>
         <value xml:lang="it">Automatico</value>
         <value xml:lang="th">อัตโนมัติ</value>
+        <value xml:lang="zh">自动</value>
     </property>
     <property key="Enumeration.description.WAM_MANUAL">
         <value xml:lang="en">WAM_MANUAL</value>
@@ -2078,6 +2106,7 @@
         <value xml:lang="fr">Mode manuel</value>
         <value xml:lang="it">Manuale</value>
         <value xml:lang="th">คู่มือ</value>
+        <value xml:lang="zh">手动</value>
     </property>
     <property key="Enumeration.description.WAT_LOOP">
         <value xml:lang="en">WAT_LOOP</value>
@@ -2085,6 +2114,7 @@
         <value xml:lang="fr">Implémentation de boucle</value>
         <value xml:lang="it">Loop</value>
         <value xml:lang="th">WAT_LOOP</value>
+        <value xml:lang="zh">循环</value>
     </property>
     <property key="Enumeration.description.WAT_NO">
         <value xml:lang="en">WAT_NO</value>
@@ -2092,6 +2122,7 @@
         <value xml:lang="fr">Pas d'implémentation</value>
         <value xml:lang="it">Nessuno</value>
         <value xml:lang="th">WAT_NO</value>
+        <value xml:lang="zh">不执行</value>
     </property>
     <property key="Enumeration.description.WAT_ROUTE">
         <value xml:lang="en">WAT_ROUTE</value>
@@ -2099,6 +2130,7 @@
         <value xml:lang="fr">Route</value>
         <value xml:lang="it">Percorso</value>
         <value xml:lang="th">Route</value>
+        <value xml:lang="zh">路径</value>
     </property>
     <property key="Enumeration.description.WAT_SUBFLOW">
         <value xml:lang="en">WAT_SUBFLOW</value>
@@ -2106,6 +2138,7 @@
         <value xml:lang="fr">Implémentation de flux secondaire</value>
         <value xml:lang="it">Flusso secondario</value>
         <value xml:lang="th">WAT_SUBFLOW</value>
+        <value xml:lang="zh">子流程</value>
     </property>
     <property key="Enumeration.description.WAT_TOOL">
         <value xml:lang="en">WAT_TOOL</value>
@@ -2113,6 +2146,7 @@
         <value xml:lang="fr">Implémentation d'outils</value>
         <value xml:lang="it">Strumento</value>
         <value xml:lang="th">WAT_TOOL</value>
+        <value xml:lang="zh">工具</value>
     </property>
     <property key="Enumeration.description.WDT_ARRAY">
         <value xml:lang="en">ARRAY</value>
@@ -2120,6 +2154,7 @@
         <value xml:lang="fr">Tableau - type complexe</value>
         <value xml:lang="it">Tabella</value>
         <value xml:lang="th">อาเรย์</value>
+        <value xml:lang="zh">数组</value>
     </property>
     <property key="Enumeration.description.WDT_BOOLEAN">
         <value xml:lang="en">BOOLEAN</value>
@@ -2127,6 +2162,7 @@
         <value xml:lang="fr">Booléen - type simple</value>
         <value xml:lang="it">Booleano</value>
         <value xml:lang="th">บูลีน</value>
+        <value xml:lang="zh">布尔值</value>
     </property>
     <property key="Enumeration.description.WDT_DATETIME">
         <value xml:lang="en">DATETIME</value>
@@ -2134,6 +2170,7 @@
         <value xml:lang="fr">Date-Heure - type de base</value>
         <value xml:lang="it">Data ora</value>
         <value xml:lang="th">วันเวลา</value>
+        <value xml:lang="zh">日期时间</value>
     </property>
     <property key="Enumeration.description.WDT_DECLARED">
         <value xml:lang="en">DECLARED</value>
@@ -2141,6 +2178,7 @@
         <value xml:lang="fr">Déclaré</value>
         <value xml:lang="it">Dichiarato</value>
         <value xml:lang="th">DECLARED</value>
+        <value xml:lang="zh">已声明</value>
     </property>
     <property key="Enumeration.description.WDT_ENUMERATION">
         <value xml:lang="en">ENUMERATION</value>
@@ -2148,6 +2186,7 @@
         <value xml:lang="fr">Enumération - type complexe</value>
         <value xml:lang="it">Enumerazione</value>
         <value xml:lang="th">ENUMERATION</value>
+        <value xml:lang="zh">枚举</value>
     </property>
     <property key="Enumeration.description.WDT_FLOAT">
         <value xml:lang="en">FLOAT</value>
@@ -2155,6 +2194,7 @@
         <value xml:lang="fr">Flottant - type de base</value>
         <value xml:lang="it">A virgola mobile</value>
         <value xml:lang="th">โฟลต</value>
+        <value xml:lang="zh">浮点</value>
     </property>
     <property key="Enumeration.description.WDT_INTEGER">
         <value xml:lang="en">INTEGER</value>
@@ -2162,6 +2202,7 @@
         <value xml:lang="fr">Entier - type de base</value>
         <value xml:lang="it">Intero</value>
         <value xml:lang="th">อิทีเจอร์</value>
+        <value xml:lang="zh">整数</value>
     </property>
     <property key="Enumeration.description.WDT_LIST">
         <value xml:lang="en">LIST</value>
@@ -2169,6 +2210,7 @@
         <value xml:lang="fr">Liste - type complexe</value>
         <value xml:lang="it">Lista</value>
         <value xml:lang="th">LIST</value>
+        <value xml:lang="zh">列表</value>
     </property>
     <property key="Enumeration.description.WDT_PERFORMER">
         <value xml:lang="en">PERFORMER</value>
@@ -2176,6 +2218,7 @@
         <value xml:lang="fr">Interprète - type simple</value>
         <value xml:lang="it">Interpretato</value>
         <value xml:lang="th">PERFORMER</value>
+        <value xml:lang="zh">执行者</value>
     </property>
     <property key="Enumeration.description.WDT_RECORD">
         <value xml:lang="en">RECORD</value>
@@ -2183,6 +2226,7 @@
         <value xml:lang="fr">Enregistrement - type complexe</value>
         <value xml:lang="it">Registrato</value>
         <value xml:lang="th">RECORD</value>
+        <value xml:lang="zh">记录</value>
     </property>
     <property key="Enumeration.description.WDT_REFERENCE">
         <value xml:lang="en">REFERENCE</value>
@@ -2190,6 +2234,7 @@
         <value xml:lang="fr">Référence - type de base</value>
         <value xml:lang="it">Riferimento</value>
         <value xml:lang="th">REFERENCE</value>
+        <value xml:lang="zh">引用</value>
     </property>
     <property key="Enumeration.description.WDT_STRING">
         <value xml:lang="en">STRING</value>
@@ -2197,6 +2242,7 @@
         <value xml:lang="fr">Chaînes de caractères - type de base</value>
         <value xml:lang="it">Stringa</value>
         <value xml:lang="th">สตริง</value>
+        <value xml:lang="zh">字符串</value>
     </property>
     <property key="Enumeration.description.WDT_UNION">
         <value xml:lang="en">UNION</value>
@@ -2204,6 +2250,7 @@
         <value xml:lang="fr">Union - type complexe</value>
         <value xml:lang="it">Unione</value>
         <value xml:lang="th">UNION</value>
+        <value xml:lang="zh">联合</value>
     </property>
     <property key="Enumeration.description.WDT_UNIT">
         <value xml:lang="en">UNIT</value>
@@ -2211,6 +2258,7 @@
         <value xml:lang="fr">Unité - type simple</value>
         <value xml:lang="it">Unità</value>
         <value xml:lang="th">หน่วย</value>
+        <value xml:lang="zh">单位</value>
     </property>
     <property key="Enumeration.description.WEB_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: Web</value>
@@ -2314,6 +2362,7 @@
         <value xml:lang="fr">L'activité peut être instanciée plusieurs fois</value>
         <value xml:lang="it">Multiplo</value>
         <value xml:lang="th">หลากหลาย</value>
+        <value xml:lang="zh">多次</value>
     </property>
     <property key="Enumeration.description.WFI_ONCE">
         <value xml:lang="en">WFI_ONCE</value>
@@ -2321,12 +2370,14 @@
         <value xml:lang="fr">L'activité ne peut être instanciée qu'une seule fois (valeur par défaut)</value>
         <value xml:lang="it">Una volta</value>
         <value xml:lang="th">หนึ่งครั้ง</value>
+        <value xml:lang="zh">一次</value>
     </property>
     <property key="Enumeration.description.WGC_FULL_BLOCKED">
         <value xml:lang="en">WGC_FULL_BLOCKED</value>
         <value xml:lang="fr">Structure de réseau limitée à l'emboîtement approprié de SPLIT/JOIN et de boucle (LOOP)</value>
         <value xml:lang="it">Completamente bloccato</value>
         <value xml:lang="th">WGC_FULL_BLOCKED</value>
+        <value xml:lang="zh">完全禁止</value>
     </property>
     <property key="Enumeration.description.WGC_LOOP_BLOCKED">
         <value xml:lang="en">WGC_LOOP_BLOCKED</value>
@@ -2334,6 +2385,7 @@
         <value xml:lang="fr">Structure de réseau limitée à l'emboîtement approprié de boucle (LOOP)</value>
         <value xml:lang="it">Loop bloccato</value>
         <value xml:lang="th">WGC_LOOP_BLOCKED</value>
+        <value xml:lang="zh">禁止循环</value>
     </property>
     <property key="Enumeration.description.WGC_NON_BLOCKED">
         <value xml:lang="en">WGC_NON_BLOCKED</value>
@@ -2341,6 +2393,7 @@
         <value xml:lang="fr">Pas de restriction sur la structure de réseau (valeur par défaut)</value>
         <value xml:lang="it">Non bloccato</value>
         <value xml:lang="th">WGC_NON_BLOCKED</value>
+        <value xml:lang="zh">不禁止</value>
     </property>
     <property key="Enumeration.description.WJT_AND">
         <value xml:lang="en">WJT_AND</value>
@@ -2348,6 +2401,7 @@
         <value xml:lang="fr">Synchronisez toutes les transitions entrantes (les attendre toutes)</value>
         <value xml:lang="it">E</value>
         <value xml:lang="th">WJT_AND</value>
+        <value xml:lang="zh">且</value>
     </property>
     <property key="Enumeration.description.WJT_XOR">
         <value xml:lang="en">WJT_XOR</value>
@@ -2355,6 +2409,7 @@
         <value xml:lang="fr">Aucune synchronisation entrante exigée (départ à la première)</value>
         <value xml:lang="it">X-or</value>
         <value xml:lang="th">WJT_XOR</value>
+        <value xml:lang="zh">异或</value>
     </property>
     <property key="Enumeration.description.WLK_REPEAT_UNTIL">
         <value xml:lang="en">WLK_REPEAT_UNTIL</value>
@@ -2362,6 +2417,7 @@
         <value xml:lang="fr">Boucle de répétition "jusqu'à ce que" : continuer jusqu'à ce que la condition d'évaluation soit vérifiée</value>
         <value xml:lang="it">Ripeti fino a</value>
         <value xml:lang="th">WLK_REPEAT_UNTIL</value>
+        <value xml:lang="zh">重复直至</value>
     </property>
     <property key="Enumeration.description.WLK_WHILE">
         <value xml:lang="en">WLK_WHILE</value>
@@ -2369,6 +2425,7 @@
         <value xml:lang="fr">Boucle de répétition "tant que" : continuer tant que la condition d'évaluation n'est pas vérifiée</value>
         <value xml:lang="it">Mentre</value>
         <value xml:lang="th">WLK_WHILE</value>
+        <value xml:lang="zh">循环</value>
     </property>
     <property key="Enumeration.description.WPM_IN">
         <value xml:lang="en">WPM_IN</value>
@@ -2376,6 +2433,7 @@
         <value xml:lang="fr">Paramètre d'entrée</value>
         <value xml:lang="it">Parametro in ingresso</value>
         <value xml:lang="th">WPM_IN</value>
+        <value xml:lang="zh">输入</value>
     </property>
     <property key="Enumeration.description.WPM_INOUT">
         <value xml:lang="en">WPM_INOUT</value>
@@ -2383,6 +2441,7 @@
         <value xml:lang="fr">Paramètre utilisé pour l'entrée et la sortie</value>
         <value xml:lang="it">Parametro in entrata e uscita</value>
         <value xml:lang="th">WPM_INOUT</value>
+        <value xml:lang="zh">输入输出</value>
     </property>
     <property key="Enumeration.description.WPM_OUT">
         <value xml:lang="en">WPM_OUT</value>
@@ -2390,6 +2449,7 @@
         <value xml:lang="fr">Paramètre de sortie</value>
         <value xml:lang="it">Parametro in uscita</value>
         <value xml:lang="th">WPM_OUT</value>
+        <value xml:lang="zh">输出</value>
     </property>
     <property key="Enumeration.description.WSE_ASYNCHR">
         <value xml:lang="en">WSE_ASYNCHR</value>
@@ -2397,6 +2457,7 @@
         <value xml:lang="fr">Exécution synchrone</value>
         <value xml:lang="it">Esecuzione asincrona</value>
         <value xml:lang="th">WSE_ASYNCHR</value>
+        <value xml:lang="zh">异步</value>
     </property>
     <property key="Enumeration.description.WSE_SYNCHR">
         <value xml:lang="en">WSE_SYNCHR</value>
@@ -2404,6 +2465,7 @@
         <value xml:lang="fr">Exécution synchrone</value>
         <value xml:lang="it">Esecuzione sincrona</value>
         <value xml:lang="th">WSE_SYNCHR</value>
+        <value xml:lang="zh">同步</value>
     </property>
     <property key="Enumeration.description.WST_AND">
         <value xml:lang="en">WST_AND</value>
@@ -2411,6 +2473,7 @@
         <value xml:lang="fr">Autorise les transitions sortantes convergentes</value>
         <value xml:lang="it">E</value>
         <value xml:lang="th">WST_AND</value>
+        <value xml:lang="zh">且</value>
     </property>
     <property key="Enumeration.description.WST_XOR">
         <value xml:lang="en">WST_XOR</value>
@@ -2418,6 +2481,7 @@
         <value xml:lang="fr">Autorise une seule transition sortante</value>
         <value xml:lang="it">X-Or</value>
         <value xml:lang="th">WST_XOR</value>
+        <value xml:lang="zh">异或</value>
     </property>
     <property key="Enumeration.description.WTC_CONDITION">
         <value xml:lang="en">WTC_CONDITION</value>
@@ -2425,6 +2489,7 @@
         <value xml:lang="fr">Condition</value>
         <value xml:lang="it">Condizione</value>
         <value xml:lang="th">เงื่อนไข</value>
+        <value xml:lang="zh">条件</value>
     </property>
     <property key="Enumeration.description.WTC_OTHERWISE">
         <value xml:lang="en">WTC_OTHERWISE</value>
@@ -2432,6 +2497,7 @@
         <value xml:lang="fr">Autrement</value>
         <value xml:lang="it">Altrimenti</value>
         <value xml:lang="th">อีกประการหนึ่ง</value>
+        <value xml:lang="zh">否则</value>
     </property>
     <property key="Enumeration.description.WTL_FROMLOOP">
         <value xml:lang="en">WTL_FROMLOOP</value>
@@ -2439,6 +2505,7 @@
         <value xml:lang="fr">Depuis une boucle</value>
         <value xml:lang="it">Dal loop</value>
         <value xml:lang="th">WTL_FROMLOOP</value>
+        <value xml:lang="zh">自循环</value>
     </property>
     <property key="Enumeration.description.WTL_NOLOOP">
         <value xml:lang="en">WTL_NOLOOP</value>
@@ -2446,6 +2513,7 @@
         <value xml:lang="fr">Pas de boucle</value>
         <value xml:lang="it">Nessun loop</value>
         <value xml:lang="th">WTL_NOLOOP</value>
+        <value xml:lang="zh">不循环</value>
     </property>
     <property key="Enumeration.description.WTL_TOLOOP">
         <value xml:lang="en">WTL_TOLOOP</value>
@@ -2453,6 +2521,7 @@
         <value xml:lang="fr">Vers une boucle</value>
         <value xml:lang="it">Al loop</value>
         <value xml:lang="th">WTL_TOLOOP</value>
+        <value xml:lang="zh">到循环</value>
     </property>
     <property key="Enumeration.description.WTT_APPLICATION">
         <value xml:lang="en">WTT_APPLICATIO</value>
@@ -2460,6 +2529,7 @@
         <value xml:lang="fr">Application</value>
         <value xml:lang="it">Applicazione</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้</value>
+        <value xml:lang="zh">应用</value>
     </property>
     <property key="Enumeration.description.WTT_PROCEDURE">
         <value xml:lang="en">WTT_PROCEDUR</value>
@@ -2467,6 +2537,7 @@
         <value xml:lang="fr">Procédure</value>
         <value xml:lang="it">Procedura</value>
         <value xml:lang="th">ขั้นตอน</value>
+        <value xml:lang="zh">过程</value>
     </property>
     <property key="Enumeration.description._00_">
         <value xml:lang="de">Nicht anwendbar</value>
@@ -2645,6 +2716,7 @@
         <value xml:lang="fr">Liste des prix d'articles parents</value>
         <value xml:lang="it">Prezzo prodotto</value>
         <value xml:lang="th">ราคา</value>
+        <value xml:lang="zh">产品价格</value>
     </property>
     <property key="EnumerationType.description.PROD_PRICE_COND">
         <value xml:lang="de">Produktaktion Bedingung</value>
@@ -2819,6 +2891,7 @@
         <value xml:lang="fr">Albera</value>
         <value xml:lang="it">AB</value>
         <value xml:lang="th">AB</value>
+        <value xml:lang="zh">阿尔伯塔</value>
     </property>
     <property key="Geo.geoName.ABW">
         <value xml:lang="es">Aruba</value>
@@ -3029,6 +3102,7 @@
         <value xml:lang="fr">Colombie-Britannique</value>
         <value xml:lang="it">BC</value>
         <value xml:lang="th">BC</value>
+        <value xml:lang="zh">不列颠哥伦比亚</value>
     </property>
     <property key="Geo.geoName.BDI">
         <value xml:lang="de">Burundi</value>
@@ -3338,6 +3412,7 @@
         <value xml:lang="ru">Код-д'Ивуар</value>
         <value xml:lang="th">โค๊ด ไอวอรี่ </value>
         <value xml:lang="zh">Cote D'ivoire</value>
+        <value xml:lang="zh">科特迪瓦</value>
     </property>
     <property key="Geo.geoName.CMR">
         <value xml:lang="de">Kamerun</value>
@@ -4097,7 +4172,7 @@
         <value xml:lang="ro">Iraq</value>
         <value xml:lang="ru">Ирак</value>
         <value xml:lang="th">อิรัก</value>
-        <value xml:lang="zh">伊朗</value>
+        <value xml:lang="zh">伊拉克</value>
     </property>
     <property key="Geo.geoName.ISL">
         <value xml:lang="de">Island</value>
@@ -4421,7 +4496,7 @@
         <value xml:lang="ro">Maroc</value>
         <value xml:lang="ru">Марокко</value>
         <value xml:lang="th">มอร็อคโค</value>
-        <value xml:lang="zh">摩纳哥</value>
+        <value xml:lang="zh">摩洛哥</value>
     </property>
     <property key="Geo.geoName.MB">
         <value xml:lang="de">Manitoba</value>
@@ -4429,6 +4504,7 @@
         <value xml:lang="fr">Manitoba</value>
         <value xml:lang="it">MB</value>
         <value xml:lang="th">MB</value>
+        <value xml:lang="zh">马尼托巴省</value>
     </property>
     <property key="Geo.geoName.MCO">
         <value xml:lang="de">Monaco</value>
@@ -4440,7 +4516,7 @@
         <value xml:lang="ro">Monaco</value>
         <value xml:lang="ru">Монако</value>
         <value xml:lang="th">โมนาโก</value>
-        <value xml:lang="zh">摩洛哥</value>
+        <value xml:lang="zh">摩纳哥</value>
     </property>
     <property key="Geo.geoName.MDA">
         <value xml:lang="de">Moldawien</value>
@@ -4536,7 +4612,7 @@
         <value xml:lang="ro">Malta</value>
         <value xml:lang="ru">Мальта</value>
         <value xml:lang="th">มอลตา</value>
-        <value xml:lang="zh">马尔他</value>
+        <value xml:lang="zh">马耳他</value>
     </property>
     <property key="Geo.geoName.MMR">
         <value xml:lang="de">Myanmar</value>
@@ -4688,6 +4764,7 @@
         <value xml:lang="fr">Nouveau-Brunswick</value>
         <value xml:lang="it">NB</value>
         <value xml:lang="th">NB</value>
+        <value xml:lang="zh">新不伦瑞克省</value>
     </property>
     <property key="Geo.geoName.NCL">
         <value xml:lang="de">Neukaledonien</value>
@@ -4783,6 +4860,7 @@
         <value xml:lang="fr">Terre-Neuve-et-Labrador</value>
         <value xml:lang="it">NL</value>
         <value xml:lang="th">NL</value>
+        <value xml:lang="zh">纽芬兰和拉布拉多</value>
     </property>
     <property key="Geo.geoName.NLD">
         <value xml:lang="de">Niederlande</value>
@@ -4837,18 +4915,21 @@
         <value xml:lang="fr">Nouvelle-Ecosse</value>
         <value xml:lang="it">NS</value>
         <value xml:lang="th">NS</value>
+        <value xml:lang="zh">新斯科细亚省</value>
     </property>
     <property key="Geo.geoName.NT">
         <value xml:lang="en">NT</value>
         <value xml:lang="fr">Territoires du Nord-Ouest</value>
         <value xml:lang="it">NT</value>
         <value xml:lang="th">NT</value>
+        <value xml:lang="zh">加拿大西北地区</value>
     </property>
     <property key="Geo.geoName.NU">
         <value xml:lang="en">NU</value>
         <value xml:lang="fr">Nunavut</value>
         <value xml:lang="it">NU</value>
         <value xml:lang="th">NU</value>
+        <value xml:lang="zh">努勒维特</value>
     </property>
     <property key="Geo.geoName.NZL">
         <value xml:lang="de">Neuseeland</value>
@@ -4879,6 +4960,7 @@
         <value xml:lang="fr">Ontario</value>
         <value xml:lang="it">Ontario</value>
         <value xml:lang="th">ON</value>
+        <value xml:lang="zh">安大略省</value>
     </property>
     <property key="Geo.geoName.PAK">
         <value xml:lang="de">Pakistan</value>
@@ -4921,6 +5003,7 @@
         <value xml:lang="fr">Île-du-Prince-Edouard</value>
         <value xml:lang="it">PE</value>
         <value xml:lang="th">PE</value>
+        <value xml:lang="zh">爱德华王子岛</value>
     </property>
     <property key="Geo.geoName.PER">
         <value xml:lang="de">Peru</value>
@@ -5071,6 +5154,7 @@
         <value xml:lang="fr">Québec</value>
         <value xml:lang="it">QC</value>
         <value xml:lang="th">QC</value>
+        <value xml:lang="zh">魁北克</value>
     </property>
     <property key="Geo.geoName.REU">
         <value xml:lang="de">Réunion</value>
@@ -5227,6 +5311,7 @@
         <value xml:lang="fr">Saskatchewan</value>
         <value xml:lang="it">Saskatchewan</value>
         <value xml:lang="th">ซัสคาเซวาน </value>
+        <value xml:lang="zh">萨斯喀彻温省</value>
     </property>
     <property key="Geo.geoName.SLB">
         <value xml:lang="de">Salomonen</value>
@@ -5610,7 +5695,7 @@
         <value xml:lang="ro">Insule United States Minor Outlying  </value>
         <value xml:lang="ru">Небольшие отдаленные о-ва Соединенных Штатов</value>
         <value xml:lang="th">ยูเอส ไมเนอร์ เอ๊าไลน์นิ่ง ไอร์แลนด์ </value>
-        <value xml:lang="zh">United States Minor Outlying Islands</value>
+        <value xml:lang="zh">美国本土外小岛屿</value>
     </property>
     <property key="Geo.geoName.URY">
         <value xml:lang="de">Uruguay</value>
@@ -5792,6 +5877,7 @@
         <value xml:lang="fr">Territoire du Yukon</value>
         <value xml:lang="it">Territorio dello Yukon</value>
         <value xml:lang="th">YT</value>
+        <value xml:lang="zh">育空地区</value>
     </property>
     <property key="Geo.geoName.YUG">
         <value xml:lang="de">Jugoslavien</value>
@@ -6004,6 +6090,7 @@
         <value xml:lang="fr">Non réconcilié</value>
         <value xml:lang="it">Non riconciliato</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
+        <value xml:lang="zh">未和解的</value>
     </property>
     <property key="StatusItem.description.AES_PARTLY_RECON">
         <value xml:lang="de">Teilweise geregelt</value>
@@ -6012,6 +6099,7 @@
         <value xml:lang="fr">Partiellement réconcilié</value>
         <value xml:lang="it">Parzialmente riconciliato</value>
         <value xml:lang="th">การยอมรับบางส่วน</value>
+        <value xml:lang="zh">部分和解的</value>
     </property>
     <property key="StatusItem.description.AES_RECONCILED">
         <value xml:lang="de">Geregelt</value>
@@ -6020,6 +6108,7 @@
         <value xml:lang="fr">Réconcilié</value>
         <value xml:lang="it">Riconciliato</value>
         <value xml:lang="th">ทำให้ยอมรับ</value>
+        <value xml:lang="zh">和解的</value>
     </property>
     <property key="StatusItem.description.BLOG_DRAFT">
         <value xml:lang="en">BLOG_DRAFT</value>
@@ -6027,6 +6116,7 @@
         <value xml:lang="fr">Ébauche</value>
         <value xml:lang="it">Bozza blog</value>
         <value xml:lang="th">เอกสารฉบับร่าง</value>
+        <value xml:lang="zh">草稿</value>
     </property>
     <property key="StatusItem.description.BLOG_PUBLISHED">
         <value xml:lang="en">BLOG_PUBLISHED</value>
@@ -6034,6 +6124,7 @@
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Pubblicatore blog</value>
         <value xml:lang="th">ผู้ประกาศ</value>
+        <value xml:lang="zh">已发布</value>
     </property>
     <property key="StatusItem.description.BLOG_REJECTED">
         <value xml:lang="en">BLOG_REJECTED</value>
@@ -6041,6 +6132,7 @@
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato dal blog</value>
         <value xml:lang="th">ปฏิเสธ</value>
+        <value xml:lang="zh">已拒绝</value>
     </property>
     <property key="StatusItem.description.BLOG_SUBMITTED">
         <value xml:lang="en">BLOG_SUBMITTED</value>
@@ -6048,6 +6140,7 @@
         <value xml:lang="fr">Soumis</value>
         <value xml:lang="it">Blog submitter</value>
         <value xml:lang="th">เสนอ</value>
+        <value xml:lang="zh">已提交</value>
     </property>
     <property key="StatusItem.description.CAL_ACCEPTED">
         <value xml:lang="de">Angenommen</value>
@@ -6124,6 +6217,7 @@
     <property key="StatusItem.description.CAL_IN_PLANNING">
         <value xml:lang="en">In Planning</value>
         <value xml:lang="it">In pianificazione</value>
+        <value xml:lang="zh">计划中</value>
     </property>
     <property key="StatusItem.description.CAL_NEEDS_ACTION">
         <value xml:lang="de">Benötigt Massnahmen</value>
@@ -6140,6 +6234,7 @@
     <property key="StatusItem.description.CAL_PLANNED">
         <value xml:lang="en">Planned</value>
         <value xml:lang="it">Pianificato</value>
+        <value xml:lang="zh">已计划</value>
     </property>
     <property key="StatusItem.description.CAL_SENT">
         <value xml:lang="de">Übermittelt</value>
@@ -6180,6 +6275,7 @@
     <property key="StatusItem.description.CLPT_IN_USE">
         <value xml:lang="en">In Use</value>
         <value xml:lang="it">In uso</value>
+        <value xml:lang="zh">使用中</value>
     </property>
     <property key="StatusItem.description.CLPT_PENDING">
         <value xml:lang="de">Wartend auf Annahme</value>
@@ -6208,26 +6304,32 @@
     <property key="StatusItem.description.CNTAP_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.CNTAP_IN_PROCESS">
         <value xml:lang="en">Approval In Process</value>
         <value xml:lang="it">Approvazione in corso</value>
+        <value xml:lang="zh">审批中</value>
     </property>
     <property key="StatusItem.description.CNTAP_NOT_READY">
         <value xml:lang="en">Not Ready for Approval</value>
         <value xml:lang="it">Non pronto per l'approvazione</value>
+        <value xml:lang="zh">没有准备好审批</value>
     </property>
     <property key="StatusItem.description.CNTAP_READY">
         <value xml:lang="en">Ready for Approval</value>
         <value xml:lang="it">Pronto per l'approvazione</value>
+        <value xml:lang="zh">审批准备就绪</value>
     </property>
     <property key="StatusItem.description.CNTAP_REJECTED">
         <value xml:lang="en">Rejected</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="zh">已拒绝</value>
     </property>
     <property key="StatusItem.description.CNTAP_SOFT_REJ">
         <value xml:lang="en">Soft Rejected</value>
         <value xml:lang="it">Rifiutato leggermente</value>
+        <value xml:lang="zh">已婉拒</value>
     </property>
     <property key="StatusItem.description.COM_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -6328,14 +6430,17 @@
     <property key="StatusItem.description.COM_ROLE_COMPLETED">
         <value xml:lang="en">Closed</value>
         <value xml:lang="it">Chiuso</value>
+        <value xml:lang="zh">已关闭</value>
     </property>
     <property key="StatusItem.description.COM_ROLE_CREATED">
         <value xml:lang="en">Created</value>
         <value xml:lang="it">Creato</value>
+        <value xml:lang="zh">已创建</value>
     </property>
     <property key="StatusItem.description.COM_ROLE_READ">
         <value xml:lang="en">Read</value>
         <value xml:lang="it">Letto</value>
+        <value xml:lang="zh">读</value>
     </property>
     <property key="StatusItem.description.COM_UNKNOWN_PARTY">
         <value xml:lang="de">Unbekannter Akteur</value>
@@ -6424,6 +6529,7 @@
     <property key="StatusItem.description.CTNT_AVAILABLE">
         <value xml:lang="en">Available</value>
         <value xml:lang="it">Disponibile</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.CTNT_DEACTIVATED">
         <value xml:lang="de">Deaktiviert</value>
@@ -6500,14 +6606,17 @@
     <property key="StatusItem.description.EMPL_POS_ACTIVE">
         <value xml:lang="en">Active/Open</value>
         <value xml:lang="it">Attivo/Aperto</value>
+        <value xml:lang="zh">有效/开放</value>
     </property>
     <property key="StatusItem.description.EMPL_POS_INACTIVE">
         <value xml:lang="en">Inactive/Closed</value>
         <value xml:lang="it">Inattivo/Chiuso</value>
+        <value xml:lang="zh">无效/已关闭</value>
     </property>
     <property key="StatusItem.description.EMPL_POS_PLANNEDFOR">
         <value xml:lang="en">Planned For</value>
         <value xml:lang="it">Pianificato per</value>
+        <value xml:lang="zh">已计划用于</value>
     </property>
     <property key="StatusItem.description.ESR_COMPLETE">
         <value xml:lang="en">ESR_COMPLETE</value>
@@ -6515,6 +6624,7 @@
         <value xml:lang="fr">Accompli</value>
         <value xml:lang="it">Completata</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
+        <value xml:lang="zh">完成</value>
     </property>
     <property key="StatusItem.description.ESR_DATA_ERROR">
         <value xml:lang="en">ESR_DATA_ERROR</value>
@@ -6522,6 +6632,7 @@
         <value xml:lang="fr">Erreur de données</value>
         <value xml:lang="it">Errore nei dati</value>
         <value xml:lang="th">ข้อมูลผิดพลาด</value>
+        <value xml:lang="zh">数据错误</value>
     </property>
     <property key="StatusItem.description.ESR_NOT_STARTED">
         <value xml:lang="en">ESR_NOT_STARTED</value>
@@ -6529,6 +6640,7 @@
         <value xml:lang="fr">Non démarré</value>
         <value xml:lang="it">Non iniziato</value>
         <value xml:lang="th">ไม่เริ่ม</value>
+        <value xml:lang="zh">未开始</value>
     </property>
     <property key="StatusItem.description.ESR_OTHER_ERROR">
         <value xml:lang="en">ESR_OTHER_ERROR</value>
@@ -6536,6 +6648,7 @@
         <value xml:lang="fr">Autre erreur</value>
         <value xml:lang="it">Altro errore</value>
         <value xml:lang="th">ผิดพลาดอื่น ๆ</value>
+        <value xml:lang="zh">其它错误</value>
     </property>
     <property key="StatusItem.description.ESR_PENDING">
         <value xml:lang="en">ESR_PENDING</value>
@@ -6543,6 +6656,7 @@
         <value xml:lang="fr">Hors ligne en attente</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="th">ยังค้างอยู่</value>
+        <value xml:lang="zh">待定中</value>
     </property>
     <property key="StatusItem.description.ESR_RUNNING">
         <value xml:lang="en">ESR_RUNNING</value>
@@ -6550,6 +6664,7 @@
         <value xml:lang="fr">En fonction</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="th">ดำเนินการ</value>
+        <value xml:lang="zh">运行中</value>
     </property>
     <property key="StatusItem.description.ESR_SERVICE_ERROR">
         <value xml:lang="en">ESR_SERVICE_ERROR</value>
@@ -6557,30 +6672,37 @@
         <value xml:lang="fr">Erreur d'appel au service</value>
         <value xml:lang="it">Errore servizio</value>
         <value xml:lang="th">บริการผิดพลาด</value>
+        <value xml:lang="zh">服务错误</value>
     </property>
     <property key="StatusItem.description.EXST_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.EXST_CANCELLED">
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.EXST_COMPLETE">
         <value xml:lang="en">Complete</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">完成</value>
     </property>
     <property key="StatusItem.description.EXST_DEFINED">
         <value xml:lang="en">Defined</value>
         <value xml:lang="it">Definito</value>
+        <value xml:lang="zh">已定义</value>
     </property>
     <property key="StatusItem.description.EXST_IMPLEMENTED">
         <value xml:lang="en">Implemented</value>
         <value xml:lang="it">Implementato</value>
+        <value xml:lang="zh">已实现</value>
     </property>
     <property key="StatusItem.description.EXST_IN_DESIGN">
         <value xml:lang="en">In Design</value>
         <value xml:lang="it">In progettazione</value>
+        <value xml:lang="zh">设计中</value>
     </property>
     <property key="StatusItem.description.EXST_TESTED">
         <value xml:lang="en">Tested</value>
@@ -6649,54 +6771,67 @@
     <property key="StatusItem.description.FA_ASGN_ASSIGNED">
         <value xml:lang="en">Assigned</value>
         <value xml:lang="it">Assegnato</value>
+        <value xml:lang="zh">已指定</value>
     </property>
     <property key="StatusItem.description.FA_ASGN_DENIED">
         <value xml:lang="en">Request Denied</value>
         <value xml:lang="it">Richiesta negata</value>
+        <value xml:lang="zh">请求被否决</value>
     </property>
     <property key="StatusItem.description.FA_ASGN_REQUESTED">
         <value xml:lang="en">Requested</value>
         <value xml:lang="it">Richiesta</value>
+        <value xml:lang="zh">已请求</value>
     </property>
     <property key="StatusItem.description.FNACT_ACTIVE">
         <value xml:lang="en">Active</value>
         <value xml:lang="it">Attivo</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.FNACT_CANCELLED">
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.FNACT_MANFROZEN">
         <value xml:lang="en">Manually Frozen</value>
         <value xml:lang="it">Congelato manualmente</value>
+        <value xml:lang="zh">手工冻结</value>
     </property>
     <property key="StatusItem.description.FNACT_NEGPENDREPL">
         <value xml:lang="en">Negative Pending Replenishment</value>
         <value xml:lang="it">Rifornimento in attesa negativo</value>
+        <value xml:lang="zh">消极等待补货</value>
     </property>
     <property key="StatusItem.description.HR_DS_COMPLETE">
         <value xml:lang="en">Completed</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.HR_DS_DEFERRED">
         <value xml:lang="en">Deferred</value>
         <value xml:lang="it">Rinviato</value>
+        <value xml:lang="zh">已延迟</value>
     </property>
     <property key="StatusItem.description.HR_DS_INCOMPLETE">
         <value xml:lang="en">Incomplete</value>
         <value xml:lang="it">Incompleto</value>
+        <value xml:lang="zh">未完成</value>
     </property>
     <property key="StatusItem.description.HR_JS_CONTRACTOR">
         <value xml:lang="en">Contractor</value>
         <value xml:lang="it">Imprenditore</value>
+        <value xml:lang="zh">合同工</value>
     </property>
     <property key="StatusItem.description.HR_JS_FULLTIME">
         <value xml:lang="en">Full time</value>
         <value xml:lang="it">Tempo pieno</value>
+        <value xml:lang="zh">全职</value>
     </property>
     <property key="StatusItem.description.HR_JS_PARTTIME">
         <value xml:lang="en">Part time</value>
         <value xml:lang="it">Part time</value>
+        <value xml:lang="zh">兼职</value>
     </property>
     <property key="StatusItem.description.INVOICE_APPROVED">
         <value xml:lang="de">Genehmigt</value>
@@ -6805,6 +6940,7 @@
     <property key="StatusItem.description.INV_ACTIVATED">
         <value xml:lang="en">Activated</value>
         <value xml:lang="it">Attivato</value>
+        <value xml:lang="zh">已激活</value>
     </property>
     <property key="StatusItem.description.INV_AVAILABLE">
         <value xml:lang="de">Verfügbar</value>
@@ -6845,6 +6981,7 @@
     <property key="StatusItem.description.INV_DEACTIVATED">
         <value xml:lang="en">Deactivated</value>
         <value xml:lang="it">Disattivato</value>
+        <value xml:lang="zh">已失效</value>
     </property>
     <property key="StatusItem.description.INV_DEFECTIVE">
         <value xml:lang="de">Defekt</value>
@@ -6873,10 +7010,12 @@
     <property key="StatusItem.description.INV_NS_DEFECTIVE">
         <value xml:lang="en">Defective (Non-Serialized)</value>
         <value xml:lang="it">Difettoso (non-serializzato)</value>
+        <value xml:lang="zh">有缺陷(未序列化)</value>
     </property>
     <property key="StatusItem.description.INV_NS_ON_HOLD">
         <value xml:lang="en">On Hold (Non-Serialized)</value>
         <value xml:lang="it">In attesa (non-serializzato)</value>
+        <value xml:lang="zh">等待(未序列化)</value>
     </property>
     <property key="StatusItem.description.INV_ON_HOLD">
         <value xml:lang="de">In Wartestellung</value>
@@ -6886,6 +7025,7 @@
         <value xml:lang="it">Congelato</value>
         <value xml:lang="ru">В ожидании</value>
         <value xml:lang="th">หยุดไว้ชั่วคราว</value>
+        <value xml:lang="zh">等待</value>
     </property>
     <property key="StatusItem.description.INV_ON_ORDER">
         <value xml:lang="de">Auf Auftrag</value>
@@ -7046,14 +7186,17 @@
     <property key="StatusItem.description.LEAD_ASSIGNED">
         <value xml:lang="en">Assigned</value>
         <value xml:lang="it">Assegnato</value>
+        <value xml:lang="zh">已指派</value>
     </property>
     <property key="StatusItem.description.LEAD_CONVERTED">
         <value xml:lang="en">Converted</value>
         <value xml:lang="it">Convertito</value>
+        <value xml:lang="zh">已转换</value>
     </property>
     <property key="StatusItem.description.LEAD_QUALIFIED">
         <value xml:lang="en">Qualified</value>
         <value xml:lang="it">Qualificato</value>
+        <value xml:lang="zh">合格的</value>
     </property>
     <property key="StatusItem.description.MKTG_CAMP_APPROVED">
         <value xml:lang="de">Genehmigt</value>
@@ -7131,54 +7274,67 @@
     <property key="StatusItem.description.OAGMP_ERRCONFSENT">
         <value xml:lang="en">Error Confirm Sent</value>
         <value xml:lang="it">Errore conferma inviata</value>
+        <value xml:lang="zh">发送确认时出错</value>
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_ERROR">
         <value xml:lang="en">Out Generated - Error</value>
         <value xml:lang="it">Errore genereato fuori</value>
+        <value xml:lang="zh">生成输出 - 错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_SUCCESS">
         <value xml:lang="en">Out Generated - Success</value>
         <value xml:lang="it">Successo genereato fuori</value>
+        <value xml:lang="zh">生成输出 - 成功</value>
     </property>
     <property key="StatusItem.description.OAGMP_PROC_ERROR">
         <value xml:lang="en">In Processed - Error</value>
         <value xml:lang="it">Errore durante l'esecuzione</value>
+        <value xml:lang="zh">处理输入 - 错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_PROC_SUCCESS">
         <value xml:lang="en">In Processed - Success</value>
         <value xml:lang="it">Successo durante l'esecuzione</value>
+        <value xml:lang="zh">处理输入 - 成功</value>
     </property>
     <property key="StatusItem.description.OAGMP_RECEIVED">
         <value xml:lang="en">In Message Received</value>
         <value xml:lang="it">Ricevuto messaggo in entrata</value>
+        <value xml:lang="zh">接收到的输入消息</value>
     </property>
     <property key="StatusItem.description.OAGMP_RECEIVEDOAGMP_RECEIVED">
         <value xml:lang="en">In Message Received</value>
         <value xml:lang="it">Messaggio in ingresso ricevuto</value>
+        <value xml:lang="zh">接收到的输入消息</value>
     </property>
     <property key="StatusItem.description.OAGMP_REC_ERR_CON">
         <value xml:lang="en">Received Error Confirm</value>
         <value xml:lang="it">Conferma errore ricevuto</value>
+        <value xml:lang="zh">接收到的错误确认</value>
     </property>
     <property key="StatusItem.description.OAGMP_REC_SUC_CON">
         <value xml:lang="en">Received Success Confirm</value>
         <value xml:lang="it">Conferma successo ricevuto</value>
+        <value xml:lang="zh">接收到的成功确认</value>
     </property>
     <property key="StatusItem.description.OAGMP_SEND_ERROR">
         <value xml:lang="en">Out Message Send Error</value>
         <value xml:lang="it">Errore invio messaggio all'esterno</value>
+        <value xml:lang="zh">输出消息发送错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_SENT">
         <value xml:lang="en">Out Message Sent</value>
         <value xml:lang="it">Messaggio inviato all'esterno</value>
+        <value xml:lang="zh">输出消息已发送</value>
     </property>
     <property key="StatusItem.description.OAGMP_SYS_ERROR">
         <value xml:lang="en">System Error</value>
         <value xml:lang="it">Errore di sistema</value>
+        <value xml:lang="zh">系统错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_TRIGGERED">
         <value xml:lang="en">Out Message Triggered</value>
         <value xml:lang="it">Intercettato messaggio dall'esterno</value>
+        <value xml:lang="zh">输出消息被触发</value>
     </property>
     <property key="StatusItem.description.ODS_ACCEPTED">
         <value xml:lang="de">Angenommen</value>
@@ -7296,6 +7452,7 @@
         <value xml:lang="it">Congelato</value>
         <value xml:lang="ru">В ожидании</value>
         <value xml:lang="th">การควบคุม</value>
+        <value xml:lang="zh">已保留</value>
     </property>
     <property key="StatusItem.description.ORDER_PROCESSING">
         <value xml:lang="de">In Verarbeitung</value>
@@ -7336,30 +7493,37 @@
     <property key="StatusItem.description.PARTYINV_ACCEPTED">
         <value xml:lang="en">Invitation Accepted</value>
         <value xml:lang="it">Invito accettato</value>
+        <value xml:lang="zh">已接受邀请</value>
     </property>
     <property key="StatusItem.description.PARTYINV_CANCELLED">
         <value xml:lang="en">Invitation Cancelled</value>
         <value xml:lang="it">Invito cancellato</value>
+        <value xml:lang="zh">已取消邀请</value>
     </property>
     <property key="StatusItem.description.PARTYINV_DECLINED">
         <value xml:lang="en">Invitation Declined</value>
         <value xml:lang="it">Invito declinato</value>
+        <value xml:lang="zh">已拒绝邀请</value>
     </property>
     <property key="StatusItem.description.PARTYINV_PENDING">
         <value xml:lang="en">Invitation Pending</value>
         <value xml:lang="it">Invito in attesa</value>
+        <value xml:lang="zh">邀请等待中</value>
     </property>
     <property key="StatusItem.description.PARTYINV_SENT">
         <value xml:lang="en">Invitation Sent</value>
         <value xml:lang="it">Invito inviato</value>
+        <value xml:lang="zh">已发送邀请</value>
     </property>
     <property key="StatusItem.description.PARTY_DISABLED">
         <value xml:lang="en">Disabled</value>
         <value xml:lang="it">Disabilitato</value>
+        <value xml:lang="zh">已禁用</value>
     </property>
     <property key="StatusItem.description.PARTY_ENABLED">
         <value xml:lang="en">Enabled</value>
         <value xml:lang="it">Abilitato</value>
+        <value xml:lang="zh">已启用</value>
     </property>
     <property key="StatusItem.description.PAS_ASSIGNED">
         <value xml:lang="de">Zugewiesen</value>
@@ -7452,6 +7616,7 @@
     <property key="StatusItem.description.PAYMENT_REFUNDED">
         <value xml:lang="en">Refunded</value>
         <value xml:lang="it">Rimborsato</value>
+        <value xml:lang="zh">已退款</value>
     </property>
     <property key="StatusItem.description.PAYMENT_SETTLED">
         <value xml:lang="de">Beglichen</value>
@@ -7468,14 +7633,17 @@
     <property key="StatusItem.description.PICKITEM_CANCELLED">
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="it">Cancellata</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.PICKITEM_COMPLETED">
         <value xml:lang="en">Completed</value>
         <value xml:lang="it">Completata</value>
+        <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.PICKITEM_PENDING">
         <value xml:lang="en">Pending</value>
         <value xml:lang="it">In attesa</value>
+        <value xml:lang="zh">等待中</value>
     </property>
     <property key="StatusItem.description.PICKLIST_ASSIGNED">
         <value xml:lang="de">Zugewiesen</value>
@@ -7528,6 +7696,7 @@
     <property key="StatusItem.description.PICKLIST_PRINTED">
         <value xml:lang="en">Printed</value>
         <value xml:lang="it">Stampata</value>
+        <value xml:lang="zh">已打印</value>
     </property>
     <property key="StatusItem.description.PMNT_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -7600,6 +7769,7 @@
         <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attiva</value>
         <value xml:lang="th">ปฏิบัติการ</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.POSTX_CLOSED">
         <value xml:lang="en">POSTX_CLOSED</value>
@@ -7607,14 +7777,17 @@
         <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiusa</value>
         <value xml:lang="th">ปิด</value>
+        <value xml:lang="zh">已关闭</value>
     </property>
     <property key="StatusItem.description.POSTX_PAID_IN">
         <value xml:lang="en">PaidIn</value>
         <value xml:lang="it">Pagamento in entrata</value>
+        <value xml:lang="zh">借入款</value>
     </property>
     <property key="StatusItem.description.POSTX_PAID_OUT">
         <value xml:lang="en">PaidOut</value>
         <value xml:lang="it">Pagamento in uscita</value>
+        <value xml:lang="zh">借出款</value>
     </property>
     <property key="StatusItem.description.POSTX_RETURNED">
         <value xml:lang="en">POSTX_RETURNED</value>
@@ -7622,6 +7795,7 @@
         <value xml:lang="fr">Retourné</value>
         <value xml:lang="it">Resa</value>
         <value xml:lang="th">การคืนค่า</value>
+        <value xml:lang="zh">退款</value>
     </property>
     <property key="StatusItem.description.POSTX_SOLD">
         <value xml:lang="en">POSTX_SOLD</value>
@@ -7629,6 +7803,7 @@
         <value xml:lang="fr">Vendu</value>
         <value xml:lang="it">Venduta</value>
         <value xml:lang="th">ขาย</value>
+        <value xml:lang="zh">已售</value>
     </property>
     <property key="StatusItem.description.POSTX_VOIDED">
         <value xml:lang="en">POSTX_VOIDED</value>
@@ -7636,26 +7811,32 @@
         <value xml:lang="fr">Vidé</value>
         <value xml:lang="it">Annullata</value>
         <value xml:lang="th">โมฆะ</value>
+        <value xml:lang="zh">无效的</value>
     </property>
     <property key="StatusItem.description.PQV_NOT_VERIFIED">
         <value xml:lang="en">Not verified</value>
         <value xml:lang="it">Non verificato</value>
+        <value xml:lang="zh">未验证</value>
     </property>
     <property key="StatusItem.description.PQV_VERIFIED">
         <value xml:lang="en">Verified</value>
         <value xml:lang="it">Verificato</value>
+        <value xml:lang="zh">已验证</value>
     </property>
     <property key="StatusItem.description.PRJ_ACTIVE">
         <value xml:lang="en">Active</value>
         <value xml:lang="it">Attivo</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.PRJ_CLOSED">
         <value xml:lang="en">Closed</value>
         <value xml:lang="it">Chiuso</value>
+        <value xml:lang="zh">已关闭</value>
     </property>
     <property key="StatusItem.description.PRR_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.PRR_DELETED">
         <value xml:lang="en">Deleted</value>
@@ -7663,6 +7844,7 @@
         <value xml:lang="fr">Supprimé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="th">ลบ</value>
+        <value xml:lang="zh">已删除</value>
     </property>
     <property key="StatusItem.description.PRR_PENDING">
         <value xml:lang="en">Pending</value>
@@ -7670,6 +7852,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospesa</value>
         <value xml:lang="th">ยังค้างอยู่</value>
+        <value xml:lang="zh">等待中</value>
     </property>
     <property key="StatusItem.description.PRTYASGN_ASSIGNED">
         <value xml:lang="de">Zugewiesen</value>
@@ -7782,6 +7965,7 @@
     <property key="StatusItem.description.PRUN_SCHEDULED">
         <value xml:lang="en">Scheduled</value>
         <value xml:lang="it">Schedulato</value>
+        <value xml:lang="zh">已计划</value>
     </property>
     <property key="StatusItem.description.PTS_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -7967,6 +8151,7 @@
         <value xml:lang="it">Proposto</value>
         <value xml:lang="ru">Предложено</value>
         <value xml:lang="th">ถูกเสนอ</value>
+        <value xml:lang="zh">提议</value>
     </property>
     <property key="StatusItem.description.REQ_REJECTED">
         <value xml:lang="de">Abgelehnt</value>
@@ -8019,6 +8204,7 @@
     <property key="StatusItem.description.RETURN_MAN_REFUND">
         <value xml:lang="en">Manual Refund Required</value>
         <value xml:lang="it">Reso manual richiesto</value>
+        <value xml:lang="zh">需要手工退款</value>
     </property>
     <property key="StatusItem.description.RETURN_RECEIVED">
         <value xml:lang="de">Erhalten</value>
@@ -8050,6 +8236,7 @@
         <value xml:lang="fr">Bien défini et utilisable</value>
         <value xml:lang="it">Attiva</value>
         <value xml:lang="th">ปฏิบัติการ</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.ROU_PROD_TEMPLATE">
         <value xml:lang="en">ROU_PROD_TEMPLATE</value>
@@ -8057,6 +8244,7 @@
         <value xml:lang="fr">Utilisé en interne pour l'association entre le produit et le cheminement associés</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="th">เทมเพลต</value>
+        <value xml:lang="zh">产品模板</value>
     </property>
     <property key="StatusItem.description.SERVICE_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -8065,6 +8253,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Annullato</value>
         <value xml:lang="th">ยกเลิก</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.SERVICE_CRASHED">
         <value xml:lang="en">Crashed</value>
@@ -8072,6 +8261,7 @@
         <value xml:lang="fr">Planté</value>
         <value xml:lang="it">Bloccato</value>
         <value xml:lang="th">เงินสด</value>
+        <value xml:lang="zh">已损坏</value>
     </property>
     <property key="StatusItem.description.SERVICE_FAILED">
         <value xml:lang="en">Failed</value>
@@ -8079,6 +8269,7 @@
         <value xml:lang="fr">Échoué</value>
         <value xml:lang="it">Fallito</value>
         <value xml:lang="th">ผิดพลาด</value>
+        <value xml:lang="zh">已失败</value>
     </property>
     <property key="StatusItem.description.SERVICE_FINISHED">
         <value xml:lang="en">Finished</value>
@@ -8086,6 +8277,7 @@
         <value xml:lang="fr">Fini</value>
         <value xml:lang="it">Finito</value>
         <value xml:lang="th">เสร็จสิ้น</value>
+        <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.SERVICE_PENDING">
         <value xml:lang="en">Pending</value>
@@ -8093,14 +8285,17 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="th">ยังค้างอยู่</value>
+        <value xml:lang="zh">等待中</value>
     </property>
     <property key="StatusItem.description.SERVICE_QUEUED">
         <value xml:lang="en">Running</value>
         <value xml:lang="it">In esecuzione</value>
+        <value xml:lang="zh">正在运行</value>
     </property>
     <property key="StatusItem.description.SERVICE_RUNNING">
         <value xml:lang="en">Queued</value>
         <value xml:lang="it">In esecuzione</value>
+        <value xml:lang="zh">已进入队列</value>
     </property>
     <property key="StatusItem.description.SHIPMENT_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -8192,6 +8387,7 @@
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="zh">已接受</value>
     </property>
     <property key="StatusItem.description.SHRSCS_CONFIRMED">
         <value xml:lang="en">SHRSCS_CONFIRMED</value>
@@ -8199,6 +8395,7 @@
         <value xml:lang="fr">Confirmé</value>
         <value xml:lang="it">Confermato</value>
         <value xml:lang="th">ยืนยัน</value>
+        <value xml:lang="zh">已确认</value>
     </property>
     <property key="StatusItem.description.SHRSCS_NOT_STARTED">
         <value xml:lang="en">SHRSCS_NOT_STARTED</value>
@@ -8206,6 +8403,7 @@
         <value xml:lang="fr">Non commencé</value>
         <value xml:lang="it">Non iniziato</value>
         <value xml:lang="th">ไม่เริ่ม</value>
+        <value xml:lang="zh">没有开始</value>
     </property>
     <property key="StatusItem.description.SHRSCS_VOIDED">
         <value xml:lang="en">SHRSCS_VOIDED</value>
@@ -8213,26 +8411,32 @@
         <value xml:lang="fr">Vidé</value>
         <value xml:lang="it">Annullato</value>
         <value xml:lang="th">โมฆะ</value>
+        <value xml:lang="zh">无效</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_ACCEPTED">
         <value xml:lang="en">Accepted</value>
         <value xml:lang="it">Accettato</value>
+        <value xml:lang="zh">已接受</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_CANCELLED">
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_COMPLETED">
         <value xml:lang="en">Completed</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_REQUESTED">
         <value xml:lang="en">Requested</value>
         <value xml:lang="it">Richiesto</value>
+        <value xml:lang="zh">已请求</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_SHIPPED">
         <value xml:lang="en">Shipped</value>
         <value xml:lang="it">Spedito</value>
+        <value xml:lang="zh">已装运</value>
     </property>
     <property key="StatusItem.description.SYNCHRONIZED">
         <value xml:lang="de">Synchronisiert</value>
@@ -8250,78 +8454,97 @@
     <property key="StatusItem.description.TIMESHEET_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.TIMESHEET_COMPLETED">
         <value xml:lang="en">Completed</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.TIMESHEET_IN_PROCESS">
         <value xml:lang="en">In-Process</value>
         <value xml:lang="it">In attesa</value>
+        <value xml:lang="zh">处理中</value>
     </property>
     <property key="StatusItem.description.WEFA_AVAILABLE">
         <value xml:lang="en">Available</value>
         <value xml:lang="it">Disponibile</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.WEFA_IN_USE">
         <value xml:lang="en">In Use</value>
         <value xml:lang="it">In uso</value>
+        <value xml:lang="zh">使用中</value>
     </property>
     <property key="StatusItem.description.WEGS_CANCELLED">
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.WEGS_COMPLETED">
         <value xml:lang="en">Completed</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.WEGS_CREATED">
         <value xml:lang="en">Created</value>
         <value xml:lang="it">Creato</value>
+        <value xml:lang="zh">已创建</value>
     </property>
     <property key="StatusItem.description.WEPA_AV_AVAILABLE">
         <value xml:lang="en">Available</value>
         <value xml:lang="it">Disponibile</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.WEPA_AV_AWAY">
         <value xml:lang="en">Away</value>
         <value xml:lang="it">Lontano</value>
+        <value xml:lang="zh">离开</value>
     </property>
     <property key="StatusItem.description.WEPA_AV_BUSY">
         <value xml:lang="en">Busy</value>
         <value xml:lang="it">Occupato</value>
+        <value xml:lang="zh">忙</value>
     </property>
     <property key="StatusItem.description.WEPR_CANCELLED">
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.WEPR_COMPLETE">
         <value xml:lang="en">Complete</value>
         <value xml:lang="it">Completo</value>
+        <value xml:lang="zh">完成</value>
     </property>
     <property key="StatusItem.description.WEPR_IN_PROGRESS">
         <value xml:lang="en">In Progress</value>
         <value xml:lang="it">In corso</value>
+        <value xml:lang="zh">进行中</value>
     </property>
     <property key="StatusItem.description.WEPR_ON_HOLD">
         <value xml:lang="en">On Hold</value>
         <value xml:lang="it">In attesa</value>
+        <value xml:lang="zh">保留</value>
     </property>
     <property key="StatusItem.description.WEPR_PLANNING">
         <value xml:lang="en">Planning</value>
         <value xml:lang="it">Pianificato</value>
+        <value xml:lang="zh">正在计划</value>
     </property>
     <property key="StatusItem.description.WERV_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.WERV_DELETED">
         <value xml:lang="en">Deleted</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="zh">已删除</value>
     </property>
     <property key="StatusItem.description.WERV_PENDING">
         <value xml:lang="en">Pending</value>
         <value xml:lang="it">In attesa</value>
+        <value xml:lang="zh">等待</value>
     </property>
     <property key="StatusItem.description.WF_ABORTED">
         <value xml:lang="de">Abgebrochen</value>
@@ -8401,6 +8624,7 @@
         <value xml:lang="fr">En cours : article entrant d'inventaire effectué</value>
         <value xml:lang="it">Entrata terminata</value>
         <value xml:lang="th">WIP_INCOMING_DONE</value>
+        <value xml:lang="zh">完成收入</value>
     </property>
     <property key="StatusItem.description.WIP_INCOMING_FULFIL">
         <value xml:lang="en">WIP_INCOMING_FULFIL</value>
@@ -8408,6 +8632,7 @@
         <value xml:lang="fr">En cours : accomplissement d'article entrant</value>
         <value xml:lang="it">Entrata in completamento</value>
         <value xml:lang="th">WIP_INCOMING_FULFIL</value>
+        <value xml:lang="zh">实现收入</value>
     </property>
     <property key="StatusItem.description.WIP_INCOMING_PLAN">
         <value xml:lang="en">WIP_INCOMING_PLAN</value>
@@ -8415,6 +8640,7 @@
         <value xml:lang="fr">En cours : article entrant prévu</value>
         <value xml:lang="it">Entrata pianificata</value>
         <value xml:lang="th">WIP_INCOMING_PLAN</value>
+        <value xml:lang="zh">计划收入</value>
     </property>
     <property key="StatusItem.description.WIP_INCOMING_RES">
         <value xml:lang="en">WIP_INCOMING_RES</value>
@@ -8422,6 +8648,7 @@
         <value xml:lang="fr">En cours : article entrant d'inventaire réservé</value>
         <value xml:lang="it">Entrata riservata</value>
         <value xml:lang="th">WIP_INCOMING_RES</value>
+        <value xml:lang="zh">预留收入</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_DONE">
         <value xml:lang="en">WIP_OUTGOING_DONE</value>
@@ -8429,6 +8656,7 @@
         <value xml:lang="fr">En cours : article sortant d'inventaire effectué</value>
         <value xml:lang="it">Uscita terminata</value>
         <value xml:lang="th">WIP_OUTGOING_DONE</value>
+        <value xml:lang="zh">完成支出</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_FULFIL">
         <value xml:lang="en">WIP_OUTGOING_FULFIL</value>
@@ -8436,6 +8664,7 @@
         <value xml:lang="fr">En cours : accomplissement d'article sortant</value>
         <value xml:lang="it">Uscita in completamento</value>
         <value xml:lang="th">WIP_OUTGOING_FULFIL</value>
+        <value xml:lang="zh">实现支出</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_PLAN">
         <value xml:lang="en">WIP_OUTGOING_PLAN</value>
@@ -8443,6 +8672,7 @@
         <value xml:lang="fr">En cours : article sortant prévu</value>
         <value xml:lang="it">Uscita pianificata</value>
         <value xml:lang="th">WIP_OUTGOING_PLAN</value>
+        <value xml:lang="zh">计划支出</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_RES">
         <value xml:lang="en">WIP_OUTGOING_RES</value>
@@ -8450,6 +8680,7 @@
         <value xml:lang="fr">En cours : article sortant d'inventaire réservé</value>
         <value xml:lang="it">Uscita riservata</value>
         <value xml:lang="th">WIP_OUTGOING_RES</value>
+        <value xml:lang="zh">预留支出</value>
     </property>
     <property key="StatusItem.description.WPS_RELEASED">
         <value xml:lang="en">WPS_RELEASED</value>
@@ -8457,6 +8688,7 @@
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Pubblicata</value>
         <value xml:lang="th">วางจำหน่าย</value>
+        <value xml:lang="zh">已发布</value>
     </property>
     <property key="StatusItem.description.WPS_UNDER_REVISION">
         <value xml:lang="en">WPS_UNDER_REVISION</value>
@@ -8464,6 +8696,7 @@
         <value xml:lang="fr">En cours de révision</value>
         <value xml:lang="it">In revisione</value>
         <value xml:lang="th">WPS_UNDER_REVISION</value>
+        <value xml:lang="zh">修订中</value>
     </property>
     <property key="StatusItem.description.WPS_UNDER_TEST">
         <value xml:lang="en">WPS_UNDER_TEST</value>
@@ -8471,6 +8704,7 @@
         <value xml:lang="fr">En cours de test</value>
         <value xml:lang="it">In test</value>
         <value xml:lang="th">WPS_UNDER_TEST</value>
+        <value xml:lang="zh">测试中</value>
     </property>
     <property key="StatusItem.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
@@ -8506,7 +8740,7 @@
         <value xml:lang="ro">Eveniment Comunicatie</value>
         <value xml:lang="ru">Коммуникационное событие</value>
         <value xml:lang="th">ผลที่ได้จากการติดต่อสื่อสาร</value>
-        <value xml:lang="zh">通讯事件</value>
+        <value xml:lang="zh">沟通事件</value>
     </property>
     <property key="StatusType.description.CONTACTLST_PARTY">
         <value xml:lang="de">Kontaktliste Akteur</value>
@@ -8837,6 +9071,7 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
+        <value xml:lang="zh">不可用</value>
     </property>
     <property key="StatusValidChange.transitionName.CAL_ACCEPTED.CAL_CANCELLED">
         <value xml:lang="de">Annullieren</value>
@@ -10304,6 +10539,7 @@
         <value xml:lang="pt">Colocar Encomenda em Espera</value>
         <value xml:lang="ru">Заказ на ожидание</value>
         <value xml:lang="th">การควบคุมรายการสั่งซื้อ</value>
+        <value xml:lang="zh">保留订单</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_APPROVED.ORDER_PROCESSING">
         <value xml:lang="de">Auftrag in Verarbeitung</value>
@@ -10315,7 +10551,7 @@
         <value xml:lang="ro">Congeleaza comanda</value>
         <value xml:lang="ru">Заказ на ожидание</value>
         <value xml:lang="th">การควบคุมรายการสั่งซื้อ</value>
-        <value xml:lang="zh">保留订单</value>
+        <value xml:lang="zh">正在处理订单</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_APPROVED.ORDER_SENT">
         <value xml:lang="de">Auftrag übermitteln</value>
@@ -10386,6 +10622,7 @@
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="ru">Утвердить заказ</value>
         <value xml:lang="th">เห็นด้วยกับรายการสั่งซื้อ</value>
+        <value xml:lang="zh">批准订单</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_HOLD.ORDER_CANCELLED">
         <value xml:lang="de">Auftrag annullieren</value>
@@ -10396,6 +10633,7 @@
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="ru">Отменить заказ</value>
         <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
+        <value xml:lang="zh">取消订单</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_PROCESSING.ORDER_APPROVED">
         <value xml:lang="de">Auftrag genehmigen</value>
@@ -13278,6 +13516,7 @@
     <property key="Uom.description.OTH_ea">
         <value xml:lang="en">Each</value>
         <value xml:lang="it">Ciascuno</value>
+        <value xml:lang="zh">每个</value>
     </property>
     <property key="Uom.description.OTH_mol">
         <value xml:lang="de">Mol - Stoffmenge</value>
@@ -13294,6 +13533,7 @@
     <property key="Uom.description.OTH_pp">
         <value xml:lang="en">Per Person</value>
         <value xml:lang="it">Per persona</value>
+        <value xml:lang="zh">每人</value>
     </property>
     <property key="Uom.description.PAB">
         <value xml:lang="de">Balboa Panama</value>
@@ -13967,6 +14207,7 @@
         <value xml:lang="pt">Ukrainian Hryvnia</value>
         <value xml:lang="ru">Украинская гривна</value>
         <value xml:lang="th">รีฟเนีย ยูเครน</value>
+        <value xml:lang="zh">乌克兰格里夫那</value>
     </property>
     <property key="Uom.description.UAK">
         <value xml:lang="en">UAK</value>

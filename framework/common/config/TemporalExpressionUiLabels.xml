@@ -23,51 +23,61 @@
         <value xml:lang="en">Temporal Expression</value>
         <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="it">Espressione temporale</value>
+        <value xml:lang="zh">时间表达式</value>
     </property>
     <property key="TemporalExpressionCollections">
         <value xml:lang="en">Expression Collections</value>
         <value xml:lang="fr">Collections d'expression</value>
         <value xml:lang="it">Collezione espressioni</value>
+        <value xml:lang="zh">表达式集合</value>
     </property>
     <property key="TemporalExpressionExclude">
         <value xml:lang="en">Exclude</value>
         <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escludi</value>
+        <value xml:lang="zh">排除</value>
     </property>
     <property key="TemporalExpressionFind">
         <value xml:lang="en">Find Temporal Expression</value>
         <value xml:lang="fr">Rechercher une expression temporelle</value>
         <value xml:lang="it">Ricerca espressione temporale</value>
+        <value xml:lang="zh">查找时间表达式</value>
     </property>
     <property key="TemporalExpressionFreqCount">
         <value xml:lang="en">Frequency Count</value>
         <value xml:lang="fr">Nombre d'occurrences</value>
         <value xml:lang="it">Frequenza conteggio</value>
+        <value xml:lang="zh">频率计数</value>
     </property>
     <property key="TemporalExpressionFreqType">
         <value xml:lang="en">Frequency Type</value>
         <value xml:lang="fr">Type de fréquence</value>
         <value xml:lang="it">Tipo frequenza</value>
+        <value xml:lang="zh">频率类型</value>
     </property>
     <property key="TemporalExpressionId">
         <value xml:lang="en">Expression Id</value>
         <value xml:lang="fr">Réf. d'expression</value>
         <value xml:lang="it">Espressione</value>
+        <value xml:lang="zh">表达式标识</value>
     </property>
     <property key="TemporalExpressionInclude">
         <value xml:lang="en">Include</value>
         <value xml:lang="fr">Inclure</value>
         <value xml:lang="it">Includi</value>
+        <value xml:lang="zh">包含</value>
     </property>
     <property key="TemporalExpressionMaintenance">
         <value xml:lang="en">Temporal Expression Maintenance</value>
         <value xml:lang="fr">maintenance d'expression temporelle</value>
         <value xml:lang="it">Gestione espressioni temporali</value>
+        <value xml:lang="zh">时间表达式维护</value>
     </property>
     <property key="TemporalExpressionOccurrence">
         <value xml:lang="en">Occurrence</value>
         <value xml:lang="fr">Occurrence</value>
         <value xml:lang="it">Occorrenze</value>
+        <value xml:lang="zh">同步</value>
     </property>
     <property key="TemporalExpressionTimeFormat">
         <value xml:lang="en">hh:mm:ss</value>
@@ -78,55 +88,66 @@
         <value xml:lang="en">Expression Type</value>
         <value xml:lang="fr">Type d'expression</value>
         <value xml:lang="it">Tipo espressione</value>
+        <value xml:lang="zh">表达式类型</value>
     </property>
     <property key="TemporalExpression_DATE_RANGE">
         <value xml:lang="en">Date Range</value>
         <value xml:lang="fr">Intervalle entre 2 dates</value>
         <value xml:lang="it">Intervallo di date</value>
+        <value xml:lang="zh">日期范围</value>
     </property>
     <property key="TemporalExpression_DAY_IN_MONTH">
         <value xml:lang="en">Day In Month</value>
         <value xml:lang="fr">Jour du mois</value>
         <value xml:lang="it">Giorno nel mese</value>
+        <value xml:lang="zh">月中的天</value>
     </property>
     <property key="TemporalExpression_DAY_OF_MONTH_RANGE">
         <value xml:lang="en">Day Of Month Range</value>
         <value xml:lang="fr">Intervalle entre 2 jours du mois</value>
         <value xml:lang="it">Giorno del mese nell'intervallo</value>
+        <value xml:lang="zh">月中天的范围</value>
     </property>
     <property key="TemporalExpression_DAY_OF_WEEK_RANGE">
         <value xml:lang="en">Day Of Week Range</value>
         <value xml:lang="fr">Intervalle entre 2 jour de la semaine</value>
         <value xml:lang="it">Giorno della settimana nell'intervallo</value>
+        <value xml:lang="zh">周中天的范围</value>
     </property>
     <property key="TemporalExpression_DIFFERENCE">
         <value xml:lang="en">Difference</value>
         <value xml:lang="fr">Différence</value>
         <value xml:lang="it">Differenze</value>
+        <value xml:lang="zh">差别</value>
     </property>
     <property key="TemporalExpression_FREQUENCY">
         <value xml:lang="en">Frequency</value>
         <value xml:lang="fr">Fréquence</value>
         <value xml:lang="it">Frequenza</value>
+        <value xml:lang="zh">频率</value>
     </property>
     <property key="TemporalExpression_INTERSECTION">
         <value xml:lang="en">Intersection</value>
         <value xml:lang="fr">Intersection</value>
         <value xml:lang="it">Intersezione</value>
+        <value xml:lang="zh">交叉点</value>
     </property>
     <property key="TemporalExpression_MONTH_RANGE">
         <value xml:lang="en">Month Range</value>
         <value xml:lang="fr">Intervalle entre 2 mois</value>
         <value xml:lang="it">Intervallo di mese</value>
+        <value xml:lang="zh">月的范围</value>
     </property>
     <property key="TemporalExpression_TIME_OF_DAY_RANGE">
         <value xml:lang="en">Time Of Day Range</value>
         <value xml:lang="fr">Intervalle entre 2 heures d'un jour</value>
         <value xml:lang="it">Ora nel giorno dell'intervallo</value>
+        <value xml:lang="zh">日中时间的范围</value>
     </property>
     <property key="TemporalExpression_UNION">
         <value xml:lang="en">Union</value>
         <value xml:lang="fr">Union</value>
         <value xml:lang="it">Unione</value>
+        <value xml:lang="zh">联合</value>
     </property>
 </resource>

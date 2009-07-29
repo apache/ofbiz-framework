@@ -24,6 +24,7 @@
         <value xml:lang="fr">La conversion a échoué. "${fval}" est erroné</value>
         <value xml:lang="it">conversione fallita</value>
         <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
+        <value xml:lang="zh">转换失败</value>
     </property>
     <property key="genericWebEvent.already_exists_pk">
         <value xml:lang="en">already exists with primary key: "${primaryKey}; please change</value>
@@ -127,6 +128,7 @@
         <value xml:lang="en">genericWebEvent.not_sufficient_permissions_01Tu</value>
         <value xml:lang="fr">Vous n'avez pas les autorisations nécessaires</value>
         <value xml:lang="it">non hai sufficienti permessi per</value>
+        <value xml:lang="zh">没有足够的权限</value>
     </property>
     <property key="genericWebEvent.not_sufficient_permissions_02">
         <value xml:lang="en">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} or ${entityPlainTableName}_ADMIN needed)</value>
@@ -186,6 +188,7 @@
         <value xml:lang="en">Exception during saving labels to xml file</value>
         <value xml:lang="fr">Erreur durant la sauvegarde des traductions dans le fichier XML</value>
         <value xml:lang="it">Eccezione durante il salvataggio delle labels su file xml</value>
+        <value xml:lang="zh">把标签保存到xml文件时出错</value>
     </property>
     <property key="utilCache.clearAllCaches">
         <value xml:lang="en">Cleared all caches</value>

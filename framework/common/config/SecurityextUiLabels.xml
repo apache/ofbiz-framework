@@ -37,6 +37,7 @@
         <value xml:lang="fr">Erreur lors de l'accès à l'historique des mots de passe : ${errorMessage}.</value>
         <value xml:lang="it">Errore di accesso alla storia dei cambi password: ${errorMessage}.</value>
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่านเปลี่ยนข้อมูล: ${errorMessage}.</value>
+        <value xml:lang="zh">访问密码修改历史记录时出错：${errorMessage}。</value>
     </property>
     <property key="loginevents.error_saving_new_password_email_not_correct_password">
         <value xml:lang="de">Fehler beim Speichern des neuen Passworts, die E-Mail, die sie erhalten wird nicht das korrekte Passwort enthalten, das alte Passwort ist weiterhin gültig: ${errorMessage}.</value>
@@ -179,6 +180,7 @@
         <value xml:lang="ro">Autentificarea acestei aplicatii nu a fost completata (drepturi insuficiente).</value>
         <value xml:lang="ru">Регистрация для этого приложения не может быть завершена (отсутствуют требуемые права).</value>
         <value xml:lang="th">ไม่สามารถลอกอินเข้าสู่โปรแกรมประยุกต์นี้</value>
+        <value xml:lang="zh">无法登录这个应用程序</value>
     </property>
     <property key="loginevents.user_already_logged_in">
         <value xml:lang="de">Dieser User ist bereits eingeloggt.</value>
@@ -226,6 +228,7 @@
         <value xml:lang="ro">Nume Utilizator este gol, va rugam reintroduceti.</value>
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ว่าง, กรุณากรอกข้อมูลอีกครั้ง</value>
+        <value xml:lang="zh">用户名是空的，请重新输入</value>
     </property>
     <property key="loginmapprocs.new_password_missing">
         <value xml:lang="de">Das neue Passwort fehlt.</value>
@@ -388,6 +391,7 @@
         <value xml:lang="en">LDAP authentication failed.</value>
         <value xml:lang="fr">L'authentification LDAP a échouée.</value>
         <value xml:lang="it">Autenticazione LDAP fallita.</value>
+        <value xml:lang="zh">LDAP认证失败。</value>
     </property>
     <property key="loginservices.must_be_logged_in_and_permission_create_login_party_ID_exists">
         <value xml:lang="de">Sie müssen mit den erforderlichen Berechtigungen angemeldet sein um ein user-login mit einer Party ID anzulegen, für eine Party die bereits existiert.</value>
@@ -419,6 +423,7 @@
         <value xml:lang="fr">Le nouveau mot de passe doit être différent de l'ancien.</value>
         <value xml:lang="it">La nuova password deve essere diversa dalla vecchia.</value>
         <value xml:lang="th">รหัสผ่านใหม่ต้องแตกต่างจากอันเดิม</value>
+        <value xml:lang="zh">新密码必须与旧的不同。</value>
     </property>
     <property key="loginservices.not_have_permission_update_password_for_user_login">
         <value xml:lang="de">Sie verfügen nicht über die erforderliche Berechtigungen um das Passwort dieses user-logins zu ändern.</value>
@@ -558,6 +563,7 @@
         <value xml:lang="fr">Le mot de passe ne peut être un de vos derniers ${passwordChangeHistoryLimit} mots de passe.</value>
         <value xml:lang="it">La password non può essere una delle tue ultime ${passwordChangeHistoryLimit} password.</value>
         <value xml:lang="th">รหัสผ่านไม่สามารถเป็นหนึ่งของสิ่งสุดท้ายของคุณ ${passwordChangeHistoryLimit} รหัสผ่าน.</value>
+        <value xml:lang="zh">密码不能是你用过的最近的${passwordChangeHistoryLimit}个密码之一。</value>
     </property>
     <property key="loginservices.password_must_be_least_characters_long">
         <value xml:lang="de">Das Passwort muß aus mindestens ${minPasswordLength} Zeichen bestehen.</value>
