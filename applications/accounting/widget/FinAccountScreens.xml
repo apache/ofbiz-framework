@@ -350,7 +350,7 @@ under the License.
     <screen name="NewDepositSlip">
         <section>
             <actions>
-                <set field="titleProperty" value="AccountingCreateNewDepositSlip"/>
+                <set field="titleProperty" value="AccountingCreateNewDepositSlipForFinancialAccount"/>
                 <set field="tabButtonItem" value="findDepositSlips"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="headerItem" value="FindFinAccount"/>

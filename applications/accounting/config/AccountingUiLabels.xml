@@ -1935,7 +1935,7 @@
         <value xml:lang="th">สร้างบัตรเครดิตใหม่</value>
         <value xml:lang="zh">创建新信用卡</value>
     </property>
-    <property key="AccountingCreateNewDepositSlip">
+    <property key="AccountingCreateNewDepositSlipForFinancialAccount">
         <value xml:lang="en">Create New Deposit Slip for Financial Account: ${finAccountId}</value>
     </property>
     <property key="AccountingCreateNewEftAccount">
