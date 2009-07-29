@@ -175,6 +175,7 @@
         <value xml:lang="ru">Предыдущие поля в сессии не найдены</value>
         <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session
         </value>
+        <value xml:lang="zh">会话中没有找到以前的数据项</value>
     </property>
     <property key="coreEvents.not_authorized_to_call">
         <value xml:lang="de">Sie sind nicht berechtigt, diesen 'non-exported' Service aufzurufen. Sie müssen sich am System anmelden und die Sicherheitsberechtigung SERVICE_INVOKE_ANY besitzen.</value>
@@ -258,11 +259,13 @@
         <value xml:lang="en">This is the blocked message (to be adapted).</value>
         <value xml:lang="fr">Ceci est le message de bloquage (à adapter).</value>
         <value xml:lang="it">Questo è il messaggio bloccante (che deve essere adattato).</value>
+        <value xml:lang="zh">这是(要被采用的)被阻塞的信息。</value>
     </property>
     <property key="protectedviewevents.tarpitted_message">
         <value xml:lang="en">This is the tarpitted message (to be adapted).</value>
         <value xml:lang="fr">Ceci est le message d'engluage (à adapter).</value>
         <value xml:lang="it">Questo è il messaggio (che deve essere adattato).</value>
+        <value xml:lang="zh">这是(要被采用的)被延迟的信息。</value>
     </property>
     <property key="requestHandler.error_call_event">
         <value xml:lang="de">Fehler beim Aufruf eines Events</value>
@@ -278,6 +281,7 @@
     <property key="requestHandler.InsecureFormPostToSecureRequest">
         <value xml:lang="en">Not accepting insecure form data posted to a secure request</value>
         <value xml:lang="es">No permite enviarle un forma inseguro a un pedido seguro</value>
+        <value xml:lang="zh">不接受把不安全的表单数据提交到安全的请求</value>
     </property>
     <property key="simpleEventHandler.event_not_completed">
         <value xml:lang="de">Event konnte nicht abgeschlossen werden</value>
