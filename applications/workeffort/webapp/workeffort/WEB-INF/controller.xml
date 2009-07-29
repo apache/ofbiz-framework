@@ -64,7 +64,7 @@ under the License.
 
     <request-map uri="UserJobs"><security https="true" auth="true"/><response name="success" type="view" value="UserJobs"/></request-map>
 
-    <request-map uri="calendar"><security https="true" auth="true"/><response name="success" type="view" value="calendar"/></request-map>
+    <request-map uri="calendar"><security https="true" auth="true"/><response name="success" type="view" value="calendar" save-home-view="true"/></request-map>
 
     <!--  WorkEffort Related Summary request mappings -->
     <request-map uri="WorkEffortSummary"><security https="true" auth="true"/><response name="success" type="view" value="WorkEffortSummary"/></request-map>
