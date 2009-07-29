@@ -1899,15 +1899,33 @@ under the License.
     <request-map uri="createFinAccountTrans">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createFinAccountTrans"/>
-        <response name="success" type="view" value="EditFinAccountTrans"/>
+        <response name="success" type="view" value="FindFinAccountTrans"/>
         <response name="error" type="view" value="EditFinAccountTrans"/>
     </request-map>
-
+    <request-map uri="FindFinAccountTrans">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindFinAccountTrans"/>
+    </request-map>
     <request-map uri="setFinAccountTransStatus">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="setFinAccountTransStatus"/>
-        <response name="success" type="view" value="EditFinAccountTrans"/>
-        <response name="error" type="view" value="EditFinAccountTrans"/>
+        <response name="success" type="view" value="FindFinAccountTrans"/>
+        <response name="error" type="view" value="FindFinAccountTrans"/>
+    </request-map>
+    <request-map uri="BankReconciliation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BankReconciliation"/>
+    </request-map> 
+    <request-map uri="getFinAccountTransRunningTotal">
+        <event type="jsonservice-multi" invoke="getFinAccountTransRunningTotal"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+    <request-map uri="reconcileFinAccountTrans">
+        <security https="true" auth="false"/>
+        <event type="service-multi" invoke="reconcileFinAccountTrans"/>
+        <response name="success" type="view" value="BankReconciliation"/>
+        <response name="error" type="view" value="BankReconciliation"/>
     </request-map>
 
     <!-- Fin Account Authority-->
@@ -2394,6 +2412,8 @@ under the License.
     <view-map name="EditFinAccountTrans" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountTrans"/>
     <view-map name="EditFinAccountAuths" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountAuths"/>
     <view-map name="EditFinAccountTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditFinAccountTypeGlAccounts"/>
+    <view-map name="FindFinAccountTrans" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccountTrans"/>
+    <view-map name="BankReconciliation" type="screen" page="component://accounting/widget/FinAccountScreens.xml#BankReconciliation"/>
 
     <!-- FixedAsset -->
     <view-map name="ListFixedAssets" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssets"/>

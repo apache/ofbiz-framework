@@ -215,6 +215,7 @@ under the License.
 
     <!-- Chart Of Accounts -->
     <GlAccountOrganization organizationPartyId="Company" glAccountId="100000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="111000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="111100" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="112000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="120000" fromDate="2001-01-01 00:00:00.0"/>
