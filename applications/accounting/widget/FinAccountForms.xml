@@ -252,7 +252,7 @@ under the License.
     </form>
     <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteDepositSlipMember" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="expireDepositSlipMember" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
                 <parameter param-name="paymentId"/>
                 <parameter param-name="fromDate"/>

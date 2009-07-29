@@ -419,9 +419,9 @@ under the License.
         <response name="success" type="view" value="EditPaymentGroupMember"/>
         <response name="error" type="view" value="EditPaymentGroupMember"/>
     </request-map>
-    <request-map uri="deletePaymentGroupMember">
+    <request-map uri="expirePaymentGroupMember">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deletePaymentGroupMember"/>
+        <event type="service" invoke="expirePaymentGroupMember"/>
         <response name="success" type="view" value="EditPaymentGroupMember"/>
         <response name="error" type="view" value="EditPaymentGroupMember"/>
     </request-map>
@@ -1851,9 +1851,9 @@ under the License.
         <response name="success" type="view" value="EditDepositSlipAndMembers"/>
         <response name="error" type="view" value="EditDepositSlipAndMembers"/>
     </request-map>
-    <request-map uri="deleteDepositSlipMember">
+    <request-map uri="expireDepositSlipMember">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deletePaymentGroupMember"/>
+        <event type="service" invoke="expirePaymentGroupMember"/>
         <response name="success" type="view" value="EditDepositSlipAndMembers"/>
         <response name="error" type="view" value="EditDepositSlipAndMembers"/>
     </request-map>

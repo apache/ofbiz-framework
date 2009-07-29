@@ -472,8 +472,8 @@ under the License.
             <field-map field-name="paymentGroupId"/>
         </entity-and>
         <iterate list="paymentGroupMembers" entry="paymentGroupMember">
-            <set-service-fields service-name="deletePaymentGroupMember" map="paymentGroupMember" to-map="deletePaymentGroupMemberMap"/>
-            <call-service service-name="deletePaymentGroupMember" in-map-name="deletePaymentGroupMemberMap"/>
+            <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
+            <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
         </iterate>
     </simple-method>
     
@@ -614,8 +614,8 @@ under the License.
             <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
             <set-service-fields service-name="voidPayment" map="payment" to-map="voidPaymentMap"/>
             <call-service service-name="voidPayment" in-map-name="voidPaymentMap"/>
-            <set-service-fields service-name="deletePaymentGroupMember" map="paymentGroupMember" to-map="deletePaymentGroupMemberMap"/>
-            <call-service service-name="deletePaymentGroupMember" in-map-name="deletePaymentGroupMemberMap"/>
+            <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
+            <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
         </iterate>
     </simple-method>
 </simple-methods>
