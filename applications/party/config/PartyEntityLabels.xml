@@ -82,6 +82,7 @@
         <value xml:lang="it">Provvigione</value>
         <value xml:lang="ru">Комиссии</value>
         <value xml:lang="th">งานที่รับผิดชอบ</value>
+        <value xml:lang="zh">佣金</value>
     </property>
     <property key="AgreementType.description.EMPLOYMENT_AGREEMENT">
         <value xml:lang="de">Anstellung</value>
@@ -97,6 +98,7 @@
     <property key="AgreementType.description.EULA">
         <value xml:lang="en">End User License Agreement</value>
         <value xml:lang="it">Contratto licenza utente finale</value>
+        <value xml:lang="zh">最终用户版权协议</value>
     </property>
     <property key="AgreementType.description.OTHER_AGREEMENT">
         <value xml:lang="de">Andere</value>
@@ -326,6 +328,7 @@
         <value xml:lang="it">Email Fatturazione (AP)</value>
         <value xml:lang="ru">Эл. почта по вопросам оплаты (AP)</value>
         <value xml:lang="th">อีเมล์ใบเสร็จ (AP)</value>
+        <value xml:lang="zh">寄账单电子邮件</value>
     </property>
     <property key="ContactMechPurposeType.description.BILLING_LOCATION">
         <value xml:lang="de">Fakturierungsadresse</value>
@@ -401,6 +404,7 @@
         <value xml:lang="it">Email Pagamento (AR) </value>
         <value xml:lang="ru">Эл. почта по вопросам получения оплаты (AR)</value>
         <value xml:lang="th">การชำระเงินทางอีเมล์ (AR) </value>
+        <value xml:lang="zh">支付电子邮件</value>
     </property>
     <property key="ContactMechPurposeType.description.PAYMENT_LOCATION">
         <value xml:lang="de">Zahlungsadresse</value>
@@ -438,6 +442,7 @@
     <property key="ContactMechPurposeType.description.PHONE_DID">
         <value xml:lang="en">Direct Inward Dialing Phone Number</value>
         <value xml:lang="it">Numero telefono interno diretto per connettersi</value>
+        <value xml:lang="zh">直拨电话号码</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_HOME">
         <value xml:lang="de">Privat Telefonnummer</value>
@@ -475,6 +480,7 @@
     <property key="ContactMechPurposeType.description.PHONE_QUICK">
         <value xml:lang="en">Quick Calls Phone Number</value>
         <value xml:lang="it">Numero di telefono per chiamate veloci</value>
+        <value xml:lang="zh">快速呼叫电话号码</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_SHIPPING">
         <value xml:lang="de">Telefonnummer Versandadresse</value>
@@ -528,6 +534,7 @@
         <value xml:lang="it">Indirizzo Precedente</value>
         <value xml:lang="ru">Предыдущий адрес</value>
         <value xml:lang="th">ที่อยู่ก่อนหน้า</value>
+        <value xml:lang="zh">上一个地址</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_EMAIL">
         <value xml:lang="de">1. E-Mail-Adresse</value>
@@ -690,6 +697,7 @@
         <value xml:lang="fr">Assemblage</value>
         <value xml:lang="it">Assemblatore</value>
         <value xml:lang="th">กลุ่มคน</value>
+        <value xml:lang="zh">装配</value>
     </property>
     <property key="PartyClassificationGroup.description.CADRE">
         <value xml:lang="de">Kader</value>
@@ -698,6 +706,7 @@
         <value xml:lang="fr">Cadre</value>
         <value xml:lang="it">Quadro</value>
         <value xml:lang="th">กลุ่มคน</value>
+        <value xml:lang="zh">骨干</value>
     </property>
     <property key="PartyClassificationGroup.description.CHEMICAL">
         <value xml:lang="en">CHEMICAL</value>
@@ -705,6 +714,7 @@
         <value xml:lang="fr">Chimie</value>
         <value xml:lang="it">Chimico</value>
         <value xml:lang="th">ทางเคมี</value>
+        <value xml:lang="zh">化学</value>
     </property>
     <property key="PartyClassificationGroup.description.DIRECTEUR">
         <value xml:lang="de">Direktor</value>
@@ -713,6 +723,7 @@
         <value xml:lang="fr">Directeur</value>
         <value xml:lang="it">Direttore</value>
         <value xml:lang="th">ผู้จัดการ</value>
+        <value xml:lang="zh">经理</value>
     </property>
     <property key="PartyClassificationGroup.description.EMPLOYE">
         <value xml:lang="de">Angestellter</value>
@@ -721,6 +732,7 @@
         <value xml:lang="fr">Employé</value>
         <value xml:lang="it">Impiegato</value>
         <value xml:lang="th">พนักงาน</value>
+        <value xml:lang="zh">雇员</value>
     </property>
     <property key="PartyClassificationGroup.description.MANUFACTURING">
         <value xml:lang="de">Produktion</value>
@@ -729,6 +741,7 @@
         <value xml:lang="fr">Fabrication</value>
         <value xml:lang="it">Addetto alla produzione</value>
         <value xml:lang="th">การผลิต</value>
+        <value xml:lang="zh">制造</value>
     </property>
     <property key="PartyClassificationType.description.ANNUAL_REVENUE">
         <value xml:lang="de">Jahreseinkommen</value>
@@ -736,12 +749,14 @@
         <value xml:lang="es">Ingresos anuales</value>
         <value xml:lang="fr">Revenus annuels</value>
         <value xml:lang="it">Revisore annuale</value>
+        <value xml:lang="zh">年收入</value>
     </property>
     <property key="PartyClassificationType.description.EEOC_CLASSIFICATION">
         <value xml:lang="en">EEOC (Equal Employment Opportunity Commission)</value>
         <value xml:lang="es">EEOC (Comisión de Oportunidad Laboral Igualitaria de EE.UU.)</value>
         <value xml:lang="fr">HALDE (Haute Autorité de Lutte contre les Discriminations et pour l’Egalité)</value>
         <value xml:lang="it">Commissione pari opportunità impiegati (EEOC)</value>
+        <value xml:lang="zh">公平就业机会委员会</value>
     </property>
     <property key="PartyClassificationType.description.INCOME_CLASSIFICATIO">
         <value xml:lang="de">Einkommen</value>
@@ -781,6 +796,7 @@
         <value xml:lang="es">Número de empleados</value>
         <value xml:lang="fr">Nombre d'employés</value>
         <value xml:lang="it">Numero di impiegati</value>
+        <value xml:lang="zh">雇员数量</value>
     </property>
     <property key="PartyClassificationType.description.ORGANIZATION_CLASSIF">
         <value xml:lang="de">Organisation</value>
@@ -798,6 +814,7 @@
         <value xml:lang="es">Posesión</value>
         <value xml:lang="fr">Propriété</value>
         <value xml:lang="it">Proprietà</value>
+        <value xml:lang="zh">所有权</value>
     </property>
     <property key="PartyClassificationType.description.PERSON_CLASSIFICATIO">
         <value xml:lang="de">Person</value>
@@ -815,6 +832,7 @@
         <value xml:lang="es">Código SIC</value>
         <value xml:lang="fr">Code SIC</value>
         <value xml:lang="it">Codice SIC</value>
+        <value xml:lang="zh">标准工业分类规则</value>
     </property>
     <property key="PartyClassificationType.description.SIZE_CLASSIFICATION">
         <value xml:lang="de">Grösse</value>
@@ -832,30 +850,35 @@
         <value xml:lang="es">Comercio</value>
         <value xml:lang="fr">Commerce</value>
         <value xml:lang="it">Commercio</value>
+        <value xml:lang="zh">贸易</value>
     </property>
     <property key="PartyClassificationType.description.TRADE_RETAIL_CLASSIF">
         <value xml:lang="en">Retail</value>
         <value xml:lang="es">Venta al por menor</value>
         <value xml:lang="fr">Vente au détail</value>
         <value xml:lang="it">Al dettaglio</value>
+        <value xml:lang="zh">零售</value>
     </property>
     <property key="PartyClassificationType.description.TRADE_WHOLE_CLASSIFI">
         <value xml:lang="en">Wholesale</value>
         <value xml:lang="es">Venta al por mayor</value>
         <value xml:lang="fr">Vente en gros</value>
         <value xml:lang="it">All'ingrosso</value>
+        <value xml:lang="zh">批发</value>
     </property>
     <property key="PartyClassificationType.description.VALUE_RATING">
         <value xml:lang="en">Value Rating</value>
         <value xml:lang="es">Clasificación de valor</value>
         <value xml:lang="fr">Estimation de valeur</value>
         <value xml:lang="it">Valore classifica</value>
+        <value xml:lang="zh">价值评级</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.ACCOUNT">
         <value xml:lang="en">Account</value>
         <value xml:lang="es">Cuenta</value>
         <value xml:lang="fr">Compte</value>
         <value xml:lang="it">Utenza</value>
+        <value xml:lang="zh">账户</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.AGENT">
         <value xml:lang="de">Vertreter</value>
@@ -873,6 +896,7 @@
         <value xml:lang="es">Asistente</value>
         <value xml:lang="fr">Assistant</value>
         <value xml:lang="it">Assistente</value>
+        <value xml:lang="zh">助理</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.BLOG_PERMISSION">
         <value xml:lang="de">Blog Benutzer</value>
@@ -890,6 +914,7 @@
         <value xml:lang="es">Descendiente</value>
         <value xml:lang="fr">Enfant</value>
         <value xml:lang="it">Figlio</value>
+        <value xml:lang="zh">下级</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.CONTACT_REL">
         <value xml:lang="de">Kontakt</value>
@@ -940,6 +965,7 @@
         <value xml:lang="es">Amigo</value>
         <value xml:lang="fr">Ami</value>
         <value xml:lang="it">Amico</value>
+        <value xml:lang="zh">朋友</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.GROUP_ROLLUP">
         <value xml:lang="de">Gruppenmitglied</value>
@@ -968,12 +994,14 @@
         <value xml:lang="es">Encargado de lead</value>
         <value xml:lang="fr">Propriétaire principal</value>
         <value xml:lang="it">Proprietario</value>
+        <value xml:lang="zh">线索拥有人</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.LEAD_REL">
         <value xml:lang="en">Lead relation</value>
         <value xml:lang="es">Relación con lead</value>
         <value xml:lang="fr">Relation principale</value>
         <value xml:lang="it">Relazione di proprietà</value>
+        <value xml:lang="zh">线索关系</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.MANAGER">
         <value xml:lang="de">Manager</value>
@@ -992,18 +1020,21 @@
         <value xml:lang="es">Propietario</value>
         <value xml:lang="fr">Propriétaire</value>
         <value xml:lang="it">Proprietario</value>
+        <value xml:lang="zh">拥有人</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.PARENT">
         <value xml:lang="en">Parent</value>
         <value xml:lang="es">Precursor</value>
         <value xml:lang="fr">Parent</value>
         <value xml:lang="it">Padre</value>
+        <value xml:lang="zh">上级</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.PARENT_ACCOUNT">
         <value xml:lang="en">Parent account</value>
         <value xml:lang="es">Cuenta precursora</value>
         <value xml:lang="fr">Compte parent</value>
         <value xml:lang="it">Utenza padre</value>
+        <value xml:lang="zh">上级账户</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.PARTNERSHIP">
         <value xml:lang="de">Partner</value>
@@ -1021,6 +1052,7 @@
         <value xml:lang="es">Informa a</value>
         <value xml:lang="fr">Rapporter à</value>
         <value xml:lang="it">Riporta a</value>
+        <value xml:lang="zh">汇报给</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.SALES_AFFILIATE">
         <value xml:lang="de">Verkaufspartner</value>
@@ -1036,6 +1068,7 @@
     <property key="PartyRelationshipType.partyRelationshipName.SPOUSE">
         <value xml:lang="en">Spouse</value>
         <value xml:lang="it">Sposo</value>
+        <value xml:lang="zh">配偶</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.SUPPLIER_REL">
         <value xml:lang="de">Lieferant</value>
@@ -1174,16 +1207,19 @@
         <value xml:lang="es">Cuenta</value>
         <value xml:lang="fr">Compte</value>
         <value xml:lang="it">Utenza</value>
+        <value xml:lang="zh">账户</value>
     </property>
     <property key="RoleType.description.ACCOUNT_LEAD">
         <value xml:lang="en">Account Lead</value>
         <value xml:lang="es">Cuenta lead</value>
         <value xml:lang="fr">Compte principal</value>
         <value xml:lang="it">Utenza leader</value>
+        <value xml:lang="zh">账户线索</value>
     </property>
     <property key="RoleType.description.ADDRESSEE">
         <value xml:lang="en">Addressee</value>
         <value xml:lang="it">Indirizzi</value>
+        <value xml:lang="zh">收信人</value>
     </property>
     <property key="RoleType.description.ADMIN">
         <value xml:lang="de">Administrator</value>
@@ -1254,6 +1290,7 @@
     <property key="RoleType.description.BCC">
         <value xml:lang="en">Blind Copy</value>
         <value xml:lang="it">Copia nascosta</value>
+        <value xml:lang="zh">密送</value>
     </property>
     <property key="RoleType.description.BILL_FROM_VENDOR">
         <value xml:lang="de">Rechnung vom Lieferant</value>
@@ -1357,6 +1394,7 @@
     <property key="RoleType.description.BULK_CUSTOMER">
         <value xml:lang="en">Bulk Customer</value>
         <value xml:lang="it">Grosso cliente</value>
+        <value xml:lang="zh">大宗客户</value>
     </property>
     <property key="RoleType.description.BUYER">
         <value xml:lang="de">Käufer</value>
@@ -1405,6 +1443,7 @@
     <property key="RoleType.description.CAL_HOST">
         <value xml:lang="en">Calendar Host</value>
         <value xml:lang="it">Ospite calendario</value>
+        <value xml:lang="zh">日历主机</value>
     </property>
     <property key="RoleType.description.CAL_ORGANIZER">
         <value xml:lang="de">Kalenderorganisator</value>
@@ -1453,6 +1492,7 @@
     <property key="RoleType.description.CC">
         <value xml:lang="en">Carbon Copy</value>
         <value xml:lang="it">Copia conoscenza</value>
+        <value xml:lang="zh">复印</value>
     </property>
     <property key="RoleType.description.CLIENT">
         <value xml:lang="de">Klient</value>
@@ -1492,6 +1532,7 @@
         <value xml:lang="es">Participante de comunicación</value>
         <value xml:lang="fr">Participant à la communication</value>
         <value xml:lang="it">Partecipante alle comunicazioni</value>
+        <value xml:lang="zh">沟通参与人</value>
     </property>
     <property key="RoleType.description.COMPETITOR">
         <value xml:lang="de">Mitbewerber</value>
@@ -1529,30 +1570,37 @@
     <property key="RoleType.description.CONTENT">
         <value xml:lang="en">Content Member</value>
         <value xml:lang="it">Membro contenuto</value>
+        <value xml:lang="zh">内容成员</value>
     </property>
     <property key="RoleType.description.CONTENT_ADMIN">
         <value xml:lang="en">Content Administrator</value>
         <value xml:lang="it">Amministratore contenuto</value>
+        <value xml:lang="zh">内容管理员</value>
     </property>
     <property key="RoleType.description.CONTENT_AUTHOR">
         <value xml:lang="en">Content Author</value>
         <value xml:lang="it">Autore contenuto</value>
+        <value xml:lang="zh">内容作者</value>
     </property>
     <property key="RoleType.description.CONTENT_EDITOR">
         <value xml:lang="en">Content Editor</value>
         <value xml:lang="it">Redattore contenuto</value>
+        <value xml:lang="zh">内容编辑</value>
     </property>
     <property key="RoleType.description.CONTENT_GUEST">
         <value xml:lang="en">Content Guest</value>
         <value xml:lang="it">Ospite contenuto</value>
+        <value xml:lang="zh">内容访客</value>
     </property>
     <property key="RoleType.description.CONTENT_PUBLISHER">
         <value xml:lang="en">Content Publisher</value>
         <value xml:lang="it">Editore contenuto</value>
+        <value xml:lang="zh">内容发布者</value>
     </property>
     <property key="RoleType.description.CONTENT_USER">
         <value xml:lang="en">Content User</value>
         <value xml:lang="it">Utente contenuto</value>
+        <value xml:lang="zh">内容用户</value>
     </property>
     <property key="RoleType.description.CONTRACTOR">
         <value xml:lang="de">Vertragspartner</value>
@@ -1623,6 +1671,7 @@
     <property key="RoleType.description.EMAIL_ADMIN">
         <value xml:lang="en">Email Administrator</value>
         <value xml:lang="it">Amministratore email</value>
+        <value xml:lang="zh">电子邮件管理员</value>
     </property>
     <property key="RoleType.description.EMPLOYEE">
         <value xml:lang="de">Angestellter</value>
@@ -1660,18 +1709,22 @@
     <property key="RoleType.description.FAM_ASSIGNEE">
         <value xml:lang="en">Fixed Asset Maint Assignee</value>
         <value xml:lang="it">Assegna manutenzione cespite</value>
+        <value xml:lang="zh">固定资产维修保养受托人</value>
     </property>
     <property key="RoleType.description.FAM_MANAGER">
         <value xml:lang="en">Maintenance Manager or Supervisor</value>
         <value xml:lang="it">Gestione manutenzione o supervisore</value>
+        <value xml:lang="zh">维修保养管理员或监管者</value>
     </property>
     <property key="RoleType.description.FAM_SUPPLIER">
         <value xml:lang="en">Maintenance Supplier or Service</value>
         <value xml:lang="it">Manutenzione fornitore o servizio</value>
+        <value xml:lang="zh">维修保养供应商或服务</value>
     </property>
     <property key="RoleType.description.FAM_WORKER">
         <value xml:lang="en">Maintenance Worker</value>
         <value xml:lang="it">Impiegato manutenzione</value>
+        <value xml:lang="zh">维修保养工人</value>
     </property>
     <property key="RoleType.description.HOSTING_SERVER">
         <value xml:lang="de">Hosting Server</value>
@@ -1765,6 +1818,7 @@
         <value xml:lang="en">Manufacturer</value>
         <value xml:lang="fr">Fabricant</value>
         <value xml:lang="it">Produttore</value>
+        <value xml:lang="zh">制造商</value>
     </property>
     <property key="RoleType.description.ORDER_CLERK">
         <value xml:lang="de">Einkäufer</value>
@@ -1802,6 +1856,7 @@
     <property key="RoleType.description.ORIGINATOR">
         <value xml:lang="en">Originator</value>
         <value xml:lang="it">Iniziatore</value>
+        <value xml:lang="zh">发起人</value>
     </property>
     <property key="RoleType.description.OTHER_INTERNAL_ORGAN">
         <value xml:lang="de">Andere interne Organisationseinheit</value>
@@ -2120,10 +2175,12 @@
     <property key="RoleType.description.SPONSOR">
         <value xml:lang="en">Sponsor</value>
         <value xml:lang="it">Sponsorizzatore</value>
+        <value xml:lang="zh">赞助商</value>
     </property>
     <property key="RoleType.description.SPOUSE">
         <value xml:lang="en">Spouse</value>
         <value xml:lang="it">Sposo</value>
+        <value xml:lang="zh">配偶</value>
     </property>
     <property key="RoleType.description.STOCKER">
         <value xml:lang="de">Magaziner</value>
@@ -2294,14 +2351,17 @@
     <property key="TermType.description.CFR">
         <value xml:lang="en">Incoterm Cost and Freight</value>
         <value xml:lang="it">Costi e spese di trasporto incoterm</value>
+        <value xml:lang="zh">国际贸易成本加运费价格</value>
     </property>
     <property key="TermType.description.CIF">
         <value xml:lang="en">Incoterm Cost, Insurance and Freight</value>
         <value xml:lang="it">Costi, assicurazione e spese di trasporto incoterm</value>
+        <value xml:lang="zh">国际贸易到岸价格（成本、保险费加运费）</value>
     </property>
     <property key="TermType.description.CIP">
         <value xml:lang="en">Incoterm Carriage and Insurance Paid to</value>
         <value xml:lang="it">Trasporto e assicurazione pagata incoterm</value>
+        <value xml:lang="zh">国际贸易运费、保险费付至</value>
     </property>
     <property key="TermType.description.CLAUSE_FOR_RENEWAL">
         <value xml:lang="de">Erneuerungsbedingungen</value>
@@ -2329,26 +2389,32 @@
     <property key="TermType.description.CPT">
         <value xml:lang="en">Incoterm Carriage Paid To</value>
         <value xml:lang="it">Trasporto pagata incoterm</value>
+        <value xml:lang="zh">国际贸易运费付至</value>
     </property>
     <property key="TermType.description.DAF">
         <value xml:lang="en">Incoterm Delivered At Frontier</value>
         <value xml:lang="it">Consegnato alla frontiera incoterm</value>
+        <value xml:lang="zh">国际贸易边境交货</value>
     </property>
     <property key="TermType.description.DDP">
         <value xml:lang="en">Incoterm Delivered Duty Paid</value>
         <value xml:lang="it">Dazio pagato alla consegna incoterm</value>
+        <value xml:lang="zh">国际贸易完税后交货价</value>
     </property>
     <property key="TermType.description.DDU">
         <value xml:lang="en">Incoterm Delivered Duty Unpaid</value>
         <value xml:lang="it">Dazio non pagato alla consegna incoterm</value>
+        <value xml:lang="zh">国际贸易未完税交货价</value>
     </property>
     <property key="TermType.description.DEQ">
         <value xml:lang="en">Incoterm Delivered Ex Quay</value>
         <value xml:lang="it">Consegnato ex banchina incoterm</value>
+        <value xml:lang="zh">国际贸易目的港码头交货价</value>
     </property>
     <property key="TermType.description.DES">
         <value xml:lang="en">Incoterm Delivered Ex Ship</value>
         <value xml:lang="it">Consegnato ex spedizione incoterm</value>
+        <value xml:lang="zh">国际贸易目的港船上交货</value>
     </property>
     <property key="TermType.description.EXCLUSIVE_RELATIONSH">
         <value xml:lang="de">Exklusivverhältnis</value>
@@ -2365,14 +2431,17 @@
     <property key="TermType.description.EXW">
         <value xml:lang="en">Incoterm Ex Works</value>
         <value xml:lang="it">Ex fabbrica incoterm</value>
+        <value xml:lang="zh">国际贸易工厂交货价</value>
     </property>
     <property key="TermType.description.FAS">
         <value xml:lang="en">Incoterm Free Alongside Ship</value>
         <value xml:lang="it">Gratis accanto alla spedizione incoterm</value>
+        <value xml:lang="zh">国际贸易(启运地)船边交货价格</value>
     </property>
     <property key="TermType.description.FCA">
         <value xml:lang="en">Incoterm Free Carrier</value>
         <value xml:lang="it">Gratis spedizioniere incoterm</value>
+        <value xml:lang="zh">国际贸易离岸价</value>
     </property>
     <property key="TermType.description.FINANCIAL_TERM">
         <value xml:lang="de">Finanzielles</value>
@@ -2503,18 +2572,22 @@
     <property key="TermType.description.FIN_PAY_NETDAYS_1">
         <value xml:lang="en">Payment net days, part 1</value>
         <value xml:lang="it">Pagamento netto giorni, parte 1</value>
+        <value xml:lang="zh">支付净天数，第一部分</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_2">
         <value xml:lang="en">Payment net days, part 2</value>
         <value xml:lang="it">Pagamento netto giorni, parte 2</value>
+        <value xml:lang="zh">支付净天数，第二部分</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_3">
         <value xml:lang="en">Payment net days, part 3</value>
         <value xml:lang="it">Pagamento netto giorni, parte 3</value>
+        <value xml:lang="zh">支付净天数，第三部分</value>
     </property>
     <property key="TermType.description.FOB">
         <value xml:lang="en">Incoterm Free On Board</value>
         <value xml:lang="it">Gratis a bordo incoterm</value>
+        <value xml:lang="zh">国际贸易离岸价格</value>
     </property>
     <property key="TermType.description.INCENTIVE">
         <value xml:lang="de">Prämie</value>
@@ -2531,6 +2604,7 @@
     <property key="TermType.description.INCO_TERM">
         <value xml:lang="en">Incoterm</value>
         <value xml:lang="it">Incoterm</value>
+        <value xml:lang="zh">国际贸易</value>
     </property>
     <property key="TermType.description.INDEMNIFICATION">
         <value xml:lang="de">Entschädigung</value>
@@ -2583,14 +2657,17 @@
     <property key="TermType.description.PURCHASING">
         <value xml:lang="en">Purchasing</value>
         <value xml:lang="it">Acquisto</value>
+        <value xml:lang="zh">采购</value>
     </property>
     <property key="TermType.description.PURCH_FREIGHT">
         <value xml:lang="en">Preferred Freight</value>
         <value xml:lang="it">Spese di trasporto preferite</value>
+        <value xml:lang="zh">优先货运</value>
     </property>
     <property key="TermType.description.PURCH_VENDOR_ID">
         <value xml:lang="en">Vendor Customer ID</value>
         <value xml:lang="it">Cliente fornitore</value>
+        <value xml:lang="zh">供货商客户标识</value>
     </property>
     <property key="TermType.description.THRESHOLD">
         <value xml:lang="de">Grenzwert</value>

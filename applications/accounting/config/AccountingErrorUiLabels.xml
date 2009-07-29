@@ -31,6 +31,7 @@
         <value xml:lang="it">Fallita esecuzione del servizio createPaymentFromPreference</value>
         <value xml:lang="nl">OFBiz-service 'createPaymentFromPreference' is niet uitgevoerd.</value>
         <value xml:lang="th">การดำเนินการผิดพลาด createPaymentFromPreference</value>
+        <value xml:lang="zh">执行服务createPaymentFromPreference时失败</value>
     </property>
     <property key="payPalEvents.noValidOrderIdReturned">
         <value xml:lang="en">No valid orderId returned with PayPal Callback.</value>
@@ -38,6 +39,7 @@
         <value xml:lang="it">Nessun ordine valido restituito da PayPal.</value>
         <value xml:lang="nl">Geen valide order-ID teruggegeven door PayPal Callback.</value>
         <value xml:lang="th">ไม่มีค่ารหัสรายการสั่งซื้อคืนกลับมาด้วยการเรียกกลับของ paypal</value>
+        <value xml:lang="zh">贝宝返回的信息中没有有效的orderId（订单编号）。</value>
     </property>
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>
@@ -45,6 +47,7 @@
         <value xml:lang="it">Ordine PayPal precedente è stato annullato.</value>
         <value xml:lang="nl">Vorige PayPal-opdracht is geannuleerd.</value>
         <value xml:lang="th">กลับไปยังรายการpaypalที่ถูกยกเลิก</value>
+        <value xml:lang="zh">之前的贝宝订单已经被取消了。</value>
     </property>
     <property key="payPalEvents.problemsConnectingWithPayPal">
         <value xml:lang="en">Problems connecting with PayPal, please contact customer service.</value>
@@ -52,6 +55,7 @@
         <value xml:lang="it">Problemi nella connessione a PayPal, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen met de PayPal-verbinding. Neem contact op met de customer service van PayPal.</value>
         <value xml:lang="th">ปัญหาในการเชิ่อมต่อด้วย paypal , กรุณาติดต่อบริการลูกค้า</value>
+        <value xml:lang="zh">连接贝宝失败，请与客户服务联系。</value>
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems getting authentication user.</value>
@@ -59,6 +63,7 @@
         <value xml:lang="it">Problemi durante autenticazione utente</value>
         <value xml:lang="nl">Problemen met authenticatie gebruiker.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้สัญลักษณ์ผู้ใช้</value>
+        <value xml:lang="zh">获得认证用户时出现问题。</value>
     </property>
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
@@ -66,6 +71,7 @@
         <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen verkrijgen Handelaarsconfiguratie. Neem contact op met de customer service.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
+        <value xml:lang="zh">获得商家配置时出错，请与客户服务联系。</value>
     </property>
     <property key="payPalEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems getting order header.</value>
@@ -73,6 +79,7 @@
         <value xml:lang="it">Problemi nel ricavare la testata ordine.</value>
         <value xml:lang="nl">Problemen verkrijgen orderkop.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้หัวข้อรายการสั่งซื้อ</value>
+        <value xml:lang="zh">获得订单头时出错。</value>
     </property>
     <property key="worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>

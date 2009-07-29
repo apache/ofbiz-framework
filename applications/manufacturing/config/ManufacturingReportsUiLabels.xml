@@ -211,10 +211,12 @@
     <property key="ManufacturingProductionRunComponentsByFeature">
         <value xml:lang="en">Production Runs Componentes By Feature</value>
         <value xml:lang="it">Componenti ordini di produzione per caratteristica</value>
+        <value xml:lang="zh">按特征的生产运行组件</value>
     </property>
     <property key="ManufacturingProductionRunInfoAndOrder">
         <value xml:lang="en">Production Runs Info And Order</value>
         <value xml:lang="it">Ordini di produzione ifnroper caratteristica</value>
+        <value xml:lang="zh">生产运行信息和订单</value>
     </property>
     <property key="ManufacturingProductsComponents">
         <value xml:lang="en">Products Components</value>
@@ -228,6 +230,7 @@
      <property key="ManufacturingProductsStacks">
         <value xml:lang="en">Products Stacks</value>
         <value xml:lang="it">Pila prodotti</value>
+        <value xml:lang="zh">产品堆垛</value>
     </property>
     <property key="ManufacturingQtyM2">
         <value xml:lang="en">Square meters</value>
@@ -272,7 +275,7 @@
         <value xml:lang="it">Richiedente</value>
         <value xml:lang="ro">Petitionar</value>
         <value xml:lang="th">ผู้ยื่นคำร้อง</value>
-        <value xml:lang="zh">Requester</value>
+        <value xml:lang="zh">需求方</value>
     </property>
     <property key="ManufacturingShipTo">
         <value xml:lang="en">Ship To</value>

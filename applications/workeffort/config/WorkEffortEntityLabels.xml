@@ -90,6 +90,7 @@
         <value xml:lang="fr">Phase</value>
         <value xml:lang="it">Fase</value>
         <value xml:lang="th">ขั้นตอน</value>
+        <value xml:lang="zh">阶段</value>
     </property>
     <property key="WorkEffortAssocType.description.WORK_EFF_PRECEDENCY">
         <value xml:lang="en">Precedency</value>
@@ -107,6 +108,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="th">ภารกิจ</value>
+        <value xml:lang="zh">任务</value>
     </property>
     <property key="WorkEffortAssocType.description.WORK_EFF_TEMPLATE">
         <value xml:lang="en">Template of</value>
@@ -286,10 +288,12 @@
     <property key="WorkEffortType.description.BUSINESS_TRAVEL">
         <value xml:lang="en">Business Travel</value>
         <value xml:lang="it">Viaggio di lavoro</value>
+        <value xml:lang="zh">商务旅行</value>
     </property>
     <property key="WorkEffortType.description.COMPANY_EVENT">
         <value xml:lang="en">Company Events</value>
         <value xml:lang="it">Eventi aziendali</value>
+        <value xml:lang="zh">公司事件</value>
     </property>
     <property key="WorkEffortType.description.EVENT">
         <value xml:lang="en">Event</value>
@@ -304,10 +308,12 @@
     <property key="WorkEffortType.description.MEETING">
         <value xml:lang="en">Meeting</value>
         <value xml:lang="it">Incontri</value>
+        <value xml:lang="zh">会议</value>
     </property>
     <property key="WorkEffortType.description.PERSONAL_TIMEOFF">
         <value xml:lang="en">Personal Time Off</value>
         <value xml:lang="it">Tempo libero personale</value>
+        <value xml:lang="zh">个人空闲时间</value>
     </property>
     <property key="WorkEffortType.description.PHASE">
         <value xml:lang="en">Project Phase</value>
@@ -322,6 +328,7 @@
     <property key="WorkEffortType.description.PHASE_TEMPLATE">
         <value xml:lang="en">Project Phase Template</value>
         <value xml:lang="it">Fase progetto template</value>
+        <value xml:lang="zh">项目阶段模板</value>
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_HEADER">
         <value xml:lang="en">Production Run Header</value>
@@ -330,7 +337,7 @@
         <value xml:lang="ro">Antet Cliclu Productie</value>
         <value xml:lang="ru">Заголовок произв. прогона</value>
         <value xml:lang="th">หัวข้อดำเนินการการผลิต</value>
-        <value xml:lang="zh">实际运行标题</value>
+        <value xml:lang="zh">实际运行头</value>
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_TASK">
         <value xml:lang="en">Production Run Task</value>
@@ -364,10 +371,12 @@
     <property key="WorkEffortType.description.PROJECT_TEMPLATE">
         <value xml:lang="en">Project Template</value>
         <value xml:lang="it">Progetto template</value>
+        <value xml:lang="zh">项目模板</value>
     </property>
     <property key="WorkEffortType.description.PUBLISH_PROPS">
         <value xml:lang="en">Publish Properties</value>
         <value xml:lang="it">Pubblica properties</value>
+        <value xml:lang="zh">发布属性</value>
     </property>
     <property key="WorkEffortType.description.ROUTING">
         <value xml:lang="en">Routing</value>
@@ -400,10 +409,12 @@
     <property key="WorkEffortType.description.TASK_TEMPLATE">
         <value xml:lang="en">Project Task Template</value>
         <value xml:lang="it">Compito progetto template</value>
+        <value xml:lang="zh">项目任务模板</value>
     </property>
     <property key="WorkEffortType.description.TEMPLATE">
         <value xml:lang="en">Template</value>
         <value xml:lang="it">Template</value>
+        <value xml:lang="zh">模板</value>
     </property>
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>
@@ -421,6 +432,7 @@
         <value xml:lang="fr">Humain</value>
         <value xml:lang="it">Umano</value>
         <value xml:lang="th">เกี่ยวกับคน</value>
+        <value xml:lang="zh">人</value>
     </property>
     <property key="WorkflowParticipantType.description.ORGANIZATIONAL_UNIT">
         <value xml:lang="en">ORGANIZATIONAL_UNIT</value>
@@ -428,6 +440,7 @@
         <value xml:lang="fr">Unité d'organisation</value>
         <value xml:lang="it">Unità organizzativa</value>
         <value xml:lang="th">เกี่ยวกับองค์กร</value>
+        <value xml:lang="zh">组织机构单位</value>
     </property>
     <property key="WorkflowParticipantType.description.RESOURCE">
         <value xml:lang="en">RESOURCE</value>
@@ -435,6 +448,7 @@
         <value xml:lang="fr">Ressource</value>
         <value xml:lang="it">Risorsa</value>
         <value xml:lang="th">แหล่งข้อมูล</value>
+        <value xml:lang="zh">资源</value>
     </property>
     <property key="WorkflowParticipantType.description.RESOURCE_SET">
         <value xml:lang="en">RESOURCE_SET</value>
@@ -442,6 +456,7 @@
         <value xml:lang="fr">Ensemble de ressources</value>
         <value xml:lang="it">Gruppo risorse</value>
         <value xml:lang="th">ตั้งแหล่งข้อมูล</value>
+        <value xml:lang="zh">资源集合</value>
     </property>
     <property key="WorkflowParticipantType.description.ROLE">
         <value xml:lang="en">ROLE</value>
@@ -449,6 +464,7 @@
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="it">Ruolo</value>
         <value xml:lang="th">สถานะ</value>
+        <value xml:lang="zh">角色</value>
     </property>
     <property key="WorkflowParticipantType.description.SYSTEM">
         <value xml:lang="en">SYSTEM</value>
@@ -456,5 +472,6 @@
         <value xml:lang="fr">Système</value>
         <value xml:lang="it">Sistema</value>
         <value xml:lang="th">ระบบ</value>
+        <value xml:lang="zh">系统</value>
     </property>
 </resource>

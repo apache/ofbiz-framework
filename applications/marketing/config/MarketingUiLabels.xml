@@ -31,6 +31,7 @@
         <value xml:lang="en">Best Case Amount</value>
         <value xml:lang="fr">Montant en cas le meilleur</value>
         <value xml:lang="it">Importo migliore caso</value>
+        <value xml:lang="zh">最佳案例金额</value>
     </property>
     <property key="FormFieldTitle_budgetedCost">
         <value xml:lang="en">Budgeted Cost</value>
@@ -43,16 +44,19 @@
     <property key="FormFieldTitle_changeNote">
         <value xml:lang="en">Change Note</value>
         <value xml:lang="it">Nota per variazione</value>
+        <value xml:lang="zh">变更说明</value>
     </property>
     <property key="FormFieldTitle_closedAmount">
         <value xml:lang="en">Closed Amount</value>
         <value xml:lang="fr">Montant fermé</value>
         <value xml:lang="it">Importo chiuso</value>
+        <value xml:lang="zh">已结束的金额</value>
     </property>
     <property key="FormFieldTitle_convertedLeads">
         <value xml:lang="en">Converted Leads</value>
         <value xml:lang="fr">Prospects convertis</value>
         <value xml:lang="it">Leads convertiti</value>
+        <value xml:lang="zh">转化了的线索</value>
     </property>
     <property key="FormFieldTitle_custReqestId">
         <value xml:lang="en">Cust Reqest Id</value>
@@ -66,46 +70,55 @@
         <value xml:lang="en">Expected Response Percent</value>
         <value xml:lang="fr">Pourcentage de réponse prévu</value>
         <value xml:lang="it">Percentuale risposta aspettata</value>
+        <value xml:lang="zh">期望响应百分比</value>
     </property>
     <property key="FormFieldTitle_expectedRevenue">
         <value xml:lang="en">Expected Revenue</value>
         <value xml:lang="fr">Revenu prévu</value>
         <value xml:lang="it">Entrate aspettata</value>
+        <value xml:lang="zh">期望收入</value>
     </property>
     <property key="FormFieldTitle_forecastAmount">
         <value xml:lang="en">Forecast Amount</value>
         <value xml:lang="fr">Montant prévu</value>
         <value xml:lang="it">Importo previsione di vendita</value>
+        <value xml:lang="zh">预测金额</value>
     </property>
     <property key="FormFieldTitle_internalPartyId">
         <value xml:lang="en">Internal Party Id</value>
         <value xml:lang="fr">Réf. d'acteur interne</value>
         <value xml:lang="it">Soggetto interno</value>
+        <value xml:lang="zh">内部会员标识</value>
     </property>
     <property key="FormFieldTitle_numSent">
         <value xml:lang="en">Num Sent</value>
         <value xml:lang="fr">N° envoyé</value>
         <value xml:lang="it">Num. Invio</value>
+        <value xml:lang="zh">已发送数量</value>
     </property>
     <property key="FormFieldTitle_parentSalesForecastId">
         <value xml:lang="en">Parent Sales Forecast Id</value>
         <value xml:lang="fr">Réf. de vente parente prévue</value>
         <value xml:lang="it">Previsione di vendita padre</value>
+        <value xml:lang="zh">上级销售预测标识</value>
     </property>
     <property key="FormFieldTitle_percentOfQuotaClosed">
         <value xml:lang="en">Percent Of Quota Closed</value>
         <value xml:lang="fr">Pourcentage de quota fermé</value>
         <value xml:lang="it">Quota di percentuale chiusa</value>
+        <value xml:lang="zh">已完成指标的百分比</value>
     </property>
     <property key="FormFieldTitle_percentOfQuotaForecast">
         <value xml:lang="en">Percent Of Quota Forecast</value>
         <value xml:lang="fr">Pourcentage de quota prévu</value>
         <value xml:lang="it">Quota percentuale della previsione di vendita</value>
+        <value xml:lang="zh">预测指标的百分比</value>
     </property>
     <property key="FormFieldTitle_pipelineAmount">
         <value xml:lang="en">Pipeline Amount</value>
         <value xml:lang="fr">Montant transitoire</value>
         <value xml:lang="it">Importo di passaggio</value>
+        <value xml:lang="zh">渠道金额</value>
     </property>
     <property key="FormFieldTitle_prodCatalogId">
         <value xml:lang="en">Product Catalog Id</value>
@@ -119,16 +132,19 @@
         <value xml:lang="en">Quota Amount</value>
         <value xml:lang="fr">Montant de quota</value>
         <value xml:lang="it">Importo quota</value>
+        <value xml:lang="zh">指标金额</value>
     </property>
     <property key="FormFieldTitle_salesForecastDetailId">
         <value xml:lang="en">Sales Forecast Detail Id</value>
         <value xml:lang="fr">Réf. de détail de vente prévue</value>
         <value xml:lang="it">Dettaglio previsione di vendita</value>
+        <value xml:lang="zh">销售预测细节标识</value>
     </property>
     <property key="FormFieldTitle_salesForecastId">
         <value xml:lang="en">Sales Forecast Id</value>
         <value xml:lang="fr">Réf. de vente prévue</value>
         <value xml:lang="it">Previsione di vendita</value>
+        <value xml:lang="zh">销售预测标识</value>
     </property>
     <property key="MarketingCampaign">
         <value xml:lang="en">Marketing Campaign</value>
@@ -263,6 +279,7 @@
     </property>
     <property key="MarketingContactListCommStatus">
         <value xml:lang="en">Contact List Communication Status</value>
+        <value xml:lang="zh">联系列表沟通状态</value>
     </property>
     <property key="MarketingContactListContactListId">
         <value xml:lang="en">Contact List Id</value>
@@ -458,6 +475,7 @@
         <value xml:lang="en">Find SFA Accounts</value>
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
         <value xml:lang="it">Ricerca utenze SFA</value>
+        <value xml:lang="zh">查找销售管理账户</value>
     </property>
     <property key="MarketingMainPage">
         <value xml:lang="de">Haupt</value>
@@ -483,12 +501,14 @@
         <value xml:lang="fr">Bienvenue dans l'application de gestion du marketing !</value>
         <value xml:lang="it">Benvenuto nell'applicazione gestione vendite!</value>
         <value xml:lang="th">ยินดีต้อนรับสู่การจัดการทางการตลาด</value>
+        <value xml:lang="zh">欢迎使用市场管理程序！</value>
     </property>
     <property key="MarketingNoOfEmployees">
         <value xml:lang="en">No of Employees</value>
         <value xml:lang="es">Nº Empleados</value>
         <value xml:lang="fr">N° des employés</value>
         <value xml:lang="it">N. di impiegati</value>
+        <value xml:lang="zh">雇员数量</value>
     </property>
     <property key="MarketingOrderAmount">
         <value xml:lang="en">Amount of Orders</value>
@@ -551,14 +571,17 @@
     <property key="MarketingSegmentGroupClassificationCreatePermissionError">
         <value xml:lang="en">Error on creation Segment Group Classification</value>
         <value xml:lang="it">Errore durante la creazione di una nuova classificazione gruppo segmento</value>
+        <value xml:lang="zh">创建分区组分类时出错</value>
     </property>
     <property key="MarketingSegmentGroupClassificationDeletePermissionError">
         <value xml:lang="en">Error on delete Segment Group Classification</value>
         <value xml:lang="it">Errore durante la cancellazione di una classificazione gruppo segmento</value>
+        <value xml:lang="zh">删除分区组分类时出错</value>
     </property>
     <property key="MarketingSegmentGroupClassificationUpdatePermissionError">
         <value xml:lang="en">Error on update Segment Group Classification</value>
         <value xml:lang="it">Errore durante l'aggiornamento di una classificazione gruppo segmento</value>
+        <value xml:lang="zh">更新分区组分类时出错</value>
     </property>
     <property key="MarketingSegmentGroupCreate">
         <value xml:lang="en">Create New Segment Group</value>
@@ -572,10 +595,12 @@
     <property key="MarketingSegmentGroupCreatePermissionError">
         <value xml:lang="en">Error on creation Segment Group</value>
         <value xml:lang="it">Errore durante la creazione di un nuovo gruppo segmento</value>
+        <value xml:lang="zh">创建分区组时出错</value>
     </property>
     <property key="MarketingSegmentGroupDeletePermissionError">
         <value xml:lang="en">Error on delete Segment Group</value>
         <value xml:lang="it">Errore durante la cancellazione di un gruppo segmento</value>
+        <value xml:lang="zh">删除分区组时出错</value>
     </property>
     <property key="MarketingSegmentGroupDescription">
         <value xml:lang="de">Beschreibung</value>
@@ -599,18 +624,22 @@
     <property key="MarketingSegmentGroupGeoCreatePermissionError">
         <value xml:lang="en">Error on creation Segment Group Geo</value>
         <value xml:lang="it">Errore durante la creazione di una nuova geo gruppo segmento</value>
+        <value xml:lang="zh">创建分区组地理时出错</value>
     </property>
     <property key="MarketingSegmentGroupGeoDeletePermissionError">
         <value xml:lang="en">Error on delete Segment Group Geo</value>
         <value xml:lang="it">Errore durante la cancellazione di un geo gruppo segmento</value>
+        <value xml:lang="zh">删除分区组地理时出错</value>
     </property>
     <property key="MarketingSegmentGroupGeoUpdatePermissionError">
         <value xml:lang="en">Error on update Segment Group Geo</value>
         <value xml:lang="it">Errore durante l'aggiornamento di un nuovo geo gruppo segmento</value>
+        <value xml:lang="zh">更新分区组地理时出错</value>
     </property>
     <property key="MarketingSegmentGroupMgrViewPermissionError">
         <value xml:lang="en">Segment Group View Permission Error</value>
         <value xml:lang="it">Errore permesso di visualizzare i gruppi segmento</value>
+        <value xml:lang="zh">分区组浏览权限出错</value>
     </property>
     <property key="MarketingSegmentGroupNoSegmentGroupFoundWithId">
         <value xml:lang="en">No SegmentGroup found with ID:</value>
@@ -624,6 +653,7 @@
     <property key="MarketingSegmentGroupPartyClassificationGroupId">
         <value xml:lang="en">Segment GroupParty ClassificationGroup Id</value>
         <value xml:lang="it">Soggetto gruppo segmento classificazione</value>
+        <value xml:lang="zh">分区组会员的分类组标识</value>
     </property>
     <property key="MarketingSegmentGroupProductStoreId">
         <value xml:lang="de">Produktgeschäfts-ID</value>
@@ -647,14 +677,17 @@
     <property key="MarketingSegmentGroupRoleCreatePermissionError">
         <value xml:lang="en">Error on creation Segment Group Role</value>
         <value xml:lang="it">Errore durante la creazione di un nuovo ruolo gruppo segmento</value>
+        <value xml:lang="zh">创建分区组角色时出错</value>
     </property>
     <property key="MarketingSegmentGroupRoleDeletePermissionError">
         <value xml:lang="en">Error on delete Segment Group Role</value>
         <value xml:lang="it">Errore durante la cancellazione di un nuovo ruolo gruppo segmento</value>
+        <value xml:lang="zh">删除分区组角色时出错</value>
     </property>
     <property key="MarketingSegmentGroupRoleUpdatePermissionError">
         <value xml:lang="en">Error on update Segment Group Role</value>
         <value xml:lang="it">Errore durante l'aggiornamento di un nuovo ruolo gruppo segmento</value>
+        <value xml:lang="zh">更新分区组角色时出错</value>
     </property>
     <property key="MarketingSegmentGroupSegmentGroup">
         <value xml:lang="en">Segment</value>
@@ -734,6 +767,7 @@
     <property key="MarketingSegmentGroupUpdatePermissionError">
         <value xml:lang="en">Error on update Segment Group</value>
         <value xml:lang="it">Errore durante l'aggiornamento di un gruppo segmento</value>
+        <value xml:lang="zh">更新分区组时出错</value>
     </property>
     <property key="MarketingServiceError">
         <value xml:lang="en">There was a problem processing your request.  Please try again.  If the problem persists, please contact us.</value>
@@ -892,6 +926,7 @@
         <value xml:lang="en">Tracking Code Prod Catalog Id</value>
         <value xml:lang="fr">Réf. de code de suivi de catalogue</value>
         <value xml:lang="it">Codice tracciatura catalogo</value>
+        <value xml:lang="zh">跟踪码产品目录标识</value>
     </property>
     <property key="MarketingTrackingCodeRedirectUrl">
         <value xml:lang="en">Redirect URL</value>
@@ -1053,6 +1088,7 @@
         <value xml:lang="en">Tracking Code Visit User Login Id</value>
         <value xml:lang="fr">Réf. de code de suivi de visite d'identifiant de connexion</value>
         <value xml:lang="it">Codice tracciatura utente visita</value>
+        <value xml:lang="zh">跟踪码访问的用户登录标识</value>
     </property>
     <property key="MarketingTrackingCodeVisitVisitId">
         <value xml:lang="en">Visit Id</value>
@@ -1103,6 +1139,7 @@
         <value xml:lang="en">Account Summary</value>
         <value xml:lang="fr">Résumé de compte</value>
         <value xml:lang="it">Sommario utente</value>
+        <value xml:lang="zh">账户总览</value>
     </property>
     <property key="PageTitleAddContactList">
         <value xml:lang="en">Add Contact List</value>
@@ -1145,35 +1182,41 @@
         <value xml:lang="es">Crear nueva cuenta</value>
         <value xml:lang="fr">Créer un nouveau compte</value>
         <value xml:lang="it">Creare una nuova utenza</value>
+        <value xml:lang="zh">新建账户</value>
     </property>
     <property key="PageTitleCreateContact">
         <value xml:lang="en">Create New Contact</value>
         <value xml:lang="es">Crear nuevo contacto</value>
         <value xml:lang="fr">Créer un nouveau contact</value>
         <value xml:lang="it">Creare un nuovo contatto</value>
+        <value xml:lang="zh">新建联系人</value>
     </property>
     <property key="PageTitleCreateContactFromVCard">
         <value xml:lang="en">Create contact from vCard</value>
         <value xml:lang="fr">Créer un contact depuis la vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
+        <value xml:lang="zh">从vCard新建联系人</value>
     </property>
     <property key="PageTitleCreateLead">
         <value xml:lang="en">Create New Lead</value>
         <value xml:lang="es">Crear nuevo lead</value>
         <value xml:lang="fr">Créer un nouveau prospect</value>
         <value xml:lang="it">Creare nuovo lead</value>
+        <value xml:lang="zh">新建线索</value>
     </property>
     <property key="PageTitleCreateLeadFromVCard">
         <value xml:lang="en">Create Lead from vCard</value>
         <value xml:lang="es">Crear nuevo lead desde vCard</value>
         <value xml:lang="fr">Créer un prospect depuis la vCard</value>
         <value xml:lang="it">Creare lead dalla vCard</value>
+        <value xml:lang="zh">从vCard新建线索</value>
     </property>
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
         <value xml:lang="es">Editar cuenta</value>
         <value xml:lang="fr">Modifier le compte</value>
         <value xml:lang="it">Aggiornare utente</value>
+        <value xml:lang="zh">编辑账户</value>
     </property>
     <property key="PageTitleEditContactList">
         <value xml:lang="en">Edit Contact List</value>
@@ -1224,11 +1267,13 @@
         <value xml:lang="en">Edit Sales Forecast</value>
         <value xml:lang="fr">Modifier la prévision de ventes</value>
         <value xml:lang="it">Aggiorna previsioni di vendita</value>
+        <value xml:lang="zh">编辑销售预测</value>
     </property>
     <property key="PageTitleEditSalesForecastDetail">
         <value xml:lang="en">Edit Sales Forecast Detail</value>
         <value xml:lang="fr">Modifier le détail de la prévision de ventes</value>
         <value xml:lang="it">Aggiorna dettagli previsioni di vendita</value>
+        <value xml:lang="zh">编辑销售预测细节</value>
     </property>
     <property key="PageTitleEditSegmentGroup">
         <value xml:lang="en">Edit Segment Group</value>
@@ -1342,6 +1387,7 @@
         <value xml:lang="en">Find Sales Forecast</value>
         <value xml:lang="fr">Rechercher la prévision des ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
+        <value xml:lang="zh">查找销售预测</value>
     </property>
     <property key="PageTitleFindSegmentGroup">
         <value xml:lang="en">Find Segment Group</value>
@@ -1356,6 +1402,7 @@
         <value xml:lang="en">Find Tracking Code</value>
         <value xml:lang="fr">Rechercher un code de suivi</value>
         <value xml:lang="it">Ricerca codice tracciatura</value>
+        <value xml:lang="zh">查找跟踪码</value>
     </property>
     <property key="PageTitleFindTrackingCodeOrder">
         <value xml:lang="en">Find Tracking Code Orders</value>
@@ -1370,6 +1417,7 @@
         <value xml:lang="en">Find Tracking Code Visit</value>
         <value xml:lang="fr">Rechercher un code de suivi de visite</value>
         <value xml:lang="it">Ricerca codice tracciatura visita</value>
+        <value xml:lang="zh">查找跟踪码访问</value>
     </property>
     <property key="PageTitleFindTrackingCodeVisits">
         <value xml:lang="en">Find Tracking Code Visits</value>
@@ -1530,6 +1578,7 @@
         <value xml:lang="en">Lookup Sales Forecast</value>
         <value xml:lang="fr">Consulter la prévision des ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
+        <value xml:lang="zh">查找销售预测</value>
     </property>
     <property key="PageTitleLookupSegmentGroup">
         <value xml:lang="en">Lookup Segment Group</value>
@@ -1579,6 +1628,7 @@
         <value xml:lang="en">Accounts</value>
         <value xml:lang="fr">Comptes</value>
         <value xml:lang="it">Utenze</value>
+        <value xml:lang="zh">账户</value>
     </property>
     <property key="SfaAccountName">
         <value xml:lang="de">Kontoname</value>
@@ -1586,153 +1636,181 @@
         <value xml:lang="es">Nombre de cuenta</value>
         <value xml:lang="fr">Nom de compte</value>
         <value xml:lang="it">Nome utente</value>
+        <value xml:lang="zh">账户名称</value>
     </property>
     <property key="SfaAddSalesForecastDetail">
         <value xml:lang="en">Add Sales Forcast Detail</value>
         <value xml:lang="fr">Ajouter le détail de la prévision des ventes</value>
         <value xml:lang="it">Aggiungi dettagli previsioni di vendita</value>
+        <value xml:lang="zh">添加销售预测细节</value>
     </property>
     <property key="SfaAutoCreateContactByImportingVCard">
         <value xml:lang="en">Automatically create a new contact by importing a vCard</value>
         <value xml:lang="fr">Créez automatiquement un nouveau contact par import d'une vCard</value>
         <value xml:lang="it">Creazione automatica di un nuovo contatto importando una vCard</value>
+        <value xml:lang="zh">通过导入vCard自动新建联系</value>
     </property>
     <property key="SfaAutoCreateLeadByImportingVCard">
         <value xml:lang="en">Automatically create a new lead by importing a vCard</value>
         <value xml:lang="es">Crear nuevo lead automaticamente importando vCard</value>
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
         <value xml:lang="it">Creazione automatica di un nuovo lead importando una vCard</value>
+        <value xml:lang="zh">通过导入vCard自动新建线索</value>
     </property>
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagnes de ventes</value>
         <value xml:lang="it">Campagne</value>
+        <value xml:lang="zh">攻势</value>
     </property>
     <property key="SfaCanNotMergeSameContact">
         <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
         <value xml:lang="fr">Echec à la fusion des contacts. Vous avez choisi le même contact à fusionner.</value>
         <value xml:lang="it">Fallito il merce dei contatti. Tu devi selezionare lo stesso contatto per fare il merge.</value>
+        <value xml:lang="zh">合并联系时失败。你选择了同一个联系做合并。</value>
     </property>
     <property key="SfaCanNotMergeSameLeads">
         <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
         <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
         <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
         <value xml:lang="it">Fallito il merce dei leads. Tu devi selezionare lo stesso lead per fare il merge.</value>
+        <value xml:lang="zh">合并线索时失败。你选择了同一个线索做合并。</value>
     </property>
     <property key="SfaCloneLead">
         <value xml:lang="en">Clone Lead</value>
         <value xml:lang="es">Clonar lead</value>
         <value xml:lang="fr">Dupliquer un prospect</value>
         <value xml:lang="it">Clona lead</value>
+        <value xml:lang="zh">克隆线索</value>
     </property>
     <property key="SfaCloseDate">
         <value xml:lang="en">Close Date</value>
         <value xml:lang="es">Fecha de cierre</value>
         <value xml:lang="fr">Fermer à la date</value>
         <value xml:lang="it">Data di chiusura</value>
+        <value xml:lang="zh">关闭日期</value>
     </property>
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
         <value xml:lang="es">Gestor de fuerzas de ventas</value>
         <value xml:lang="fr">OFBiz: gestion des ventes</value>
         <value xml:lang="it">OFBiz: Gestione forze di vendita</value>
+        <value xml:lang="zh">OFBiz: 销售管理程序</value>
     </property>
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
         <value xml:lang="fr">Concurrents &amp; Associés</value>
         <value xml:lang="it">Competitori e soci</value>
+        <value xml:lang="zh">竞争者和合作伙伴</value>
     </property>
     <property key="SfaContact">
         <value xml:lang="en">Contact</value>
         <value xml:lang="fr">Contact</value>
         <value xml:lang="it">Contatto</value>
+        <value xml:lang="zh">联系</value>
     </property>
     <property key="SfaContacts">
         <value xml:lang="en">Contacts</value>
         <value xml:lang="fr">Contacts</value>
         <value xml:lang="it">Contatti</value>
+        <value xml:lang="zh">联系</value>
     </property>
     <property key="SfaConvertLead">
         <value xml:lang="en">Convert Lead</value>
         <value xml:lang="es">Convertir lead</value>
         <value xml:lang="fr">Convertir le prospect</value>
         <value xml:lang="it">Converti lead</value>
+        <value xml:lang="zh">转化线索</value>
     </property>
     <property key="SfaCreateAccountForLead">
         <value xml:lang="en">Create Account For Lead</value>
         <value xml:lang="fr">Créer un compte pour le prospect</value>
         <value xml:lang="it">Crea utenza per leader</value>
+        <value xml:lang="zh">为线索创建账户</value>
     </property>
     <property key="SfaCreateContactForLead">
         <value xml:lang="en">Create contact for lead</value>
         <value xml:lang="es">Crear contacto para lead</value>
         <value xml:lang="fr">Créer un contact pour le prospect</value>
         <value xml:lang="it">Creare contatto per il lead</value>
+        <value xml:lang="zh">为线索创建联系</value>
     </property>
     <property key="SfaCreateContactFromVCard">
         <value xml:lang="en">Create from vCard</value>
         <value xml:lang="fr">Créer depuis la vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
+        <value xml:lang="zh">从vCard创建</value>
     </property>
     <property key="SfaDataSourceLabel">
         <value xml:lang="en">Source</value>
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
+        <value xml:lang="zh">来源</value>
     </property>
     <property key="SfaDocuments">
         <value xml:lang="en">Documents</value>
         <value xml:lang="fr">Documents</value>
         <value xml:lang="it">Documenti</value>
+        <value xml:lang="zh">文档</value>
     </property>
     <property key="SfaEditOpportunity">
         <value xml:lang="en">Edit Opportunity</value>
         <value xml:lang="fr">Modifier l'opportunité</value>
         <value xml:lang="it">Aggiorna opportunità</value>
+        <value xml:lang="zh">编辑机会</value>
     </property>
     <property key="SfaEditSalesForecast">
         <value xml:lang="en">Create/Update Sales Forecast</value>
         <value xml:lang="fr">Créer/Mise à jour des prévisions de ventes</value>
         <value xml:lang="it">Crea/Aggiorna previsioni di vendita</value>
+        <value xml:lang="zh">创建/更新销售预测</value>
     </property>
     <property key="SfaEstimatedAmount">
         <value xml:lang="en">Estimated Amount</value>
         <value xml:lang="fr">Montant estimé</value>
         <value xml:lang="it">Importo stimato</value>
+        <value xml:lang="zh">预计金额</value>
     </property>
     <property key="SfaEvents">
         <value xml:lang="en">Events</value>
         <value xml:lang="fr">Évènements</value>
         <value xml:lang="it">Eventi</value>
+        <value xml:lang="zh">事件</value>
     </property>
     <property key="SfaFindContacts">
         <value xml:lang="en">Find Contacts</value>
         <value xml:lang="fr">Rechercher les contacts</value>
         <value xml:lang="it">Ricerca contatti</value>
+        <value xml:lang="zh">查找联系</value>
     </property>
     <property key="SfaFindLeads">
         <value xml:lang="en">Find Leads</value>
         <value xml:lang="es">Buscar leads</value>
         <value xml:lang="fr">Recherchers les prospects</value>
         <value xml:lang="it">Ricerca leads</value>
+        <value xml:lang="zh">查找线索</value>
     </property>
     <property key="SfaFindOpportunities">
         <value xml:lang="en">Find Opportunities</value>
         <value xml:lang="es">Buscar oportunidades</value>
         <value xml:lang="fr">Rechercher les opportunités</value>
         <value xml:lang="it">Ricerca opportunità</value>
+        <value xml:lang="zh">查找机会</value>
     </property>
     <property key="SfaFindResults">
         <value xml:lang="en">Find Results</value>
         <value xml:lang="es">Buscar resultados</value>
         <value xml:lang="fr">Rechercher les résultats</value>
         <value xml:lang="it">Ricerca risultati</value>
+        <value xml:lang="zh">查找结果</value>
     </property>
     <property key="SfaFirstContact">
         <value xml:lang="en">First Contact</value>
         <value xml:lang="es">Primer contacto</value>
         <value xml:lang="fr">Premier contact</value>
         <value xml:lang="it">Primo contatto</value>
+        <value xml:lang="zh">首选联系方式</value>
     </property>
     <property key="SfaFirstNameLastNameAndCompanyNameMissingError">
         <value xml:lang="en">Please enter Person First name or Last name or Company name</value>
@@ -1742,132 +1820,158 @@
         <value xml:lang="es">Previsión</value>
         <value xml:lang="fr">Prévision</value>
         <value xml:lang="it">Previsioni</value>
+        <value xml:lang="zh">预测</value>
     </property>
     <property key="SfaImportLead">
         <value xml:lang="en">Import Lead</value>
         <value xml:lang="es">Importar lead</value>
         <value xml:lang="fr">Importer le prospect</value>
         <value xml:lang="it">Importo lead</value>
+        <value xml:lang="zh">导入线索</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
         <value xml:lang="fr">Compte initial</value>
         <value xml:lang="it">Utente iniziale</value>
+        <value xml:lang="zh">初始账户</value>
     </property>
     <property key="SfaInitialStage">
         <value xml:lang="en">Initial Stage</value>
         <value xml:lang="fr">Phase initiale</value>
         <value xml:lang="it">Stage iniziale</value>
+        <value xml:lang="zh">初始阶段</value>
     </property>
     <property key="SfaLead">
         <value xml:lang="en">Lead</value>
         <value xml:lang="fr">Prospect</value>
         <value xml:lang="it">Lead</value>
+        <value xml:lang="zh">线索</value>
     </property>
     <property key="SfaLeadSource">
         <value xml:lang="en">Lead Source</value>
         <value xml:lang="fr">Origine du prospect</value>
         <value xml:lang="it">Lead origine</value>
+        <value xml:lang="zh">线索来源</value>
     </property>
     <property key="SfaLeads">
         <value xml:lang="en">Leads</value>
         <value xml:lang="fr">Prospects</value>
         <value xml:lang="it">Leads</value>
+        <value xml:lang="zh">线索</value>
     </property>
     <property key="SfaListSalesForecastDetail">
         <value xml:lang="en">List Sales Forecast Details</value>
         <value xml:lang="fr">Liste des détails de prévision des ventes</value>
         <value xml:lang="it">Lista dettagli previsioni di vendita</value>
+        <value xml:lang="zh">销售预测细节列表</value>
     </property>
     <property key="SfaManagerApplication">
         <value xml:lang="en">SFA Manager Application</value>
         <value xml:lang="fr">Application de gestion des ventes</value>
         <value xml:lang="it">Applicazione gestione forze esterne</value>
+        <value xml:lang="zh">销售管理应用程序</value>
     </property>
     <property key="SfaManagerWelcome">
         <value xml:lang="en">Welcome to the Sales Force Automation Manager Application.</value>
         <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes.</value>
         <value xml:lang="it">Benvenuto all'applicazione di gestione delle forze esterne.</value>
+        <value xml:lang="zh">欢迎使用销售管理应用程序</value>
     </property>
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
         <value xml:lang="fr">Fusionner les contacts</value>
         <value xml:lang="it">Merge Contatti</value>
+        <value xml:lang="zh">合并联系</value>
     </property>
     <property key="SfaMergeLeads">
         <value xml:lang="en">Merge Leads</value>
         <value xml:lang="fr">Fusionner les prospects</value>
         <value xml:lang="it">Merge Leads</value>
+        <value xml:lang="zh">合并线索</value>
     </property>
     <property key="SfaMergingFollowing">
         <value xml:lang="en">Merging Following</value>
         <value xml:lang="fr">Fusionner les suivants</value>
         <value xml:lang="it">Merge seguendo i</value>
+        <value xml:lang="zh">合并跟单</value>
     </property>
     <property key="SfaNextStep">
         <value xml:lang="en">Next Step</value>
         <value xml:lang="fr">Prochaine étape</value>
         <value xml:lang="it">Passo successivo</value>
+        <value xml:lang="zh">下一步</value>
     </property>
     <property key="SfaNoLeadsSelectedToMerged">
         <value xml:lang="en">No leads selected to merge</value>
         <value xml:lang="fr">Aucun prospect sélectionné pour la fusion</value>
         <value xml:lang="it">Nessun leads selezionato da fare merge</value>
+        <value xml:lang="zh">没有选择要合并的线索</value>
     </property>
     <property key="SfaOpportunities">
         <value xml:lang="en">Opportunities</value>
         <value xml:lang="fr">Opportunités</value>
         <value xml:lang="it">Opportunità</value>
+        <value xml:lang="zh">机会</value>
     </property>
     <property key="SfaOpportunityId">
         <value xml:lang="en">Opportunity ID</value>
         <value xml:lang="fr">Réf. d'opportunité</value>
         <value xml:lang="it">N. Opportunità</value>
+        <value xml:lang="zh">机会标识</value>
     </property>
     <property key="SfaOpportunityInfo">
         <value xml:lang="en">Opportunity Information</value>
         <value xml:lang="fr">Information sur l'opportunité</value>
         <value xml:lang="it">Informazioni oppportunità</value>
+        <value xml:lang="zh">机会信息</value>
     </property>
     <property key="SfaOpportunityName">
         <value xml:lang="en">Opportunity Name</value>
         <value xml:lang="fr">Nom d'opportunité</value>
         <value xml:lang="it">Nome opportunità</value>
+        <value xml:lang="zh">机会名称</value>
     </property>
     <property key="SfaOpportunitySummary">
         <value xml:lang="en">Opportunity Summary</value>
         <value xml:lang="fr">Résumé d'opportunité</value>
         <value xml:lang="it">Sommario opportunità</value>
+        <value xml:lang="zh">机会总览</value>
     </property>
     <property key="SfaProbability">
         <value xml:lang="en">Probability(%)</value>
         <value xml:lang="fr">Probabilité (%)</value>
         <value xml:lang="it">Probabilità(%)</value>
+        <value xml:lang="zh">可能性(%)</value>
     </property>
     <property key="SfaQuickAddContact">
         <value xml:lang="en">Quick Add Contact</value>
         <value xml:lang="fr">Ajout rapide d'un contact</value>
         <value xml:lang="it">Aggiunta veloce contatto</value>
+        <value xml:lang="zh">快速添加联系</value>
     </property>
     <property key="SfaQuickAddLead">
         <value xml:lang="en">Quick Add Lead</value>
         <value xml:lang="fr">Ajout rapide d'un prospect</value>
         <value xml:lang="it">Aggiunta veloce lead</value>
+        <value xml:lang="zh">快速添加线索</value>
     </property>
     <property key="SfaSalesForecast">
         <value xml:lang="en">Sales Forecast</value>
         <value xml:lang="fr">Prévision des ventes</value>
         <value xml:lang="it">Previsioni di vendita</value>
+        <value xml:lang="zh">销售预测</value>
     </property>
     <property key="SfaSecondContact">
         <value xml:lang="en">Second Contact</value>
         <value xml:lang="fr">Deuxième contact</value>
         <value xml:lang="it">Secondo contatto</value>
+        <value xml:lang="zh">第二联系方式</value>
     </property>
     <property key="SfaSelectExistingAccountOrLeaveBlankToCreateNew">
         <value xml:lang="en">Either select existing account or leave blank to create new account"</value>
         <value xml:lang="fr">Sélectionner un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
         <value xml:lang="it">Selezione entrambi utente esistente o lasciare vuoto per creare un nuovo utente</value>
+        <value xml:lang="zh">或者选择已有账户，或者留空来新建账户</value>
     </property>
     <property key="SfaSelectLeadOwners">
         <value xml:lang="en">Select Lead Owners</value>
@@ -1877,11 +1981,13 @@
         <value xml:lang="en">Type</value>
         <value xml:lang="fr">Type</value>
         <value xml:lang="it">Tipo</value>
+        <value xml:lang="zh">类型</value>
     </property>
     <property key="SfaUploadVCard">
         <value xml:lang="en">Upload vCard</value>
         <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>
         <value xml:lang="it">Carica vCard</value>
+        <value xml:lang="zh">上传vCard</value>
     </property>
     <property key="SfaVCard">
         <value xml:lang="en">vCard</value>

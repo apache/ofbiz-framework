@@ -67,6 +67,7 @@
     <property key="TrackingCodeType.description.ACCESS">
         <value xml:lang="en">Access Code</value>
         <value xml:lang="it">Codice di accesso</value>
+        <value xml:lang="zh">访问码</value>
     </property>
     <property key="TrackingCodeType.description.EXTERNAL">
         <value xml:lang="en">External</value>
@@ -93,6 +94,6 @@
         <value xml:lang="it">Gestito da un Partner</value>
         <value xml:lang="ro">Gestit de un Partener</value>
         <value xml:lang="th">หุ้นส่วนการควบคุม</value>
-        <value xml:lang="zh">伙伴管理的</value>
+        <value xml:lang="zh">已管理的伙伴</value>
     </property>
 </resource>

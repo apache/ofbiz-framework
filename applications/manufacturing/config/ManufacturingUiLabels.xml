@@ -26,6 +26,7 @@
         <value xml:lang="fr">Coût alloué</value>
         <value xml:lang="it">Costo Allocato</value>
         <value xml:lang="th">ส่วนแบ่งราคา</value>
+        <value xml:lang="zh">已分摊成本</value>
     </property>
     <property key="FormFieldTitle_authUserLoginId">
         <value xml:lang="en">Auth User Login Id</value>
@@ -33,6 +34,7 @@
         <value xml:lang="fr">Authentification d'identifiant de connexion</value>
         <value xml:lang="it">Utente</value>
         <value xml:lang="th">รับรองรหัสผู้ใช้ระบบ</value>
+        <value xml:lang="zh">授权用户登录标识</value>
     </property>
     <property key="FormFieldTitle_calendarWeekId">
         <value xml:lang="de">Kalenderwoche</value>
@@ -41,6 +43,7 @@
         <value xml:lang="fr">Réf. du calendrier par semaine</value>
         <value xml:lang="it">Calendario Settmanale</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
+        <value xml:lang="zh">自然周标识</value>
     </property>
     <property key="FormFieldTitle_cancelDateTime">
         <value xml:lang="de">Zeitpunkt des Abbruchs</value>
@@ -49,6 +52,7 @@
         <value xml:lang="fr">Date et heure d'annulation</value>
         <value xml:lang="it">Data/ora di annullamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
+        <value xml:lang="zh">取消日期时间</value>
     </property>
     <property key="FormFieldTitle_costCustomMethodId">
         <value xml:lang="de">individuelle Kostenmethode</value>
@@ -73,6 +77,7 @@
     <property key="FormFieldTitle_creationDate">
         <value xml:lang="en">Creation Date</value>
         <value xml:lang="it">Data creazione</value>
+        <value xml:lang="zh">创建日期</value>
     </property>
     <property key="FormFieldTitle_defaultYearsOffset">
         <value xml:lang="de">Kontenart für Kosten</value>
@@ -81,6 +86,7 @@
         <value xml:lang="fr">Décalage d'années par défaut</value>
         <value xml:lang="it">Scostamento Anni Di Default</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
+        <value xml:lang="zh">缺省财年损益</value>
     </property>
     <property key="FormFieldTitle_estimatedDuration">
         <value xml:lang="de">Geschätzte Dauer</value>
@@ -89,6 +95,7 @@
         <value xml:lang="fr">Durée prévue</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ประมาณเวลา</value>
+        <value xml:lang="zh">预计用时</value>
     </property>
     <property key="FormFieldTitle_failIfItemsAreNotAvailable">
         <value xml:lang="de">Abbruch falls Komponenten nicht vorhanden</value>
@@ -97,6 +104,7 @@
         <value xml:lang="fr">Echec si les articles ne sont pas disponibles</value>
         <value xml:lang="it">Fallisce se i Prodotti Non Sono Disponibili</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
+        <value xml:lang="zh">如果明细无效时失败</value>
     </property>
     <property key="FormFieldTitle_fixedCost">
         <value xml:lang="de">Fixkosten</value>
@@ -115,6 +123,7 @@
         <value xml:lang="fr">Capacité de vendredi</value>
         <value xml:lang="it">Venerdì  Capacità</value>
         <value xml:lang="th">การปฎิบัติหน้าที่ในวันศุกร์</value>
+        <value xml:lang="zh">星期五产能</value>
     </property>
     <property key="FormFieldTitle_fridayStartTime">
         <value xml:lang="de">Freitagsstartzeit</value>
@@ -123,6 +132,7 @@
         <value xml:lang="fr">Heure de départ, vendredi</value>
         <value xml:lang="it">Venerdì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันศุกร์</value>
+        <value xml:lang="zh">星期五开始时间</value>
     </property>
     <property key="FormFieldTitle_issuedQuantity">
         <value xml:lang="de">Ausgegebene Menge</value>
@@ -141,6 +151,7 @@
         <value xml:lang="fr">Réf. du job</value>
         <value xml:lang="it">Numero lavoro</value>
         <value xml:lang="th">รหัสงาน</value>
+        <value xml:lang="zh">工作标识</value>
     </property>
     <property key="FormFieldTitle_jobName">
         <value xml:lang="de">Jobname</value>
@@ -149,10 +160,12 @@
         <value xml:lang="fr">Nom du job</value>
         <value xml:lang="it">Nome lavoro</value>
         <value xml:lang="th">ชื่องาน</value>
+        <value xml:lang="zh">工作名称</value>
     </property>
     <property key="FormFieldTitle_lotId">
         <value xml:lang="en">Lot Id</value>
         <value xml:lang="it">Numero lotto</value>
+        <value xml:lang="zh">批次标识</value>
     </property>
     <property key="FormFieldTitle_manufacturingTask">
         <value xml:lang="de">Arbeitsgang</value>
@@ -161,6 +174,7 @@
         <value xml:lang="fr">Opération de fabrication</value>
         <value xml:lang="it">Operazione</value>
         <value xml:lang="th">การสร้างงาน</value>
+        <value xml:lang="zh">生产任务</value>
     </property>
     <property key="FormFieldTitle_maxRetry">
         <value xml:lang="de">Anzahl Wiederholungsversuche</value>
@@ -169,6 +183,7 @@
         <value xml:lang="fr">Nb de tentatives max</value>
         <value xml:lang="it">Tentativi massimi</value>
         <value xml:lang="th">ทดสอบใหม่มากสุด</value>
+        <value xml:lang="zh">最大重试次数</value>
     </property>
     <property key="FormFieldTitle_mondayCapacity">
         <value xml:lang="de">Montagskapazität</value>
@@ -177,6 +192,7 @@
         <value xml:lang="fr">Capacité de lundi</value>
         <value xml:lang="it">Lunedì Capacità</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันจันทร์</value>
+        <value xml:lang="zh">星期一产能</value>
     </property>
     <property key="FormFieldTitle_mondayStartTime">
         <value xml:lang="de">Montagsstartzeit</value>
@@ -185,6 +201,7 @@
         <value xml:lang="fr">Heure de départ, lundi</value>
         <value xml:lang="it">Lunedì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันจันทร์</value>
+        <value xml:lang="zh">星期一开始时间</value>
     </property>
     <property key="FormFieldTitle_offsettingGlAccountTypeId">
         <value xml:lang="de">Verechnungskontenart</value>
@@ -302,6 +319,7 @@
         <value xml:lang="fr">Moment d'exécution</value>
         <value xml:lang="it">Orario di Esecuzione</value>
         <value xml:lang="th">ระยะเวลาดำเนินงาน</value>
+        <value xml:lang="zh">运行时间</value>
     </property>
     <property key="FormFieldTitle_saturdayCapacity">
         <value xml:lang="de">Samstagskapazität</value>
@@ -310,6 +328,7 @@
         <value xml:lang="fr">Capacité de samedi</value>
         <value xml:lang="it">Sabato Capacità</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันเสาร์</value>
+        <value xml:lang="zh">星期六产能</value>
     </property>
     <property key="FormFieldTitle_saturdayStartTime">
         <value xml:lang="de">Samstagstartzeit</value>
@@ -318,6 +337,7 @@
         <value xml:lang="fr">Heure de début du samedi</value>
         <value xml:lang="it">Sabato Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันเสาร์</value>
+        <value xml:lang="zh">星期六开始时间</value>
     </property>
     <property key="FormFieldTitle_secondaryLocationSeqId">
         <value xml:lang="de">Zusätzlicher Lagerort</value>
@@ -326,6 +346,7 @@
         <value xml:lang="fr">Ref. séq. d'emplacement secondaire</value>
         <value xml:lang="it">Locazione Secondaria</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
+        <value xml:lang="zh">辅助地点序列号</value>
     </property>
     <property key="FormFieldTitle_startDateTime">
         <value xml:lang="de">Startzeit</value>
@@ -334,6 +355,7 @@
         <value xml:lang="fr">Heure de date de début</value>
         <value xml:lang="it">Data/Ora di Inizio</value>
         <value xml:lang="th">วันเวลาเริ่มต้น</value>
+        <value xml:lang="zh">开始日期时间</value>
     </property>
     <property key="FormFieldTitle_sundayCapacity">
         <value xml:lang="de">Sonntagskapazität</value>
@@ -342,6 +364,7 @@
         <value xml:lang="fr">capacité du dimanche</value>
         <value xml:lang="it">Domenica Capacità</value>
         <value xml:lang="th">การปฏิบัติงานในวันอาทิตย์</value>
+        <value xml:lang="zh">星期日产能</value>
     </property>
     <property key="FormFieldTitle_sundayStartTime">
         <value xml:lang="de">Sonntagsstartzeit</value>
@@ -350,6 +373,7 @@
         <value xml:lang="fr">Heure de début du dimanche</value>
         <value xml:lang="it">Domenica Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอาทิตย์</value>
+        <value xml:lang="zh">星期日开始时间</value>
     </property>
     <property key="FormFieldTitle_thursdayCapacity">
         <value xml:lang="de">Donnerstagskapazität</value>
@@ -358,6 +382,7 @@
         <value xml:lang="fr">Capacité de jeudi</value>
         <value xml:lang="it">Giovedì Capacità</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันพฤหัสบดี</value>
+        <value xml:lang="zh">星期四产能</value>
     </property>
     <property key="FormFieldTitle_thursdayStartTime">
         <value xml:lang="de">Donnerstagsstartzeit</value>
@@ -366,6 +391,7 @@
         <value xml:lang="fr">Heure de début du jeudi</value>
         <value xml:lang="it">Giovedì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพฤหัสบดี</value>
+        <value xml:lang="zh">星期四开始时间</value>
     </property>
     <property key="FormFieldTitle_totIssuedQuantity">
         <value xml:lang="de">Ausgegebene Menge gesamt</value>
@@ -404,6 +430,7 @@
         <value xml:lang="fr">Capacité de jeudi</value>
         <value xml:lang="it">Martedì Capacità</value>
         <value xml:lang="th">การปฏิบัติงานในวันอังคาร</value>
+        <value xml:lang="zh">星期二产能</value>
     </property>
     <property key="FormFieldTitle_tuesdayStartTime">
         <value xml:lang="de">Dienstagssstartzeit</value>
@@ -412,6 +439,7 @@
         <value xml:lang="fr">Heure de début du jeudi</value>
         <value xml:lang="it">Martedì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอังคาร</value>
+        <value xml:lang="zh">星期二开始时间</value>
     </property>
     <property key="FormFieldTitle_type">
         <value xml:lang="de">Art</value>
@@ -440,6 +468,7 @@
         <value xml:lang="fr">Capacité de vendredi</value>
         <value xml:lang="it">Mercoledì Capacità</value>
         <value xml:lang="th">กรปฏิบัติงานในวันพุธ</value>
+        <value xml:lang="zh">星期三产能</value>
     </property>
     <property key="FormFieldTitle_wednesdayStartTime">
         <value xml:lang="de">Mittwochsstartzeit</value>
@@ -448,6 +477,7 @@
         <value xml:lang="fr">Heure de début du vendredi</value>
         <value xml:lang="it">Mercoledì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
+        <value xml:lang="zh">星期三开始时间</value>
     </property>
     <property key="ManufacturingATPDate">
         <value xml:lang="de">ATP-Datum</value>
@@ -496,6 +526,7 @@
         <value xml:lang="fr">Matériels rééls</value>
         <value xml:lang="it">Materiali Attuali</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
+        <value xml:lang="zh">实际材料</value>
     </property>
     <property key="ManufacturingActualStartDateTime">
         <value xml:lang="de">Ist-Start-Zeit</value>
@@ -540,6 +571,7 @@
     <property key="ManufacturingAddProductionRunRoutingTaskNotCreated">
         <value xml:lang="en">Add Production Run Routing Task Not Created</value>
         <value xml:lang="it">Aggiunta componente prodotto ad un´compito non creato</value>
+        <value xml:lang="zh">添加没有创建的产品运行规程任务</value>
     </property>
     <property key="ManufacturingAddQuantityProduced">
         <value xml:lang="de">Produzierte Menge hinzufügen</value>
@@ -608,6 +640,7 @@
         <value xml:lang="fr">Approuver les besoins</value>
         <value xml:lang="it">Approva fabbisogni</value>
         <value xml:lang="th">ความต้องการที่ตรงกัน</value>
+        <value xml:lang="zh">批准需求</value>
     </property>
     <property key="ManufacturingAssociatedProductionRuns">
         <value xml:lang="de">Zugehörige Produktionsaufträge</value>
@@ -616,10 +649,12 @@
         <value xml:lang="fr">Exécution de production associées</value>
         <value xml:lang="it">Ordini di Produzione Associati</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
+        <value xml:lang="zh">相关的生产运行</value>
     </property>
     <property key="ManufacturingEngineeringBillOfMaterials">
         <value xml:lang="en">Engineering Bill of Materials</value>
         <value xml:lang="it">Distinta base ingegnerizzata</value>
+        <value xml:lang="zh">工程物料清单</value>
     </property>
     <property key="ManufacturingBillOfMaterials">
         <value xml:lang="de">Stückliste</value>
@@ -906,6 +941,7 @@
     <property key="ManufacturingConfigurationNotAvailable">
         <value xml:lang="en">Configuration Not Available</value>
         <value xml:lang="it">Configurazione non disponibile</value>
+        <value xml:lang="zh">配置无效</value>
     </property>
     <property key="ManufacturingConfirmProductionRun">
         <value xml:lang="de">Bestätigen</value>
@@ -962,6 +998,7 @@
         <value xml:lang="fr">Créer une nomenclature</value>
         <value xml:lang="it">Creare distinta base</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
+        <value xml:lang="zh">创建物料清单</value>
     </property>
     <property key="ManufacturingCreateCalendar">
         <value xml:lang="de">Kalender erstellen</value>
@@ -1008,6 +1045,7 @@
         <value xml:lang="fr">Créer une nomenclature</value>
         <value xml:lang="it">Creazione distinta base</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
+        <value xml:lang="zh">新建物料清单</value>
     </property>
     <property key="ManufacturingCreateProductionRun">
         <value xml:lang="de">Produktionsauftrag erstellen</value>
@@ -1545,6 +1583,7 @@
         <value xml:lang="es">Emitir componentes (ATP)</value>
         <value xml:lang="fr">Composants publiés (ATP)</value>
         <value xml:lang="it">Preleva i Componenti (ATP)</value>
+        <value xml:lang="zh">交付部件（承诺）</value>
     </property>
     <property key="ManufacturingIssueProductionRunTask">
         <value xml:lang="de">Komponenten ausgeben</value>
@@ -1618,6 +1657,7 @@
         <value xml:lang="en">List Of Production Run Notes</value>
         <value xml:lang="fr">Liste des notes de l'ordre de fabrication</value>
         <value xml:lang="it">Lista note ordine di produzione</value>
+        <value xml:lang="zh">生产运行说明列表</value>
     </property>
     <property key="ManufacturingListOfProductionRunRoutingTasks">
         <value xml:lang="de">Arbeitsgänge</value>
@@ -1627,7 +1667,7 @@
         <value xml:lang="it">Lista delle Operazioni dell'Ordine di Produzione</value>
         <value xml:lang="ro">Lista Operatiilor pe Comanda de Productie</value>
         <value xml:lang="th">งาน</value>
-        <value xml:lang="zh">生产运行规程任务列表</value>
+        <value xml:lang="zh">任务</value>
     </property>
     <property key="ManufacturingListProducts">
         <value xml:lang="de">Produkte auflisten</value>
@@ -1662,6 +1702,7 @@
     <property key="ManufacturingLotNotExists">
         <value xml:lang="en">Lot Not Exists</value>
         <value xml:lang="it">Lotto non esiste</value>
+        <value xml:lang="zh">批次不存在</value>
     </property>
     <property key="ManufacturingMachine">
         <value xml:lang="de">Anlage</value>
@@ -1809,6 +1850,7 @@
         <value xml:lang="fr">Matériaux</value>
         <value xml:lang="it">Materiali</value>
         <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="zh">材料</value>
     </property>
     <property key="ManufacturingMaterialsNotAvailable">
         <value xml:lang="de">Materialien nicht im Lager vorhanden</value>
@@ -1817,6 +1859,7 @@
         <value xml:lang="fr">Matériaux non disponibles dans l'entrepôt</value>
         <value xml:lang="it">Materiali Non Disponibili a Magazzino</value>
         <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า</value>
+        <value xml:lang="zh">材料在库房中不可用</value>
     </property>
     <property key="ManufacturingMaterialsRequiredByRunningTask">
         <value xml:lang="de">Materialien werden für aktuellen Arbeitsgang benötigt</value>
@@ -1825,6 +1868,7 @@
         <value xml:lang="fr">Matériaux exigé par l'opération en cours d'exécution</value>
         <value xml:lang="it">Materiali Richiesti dall'Operazione in Esecuzione</value>
         <value xml:lang="th">ข้อมูลที่ต้องการโดยการทำงานอย่างต่อเนื่อง</value>
+        <value xml:lang="zh">生产任务所需的材料</value>
     </property>
     <property key="ManufacturingMrp">
         <value xml:lang="de">MRP</value>
@@ -1853,6 +1897,7 @@
         <value xml:lang="fr">Un travail Mrp est en cours</value>
         <value xml:lang="it">Un Lavoro MRP è in esecuzione</value>
         <value xml:lang="th">งานข้อมูลความต้องการโดยประมาณกำลังทำงาน</value>
+        <value xml:lang="zh">正在执行一个生产资源计划工作</value>
     </property>
     <property key="ManufacturingMrpJobLastExecuted">
         <value xml:lang="de">Vorheriger MRP-Lauf</value>
@@ -1861,6 +1906,7 @@
         <value xml:lang="fr">Dernier travail</value>
         <value xml:lang="it">Ultimo Lavoro</value>
         <value xml:lang="th">งานสุดท้าย</value>
+        <value xml:lang="zh">上一个工作</value>
     </property>
     <property key="ManufacturingMrpJobScheduledOrRunning">
         <value xml:lang="de">Geplanter oder aktiver MRP-Lauf</value>
@@ -1869,6 +1915,7 @@
         <value xml:lang="fr">les travaux programmés ou en cours d'exécution</value>
         <value xml:lang="it">Lavori Schedulati o in Esecuzione</value>
         <value xml:lang="th">ทำรายการหรือกำลังทำงาน</value>
+        <value xml:lang="zh">已计划的或正在执行的工作</value>
     </property>
     <property key="ManufacturingMrpLog">
         <value xml:lang="de">MRP-Log</value>
@@ -1877,6 +1924,7 @@
         <value xml:lang="fr">Log MRP</value>
         <value xml:lang="it">Log MRP</value>
         <value xml:lang="th">บันทึกข้อมูลความต้องการโดยประมาณ</value>
+        <value xml:lang="zh">生产资源计划日志</value>
     </property>
     <property key="ManufacturingMrpName">
         <value xml:lang="de">MRP-Name</value>
@@ -1993,6 +2041,7 @@
         <value xml:lang="fr">Les lignes date/heure indiquent que l'heure en cours est avant la date ou après la date en cours. Si la date est </value>
         <value xml:lang="it">le voci data/ora indicano che l'orario attuale è prima della Data di Inizio o dopo la Data di Fine. Se la Data di Inizio è</value>
         <value xml:lang="th">เข้าสู่ วัน/เวลา หมายความว่าเวลาจริง ๆ คือ เวลาก่อน จากวันที่ หรือ หลัง ถึงวันที่ ถ้าจากวันที่คือ</value>
+        <value xml:lang="zh">当前时间在开始日期之前或结束日期之后的日期/时间记录</value>
     </property>
     <property key="ManufacturingNote2">
         <value xml:lang="en">, association has not started yet; if Thru Date is</value>
@@ -2000,6 +2049,7 @@
         <value xml:lang="fr">, l'association n'a pas commencé encore; si la date de fin est</value>
         <value xml:lang="it">, associazione non è ancora iniziata; se la Data di Fine è</value>
         <value xml:lang="th">, ยังไม่มีกลุ่มเริ่มต้น; ถ้า ถึงวันคือ</value>
+        <value xml:lang="zh">，那么关联还没有开始；如果结束日期是</value>
     </property>
     <property key="ManufacturingNote3">
         <value xml:lang="en">, association has expired (and should probably be deleted).</value>
@@ -2007,6 +2057,7 @@
         <value xml:lang="fr">, l'association a expiré (et devrait probablement être supprimée.</value>
         <value xml:lang="it">, associazione è scaduta (e dovrebbe probabilmente essere cancellata).</value>
         <value xml:lang="th">, มีกลุ่มที่ไม่เข้าร่วม (และควรจะลบ)</value>
+        <value xml:lang="zh">，那么关联已经过期(并且可能被删除了)。</value>
     </property>
     <property key="ManufacturingOrderItems">
         <value xml:lang="de">Auftragspositionen</value>
@@ -2021,10 +2072,12 @@
     <property key="ManufacturingPackageConfiguratorError">
         <value xml:lang="en">Package Configurator Error</value>
         <value xml:lang="it">Errore configurazione pacco</value>
+        <value xml:lang="zh">包装配置程序错误</value>
     </property>
     <property key="ManufacturingPackageContentsAndOrder">
         <value xml:lang="en">Package Contents And Order</value>
         <value xml:lang="it">Pacco contenuti e ordine</value>
+        <value xml:lang="zh">包装内容和订单</value>
     </property>
     <property key="ManufacturingPackageLabelsReport">
         <value xml:lang="de">Etiketten</value>
@@ -2039,6 +2092,7 @@
     <property key="ManufacturingPackageNumber">
         <value xml:lang="en">Package Number</value>
         <value xml:lang="it">Numero pacco</value>
+        <value xml:lang="zh">包装编号</value>
     </property>
     <property key="ManufacturingPrintProductionRun">
         <value xml:lang="de">Produktionsauftrag drucken</value>
@@ -2062,6 +2116,7 @@
     <property key="ManufacturingProduceQuantityMessage">
         <value xml:lang="en">If required, materials will be issued as well.</value>
         <value xml:lang="it">Se richiesto, i materiali saranno prelevati.</value>
+        <value xml:lang="zh">如果需要，还会交付物料。</value>
     </property>
     <property key="ManufacturingProductAssocNotExist">
         <value xml:lang="de">Produkt-Zuordnung nicht vorhanden</value>
@@ -2136,6 +2191,7 @@
     <property key="ManufacturingProductIsWIP">
         <value xml:lang="en">Product is WIP</value>
         <value xml:lang="it">Prodotto è di tipo WIP</value>
+        <value xml:lang="zh">产品是半成品</value>
     </property>
     <property key="ManufacturingProductLevel">
         <value xml:lang="de">Produkt-Ebene</value>
@@ -2184,10 +2240,12 @@
         <value xml:lang="fr">Virtuel</value>
         <value xml:lang="it">Virtuale</value>
         <value xml:lang="th">โดยทั้งหมด</value>
+        <value xml:lang="zh">虚拟</value>
     </property>
     <property key="ManufacturingProductionResQtyCalc">
         <value xml:lang="en">Production Res Qty Calc</value>
         <value xml:lang="it">Quantità riservata produzione</value>
+        <value xml:lang="zh">生产资源数量计算</value>
     </property>
     <property key="ManufacturingProductionRun">
         <value xml:lang="de">Produktionsauftrag</value>
@@ -2206,6 +2264,7 @@
         <value xml:lang="fr">Composants réels de l'ordre de fabrication</value>
         <value xml:lang="it">Componenti Attuali Ordine di Produzione</value>
         <value xml:lang="th">การผลิตสินค้าตามส่วนประกอบที่มีอยู่ในขณะนี้</value>
+        <value xml:lang="zh">生产运行实际组件</value>
     </property>
     <property key="ManufacturingProductionRunAssocs">
         <value xml:lang="de">Zuordnungen</value>
@@ -2230,18 +2289,22 @@
     <property key="ManufacturingProductionRunCompletionDateNotCorrect">
         <value xml:lang="en">Production Run Completion Date Not Correct</value>
         <value xml:lang="it">Data completamento ordine di produzione non corretta</value>
+        <value xml:lang="zh">生产运行完成时间不正确</value>
     </property>
     <property key="ManufacturingProductionRunComponentAdded">
         <value xml:lang="en">Production Run Component Added</value>
         <value xml:lang="it">Aggiunta componente ordine di produzione</value>
+        <value xml:lang="zh">生产运行组件已添加</value>
     </property>
     <property key="ManufacturingProductionRunComponentNotAdded">
         <value xml:lang="en">Production Run Component Not Added</value>
         <value xml:lang="it">Componente ordine di produzione non aggiunto</value>
+        <value xml:lang="zh">生产运行组件没有添加</value>
     </property>
     <property key="ManufacturingProductionRunComponentNotExists">
         <value xml:lang="en">Production Run Component Not Exists</value>
         <value xml:lang="it">Componente ordine di produzione non esiste</value>
+        <value xml:lang="zh">生产运行组件不存在</value>
     </property>
     <property key="ManufacturingProductionRunComponents">
         <value xml:lang="de">Komponenten des Produktionsauftrages</value>
@@ -2250,10 +2313,12 @@
         <value xml:lang="fr">Composants de l'ordre de fabrication</value>
         <value xml:lang="it">Compomenti Ordine di Produzione</value>
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
+        <value xml:lang="zh">生产运行组件</value>
     </property>
     <property key="ManufacturingProductionRunComponentUpdated">
         <value xml:lang="en">Production Run Component Updated</value>
         <value xml:lang="it">Componente ordine di produzione aggiornato</value>
+        <value xml:lang="zh">生产运行组件已更新</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
@@ -2287,6 +2352,7 @@
     <property key="ManufacturingProductionRunDeclareAndProduce">
         <value xml:lang="en">Production Run Declare And Produce</value>
         <value xml:lang="it">Ordine di produzione dichiara e produci</value>
+        <value xml:lang="zh">生产运行说明和产出</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssetAssign">
         <value xml:lang="de">Anlage zuweisen</value>
@@ -2296,7 +2362,7 @@
         <value xml:lang="it">Assegna Cespite</value>
         <value xml:lang="ro">Anexeaza Mijloc Fix Cespite</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产指派</value>
+        <value xml:lang="zh">固定资产分配</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssetIdMissing">
         <value xml:lang="de">Anlage-Nr. fehlt</value>
@@ -2314,6 +2380,7 @@
         <value xml:lang="fr">Machines de l'ordre de fabrication</value>
         <value xml:lang="it">Cespite Ordine di Produzione</value>
         <value xml:lang="th">การผลิตสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="zh">生产运行固定资产</value>
     </property>
     <property key="ManufacturingProductionRunId">
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
@@ -2338,10 +2405,12 @@
     <property key="ManufacturingProductionRunNotCreated">
         <value xml:lang="en">Production Run Not Created</value>
         <value xml:lang="it">Ordine di produzione non creato</value>
+        <value xml:lang="zh">生产运行没有创建</value>
     </property>
     <property key="ManufacturingProductionRunNotExists">
         <value xml:lang="en">Production Run Not Exists</value>
         <value xml:lang="it">Ordine di produzione non esiste</value>
+        <value xml:lang="zh">生产运行不存在</value>
     </property>
     <property key="ManufacturingProductionRunNotUpdated">
         <value xml:lang="de">Aktualisierung des Produktionsauftrages nicht erfolgreich, für weitere Informationen siehe Log</value>
@@ -2360,22 +2429,27 @@
         <value xml:lang="fr">Documents d'impression de l'ordre de fabrication</value>
         <value xml:lang="it">Stampa documento ordine di produzione</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
+        <value xml:lang="zh">生产运行打印文档</value>
     </property>
     <property key="ManufacturingProductionRunPrinted">
         <value xml:lang="en">Production Run Printed</value>
         <value xml:lang="it">Ordine di produzione stampato</value>
+        <value xml:lang="zh">生产运行已打印</value>
     </property>
     <property key="ManufacturingProductionRunPriorityMissing">
         <value xml:lang="en">Production Run Priority Missing</value>
         <value xml:lang="it">Ordine di produzione priorità mancante</value>
+        <value xml:lang="zh">生产运行缺少优先级</value>
     </property>
     <property key="ManufacturingProductionRunProduce">
         <value xml:lang="en">Production Run Produce</value>
         <value xml:lang="it">Ordine di produzione prodotto</value>
+        <value xml:lang="zh">生产运行产出</value>
     </property>
     <property key="ManufacturingProductionRunProductProducedNotStillAvailable">
         <value xml:lang="en">Production Run Product Produce Not Still Available</value>
         <value xml:lang="it">Ordine di produzione prodotto da produrre non ancora disponibile</value>
+        <value xml:lang="zh">生产运行产品产出不可用</value>
     </property>
     <property key="ManufacturingProductionRunProductComponent">
         <value xml:lang="de">Komponente für Produktionsauftrag</value>
@@ -2434,38 +2508,47 @@
         <value xml:lang="fr">Statut de l'ordre de fabrication changé avec succès.</value>
         <value xml:lang="it">Stato Ordine di Produzione cambiato con successo.</value>
         <value xml:lang="th">ได้เปลี่ยนสถานะการผลิตเรียบร้อยแล้ว</value>
+        <value xml:lang="zh">生产运行状态修改成功。</value>
     </property>
     <property key="ManufacturingProductionRunStatusNotChanged">
         <value xml:lang="en">Production Run Status Not Changed</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato</value>
+        <value xml:lang="zh">生产运行状态没有改变</value>
     </property>
     <property key="ManufacturingProductionRunStatusNotChangedMandatoryProductionRunFound">
         <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Found</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione trovato</value>
+        <value xml:lang="zh">生产运行状态没有改变，找到了必要的生产运行</value>
     </property>
     <property key="ManufacturingProductionRunStatusNotChangedMandatoryProductionRunNotCompleted">
         <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Not Completed</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione non completato</value>
+        <value xml:lang="zh">生产运行状态没有改变，没有完成必要的生产运行</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
         <value xml:lang="en">Production Run Task Cannot Start Docs Not Printed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare con documento non stampato</value>
+        <value xml:lang="zh">生产运行任务无法启动，文档没有打印</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartPrevTasksNotCompleted">
         <value xml:lang="en">Production Run Task Cannot Start Prev Tasks Not Completed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare un precedente compito non completato</value>
+        <value xml:lang="zh">生产运行任务无法启动，之前的任务没有完成</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotExists">
         <value xml:lang="en">Production Run Task Not Exists</value>
         <value xml:lang="it">Compito ordine di produzione non esiste</value>
+        <value xml:lang="zh">生产运行任务不存在</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotRunning">
         <value xml:lang="en">Production Run Task Not Running</value>
         <value xml:lang="it">Compito ordine di produzione non in esecuzione</value>
+        <value xml:lang="zh">生产运行任务没有执行</value>
     </property>
     <property key="ManufacturingProductionRunTaskStatusChanged">
         <value xml:lang="en">Production Run Task Status Changed</value>
         <value xml:lang="it">Compito ordine di produzione stato cambiato</value>
+        <value xml:lang="zh">生产运行任务状态已改变</value>
     </property>
     <property key="ManufacturingProductionRunTasks">
         <value xml:lang="de">Arbeitsgänge des Produktionsauftrages</value>
@@ -2474,6 +2557,7 @@
         <value xml:lang="fr">Opérations de l'ordre de fabrication</value>
         <value xml:lang="it">Operazione Ordine di Produzione</value>
         <value xml:lang="th">งานการผลิต</value>
+        <value xml:lang="zh">生产运行任务</value>
     </property>
     <property key="ManufacturingProposedOrder">
         <value xml:lang="en">Proposed Order</value>
@@ -2519,6 +2603,7 @@
         <value xml:lang="es">La cantidad producido no debe ser mayor que la declarada.</value>
         <value xml:lang="fr">La quantité produite ne peut pas être plus importante que la quantité affichée.</value>
         <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
+        <value xml:lang="zh">已生产的数量不大于声明的数量。</value>
     </property>
     <property key="ManufacturingQuantityRejected">
         <value xml:lang="de">Abgelehnt</value>
@@ -2596,6 +2681,7 @@
         <value xml:lang="es">Empezar todas las tareas rápido</value>
         <value xml:lang="fr">Démarrer rapidement toutes les opérations</value>
         <value xml:lang="it">Avvio Veloce Operazioni</value>
+        <value xml:lang="zh">快速启动全部任务</value>
     </property>
     <property key="ManufacturingReason">
         <value xml:lang="de">Grund</value>
@@ -2624,6 +2710,7 @@
         <value xml:lang="fr">Besoin de fabrication par date</value>
         <value xml:lang="it">Fabbisogni per data</value>
         <value xml:lang="th">ความต้องการโดยวัน</value>
+        <value xml:lang="zh">按日期的需求</value>
     </property>
     <property key="ManufacturingRequirementId">
         <value xml:lang="de">Bedarfs-Nr.</value>
@@ -2632,18 +2719,22 @@
         <value xml:lang="fr">Réf. de besoin de fabrication</value>
         <value xml:lang="it">Fabbisogno</value>
         <value xml:lang="th">รหัสความต้องการ</value>
+        <value xml:lang="zh">需求标识</value>
     </property>
     <property key="ManufacturingRequirementNotDeleted">
         <value xml:lang="en">Requirement Non Deleted</value>
         <value xml:lang="it">Fabbisogno non cancellato</value>
+        <value xml:lang="zh">没有需求被删除</value>
     </property>
     <property key="ManufacturingRequirementNotExists">
         <value xml:lang="en">Requirement Non Exists</value>
         <value xml:lang="it">Fabbisogno non esistente</value>
+        <value xml:lang="zh">不存在需求</value>
     </property>
     <property key="ManufacturingRequirementNotUpdated">
         <value xml:lang="en">Requirement Non Updated</value>
         <value xml:lang="it">Fabbisogno non aggiornato</value>
+        <value xml:lang="zh">没有需求被更新</value>
     </property>
     <property key="ManufacturingRequirementStartDate">
         <value xml:lang="de">Start-Datum Bedarf</value>
@@ -2652,6 +2743,7 @@
         <value xml:lang="fr">Date de début de besoin de fabrication</value>
         <value xml:lang="it">Data inizio fabbisogno</value>
         <value xml:lang="th">วันเริ่มต้นของความต้องการ</value>
+        <value xml:lang="zh">需求开始日期</value>
     </property>
     <property key="ManufacturingReturnMaterials">
         <value xml:lang="de">Unverbrauchtes Material zurück ins Lager</value>
@@ -2660,6 +2752,7 @@
         <value xml:lang="fr">Retourner les matériaux inutilisés à l'entrepôt</value>
         <value xml:lang="it">Materiali Non Usati Resi al Magazzino</value>
         <value xml:lang="th">แสดงวัสดุที่ยังไม่เคยใช้ในคลังสินค้า</value>
+        <value xml:lang="zh">把未用物料归还仓库</value>
     </property>
     <property key="ManufacturingReturnedQuantity">
         <value xml:lang="de">Zurückgegeben</value>
@@ -2804,18 +2897,22 @@
     <property key="ManufacturingRoutingTaskIdMissing">
         <value xml:lang="en">Routing Task Id Missing</value>
         <value xml:lang="it">Codice operazione mancante</value>
+        <value xml:lang="zh">缺少规程任务标识</value>
     </property>
     <property key="ManufacturingRoutingTaskNotExists">
         <value xml:lang="en">Routing Task Not Exists</value>
         <value xml:lang="it">Codice operazione non esiste</value>
+        <value xml:lang="zh">规程任务不存在</value>
     </property>
     <property key="ManufacturingRoutingTaskSeqIdAlreadyExist">
         <value xml:lang="en">Routing Task Seq Id Already Exists</value>
         <value xml:lang="it">Codice operazione sequenza già esistente</value>
+        <value xml:lang="zh">规程任务序列号已存在</value>
     </property>
     <property key="ManufacturingRoutingTaskStartDateBeforePRun">
         <value xml:lang="en">Routing Task Start Date Before Production Run</value>
         <value xml:lang="it">Codice operazione data inizio prima dell'ordine di produzione</value>
+        <value xml:lang="zh">开始日期在生产运行之前的规程任务</value>
     </property>
     <property key="ManufacturingRoutingTaskToMissing">
         <value xml:lang="de">Arbeitsgang An fehlt</value>
@@ -2864,6 +2961,7 @@
         <value xml:lang="fr">Planification</value>
         <value xml:lang="it">Schedula</value>
         <value xml:lang="th">กำหนดการ</value>
+        <value xml:lang="zh">计划</value>
     </property>
     <property key="ManufacturingScrapFactor">
         <value xml:lang="de">Ausschuß-Faktor in %</value>
@@ -2878,6 +2976,7 @@
     <property key="ManufacturingSelectedFeatures">
         <value xml:lang="en">Selected Features</value>
         <value xml:lang="it">Caratteristica selezionata</value>
+        <value xml:lang="zh">选择的特征</value>
     </property>
     <property key="ManufacturingShipmentPlanStockReport">
         <value xml:lang="de">Bericht über Bestände für Versand-Plan</value>
@@ -2902,6 +3001,7 @@
     <property key="ManufacturingShipmentWorkEffortTasks">
         <value xml:lang="en">Shipment WorkEffort Tasks</value>
         <value xml:lang="it">Compiti impegni di lavoro spedizione</value>
+        <value xml:lang="zh">运输人工服务任务</value>
     </property>
     <property key="ManufacturingShowBOMAssocs">
         <value xml:lang="de">Stückliste anzeigen</value>
@@ -2979,6 +3079,7 @@
         <value xml:lang="fr">Composants d'opération</value>
         <value xml:lang="it">Componenti Operazione</value>
         <value xml:lang="th">ส่วนประกอบของงาน</value>
+        <value xml:lang="zh">任务组件</value>
     </property>
     <property key="ManufacturingTaskEstimatedMilliSeconds">
         <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit</value>
@@ -3007,6 +3108,7 @@
         <value xml:lang="fr">Temps d'exécution totale estimé</value>
         <value xml:lang="it">Totale Tempo Stimato Esecuazione</value>
         <value xml:lang="th">ประมาณเวลาทั้งหมด</value>
+        <value xml:lang="zh">预计全部运行时间</value>
     </property>
     <property key="ManufacturingTaskFixedAssets">
         <value xml:lang="de">Anlagen für Arbeitsgang</value>
@@ -3015,6 +3117,7 @@
         <value xml:lang="fr">Machines d'opération de gamme</value>
         <value xml:lang="it">Cespite Operazione</value>
         <value xml:lang="th">การทำงานของสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="zh">规程任务固定资产</value>
     </property>
     <property key="ManufacturingTaskId">
         <value xml:lang="de">Arbeitsgang-Nr.</value>
@@ -3081,7 +3184,7 @@
         <value xml:lang="it">TechDataCalendarWeek non esiste</value>
         <value xml:lang="ro">TechDataCalendarWeek nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินของสัปดาห์อยู่</value>
-        <value xml:lang="zh">不存在技术日历周</value>
+        <value xml:lang="zh">不存在技术数据日历周</value>
     </property>
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
@@ -3090,6 +3193,7 @@
         <value xml:lang="fr">Période de temps</value>
         <value xml:lang="it">Periodo temporale</value>
         <value xml:lang="th">ระยะเวลา</value>
+        <value xml:lang="zh">时间段</value>
     </property>
     <property key="ManufacturingToDate">
         <value xml:lang="de">Bis Datum</value>
@@ -3178,7 +3282,7 @@
         <value xml:lang="it">Algoritmo visita Albero</value>
         <value xml:lang="ro">Algoritm vizita Arbore</value>
         <value xml:lang="th">อัลกอลิทึมแบบต้นไม้</value>
-        <value xml:lang="zh">树访问算法</value>
+        <value xml:lang="zh">树状结构访问算法</value>
     </property>
     <property key="ManufacturingWillBeSetToNow">
         <value xml:lang="de">Wird auf die aktuelle Zeit gesetzt falls leer</value>
@@ -3218,6 +3322,7 @@
         <value xml:lang="it">Il tipo cespite selezionato è già associato con questa operazione</value>
         <value xml:lang="ro">Tipul de Mijloc Fix Selectionat este deja asociat la acest traseu </value>
         <value xml:lang="th">เลือกประเภทสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
+        <value xml:lang="zh">选择的固定资产类型已经与这个规程任务关联了</value>
     </property>
     <property key="ManufacturingWorkEffortGoodStandardNotExist">
         <value xml:lang="en">WorkEffortGoodStandard table does not exist</value>
@@ -3273,6 +3378,7 @@
         <value xml:lang="fr">Ajouter une exclusion de semaine au calendrier</value>
         <value xml:lang="it">Aggiungi Eccezione Calendario Settimanale</value>
         <value xml:lang="th">เพิ่มปฏิทินสัปดาห์ที่ยกเว้น</value>
+        <value xml:lang="zh">添加日历非工作周</value>
     </property>
     <property key="PageTitleEditCalendar">
         <value xml:lang="de">Kalender bearbeiten</value>
@@ -3449,6 +3555,7 @@
         <value xml:lang="fr">Rechercher une nomenclature</value>
         <value xml:lang="it">Ricerca distinta base</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
+        <value xml:lang="zh">填写物料清单</value>
     </property>
     <property key="PageTitleFindCalendar">
         <value xml:lang="de">Kalender suchen</value>
@@ -3527,6 +3634,7 @@
         <value xml:lang="fr">Liste d'association des opérations de gamme</value>
         <value xml:lang="it">Lista Associazioni Operazioni</value>
         <value xml:lang="th">รายการกลลุ่มของงาน</value>
+        <value xml:lang="zh">规程任务关联列表</value>
     </property>
     <property key="PageTitleListRoutingTaskProducts">
         <value xml:lang="de">Arbeitsgang-Produkt bearbeiten</value>

@@ -521,6 +521,7 @@
         <value xml:lang="nl">partyroleservices.could_not_create_party_role_exists</value>
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect: deja existent.</value>
         <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">无法新建已存在的会员角色</value>
     </property>
     <property key="partyroleservices.could_not_create_party_role_read">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden (Lesefehler).</value>
@@ -531,6 +532,7 @@
         <value xml:lang="nl">partyroleservices.could_not_create_party_role_read</value>
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect (lectura falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการอ่านได้</value>
+        <value xml:lang="zh">无法新建会员读角色</value>
     </property>
     <property key="partyroleservices.could_not_create_party_role_write">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden (Schreibfehler).</value>
@@ -541,6 +543,7 @@
         <value xml:lang="nl">partyroleservices.could_not_create_party_role_write</value>
         <value xml:lang="ro">Nu este posibila crearea  rolului Subiect (scriere falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการเขียนได้    </value>
+        <value xml:lang="zh">无法新建会员写角色</value>
     </property>
     <property key="partyroleservices.could_not_delete_party_role_not_found">
         <value xml:lang="de">Akteur Rolle kann nicht gelöscht werden. Rolle nicht gefunden.</value>
@@ -551,6 +554,7 @@
         <value xml:lang="nl">partyroleservices.could_not_delete_party_role_not_found</value>
         <value xml:lang="ro">Nu este posibila stergerea rolului Subiect (nu gaseste rol Subiect).</value>
         <value xml:lang="th">ไม่สามารถลบสถานะกลุ่มผู้ใช้ยังไม่ค้นพบ</value>
+        <value xml:lang="zh">无法删除找不到的会员角色</value>
     </property>
     <property key="partyroleservices.could_not_delete_party_role_read">
         <value xml:lang="de">Akteur Rolle kann nicht gelöscht werden (Lesefehler).</value>
@@ -561,6 +565,7 @@
         <value xml:lang="nl">partyroleservices.could_not_delete_party_role_read</value>
         <value xml:lang="ro">Nu este posibila stergerea  rolului Subiect (lectura falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบกลุ่มผู้ใช้ในการอ่านได้</value>
+        <value xml:lang="zh">无法删除会员读角色</value>
     </property>
     <property key="partyroleservices.could_not_delete_party_role_write">
         <value xml:lang="de">Akteur Rolle kann nicht gelöscht werden (Schreibfehler).</value>
@@ -571,6 +576,7 @@
         <value xml:lang="nl">partyroleservices.could_not_delete_party_role_write</value>
         <value xml:lang="ro">Nu este posibila stergerea rolului Subiect (scriere falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบสถานะกลุ่มผู้ใช้ในการเขียนได้</value>
+        <value xml:lang="zh">无法删除会员写角色</value>
     </property>
     <property key="partyservices.both_names_cannot_be_empty">
         <value xml:lang="de">Vorname und Nachname können nicht leer sein.</value>

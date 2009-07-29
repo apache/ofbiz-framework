@@ -148,6 +148,7 @@
         <value xml:lang="it">Richiesta Di Preventivo Acquisto</value>
         <value xml:lang="ru">Запрос закупочных цен</value>
         <value xml:lang="th">คำขอร้องสำหรับการอ้างอิงการสั่งซื้อ</value>
+        <value xml:lang="zh">采购询价</value>
     </property>
     <property key="CustRequestType.description.RF_QUOTE">
         <value xml:lang="de">Offerte verlangt</value>
@@ -299,6 +300,7 @@
         <value xml:lang="fr">Mettre l'adresse en liste noire</value>
         <value xml:lang="it">Indirizzo blacklist</value>
         <value xml:lang="th">ที่อยู่</value>
+        <value xml:lang="zh">地址黑名单</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_CREDITCARD">
         <value xml:lang="de">Blackliste Kreditkarte</value>
@@ -307,6 +309,7 @@
         <value xml:lang="fr">Mettre la carte de crédit en liste noire</value>
         <value xml:lang="it">Blacklist carta di credito</value>
         <value xml:lang="th">บัตรเครดิต</value>
+        <value xml:lang="zh">信用卡黑名单</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_EMAIL">
         <value xml:lang="de">Blackliste E-Mail</value>
@@ -315,6 +318,7 @@
         <value xml:lang="fr">Mettre l'addresse de courriel en liste noire</value>
         <value xml:lang="it">Email blacklist</value>
         <value xml:lang="th">อีเมล</value>
+        <value xml:lang="zh">电子邮件黑名单</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_PHONE">
         <value xml:lang="de">Blackliste Telefon</value>
@@ -323,6 +327,7 @@
         <value xml:lang="fr">Mettre le n° de téléphone en liste noire</value>
         <value xml:lang="it">Telefono blacklist</value>
         <value xml:lang="th">หมายเลขโทรศัพท์</value>
+        <value xml:lang="zh">电话黑名单</value>
     </property>
     <property key="OrderContentType.description.IMAGE_URL">
         <value xml:lang="de">Bild URL</value>
@@ -331,6 +336,7 @@
         <value xml:lang="fr">URL d'image</value>
         <value xml:lang="it">URL immagine</value>
         <value xml:lang="th">รูปภาพ</value>
+        <value xml:lang="zh">图像网址</value>
     </property>
     <property key="OrderItemType.description.BULK_ORDER_ITEM">
         <value xml:lang="de">Grossauftrag Element</value>
@@ -339,6 +345,7 @@
         <value xml:lang="fr">Vrac</value>
         <value xml:lang="it">Riga ordine bulk</value>
         <value xml:lang="th">รายการความจุ</value>
+        <value xml:lang="zh">大宗订单明细</value>
     </property>
     <property key="OrderItemType.description.PRODUCT_ORDER_ITEM">
         <value xml:lang="de">Produkt</value>
@@ -347,6 +354,7 @@
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto riga ordine</value>
         <value xml:lang="th">รายการ</value>
+        <value xml:lang="zh">产品订单明细</value>
     </property>
     <property key="OrderItemType.description.RENTAL_ORDER_ITEM">
         <value xml:lang="de">Miete</value>
@@ -355,6 +363,7 @@
         <value xml:lang="fr">Location</value>
         <value xml:lang="it">Riga ordine di affitto</value>
         <value xml:lang="th">รายการการเช่า</value>
+        <value xml:lang="zh">租赁订单明细</value>
     </property>
     <property key="OrderItemType.description.WORK_ORDER_ITEM">
         <value xml:lang="de">Arbeit</value>
@@ -363,6 +372,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Riga ordine di lavoro</value>
         <value xml:lang="th">รายการงาน</value>
+        <value xml:lang="zh">派工单明细</value>
     </property>
     <property key="OrderType.description.PURCHASE_ORDER">
         <value xml:lang="de">Beschaffungsauftrag</value>
@@ -373,7 +383,7 @@
         <value xml:lang="ro">Cumparare</value>
         <value xml:lang="ru">Закупка</value>
         <value xml:lang="th">รายการการสั่งซื้อ</value>
-        <value xml:lang="zh">购买</value>
+        <value xml:lang="zh">采购订单</value>
     </property>
     <property key="OrderType.description.SALES_ORDER">
         <value xml:lang="de">Kundenauftrag</value>
@@ -384,7 +394,7 @@
         <value xml:lang="ro">Vanzare</value>
         <value xml:lang="ru">Продажи</value>
         <value xml:lang="th">รายการขาย</value>
-        <value xml:lang="zh">销售</value>
+        <value xml:lang="zh">销售订单</value>
     </property>
     <property key="OrderType.description.WORK_ORDER">
         <value xml:lang="de">Arbeitsauftrag</value>
@@ -393,6 +403,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Ordine di lavoro</value>
         <value xml:lang="th">งาน</value>
+        <value xml:lang="zh">派工单</value>
     </property>
     <property key="QuoteType.description.OTHER_QUOTE">
         <value xml:lang="de">Andere</value>
@@ -434,6 +445,7 @@
         <value xml:lang="fr">Proposition d'achat</value>
         <value xml:lang="it">Proposta di acquisto</value>
         <value xml:lang="th">ข้อเสนอการซื้อ</value>
+        <value xml:lang="zh">采购建议</value>
     </property>
     <property key="QuoteType.description.PURCHASE_QUOTE">
         <value xml:lang="de">Produkt Beschaffung</value>
@@ -444,7 +456,7 @@
         <value xml:lang="ro">Produs Cumparat</value>
         <value xml:lang="ru">Закупочное предложение</value>
         <value xml:lang="th">การสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">产品购买</value>
+        <value xml:lang="zh">产品采购</value>
     </property>
     <property key="RequirementType.description.CUSTOMER_REQUIREMENT">
         <value xml:lang="de">Kunde Bedarf</value>
@@ -476,6 +488,7 @@
         <value xml:lang="it">Fabbisogno ciclo produzione proposto dal processo MRP</value>
         <value xml:lang="ro">Necesar Ciclu Productie propus de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PROD_ORDER</value>
+        <value xml:lang="zh">MRP中产品订单的物料需求</value>
     </property>
     <property key="RequirementType.description.MRP_PRO_PURCH_ORDER">
         <value xml:lang="de">Einkaufsbedarf gemäss Produktionsplanung MRP</value>
@@ -485,6 +498,7 @@
         <value xml:lang="it">Fabbisogno ordine acquisto proposto dal processo MRP</value>
         <value xml:lang="ro">Necesar Comanda Comparare propusa de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PURCH_ORDER</value>
+        <value xml:lang="zh">MRP中采购订单的物料需求</value>
     </property>
     <property key="RequirementType.description.PRODUCT_REQUIREMENT">
         <value xml:lang="de">Produkt Bedarf</value>
@@ -506,55 +520,67 @@
         <value xml:lang="ro">Necesar de Lucru</value>
         <value xml:lang="ru">Требование работ</value>
         <value xml:lang="th">ความต้องการงาน</value>
-        <value xml:lang="zh">工作需求</value>
+        <value xml:lang="zh">作业需求</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="it">Promozione reso</value>
+        <value xml:lang="zh">退货的促销</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="it">Reso in sostituzione</value>
+        <value xml:lang="zh">退货的替代</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="it">Sconto sul reso</value>
+        <value xml:lang="zh">退货的折扣</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_FEE_ADJ">
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="it">Commissioni sul reso</value>
+        <value xml:lang="zh">退货的费用</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MISC_ADJ">
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="it">Ricarichi vari sul reso</value>
+        <value xml:lang="zh">退货的杂费</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
         <value xml:lang="it">Tasse di vendita sul reso</value>
+        <value xml:lang="zh">退货的营业税</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SHIPPING_ADJ">
         <value xml:lang="en">Return Shipping and Handling</value>
         <value xml:lang="it">Spese di trasporto sul reso</value>
+        <value xml:lang="zh">退货的装运费</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SURCHARGE_ADJ">
         <value xml:lang="en">Return Surcharge</value>
         <value xml:lang="it">Spese supplementari sul reso</value>
+        <value xml:lang="zh">退货的附加费</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
         <value xml:lang="en">Return Additional Feature</value>
         <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
+        <value xml:lang="zh">退货的附加特征</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="it">Garanzia sul reso</value>
+        <value xml:lang="zh">退货的保证条款</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
+        <value xml:lang="zh">退货的行销包装调整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="it">Aggiustamento manuale sul reso</value>
+        <value xml:lang="zh">退货的手册调整</value>
     </property>
     <property key="ReturnReason.description.RTN_COD_REJECT">
         <value xml:lang="de">Vereinbarte Zahlung bei Lieferung abgeleht</value>
@@ -564,6 +590,7 @@
         <value xml:lang="it">Pagmento contrassegno rifiutato</value>
         <value xml:lang="ru">COD платеж не принят</value>
         <value xml:lang="th">ปฏิเสธการชำระเงินด่วน</value>
+        <value xml:lang="zh">货到付款被拒绝了</value>
     </property>
     <property key="ReturnReason.description.RTN_DEFECTIVE_ITEM">
         <value xml:lang="de">Defektes Element</value>
@@ -653,6 +680,7 @@
         <value xml:lang="it">Riparato sostituito</value>
         <value xml:lang="ru">Замена при ремонте</value>
         <value xml:lang="th">ชดเชยการทดแทน</value>
+        <value xml:lang="zh">修理替换</value>
     </property>
     <property key="ReturnType.description.RTN_REPLACE">
         <value xml:lang="de">Ersatz</value>
