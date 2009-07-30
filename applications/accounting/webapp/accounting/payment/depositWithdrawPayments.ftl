@@ -87,7 +87,8 @@ function getPaymentRunningTotal(e) {
                     <tr class="header-row">
                         <td>${uiLabelMap.FormFieldTitle_paymentId}</td>
                         <td>${uiLabelMap.AccountingPaymentType}</td>
-                        <td>${uiLabelMap.Party}</td>
+                        <td>${uiLabelMap.AccountingFromParty}</td>
+                        <td>${uiLabelMap.AccountingToParty}</td>
                         <td>${uiLabelMap.CommonAmount}</td>
                         <td>${uiLabelMap.CommonDate}</td>
                         <td align="right">
@@ -105,12 +106,12 @@ function getPaymentRunningTotal(e) {
                                 ${paymentType.description?if_exists}
                             </td>
                             <td>
-                                <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdFrom}, false))!>
-                                <#if partyName.partyTypeId == "PERSON">
-                                    ${(partyName.firstName)!} ${(partyName.lastName)!}
-                                <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">
-                                    ${(partyName.groupName)!}
-                                </#if>
+                                <#assign partyNameFrom = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdFrom}, true))!>
+                                ${(partyNameFrom.firstName)!} ${(partyNameFrom.lastName)!} ${(partyNameFrom.groupName)!}
+                            </td>
+                            <td> 
+                                <#assign partyNameTo = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true))!>
+                                ${(partyNameTo.firstName)!} ${(partyNameTo.lastName)!} ${(partyNameTo.groupName)!}
                             </td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate?if_exists}</td>
