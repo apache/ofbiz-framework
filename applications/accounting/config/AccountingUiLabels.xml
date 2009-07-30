@@ -6861,6 +6861,9 @@
         <value xml:lang="th">Security Error: ความผิดพลาด! การตรวจสอบการพิมพ์, คุณต้องมี ACCOUNTING_PRINT_CHECKS ก่อน</value>
         <value xml:lang="zh">安全错误：要打印支票，你必须具有ACCOUNTING_PRINT_CHECKS权限</value>
     </property>
+    <property key="AccountingPrintDepositSlip">
+        <value xml:lang="en">Print Deposit Slip</value>
+    </property>
     <property key="AccountingProblemChangingInvoiceStatusTo">
         <value xml:lang="ar">مشكل عند تغيير وضعية الفاتورة إلى  ${newStatus}</value>
         <value xml:lang="en">Problem changing invoice status to ${newStatus}</value>

@@ -326,7 +326,7 @@ under the License.
                 <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
-                <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
+                <entity-and entity-name="PaymentGroupMember" list="paymentGroupMemberList" filter-by-date="true">
                     <field-map field-name="paymentGroupId"/>
                 </entity-and>
             </actions>
@@ -334,16 +334,24 @@ under the License.
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <not><if-empty field="paymentGroupMemberList"/></not>
+                            </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroupFor}">
-                                    <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMemberFor}">
-                                    <include-form name="AddDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
-                                    <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
-                                </screenlet>
+                                <container style="button-bar">
+                                    <link target="DepositSlip.pdf" text="${uiLabelMap.AccountingPrintDepositSlip}" style="buttontext">
+                                        <parameter param-name="paymentGroupId"/>
+                                    </link>
+                                </container>
                             </widgets>
                         </section>
+                        <screenlet title="${uiLabelMap.AccountingEditPaymentGroupFor}">
+                            <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMemberFor}">
+                            <include-form name="AddDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
+                            <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
