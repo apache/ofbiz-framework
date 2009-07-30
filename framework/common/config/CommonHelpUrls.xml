@@ -33,5 +33,6 @@
     </property>
     <property key="HelpNotFound">
         <value xml:lang="en">End User Documentation</value>
+        <value xml:lang="zh">最终用户文档</value>
     </property>
 </resource>

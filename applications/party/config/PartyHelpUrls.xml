@@ -21,30 +21,39 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="PARTY_main">
         <value xml:lang="en">Party</value>
+        <value xml:lang="zh">会员</value>
     </property>
     <property key="PARTY_findparty">
         <value xml:lang="en">Party</value>
+        <value xml:lang="zh">会员</value>
     </property>
     <property key="PARTY_FindCommunicationEvents">
         <value xml:lang="en">Party Communications</value>
+        <value xml:lang="zh">会员沟通</value>
     </property>
     <property key="PARTY_showvisits">
         <value xml:lang="en">Party Visits</value>
+        <value xml:lang="zh">会员访问</value>
     </property>
     <property key="PARTY_FindPartyClassificationGroups">
         <value xml:lang="en">Party Classifications</value>
+        <value xml:lang="zh">会员分类</value>
     </property>
     <property key="PARTY_FindSecurityGroup">
         <value xml:lang="en">Party Security</value>
+        <value xml:lang="zh">会员安全</value>
     </property>
     <property key="PARTY_AddressMatchMap">
         <value xml:lang="en">Party Address Match Map</value>
+        <value xml:lang="zh">会员地址匹配表</value>
     </property>
     <property key="PARTY_partyInvitation">
         <value xml:lang="en">Party Invitation</value>
+        <value xml:lang="zh">会员邀请</value>
     </property>
     <property key="PARTY_CreateNewParty">
         <value xml:lang="en">Party new</value>
+        <value xml:lang="zh">新建会员</value>
     </property>
 
 </resource>
