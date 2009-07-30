@@ -21,7 +21,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-
+if ("Y".equals(parameters.noConditionFind)) {
 List paymentCond = [];
 if (paymentMethodTypeId) {
     paymentCond.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
@@ -69,4 +69,5 @@ if (payments) {
     } else {
         context.paymentList = paymentListWithoutCreditCard;
     }
+}
 }
