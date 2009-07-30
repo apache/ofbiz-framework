@@ -627,6 +627,10 @@ public class WorkEffortServices {
                 Calendar cal = UtilDateTime.toCalendar(startStamp, timeZone, locale);
                 for (GenericValue workEffort : validWorkEfforts) {
                     if (UtilValidate.isNotEmpty(workEffort.getString("tempExprId"))) {
+                    	// check if either the workeffort is public or the requested party is a member
+                    	if (UtilValidate.isNotEmpty(partyIdsToUse) && !workEffort.getString("scopeEnumId").equals("WES_PUBLIC") && !partyIdsToUse.contains(workEffort.getString("partyId"))) {
+                    		continue;
+                    	}
                         TemporalExpression tempExpr = TemporalExpressionWorker.getTemporalExpression(delegator, workEffort.getString("tempExprId"));
                         Set<Date> occurrences = tempExpr.getRange(range, cal);
                         for (Date occurrence : occurrences) {
