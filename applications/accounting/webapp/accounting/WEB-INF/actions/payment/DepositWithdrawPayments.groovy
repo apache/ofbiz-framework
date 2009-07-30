@@ -23,8 +23,6 @@ import org.ofbiz.entity.condition.EntityOperator;
 if ("Y".equals(parameters.noConditionFind)) {
     List exprListForParameters = [];
 
-    partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, organizationPartyId),
-                                               EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId)], EntityOperator.OR);
     statusCond = EntityCondition.makeCondition([EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
                                                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR);
 
@@ -42,7 +40,7 @@ if ("Y".equals(parameters.noConditionFind)) {
     }
     exprListForParameters.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
     paramCond = EntityCondition.makeCondition(exprListForParameters, EntityOperator.AND);
-    combinedPaymentCond = EntityCondition.makeCondition([partyCond, statusCond, paramCond], EntityOperator.AND);
+    combinedPaymentCond = EntityCondition.makeCondition([statusCond, paramCond], EntityOperator.AND);
     payments = delegator.findList("Payment", combinedPaymentCond, null, null, null, false);
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];

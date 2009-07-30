@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.ofbiz.accounting.util.UtilAccounting
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -35,9 +36,6 @@ if ("Y".equals(parameters.noConditionFind)) {
     if (partyIdFrom) {
         paymentCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom));
     }
-    if (organizationPartyId) {
-        paymentCond.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, organizationPartyId));
-    }
     if (finAccountId) {
         finAccountTransList = delegator.findList("FinAccountTrans", EntityCondition.makeCondition([finAccountId : finAccountId]), null, null, null, false);
         if (finAccountTransList) {
@@ -52,15 +50,18 @@ if ("Y".equals(parameters.noConditionFind)) {
     paymentListWithoutCreditCard = [];
     if (payments) {
         payments.each { payment ->
-            paymentGroupMembers = EntityUtil.filterByDate(delegator.findList("PaymentGroupMember", EntityCondition.makeCondition([paymentId : payment.paymentId]), null, null, null, false));
-            if (!paymentGroupMembers) {
-                if (cardType && payment.paymentMethodId) {
-                    creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
-                    if (creditCard.cardType == cardType) {
-                        paymentListWithCreditCard.add(payment);
+            isReceipt = UtilAccounting.isReceipt(payment);
+            if (isReceipt) {
+                paymentGroupMembers = EntityUtil.filterByDate(delegator.findList("PaymentGroupMember", EntityCondition.makeCondition([paymentId : payment.paymentId]), null, null, null, false));
+                if (!paymentGroupMembers) {
+                    if (cardType && payment.paymentMethodId) {
+                        creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
+                        if (creditCard.cardType == cardType) {
+                            paymentListWithCreditCard.add(payment);
+                        }
+                    } else if (UtilValidate.isEmpty(cardType)) {
+                        paymentListWithoutCreditCard.add(payment);
                     }
-                } else if (UtilValidate.isEmpty(cardType)) {
-                    paymentListWithoutCreditCard.add(payment);
                 }
             }
         }
