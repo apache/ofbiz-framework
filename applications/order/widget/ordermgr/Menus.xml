@@ -208,16 +208,37 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="editRequest" title="${uiLabelMap.OrderRequest}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                        <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                        <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
             <link target="request">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
         <menu-item name="requestroles" title="${uiLabelMap.OrderRequestRoles}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
             <link target="requestroles">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
         <menu-item name="requestitems" title="${uiLabelMap.OrderRequestItems}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
             <link target="/requestitems">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>

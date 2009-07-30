@@ -3952,4 +3952,7 @@
         <value xml:lang="zh">购物列表标识是一个必须的参数。</value>
         <value xml:lang="zh_CN">shoppingListId 是必须的参数</value>
     </property>
+    <property key="CheckCustRequest">
+        <value xml:lang="en">Can't only update CustRequest, when status is in-process...is now: ${custRequest.statusId}</value>
+    </property>
 </resource>

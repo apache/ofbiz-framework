@@ -98,7 +98,7 @@ under the License.
         </if>
     </simple-method>
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
-        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <call-simple-method method-name="checkStatusCustRequest"/>
         <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
         <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
             <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
@@ -141,6 +141,27 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="custRequest"/>
         <store-value value-field="custRequest"/>
     </simple-method>
+    <simple-method method-name="checkStatusCustRequest" short-description="Check StatusId CustRequest">
+        <entity-one entity-name="CustRequest" value-field="custRequest"></entity-one>
+        <if-empty field="custRequest">
+            <add-error><fail-message message="CustRequest not found, statusId Id: ${custRequest.statusId}"/></add-error>
+            <log level="info" message="CustRequest not found, statusId Id: ${custRequest.statusId}"/>
+            <check-errors/>
+            </if-empty>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="custRequest.statusId" value="CRQ_CANCELLED" operator="equals"/>
+                    <if-compare field="custRequest.statusId" value="CRQ_COMPLETED" operator="equals"/>                
+                </or>
+            </condition>
+            <then>       
+                <add-error><fail-property resource="OrderErrorUiLabels" property="CheckCustRequest"/></add-error>
+                <log level="info" message="Can't only update CustRequest, when status is in-process...is now: ${custRequest.statusId}"/>                    
+                <check-errors/>
+            </then>
+        </if>
+    </simple-method>
 
     <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
         <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
@@ -157,6 +178,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
+        <call-simple-method method-name="checkStatusCustRequest"/>
         <make-value value-field="newEntity" entity-name="CustRequestItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -171,6 +193,7 @@ under the License.
         <field-to-result field="newEntity.custRequestItemSeqId" result-name="custRequestItemSeqId"/>
     </simple-method>
     <simple-method method-name="updateCustRequestItem" short-description="Update Customer Request Item">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="lookupPKMap.custRequestItemSeqId"/>
         <find-by-primary-key entity-name="CustRequestItem" map="lookupPKMap" value-field="custRequestItem"/>
@@ -179,6 +202,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestParty" short-description="Create Customer RequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
@@ -196,11 +220,13 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>                
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
         <now-timestamp field="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
@@ -228,6 +254,7 @@ under the License.
         <store-value value-field="lookedUpValueForNoteData"/>
     </simple-method>
     <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
         <make-value value-field="newEntity" entity-name="CustRequestItemNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="newEntity.custRequestItemSeqId"/>
@@ -434,6 +461,7 @@ under the License.
 
     <!-- Create/Delete  CustRequest Content -->
     <simple-method method-name="createCustRequestContent" short-description="Create Work Effort Content">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
         <make-value entity-name="CustRequestContent" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -446,6 +474,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">
+        <call-simple-method method-name="checkStatusCustRequest"/>
         <entity-one entity-name="CustRequestContent" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue.thruDate">
