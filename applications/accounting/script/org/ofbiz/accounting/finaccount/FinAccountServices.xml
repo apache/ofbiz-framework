@@ -414,9 +414,10 @@ under the License.
                 <result-to-result result-name="finAccountTransId"/>
             </call-service>
             <iterate list="payments" entry="payment">
-                <if-compare-field field="payment.partyIdTo" operator="not-equals" to-field="finAccount.ownerPartyId">
+                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <if-compare field="isReceipt" operator="equals" value="false" type="Boolean">
                     <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/></add-error>
-                </if-compare-field>
+                </if-compare>
                 <check-errors/>
                 <set field="updatePaymentCtx.paymentId" from-field="payment.paymentId"/>
                 <set field="updatePaymentCtx.finAccountTransId" from-field="finAccountTransId"/>
@@ -425,14 +426,16 @@ under the License.
             </iterate>
         <else>
             <iterate list="payments" entry="payment">
-                <if-compare-field field="payment.partyIdTo" operator="equals" to-field="finAccount.ownerPartyId">
+                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
+                <if-compare field="isReceipt" operator="equals" value="true" type="Boolean">
                     <set field="createFinAccountTransMap.finAccountTransTypeId" value="DEPOSIT"/>
                 <else>
-                    <if-compare-field field="payment.partyIdFrom" operator="equals" to-field="finAccount.ownerPartyId">
+                    <if-compare field="isDisbursement" operator="equals" value="true" type="Boolean">
                         <set field="createFinAccountTransMap.finAccountTransTypeId" value="WITHDRAWAL"/>
-                    </if-compare-field>
+                    </if-compare>
                 </else>
-                </if-compare-field>
+                </if-compare>
                 <set field="createFinAccountTransMap.finAccountId" from-field="finAccountId"/>
                 <set field="createFinAccountTransMap.partyId" from-field="finAccount.ownerPartyId"/>
                 <set field="createFinAccountTransMap.paymentId" from-field="payment.paymentId"/>
