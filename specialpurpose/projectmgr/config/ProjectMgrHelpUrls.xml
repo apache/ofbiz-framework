@@ -21,29 +21,38 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="PROJECTMGR_main">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_MyTasks">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_MyTimesheet">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_FindProject">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_FindTask">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_FindResource">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_FindTimeSheet">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_EditSkillTypes">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
     <property key="PROJECTMGR_RequestList">
         <value xml:lang="en">Project Manager Application Roles</value>
+        <value xml:lang="zh">项目管理应用程序角色</value>
     </property>
 </resource>
