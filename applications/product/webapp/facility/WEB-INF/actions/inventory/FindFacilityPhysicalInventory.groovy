@@ -34,7 +34,7 @@ if (productId) {
     conditions.add(EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId + "%"));
 }
 if (internalName) {
-    conditions.add(EntityCondition.makeCondition("internalName", true, EntityOperator.LIKE, internalName + "%", true));
+    conditions.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, internalName + "%"));
 }
 
 if (conditions.size() > 2) {
