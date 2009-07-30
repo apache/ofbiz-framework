@@ -1540,6 +1540,12 @@
     <property key="AccountingCancelTransactionStatus">
         <value xml:lang="en">Cancel Transaction Status</value>
     </property>
+    <property key="AccountingCannotCreateIncomingPaymentError">
+        <value xml:lang="en">Cannot add incoming payment to paymentGroup type Check Run</value>
+    </property>
+    <property key="AccountingCannotCreateOutgoingPaymentError">
+        <value xml:lang="en">Cannot add outgoing payment to paymentGroup type Batch Of Payments</value>
+    </property>
     <property key="AccountingCannotGetPaymentForApplication">
         <value xml:lang="ar">لا يمكن الحصول على التسديد للتطبيق  [${payAppl}] من أجل ${msg}</value>
         <value xml:lang="en">Cannot get payment for application [${payAppl}] due to ${msg}</value>
