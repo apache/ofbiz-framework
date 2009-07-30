@@ -246,12 +246,18 @@ under the License.
         </field>
     </form>
     <form name="EditDepositSlip" type="single" target="updateDepositSlip" extends="EditPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PaymentGroupType" description="${description}"/></field>
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
     <form name="AddDepositSlipMember" type="single" target="addDepositSlipMember" extends="AddPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
     <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <actions>
+            <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
+                <field-map field-name="paymentGroupId"/>
+            </entity-and>
+        </actions>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="expireDepositSlipMember" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
