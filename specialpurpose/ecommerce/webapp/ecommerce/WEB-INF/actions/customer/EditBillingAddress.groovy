@@ -46,18 +46,16 @@ if (userLogin) {
         }
 
         creditCards = [];
-        paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, false)));
+        paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId, paymentMethodTypeId : "CREDIT_CARD"]), null, ["fromDate"], null, false)));
         if (paymentMethod) {
             creditCard = paymentMethod.getRelatedOne("CreditCard");
-            if (creditCard) {
-                context.paymentMethodTypeId = "CREDIT_CARD";
-                context.cardNumber = creditCard.cardNumber;
-                context.paymentMethodId = creditCard.paymentMethodId;
-                context.firstNameOnCard = creditCard.firstNameOnCard;
-                context.lastNameOnCard = creditCard.lastNameOnCard;
-                context.expMonth = (creditCard.expireDate).substring(0, 2);
-                context.expYear = (creditCard.expireDate).substring(3);
-           }
+            context.paymentMethodTypeId = "CREDIT_CARD";
+            context.cardNumber = creditCard.cardNumber;
+            context.paymentMethodId = creditCard.paymentMethodId;
+            context.firstNameOnCard = creditCard.firstNameOnCard;
+            context.lastNameOnCard = creditCard.lastNameOnCard;
+            context.expMonth = (creditCard.expireDate).substring(0, 2);
+            context.expYear = (creditCard.expireDate).substring(3);
         }
         if (shipToContactMechId) {
             if (billToContactMechId && billToContactMechId.equals(shipToContactMechId)) {
