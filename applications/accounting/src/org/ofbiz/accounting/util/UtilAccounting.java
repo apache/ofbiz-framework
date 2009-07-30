@@ -261,4 +261,60 @@ public class UtilAccounting {
     public static boolean isExpenseAccount(GenericValue account) throws GenericEntityException {
         return isAccountClass(account, "EXPENSE");
     }
+    
+    /**
+     * Recurses up invoice type tree via parentTypeId to see if input invoice type ID is in tree.
+     */
+    private static boolean isInvoiceTypeRecurse(GenericValue invoiceType, String inputTypeId) throws GenericEntityException {
+
+        // first check the invoiceTypeId and parentTypeId against inputTypeId
+        String invoiceTypeId = invoiceType.getString("invoiceTypeId");
+        String parentTypeId = invoiceType.getString("parentTypeId");
+        if (parentTypeId == null || invoiceTypeId.equals(parentTypeId)) {
+            return false;
+        }
+        if (parentTypeId.equals(inputTypeId)) {
+            return true;
+        }
+
+        // otherwise, we have to go to the grandparent (recurse)
+        return isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType"), inputTypeId);
+    }
+    
+    /**
+     * Checks if a invoice is of a specified InvoiceType.invoiceTypeId. Return false if invoice is null. It's better to use
+     * more specific calls like isPurchaseInvoice().
+     */
+    public static boolean isInvoiceType(GenericValue invoice, String inputTypeId) throws GenericEntityException {
+        if (invoice == null) {
+            return false;
+        }
+
+        GenericValue invoiceType = invoice.getRelatedOneCache("InvoiceType");
+        if (invoiceType == null) {
+            throw new GenericEntityException("Cannot find InvoiceType for invoiceId " + invoice.getString("invoiceId"));
+        }
+
+        String invoiceTypeId = invoiceType.getString("invoiceTypeId");
+        if (inputTypeId.equals(invoiceTypeId)) {
+            return true;
+        }
+
+        // recurse up tree
+        return isInvoiceTypeRecurse(invoiceType, inputTypeId);
+    }
+
+
+    public static boolean isPurchaseInvoice(GenericValue invoice) throws GenericEntityException {
+        return isInvoiceType(invoice, "PURCHASE_INVOICE");
+    }
+
+    public static boolean isSalesInvoice(GenericValue invoice) throws GenericEntityException {
+        return isInvoiceType(invoice, "SALES_INVOICE");
+    }
+
+    public static boolean isTemplate(GenericValue invoice) throws GenericEntityException {
+        return isInvoiceType(invoice, "TEMPLATE");
+    }
+
 }
