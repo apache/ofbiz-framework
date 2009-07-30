@@ -816,10 +816,12 @@ under the License.
     </service>
     
     <!-- Payment Group Member -->
-    <service name="createPaymentGroupMember" default-entity-name="PaymentGroupMember" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a Payment Group Member</description>
+    <service name="createPaymentGroupMember" default-entity-name="PaymentGroupMember" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="createPaymentGroupMember" auth="true">
+        <description>Check For Outgoing/Incoming Payment And Create Payment Group Member</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Payment Group Member</description>

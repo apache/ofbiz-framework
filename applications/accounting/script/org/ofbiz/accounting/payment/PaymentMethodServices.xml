@@ -156,4 +156,36 @@ under the License.
         <store-value value-field="payPalPaymentMethod"/>
         <field-to-result result-name="paymentMethodId" field="payPalPaymentMethod.paymentMethodId"/>
     </simple-method>
+
+    <simple-method method-name="createPaymentGroupMember" short-description="Check For Outgoing/Incoming Payment And Create Payment Group Member">
+        <make-value entity-name="PaymentGroupMember" value-field="newPaymentGroupMember"/>
+        <set-pk-fields map="parameters" value-field="newPaymentGroupMember"/>
+        <set-nonpk-fields map="parameters" value-field="newPaymentGroupMember"/>
+        <if-empty field="parameters.fromDate">
+            <now-timestamp field="newPaymentGroupMember.fromDate"/>
+        </if-empty>
+        <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
+        <entity-one entity-name="Payment" value-field="payment"/>
+        <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN">
+            <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
+            <if-compare field="isDisbursement" operator="equals" value="true" type="Boolean">
+                <create-value value-field="newPaymentGroupMember"/>
+            <else>
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotCreateIncomingPaymentError"/></add-error>
+            </else>
+            </if-compare>
+        <else>
+            <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="BATCH_PAYMENT" type="Boolean">
+                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <if-compare field="isReceipt" operator="equals" value="true">
+                    <create-value value-field="newPaymentGroupMember"/>
+                <else>
+                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotCreateOutgoingPaymentError"/></add-error>
+                </else>
+                </if-compare>
+            </if-compare>
+        </else>
+        </if-compare>
+        <check-errors/>
+    </simple-method>
 </simple-methods>

@@ -69,18 +69,18 @@ under the License.
         <field use-when="paymentGroup==null @and paymentGroupId!=null" name="paymentGroupId"><display description="${uiLabelMap.CommonCannotBeFound}: [${paymentGroupId}]" also-hidden="false"/></field>
         <field name="paymentGroupId" use-when="display==true"><display/></field>
         <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="PaymentGroupType" description="${description}"/>
+        </field>
+        <field name="paymentGroupTypeId" use-when="paymentGroup==null" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentGroupType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}" use-when="display==true">
-            <display-entity entity-name="PaymentGroupType" description="${description}"/>
-        </field>
         <field name="paymentGroupName" use-when="display==true"><display/></field>
-        <field name="submitButton" use-when="paymentMethod==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
-        <field name="submitButton" use-when="paymentMethod!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="paymentGroup==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="paymentGroup!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="display==true"><hidden/></field>
     </form>
     
