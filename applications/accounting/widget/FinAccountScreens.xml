@@ -128,7 +128,7 @@ under the License.
                                             <condition><not><if-empty field="finAccountId"/></not></condition>
                                             <widgets>
                                                 <container style="button-bar">
-                                                    <link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/>
+                                                    <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext"/>
                                                 </container>
                                             </widgets>
                                         </section>
@@ -157,7 +157,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="FinAccountRolePanel" title="${uiLabelMap.PageTitleEditFinAccountRole} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]" collapsible="true">
+                        <screenlet id="FinAccountRolePanel" title="${uiLabelMap.AccountingEditFinAccountRoleFor}" collapsible="true">
                             <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                         <include-form name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
@@ -179,7 +179,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="FinAccountTransPanel" title="${uiLabelMap.PageTitleEditFinAccountTrans} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]" collapsible="true">
+                        <screenlet id="FinAccountTransPanel" title="${uiLabelMap.AccountingEditFinAccountTransactionFor}" collapsible="true">
                             <include-form name="AddFinAccountTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -201,7 +201,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="FinAccountAuthsPanel" title="${uiLabelMap.PageTitleEditFinAccountAuths} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]" collapsible="true">
+                        <screenlet id="FinAccountAuthsPanel" title="${uiLabelMap.AccountingEditFinAccountAuthorityFor}]" collapsible="true">
                             <include-form name="AddFinAccountAuth" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                         <include-form name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
@@ -335,10 +335,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroup} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]">
+                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroupFor}">
                                     <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMember} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]">
+                                <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMemberFor}">
                                     <include-form name="AddDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                                     <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>

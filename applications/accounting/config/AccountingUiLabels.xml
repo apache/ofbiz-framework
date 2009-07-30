@@ -2013,6 +2013,9 @@
         <value xml:lang="th">สร้างบัญชีธนาคารใหม่</value>
         <value xml:lang="zh">创建新电子资金转账</value>
     </property>
+    <property key="AccountingCreateNewFinAccount">
+        <value xml:lang="en">Create New Financial Account</value>
+    </property>
     <property key="AccountingCreateNewGiftCard">
         <value xml:lang="de">Neuen Gutschein erstellen</value>
         <value xml:lang="en">Create New Gift Card</value>
@@ -2525,6 +2528,15 @@
         <value xml:lang="th">สร้าง/เปลี่ยนแปลงงบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
         <value xml:lang="zh">创建/更新金融账户</value>
     </property>
+    <property key="AccountingEditFinAccountAuthorityFor">
+        <value xml:lang="en">Edit Financial Account Authority For ${finAccount.finAccountName} [${finAccountId}]</value>
+    </property>
+    <property key="AccountingEditFinAccountRoleFor">
+        <value xml:lang="en">Edit Financial Account Role For ${finAccount.finAccountName} [${finAccountId}]</value>
+    </property>
+    <property key="AccountingEditFinAccountTransactionFor">
+        <value xml:lang="en">Edit Financial Account Transaction For ${finAccount.finAccountName} [${finAccountId}]</value>
+    </property>
     <property key="AccountingEditGiftCard">
         <value xml:lang="cs">Změnit dárkový poukaz</value>
         <value xml:lang="de">Gutschein bearbeiten</value>
@@ -2556,8 +2568,14 @@
     <property key="AccountingEditPaymentGroup">
         <value xml:lang="en">Edit Payment Group</value>
     </property>
+    <property key="AccountingEditPaymentGroupFor">
+        <value xml:lang="en">Edit Payment Group For ${finAccount.finAccountName} [${finAccountId}]</value>
+    </property>
     <property key="AccountingEditPaymentGroupMember">
         <value xml:lang="en">Edit Payment Group Member</value>
+    </property>
+    <property key="AccountingEditPaymentGroupMemberFor">
+        <value xml:lang="en">Edit Payment Group Member For ${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="de">Steuerkonten bearbeiten</value>
@@ -5575,8 +5593,8 @@
         <value xml:lang="th">ไม่สามารถเปลี่ยนโดยปราศจากการสร้างบัญชีแยกประเภททั่วไปอีกครั้ง.</value>
         <value xml:lang="zh">只有重新新建总账账户才能改变这个数据项。</value>
     </property>
-    <property key="AccountingNotWithdrawlFinAccountTrans">
-        <value xml:lang="en">Not a withdrawl financial account transaction.</value>
+    <property key="AccountingNotWithdrawalFinAccountTrans">
+        <value xml:lang="en">Not a withdrawal financial account transaction.</value>
     </property>
     <property key="AccountingNumber">
         <value xml:lang="cs">Číslo</value>

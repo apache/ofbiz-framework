@@ -759,7 +759,7 @@ under the License.
                 <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesMap"/>
             </iterate>
         <else>
-            <property-to-field property="AccountingNotWithdrawlFinAccountTrans" resource="AccountingUiLabels" field="errorMessage"/>
+            <property-to-field property="AccountingNotWithdrawalFinAccountTrans" resource="AccountingUiLabels" field="errorMessage"/>
             <field-to-result field="errorMessage" result-name="errorMessage"/>
         </else>
         </if-compare>
