@@ -50,7 +50,6 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
@@ -350,14 +349,27 @@ public class WorkEffortServices {
         return resultMap;
     }
 
-    private static List<EntityCondition> getDefaultWorkEffortExprList(Collection<String> partyIds, String facilityId, String fixedAssetId, String workEffortTypeId) {
+    private static List<EntityCondition> getDefaultWorkEffortExprList(Collection<String> partyIds, String facilityId, String fixedAssetId, String workEffortTypeId, List<EntityCondition> cancelledCheckAndList) {
         List<EntityCondition> entityExprList = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
         List<EntityExpr> typesList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(workEffortTypeId)) {
             typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, workEffortTypeId));
         }
         if (UtilValidate.isNotEmpty(partyIds)) {
-            entityExprList.add(EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds));
+            // (non cancelled) public events, with a startdate
+            List<EntityCondition> publicEvents = UtilMisc.<EntityCondition>toList(
+            		EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
+            		EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT")
+            		);
+            
+            if (cancelledCheckAndList != null) {
+            	publicEvents.addAll(cancelledCheckAndList);
+            }
+            entityExprList.add(
+            		EntityCondition.makeCondition(UtilMisc.toList(
+            				EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds),
+            				EntityCondition.makeCondition(publicEvents, EntityJoinOperator.AND)
+            		), EntityJoinOperator.OR));
         }
         if (UtilValidate.isNotEmpty(facilityId)) {
             entityExprList.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
@@ -501,16 +513,17 @@ public class WorkEffortServices {
             }
         }
 
-        List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
-        if (entityExprList == null) {
-            entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId, workEffortTypeId);
-        }
-
         // cancelled status id's
 	    List<EntityCondition> cancelledCheckAndList = UtilMisc.<EntityCondition>toList(
 	    		EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"),
 	    		EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
         
+
+        List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
+        if (entityExprList == null) {
+            entityExprList = getDefaultWorkEffortExprList(partyIdsToUse, facilityId, fixedAssetId, workEffortTypeId, cancelledCheckAndList);
+        }
+
         // should have at least a start date
 	    EntityCondition startDateRequired = EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
 				EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),								
@@ -559,20 +572,9 @@ public class WorkEffortServices {
         	recurringEvents.addAll(cancelledCheckAndList);
         }
 
-        // (non cancelled) public events, with a startdate
-        List<EntityCondition> publicEvents = UtilMisc.<EntityCondition>toList(
-        		EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
-        		startDateRequired
-        		);
-        
-        if (filterOutCanceledEvents.booleanValue()) {
-        	publicEvents.addAll(cancelledCheckAndList);
-        }
-        
         EntityCondition eclTotal = EntityCondition.makeCondition(UtilMisc.toList(
         		EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
-        		EntityCondition.makeCondition(recurringEvents, EntityJoinOperator.AND),
-        		EntityCondition.makeCondition(publicEvents, EntityJoinOperator.AND)
+        		EntityCondition.makeCondition(recurringEvents, EntityJoinOperator.AND)
         		), EntityJoinOperator.OR);
         
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
@@ -580,13 +582,8 @@ public class WorkEffortServices {
             try {
                 List<GenericValue> tempWorkEfforts = null;
                 if (UtilValidate.isNotEmpty(partyIdsToUse)) {
-                	EntityConditionList<EntityCondition> ecl = 
-                		EntityCondition.makeCondition(UtilMisc.toList(
-                			eclTotal,
-                			EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIdsToUse)
-                	), EntityJoinOperator.AND);
-                	// Debug.log("=====conditions for party: " + ecl);
-                    tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, orderByList, null, false));
+                	Debug.log("=====conditions for party: " + eclTotal);
+                    tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssignAndType", eclTotal, null, orderByList, null, false));
                 } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
                 	EntityConditionList<EntityCondition> ecl = 
                 		EntityCondition.makeCondition(UtilMisc.toList(
