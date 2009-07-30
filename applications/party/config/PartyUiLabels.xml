@@ -5482,6 +5482,9 @@
         <value xml:lang="th">ค้นหาการติดต่อที่เหมือนกัน</value>
         <value xml:lang="zh">查找联系方法</value>
     </property>
+    <property key="PartyLookupInternalOrganization">
+        <value xml:lang="en">Lookup Internal Organization</value>
+    </property>
     <property key="PartyLookupParty">
         <value xml:lang="de">Akteur suchen</value>
         <value xml:lang="en">Lookup Party</value>
