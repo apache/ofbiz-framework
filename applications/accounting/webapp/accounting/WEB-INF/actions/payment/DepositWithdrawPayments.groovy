@@ -20,7 +20,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-
+if ("Y".equals(parameters.noConditionFind)) {
 List exprListForParameters = [];
 
     partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, organizationPartyId),
@@ -61,3 +61,4 @@ List exprListForParameters = [];
     } else {
         context.paymentList = paymentListWithoutCreditCard;
     }
+}

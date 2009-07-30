@@ -24,6 +24,7 @@ under the License.
     <form name="FindBatchPayments" type="single" target="batchPayments">
         <actions>
             <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+            <set field="noConditionFind" value="Y"/>
         </actions>
         <field name="finAccountId">
             <drop-down allow-empty="true">
@@ -40,6 +41,7 @@ under the License.
             </drop-down>
         </field>
         <field name="organizationPartyId"><hidden/></field>
+        <field name="noConditionFind"><hidden/></field>
         <field name="cardType" tooltip="Select Credit Card from above list of Payment Method Types.">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="enumCode">
