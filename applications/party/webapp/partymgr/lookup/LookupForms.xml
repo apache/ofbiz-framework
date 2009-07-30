@@ -425,4 +425,12 @@ under the License.
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
         <field name="cmDetail"><display description="[${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress2}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]" also-hidden="false"/></field>
     </form>
+    
+    <form name="LookupInternalOrganization" type="single" target="LookupInternalOrganization" default-table-style="basic-table">
+        <field name="roleTypeId"><hidden value="INTERNAL_ORGANIZATIO"/></field>
+        <field name="partyId"><text-find/></field>
+        <field name="groupName"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
 </forms>
