@@ -127,11 +127,9 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
                 <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
-                <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
-                    <field-map field-name="paymentGroupId"/>
-                </entity-and>
+                <service service-name="getPayments" result-map="getPaymentsMap"/>
+                <set field="payments" from-field="getPaymentsMap.payments"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">

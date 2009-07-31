@@ -205,5 +205,12 @@ under the License.
         <auto-attributes entity-name="FinAccountTrans" include="pk" mode="INOUT" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="true"/>
     </service>
+    <service name="getPayments" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="getPayments" auth="true">
+        <description>Get list of payment</description>
+        <attribute name="paymentGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
+        <attribute name="payments" type="List" mode="OUT" optional="true"/>
+    </service>
     
 </services>

@@ -20,10 +20,16 @@ under the License.
 <#escape x as x?xml>
     <fo:block font-size="14pt" font-weight="bold" text-align="center">${uiLabelMap.AccountingDepositSlip}</fo:block>
     <fo:block font-size="12pt" text-align="left"  font-weight="bold">
-        ${uiLabelMap.AccountingPaymentGroupId} : ${paymentGroup.paymentGroupId?if_exists}
+         <#if paymentGroup?has_content>
+            ${uiLabelMap.AccountingPaymentGroupId} : ${parameters.paymentGroupId?if_exists}
+        <#else>
+            ${uiLabelMap.FormFieldTitle_finAccountTransId} : ${parameters.finAccountTransId?if_exists}
+        </#if>
     </fo:block>
     <fo:block font-size="12pt" text-align="left">
-        ${uiLabelMap.AccountingPaymentGroupName} : ${paymentGroup.paymentGroupName?if_exists}
+        <#if paymentGroup?has_content>
+            ${uiLabelMap.AccountingPaymentGroupName} : ${paymentGroup.paymentGroupName?if_exists}
+        </#if>
     </fo:block>
     <fo:block><fo:leader/></fo:block>
     <fo:block space-after.optimum="10pt" font-size="10pt">
@@ -53,10 +59,9 @@ under the License.
                 </fo:table-row>
             </fo:table-header>
             <fo:table-body>
-                <#if paymentGroupMembers?has_content>
+                <#if payments?has_content>
                     <#assign totalAmount = 0>
-                    <#list paymentGroupMembers as paymentGroupMember>
-                        <#assign payment = delegator.findOne("Payment", {"paymentId" : paymentGroupMember.paymentId}, false)/>
+                    <#list payments as payment>
                         <#if payment.paymentTypeId?has_content>
                             <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, false)/>
                         </#if>
