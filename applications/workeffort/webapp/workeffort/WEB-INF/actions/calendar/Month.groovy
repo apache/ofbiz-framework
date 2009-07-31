@@ -63,6 +63,11 @@ getFrom = new Timestamp(tempCal.getTimeInMillis());
 firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR);
 context.put("firstWeekNum", new Integer(firstWeekNum));
 
+// also get days until the end of the week at the end of the month
+lastWeekCal = UtilDateTime.toCalendar(UtilDateTime.addDaysToTimestamp(start, numDays - prevMonthDays), timeZone, locale);
+followingMonthDays = 7 + lastWeekCal.getFirstDayOfWeek() - lastWeekCal.get(Calendar.DAY_OF_WEEK);
+if (followingMonthDays < 7) numDays += followingMonthDays; 
+
 serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom,"numPeriods", new Integer(numDays), "periodType", new Integer(Calendar.DATE));
 serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
 if (entityExprList) {
