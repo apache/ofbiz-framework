@@ -16,13 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+
 if ("Y".equals(parameters.noConditionFind)) {
     List exprListForParameters = [];
-
+    
+    finAcctCond = EntityCondition.makeCondition([EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
+                                                 EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "DIVISION")], EntityOperator.AND);
+    finAccountRoles = EntityUtil.filterByDate(delegator.findList("FinAccountRole", finAcctCond, null, null, null, false));
+    finAccountPartyIds = EntityUtil.getFieldListFromEntityList(finAccountRoles, "partyId", true);
+    finAccountPartyIds.add(organizationPartyId);
+    partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition("partyIdTo", EntityOperator.IN, finAccountPartyIds),
+                                               EntityCondition.makeCondition("partyIdFrom", EntityOperator.IN, finAccountPartyIds)], EntityOperator.OR);
     statusCond = EntityCondition.makeCondition([EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
                                                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR);
 
@@ -40,7 +49,7 @@ if ("Y".equals(parameters.noConditionFind)) {
     }
     exprListForParameters.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
     paramCond = EntityCondition.makeCondition(exprListForParameters, EntityOperator.AND);
-    combinedPaymentCond = EntityCondition.makeCondition([statusCond, paramCond], EntityOperator.AND);
+    combinedPaymentCond = EntityCondition.makeCondition([partyCond, statusCond, paramCond], EntityOperator.AND);
     payments = delegator.findList("Payment", combinedPaymentCond, null, null, null, false);
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];
