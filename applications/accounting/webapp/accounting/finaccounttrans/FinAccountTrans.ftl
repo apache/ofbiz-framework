@@ -165,6 +165,7 @@ function getFinAccountTransRunningTotal(e) {
                   <script type="text/javascript">
                     new Popup('displayPayments_${finAccountTrans.finAccountTransId}','togglePayment_${finAccountTrans.finAccountTransId}', {modal: true, position: 'center', trigger: 'click'})
                   </script>
+                  <a href="<@ofbizUrl>DepositSlip.pdf?finAccountTransId=${finAccountTrans.finAccountTransId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingDepositSlip}</a>
                 <#else>
                   ${finAccountTrans.finAccountTransId}
                 </#if>
