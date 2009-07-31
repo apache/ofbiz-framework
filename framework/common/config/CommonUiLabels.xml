@@ -3527,9 +3527,9 @@
         <value xml:lang="zh">查找：anywho.com</value>
     </property>
     <property key="CommonLookupAnywhoLink">
-        <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
-        <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
     <property key="CommonLookupWhitepages">
         <value xml:lang="en">Look up White pages</value>
@@ -3541,13 +3541,13 @@
         <value xml:lang="zh">查找：whitepages.com</value>
     </property>
     <property key="CommonLookupWhitepagesAddressLink">
-        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29 y=18</value>
+        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
         <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
         <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a</value>
     </property>
     <property key="CommonLookupWhitepagesTelNumberLink">
-        <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode?if_exists}&amp;s=&amp;p=${telecomNumber.contactNumber?if_exists}&amp;pt=b&amp;x=40&amp;y=9</value>
+        <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
     </property>
     <property key="CommonLow">
