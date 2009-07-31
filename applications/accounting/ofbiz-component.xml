@@ -77,6 +77,7 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas_payment.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_ledger.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_olap.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_invoice.xml"/>
 
     <test-suite loader="main" location="testdef/accountingtests.xml"/>
     <test-suite loader="main" location="testdef/paymenttests.xml"/>
