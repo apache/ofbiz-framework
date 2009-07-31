@@ -292,6 +292,7 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="cancelInvoice">
         <description>Cancel Invoice</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceTypeId" type="String" mode="OUT" optional="false"/>
     </service>
     
     <service name="getInvoiceRunningTotal" engine="simple"
@@ -325,5 +326,11 @@ under the License.
     <service name="deleteInvoiceItemAssoc" default-entity-name="InvoiceItemAssoc" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a InvoiceItemAssoc</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="removeInvoiceItemAssocOnCancelInvoice" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceItemAssocOnCancelInvoice" auth="true">
+        <description>Remove invoiceItemAssoc record on cancel invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
 </services>

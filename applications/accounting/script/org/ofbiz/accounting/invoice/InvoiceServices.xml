@@ -606,6 +606,7 @@ under the License.
             <set field="removePaymentApplicationCtx.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
             <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationCtx"/>
         </iterate>
+        <field-to-result result-name="invoiceTypeId" field="invoice.invoiceTypeId"/>
     </simple-method>
 
     <simple-method method-name="getInvoiceRunningTotal" short-description="calculate running total for Invoices">
@@ -649,4 +650,14 @@ under the License.
         <field-to-result field="filteredInvoiceList"/>
     </simple-method>
 
+    <simple-method method-name="removeInvoiceItemAssocOnCancelInvoice" short-description="Remove invoiceItemAssoc record on cancel invoice">
+        <entity-and entity-name="InvoiceItemAssoc" list="invoiceItemAssocs">
+            <field-map field-name="invoiceIdTo" from-field="parameters.invoiceId"/>
+        </entity-and>
+        <iterate entry="invoiceItemAssoc" list="invoiceItemAssocs">
+            <set-service-fields service-name="deleteInvoiceItemAssoc" map="invoiceItemAssoc" to-map="deleteInvoiceItemAssocMap"/>
+            <call-service service-name="deleteInvoiceItemAssoc" in-map-name="deleteInvoiceItemAssocMap"/>
+            <log level="info" message="Removed invoiceItemAssoc: ${invoiceItemAssoc}"/>
+        </iterate>
+    </simple-method>
 </simple-methods>

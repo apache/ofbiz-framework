@@ -131,8 +131,4 @@ under the License.
         <condition field-name="statusId" operator="equals" value="INVOICE_CANCELLED"/>
         <action service="cancelInvoice" mode="sync"/>
     </eca>
-    <!-- On canceling invoice reverse its Accounting Transactions -->
-    <eca service="cancelInvoice" event="invoke">
-        <action service="revertAcctgTransOnCancelInvoice" mode="sync"/>
-    </eca>
 </service-eca>
