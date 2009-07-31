@@ -139,7 +139,7 @@ public class UspsServices {
         }
 
         // create the request document
-        Document requestDocument = createUspsRequestDocument("RateV2Request");
+        Document requestDocument = createUspsRequestDocument("RateV2Request", true);
 
         // TODO: 70 lb max is valid for Express, Priority and Parcel only - handle other methods
         BigDecimal maxWeight = new BigDecimal("70");
@@ -177,10 +177,11 @@ public class UspsServices {
                 weightPounds = BigDecimal.ONE;
                 packageWeight = BigDecimal.ZERO;
             }
-            BigDecimal weightOunces = packageWeight.multiply(new BigDecimal("16")).remainder(new BigDecimal("16")).setScale(0, BigDecimal.ROUND_CEILING);
-            DecimalFormat df = new DecimalFormat("#");  // USPS only accepts whole numbers like 1 and not 1.0
-            UtilXml.addChildElementValue(packageElement, "Pounds", df.format(weightPounds), requestDocument);
-            UtilXml.addChildElementValue(packageElement, "Ounces", df.format(weightOunces), requestDocument);
+            // (packageWeight % 1) * 16 (Rounded up to 0 dp)
+            BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, BigDecimal.ROUND_CEILING);
+
+            UtilXml.addChildElementValue(packageElement, "Pounds", weightPounds.toPlainString(), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "Ounces", weightOunces.toPlainString(), requestDocument);
 
             // TODO: handle other container types, package sizes, and machinable packages
             // IMPORTANT: Express or Priority Mail will fail if you supply a Container tag: you will get a message like
@@ -230,8 +231,151 @@ public class UspsServices {
         return result;
     }
 
+    public static Map<String, Object> uspsInternationalRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
+
+        GenericDelegator delegator = dctx.getDelegator();
+
+        // check for 0 weight
+        BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
+        if (shippableWeight.compareTo(BigDecimal.ZERO) == 0) {
+            return ServiceUtil.returnFailure("shippableWeight must be greater than 0");
+        }
+
+        // get the destination country
+        String destinationCountry = null;
+        String shippingContactMechId = (String) context.get("shippingContactMechId");
+        if (UtilValidate.isNotEmpty(shippingContactMechId)) {
+            try {
+                GenericValue shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+                if ("USA".equals(shipToAddress.get("countryGeoId"))) {
+                    return ServiceUtil.returnError("The USPS International Rate Calculation service is not applicable to US destinations, use uspsRateInquire");
+                }
+                if (shipToAddress != null && UtilValidate.isNotEmpty(shipToAddress.getString("countryGeoId"))) {
+                    GenericValue countryGeo = shipToAddress.getRelatedOne("CountryGeo");
+                    // TODO: Test against all country geoNames against what USPS expects
+                    destinationCountry = countryGeo.getString("geoName");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        if (UtilValidate.isEmpty(destinationCountry)) {
+            return ServiceUtil.returnError("Unable to determine the destination country");
+        }
+
+        // get the service code
+        String serviceCode = null;
+        try {
+            GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod",
+                    UtilMisc.toMap("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"),
+                            "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId")));
+            if (carrierShipmentMethod != null) {
+                serviceCode = carrierShipmentMethod.getString("carrierServiceCode");
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (UtilValidate.isEmpty(serviceCode)) {
+            return ServiceUtil.returnError("Unable to determine the service code");
+        }
+
+        BigDecimal maxWeight = new BigDecimal("70");
+        String maxWeightStr = UtilProperties.getPropertyValue((String) context.get("serviceConfigProps"),
+                "shipment.usps.max.estimate.weight", "70");
+        try {
+            maxWeight = new BigDecimal(maxWeightStr);
+        } catch (NumberFormatException e) {
+            Debug.logWarning("Error parsing max estimate weight string [" + maxWeightStr + "], using default instead", module);
+            maxWeight = new BigDecimal("70");
+        }
+
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        List<Map<String, BigDecimal>> packages = getPackageSplit(dctx, shippableItemInfo, maxWeight);
+        boolean isOnePackage = packages.size() == 1; // use shippableWeight if there's only one package
+
+        // create the request document
+        Document requestDocument = createUspsRequestDocument("IntlRateRequest", false);
+        UtilXml.addChildElementValue(requestDocument.getDocumentElement(), "Country", destinationCountry, requestDocument);
+
+        // TODO: Up to 25 packages can be included per request - handle more than 25
+        for (ListIterator<Map<String, BigDecimal>> li = packages.listIterator(); li.hasNext();) {
+            Map<String, BigDecimal> packageMap = li.next();
+
+            BigDecimal packageWeight = isOnePackage ? shippableWeight : calcPackageWeight(dctx, packageMap, shippableItemInfo, BigDecimal.ZERO);
+            if (packageWeight.compareTo(BigDecimal.ZERO) == 0) {
+                continue;
+            }
+
+            Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
+            packageElement.setAttribute("ID", String.valueOf(li.nextIndex() - 1)); // use zero-based index (see examples)
+
+            UtilXml.addChildElementValue(packageElement, "MailType", "Package", requestDocument);
+
+            BigDecimal weightPounds = packageWeight.setScale(0, BigDecimal.ROUND_FLOOR);
+            // for Parcel post, the weight must be at least 1 lb
+            if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPounds.compareTo(BigDecimal.ONE) < 0)) {
+                weightPounds = BigDecimal.ONE;
+                packageWeight = BigDecimal.ZERO;
+            }
+            // (packageWeight % 1) * 16 (Rounded up to 1 dp)
+            BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(1, BigDecimal.ROUND_CEILING);
+            UtilXml.addChildElementValue(packageElement, "Pounds", weightPounds.toPlainString(), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "Ounces", weightOunces.toPlainString(), requestDocument);
+
+            UtilXml.addChildElementValue(packageElement, "Machinable", "False", requestDocument);
+            
+            // TODO: Add package value so that an insurance fee can be returned
+        }
+
+        // send the request
+        Document responseDocument = null;
+        try {
+            responseDocument = sendUspsRequest("IntlRate", requestDocument);
+        } catch (UspsRequestException e) {
+            Debug.log(e, module);
+            return ServiceUtil.returnError("Error sending request for USPS International Rate Calculation service: " + e.getMessage());
+        }
+
+        if (responseDocument == null) {
+            return ServiceUtil.returnError("No rate available at this time");
+        }
+
+        List<? extends Element> packageElements = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
+        if (UtilValidate.isEmpty(packageElements)) {
+            return ServiceUtil.returnError("No rate available at this time");
+        }
+
+        BigDecimal estimateAmount = BigDecimal.ZERO;
+        for (Element packageElement: packageElements) {
+            Element errorElement = UtilXml.firstChildElement(packageElement, "Error");
+            if (errorElement != null) {
+                String errorDescription = UtilXml.childElementValue(errorElement, "Description");
+                Debug.log("USPS International Rate Calculation returned a package error: " + errorDescription);
+                return ServiceUtil.returnError("No rate available at this time");
+            }
+            List<? extends Element> serviceElements = UtilXml.childElementList(packageElement, "Service");
+            for (Element serviceElement : serviceElements) {
+                String respServiceCode = serviceElement.getAttribute("ID");
+                if (!serviceCode.equalsIgnoreCase(respServiceCode)) {
+                    continue;
+                }
+                try {
+                    BigDecimal packageAmount = new BigDecimal(UtilXml.childElementValue(serviceElement, "Postage"));
+                    estimateAmount = estimateAmount.add(packageAmount);
+                } catch (NumberFormatException e) {
+                    Debug.log("USPS International Rate Calculation returned an unparsable postage amount: " + UtilXml.childElementValue(serviceElement, "Postage"));
+                    return ServiceUtil.returnError("No rate available at this time");
+                }
+            }
+        }
+
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("shippingEstimateAmount", estimateAmount);
+        return result;
+    }
+
     private static List<Map<String, BigDecimal>> getPackageSplit(DispatchContext dctx, List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight) {
-        // create the package list w/ the first pacakge
+        // create the package list w/ the first package
         List<Map<String, BigDecimal>> packages = FastList.newInstance();
 
         if (shippableItemInfo != null) {
@@ -370,7 +514,7 @@ public class UspsServices {
 
     public static Map<String, Object> uspsTrackConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        Document requestDocument = createUspsRequestDocument("TrackRequest");
+        Document requestDocument = createUspsRequestDocument("TrackRequest", true);
 
         Element trackingElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "TrackID", requestDocument);
         trackingElement.setAttribute("ID", (String) context.get("trackingId"));
@@ -450,7 +594,7 @@ public class UspsServices {
             return ServiceUtil.returnError(errorMessage);
         }
 
-        Document requestDocument = createUspsRequestDocument("AddressValidateRequest");
+        Document requestDocument = createUspsRequestDocument("AddressValidateRequest", true);
 
         Element addressElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Address", requestDocument);
         addressElement.setAttribute("ID", "0");
@@ -539,7 +683,7 @@ public class UspsServices {
 
     public static Map<String, Object> uspsCityStateLookup(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        Document requestDocument = createUspsRequestDocument("CityStateLookupRequest");
+        Document requestDocument = createUspsRequestDocument("CityStateLookupRequest", true);
 
         Element zipCodeElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "ZipCode", requestDocument);
         zipCodeElement.setAttribute("ID", "0");
@@ -644,7 +788,7 @@ public class UspsServices {
             return ServiceUtil.returnError("Unsupported service type: " + type);
         }
 
-        Document requestDocument = createUspsRequestDocument(type + "Request");
+        Document requestDocument = createUspsRequestDocument(type + "Request", true);
 
         UtilXml.addChildElementValue(requestDocument.getDocumentElement(), "OriginZip",
                 (String) context.get("originZip"), requestDocument);
@@ -721,7 +865,7 @@ public class UspsServices {
 
     public static Map<String, Object> uspsDomesticRate(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        Document requestDocument = createUspsRequestDocument("RateRequest");
+        Document requestDocument = createUspsRequestDocument("RateRequest", true);
 
         Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
         packageElement.setAttribute("ID", "0");
@@ -889,7 +1033,7 @@ public class UspsServices {
                 //        shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "," +
                 //        shipmentPackageRouteSeg.getString("shipmentRouteSegmentId") + "]";
 
-                Document requestDocument = createUspsRequestDocument("RateRequest");
+                Document requestDocument = createUspsRequestDocument("RateRequest", true);
 
                 Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
                 packageElement.setAttribute("ID", "0");
@@ -1148,7 +1292,7 @@ public class UspsServices {
             }
 
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
-                Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request");
+                Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request", true);
                 Element requestElement = requestDocument.getDocumentElement();
 
                 UtilXml.addChildElementValue(requestElement, "Option", "3", requestDocument);
@@ -1307,15 +1451,17 @@ public class UspsServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Document createUspsRequestDocument(String rootElement) {
+    private static Document createUspsRequestDocument(String rootElement, boolean passwordRequired) {
 
         Document requestDocument = UtilXml.makeEmptyXmlDocument(rootElement);
 
         Element requestElement = requestDocument.getDocumentElement();
         requestElement.setAttribute("USERID",
                 UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.access.userid"));
-        requestElement.setAttribute("PASSWORD",
-                UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.access.password"));
+        if (passwordRequired) {
+            requestElement.setAttribute("PASSWORD",
+                    UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.access.password"));
+        }
 
         return requestDocument;
     }

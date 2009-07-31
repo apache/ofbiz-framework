@@ -29,6 +29,10 @@ under the License.
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsRateInquire" auth="false">
         <implements service="calcShipmentEstimateInterface"/>
     </service>
+    <service name="uspsInternationalRateInquire" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsInternationalRateInquire" auth="false">
+        <implements service="calcShipmentEstimateInterface"/>
+    </service>
 
     <service name="uspsTrackConfirm" engine="java"
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsTrackConfirm">
