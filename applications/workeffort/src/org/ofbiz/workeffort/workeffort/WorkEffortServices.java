@@ -582,7 +582,7 @@ public class WorkEffortServices {
             try {
                 List<GenericValue> tempWorkEfforts = null;
                 if (UtilValidate.isNotEmpty(partyIdsToUse)) {
-                	Debug.log("=====conditions for party: " + eclTotal);
+                	// Debug.log("=====conditions for party: " + eclTotal);
                     tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssignAndType", eclTotal, null, orderByList, null, false));
                 } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
                 	EntityConditionList<EntityCondition> ecl = 
