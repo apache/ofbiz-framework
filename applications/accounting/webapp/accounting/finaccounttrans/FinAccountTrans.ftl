@@ -83,19 +83,15 @@ function getFinAccountTransRunningTotal(e) {
           <tr class="header-row-2">
             <th>${uiLabelMap.FormFieldTitle_finAccountTransId}</th>
             <th>${uiLabelMap.FormFieldTitle_finAccountTransTypeId}</th>
-            <th>${uiLabelMap.FormFieldTitle_partyId}</th>
+            <th>${uiLabelMap.PartyParty}</th>
             <th>${uiLabelMap.FormFieldTitle_transactionDate}</th>
             <th>${uiLabelMap.FormFieldTitle_entryDate}</th>
             <th>${uiLabelMap.CommonAmount}</th>
             <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
-            <th>${uiLabelMap.FormFieldTitle_orderId}</th>
-            <th>${uiLabelMap.FormFieldTitle_orderItemSeqId}</th>
-            <th>${uiLabelMap.FormFieldTitle_performedByPartyId}</th>
-            <th>${uiLabelMap.FormFieldTitle_reasonEnumId}</th>
-            <th>${uiLabelMap.CommonComments}</th>
-            <th>${uiLabelMap.CommonStatus}</th>
             <th>${uiLabelMap.OrderPaymentType}</th>
             <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
+            <th>${uiLabelMap.CommonStatus}</th>
+            <th>${uiLabelMap.CommonComments}</th>
             <#if grandTotal?exists>
               <th>${uiLabelMap.AccountingCancelTransactionStatus}</th>
             <#else>
@@ -115,9 +111,6 @@ function getFinAccountTransRunningTotal(e) {
               <#assign payments = delegator.findByAnd("Payment", {"finAccountTransId" : finAccountTrans.finAccountTransId})>
             </#if>
             <#assign finAccountTransType = delegator.findOne("FinAccountTransType", {"finAccountTransTypeId" : finAccountTrans.finAccountTransTypeId}, true)>
-            <#if finAccountTrans.reasonEnumId?has_content>
-              <#assign enumeration = delegator.findOne("Enumeration", {"enumId" : finAccountTrans.reasonEnumId}, true)>
-            </#if>
             <#if finAccountTrans.statusId?has_content>
               <#assign status = delegator.findOne("StatusItem", {"statusId" : finAccountTrans.statusId}, true)>
             </#if>
@@ -126,6 +119,9 @@ function getFinAccountTransRunningTotal(e) {
             </#if>
             <#if payment?has_content && payment.paymentMethodTypeId?has_content>
               <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
+            </#if>
+            <#if finAccountTrans.partyId?has_content>
+              <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : finAccountTrans.partyId}, true))!>
             </#if>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>
@@ -138,11 +134,11 @@ function getFinAccountTransRunningTotal(e) {
                     <table class="basic-table hover-bar" cellspacing="0" style"width :">
                       <tr class="header-row-2">
                         <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
+                        <th>${uiLabelMap.OrderPaymentType}</th>
+                        <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
                         <th>${uiLabelMap.CommonAmount}</th>
                         <th>${uiLabelMap.PartyPartyFrom}</th>
                         <th>${uiLabelMap.PartyPartyTo}</th>
-                        <th>${uiLabelMap.OrderPaymentType}</th>
-                        <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
                       </tr>
                       <#list payments as payment>
                         <#if payment?exists && payment.paymentTypeId?has_content>
@@ -153,11 +149,11 @@ function getFinAccountTransRunningTotal(e) {
                         </#if>
                         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                           <td>${payment.paymentId?if_exists}</td>
+                          <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
+                          <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
                           <td>${payment.amount?if_exists}</td>
                           <td>${payment.partyIdFrom?if_exists}</td>
                           <td>${payment.partyIdTo?if_exists}</td>
-                          <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
-                          <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
                         </tr>
                       </#list>
                     </table>
@@ -171,7 +167,7 @@ function getFinAccountTransRunningTotal(e) {
                 </#if>
               </td>
               <td>${finAccountTransType.description?if_exists}</td>
-              <td>${finAccountTrans.partyId?if_exists}</td>
+              <td>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}</td>
               <td>${finAccountTrans.transactionDate?if_exists}</td>
               <td>${finAccountTrans.entryDate?if_exists}</td>
               <td>${finAccountTrans.amount?if_exists}</td>
@@ -180,14 +176,10 @@ function getFinAccountTransRunningTotal(e) {
                   <a href="<@ofbizUrl>paymentOverview?paymentId=${finAccountTrans.paymentId}</@ofbizUrl>">${finAccountTrans.paymentId}</a>
                 </#if>
               </td>
-              <td>${finAccountTrans.orderId?if_exists}</td>
-              <td>${finAccountTrans.orderItemSeqId?if_exists}</td>
-              <td>${finAccountTrans.performedByPartyId?if_exists}</td>
-              <td><#if enumeration?has_content>${enumeration.description?if_exists}</#if></td>
-              <td>${finAccountTrans.comments?if_exists}</td>
-              <td><#if status?has_content>${status.description?if_exists}</#if></td>
               <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
               <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
+              <td><#if status?has_content>${status.description?if_exists}</#if></td>
+              <td>${finAccountTrans.comments?if_exists}</td>
               <#if grandTotal?exists>
                 <td>
                   <#if finAccountTrans.statusId?has_content && finAccountTrans.statusId == 'FINACT_TRNS_CREATED'>
@@ -241,16 +233,16 @@ function getFinAccountTransRunningTotal(e) {
     <#if grandTotal?exists>
       <table border="1" class="basic-table">
         <tr>
-          <th>${uiLabelMap.FormFieldTitle_grandTotal}</th>
-          <th>${uiLabelMap.AccountingCreatedGrandTotal}</th>
-          <th>${uiLabelMap.AccountingApprovedGrandTotal}</th>
-          <th>${uiLabelMap.AccountingCreatedApprovedGrandTotal}</th>
+          <th>${uiLabelMap.FormFieldTitle_grandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
+          <th>${uiLabelMap.AccountingCreatedGrandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
+          <th>${uiLabelMap.AccountingApprovedGrandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
+          <th>${uiLabelMap.AccountingCreatedApprovedGrandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
         </tr>
         <tr>
-          <td>${grandTotal}</td>
-          <td>${createdGrandTotal}</td>
-          <td>${approvedGrandTotal}</td>
-          <td>${createdApprovedGrandTotal}</td>
+          <td>${grandTotal} / ${searchedNumberOfRecords}</td>
+          <td>${createdGrandTotal} / ${totalCreatedTransactions}</td>
+          <td>${approvedGrandTotal} / ${totalApprovedTransactions}</td>
+          <td>${createdApprovedGrandTotal} / ${totalCreatedApprovedTransactions}</td>
         </tr>
       </table>
     </#if>
