@@ -28,9 +28,11 @@ function toggleInvoiceId(master) {
             element.checked = master.checked;
         }
     }
+    enableSubmitButton();
 }
 function setServiceName(selection) {
     document.listSalesInvoices.action = '<@ofbizUrl>'+selection.value+'</@ofbizUrl>';
+    enableSubmitButton();
 }
 function runAction() {
     var form = document.listSalesInvoices;
@@ -43,6 +45,32 @@ function runAction() {
     }
     form.submit();
 }
+function enableSubmitButton() {
+    var form = document.listSalesInvoices;
+    var invoices = form.elements.length;
+    var isSingle = true;
+    var isAllSelected = true;
+    for (var i = 0; i < invoices; i++) {
+        var element = form.elements[i];
+        if (element.name == "invoiceIds") {
+            if (element.checked) {
+                isSingle = false;
+            } else {
+                isAllSelected = false;
+            }
+        }
+    }
+    if (isAllSelected) {
+        $('checkAllInvoices').checked = true;
+    } else {
+        $('checkAllInvoices').checked = false;
+    }
+    if (!isSingle && $('serviceName').value != "")
+        $('submitButton').disabled = false;
+    else
+        $('submitButton').disabled = true;
+}
+
 -->
 </script>
 
@@ -56,7 +84,7 @@ function runAction() {
         <option value=""/>
         <option value="processCommissionRun">${uiLabelMap.AccountingCommissionRun}</option>
       </select>
-      <a href="javascript:runAction();" id="runAction" class="buttontext">${uiLabelMap.OrderRunAction}</a>
+      <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
     </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
@@ -80,7 +108,7 @@ function runAction() {
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)?if_exists>
         <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, false)?if_exists/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-          <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}"/></td>
+          <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:enableSubmitButton();"/></td>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
           <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</td>
           <td>${statusItem.get("description")?if_exists}</td>
