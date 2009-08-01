@@ -217,10 +217,14 @@ under the License.
         <attribute name="fromEntryDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruEntryDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="finAccountTransList" type="List" mode="OUT" optional="true"/>
+        <attribute name="searchedNumberOfRecords" type="Integer" mode="OUT" optional="true"/>
         <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="createdGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalCreatedTransactions" type="Long" mode="OUT" optional="true"/>
         <attribute name="approvedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalApprovedTransactions" type="Long" mode="OUT" optional="true"/>
         <attribute name="createdApprovedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalCreatedApprovedTransactions" type="Long" mode="OUT" optional="true"/>
     </service>
     <service name="getFinAccountTransRunningTotal" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransRunningTotal">

@@ -5697,6 +5697,9 @@
         <value xml:lang="th">หมายเลข</value>
         <value xml:lang="zh">数字</value>
     </property>
+    <property key="AccountingNumberOfTransaction">
+        <value xml:lang="en">Number of Transaction</value>
+    </property>
     <property key="AccountingOfflinePayment">
         <value xml:lang="ar">تسديد غير مباشر</value>
         <value xml:lang="cs">Platba off-line</value>
