@@ -42,6 +42,7 @@ under the License.
     </request-map>
 
     <request-map uri="ManageOrdersFromEbay">
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
