@@ -879,6 +879,7 @@ under the License.
         <attribute name="screenUri" type="String" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
+        <attribute name="subject" type="String" mode="OUT" optional="true"/>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT"/>
     </service>
     <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="simple"
