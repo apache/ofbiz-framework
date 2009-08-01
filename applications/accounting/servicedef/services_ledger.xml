@@ -636,4 +636,11 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
+    <service name="createGlAcctCatMemFromCostCenters" default-entity-name="GlAccountCategoryMember" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createGlAcctCatMemFromCostCenters" auth="true">
+        <description>Create GlAccountCategoryMember from CostCenters</description>
+        <attribute name="glAccountId" mode="IN" type="String"/>
+        <attribute name="glAccountCategoryId" mode="IN" type="String"/>
+        <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
+    </service>
 </services>
