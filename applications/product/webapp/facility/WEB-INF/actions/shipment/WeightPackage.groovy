@@ -32,7 +32,10 @@ context.weightPackageSession = weightPackageSession;
 
 showWarningForm = parameters.showWarningForm;
 if (!showWarningForm) {
-    showWarningForm = false;
+    showWarningForm = request.getAttribute("showWarningForm");
+    if (!showWarningForm) {
+        showWarningForm = false;
+    }
 }
 context.showWarningForm = showWarningForm;
 
