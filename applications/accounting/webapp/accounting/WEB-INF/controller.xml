@@ -2319,6 +2319,19 @@ under the License.
         <event type="service" invoke="deleteGlAccountCategoryMember"/>
         <response name="success" type="view" value="EditGlAccountCategoryMember"/>
     </request-map>
+
+    <request-map uri="CostCenters">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CostCenters"/>
+    </request-map>
+
+    <request-map uri="createGlAcctCatMemFromCostCenters">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="createGlAcctCatMemFromCostCenters"/>
+        <response name="success" type="view" value="CostCenters"/>
+        <response name="error" type="view" value="CostCenters"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2602,5 +2615,6 @@ under the License.
     <view-map name="EditGlAccountCategory" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategory"/>
     <view-map name="FindGlAccountCategory" type="screen" page="component://accounting/widget/GlSetupScreens.xml#FindGlAccountCategory"/>
     <view-map name="EditGlAccountCategoryMember" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategoryMember"/>
+    <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
     <!-- end of view mappings -->
 </site-conf>

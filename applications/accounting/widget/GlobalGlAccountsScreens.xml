@@ -460,4 +460,35 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="CostCenters">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="FormFieldTitle_costCenters"/>
+                <set field="tabButtonItem" value="CostCenters"/>
+                <entity-condition entity-name="GlAccountOrganization" list="glAccountOrganizations" distinct="true">
+                    <order-by field-name="glAccountId"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccountCategory" list="glAccountCategories">
+                    <condition-expr field-name="glAccountCategoryTypeId" operator="equals" value="COST_CENTER"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+               <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
+                            <platform-specific>
+                                <html>
+                                    <html-template location="component://accounting/webapp/accounting/ledger/CostCenters.ftl"/>
+                                </html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

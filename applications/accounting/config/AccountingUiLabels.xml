@@ -7631,6 +7631,9 @@
         <value xml:lang="th">รหัสประเภทช่วงระยะเวลา</value>
         <value xml:lang="zh">条件类型标识</value>
     </property>
+    <property key="AccountingTotalAmountPercentageIsGreaterThenOneHundred">
+        <value xml:lang="en">Total amountPercentage is greater then 100.</value>
+    </property>
     <property key="AccountingTotalOfTheCurrentMonth">
         <value xml:lang="en">Total of the current month</value>
     </property>
@@ -8786,6 +8789,9 @@
         <value xml:lang="ru">Курс</value>
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">比率</value>
+    </property>
+    <property key="FormFieldTitle_costCenters">
+        <value xml:lang="en">Cost Centers</value>
     </property>
     <property key="FormFieldTitle_credit">
         <value xml:lang="en">Credit</value>
