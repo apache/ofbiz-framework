@@ -85,6 +85,9 @@ shipmentId = parameters.shipmentId;
 if (!shipmentId) {
     shipmentId = request.getAttribute("shipmentId");
 }
+if (!shipmentId && shipment) {
+    shipmentId = shipment.shipmentId;
+}
 context.shipmentId = shipmentId;
 if (shipmentId) {
     // Get the primaryOrderId from the shipment
