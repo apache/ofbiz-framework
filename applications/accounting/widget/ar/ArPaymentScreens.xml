@@ -36,8 +36,6 @@ under the License.
                                     <decorator-section name="menu-bar">
                                         <container style="button-bar">
                                             <link target="newPayment" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingPayment}" style="buttontext"/>
-                                            <link target="FindSalesInvoicesByDueDate" text="${uiLabelMap.AccountingFindSalesInvoicesByDueDate}" style="buttontext"/>
-                                            <link target="FindPurchaseInvoicesByDueDate" text="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}" style="buttontext"/>
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
