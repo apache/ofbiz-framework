@@ -112,7 +112,7 @@ function enableSubmitButton() {
     <div align="right">
       <!-- May add some more options in future like cancel selected invoices-->
       <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
-        <option value=""/>
+        <option value="">Select Action</options>
         <option value="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
       </select>
       <input id="submitButton" type="button"  onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
