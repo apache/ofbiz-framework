@@ -453,6 +453,7 @@ under the License.
         <field name="finAccountTransTypeId" type="id-ne"></field>
         <field name="finAccountId" type="id"></field>
         <field name="partyId" type="id"></field>
+        <field name="glReconciliationId" type="id"></field>
         <field name="transactionDate" type="date-time"></field>
         <field name="entryDate" type="date-time"></field>
         <field name="amount" type="currency-amount"></field>
@@ -491,6 +492,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="FIN_ACT_TX_STI" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="FIN_ACT_TX_GLREC" rel-entity-name="GlReconciliation">
+            <key-map field-name="glReconciliationId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTransAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute Entity">

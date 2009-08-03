@@ -539,4 +539,61 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditFinAccountReconciliations">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingEditFinAccountReconciliations"/>
+                <set field="tabButtonItem" value="EditFinAccountReconciliations"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="glReconciliationId" from-field="parameters.glReconciliationId" default-value=""/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <entity-and entity-name="GlReconciliation" list="glReconciliations">
+                    <field-map field-name="glAccountId" from-field="finAccount.postToGlAccountId"/>
+                    <order-by field-name="reconciledDate DESC"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="FinAccountReconciliationPanel" title="${uiLabelMap.AccountingEditFinAccountReconciliations}" collapsible="true">
+                            <include-form name="EditFinAccountReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListFinAccountReconciliations" location="component://accounting/widget/FinAccountForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewGlReconciliationWithTransaction">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingEditFinAccountReconciliations"/>
+                <set field="tabButtonItem" value="EditFinAccountReconciliations"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <entity-one entity-name="GlReconciliation" value-field="currentGlReconciliation"/>
+                <entity-and entity-name="FinAccountTrans" list="finAccountTransList">
+                    <field-map field-name="glReconciliationId"/>
+                </entity-and>
+                <entity-condition entity-name="GlReconciliation" list="glReconciliationList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="reconciledDate" operator="less" from-field="currentGlReconciliation.reconciledDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="glAccountId" operator="equals" from-field="finAccount.postToGlAccountId"/>
+                    </condition-list>
+                    <order-by field-name="reconciledDate DESC"/>
+                </entity-condition>
+                <service service-name="getTransactionTotalByGlReconcileId" result-map="transactionTotalAmount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

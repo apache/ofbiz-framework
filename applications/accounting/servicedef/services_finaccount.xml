@@ -479,4 +479,11 @@ under the License.
         <attribute name="paymentGroupTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentIds" type="List" mode="OUT" optional="false"/>
     </service>
+
+    <service name="getTransactionTotalByGlReconcileId" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getTransactionTotalByGlReconcileId">
+        <description>Transaction Total By GlReconcile Id</description>
+        <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
+        <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
 </services>

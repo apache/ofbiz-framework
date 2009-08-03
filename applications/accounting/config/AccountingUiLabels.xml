@@ -2247,6 +2247,10 @@
         <value xml:lang="th">ช่วงเวลาของลูกค้าในปัจจุบัน</value>
         <value xml:lang="zh">当前定制时间段</value>
     </property>
+    <property key="AccountingCurrentGlReconciliation">
+        <value xml:lang="en">Current Gl Reconciliation</value>
+        <value xml:lang="hi_IN">वर्तमान प्रधान खाता-बही  मिलाप</value>
+    </property>
     <property key="AccountingCustNr">
         <value xml:lang="ar">رقم الزبون</value>
         <value xml:lang="de">Kunden-Nr.</value>
@@ -2548,6 +2552,10 @@
     </property>
     <property key="AccountingEditFinAccountAuthorityFor">
         <value xml:lang="en">Edit Financial Account Authority For ${finAccount.finAccountName} [${finAccountId}]</value>
+    </property>
+    <property key="AccountingEditFinAccountReconciliations">
+        <value xml:lang="en">Edit Financial Account Reconciliations</value>
+        <value xml:lang="hi_IN">Edit वित्तीय लेखा मिलाप</value>
     </property>
     <property key="AccountingEditFinAccountRoleFor">
         <value xml:lang="en">Edit Financial Account Role For ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -6931,6 +6939,10 @@
         <value xml:lang="th">คำนำหน้าบัตร</value>
         <value xml:lang="zh">卡上前缀</value>
     </property>
+    <property key="AccountingPreviousGlReconciliation">
+        <value xml:lang="en">Previous Gl Reconciliation</value>
+        <value xml:lang="hi_IN">पिछला  प्रधान खाता-बही  मिलाप</value>
+    </property>
     <property key="AccountingPrintAsCheck">
         <value xml:lang="ar">إطبع ك صك</value>
         <value xml:lang="en">Print As Check</value>
@@ -7148,6 +7160,10 @@
     </property>
     <property key="AccountingReconcile">
         <value xml:lang="en">Reconcile</value>
+    </property>
+    <property key="AccountingReconciliation">
+        <value xml:lang="en">Reconciliation</value>
+        <value xml:lang="hi_IN">मिलाप</value>
     </property>
     <property key="AccountingReferenceNumber">
         <value xml:lang="ar">رقم المرجع</value>
@@ -9115,6 +9131,9 @@
         <value xml:lang="ru">Код пров. фин. счета</value>
         <value xml:lang="th">รหัสรายการบัญชีการเงิน</value>
         <value xml:lang="zh">金融账户交易标识</value>
+    </property>
+    <property key="FormFieldTitle_finAccountTransType">
+        <value xml:lang="en">Fin Account Trans Type</value>
     </property>
     <property key="FormFieldTitle_finAccountTransTypeId">
         <value xml:lang="en">Fin Account Trans Type Id</value>
