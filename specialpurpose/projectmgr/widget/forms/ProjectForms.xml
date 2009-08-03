@@ -126,8 +126,8 @@
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;workEffortId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(workEffortId)));}" type="Boolean"/>
         </row-actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="phaseName" position="1" use-when="showPosition1"><display/></field>
-        <field name="workEffortName" position="1" use-when="showPosition1"><display/></field>
+        <field name="phaseName" position="1" use-when="showPosition1"><display description="${phaseName}[${phaseId}]"/></field>
+        <field name="workEffortName" title="${uiLabelMap.FormFieldTitle_taskName}" position="1" use-when="showPosition1"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/></field>
         <field name="timesheetId" position="2">
             <hyperlink description="${timesheetId}" target="Timesheet">
                 <parameter param-name="timesheetId"/>

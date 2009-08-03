@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AssignTaskOtherProject">
+        <value xml:lang="en">Assign Task to other project phase</value>
+    </property>
     <property key="FormFieldTitle_actualHours">
         <value xml:lang="en">Actual Hours</value>
         <value xml:lang="fr">Heures réelles</value>

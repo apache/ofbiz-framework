@@ -202,9 +202,16 @@ under the License.
                         <section>
                             <!-- To add a new Project -->
                             <widgets>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}">
+                                        <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
                                 <screenlet title="${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}">
-                                    <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    <include-form name="AssignTaskOtherProject" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </screenlet>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
