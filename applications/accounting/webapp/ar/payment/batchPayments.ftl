@@ -28,9 +28,9 @@ function togglePaymentId(master) {
             element.checked = master.checked;
         }
     }
-    getPaymentRunningTotal(master);
+    getPaymentRunningTotal();
 }
-function getPaymentRunningTotal(e) {
+function getPaymentRunningTotal() {
     var form = document.paymentBatchForm;
     var payments = form.elements.length;
     var isSingle = true;
@@ -45,13 +45,11 @@ function getPaymentRunningTotal(e) {
             }
         }
     }
-    if (!($(e).checked)) {
-        $('checkAllPayments').checked = false;
-        
-    } else if (isAllSelected) {
+    if (isAllSelected) {
         $('checkAllPayments').checked = true;
+    } else {
+        $('checkAllPayments').checked = false;
     }
-    
     if (!isSingle) {
         $('submitButton').disabled = false;
         new Ajax.Request('getPaymentRunningTotal', {

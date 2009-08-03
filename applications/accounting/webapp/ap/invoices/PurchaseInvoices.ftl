@@ -27,10 +27,10 @@ function toggleInvoiceId(master) {
             element.checked = master.checked;
         }
     }
-    getInvoiceRunningTotal(master);
+    getInvoiceRunningTotal();
 }
 
-function getInvoiceRunningTotal(e) {
+function getInvoiceRunningTotal() {
     var form = document.listPurchaseInvoices;
     var invoices = form.elements.length;
     var isSingle = true;
@@ -45,10 +45,10 @@ function getInvoiceRunningTotal(e) {
             }
         }
     }
-    if (!($(e).checked)) {
-        $('checkAllInvoices').checked = false;
-    } else if (isAllSelected) {
+    if (isAllSelected) {
         $('checkAllInvoices').checked = true;
+    } else {
+        $('checkAllInvoices').checked = false;
     }
     if (!isSingle) {
         if ($('paymentMethodTypeId').value != "")
@@ -98,7 +98,7 @@ function enableSubmitButton() {
     } else {
         $('submitButton').disabled = false;
     }
-    getInvoiceRunningTotal('checkAllInvoices');
+    getInvoiceRunningTotal();
 }
 -->
 </script>
@@ -166,7 +166,7 @@ function enableSubmitButton() {
         <#if invoicePaymentInfo.outstandingAmount != 0>
           <#assign statusItem = invoice.getRelatedOneCache("StatusItem")>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal('invoiceId_${invoice_index}');"/></td>
+            <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal();"/></td>
             <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
             <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</td>
             <td>${statusItem.get("description")?if_exists}</td>
