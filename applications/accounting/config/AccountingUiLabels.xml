@@ -8442,6 +8442,10 @@
         <value xml:lang="th">Acctg Trans Id</value>
         <value xml:lang="zh">财务交易标识</value>
     </property>
+    <property key="FormFieldTitle_acctgTransType">
+        <value xml:lang="en">Acctg Trans Type</value>
+        <value xml:lang="hi_IN">लेनदेन खातों के  प्रकार</value>
+    </property>
     <property key="FormFieldTitle_acctgTransTypeId">
         <value xml:lang="en">Acctg Trans Type Id</value>
         <value xml:lang="es">Id Tipo Tans Contable</value>
@@ -8550,6 +8554,10 @@
         <value xml:lang="fr">No séq. du point d'accord</value>
         <value xml:lang="it">Riga contratto</value>
         <value xml:lang="zh">合同条款序列号</value>
+    </property>
+    <property key="FormFieldTitle_agreementItemType">
+        <value xml:lang="en">Agreement Item Type</value>
+        <value xml:lang="hi_IN">मद समझौते के प्रकार</value>
     </property>
     <property key="FormFieldTitle_agreementItemTypeId">
         <value xml:lang="en">Agreement Item Type Id</value>
@@ -9144,6 +9152,10 @@
         <value xml:lang="th">รหัสรายการประเภทบัญชีการเงิน</value>
         <value xml:lang="zh">金融账户交易类型标识</value>
     </property>
+    <property key="FormFieldTitle_finAccountType">
+        <value xml:lang="en">Fin Account Type</value>
+        <value xml:lang="hi_IN">वित्तीय खाते का प्रकार </value>
+    </property>
     <property key="FormFieldTitle_finAccountTypeId">
         <value xml:lang="en">Fin Account Type Id</value>
         <value xml:lang="fr">Réf. type de compte financier</value>
@@ -9315,6 +9327,10 @@
         <value xml:lang="th">รหัสบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">总账账户编号</value>
     </property>
+    <property key="FormFieldTitle_glAccountType">
+        <value xml:lang="en">Gl Account Type</value>
+        <value xml:lang="hi_IN">सामान्य बही खाते का प्रकार</value>
+    </property>
     <property key="FormFieldTitle_glAccountTypeId">
         <value xml:lang="ar">دليل نوع الحساب المحاسبي</value>
         <value xml:lang="en">Gl Account Type Id</value>
@@ -9327,6 +9343,10 @@
         <value xml:lang="th">รหัสประเภทบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">总账类型标识</value>
     </property>
+    <property key="FormFieldTitle_glFiscalType">
+        <value xml:lang="en">Fiscal Gl Type</value>
+        <value xml:lang="hi_IN">वित्तीय सामान्य बही खाते का प्रकार</value>
+    </property>
     <property key="FormFieldTitle_glFiscalTypeId">
         <value xml:lang="ar">دليل نوع الضريبة المحاسبية</value>
         <value xml:lang="en">Fiscal Gl Type Id</value>
@@ -9338,6 +9358,10 @@
         <value xml:lang="ru">Фискал. тип ГК</value>
         <value xml:lang="th">รหัสปรเภทงบประมาณทั่วไป</value>
         <value xml:lang="zh">财务总账类型标识</value>
+    </property>
+    <property key="FormFieldTitle_glJournal">
+        <value xml:lang="en">Gl Journal</value>
+        <value xml:lang="hi_IN">सामान्य बही खाता </value>
     </property>
     <property key="FormFieldTitle_glJournalId">
         <value xml:lang="de">GI Grundbuchs-ID</value>
@@ -9393,6 +9417,10 @@
         <value xml:lang="en">Group Id</value>
         <value xml:lang="it">Id gruppo</value>
         <value xml:lang="zh">组标识</value>
+    </property>
+    <property key="FormFieldTitle_groupStatus">
+        <value xml:lang="en">Group Status</value>
+        <value xml:lang="hi_IN">समूह की स्थिति</value>
     </property>
     <property key="FormFieldTitle_groupStatusId">
         <value xml:lang="en">Group Status Id</value>
@@ -9784,6 +9812,10 @@
     <property key="FormFieldTitle_glAccountCategoryMember">
         <value xml:lang="en">GL Account Category Member</value>
     </property>
+    <property key="FormFieldTitle_glAccountCategoryType">
+        <value xml:lang="en">GL Account Category Type</value>
+        <value xml:lang="hi_IN">सामान्य बही खाते की श्रेणी</value>
+    </property>
     <property key="FormFieldTitle_glAccountCategoryTypeId">
         <value xml:lang="en">GL Account Category Type Id</value>
     </property>
@@ -10013,6 +10045,10 @@
     </property>
     <property key="FormFieldTitle_paymentGroupName">
         <value xml:lang="en">Payment Group Name</value>
+    </property>
+    <property key="FormFieldTitle_paymentGroupType">
+        <value xml:lang="en">Payment Group Type</value>
+        <value xml:lang="hi_IN">भुगतान समूह का प्रकार</value>
     </property>
     <property key="FormFieldTitle_paymentGroupTypeId">
         <value xml:lang="en">Payment Group Type Id</value>
@@ -10376,6 +10412,10 @@
         <value xml:lang="ru">Код прихода</value>
         <value xml:lang="th">รหัสใบเสร็จรับเงิน</value>
         <value xml:lang="zh">收据标识</value>
+    </property>
+    <property key="FormFieldTitle_reconcileStatus">
+        <value xml:lang="en">Reconcile Status</value>
+        <value xml:lang="hi_IN">मिलान की स्थिति</value>
     </property>
     <property key="FormFieldTitle_reconcileStatusId">
         <value xml:lang="en">Reconcile Status Id</value>

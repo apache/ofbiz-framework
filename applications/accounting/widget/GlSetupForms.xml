@@ -299,7 +299,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="uomIdTo" title="${uiLabelMap.CommonTo} ${uiLabelMap.CommonCurrency}"><display/></field>
-        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/></field>
+        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
         <field name="conversionFactor"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
@@ -365,7 +365,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createGlAccountTypeDefault"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="glAccountTypeId">
+        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}">
             <drop-down>
                 <entity-options entity-name="GlAccountType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -491,8 +491,8 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-entity entity-name="PaymentGlAccountTypeMap" default-field-type="display"/>
-        <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
-        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType" description="${description}"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}"><display-entity entity-name="PaymentType"/></field>
+        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}"><display-entity entity-name="GlAccountType"/></field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removePaymentTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
@@ -505,14 +505,14 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPaymentTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="paymentTypeId">
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
             <drop-down>
                 <entity-options entity-name="PaymentType" description="${description}" key-field-name="paymentTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glAccountTypeId">
+        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}">
             <drop-down>
                 <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
                     <entity-order-by field-name="description"/>
@@ -538,7 +538,7 @@ under the License.
             <set field="description" value="${glAccount.description}"/>
         </row-actions>
         <auto-fields-entity entity-name="PaymentMethodTypeGlAccount" default-field-type="display"/>
-        <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType" description="${description}"/></field>
+        <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType"/></field>
         <field name="glAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]"/></field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="defaultGlAccountId"><display description="${defaultGlAccountId} : ${description}"/></field>
@@ -1033,7 +1033,7 @@ under the License.
     <form name="FindGlAccountCategory" type="single" target="FindGlAccountCategory" default-entity-name="GlAccountCategory">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="glAccountCategoryId"><text-find/></field>
-        <field name="glAccountCategoryTypeId">
+        <field name="glAccountCategoryTypeId" title="${uiLabelMap.FormFieldTitle_glAccountCategoryType}">
             <drop-down>
                 <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
             </drop-down>
@@ -1064,7 +1064,7 @@ under the License.
         <auto-fields-entity entity-name="GlAccountCategory" default-field-type="edit"/>
         <field name="glAccountCategoryId" use-when="glAccountCategoryId!=null"><display/></field>
         <field name="glAccountCategoryId" use-when="glAccountCategoryId==null"><hidden/></field>
-        <field name="glAccountCategoryTypeId">
+        <field name="glAccountCategoryTypeId" title="${uiLabelMap.FormFieldTitle_glAccountCategoryType}">
             <drop-down>
                 <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
             </drop-down>

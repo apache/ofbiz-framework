@@ -151,7 +151,7 @@ under the License.
                 <entity-options description="${description}" entity-name="InvoiceType"/>
             </drop-down>
         </field>
-        <field position="2" name="statusId">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
@@ -178,7 +178,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${invoiceId}" target="javascript:set_value('${invoiceId}')"/>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="description"><display/></field>
         <field name="partyIdFrom"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
         <field name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
@@ -219,7 +219,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="agreementId"><text-find/></field>
         <field name="agreementItemSeqId"><text-find/></field>
-        <field name="agreementItemTypeId">
+        <field name="agreementItemTypeId" title="${uiLabelMap.FormFieldTitle_agreementItemType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="AgreementItemType"/>
             </drop-down>

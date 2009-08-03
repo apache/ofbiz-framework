@@ -119,7 +119,7 @@ under the License.
         </field>
         <field name="fromDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="thruDate" required-field="false"><date-time type="timestamp"/></field>
-        <field name="glFiscalTypeId">
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
@@ -152,7 +152,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="thruDate"><date-time/></field>
-        <field name="glFiscalTypeId">
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
