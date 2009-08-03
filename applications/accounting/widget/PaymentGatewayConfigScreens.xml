@@ -24,7 +24,7 @@ under the License.
     <screen name="GenericPaymentGatewayConfigDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="paymentGatewayConfig"/> 
+                <set field="headerItem" value="PaymentGatewayConfig"/> 
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
