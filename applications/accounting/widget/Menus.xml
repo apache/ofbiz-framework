@@ -65,7 +65,6 @@ under the License.
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>
                 </and>
@@ -81,7 +80,6 @@ under the License.
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>
                 </and>
@@ -97,7 +95,6 @@ under the License.
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>
                 </and>
@@ -113,7 +110,6 @@ under the License.
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>
                 </and>
