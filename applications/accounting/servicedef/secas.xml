@@ -171,4 +171,9 @@ under the License.
         <condition field-name="groupInOneTransaction" operator="equals" value="Y"/>
         <action service="createPaymentGroupAndMember" mode="async"/>
     </eca>
+    <eca service="createPaymentAndFinAccountTrans" event="commit">
+        <condition field-name="isDepositWithDrawPayment" operator="equals" value="Y"/>
+        <condition field-name="finAccountTransTypeId" operator="equals" value="DEPOSIT"/>
+        <action service="createPaymentGroupAndMember" mode="async"/>
+    </eca>
 </service-eca>

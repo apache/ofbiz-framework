@@ -229,6 +229,14 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
+                                <container style="button-bar">
+                                    <link target="NewDepositPayment" text="${uiLabelMap.AccountingCreateNewDepositPayment}" style="buttontext">
+                                        <parameter param-name="finAccountId"/>
+                                    </link>
+                                    <link target="NewWithdrawalPayment" text="${uiLabelMap.AccountingCreateNewWithdrawalPayment}" style="buttontext">
+                                        <parameter param-name="finAccountId"/>
+                                    </link>
+                                </container>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="PaymentsDepositWithdraw" location="component://accounting/widget/FinAccountForms.xml"/>
@@ -488,6 +496,46 @@ under the License.
         <section>
             <widgets>
                 <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewDepositPayment">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="depositWithdraw"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="statusId" value="PMNT_RECEIVED"/>
+                <set field="parentTypeId" value="RECEIPT"/>
+                <set field="finAccountTransTypeId" value="DEPOSIT"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingCreateNewDepositPayment}">
+                            <include-form name="EditDepositPayment" location="component://accounting/widget/FinAccountForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewWithdrawalPayment">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="depositWithdraw"/>
+                <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <set field="statusId" value="PMNT_SENT"/>
+                <set field="parentTypeId" value="DISBURSEMENT"/>
+                <set field="finAccountTransTypeId" value="WITHDRAWAL"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingCreateNewWithdrawalPayment}">
+                            <include-form name="EditWithdrawalPayment" location="component://accounting/widget/FinAccountForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
