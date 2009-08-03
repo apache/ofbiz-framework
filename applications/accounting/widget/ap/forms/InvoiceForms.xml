@@ -55,9 +55,9 @@ under the License.
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
         <field name="invoiceDate"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="description"><display/></field>
         <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
         <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
@@ -103,9 +103,9 @@ under the License.
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType"/></field>
         <field name="invoiceDate" sort-field="true"><display type="date"/></field>
-        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
         <field name="description" sort-field="true"><display/></field>
         <field name="partyIdFrom" sort-field="true">
             <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]">
@@ -126,7 +126,7 @@ under the License.
             <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
         </actions>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingVendorParty}" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="statusId" position="2">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>

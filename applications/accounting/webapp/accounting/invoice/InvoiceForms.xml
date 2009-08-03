@@ -32,7 +32,7 @@ under the License.
                 <entity-options description="${description}" entity-name="InvoiceType"/>
             </drop-down>
         </field>
-        <field position="2" name="statusId">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
@@ -78,16 +78,16 @@ under the License.
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType"/></field>
         <field name="invoiceDate" sort-field="true"><display type="date"/></field>
-        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
         <field name="description" sort-field="true"><display/></field>
-        <field name="partyIdFrom" sort-field="true">
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" sort-field="true">
             <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]">
                 <parameter param-name="partyId" from-field="partyIdFrom"/>
             </hyperlink>
         </field>
-        <field name="partyIdTo" parameter-name="partyId">
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" parameter-name="partyId">
             <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultTo.fullName} [${partyId}]">
                 <parameter param-name="partyId"/>
             </hyperlink>
@@ -115,7 +115,7 @@ under the License.
         </actions>
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
-        <field position="2" name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2"><display-entity entity-name="StatusItem"/></field>
         <field position="1" name="description"><display/></field>
         <field position="2" name="invoiceMessage"><display/></field>
         <field position="1" name="partyIdFrom">
@@ -150,7 +150,7 @@ under the License.
         <auto-fields-entity entity-name="InvoiceItem" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
         <field name="invoiceItemSeqId"><display/></field>
-        <field name="invoiceItemTypeId"><display-entity description="${description}" entity-name="InvoiceItemType"/></field>
+        <field name="invoiceItemTypeId"><display-entity entity-name="InvoiceItemType"/></field>
         <field name="orderId" widget-style="linktext">
             <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
                 <parameter param-name="orderId"/>
@@ -216,11 +216,11 @@ under the License.
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
         <field name="acctgTransId"><hyperlink description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/></field>
-        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
-        <field name="glJournalId"><display-entity entity-name="GlJournal" description="${glJournalName}"/></field>
-        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType" description="${description}"/></field>
-        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass" description="${description}"/></field>
-        <field name="partyId"><display-entity entity-name="PartyNameView" description="${lastName} ${groupName}"/></field>
+        <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}"><display-entity entity-name="AcctgTransType"/></field>
+        <field name="glJournalId" title="${uiLabelMap.FormFieldTitle_glJournal}"><display-entity entity-name="GlJournal" description="${glJournalName}"/></field>
+        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}"><display-entity entity-name="GlAccountType"/></field>
+        <field name="glAccountClassId" title="${uiLabelMap.AccountingGlAccountClass}"><display-entity entity-name="GlAccountClass" description="${description}"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${lastName} ${groupName}"/></field>
         <field name="reconcileStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="origCurrencyUomId"><ignored/></field>
         <field name="currencyUomId"><ignored/></field>
@@ -299,8 +299,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="invoice==null"><hidden value="INVOICE_IN_PROCESS"/></field>
-        <field position="2" name="statusId" use-when="invoice!=null"><display-entity entity-name="StatusItem"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="invoice==null"><hidden value="INVOICE_IN_PROCESS"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="invoice!=null"><display-entity entity-name="StatusItem"/></field>
         <field position="1" name="description"><text size="100"/></field>
         <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><display description="${invoice.partyIdFrom}"/></field>
         <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
@@ -436,7 +436,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
         <field name="statusDate"><display description="${bsh:statusDate.toString().substring(0,10)}"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
     </form>
 
     <form name="ListInvoiceTerms" list-name="invoiceTerms" target="" title="" type="list"
@@ -618,7 +618,7 @@ under the License.
     <form name="lookupInvoicesStatus" type="single" target="BillingAccountInvoices" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="billingAccountId"><hidden/></field>
-        <field name="statusId">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>

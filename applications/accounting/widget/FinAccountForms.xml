@@ -25,7 +25,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FinAccount" default-field-type="find"/>
         <field name="finAccountId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="finAccountTypeId">
+        <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="FinAccountType">
                     <entity-order-by field-name="description"/>
@@ -54,8 +54,8 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="finAccountTypeId"><display-entity entity-name="FinAccountType" description="${description}"/></field>
+        <field name="statusId"  title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}"><display-entity entity-name="FinAccountType"/></field>
         <field name="finAccountName">
             <hyperlink description="${finAccountName}" target="EditFinAccount">
                 <parameter param-name="finAccountId"/>
@@ -84,7 +84,7 @@ under the License.
 
         <field name="finAccountCode"><text size="20"/></field>
         <field name="finAccountPin"><text size="10"/></field>
-        <field name="finAccountTypeId">
+        <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down no-current-selected-key="DEPOSIT_ACCOUNT">
                 <entity-options description="${description}" entity-name="FinAccountType">
                     <entity-order-by field-name="description"/>
@@ -246,7 +246,7 @@ under the License.
         </field>
     </form>
     <form name="EditDepositSlip" type="single" target="updateDepositSlip" extends="EditPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
-        <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PaymentGroupType" description="${description}"/></field>
+        <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PaymentGroupType"/></field>
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
     <form name="AddDepositSlipMember" type="single" target="addDepositSlipMember" extends="AddPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
@@ -271,7 +271,7 @@ under the License.
     <form name="QuickFindFinAccounts" type="single" target="FindFinAccount"
             header-row-style="header-row" default-table-style="basic-table">
         <field name="finAccountId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="finAccountTypeId">
+        <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="FinAccountType">
                     <entity-order-by field-name="description"/>
@@ -307,7 +307,7 @@ under the License.
     </form>
     <form name="FindBankReconciliationFinAcctTrans" target="BankReconciliation" 
             extends="FindFinAccountTransactions">
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
     </form>
     <form name="EditDepositPayment" extends="EditPayment" 
             extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml" target="createDepositPayment">
@@ -327,7 +327,7 @@ under the License.
                 <entity-options entity-name="PaymentMethod" description="${paymentMethodTypeId} (${paymentMethodId})"/>
             </drop-down>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="partyIdTo" position="2"><lookup target-form-name="LookupInternalOrganization"/></field>
         <field name="amount" position="2"><text size="6"/></field>
         <field name="comments" position="2"><text size="35"/></field>

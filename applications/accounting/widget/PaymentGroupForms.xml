@@ -42,7 +42,7 @@ under the License.
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="paymentGroupTypeId"><display-entity entity-name="PaymentGroupType" description="${description}"/></field>
+        <field name="paymentGroupTypeId" title="${uiLabelMap.FormFieldTitle_paymentGroupType}"><display-entity entity-name="PaymentGroupType"/></field>
         <field name="paymentGroupName"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'}">
             <hyperlink target="cancelPaymentGroup" description="${uiLabelMap.CommonCancel}" also-hidden="false">

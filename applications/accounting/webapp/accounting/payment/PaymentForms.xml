@@ -26,14 +26,14 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="paymentId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
-        <field position="1" name="paymentTypeId">
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="PaymentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="statusId">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
@@ -64,17 +64,17 @@ under the License.
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
-        <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}"><display-entity entity-name="PaymentType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="comments"><display/></field>
-        <field name="partyIdFrom">
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]" >
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="partyIdTo">
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]" >
                     <parameter param-name="partyId" from-field="partyIdTo"/>
@@ -108,14 +108,14 @@ under the License.
             </drop-down>
         </field>
         <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="1" name="paymentTypeId">
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
                 <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
             </drop-down>
         </field>
-        <field position="2" name="paymentMethodTypeId">
+        <field name="paymentMethodTypeId" position="2">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethodType"  description="${description}">
+                <entity-options entity-name="PaymentMethodType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -140,7 +140,7 @@ under the License.
             </drop-down>
         </field>
         <field name="partyIdFrom" position="2"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="1" name="paymentTypeId">
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="PaymentType">
                     <entity-constraint name="parentTypeId" value="RECEIPT"/>
@@ -176,7 +176,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Payment"/>
         <field name="paymentId"><hidden/></field>
-        <field position="1" name="paymentTypeId">
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="PaymentType">
                     <entity-order-by field-name="description"/>
@@ -190,7 +190,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" position="1">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${payment.statusId}"/>
@@ -396,14 +396,14 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="paymentTypeId" position="1"><display-entity entity-name="PaymentType"/></field>
         <field name="paymentMethodTypeId" position="2"><display-entity entity-name="PaymentMethodType"/></field>
-        <field name="statusId" position="1"><display-entity entity-name="StatusItem"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1"><display-entity entity-name="StatusItem"/></field>
         <field name="paymentMethodId" position="2"><display-entity entity-name="PaymentMethod" description="${paymentMethodId}[${paymentMethodTypeId}]"/></field>
-        <field name="partyIdFrom" position="1">
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="1">
             <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]">
                 <parameter param-name="partyId" from-field="payment.partyIdFrom"/>
             </hyperlink>
         </field>
-        <field name="partyIdTo" position="2">
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="2">
             <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${payment.partyIdTo}]">
                 <parameter param-name="partyId" from-field="payment.partyIdTo"/>
             </hyperlink>
