@@ -2001,6 +2001,10 @@
         <value xml:lang="th">สร้างบัตรเครดิตใหม่</value>
         <value xml:lang="zh">创建新信用卡</value>
     </property>
+    <property key="AccountingCreateNewDepositPayment">
+        <value xml:lang="en">Create New Deposit Payment</value>
+        <value xml:lang="hi_IN">नई जमा भुगतान बनाएँ</value>
+    </property>
     <property key="AccountingCreateNewDepositSlipForFinancialAccount">
         <value xml:lang="en">Create New Deposit Slip for Financial Account: ${finAccountId}</value>
     </property>
@@ -2065,6 +2069,10 @@
         <value xml:lang="ru">Новая расходная накладная</value>
         <value xml:lang="th">ใบกำกับสินค้าใหม่</value>
         <value xml:lang="zh">新建销售发票</value>
+    </property>
+    <property key="AccountingCreateNewWithdrawalPayment">
+        <value xml:lang="en">Create New Withdrawal Payment</value>
+        <value xml:lang="hi_IN">नई वापसी भुगतान बनाएँ</value>
     </property>
     <property key="AccountingCreatePayment">
         <value xml:lang="ar">تسديد جديد</value>
@@ -2393,6 +2401,10 @@
     </property>
     <property key="AccountingDeposit">
         <value xml:lang="en">Deposit</value>
+    </property>
+    <property key="AccountingDepositPaymentInFinAccount">
+        <value xml:lang="en">Deposit Payment in: ${finAccount.finAccountName}</value>
+        <value xml:lang="hi_IN">वित्तीय खाते में जमा करे: ${finAccount.finAccountName}</value>
     </property>
     <property key="AccountingDepositSlip">
         <value xml:lang="en">Deposit Slip</value>
@@ -6270,6 +6282,10 @@
         <value xml:lang="ru">Дата платежа</value>
         <value xml:lang="th">วันที่ชำระเงิน</value>
         <value xml:lang="zh">支付日</value>
+    </property>
+    <property key="AccountingWithdrawalPaymentInFinAccount">
+        <value xml:lang="en">Withdrawal Payment from: ${finAccount.finAccountName}</value>
+        <value xml:lang="hi_IN">वित्तीय खाते द्वारा वापस भुगतान: ${finAccount.finAccountName}</value>
     </property>
     <property key="AccountingPaymentGatewayApprove">
         <value xml:lang="en">Approve</value>

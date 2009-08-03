@@ -1867,6 +1867,26 @@ under the License.
         <response name="success" type="view" value="FindDepositSlips"/>
         <response name="error" type="view" value="FindDepositSlips"/>
     </request-map>
+    <request-map uri="NewDepositPayment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewDepositPayment"/>
+    </request-map>
+    <request-map uri="NewWithdrawalPayment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewWithdrawalPayment"/>
+    </request-map>
+    <request-map uri="createDepositPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentAndFinAccountTrans"/>
+        <response name="success" type="view" value="PaymentsDepositWithdraw"/>
+        <response name="error" type="view" value="NewDepositPayment"/>
+    </request-map>
+    <request-map uri="createWithdrawalPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentAndFinAccountTrans"/>
+        <response name="success" type="view" value="PaymentsDepositWithdraw"/>
+        <response name="error" type="view" value="NewWithdrawalPayment"/>
+    </request-map>
     <!-- Fin Account Roles -->
     <request-map uri="EditFinAccountRoles">
         <security https="true" auth="true"/>
@@ -2076,6 +2096,7 @@ under the License.
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyGroup"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    <request-map uri="LookupInternalOrganization"><security auth="true" https="true"/><response name="success" type="view" value="LookupInternalOrganization"/></request-map>
 
     <request-map uri="LookupGeo"><security auth="true" https="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
 
@@ -2415,6 +2436,8 @@ under the License.
     <view-map name="FinAccountMain" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FinAccountMain"/>
     <view-map name="FindDepositSlips" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindDepositSlips"/>
     <view-map name="EditDepositSlipAndMembers" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditDepositSlipAndMembers"/>
+    <view-map name="NewDepositPayment" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositPayment"/>
+    <view-map name="NewWithdrawalPayment" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewWithdrawalPayment"/>
 
     <!-- TO BE REMOVED
     <view-map name="ListFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ListFinAccount"/>
@@ -2536,6 +2559,7 @@ under the License.
     <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
     <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
+    <view-map name="LookupInternalOrganization" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupInternalOrganization"/>
 
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>

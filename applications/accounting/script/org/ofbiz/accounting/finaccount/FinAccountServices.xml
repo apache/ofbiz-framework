@@ -779,4 +779,18 @@ under the License.
         </else>
         </if-compare>
     </simple-method>
+    <simple-method method-name="createPaymentAndFinAccountTrans" short-description="create new payment and associate with respective financial account in FinAccountTrans Entity.">
+        <set-service-fields service-name="createPayment" map="parameters" to-map="createPaymentMap"/>
+        <call-service service-name="createPayment" in-map-name="createPaymentMap">
+            <result-to-field result-name="paymentId"/>
+        </call-service>
+        <if-compare field="parameters.isDepositWithDrawPayment" operator="equals" value="Y">
+            <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
+            <set field="createFinAccountTransMap.paymentId" from-field="paymentId"/>
+            <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
+            <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap"/>
+        </if-compare>
+        <field-to-list field="paymentId" list="paymentIds"/>
+        <field-to-result field="paymentIds"/>
+    </simple-method>
 </simple-methods>

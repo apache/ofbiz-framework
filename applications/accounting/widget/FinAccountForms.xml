@@ -309,4 +309,41 @@ under the License.
             extends="FindFinAccountTransactions">
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
     </form>
+    <form name="EditDepositPayment" extends="EditPayment" 
+            extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml" target="createDepositPayment">
+        <actions>
+            <entity-one entity-name="FinAccount" value-field="finAccount"/>
+            <set field="finAccountTypeId" from-field="finAccount.finAccountTypeId"/>
+        </actions>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentType" description="${description}">
+                    <entity-constraint name="parentTypeId" operator="equals" env-name="parentTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="paymentMethodId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PaymentMethod" description="${paymentMethodTypeId} (${paymentMethodId})"/>
+            </drop-down>
+        </field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="partyIdTo" position="2"><lookup target-form-name="LookupInternalOrganization"/></field>
+        <field name="amount" position="2"><text size="6"/></field>
+        <field name="comments" position="2"><text size="35"/></field>
+        <field name="finAccountId"><hidden value="${finAccountId}"/></field>
+        <field name="finAccountTypeId"><hidden value="${finAccountTypeId}"/></field>
+        <field name="finAccountTransTypeId" position="1"><hidden/></field>
+        <field name="currencyUomId" position="2"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
+        <field name="isDepositWithDrawPayment" title="${uiLabelMap.AccountingDepositPaymentInFinAccount}" ><check/></field>
+        <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
+        <field name="updateButton"><ignored/></field>
+        <field name="createButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+
+    </form>
+    <form name="EditWithdrawalPayment" type="single" extends="EditDepositPayment" target="createWithdrawalPayment">
+        <field name="partyIdFrom" position="1"><lookup target-form-name="LookupInternalOrganization"/></field>
+        <field name="isDepositWithDrawPayment" title="${uiLabelMap.AccountingWithdrawalPaymentInFinAccount}" position="1"><check/></field>
+        <field name="paymentGroupTypeId"><ignored/></field>
+    </form>
 </forms>
