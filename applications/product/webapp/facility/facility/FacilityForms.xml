@@ -681,7 +681,7 @@ under the License.
         <field name="totalInventoryCost" use-when="currencyUomId==null" title="${uiLabelMap.CommonTotalCost}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
     </form>
     <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
         <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
         <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>

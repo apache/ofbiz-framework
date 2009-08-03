@@ -425,31 +425,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="menu-bar">
-                                <container style="button-bar">
-                                    <!--<link target="ViewFacilityInventoryByProductSimple" text="${uiLabelMap.CommonPrint}" style="buttontext">
-                                        <parameter param-name="facilityId" from-field="facilityId"/>
-                                    </link>-->
-                                    <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
-                                    <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
-                                    <link target="InventoryItemTotals" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext">
-                                        <parameter param-name="facilityId" from-field="facilityId"/>
-                                        <parameter param-name="action" value="Y"/>
-                                    </link>
-                                    <link target="InventoryItemGrandTotals" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext">
-                                        <parameter param-name="facilityId" from-field="facilityId"/>
-                                        <parameter param-name="action" value="Y"/>
-                                    </link>
-                                    <link target="InventoryItemTotalsExport.csv" text="${uiLabelMap.ProductInventoryItemTotalsExport}" style="buttontext">
-                                        <parameter param-name="facilityId" from-field="facilityId"/>
-                                        <parameter param-name="action" value="Y"/>
-                                    </link>
-                                    <link target="InventoryAverageCosts" text="${uiLabelMap.ProductInventoryAverageCosts}" style="buttontext">
-                                        <parameter param-name="facilityId" from-field="facilityId"/>
-                                    </link>
-                                </container>
-                            </decorator-section>
                             <decorator-section name="search-options">
                                 <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                             </decorator-section>
@@ -656,6 +633,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
+                <set field="tabButtonItem2" value="InventoryItemTotalsTab"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
@@ -666,6 +644,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -691,6 +670,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
+                <set field="tabButtonItem2" value="InventoryItemGrandTotalsTab"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
@@ -700,10 +680,17 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${title}"/>
-                        </container>
-                        <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${title}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </container>
+                        </container>                    
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -742,6 +729,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
+                <set field="tabButtonItem2" value="InventoryAverageCostsTab"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
 
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
@@ -750,6 +738,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
