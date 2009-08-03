@@ -21,8 +21,7 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="EditTask" type="single" target="updateTask" default-map-name="task"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditTask" type="single" target="updateTask" default-map-name="task">
         <alt-target use-when="myTask!=void &amp;&amp; parameters.get(&quot;workEffortParentId&quot;)!=null" target="createMyTask"/>
         <alt-target use-when="myTask!=void &amp;&amp; parameters.get(&quot;workEffortParentId&quot;)==null" target="MyTasks"/>
         <alt-target use-when="myTask==void&amp;&amp;task==null&amp;&amp;projectId==void" target="createTask"/>
@@ -108,8 +107,23 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}" position="2"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddProjectPhase" type="single" target="createProjectTaskOrPhase"
-        header-row-style="header-row" default-table-style="basic-table">
+
+    <form name="AssignTaskOtherProject" type="single" target="updateTask" default-map-name="task">
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortParentId" entry-name="empty" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
+                    <entity-constraint name="partyId" env-name="userLogin.partyId"/>
+                    <entity-constraint name="projectId" operator="not-equals" env-name="projectId"/>
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+    
+    <form name="AddProjectPhase" type="single" target="createProjectTaskOrPhase">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
@@ -118,8 +132,7 @@
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddPhase" type="single" target="createProjectPhase"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="AddPhase" type="single" target="createProjectPhase">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
@@ -128,8 +141,7 @@
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="FindTask" type="single" target="FindTask"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="FindTask" type="single" target="FindTask">
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find default-option="contains" ignore-case="true"/></field>
@@ -272,8 +284,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="assignTaskToMe" type="single" target="addTaskAssignment"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="assignTaskToMe" type="single" target="addTaskAssignment">
         <alt-target use-when="parameters.get(&quot;workEffortId&quot;)==null" target="MyTasks"/>
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
@@ -352,8 +363,7 @@
         <field name="actualCompletionDate"  entry-name="r.taskInfo.actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
-    <form name="AddDependencyBefore" type="single" target="addDependency"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="AddDependencyBefore" type="single" target="addDependency">
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdTo"><hidden value="${parameters.workEffortId}"/></field>
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
@@ -369,8 +379,7 @@
         </field>
         <field name="addButton"><submit/></field>
     </form>
-    <form name="AddDependencyAfter" type="single" target="addDependency"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="AddDependencyAfter" type="single" target="addDependency">
         <field name="workEffortIdFrom"><hidden value="${workEffortId}"/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
@@ -401,8 +410,7 @@
         <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    <form name="AddTaskSkill" type="single" target="createTaskSkillStandard"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="AddTaskSkill" type="single" target="createTaskSkillStandard">
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="skillTypeId"><drop-down>
             <entity-options entity-name="SkillType" description="${description}"/>
@@ -462,7 +470,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="createTimeEntry" type="single" target="createTimeEntry" header-row-style="header-row" default-table-style="basic-table">
+    <form name="createTimeEntry" type="single" target="createTimeEntry">
         <field name="fromDate" title="${uiLabelMap.CommonDate}"><date-time type="date"/></field>
         <field name="hours"><text size="10"/></field>
         <field name="partyId">
@@ -540,13 +548,13 @@
     </form>
     <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="EditTaskPartyAssigns"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <alt-target use-when="thruDate!=null" target="removeTaskPartyAssign"/>
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
                 <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
+        <alt-target use-when="thruDate!=null" target="removeTaskPartyAssign"/>
         <field name="workEffortId"><hidden/></field>
         <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
@@ -734,8 +742,7 @@
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     
-    <form name="AddWorkEffortSurveyAppl" type="single" target="createWorkEffortSurveyAppl"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="AddWorkEffortSurveyAppl" type="single" target="createWorkEffortSurveyAppl">
         <auto-fields-service service-name="createWorkEffortSurveyAppl"/>
         <field name="workEffortId"><hidden/></field>
         <field name="surveyId">
