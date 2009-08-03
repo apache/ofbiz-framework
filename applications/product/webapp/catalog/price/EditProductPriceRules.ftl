@@ -69,7 +69,6 @@ under the License.
                   </tr>
                   <#assign maxCondSeqId = 1>
                   <#assign rowClass = "2">
-                  <#assign rowCount = 0>
                   <#list productPriceConds as productPriceCond>
                       <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <#-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
@@ -109,11 +108,11 @@ under the License.
                             </form>
                         </td>
                         <td align="center">
-                         <form name= "deleteProductPriceCond_o_${rowCount}" method= "post" action= "<@ofbizUrl>deleteProductPriceCond</@ofbizUrl>">
-		                  	<input type= "hidden" name= "productPriceRuleId" value= "${productPriceCond.productPriceRuleId}">
-		                  	<input type= "hidden" name= "productPriceCondSeqId" value= "${productPriceCond.productPriceCondSeqId}">
-		                    <a href="javascript:document.deleteProductPriceCond_o_${rowCount}.submit()" class="buttontext">${uiLabelMap.CommonRemove}</a>                	          
-		                </form>
+                         <form name="deleteProductPriceCond_${productPriceCond_index}" method= "post" action= "<@ofbizUrl>deleteProductPriceCond</@ofbizUrl>">
+                           <input type= "hidden" name= "productPriceRuleId" value= "${productPriceCond.productPriceRuleId}">
+                           <input type= "hidden" name= "productPriceCondSeqId" value= "${productPriceCond.productPriceCondSeqId}">
+                           <a href="javascript:document.deleteProductPriceCond_${productPriceCond_index}.submit()" class="buttontext">${uiLabelMap.CommonRemove}</a>                	          
+                         </form>
                         </td>
                       </tr>
                       <#-- toggle the row color -->
@@ -122,7 +121,6 @@ under the License.
                       <#else>
                         <#assign rowClass = "2">
                       </#if>
-                      <#assign rowCount = rowCount + 1>  
                   </#list>
                   <tr>
                     <td colspan="3">
@@ -157,7 +155,6 @@ under the License.
                     <td width="10%"><b>&nbsp;</b></td>
                   </tr>
                   <#assign rowClass = "2">
-                  <#assign rowCount = 0>
                   <#list productPriceActions as productPriceAction>
                       <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td class="label"><b>${productPriceAction.productPriceActionSeqId}</b></td>
@@ -182,14 +179,13 @@ under the License.
                             </form>
                         </td>
                         <td align="center">
-                            <form name= "deleteProductPriceAction_o_${rowCount}" method= "post" action= "<@ofbizUrl>deleteProductPriceAction</@ofbizUrl>">
-			                  	<input type= "hidden" name= "productPriceRuleId" value= "${productPriceAction.productPriceRuleId}">
-			                  	<input type= "hidden" name= "productPriceActionSeqId" value= "${productPriceAction.productPriceActionSeqId}">
-			                    <a href="javascript:document.deleteProductPriceAction_o_${rowCount}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>                	          
-		                	</form>
+                          <form name="deleteProductPriceAction_${productPriceAction_index}" method="post" action="<@ofbizUrl>deleteProductPriceAction</@ofbizUrl>">
+                            <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}">
+                            <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}">
+                            <a href="javascript:document.deleteProductPriceAction_${productPriceAction_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                          </form>
                         </td>
                       </tr>
-                      <#assign rowCount = rowCount + 1>  
                       <#-- toggle the row color -->
                       <#if rowClass == "2">
                         <#assign rowClass = "1">
