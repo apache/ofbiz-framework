@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -44,21 +45,26 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.common.uom.UomWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactMechWorker;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.shipment.shipment.ShipmentWorker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -72,6 +78,15 @@ public class UspsServices {
     public final static String errorResource = "ProductErrorUiLabels";
 
     public static final MathContext generalRounding = new MathContext(10);
+
+    private static List<String> domesticCountries = FastList.newInstance();
+    // Countries treated as domestic for rate enquiries
+    static {
+        domesticCountries.add("USA");
+        domesticCountries.add("ASM");
+        domesticCountries.add("GU");
+        domesticCountries = Collections.unmodifiableList(domesticCountries);
+    }
 
     public static Map<String, Object> uspsRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
@@ -112,6 +127,9 @@ public class UspsServices {
             try {
                 GenericValue shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
                 if (shipToAddress != null) {
+                    if (!domesticCountries.contains(shipToAddress.getString("countryGeoId"))) {
+                        return ServiceUtil.returnFailure("uspsRateInquire is only valid for US destinations.");
+                    }
                     destinationZip = shipToAddress.getString("postalCode");
                 }
             } catch (GenericEntityException e) {
@@ -231,6 +249,25 @@ public class UspsServices {
         return result;
     }
 
+    /*
+     * USPS International Service Codes
+     * 1 - Express Mail International
+     * 2 - Priority Mail International
+     * 4 - Global Express Guaranteed (Document and Non-document)
+     * 5 - Global Express Guaranteed Document used
+     * 6 - Global Express Guaranteed Non-Document Rectangular shape
+     * 7 - Global Express Guaranteed Non-Document Non-Rectangular
+     * 8 - Priority Mail Flat Rate Envelope
+     * 9 - Priority Mail Flat Rate Box
+     * 10 - Express Mail International Flat Rate Envelope
+     * 11 - Priority Mail Large Flat Rate Box
+     * 12 - Global Express Guaranteed Envelope
+     * 13 - First Class Mail International Letters
+     * 14 - First Class Mail International Flats
+     * 15 - First Class Mail International Parcels
+     * 16 - Priority Mail Small Flat Rate Box
+     * 21 - PostCards 
+     */
     public static Map<String, Object> uspsInternationalRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
@@ -247,8 +284,8 @@ public class UspsServices {
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             try {
                 GenericValue shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
-                if ("USA".equals(shipToAddress.get("countryGeoId"))) {
-                    return ServiceUtil.returnError("The USPS International Rate Calculation service is not applicable to US destinations, use uspsRateInquire");
+                if (domesticCountries.contains(shipToAddress.get("countryGeoId"))) {
+                    return ServiceUtil.returnError("The USPS International Rate Calculation service is not applicable to US destinations (including Possesions), use uspsRateInquire");
                 }
                 if (shipToAddress != null && UtilValidate.isNotEmpty(shipToAddress.getString("countryGeoId"))) {
                     GenericValue countryGeo = shipToAddress.getRelatedOne("CountryGeo");
@@ -295,36 +332,33 @@ public class UspsServices {
 
         // create the request document
         Document requestDocument = createUspsRequestDocument("IntlRateRequest", false);
-        UtilXml.addChildElementValue(requestDocument.getDocumentElement(), "Country", destinationCountry, requestDocument);
 
         // TODO: Up to 25 packages can be included per request - handle more than 25
         for (ListIterator<Map<String, BigDecimal>> li = packages.listIterator(); li.hasNext();) {
             Map<String, BigDecimal> packageMap = li.next();
 
+            Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
+            packageElement.setAttribute("ID", String.valueOf(li.nextIndex() - 1)); // use zero-based index (see examples)
+
             BigDecimal packageWeight = isOnePackage ? shippableWeight : calcPackageWeight(dctx, packageMap, shippableItemInfo, BigDecimal.ZERO);
             if (packageWeight.compareTo(BigDecimal.ZERO) == 0) {
                 continue;
             }
-
-            Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
-            packageElement.setAttribute("ID", String.valueOf(li.nextIndex() - 1)); // use zero-based index (see examples)
-
-            UtilXml.addChildElementValue(packageElement, "MailType", "Package", requestDocument);
-
-            BigDecimal weightPounds = packageWeight.setScale(0, BigDecimal.ROUND_FLOOR);
+            Integer[] weightPoundsOunces = convertPoundsToPoundsOunces(packageWeight);
             // for Parcel post, the weight must be at least 1 lb
-            if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPounds.compareTo(BigDecimal.ONE) < 0)) {
-                weightPounds = BigDecimal.ONE;
-                packageWeight = BigDecimal.ZERO;
+            if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPoundsOunces[0] < 1)) {
+                weightPoundsOunces[0] = 1;
+                weightPoundsOunces[1] = 0;
             }
-            // (packageWeight % 1) * 16 (Rounded up to 1 dp)
-            BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(1, BigDecimal.ROUND_CEILING);
-            UtilXml.addChildElementValue(packageElement, "Pounds", weightPounds.toPlainString(), requestDocument);
-            UtilXml.addChildElementValue(packageElement, "Ounces", weightOunces.toPlainString(), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "Pounds", weightPoundsOunces[0].toString(), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "Ounces", weightPoundsOunces[1].toString(), requestDocument);
 
             UtilXml.addChildElementValue(packageElement, "Machinable", "False", requestDocument);
+            UtilXml.addChildElementValue(packageElement, "MailType", "Package", requestDocument);
             
             // TODO: Add package value so that an insurance fee can be returned
+
+            UtilXml.addChildElementValue(packageElement, "Country", destinationCountry, requestDocument);
         }
 
         // send the request
@@ -1451,6 +1485,209 @@ public class UspsServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map<String, Object> uspsPriorityMailInternationalLabel(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+
+        GenericValue shipmentRouteSegment = (GenericValue) context.get("shipmentRouteSegment");
+
+        // Start the document
+        Document requestDocument;
+        boolean certify = false;
+        if (!"Y".equalsIgnoreCase(UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.test"))) {
+            requestDocument = createUspsRequestDocument("PriorityMailIntlRequest", false);
+        } else {
+            requestDocument = createUspsRequestDocument("PriorityMailIntlCertifyRequest", false);
+            certify = true;
+        }
+        Element rootElement = requestDocument.getDocumentElement();
+        
+        // Retrieve from/to address and package details
+        GenericValue originAddress = null;
+        GenericValue originTelecomNumber = null;
+        GenericValue destinationAddress = null;
+        GenericValue destinationProvince = null;
+        GenericValue destinationCountry = null;
+        GenericValue destinationTelecomNumber = null;
+        List<GenericValue> shipmentPackageRouteSegs = null;
+        try {
+            originAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
+            originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
+            destinationAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
+            if (destinationAddress != null) {
+                destinationProvince = destinationAddress.getRelatedOne("StateProvinceGeo");
+                destinationCountry = destinationAddress.getRelatedOne("CountryGeo");
+            }
+            destinationTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
+            shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (originAddress == null || originTelecomNumber == null) {
+            ServiceUtil.returnError("Unable to request a USPS Priority Mail International Label: ShipmentRouteSegment is missing origin phone or address details");
+        }
+
+        // Origin Info
+        // USPS wants a separate first name and last, best we can do is split the string on the white space, if that doesn't work then default to putting the attnName in both fields
+        String fromAttnName = originAddress.getString("attnName");
+        String fromFirstName = StringUtils.defaultIfEmpty(StringUtils.substringBefore(fromAttnName, " "), fromAttnName);
+        String fromLastName = StringUtils.defaultIfEmpty(StringUtils.substringAfter(fromAttnName, " "), fromAttnName);
+        UtilXml.addChildElementValue(rootElement, "FromFirstName", fromFirstName, requestDocument);
+        // UtilXml.addChildElementValue(rootElement, "FromMiddleInitial", "", requestDocument);
+        UtilXml.addChildElementValue(rootElement, "FromLastName", fromLastName, requestDocument);
+        UtilXml.addChildElementValue(rootElement, "FromFirm", originAddress.getString("toName"), requestDocument);
+        // The following 2 assignments are not typos - USPS address1 = OFBiz address2, USPS address2 = OFBiz address1
+        UtilXml.addChildElementValue(rootElement, "FromAddress1", originAddress.getString("address2"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "FromAddress2", originAddress.getString("address1"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "FromCity", originAddress.getString("city"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "FromState", originAddress.getString("stateProvinceGeoId"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "FromZip5", originAddress.getString("postalCode"), requestDocument);
+        // USPS expects a phone number consisting of area code + contact number as a single numeric string
+        String fromPhoneNumber = originTelecomNumber.getString("areaCode") + originTelecomNumber.getString("contactNumber");
+        fromPhoneNumber = StringUtil.removeNonNumeric(fromPhoneNumber);
+        UtilXml.addChildElementValue(rootElement, "FromPhone", fromPhoneNumber, requestDocument);
+
+        // Destination Info
+        UtilXml.addChildElementValue(rootElement, "ToName", destinationAddress.getString("attnName"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "ToFirm", destinationAddress.getString("toName"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "ToAddress1", destinationAddress.getString("address1"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "ToAddress2", destinationAddress.getString("address2"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "ToCity", destinationAddress.getString("city"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "ToProvince", destinationProvince.getString("geoName"), requestDocument);
+        // TODO: Test these country names, I think we're going to need to maintain a list of USPS names
+        UtilXml.addChildElementValue(rootElement, "ToCountry", destinationCountry.getString("geoName"), requestDocument);
+        UtilXml.addChildElementValue(rootElement, "ToPostalCode", destinationAddress.getString("postalCode"), requestDocument);
+        // TODO: Figure out how to answer this question accurately
+        UtilXml.addChildElementValue(rootElement, "ToPOBoxFlag", "N", requestDocument);
+        String toPhoneNumber = destinationTelecomNumber.getString("countryCode") + destinationTelecomNumber.getString("areaCode") + destinationTelecomNumber.getString("contactNumber");
+        UtilXml.addChildElementValue(rootElement, "ToPhone", toPhoneNumber, requestDocument);
+        UtilXml.addChildElementValue(rootElement, "NonDeliveryOption", "RETURN", requestDocument);
+        
+        for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
+            Document packageDocument = (Document) requestDocument.cloneNode(true);
+            Element packageRootElement = requestDocument.getDocumentElement();
+            // This is our reference and can be whatever we want.  For lack of a better alternative we'll use shipmentId:shipmentPackageSeqId:shipmentRouteSegmentId
+            String fromCustomsReference = shipmentRouteSegment.getString("shipmentId") + ":" + shipmentRouteSegment.getString("shipmentRouteSegmentId");
+            fromCustomsReference = StringUtils.join(
+                    UtilMisc.toList(
+                            shipmentRouteSegment.get("shipmentId"), 
+                            shipmentPackageRouteSeg.get("shipmentPackageSeqId"),
+                            shipmentRouteSegment.get("shipmentRouteSegementId")
+                    ), ':');
+            UtilXml.addChildElementValue(rootElement, "FromCustomsReference", fromCustomsReference, packageDocument);
+            // Determine the container type for this package
+            String container = "VARIABLE";
+            String packageTypeCode = null;
+            GenericValue shipmentPackage = null;
+            List<GenericValue> shipmentPackageContents = null;
+            try {
+                shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
+                shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent");
+                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
+                if (shipmentBoxType != null) {
+                    GenericValue carrierShipmentBoxType = EntityUtil.getFirst(shipmentBoxType.getRelatedByAnd("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS")));
+                    if (carrierShipmentBoxType != null) {
+                        packageTypeCode = carrierShipmentBoxType.getString("packageTypeCode");
+                        // Supported type codes
+                        List<String> supportedPackageTypeCodes = UtilMisc.toList(
+                                "LGFLATRATEBOX",
+                                "SMFLATRATEBOX",
+                                "FLATRATEBOX",
+                                "MDFLATRATEBOX",
+                                "FLATRATEENV");
+                        if (supportedPackageTypeCodes.contains(packageTypeCode)) {
+                            container = packageTypeCode;
+                        }
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            UtilXml.addChildElementValue(rootElement, "Container", container, packageDocument);
+            /* TODO:
+            UtilXml.addChildElementValue(rootElement, "Insured", "", packageDocument);
+            UtilXml.addChildElementValue(rootElement, "InsuredNumber", "", packageDocument);
+            UtilXml.addChildElementValue(rootElement, "InsuredAmount", "", packageDocument);
+            */
+            // According to the docs sending an empty postage tag will cause the postage to be calculated
+            UtilXml.addChildElementValue(rootElement, "Postage", "", packageDocument);
+            
+            BigDecimal packageWeight = shipmentPackage.getBigDecimal("weight");
+            String weightUomId = shipmentPackage.getString("weightUomId");
+            BigDecimal packageWeightPounds = UomWorker.convertUom(packageWeight, weightUomId, "WT_lb", dispatcher);
+            Integer[] packagePoundsOunces = convertPoundsToPoundsOunces(packageWeightPounds);
+            UtilXml.addChildElementValue(rootElement, "GrossPounds", packagePoundsOunces[0].toString(), packageDocument);
+            UtilXml.addChildElementValue(rootElement, "GrossOunces", packagePoundsOunces[1].toString(), packageDocument);
+
+            UtilXml.addChildElementValue(rootElement, "ContentType", "MERCHANDISE", packageDocument);
+            UtilXml.addChildElementValue(rootElement, "Agreement", "N", packageDocument);
+            UtilXml.addChildElementValue(rootElement, "ImageType", "PDF", packageDocument);
+            // TODO: Try the different layouts
+            UtilXml.addChildElementValue(rootElement, "ImageType", "ALLINONEFILE", packageDocument);
+            UtilXml.addChildElementValue(rootElement, "CustomerRefNo", fromCustomsReference, packageDocument);
+            
+            // Add the shipping contents
+            Element shippingContents = UtilXml.addChildElement(rootElement, "ShippingContents", packageDocument);
+            for (GenericValue shipmentPackageContent : shipmentPackageContents) {
+                Element itemDetail = UtilXml.addChildElement(shippingContents, "ItemDetail", packageDocument);
+                GenericValue product = null;
+                GenericValue originGeo = null;
+                try {
+                    GenericValue shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem");
+                    product = shipmentItem.getRelatedOne("Product");
+                    originGeo = product.getRelatedOne("OriginGeo");
+                } catch (GenericEntityException e) {
+                    Debug.log(e, module);
+                }
+
+                UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
+                UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity").setScale(0, BigDecimal.ROUND_CEILING).toPlainString(), packageDocument);
+                String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+                UtilXml.addChildElementValue(itemDetail, "Value", packageContentValue, packageDocument);
+                BigDecimal productWeight = ProductWorker.getProductWeight(product, "WT_lbs", delegator, dispatcher);
+                Integer[] productPoundsOunces = convertPoundsToPoundsOunces(productWeight);
+                UtilXml.addChildElementValue(itemDetail, "NetPounds", productPoundsOunces[0].toString(), packageDocument);
+                UtilXml.addChildElementValue(itemDetail, "NetOunces", productPoundsOunces[1].toString(), packageDocument);
+                UtilXml.addChildElementValue(itemDetail, "HSTariffNumber", "", packageDocument);
+                UtilXml.addChildElementValue(itemDetail, "CountryOfOrigin", originGeo.getString("geoName"), packageDocument);
+            }
+            
+            // Send the request
+            Document responseDocument = null;
+            String api = certify ? "PriorityMailIntlCertify" : "PriorityMailIntl";
+            try {
+                responseDocument = sendUspsRequest(api, requestDocument);
+            } catch (UspsRequestException e) {
+                Debug.log(e, module);
+                return ServiceUtil.returnError("Error sending request for USPS Priority Mail International service: " +
+                        e.getMessage());
+            }
+            Element responseElement = responseDocument.getDocumentElement();
+
+            // TODO: No mention of error returns in the docs
+
+            String labelImageString = UtilXml.childElementValue(responseElement, "LabelImage");
+            if (UtilValidate.isEmpty(labelImageString)) {
+                return ServiceUtil.returnError("Incomplete response from the USPS Priority Mail International service: " +
+                        "missing or empty LabelImage element");
+            }
+            shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes()));
+            String trackingCode = UtilXml.childElementValue(responseElement, "BarcodeNumber");
+            if (UtilValidate.isEmpty(trackingCode)) {
+                return ServiceUtil.returnError("Incomplete response from the USPS Priority Mail International service: " +
+                        "missing or empty BarcodeNumber element");
+            }
+            shipmentPackageRouteSeg.set("trackingCode", trackingCode);
+            try {
+                shipmentPackageRouteSeg.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
     private static Document createUspsRequestDocument(String rootElement, boolean passwordRequired) {
 
         Document requestDocument = UtilXml.makeEmptyXmlDocument(rootElement);
@@ -1467,7 +1704,13 @@ public class UspsServices {
     }
 
     private static Document sendUspsRequest(String requestType, Document requestDocument) throws UspsRequestException {
-        String conUrl = UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.connect.url");
+        String conUrl = null;
+        List<String> labelRequestTypes = UtilMisc.toList("PriorityMailIntl", "PriorityMailIntlCertify");
+        if (labelRequestTypes.contains(requestType)) {
+            conUrl = UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.connect.url.labels");
+        } else {
+            conUrl = UtilProperties.getPropertyValue("shipment.properties", "shipment.usps.connect.url");
+        }
         if (UtilValidate.isEmpty(conUrl)) {
             throw new UspsRequestException("Connection URL not specified; please check your configuration");
         }
@@ -1529,6 +1772,18 @@ public class UspsServices {
         }
 
         return responseDocument;
+    }
+
+    /*
+     * Converts decimal pounds to pounds and ounces as an Integer array, ounces are rounded up to the nearest whole number 
+     */
+    public static Integer[] convertPoundsToPoundsOunces(BigDecimal decimalPounds) {
+        if (decimalPounds == null) return null;
+        Integer[] poundsOunces = new Integer[2];
+        poundsOunces[0] = Integer.valueOf(decimalPounds.setScale(0, BigDecimal.ROUND_FLOOR).toPlainString());
+        // (weight % 1) * 16 rounded up to nearest whole number
+        poundsOunces[1] = Integer.valueOf(decimalPounds.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, BigDecimal.ROUND_CEILING).toPlainString());
+        return poundsOunces;
     }
 }
 

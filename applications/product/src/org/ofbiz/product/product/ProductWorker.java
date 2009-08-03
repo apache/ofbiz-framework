@@ -31,6 +31,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
@@ -833,6 +834,49 @@ public class ProductWorker {
 
         return null;
     }
+
+    /* 
+     * Returns the product's unit weight converted to the desired Uom.  If the weight is null, 
+     * then a check is made for an associated virtual product to retrieve the weight from.  If the 
+     * weight is still null then null is returned.  If a weight is found and a desiredUomId has
+     * been supplied and the product specifies a weightUomId then an attempt will be made to 
+     * convert the value otherwise the weight is returned as is. 
+     */
+    public static BigDecimal getProductWeight(GenericValue product, String desiredUomId, GenericDelegator delegator, LocalDispatcher dispatcher) {
+        BigDecimal weight = product.getBigDecimal("weight");
+        String weightUomId = product.getString("weightUomId");
+
+        if (weight == null) {
+            GenericValue parentProduct = getParentProduct(product.getString("productId"), delegator);
+            if (parentProduct != null) {
+                weight = parentProduct.getBigDecimal("weight");
+                weightUomId = parentProduct.getString("weightUomId");
+            }
+        }
+
+        if (weight == null) {
+            return null;
+        } else {
+            // attempt a conversion if necessary
+            if (desiredUomId != null && product.get("weightUomId") != null && !desiredUomId.equals(product.get("weightUomId"))) {
+                Map<String, Object> result = FastMap.newInstance();
+                try {
+                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", weight));
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                }
+
+                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
+                    weight = (BigDecimal) result.get("convertedValue");
+                } else {
+                    Debug.logError("Unsupported conversion from [" + weightUomId + "] to [" + desiredUomId + "]",module);
+                    return null;
+                }
+            }
+            return weight;
+        }
+    }
+
 
 
     /**
