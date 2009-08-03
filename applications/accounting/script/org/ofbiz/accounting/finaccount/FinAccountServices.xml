@@ -793,4 +793,26 @@ under the License.
         <field-to-list field="paymentId" list="paymentIds"/>
         <field-to-result field="paymentIds"/>
     </simple-method>
+
+    <simple-method method-name="getTransactionTotalByGlReconcileId" short-description="Transaction Total By GlReconcile Id">
+        <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+        <entity-and entity-name="FinAccountTrans" list="finAccountTransList">
+            <field-map field-name="glReconciliationId" from-field="parameters.glReconciliationId"/>
+        </entity-and>
+        <set field="reconciledBalance" from-field="glReconciliation.reconciledBalance" type="BigDecimal"/>
+        <set field="grandTotal" value="0" type="BigDecimal"/>
+        <if-empty field="reconciledBalance">
+            <set field="reconciledBalance" value="0" type="BigDecimal"/>
+        </if-empty>
+        <iterate list="finAccountTransList" entry="finAccountTrans">
+            <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL">
+                <set field="grandTotal" value="${grandTotal - finAccountTrans.amount}" type="BigDecimal"/>
+            <else>
+                <set field="grandTotal" value="${grandTotal + finAccountTrans.amount}" type="BigDecimal"/>
+            </else>
+            </if-compare>
+        </iterate>
+        <set field="grandTotal" value="${grandTotal + reconciledBalance}" type="BigDecimal"/>
+        <field-to-result field="grandTotal"/>
+    </simple-method>
 </simple-methods>

@@ -346,4 +346,32 @@ under the License.
         <field name="isDepositWithDrawPayment" title="${uiLabelMap.AccountingWithdrawalPaymentInFinAccount}" position="1"><check/></field>
         <field name="paymentGroupTypeId"><ignored/></field>
     </form>
+    <form name="EditFinAccountReconciliation" type="single" target="createGlReconciliation" default-map-name="glReconciliation" extends="EditGlReconciliation"
+            extends-resource="component://accounting/widget/GlForms.xml" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+        </actions>
+        <alt-target use-when="glReconciliationId != null" target="updateFinAccountGlReconciliation"/>
+        <field name="finAccountId"><hidden/></field>
+        <field name="glReconciliationId" use-when="glReconciliationId == null"><ignored/></field>
+        <field name="glReconciliationId" use-when="glReconciliationId != null"><display/></field>
+        <field name="glAccountId"><lookup target-form-name="LookupGlAccount"/></field>
+        <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="createButton" use-when="glReconciliationId == null" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="updateButton" use-when="glReconciliationId != null" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListFinAccountReconciliations" type="list"  list-name="glReconciliations" separate-columns="true"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateGlReconciliation" default-field-type="display"/>
+        <field name="glReconciliationId">
+            <hyperlink  description="${glReconciliationId}" target="ViewGlReconciliationWithTransaction">
+                <parameter param-name="glReconciliationId"/>
+                <parameter param-name="finAccountId"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>
