@@ -28,9 +28,9 @@ function togglePaymentId(master) {
             element.checked = master.checked;
         }
     }
-    getPaymentRunningTotal(master);
+    getPaymentRunningTotal();
 }
-function getPaymentRunningTotal(e) {
+function getPaymentRunningTotal() {
     var form = document.depositWithdrawPaymentsForm;
     var payments = form.elements.length;
     var isSingle = true;
@@ -45,10 +45,10 @@ function getPaymentRunningTotal(e) {
             }
         }
     }
-    if (!($(e).checked)) {
-        $('checkAllPayments').checked = false;
-    } else if (isAllSelected) {
+    if (isAllSelected) {
         $('checkAllPayments').checked = true;
+    } else {
+        $('checkAllPayments').checked = false;
     }
     if (!isSingle) {
         $('submitButton').disabled = false;
@@ -117,7 +117,7 @@ function getPaymentRunningTotal(e) {
                             <td>${payment.effectiveDate?if_exists}</td>
                             <td align="right">
                                 ${uiLabelMap.AccountingDeposit}&nbsp;
-                                <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal('paymentId_${payment_index}');"/>
+                                <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/>
                             </td>
                         </tr>
                     </#list>

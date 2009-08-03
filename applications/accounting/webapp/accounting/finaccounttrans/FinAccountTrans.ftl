@@ -28,10 +28,10 @@ function togglefinAccountTransId(master) {
             element.checked = master.checked;
         }
     }
-    getFinAccountTransRunningTotal(master);
+    getFinAccountTransRunningTotal();
 }
 
-function getFinAccountTransRunningTotal(e) {
+function getFinAccountTransRunningTotal() {
     var form = document.selectAllForm;
     var finAccountTransList = form.elements.length;
     var isSingle = true;
@@ -46,12 +46,13 @@ function getFinAccountTransRunningTotal(e) {
             }
         }
     }
-    if (!($(e).checked)) {
-        $('checkAllTransactions').checked = false;
-    } else if (isAllSelected) {
+    if (isAllSelected) {
         $('checkAllTransactions').checked = true;
+    } else {
+        $('checkAllTransactions').checked = false;
     }
     if (!isSingle) {
+        $('submitButton').disabled = false;
         new Ajax.Request('getFinAccountTransRunningTotal', {
             asynchronous: false,
             onSuccess: function(transport) {
@@ -61,6 +62,7 @@ function getFinAccountTransRunningTotal(e) {
         });
     } else {
         $('showFinAccountTransRunningTotal').update("");
+        $('submitButton').disabled = true;
     }
 }
 -->
@@ -196,7 +198,7 @@ function getFinAccountTransRunningTotal(e) {
                 <input name="finAccountTransId_o_${finAccountTrans_index}" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
                 <input name="organizationPartyId_o_${finAccountTrans_index}" type="hidden" value="${defaultOrganizationPartyId}"/>
                 <td>
-                  <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotal('finAccountTransId_${finAccountTrans_index}');"/>
+                  <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotal();"/>
                 </td>
                 <#if finAccountTrans.finAccountTransTypeId="ADJUSTMENT">
             </tr>
@@ -223,7 +225,7 @@ function getFinAccountTransRunningTotal(e) {
           </#list>
     <#if !grandTotal?exists>
           <div align="right">
-             <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}"/>
+             <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}" disabled/>
           <div>      
         </table>
       </form>
