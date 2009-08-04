@@ -851,14 +851,10 @@ public class UtilDateTime {
     }
 
     public static Timestamp getWeekEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar tempCal = toCalendar(stamp, timeZone, locale);
-        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        tempCal.add(Calendar.WEEK_OF_MONTH, 1);
-        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
-        tempCal.add(Calendar.SECOND, -1);
-        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
-        retStamp.setNanos(999999999);
-        return retStamp;
+    	Timestamp weekStart = getWeekStart(stamp, timeZone, locale);
+        Calendar tempCal = toCalendar(weekStart, timeZone, locale);
+        tempCal.add(Calendar.DAY_OF_MONTH, 6);
+        return getDayEnd(new Timestamp(tempCal.getTimeInMillis()), timeZone, locale);
     }
 
     public static Timestamp getMonthStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
