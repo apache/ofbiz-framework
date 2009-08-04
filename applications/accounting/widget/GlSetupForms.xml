@@ -1081,13 +1081,17 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="GlAccountCategoryMember" default-field-type="edit"/>
         <field name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${glAccountId}-${accountName}"/></field>
-        <field name="glAccountCategoryId"><display/></field>
+        <field name="glAccountCategoryId"><display-entity entity-name="GlAccountCategory"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="deleteGlAccountCategoryMember" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="glAccountId" from-field="glAccountId"/>
                 <parameter param-name="glAccountCategoryId" from-field="glAccountCategoryId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
             </hyperlink>
         </field>
+        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 

@@ -45,14 +45,14 @@ under the License.
               <input type="hidden" id="glAccountId_${glAccountOrganization.glAccountId}" name="glAccountId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${glAccountOrganization.glAccountId!}"/>
               <input type="hidden" id="glAccountCategoryId_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="glAccountCategoryId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategory.glAccountCategoryId!)}"/>
               
-              <#assign glAccountCategoryMembers = delegator.findByAnd("GlAccountCategoryMember", {"glAccountId" : glAccountOrganization.glAccountId, "glAccountCategoryId" : glAccountCategory.glAccountCategoryId})/>
+              <#assign glAccountCategoryMembers = delegator.findByAnd("GlAccountCategoryMember", {"glAccountId" : glAccountOrganization.glAccountId, "glAccountCategoryId" : glAccountCategory.glAccountCategoryId, "thruDate" : null}, Static["org.ofbiz.base.util.UtilMisc"].toList("fromDate"))/>
               <#if glAccountCategoryMembers?has_content>
                 <#assign glAccountCategoryMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(glAccountCategoryMembers)/>
               </#if>
               <#if glAccountCategoryMember != null>
                 <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategoryMember.amountPercentage!)}"/>
               <#else>
-                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategoryMember.amountPercentage!)}"/>
+                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value=""/>
               </#if>
               <input name="_rowSubmit_o_${glAccountOrganizationIndex}${glAccountCategory_index}" type="hidden" value="Y"/>
             </td>

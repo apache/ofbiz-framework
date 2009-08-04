@@ -630,7 +630,8 @@ under the License.
         <description>Delete GL Account Category Member</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="updateGlAccountCategoryMember" engine="entity-auto" default-entity-name="GlAccountCategoryMember" invoke="update" auth="true">
+    <service name="updateGlAccountCategoryMember" engine="simple" default-entity-name="GlAccountCategoryMember"
+        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="updateGlAccountCategoryMember" auth="true">
         <description>Update GL Account Category Member</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
