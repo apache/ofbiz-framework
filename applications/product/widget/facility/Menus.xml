@@ -207,6 +207,11 @@ under the License.
     
     <menu name="ViewFacilityInventoryByProductTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         selected-menuitem-context-field-name="tabButtonItem2">
+        <!--<menu-item name="ViewFacilityInventoryByProductSimpleTab" title="${uiLabelMap.CommonPrint}">
+            <link target="ViewFacilityInventoryByProductSimple">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </link>
+        </menu-item> -->
         <menu-item name="ViewFacilityInventoryByProductReportTab" title="${uiLabelMap.CommonPrint}">
             <link target="ViewFacilityInventoryByProductReport?${searchParameterString}"/>
         </menu-item>
@@ -216,25 +221,25 @@ under the License.
         <menu-item name="InventoryItemTotalsTab" title="${uiLabelMap.ProductInventoryItemTotals}">
             <link target="InventoryItemTotals">
                 <parameter param-name="facilityId" from-field="facilityId"/>
-                <parameter param-name="action" value="Y"/>                
+                <parameter param-name="action" value="Y"/>
             </link>
         </menu-item>
         <menu-item name="InventoryItemGrandTotalsTab" title="${uiLabelMap.ProductInventoryItemGrandTotals}">
             <link target="InventoryItemGrandTotals">
                 <parameter param-name="facilityId" from-field="facilityId"/>
-                <parameter param-name="action" value="Y"/>                
+                <parameter param-name="action" value="Y"/>
             </link>
         </menu-item>
         <menu-item name="InventoryItemTotalsExportTab" title="${uiLabelMap.ProductInventoryItemTotalsExport}">
             <link target="InventoryItemTotalsExport.csv">
                 <parameter param-name="facilityId" from-field="facilityId"/>
-                <parameter param-name="action" value="Y"/>                 
+                <parameter param-name="action" value="Y"/>
             </link>
         </menu-item>
         <menu-item name="InventoryAverageCostsTab" title="${uiLabelMap.ProductInventoryAverageCosts}">
             <link target="InventoryAverageCosts">
-                <parameter param-name="facilityId" from-field="facilityId"/>                
+                <parameter param-name="facilityId" from-field="facilityId"/>
             </link>
-        </menu-item>                                   
+        </menu-item>
     </menu>
 </menus>
