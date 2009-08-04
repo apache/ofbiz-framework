@@ -174,7 +174,7 @@ under the License.
         </check-permission>
 
         <entity-one entity-name="Payment" value-field="payment"/>
-        <field-to-result field="payment.paymentId" result-name="oldStatusId"/>
+        <field-to-result field="payment.statusId" result-name="oldStatusId"/>
 
         <if-compare-field field="payment.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
