@@ -29,8 +29,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.getDayStart(org.ofbiz.base.util.UtilDateTime.nowTimestamp())}"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.getDayEnd(org.ofbiz.base.util.UtilDateTime.nowTimestamp())}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersSearchFromEbay}"><submit button-type="button"/></field>
     </form>
     <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay"
