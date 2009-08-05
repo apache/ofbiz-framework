@@ -57,7 +57,9 @@ public class OrderTestServices {
         for (int i = 1; i <= numberOfOrdersInt; i++) {
             try {
                 ModelService modelService = dctx.getModelService("createTestSalesOrderSingle");
-                dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
+                Map outputMap = dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
+                String orderId = (String)outputMap.get("orderId");
+                Debug.logInfo("Test sales order with id [" + orderId + "] has been processed.", module);
             } catch (GenericServiceException e) {
                 String errMsg = "Error calling createTestSalesOrderSingle: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -139,13 +141,24 @@ public class OrderTestServices {
         Map orderCreateResult = checkout.createOrder(userLogin);
         String orderId = (String) orderCreateResult.get("orderId");
 
+        Map resultMap = ServiceUtil.returnSuccess();
         // approve the order
         if (UtilValidate.isNotEmpty(orderId)) {
             Debug.logInfo("Created test order with id: " + orderId, module);
             boolean approved = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
             Debug.logInfo("Test order with id: " + orderId + " has been approved: " + approved, module);
+            resultMap.put("orderId", orderId);
+        }
+        Boolean shipOrder = (Boolean) context.get("shipOrder");
+        if (shipOrder.booleanValue() && UtilValidate.isNotEmpty(orderId)) {
+            try {
+                Map outputMap = dispatcher.runSync("quickShipEntireOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                Debug.logInfo("Test sales order with id [" + orderId + "] has been shipped", module);
+            } catch (Exception exc) {
+                Debug.logWarning("Unable to quick ship test sales order with id [" + orderId + "] with error: " + exc.getMessage(), module);
+            }
         }
 
-        return ServiceUtil.returnSuccess();
+        return resultMap;
     }
 }
