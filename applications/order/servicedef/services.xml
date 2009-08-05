@@ -855,6 +855,7 @@ under the License.
         <attribute name="currencyUomId" type="String" mode="IN" optional="true" default-value="USD"/>
         <attribute name="partyId" type="String" mode="IN" optional="true" default-value="DemoCustomer"/>
         <attribute name="numberOfOrders" type="Integer" mode="IN" optional="true" default-value="10"/>
+        <attribute name="shipOrder" type="Boolean" mode="IN" optional="true" default-value="false"/>
         <attribute name="numberOfProductsPerOrder" type="Integer" mode="IN" optional="true" default-value="5"/>
         <attribute name="salesChannel" type="String" mode="IN" optional="true"/>
     </service>
@@ -868,6 +869,8 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true" default-value="DemoCustomer"/>
         <attribute name="numberOfProductsPerOrder" type="Integer" mode="IN" optional="true" default-value="5"/>
         <attribute name="salesChannel" type="String" mode="IN" optional="true"/>
+        <attribute name="shipOrder" type="Boolean" mode="IN" optional="true" default-value="false"/>
+        <attribute name="orderId" type="String" mode="OUT" optional="false"/>
     </service>
 
     <service name="changeOrderPaymentStatus" engine="java" auth="true"
