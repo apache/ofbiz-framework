@@ -28,12 +28,14 @@ under the License.
             <tr class="header-row">
                 <td>${uiLabelMap.OrderOrderId}</td>
                 <td>${uiLabelMap.FormFieldTitle_orderPickSheetPrintedDate}</td>
+                <td>${uiLabelMap.ProductVerified}</td>
             </tr>
             <#if orders?has_content>
                 <#list orders?sort_by("pickSheetPrintedDate") as order>
                     <tr>
                         <td><a href="/ordermgr/control/orderview?orderId=${order.orderId?if_exists}" class="buttontext" target="_blank">${order.orderId?if_exists}</a></td>
                         <td>${order.pickSheetPrintedDate?if_exists}</td>
+                        <td><#if "Y" == order.isVerified>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></td>
                     </tr>
                 </#list>
             <#else>
