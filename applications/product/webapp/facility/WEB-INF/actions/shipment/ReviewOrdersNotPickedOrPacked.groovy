@@ -21,6 +21,8 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
+import java.text.SimpleDateFormat;
+
 condList = [];
 condList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
 condList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
@@ -28,10 +30,13 @@ condList.add(EntityCondition.makeCondition("pickSheetPrintedDate", EntityOperato
 cond = EntityCondition.makeCondition(condList, EntityOperator.AND);
 orderHeaders = delegator.findList("OrderHeader", cond, null, null, null, false);
 orders = [];
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a");
 orderHeaders.each { orderHeader ->
     itemIssuanceList = delegator.findByAnd("ItemIssuance", [orderId : orderHeader.orderId]);
-    if (!itemIssuanceList) {
-        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : orderHeader.pickSheetPrintedDate]);
+    if (itemIssuanceList) {
+        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "Y"]);
+    } else {
+        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "N"]);
     }
 }
 context.orders = orders;
