@@ -611,6 +611,9 @@
         <value xml:lang="it">Tipo documento</value>
         <value xml:lang="zh">文档类型</value>
     </property>
+    <property key="ContentDownload">
+        <value xml:lang="en">Download</value>
+    </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
         <value xml:lang="de">Produktladen bearbeiten</value>

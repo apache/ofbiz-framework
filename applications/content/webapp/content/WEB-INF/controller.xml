@@ -625,6 +625,7 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="listDataResources"/>
     </request-map>
+    <request-map uri="ViewBinaryDataResource"><security auth="true" https="true"/><response name="success" type="view" value="ViewBinaryDataResource"/></request-map>
 
     <request-map uri="EditDataResourceType">
         <security auth="true" https="true"/>
@@ -1935,6 +1936,7 @@ under the License.
     <view-map name="EditCompDocContentRole" page="component://content/widget/compdoc/CompDocScreens.xml#EditCompDocContentRole" type="screen"/>
     <view-map name="ViewInstances" page="component://content/widget/compdoc/CompDocScreens.xml#ViewInstances" type="screen"/>
     <view-map name="ViewCompDocContentBinary" page="" type="simplecontent"/>
+    <view-map name="ViewBinaryDataResource" page="" type="simplecontent"/>
     <view-map name="ViewCompDocContent" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocContent" type="screen"/>
 
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
