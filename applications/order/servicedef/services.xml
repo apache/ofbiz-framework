@@ -441,6 +441,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="note" type="String" mode="IN"/>
         <attribute name="internalNote" type="String" mode="IN"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="updateOrderNote" engine="simple" default-entity-name="OrderHeaderNote"
