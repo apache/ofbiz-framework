@@ -175,6 +175,7 @@ under the License.
                 <set field="tabButtonItem" value="editDataResource"/>
                 <set field="dataResourceId" from-field="parameters.dataResourceId"/>
                 <entity-one entity-name="DataResource" value-field="currentValue"/>
+                <set field="dataResource" from-field="currentValue"/>
                 <entity-condition entity-name="DataCategory" list="dataCategoryList"/>
             </actions>
             <widgets>
@@ -199,8 +200,21 @@ under the License.
                                 <not><if-empty field="currentValue"/></not>
                             </condition>
                             <widgets>
-                                <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}" style="h3"/>
-                                <include-form name="ListContentsAssociatedToDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                                <include-screen name="DataResourceViewLink"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="ListContentsAssociatedToDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -482,6 +496,28 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="DataResourceViewLink">
+        <section>
+            <condition>
+                <or>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/msword"/>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/pdf"/>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="application/vnd.oasis.opendocument.text"/>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/jpeg"/>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/gif"/>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/tiff"/>
+                    <if-compare field="dataResource.mimeTypeId" operator="equals" value="image/png"/>
+                </or>
+            </condition>
+            <widgets>
+                <container>
+                    <link target="ViewBinaryDataResource" text="${uiLabelMap.ContentDownload}" style="buttontext">
+                        <parameter param-name="dataResourceId"/>
+                   </link>
+                </container>
             </widgets>
         </section>
     </screen>
