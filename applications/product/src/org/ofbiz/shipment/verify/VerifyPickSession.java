@@ -81,7 +81,7 @@ public class VerifyPickSession implements Serializable {
         return _delegator;
     }
 
-    public void createRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, Locale locale) throws GeneralException {
+    public void createRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId, BigDecimal quantity, Locale locale) throws GeneralException {
 
         if (orderItemSeqId == null && productId != null) {
             orderItemSeqId = this.findOrderItemSeqId(productId, orderId, shipGroupSeqId, quantity, locale);
@@ -102,7 +102,7 @@ public class VerifyPickSession implements Serializable {
         if (reservations.size() == 1) {
             GenericValue reservation = EntityUtil.getFirst(reservations);
             int checkCode = this.checkRowForAdd(reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity);
-            this.createVerifyPickRow(checkCode, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, locale);
+            this.createVerifyPickRow(checkCode, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, quantity, locale);
         } else {
             // more than one reservation found
             Map<GenericValue, BigDecimal> reserveQtyMap = FastMap.newInstance();
@@ -142,7 +142,7 @@ public class VerifyPickSession implements Serializable {
                 for (Map.Entry<GenericValue, BigDecimal> entry : reserveQtyMap.entrySet()) {
                     GenericValue reservation = entry.getKey();
                     BigDecimal qty = entry.getValue();
-                    this.createVerifyPickRow(2, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, qty, locale);
+                    this.createVerifyPickRow(2, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, qty, locale);
                 }
             } else {
                 throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem", locale));
@@ -209,7 +209,7 @@ public class VerifyPickSession implements Serializable {
         }
     }
 
-    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity, Locale locale) throws GeneralException {
+    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId,BigDecimal quantity, Locale locale) throws GeneralException {
         // process the result; add new item if necessary
         switch (checkCode) {
             case 0:
@@ -221,7 +221,7 @@ public class VerifyPickSession implements Serializable {
             case 2:
                 // need to create a new item
                 String inventoryItemId = res.getString("inventoryItemId");
-                pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, inventoryItemId, quantity));
+                pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, inventoryItemId, quantity));
                 break;
         }
     }
@@ -305,6 +305,7 @@ public class VerifyPickSession implements Serializable {
         String shipmentId = this.createShipment((this.getPickRows(orderId)).get(0));
 
         this.issueItemsToShipment(shipmentId, locale);
+        this.updateProduct();
 
         // Update the shipment status to Picked, this will trigger createInvoicesFromShipment and finally a invoice will be created
         Map updateShipmentCtx = FastMap.newInstance();
@@ -422,5 +423,20 @@ public class VerifyPickSession implements Serializable {
         }
         String shipmentId = (String) newShipResp.get("shipmentId");
         return shipmentId;
+    }
+
+    protected void updateProduct() throws GeneralException {
+        for (VerifyPickSessionRow pickRow : this.getPickRows()) {
+            if (UtilValidate.isNotEmpty(pickRow.getOriginGeoId())) {
+                Map updateProductCtx = FastMap.newInstance();
+                updateProductCtx.put("originGeoId", pickRow.getOriginGeoId());
+                updateProductCtx.put("productId", pickRow.getProductId());
+                updateProductCtx.put("userLogin", this.getUserLogin());
+                Map<String, Object> result = this.getDispatcher().runSync("updateProduct", updateProductCtx);
+                if (ServiceUtil.isError(result)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(result));
+                }
+            }
+        }
     }
 }

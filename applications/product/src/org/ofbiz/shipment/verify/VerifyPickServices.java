@@ -40,10 +40,11 @@ public class VerifyPickServices {
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String productId = (String) context.get("productId");
+        String originGeoId = (String) context.get("originGeoId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         if (quantity != null) {
             try {
-                pickSession.createRow(orderId, null, shipGroupSeqId, productId, quantity, locale);
+                pickSession.createRow(orderId, null, shipGroupSeqId, productId, originGeoId, quantity, locale);
             } catch (GeneralException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -59,17 +60,19 @@ public class VerifyPickServices {
         Map<String, ?> selectedMap = UtilGenerics.checkMap(context.get("selectedMap"));
         Map<String, String> itemMap = UtilGenerics.checkMap(context.get("itemMap"));
         Map<String, String> productMap = UtilGenerics.checkMap(context.get("productMap"));
+        Map<String, String> originGeoIdMap = UtilGenerics.checkMap(context.get("originGeoIdMap"));
         Map<String, String> quantityMap = UtilGenerics.checkMap(context.get("quantityMap"));
         if (selectedMap != null) {
             for (String rowKey : selectedMap.keySet()) {
                 String orderItemSeqId = itemMap.get(rowKey);
                 String productId = productMap.get(rowKey);
+                String originGeoId = originGeoIdMap.get(rowKey);
                 String quantityStr = quantityMap.get(rowKey);
                 if (UtilValidate.isNotEmpty(quantityStr)) {
                     BigDecimal quantity = new BigDecimal(quantityStr);
                     if (quantity.compareTo(ZERO) > 0) {
                         try {
-                            pickSession.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, locale);
+                            pickSession.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, quantity, locale);
                         } catch (Exception ex) {
                             return ServiceUtil.returnError(ex.getMessage());
                         }

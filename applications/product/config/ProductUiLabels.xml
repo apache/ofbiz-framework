@@ -9139,6 +9139,9 @@
         <value xml:lang="th">ประเทศ</value>
         <value xml:lang="zh">国家</value>
     </property>
+    <property key="ProductCountryOfOrigin">
+        <value xml:lang="en">Country of Origin</value>
+    </property>
     <property key="ProductCreateAProductFeatureCategory">
         <value xml:lang="de">Produktmerkmal Kategorie erstellen</value>
         <value xml:lang="en">Create a Product Feature Category</value>
