@@ -159,7 +159,6 @@ under the License.
                 <set field="tabButtonItem" value="commissionRun"/>
                 <set field="parties" type="List" from-field="parameters.partyIds"/>
                 <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionRun.groovy"/>
-                <set field="parameters.partyIds" value=""/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApInvoiceDecorator" location="component://accounting/widget/ap/CommonScreens.xml">
