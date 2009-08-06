@@ -41,7 +41,7 @@ under the License.
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="note" type="String" mode="IN" optional="true"/>
         <attribute name="temporaryAnonymousUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT"/>
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="sendOrderConfirmation" engine="java" require-new-transaction="true" max-retry="3"
