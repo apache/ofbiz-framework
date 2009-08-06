@@ -5063,6 +5063,7 @@
     </property>
     <property key="AccountingManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحاسبة</value>
+        <value xml:lang="de">Buchhaltung</value>
         <value xml:lang="en">Accounting Manager Application</value>
         <value xml:lang="es">Aplicación Administrador Contable</value>
         <value xml:lang="fr">Module de Gestion comptable</value>
@@ -5205,6 +5206,7 @@
     </property>
     <property key="AccountingNetIncome">
         <value xml:lang="ar">دخل جديد</value>
+        <value xml:lang="de">Nettoertrag</value>
         <value xml:lang="en">Net Income</value>
         <value xml:lang="es">Ingreso neto</value>
         <value xml:lang="fr">Revenu net</value>
@@ -5217,6 +5219,7 @@
     </property>
     <property key="AccountingNewAccount">
         <value xml:lang="ar">حساب جديد</value>
+        <value xml:lang="de">Neues Konto</value>
         <value xml:lang="en">New Account</value>
         <value xml:lang="es">Nueva cuenta</value>
         <value xml:lang="fr">Nouveau compte</value>
@@ -5243,6 +5246,7 @@
         <value xml:lang="zh">新建合同</value>
     </property>
     <property key="AccountingNewAgreementItem">
+        <value xml:lang="de">Vereinbarungsposition erstellen</value>
         <value xml:lang="en">Create Agreement Item</value>
         <value xml:lang="es">Crear elemento de acuerdo</value>
         <value xml:lang="fr">Nouvel article d'accord</value>
@@ -5255,6 +5259,7 @@
     </property>
     <property key="AccountingNewAgreementItemTerm">
         <value xml:lang="ar">بند جديد</value>
+        <value xml:lang="de">Bedingung erstellen</value>
         <value xml:lang="en">Create Term</value>
         <value xml:lang="es">Crear término</value>
         <value xml:lang="fr">Ajouter un terme à l'accord</value>
@@ -5267,6 +5272,7 @@
     </property>
     <property key="AccountingNewAgreementPromoAppl">
         <value xml:lang="ar">اضافة ترقية جديدة</value>
+        <value xml:lang="de">Neue Promotion hinzufügen</value>
         <value xml:lang="en">Add New Promotion</value>
         <value xml:lang="es">Agregar nueva promoción</value>
         <value xml:lang="fr">Ajouter une promotion</value>
@@ -5278,6 +5284,7 @@
         <value xml:lang="zh">新建促销</value>
     </property>
     <property key="AccountingNewAgreementRole">
+        <value xml:lang="de">Neue Vereinbarungsrolle erstellen</value>
         <value xml:lang="en">Create New Agreement Role</value>
         <value xml:lang="fr">Créez le nouveau rôle d'accord commercial</value>
         <value xml:lang="it">Creare Nuovo Ruolo Contratto</value>
@@ -5286,6 +5293,7 @@
     </property>
     <property key="AccountingNewAgreementTerm">
         <value xml:lang="ar">اضافة بند إتفاقية</value>
+        <value xml:lang="de">Vereinbarungsbedingung erstellen</value>
         <value xml:lang="en">Create Agreement Term</value>
         <value xml:lang="es">Crear término de acuerdo</value>
         <value xml:lang="fr">Ajouter un terme à l'accord</value>
@@ -5298,6 +5306,7 @@
     </property>
     <property key="AccountingNewBillingAccount">
         <value xml:lang="ar">جساب فوترة جديد</value>
+        <value xml:lang="de">Neues Rechnungskonto</value>
         <value xml:lang="en">New Billing Account</value>
         <value xml:lang="es">Nueva cuenta de facturación</value>
         <value xml:lang="fr">Créer un compte de facturation</value>
@@ -5322,6 +5331,7 @@
     </property>
     <property key="AccountingNewFixedAssetIdents">
         <value xml:lang="ar">اضافة تعريف لأصل ثابت</value>
+        <value xml:lang="de">Anlagen-Idenfikation erstellen</value>
         <value xml:lang="en">Create Fixed Asset Identification</value>
         <value xml:lang="es">Crear Identificación de Activo Fijo</value>
         <value xml:lang="fr">Créer un identifiant pour l'immobilisation</value>
@@ -5334,6 +5344,7 @@
     </property>
     <property key="AccountingNewFixedAssetIdentsType">
         <value xml:lang="ar">اضافة نوع  تعريف لأصل ثابت</value>
+        <value xml:lang="de">Anlagen-Idenfikations-Art erstellen</value>
         <value xml:lang="en">Create Fixed Asset Identification Type</value>
         <value xml:lang="es">Crear Activo Tipo de Activo Fijo</value>
         <value xml:lang="fr">Créer un type d'identifiants d'immobilisations</value>
@@ -5346,7 +5357,7 @@
     </property>
     <property key="AccountingNewFixedAssetMaint">
         <value xml:lang="ar">صيانة جديدة</value>
-        <value xml:lang="de">Neue Verwaltung</value>
+        <value xml:lang="de">Neue Wartung</value>
         <value xml:lang="en">New Maintenance</value>
         <value xml:lang="es">Nuevo mantenimiento</value>
         <value xml:lang="fr">Créer une maintenance</value>
@@ -5359,6 +5370,7 @@
     </property>
     <property key="AccountingNewFixedAssetStdCost">
         <value xml:lang="ar">سعر معياري جديد</value>
+        <value xml:lang="de">Neue Plankosten</value>
         <value xml:lang="en">New Standard Cost</value>
         <value xml:lang="es">Nuevo costo estandar</value>
         <value xml:lang="fr">Créer un coût standard</value>
@@ -5371,6 +5383,7 @@
     </property>
     <property key="AccountingNewPayment">
         <value xml:lang="ar">تسديد جديد</value>
+        <value xml:lang="de">Neue Zahlung</value>
         <value xml:lang="en">New Payment</value>
         <value xml:lang="es">Nuevo pago</value>
         <value xml:lang="fr">Créer un paiement</value>
@@ -5385,6 +5398,7 @@
         <value xml:lang="en">New Payment Group</value>
     </property>
     <property key="AccountingNewPaymentIncoming">
+        <value xml:lang="de">Neue Eingangszahlung</value>
         <value xml:lang="en">New incoming payment</value>
         <value xml:lang="fr">Nouveau paiement reçu</value>
         <value xml:lang="it">Nuovo Pagamento in Ingresso</value>
@@ -5393,6 +5407,7 @@
         <value xml:lang="zh">新建新收款</value>
     </property>
     <property key="AccountingNewPaymentOutgoing">
+        <value xml:lang="de">Neue Ausgangszahlung</value>
         <value xml:lang="en">New outgoing payment</value>
         <value xml:lang="fr">Nouveau paiement versé</value>
         <value xml:lang="it">Nuovo Pagamento in Uscita</value>
@@ -5416,6 +5431,7 @@
     </property>
     <property key="AccountingNewTaxAuthorityPartyInfo">
         <value xml:lang="ar">معلومات جديدة لطرف السلطة الضريبية</value>
+        <value xml:lang="de">Neue Akteursinformation zu Steuerbehörde</value>
         <value xml:lang="en">New Tax Authority Party Info</value>
         <value xml:lang="es">Nueva Información de Grupo de Autoridad Fiscal</value>
         <value xml:lang="fr">Ajouter un élément d'information à l'administration fiscale (acteur)</value>
@@ -5470,6 +5486,7 @@
     </property>
     <property key="AccountingNoBillingAccountFound">
         <value xml:lang="ar">لا حساب فوترة موجود</value>
+        <value xml:lang="de">Es wurden keine Rechnungskonten gefunden.</value>
         <value xml:lang="en">No billing accounts found.</value>
         <value xml:lang="es">No cuentas de facturación encontradas.</value>
         <value xml:lang="fr">Aucun compte de facturation trouvé.</value>
@@ -5484,6 +5501,7 @@
     </property>
     <property key="AccountingNoBillingAccountRole">
         <value xml:lang="ar">لا  أدوار حساب فوترة موجودة</value>
+        <value xml:lang="de">Es existieren keine Rechnungskonten-Rolle.</value>
         <value xml:lang="en">No billing account roles exist.</value>
         <value xml:lang="es">No existen roles de cuentas de facturación.</value>
         <value xml:lang="fr">Aucun rôle n'a été défini pour ce compte de facturation.</value>
@@ -5498,6 +5516,7 @@
     </property>
     <property key="AccountingNoBillingAccountTerm">
         <value xml:lang="ar">لا بنود حساب فوترة موجودة</value>
+        <value xml:lang="de">Es existieren keine Rechnungskonten-Bedingungen.</value>
         <value xml:lang="en">No billing account terms exist.</value>
         <value xml:lang="es">No existen términos de cuenta de facturación.</value>
         <value xml:lang="fr">Aucun terme pour ce compte de facturation.</value>
@@ -5511,6 +5530,7 @@
         <value xml:lang="zh">不存在账单账户条件。</value>
     </property>
     <property key="AccountingNoChildPeriodsFound">
+        <value xml:lang="de">Keine untergeordneten Zeiträume gefunden</value>
         <value xml:lang="en">No child periods found</value>
         <value xml:lang="fr">Aucune période enfant trouvée</value>
         <value xml:lang="it">Nessun periodo figlio trovato</value>
@@ -5518,6 +5538,7 @@
         <value xml:lang="zh">没有找到子时间段</value>
     </property>
     <property key="AccountingNoCurrentCustomTimePeriodSelected">
+        <value xml:lang="de">Kein individueller Zeitraum ausgewählt; "Kinder" haben keinen übergeordneten Zeitraum.</value>
         <value xml:lang="en">No Current Custom Time Period Selected; "Children" below have no Parent Period.</value>
         <value xml:lang="fr">Aucune période de temps sélectionnée; la période "fille" ci-dessous n'a aucune période parente.</value>
         <value xml:lang="it">Nessun periodo di tempo personalizzato selezionato; i "Periodi figli" sottostanti non hanno alcun "Periodo padre".</value>
@@ -5526,6 +5547,7 @@
     </property>
     <property key="AccountingNoGenBilAddressFound">
         <value xml:lang="ar">لا عنوان عام/فوترة موجود للطرف</value>
+        <value xml:lang="de">Keine Allgemeine-/Rechnungsadresse für Akteur gefunden:</value>
         <value xml:lang="en">No general/billing address found for party:</value>
         <value xml:lang="es">No dirección general/facturación encontrada para grupo:</value>
         <value xml:lang="fr">Aucune adresse générale/ de facturation n'a été trouvée pour l'acteur:</value>
@@ -5538,6 +5560,7 @@
     </property>
     <property key="AccountingNoInvoicesFound">
         <value xml:lang="ar">لا فواتير موجودة</value>
+        <value xml:lang="de">Keine Rechnungen gefunden</value>
         <value xml:lang="en">No Invoices Found</value>
         <value xml:lang="es">No facturas encontradas</value>
         <value xml:lang="fr">Aucunefacture trouvée</value>
@@ -5551,6 +5574,7 @@
         <value xml:lang="zh">没有找到发票</value>
     </property>
     <property key="AccountingNoKnownInvoiceItemTypeReturnAdjustmentType">
+        <value xml:lang="de">Keine bekannte Rechnungspositionsart für Retouren-Anpassungs-Art [${returnAdjustmentTypeId}]</value>
         <value xml:lang="en">No known invoice item type for the return adjustment type [${returnAdjustmentTypeId}]</value>
         <value xml:lang="es">Tipo de elemento de factura desconocido para tipo de ajuste de retorno [${returnAdjustmentTypeId}]</value>
         <value xml:lang="fr">Aucuntype de facture identifié pour cet ajustement sur retour de type [${returnAdjustmentTypeId}]</value>
@@ -5562,6 +5586,7 @@
         <value xml:lang="zh">没有为退货调整类型[${returnAdjustmentTypeId}]找到已知的发票明细类型</value>
     </property>
     <property key="AccountingNoKnownInvoiceItemTypeReturnItemType">
+        <value xml:lang="de">Keine bekannte Rechnungspositionsart für Retouren-Positions-Art [${returnItemTypeId}]</value>
         <value xml:lang="en">No known invoice item type for the return item type [${returnItemTypeId}]</value>
         <value xml:lang="es">Tipo de elemento de factura desconocido para el tipo de elemento de retorno [${returnItemTypeId}]</value>
         <value xml:lang="fr">Aucuntype de facture identifié pour ce  retour de type [${returnItemTypeId}]</value>
@@ -5574,6 +5599,7 @@
     </property>
     <property key="AccountingNoOrderHeader">
         <value xml:lang="ar">لا رأسية طلبية, لا يمكن إستحداث الفاتورة</value>
+        <value xml:lang="de">Kein Auftragskopf, Rechnung kann nicht angelegt werden</value>
         <value xml:lang="en">No OrderHeader, cannot create invoice</value>
         <value xml:lang="es">Sin cabecera de orden, no es posible crear factura</value>
         <value xml:lang="fr">En-tête de facture manquant, impossible de créer la facture</value>
@@ -5585,6 +5611,7 @@
         <value xml:lang="zh">没有定单表头，无法创建发票</value>
     </property>
     <property key="AccountingNoOrderItemsToInvoice">
+        <value xml:lang="de">Keine Auftragspositionen zu fakturieren, Rechnung wird nicht erstellt</value>
         <value xml:lang="en">No order items to invoice, not creating invoice.</value>
         <value xml:lang="es">Sin elementos de orden para factura, no es factura crear factura.</value>
         <value xml:lang="fr">Aucune ligne de facturation trouvée; il n'a pas été créé de facture</value>
@@ -5626,6 +5653,7 @@
     </property>
     <property key="AccountingNoPaymentsApplicationsfound">
         <value xml:lang="ar">لا تطبيقات موجودة</value>
+        <value xml:lang="de">Keine Zuweisungen gefunden..</value>
         <value xml:lang="en">No applications found..</value>
         <value xml:lang="es">No se encontraton aplicaciones..</value>
         <value xml:lang="fr">Aucune allocation trouvée...</value>
@@ -5638,6 +5666,7 @@
     </property>
     <property key="AccountingNoPaymentsfound">
         <value xml:lang="ar">لا تسديدات موجودة</value>
+        <value xml:lang="de">Keine Zahlungen gefunden..</value>
         <value xml:lang="en">No Payments found</value>
         <value xml:lang="es">No se encontraron pagos</value>
         <value xml:lang="fr">Aucunpaiement trouvé</value>
@@ -5650,6 +5679,7 @@
     </property>
     <property key="AccountingNocontactinformationset">
         <value xml:lang="ar">لا معلومات صلة موضوعة</value>
+        <value xml:lang="de">Keine Kontaktinformationen gesetzt..</value>
         <value xml:lang="en">No contact information set</value>
         <value xml:lang="es">Sin información de contacto definida</value>
         <value xml:lang="fr">Aucune coordonnée de contact sélectionnée</value>
@@ -5662,6 +5692,7 @@
     </property>
     <property key="AccountingNocurrentinvoicelineitems">
         <value xml:lang="ar">لا سطر فاتورة حالي</value>
+        <value xml:lang="de">Keine aktuellen Rechnungspositionen</value>
         <value xml:lang="en">No current invoice line items</value>
         <value xml:lang="es">Sin elementos en linea de factura actual</value>
         <value xml:lang="fr">Aucuneligne de facturation sélectionnée</value>
@@ -5673,12 +5704,14 @@
         <value xml:lang="zh">没有当前发票的行明细</value>
     </property>
     <property key="AccountingNoAcctgTransFound">
+        <value xml:lang="de">Keine Buchungstransaktionen gefunden</value>
         <value xml:lang="en">No Accounting Transactions Found.</value>
     </property>
     <property key="AccountingNoInvoicesReadyOrOutstandingAmountZero">
         <value xml:lang="en">Either no selected invoices in ready state or selected invoices outstanding amount equals to zero.</value>
     </property>
     <property key="AccountingNoRecordFound">
+        <value xml:lang="de">Kein Datensatz gefunden</value>
         <value xml:lang="en">No Record Found.</value>
     </property>
     <property key="AccountingNotAdjustmentFinAccountTrans">
@@ -5689,6 +5722,7 @@
     </property>
     <property key="AccountingNotModificationRecrationGlAccount">
         <value xml:lang="ar">لا يمكن تعيير هذا دون إعادة إستحداث حساب المحاسبي</value>
+        <value xml:lang="de">Das kann nicht ohne Neuanlage des Kontos geändert werden.</value>
         <value xml:lang="en">This cannot be changed without re-creating the GL Account.</value>
         <value xml:lang="es">Esto no puede ser cambiado sin recrear la cuenta de LM.</value>
         <value xml:lang="fr">Ceci ne peut pas être modifié sans recréer un compte comptable</value>
@@ -5718,6 +5752,7 @@
         <value xml:lang="zh">数字</value>
     </property>
     <property key="AccountingNumberOfTransaction">
+        <value xml:lang="de">Anzahl der Transaktionen</value>
         <value xml:lang="en">Number of Transaction</value>
     </property>
     <property key="AccountingOfflinePayment">
@@ -5738,6 +5773,7 @@
     </property>
     <property key="AccountingOpenPayments">
         <value xml:lang="ar">مفتوح</value>
+        <value xml:lang="de">Offen</value>
         <value xml:lang="en">Open</value>
         <value xml:lang="es">Abierto</value>
         <value xml:lang="fr">En attente</value>
@@ -5749,6 +5785,7 @@
         <value xml:lang="zh">打开</value>
     </property>
     <property key="AccountingOpenTimePeriods">
+        <value xml:lang="de">Offene Zeiträume</value>
         <value xml:lang="en">Open Time Periods</value>
         <value xml:lang="fr">Ouvrir les exercices comptables</value>
         <value xml:lang="it">Periodi Fiscali Aperti</value>
@@ -5757,6 +5794,7 @@
         <value xml:lang="zh">打开时间段</value>
     </property>
     <property key="AccountingOrderItemWithIdNotFound">
+        <value xml:lang="de">Auftragsposition mit Nummer ${orderItemSeqId} nicht gefunden.</value>
         <value xml:lang="en">Order Item with id ${orderItemSeqId} not found.</value>
         <value xml:lang="fr">La ligne de commande avec identifiant  ${orderItemSeqId} n'a pas été trouvée</value>
         <value xml:lang="it">Riga ordine ${orderItemSeqId} non trovata.</value>
@@ -5766,6 +5804,7 @@
         <value xml:lang="zh">没有找到标识为${orderItemSeqId}的订单明细。</value>
     </property>
     <property key="AccountingOrderNr">
+        <value xml:lang="de">Auftrags-Nr.</value>
         <value xml:lang="en">Order #</value>
         <value xml:lang="es">Orden #</value>
         <value xml:lang="fr">Commande #</value>
@@ -5789,6 +5828,7 @@
         <value xml:lang="zh">财务定单支付引用标识</value>
     </property>
     <property key="AccountingOrderWithIdNotFound">
+        <value xml:lang="de">Auftrag mit Nummer ${orderId} nicht gefunden.</value>
         <value xml:lang="en">Order with id ${orderId} not found.</value>
         <value xml:lang="fr">Pas trouvé de commande avec l'identifiant ${orderId}</value>
         <value xml:lang="it">Ordine ${orderId} non trovato.</value>
@@ -5799,6 +5839,7 @@
     </property>
     <property key="AccountingOrders">
         <value xml:lang="ar">الطلبيات</value>
+        <value xml:lang="de">Aufträge</value>
         <value xml:lang="en">Orders</value>
         <value xml:lang="es">Ordenes</value>
         <value xml:lang="fr">Commandes</value>
@@ -5810,6 +5851,7 @@
         <value xml:lang="zh">定单</value>
     </property>
     <property key="AccountingOrgGlSettings">
+        <value xml:lang="de">Hauptbuch-Einstellungen des Unternehmens</value>
         <value xml:lang="en">Organization GL Settings</value>
         <value xml:lang="zh">组织机构总账设置</value>
     </property>
@@ -5827,6 +5869,7 @@
         <value xml:lang="zh">团体会员标识</value>
     </property>
     <property key="AccountingOverrideRevenueGlAccountId">
+        <value xml:lang="de">Ertragskonto überschreiben</value>
         <value xml:lang="en">Override Revenue Gl Account Id</value>
         <value xml:lang="es">Anular Id Ingreso de cuenta de LM</value>
         <value xml:lang="fr">Substituer compte comptable pour les ventes</value>
@@ -5838,10 +5881,12 @@
         <value xml:lang="zh">覆盖收入总账账户标识</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
+        <value xml:lang="de">Gebuchte Geamtsumme</value>
         <value xml:lang="en">Posted Totals</value>
         <value xml:lang="it">Totali Contabilizzati</value>
     </property>
     <property key="AccountingPostedAndUnpostedTransactionTotals">
+        <value xml:lang="de">Gebuchte und nicht-gebuchte Gesamtsumme</value>
         <value xml:lang="en">Posted And Unposted Totals</value>
         <value xml:lang="it">Totali contabilizzati e non</value>
     </property>
@@ -5877,6 +5922,7 @@
     </property>
     <property key="AccountingPSInvalidStatusChange">
         <value xml:lang="ar">الوضعية الجديدة تغيير  غير صحيح</value>
+        <value xml:lang="de">Der neue Status ist keine gültige Änderung</value>
         <value xml:lang="en">The new status is not a valid change</value>
         <value xml:lang="es">El nuevo status no es un cambio valido</value>
         <value xml:lang="fr">Le nouveau statut demandé n'est pas valide</value>
@@ -5889,6 +5935,7 @@
     </property>
     <property key="AccountingPSNotConfirmedNotFullyApplied">
         <value xml:lang="ar">الوضعية لا يمكن عغييرها إلى 'موفقة', التسديد لم يطبق كليا</value>
+        <value xml:lang="de">Der Status kann nicht auf 'bestätigt' geändert werden da die Zahlung noch nicht vollständig zugewiesen wurde!</value>
         <value xml:lang="en">Status cannot be set to 'Confirmed', the payment is not fully applied!</value>
         <value xml:lang="es">Status no puede ser 'Confirmado', el pago no esta completamente aplicado!</value>
         <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement alloué !</value>
@@ -5901,6 +5948,7 @@
     </property>
     <property key="AccountingPSUpdateNotAllowedBecauseOfStatus">
         <value xml:lang="ar">الوضعية لا تسمح بتحديث المعلومات</value>
+        <value xml:lang="de">Der Status erlaubt keine Änderung der Information</value>
         <value xml:lang="en">Status does not allow an update of the information</value>
         <value xml:lang="es">Status no permite una actualización de la información</value>
         <value xml:lang="fr">Le statut n'autorise pas la modification de ces informations</value>
@@ -5913,6 +5961,7 @@
     </property>
     <property key="AccountingPageTitleAgreementPriceList">
         <value xml:lang="ar">قائمة أسعار الإتفاقية</value>
+        <value xml:lang="de">Vereinbarungspreisliste</value>
         <value xml:lang="en">Agreement Price List</value>
         <value xml:lang="es">Acuerdo de precio de lista</value>
         <value xml:lang="fr">Liste de prix agréée</value>
@@ -5924,6 +5973,7 @@
     </property>
     <property key="AccountingPaidDate">
         <value xml:lang="ar">تاريخ التخليص</value>
+        <value xml:lang="de">Zahlungsdatum</value>
         <value xml:lang="en">Paid Date</value>
         <value xml:lang="es">Fecha de pago</value>
         <value xml:lang="fr">Date du paiement</value>
@@ -5935,6 +5985,7 @@
         <value xml:lang="zh">支付日</value>
     </property>
     <property key="AccountingPartyAccountsSummary">
+        <value xml:lang="de">Kontenzuammenfassung</value>
         <value xml:lang="en">Accounts Summary</value>
         <value xml:lang="fr">Résumé des comptes</value>
         <value xml:lang="it">Sommario Conti</value>
@@ -5943,6 +5994,7 @@
     </property>
     <property key="AccountingPartyBilledFrom">
         <value xml:lang="ar">مفوترة من طرف</value>
+        <value xml:lang="de">Rechnungssteller</value>
         <value xml:lang="en">Party Billed From</value>
         <value xml:lang="es">Grupo pagado origen</value>
         <value xml:lang="fr">Acteur facturant</value>
@@ -5955,6 +6007,7 @@
     </property>
     <property key="AccountingPartyBilledTo">
         <value xml:lang="ar">مفوترة إلى</value>
+        <value xml:lang="en">Rechnungsempfänger</value>
         <value xml:lang="en">Party Billed To</value>
         <value xml:lang="es">Grupo pagado destino</value>
         <value xml:lang="fr">Acteur facturé</value>
