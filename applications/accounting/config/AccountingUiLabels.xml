@@ -7276,6 +7276,9 @@
         <value xml:lang="th">หมายเลขบัตรประกัน</value>
         <value xml:lang="zh">卡的安全码</value>
     </property>
+    <property key="AccountingSelectAction">
+        <value xml:lang="en">Select Action</value>
+    </property>
     <property key="AccountingSelectPartiesForCommissionInvoice">
         <value xml:lang="en">Select The Parties For Commission Invoice</value>
     </property>
