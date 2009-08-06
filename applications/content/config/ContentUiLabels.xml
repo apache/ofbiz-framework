@@ -573,6 +573,9 @@
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
     </property>
+    <property key="ContentDataResourceUpload">
+        <value xml:lang="en">Upload</value>
+    </property>
     <property key="ContentDataSetup">
         <value xml:lang="ar">إعداد مورد المعلومات</value>
         <value xml:lang="de">Datenressource Konfiguration</value>
