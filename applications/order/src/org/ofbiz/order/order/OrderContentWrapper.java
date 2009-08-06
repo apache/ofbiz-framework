@@ -148,7 +148,7 @@ public class OrderContentWrapper {
             Map inContext = new HashMap();
             inContext.put("order", order);
             inContext.put("orderContent", orderContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
         }
     }
 }

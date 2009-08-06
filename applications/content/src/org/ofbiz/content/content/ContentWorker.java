@@ -91,7 +91,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     // new rendering methods
     public void renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        renderContentAsText(dispatcher, delegator, contentId, out, templateContext, locale, mimeTypeId, cache);
+        renderContentAsText(dispatcher, delegator, contentId, out, templateContext, locale, mimeTypeId, null, null, cache);
     }
 
     public void renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
@@ -109,20 +109,11 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     // -------------------------------------
     // Content rendering methods
     // -------------------------------------
-
-    public static String renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Map templateContext,
-            Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        Writer writer = new StringWriter();
-        renderContentAsText(dispatcher, delegator, contentId, writer, templateContext, locale, mimeTypeId, cache);
-        return writer.toString();
-    }
-
-    public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out,
-            Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public static GenericValue findContentForRendering(GenericDelegator delegator, String contentId, Locale locale, String partyId, String roleTypeId, boolean cache) throws GeneralException, IOException {
         GenericValue content;
         if (UtilValidate.isEmpty(contentId)) {
             Debug.logError("No content ID found.", module);
-            return;
+            return null;
         }
         if (cache) {
             content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
@@ -163,6 +154,35 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             }
         }
 
+        // check for alternate content per party
+        if (partyId != null && roleTypeId != null) {
+            List alternateViews = null;
+            try {
+                alternateViews = content.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_ROLE"), UtilMisc.toList("-caFromDate"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error finding alternate content: " + e.toString(), module);
+            }
+
+            alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
+            Iterator alternateViewIter = alternateViews.iterator();
+            while (alternateViewIter.hasNext()) {
+                GenericValue thisView = (GenericValue) alternateViewIter.next();
+                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelatedByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId))));
+                GenericValue altContent = null;
+                if (UtilValidate.isNotEmpty(altContentRole)) {
+                    altContent = altContentRole.getRelatedOne("Content");
+                    if (altContent != null) {
+                        content = altContent;
+                    }
+                }
+            }
+        }
+        return content;
+    }
+
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue content, Appendable out,
+            Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+
         // if the content has a service attached run the service
         String serviceName = content.getString("serviceName");
         if (dispatcher != null && UtilValidate.isNotEmpty(serviceName)) {
@@ -188,7 +208,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         // get the data resource info
         String templateDataResourceId = content.getString("templateDataResourceId");
         String dataResourceId = content.getString("dataResourceId");
-        contentId = content.getString("contentId");
+        String contentId = content.getString("contentId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             Debug.logError("No dataResourceId found.", module);
             return;
@@ -223,7 +243,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             facade.setIsDecorated(true);
             templateContext.put("decoratedContent", facade); // decorated content
             templateContext.put("thisContent", decFacade); // decorator content
-            ContentWorker.renderContentAsText(dispatcher, delegator, contentDecoratorId, out, templateContext, locale, mimeTypeId, cache);
+            ContentWorker.renderContentAsText(dispatcher, delegator, contentDecoratorId, out, templateContext, locale, mimeTypeId, null, null, cache);
         } else {
             // set this content facade in the context
             templateContext.put("thisContent", facade);
@@ -281,6 +301,19 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
     }
 
+    public static String renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Map templateContext,
+            Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+        Writer writer = new StringWriter();
+        renderContentAsText(dispatcher, delegator, contentId, writer, templateContext, locale, mimeTypeId, null, null, cache);
+        return writer.toString();
+    }
+
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out,
+            Map templateContext, Locale locale, String mimeTypeId, String partyId, String roleTypeId, boolean cache) throws GeneralException, IOException {
+        GenericValue content = ContentWorker.findContentForRendering(delegator, contentId, locale, partyId, roleTypeId, cache);
+        ContentWorker.renderContentAsText(dispatcher, delegator, content, out, templateContext, locale, mimeTypeId, cache);
+    }
+
     public static String renderSubContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, String mapKey, Map templateContext,
             Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
@@ -309,7 +342,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         } else {
             String subContentId = subContent.getString("contentIdTo");
             templateContext.put("mapKey", mapKey);
-            renderContentAsText(dispatcher, delegator, subContentId, out, templateContext, locale, mimeTypeId, cache);
+            renderContentAsText(dispatcher, delegator, subContentId, out, templateContext, locale, mimeTypeId, null, null, cache);
         }
     }
 

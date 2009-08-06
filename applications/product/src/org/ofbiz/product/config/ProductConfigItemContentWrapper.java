@@ -143,7 +143,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
             Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("productConfigItem", productConfigItem);
             inContext.put("productConfigItemContent", productConfigItemContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
         }
     }
 }

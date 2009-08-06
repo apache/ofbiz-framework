@@ -84,19 +84,19 @@ public class ProductContentWrapper implements ContentWrapper {
             Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
             return null;
         }
-        return StringUtil.makeStringWrapper(getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, this.product.getDelegator(), dispatcher));
+        return StringUtil.makeStringWrapper(getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, null, null, this.product.getDelegator(), dispatcher));
     }
 
     public static String getProductContentAsText(GenericValue product, String productContentTypeId, HttpServletRequest request) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getProductContentAsText(product, productContentTypeId, UtilHttp.getLocale(request), "text/html", product.getDelegator(), dispatcher);
+        return getProductContentAsText(product, productContentTypeId, UtilHttp.getLocale(request), "text/html", null, null, product.getDelegator(), dispatcher);
     }
 
     public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, LocalDispatcher dispatcher) {
-        return getProductContentAsText(product, productContentTypeId, locale, null, null, dispatcher);
+        return getProductContentAsText(product, productContentTypeId, locale, null, null, null, null, dispatcher);
     }
 
-    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
         if (product == null) {
             return null;
         }
@@ -112,7 +112,7 @@ public class ProductContentWrapper implements ContentWrapper {
             }
 
             Writer outWriter = new StringWriter();
-            getProductContentAsText(null, product, productContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
+            getProductContentAsText(null, product, productContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
                 if (productContentCache != null) {
@@ -134,7 +134,7 @@ public class ProductContentWrapper implements ContentWrapper {
         }
     }
 
-    public static void getProductContentAsText(String productId, GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
+    public static void getProductContentAsText(String productId, GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (productId == null && product != null) {
             productId = product.getString("productId");
         }
@@ -184,7 +184,7 @@ public class ProductContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("product", product);
             inContext.put("productContent", productContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, false);
         }
     }
 }

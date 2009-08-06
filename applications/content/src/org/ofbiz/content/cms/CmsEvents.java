@@ -222,7 +222,7 @@ public class CmsEvents {
 
                     // render
                     if (UtilValidate.isEmpty(mapKey)) {
-                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", true);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true);
                     } else {
                         ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                     }
