@@ -2699,9 +2699,10 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String noteString = (String) context.get("note");
+        String noteName = (String) context.get("noteName");
         String orderId = (String) context.get("orderId");
         String internalNote = (String) context.get("internalNote");
-        Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin);
+        Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin, "noteName", noteName);
         Locale locale = (Locale) context.get("locale");
 
         try {
