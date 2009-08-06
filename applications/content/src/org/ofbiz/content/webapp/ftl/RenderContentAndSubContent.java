@@ -129,7 +129,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
 //                              contentId = null;
 //                            }
                         } else if (contentId != null) {
-                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, true);
+                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
 //                            ((MapStack)templateRoot).pop();
                         }
                         //FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);

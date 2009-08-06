@@ -34,6 +34,7 @@ under the License.
     <ContentAssocType contentAssocTypeId="TREE_CHILD" description="Tree Child"/>
     <ContentAssocType contentAssocTypeId="GRAPH_LINK" description="Graph Link"/>
     <ContentAssocType contentAssocTypeId="ALTERNATE_LOCALE" description="Alternate Locale"/>
+    <ContentAssocType contentAssocTypeId="ALTERNATE_ROLE" description="Alternate Role"/>
     <ContentAssocType contentAssocTypeId="RESPONSE" description="Response"/>
     <ContentAssocType contentAssocTypeId="SUB_CONTENT" description="Sub-Content"/>
     <ContentAssocType contentAssocTypeId="TOPIC" description="Topic"/>

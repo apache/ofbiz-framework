@@ -181,7 +181,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     String contentId = thisView.getString("contentId");
                     if (contentId != null) {
                         try {
-                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, true);
+                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
                             //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
                         } catch (GeneralException e) {
                             Debug.logError(e, "Error rendering content", module);
