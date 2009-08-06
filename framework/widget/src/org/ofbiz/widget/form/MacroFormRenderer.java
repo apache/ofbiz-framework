@@ -703,6 +703,16 @@ public class MacroFormRenderer implements FormStringRenderer {
             allowEmpty = "&nbsp;";
         }
 
+        List<String> currentValueList = null;
+        if (UtilValidate.isNotEmpty(currentValue) && dropDownField.isAllowMultiple()) {
+            // If currentValue is Array, it will start with [ 
+            if (currentValue.startsWith("[")) {
+                currentValueList = StringUtil.toList(currentValue);
+            }
+            else {
+                currentValueList = UtilMisc.toList(currentValue);
+            }
+        }
         options.append("[");
         Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         int count = 0;
@@ -721,6 +731,17 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else {
                 options.append(optionValue.getDescription());
             }
+
+            if (UtilValidate.isNotEmpty(currentValueList)) {
+                options.append("'");
+                options.append(",'selected':'");
+                if (currentValueList.contains(optionValue.getKey())) {
+                    options.append("selected");
+                } else {
+                    options.append("");
+                }
+            }
+           
             options.append("'}");
             if (ajaxEnabled) {
                 count++;

@@ -126,7 +126,7 @@ _description"<#if id?has_content> id="${id}_description"</#if><#if currentValue?
 <script language="JavaScript" type="text/javascript">var data = {${ajaxOptions}};ajaxAutoCompleteDropDown('<#if id?has_content>${id}_description</#if>','${id}',data,{autoSelect:${autoSelect},frequency:${frequency},minChars:${minChars},choices:${choices},partialSearch:${partialSearch},partialChars:${partialChars},ignoreCase:${ignoreCase},fullSearch:${fullSearch});</script>
 <#else>
 " <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if otherFieldSize gt 0> onchange="process_choice(this,document.${formName}.${otherFieldName})"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if>>
-<#if firstInList?has_content && currentValue?has_content>
+<#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
  <option selected="selected" value="${currentValue}">${explicitDescription}</option><#rt/>
  <option value="${currentValue}">---</option><#rt/>
 </#if>
@@ -134,7 +134,11 @@ _description"<#if id?has_content> id="${id}_description"</#if><#if currentValue?
 <option value="">&nbsp;</option>
 </#if>
 <#list options as item>
-<option<#if currentValue?has_content && currentValue == item.key && dDFCurrent?has_content && "selected" == dDFCurrent> selected="selected"<#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected"</#if> value="${item.key}">${item.description}</option><#rt/>
+<#if multiple?has_content>
+ <option<#if currentValue?has_content && item.selected?has_content> selected="${item.selected}" <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected" </#if> value="${item.key}">${item.description}</option><#rt/>
+<#else>
+ <option<#if currentValue?has_content && currentValue == item.key && dDFCurrent?has_content && "selected" == dDFCurrent> selected="selected"<#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected"</#if> value="${item.key}">${item.description}</option><#rt/>
+</#if>
 </#list>
 </select>
 <#if otherFieldName?has_content>
