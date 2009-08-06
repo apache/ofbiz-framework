@@ -113,16 +113,12 @@ under the License.
                 <parameter param-name="dataResourceId" from-field="parameters.dataResourceId"/>
             </link>
         </menu-item>
-        <menu-item name="uploadImage" title="${uiLabelMap.ContentDataResourceImage}" >
+        <menu-item name="uploadImage" title="${uiLabelMap.ContentDataResourceUpload}" >
             <condition>
                 <or>
                     <if-compare field="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/>
                     <and>
                         <if-compare field="currentValue.dataResourceTypeId" operator="contains" value="FILE"/>
-                        <or>
-                            <if-compare field="currentValue.mimeTypeId" operator="contains" value="image"/>
-                            <if-compare field="currentValue.mimeTypeId" operator="contains" value="Image"/>
-                        </or>
                     </and>
                 </or>
             </condition>
