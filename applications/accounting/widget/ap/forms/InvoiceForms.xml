@@ -134,11 +134,17 @@ under the License.
             </drop-down>
         </field>
         <field name="organizationPartyId"><hidden/></field>
-        <field name="invoiceTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field name="fromInvoiceDate" position="1"><date-time/></field>
         <field name="thruInvoiceDate" position="2"><date-time/></field>
         <field name="fromDueDate" position="1"><date-time/></field>
         <field name="thruDueDate" position="2"><date-time/></field>
+        <field name="invoiceTypeId" position="1">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="InvoiceType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="search" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
