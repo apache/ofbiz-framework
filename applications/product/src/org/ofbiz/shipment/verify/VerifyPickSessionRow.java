@@ -39,6 +39,7 @@ public class VerifyPickSessionRow implements Serializable {
     protected String orderItemSeqId = null;
     protected String shipGroupSeqId = null;
     protected String productId = null;
+    protected String originGeoId = null;
     protected String inventoryItemId = null;
     protected BigDecimal readyToVerifyQty = BigDecimal.ZERO;
     protected GenericValue orderItem = null;
@@ -48,11 +49,12 @@ public class VerifyPickSessionRow implements Serializable {
     public VerifyPickSessionRow() {
     }
 
-    public VerifyPickSessionRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, BigDecimal quantity) {
+    public VerifyPickSessionRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId, String inventoryItemId, BigDecimal quantity) {
         this.orderId = orderId;
         this.orderItemSeqId = orderItemSeqId;
         this.shipGroupSeqId = shipGroupSeqId;
         this.productId = productId;
+        this.originGeoId = originGeoId;
         this.readyToVerifyQty = quantity;
         this.inventoryItemId = inventoryItemId;
         this.shipmentItemSeqId = null;
@@ -73,6 +75,10 @@ public class VerifyPickSessionRow implements Serializable {
 
     public String getProductId() {
         return this.productId;
+    }
+
+    public String getOriginGeoId() {
+        return this.originGeoId;
     }
 
     public String getInventoryItemId() {

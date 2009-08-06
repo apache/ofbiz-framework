@@ -194,6 +194,7 @@ under the License.
               <td>${uiLabelMap.ProductItem} #</td>
               <td>${uiLabelMap.ProductProductId}</td>
               <td>${uiLabelMap.ProductInternalName}</td>
+              <td>${uiLabelMap.ProductCountryOfOrigin}</td>
               <td align="right">${uiLabelMap.ProductOrderedQuantity}</td>
               <td align="right">${uiLabelMap.ProductVerified}&nbsp;${uiLabelMap.CommonQuantity}</td>
               <td align="center">${uiLabelMap.CommonQty}&nbsp;${uiLabelMap.CommonTo}&nbsp;${uiLabelMap.ProductVerify}</td>
@@ -222,7 +223,7 @@ under the License.
                   <#assign counter = counter +1>
                 </#if>
                 <#assign orderItemQuantity = orderItemQuantity.subtract(verifiedQuantity)>
-                <#assign orderProduct = orderItem.getRelatedOne("Product")?if_exists/>
+                <#assign product = orderItem.getRelatedOne("Product")?if_exists/>
                 <tr>
                   <#if (orderItemQuantity.compareTo(readyToVerify) > 0) >
                     <td><input type="checkbox" name="sel_${rowKey}" value="Y" checked=""/></td>
@@ -231,9 +232,21 @@ under the License.
                     <td>&nbsp;</td>
                   </#if>
                   <td>${orderItemSeqId?if_exists}</td>
-                  <td>${orderProduct.productId?default("N/A")}</td>
+                  <td>${product.productId?default("N/A")}</td>
                   <td>
-                    <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
+                    <a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(product.internalName)?if_exists}</a>
+                  </td>
+                  <td>
+                    <select name="geo_${rowKey}">
+                      <#if product.originGeoId?has_content>
+                        <#assign originGeoId = product.originGeoId>
+                        <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", originGeoId), true)>
+                        <option value="${originGeoId}">${geo.geoName?if_exists}</option>
+                        <option value="${originGeoId}">---</option>
+                      </#if>
+                      <option value=""></option>
+                      ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                    </select>
                   </td>
                   <td align="right">${orderItemQuantity?if_exists}</td>
                   <td align="right">${readyToVerify?if_exists}</td>
