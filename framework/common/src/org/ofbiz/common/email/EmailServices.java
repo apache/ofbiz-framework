@@ -283,7 +283,8 @@ public class EmailServices {
         String mailEnabled = UtilProperties.getPropertyValue("general.properties", "mail.notifications.enabled", "N");
         if (!"Y".equalsIgnoreCase(mailEnabled)) {
             // no error; just return as if we already processed
-            Debug.logImportant("Mail notifications disabled in general.properties; What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, module);
+            Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee [" + sendTo + "]", module);
+            Debug.logVerbose("What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, module);
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             return results;
         }
