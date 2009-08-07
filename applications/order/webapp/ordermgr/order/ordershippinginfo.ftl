@@ -552,18 +552,20 @@ under the License.
             <td valign="top" width="80%">
                 <#list shipGroupShipments as shipment>
                     <div>
-                        ${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
-                        <#assign shipmentRoutSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId":shipment.shipmentId}))>
-                        <#if "UPS" == shipmentRoutSegment.carrierPartyId?if_exists && "ORDER_COMPLETED" == orderHeader.statusId>
-                            <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
+                      ${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
+                      <a href="/facility/control/PackingSlip.pdf?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
+                      <#if "SALES_ORDER" == orderHeader.orderTypeId>
+                        <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId":shipment.shipmentId}))>
+                        <#if "UPS" == (shipmentRouteSegment.carrierPartyId)?if_exists && "ORDER_COMPLETED" == orderHeader.statusId>
+                          <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
                         </#if>
-                        <a href="/facility/control/PackingSlip.pdf?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
+                        <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
+                          <input type="hidden" name="orderId" value="${orderId}"/>
+                          <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
+                          <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
+                        </form>
+                      </#if>
                     </div>
-                    <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
-                        <input type="hidden" name="orderId" value="${orderId}"/>
-                        <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
-                        <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRoutSegment.shipmentRouteSegmentId}>
-                    </form>
                 </#list>
             </td>
           </tr>
