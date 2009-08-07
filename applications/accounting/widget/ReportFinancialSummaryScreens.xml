@@ -987,8 +987,6 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
-                <set field="fromDate" from-field="monthlyTrialBalanceFromDate" type="Timestamp"/>
-                <set field="thruDate" from-field="monthlyTrialBalanceThruDate" type="Timestamp"/>
                 <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
