@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
@@ -62,6 +63,8 @@ public class WebDavServlet extends GenericServlet {
     public void init(ServletConfig config) throws ServletException{
         try {
             super.init(config);
+            ClassLoader loader = new CachedClassLoader(Thread.currentThread().getContextClassLoader(), null);
+            Thread.currentThread().setContextClassLoader(loader);
             ServletContext context = this.getServletContext();
             String delegatorName = context.getInitParameter("entityDelegatorName");
             this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
@@ -70,7 +73,6 @@ public class WebDavServlet extends GenericServlet {
             this.security = SecurityFactory.getInstance(this.delegator);
             this.authz = AuthorizationFactory.getInstance(this.delegator);
             String factoryClassName = context.getInitParameter("requestHandlerFactoryClass");
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
             this.handlerFactory = (RequestHandlerFactory) loader.loadClass(factoryClassName).newInstance();
         } catch (Exception e) {
             Debug.logError(e, "Error while initializing WebDAV servlet: ", module);
