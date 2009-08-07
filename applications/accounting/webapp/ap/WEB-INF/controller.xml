@@ -59,6 +59,34 @@ under the License.
         <event type="service" invoke="createCommissionInvoices"/>
         <response name="success" type="view" value="CommissionRun"/>
     </request-map>
+    <request-map uri="findInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindApInvoices"/>
+    </request-map>
+    <request-map uri="createInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInvoice"/>
+        <response name="success" type="request" value="editInvoice"/>
+        <response name="error" type="view" value="NewPurchaseInvoice"/>
+    </request-map>
+    <request-map uri="findPayments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindApPayments"/>
+    </request-map>
+    <request-map uri="FindApPayments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindApPayments"/>
+    </request-map>
+    <request-map uri="newPayment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewOutgoingPayment"/>
+    </request-map>
+    <request-map uri="createPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPayment"/>
+        <response name="success" type="view" value="editPayment"/>
+        <response name="error" type="view" value="NewOutgoingPayment"/>
+    </request-map>
 
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">
@@ -90,7 +118,8 @@ under the License.
     <view-map name="FindPurchaseInvoices" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#FindPurchaseInvoices"/>
     <view-map name="FindApInvoices" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#FindApInvoices"/>
     <view-map name="NewPurchaseInvoice" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#NewPurchaseInvoice"/>
-    
+    <view-map name="FindApPayments" type="screen" page="component://accounting/widget/ap/ApScreens.xml#FindApPayments"/>
+    <view-map name="NewOutgoingPayment" type="screen" page="component://accounting/widget/ap/ApScreens.xml#NewOutgoingPayment"/>
     <!-- Vendor Mappings -->
     <view-map name="FindVendors" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#FindVendors"/>
     <view-map name="EditVendor" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#EditVendor"/>

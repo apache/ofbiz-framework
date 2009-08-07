@@ -67,4 +67,14 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
+    <form name="FindApPayments" type="single" target="FindApPayments" extends="FindPayments" extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml">
+        <field name="parentTypeId"><hidden value="DISBURSEMENT"/></field>
+        <field name="paymentTypeId" position="1">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PaymentType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="DISBURSEMENT"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
 </forms>

@@ -2945,6 +2945,10 @@
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
     </property>
+    <property key="AccountingFindApPayments">
+        <value xml:lang="en">Find AP Payments</value>
+        <value xml:lang="hi_IN">लेखा देय भुगतान खोजें</value>
+    </property>
     <property key="AccountingFindDepositSlip">
         <value xml:lang="en">Find Deposit Slips for finAccount ${finAccountId}</value>
     </property>
