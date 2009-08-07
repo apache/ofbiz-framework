@@ -89,13 +89,14 @@ function enableSubmitButton() {
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
       <tr class="header-row-2">
-        <td width="10%"><input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/> ${uiLabelMap.CommonSelectAll}</td>
-        <td width="10%">${uiLabelMap.FormFieldTitle_invoiceId}</td>
-        <td width="10%">${uiLabelMap.AccountingVendorParty}</td>
-        <td width="8%">${uiLabelMap.CommonStatus}</td>
-        <td width="10%">${uiLabelMap.AccountingReferenceNumber}</td>
-        <td width="15%">${uiLabelMap.CommonDescription}</td>
-        <td width="10%">${uiLabelMap.AccountingInvoiceDate}</td>
+        <td width="9%"><input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/> ${uiLabelMap.CommonSelectAll}</td>
+        <td width="6%">${uiLabelMap.FormFieldTitle_invoiceId}</td>
+        <td width="10%">${uiLabelMap.AccountingFromParty}</td>
+        <td width="14%">${uiLabelMap.AccountingToParty}</td>
+        <td width="4%">${uiLabelMap.CommonStatus}</td>
+        <td width="9%">${uiLabelMap.AccountingReferenceNumber}</td>
+        <td width="12%">${uiLabelMap.CommonDescription}</td>
+        <td width="9%">${uiLabelMap.AccountingInvoiceDate}</td>
         <td width="8%">${uiLabelMap.AccountingDueDate}</td>
         <td width="8%">${uiLabelMap.AccountingAmount}</td>
         <td width="8%">${uiLabelMap.FormFieldTitle_paidAmount}</td>
@@ -111,6 +112,7 @@ function enableSubmitButton() {
           <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:enableSubmitButton();"/></td>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
           <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</td>
+          <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)?if_exists}</td>
           <td>${statusItem.get("description")?if_exists}</td>
           <td>${invoice.get("referenceNumber")?if_exists}</td>
           <td>${invoice.get("description")?if_exists}</td>

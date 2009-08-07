@@ -150,8 +150,8 @@ under the License.
 
     <form name="CommissionRun" type="single" target="CommissionRun">
         <field name="partyIds" field-name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <drop-down allow-multiple="true">
-                <entity-options entity-name="PartyRole" description="${partyId}">
+            <drop-down allow-multiple="true" allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName} ${groupName}(${partyId})">
                     <entity-constraint name="roleTypeId" operator="equals" value="SALES_REP"/>
                 </entity-options>
             </drop-down>
