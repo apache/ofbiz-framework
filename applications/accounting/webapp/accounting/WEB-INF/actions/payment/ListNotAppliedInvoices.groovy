@@ -65,7 +65,7 @@ List getInvoices(List invoices, boolean actual) {
         invoicesList = [];  // to pass back to the screeen list of unapplied invoices
         paymentApplied = PaymentWorker.getPaymentApplied(payment);
         paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
-        if (actual) {
+        if (actual && payment.actualCurrencyAmount) {
             paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
         }
         invoices.each { invoice ->
