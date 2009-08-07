@@ -52,7 +52,7 @@ under the License.
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="Payment"/>
+                <field-map field-name="entityName" value="PaymentAndType"/>
                 <field-map field-name="orderBy" value="effectiveDate DESC"/>
             </service>
         </actions>
