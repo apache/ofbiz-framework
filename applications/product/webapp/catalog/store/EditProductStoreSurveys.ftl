@@ -32,11 +32,11 @@ under the License.
               <td><b>${uiLabelMap.CommonSequenceNum}</b></td>
               <td><b>&nbsp;</b></td>
             </tr>
-            <#assign rowClass = "2">
+            <#assign alt_row = false>
             <#list productStoreSurveys as storeSurvey>
               <#assign surveyType = storeSurvey.getRelatedOne("SurveyApplType")>
               <#assign survey = storeSurvey.getRelatedOne("Survey")>
-              <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+              <tr valign="middle"<#if alt_row>class="alternate-row"</#if>>
                 <td>${surveyType.get("description",locale)}</td>
                 <td>${storeSurvey.groupName?if_exists}</td>
                 <td><a href="/content/control/EditSurvey?surveyId=${storeSurvey.surveyId}" class="buttontext">${survey.description?default("[" + survey.surveyId + "]")}</a>
@@ -52,11 +52,7 @@ under the License.
                   </form>
                 </td> 
                 <#-- toggle the row color -->
-                <#if rowClass == "2">
-                    <#assign rowClass = "1">
-                <#else>
-                    <#assign rowClass = "2">
-                </#if>
+                <#assign alt_row = !alt_row>
             </#list>
         </table>
     </div>
