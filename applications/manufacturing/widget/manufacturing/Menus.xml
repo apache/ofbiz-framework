@@ -170,6 +170,11 @@ under the License.
                 <parameter param-name="productionRunId"/>
             </link>
         </menu-item>
+        <menu-item name="content" title="${uiLabelMap.CommonContent}">
+            <link target="ProductionRunContent">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
         <menu-item name="costs" title="${uiLabelMap.ManufacturingActualCosts}">
             <link target="ProductionRunCosts">
                 <parameter param-name="productionRunId"/>

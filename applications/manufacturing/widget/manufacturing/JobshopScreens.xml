@@ -725,6 +725,47 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ProductionRunContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ManufacturingProductionRunContent"/>
+                <set field="tabButtonItem" value="content"/>
+                <set field="headerItem" value="jobshop"/>
+
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
+                </entity-one>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunContent.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-form name="ListProductionRunContent" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="Import Content From Product ${delivProductId}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="FindDelivProductContent" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                                <include-form name="ListDelivProductContent" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="FindProductionRun">
         <section>
             <actions>

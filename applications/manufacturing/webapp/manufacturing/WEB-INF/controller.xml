@@ -63,6 +63,10 @@ under the License.
     </request-map>
 
     <!-- Lookup request mappings -->
+    <request-map uri="LookupCustomerName">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupCustomerName"/>
+    </request-map>
     <request-map uri="LookupRouting">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LookupRouting"/>
@@ -564,6 +568,10 @@ under the License.
         <response name="success" type="view" value="ProductionRunActualComponents"/>
         <response name="error" type="view" value="ProductionRunActualComponents"/>
     </request-map>
+    <request-map uri="ProductionRunContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductionRunContent"/>
+    </request-map>
     <request-map uri="ProductionRunAssocs">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductionRunAssocs"/>
@@ -622,6 +630,18 @@ under the License.
         <event type="service-multi" invoke="productionRunTaskReturnMaterial"/>
         <response name="success" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="createProductionRunContents">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="createWorkEffortContent"/>
+        <response name="success" type="view" value="ProductionRunContent"/>
+        <response name="error" type="view" value="ProductionRunContent"/>
+    </request-map>
+    <request-map uri="deleteProductionRunContent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortContent"/>
+        <response name="success" type="view" value="ProductionRunContent"/>
+        <response name="error" type="view" value="ProductionRunContent"/>
     </request-map>
     <request-map uri="quickRunProductionRunTask">
         <security https="true" auth="true"/>
@@ -763,6 +783,7 @@ under the License.
     <view-map name="EditRoutingProductLink" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink" type="screen"/>
     <view-map name="EditRoutingTaskFixedAssets" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskFixedAssets" type="screen"/>
     <!-- Lookup view mappings -->
+    <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
     <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
     <view-map name="LookupVirtualProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVirtualProduct" type="screen"/>
@@ -796,6 +817,7 @@ under the License.
     <view-map name="ProductionRunComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunComponents" type="screen"/>
     <view-map name="ProductionRunActualComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunActualComponents" type="screen"/>
     <view-map name="ProductionRunFixedAssets" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunFixedAssets" type="screen"/>
+    <view-map name="ProductionRunContent" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunContent" type="screen"/>
     <view-map name="ProductionRunAssocs" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs" type="screen"/>
     <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>
 

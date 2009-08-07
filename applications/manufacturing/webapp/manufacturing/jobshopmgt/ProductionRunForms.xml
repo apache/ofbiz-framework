@@ -527,6 +527,87 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <form name="FindDelivProductContent" type="single" target="ProductionRunContent">
+        <field name="productionRunId"><hidden/></field>
+        <field name="productId" entry-name="delivProductId">
+            <display/>
+        </field>
+        <field name="contentLocale">
+            <text default-value="${locale}"/>
+        </field>
+        <field name="partyId">
+            <lookup target-form-name="LookupCustomerName"/>
+        </field>
+        <field name="roleTypeId">
+            <hidden value="CONTENT_USER"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListProductionRunContent" type="list" title="" list-name="productionRunContents">
+        <actions>
+            <entity-and entity-name="WorkEffortContentAndInfo" list="productionRunContents">
+                <field-map field-name="workEffortId" from-field="productionRunId"/>
+            </entity-and>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="contentId"><display/></field>
+        <field name="drDataResourceId"><display/></field>
+        <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
+        <field name="contentName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="localeString"><display/></field>
+        <field name="description"><display/></field>
+        <field name="drMimeTypeId"><display/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}">
+            <display description="default ${drObjectInfo}"/>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
+            <hyperlink target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow" description="${drObjectInfo}">
+                <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" entry-name="drDataResourceId" encode-output="true" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; drDataResourceTypeId.equals(&quot;ELECTRONIC_TEXT&quot;)}">
+            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false" target="deleteProductionRunContent">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortContentTypeId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="productionRunId" from-field="productionRunId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="ListDelivProductContent" type="multi" use-row-submit="true" target="createProductionRunContents?productionRunId=${productionRunId}" title="" list-name="delivProductContentsForLocaleAndUser">
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortId" entry-name="productionRunId"><hidden/></field>
+        <field name="contentId"><display/></field>
+        <field name="drDataResourceId"><display/></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
+        <field name="contentName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="localeString"><display/></field>
+        <field name="description"><display/></field>
+        <field name="drMimeTypeId"><display/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}">
+            <display description="default ${drObjectInfo}"/>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
+            <hyperlink target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow" description="${drObjectInfo}">
+                <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" entry-name="drDataResourceId" encode-output="true" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; drDataResourceTypeId.equals(&quot;ELECTRONIC_TEXT&quot;)}">
+            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
+        </field>
+        <field name="workEffortContentTypeId"><drop-down><entity-options description="${description}" entity-name="WorkEffortContentType"></entity-options></drop-down></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </form>
     <form name="ProductionRunTaskFixedAssets" type="list" target="updateWorkEffortFixedAssetAssign" paginate-target="" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="edit"/>
@@ -552,7 +633,7 @@ under the License.
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="fromDate"/>
-                <parameter param-name="productionRunId" from-field="productionRunId}"/>
+                <parameter param-name="productionRunId" from-field="productionRunId"/>
             </hyperlink>
         </field>
     </form>
