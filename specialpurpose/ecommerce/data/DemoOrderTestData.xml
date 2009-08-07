@@ -55,6 +55,8 @@ under the License.
     <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="9026" lastUpdatedStamp="2008-04-23 16:49:32.173" lastUpdatedTxStamp="2008-04-23 16:49:32.164" createdStamp="2008-04-23 16:49:32.173" createdTxStamp="2008-04-23 16:49:32.164"/>
     <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9015" lastUpdatedStamp="2008-04-23 16:49:28.332" lastUpdatedTxStamp="2008-04-23 16:49:27.349" createdStamp="2008-04-23 16:49:28.332" createdTxStamp="2008-04-23 16:49:27.349"/>
 
+    <Shipment shipmentId="9998" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_INPUT" primaryOrderId="DEMO10090" primaryShipGroupSeqId="00001" estimatedShipCost="12.45" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer"/>
+
     <!-- Purchase order test data -->
     <!--for jira issue - 1782-->
     <OrderHeader orderId="DEMO10091" orderTypeId="PURCHASE_ORDER" orderName="New Purchase Order" salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2008-06-10 13:27:07.024" entryDate="2008-06-10 13:27:07.024" visitId="10000" statusId="ORDER_CREATED" createdBy="admin" currencyUom="USD" webSiteId="OrderEntry" productStoreId="9000" remainingSubTotal="108.0" grandTotal="108.0" lastUpdatedStamp="2008-06-10 13:27:07.562" lastUpdatedTxStamp="2008-06-10 13:27:07.477" createdStamp="2008-06-10 13:27:07.158" createdTxStamp="2008-06-10 13:27:07.022"/>
@@ -79,5 +81,4 @@ under the License.
     <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200" lastUpdatedStamp="2008-06-10 13:27:07.294" lastUpdatedTxStamp="2008-06-10 13:27:07.022" createdStamp="2008-06-10 13:27:07.294" createdTxStamp="2008-06-10 13:27:07.022"/>
 
     <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" lastUpdatedStamp="2008-06-10 12:59:26.852" lastUpdatedTxStamp="2008-06-10 12:59:26.8" createdStamp="2008-06-10 12:59:26.852" createdTxStamp="2008-06-10 12:59:26.8"/>
-    <Shipment shipmentId="9998" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_INPUT" primaryOrderId="DEMO10090" primaryShipGroupSeqId="00001" estimatedShipCost="12.45" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer"/>
 </entity-engine-xml>
