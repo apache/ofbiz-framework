@@ -57,6 +57,7 @@
         <value xml:lang="en">Account ID</value>
         <value xml:lang="es">Id cuenta</value>
         <value xml:lang="fr">Réf. du compte</value>
+        <value xml:lang="hi_IN">लेखा क्रमांक</value>
         <value xml:lang="it">Codice Conto</value>
         <value xml:lang="nl">Rekeningnr.</value>
         <value xml:lang="pt_BR">ID da Conta</value>
@@ -72,6 +73,7 @@
         <value xml:lang="en">Account Limit</value>
         <value xml:lang="es">Límite de cuenta</value>
         <value xml:lang="fr">Limite du compte</value>
+        <value xml:lang="hi_IN">लेखा सीमा</value>
         <value xml:lang="it">Limite Conto</value>
         <value xml:lang="nl">Rekeninglimiet</value>
         <value xml:lang="pt_BR">Limite de Conta</value>
@@ -100,6 +102,7 @@
     </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="en">Account Transaction Id</value>
+        <value xml:lang="hi_IN">लेखा गतिविधि क्रमांक</value>
     </property>
     <property key="AccountingAccountType">
         <value xml:lang="ar">نوع الحساب</value>
@@ -122,6 +125,7 @@
         <value xml:lang="en">Accounting</value>
         <value xml:lang="de">Buchhaltung</value>
         <value xml:lang="fr">Comptabilité</value>
+        <value xml:lang="hi_IN">लेखांकन</value>
         <value xml:lang="it">Contabilità</value>
         <value xml:lang="nl">Boekhouding</value>
         <value xml:lang="th">การบัญชี</value>
@@ -133,6 +137,7 @@
         <value xml:lang="en">Accounts</value>
         <value xml:lang="es">cuentas</value>
         <value xml:lang="fr">Comptes</value>
+        <value xml:lang="hi_IN">लेखा</value>
         <value xml:lang="it">Conti</value>
         <value xml:lang="nl">Rekeningen</value>
         <value xml:lang="ro">Conturi</value>
@@ -144,6 +149,7 @@
         <value xml:lang="de">Kontoabstimmung</value>
         <value xml:lang="en">Account Reconciliation</value>
         <value xml:lang="fr">Rapprochement de compte</value>
+        <value xml:lang="hi_IN">लेखा पुनर्मिलान</value>
         <value xml:lang="it">Riconciliazione</value>
         <value xml:lang="nl">Afstemming rekening</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
@@ -153,6 +159,7 @@
         <value xml:lang="de">Kontenabstimmungen</value>
         <value xml:lang="en">Account Reconciliations</value>
         <value xml:lang="fr">Rapprochements de compte</value>
+        <value xml:lang="hi_IN">लेखा पुनर्मिलान</value>
         <value xml:lang="it">Riconciliazioni</value>
         <value xml:lang="nl">Afstemmingen</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
@@ -162,6 +169,7 @@
         <value xml:lang="de">Kontenbewegungen</value>
         <value xml:lang="en">Accounting Transactions</value>
         <value xml:lang="fr">Transactions comptables</value>
+        <value xml:lang="hi_IN">लेखा गतिविधियाँ</value>
         <value xml:lang="it">Prime Note</value>
         <value xml:lang="nl">Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชี</value>
@@ -171,6 +179,7 @@
         <value xml:lang="de">Kontenbewegungen</value>
         <value xml:lang="en">Accounting Transactions Entries</value>
         <value xml:lang="fr">Entrées de transactions comptables</value>
+        <value xml:lang="hi_IN">लेखा लेनदेन की प्रविष्टियाँ</value>
         <value xml:lang="it">Righe Prime Note</value>
         <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
@@ -178,14 +187,17 @@
     </property>
     <property key="AccountingAcctgTransEntriesFor">
         <value xml:lang="en">Accounting Transaction Entries For</value>
+        <value xml:lang="hi_IN">लेखा गतिविधि प्रविष्टियों के लिए</value>
     </property>
     <property key="AccountingAcctgTransFor">
         <value xml:lang="en">Accounting Transactions For</value>
+        <value xml:lang="hi_IN">लेखा गतिविधि के लिए</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="de">Ist-Währungsbetrag</value>
         <value xml:lang="en">Actual Currency Amount</value>
         <value xml:lang="fr">Valeur réelle en devise</value>
+        <value xml:lang="hi_IN">वास्तविक मुद्रा राशि</value>
         <value xml:lang="it">Attuale Importo in Valuta</value>
         <value xml:lang="nl">Hoeveelheid werkelijke valuta</value>
         <value xml:lang="ru">Действительная сумма валюты</value>
@@ -196,6 +208,7 @@
         <value xml:lang="de">Ist-Währung</value>
         <value xml:lang="en">Actual Currency Uom Id</value>
         <value xml:lang="fr">réf. UOM de la devise réelle</value>
+        <value xml:lang="hi_IN">वास्तविक मुद्रा माप की इकाई क्रमांक</value>
         <value xml:lang="it">Attuale Udm Valuta</value>
         <value xml:lang="nl">UoM ID werkelijke valuta</value>
         <value xml:lang="ru">Действительный код валюты</value>
@@ -206,6 +219,7 @@
         <value xml:lang="de">Vereinbarung-Arbeitseinsatz hinzufügen</value>
         <value xml:lang="en">Add Agreement Work Effort Appl</value>
         <value xml:lang="fr">Ajouter une application de tâche d'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध कार्य प्रयास अनुप्रयोग(AgreementWorkEffortAppl) बनाएँ</value>
         <value xml:lang="it">Aggiungi Applicazione Termine Impegno di Lavoro</value>
         <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomt toe</value>
         <value xml:lang="zh">添加协议人工服务用途</value>
@@ -213,6 +227,7 @@
     <property key="AccountingAddCategoryGlAccount">
         <value xml:lang="de">Hauptkonten-Kategorie hinzufügen</value>
         <value xml:lang="en">Add Category GL Account</value>
+        <value xml:lang="hi_IN">श्रेणी सामान्य बही खाता जोड़ें</value>
         <value xml:lang="fr">Ajouter la catégorie de compte au GL</value>
         <value xml:lang="it">Aggiungi una Categoria Conto GL</value>
         <value xml:lang="nl">Voeg categorie van GB-rekening toe</value>
@@ -222,6 +237,7 @@
     <property key="AccountingAddCustomTimePeriod">
         <value xml:lang="en">Add Custom Time Period</value>
         <value xml:lang="fr">Ajouter une période de temps</value>
+        <value xml:lang="hi_IN">स्वनिर्धारित समय अवधि जोड़ें</value>
         <value xml:lang="it">Aggiungi Periodi di Tempo Personalizzati</value>
         <value xml:lang="th">เพิ่มการกำหนดระยะเวลา</value>
         <value xml:lang="zh">添加定制时间段</value>
@@ -230,6 +246,7 @@
         <value xml:lang="de">Finanzkonten-Art Hauptkonto hinzufügen</value>
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
         <value xml:lang="fr">Ajouter le type de compte financier au GL</value>
+        <value xml:lang="hi_IN">वित्तीय खाता प्रकार का सामान्य खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi Tipo Conto Finanziario Gl</value>
         <value xml:lang="nl">Voeg Fin. rekening type GB-rekening toe</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
@@ -240,6 +257,7 @@
         <value xml:lang="en">Add Fixed Asset Identification</value>
         <value xml:lang="es">Editar Indents de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une identification d'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति की पहचान जोड़ें</value>
         <value xml:lang="it">Aggiorna Identità Cespite</value>
         <value xml:lang="nl">Voeg vaste activa-identificatie toe</value>
         <value xml:lang="ro">Actualizeaza Identitate Mijloc Fix</value>
@@ -251,6 +269,7 @@
         <value xml:lang="de">Anlagen-Wartungs-Reihenfolge hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Maintenance Order</value>
         <value xml:lang="fr">Ajouter une commande de maintenance d'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति रखरखाव के आदेश जोड़ें</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Ordine</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加固定资产维修保养订单</value>
@@ -260,6 +279,7 @@
         <value xml:lang="en">Add Fixed Asset Maintenance</value>
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une maintenance d'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति रखरखाव जोड़ें</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite</value>
         <value xml:lang="nl">Voeg onderhoud vaste activa toe</value>
         <value xml:lang="ro">Actualizeaza Intretinere Mijloc Fix</value>
@@ -271,6 +291,7 @@
         <value xml:lang="de">Ablesen des Anlage-Zählers hinzufügen</value>
         <value xml:lang="en">Add Fixed Asset Meter Reading</value>
         <value xml:lang="fr">Ajouter une mesure de la maintenance d'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति मापक रीडिंग जोड़ें</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
         <value xml:lang="nl">Voeg meterwaarde vaste activa toe</value>
         <value xml:lang="th">Add Fixed Asset Maintenance Meter</value>
@@ -280,6 +301,7 @@
         <value xml:lang="de">Akteurszuweisung zu Anlage hinzufügen</value>
         <value xml:lang="en">Add Party Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter une tâche d'un acteur à une immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति में नियत कार्य करने के लिए पार्टी जोड़ें</value>
         <value xml:lang="it">Aggiorna Assegnamenti Cespiti Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加会员固定资产分配</value>
@@ -289,6 +311,7 @@
         <value xml:lang="en">Add Fixed Asset Registration</value>
         <value xml:lang="es">Editar Registros de Activo Fijo</value>
         <value xml:lang="fr">Ajouter l'enregistrement d'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति के लिए पंजीयन जोड़ें</value>
         <value xml:lang="it">Aggiorna Registrazioni Cespite</value>
         <value xml:lang="ro">Actualizeaza Inregistrare Mijloc Fix</value>
         <value xml:lang="ru">Изменить регистраций ОС</value>
@@ -300,6 +323,7 @@
         <value xml:lang="en">Add Fixed Asset Standard Cost</value>
         <value xml:lang="es">Editar Costo Estandar de Activo Fijo</value>
         <value xml:lang="fr">Ajouter un coût standard d'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति के लिए मानक लागत</value>
         <value xml:lang="it">Aggiorna Costi Standard Cespiti</value>
         <value xml:lang="nl">Aanpassen vaste kosten vaste activa</value>
         <value xml:lang="ro">Actualizeaza Costuri Standard Mijloace Fixe</value>
@@ -360,6 +384,7 @@
         <value xml:lang="de">Personenkonto hinzufügen</value>
         <value xml:lang="en">Add Party Gl Account</value>
         <value xml:lang="fr">Ajouter le compte de tiers au GL</value>
+        <value xml:lang="hi_IN">सामान्य खाता बही खाते में जोड़ने के लिए पार्टी</value>
         <value xml:lang="it">Aggiungi Conto Gl Soggetto</value>
         <value xml:lang="nl">Voeg nieuwe GB-rekening van relatie toe</value>
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
@@ -369,6 +394,7 @@
         <value xml:lang="de">Steuerkonto hinzufügen</value>
         <value xml:lang="en">Add TaxAuthority GL Account</value>
         <value xml:lang="fr">Ajouter le compte de taxe au GL</value>
+        <value xml:lang="hi_IN">सामान्य बही खातों कर अधिकारियों को जोड़ने के लिए</value>
         <value xml:lang="it">Aggiungi Conto Gl Autorità Tasse</value>
         <value xml:lang="nl">Voeg nieuwe GB-rekening van belastinginstantie toe</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
@@ -378,6 +404,7 @@
         <value xml:lang="de">Zusätzliche Versandkosten für Lieferung #${shipmentId}</value>
         <value xml:lang="en">Additional Shipping Charge For Shipment #${shipmentId}</value>
         <value xml:lang="fr">Ajouter des frais de transport à la livraison</value>
+        <value xml:lang="hi_IN">अतिरिक्त माल के परिवहन के लिए प्रयुक्त</value>
         <value xml:lang="it">Ricarico spedizione aggiuntivo per la spedizione #${shipmentId}</value>
         <value xml:lang="nl">Extra vrachtkosten voor zending #${shipmentId}</value>
         <value xml:lang="ru">Дополнительные затраты на доставку</value>
@@ -390,6 +417,7 @@
         <value xml:lang="en">Admin</value>
         <value xml:lang="es">Admin</value>
         <value xml:lang="fr">Admin</value>
+        <value xml:lang="hi_IN">व्यवस्थापक</value>
         <value xml:lang="it">Amministra</value>
         <value xml:lang="nl">Beheerder</value>
         <value xml:lang="ro">Administreaza</value>
@@ -403,6 +431,7 @@
         <value xml:lang="en">Agreement</value>
         <value xml:lang="es">Acuerdo</value>
         <value xml:lang="fr">Accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध</value>
         <value xml:lang="it">Contratto</value>
         <value xml:lang="nl">Overeenkomst</value>
         <value xml:lang="ro">Contract</value>
@@ -416,6 +445,7 @@
         <value xml:lang="en">List Available Agreements</value>
         <value xml:lang="es">Lista de acuerdos disponibles</value>
         <value xml:lang="fr">Liste des accords commerciaux disponibles</value>
+        <value xml:lang="hi_IN">उपलब्ध अनुबंध की सूची</value>
         <value xml:lang="it">Lista Contratti Disponibili</value>
         <value xml:lang="nl">Overzicht beschikbare overeenkomsten</value>
         <value xml:lang="ro">Lista Contractelor Disponibile</value>
@@ -429,6 +459,7 @@
         <value xml:lang="en">Agreement Date</value>
         <value xml:lang="es">Fecha de acuerdo</value>
         <value xml:lang="fr">Date de l'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध दिनांक</value>
         <value xml:lang="it">Data Contratto</value>
         <value xml:lang="nl">Datum overeenkomst</value>
         <value xml:lang="ro">Data Contract</value>
@@ -442,6 +473,7 @@
         <value xml:lang="en">Agreement Id</value>
         <value xml:lang="es">Id acuerdo</value>
         <value xml:lang="fr">Réf. de l'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध क्रमांक</value>
         <value xml:lang="it">Codice Contratto</value>
         <value xml:lang="nl">Overeenkomst Nr</value>
         <value xml:lang="ro">Cod Contract</value>
@@ -453,6 +485,7 @@
         <value xml:lang="de">Vereinbarungsinformation</value>
         <value xml:lang="en">Agreement Information</value>
         <value xml:lang="fr">Information sur l'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध जानकारी</value>
         <value xml:lang="it">Informazioni Contratto</value>
         <value xml:lang="nl">Informatie overeenkomst</value>
         <value xml:lang="zh">合同信息</value>
@@ -460,6 +493,7 @@
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
         <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant de modifier les tarifs</value>
+        <value xml:lang="hi_IN">कृपया Agreement.partyIdTo में एक सप्लायर निश्चित करे और संपादन करने से पहले AgreementItem मुद्रा मूल्य सूची में जोड़े</value>
         <value xml:lang="it">Per favore impostare un fornitore in Agreement.partyIdTo e una valuta in AgreementItem prima di aggiornare il prezzo di listino</value>
         <value xml:lang="nl">Zet een leverancier in de overeenkomst, PartyIDTo en een valuta in het item van de overeenkomst voordat de prijslijst wordt aangepast</value>
         <value xml:lang="th">กรุณากำหนดผู้จัดหาสิ่งของในสัญญา ถึงกลุ่มผู้ใช้และเงินในสิ่งของที่ตกลงก่อนแก้ไขรายการราคา</value>
@@ -471,6 +505,7 @@
         <value xml:lang="en">Agreement Item</value>
         <value xml:lang="es">Elemento de acuerdo</value>
         <value xml:lang="fr">Point de l'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध की वस्तु</value>
         <value xml:lang="it">Riga Contratto</value>
         <value xml:lang="nl">Overeenkomst item</value>
         <value xml:lang="ro">Linie Contract</value>
@@ -481,6 +516,7 @@
     <property key="AccountingAgreementItemProductsForReport">
         <value xml:lang="en">Agreement Item Products For Report</value>
         <value xml:lang="fr">Point de l'accord commercial (articles) pour rapport</value>
+        <value xml:lang="hi_IN">अनुबंध वस्तु  उत्पाद के लिए विवरण</value>
         <value xml:lang="it">Prodotti riga contratto per i report</value>
         <value xml:lang="zh">用于报表的合同条款产品</value>
     </property>
@@ -490,6 +526,7 @@
         <value xml:lang="en">Agreement Item Seq Id</value>
         <value xml:lang="es">Id elemento secuencia de acuerdo</value>
         <value xml:lang="fr">No séq. du point d'accord</value>
+        <value xml:lang="hi_IN">अनुबंध वस्तु का अनुक्रम क्रमांक</value>
         <value xml:lang="it">Numero Seq Riga Contratto</value>
         <value xml:lang="nl">Overeenkomst Item Nr</value>
         <value xml:lang="ro">Nr.Com.Inrg.Contract</value>
@@ -500,6 +537,7 @@
     <property key="AccountingAgreementItemSupplierProductsForReport">
         <value xml:lang="en">Agreement Item Supplier Products For Report</value>
         <value xml:lang="fr">Point de l'accord commercial (articles/fournisseur) pour rapport</value>
+        <value xml:lang="hi_IN">अनुबंध वस्तु प्रदायक के लिए विवरण</value>
         <value xml:lang="it">Prodotti fornitore riga contratto per i report</value>
         <value xml:lang="zh">用于报表的合同条款供货商产品</value>
     </property>
@@ -509,6 +547,7 @@
         <value xml:lang="en">Terms</value>
         <value xml:lang="es">Términos</value>
         <value xml:lang="fr">Termes d'un point d'accord commercial</value>
+        <value xml:lang="hi_IN">शर्तें</value>
         <value xml:lang="it">Termini</value>
         <value xml:lang="nl">Condities</value>
         <value xml:lang="ro">Termene</value>
@@ -522,6 +561,7 @@
         <value xml:lang="en">Agreement Item Type Id</value>
         <value xml:lang="es">Id tipo de elemento de acuerdo</value>
         <value xml:lang="fr">Réf. de type de point d'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध मद प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Contratto Riga</value>
         <value xml:lang="nl">Overeenkomst Item type Nr</value>
         <value xml:lang="ro">Tip Contract Linie</value>
@@ -535,6 +575,7 @@
         <value xml:lang="en">Agreement Items</value>
         <value xml:lang="es">Elementos de acuerdo</value>
         <value xml:lang="fr">Points d'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध मदें</value>
         <value xml:lang="it">Righe Contratto</value>
         <value xml:lang="nl">Overeenkomst Items</value>
         <value xml:lang="ro">Linii Contract</value>
@@ -548,6 +589,7 @@
         <value xml:lang="en">Promotions</value>
         <value xml:lang="es">Promociones</value>
         <value xml:lang="fr">Promotions</value>
+        <value xml:lang="hi_IN">संवर्धन</value>
         <value xml:lang="it">Promozioni</value>
         <value xml:lang="nl">Promoties</value>
         <value xml:lang="ro">Promovari</value>
@@ -559,6 +601,7 @@
         <value xml:lang="de">Vereinbarungs-Rollen</value>
         <value xml:lang="en">Agreement Roles</value>
         <value xml:lang="fr">Rôles d'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध की भूमिकाए</value>
         <value xml:lang="it">Ruoli Contratto</value>
         <value xml:lang="zh">合同角色</value>
     </property>
@@ -568,6 +611,7 @@
         <value xml:lang="en">Agreement Term Id</value>
         <value xml:lang="es">Id término de acuerdo</value>
         <value xml:lang="fr">Réf. du terme de l'accord commecial</value>
+        <value xml:lang="hi_IN">अनुबंध अवधि क्रमांक</value>
         <value xml:lang="it">Codice Termine Contratto</value>
         <value xml:lang="nl">Conditie Nr</value>
         <value xml:lang="ro">Cod Termen Contract</value>
@@ -581,6 +625,7 @@
         <value xml:lang="en">Agreement Terms</value>
         <value xml:lang="es">Términos de acuerdo</value>
         <value xml:lang="fr">Termes de l'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध की शर्तें</value>
         <value xml:lang="it">Termini Contratto</value>
         <value xml:lang="nl">Condities overeenkomst</value>
         <value xml:lang="ro">Termen Contract</value>
@@ -594,6 +639,7 @@
         <value xml:lang="en">Agreement Type Id</value>
         <value xml:lang="es">Id tipo de acuerdo</value>
         <value xml:lang="fr">Réf de type d'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Contratto</value>
         <value xml:lang="nl">Overeenkomst Type Nr</value>
         <value xml:lang="ro">Tip Contract</value>
@@ -604,6 +650,7 @@
     <property key="AccountingAgreementWorkEffortApplAlreadyExists">
         <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
         <value xml:lang="fr">Cette tâche d'application d'accord commercial existe déjà</value>
+        <value xml:lang="hi_IN">अनुबंध - काम प्रयास का अनुप्रयोग पहले से ही मौजूद है</value>
         <value xml:lang="it">Applicazioni contratto impegno di labovo già esistente</value>
         <value xml:lang="nl">Overeenkomst Work Effort Appl bestaat al</value>
         <value xml:lang="zh">合同人工服务用途已存在</value>
@@ -611,6 +658,7 @@
     <property key="AccountingAgreementWorkEffortAppls">
         <value xml:lang="en">Agreement Work Effort Appls</value>
         <value xml:lang="fr">Applications de tâche d'accord commercial</value>
+        <value xml:lang="hi_IN">अनुबंध- कार्य प्रयास अनुप्रयोग</value>
         <value xml:lang="it">Applicazioni Impegni di Lavoro</value>
         <value xml:lang="nl">Applicaties overeenkomst Werkitem</value>
         <value xml:lang="zh">合同人工服务用户</value>
@@ -621,6 +669,7 @@
         <value xml:lang="en">Agreements</value>
         <value xml:lang="es">Acuerdos</value>
         <value xml:lang="fr">Accords commerciaux</value>
+        <value xml:lang="hi_IN">अनुबंध</value>
         <value xml:lang="it">Contratti</value>
         <value xml:lang="nl">Overeenkomsten</value>
         <value xml:lang="ro">Contract</value>
@@ -652,6 +701,7 @@
         <value xml:lang="en">Amount Applied </value>
         <value xml:lang="es">Cantidad aplicada</value>
         <value xml:lang="fr">Montant alloué</value>
+        <value xml:lang="hi_IN">राशि लागू है</value>
         <value xml:lang="it">Importo Applicato</value>
         <value xml:lang="nl">Toe te wijzen bedrag</value>
         <value xml:lang="ro">Valoare Aplicata</value>
@@ -665,6 +715,7 @@
         <value xml:lang="en">Amount not yet applied</value>
         <value xml:lang="es">Cantidad aún no aplicada</value>
         <value xml:lang="fr">Montant non encore alloué</value>
+        <value xml:lang="hi_IN">राशि अब तक लागु नहीं  है</value>
         <value xml:lang="it">Importo non ancora applicato</value>
         <value xml:lang="nl">Bedrag nog toe te wijzen</value>
         <value xml:lang="ro">Valoare ne aplicata inca</value>
@@ -692,6 +743,7 @@
         <value xml:lang="en">Any Invoice Status</value>
         <value xml:lang="es">Cualquier status de factura</value>
         <value xml:lang="fr">Tous statuts de facture</value>
+        <value xml:lang="hi_IN">किसी चालान की अवस्था</value>
         <value xml:lang="it">Qualsiasi Stato Fattura</value>
         <value xml:lang="nl">Elke factuurstatus</value>
         <value xml:lang="pt_BR">Estado das FaturasInformação sobre faturação</value>
@@ -707,6 +759,7 @@
         <value xml:lang="en">Any Payment Method</value>
         <value xml:lang="es">Cualquier método de pago</value>
         <value xml:lang="fr">Toutes méthode de paiement</value>
+        <value xml:lang="hi_IN">कोई भुगतान का तरीका</value>
         <value xml:lang="it">Qualsiasi Metodo Pagamento</value>
         <value xml:lang="nl">Elke betaalmethode</value>
         <value xml:lang="ro">Orice Metoda de Plata</value>
@@ -720,6 +773,7 @@
         <value xml:lang="en">Any Payment Status</value>
         <value xml:lang="es">Cualquier status de pago</value>
         <value xml:lang="fr">Tous statuts de paiement</value>
+        <value xml:lang="hi_IN">किसी भुगतान की अवस्था</value>
         <value xml:lang="it">Qualsiasi Stato Pagamento</value>
         <value xml:lang="nl">Elke betaalstatus</value>
         <value xml:lang="ro">Orice Stadiu de Plata</value>
@@ -731,6 +785,7 @@
         <value xml:lang="de">Hauptseite Kreditorenbuchhaltung</value>
         <value xml:lang="en">Main Page Account Payable</value>
         <value xml:lang="fr">Compte fournisseur</value>
+        <value xml:lang="hi_IN">देय खाता का मुख्य पृष्ठ</value>
         <value xml:lang="it">Pagina principale conto debitori</value>
         <value xml:lang="nl">Crediteuren</value>
         <value xml:lang="zh">应付账户首页</value>
@@ -739,6 +794,7 @@
         <value xml:lang="de">OFBiz: Kreditorenbuchhaltung</value>
         <value xml:lang="en">OFBiz: AP Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
+        <value xml:lang="hi_IN">OFBiz: खाता देय प्रबंधक</value>
         <value xml:lang="it">OFBiz: Gestione conti debitori</value>
         <value xml:lang="nl">OFBiz: Credit Manager</value>
         <value xml:lang="zh">OFBiz: 应付账户管理</value>
@@ -747,6 +803,7 @@
         <value xml:lang="de">Kreditorenbuchhaltung</value>
         <value xml:lang="en">Account Payable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes fourn.</value>
+        <value xml:lang="hi_IN">देय खाता प्रबंधक अनुप्रयोग</value>
         <value xml:lang="it">Applicazione gestione conto debitori</value>
         <value xml:lang="nl">Credit Manager applicatie</value>
         <value xml:lang="zh">应付账户管理应用程序</value>
@@ -755,6 +812,7 @@
         <value xml:lang="de">Lieferant bearbeiten</value>
         <value xml:lang="en">Edit Vendor</value>
         <value xml:lang="fr">Modifier le vendeur</value>
+        <value xml:lang="hi_IN">विक्रेता को संपादित करें</value>
         <value xml:lang="it">Aggiorna fornitore</value>
         <value xml:lang="zh">编辑供应商</value>
     </property>
@@ -762,6 +820,7 @@
         <value xml:lang="de">Ergebnis der Lieferantensuche</value>
         <value xml:lang="en">Find Vendor Results</value>
         <value xml:lang="fr">Chercher des résultats de vendeurs</value>
+        <value xml:lang="hi_IN">विक्रेता के परिणाम खोजें</value>
         <value xml:lang="it">Risultati ricerce fornitori</value>
         <value xml:lang="nl">Vind resultaten verkopende relaties</value>
         <value xml:lang="zh">查找供应商结果</value>
@@ -770,6 +829,7 @@
         <value xml:lang="de">Lieferanten suchen</value>
         <value xml:lang="en">Find Vendors</value>
         <value xml:lang="fr">Chercher des vendeurs</value>
+        <value xml:lang="hi_IN">विक्रेताओं को खोजें</value>
         <value xml:lang="it">Ricerca fornitori</value>
         <value xml:lang="nl">Vind verkopende relaties</value>
         <value xml:lang="zh">查找供应商</value>
@@ -778,6 +838,7 @@
         <value xml:lang="de">Lieferanten auflisten</value>
         <value xml:lang="en">List Vendors</value>
         <value xml:lang="fr">Liste des vendeurs</value>
+        <value xml:lang="hi_IN">विक्रेताओं की सूची</value>
         <value xml:lang="it">Lista fornitori</value>
         <value xml:lang="nl">Toon verkopende relaties</value>
         <value xml:lang="zh">供应商列表</value>
@@ -787,6 +848,7 @@
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
         <value xml:lang="es">Aplicando ${amountApplied?currency(${isoCode})} de pago [${paymentId}] a ${toMessage}</value>
         <value xml:lang="fr">Allouer ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
+        <value xml:lang="hi_IN">${toMessage} के लिए  भुगतान से [${paymentId}], ${amountApplied?currency(${isoCode})} को लगाएं</value>
         <value xml:lang="it">Applicazione ${amountApplied?currency(${isoCode})} dal pagamento [${paymentId}] a ${toMessage}</value>
         <value xml:lang="nl">${amountApplied?currency(${isoCode})} van betaling [${paymentId}] is toegewezen aan ${toMessage}</value>
         <value xml:lang="ro">Aplica ${amountApplied?currency(${isoCode})} de Plata [${paymentId}] la ${toMessage}</value>
@@ -800,6 +862,7 @@
         <value xml:lang="en">to billing account [${billingAccountId}]</value>
         <value xml:lang="es">a cuenta de facturación [${billingAccountId}]</value>
         <value xml:lang="fr">au compte de facturation [${billingAccountId}]</value>
+        <value xml:lang="hi_IN">देयकांकन खाते में  [${billingAccountId}]</value>
         <value xml:lang="it">al conto fatturazione [${billingAccountId}]</value>
         <value xml:lang="nl">aan factuurrekening [${billingAccountId}]</value>
         <value xml:lang="ro">la Cont Facturare [${billingAccountId}]</value>
@@ -813,6 +876,7 @@
         <value xml:lang="en">to invoice [${invoiceId}]</value>
         <value xml:lang="es">a factura [${invoiceId}]</value>
         <value xml:lang="fr">à la facture [${invoiceId}]</value>
+        <value xml:lang="hi_IN">चालान के लिए  [${invoiceId}]</value>
         <value xml:lang="it">alla fattura [${invoiceId}]</value>
         <value xml:lang="nl">aan factuur [${invoiceId}]</value>
         <value xml:lang="ro">la Factura [${invoiceId}]</value>
@@ -825,6 +889,7 @@
         <value xml:lang="en">to invoice [${paymentApplication.invoiceId}] Item [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="es">a factura [${paymentApplication.invoiceId}] Elemento [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="fr">à la ligne [${paymentApplication.invoiceItemSeqId}] de la facture  [${paymentApplication.invoiceId}]</value>
+        <value xml:lang="hi_IN">चालान के लिए [${paymentApplication.invoiceId}] मद [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="it">alla fattura [${paymentApplication.invoiceId}] Riga [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="nl">aan factuur [${paymentApplication.invoiceId}] met regelnummer [${paymentApplication.invoiceItemSeqId}]</value>
         <value xml:lang="ro">la Factura [${paymentApplication.invoiceId}] Linie [${paymentApplication.invoiceItemSeqId}]</value>
@@ -838,6 +903,7 @@
         <value xml:lang="en">to payment [${paymentId}]</value>
         <value xml:lang="es">a pago [${paymentId}]</value>
         <value xml:lang="fr">au paiement [${paymentId}]</value>
+        <value xml:lang="hi_IN">[${paymentId}] भुगतान करने के लिए</value>
         <value xml:lang="it">al pagamento [${paymentId}]</value>
         <value xml:lang="nl">aan betaling [${paymentId}]</value>
         <value xml:lang="ro">la Plata [${paymentId}]</value>
@@ -851,6 +917,7 @@
         <value xml:lang="en">to Tax Authority area [${taxAuthGeoId}]</value>
         <value xml:lang="es">a área de Autoridad Fiscal [${taxAuthGeoId}]</value>
         <value xml:lang="fr">à la zone de taxation [${taxAuthGeoId}]</value>
+        <value xml:lang="hi_IN">टैक्सप्राधिकरण के लिए [${taxAuthGeoId}]</value>
         <value xml:lang="it">all'area Autorità Tasse [${taxAuthGeoId}]</value>
         <value xml:lang="nl">aan belastinginstantie [${taxAuthGeoId}]</value>
         <value xml:lang="ro">la aria Autoritate Taxa [${taxAuthGeoId}]</value>
@@ -864,6 +931,7 @@
         <value xml:lang="en">Applications</value>
         <value xml:lang="es">Aplicaciones</value>
         <value xml:lang="fr">Allocations</value>
+        <value xml:lang="hi_IN">अनुप्रयोग</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="nl">Toewijzingen</value>
         <value xml:lang="ro">Plati Aplicate</value>
@@ -877,6 +945,7 @@
         <value xml:lang="en">Applied Payments</value>
         <value xml:lang="es">Pagos aplicados</value>
         <value xml:lang="fr">Paiements alloués</value>
+        <value xml:lang="hi_IN">प्रयुक्त भुगतान</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="nl">Toegewezen betalingen</value>
         <value xml:lang="ro">Plati Aplicate</value>
@@ -890,6 +959,7 @@
         <value xml:lang="en">Apply this payment to</value>
         <value xml:lang="es">Aplicar este pago a</value>
         <value xml:lang="fr">Allouer ce paiement à</value>
+        <value xml:lang="hi_IN">इस भुगतान के लिए लागू करें</value>
         <value xml:lang="it">Applica questo pagamento a</value>
         <value xml:lang="nl">Wijs deze betaling toe</value>
         <value xml:lang="ro">Aplica aceasta plata la </value>
@@ -901,6 +971,7 @@
         <value xml:lang="de">Kreditkarte zuweisen</value>
         <value xml:lang="en">Apply Service Credit</value>
         <value xml:lang="fr">Alimenter le crédit</value>
+        <value xml:lang="hi_IN">सेवा ऋण लागू करें</value>
         <value xml:lang="it">Applica servizio credito</value>
         <value xml:lang="nl">Wijs Service-krediet toe</value>
         <value xml:lang="ru">Применить сервисный кредит</value>
@@ -913,6 +984,7 @@
         <value xml:lang="en">Apply to Invoice Items</value>
         <value xml:lang="es">Aplicar para facturar elementos</value>
         <value xml:lang="fr">Allouer à des lignes de facturation</value>
+        <value xml:lang="hi_IN">लागू करने के लिए मद चालान</value>
         <value xml:lang="it">Applica alle Righe Fattura</value>
         <value xml:lang="nl">Wijs aan factuuritems toe</value>
         <value xml:lang="ro">Aplica la liniile Facturii</value>
@@ -922,11 +994,13 @@
     </property>
     <property key="AccountingApprovedGrandTotal">
         <value xml:lang="en">Approved Grand Total</value>
+        <value xml:lang="hi_IN">स्वीकृत कुल योग</value>
     </property>
     <property key="AccountingAr">
         <value xml:lang="de">Hauptseite Debitorenbuchhaltung</value>
         <value xml:lang="en">Main Page Account Receivable</value>
         <value xml:lang="fr">Page d'accueil de la comptabilité client</value>
+        <value xml:lang="hi_IN">मुख्य पृष्ठ प्राप्य खाता</value>
         <value xml:lang="it">Pagina principale conto creditori</value>
         <value xml:lang="zh">应收账户首页</value>
     </property>
@@ -934,6 +1008,7 @@
         <value xml:lang="de">OFBiz: Debitorenbuchhaltung</value>
         <value xml:lang="en">OFBiz: AR Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
+        <value xml:lang="hi_IN">OFBiz: खाता प्राप्य प्रबंधक</value>
         <value xml:lang="it">OFBiz: Gestione conto creditori</value>
         <value xml:lang="nl">OFBiz: Debiteuren Manager</value>
         <value xml:lang="zh">OFBiz: 应收账户管理</value>
@@ -942,6 +1017,7 @@
         <value xml:lang="de">Debitorenbuchhaltung</value>
         <value xml:lang="en">Account Receivable Manager Application</value>
         <value xml:lang="fr">Application de gestion des comptes clients</value>
+        <value xml:lang="hi_IN">प्राप्य खाता प्रबंधक अनुप्रयोग</value>
         <value xml:lang="it">Applicazione gestione conto creditore</value>
         <value xml:lang="nl">Debiteuren Manager toepassing</value>
         <value xml:lang="zh">应收账户管理应用程序</value>
@@ -950,6 +1026,7 @@
         <value xml:lang="de">Berichte auflisten</value>
         <value xml:lang="en">List Reports</value>
         <value xml:lang="fr">Liste des rapports</value>
+        <value xml:lang="hi_IN">विवरण की सूची</value>
         <value xml:lang="it">Lista reports</value>
         <value xml:lang="nl">Toon rapporten</value>
         <value xml:lang="zh">报表列表</value>
@@ -960,6 +1037,7 @@
         <value xml:lang="en">Arithmetic properties for Invoice services not configured properly. Cannot proceed.</value>
         <value xml:lang="es">Propiedades aritméticas para factura de servicios no configurada apropiadamente. No es posible proceder.</value>
         <value xml:lang="fr">Les propriétés arithmétiques des services de facturation ne sont pas configurées convenablement. Transaction abandonnée.</value>
+        <value xml:lang="hi_IN">चालान सेवाओं के लिए अंकगणित संपत्तियों ठीक से विन्यस्त नहीं है! आगे नहीं जा सकते!</value>
         <value xml:lang="it">Arithmetic properties per il servizio Fattura non configurato propriamente. Non è possibile procedere.</value>
         <value xml:lang="nl">Berekeningseigenschappen voor de fakturatiediensten zijn niet juist geconfigureerd, processen zijn gestopt."</value>
         <value xml:lang="ro">Proprietatile Aritmetice pentru serviciul de Facturare nu au fost configurate. Nu se poate continua.</value>
@@ -973,6 +1051,7 @@
         <value xml:lang="en">Assets</value>
         <value xml:lang="es">Activos</value>
         <value xml:lang="fr">Actifs</value>
+        <value xml:lang="hi_IN">परिसंपत्तियां/संपत्ति</value>
         <value xml:lang="it">Cespiti</value>
         <value xml:lang="nl">Activa</value>
         <value xml:lang="ro">Bunuri(Mijloace)</value>
@@ -986,6 +1065,7 @@
         <value xml:lang="en">Assign Payment to This Invoice</value>
         <value xml:lang="es">Asignar pago a esta factura</value>
         <value xml:lang="fr">Allouer le paiement à cette facture</value>
+        <value xml:lang="hi_IN">इस चालान को निरुपित भुगतान</value>
         <value xml:lang="it">Assegna Pagamento a Questa Fattura</value>
         <value xml:lang="nl">Wijs betaling aan deze factuur toe</value>
         <value xml:lang="ro">Aloca Plata la Aceasta Factura</value>
@@ -997,6 +1077,7 @@
         <value xml:lang="de">Einkaufsrechnungs-Art zu Ertragskonto zuweisen</value>
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
         <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
+        <value xml:lang="hi_IN">राजस्व सामान्य बही खाता निरुपित करने के लिए खरीद चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Acquisto al Numero Conto Profitti Gl</value>
         <value xml:lang="nl">wijs inkoopfactuurtype toe aan GB-rekeningnr</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
@@ -1008,6 +1089,7 @@
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
         <value xml:lang="es">Asignar tipo de factura de venta a ingresos número de cuenta de LM de ingresos</value>
         <value xml:lang="fr">Allouer un type de facture de vente au compte comptable no.</value>
+        <value xml:lang="hi_IN">राजस्व सामान्य बही खाता निरुपित करने के लिए बिक्री चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Vendita al Numero Conto Profitti Gl</value>
         <value xml:lang="nl">Wijs verkoopfactuur to aan GB-rekeningnr</value>
         <value xml:lang="ro">Anexeaza Tipul Facturii de Vanzare la Nr.Cont Profituri Gl</value>
@@ -1021,6 +1103,7 @@
         <value xml:lang="en">Authorize</value>
         <value xml:lang="es">Autorizar</value>
         <value xml:lang="fr">Autoriser</value>
+        <value xml:lang="hi_IN">अधिकृत</value>
         <value xml:lang="it">Autorizza</value>
         <value xml:lang="nl">Machtig</value>
         <value xml:lang="ro">Autorizeaza</value>
@@ -1030,46 +1113,57 @@
     </property>
     <property key="AccountingAuthorizeNetApiVersion">
         <value xml:lang="en">Authorize Dot Net API Version</value>
+        <value xml:lang="hi_IN">अधिकृत Dot Net API संस्करणः</value>
         <value xml:lang="it">Versione API Authorize Dot Net</value>
     </property>
     <property key="AccountingAuthorizeNetDelimiterChar">
         <value xml:lang="en">Delimited Char</value>
+        <value xml:lang="hi_IN">सीमांकित वर्ण</value>
         <value xml:lang="it">Carattere delimitatore</value>
     </property>
     <property key="AccountingAuthorizeNetDelimitedData">
         <value xml:lang="en">Delimited Data</value>
+        <value xml:lang="hi_IN">सीमांकित आंकड़े</value>
         <value xml:lang="it">Dati delimitati da un carattere</value>
     </property>
     <property key="AccountingAuthorizeNetEmailCustomer">
         <value xml:lang="en">Email to Customer</value>
+        <value xml:lang="hi_IN">ग्राहक को ईमेल</value>
         <value xml:lang="it">Email al cliente</value>
     </property>
     <property key="AccountingAuthorizeNetEmailMerchant">
         <value xml:lang="en">Email to Merchant</value>
+        <value xml:lang="hi_IN">व्यापारी को ईमेल</value>
         <value xml:lang="it">Email al negoziante</value>
     </property>
     <property key="AccountingAuthorizeNetMethod">
         <value xml:lang="en">Method (only CC supported)</value>
+        <value xml:lang="hi_IN">विधि (केवल क्रेडिट कार्ड) का समर्थन किया</value>
         <value xml:lang="it">Metodo (solo Carta di credito supportata)</value>
     </property>
     <property key="AccountingAuthorizeNetMethodCC">
         <value xml:lang="en">CC</value>
+        <value xml:lang="hi_IN">सीसी (क्रेडिट कार्ड)</value>
         <value xml:lang="it">Carta di credito</value>
     </property>
     <property key="AccountingAuthorizeNetRelayResponse">
         <value xml:lang="en">Relay Response</value>
+        <value xml:lang="hi_IN">अग्रेषित प्रतिक्रिया</value>
         <value xml:lang="it">Trasmettere risposta</value>
     </property>
     <property key="AccountingAuthorizeNetTestMode">
         <value xml:lang="en">Test Mode</value>
+        <value xml:lang="hi_IN">विधि का नमूना</value>
         <value xml:lang="it">Modalità di test</value>
     </property>
     <property key="AccountingAuthorizeNetTransKey">
         <value xml:lang="en">Transaction Key</value>
+        <value xml:lang="hi_IN">लेन-देन कुंजी</value>
         <value xml:lang="it">Chiave Transazione</value>
     </property>
     <property key="AccountingAuthorizeNetTransactionUrl">
         <value xml:lang="en">Transaction URL</value>
+        <value xml:lang="hi_IN">लेन-देन URL</value>
         <value xml:lang="it">URL Transazione</value>
     </property>
     <property key="AccountingAvailableInternalOrganizations">
@@ -1078,6 +1172,7 @@
         <value xml:lang="en">Available Internal Organizations</value>
         <value xml:lang="es">Organizaciones internas disponibles</value>
         <value xml:lang="fr">Organisations internes disponibles</value>
+        <value xml:lang="hi_IN">उपलब्ध आंतरिक संगठन</value>
         <value xml:lang="it">Organizzazioni Interne Disponibili</value>
         <value xml:lang="nl">Beschikbare interne organisaties</value>
         <value xml:lang="ro">Organizatii Interne Disponibile</value>
@@ -1088,6 +1183,7 @@
     <property key="AccountingBackToAdmin">
         <value xml:lang="en">Back to Admin</value>
         <value xml:lang="fr">Retour à l'administration</value>
+        <value xml:lang="hi_IN">वापस व्यवस्थापक पर</value>
         <value xml:lang="it">Torna indietro all'amministrazione</value>
         <value xml:lang="zh">返回管理</value>
     </property>
@@ -1097,6 +1193,7 @@
         <value xml:lang="en">Balance Due</value>
         <value xml:lang="es">Balance de débito</value>
         <value xml:lang="fr">Solde dû</value>
+        <value xml:lang="hi_IN">शेष देय</value>
         <value xml:lang="it">Bilancio Dovuto</value>
         <value xml:lang="nl">Verschuldigd saldo</value>
         <value xml:lang="ro">Bilanta Datorat </value>
@@ -1106,6 +1203,7 @@
     </property>
     <property key="AccountingBalanceOfTheAccount">
         <value xml:lagn="en">Balance Of The Account</value>
+        <value xml:lang="hi_IN">शेष खाते के</value>
     </property>
     <property key="AccountingBalanceSheet">
         <value xml:lang="ar">مذكرة الميزانية</value>
@@ -1113,6 +1211,7 @@
         <value xml:lang="en">Balance Sheet</value>
         <value xml:lang="es">Hoja de Balance</value>
         <value xml:lang="fr">Bilan</value>
+        <value xml:lang="hi_IN">पक्का-चिट्ठा/तुलन-पत्र</value>
         <value xml:lang="it">Bilancio</value>
         <value xml:lang="nl">Balans</value>
         <value xml:lang="ru">Бухгалтерский баланс</value>
@@ -1137,6 +1236,7 @@
     </property>
     <property key="AccountingBankAccount">
         <value xml:lang="en">Bank Account</value>
+        <value xml:lang="hi_IN">बैन्क खाता</value>
     </property>
     <property key="AccountingBankName">
         <value xml:lang="ar">إسم المصرف</value>
@@ -1157,6 +1257,7 @@
     </property>
     <property key="AccountingBankReconciliation">
         <value xml:lang="en">Bank Reconciliation</value>
+        <value xml:lang="hi_IN">बैन्क पुनर्मिलान</value>
     </property>
     <property key="AccountingBillToAddress1">
         <value xml:lang="ar">وضع المستحقات على العنوان 1</value>
@@ -1164,6 +1265,7 @@
         <value xml:lang="en">Bill-To Address1</value>
         <value xml:lang="es">Facturar a dirección 1</value>
         <value xml:lang="fr">Adresse de facturation 1</value>
+        <value xml:lang="hi_IN">बिल भेजने के लिए पता 1</value>
         <value xml:lang="it">Fattura-All'Indirizzo 1</value>
         <value xml:lang="nl">factuur-adres1</value>
         <value xml:lang="ro">Factura-La adresa 1</value>
@@ -1177,6 +1279,7 @@
         <value xml:lang="en">Bill-To Address2</value>
         <value xml:lang="es">Facturar a dirección 2</value>
         <value xml:lang="fr">Adresse de facturation 2</value>
+        <value xml:lang="hi_IN">बिल भेजने के लिए पता 2</value>
         <value xml:lang="it">Fattura-All'Indirizzo 2</value>
         <value xml:lang="nl">factuur-adres2</value>
         <value xml:lang="ro">Fatura-La adresa 2</value>
@@ -1190,6 +1293,7 @@
         <value xml:lang="en">Bill Up To</value>
         <value xml:lang="es">Facturar hasta</value>
         <value xml:lang="fr">Facturer jusqu'à</value>
+        <value xml:lang="hi_IN">बिल के पर्यत</value>
         <value xml:lang="it">Fatturare A</value>
         <value xml:lang="nl">factuurmaximum</value>
         <value xml:lang="ro">Faturare -Up To</value>
@@ -1203,6 +1307,7 @@
         <value xml:lang="en">Billing</value>
         <value xml:lang="es">Facturación</value>
         <value xml:lang="fr">Facturation</value>
+        <value xml:lang="hi_IN">देयकांकन</value>
         <value xml:lang="it">Fatturato</value>
         <value xml:lang="nl">Fakturatie</value>
         <value xml:lang="ro">Facturat</value>
@@ -1217,6 +1322,7 @@
         <value xml:lang="en">Billing Account</value>
         <value xml:lang="es">Cta facturación</value>
         <value xml:lang="fr">Compte de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन खाता</value>
         <value xml:lang="it">Conto Fatturazione</value>
         <value xml:lang="ja">請求先アカウント</value>
         <value xml:lang="nl">Faktuur rekening</value>
@@ -1232,6 +1338,7 @@
         <value xml:lang="en">Billing Account [${billingAccountId}] balance not found...(</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] balance no encontrado...(</value>
         <value xml:lang="fr">Pas trouvé le solde du compte de facturation [${billingAccountId}]...</value>
+        <value xml:lang="hi_IN">देयकांकन खाता [${billingAccountId}] में शेष नहीं मिला...</value>
         <value xml:lang="it">Conto Fatturazione [${billingAccountId}] bilancio non trovato...(</value>
         <value xml:lang="nl">Saldo van factuurrekening [${billingAccountId}] niet gevonden...(</value>
         <value xml:lang="ro">Cont Facturare [${billingAccountId}] Nu Gaseste Bilantul...(</value>
@@ -1245,6 +1352,7 @@
         <value xml:lang="en">Billing Account [${billingAccountId}] doesn't have a positive balance: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no tiene un balance positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] n'a pas un solde positif: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
+        <value xml:lang="hi_IN">देयकांकन खाता [${billingAccountId}] में सकारात्मक संतुलन नहीं है: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
         <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non ha un bilancio positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
         <value xml:lang="nl">factuurrekening [${billingAccountId}] heeft geen positief saldo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
         <value xml:lang="ro">Cont Facturare [${billingAccountId}] nu are un bilant pozitiv: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
@@ -1258,6 +1366,7 @@
         <value xml:lang="en">Currencies are not the same, Billing Account [${billingAccountId}] has currency: ${accountCurrencyUomId} and Payment [${paymentId}] has currency: ${paymentCurrencyUomId}</value>
         <value xml:lang="es">Monedas no son las mismas, Cuenta de facturación [${billingAccountId}] tiene moneda: ${accountCurrencyUomId} y pago [${paymentId}] tiene moneda: ${paymentCurrencyUomId}</value>
         <value xml:lang="fr">Les monnaies ne sont pas identiques, le compte de facturation [${billingAccountId}] est en monnaie ${accountCurrencyUomId} et le paiement [${paymentId}] est en monnaie ${paymentCurrencyUomId}</value>
+        <value xml:lang="hi_IN">मुद्रन्ये सामान नहीं हैं, देयकांकन खाता [${billingAccountId}] की मुद्रा है : ${accountCurrencyUomId} और भुगतान [${paymentId}] की मुद्रा है: ${paymentCurrencyUomId}</value>
         <value xml:lang="it">Valute non sono le stesse, Conto Fatturazione [${billingAccountId}] ha valuta: ${accountCurrencyUomId} e Pagamento [${paymentId}] ha valuta: ${paymentCurrencyUomId}</value>
         <value xml:lang="nl">Valuta zijn niet hetzelfde, factuurrekening [${billingAccountId}] heeft de ${accountCurrencyUomId} valuta en de betaling [${paymentId}] heeft de ${paymentCurrencyUomId} valuta</value>
         <value xml:lang="ro">Valutele nu sunt identice, Contul de Facturare [${billingAccountId}] are valuta: ${accountCurrencyUomId} iar Plata [${paymentId}] are valuta: ${paymentCurrencyUomId}</value>
@@ -1271,6 +1380,7 @@
         <value xml:lang="en">Billing Acct ID</value>
         <value xml:lang="es">Id cta facturación</value>
         <value xml:lang="fr">Compte de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन खाता क्रमांक</value>
         <value xml:lang="it">Numero Conto Fatturazione</value>
         <value xml:lang="nl">Fact.Rek.Nr</value>
         <value xml:lang="ro">Nr.Cont Facturare</value>
@@ -1284,6 +1394,7 @@
         <value xml:lang="en">Billing Account Invoices</value>
         <value xml:lang="es">Facturas de cuenta de facturación</value>
         <value xml:lang="fr">Factures du compte de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन खाता चालान</value>
         <value xml:lang="it">Conto Fatturazione Fatture</value>
         <value xml:lang="nl">facturen voor factuurrekening</value>
         <value xml:lang="ro">Cont Facturare Facturi</value>
@@ -1297,6 +1408,7 @@
         <value xml:lang="en">Billing Account [${billingAccountId}] has ${billingAccountApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] a un solde de ${billingAccountApplyAvailable?currency(${isoCode})}; un montant de ${amountApplied?currency(${isoCode})} trop élevé ne peut être alloué</value>
+        <value xml:lang="hi_IN">देयकांकन खाता [${billingAccountId}] लागू करने के लिए ${billingAccountApplyAvailable?currency(${isoCode})} रखता है पर ${amountApplied?currency(${isoCode})} अपेक्षित  है</value>
         <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha ${billingAccountApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
         <value xml:lang="nl">factuurrekening [${billingAccountId}] heeft een saldo van ${billingAccountApplyAvailable?currency(${isoCode})} echter ${amountApplied?currency(${isoCode})} is aangevraagd</value>
         <value xml:lang="ro">Cont Facturare [${billingAccountId}] are ${billingAccountApplyAvailable?currency(${isoCode})} de aplicat dar se cere ${amountApplied?currency(${isoCode})}</value>
@@ -1310,6 +1422,7 @@
         <value xml:lang="en">Billing Account [${billingAccountId}] has only  ${newBillingAccountApplyAvailable?currency(${isoCode})} available so ${amountApplied?currency(${isoCode})} is too much</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene solo ${newBillingAccountApplyAvailable?currency(${isoCode})} disponible asi que ${amountApplied?currency(${isoCode})} es demasiado</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] est limité à  ${newBillingAccountApplyAvailable?currency(${isoCode})} donc ${amountApplied?currency(${isoCode})} est trop élevé</value>
+        <value xml:lang="hi_IN">देयकांकन खाता [${billingAccountId}] में ${newBillingAccountApplyAvailable?currency(${isoCode})} इतना ही उपलब्ध है ,इसलिए ${amountApplied?currency(${isoCode})} बहुत अधिक है</value>
         <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha solo  ${newBillingAccountApplyAvailable?currency(${isoCode})} disponibile così ${amountApplied?currency(${isoCode})} è troppo grande</value>
         <value xml:lang="nl">factuurrekening [${billingAccountId}] heeft maar  ${newBillingAccountApplyAvailable?currency(${isoCode})} beschikbaar, dus ${amountApplied?currency(${isoCode})} is te veel</value>
         <value xml:lang="ro">Contul de Facturare [${billingAccountId}] are numai ${newBillingAccountApplyAvailable?currency(${isoCode})} pozitii disponibile ${amountApplied?currency(${isoCode})} deci este prea mare</value>
@@ -1323,6 +1436,7 @@
         <value xml:lang="en">Billing Account [${billingAccountId}] not found...</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no encontrada...</value>
         <value xml:lang="fr">Compte de facturation [${billingAccountId}] pas trouvé...</value>
+        <value xml:lang="hi_IN">देयकांकन खाता [${billingAccountId}] उपलब्ध नहीं है</value>
         <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non trovato...</value>
         <value xml:lang="nl">factuurrekening [${billingAccountId}] niet gevonden...</value>
         <value xml:lang="ro">Cont Facturare [${billingAccountId}] non Gasit...</value>
@@ -1336,6 +1450,7 @@
         <value xml:lang="en">Billing Account Only</value>
         <value xml:lang="es">Sólo pagar a la cuenta de facturación</value>
         <value xml:lang="fr">Ne payer qu'avec le compte de facturation</value>
+        <value xml:lang="hi_IN">सिर्फ देयकांकन(बिलिंग) खाता</value>
         <value xml:lang="it">Solo Conto Fatturazione</value>
         <value xml:lang="nl">Betaal alleen op rekening</value>
         <value xml:lang="ro">Platit numai prin Contul de Facturare</value>
@@ -1349,6 +1464,7 @@
         <value xml:lang="en">Billing Account Payments</value>
         <value xml:lang="es">Pago con cuenta de facturación</value>
         <value xml:lang="fr">Paiements compte de facturation</value>
+        <value xml:lang="hi_IN">भुगतान के लिए देयकांकन(बिलिंग) खाता</value>
         <value xml:lang="it">Pagamenti Conto Fatturazione</value>
         <value xml:lang="nl">Rekening betalingen</value>
         <value xml:lang="pt_BR">Cobrança Através das Notas Fiscais</value>
@@ -1364,6 +1480,7 @@
         <value xml:lang="en">Billing Accounts</value>
         <value xml:lang="es">Cuentas de facturación</value>
         <value xml:lang="fr">Comptes de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) खातें</value>
         <value xml:lang="it">Conti Fatturazione</value>
         <value xml:lang="nl">factuur rekening</value>
         <value xml:lang="pt_BR">Notas Fiscais</value>
@@ -1379,6 +1496,7 @@
         <value xml:lang="en">Billing Acct</value>
         <value xml:lang="es">Cta Facturación</value>
         <value xml:lang="fr">Cptes facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) खाता</value>
         <value xml:lang="it">Conti Fatturazione</value>
         <value xml:lang="nl">Fakt.Rek.</value>
         <value xml:lang="ro">Cont Facturare</value>
@@ -1392,6 +1510,7 @@
         <value xml:lang="en">Billing Address</value>
         <value xml:lang="es">Dirección de facturación</value>
         <value xml:lang="fr">Adresse de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) का पता</value>
         <value xml:lang="it">Indirizzo Fatturazione</value>
         <value xml:lang="nl">factuuradres</value>
         <value xml:lang="ro">Adresa Facturare.</value>
@@ -1405,6 +1524,7 @@
         <value xml:lang="en">Available Balance</value>
         <value xml:lang="es">Balance disponible</value>
         <value xml:lang="fr">Solde disponible</value>
+        <value xml:lang="hi_IN">उपलब्ध शेष</value>
         <value xml:lang="it">Bilancio Disponibile</value>
         <value xml:lang="nl">Beschikbaar saldo</value>
         <value xml:lang="ro">Bilat Disponibil</value>
@@ -1418,6 +1538,7 @@
         <value xml:lang="en">This is the amount which can be used for new orders.</value>
         <value xml:lang="es">Esta es la cantidad la cual puede ser usada para nuevas ordenes.</value>
         <value xml:lang="fr">Ce montant peut être utilisé pour de nouvelles commandes.</value>
+        <value xml:lang="hi_IN">यह वह राशि है जो नए आदेश के लिए इस्तेमाल कि जा सकती है</value>
         <value xml:lang="it">Questo è l'importo che può essere usato per nuovi ordini.</value>
         <value xml:lang="nl">Dit bedrag is beschikbaar voor nieuwe orders.</value>
         <value xml:lang="ro">Aceasta  Valoare poate  fi uzata pentru noi comenzi.</value>
@@ -1431,6 +1552,7 @@
         <value xml:lang="en">Billing Contact Mech</value>
         <value xml:lang="es">Contacto mercantil de facturación</value>
         <value xml:lang="fr">Coordonnées de contact</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) संपर्क तंत्र</value>
         <value xml:lang="it">Contatto Fatturazione</value>
         <value xml:lang="nl">Faktureermethode</value>
         <value xml:lang="pt_BR">Mecanismo de Contato para Cobranças</value>
@@ -1446,6 +1568,7 @@
         <value xml:lang="en">Billing Address; Add Party/Role first, then select from drop-down</value>
         <value xml:lang="es">Dirección de facturación; Agregar Grupo/Rol primero, despues seleccionar de la lista desplegable</value>
         <value xml:lang="fr">Adresse de facturation; Ajouter un Acteur/Rôle, puis choisir dans le menu déroulant</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) पता; पहले पार्टी/भूमिका जोड़ें , फिर ड्रॉप डाउन से चुनें</value>
         <value xml:lang="it">Indirizzo Fatturazione; Aggiungi Soggetto/Ruolo per primo, allora seleziona dalla lista</value>
         <value xml:lang="nl">factuuradres; Voeg eerst rol van relatie toe, selecteer dan van het dropdown menu.</value>
         <value xml:lang="ro">Adresa Facturare; Adauga Persoana/De Regula Primul, apoi selectioneaza din lista.</value>
@@ -1459,6 +1582,7 @@
         <value xml:lang="en">AccountingBilling Information</value>
         <value xml:lang="es">Información de cuenta de facturación</value>
         <value xml:lang="fr">Informations comptables</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग)खाते की  जानकारी</value>
         <value xml:lang="it">Informazioni Conto Fatturazione</value>
         <value xml:lang="nl">factuurinformatie</value>
         <value xml:lang="ro">Informatii Cont Facturare</value>
@@ -1472,6 +1596,7 @@
         <value xml:lang="en">Billing Accounts</value>
         <value xml:lang="es">Cuentas de facturación</value>
         <value xml:lang="fr">Comptes de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) खातें</value>
         <value xml:lang="it">Conti Fatturazione</value>
         <value xml:lang="nl">factuurrekeningen</value>
         <value xml:lang="ro">Conturi Facturare</value>
@@ -1485,6 +1610,7 @@
         <value xml:lang="en">Net Balance</value>
         <value xml:lang="es">Balance neto</value>
         <value xml:lang="fr">Solde net</value>
+        <value xml:lang="hi_IN">शुद्ध शेष</value>
         <value xml:lang="it">Bilancio Netto</value>
         <value xml:lang="nl">Saldo</value>
         <value xml:lang="ro">Bilant Net</value>
@@ -1498,6 +1624,7 @@
         <value xml:lang="en">This is the amount which is currently outstanding on the billing account.</value>
         <value xml:lang="es">Esta es la cantidad la cual esta actualmente sobresaliendo en la cuenta de facturación.</value>
         <value xml:lang="fr">Ceci est le solde actuel du compte de facturation</value>
+        <value xml:lang="hi_IN">यह  वर्तमान में वह राशि है, जो देयकांकन(बिलिंग) खाते पर बकाया है</value>
         <value xml:lang="it">Questo è l'importo che attualmente è in eccedenza sul conto fatturazione.</value>
         <value xml:lang="nl">Dit is het openstaande bedrag van de factuurrekening.</value>
         <value xml:lang="ro">Aceasta valoare in present este in excedenta in contul de facturare.</value>
@@ -1509,6 +1636,7 @@
         <value xml:lang="de">Rechnungs-Nr. und Rechnungskonto-Nr. sind beide leer</value>
         <value xml:lang="en">Both InvoiceId and BillingAccountId Empty</value>
         <value xml:lang="fr">Les réf. de facture et de compte de facturation sont toutes les 2 vides</value>
+        <value xml:lang="hi_IN">दोनों, चालान क्रमांक(InvoiceId) और देयकांकन(बिलिंग) खाता क्रमांक (BillingAccountId) खाली</value>
         <value xml:lang="it">Entrambi InvoiceId e BillingAccountId sono vuoti</value>
         <value xml:lang="th">ผิดพลาดตรงรหัสใบกำกับสินค้าและรหัสบัญชีทั้งคู่เป็นค่าว่าง</value>
         <value xml:lang="zh">发票编号（InvoiceId）和账单账户编号（BillingAccountId）都是空的</value>
@@ -1517,6 +1645,7 @@
         <value xml:lang="de">Nach Konto</value>
         <value xml:lang="en">By Account</value>
         <value xml:lang="fr">Par compte</value>
+        <value xml:lang="hi_IN">खाते द्वारा</value>
         <value xml:lang="it">Per conto</value>
         <value xml:lang="nl">Per rekening</value>
         <value xml:lang="th">โดยบัญชี</value>
@@ -1526,6 +1655,7 @@
         <value xml:lang="de">Nach Datum</value>
         <value xml:lang="en">By Date</value>
         <value xml:lang="fr">Par date</value>
+        <value xml:lang="hi_IN">दिनांक तक</value>
         <value xml:lang="it">Per data</value>
         <value xml:lang="nl">Per datum</value>
         <value xml:lang="th">โดยวันที่</value>
@@ -1533,24 +1663,30 @@
     </property>
     <property key="AccountingCancelBatchPayments">
         <value xml:lang="en">Cancel Batch Payments</value>
+        <value xml:lang="hi_IN">भुगतान का  बैच रद्द करे</value>
     </property>
     <property key="AccountingCancelCheckRun">
         <value xml:lang="en">Cancel Check Run</value>
+        <value xml:lang="hi_IN">चेक/हुंडी रद्द करे</value>
     </property>
     <property key="AccountingCancelTransactionStatus">
         <value xml:lang="en">Cancel Transaction Status</value>
+        <value xml:lang="hi_IN">लेन-देन की स्थिति रद्द करे</value>
     </property>
     <property key="AccountingCannotCreateIncomingPaymentError">
         <value xml:lang="en">Cannot add incoming payment to paymentGroup type Check Run</value>
+        <value xml:lang="hi_IN">भुगतान समूह चेक रन प्रकार में  आने वाली भुगतान नहीं जोड़ सकते हैं</value>
     </property>
     <property key="AccountingCannotCreateOutgoingPaymentError">
         <value xml:lang="en">Cannot add outgoing payment to paymentGroup type Batch Of Payments</value>
+        <value xml:lang="hi_IN">भुगतान समूह के प्रकार भुगतान बैच में  बाहर जाने वाले भुगतान नहीं जोड़ सकते हैं</value>
     </property>
     <property key="AccountingCannotGetPaymentForApplication">
         <value xml:lang="ar">لا يمكن الحصول على التسديد للتطبيق  [${payAppl}] من أجل ${msg}</value>
         <value xml:lang="en">Cannot get payment for application [${payAppl}] due to ${msg}</value>
         <value xml:lang="es">No pudo obtener pago para aplicación [${payAppl}] debido a ${msg}</value>
         <value xml:lang="fr">Pas trouvé de paiement relatif à [${payAppl}] à cause de ${msg}</value>
+        <value xml:lang="hi_IN">${msg} कारण से आवेदन के लिए भुगतान प्राप्त नहीं कर सकते [${payAppl}]</value>
         <value xml:lang="it">Non è possibile leggere pagamento per l'applicazione [${payAppl}] scadente il ${msg}</value>
         <value xml:lang="nl">Kan betaling voor de toewijzing [${payAppl}] niet ophalen omdat ${msg}</value>
         <value xml:lang="ro">Nu este posibila citerea Platii pentru aplicatia [${payAppl}] cu termen de expirare in ${msg}</value>
@@ -1560,6 +1696,7 @@
     </property>
     <property key="AccountingCannotIncludeApPaymentError">
         <value xml:lang="en">Cannot include AP payment in a deposit batch</value>
+        <value xml:lang="hi_IN">भुगतान को देय खाते(AP) के  जमा बैच (deposit batch) खाते में शामिल नहीं कर सकते</value>
     </property>
     <property key="AccountingCapture">
         <value xml:lang="ar">خطفة</value>
@@ -1567,6 +1704,7 @@
         <value xml:lang="en">Capture</value>
         <value xml:lang="es">Capturar</value>
         <value xml:lang="fr">Prélèvement</value>
+        <value xml:lang="hi_IN">प्रग्रहण /अभिग्रहण</value>
         <value xml:lang="it">Cattura</value>
         <value xml:lang="nl">Opvangen</value>
         <value xml:lang="ro">Capturare</value>
@@ -1642,6 +1780,7 @@
     </property>
     <property key="AccountingChartOfAcctsFor">
         <value xml:lang="en">Chart of accounts for</value>
+        <value xml:lang="hi_IN">लेखा-चित्र के लिए</value>
     </property>
     <property key="AccountingChartOfAcctsMenu">
         <value xml:lang="ar">بيان الحسابات</value>
@@ -1649,6 +1788,7 @@
         <value xml:lang="en">Chart of Accounts</value>
         <value xml:lang="es">Carta de cuentas</value>
         <value xml:lang="fr">Plan comptable</value>
+        <value xml:lang="hi_IN">खातों का  लेखा-चित्र</value>
         <value xml:lang="it">Piano dei Conti</value>
         <value xml:lang="nl">Rekeningschema</value>
         <value xml:lang="ro">Plan de Conturi</value>
@@ -1662,6 +1802,7 @@
         <value xml:lang="en">Check Amount</value>
         <value xml:lang="es">Cantidad del cheque</value>
         <value xml:lang="fr">Vérifier le montant</value>
+        <value xml:lang="hi_IN">चेक/हुंडी राशि</value>
         <value xml:lang="it">Importo Assegno</value>
         <value xml:lang="nl">Bedrag cheque</value>
         <value xml:lang="ro">Valoare CEC</value>
@@ -1671,6 +1812,7 @@
     </property>
     <property key="AccountingCheckNumber">
         <value xml:lang="en">Check Number</value>
+        <value xml:lang="hi_IN">चेक/हुंडी नम्बर</value>
     </property>
     <property key="AccountingCheckGiftCard">
         <value xml:lang="de">Prüfen Sie, ob Sie einen Geschenkgutschein für heute haben</value>
@@ -1692,6 +1834,7 @@
         <value xml:lang="en">Checks</value>
         <value xml:lang="es">Cheques</value>
         <value xml:lang="fr">Chèques</value>
+        <value xml:lang="hi_IN">चेक/हुंडी</value>
         <value xml:lang="it">Assegni</value>
         <value xml:lang="nl">Cheques</value>
         <value xml:lang="ro">CEC-uri</value>
@@ -1703,6 +1846,7 @@
         <value xml:lang="de">Abgeschlossener Buchungszeitraum</value>
         <value xml:lang="en">Closed Time Periods</value>
         <value xml:lang="fr">Périodes de clôture fiscale</value>
+        <value xml:lang="hi_IN">बंद समयावधि</value>
         <value xml:lang="it">Periodi Fiscali Chiusi</value>
         <value xml:lang="nl">Afgesloten perioden</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
@@ -1714,6 +1858,7 @@
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
+        <value xml:lang="hi_IN">टिप्पणियाँ</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="nl">Opmerkingen</value>
         <value xml:lang="ro">Comentarii</value>
@@ -1723,6 +1868,7 @@
     </property>
     <property key="AccountingCommissionRun">
         <value xml:lang="en">Commission Run</value>
+        <value xml:lang="hi_IN">दलाली भुगतान</value>
     </property>
     <property key="AccountingCompanies">
         <value xml:lang="ar">شركات</value>
@@ -1730,6 +1876,7 @@
         <value xml:lang="en">Companies</value>
         <value xml:lang="es">Compañias</value>
         <value xml:lang="fr">Sociétés</value>
+        <value xml:lang="hi_IN">कंपनियां</value>
         <value xml:lang="it">Aziende</value>
         <value xml:lang="nl">Bedrijven</value>
         <value xml:lang="ro">Firme</value>
@@ -1743,6 +1890,7 @@
         <value xml:lang="en">OFBiz: Accounting Manager</value>
         <value xml:lang="es">OFBiz: Administrador de cuentas</value>
         <value xml:lang="fr">OFBiz: Gestion comptable</value>
+        <value xml:lang="hi_IN">OFBiz: लेखा प्रबंधक</value>
         <value xml:lang="it">OFBiz: Gestione contabilità</value>
         <value xml:lang="nl">OFBiz: Boekhouding</value>
         <value xml:lang="pt_BR">OFBiz: Gerente de Contas</value>
@@ -1758,6 +1906,7 @@
         <value xml:lang="en">Company Name on Account</value>
         <value xml:lang="es">Nombre de compañia en cuenta</value>
         <value xml:lang="fr">Nom de l'entreprise sur le compte </value>
+        <value xml:lang="hi_IN">खाता पर कंपनी का नाम</value>
         <value xml:lang="it">Nome conto azienda</value>
         <value xml:lang="nl">Bedrijfsnaam op de rekening</value>
         <value xml:lang="ro">Nume Firma inscrisa pe Cont</value>
@@ -1771,6 +1920,7 @@
         <value xml:lang="en">Company Name Card</value>
         <value xml:lang="es">Nombre de compañía de la tarjeta</value>
         <value xml:lang="fr">Nom de l'entreprise sur la carte</value>
+        <value xml:lang="hi_IN">कार्ड पर कंपनी का नाम</value>
         <value xml:lang="it">Nome azienda sulla Carta</value>
         <value xml:lang="nl">Bedrijfsnaam op de kaart</value>
         <value xml:lang="ro">Nume Firma inscrisa pe Carte</value>
@@ -1816,6 +1966,7 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="hi_IN">Open Source Software के Open For Business परिवार का हिस्सा</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
@@ -1830,6 +1981,7 @@
         <value xml:lang="de">Vergleichsbilanz</value>
         <value xml:lang="en">Comparative Balance Sheet</value>
         <value xml:lang="fr">Bilan comparatif</value>
+        <value xml:lang="hi_IN">तुलनात्मक तुलन-पत्र</value>
         <value xml:lang="it">Bilancio Comparativo</value>
         <value xml:lang="nl">Vergelijkingsbalans</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
@@ -1838,6 +1990,7 @@
     <property key="AccountingCompleteAcctgTransFields">
         <value xml:lang="en">Complete transaction fields</value>
         <value xml:lang="fr">Remplissez les champs de la transaction</value>
+        <value xml:lang="hi_IN">इस सौदे को पूरा</value>
         <value xml:lang="it">Completa i campi della transazione</value>
         <value xml:lang="nl">Complete transactievelden</value>
         <value xml:lang="zh">完成交易数据项</value>
@@ -1848,6 +2001,7 @@
         <value xml:lang="en">Copy Agreement</value>
         <value xml:lang="es">Copia de acuerdo</value>
         <value xml:lang="fr">Copier l'accord commercial</value>
+        <value xml:lang="hi_IN">करार की प्रति</value>
         <value xml:lang="it">Copia Contratto</value>
         <value xml:lang="nl">Kopiëer overeenkomst</value>
         <value xml:lang="ro">Copieaza Contractul</value>
@@ -1861,6 +2015,7 @@
         <value xml:lang="en">Could not find GlAccount with ID</value>
         <value xml:lang="es">No fue posible encontrar la cuenta de LM con el Id</value>
         <value xml:lang="fr">Pas trouvé le compte comptable correspondant à cette réf.</value>
+        <value xml:lang="hi_IN">इस क्रमांक(Id) के साथ  सामान्य बही खाता (GlAccount) नहीं मिला</value>
         <value xml:lang="it">Non trovato Conto Gl con Codice</value>
         <value xml:lang="nl">Kan Gb-rekening niet vinden</value>
         <value xml:lang="ro">Nu gaseste Contul Gl cu Codul</value>
@@ -1869,15 +2024,18 @@
         <value xml:lang="zh">没有在总账中找到相应的编号</value>
     </property>
     <property key="AccountingCreditDebitFlag">
-        <value xml:lang="en">C/D</value>
+        <value xml:lang="en">Cr/Dr</value>
+        <value xml:lang="hi_IN">जमा/नामे</value>
     </property>
     <property key="AccountingCreditFlag">
-        <value xml:lang="en">C</value>
+        <value xml:lang="en">Cr</value>
+        <value xml:lang="hi_IN">जमा</value>
     </property>
     <property key="AccountingCreateAcctRecons">
         <value xml:lang="de">Kontenabstimmung erstellen</value>
         <value xml:lang="en">Create Account Reconciliation</value>
         <value xml:lang="fr">Créer le rapprochement de compte</value>
+        <value xml:lang="hi_IN">पुनर्मिलान खाता बनाएँ</value>
         <value xml:lang="it">Crea Riconciliazione</value>
         <value xml:lang="nl">Maak rekeningafstemming aan</value>
         <value xml:lang="th">สร้างการเช็คยอดบัญชี</value>
@@ -1887,6 +2045,7 @@
         <value xml:lang="de">Schnellerstellung Kontenbuchung</value>
         <value xml:lang="en">Quick Create an Accounting Transaction</value>
         <value xml:lang="fr">Créer rapidement une transaction comptable</value>
+        <value xml:lang="hi_IN">तुरंत एक लेखा लेन-देन गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Veloce Prima Nota</value>
         <value xml:lang="nl">Maak transactie aan</value>
         <value xml:lang="th">สร้างรายการบัญชีอย่างรวดเร็ว</value>
@@ -1896,6 +2055,7 @@
         <value xml:lang="de">Kontenbuchung erstellen</value>
         <value xml:lang="en">Create an Accounting Transaction</value>
         <value xml:lang="fr">Créer une transaction comptable</value>
+        <value xml:lang="hi_IN">एक लेखा लेन-देन गतिविधि बनाएँ</value>
         <value xml:lang="it">Crea una Prima Nota</value>
         <value xml:lang="nl">Maak boekhoudtransactie aan</value>
         <value xml:lang="th">สร้างรายการบัญชี</value>
@@ -1907,6 +2067,7 @@
         <value xml:lang="en">Create Assignment</value>
         <value xml:lang="es">Crear obligación</value>
         <value xml:lang="fr">Créer une allocation</value>
+        <value xml:lang="hi_IN">नियत कार्य  बनाएँ</value>
         <value xml:lang="it">Creare Assegnazione</value>
         <value xml:lang="nl">Maak toewijzing</value>
         <value xml:lang="ro">Creaza Alocare</value>
@@ -1916,6 +2077,7 @@
     </property>
     <property key="AccountingCreateBatch">
         <value xml:lang="en">Create Batch</value>
+        <value xml:lang="hi_IN">बैच  बनाएँ</value>
     </property>
     <property key="AccountingCreateBillingAccount">
         <value xml:lang="ar">استحداث حساب فوترة</value>
@@ -1923,6 +2085,7 @@
         <value xml:lang="en">Create Billing Account</value>
         <value xml:lang="es">Crear cuenta de facturación</value>
         <value xml:lang="fr">Créer un compte de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) ख़ाता बनाएँ</value>
         <value xml:lang="it">Creare Conto Fatturazione</value>
         <value xml:lang="nl">Maak nieuwe factuurrekening aan</value>
         <value xml:lang="pt_BR">Criar Nota Fiscals</value>
@@ -1938,6 +2101,7 @@
         <value xml:lang="en">Create Billing Account Role</value>
         <value xml:lang="es">Rol de creación de cuenta de facturacón</value>
         <value xml:lang="fr">Associer un rôle à ce compte de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) खाते की भूमिका बनाएँ</value>
         <value xml:lang="it">Creare Ruolo Conto Fatturazione</value>
         <value xml:lang="nl">Maak rol voor factuurrekeningen aan</value>
         <value xml:lang="pt_BR">Criar Função de Nota Fiscal</value>
@@ -1953,6 +2117,7 @@
         <value xml:lang="en">Create Billing Account Term</value>
         <value xml:lang="es">Crear término de cuenta de facturación</value>
         <value xml:lang="fr">Créer un terme pour le compte de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग) खाते की शर्तें बनाएँ</value>
         <value xml:lang="it">Creare Termine Conto Fatturazione</value>
         <value xml:lang="nl">Maak conditie voor factuurrekening</value>
         <value xml:lang="pt_BR">Criar Termo de Nota Fiscal</value>
@@ -1966,6 +2131,7 @@
         <value xml:lang="de">Neue Kostenkomponentenrechnung erstellen</value>
         <value xml:lang="en">Create New Cost Component Calc</value>
         <value xml:lang="fr">Créer le nouveau composant de calcul coût</value>
+        <value xml:lang="hi_IN">नई मूल्य घटक की गणना बनाएँ</value>
         <value xml:lang="it">Creare Nuovo Calcolo Costo Componente</value>
         <value xml:lang="nl">Maak nieuwe calculatie voor kostencomponent</value>
         <value xml:lang="th">Create New Cost Component Calc</value>
@@ -1973,13 +2139,16 @@
     </property>
     <property key="AccountingCreatedApprovedGrandTotal">
         <value xml:lang="en">Created/Approved Grand Total</value>
+        <value xml:lang="hi_IN">निर्मित/स्वीकृत कुल योग</value>
     </property>
     <property key="AccountingCreatedGrandTotal">
         <value xml:lang="en">Created Grand Total</value>
+        <value xml:lang="hi_IN">निर्मित कुल योग</value>
     </property>
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les autorisations ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée ACCOUNTING_ROLE_CREATE</value>
+        <value xml:lang="hi_IN">सुरक्षा त्रुटि: createFixedAssetMaintOrder चलाने के लिए आप को ACCOUNTING_CREATEUPDATE या ACCOUNTING_ADMIN अनुमति, या सीमित ACCOUNTING_ROLE_CREATE अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore sicurezza: per eseguire il servizio createFixedAssetMaintOrder tu devi avere il permesso ACCOUNTING_CREATEUPDATE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="nl">Toegangfout: om createFixedAssetMaintOrder uit te voeren is ACCOUNTING_CREATEUPDATE- of ACCOUNTING_ADMIN-permissie, of de beperkte ACCOUNTING_ROLE_CREATE-permissie nodig.</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска createFixedAssetMaintOrder у вас должны быть права ACCOUNTING_CREATEUPDATE, ACCOUNTING_ADMIN, или ограниченные ACCOUNTING_ROLE_CREATE</value>
@@ -1992,6 +2161,7 @@
         <value xml:lang="en">Create New Credit Card</value>
         <value xml:lang="es">Crear nueva tarjeta de crédito</value>
         <value xml:lang="fr">Enregistrer une nouvelle carte de crédit</value>
+        <value xml:lang="hi_IN">नया क्रेडिट कार्ड बनाएँ</value>
         <value xml:lang="it">Creare Nuova Carta Credito</value>
         <value xml:lang="nl">Nieuwe kredietkaart aanmaken</value>
         <value xml:lang="pt_BR">Criar Novo Cartão de Crédito</value>
@@ -2007,6 +2177,7 @@
     </property>
     <property key="AccountingCreateNewDepositSlipForFinancialAccount">
         <value xml:lang="en">Create New Deposit Slip for Financial Account: ${finAccountId}</value>
+        <value xml:lang="hi_IN">नई जमा पर्ची वित्तीय खाते ${finAccountId} के लिए बनाएँ</value>
     </property>
     <property key="AccountingCreateNewEftAccount">
         <value xml:lang="ar">استحداث  حساب EFT  جديد</value>
@@ -2014,6 +2185,7 @@
         <value xml:lang="en">Create New EFT Account</value>
         <value xml:lang="es">Crear una nueva cuenta EFT</value>
         <value xml:lang="fr">Enregistrer un nouveau compte de virement électronique</value>
+        <value xml:lang="hi_IN">नया  ईएफ़टी(EFT) खाता बनाएँ</value>
         <value xml:lang="it">Creare Nuovo Conto EFT</value>
         <value xml:lang="nl">Nieuwe bankrekening aanmaken</value>
         <value xml:lang="pt_BR">Criar Nova Conta EFT</value>
@@ -2025,12 +2197,14 @@
     </property>
     <property key="AccountingCreateNewFinAccount">
         <value xml:lang="en">Create New Financial Account</value>
+        <value xml:lang="hi_IN">नया  वित्तीय खाता बनाएँ</value>
     </property>
     <property key="AccountingCreateNewGiftCard">
         <value xml:lang="de">Neuen Gutschein erstellen</value>
         <value xml:lang="en">Create New Gift Card</value>
         <value xml:lang="es">Crear nuevo certificado de regalo</value>
         <value xml:lang="fr">Créer une nouvelle carte cadeau</value>
+        <value xml:lang="hi_IN">नया  उपहार कार्ड बनाएँ</value>
         <value xml:lang="it">Creare Nuova Carta Omaggio</value>
         <value xml:lang="nl">Nieuwe cadeaubon aanmaken</value>
         <value xml:lang="ro">Creare Noua Carte Omagiu</value>
@@ -2042,6 +2216,7 @@
         <value xml:lang="de">Neue Rechnung erstellen</value>
         <value xml:lang="en">Create New Invoice</value>
         <value xml:lang="fr">Créer une nouvelle facture</value>
+        <value xml:lang="hi_IN">नया  चलाना बनाएँ</value>
         <value xml:lang="it">Creare nuova fattura</value>
         <value xml:lang="nl">Maak nieuwe factuur</value>
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
@@ -2049,11 +2224,13 @@
     </property>
     <property key="AccountingCreateNewPaymentGroup">
         <value xml:lang="en">Create New Payment Group</value>
+        <value xml:lang="hi_IN">नया  भुगतान समूह बनाएँ</value>
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
         <value xml:lang="de">Neue Einkaufsrechnung</value>
         <value xml:lang="en">New Purchase Invoice</value>
         <value xml:lang="fr">Nouvelle facture d'achat</value>
+        <value xml:lang="hi_IN">नया  भुगतान चलाना बनाएँ</value>
         <value xml:lang="it">Nuova Fattura di Acquisto</value>
         <value xml:lang="nl">Nieuwe inkoopfactuur</value>
         <value xml:lang="ru">Новая приходная накладная</value>
@@ -2064,6 +2241,7 @@
         <value xml:lang="de">Neue Verkaufsrechnung</value>
         <value xml:lang="en">New Sales Invoice</value>
         <value xml:lang="fr">Nouvelle facture de ventes</value>
+        <value xml:lang="hi_IN">नया बिक्री चलाना बनाएँ</value>
         <value xml:lang="it">Nuova Fattura di Vendita</value>
         <value xml:lang="nl">Nieuwe verkoopfactuur</value>
         <value xml:lang="ru">Новая расходная накладная</value>
@@ -2080,6 +2258,7 @@
         <value xml:lang="en">Create Payment</value>
         <value xml:lang="es">Crear Pago</value>
         <value xml:lang="fr">Saisir un paiement</value>
+        <value xml:lang="hi_IN">भुगतान बनाएँ</value>
         <value xml:lang="it">Creare Pagamento</value>
         <value xml:lang="nl">Maak nieuwe betaling aan</value>
         <value xml:lang="ro">Creaza Plata</value>
@@ -2091,6 +2270,7 @@
         <value xml:lang="de">Zahlungs-Kontenbuchung erstellen</value>
         <value xml:lang="en">Create Payment Accounting Transaction</value>
         <value xml:lang="fr">Créer la transaction de paiement</value>
+        <value xml:lang="hi_IN">भुगतान लेखा गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
         <value xml:lang="nl">Maak transactie voor betaalrekening aan</value>
         <value xml:lang="th">สร้างรายการบัญชีการชำระเงิน</value>
@@ -2100,6 +2280,7 @@
         <value xml:lang="en">Security Error : To Create a Payment you must either be the to or from party or have the PAY_INFO_CREATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para crear un pago debe ser cualquiera de el grupo de o para o tener el permiso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="fr">Erreur de sécurité : pour saisir un paiement, vous devez être soit être l'acteur demandeur ou payeur, ou bien avoir l'autorisation PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
+        <value xml:lang="hi_IN">सुरक्षा त्रुटि: एक नया भुगतान बनाने के लिए आप यातो पार्टी को या पार्टी से या इस PAY_INFO_CREATE या PAY_INFO_ADMIN की अनुमति हो</value>
         <value xml:lang="it">Errore Sicurezza : Per Creare un Pagamento tu devi inserire entrambi da/a Soggetto o avere il permesso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="nl">Toegangfout : Om een betaling aan te maken is PAY_INFO_CREATE of PAY_INFO_ADMIN permissie vereist</value>
         <value xml:lang="pt_BR">Erro de Segurança: para criar um Pagamento, deverá pertencer a uma secção ou obter permissões para PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
@@ -2111,11 +2292,13 @@
     </property>
     <property key="AccountingCreditAmount">
         <value xml:lang="en">Credit Amount</value>
+        <value xml:lang="hi_IN">जमा राशि</value>
     </property>
     <property key="AccountingCreatePermissionError">
         <value xml:lang="en">Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createGlAccount debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN </value>
         <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, vous devez avoir l'autorisation ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="hi_IN">सुरक्षा त्रुटि: createGlAccount चलाने के लिए आप को ACCOUNTING_CREATE या ACCOUNTING_ADMIN अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createGlAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangfout: om GB-rekeningen aan te maken heb je ACCOUNTING_CREATE- of ACCOUNTING_ADMIN-permissie nodig</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Criar Conta GL" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
@@ -2129,6 +2312,7 @@
         <value xml:lang="de">Verkaufs-Kontenbuchung erstellen</value>
         <value xml:lang="en">Create Sales Accounting Transaction</value>
         <value xml:lang="fr">Créer la transaction de vente</value>
+        <value xml:lang="hi_IN">बिक्री लेखा गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
         <value xml:lang="nl">Maak transatie voor verkoopadministratie</value>
         <value xml:lang="th">สร้างบัญชีรายการขาย</value>
@@ -2156,6 +2340,7 @@
         <value xml:lang="de">Die zur Kreditkarte zugeordnete Rechnungsadresse wurde nicht gefunden.</value>
         <value xml:lang="en">Billing Address associated with Credit Card not found.</value>
         <value xml:lang="fr">Adresse de facturation associée à la carte de crédit non trouvée</value>
+        <value xml:lang="hi_IN">क्रेडिट कार्ड के साथ जुड़े देयकांकन(बिलिंग) पता नहीं मिला!</value>
         <value xml:lang="it">Indirizzo di spedizione associato alla carta di credito non trovato.</value>
         <value xml:lang="nl">Factuuradres geassocieerd met kredietkaart niet gevonden.</value>
         <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
@@ -2165,6 +2350,7 @@
         <value xml:lang="de">Rechnungs-Email-Adresse nicht gefunden.</value>
         <value xml:lang="en">Bill To Email Address not found.</value>
         <value xml:lang="fr">Adresse courriel de facturation non trouvée</value>
+        <value xml:lang="hi_IN">देयकांकन(बिल) करने के लिए ईमेल पता नहीं मिला!</value>
         <value xml:lang="it">Indirizzo email carta di credito non trovato.</value>
         <value xml:lang="nl">Factuure-mailadres niet gevonden.</value>
         <value xml:lang="th">ไม่พบใบเสร็จถึงที่อยู่อีเมล</value>
@@ -2188,6 +2374,7 @@
         <value xml:lang="de">Kreditkarte wurde nicht erstellt. Kreditkarte nicht überprüft, Authentifizierung fehlgeschlagen.</value>
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
         <value xml:lang="fr">Pas de création de carte de crédit,  carte non vérifiée, l'authentification a échoué.</value>
+        <value xml:lang="hi_IN">क्रेडिट कार्ड नहीं बना,क्रेडिट कार्ड सत्यापित नहीं  है, प्रमाणीकरण असफल</value>
         <value xml:lang="it">Non creata carta di credito.  Carta di credito non verificata, autenticazione fallita.</value>
         <value xml:lang="nl">Kredietkaart niet aangemaakt. Kredietkaar niet geverifiëerd, Authenticatie faalde.</value>
         <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, เครื่องหมายผิดพลาด</value>
@@ -2197,6 +2384,7 @@
         <value xml:lang="de">Kreditkarten-Buchungskonto</value>
         <value xml:lang="en">Credit Card Type GlAccount</value>
         <value xml:lang="fr">Compte de carte de crédit</value>
+        <value xml:lang="hi_IN">क्रेडिट कार्ड प्रकार का GlAccount</value>
         <value xml:lang="it">Conto Gl Tipo Carta di Credito</value>
         <value xml:lang="nl">Kredietkaarttype GB-rekening</value>
         <value xml:lang="th">บัตรเครดิตประเภทบัญชีแยกประเภททั่วไป</value>
@@ -2207,6 +2395,7 @@
         <value xml:lang="en">Currency</value>
         <value xml:lang="es">Moneda</value>
         <value xml:lang="fr">Monnaie</value>
+        <value xml:lang="hi_IN">मुद्रा</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh">币种</value>
@@ -2243,6 +2432,7 @@
         <value xml:lang="de">Aktueller spezifischer Zeitraum</value>
         <value xml:lang="en">Current Custom Time Period</value>
         <value xml:lang="fr">Période de temps spécifique courante</value>
+        <value xml:lang="hi_IN">वर्तमान अनुकूलित समय अवधि</value>
         <value xml:lang="it">Periodi di Tempo Personalizzati Attuale</value>
         <value xml:lang="th">ช่วงเวลาของลูกค้าในปัจจุบัน</value>
         <value xml:lang="zh">当前定制时间段</value>
@@ -2257,6 +2447,7 @@
         <value xml:lang="en">Cust.Nr</value>
         <value xml:lang="es">Nr Cliente</value>
         <value xml:lang="fr">No. de Client</value>
+        <value xml:lang="hi_IN">ग्राहक कोड</value>
         <value xml:lang="it">Cod.Cliente</value>
         <value xml:lang="nl">Klantnr.</value>
         <value xml:lang="ro">Cod.Client</value>
@@ -2270,6 +2461,7 @@
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
+        <value xml:lang="hi_IN">ग्राहक</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="nl">Klant</value>
         <value xml:lang="ro">Persoana</value>
@@ -2279,66 +2471,82 @@
     </property>
     <property key="AccountingCyberSourceApiVersion">
         <value xml:lang="en">CyberSource API Version</value>
+        <value xml:lang="hi_IN">साइबरसोर्स एपीआई(API) संस्करण</value>
         <value xml:lang="it">Versione API CyberSource</value>
     </property>
     <property key="AccountingCyberSourceAutoBill">
         <value xml:lang="en">Auto-Bill In Authorization (Capture)</value>
+        <value xml:lang="hi_IN">ऑटो-विधेयक प्राधिकरण (अभिग्रहण) में</value>
         <value xml:lang="it">Cattura automaticamente durante autorizzazione</value>
     </property>
     <property key="AccountingCyberSourceAvsDeclineCodes">
         <value xml:lang="en">Avs Decline Codes -- May not be supported any longer</value>
+        <value xml:lang="hi_IN">Avs अस्वीकृत कोड -- अब समर्थित नहीं किया जा सकता है</value>
         <value xml:lang="it">Codici rifiuto AVS -- potrebbe essere non più supportato</value>
     </property>
     <property key="AccountingCyberSourceDisableBillAvs">
         <value xml:lang="en">Disable AVS for Capture -- May not be supported any longer</value>
+        <value xml:lang="hi_IN">अक्षम AVS कैद करने के लिए -- अब समर्थित नहीं किया जा सकता है</value>
         <value xml:lang="it">Disabilita AVS durante la cattura -- potrebbe essere non più supportato</value>
     </property>
     <property key="AccountingCyberSourceEnableDav">
         <value xml:lang="en">Use DAV In Authorization -- May not be supported any longer</value>
+        <value xml:lang="hi_IN">प्राधिकरण में DAV का प्रयोग करें -- अब समर्थित नहीं किया जा सकता है</value>
         <value xml:lang="it">Usa DAV durante autorizzazione -- potrebbe essere non più supportato</value>
     </property>
     <property key="AccountingCyberSourceFraudScore">
         <value xml:lang="en">Use Fraud Scoring In Authorization -- May not be supported any longer</value>
+        <value xml:lang="hi_IN">स्कोरिंग प्राधिकरण में जालसाज़ी का प्रयोग करें -- अब समर्थित नहीं किया जा सकता है</value>
         <value xml:lang="it">Usa punteggio frode in autorizzazione --  potrebbe essere non più supportato</value>
     </property>
     <property key="AccountingCyberSourceIgnoreAvs">
         <value xml:lang="en">Ignore AVS Results</value>
+        <value xml:lang="hi_IN">AVS परिणाम पर ध्यान न दें</value>
         <value xml:lang="it">Ignora risultati AVS</value>
     </property>
     <property key="AccountingCyberSourceKeysDir">
         <value xml:lang="en">Directory of the keys from CyberSource (Generate using online tools)</value>
+        <value xml:lang="hi_IN">साइबरसोर्स से मूल निर्देशिका (ऑनलाइन टूल्स की मदद से निर्मित)</value>
         <value xml:lang="it">Directory delle chiavi di CyberSource (Generate usado gli strumenti online)</value>
     </property>
     <property key="AccountingCyberSourceKeysFile">
         <value xml:lang="en">Name of the keystore (if different then "merchantID.p12")</value>
+        <value xml:lang="hi_IN">कीस्टोर का नाम (अगर "merchantID.p12" से अलग है तो)</value>
         <value xml:lang="it">Name keystore (se diverso da "merchantID.p12")</value>
     </property>
     <property key="AccountingCyberSourceLogDir">
         <value xml:lang="en">Log directory</value>
+        <value xml:lang="hi_IN">लॉग-निर्देशिका</value>
         <value xml:lang="it">Directory log</value>
     </property>
     <property key="AccountingCyberSourceLogEnable">
         <value xml:lang="en">Log transaction information</value>
+        <value xml:lang="hi_IN">लॉग-लेनदेन की जानकारी</value>
         <value xml:lang="it">Abilita log</value>
     </property>
     <property key="AccountingCyberSourceLogFile">
         <value xml:lang="en">Log File Name</value>
+        <value xml:lang="hi_IN">लॉग-फ़ाइल नाम</value>
         <value xml:lang="it">Nome file di log</value>
     </property>
     <property key="AccountingCyberSourceLogSize">
         <value xml:lang="en">Max log size (megabytes)</value>
+        <value xml:lang="hi_IN">अधिकतम लॉग-आकार(मेगाबाइट)</value>
         <value xml:lang="it">Ampiezza massima log (megabytes)</value>
     </property>
     <property key="AccountingCyberSourceMerchantContact">
         <value xml:lang="en">Merchant Contact</value>
+        <value xml:lang="hi_IN">व्यापारी से संपर्क</value>
         <value xml:lang="it">Contatto negoziante</value>
     </property>
     <property key="AccountingCyberSourceMerchantDescr">
         <value xml:lang="en">Merchant Description</value>
+        <value xml:lang="hi_IN">व्यापारी का विवरण</value>
         <value xml:lang="it">Descrizione negoziante</value>
     </property>
     <property key="AccountingCyberSourceProduction">
         <value xml:lang="en">Enable Production Mode</value>
+        <value xml:lang="hi_IN">उत्पादन विधि सक्षम करे</value>
         <value xml:lang="it">Abilita modalità di produzione</value>
     </property>
     <property key="AccountingDataExchange">
@@ -2347,6 +2555,7 @@
         <value xml:lang="en">Data Exchange</value>
         <value xml:lang="es">Intercambio de datos</value>
         <value xml:lang="fr">Echange de données</value>
+        <value xml:lang="hi_IN">आंकड़ा विनिमय</value>
         <value xml:lang="it">Scambio Dati</value>
         <value xml:lang="nl">Data-overdracht</value>
         <value xml:lang="ro">Schimb de Date</value>
@@ -2356,11 +2565,13 @@
     </property>
     <property key="AccountingDebitAmount">
         <value xml:lang="en">Debit Amount</value>
+        <value xml:lang="hi_IN">नामे/उधार राशि</value>
     </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="de">Das Feld Erwerbsdatum bei den Anlage-Daten ist leer.</value>
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ date acquise est vide dans les données d'immobilisation</value>
+        <value xml:lang="hi_IN">dateAcquired फील्ड FixedAsset डेटा में खाली है</value>
         <value xml:lang="it">Campo dateAcquired è vuoto in FixedAsset.</value>
         <value xml:lang="nl">Veld dateAcquired is leeg in data vaste activa.</value>
         <value xml:lang="th">Field dateAcquired is empty in FixedAsset data.</value>
@@ -2370,16 +2581,19 @@
         <value xml:lang="de">Datumsfilter</value>
         <value xml:lang="en">Date Filter</value>
         <value xml:lang="fr">Filtre de date</value>
+        <value xml:lang="hi_IN">दिनांक फ़िल्टर</value>
         <value xml:lang="it">Data filtro</value>
         <value xml:lang="nl">Filter boekhouddatum</value>
         <value xml:lang="th">Date Filter</value>
         <value xml:lang="zh">日期过滤器</value>
     </property>
     <property key="AccountingDebitFlag">
-        <value xml:lang="en">D</value>
+        <value xml:lang="en">Dr</value>
+        <value xml:lang="hi_IN">नामे</value>
     </property>
     <property key="AccountingDebitOrCreditOfBalance">
         <value xml:lang="en">Debit Or Credit Of The Balance</value>
+        <value xml:lang="hi_IN">नामे/उधार या जमा की शेष राशि</value>
     </property>
     <property key="AccountingDebitCreditMustEqual">
         <value xml:lang="ar"> مجاميع الدين و القرض يجب أن يكونا متساويان</value>
@@ -2387,6 +2601,7 @@
         <value xml:lang="en">Debit and Credit Totals must be equal to post to GL.</value>
         <value xml:lang="es">Totales de Débito y Crédito deben ser iguales para enviar a LM.</value>
         <value xml:lang="fr">Les montants du débit et du crédit doivent être égaux</value>
+        <value xml:lang="hi_IN">नामे/उधार या जमा राशि योग करने के लिए जीएल(GL) पद के बराबर होना चाहिए</value>
         <value xml:lang="it">Totale Debito e Credito deve essere contabilizzato in Contabilità Generale.</value>
         <value xml:lang="nl">Debet and Credit totalen moeten overeenkomen om te kunnen boeken in het grootboek</value>
         <value xml:lang="ro">Total Debit si Credit trebuie sa fie Contabilizat de Contabilitatea Generala</value>
@@ -2397,6 +2612,7 @@
     <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les autorisations ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée  ACCOUNTING_ROLE_UPDATE</value>
+        <value xml:lang="hi_IN">सुरक्षा त्रुटि: deleteFixedAssetMaintOrder चलाने के लिए आप को ACCOUNTING_DELETE or ACCOUNTING_ADMIN की अनुमति या सीमित ACCOUNTING_ROLE_UPDATE की अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore sicurezza: per eseguire il servizio deleteFixedAssetMaintOrder tu devi avere il permesso ACCOUNTING_DELETE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="nl">Toegangfout: om deleteFixedAssetMaintOrder te draaien heb je ACCOUNTING_DELETE- of ACCOUNTING_ADMIN-, of de beperkte ACCOUNTING_ROLE_UPDATE-permissie nodig.</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
@@ -2405,6 +2621,7 @@
     </property>
     <property key="AccountingDeposit">
         <value xml:lang="en">Deposit</value>
+        <value xml:lang="hi_IN">जमा</value>
     </property>
     <property key="AccountingDepositPaymentInFinAccount">
         <value xml:lang="en">Deposit Payment in: ${finAccount.finAccountName}</value>
@@ -2412,15 +2629,19 @@
     </property>
     <property key="AccountingDepositSlip">
         <value xml:lang="en">Deposit Slip</value>
+        <value xml:lang="hi_IN">जमा पर्ची</value>
     </property>
     <property key="AccountingDepositSlips">
         <value xml:lang="en">Deposit Slips</value>
+        <value xml:lang="hi_IN">जमा पर्चीयां</value>
     </property>
     <property key="AccountingDepositWithdraw">
         <value xml:lang="en">Deposit/Withdraw</value>
+        <value xml:lang="hi_IN">जमा/वापस</value>
     </property>
     <property key="AccountingDepositOrWithdrawPayments">
         <value xml:lang="en">Deposit Or Withdraw Payments for Financial Account: ${finAccountId}</value>
+        <value xml:lang="hi_IN"> ${finAccountId} वित्तीय खाते के लिए जमा भुगतान या भुगतान वापस करे</value>
     </property>
     <property key="AccountingDescr">
         <value xml:lang="ar">وصف</value>
@@ -2428,6 +2649,7 @@
         <value xml:lang="en">Descr</value>
         <value xml:lang="es">Descr</value>
         <value xml:lang="fr">Descr</value>
+        <value xml:lang="hi_IN">विवरण</value>
         <value xml:lang="it">Descr.</value>
         <value xml:lang="nl">Omschr.</value>
         <value xml:lang="ro">Descr</value>
@@ -2441,6 +2663,7 @@
         <value xml:lang="en">Due Date</value>
         <value xml:lang="es">Fecha Debito</value>
         <value xml:lang="fr">Date d'échéance</value>
+        <value xml:lang="hi_IN">अन्तिम दिनांक</value>
         <value xml:lang="it">Data Scadenza</value>
         <value xml:lang="nl">Uiterste datum</value>
         <value xml:lang="ro">Data Expirare</value>
@@ -2452,6 +2675,7 @@
         <value xml:lang="de">Doppelte Buchung</value>
         <value xml:lang="en">Duplicate Accounting Transaction</value>
         <value xml:lang="fr">Transaction comptable en double</value>
+        <value xml:lang="hi_IN">लेनदेन लेखा प्रतिलिपि</value>
         <value xml:lang="it">Duplicazione Prima Nota</value>
         <value xml:lang="nl">Kopiëer boekhoudtransactie</value>
         <value xml:lang="th">จำลองรายการบัญชี</value>
@@ -2459,6 +2683,7 @@
     </property>
     <property key="AccountingCreateNewDepositSlip">
         <value xml:lang="en">Create New Deposit Slip</value>
+        <value xml:lang="hi_IN">नई जमा पर्ची बनाएँ</value>
     </property>
     <property key="AccountingEFTAccount">
         <value xml:lang="ar">حساب EFT</value>
@@ -2510,6 +2735,7 @@
         <value xml:lang="de">Kontenabstimmung bearbeiten</value>
         <value xml:lang="en">Edit Account Reconciliation</value>
         <value xml:lang="fr">Modifier le rapprochement de compte</value>
+        <value xml:lang="hi_IN">पुनर्मिलान खाता संपादन</value>
         <value xml:lang="it">Modifica Riconciliazione</value>
         <value xml:lang="nl">Wijzig rekeningafstemming</value>
         <value xml:lang="th">แก้ไขการเช็คยอดบัญชี</value>
@@ -2535,6 +2761,7 @@
         <value xml:lang="de">Individuelle Zeiträume bearbeiten</value>
         <value xml:lang="en">Edit Custom Time Periods</value>
         <value xml:lang="fr">Modifier les périodes de temps</value>
+        <value xml:lang="hi_IN">अनुकूलित समय अवधियां सम्पादित करे</value>
         <value xml:lang="it">Aggiorna Periodi di Tempo Personalizzati</value>
         <value xml:lang="ro">Actualizeaza Perioadele de Timp Personalizate</value>
         <value xml:lang="th">แก้ไขการกำหนดเวลา</value>
@@ -2544,6 +2771,7 @@
         <value xml:lang="de">Finanzkonto bearbeiten</value>
         <value xml:lang="en">Create/Update Financial Account</value>
         <value xml:lang="fr">Créer/ mettre à jour un compte financier</value>
+        <value xml:lang="hi_IN">वित्तीय खाता बनाएँ/सम्पादित करे</value>
         <value xml:lang="it">Crea/Aggiorna Conto Finanziario</value>
         <value xml:lang="nl">Maak/wijzig financiele rekening</value>
         <value xml:lang="ru">Создать/обновить финансовый счет</value>
@@ -2552,16 +2780,19 @@
     </property>
     <property key="AccountingEditFinAccountAuthorityFor">
         <value xml:lang="en">Edit Financial Account Authority For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="hi_IN">वित्तीय खाता प्राधिकरण ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
     </property>
     <property key="AccountingEditFinAccountReconciliations">
         <value xml:lang="en">Edit Financial Account Reconciliations</value>
-        <value xml:lang="hi_IN">Edit वित्तीय लेखा मिलाप</value>
+        <value xml:lang="hi_IN">वित्तीय लेखा मिलाप सम्पादित करे</value>
     </property>
     <property key="AccountingEditFinAccountRoleFor">
         <value xml:lang="en">Edit Financial Account Role For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="hi_IN">वित्तीय खाता भूमिका ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
     </property>
     <property key="AccountingEditFinAccountTransactionFor">
         <value xml:lang="en">Edit Financial Account Transaction For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="hi_IN">लेनदेन वित्तीय खाते ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
     </property>
     <property key="AccountingEditGiftCard">
         <value xml:lang="cs">Změnit dárkový poukaz</value>
@@ -2584,6 +2815,7 @@
         <value xml:lang="en">Edit Payment</value>
         <value xml:lang="es">Editar Pago</value>
         <value xml:lang="fr">Modifier un paiement</value>
+        <value xml:lang="hi_IN">भुगतान सम्पादित करें</value>
         <value xml:lang="it">Aggiorna Pagamento</value>
         <value xml:lang="nl">Wijzig betaling</value>
         <value xml:lang="ro">Actualizeaza Plata</value>
@@ -2593,20 +2825,25 @@
     </property>
     <property key="AccountingEditPaymentGroup">
         <value xml:lang="en">Edit Payment Group</value>
+        <value xml:lang="hi_IN">भुगतान समूह सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupFor">
         <value xml:lang="en">Edit Payment Group For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="hi_IN">भुगतान समूह ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupMember">
         <value xml:lang="en">Edit Payment Group Member</value>
+        <value xml:lang="hi_IN">भुगतान समूह सदस्य को सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupMemberFor">
         <value xml:lang="en">Edit Payment Group Member For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="hi_IN">भुगतान समूह सदस्य  को ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="de">Steuerkonten bearbeiten</value>
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
         <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
+        <value xml:lang="hi_IN">टैक्स प्राधिकरण जीएल(GL) लेखा कोसम्पादित करें</value>
         <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
         <value xml:lang="nl">Wijzig GB-rekeningen belastinginstantie</value>
         <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
@@ -2618,6 +2855,7 @@
         <value xml:lang="en">Effective</value>
         <value xml:lang="es">Efectivo</value>
         <value xml:lang="fr">Effectif</value>
+        <value xml:lang="hi_IN">प्रभावी</value>
         <value xml:lang="it">Effettiva</value>
         <value xml:lang="nl">Effectief</value>
         <value xml:lang="ro">Efectiva</value>
@@ -2631,6 +2869,7 @@
         <value xml:lang="en">Effective Date</value>
         <value xml:lang="es">Fecha Efectivo</value>
         <value xml:lang="fr">Date d'effet</value>
+        <value xml:lang="hi_IN">प्रभावी दिनांक</value>
         <value xml:lang="it">Data Effettiva</value>
         <value xml:lang="nl">Effectieve datum</value>
         <value xml:lang="ro">Data Efectiva</value>
@@ -2644,6 +2883,7 @@
         <value xml:lang="en">Email message with attached invoice: ${parameters.invoiceId} scheduled to be sent....</value>
         <value xml:lang="es">Mensaje de correo electrónico con factura adjunta: ${parameters.invoiceId} programado para ser enviado....</value>
         <value xml:lang="fr">Courriel avec facture en pièce jointe: ${parameters.invoiceId} prêt à être envoyé....</value>
+        <value xml:lang="hi_IN">संलग्न चालान के साथ ईमेल संदेश:${parameters.invoiceId} निर्धारित समय पर भेजा जाएगा....</value>
         <value xml:lang="it">Messaggio Email con fattura allegata: ${parameters.invoiceId} schedulata per essere inviata....</value>
         <value xml:lang="nl">E-mailbericht met de bijgevoegde factuur [${parameters.invoiceId}] is ingeplanned om te verzenden</value>
         <value xml:lang="ro">Mesaj Email cu Factura anexata: ${parameters.invoiceId} impaginata  pentru a putea fi expediata....</value>
@@ -2657,6 +2897,7 @@
         <value xml:lang="en">Leave empty for maximum amount</value>
         <value xml:lang="es">Dejar vacio para cantidad máxima</value>
         <value xml:lang="fr">Laisser vide pour un montant maximum</value>
+        <value xml:lang="hi_IN">अधिकतम राशि के लिए खाली छोड़ो</value>
         <value xml:lang="it">Lascia vuoto per importo massimo</value>
         <value xml:lang="nl">Laat leeg voor maximumbedrag</value>
         <value xml:lang="ro">Lasa liber pentru  pentru totalul maxim</value>
@@ -2698,6 +2939,7 @@
         <value xml:lang="en">Entity/data problem creating invoice from order items: ${reason} </value>
         <value xml:lang="es">Problema Entidad/datos creando factura desde orden de elmentos: ${reason}</value>
         <value xml:lang="fr">Problème d'entité/données en créant une facture à partir des lignes de la commande: ${reason} </value>
+        <value xml:lang="hi_IN">आदेश मदो से चालान बनाने में इकाई/डाटा समस्या :${reason}</value>
         <value xml:lang="it">Entità/data problemi creazione fattura da righe ordine: ${reason} </value>
         <value xml:lang="nl">Entiteit-/gegevensprobleem bij het maken van facturen voor een bestelling: ${reason}</value>
         <value xml:lang="ro">Entitati/date probleme la crearea Facturii nr.inreg: ${reason} </value>
@@ -2711,6 +2953,7 @@
         <value xml:lang="en">Equities</value>
         <value xml:lang="es">Acciones</value>
         <value xml:lang="fr">Actions</value>
+        <value xml:lang="hi_IN">इक्विटी</value>
         <value xml:lang="it">Azioni</value>
         <value xml:lang="nl">Leningen</value>
         <value xml:lang="ro">Actiuni</value>
@@ -2723,6 +2966,7 @@
         <value xml:lang="de">Fehler bei der Erstellung von Rechnungs-Kontaktdaten aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceContactMech from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un InvoiceContactMech à partir de la commande</value>
+        <value xml:lang="hi_IN">आदेश से InvoiceContactMech बनाने में त्रुटि</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceContactMech dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken InvoiceContactMech vanaf order</value>
         <value xml:lang="ru">Ошибка создания InvoiceContactMech на основании заказа</value>
@@ -2735,6 +2979,7 @@
         <value xml:lang="en">Error creating invoice for return [${returnId}]</value>
         <value xml:lang="es">Error creando factura para devolución [${returnId}]</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture pour le retour [${returnId}]</value>
+        <value xml:lang="hi_IN">वापसी [${returnId}] के लिए चालान  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore creando la fattura per il reso [${returnId}]</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuur voor retourzending [${returnId}]</value>
         <value xml:lang="ro">Eroare la crearea Facturii de returnare [${returnId}]</value>
@@ -2748,6 +2993,7 @@
         <value xml:lang="en">Error creating invoice for shipment [${shipmentId}].</value>
         <value xml:lang="es">Error creando factura para envío  [${shipmentId}].</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture pour l'expédition  [${shipmentId}].</value>
+        <value xml:lang="hi_IN">लदाई [${shipmentId}] के लिए चालान  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore creazione fattura dalla spedizione [${shipmentId}].</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuur voor verzending [${shipmentId}].</value>
         <value xml:lang="ro">Eroare creare Factura expediere [${shipmentId}].</value>
@@ -2761,6 +3007,7 @@
         <value xml:lang="en">Error creating invoice from order</value>
         <value xml:lang="es">Error creando factura a partir de orden</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से चालान  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore creazione fattura dall'ordine</value>
         <value xml:lang="nl">Probleem met het aanmaken van de factuur vanaf de order</value>
         <value xml:lang="ro">Eroare creatie Factura de la comanda</value>
@@ -2774,6 +3021,7 @@
         <value xml:lang="en">Error creating invoice from order while checking payment applications</value>
         <value xml:lang="es">Error creando factura a partir de orden mientras se verificaba la aplicación de pago</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande; problème avec les allocations de paiements</value>
+        <value xml:lang="hi_IN">आर्डर से चालान  बनाने में त्रुटि, भुगतान अनुप्रयोगों जांच के समय</value>
         <value xml:lang="it">Errore creazione fattura dall'ordine durante il controllo pagamento</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuur vanaf order bij het controleren van de toewijzingen</value>
         <value xml:lang="ro">Eroare de inregistrare Factura in timpul controlului facut de aplicatia Plati</value>
@@ -2786,6 +3034,7 @@
         <value xml:lang="de">Fehler bei der Erstellung einer Rechnungsposition aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceItem from order</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation à partir de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से चालानमद (चालानआइटम) बनाने में त्रुटि</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceItem dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van het factuurelement vanaf order</value>
         <value xml:lang="ru">Ошибка создания позиций накладной на основании заказа</value>
@@ -2797,6 +3046,7 @@
         <value xml:lang="de">Fehler bei der Erstellung einer Rechnungs-Rolle aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceRole from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un rôle de facturation à partir de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से चालान भूमिका  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceRole dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuurrol vanaf order</value>
         <value xml:lang="ru">Ошибка создания роли накладной на основании заказа</value>
@@ -2808,6 +3058,7 @@
         <value xml:lang="de">Fehler bei der Erstellung einer Rechnungs-Kondition aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceTerm from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un terme de facturation à partir de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से चालान शर्तें  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceTerm dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van de factuurconditie vanaf order</value>
         <value xml:lang="ru">Ошибка создания условий накладной на основании заказа</value>
@@ -2818,6 +3069,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث تعديل فوترة الطلبية من الطلبية</value>
         <value xml:lang="en">Error creating OrderAdjustmentBilling from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un ajustement facturation à partir de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से आर्डर समायोजन देयकांकन(बिलिंग) (OrderAdjustmentBilling) बनाने में त्रुटि</value>
         <value xml:lang="it">Errore durante la creazione di OrderAdjustmentBilling dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van OrderAdjustmentBilling vanaf order</value>
         <value xml:lang="ru">Ошибка создания OrderAdjustmentBilling для заказа</value>
@@ -2828,6 +3080,7 @@
         <value xml:lang="ar">مشكل أثناء استحداث بند فوترة الطلبية من الطلبية</value>
         <value xml:lang="en">Error creating OrderItemBilling from order</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation à partir de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से आर्डर मद देयकांकन(बिलिंग) (OrderItemBilling) बनाने में त्रुटि</value>
         <value xml:lang="it">Errore durante la creazione di OrderItemBilling dall'ordine</value>
         <value xml:lang="nl">Fout bij het aanmaken van OrderItemBilling vanaf order</value>
         <value xml:lang="ru">Ошибка создания OrderItemBilling для заказа</value>
@@ -2838,6 +3091,7 @@
         <value xml:lang="de">Das Feld erwartetes End of Life bei den Anlage-Daten ist leer.</value>
         <value xml:lang="en">Field expectedEndOfLife is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ "Fin de vie estimée" est vide dans les données d'immobilisation</value>
+        <value xml:lang="hi_IN">फील्ड expectedEndOfLife FixedAsset डेटा में खाली है</value>
         <value xml:lang="it">Il campo expectedEndOfLife è vuoto in FixedAsset.</value>
         <value xml:lang="nl">Veld expectedEndOfLife is leeg in data vaste activa.</value>
         <value xml:lang="th">Field expectedEndOfLife is empty in FixedAsset data.</value>
@@ -2850,7 +3104,7 @@
         <value xml:lang="en">Expiration Date</value>
         <value xml:lang="es">Fecha de expiración</value>
         <value xml:lang="fr">Date d'expiration</value>
-        <value xml:lang="hi_IN">खत्म होने कि तिथी</value>
+        <value xml:lang="hi_IN">खत्म होने कि दिनांक</value>
         <value xml:lang="it">Data scadenza</value>
         <value xml:lang="ja">有効期限</value>
         <value xml:lang="nl">Geldigheids datum</value>
@@ -2862,9 +3116,11 @@
     </property>
     <property key="AccountingExportAsCsv">
         <value xml:lang="en">Export as CSV</value>
+        <value xml:lang="hi_IN">सीएसवी के रूप में करे निर्यात</value>
     </property>
     <property key="AccountingExportAsPdf">
         <value xml:lang="en">Export as PDF</value>
+        <value xml:lang="hi_IN">पीडीएफ के रूप में करे निर्यात</value>
     </property>
     <property key="AccountingExternalAccountId">
         <value xml:lang="ar">دليل حساب محاسبي خارجي</value>
@@ -2872,6 +3128,7 @@
         <value xml:lang="en">Accounting External Account Id</value>
         <value xml:lang="es">Id de cuenta de contable externa</value>
         <value xml:lang="fr">Réf. du compte externe</value>
+        <value xml:lang="hi_IN">बाहरी लेखा खाता क्रमांक</value>
         <value xml:lang="it">Numero Conto Contabilità Esterna</value>
         <value xml:lang="nl">ID externe rekening</value>
         <value xml:lang="ro">Nr.Cont Contabil Extern</value>
@@ -2885,6 +3142,7 @@
         <value xml:lang="en">Foreign Exchange Rates</value>
         <value xml:lang="es">Tipo de cambio foráneo</value>
         <value xml:lang="fr">Taux de change</value>
+        <value xml:lang="hi_IN">विदेशी मुद्रा मूल्य</value>
         <value xml:lang="it">Tasso Cambio Valuta</value>
         <value xml:lang="nl">Koers vreemde valuta</value>
         <value xml:lang="ro">Taxa Schimb Valutar</value>
@@ -2896,6 +3154,7 @@
         <value xml:lang="de">Geldkonto</value>
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
+        <value xml:lang="hi_IN">वित्तीय खाता</value>
         <value xml:lang="it">Conto Finanziario</value>
         <value xml:lang="nl">Financiele rekening</value>
         <value xml:lang="ru">Финансовый счет</value>
@@ -2906,6 +3165,7 @@
         <value xml:lang="de">Autorisierungen</value>
         <value xml:lang="en">Authorizations</value>
         <value xml:lang="fr">Authentifications</value>
+        <value xml:lang="hi_IN">प्राधिकरण</value>
         <value xml:lang="it">Autorizzazioni</value>
         <value xml:lang="nl">Authorizaties</value>
         <value xml:lang="ru">Авторизации</value>
@@ -2916,6 +3176,7 @@
         <value xml:lang="de">Transaktionen</value>
         <value xml:lang="en">Transactions</value>
         <value xml:lang="fr">Transactions</value>
+        <value xml:lang="hi_IN">लेन-देन</value>
         <value xml:lang="it">Transazioni</value>
         <value xml:lang="nl">Transacties</value>
         <value xml:lang="ru">Проводки</value>
@@ -2926,6 +3187,7 @@
         <value xml:lang="de">Finanzkonto-Buchungskonto</value>
         <value xml:lang="en">FinAccount Type Gl Account</value>
         <value xml:lang="fr">Compte financier</value>
+        <value xml:lang="hi_IN">जीएल(GL) में वित्तीय खाता प्रकार</value>
         <value xml:lang="it">Conto Gl Tipo Conto Finanaziario</value>
         <value xml:lang="nl">Financiele rekening type GB-rekening</value>
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
@@ -2936,6 +3198,7 @@
         <value xml:lang="en">Financial Accounts</value>
         <value xml:lang="es">Cuentas financieras</value>
         <value xml:lang="fr">Comptes financiers</value>
+        <value xml:lang="hi_IN">वित्तीय लेखा</value>
         <value xml:lang="it">Conti Finanziari</value>
         <value xml:lang="nl">Financiele rekeningen</value>
         <value xml:lang="ru">Финансовые счета</value>
@@ -2944,6 +3207,7 @@
     </property>
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
+        <value xml:lang="hi_IN">एपी (AP) चालान खोजें</value>
     </property>
     <property key="AccountingFindApPayments">
         <value xml:lang="en">Find AP Payments</value>
@@ -2951,12 +3215,14 @@
     </property>
     <property key="AccountingFindDepositSlip">
         <value xml:lang="en">Find Deposit Slips for finAccount ${finAccountId}</value>
+        <value xml:lang="hi_IN">वित्तीय खाता ${finAccountId} के लिए जमा पर्चीयां ढूँढें</value>
     </property>
     <property key="AccountingFindFixedAssets">
         <value xml:lang="de">Suche Anlagen</value>
         <value xml:lang="en">Find Fixed Assets</value>
         <value xml:lang="es">Lista Activos Fijos</value>
         <value xml:lang="fr">Liste des immobilisations</value>
+        <value xml:lang="hi_IN">स्थापित संपत्तियां  ढूँढें</value>
         <value xml:lang="it">Lista cespiti</value>
         <value xml:lang="nl">Vind vaste activa</value>
         <value xml:lang="ro">Lista Mijloace Fixe</value>
@@ -2970,6 +3236,7 @@
         <value xml:lang="en">Find Invoices</value>
         <value xml:lang="es">Encontrar Facturas</value>
         <value xml:lang="fr">Rechercher des factures</value>
+        <value xml:lang="hi_IN">चालान खोजें</value>
         <value xml:lang="it">Ricerca fatture</value>
         <value xml:lang="nl">Vind facturen</value>
         <value xml:lang="pt_BR">Procurar Faturas</value>
@@ -2981,14 +3248,17 @@
     </property>
     <property key="AccountingFindPaymentGroup">
         <value xml:lang="en">Find Payment Group</value>
+        <value xml:lang="hi_IN">भुगतान समूह खोजें</value>
     </property>
     <property key="AccountingFindPurchaseInvoices">
         <value xml:lang="en">Find Purchase Invoices</value>
+        <value xml:lang="hi_IN">खरीद चालान खोजें</value>
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="de">Suche Einkaufsrechnungen über Fälligkeit</value>
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
         <value xml:lang="fr">Chercher les factures d'achat à échéance</value>
+        <value xml:lang="hi_IN">अन्तिम दिनांक से खरीद चालान खोजें</value>
         <value xml:lang="it">Ricerca Fatture Acquisto Per Data Scadenza</value>
         <value xml:lang="nl">Vind inkoopfactueren op vervaldatum</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าโดยวันที่</value>
@@ -2998,6 +3268,7 @@
         <value xml:lang="de">Suche Verkaufsrechnungen über Fälligkeit</value>
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
         <value xml:lang="fr">Chercher les factures de ventes à échéance</value>
+        <value xml:lang="hi_IN">अन्तिम दिनांक से बिक्री चालान खोजें</value>
         <value xml:lang="it">Ricerca Fatture Vendita Per Data Scadenza</value>
         <value xml:lang="nl">Vind verkoopfacturen op vervaldatum</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าการขายโดยวันที่</value>
@@ -3005,6 +3276,7 @@
     </property>
     <property key="AccountingFindSalesInvoicesForCommissionRun">
         <value xml:lang="en">Find Sales Invoices For Commission Run</value>
+        <value xml:lang="hi_IN">दलाली भुगतान के लिए बिक्री चालान खोजें</value>
     </property>
     <property key="AccountingFirstNameCard">
         <value xml:lang="ar">الإسم على البطاقة</value>
@@ -3012,6 +3284,7 @@
         <value xml:lang="en">First Name Card</value>
         <value xml:lang="es">Primer nombre en tarjeta</value>
         <value xml:lang="fr">Prénom sur la carte</value>
+        <value xml:lang="hi_IN">कार्ड पर पहला नाम</value>
         <value xml:lang="it">Nome sulla Carta</value>
         <value xml:lang="nl">Voornaam op de kaart</value>
         <value xml:lang="ro">Prenume inscris pe Carte</value>
@@ -3025,6 +3298,7 @@
         <value xml:lang="en">01-Jan</value>
         <value xml:lang="es">01-Ene</value>
         <value xml:lang="fr">01-Jan</value>
+        <value xml:lang="hi_IN">01-जनवरी</value>
         <value xml:lang="it">01-Gen</value>
         <value xml:lang="nl">01-jan.</value>
         <value xml:lang="ro">01-Ian</value>
@@ -3038,6 +3312,7 @@
         <value xml:lang="en">02-Feb</value>
         <value xml:lang="es">02-Feb</value>
         <value xml:lang="fr">02-Fév</value>
+        <value xml:lang="hi_IN">02-फरवरी</value>
         <value xml:lang="it">02-Feb</value>
         <value xml:lang="nl">02-feb.</value>
         <value xml:lang="ro">02-Feb</value>
@@ -3051,6 +3326,7 @@
         <value xml:lang="en">03-Mar</value>
         <value xml:lang="es">03-Mar</value>
         <value xml:lang="fr">03-Mar</value>
+        <value xml:lang="hi_IN">03-मार्च</value>
         <value xml:lang="it">03-Mar</value>
         <value xml:lang="nl">03-mrt.</value>
         <value xml:lang="ro">03-Mar</value>
@@ -3064,6 +3340,7 @@
         <value xml:lang="en">04-Apr</value>
         <value xml:lang="es">04-Abr</value>
         <value xml:lang="fr">04-Avr</value>
+        <value xml:lang="hi_IN">04-अप्रैल</value>
         <value xml:lang="it">04-Apr</value>
         <value xml:lang="nl">04-apr.</value>
         <value xml:lang="ro">04-Apr</value>
@@ -3077,6 +3354,7 @@
         <value xml:lang="en">05-May</value>
         <value xml:lang="es">05-May</value>
         <value xml:lang="fr">05-Mai</value>
+        <value xml:lang="hi_IN">05-मई</value>
         <value xml:lang="it">05-Mag</value>
         <value xml:lang="nl">05-mei.</value>
         <value xml:lang="ro">05-Mai</value>
@@ -3090,6 +3368,7 @@
         <value xml:lang="en">06-Jun</value>
         <value xml:lang="es">06-Jun</value>
         <value xml:lang="fr">06-Jun</value>
+        <value xml:lang="hi_IN">06-जून</value>
         <value xml:lang="it">06-Giu</value>
         <value xml:lang="nl">06-jun.</value>
         <value xml:lang="ro">06-Iun</value>
@@ -3103,6 +3382,7 @@
         <value xml:lang="en">07-Jul</value>
         <value xml:lang="es">07-Jul</value>
         <value xml:lang="fr">07-Jul</value>
+        <value xml:lang="hi_IN">07-जुलाई</value>
         <value xml:lang="it">07-Lug</value>
         <value xml:lang="nl">07-jul.</value>
         <value xml:lang="ro">07-Iul</value>
@@ -3116,6 +3396,7 @@
         <value xml:lang="en">08-Aug</value>
         <value xml:lang="es">08-Ago</value>
         <value xml:lang="fr">08-Aoû</value>
+        <value xml:lang="hi_IN">08-अगस्त</value>
         <value xml:lang="it">08-Aug</value>
         <value xml:lang="nl">08-aug.</value>
         <value xml:lang="ro">08-Aug</value>
@@ -3129,6 +3410,7 @@
         <value xml:lang="en">09-Sep</value>
         <value xml:lang="es">09-Sep</value>
         <value xml:lang="fr">09-Sep</value>
+        <value xml:lang="hi_IN">09-सितम्बर</value>
         <value xml:lang="it">09-Set</value>
         <value xml:lang="nl">09-sep.</value>
         <value xml:lang="ro">09-Sep</value>
@@ -3142,6 +3424,7 @@
         <value xml:lang="en">10-Oct</value>
         <value xml:lang="es">10-Oct</value>
         <value xml:lang="fr">10-Oct</value>
+        <value xml:lang="hi_IN">10-अक्टूबर</value>
         <value xml:lang="it">10-Ott</value>
         <value xml:lang="nl">10-okt.</value>
         <value xml:lang="ro">10-Oct</value>
@@ -3155,6 +3438,7 @@
         <value xml:lang="en">11-Nov</value>
         <value xml:lang="es">11-Nov</value>
         <value xml:lang="fr">11-Nov</value>
+        <value xml:lang="hi_IN">11-नवम्बर</value>
         <value xml:lang="it">11-Nov</value>
         <value xml:lang="nl">11-nov.</value>
         <value xml:lang="ro">11-Nov</value>
@@ -3168,6 +3452,7 @@
         <value xml:lang="en">12-Dec</value>
         <value xml:lang="es">12-Dic</value>
         <value xml:lang="fr">12-Déc</value>
+        <value xml:lang="hi_IN">12-दिसंबर</value>
         <value xml:lang="it">12-Dic</value>
         <value xml:lang="nl">12-dec.</value>
         <value xml:lang="ro">12-Dec</value>
@@ -3181,6 +3466,7 @@
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="es">Activo Fijo</value>
         <value xml:lang="fr">Immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति</value>
         <value xml:lang="it">Cespite</value>
         <value xml:lang="nl">Vaste activa</value>
         <value xml:lang="ro">Mijloace Fixe</value>
@@ -3194,6 +3480,7 @@
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier d'immobilisation</value>
+        <value xml:lang="hi_IN">कैलेंडर</value>
         <value xml:lang="it">Calendario</value>
         <value xml:lang="nl">Kalender</value>
         <value xml:lang="ro">Calendar</value>
@@ -3205,6 +3492,7 @@
         <value xml:lang="en">Anlagen-Klasse</value>
         <value xml:lang="en">Fixed Asset Class Enum Id</value>
         <value xml:lang="fr">Réf. de la classe d'actif immobilisé</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति  वर्ग Enum क्रमांक</value>
         <value xml:lang="it">Classe cespite</value>
         <value xml:lang="zh">固定资产分类枚举标识</value>
     </property>
@@ -3212,6 +3500,7 @@
         <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
+        <value xml:lang="hi_IN">मूल्यह्रास</value>
         <value xml:lang="it">Svalutazioni</value>
         <value xml:lang="nl">Afschrijving</value>
         <value xml:lang="th">ค่าเสื่อมราคา</value>
@@ -3221,6 +3510,7 @@
         <value xml:lang="de">Abschreibungsmethode nicht vorhanden</value>
         <value xml:lang="en">Depreciation method not found</value>
         <value xml:lang="fr">Méthode de calcul de dépréciation non trouvée</value>
+        <value xml:lang="hi_IN">मूल्यह्रास विधि नहीं मिला</value>
         <value xml:lang="it">Metodo di svalutazione non trovato</value>
         <value xml:lang="nl">Afschrijvingmethode niet gevonden</value>
         <value xml:lang="zh">没有找到描述方法</value>
@@ -3231,6 +3521,7 @@
         <value xml:lang="en">Create/Update Fixed Asset</value>
         <value xml:lang="es">Crear/Actualizar Activo Fijo</value>
         <value xml:lang="fr">Créer/modifier une immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति बनाएँ/सम्पादित करे</value>
         <value xml:lang="it">Crea/Aggiorna Cespite</value>
         <value xml:lang="nl">Maken/veranderen vaste activa</value>
         <value xml:lang="ro">Creaza/Actualizeaza Mijloace Fixe</value>
@@ -3244,6 +3535,7 @@
         <value xml:lang="en">Government Agency</value>
         <value xml:lang="es">Agencia de Gobierno</value>
         <value xml:lang="fr">Agence gouvernementale</value>
+        <value xml:lang="hi_IN">सरकारी शाखा</value>
         <value xml:lang="it">Agenzia Governativa</value>
         <value xml:lang="nl">Agent overheid</value>
         <value xml:lang="ro">Agentia Governativa</value>
@@ -3257,6 +3549,7 @@
         <value xml:lang="en">Fixed Asset Id</value>
         <value xml:lang="es">Id Activo Fijo</value>
         <value xml:lang="fr">Réf. de l'immobilisation</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति क्रमांक</value>
         <value xml:lang="it">Codice cespite</value>
         <value xml:lang="nl">Vaste activa ID</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
@@ -3269,6 +3562,7 @@
         <value xml:lang="de">Anlage [${parameters.fixedAssetId}] schon vorhanden</value>
         <value xml:lang="en">Fixed Asset Id [${parameters.fixedAssetId}] Already Exists</value>
         <value xml:lang="fr">Cet identifiant d'immobilisation [${parameters.fixedAssetId}] existe déjà</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति क्रमांक [${parameters.fixedAssetId}] पहले से ही मौजूद है</value>
         <value xml:lang="it">Cespite ${parameters.fixedAssetId} già esistente</value>
         <value xml:lang="nl">Vaste activa ID [${parameters.fixedAssetId}] bestaat al.</value>
         <value xml:lang="ru">Основные средства с кодом [${parameters.fixedAssetId}] уже существует</value>
@@ -3281,6 +3575,7 @@
         <value xml:lang="en">Value</value>
         <value xml:lang="es">Valor</value>
         <value xml:lang="fr">Valeur</value>
+        <value xml:lang="hi_IN">मूल्य</value>
         <value xml:lang="it">Valore</value>
         <value xml:lang="nl">Waarde</value>
         <value xml:lang="ro">Valoare</value>
@@ -3294,6 +3589,7 @@
         <value xml:lang="en">Identification Type</value>
         <value xml:lang="es">Tipo de Identificación</value>
         <value xml:lang="fr">Type d'identification</value>
+        <value xml:lang="hi_IN">पहचान प्रकार</value>
         <value xml:lang="it">Tipo Identificazione</value>
         <value xml:lang="nl">Identificatietype</value>
         <value xml:lang="ro">Tip Identificare</value>
@@ -3305,6 +3601,7 @@
         <value xml:lang="en">Fixed Asset Ident Type Id</value>
         <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
         <value xml:lang="it">Tipo identificazione cespite</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति पहचान प्रकार क्रमांक</value>
         <value xml:lang="nl">AccountingFixedAssetIdentTypeId</value>
         <value xml:lang="th">รหัสประเภทการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产证书类型标识</value>
@@ -3315,6 +3612,7 @@
         <value xml:lang="en">Identifications</value>
         <value xml:lang="es">Identificaciones</value>
         <value xml:lang="fr">Identifications</value>
+        <value xml:lang="hi_IN">पहचान</value>
         <value xml:lang="it">Identificazioni</value>
         <value xml:lang="nl">Indentificaties</value>
         <value xml:lang="ro">Identificari</value>
@@ -3328,6 +3626,7 @@
         <value xml:lang="en">License Number</value>
         <value xml:lang="es">License Number</value>
         <value xml:lang="fr">Numéro de licence</value>
+        <value xml:lang="hi_IN">लाइसेंस नम्बर</value>
         <value xml:lang="it">Numero Licenza</value>
         <value xml:lang="nl">Licentienummer</value>
         <value xml:lang="ro">Nr.Licenta</value>
@@ -3341,6 +3640,7 @@
         <value xml:lang="en">Maintenance</value>
         <value xml:lang="es">Mantenimiento</value>
         <value xml:lang="fr">Maintenance</value>
+        <value xml:lang="hi_IN">रखरखाव</value>
         <value xml:lang="it">Manutenzione</value>
         <value xml:lang="nl">Onderhoud</value>
         <value xml:lang="ro">Intretinere</value>
@@ -3354,6 +3654,7 @@
         <value xml:lang="en">Interval Meter Type</value>
         <value xml:lang="es">Intervalo Tipo de Contador</value>
         <value xml:lang="fr">Type d'intervalle de mesure</value>
+        <value xml:lang="hi_IN">अंतराल मापक प्रकार</value>
         <value xml:lang="it">Tipo contatore intervallo</value>
         <value xml:lang="nl">Type intervalmeter</value>
         <value xml:lang="ro">Tip Contor Interval</value>
@@ -3367,6 +3668,7 @@
         <value xml:lang="en">Interval Quantity</value>
         <value xml:lang="es">Cantidad de Intervalo</value>
         <value xml:lang="fr">Quantité d'intervalles</value>
+        <value xml:lang="hi_IN">अंतराल की  मात्रा</value>
         <value xml:lang="it">Quantità intervallo</value>
         <value xml:lang="nl">Intervalhoeveelheden</value>
         <value xml:lang="ro">Interval Cantitate</value>
@@ -3380,6 +3682,7 @@
         <value xml:lang="en">Interval Uom</value>
         <value xml:lang="es">Intervalo Uom</value>
         <value xml:lang="fr">Unité de l'intervalle</value>
+        <value xml:lang="hi_IN">अंतराल माप की इकाई</value>
         <value xml:lang="it">Udm intervallo</value>
         <value xml:lang="nl">Interval UoM</value>
         <value xml:lang="ro">Udm Interval</value>
@@ -3392,6 +3695,7 @@
         <value xml:lang="en">If the Product Maintenance is specified, this will be set/reset automatically</value>
         <value xml:lang="es">Si el mantenimiento del producto es especificado, será establecido/reestablecido automaticamente</value>
         <value xml:lang="fr">Si la maintenance est définie au niveau du produit, ceci sera mis à jour automatiquement</value>
+        <value xml:lang="hi_IN">यदि उत्पाद रखरखाव निर्दिष्ट किया है,यह स्वतः स्थापित/पुनःस्थापित किया जाएगा</value>
         <value xml:lang="it">Se la Manutenzione Prodotto è specificata, questa sarà impostata/azzerata automaticamente</value>
         <value xml:lang="nl">Als het productonderhoud is gespecificeerd wordt dit automatisch gezet of herzet.</value>
         <value xml:lang="ro">Daca Intretinerea Produsului este  specificata, aceasta va fi  setataesetata in mod automat</value>
@@ -3404,6 +3708,7 @@
         <value xml:lang="en">Only use if applicable, can use Maintenance Type instead</value>
         <value xml:lang="es">Solo usar si es aplicable, tambien puede usar Tipo de Mantenimiento</value>
         <value xml:lang="fr">Si d'application, sinon utiliser le type de maintenance à la place</value>
+        <value xml:lang="hi_IN">यदि लागू हो तो ही उपयोग करें, रखरखाव प्रकार का उपयोग कर सकते हैं</value>
         <value xml:lang="it">Solamente usato se applicabile, può essere usato Tipo Manutenzione invece</value>
         <value xml:lang="nl">Alleen te gebruiken wanneer van toepassing. Gebruik anders 'Type onderhoud'.</value>
         <value xml:lang="ro">Se poate folosi numai daca este aplicabil, poate fi folosit insa un Tip de Intretinere </value>
@@ -3415,6 +3720,7 @@
         <value xml:lang="ar">إذا حدد نموذج الصيانة مع صيانة السلعة, فإنه سيتم الوضع/إعادة الوضع آليا</value>
         <value xml:lang="en">If Maintenance Template is specified with Product Maintenance, this will be set/reset automatically</value>
         <value xml:lang="fr">Si un schéma de maintenance est défini pour la maintenance du produit, ceci sera mis à jour automatiquement</value>
+        <value xml:lang="hi_IN">यदि रखरखाव खाका उत्पाद रखरखाव के साथ निर्दिष्ट किया है, यह स्वतः स्थापित/पुनःस्थापित किया जाएगा</value>
         <value xml:lang="it">Se il Maintenance Template è specificato per la manutenzione prodotto, questo verrà impostato/azzerato automaticamente</value>
         <value xml:lang="nl">Als sjabloon onderhoud is gespecifieerd bij productonderhoud wordt dit automatisch gezet of herzet.</value>
         <value xml:lang="ru">Если вместе с Обслуживанием продукта указан Шаблон обслуживанияe, поле будет устанавливаться/сбрасываться автоматически</value>
@@ -3424,9 +3730,10 @@
     <property key="AccountingFixedAssetMaintName">
         <value xml:lang="ar">اسم الصيانة</value>
         <value xml:lang="de">Wartungsname</value>
-        <value xml:lang="en">Maintenace Name</value>
+        <value xml:lang="en">Maintenance Name</value>
         <value xml:lang="es">Nombre de mantenimiento</value>
         <value xml:lang="fr">Nom de la maintenance</value>
+        <value xml:lang="hi_IN">रखरखाव का नाम</value>
         <value xml:lang="it">Nome Manutenzione</value>
         <value xml:lang="nl">Onderhoudsnaam</value>
         <value xml:lang="ro">Nume Intretinere</value>
@@ -3439,6 +3746,7 @@
         <value xml:lang="de">Bestellungen</value>
         <value xml:lang="en">Purchase Orders</value>
         <value xml:lang="fr">Commandes passées</value>
+        <value xml:lang="hi_IN">खरीद का आदेश</value>
         <value xml:lang="it">Ordini di Acquisto</value>
         <value xml:lang="nl">Inkooporders</value>
         <value xml:lang="ru">Закупочные заказы </value>
@@ -3449,6 +3757,7 @@
         <value xml:lang="de">Anlagenwartungsreihenfolge</value>
         <value xml:lang="en">Fixed Asset Maint Seq Id</value>
         <value xml:lang="fr">Réf. de maintenance de la classe d'actif immobilisé</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति रखरखाव अनुक्रम क्रमांक</value>
         <value xml:lang="it">Riga manutenzione cespite</value>
         <value xml:lang="zh">固定资产维修保养序列号</value>
     </property>
@@ -3458,6 +3767,7 @@
         <value xml:lang="en">Maintenance Type</value>
         <value xml:lang="es">Tipo de mantenimiento</value>
         <value xml:lang="fr">Type de maintenance</value>
+        <value xml:lang="hi_IN">रखरखाव के प्रकार</value>
         <value xml:lang="it">Tipo manutenzione</value>
         <value xml:lang="nl">Onderhoudtype</value>
         <value xml:lang="ro">Tip Intretinere</value>
@@ -3468,6 +3778,7 @@
     <property key="AccountingFixedAssetMaintWorkEffortName">
         <value xml:lang="en">Maintenance of Fixed Asset ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
         <value xml:lang="fr">Maintenance de l'immobilisation ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
+        <value xml:lang="hi_IN"> स्थापित संपत्ति ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}] का रखरखाव</value>
         <value xml:lang="it">Manutenzione del cespite ${fixedAsset.fixedAssetName} ${fixedAsset.fixedAssetId}</value>
         <value xml:lang="nl">Onderhoud van vaste activa ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
         <value xml:lang="zh">固定资产 ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}] 维修保养</value>
@@ -3477,6 +3788,7 @@
         <value xml:lang="de">Wartungsvorlage</value>
         <value xml:lang="en">Maintenance Template</value>
         <value xml:lang="fr">Schéma de maintenance</value>
+        <value xml:lang="hi_IN">रखरखाव खाका</value>
         <value xml:lang="it">Manutenzione template</value>
         <value xml:lang="ru">Шаблон обслуживания</value>
         <value xml:lang="th">การบำรุงรักษาเทมเพลต</value>
@@ -3488,6 +3800,7 @@
         <value xml:lang="en">Maintenances</value>
         <value xml:lang="es">Mantenimientos</value>
         <value xml:lang="fr">Maintenances</value>
+        <value xml:lang="hi_IN">रखरखाव</value>
         <value xml:lang="it">Manutenzioni</value>
         <value xml:lang="nl">Onderhoudingen</value>
         <value xml:lang="ro">Intretineri</value>
@@ -3499,6 +3812,7 @@
         <value xml:lang="de">Anlagen-Herstellernummer</value>
         <value xml:lang="en">Fixed Asset Manufacturer Id</value>
         <value xml:lang="fr">Réf. du fabricant de l'actif immobilisé</value>
+        <value xml:lang="hi_IN">स्थापित संपत्ति निर्माता क्रमांक</value>
         <value xml:lang="it">Produttore cespite</value>
         <value xml:lang="zh">固定资产制造商标识</value>
     </property>
@@ -3507,6 +3821,7 @@
         <value xml:lang="en">*) empty, but maximum from fixed Asset capacity shown</value>
         <value xml:lang="es">*) vacio, pero maximo de la capacidad de activo fijo mostrada</value>
         <value xml:lang="fr">*) vide, mais indique le maximum à partir la capacité de l'actif</value>
+        <value xml:lang="hi_IN">*) खाली है , लेकिन अचल संपत्ति की क्षमता से अधिक से अधिक दिखाई</value>
         <value xml:lang="it">*) vuoto, ma al massimo della capacità mostrate per il cespite</value>
         <value xml:lang="nl">*) Leeg, maar maximum van capaciteit vaste activa wordt getoond</value>
         <value xml:lang="ro">*) gol, dar maximul capacitatii pe Mijloc Fix este</value>
@@ -3520,6 +3835,7 @@
         <value xml:lang="en">Meter Value</value>
         <value xml:lang="es">Valor de Contador</value>
         <value xml:lang="fr">Valeur au compteur</value>
+        <value xml:lang="hi_IN">मापक मूल्य</value>
         <value xml:lang="it">Valore Contatore</value>
         <value xml:lang="nl">Meetwaarde</value>
         <value xml:lang="ro">Valoare Contr</value>
@@ -3533,6 +3849,7 @@
         <value xml:lang="en">Meter Readings</value>
         <value xml:lang="es">Lecturas de contador</value>
         <value xml:lang="fr">Lectures au compteur</value>
+        <value xml:lang="hi_IN">मापक पाठ</value>
         <value xml:lang="it">Lettura Contatore</value>
         <value xml:lang="nl">Meterstanden</value>
         <value xml:lang="ro">Citire Contr</value>
@@ -3546,6 +3863,7 @@
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de Activo Fijo</value>
         <value xml:lang="fr">Nom de l'immobilisation</value>
+        <value xml:lang="hi_IN">अचल संपत्ति का नाम</value>
         <value xml:lang="it">Nome cespite</value>
         <value xml:lang="nl">Naam vaste activa</value>
         <value xml:lang="ro">Nume Mijloc Fix</value>
@@ -3558,6 +3876,7 @@
         <value xml:lang="en">Add link to Fixed Asset</value>
         <value xml:lang="es">Añadir enlace a Activo Fijo</value>
         <value xml:lang="fr">Ajoutez un lien vers immobilisation</value>
+        <value xml:lang="hi_IN">अचल संपत्ति के लिए लिंक जोड़ें</value>
         <value xml:lang="it">Nuovo cespite</value>
         <value xml:lang="ro">Nou Mijloc Fix</value>
         <value xml:lang="ru">Добавить ссылку к ОС</value>
@@ -3570,6 +3889,7 @@
         <value xml:lang="en">Asset Group </value>
         <value xml:lang="es">Grupo de Activos</value>
         <value xml:lang="fr">Groupe d'immobilisations</value>
+        <value xml:lang="hi_IN">संपत्ति समूह</value>
         <value xml:lang="it">Gruppo Cespite</value>
         <value xml:lang="nl">Activagroup</value>
         <value xml:lang="ro">Grup Mijloace Fixe</value>
@@ -3583,6 +3903,7 @@
         <value xml:lang="en">Party Roles</value>
         <value xml:lang="es">Roles de grupo</value>
         <value xml:lang="fr">Acteurs et rôles</value>
+        <value xml:lang="hi_IN">पार्टी की भूमिकाए</value>
         <value xml:lang="it">Ruoli Soggetto</value>
         <value xml:lang="nl">Rollen</value>
         <value xml:lang="ro">Ruol Partener</value>
@@ -3596,6 +3917,7 @@
         <value xml:lang="en">Link New product to Fixed Asset</value>
         <value xml:lang="es">Vincular nuevo producto a activo fijo</value>
         <value xml:lang="fr">Relier le nouveau produit à l'immobilisation</value>
+        <value xml:lang="hi_IN">अचल संपत्ति के लिए नई उत्पाद की लिंक जोड़ें</value>
         <value xml:lang="it">Link Nuovo prodotto per Cespite</value>
         <value xml:lang="nl">Verbind nieuw product aan vaste activa</value>
         <value xml:lang="ro">Link Noul produs - Mijloc Fix</value>
@@ -3609,6 +3931,7 @@
         <value xml:lang="en">Fixed Asset Product Type</value>
         <value xml:lang="es">Tipo de producto de activo fijo</value>
         <value xml:lang="fr">Type de produit lié à l'immobilisation</value>
+        <value xml:lang="hi_IN">अचल संपत्ति के उत्पाद का प्रकार</value>
         <value xml:lang="it">Tipo Prodotto Cespite</value>
         <value xml:lang="nl">Produkttype Vaste activa </value>
         <value xml:lang="ro">Tip Produs Mijloc Fix</value>
@@ -3622,6 +3945,7 @@
         <value xml:lang="en">Type of usage</value>
         <value xml:lang="es">Tipo de uso</value>
         <value xml:lang="fr">Type d'utilisation</value>
+        <value xml:lang="hi_IN">उपयोग के  प्रकार</value>
         <value xml:lang="it">Tipo di uso</value>
         <value xml:lang="nl">Gebruiktype</value>
         <value xml:lang="ro">Tip de folosinta</value>
@@ -3634,6 +3958,7 @@
         <value xml:lang="en">Update a link to a fixed Asset</value>
         <value xml:lang="es">Actualizar un enlace a un activo fijo</value>
         <value xml:lang="fr">Mettre à jour un lien vers une immobilisation</value>
+        <value xml:lang="hi_IN">अचल संपत्ति के लिए लिंक उन्नत करे</value>
         <value xml:lang="it">Aggiorna un link ad un Cespite</value>
         <value xml:lang="ro">Actualizeaza un link la un Mijloc Fix</value>
         <value xml:lang="ru">Обновить ссылку к ОС</value>
@@ -3646,6 +3971,7 @@
         <value xml:lang="en">Products</value>
         <value xml:lang="es">Productos</value>
         <value xml:lang="fr">Produits</value>
+        <value xml:lang="hi_IN">उत्पाद</value>
         <value xml:lang="it">Prodotti</value>
         <value xml:lang="nl">Produkten</value>
         <value xml:lang="ro">Produs</value>
@@ -3659,6 +3985,7 @@
         <value xml:lang="en">Registration Number</value>
         <value xml:lang="es">Número de Registro</value>
         <value xml:lang="fr">Numéro d'enregistrement</value>
+        <value xml:lang="hi_IN">पंजीकरण संख्या</value>
         <value xml:lang="it">Numero Registrazione</value>
         <value xml:lang="nl">Registratienummer</value>
         <value xml:lang="ro">Nr.Inreg</value>
@@ -3672,6 +3999,7 @@
         <value xml:lang="en">Registrations</value>
         <value xml:lang="es">Registros</value>
         <value xml:lang="fr">Enregistrements</value>
+        <value xml:lang="hi_IN">पंजीकरण</value>
         <value xml:lang="it">Registrazioni</value>
         <value xml:lang="nl">Registraties</value>
         <value xml:lang="ro">Registrari</value>
@@ -3685,6 +4013,7 @@
         <value xml:lang="en">RollUp</value>
         <value xml:lang="es">Sintetizar</value>
         <value xml:lang="fr">Groupe parent</value>
+        <value xml:lang="hi_IN">रोलअप</value>
         <value xml:lang="it">Arrivo</value>
         <value xml:lang="nl">RollUp</value>
         <value xml:lang="ro">Sosire</value>
@@ -3697,6 +4026,7 @@
         <value xml:lang="de">Plankosten schon vorhanden</value>
         <value xml:lang="en">Standard Cost already Exists</value>
         <value xml:lang="fr">Coût standard déjà défini</value>
+        <value xml:lang="hi_IN">मानक मूल्य पहले से ही मौजूद है</value>
         <value xml:lang="it">Costo standard già esistente</value>
         <value xml:lang="nl">Standaard kosten bestaan al.</value>
         <value xml:lang="ru">Стандартная стоимость уже существует</value>
@@ -3709,6 +4039,7 @@
         <value xml:lang="en">Standard Cost Type</value>
         <value xml:lang="es">Tipo de costo estandar</value>
         <value xml:lang="fr">Type de coût standard</value>
+        <value xml:lang="hi_IN">मानक मूल्य प्रकार</value>
         <value xml:lang="it">Tipo Costo Standard</value>
         <value xml:lang="nl">Standaard kosten-type</value>
         <value xml:lang="ro">Tip Cost Standard</value>
@@ -3722,6 +4053,7 @@
         <value xml:lang="en">Standard Costs</value>
         <value xml:lang="es">Costo estandar</value>
         <value xml:lang="fr">Coûts standards</value>
+        <value xml:lang="hi_IN">मानक लागत</value>
         <value xml:lang="it">Costi Standard</value>
         <value xml:lang="nl">Standaard kosten</value>
         <value xml:lang="ro">Costuri Standard</value>
@@ -3735,6 +4067,7 @@
         <value xml:lang="en">Asset Type</value>
         <value xml:lang="es">Tipo de activo</value>
         <value xml:lang="fr">Type d'actif</value>
+        <value xml:lang="hi_IN">संपत्ति प्रकार</value>
         <value xml:lang="it">Tipo cespite</value>
         <value xml:lang="nl">Activatype</value>
         <value xml:lang="ro">Tip Mijloace </value>
@@ -3748,6 +4081,7 @@
         <value xml:lang="en">Fixed Assets</value>
         <value xml:lang="es">Activos Fijos</value>
         <value xml:lang="fr">Actifs immobilisés</value>
+        <value xml:lang="hi_IN">स्थापित संपत्तियां</value>
         <value xml:lang="it">Cespiti</value>
         <value xml:lang="nl">Vaste activa</value>
         <value xml:lang="ro">Mijloace Fixe</value>
@@ -3761,6 +4095,7 @@
         <value xml:lang="en">From Party</value>
         <value xml:lang="es">Grupo de origen</value>
         <value xml:lang="fr">De l'acteur</value>
+        <value xml:lang="hi_IN">पार्टी से</value>
         <value xml:lang="it">Dal Soggetto</value>
         <value xml:lang="nl">Van relatie</value>
         <value xml:lang="ro">De la Partenerul</value>
@@ -3774,6 +4109,7 @@
         <value xml:lang="en">From Party ID</value>
         <value xml:lang="es">Id Grupo de origen</value>
         <value xml:lang="fr">De l'acteur réf.</value>
+        <value xml:lang="hi_IN">पार्टी क्रमांक से</value>
         <value xml:lang="it">Dal Codice Soggetto</value>
         <value xml:lang="nl">Van relatie</value>
         <value xml:lang="ro">De la Codul Partenerului</value>
@@ -3786,6 +4122,7 @@
         <value xml:lang="en">At least the 'from' party should be the same as the 'to' party of the other payment</value>
         <value xml:lang="es">Al menos el grupo 'origen' debe ser el mismo que  el grupo 'destino' del otro pago</value>
         <value xml:lang="fr">L'acteur "de" doit être le même que l'acteur "vers" de l'autre paiement</value>
+        <value xml:lang="hi_IN">कम से कम दुसरे भुगतान के लिए, 'पार्टी से' और 'पार्टी को' दोनों सामान होना चाहिए</value>
         <value xml:lang="it">Al minimo 'da' Soggetto deve essere lo stesso del Soggetto 'a' dell'altro pagamento</value>
         <value xml:lang="nl">Tenminste de 'van' relatie moet hetzelfde zijn als de 'aan' party van de andere betaling</value>
         <value xml:lang="ro">Perioada 'de la'- ' pina la ' trebuie sa fie aceiasi cu a celeilalte Plati</value>
@@ -3799,6 +4136,7 @@
         <value xml:lang="en">Gateway Response</value>
         <value xml:lang="es">Respuesta de entrada</value>
         <value xml:lang="fr">Réponse du terminal de paiement</value>
+        <value xml:lang="hi_IN">गेटवे प्रतिक्रिया</value>
         <value xml:lang="it">Risposta Gateway</value>
         <value xml:lang="nl">Antwoord van gateway</value>
         <value xml:lang="ro">Raspuns Gateway</value>
@@ -3812,6 +4150,7 @@
         <value xml:lang="en">Gateway Responses</value>
         <value xml:lang="es">Respuestas de entradas</value>
         <value xml:lang="fr">Réponses du terminal de paiement</value>
+        <value xml:lang="hi_IN">गेटवे प्रतिक्रियांए</value>
         <value xml:lang="it">Risposte Gateway</value>
         <value xml:lang="nl">Gateway-antwoorden</value>
         <value xml:lang="ro">Raspunsuri Gateway</value>
@@ -3823,6 +4162,7 @@
         <value xml:lang="de">Hauptbuchhaltung</value>
         <value xml:lang="en">General Ledger</value>
         <value xml:lang="fr">Grand Livre (GL)</value>
+        <value xml:lang="hi_IN">सामान्य बही खाता</value>
         <value xml:lang="it">Contabilità Generale</value>
         <value xml:lang="nl">Grootboek</value>
         <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
@@ -3916,6 +4256,7 @@
         <value xml:lang="en">GL Account</value>
         <value xml:lang="es">Cuenta de LM</value>
         <value xml:lang="fr">Compte</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता</value>
         <value xml:lang="it">Conto Contabilità Generale</value>
         <value xml:lang="nl">GB-rekening</value>
         <value xml:lang="ro">Cont Contabilitate Generala</value>
@@ -3929,6 +4270,7 @@
         <value xml:lang="en">GL Account Assignments</value>
         <value xml:lang="es">Asignaciones a cuentas de LM</value>
         <value xml:lang="fr">Allocations du compte comptable</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता नियत कार्य</value>
         <value xml:lang="it">Assegnazione Conti Gl</value>
         <value xml:lang="nl">Toewijzingen GB-rekening</value>
         <value xml:lang="ro">Alocare Conturi Gl</value>
@@ -3942,6 +4284,7 @@
         <value xml:lang="en">GL Account Class</value>
         <value xml:lang="es">Clase de cuenta de LM</value>
         <value xml:lang="fr">Classe du compte comptable</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता वर्ग</value>
         <value xml:lang="it">Classe Conto Contabilità Generale</value>
         <value xml:lang="nl">Klasse GB-rekening</value>
         <value xml:lang="ro">Clasa Cont Contabilitate Generala</value>
@@ -3951,6 +4294,7 @@
     </property>
     <property key="AccountingGlAccountNameAndGlAccountCode">
         <value xml:lang="en">Gl account code and Gl account name</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाते का कोड और जीएल(GL) खाते का नाम</value>
     </property>
     <property key="AccountingGlAccountDefault">
         <value xml:lang="ar">القيم الإفتراضية للحساب المحاسبي</value>
@@ -3958,6 +4302,7 @@
         <value xml:lang="en">GL Account defaults</value>
         <value xml:lang="es">Valores predeterminados de cuentas de LM</value>
         <value xml:lang="fr">Comptes par défaut</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता डिफ़ॉल्ट्स</value>
         <value xml:lang="it">Defaults Conto Contabilità Generale</value>
         <value xml:lang="nl">Standaardwaarden GB-rekening</value>
         <value xml:lang="ro">Default Cont Contabilitate Generala</value>
@@ -3971,6 +4316,7 @@
         <value xml:lang="en">GL Account ID</value>
         <value xml:lang="es">Id Cuenta de LM</value>
         <value xml:lang="fr">Réf. compte comptable</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Contabilità Generale</value>
         <value xml:lang="nl">ID GB-rekening</value>
         <value xml:lang="ro">Cod Cont Contabilitate Generala</value>
@@ -3981,15 +4327,18 @@
     <property key="AccountingGlAccountTrialBalance">
         <value xml:lang="de">Probebilanz</value>
         <value xml:lang="en">GL Account Trial Balance</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance)</value>
     </property>
     <property key="AccountingGlAccountTrialBalanceReport">
         <value xml:lang="de">Probebilanzbericht</value>
         <value xml:lang="en">GL Account Trial Balance Report</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance) विवरण</value>
     </property>
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="de">Kontenarten Voreinstellungen</value>
         <value xml:lang="en">GL Account Type Defaults</value>
         <value xml:lang="fr">Types par défaut de compte du GL</value>
+        <value xml:lang="hi_IN">जीएल(GL) खाता  प्रकार डिफ़ॉल्ट्स</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
         <value xml:lang="nl">Standaardwaarden GB-rekeningtype</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
@@ -4001,6 +4350,7 @@
         <value xml:lang="en">GL Accounts</value>
         <value xml:lang="es">Cuentas de LM</value>
         <value xml:lang="fr">Comptes</value>
+        <value xml:lang="hi_IN">जीएल(GL) खातें</value>
         <value xml:lang="it">Conti Contabilità Generale</value>
         <value xml:lang="nl">GB Rekeningen</value>
         <value xml:lang="ro">Conturi Contabilitate Generala</value>
@@ -4014,6 +4364,7 @@
         <value xml:lang="en">GL Accounts</value>
         <value xml:lang="es">Cuentas de LM</value>
         <value xml:lang="fr">Cptes comptables</value>
+        <value xml:lang="hi_IN">जीएल(GL) खातें</value>
         <value xml:lang="it">Conti Contabilità Generale</value>
         <value xml:lang="nl">GB Rekeningen</value>
         <value xml:lang="ro">Conturi Contabilitate Generala</value>
@@ -4025,6 +4376,7 @@
         <value xml:lang="de">Journale</value>
         <value xml:lang="en">Journals</value>
         <value xml:lang="fr">Journaux</value>
+        <value xml:lang="hi_IN">जर्नल</value>
         <value xml:lang="it">Giornali</value>
         <value xml:lang="nl">Journalen</value>
         <value xml:lang="th">นิตยสาร</value>
@@ -4034,6 +4386,7 @@
         <value xml:lang="de">Allgemeine Hauptbucheinstellungen</value>
         <value xml:lang="en">Global GL Settings</value>
         <value xml:lang="fr">Configurations globales du GL</value>
+        <value xml:lang="hi_IN">सार्विक जीएल(GL) सेटिंग्स</value>
         <value xml:lang="it">Configurazione Contabilità Generale</value>
         <value xml:lang="nl">Algemene configuratie boekhouding</value>
         <value xml:lang="th">การกำหนดบัญชีแยกประเภททั่วไป</value>
@@ -4041,6 +4394,7 @@
     </property>
     <property key="AccountingGroupInOneTransaction">
         <value xml:lang="en">Group in one Transaction</value>
+        <value xml:lang="hi_IN">लेन-देन एक समूह में</value>
     </property>
     <property key="AccountingHideFields">
         <value xml:lang="ar">إخفاء الحقول</value>
@@ -4048,6 +4402,7 @@
         <value xml:lang="en">Hide Fields</value>
         <value xml:lang="es">Campos ocultos</value>
         <value xml:lang="fr">Masquer le champ</value>
+        <value xml:lang="hi_IN">क्षेत्र छिपाएँ</value>
         <value xml:lang="it">Campi Nascosti</value>
         <value xml:lang="nl">Verberg velden</value>
         <value xml:lang="pt_BR">Ocultar Campos</value>
@@ -4063,6 +4418,7 @@
         <value xml:lang="en">Ignore Invoice Items</value>
         <value xml:lang="es">Ignorar elementos de facturas</value>
         <value xml:lang="fr">Ignorer les lignes de facturation</value>
+        <value xml:lang="hi_IN">चालान वस्तुओं पर ध्यान न दें</value>
         <value xml:lang="it">Ignora Righe Fattura</value>
         <value xml:lang="nl">Negeer factuurregels</value>
         <value xml:lang="ro">Ignoreaza Linii Factura</value>
@@ -4073,6 +4429,7 @@
     <property key="AccountingIgnoringAdditionalShipCharges">
         <value xml:lang="en">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
         <value xml:lang="fr">L'option "Coût des expéditions au prorata" ne vaut pas N pour le centre de profit ${productStoreId} : les frais d'expédition additionnels sont ignorés</value>
+        <value xml:lang="hi_IN">productStoreId ${productStoreId} के लिए prorateShipping N नहीं है : माल लदान के लिए अतिरिक्त शुल्क की उपेक्षा कर रहे हैं</value>
         <value xml:lang="it">prorateShipping non è N per il productStoreId ${productStoreId}: ricarichi spedizione aggiuntivi per le spedizioni saranno ignorati</value>
         <value xml:lang="nl">prorateShipping is niet N voor productStoreId ${productStoreId}: Additionele verzendkosten voor zendingen worden genegeerd</value>
         <value xml:lang="th">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
@@ -4083,6 +4440,7 @@
         <value xml:lang="en">Illegal values passed to create invoice service</value>
         <value xml:lang="es">Valores ilegales pasados para crear factura de servicio</value>
         <value xml:lang="fr">Valeurs illégales passées au service de création de facture</value>
+        <value xml:lang="hi_IN">चालान सेवा बनाने के लिए अवैध मूल्य पारित</value>
         <value xml:lang="it">Valori Illegali passati nel servizio di creazione fattura</value>
         <value xml:lang="nl">Verkeerde waarden voor aanmaken factuurdienst opgevoerd.</value>
         <value xml:lang="ro">Valorile inserite pentru crearea Facturii  sunt eronate.</value>
@@ -4096,6 +4454,7 @@
         <value xml:lang="en">Income Statement</value>
         <value xml:lang="es">Declaración de ingresos</value>
         <value xml:lang="fr">Déclaration de revenus</value>
+        <value xml:lang="hi_IN">आय विवरण</value>
         <value xml:lang="it">Estratto Conto in Entrata</value>
         <value xml:lang="nl">Inkomensoverzicht</value>
         <value xml:lang="ro">Extract Cont in Intrare</value>
@@ -4109,6 +4468,7 @@
         <value xml:lang="en">Information</value>
         <value xml:lang="es">Información</value>
         <value xml:lang="fr">Information</value>
+        <value xml:lang="hi_IN">जानकारी</value>
         <value xml:lang="it">Informazione</value>
         <value xml:lang="nl">Informatie</value>
         <value xml:lang="ro">Informatie</value>
@@ -4120,6 +4480,7 @@
         <value xml:lang="de">Geerbter Wert</value>
         <value xml:lang="en">Inherited Value</value>
         <value xml:lang="fr">Valeur héritée</value>
+        <value xml:lang="hi_IN">दाय मूल्य</value>
         <value xml:lang="it">Valore ereditato</value>
         <value xml:lang="nl">Overgenomen waarde</value>
         <value xml:lang="zh">继承的值</value>
@@ -4127,6 +4488,7 @@
     <property key="AccountingInstanceOfProductId">
         <value xml:lang="en">Instance Of Product Id</value>
         <value xml:lang="fr">Instance de réf. d'article</value>
+        <value xml:lang="hi_IN">उत्पाद क्रमांक से दृष्टांत</value>
         <value xml:lang="it">Istanza del prodotto</value>
         <value xml:lang="zh">产品标识实例</value>
     </property>
@@ -4135,6 +4497,7 @@
         <value xml:lang="en">Inv.Nr</value>
         <value xml:lang="es">Nr.Fact</value>
         <value xml:lang="fr">Fact. no.</value>
+        <value xml:lang="hi_IN">चालान संख्या</value>
         <value xml:lang="it">Nr.Fattura</value>
         <value xml:lang="nl">Fact.nr.</value>
         <value xml:lang="ro">Nr.Factura</value>
@@ -4148,6 +4511,7 @@
         <value xml:lang="en">Invoice</value>
         <value xml:lang="es">Factura</value>
         <value xml:lang="fr">Facture</value>
+        <value xml:lang="hi_IN">चालान</value>
         <value xml:lang="it">Fattura</value>
         <value xml:lang="nl">Factuur</value>
         <value xml:lang="pt_BR">Fatura</value>
@@ -4162,6 +4526,7 @@
         <value xml:lang="en">Invoice [${invoiceId}] is cancelled, cannot be applied to...</value>
         <value xml:lang="es">Factura [${invoiceId}] esta cancelada, no puede ser aplicada...</value>
         <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être alloué de paiement...</value>
+        <value xml:lang="hi_IN">चालान [$(invoiceId)] रद्द कर दिया गया है, पर लागू नहीं किया जा सकता है...</value>
         <value xml:lang="it">Fattura [${invoiceId}] è annullata, non può essere applicata a...</value>
         <value xml:lang="nl">Factuur [${invoiceId}] is geannuleerd, kan niet worden toegewezen...</value>
         <value xml:lang="ro">Factura [${invoiceId}] este stearsa , nu  poate fi aplicata la...</value>
@@ -4175,6 +4540,7 @@
         <value xml:lang="en">INVOICE</value>
         <value xml:lang="es">FACTURA</value>
         <value xml:lang="fr">FACTURE</value>
+        <value xml:lang="hi_IN">चालान</value>
         <value xml:lang="it">FATTURA</value>
         <value xml:lang="nl">FACTUUR</value>
         <value xml:lang="ro">FACTURA</value>
@@ -4188,6 +4554,7 @@
         <value xml:lang="en">Entity/data problem creating commission invoice: ${reason} </value>
         <value xml:lang="es">Problema de entidad/datos creando factura de comisión: ${reason}</value>
         <value xml:lang="fr">Problème d'entités/données lors de la création de la facture de commission:  ${reason} </value>
+        <value xml:lang="hi_IN">दलाली चालान बनाने में इकाई/डाटा समस्या :${reason}</value>
         <value xml:lang="it">Entità/dati problemi creata provvigione fattura: ${reason} </value>
         <value xml:lang="nl">Entiteit-/dataprobleem bij aanmaken commissiefactuur: ${reason} </value>
         <value xml:lang="ro">Probleme la crearea proviziei Facturii: ${reason} </value>
@@ -4201,6 +4568,7 @@
         <value xml:lang="en">Error creating commission invoice</value>
         <value xml:lang="es">Error creando factura de comisión</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture de commission</value>
+        <value xml:lang="hi_IN">दलाली चालान बनाने में त्रुटि</value>
         <value xml:lang="it">Errore creazione provvigioni fattura</value>
         <value xml:lang="nl">Fout bij aanmaken commissiefactuur</value>
         <value xml:lang="ro">Eroare creatie provizii Factura</value>
@@ -4214,6 +4582,7 @@
         <value xml:lang="en">Error creating invoice item for commission invoice</value>
         <value xml:lang="es">Error creando elemento de factura para factura de comisión</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation pour la facture de commission</value>
+        <value xml:lang="hi_IN">चालान मद के लिए दलाली चालान  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore creazione righe fattura per provvigioni fattura</value>
         <value xml:lang="nl">Fout bij aanmaken factuurregels voor commissiefactuur.</value>
         <value xml:lang="ro">Eroare creatie Linie Factura pentru provizii Factura</value>
@@ -4227,6 +4596,7 @@
         <value xml:lang="en">Error creating invoice role for commission invoice</value>
         <value xml:lang="es">Error creando role de factura para factura de comisión</value>
         <value xml:lang="fr">Erreur lors de la création d'un rôle de facturation pour la facture de commission</value>
+        <value xml:lang="hi_IN">चालान मद के लिए चालान भूमिका  बनाने में त्रुटि</value>
         <value xml:lang="it">Errore creazione ruolo fattura per provvigioni fattura</value>
         <value xml:lang="nl">Fout bij aanmaken rol voor commissiefactuur</value>
         <value xml:lang="ro">Eroare creatie Rol Factura pentru  provizii Factura</value>
@@ -4240,6 +4610,7 @@
         <value xml:lang="en">This type of invoice has no commission, not creating commission invoice</value>
         <value xml:lang="es">Este tipo de factura no tiene comisión, no creación de factura de comisión</value>
         <value xml:lang="fr">Ce type de facture n'a pas de commission, il n'a pas été créé de facture de commission</value>
+        <value xml:lang="hi_IN">इस प्रकार के चालान की कोई दलाली भुगतान नहीं है,दलाली चालान नहीं बनाया</value>
         <value xml:lang="it">Questo tipo di fattura non ha provvigione, non creata provvigione fattura</value>
         <value xml:lang="nl">Dit type factuur bevat geen commissie. Commissiefactuur niet aangemaakt</value>
         <value xml:lang="ro">Acest Tip di Factura nu are provizii, nu sunt  create provizii Factura</value>
@@ -4253,6 +4624,7 @@
         <value xml:lang="en">Multiple orders or returns, not handled.</value>
         <value xml:lang="es">Multiples ordenes o devoluciones, no manejadas.</value>
         <value xml:lang="fr">Commandes/ retours multiples, pas pris en charge.</value>
+        <value xml:lang="hi_IN">एकाधिक आदेश या रिटर्न, संभाला नहीं</value>
         <value xml:lang="it">Ordine Multipli o resi, non trattati.</value>
         <value xml:lang="nl">Meerdere orders of retouren. Niet behandeld.</value>
         <value xml:lang="ro">Comanda Multipla sau returnari, netratate.</value>
@@ -4266,6 +4638,7 @@
         <value xml:lang="en">No order or return items, not creating commission invoice</value>
         <value xml:lang="es">No order or return items, not creating commission invoice</value>
         <value xml:lang="fr">Aucune ligne dans la commande/ retour, il n'a pas été créé de facture de commission</value>
+        <value xml:lang="hi_IN">आर्डर या वापसी मद नहीं है , दलाली चालन नहीं बनाया</value>
         <value xml:lang="it">Nessun ordine o righe reso, non creata provvigione fattura</value>
         <value xml:lang="nl">Geen order- of retourregels. Commissiefactuur wordt niet aangemaakt.</value>
         <value xml:lang="ro">Nici o Comanda sau Linie returnata, Provizie Factura necreata</value>
@@ -4279,6 +4652,7 @@
         <value xml:lang="en">This invoice has an amount of zero, so no commission invoice will be created </value>
         <value xml:lang="es">Esta factura tiene una cantidad de cero, no será creada factura de comisión</value>
         <value xml:lang="fr">Cette facture a un montant de zéro; il n'a pas été créé de facture de commission</value>
+        <value xml:lang="hi_IN">यह चालान शून्य राशि की है, इसलिए दलाली चालन नहीं बनाया जायेगा</value>
         <value xml:lang="it">Questa fattura ha un importo a zero, così nessena provvigione fattura sarà creata</value>
         <value xml:lang="nl">Deze factuur heeft een bedrag van 0 (nul). Commissiefactuur wordt niet aangemaakt.</value>
         <value xml:lang="ro">Aceasta Factura are Valoarea  zero, deci la aceasta Factura nu se poate crea nici-o provizie.</value>
@@ -4292,6 +4666,7 @@
         <value xml:lang="en">Invoice [${invoiceId}]  is already completely covered by payments...</value>
         <value xml:lang="es">Factura [${invoiceId}]  esta completamente cubierta por pagos...</value>
         <value xml:lang="fr">La facture  [${invoiceId}] a déjà été entièrement payée...</value>
+        <value xml:lang="hi_IN">चालान [$(invoiceId)] पहले से ही पूरी तरह से भुगतान के द्वारा अदा किया जा चुका  है</value>
         <value xml:lang="it">Fattura [${invoiceId}]  è già completamente coperta dai pagamenti...</value>
         <value xml:lang="nl">Factuur [${invoiceId}] is reeds volledig toegewezen aan betalingen.</value>
         <value xml:lang="ro">Factura [${invoiceId}]  este deja in intregime Platita</value>
@@ -4305,6 +4680,7 @@
         <value xml:lang="en">Invoice Date</value>
         <value xml:lang="es">Fecha Factura</value>
         <value xml:lang="fr">Date de facture</value>
+        <value xml:lang="hi_IN">चालान दिनांक</value>
         <value xml:lang="it">Data Fattura</value>
         <value xml:lang="nl">Factuurdatum</value>
         <value xml:lang="pt_BR">Data da Fatura</value>
@@ -4320,6 +4696,7 @@
         <value xml:lang="en">Inv. Date</value>
         <value xml:lang="es">F. Fact</value>
         <value xml:lang="fr">Date fact.</value>
+        <value xml:lang="hi_IN">चा. दिनांक</value>
         <value xml:lang="it">Dt.Fattura</value>
         <value xml:lang="nl">Fact.datum</value>
         <value xml:lang="ro">Dat.Fact</value>
@@ -4333,6 +4710,7 @@
         <value xml:lang="en">Header</value>
         <value xml:lang="es">Cabecera</value>
         <value xml:lang="fr">En-tête</value>
+        <value xml:lang="hi_IN">शीर्ष</value>
         <value xml:lang="it">Testata</value>
         <value xml:lang="nl">Factuurkop</value>
         <value xml:lang="ro">Intestare-Header</value>
@@ -4346,6 +4724,7 @@
         <value xml:lang="en">Header Detailed Information</value>
         <value xml:lang="es">Información detallada de cabecera</value>
         <value xml:lang="fr">Détails de l'en-tête</value>
+        <value xml:lang="hi_IN">शीर्ष की विस्तृत जानकारी</value>
         <value xml:lang="it">Informazioni Dettagliate Testata</value>
         <value xml:lang="nl">Factuur detailinformatie</value>
         <value xml:lang="ro">Informatii Detaliate - Intestare Header</value>
@@ -4359,6 +4738,7 @@
         <value xml:lang="en">InvoiceID</value>
         <value xml:lang="es">IdFactura</value>
         <value xml:lang="fr">Réf. facture</value>
+        <value xml:lang="hi_IN">चालान क्र.</value>
         <value xml:lang="it">Numero Fattura</value>
         <value xml:lang="nl">Factuurnr.</value>
         <value xml:lang="pt_BR">N�mero da Fatura</value>
@@ -4374,6 +4754,7 @@
         <value xml:lang="en">Invoice Item</value>
         <value xml:lang="es">Elemento de factura</value>
         <value xml:lang="fr">Ligne de facturation</value>
+        <value xml:lang="hi_IN">चालान मद</value>
         <value xml:lang="it">Riga Fattura</value>
         <value xml:lang="nl">Factuurregel</value>
         <value xml:lang="pt_BR">Item de Fatura</value>
@@ -4389,6 +4770,7 @@
         <value xml:lang="en">Add a new invoice Item</value>
         <value xml:lang="es">Agregar un nuevo elemento de factura</value>
         <value xml:lang="fr">Ajouter une ligne de facturation</value>
+        <value xml:lang="hi_IN">एक नया चालान मद जोड़ें</value>
         <value xml:lang="it">Aggiungi una nuova Riga fattura</value>
         <value xml:lang="nl">Voeg nieuwe factuurregel toe</value>
         <value xml:lang="ro">Adauga o noua Linie factura</value>
