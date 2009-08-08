@@ -23,7 +23,9 @@ under the License.
     <tree name="OrgTree" root-node-name="node-root" entity-name="PartyAndGroup" open-depth="1">
         <node name="node-root" entity-name="PartyAndGroup" render-style="expand-collapse">
             <entity-one entity-name="PartyAndGroup" value-field="partyAndGroup"/>
-            <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
+            <link target="viewprofile" text="${partyAndGroup.groupName}" >
+              <parameter param-name="partyId"/>
+            </link>
             <sub-node node-name="internalOrg-list">
                 <entity-condition entity-name="PartyRelationship" filter-by-date="true">
                     <condition-list combine="and">
@@ -37,7 +39,9 @@ under the License.
             <entity-one entity-name="PartyAndGroup" value-field="partyAndGroup">
                 <field-map field-name="partyId" from-field="partyRelationship.partyIdTo"/>
             </entity-one>
-            <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
+            <link target="viewprofile" text="${partyAndGroup.groupName}" >
+              <parameter param-name="partyId" from-field="partyRelationship.partyIdTo"/>
+            </link>
             <sub-node node-name="employee-list">
                 <entity-condition entity-name="Employment" filter-by-date="true">
                     <condition-list combine="and">
