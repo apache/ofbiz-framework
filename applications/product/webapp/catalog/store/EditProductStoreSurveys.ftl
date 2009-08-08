@@ -42,7 +42,7 @@ under the License.
                 <td><a href="/content/control/EditSurvey?surveyId=${storeSurvey.surveyId}" class="buttontext">${survey.description?default("[" + survey.surveyId + "]")}</a>
                 <td>${storeSurvey.productId?default("${uiLabelMap.CommonNA}")}</td>
                 <td>${storeSurvey.productCategoryId?default("${uiLabelMap.CommonNA}")}</td>
-                <td>${storeSurvey.fromDate?string}</td>
+                <td>${storeSurvey.fromDate?if_exists?string}</td>
                 <td>${storeSurvey.sequenceNum?if_exists}</td>
                 <td>
                   <form name="deleteProductStoreSurveyAppl_${storeSurvey_index}" method="post" action="<@ofbizUrl>deleteProductStoreSurveyAppl</@ofbizUrl>">
