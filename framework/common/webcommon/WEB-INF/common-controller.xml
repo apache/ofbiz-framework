@@ -43,6 +43,7 @@ under the License.
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
     <handler name="screentext" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
+    <handler name="screencsv" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
     <!--handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
     <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/-->

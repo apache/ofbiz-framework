@@ -690,48 +690,19 @@ under the License.
     <form name="InventoryItemTotalsExport" type="list" list-name="inventoryItemTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
-        <field name="separator0" title=","><display description=","/></field>
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="quantityOnHand" title="${uiLabelMap.ProductQoh}"><display/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator1" title=","><display description=","/></field>
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="availableToPromise" title="${uiLabelMap.ProductAtp}"><display/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator2" title=","><display description=","/></field>
-        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="costPrice" title="${uiLabelMap.ProductCostPrice}"><display/></field>
-        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator3" title=","><display description=","/></field>
-        <field name="quot6" title="&quot;"><display description="&quot;"/></field>
         <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display/></field>
-        <field name="quot7" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator4" title=","><display description=","/></field>
-        <field name="quot8" title="&quot;"><display description="&quot;"/></field>
         <field name="totalCostPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>
-        <field name="quot9" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator5" title=","><display description=","/></field>
-        <field name="quot10" title="&quot;"><display description="&quot;"/></field>
         <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
-        <field name="quot11" title="&quot;"><display description="&quot;"/></field>
     </form>
     <form name="InventoryItemGrandTotalsExport" type="list" list-name="inventoryItemGrandTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator0" title=","><display description=","/></field>
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator1" title=","><display description=","/></field>
-        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>
-        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
-        <field name="separator2" title=","><display description=","/></field>
-        <field name="quot6" title="&quot;"><display description="&quot;"/></field>
         <field name="totalRetailPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
-        <field name="quot7" title="&quot;"><display description="&quot;"/></field>
     </form>
 
     <form name="ToFacilityTransfers" type="list"  target="" title="" list-name="toTransfers"
