@@ -164,28 +164,6 @@
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="createPersonTraining" short-description="Create Person Training">
-        <make-value entity-name="PersonTraining" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePersonTraining" short-description="Update a Person Training">
-        <entity-one entity-name="PersonTraining" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePersonTraining" short-description="Delete a Person Training">
-        <entity-one entity-name="PersonTraining" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Employment Group -->
     <simple-method method-name="createEmployment" short-description="Create Employment">
         <make-value entity-name="Employment" value-field="newEntity"/>
@@ -816,4 +794,57 @@
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="updateTrainingStatus" short-description="Update Training Status">
+        <entity-one entity-name="PersonTraining" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="applyTraining" short-description="Apply Training">
+        <make-value entity-name="TrainingRequest" value-field="trainingRequest"/>
+        <make-next-seq-id value-field="trainingRequest" seq-field-name="trainingRequestId"/>
+        <create-value value-field="trainingRequest"/>
+        <make-value entity-name="PersonTraining" value-field="personTraining"/>
+        <set-pk-fields map="parameters" value-field="personTraining"/>
+        <set-nonpk-fields map="parameters" value-field="personTraining"/>
+        <set from-field="trainingRequest.trainingRequestId" field="personTraining.trainingRequestId"/>
+        <set field="personTraining.fromDate" from-field="parameters.fromDate"/>
+        <set field="personTraining.thruDate" from-field="parameters.thruDate"/>
+        <set field="personTraining.trainingClassTypeId" from-field="parameters.workEffortName"/>
+        <create-value value-field="personTraining"/>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="assignTraining" short-description="Assign Training">
+        <make-value entity-name="TrainingRequest" value-field="trainingRequest"/>
+        <make-next-seq-id value-field="trainingRequest" seq-field-name="trainingRequestId"/>
+        <create-value value-field="trainingRequest"/>
+        <make-value entity-name="PersonTraining" value-field="personTraining"/>
+        <set-pk-fields map="parameters" value-field="personTraining"/>
+        <set-nonpk-fields map="parameters" value-field="personTraining"/>
+        <set from-field="trainingRequest.trainingRequestId" field="personTraining.trainingRequestId"/>
+        <set field="personTraining.fromDate" from-field="parameters.fromDate"/>
+        <set field="personTraining.thruDate" from-field="parameters.thruDate"/>
+        <create-value value-field="personTraining"/>
+        <check-errors/>
+    </simple-method>
+    
+    <simple-method method-name="createTrainingTypes" short-description="Create Training Types">
+        <make-value entity-name="TrainingClassType" value-field="newEntity"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateTrainingTypes" short-description="Update Training Types">
+        <entity-one entity-name="TrainingClassType" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteTrainingTypes" short-description="Delete Training Types">
+        <entity-one entity-name="TrainingClassType" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
 </simple-methods>

@@ -1623,7 +1623,7 @@
     </property>
     <property key="HumanResTraining">
         <value xml:lang="de">Schulungen</value>
-        <value xml:lang="en">Trainings</value>
+        <value xml:lang="en">Training</value>
         <value xml:lang="es">Entrenamiento</value>
         <value xml:lang="fr">Formation</value>
         <value xml:lang="it">Corsi</value>
@@ -1837,5 +1837,32 @@
     </property>
      <property key="PageTitleFindRelocationDetails">
         <value xml:lang="en">Find Relocation Details</value>
+    </property>
+	<property key="HumanResPreRequisiteSkill">
+        <value xml:lang="en">Pre Requisite Skill</value>
+    </property>
+    <property key="HumanResTrainingApprovals">
+        <value xml:lang="en">Training Approvals</value>
+    </property>
+    <property key="HumanResTrainingClassType">
+        <value xml:lang="en">Training Class Type</value>
+    </property>
+    <property key="HumanResTrainings">
+        <value xml:lang="en">Training</value>
+    </property>
+    <property key="HumanResTrainingStatus">
+        <value xml:lang="en">Training Status</value>
+    </property>
+    <property key="HumanResTrainingTypes">
+        <value xml:lang="en">Training Types</value>
+    </property>
+    <property key="PageTitleEditTrainingTypes">
+        <value xml:lang="en">Edit Training Types</value>
+    </property>
+    <property key="PageTitleFindTrainingStatus">
+        <value xml:lang="en">Find Training Status</value>
+    </property>
+    <property key="PageTitleFindTrainingApprovals"> 
+        <value xml:lang="en">Find Training Approvals</value>
     </property>
 </resource>

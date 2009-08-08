@@ -326,4 +326,24 @@ under the License.
         <field name="skillTypeId"><display/></field>
         <field name="location"><display/></field>
     </form>
+    <form name="LookupTraining" type="single" target="LookupTraining" header-row-style="header-row" default-table-style="basic-table">
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find default-option="contains" ignore-case="true"/></field>               
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListLookupTraining" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="TrainingClassType"/>
+            </service>
+        </actions>
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}" widget-style="buttontext">
+             <hyperlink also-hidden="false" target-type="plain" description="${trainingClassTypeId}" target="javascript:set_value('${trainingClassTypeId}')"/>
+        </field>        
+        <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+    </form>
 </forms>

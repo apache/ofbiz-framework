@@ -28,7 +28,7 @@
         <menu-item name="EmplSkills" title="${uiLabelMap.HumanResSkills}"><link target="FindPartySkills"/></menu-item>
         <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQuals"/></menu-item>
         <menu-item name="Recruitment" title="${uiLabelMap.HumanResRecruitment}"><link target="FindJobRequisitions"/></menu-item>        
-        <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
+        <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="TrainingCalendar"/></menu-item>
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApps"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResumes"/></menu-item>
         <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
@@ -169,6 +169,9 @@
         <menu-item name="JobInterviewType" title="${uiLabelMap.HumanResJobInterviewType}">
             <link target="EditJobInterviewType"/>
         </menu-item>
+        <menu-item name="EditTrainingTypes" title="${uiLabelMap.HumanResTrainingClassType}">
+            <link target="EditTrainingTypes"/>
+        </menu-item>
     </menu>
 
     <menu name="EmployeeProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -198,8 +201,8 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditEmployeeTrainings" title="${uiLabelMap.HumanResTraining}">
-            <link target="EditEmployeeTrainings">
+        <menu-item name="EditTrainingCalendar" title="${uiLabelMap.HumanResTraining}">
+            <link target="TrainingCalendar">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
@@ -269,6 +272,20 @@
         <menu-item name="Relocation" title="${uiLabelMap.HumanResRelocation}">
             <condition><if-has-permission permission="HUMANRES" action="_ADMIN"/></condition>
             <link target="FindRelocation"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="TrainingTypeMenu" type="simple" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" default-menu-item-name="FindTrainings">
+        <menu-item name="TrainingCalendar" title="${uiLabelMap.HumanResTraining} ${uiLabelMap.WorkEffortCalendar}">
+            <link target="TrainingCalendar"/>
+        </menu-item>
+        <menu-item name="FindTrainingStatus" title="${uiLabelMap.HumanResTrainingStatus}">
+            <condition><not><if-has-permission permission="HUMANRES" action="_ADMIN"/></not></condition><!-- TODO: is not possible need to create a permission for this.-->
+            <link target="FindTrainingStatus"/>
+        </menu-item>
+        <menu-item name="FindTrainingApprovals" title="${uiLabelMap.HumanResTrainingApprovals}">
+            <condition><if-has-permission permission="HUMANRES" action="_ADMIN"/></condition>
+            <link target="FindTrainingApprovals"/>
         </menu-item>
     </menu>
     

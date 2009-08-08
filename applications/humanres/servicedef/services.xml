@@ -167,31 +167,7 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-
-    <service name="createPersonTraining" engine="simple" default-entity-name="PersonTraining"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createPersonTraining" auth="true">
-        <description>Create Training for a party</description>
-        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
-    </service>
-
-    <service name="updatePersonTraining" engine="simple" default-entity-name="PersonTraining"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updatePersonTraining" auth="true">
-        <description>Update a Person Training</description>
-        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-
-    <service name="deletePersonTraining" engine="simple" default-entity-name="PersonTraining"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deletePersonTraining" auth="true">
-        <description>Delete a Person Training</description>
-        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-
+    
     <!-- Employment Group -->
     <service name="createEmployment" engine="simple" default-entity-name="Employment"
              location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmployment" auth="true">
@@ -845,6 +821,58 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="updateTrainingStatus" engine="simple" default-entity-name="PersonTraining" 
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateTrainingStatus" auth="true">
+        <description>Update Training Status</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="reason" optional="false"/>
+    </service>
+    
+    <service name="applyTraining" engine="simple" default-entity-name="PersonTraining" 
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="applyTraining" auth="true">
+        <description>Create Training Request</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="approverId" optional="false"/>
+        <override name="trainingClassTypeId" optional="true"/>
+        <override name="fromDate" optional="true"/>
+        <override name="workEffortId" optional="false"/>
+    </service>
+    <service name="assignTraining" engine="simple" default-entity-name="PersonTraining" 
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="assignTraining" auth="true">
+        <description>Create Training Request</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="approverId" optional="false"/>
+        <override name="trainingClassTypeId" optional="true"/>
+    </service>
+    
+    <service name="createTrainingTypes" engine="simple" default-entity-name="TrainingClassType" 
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createTrainingTypes" auth="true">
+        <description>Create a New Training type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <attribute name="trainingClassTypeId" mode="IN" type="String" optional="false"/>
+        <attribute name="parentTypeId" mode="IN" type="String" optional="true"/>
+        <attribute name="description" mode="IN" type="String" optional="false"/>    
+    </service>
+    
+    <service name="updateTrainingTypes" engine="simple" default-entity-name="TrainingClassType" 
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateTrainingTypes" auth="true">
+        <description>Update a Training Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    
+    <service name="deleteTrainingTypes" engine="simple" default-entity-name="TrainingClassType" 
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteTrainingTypes" auth="true">
+        <description>Delete a Training Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
 </services>
