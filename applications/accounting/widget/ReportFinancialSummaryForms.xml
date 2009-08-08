@@ -263,74 +263,33 @@ under the License.
     </form>
 
     <form name="PostedTransactionTotalListCsv" type="list" list-name="postedTransTotalList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
-
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="seprator1" title=","><display description=","/></field>
-
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator2" title=","><display description=","/></field>
-
-        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
     </form>
 
     <form name="UnpostedTransactionTotalListCsv" type="list" list-name="unpostedTransTotalList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
-        
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="seprator1" title=","><display description=","/></field>
-        
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator2" title=","><display description=","/></field>
-        
-        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
     </form>
 
     <form name="PostedAndUnpostedTransactionTotalListCsv" type="list" list-name="postedAndUnpostedTransTotalList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
-
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="seprator1" title=","><display description=","/></field>
-
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator2" title=","><display description=","/></field>
-
-        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
     </form>
     <form name="IncomeStatementListCsv" type="list" list-name="glAccountTotalsList" view-size="99999">
         <row-actions>
             <entity-one entity-name="GlAccount" value-field="glAccount"/>
         </row-actions>
         <field name="glAccountId"><display description="${glAccountId}"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
         <field name="glAccountName"><display description="${glAccount.accountName}"/></field>
-        <field name="seprator1" title=","><display description=","/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="seprator2" title=","><display description=","/></field>
-        <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot5" title="&quot;"><display description="&quot;"/></field>
     </form>
 
     <form name="BalanceSheetAssetListCsv" type="list" list-name="assetBalancesList" view-size="99999">
@@ -340,8 +299,6 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
-
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="BalanceSheetLiabilityListCsv" type="list" list-name="liabilityBalancesList" view-size="99999">
@@ -350,14 +307,8 @@ under the License.
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
-
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
     </form>
     <form name="BalanceSheetEquityListCsv" type="list" list-name="equityBalancesList" view-size="99999">
         <row-actions>
@@ -365,14 +316,8 @@ under the License.
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
-        <field name="seprator0" title=","><display description=","/></field>
-
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
     </form>
 
     <form name="TrialBalanceSearchResultsCsv" type="list" list-name="trialBalances"
