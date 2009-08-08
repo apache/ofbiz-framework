@@ -46,13 +46,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindApInvoices"/>
                 <set field="tabButtonItem" value="viewInvoices"/>
-                <set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
-                <service service-name="performFind" result-map="invoiceMap">
-                    <field-map field-name="inputFields" from-field="parameters"/>
-                    <field-map field-name="entityName" value="InvoiceAndType"/>
-                    <field-map field-name="orderBy" from-field="parameters.sortField"/>
-                </service>
-                <set field="invoices" from-field="invoiceMap.listIt"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
@@ -69,7 +62,7 @@ under the License.
                                         <include-form name="FindApInvoices" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListApInvoices"  location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                                        <include-form name="ListInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -132,7 +125,7 @@ under the License.
     <screen name="NewPurchaseInvoice">
         <section>
             <actions>
-                <set field="titleProperty" value="AccountingCreateNewInvoice"/>
+                <set field="titleProperty" value="AccountingCreateNewPurchaseInvoice"/>
                 <set field="headerItem" value="invoices"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
             </actions>
