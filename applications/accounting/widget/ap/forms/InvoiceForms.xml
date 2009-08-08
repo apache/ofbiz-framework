@@ -78,49 +78,6 @@ under the License.
         </field>
     </form>
     
-    <form name="ListApInvoices" type="list" separate-columns="true" list-name="invoices" default-entity-name="Invoice"
-            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
-                <field-map field-name="partyId" from-field="partyIdFrom"/>
-                <field-map field-name="compareDate" from-field="invoiceDate"/>
-                <field-map field-name="lastNameFirst" value="Y"/>
-            </service>
-            <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
-                <field-map field-name="partyId" from-field="partyId"/>
-                <field-map field-name="compareDate" from-field="invoiceDate"/>
-                <field-map field-name="lastNameFirst" value="Y"/>
-            </service>
-            <set field="amountToApply" default-value="0" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)
-                .multiply(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceCurrencyConversionRate(delegator,invoiceId))}"/>
-            <set field="total" default-value="0" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)
-                .multiply(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceCurrencyConversionRate(delegator,invoiceId))}"/>
-            <set field="currencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
-        </row-actions>
-
-        <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
-                <parameter param-name="invoiceId"/>
-            </hyperlink>
-        </field>
-        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType"/></field>
-        <field name="invoiceDate" sort-field="true"><display type="date"/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
-        <field name="description" sort-field="true"><display/></field>
-        <field name="partyIdFrom" sort-field="true">
-            <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]">
-                <parameter param-name="partyId" from-field="partyIdFrom"/>
-            </hyperlink>
-        </field>
-        <field name="partyIdTo" parameter-name="partyId">
-            <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultTo.fullName} [${partyId}]">
-                <parameter param-name="partyId"/>
-            </hyperlink>
-        </field>
-        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-
     <form name="FindPurchaseInvoices" type="single" target="FindPurchaseInvoices">
         <actions>
             <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${defaultOrganizationPartyId}"/>

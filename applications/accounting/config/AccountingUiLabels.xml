@@ -3213,6 +3213,14 @@
         <value xml:lang="en">Find AP Payments</value>
         <value xml:lang="hi_IN">लेखा देय भुगतान खोजें</value>
     </property>
+    <property key="AccountingFindArInvoices">
+        <value xml:lang="en">Find AR Invoices</value>
+        <value xml:lang="hi_IN">लेखा प्राप्य चालान खोजें</value>
+    </property>
+    <property key="AccountingFindArPayments">
+        <value xml:lang="en">Find AR Payments</value>
+        <value xml:lang="hi_IN">लेखा प्राप्य भुगतान खोजें</value>
+    </property>
     <property key="AccountingFindDepositSlip">
         <value xml:lang="en">Find Deposit Slips for finAccount ${finAccountId}</value>
         <value xml:lang="hi_IN">वित्तीय खाता ${finAccountId} के लिए जमा पर्चीयां ढूँढें</value>

@@ -60,4 +60,15 @@ under the License.
     <form name="FindBatchPaymentsForDepositSlip" target="NewDepositSlip" extends="FindBatchPayments" extends-resource="component://accounting/widget/ar/forms/ArPaymentForms.xml">
         <field name="finAccountId"><display description="${finAccountId}"/></field>
     </form>
+    <form name="FindArPayments" type="single" target="findPayments" extends="FindPayments" extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml">
+        <field name="parentTypeId"><hidden value="RECEIPT"/></field>
+        <field name="paymentTypeId" position="1">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PaymentType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="RECEIPT"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
+    
 </forms>

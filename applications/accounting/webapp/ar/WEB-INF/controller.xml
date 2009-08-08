@@ -47,6 +47,39 @@ under the License.
         <response name="success" type="view" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="BatchPayments"/>
     </request-map>
+    <request-map uri="newPayment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewIncomingPayment"/>
+    </request-map>
+    <request-map uri="createPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPayment"/>
+        <response name="success" type="view" value="editPayment"/>
+        <response name="error" type="view" value="NewIncomingPayment"/>
+    </request-map>
+    <request-map uri="findInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindArInvoices"/>
+    </request-map>
+    <request-map uri="newInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewSalesInvoice"/>
+    </request-map>
+    <request-map uri="createInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInvoice"/>
+        <response name="success" type="request" value="editInvoice"/>
+        <response name="error" type="view" value="NewSalesInvoice"/>
+    </request-map>
+    <request-map uri="FindArInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindArInvoices"/>
+    </request-map>
+    <request-map uri="NewSalesInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewSalesInvoice"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -54,5 +87,9 @@ under the License.
     <view-map name="ListReports" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#ListReports"/>
     <view-map name="FindPayments" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#FindPayments"/>
     <view-map name="BatchPayments" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#BatchPayments"/>
+    <view-map name="NewIncomingPayment" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#NewIncomingPayment"/>
+    <view-map name="FindArInvoices" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#FindArInvoices"/>
+    <view-map name="NewSalesInvoice" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#NewSalesInvoice"/>
+
     <!-- end of view mappings -->
 </site-conf>

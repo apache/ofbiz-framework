@@ -51,7 +51,7 @@ under the License.
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="Invoice"/>
+                <field-map field-name="entityName" value="InvoiceAndType"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
             </service>
         </actions>

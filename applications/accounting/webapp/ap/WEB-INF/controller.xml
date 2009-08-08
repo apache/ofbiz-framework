@@ -87,6 +87,10 @@ under the License.
         <response name="success" type="view" value="editPayment"/>
         <response name="error" type="view" value="NewOutgoingPayment"/>
     </request-map>
+    <request-map uri="newInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewPurchaseInvoice"/>
+    </request-map>
 
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">
