@@ -29,6 +29,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -54,7 +55,6 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
     // The number of multi form rows is retrieved
     int rowCount = UtilHttp.getMultiFormRowCount(ctx);
     for (int i = 0; i < rowCount; i++) {  //for calculating amount per glAccountId
-        BigDecimal amount = BigDecimal.ZERO;
         String suffix = UtilHttp.MULTI_ROW_DELIMITER + i;
         isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
         if (!isSelected) {
@@ -65,16 +65,16 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
         organizationPartyId = (String) ctx.get("organizationPartyId" + suffix);
         glAccountId = (String) ctx.get("glAccountId" + suffix);
         try {
-            List<GenericValue> acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
-                for (GenericValue acctgTransEntry : acctgTransEntries) {  //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
-                    debitCreditFlag = acctgTransEntry.getString("debitCreditFlag");
-                    if ("D".equalsIgnoreCase(debitCreditFlag)) {
-                        amount = amount.add(acctgTransEntry.getBigDecimal("amount")); //for debit
-                    } else {
-                        amount = amount.subtract(acctgTransEntry.getBigDecimal("amount")); //for credit
-                    }
+            GenericValue acctgTransEntry = delegator.findOne("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId), false);
+            if (UtilValidate.isNotEmpty(acctgTransEntry)) {
+                //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
+                debitCreditFlag = acctgTransEntry.getString("debitCreditFlag");
+                if ("D".equalsIgnoreCase(debitCreditFlag)) {
+                    reconciledBalance = reconciledBalance.add(acctgTransEntry.getBigDecimal("amount"));  //total balance per glAccountId
+                } else {
+                    reconciledBalance = reconciledBalance.subtract(acctgTransEntry.getBigDecimal("amount"));  //total balance per glAccountId
                 }
-            reconciledBalance = reconciledBalance.add(amount);  //total balance per glAccountId
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return "error";
@@ -103,8 +103,8 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
         acctgTransId = (String) ctx.get("acctgTransId" + suffix);
         acctgTransEntrySeqId = (String) ctx.get("acctgTransEntrySeqId" + suffix);
         try {
-            List<GenericValue> acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
-            for (GenericValue acctgTransEntry : acctgTransEntries) {
+            GenericValue acctgTransEntry = delegator.findOne("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId), false);
+            if (UtilValidate.isNotEmpty(acctgTransEntry)) {
                 reconciledAmount = acctgTransEntry.getString("amount");
                 acctgTransId = acctgTransEntry.getString("acctgTransId");
                 acctgTransEntrySeqId = acctgTransEntry.getString("acctgTransEntrySeqId");

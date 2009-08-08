@@ -1368,7 +1368,7 @@ under the License.
     <view-map name="InventoryItemGrandTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemGrandTotals"/>
     <view-map name="InventoryAverageCosts" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryAverageCosts"/>
 
-    <view-map name="InventoryItemTotalsExport" type="screentext" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotalsExport" content-type="text/csv" encoding="none"/>
+    <view-map name="InventoryItemTotalsExport" type="screencsv" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotalsExport" content-type="text/csv" encoding="none"/>
 
     <view-map name="FacilityLocationGeoLocation" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FacilityLocationGeoLocation"/>
 

@@ -322,15 +322,11 @@ under the License.
         <row-actions>
             <entity-one entity-name="GlAccount" value-field="glAccount"/>
         </row-actions>
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display description="${glAccountId}"/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
         <field name="seprator0" title=","><display description=","/></field>
         <field name="glAccountName"><display description="${glAccount.accountName}"/></field>
         <field name="seprator1" title=","><display description=","/></field>
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
         <field name="seprator2" title=","><display description=","/></field>
         <field name="quot4" title="&quot;"><display description="&quot;"/></field>
         <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
@@ -343,14 +339,10 @@ under the License.
                 <field-map field-name="glAccountId"/>
             </entity-one>
         </row-actions>
-        <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="quot1" title="&quot;"><display description="&quot;"/></field>
         <field name="seprator0" title=","><display description=","/></field>
 
-        <field name="quot2" title="&quot;"><display description="&quot;"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="quot3" title="&quot;"><display description="&quot;"/></field>
     </form>
     <form name="BalanceSheetLiabilityListCsv" type="list" list-name="liabilityBalancesList" view-size="99999">
         <row-actions>
@@ -400,20 +392,11 @@ under the License.
             <set field="parameters.creditTotal" value="${bsh:(showCredit ? (creditTotal.add(absolutePostedBalance)) : (creditTotal))}" type="BigDecimal"/>
         </row-actions>
         <field name="glAccountId" use-when="!showTotals"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="separator0" title=","><display description=","/></field>
-
-        <field name="quot0" title="&quot;"><display/></field>
         <field name="debit" use-when="showDebit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
         <field name="debit" use-when="showCredit"><display description="${noValue}"/></field>
-        <field name="quot1" title="&quot;"><display/></field>
-        <field name="separator1" title=","><display description=","/></field>
-
-        <field name="quot2" title="&quot;"><display/></field>
         <field name="credit" use-when="showCredit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
         <field name="credit" use-when="showDebit"><display description="${noValue}"/></field>
-        <field name="quot3" title="&quot;"><display/></field>
         <field name="glAccountId" use-when="showTotals"><display description="${uiLabelMap.Total}"/></field>
-        <field name="separator2" title="," use-when="showTotals"><display description=","/></field>
         <field name="debit" use-when="showTotals"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
         <field name="credit" use-when="showTotals"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
     </form>

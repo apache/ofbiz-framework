@@ -909,86 +909,25 @@ under the License.
                 <order-by field-name="-transactionDate"/>
             </entity-condition>
         </actions>
-        <field name="quot0" title="&quot;"><display/></field>
         <field name="acctgTransId"><display/></field>
-        <field name="quot1" title="&quot;"><display/></field>
-        <field name="separator0" title=","><display description=", "/></field>
-
-        <field name="quot2" title="&quot;"><display/></field>
         <field name="acctgTransEntrySeqId"><display description="${acctgTransEntrySeqId}"/></field>
-        <field name="quot3" title="&quot;"><display/></field>
-        <field name="separator1" title=","><display description=", "/></field>
-
-        <field name="quot4" title="&quot;"><display/></field>
         <field name="transactionDate"><display/></field>
-        <field name="quot5" title="&quot;"><display/></field>
-        <field name="separator2" title=","><display description=", "/></field>
-
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}"><display-entity entity-name="AcctgTransType"/></field>
-        <field name="separator3" title=","><display description=", "/></field>
-
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}"><display-entity entity-name="GlFiscalType"/></field>
-        <field name="separator4" title=","><display description=", "/></field>
-
-        <field name="quot6" title="&quot;"><display/></field>
         <field name="glAccountId"><display/></field>
-        <field name="quot7" title="&quot;"><display/></field>
-        <field name="separator5" title=","><display description=","/></field>
-
         <field name="glAccountDescription"><display description="${accountName}"/></field>
-        <field name="separator6" title=","><display description=","/></field>
-
         <field name="glAccountClassId" title="${uiLabelMap.AccountingGlAccountClass}"><display-entity entity-name="GlAccountClass"/></field>
-        <field name="separator7" title=","><display description=","/></field>
-
-        <field name="quot8" title="&quot;"><display/></field>
         <field name="invoiceId"><display/></field>
-        <field name="quot9" title="&quot;"><display/></field>
-        <field name="separator8" title=","><display description=","/></field>
-
-        <field name="quot10" title="&quot;"><display/></field>
         <field name="paymentId"><display/></field>
-        <field name="quot11" title="&quot;"><display/></field>
-        <field name="separator9" title=","><display description=","/></field>
-
-        <field name="quot12" title="&quot;"><display/></field>
         <field name="workEffortId"><display/></field>
-        <field name="quot13" title="&quot;"><display/></field>
-        <field name="separator10" title=","><display description=","/></field>
-
-        <field name="quot14" title="&quot;"><display/></field>
         <field name="shipmentId"><display/></field>
-        <field name="quot15" title="&quot;"><display/></field>
-        <field name="separator12" title=","><display description=","/></field>
-        
-        <field name="quot16" title="&quot;"><display/></field>
         <field name="partyId"><display/></field>
         <field name="quot17" title="&quot;"><display/></field>
-        <field name="separator13" title=","><display description=","/></field>
-        
-        <field name="quot18" title="&quot;"><display/></field>
         <field name="productId"><display/></field>
-        <field name="quot19" title="&quot;"><display/></field>
-        <field name="separator14" title=","><display description=","/></field>
-        
-        <field name="quot20" title="&quot;"><display/></field>
         <field name="isPosted"><display/></field>
-        <field name="quot21" title="&quot;"><display/></field>
-        <field name="separator15" title=","><display description=","/></field>
-
-        <field name="quot22" title="&quot;"><display/></field>
         <field name="postedDate"><display/></field>
-        <field name="quot23" title="&quot;"><display/></field>
-        <field name="separator16" title=","><display description=","/></field>
-
-        <field name="quot24" title="&quot;"><display/></field>
         <field name="debitCreditFlag"><display/></field>
-        <field name="quot25" title="&quot;"><display/></field>
-        <field name="separator17" title=","><display description=","/></field>
-        
-        <field name="quot26" title="&quot;"><display/></field>
         <field name="amount"><display currency="${currencyUomId}"/></field>
-        <field name="quot27" title="&quot;"><display/></field>
     </form>
 
     <form name="AcctgTransSearchResultsCsv" type="list" title="List Accounting Transactions" list-name="acctgTransList" view-size="1000">
@@ -1022,43 +961,16 @@ under the License.
                 <order-by field-name="-transactionDate"/>
             </entity-condition>
         </actions>
-        <field name="quot0" title="&quot;"><display/></field>
         <field name="acctgTransId"><display/></field>
-        <field name="quot1" title="&quot;"><display/></field>
-        <field name="separator1" title=","><display description=","/></field>
-        
-        <field name="quot2" title="&quot;"><display/></field>
         <field name="transactionDate"><display/></field>
-        <field name="quot3" title="&quot;"><display/></field>
-        <field name="separator2" title=","><display description=","/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}"><display-entity entity-name="AcctgTransType"/></field>
-        <field name="separator3" title=","><display description=","/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}"><display-entity entity-name="GlFiscalType"/></field>
-        <field name="separator4" title=","><display description=","/></field>
-        <field name="quot4" title="&quot;"><display/></field>
         <field name="invoiceId"><display/></field>
-        <field name="quot5" title="&quot;"><display/></field>
-        <field name="separator5" title=","><display description=","/></field>
-        <field name="quot6" title="&quot;"><display/></field>
         <field name="paymentId"><display/></field>
-        <field name="quot7" title="&quot;"><display/></field>
-        <field name="separator6" title=","><display description=","/></field>
-        <field name="quot8" title="&quot;"><display/></field>
         <field name="workEffortId"><display/></field>
-        <field name="quot9" title="&quot;"><display/></field>
-        <field name="separator7" title=","><display description=","/></field>
-        <field name="quot10" title="&quot;"><display/></field>
         <field name="shipmentId"><display/></field>
-        <field name="quot11" title="&quot;"><display/></field>
-        <field name="separator8" title=","><display description=","/></field>
-        <field name="quot12" title="&quot;"><display/></field>
         <field name="isPosted"><display/></field>
-        <field name="quot13" title="&quot;"><display/></field>
-        <field name="separator9" title=","><display description=","/></field>
-        <field name="quot14" title="&quot;"><display/></field>
         <field name="postedDate"><display/></field>
-        <field name="quot15" title="&quot;"><display/></field>
-        <field name="separator10" title=","><display description=","/></field>
     </form>
 
     <form name="AcctgTransDetailReportPdf" type="single" default-map-name="acctgTrans">
