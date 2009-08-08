@@ -81,8 +81,7 @@ under the License.
                                 <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>
                             </td>
                             <td align="center">
-                            <a href="<@ofbizUrl>removeCategoryProductMember?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex}&productId=${(productCategoryMember.productId)?if_exists}&productCategoryId=${(productCategoryMember.productCategoryId)?if_exists}&fromDate=${productCategoryMember.getString("fromDate")}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="buttontext">
-                            ${uiLabelMap.CommonDelete}</a>
+                              <a href="javascript:document.deleteProductFromCategory_${productCategoryMember.productId}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                             </td>
                         </tr>
                         <#-- toggle the row color -->
@@ -99,6 +98,16 @@ under the License.
                         </td>
                     </tr>
                 </form>
+                <#list productCategoryMembers as productCategoryMember>
+                    <form name="deleteProductFromCategory_${productCategoryMember.productId}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
+                        <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
+                        <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
+                        <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}"/>
+                        <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
+                        <input type="hidden" name="fromDate" value="${(productCategoryMember.fromDate)?if_exists}"/>
+                        <input name="activeOnly" type="hidden" value="${activeOnly.toString()}"/>
+                    </form>
+                </#list>
             </#if>
         </table>
     </div>
