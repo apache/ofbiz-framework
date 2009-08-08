@@ -180,7 +180,10 @@ under the License.
             <#if userLogin?exists>
               <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
             </#if>
-            <#include "component://common/webcommon/includes/helplink.ftl" />
+            <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
+              <#include "component://common/webcommon/includes/helplink.ftl" />
+              <li><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
+            </#if>
           </ul>
         </li>
       </#if>
