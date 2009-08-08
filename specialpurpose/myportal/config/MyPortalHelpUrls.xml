@@ -23,4 +23,7 @@
         <value xml:lang="en">My Portal</value>
         <value xml:lang="zh">我的门户</value>
     </property>
+    <property key="MYPORTAL_ManagePortalPages">
+        <value xml:lang="en">Manage My Portal</value>
+    </property>
 </resource>
