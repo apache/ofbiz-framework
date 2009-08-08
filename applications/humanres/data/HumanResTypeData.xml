@@ -48,6 +48,10 @@ under the License.
     <StatusType statusTypeId="RELOCATION_STATUS" description="Relocation Status"/>
     <StatusItem statusId="STATUS_PENDING" statusTypeId="RELOCATION_STATUS" description="Pending"/>
     <StatusItem statusId="STATUS_RELOCATED" statusTypeId="RELOCATION_STATUS"  description="Relocated"/>
+    
+    <StatusType statusTypeId="TRAINING_STATUS" description="Training Status"/>
+    <StatusItem statusId="TRAINING_APPROVED" statusTypeId="TRAINING_STATUS"  description="Approved"/>
+    <StatusItem statusId="TRAINING_REJECTED" statusTypeId="TRAINING_STATUS"  description="Rejected"/>
 
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
     <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>

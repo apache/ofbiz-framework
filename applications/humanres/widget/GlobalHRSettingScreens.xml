@@ -208,4 +208,22 @@
             </widgets>            
         </section>
     </screen>
+    <screen name="EditTrainingTypes">
+        <section>                        
+            <actions>
+                <set field="tabButtonItem" value="EditTrainingTypes"/>
+                <set field="titleProperty" value="PageTitleEditTrainingTypes"/>
+            </actions>            
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
+                        <screenlet id="AddTrainingTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResTrainingTypes}" collapsible="true">
+                            <include-form name="AddTrainingTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
+                        </screenlet>
+                            <include-form name="ListTrainingTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen>
 </screens>

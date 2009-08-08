@@ -172,6 +172,7 @@ under the License.
 
     <WorkEffortType description="Business Travel" hasTable="N" parentTypeId="EVENT" workEffortTypeId="BUSINESS_TRAVEL"/>
     <WorkEffortType description="Meeting" hasTable="N" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
+    <WorkEffortType description="Training" hasTable="N" parentTypeId="EVENT" workEffortTypeId="TRAINING"/>
     <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
     <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
 

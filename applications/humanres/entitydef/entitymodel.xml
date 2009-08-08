@@ -232,17 +232,31 @@ under the License.
             package-name="org.ofbiz.humanres.ability"
             title="Person Training Entity">
       <field name="partyId" type="id-ne"></field>
+      <field name="trainingRequestId" type="id-ne"></field>
       <field name="trainingClassTypeId" type="id-ne"></field>
+      <field name="workEffortId" type="id-ne"></field> 
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
+      <field name="approverId" type="id-ne"></field>
+      <field name="approvalStatus" type="short-varchar"></field>
+      <field name="reason" type="description"></field>
       <prim-key field="partyId"/>
       <prim-key field="trainingClassTypeId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="PERS_TRNG_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
+      <relation type="one" fk-name="PERS_TRNG_APPR" title="Approver" rel-entity-name="Person">
+          <key-map field-name="approverId" rel-field-name="partyId"/>
+      </relation>
       <relation type="one" fk-name="PERS_TRNG_TCTP" rel-entity-name="TrainingClassType">
         <key-map field-name="trainingClassTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PERS_TRNG_WREF" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="PERS_TRNG_TRNRQ" title="Training Request" rel-entity-name="TrainingRequest">
+          <key-map field-name="trainingRequestId"/>
       </relation>
     </entity>
     <entity entity-name="ResponsibilityType"
@@ -914,4 +928,10 @@ under the License.
         <key-map field-name="emplPositionId" rel-field-name="emplPositionIdManagedBy"/>
       </view-link>
     </view-entity>
+    <entity entity-name="TrainingRequest"
+            package-name="org.ofbiz.humanres.trainings"
+            title="Training Request Entity">
+        <field name="trainingRequestId" type="id-ne"></field>
+        <prim-key field="trainingRequestId"/>
+    </entity>
 </entitymodel>

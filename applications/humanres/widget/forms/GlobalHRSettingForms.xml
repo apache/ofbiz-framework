@@ -230,4 +230,26 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
+    <form name="ListTrainingTypes" type="multi" title="" target="updateTrainingTypes" odd-row-style="alternate-row" header-row-style="header-row-2" 
+        default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="TrainingClassType"><order-by field-name="trainingClassTypeId"/></entity-condition>
+        </actions>
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"><display/></field>
+        <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}" widget-style="buttontext"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTrainingTypes"> 
+                <parameter param-name="trainingClassTypeId"/> 
+            </hyperlink>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>            
+    <form name="AddTrainingTypes" type="single" target="createTrainingTypes" header-row-style="header-row" default-table-style="basic-table">
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><lookup target-form-name="LookupTraining"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
 </forms>

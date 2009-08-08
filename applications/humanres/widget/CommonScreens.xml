@@ -35,6 +35,7 @@ under the License.
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
+                <property-map resource="HumanResHelpUrls" map-name="helpUrlsMap" global="true"/>
                 <set field="activeApp" value="humanres" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
@@ -377,6 +378,29 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonTrainingDecorator">
+        <section>
+            <actions>
+                <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="headerItem" value="Training"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container>
+                                    <include-menu name="TrainingTypeMenu" location="component://humanres/widget/Menus.xml"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
