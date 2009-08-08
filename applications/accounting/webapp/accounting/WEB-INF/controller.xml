@@ -2379,6 +2379,17 @@ under the License.
         <response name="error" type="view" value="CostCenters"/>
     </request-map>
 
+    <request-map uri="CostCenterReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CostCenterReport"/>
+    </request-map>
+
+    <request-map uri="getGlAcctgOrgWithPostedBalanceSplit">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getGlAcctgOrgWithPostedBalanceSplit"/>
+        <response name="success" type="view" value="CostCenterReport"/>
+        <response name="error" type="view" value="CostCenterReport"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2668,5 +2679,6 @@ under the License.
     <view-map name="FindGlAccountCategory" type="screen" page="component://accounting/widget/GlSetupScreens.xml#FindGlAccountCategory"/>
     <view-map name="EditGlAccountCategoryMember" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategoryMember"/>
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
+    <view-map name="CostCenterReport" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCenterReport"/>
     <!-- end of view mappings -->
 </site-conf>

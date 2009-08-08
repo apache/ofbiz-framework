@@ -1041,4 +1041,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="CostCenterReport">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="FormFieldTitle_costCenters"/>
+                <set field="labelTitleProperty" value="FormFieldTitle_costCenters"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="CostCenterReport"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <set field="glAcctgOrgAndCostCenterMapList" from-field="parameters.glAcctgOrgAndCostCenterMapList" type="List"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CostCenters.groovy"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
+                            <include-form name="CostCenter" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <or>
+                                    <not><if-empty field="parameters.timePeriod"/></not>
+                                    <not><if-empty field="parameters.fromDate"/></not>
+                                    <not><if-empty field="glAcctgOrgAndCostCenterMapList"/></not>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://accounting/webapp/accounting/reports/CostCentersReport.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

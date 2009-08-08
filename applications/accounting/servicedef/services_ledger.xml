@@ -644,4 +644,14 @@ under the License.
         <attribute name="glAccountCategoryId" mode="IN" type="String"/>
         <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
     </service>
+
+    <service name="getGlAcctgOrgWithPostedBalanceSplit" engine="simple" default-entity-name="GlAccountOrganization"
+        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAcctgOrgWithPostedBalanceSplit" auth="true">
+        <description>Posted amounts split by cost center from GlAccountOrganization</description>
+        <attribute name="organizationPartyId" type="String" mode="IN"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="timePeriod" type="String" mode="IN" optional="true"/>
+        <attribute name="glAcctgOrgAndCostCenterMapList" mode="OUT"  type="List" optional="true"/>
+    </service>
 </services>
