@@ -212,6 +212,7 @@ under the License.
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="finAccountTransTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="glReconciliationId" type="String" mode="IN" optional="true"/>
         <attribute name="fromTransactionDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruTransactionDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="fromEntryDate" type="Timestamp" mode="IN" optional="true"/>
@@ -485,5 +486,12 @@ under the License.
         <description>Transaction Total By GlReconcile Id</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
         <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="assignGlRecToFinAccTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="assignGlRecToFinAccTrans">
+        <description>Assignment of Gl Reconciliation to Fin Account Trans</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+        <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
 </services>

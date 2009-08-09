@@ -1097,6 +1097,10 @@
         <value xml:lang="th">กำหนดประเภทใบเสร็จการขายเพื่อยกเลิกหมายเลขบัญชีประเภททั่วไป</value>
         <value xml:lang="zh">为收入总账账户编号指定销售发票类型</value>
     </property>
+    <property key="AccountingAssignToReconciliation">
+        <value xml:lang="en">Assign to Reconciliation</value>
+        <value xml:lang="hi_IN">पुनर्मिलन के लिए निर्दिष्ट करे</value>
+    </property>
     <property key="AccountingAuthorize">
         <value xml:lang="ar">السماح</value>
         <value xml:lang="de">Autorisieren</value>
@@ -3204,6 +3208,10 @@
         <value xml:lang="ru">Финансовые счета</value>
         <value xml:lang="th">งบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
         <value xml:lang="zh">金融账户</value>
+    </property>
+    <property key="AccountingFinAcctTransAssociatedToGlReconciliation">
+        <value xml:lang="en">Fin Account Trans Associated To Gl Reconciliation</value>
+        <value xml:lang="hi_IN">Gl मिलान से जुड़े Fin खाता</value>
     </property>
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
@@ -5952,6 +5960,10 @@
         <value xml:lang="th">ไม่พบที่อยู่เดิมใบใบเสร็จสำหรับผู้ใช้</value>
         <value xml:lang="zh">没有为账户找到通用/寄账单地址：</value>
     </property>
+    <property key="AccountingNoGlReconciliationExists">
+        <value xml:lang="en">No Gl Reconciliation Exists, To Create New Gl Reconciliation</value>
+        <value xml:lang="hi_IN">Gl मिलान मौजूद नहीं है , नई Gl मिलान बनाने के लिए</value>
+    </property>
     <property key="AccountingNoInvoicesFound">
         <value xml:lang="ar">لا فواتير موجودة</value>
         <value xml:lang="de">Keine Rechnungen gefunden</value>
@@ -6110,6 +6122,10 @@
     </property>
     <property key="AccountingNotAdjustmentFinAccountTrans">
         <value xml:lang="en">Not a adjustment financial account transaction.</value>
+    </property>
+    <property key="AccountingNotAssigned">
+        <value xml:lang="en">Not Assigned</value>
+        <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
     </property>
     <property key="AccountingNotDepositFinAccountTrans">
         <value xml:lang="en">Not a deposit financial account transaction.</value>

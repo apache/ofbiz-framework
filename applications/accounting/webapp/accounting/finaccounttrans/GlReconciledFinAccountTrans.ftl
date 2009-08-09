@@ -70,7 +70,7 @@ under the License.
   </div>
   <div class="screenlet"> 
     <div class="screenlet-title-bar">
-      <span class="label">${uiLabelMap.AccountingAcctgTrans}</span>
+      <span class="label">${uiLabelMap.AccountingFinAcctTransAssociatedToGlReconciliation}</span>
     </div>
     <div class="screenlet-body">
       <#if finAccountTransList?has_content>
@@ -79,7 +79,6 @@ under the License.
             <th>${uiLabelMap.FormFieldTitle_finAccountTransId}</th>
             <th>${uiLabelMap.FormFieldTitle_finAccountTransType}</th>
             <th>${uiLabelMap.PartyParty}</th>
-            <th>${uiLabelMap.FormFieldTitle_glReconciliationId}</th>
             <th>${uiLabelMap.FormFieldTitle_transactionDate}</th>
             <th>${uiLabelMap.FormFieldTitle_entryDate}</th>
             <th>${uiLabelMap.CommonAmount}</th>
@@ -96,6 +95,10 @@ under the License.
             <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="hidden" value="Y"/>
             <#assign payment = "">
             <#assign payments = "">
+            <#assign status = "">
+            <#assign paymentType = "">
+            <#assign paymentMethodType = "">
+            <#assign partyName = "">
             <#if finAccountTrans.paymentId?has_content>
               <#assign payment = delegator.findOne("Payment", {"paymentId" : finAccountTrans.paymentId}, true)>
             </#if>
@@ -115,12 +118,15 @@ under the License.
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>${finAccountTrans.finAccountTransId?if_exists}</td>
               <td>${finAccountTransType.description?if_exists}</td>
-              <td>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}</td>
-              <td>${finAccountTrans.glReconciliationId?if_exists}</td>
+              <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
               <td>${finAccountTrans.transactionDate?if_exists}</td>
               <td>${finAccountTrans.entryDateId?if_exists}</td>
               <td>${finAccountTrans.amount?if_exists}</td>
-              <td><#if finAccountTrans.paymentId?has_content>${finAccountTrans.paymentId?if_exists}</#if></td>
+              <td>
+                <#if finAccountTrans.paymentId?has_content>
+                  <a href="<@ofbizUrl>paymentOverview?paymentId=${finAccountTrans.paymentId}</@ofbizUrl>">${finAccountTrans.paymentId}</a>
+                </#if>
+              </td>
               <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
               <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
               <td><#if status?has_content>${status.description?if_exists}</#if></td>

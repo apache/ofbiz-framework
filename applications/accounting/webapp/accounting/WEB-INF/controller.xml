@@ -1973,6 +1973,12 @@ under the License.
         <response name="success" type="view" value="ViewGlReconciliationWithTransaction"/>
         <response name="error" type="view" value="ViewGlReconciliationWithTransaction"/>
     </request-map>
+    <request-map uri="assignGlRecToFinAccTrans">
+        <security https="true" auth="false"/>
+        <event type="service-multi" invoke="assignGlRecToFinAccTrans"/>
+        <response name="success" type="view" value="FindFinAccountTrans"/>
+        <response name="error" type="view" value="FindFinAccountTrans"/>
+    </request-map>
 
     <!-- Fin Account Authority-->
     <request-map uri="EditFinAccountAuths">

@@ -53,15 +53,19 @@ function getFinAccountTransRunningTotal() {
     }
     if (!isSingle) {
         $('submitButton').disabled = false;
-        new Ajax.Request('getFinAccountTransRunningTotal', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                $('showFinAccountTransRunningTotal').update(data.finAccountTransRunningTotal);
-            }, parameters: $('listFinAccTra').serialize(), requestHeaders: {Accept: 'application/json'}
-        });
+        if ($('showFinAccountTransRunningTotal')) {
+            new Ajax.Request('getFinAccountTransRunningTotal', {
+                asynchronous: false,
+                onSuccess: function(transport) {
+                    var data = transport.responseText.evalJSON(true);
+                    $('showFinAccountTransRunningTotal').update(data.finAccountTransRunningTotal);
+                }, parameters: $('listFinAccTra').serialize(), requestHeaders: {Accept: 'application/json'}
+            });
+        }
     } else {
-        $('showFinAccountTransRunningTotal').update("");
+        if ($('showFinAccountTransRunningTotal')) {
+            $('showFinAccountTransRunningTotal').update("");
+        }
         $('submitButton').disabled = true;
     }
 }
@@ -75,164 +79,193 @@ function getFinAccountTransRunningTotal() {
         <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
         <span class="label" id="showFinAccountTransRunningTotal"></span>
       </div>
-      <form id="listFinAccTra" name="selectAllForm" method="post" action="<@ofbizUrl>reconcileFinAccountTrans?clearAll=Y</@ofbizUrl>">
-        <input name="_useRowSubmit" type="hidden" value="Y"/>
-        <input name="finAccountId" type="hidden" value="${parameters.finAccountId}"/>
-        <input name="statusId" type="hidden" value="${parameters.statusId?if_exists}">
     </#if>
-        <table class="basic-table hover-bar" cellspacing="0">
-          <#-- Header Begins -->
-          <tr class="header-row-2">
-            <th>${uiLabelMap.FormFieldTitle_finAccountTransId}</th>
-            <th>${uiLabelMap.FormFieldTitle_finAccountTransTypeId}</th>
-            <th>${uiLabelMap.PartyParty}</th>
-            <th>${uiLabelMap.FormFieldTitle_transactionDate}</th>
-            <th>${uiLabelMap.FormFieldTitle_entryDate}</th>
-            <th>${uiLabelMap.CommonAmount}</th>
-            <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
-            <th>${uiLabelMap.OrderPaymentType}</th>
-            <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
-            <th>${uiLabelMap.CommonStatus}</th>
-            <th>${uiLabelMap.CommonComments}</th>
-            <#if grandTotal?exists>
-              <th>${uiLabelMap.AccountingCancelTransactionStatus}</th>
+    <form id="listFinAccTra" name="selectAllForm" method="post" action="<@ofbizUrl><#if !grandTotal?exists>reconcileFinAccountTrans?clearAll=Y<#else>assignGlRecToFinAccTrans?clearAll=Y</#if></@ofbizUrl>">
+      <input name="_useRowSubmit" type="hidden" value="Y"/>
+      <input name="finAccountId" type="hidden" value="${parameters.finAccountId}"/>
+      <input name="statusId" type="hidden" value="${parameters.statusId?if_exists}"/>
+      <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId, "reconciledBalance" : null}, Static["org.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"))>
+      <#if (glReconciliationId?has_content && (glReconciliationId == "_NA_" && finAccountTransList?has_content)) || !grandTotal?exists>
+        <div align="right">
+          <#if grandTotal?exists>
+            <#if glReconciliations?has_content>
+              <select name="glReconciliationId">
+                <option value="">--${uiLabelMap.CommonSelect}--</option>
+                <#list glReconciliations as glReconciliation>
+                  <option value="${glReconciliation.glReconciliationId}">${glReconciliation.glReconciliationName?if_exists}[[${glReconciliation.glReconciliationId}] [${glReconciliation.reconciledDate?if_exists}] [${glReconciliation.reconciledBalance?if_exists}]]</option>
+                </#list>
+              </select>
+              <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingAssignToReconciliation}" disabled/>
             <#else>
-              <th>
-                ${uiLabelMap.CommonSelectAll} <input name="selectAll" type="checkbox" value="N" id="checkAllTransactions" onclick="javascript:togglefinAccountTransId(this);"/>
-              </th>
+              <span class="tooltip">${uiLabelMap.AccountingNoGlReconciliationExists} <a href="<@ofbizUrl>EditFinAccountReconciliations?finAccountId=${parameters.finAccountId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a></span>
+            </#if>
+          <#else>
+            <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}" disabled/>
+          </#if>
+        </div>
+      </#if>
+      <table class="basic-table hover-bar" cellspacing="0">
+        <#-- Header Begins -->
+        <tr class="header-row-2">
+          <th>${uiLabelMap.FormFieldTitle_finAccountTransId}</th>
+          <th>${uiLabelMap.FormFieldTitle_finAccountTransTypeId}</th>
+          <th>${uiLabelMap.PartyParty}</th>
+          <th>${uiLabelMap.FormFieldTitle_glReconciliationName}</th>
+          <th>${uiLabelMap.FormFieldTitle_transactionDate}</th>
+          <th>${uiLabelMap.FormFieldTitle_entryDate}</th>
+          <th>${uiLabelMap.CommonAmount}</th>
+          <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
+          <th>${uiLabelMap.OrderPaymentType}</th>
+          <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
+          <th>${uiLabelMap.CommonStatus}</th>
+          <th>${uiLabelMap.CommonComments}</th>
+          <#if grandTotal?exists>
+            <th>${uiLabelMap.AccountingCancelTransactionStatus}</th>
+          </#if>
+          <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal?exists>
+            <th>${uiLabelMap.CommonSelectAll} <input name="selectAll" type="checkbox" value="N" id="checkAllTransactions" onclick="javascript:togglefinAccountTransId(this);"/></th>
+          </#if>
+        </tr>
+        <#-- Header Ends-->
+        <#assign alt_row = false>
+        <#list finAccountTransList as finAccountTrans>
+          <#assign payment = "">
+          <#assign payments = "">
+          <#assign status = "">
+          <#assign paymentType = "">
+          <#assign paymentMethodType = "">
+          <#assign glReconciliation = "">
+          <#assign partyName = "">
+          <#if finAccountTrans.paymentId?has_content>
+            <#assign payment = delegator.findOne("Payment", {"paymentId" : finAccountTrans.paymentId}, true)>
+          <#else>
+            <#assign payments = delegator.findByAnd("Payment", {"finAccountTransId" : finAccountTrans.finAccountTransId})>
+          </#if>
+          <#assign finAccountTransType = delegator.findOne("FinAccountTransType", {"finAccountTransTypeId" : finAccountTrans.finAccountTransTypeId}, true)>
+          <#if finAccountTrans.statusId?has_content>
+            <#assign status = delegator.findOne("StatusItem", {"statusId" : finAccountTrans.statusId}, true)>
+          </#if>
+          <#if payment?has_content && payment.paymentTypeId?has_content>
+            <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, true)>
+          </#if>
+          <#if payment?has_content && payment.paymentMethodTypeId?has_content>
+            <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
+          </#if>
+          <#if finAccountTrans.glReconciliationId?has_content>
+            <#assign glReconciliation = delegator.findOne("GlReconciliation", {"glReconciliationId" : finAccountTrans.glReconciliationId}, true)>
+          </#if>
+          <#if finAccountTrans.partyId?has_content>
+            <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : finAccountTrans.partyId}, true))!>
+          </#if>
+          <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+            <td>
+              <#if payments?has_content>
+                <a id="togglePayment_${finAccountTrans.finAccountTransId}" href="javascript:void(0)"><img src="<@ofbizContentUrl>/images/expand.gif</@ofbizContentUrl>"/></a> ${finAccountTrans.finAccountTransId}
+                <div id="displayPayments_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 500px;">
+                  <div align="right">
+                    <input class="popup_closebox buttontext" type="button" value="X"/>
+                  </div>
+                  <table class="basic-table hover-bar" cellspacing="0" style"width :">
+                    <tr class="header-row-2">
+                      <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
+                      <th>${uiLabelMap.OrderPaymentType}</th>
+                      <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
+                      <th>${uiLabelMap.CommonAmount}</th>
+                      <th>${uiLabelMap.PartyPartyFrom}</th>
+                      <th>${uiLabelMap.PartyPartyTo}</th>
+                    </tr>
+                    <#list payments as payment>
+                      <#if payment?exists && payment.paymentTypeId?has_content>
+                        <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, true)>
+                      </#if>
+                      <#if payment?has_content && payment.paymentMethodTypeId?has_content>
+                        <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
+                      </#if>
+                      <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                        <td>${payment.paymentId?if_exists}</td>
+                        <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
+                        <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
+                        <td>${payment.amount?if_exists}</td>
+                        <td>${payment.partyIdFrom?if_exists}</td>
+                        <td>${payment.partyIdTo?if_exists}</td>
+                      </tr>
+                    </#list>
+                  </table>
+                </div>
+                <script type="text/javascript">
+                  new Popup('displayPayments_${finAccountTrans.finAccountTransId}','togglePayment_${finAccountTrans.finAccountTransId}', {modal: true, position: 'center', trigger: 'click'})
+                </script>
+                <a href="<@ofbizUrl>DepositSlip.pdf?finAccountTransId=${finAccountTrans.finAccountTransId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingDepositSlip}</a>
+              <#else>
+                ${finAccountTrans.finAccountTransId}
+              </#if>
+            </td>
+            <td>${finAccountTransType.description?if_exists}</td>
+            <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
+            <td><#if glReconciliation?has_content>${glReconciliation.glReconciliationName?if_exists}<a href="ViewGlReconciliationWithTransaction?glReconciliationId=${glReconciliation.glReconciliationId?if_exists}&finAccountId=${parameters.finAccountId?if_exists}">[${glReconciliation.glReconciliationId?if_exists}]</a></#if></td>
+            <td>${finAccountTrans.transactionDate?if_exists}</td>
+            <td>${finAccountTrans.entryDate?if_exists}</td>
+            <td>${finAccountTrans.amount?if_exists}</td>
+            <td>
+              <#if finAccountTrans.paymentId?has_content>
+                <a href="<@ofbizUrl>paymentOverview?paymentId=${finAccountTrans.paymentId}</@ofbizUrl>">${finAccountTrans.paymentId}</a>
+              </#if>
+            </td>
+            <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
+            <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
+            <td><#if status?has_content>${status.description?if_exists}</#if></td>
+            <td>${finAccountTrans.comments?if_exists}</td>
+            <#if grandTotal?exists>
+              <td>
+                <#if finAccountTrans.statusId?has_content && finAccountTrans.statusId == 'FINACT_TRNS_CREATED'>
+                  <a href="javascript:document.cancelFinAccountTrans_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                </#if>
+              </td>
+            </#if>
+            <input name="finAccountTransId_o_${finAccountTrans_index}" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
+            <input name="organizationPartyId_o_${finAccountTrans_index}" type="hidden" value="${defaultOrganizationPartyId}"/>
+            <#if glReconciliationId?has_content && glReconciliationId != "_NA_">
+              <input name="glReconciliationId_o_${finAccountTrans_index}" type="hidden" value="${glReconciliationId}"/>
+            </#if>
+            <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal?exists>
+              <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotal();"/></td>
+            </#if>
+            <#if !grandTotal?exists>
+              <#if finAccountTrans.finAccountTransTypeId="ADJUSTMENT">
+          </tr>
+          <tr>  
+                <td>
+                  <select name="debitCreditFlag_o_${finAccountTrans_index}">
+                    <option value="D">${uiLabelMap.FormFieldTitle_debit}</option>
+                    <option value="C">${uiLabelMap.FormFieldTitle_credit}</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="glAccountId_o_${finAccountTrans_index}" style="width: 50%">
+                    <#list glAccountOrgAndClassList as glAccountOrgAndClass>
+                      <option value="${glAccountOrgAndClass.glAccountId}">${glAccountOrgAndClass.accountCode} - ${glAccountOrgAndClass.accountName} [${glAccountOrgAndClass.glAccountId}]</option>
+                    </#list>
+                  </select>
+                </td>
+              </#if>
             </#if>
           </tr>
-          <#-- Header Ends-->
-          <#assign alt_row = false>
-          <#list finAccountTransList as finAccountTrans>
-            <#assign payment = "">
-            <#assign payments = "">
-            <#if finAccountTrans.paymentId?has_content>
-              <#assign payment = delegator.findOne("Payment", {"paymentId" : finAccountTrans.paymentId}, true)>
-            <#else>
-              <#assign payments = delegator.findByAnd("Payment", {"finAccountTransId" : finAccountTrans.finAccountTransId})>
-            </#if>
-            <#assign finAccountTransType = delegator.findOne("FinAccountTransType", {"finAccountTransTypeId" : finAccountTrans.finAccountTransTypeId}, true)>
-            <#if finAccountTrans.statusId?has_content>
-              <#assign status = delegator.findOne("StatusItem", {"statusId" : finAccountTrans.statusId}, true)>
-            </#if>
-            <#if payment?has_content && payment.paymentTypeId?has_content>
-              <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, true)>
-            </#if>
-            <#if payment?has_content && payment.paymentMethodTypeId?has_content>
-              <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
-            </#if>
-            <#if finAccountTrans.partyId?has_content>
-              <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : finAccountTrans.partyId}, true))!>
-            </#if>
-            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-              <td>
-                <#if payments?has_content>
-                  <a id="togglePayment_${finAccountTrans.finAccountTransId}" href="javascript:void(0)"><img src="<@ofbizContentUrl>/images/expand.gif</@ofbizContentUrl>"/></a> ${finAccountTrans.finAccountTransId}
-                  <div id="displayPayments_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 500px;">
-                    <div align="right">
-                      <input class="popup_closebox buttontext" type="button" value="X"/>
-                    </div>
-                    <table class="basic-table hover-bar" cellspacing="0" style"width :">
-                      <tr class="header-row-2">
-                        <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
-                        <th>${uiLabelMap.OrderPaymentType}</th>
-                        <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
-                        <th>${uiLabelMap.CommonAmount}</th>
-                        <th>${uiLabelMap.PartyPartyFrom}</th>
-                        <th>${uiLabelMap.PartyPartyTo}</th>
-                      </tr>
-                      <#list payments as payment>
-                        <#if payment?exists && payment.paymentTypeId?has_content>
-                          <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, true)>
-                        </#if>
-                        <#if payment?has_content && payment.paymentMethodTypeId?has_content>
-                          <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
-                        </#if>
-                        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                          <td>${payment.paymentId?if_exists}</td>
-                          <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
-                          <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
-                          <td>${payment.amount?if_exists}</td>
-                          <td>${payment.partyIdFrom?if_exists}</td>
-                          <td>${payment.partyIdTo?if_exists}</td>
-                        </tr>
-                      </#list>
-                    </table>
-                  </div>
-                  <script type="text/javascript">
-                    new Popup('displayPayments_${finAccountTrans.finAccountTransId}','togglePayment_${finAccountTrans.finAccountTransId}', {modal: true, position: 'center', trigger: 'click'})
-                  </script>
-                  <a href="<@ofbizUrl>DepositSlip.pdf?finAccountTransId=${finAccountTrans.finAccountTransId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingDepositSlip}</a>
-                <#else>
-                  ${finAccountTrans.finAccountTransId}
-                </#if>
-              </td>
-              <td>${finAccountTransType.description?if_exists}</td>
-              <td>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}</td>
-              <td>${finAccountTrans.transactionDate?if_exists}</td>
-              <td>${finAccountTrans.entryDate?if_exists}</td>
-              <td>${finAccountTrans.amount?if_exists}</td>
-              <td>
-                <#if finAccountTrans.paymentId?has_content>
-                  <a href="<@ofbizUrl>paymentOverview?paymentId=${finAccountTrans.paymentId}</@ofbizUrl>">${finAccountTrans.paymentId}</a>
-                </#if>
-              </td>
-              <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
-              <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
-              <td><#if status?has_content>${status.description?if_exists}</#if></td>
-              <td>${finAccountTrans.comments?if_exists}</td>
-              <#if grandTotal?exists>
-                <td>
-                  <#if finAccountTrans.statusId?has_content && finAccountTrans.statusId == 'FINACT_TRNS_CREATED'>
-                    <form name="cancelFinAccountTrans_${finAccountTrans.finAccountTransId}" method="post" action="<@ofbizUrl>setFinAccountTransStatus</@ofbizUrl>">
-                      <input name="noConditionFind" type="hidden" value="Y"/>
-                      <input name="finAccountTransId" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
-                      <input name="finAccountId" type="hidden" value="${finAccountTrans.finAccountId}"/>
-                      <input name="statusId" type="hidden" value="FINACT_TRNS_CANCELED"/>
-                      <input class="buttontext" type="submit" value="${uiLabelMap.CommonCancel}"/> 
-                    </form>
-                  </#if>
-                </td>
-              <#else>
-                <input name="finAccountTransId_o_${finAccountTrans_index}" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
-                <input name="organizationPartyId_o_${finAccountTrans_index}" type="hidden" value="${defaultOrganizationPartyId}"/>
-                <td>
-                  <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotal();"/>
-                </td>
-                <#if finAccountTrans.finAccountTransTypeId="ADJUSTMENT">
-            </tr>
-            <tr>  
-                  <td>
-                    <select name="debitCreditFlag_o_${finAccountTrans_index}">
-                      <option value="D">${uiLabelMap.FormFieldTitle_debit}</option>
-                      <option value="C">${uiLabelMap.FormFieldTitle_credit}</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select name="glAccountId_o_${finAccountTrans_index}" style="width: 50%">
-                      <#list glAccountOrgAndClassList as glAccountOrgAndClass>
-                        <option value="${glAccountOrgAndClass.glAccountId}">${glAccountOrgAndClass.accountCode} - ${glAccountOrgAndClass.accountName} [${glAccountOrgAndClass.glAccountId}]</option>
-                      </#list>
-                    </select>
-                  </td>
-                </#if>
-              </#if>
-            </tr>
-            
-            <#-- toggle the row color -->
-            <#assign alt_row = !alt_row>
-          </#list>
-    <#if !grandTotal?exists>
-          <div align="right">
-             <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}" disabled/>
-          <div>      
-        </table>
-      </form>
-    <#else>
-        </table>
-    </#if>
+          <#-- toggle the row color -->
+          <#assign alt_row = !alt_row>
+        </#list>
+      </table>
+    </form>
     <#if grandTotal?exists>
+      <#list finAccountTransList as finAccountTrans>
+        <#if finAccountTrans.statusId?has_content && finAccountTrans.statusId == 'FINACT_TRNS_CREATED'>
+          <form name="cancelFinAccountTrans_${finAccountTrans.finAccountTransId}" method="post" action="<@ofbizUrl>setFinAccountTransStatus</@ofbizUrl>">
+            <input name="noConditionFind" type="hidden" value="Y"/>
+            <input name="finAccountTransId" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
+            <input name="finAccountId" type="hidden" value="${finAccountTrans.finAccountId}"/>
+            <input name="statusId" type="hidden" value="FINACT_TRNS_CANCELED"/>
+          </form>
+        </#if>
+      </#list>
       <table border="1" class="basic-table">
         <tr>
           <th>${uiLabelMap.FormFieldTitle_grandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>

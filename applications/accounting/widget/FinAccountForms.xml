@@ -283,8 +283,14 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="FindFinAccountTransactions" type="single" target="FindFinAccountTrans">
+        <actions>
+            <entity-and entity-name="GlReconciliation" list="glReconciliations">
+                <field-map field-name="glAccountId" from-field="finAccount.postToGlAccountId"/>
+                <order-by field-name="reconciledDate DESC"/>
+            </entity-and>
+        </actions>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="finAccountId"><hidden/></field>
+        <field name="finAccountId"><hidden value="${finAccountId}"/></field>
         <field name="finAccountTransTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="FinAccountTransType">
@@ -297,6 +303,13 @@ under the License.
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="FINACT_TRNS_STATUS"/>
                 </entity-options>
+            </drop-down>
+        </field>
+        <field name="glReconciliationId" position="2">
+            <drop-down allow-empty="true">
+                <option key="_NA_" description="${uiLabelMap.AccountingNotAssigned}"/>
+                <list-options list-name="glReconciliations" key-name="glReconciliationId" 
+                    description="${glReconciliationName}[[${glReconciliationId}] [${reconciledDate}] [${reconciledBalance}]]"/>
             </drop-down>
         </field>
         <field name="fromTransactionDate" position="1"><date-time/></field>
@@ -364,13 +377,23 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListFinAccountReconciliations" type="list"  list-name="glReconciliations" separate-columns="true"
+    <form name="ListFinAccountReconciliations" type="list" list-name="glReconciliations" list-entry-name="glReconciliation" separate-columns="true"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <auto-fields-service service-name="updateGlReconciliation" default-field-type="display"/>
+        <row-actions>
+            <entity-one entity-name="PartyNameView" value-field="partyName">
+                <field-map field-name="partyId" from-field="glReconciliation.organizationPartyId"/>
+            </entity-one>
+        </row-actions>
+        <auto-fields-service service-name="updateGlReconciliation" default-field-type="display" map-name="glReconciliation"/>
         <field name="glReconciliationId">
-            <hyperlink  description="${glReconciliationId}" target="ViewGlReconciliationWithTransaction">
-                <parameter param-name="glReconciliationId"/>
+            <hyperlink target="ViewGlReconciliationWithTransaction" description="${glReconciliation.glReconciliationId}">
+                <parameter param-name="glReconciliationId" from-field="glReconciliation.glReconciliationId"/>
                 <parameter param-name="finAccountId"/>
+            </hyperlink>
+        </field>
+        <field name="organizationPartyId" title="${uiLabelMap.PartyParty}">
+            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyName.firstName} ${partyName.lastName}${partyName.groupName} [${partyName.partyId}]">
+                <parameter param-name="partyId" from-field="partyName.partyId"/>
             </hyperlink>
         </field>
     </form>
