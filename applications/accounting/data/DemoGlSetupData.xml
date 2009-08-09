@@ -398,5 +398,8 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6019" periodTypeId="FISCAL_QUARTER" fromDate="2010-10-01" thruDate="2011-01-01" isClosed="N" periodNum="4" periodName="2010/Q4" parentPeriodId="6015"/>
 
     <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/><!-- to convert demo invoice -->
+    
+    <!-- Gl Reconciliation -->
+    <GlReconciliation glReconciliationId="9000" glReconciliationName="demoGlReconciliation" glAccountId="111000" organizationPartyId="Company" reconciledBalance="75000.00" reconciledDate="2009-08-08 20:03:14.000"/>
 
 </entity-engine-xml>

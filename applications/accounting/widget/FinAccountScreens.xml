@@ -422,6 +422,7 @@ under the License.
                 <set field="totalCreatedApprovedTransactions" type="Long" from-field="finAccountTransListAndTotals.totalCreatedApprovedTransactions"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>
                 <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
             </actions>
             <widgets>

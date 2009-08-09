@@ -29,7 +29,7 @@ under the License.
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="9001" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <FinAccountTrans finAccountTransId="9101" finAccountTransTypeId="DEPOSIT" finAccountId="9001" amount="75000.00" 
-            partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
+            partyId="Company" glReconciliationId="9000" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
     <FinAccountTrans finAccountTransId="9102" finAccountTransTypeId="DEPOSIT" finAccountId="9001" amount="500.00" 
             partyId="Company" transactionDate="2009-07-18 00:00:01.000" entryDate="2009-07-18 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_CREATED" paymentId="8001"/>
     <Payment paymentId="8001" finAccountTransId="9102"/>

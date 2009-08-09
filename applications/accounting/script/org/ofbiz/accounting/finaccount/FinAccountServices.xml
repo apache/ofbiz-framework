@@ -553,17 +553,39 @@ under the License.
             </else>
             </if-compare>
         </iterate>
-        <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
-            <condition-list combine="and">
-                <condition-expr field-name="finAccountId" from-field="parameters.finAccountId"/>
-                <condition-expr field-name="finAccountTransTypeId" from-field="parameters.finAccountTransTypeId" ignore-if-empty="true"/>
-                <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
-                <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromTransactionDate" ignore-if-empty="true"/>
-                <condition-expr field-name="transactionDate" operator="less-equals" from-field="parameters.thruTransactionDate" ignore-if-empty="true"/>
-                <condition-expr field-name="entryDate" operator="greater-equals" from-field="parameters.fromEntryDate" ignore-if-empty="true"/>
-                <condition-expr field-name="entryDate" operator="less-equals" from-field="parameters.thruEntryDate" ignore-if-empty="true"/>
-            </condition-list>
-        </entity-condition>
+        <if-compare field="parameters.glReconciliationId" operator="equals" value="_NA_">
+            <set field="isConditionalStatusId" value="${parameters.statusId == null @or parameters.statusId != 'FINACT_TRNS_CANCELED'}" type="Boolean"/>
+            <if-compare field="isConditionalStatusId" operator="equals" value="true" type="Boolean">
+                <set field="conditionalStatusId" value="FINACT_TRNS_CANCELED"/>
+            </if-compare>
+            <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
+                <condition-list combine="and">
+                    <condition-expr field-name="finAccountId" from-field="parameters.finAccountId"/>
+                    <condition-expr field-name="finAccountTransTypeId" from-field="parameters.finAccountTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="statusId" operator="not-equals" from-field="conditionalStatusId" ignore-if-empty="true"/>
+                    <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glReconciliationId" operator="equals" from-field="nullField"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromTransactionDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less-equals" from-field="parameters.thruTransactionDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="entryDate" operator="greater-equals" from-field="parameters.fromEntryDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="entryDate" operator="less-equals" from-field="parameters.thruEntryDate" ignore-if-empty="true"/>
+                </condition-list>
+            </entity-condition>
+        <else>
+            <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
+                <condition-list combine="and">
+                    <condition-expr field-name="finAccountId" from-field="parameters.finAccountId"/>
+                    <condition-expr field-name="finAccountTransTypeId" from-field="parameters.finAccountTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glReconciliationId" from-field="parameters.glReconciliationId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromTransactionDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less-equals" from-field="parameters.thruTransactionDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="entryDate" operator="greater-equals" from-field="parameters.fromEntryDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="entryDate" operator="less-equals" from-field="parameters.thruEntryDate" ignore-if-empty="true"/>
+                </condition-list>
+            </entity-condition>
+        </else>
+        </if-compare>
         <iterate list="finAccountTransList" entry="finAccountTrans">
             <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL">
                 <set field="grandTotal" value="${grandTotal - finAccountTrans.amount}" type="BigDecimal"/>
@@ -814,5 +836,11 @@ under the License.
         </iterate>
         <set field="grandTotal" value="${grandTotal + reconciledBalance}" type="BigDecimal"/>
         <field-to-result field="grandTotal"/>
+    </simple-method>
+
+    <simple-method method-name="assignGlRecToFinAccTrans" short-description="Assignment of Gl Reconciliation to Fin Account Trans">
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <set field="finAccountTrans.glReconciliationId" from-field="parameters.glReconciliationId"/>
+        <store-value value-field="finAccountTrans"/>
     </simple-method>
 </simple-methods>
