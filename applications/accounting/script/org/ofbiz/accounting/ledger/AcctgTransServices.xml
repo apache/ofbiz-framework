@@ -440,19 +440,21 @@ under the License.
         </if-compare>
     </simple-method>
 
-    <simple-method method-name="getAcctgTransEntriesAndTransTotal" short-description="Calculate total of credit and debit and difference between both">
+    <simple-method method-name="getAcctgTransEntriesAndTransTotal" short-description="Calculate total of credit and debit and difference between both for passed party and group rollup parties">
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds[]" from-field="organizationPartyId"/>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries" distinct="true">
             <condition-list combine="and">
-                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
                 <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
                 <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.customTimePeriodStartDate"/>
                 <condition-expr field-name="transactionDate" operator="less" from-field="parameters.customTimePeriodEndDate"/>
             </condition-list>
         </entity-condition>
-
         <set field="debitTotal" type="BigDecimal" value="0"/>
         <set field="creditTotal" type="BigDecimal" value="0"/>
         <set field="debitCreditDifference" type="BigDecimal" value="0"/>

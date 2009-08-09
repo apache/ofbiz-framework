@@ -1999,6 +1999,10 @@
         <value xml:lang="nl">Complete transactievelden</value>
         <value xml:lang="zh">完成交易数据项</value>
     </property>
+    <property key="AccountingConsolidatedDataFromDivisions">
+        <value xml:lang="en">Consolidated data from divisions ${partyNameList}</value>
+        <value xml:lang="hi_IN">डिवीजनों ${partyNameList} से समेकित डेटा</value>
+    </property>
     <property key="AccountingCopyAgreement">
         <value xml:lang="ar">نسخ الإتفاقية</value>
         <value xml:lang="de">Vereinbarung kopieren</value>

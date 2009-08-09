@@ -31,6 +31,7 @@ under the License.
                         <tr><th colspan=9 style="height: 30px;" ALIGN="left">${uiLabelMap.AccountingTimePeriod} : <#if currentTimePeriod?has_content>${(currentTimePeriod.fromDate)!} ${uiLabelMap.CommonTo} ${(currentTimePeriod.thruDate)!}</#if></th></tr>
                         <tr><th colspan=9 style="height: 30px;" ALIGN="left">${uiLabelMap.AccountingGlAccountNameAndGlAccountCode} : ${(glAccount.accountCode)!} - ${(glAccount.accountName)!}</th></tr>
                         <tr>
+                            <th>${uiLabelMap.Party}</th>
                             <th>${uiLabelMap.FormFieldTitle_transactionDate}</th>
                             <th>${uiLabelMap.AccountingAccountTransactionId}</th>
                             <th>${uiLabelMap.CommonDescription}</th>
@@ -48,6 +49,10 @@ under the License.
                             <#if acctgTransAndEntries?has_content>
                                 <#list acctgTransAndEntries as acctgTransAndEntry>
                                 <tr>
+                                    <td>
+                                        <#assign partyNameFrom = (delegator.findOne("PartyNameView", {"partyId" : acctgTransAndEntry.organizationPartyId}, true))!>
+                                        <a href="/partymgr/control/viewprofile?partyId=${(partyNameFrom.partyId)!}&organizationPartyId=${(partyNameFrom.partyId)!}">${(partyNameFrom.firstName)!} ${(partyNameFrom.lastName)!} ${(partyNameFrom.groupName)!}</a>
+                                    </td>
                                     <td ALIGN="center">${(acctgTransAndEntry.transactionDate)!}</td>
                                     <td ALIGN="center">${(acctgTransAndEntry.acctgTransId)!}</td>
                                     <td ALIGN="center">${(acctgTransAndEntry.transDescription)!}</td>
