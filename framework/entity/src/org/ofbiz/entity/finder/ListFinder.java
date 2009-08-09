@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -136,7 +137,7 @@ public abstract class ListFinder extends Finder {
             resultSetType = ResultSet.TYPE_FORWARD_ONLY;
 
         if (delegatorName != null && delegatorName.length() > 0) {
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
         }
 
         EntityCondition whereEntityCondition = getWhereEntityCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));

@@ -33,6 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -353,7 +354,7 @@ public class ServerHitBin {
 
     public GenericDelegator getDelegator() {
         if (this.delegator == null) {
-            this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
+            this.delegator = DelegatorFactory.getGenericDelegator(this.delegatorName);
         }
         // if still null, then we have a problem
         if (this.delegator == null) {

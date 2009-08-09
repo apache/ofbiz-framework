@@ -285,7 +285,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public GenericDelegator getDelegator() {
         if (internalDelegator == null) {
             if (delegatorName == null) delegatorName = "default";
-            if (delegatorName != null) internalDelegator = GenericDelegator.getGenericDelegator(delegatorName);
+            if (delegatorName != null) internalDelegator = DelegatorFactory.getGenericDelegator(delegatorName);
             if (internalDelegator == null) {
                 throw new IllegalStateException("[GenericEntity.getDelegator] could not find delegator with name " + delegatorName);
             }
@@ -300,7 +300,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         this.internalDelegator = internalDelegator;
     }
 
-    public Object get(String name) {
+    protected Object getFieldValue(String name) {
         if (getModelEntity().getField(name) == null) {
             throw new IllegalArgumentException("[GenericEntity.get] \"" + name + "\" is not a field of " + entityName);
         }
@@ -696,7 +696,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public Object get(String name, String resource, Locale locale) {
         Object fieldValue = null;
         try {
-            fieldValue = get(name);
+            fieldValue = getFieldValue(name);
         } catch (IllegalArgumentException e) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose(e, "The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
@@ -754,7 +754,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         while (iter != null && iter.hasNext()) {
             ModelField curField = iter.next();
             keyBuffer.append('.');
-            keyBuffer.append(this.get(curField.getName()));
+            keyBuffer.append(this.getFieldValue(curField.getName()));
         }
 
         String bundleKey = keyBuffer.toString();
@@ -1337,7 +1337,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
 
     public Object get(Object key) {
         try {
-            return this.get((String) key);
+            return this.get((String)key, this.getDelegator().getLocale());
         } catch (IllegalArgumentException e) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose(e, "The field name (or key) [" + key + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);

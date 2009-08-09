@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -111,11 +112,6 @@ public class ControlServlet extends HttpServlet {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         //Debug.log("Cert Chain: " + request.getAttribute("javax.servlet.request.X509Certificate"), module);
 
-        // set the Entity Engine user info if we have a userLogin
-        if (userLogin != null) {
-            GenericDelegator.pushUserIdentifier(userLogin.getString("userLoginId"));
-        }
-
         // workaraound if we are in the root webapp
         String webappName = UtilHttp.getApplicationName(request);
 
@@ -148,7 +144,7 @@ public class ControlServlet extends HttpServlet {
         GenericDelegator delegator = null;
         String delegatorName = (String) session.getAttribute("delegatorName");
         if (UtilValidate.isNotEmpty(delegatorName)) {
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
         }
         if (delegator == null) {
             delegator = (GenericDelegator) getServletContext().getAttribute("delegator");
@@ -194,10 +190,15 @@ public class ControlServlet extends HttpServlet {
         UtilHttp.setInitialRequestInfo(request);
         VisitHandler.getVisitor(request, response);
 
-        // set the Entity Engine user info if we have a userLogin
-        String visitId = VisitHandler.getVisitId(session);
-        if (UtilValidate.isNotEmpty(visitId)) {
-            GenericDelegator.pushSessionIdentifier(visitId);
+        if (delegator != null) {
+            // set the GenericDelegator properties
+            String visitId = VisitHandler.getVisitId(session);
+            if (UtilValidate.isNotEmpty(visitId)) {
+                delegator.setSessionIdentifier(visitId);
+            }
+            if (userLogin != null) {
+                delegator.setUserIdentifier(userLogin.getString("userLoginId"));
+            }
         }
 
         // display details on the servlet objects
@@ -310,10 +311,6 @@ public class ControlServlet extends HttpServlet {
             }
         }
         if (Debug.timingOn()) timer.timerString("[" + rname + "] Request Done", module);
-
-        // sanity check 2: make sure there are no user or session infos in the delegator, ie clear the thread
-        GenericDelegator.clearUserIdentifierStack();
-        GenericDelegator.clearSessionIdentifierStack();
     }
 
     /**

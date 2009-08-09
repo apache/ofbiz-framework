@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.io.Serializable;
 
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -146,7 +147,7 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
 
     protected synchronized GenericDelegator getDelegator() {
         if (this.delegator == null && this.delegatorName != null) {
-            this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
+            this.delegator = DelegatorFactory.getGenericDelegator(this.delegatorName);
         }
         return this.delegator;
     }

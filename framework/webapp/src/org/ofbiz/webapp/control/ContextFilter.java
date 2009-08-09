@@ -50,6 +50,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
@@ -329,7 +330,7 @@ public class ContextFilter implements Filter {
                 delegatorName = "default";
             }
             if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
             config.getServletContext().setAttribute("delegator", delegator);
             if (delegator == null) {
                 Debug.logError("[ContextFilter.init] ERROR: delegator factory returned null for delegatorName \"" + delegatorName + "\"", module);

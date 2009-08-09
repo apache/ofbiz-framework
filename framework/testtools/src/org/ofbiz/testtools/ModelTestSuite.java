@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.service.GenericDispatcher;
@@ -68,7 +69,7 @@ public class ModelTestSuite {
         
         String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
 
-        this.delegator = GenericDelegator.getGenericDelegator(this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
+        this.delegator = DelegatorFactory.getGenericDelegator(this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(originalDispatcherName + uniqueSuffix, delegator);
 
         for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
