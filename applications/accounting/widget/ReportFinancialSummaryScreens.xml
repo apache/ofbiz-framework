@@ -285,13 +285,12 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <entity-condition entity-name="GlAccountOrganization" list="trialBalances" filter-by-date="true">
-                    <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
-                        <condition-expr field-name="postedBalance" operator="not-equals" from-field="null"/>
-                    </condition-list>
-                    <order-by field-name="glAccountId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <entity-condition entity-name="Party" list="parties">
+                    <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
                 <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
                 <set field="totalsRow.postedBalance" value="0" type="BigDecimal"/>
                 <set field="trialBalances[]" from-field="totalsRow" type="Object"/>
@@ -301,22 +300,18 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingTrialBalance}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="TrialBalanceSearchResultsCsv.csv">
-                                    <parameter param-name="organizationPartyId"/>
-                                </link>
-                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf">
-                                    <parameter param-name="organizationPartyId"/>
-                                </link>
-                                 <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                            </container>
+                        <container style="h3">
+                            <label text="${uiLabelMap.AccountingConsolidatedDataFromDivisions}"/>
                         </container>
+                        <screenlet title="${uiLabelMap.AccountingTrialBalance}">
+                            <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="TrialBalanceSearchResultsCsv.csv">
+                                <parameter param-name="organizationPartyId"/>
+                            </link>
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf">
+                                <parameter param-name="organizationPartyId"/>
+                            </link>
+                            <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -788,13 +783,13 @@ under the License.
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
-                <entity-condition entity-name="GlAccountOrganization" list="trialBalances" filter-by-date="true">
-                    <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
-                        <condition-expr field-name="postedBalance" operator="not-equals" from-field="null"/>
-                    </condition-list>
-                    <order-by field-name="glAccountId"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <entity-condition entity-name="Party" list="parties">
+                    <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
                 <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
                 <set field="totalsRow.postedBalance" value="0" type="BigDecimal"/>
                 <set field="trialBalances[]" from-field="totalsRow" type="Object"/>
@@ -819,13 +814,13 @@ under the License.
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
-                <entity-condition entity-name="GlAccountOrganization" list="trialBalances" filter-by-date="true">
-                    <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
-                        <condition-expr field-name="postedBalance" operator="not-equals" from-field="null"/>
-                    </condition-list>
-                    <order-by field-name="glAccountId"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <entity-condition entity-name="Party" list="parties">
+                    <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
                 <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
                 <set field="totalsRow.postedBalance" value="0" type="BigDecimal"/>
                 <set field="trialBalances[]" from-field="totalsRow" type="Object"/>

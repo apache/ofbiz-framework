@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -377,4 +378,33 @@ public class PartyWorker {
         return str.replaceAll("\\W", "");
     }
 
+    public static List<String> getAssociatedPartyIdsByRelationshipType(GenericDelegator delegator, String partyIdFrom, String partyRelationshipTypeId) {
+        List<GenericValue> partyList = FastList.newInstance();
+        List<String> partyIds = null;
+        try {
+            EntityConditionList baseExprs = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("partyIdFrom", partyIdFrom),
+                    EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
+            List<GenericValue> associatedParties = delegator.findList("PartyRelationship", baseExprs, null, null, null, true);
+            partyList.addAll(associatedParties);
+            while (UtilValidate.isNotEmpty(associatedParties)) {
+                List<GenericValue> currentAssociatedParties = FastList.newInstance();
+                for (GenericValue associatedParty : associatedParties ) {
+                    EntityConditionList innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),
+                            EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
+                    List<GenericValue> associatedPartiesChilds = delegator.findList("PartyRelationship", innerExprs, null, null, null, true);
+                    if (UtilValidate.isNotEmpty(associatedPartiesChilds)) {
+                        currentAssociatedParties.addAll(associatedPartiesChilds);
+                    }
+                    partyList.add(associatedParty);
+                }
+                associatedParties  = currentAssociatedParties;
+            }
+            partyIds = EntityUtil.getFieldListFromEntityList(partyList, "partyIdTo", true);
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+        }
+        return partyIds;
+    }
 }
