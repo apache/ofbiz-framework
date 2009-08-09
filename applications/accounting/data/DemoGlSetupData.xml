@@ -398,8 +398,20 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6019" periodTypeId="FISCAL_QUARTER" fromDate="2010-10-01" thruDate="2011-01-01" isClosed="N" periodNum="4" periodName="2010/Q4" parentPeriodId="6015"/>
 
     <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/><!-- to convert demo invoice -->
-    
+
     <!-- Gl Reconciliation -->
     <GlReconciliation glReconciliationId="9000" glReconciliationName="demoGlReconciliation" glAccountId="111000" organizationPartyId="Company" reconciledBalance="75000.00" reconciledDate="2009-08-08 20:03:14.000"/>
+
+    <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9301" fromDate="2009-07-08 11:54:03.8" amountPercentage="50"/>
+    <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9302" fromDate="2009-07-08 11:54:03.8" amountPercentage="20"/>
+    <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9303" fromDate="2009-07-08 11:54:03.8" amountPercentage="30"/>
+
+    <GlAccountCategoryMember glAccountId="140000" glAccountCategoryId="9301" fromDate="2009-05-08 11:54:03.8" amountPercentage="50"/>
+    <GlAccountCategoryMember glAccountId="140000" glAccountCategoryId="9302" fromDate="2009-06-08 11:54:03.8" amountPercentage="20"/>
+    <GlAccountCategoryMember glAccountId="140000" glAccountCategoryId="9303" fromDate="2009-07-08 11:54:03.8" amountPercentage="30"/>
+
+    <GlAccountCategoryMember glAccountId="516100" glAccountCategoryId="9301" fromDate="2009-06-08 11:54:03.8" amountPercentage="50"/>
+    <GlAccountCategoryMember glAccountId="516100" glAccountCategoryId="9302" fromDate="2009-08-08 11:54:03.8" amountPercentage="20"/>
+    <GlAccountCategoryMember glAccountId="516100" glAccountCategoryId="9303" fromDate="2009-07-08 11:54:03.8" amountPercentage="30"/>
 
 </entity-engine-xml>
