@@ -29,6 +29,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -39,20 +40,31 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
- * <code>OFBizSecurity</code>
- * This class has not been altered from the original source. It now just extends Security and was therefore renamed to
- * OFBizSecurity.
+ * An implementation of the Security interface that uses the OFBiz database
+ * for permission storage.
  */
-public class OFBizSecurity extends org.ofbiz.security.Security {
+public class OFBizSecurity implements Security {
 
     public static final String module = OFBizSecurity.class.getName();
 
-    public static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
+    /**
+     * UtilCache to cache a Collection of UserLoginSecurityGroup entities for each UserLogin, by userLoginId.
+     */
+    protected static UtilCache<String, List<GenericValue>> userLoginSecurityGroupByUserLoginId = new UtilCache<String, List<GenericValue>>("security.UserLoginSecurityGroupByUserLoginId");
+
+    /**
+     * UtilCache to cache whether or not a certain SecurityGroupPermission row exists or not.
+     * For each SecurityGroupPermissionPK there is a Boolean in the cache specifying whether or not it exists.
+     * In this way the cache speeds things up whether or not the user has a permission.
+     */
+    protected static UtilCache<GenericValue, Boolean> securityGroupPermissionCache = new UtilCache<GenericValue, Boolean>("security.SecurityGroupPermissionCache");
+
+    protected GenericDelegator delegator = null;
+
+    protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
         "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
         "FACILITY", UtilMisc.toMap("name", "FacilityParty", "pkey", "facilityId"),
         "MARKETING", UtilMisc.toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
-
-    GenericDelegator delegator = null;
 
     protected OFBizSecurity() {}
 
@@ -60,12 +72,10 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         this.delegator = delegator;
     }
 
-    @Override
     public GenericDelegator getDelegator() {
-        return delegator;
+        return this.delegator;
     }
 
-    @Override
     public void setDelegator(GenericDelegator delegator) {
         this.delegator = delegator;
     }
@@ -73,7 +83,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#findUserLoginSecurityGroupByUserLoginId(java.lang.String)
      */
-    @Override
     public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
         List<GenericValue> collection = userLoginSecurityGroupByUserLoginId.get(userLoginId);
 
@@ -95,7 +104,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#securityGroupPermissionExists(java.lang.String, java.lang.String)
      */
-    @Override
     public boolean securityGroupPermissionExists(String groupId, String permission) {
         GenericValue securityGroupPermissionValue = delegator.makeValue("SecurityGroupPermission",
                 UtilMisc.toMap("groupId", groupId, "permissionId", permission));
@@ -120,7 +128,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasPermission(java.lang.String, javax.servlet.http.HttpSession)
      */
-    @Override
     public boolean hasPermission(String permission, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -132,7 +139,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasPermission(java.lang.String, org.ofbiz.entity.GenericValue)
      */
-    @Override
     public boolean hasPermission(String permission, GenericValue userLogin) {
         if (userLogin == null) return false;
 
@@ -150,7 +156,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasEntityPermission(java.lang.String, java.lang.String, javax.servlet.http.HttpSession)
      */
-    @Override
     public boolean hasEntityPermission(String entity, String action, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -161,7 +166,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasEntityPermission(java.lang.String, java.lang.String, org.ofbiz.entity.GenericValue)
      */
-    @Override
     public boolean hasEntityPermission(String entity, String action, GenericValue userLogin) {
         if (userLogin == null) return false;
 
@@ -187,7 +191,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpSession)
      */
-    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, String role, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, role, userLogin);
@@ -196,7 +199,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.ofbiz.entity.GenericValue)
      */
-    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin) {
         List<String> roles = null;
         if (role != null && !role.equals(""))
@@ -207,7 +209,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, javax.servlet.http.HttpSession)
      */
-    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
@@ -216,7 +217,6 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, org.ofbiz.entity.GenericValue)
      */
-    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin) {
         String entityName = null;
         EntityCondition condition = null;
@@ -289,6 +289,12 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         }
 
         return false;
+    }
+
+    public void clearUserData(GenericValue userLogin) {
+        if (userLogin != null) {
+            userLoginSecurityGroupByUserLoginId.remove(userLogin.getString("userLoginId"));
+        }
     }
 
 }

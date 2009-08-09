@@ -488,7 +488,7 @@ public class LoginWorker {
         Security security = (Security) request.getAttribute("security");
 
         if (security != null && userLogin != null) {
-            Security.userLoginSecurityGroupByUserLoginId.remove(userLogin.getString("userLoginId"));
+            security.clearUserData(userLogin);
         }
 
         // set the logged out flag
