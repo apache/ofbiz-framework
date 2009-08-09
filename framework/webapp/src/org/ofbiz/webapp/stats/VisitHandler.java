@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -107,7 +108,7 @@ public class VisitHandler {
                         // first try the session attribute delegatorName
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (UtilValidate.isNotEmpty(delegatorName)) {
-                            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+                            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
                         }
 
                         // then try the ServletContext attribute delegator, should always be there...
@@ -199,7 +200,7 @@ public class VisitHandler {
 
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (delegator == null && UtilValidate.isNotEmpty(delegatorName)) {
-                            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+                            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
                         }
 
                         if (delegator == null) {

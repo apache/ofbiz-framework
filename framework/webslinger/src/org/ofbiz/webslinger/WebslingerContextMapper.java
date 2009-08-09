@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -59,7 +60,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
         System.err.println(org.webslinger.commons.vfs.flat.FlatFileProvider.class);
         servletContext = config.getServletContext();
         String delegatorName = servletContext.getInitParameter("entityDelegatorName");
-        delegator = GenericDelegator.getGenericDelegator(delegatorName);
+        delegator = DelegatorFactory.getGenericDelegator(delegatorName);
         String readerFiles = servletContext.getInitParameter("serviceReaderUrls");
         if (readerFiles != null) {
             for (String reader: CollectionUtil.split(readerFiles, ";")) {
@@ -103,7 +104,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
     @Override
     protected void initializeContext(WebslingerServletContext context, Layout layout) throws Exception {
         OfbizLayout ofbizLayout = (OfbizLayout) layout;
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator(ofbizLayout.delegatorName);
+        GenericDelegator delegator = DelegatorFactory.getGenericDelegator(ofbizLayout.delegatorName);
         context.setAttribute("delegator", delegator);
         context.setAttribute("dispatcher", new WebslingerGenericDispatcher(context, layout.getTarget(), delegator, globalReaderURLs));
         context.setAttribute("authz", AuthorizationFactory.getInstance(delegator));

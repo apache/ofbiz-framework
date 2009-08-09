@@ -29,6 +29,7 @@ import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
@@ -60,7 +61,7 @@ public abstract class XuiContainer implements Container {
 
         // get the delegator
         String delegatorName = ContainerConfig.getPropertyValue(cc, "delegator-name", "default");
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorName);
+        GenericDelegator delegator = DelegatorFactory.getGenericDelegator(delegatorName);
 
         // get the dispatcher
         String dispatcherName = ContainerConfig.getPropertyValue(cc, "dispatcher-name", "xui-dispatcher");

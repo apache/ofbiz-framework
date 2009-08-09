@@ -21,6 +21,7 @@ package org.ofbiz.order.shoppingcart;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -275,7 +276,7 @@ public class ShoppingCart implements Serializable {
 
     public GenericDelegator getDelegator() {
         if (delegator == null) {
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
         }
         return delegator;
     }

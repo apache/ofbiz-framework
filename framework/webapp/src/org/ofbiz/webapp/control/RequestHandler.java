@@ -107,6 +107,8 @@ public class RequestHandler {
             GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
 
         HttpSession session = request.getSession();
+        Locale locale = UtilHttp.getLocale(request);
+        delegator.setLocale(locale);
 
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
         ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
@@ -180,7 +182,6 @@ public class RequestHandler {
                 // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
                 if (request.getMethod().equalsIgnoreCase("POST")) {
                     // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
-                    Locale locale = UtilHttp.getLocale(request);
                     String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
                     Debug.logError("Got a insecure (non-https) form POST to a secure (http) request [" + requestMap.uri + "], returning error", module);
 
@@ -387,7 +388,6 @@ public class RequestHandler {
                     // check to see if there is an "error" response, if so go there and make an request error message
                     if (requestMap.requestResponseMap.containsKey("error")) {
                         eventReturn = "error";
-                        Locale locale = UtilHttp.getLocale(request);
                         String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.error_call_event", locale);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg + ": " + e.toString());
                     } else {

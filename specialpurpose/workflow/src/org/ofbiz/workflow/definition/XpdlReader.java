@@ -35,6 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -1312,7 +1313,7 @@ public class XpdlReader {
 
         if (args.length > 0)
             sampleFileName = args[0];
-        List values = readXpdl(UtilURL.fromFilename(sampleFileName), GenericDelegator.getGenericDelegator("default"));
+        List values = readXpdl(UtilURL.fromFilename(sampleFileName), DelegatorFactory.getGenericDelegator("default"));
         Iterator viter = values.iterator();
 
         while (viter.hasNext())

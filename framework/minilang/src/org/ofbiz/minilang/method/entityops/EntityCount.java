@@ -26,6 +26,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.finder.EntityFinderUtil.Condition;
@@ -101,7 +102,7 @@ public class EntityCount extends MethodOperation {
             String delegatorName = this.delegatorNameExdr.expandString(context);
 
             if (delegatorName != null && delegatorName.length() > 0) {
-                delegator = GenericDelegator.getGenericDelegator(delegatorName);
+                delegator = DelegatorFactory.getGenericDelegator(delegatorName);
             }
 
             ModelEntity modelEntity = delegator.getModelEntity(entityName);

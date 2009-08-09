@@ -27,6 +27,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.EntityCryptoException;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -251,7 +252,7 @@ public class EntityExpr extends EntityCondition {
         if (delegator == null) {
             // this will be the common case for now as the delegator isn't available where we want to do this
             // we'll cheat a little here and assume the default delegator
-            delegator = GenericDelegator.getGenericDelegator("default");
+            delegator = DelegatorFactory.getGenericDelegator("default");
         }
 
         String fieldName = null;

@@ -29,6 +29,7 @@ import javax.naming.NamingException;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
@@ -120,7 +121,7 @@ public class RmiServiceContainer implements Container {
         }
 
         // get the delegator for this container
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorProp.value);
+        GenericDelegator delegator = DelegatorFactory.getGenericDelegator(delegatorProp.value);
 
         // create the LocalDispatcher
         LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(name, delegator);
