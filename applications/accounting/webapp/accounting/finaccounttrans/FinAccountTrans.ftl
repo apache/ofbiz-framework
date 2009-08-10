@@ -28,10 +28,10 @@ function togglefinAccountTransId(master) {
             element.checked = master.checked;
         }
     }
-    getFinAccountTransRunningTotal();
+    getFinAccountTransRunningTotalAndBalances();
 }
 
-function getFinAccountTransRunningTotal() {
+function getFinAccountTransRunningTotalAndBalances() {
     var form = document.selectAllForm;
     var finAccountTransList = form.elements.length;
     var isSingle = true;
@@ -54,17 +54,23 @@ function getFinAccountTransRunningTotal() {
     if (!isSingle) {
         $('submitButton').disabled = false;
         if ($('showFinAccountTransRunningTotal')) {
-            new Ajax.Request('getFinAccountTransRunningTotal', {
+            new Ajax.Request('getFinAccountTransRunningTotalAndBalances', {
                 asynchronous: false,
                 onSuccess: function(transport) {
                     var data = transport.responseText.evalJSON(true);
                     $('showFinAccountTransRunningTotal').update(data.finAccountTransRunningTotal);
+                    $('finAccountTransRunningTotal').update(data.finAccountTransRunningTotal);
+                    $('numberOfFinAccountTransaction').update(data.numberOfTransactions);
+                    $('endingBalance').update(data.endingBalance);
                 }, parameters: $('listFinAccTra').serialize(), requestHeaders: {Accept: 'application/json'}
             });
         }
     } else {
         if ($('showFinAccountTransRunningTotal')) {
             $('showFinAccountTransRunningTotal').update("");
+            $('finAccountTransRunningTotal').update("");
+            $('numberOfFinAccountTransaction').update("");
+            $('endingBalance').update($('openingBalanceWithUom').value);
         }
         $('submitButton').disabled = true;
     }
@@ -84,6 +90,10 @@ function getFinAccountTransRunningTotal() {
       <input name="_useRowSubmit" type="hidden" value="Y"/>
       <input name="finAccountId" type="hidden" value="${parameters.finAccountId}"/>
       <input name="statusId" type="hidden" value="${parameters.statusId?if_exists}"/>
+      <#if !grandTotal?exists>
+        <input name="openingBalance" type="hidden" value="${glReconciliationApprovedGrandTotal}"/>
+        <input name="openingBalanceWithUom" type="hidden" id="openingBalanceWithUom" value="<@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/>"/>
+      </#if>
       <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId, "reconciledBalance" : null}, Static["org.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"))>
       <#if (glReconciliationId?has_content && (glReconciliationId == "_NA_" && finAccountTransList?has_content)) || !grandTotal?exists>
         <div align="right">
@@ -228,7 +238,7 @@ function getFinAccountTransRunningTotal() {
               <input name="glReconciliationId_o_${finAccountTrans_index}" type="hidden" value="${glReconciliationId}"/>
             </#if>
             <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal?exists>
-              <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotal();"/></td>
+              <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotalAndBalances();"/></td>
             </#if>
             <#if !grandTotal?exists>
               <#if finAccountTrans.finAccountTransTypeId="ADJUSTMENT">
@@ -266,7 +276,7 @@ function getFinAccountTransRunningTotal() {
           </form>
         </#if>
       </#list>
-      <table border="1" class="basic-table">
+      <table class="basic-table">
         <tr>
           <th>${uiLabelMap.FormFieldTitle_grandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
           <th>${uiLabelMap.AccountingCreatedGrandTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
@@ -278,6 +288,22 @@ function getFinAccountTransRunningTotal() {
           <td>${createdGrandTotal} / ${totalCreatedTransactions}</td>
           <td>${approvedGrandTotal} / ${totalApprovedTransactions}</td>
           <td>${createdApprovedGrandTotal} / ${totalCreatedApprovedTransactions}</td>
+        </tr>
+      </table>
+    <#else>
+      <table class="basic-table">
+        <tr>
+          <th>${uiLabelMap.AccountingRunningTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
+          <th>${uiLabelMap.AccountingOpeningBalance}</th>
+          <th>${uiLabelMap.AccountingEndingBalance}</th>
+        </tr>
+        <tr>
+          <td>
+            <span id="finAccountTransRunningTotal"></span> / 
+            <span id="numberOfFinAccountTransaction"></span>
+          </td>
+          <td><@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/></td>
+          <td id="endingBalance"><@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/></td>
         </tr>
       </table>
     </#if>

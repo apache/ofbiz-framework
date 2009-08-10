@@ -321,6 +321,12 @@ under the License.
     <form name="FindBankReconciliationFinAcctTrans" target="BankReconciliation" 
             extends="FindFinAccountTransactions">
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="glReconciliationId" position="2">
+            <drop-down>
+                <list-options list-name="glReconciliations" key-name="glReconciliationId" 
+                    description="${glReconciliationName}[[${glReconciliationId}] [${reconciledDate}] [${reconciledBalance}]]"/>
+            </drop-down>
+        </field>
     </form>
     <form name="EditDepositPayment" extends="EditPayment" 
             extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml" target="createDepositPayment">

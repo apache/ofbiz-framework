@@ -527,6 +527,7 @@ under the License.
         <set field="approvedGrandTotal" type="BigDecimal" value="0"/>
         <set field="totalApprovedTransactions" type="Long" value="0"/>
         <set field="createdApprovedGrandTotal" type="BigDecimal" value="0"/>
+        <set field="glReconciliationApprovedGrandTotal" type="BigDecimal" value="0"/>
         <iterate list="finAccountTransactions" entry="finAccountTransaction">
             <if-compare field="finAccountTransaction.finAccountTransTypeId" operator="equals" value="WITHDRAWAL">
                 <if-compare field="finAccountTransaction.statusId" operator="equals" value="FINACT_TRNS_CREATED">
@@ -538,6 +539,9 @@ under the License.
                     <set field="totalApprovedTransactions" value="${totalApprovedTransactions + 1}" type="Long"/>
                     <set field="approvedGrandTotal" value="${approvedGrandTotal - finAccountTransaction.amount}" type="BigDecimal"/>
                     <set field="createdApprovedGrandTotal" value="${createdApprovedGrandTotal - finAccountTransaction.amount}" type="BigDecimal"/>
+                    <if-compare-field field="parameters.glReconciliationId" operator="equals" to-field="finAccountTransaction.glReconciliationId">
+                        <set field="glReconciliationApprovedGrandTotal" value="${glReconciliationApprovedGrandTotal - finAccountTransaction.amount}" type="BigDecimal"/>
+                    </if-compare-field>
                 </if-compare>
             <else>
                 <if-compare field="finAccountTransaction.statusId" operator="equals" value="FINACT_TRNS_CREATED">
@@ -549,6 +553,9 @@ under the License.
                     <set field="totalApprovedTransactions" value="${totalApprovedTransactions + 1}" type="Long"/>
                     <set field="approvedGrandTotal" value="${approvedGrandTotal + finAccountTransaction.amount}" type="BigDecimal"/>
                     <set field="createdApprovedGrandTotal" value="${createdApprovedGrandTotal + finAccountTransaction.amount}" type="BigDecimal"/>
+                    <if-compare-field field="parameters.glReconciliationId" operator="equals" to-field="finAccountTransaction.glReconciliationId">
+                        <set field="glReconciliationApprovedGrandTotal" value="${glReconciliationApprovedGrandTotal + finAccountTransaction.amount}" type="BigDecimal"/>
+                    </if-compare-field>
                 </if-compare>
             </else>
             </if-compare>
@@ -605,13 +612,19 @@ under the License.
         <field-to-result field="totalApprovedTransactions"/>
         <field-to-result field="createdApprovedGrandTotal"/>
         <field-to-result field="totalCreatedApprovedTransactions"/>
+        <field-to-result field="glReconciliationApprovedGrandTotal"/>
     </simple-method>
 
-    <simple-method method-name="getFinAccountTransRunningTotal" short-description="Calculate running total of Financial Account Transactions">
+    <simple-method method-name="getFinAccountTransRunningTotalAndBalances" short-description="Calculate running total and Balances of Financial Account Transactions">
         <set field="runningTotal" type="BigDecimal" from-field="parameters.runningTotal" default-value="0"/>
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans" auto-field-map="true"/>
         <set field="runningTotal" value="${runningTotal + finAccountTrans.amount}" type="BigDecimal"/>
         <field-to-result field="runningTotal"/>
+        <set field="numberOfTransactions" type="Long" from-field="parameters.numberOfTransactions" default-value="0"/>
+        <set field="numberOfTransactions" type="Long" value="${numberOfTransactions + 1}"/>
+        <field-to-result field="numberOfTransactions"/>
+        <set field="openingBalance" type="BigDecimal" from-field="parameters.openingBalance" default-value="0"/>
+        <set field="endingBalance" type="BigDecimal" value="${openingBalance + runningTotal}"/>
         <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
             <result-to-field result-name="partyAccountingPreference"/>
@@ -621,32 +634,50 @@ under the License.
             <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
         </if-empty>
         <set field="finAccountTransRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
+        <set field="endingBalance" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(endingBalance, currencyUomId, parameters.locale)}"/>
         <field-to-result field="finAccountTransRunningTotal"/>
+        <field-to-result field="endingBalance"/>
     </simple-method>
     
     <simple-method method-name="reconcileFinAccountTrans" short-description="Reconcile Financial Accounting Transaction">
         <now-timestamp field="nowTimestamp"/>
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans" auto-field-map="true"/>
+        <if-not-empty field="finAccountTrans.glReconciliationId">
+            <get-related-one relation-name="GlReconciliation" value-field="finAccountTrans" to-value-field="glReconciliation"/>
+            <set-service-fields service-name="updateGlReconciliation" map="glReconciliation" to-map="updateGlReconciliationMap"/>
+        </if-not-empty>
         <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT">
             <set-service-fields service-name="reconcileAdjustmentFinAcctgTrans" map="parameters" to-map="reconcileAdjustmentFinAcctgTransMap"/>
             <set field="reconcileAdjustmentFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
             <set field="reconcileAdjustmentFinAcctgTransMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
             <call-service service-name="reconcileAdjustmentFinAcctgTrans" in-map-name="reconcileAdjustmentFinAcctgTransMap"/>
+            <if-not-empty field="finAccountTrans.glReconciliationId">
+                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance + finAccountTrans.amount}"/>
+            </if-not-empty>
         </if-compare>
         <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT">
             <set-service-fields service-name="reconcileDepositFinAcctgTrans" map="parameters" to-map="reconcileDepositFinAcctgTransMap"/>
             <set field="reconcileDepositFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
             <call-service service-name="reconcileDepositFinAcctgTrans" in-map-name="reconcileDepositFinAcctgTransMap"/>
+            <if-not-empty field="finAccountTrans.glReconciliationId">
+                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance + finAccountTrans.amount}"/>
+            </if-not-empty>
         </if-compare>
         <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL">
             <set-service-fields service-name="reconcileWithdrawalFinAcctgTrans" map="parameters" to-map="reconcileWithdrawalFinAcctgTransMap"/>
             <set field="reconcileWithdrawalFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
             <call-service service-name="reconcileWithdrawalFinAcctgTrans" in-map-name="reconcileWithdrawalFinAcctgTransMap"/>
+            <if-not-empty field="finAccountTrans.glReconciliationId">
+                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance - finAccountTrans.amount}"/>
+            </if-not-empty>
         </if-compare>
         
         <set-service-fields service-name="setFinAccountTransStatus" map="finAccountTrans" to-map="setFinAccountTransStatusMap"/>
         <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_APPROVED"/>
         <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
+        <if-not-empty field="finAccountTrans.glReconciliationId">
+            <call-service service-name="updateGlReconciliation" in-map-name="updateGlReconciliationMap"/>
+        </if-not-empty>
     </simple-method>
     
     <simple-method method-name="reconcileAdjustmentFinAcctgTrans" short-description="Reconcile financial accounting transaction of type adjustment">
