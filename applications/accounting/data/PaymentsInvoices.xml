@@ -179,4 +179,30 @@ under the License.
     <InvoiceItem invoiceId="8100" invoiceItemSeqId="00002" invoiceItemTypeId="INV_FPROD_ITEM" productId="WG-9943-B3" quantity="3.000000" amount="440.000" description="Giant Widget B3"/>
     <InvoiceRole invoiceId="8100" partyId="Company" roleTypeId="BILL_FROM_VENDOR" datetimePerformed="2009-07-08 11:54:00.979"/>
     <InvoiceRole invoiceId="8100" partyId="DemoCustAgent" roleTypeId="SALES_REP" datetimePerformed="2009-07-08 11:54:00.979"/>
+
+    <!-- Demo Invoice data in READY status, it is prepared to test checkrun process. This will issue two check for three invoices[(8005),(8006,8007)]. -->    
+    <Invoice invoiceId="8005" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="DemoSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-07-11 12:26:29.758" paidDate="" description="Another invoice" currencyUomId="USD"/>
+    <Invoice invoiceId="8006" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="AcctBigSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-07-11 12:25:26.085" paidDate="" description="Another invoice" currencyUomId="USD"/>
+    <Invoice invoiceId="8007" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="AcctBigSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-07-11 12:24:31.85" paidDate="" description="Another invoice" currencyUomId="USD"/> 
+    <InvoiceItem invoiceId="8005" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.990" description="Service received"/> 
+    <InvoiceItem invoiceId="8006" invoiceItemSeqId="00003" invoiceItemTypeId="PITM_FEE" taxableFlag="Y" amount="10.000"/>
+    <InvoiceItem invoiceId="8006" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" uomId="USD" taxableFlag="Y" amount="2.440" description="Service received"/>
+    <InvoiceItem invoiceId="8006" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.990" description="Service received"/>
+    <InvoiceItem invoiceId="8007" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" uomId="USD" taxableFlag="Y" amount="2.440" description="Service received"/>
+    <InvoiceItem invoiceId="8007" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.990" description="Service received"/>
+    <InvoiceStatus statusId="INVOICE_READY" invoiceId="8005" statusDate="2009-07-11 12:28:45.144"/>
+    <InvoiceStatus statusId="INVOICE_READY" invoiceId="8007" statusDate="2009-07-11 12:28:44.788"/>
+    <InvoiceStatus statusId="INVOICE_READY" invoiceId="8006" statusDate="2009-07-11 12:28:44.589"/>
+
+    <AcctgTrans acctgTransId="8011" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-07-10 00:00:00.000" isPosted="Y" postedDate="2009-07-11 00:00:00.000" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" invoiceId="8005"/>
+    <AcctgTransEntry acctgTransId="8011" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" productId="WG-1111" glAccountId="214000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="8011" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    
+    <AcctgTrans acctgTransId="8011" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-07-10 00:00:00.000" isPosted="Y" postedDate="2009-07-11 00:00:00.000" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" invoiceId="8006"/>
+    <AcctgTransEntry acctgTransId="8011" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" productId="WG-1111" glAccountId="214000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="8011" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    
+    <AcctgTrans acctgTransId="8011" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-07-10 00:00:00.000" isPosted="Y" postedDate="2009-07-11 00:00:00.000" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" invoiceId="8007"/>
+    <AcctgTransEntry acctgTransId="8011" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" productId="WG-1111" glAccountId="214000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="8011" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
 </entity-engine-xml>
