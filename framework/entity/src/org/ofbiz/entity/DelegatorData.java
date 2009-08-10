@@ -55,11 +55,11 @@ public class DelegatorData implements Cloneable {
     protected String delegatorName = null;
     protected DistributedCacheClear distributedCacheClear = null;
     protected EntityEcaHandler<?> entityEcaHandler = null;
+    protected boolean initialized = false;
     protected ModelGroupReader modelGroupReader = null;
     protected ModelReader modelReader = null;
     protected String originalDelegatorName = null;
     protected SequenceUtil sequencer = null;
-    protected boolean initialized = false;
 
     public static synchronized DelegatorData getInstance(String delegatorName) throws GenericEntityException {
         if (delegatorName == null) {
@@ -88,24 +88,24 @@ public class DelegatorData implements Cloneable {
         this.modelReader = ModelReader.getModelReader(delegatorName);
         this.modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorName);
         this.cache = new Cache(delegatorName);
-        this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(this.delegatorName);
+        this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
     }
 
     @Override
     protected Object clone() {
         DelegatorData delegatorData = new DelegatorData();
-        delegatorData.modelReader = this.modelReader;
-        delegatorData.modelGroupReader = this.modelGroupReader;
-        delegatorData.delegatorName = this.delegatorName;
-        delegatorData.delegatorInfo = this.delegatorInfo;
-        delegatorData.cache = this.cache;
         delegatorData.andCacheFieldSets = this.andCacheFieldSets;
-        delegatorData.distributedCacheClear = this.distributedCacheClear;
-        delegatorData.originalDelegatorName = this.originalDelegatorName;
-        delegatorData.entityEcaHandler = this.entityEcaHandler;
-        delegatorData.sequencer = this.sequencer;
+        delegatorData.cache = this.cache;
         delegatorData.crypto = this.crypto;
+        delegatorData.delegatorInfo = this.delegatorInfo;
+        delegatorData.delegatorName = this.delegatorName;
+        delegatorData.distributedCacheClear = this.distributedCacheClear;
+        delegatorData.entityEcaHandler = this.entityEcaHandler;
         delegatorData.initialized = this.initialized;
+        delegatorData.modelGroupReader = this.modelGroupReader;
+        delegatorData.modelReader = this.modelReader;
+        delegatorData.originalDelegatorName = this.originalDelegatorName;
+        delegatorData.sequencer = this.sequencer;
         return delegatorData;
     }
 }
