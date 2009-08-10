@@ -122,7 +122,7 @@ under the License.
             <set field="portletHelp" value="${groovy:helpUrlsMap.get(&quot;PORTLET_&quot;.concat(portalPortletId)).equals(&quot;PORTLET_&quot;.concat(portalPortletId))?helpUrlsMap.MYPORTAL_showPortalPage:helpUrlsMap.(&quot;PORTLET_&quot;.concat(portalPortletId))}"/>
         </row-actions>
         <field name="portletName">
-            <hyperlink also-hidden="false" target-type="plain" target="${parameters.helpUrlPrefix}${portletHelp}${parameters.helpUrlSuffix}?decorator=printable" description="${portletName}" ></hyperlink>
+            <hyperlink also-hidden="false" target-type="plain" target="${parameters.helpUrlPrefix}${portletHelp}${parameters.helpUrlSuffix}" description="${portletName}" ></hyperlink>
         </field>
         <field name="description"><display/></field>
     </form>
