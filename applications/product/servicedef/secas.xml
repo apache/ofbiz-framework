@@ -123,4 +123,10 @@ under the License.
         <condition field-name="orderId" operator="is-not-empty"/>
         <action service="updateIssuanceShipmentAndPoOnReceiveInventory" mode="sync"/>
     </eca>
+
+    <!-- Set the average cost of product -->
+    <eca service="receiveInventoryProduct" event="commit">
+        <action service="updateProductAverageCostOnReceiveInventory" mode="sync"/>
+    </eca>
+
 </service-eca>

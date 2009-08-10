@@ -1324,10 +1324,14 @@ under the License.
         </entity-and>
         <first-from-list list="billToCustomers" entry="billToCustomer"/>
         <!-- TODO: handle serialized inventory -->
+        <set field="getProdAvgCostMap.inventoryItem" from-field="inventoryItem"/>
+        <call-service service-name="getProductAverageCost" in-map-name="getProdAvgCostMap">
+            <result-to-field result-name="unitCost"/>
+        </call-service>
         <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="itemIssuance.quantity"/>
-                <calcop operator="get" field="inventoryItem.unitCost"/>
+                <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
         <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
@@ -1382,10 +1386,14 @@ under the License.
         </entity-and>
         <first-from-list list="billToCustomers" entry="billToCustomer"/>
         <!-- TODO: handle serialized inventory -->
+        <set field="getProdAvgCostMap.inventoryItem" from-field="inventoryItem"/>
+        <call-service service-name="getProductAverageCost" in-map-name="getProdAvgCostMap">
+            <result-to-field result-name="unitCost"/>
+        </call-service>
         <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="parameters.canceledQuantity"/>
-                <calcop operator="get" field="inventoryItem.unitCost"/>
+                <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
         <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
@@ -1442,10 +1450,19 @@ under the License.
         </else>
         </if-not-empty>
         <!-- TODO: handle serialized inventory -->
+        <if-not-empty field="shipmentReceipt.returnId">
+            <set field="getProdAvgCostMap.inventoryItem" from-field="inventoryItem"/>
+            <call-service service-name="getProductAverageCost" in-map-name="getProdAvgCostMap">
+                <result-to-field result-name="unitCost"/>
+            </call-service>
+        <else>
+            <set field="unitCost" from-field="inventoryItem.unitCost"/>
+        </else>
+        </if-not-empty>
         <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
                 <calcop operator="get" field="shipmentReceipt.quantityAccepted"/>
-                <calcop operator="get" field="inventoryItem.unitCost"/>
+                <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
         <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
