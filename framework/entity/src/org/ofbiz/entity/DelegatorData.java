@@ -105,6 +105,7 @@ public class DelegatorData implements Cloneable {
         delegatorData.entityEcaHandler = this.entityEcaHandler;
         delegatorData.sequencer = this.sequencer;
         delegatorData.crypto = this.crypto;
+        delegatorData.initialized = this.initialized;
         return delegatorData;
     }
 }
