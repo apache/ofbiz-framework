@@ -182,8 +182,12 @@ under the License.
             </#if>
             <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />
-              <li><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
-            </#if>
+              <#if parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalPage">
+                <li><a href="<@ofbizUrl>selectPortletForHelp</@ofbizUrl>?portalPageId=${parameters.portalPageId}&helpUrlPrefix=${helpUrlPrefix}&helpUrlSuffix=${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
+              <#else>
+                <li><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}?decorator=printable" target="_blank">${uiLabelMap.CommonHelp}</a></li>
+              </#if>
+           </#if>
           </ul>
         </li>
       </#if>
