@@ -26,4 +26,7 @@
     <property key="MYPORTAL_ManagePortalPages">
         <value xml:lang="en">Manage My Portal</value>
     </property>
+    <property key="PORTLET_SystemInfoNotes">
+        <value xml:lang="en">System Info Notes Portlet</value>
+    </property>
 </resource>

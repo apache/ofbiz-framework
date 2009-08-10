@@ -181,5 +181,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="selectPortletForHelp">
+        <section>
+            <actions>
+                <entity-and entity-name="PortalPagePortletView" list="portlets">
+                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupPortLetHelp}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="h2" text="Select a portlet you would like to have help on....."></label>
+                        <include-form name="PortletList" location="component://common/widget/PortalPageForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>

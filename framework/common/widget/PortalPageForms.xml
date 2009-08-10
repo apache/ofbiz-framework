@@ -115,5 +115,13 @@ under the License.
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
-
+    
+    <form name="PortletList" type="list" list-name="portlets" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="portletName">
+            <hyperlink also-hidden="false" target-type="plain" target="${parameters.helpUrlPrefix}${helpUrlsMap.PORTLET_${portalPortletId}}${parameters.helpUrlSuffix}?decorator=printable" description="${portletName}" ></hyperlink>
+        </field>
+        <field name="description"><display/></field>
+    </form>
+    
 </forms>
