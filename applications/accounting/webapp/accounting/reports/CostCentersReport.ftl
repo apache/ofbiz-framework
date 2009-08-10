@@ -18,6 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if glAcctgOrgAndCostCenterMapList?has_content && glAccountCategories?has_content>
+  <form name="costCentersReportPdfForm" method="post" action="<@ofbizUrl>CostCentersReport.pdf</@ofbizUrl>">
+    <input type="hidden" name="organizationPartyId" value="${parameters.organizationPartyId}"/>
+    <input type="hidden" name="fromDate" value="${parameters.fromDate}"/>
+    <input type="hidden" name="thruDate" value="${parameters.thruDate}"/>
+    <input type="hidden" name="timePeriod" value="${parameters.timePeriod}"/>
+    <a href="javascript:document.costCentersReportPdfForm.submit();" class="buttontext">${uiLabelMap.AccountingExportAsPdf}</a>
+  </form>
   <table class="basic-table hover-bar" cellspacing="0">
     <tr class="header-row">
       <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>
