@@ -2396,6 +2396,12 @@ under the License.
         <response name="success" type="view" value="CostCenterReport"/>
         <response name="error" type="view" value="CostCenterReport"/>
     </request-map>
+
+    <request-map uri="CostCentersReport.pdf">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="CostCentersReportPdf"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2686,5 +2692,7 @@ under the License.
     <view-map name="EditGlAccountCategoryMember" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategoryMember"/>
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
     <view-map name="CostCenterReport" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCenterReport"/>
+    <view-map name="CostCentersReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCentersReportPdf" content-type="application/pdf" encoding="none"/>
+    
     <!-- end of view mappings -->
 </site-conf>

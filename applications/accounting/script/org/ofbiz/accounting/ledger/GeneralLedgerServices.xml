@@ -2522,10 +2522,12 @@ under the License.
             <set field="fromDate" from-field="customTimePeriod.fromDate" type="Timestamp"/>
             <set field="thruDate" from-field="customTimePeriod.thruDate" type="Timestamp"/>
         </if-empty>
-
+        <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds[]" from-field="organizationPartyId"/>
         <entity-condition entity-name="GlAccountOrganization" list="glAccountOrganizations" use-cache="true">
             <condition-list>
-                <condition-expr field-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="postedBalance" operator="not-equals" value=""/>
                 <condition-list combine="or">
                     <condition-expr field-name="fromDate" operator="greater-equals" from-field="fromDate"/>

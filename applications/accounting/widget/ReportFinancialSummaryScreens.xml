@@ -1065,13 +1065,43 @@ under the License.
                                 </or>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://accounting/webapp/accounting/reports/CostCentersReport.ftl"/>
-                                    </html>
-                                </platform-specific>
+                                <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
+                                    <platform-specific>
+                                        <html>
+                                            <html-template location="component://accounting/webapp/accounting/reports/CostCentersReport.ftl"/>
+                                        </html>
+                                    </platform-specific>
+                                </screenlet>
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CostCentersReportPdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <entity-condition entity-name="GlAccountCategory" list="glAccountCategories">
+                    <condition-expr field-name="glAccountCategoryTypeId" operator="equals" value="COST_CENTER"/>
+                </entity-condition>
+                <service service-name="getGlAcctgOrgWithPostedBalanceSplit" result-map="result" auto-field-map="true"/>
+                <set field="glAcctgOrgAndCostCenterMapList" from-field="result.glAcctgOrgAndCostCenterMapList" type="List"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                            <platform-specific>
+                                <xsl-fo>
+                                    <html-template location="component://accounting/webapp/accounting/reports/CostCentersReport.fo.ftl"/>
+                                </xsl-fo>
+                            </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
