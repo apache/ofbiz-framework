@@ -490,4 +490,75 @@ under the License.
             <field-to-result field="currencyUomId"/>
         </if-compare>
     </simple-method>
+
+    <simple-method method-name="updateProductAverageCostOnReceiveInventory" short-description="Update a Product Average Cost record on receive inventory">
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+        <set field="organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <if-empty field="organizationPartyId">
+            <entity-one entity-name="Facility" value-field="facility" auto-field-map="true"/>
+            <set field="organizationPartyId" from-field="facility.ownerPartyId"/>
+            <if-empty field="organizationPartyId">
+                <get-related-one relation-name="ProductStore" to-value-field="productStore" value-field="facility"/>
+                <set field="organizationPartyId" from-field="productStore.ownerPartyId"/>
+                <if-empty field="organizationPartyId">
+                    <add-error error-list-name="error_list"><fail-message message="Owner Party is missing, please provide any of the Inventory Owner or Facility Owner or ProductStore Owner."/></add-error>
+                </if-empty>
+                <check-errors/>
+            </if-empty>
+        </if-empty>
+
+        <entity-and entity-name="ProductAverageCost" list="productAverageCostList" filter-by-date="true">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+            <field-map field-name="productAverageCostTypeId" value="SIMPLE_AVG_COST"/>
+            <field-map field-name="organizationPartyId"/>
+        </entity-and>
+        <first-from-list list="productAverageCostList" entry="productAverageCost"/>
+
+        <set-service-fields service-name="createProductAverageCost" map="parameters" to-map="productAverageCostMap"/>
+        <set field="productAverageCostMap.productAverageCostTypeId" value="SIMPLE_AVG_COST"/>
+        <set field="productAverageCostMap.organizationPartyId" from-field="organizationPartyId"/>
+        <if-empty field="productAverageCost">
+            <set field="productAverageCostMap.averageCost" from-field="inventoryItem.unitCost"/>
+        <else>
+            <!-- Expire existing one and calculate average cost -->
+            <set-service-fields service-name="updateProductAverageCost" map="productAverageCost" to-map="updateProductAverageCostMap"/>
+            <now-timestamp field="updateProductAverageCostMap.thruDate"/>
+            <call-service service-name="updateProductAverageCost" in-map-name="updateProductAverageCostMap"/>
+
+            <set field="productAverageCostMap.averageCost" value="${(productAverageCost.averageCost + inventoryItem.unitCost)/2}" type="BigDecimal"/>
+            <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
+            <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
+            <calculate field="productAverageCostMap.averageCost" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="get" field="productAverageCostMap.averageCost"/>
+            </calculate>
+        </else>
+        </if-empty>
+       <call-service service-name="createProductAverageCost" in-map-name="productAverageCostMap"/>
+       <log level="info" message="For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} is set from  ${updateProductAverageCostMap.averageCost} to ${productAverageCostMap.averageCost}"/>
+    </simple-method>
+
+    <simple-method method-name="getProductAverageCost" short-description="Service to get the average cost of product">
+        <set field="inventoryItem" from-field="parameters.inventoryItem"/>
+        <set field="getPartyAcctgPrefMap.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAcctgPrefMap">
+            <result-to-field result-name="partyAccountingPreference"/>
+        </call-service>
+        <if-compare field="partyAccountingPreference.cogsMethodId" operator="equals" value="COGS_AVG_COST">
+            <entity-and entity-name="ProductAverageCost" list="productAverageCostList" filter-by-date="true">
+                <field-map field-name="productAverageCostTypeId" value="SIMPLE_AVG_COST"/> <!-- TODO: handle for WEIGHTED_AVG_COST and MOVING_AVG_COST -->
+                <field-map field-name="organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+                <field-map field-name="productId" from-field="inventoryItem.productId"/>
+                <field-map field-name="facilityId" from-field="inventoryItem.facilityId"/>
+            </entity-and>
+            <first-from-list list="productAverageCostList" entry="productAverageCost"/>
+        </if-compare>
+        <if-not-empty field="productAverageCost">
+            <set field="unitCost" from-field="productAverageCost.averageCost" type="BigDecimal"/>
+        <else>
+            <set field="unitCost" from-field="inventoryItem.unitCost" type="BigDecimal"/>
+        </else>
+        </if-not-empty>
+        <field-to-result field="unitCost"/>
+    </simple-method>
 </simple-methods>
