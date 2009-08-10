@@ -2913,6 +2913,10 @@
         <value xml:lang="th">ว่างไว้สำหรับจำนวนมาก</value>
         <value xml:lang="zh">空白时取最大金额</value>
     </property>
+    <property key="AccountingEndingBalance">
+        <value xml:lang="en">Ending Balance</value>
+        <value xml:lang="hi_IN">अंतिम शेष</value>
+    </property>
     <property key="AccountingEnterGiftCardLink">
         <value xml:lang="de">Geben Sie Ihre Kartennummer (Physikalische und virtuelle) und den Pin-Code an um Sie mit Ihrem Konto zu verknüpfen</value>
         <value xml:lang="en">Enter your physical and virtual card and pin number to link your account</value>
@@ -6184,6 +6188,10 @@
         <value xml:lang="ru">Офлайновый платеж</value>
         <value xml:lang="th">ไม่สามารถเชื่อมต่อกับระบบการจ่ายเงินได้</value>
         <value xml:lang="zh">离线支付</value>
+    </property>
+    <property key="AccountingOpeningBalance">
+        <value xml:lang="en">Opening Balance</value>
+        <value xml:lang="hi_IN">प्रारंभिक शेष</value>
     </property>
     <property key="AccountingOpenPayments">
         <value xml:lang="ar">مفتوح</value>

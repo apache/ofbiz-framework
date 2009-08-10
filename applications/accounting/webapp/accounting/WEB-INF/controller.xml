@@ -1936,8 +1936,8 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BankReconciliation"/>
     </request-map> 
-    <request-map uri="getFinAccountTransRunningTotal">
-        <event type="jsonservice-multi" invoke="getFinAccountTransRunningTotal"/>
+    <request-map uri="getFinAccountTransRunningTotalAndBalances">
+        <event type="jsonservice-multi" invoke="getFinAccountTransRunningTotalAndBalances"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>

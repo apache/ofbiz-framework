@@ -460,9 +460,6 @@ under the License.
                 <set field="tabButtonItem" value="FinAccountTrans"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
-                <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
-                <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
-                <set field="createdApprovedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.createdApprovedGrandTotal"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
@@ -473,20 +470,43 @@ under the License.
                             <parameter param-name="finAccountId" from-field="finAccountId"/>
                         </link>
                         <section>
+                            <condition>
+                                <not>
+                                    <if-empty field="parameters.glReconciliationId"/>
+                                </not>
+                            </condition>
                             <actions>
-                                <entity-condition entity-name="GlAccountOrganizationAndClass" list="glAccountOrgAndClassList">
-                                    <condition-expr field-name="organizationPartyId" from-field="defaultOrganizationPartyId"/>
-                                    <order-by field-name="glAccountId"/>
-                                </entity-condition>
+                                <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
+                                <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
+                                <set field="createdApprovedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.createdApprovedGrandTotal"/>
+                                <set field="glReconciliationApprovedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.glReconciliationApprovedGrandTotal"/>
                             </actions>
                             <widgets>
+                                <section>
+                                    <actions>
+                                        <entity-condition entity-name="GlAccountOrganizationAndClass" list="glAccountOrgAndClassList">
+                                            <condition-expr field-name="organizationPartyId" from-field="defaultOrganizationPartyId"/>
+                                            <order-by field-name="glAccountId"/>
+                                        </entity-condition>
+                                    </actions>
+                                    <widgets>
+                                        <screenlet id="FinAccountTransPanel" collapsible="true">
+                                            <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        </screenlet>
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
                                 <screenlet id="FinAccountTransPanel" collapsible="true">
                                     <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                                 <platform-specific>
                                     <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
                                 </platform-specific>
-                            </widgets>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>

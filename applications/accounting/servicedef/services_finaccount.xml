@@ -226,14 +226,18 @@ under the License.
         <attribute name="totalApprovedTransactions" type="Long" mode="OUT" optional="true"/>
         <attribute name="createdApprovedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="totalCreatedApprovedTransactions" type="Long" mode="OUT" optional="true"/>
+        <attribute name="glReconciliationApprovedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    <service name="getFinAccountTransRunningTotal" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransRunningTotal">
+    <service name="getFinAccountTransRunningTotalAndBalances" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransRunningTotalAndBalances">
         <description>Financial Account Running Total</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="openingBalance" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="runningTotal" type="BigDecimal" mode="INOUT" optional="true"/>
+        <attribute name="numberOfTransactions" type="Long" mode="INOUT" optional="true"/>
         <attribute name="finAccountTransRunningTotal" type="String" mode="OUT" optional="true"/>
+        <attribute name="endingBalance" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="reconcileFinAccountTrans" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileFinAccountTrans">
