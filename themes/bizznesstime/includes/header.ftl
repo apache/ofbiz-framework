@@ -129,7 +129,7 @@ under the License.
               <#if parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalPage">
                 <span><a href="<@ofbizUrl>selectPortletForHelp</@ofbizUrl>?portalPageId=${parameters.portalPageId}&helpUrlPrefix=${helpUrlPrefix}&helpUrlSuffix=${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></span>
               <#else>
-                <span><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}?decorator=printable" target="_blank">${uiLabelMap.CommonHelp}</a></span>
+                <span><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></span>
               </#if>
             </#if>
         </div>
