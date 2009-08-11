@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
@@ -39,8 +41,8 @@ public class ShippingEstimateWrapper {
     protected GenericDelegator delegator = null;
     protected LocalDispatcher dispatcher = null;
 
-    protected Map shippingEstimates = null;
-    protected List shippingMethods = null;
+    protected Map<GenericValue, BigDecimal> shippingEstimates = null;
+    protected List<GenericValue> shippingMethods = null;
 
     protected GenericValue shippingAddress = null;
     protected Map shippableItemFeatures = null;
@@ -86,11 +88,9 @@ public class ShippingEstimateWrapper {
     }
 
     protected void loadEstimates() {
-        this.shippingEstimates = new HashMap();
+        this.shippingEstimates = FastMap.newInstance();
         if (shippingMethods != null) {
-            Iterator i = shippingMethods.iterator();
-            while (i.hasNext()) {
-                GenericValue shipMethod = (GenericValue) i.next();
+            for (GenericValue shipMethod : shippingMethods) {
                 String shippingMethodTypeId = shipMethod.getString("shipmentMethodTypeId");
                 String carrierRoleTypeId = shipMethod.getString("roleTypeId");
                 String carrierPartyId = shipMethod.getString("partyId");
@@ -109,11 +109,11 @@ public class ShippingEstimateWrapper {
         }
     }
 
-    public List getShippingMethods() {
+    public List<GenericValue> getShippingMethods() {
         return shippingMethods;
     }
 
-    public Map getAllEstimates() {
+    public Map<GenericValue, BigDecimal> getAllEstimates() {
         return shippingEstimates;
     }
 

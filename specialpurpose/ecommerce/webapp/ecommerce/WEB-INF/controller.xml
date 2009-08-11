@@ -801,12 +801,18 @@ under the License.
         <security auth="false" https="true"/>
         <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="getExpressCheckoutDetails"/>
         <response name="success" type="request" value="reviewOrder"/>
-        <response name="error" type="view-last"/>
+        <response name="error" type="view-last" value="main"/>
     </request-map>
     <request-map uri="payPalCheckoutCancel">
         <security auth="false" https="true"/>
         <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="expressCheckoutCancel"/>
         <response name="success" type="view-last"/>
+    </request-map>
+    <request-map uri="payPalCheckoutUpdate">
+        <description>Handles callbacks from PayPal's Express Checkout Instant Update API</description>
+        <security auth="false" https="true"/>
+        <event type="service" invoke="payPalExpressCheckoutUpdate"/>
+        <response name="success" type="none"/>
     </request-map>
 
     <!-- TO BE REMOVED

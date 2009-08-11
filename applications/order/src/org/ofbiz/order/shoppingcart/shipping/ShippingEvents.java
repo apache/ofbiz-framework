@@ -90,10 +90,10 @@ public class ShippingEvents {
         return "success";
     }
 
-    public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, int groupNo) {
+    public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, int groupNo) {
         // check for shippable items
         if (!cart.shippingApplies()) {
-            Map responseResult = ServiceUtil.returnSuccess();
+            Map<String, Object> responseResult = ServiceUtil.returnSuccess();
             responseResult.put("shippingTotal", BigDecimal.ZERO);
             return responseResult;
         }

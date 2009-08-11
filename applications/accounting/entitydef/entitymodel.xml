@@ -3150,6 +3150,10 @@ under the License.
             title="PayPal Payment Gateway Config">
         <field name="paymentGatewayConfigId" type="id-ne"></field>
         <field name="businessEmail" type="value"><description>Business e-mail</description></field>
+        <field name="apiUserName" type="short-varchar"><description>PayPal API UserName</description></field>
+        <field name="apiPassword" type="short-varchar"><description>PayPal API Password</description></field>
+        <field name="apiSignature" type="short-varchar"><description>PayPal API Signature</description></field>
+        <field name="apiEnvironment" type="short-varchar"><description>PayPal API Environment (valid values are: live, sandbox or beta-sandbox)</description></field>
         <field name="notifyUrl" type="value"><description>Notify URL</description></field>
         <field name="returnUrl" type="value"><description>Return URL</description></field>
         <field name="cancelReturnUrl" type="value"><description>Return On Cancel URL</description></field>
@@ -3157,6 +3161,8 @@ under the License.
         <field name="confirmTemplate" type="value"><description>Thank-You / Confirm Order Template (rendered via Freemarker)</description></field>
         <field name="redirectUrl" type="value"><description>PayPal Redirect URL (Sandbox/Production)</description></field>
         <field name="confirmUrl" type="value"><description>PayPal Confirm URL Sandbox/Production (JSSE must be configured to use SSL)</description></field>
+        <field name="shippingCallbackUrl" type="url"><description>Specific to Express Checkout which performs callbacks to our server to retrieve shipping estimates</description></field>
+        <field name="requireConfirmedShipping" type="indicator"><description>Indicates that you require that the customer’s shipping address on file with PayPal be a confirmed address.</description></field>
         <prim-key field="paymentGatewayConfigId"/>
         <relation type="one" fk-name="PGPP_PGC" rel-entity-name="PaymentGatewayConfig">
             <key-map field-name="paymentGatewayConfigId"/>

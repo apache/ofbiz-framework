@@ -1917,7 +1917,7 @@ public class ShoppingCart implements Serializable {
         return (shipInfo.size() - 1);
     }
 
-    public List getShipGroups() {
+    public List<CartShipInfo> getShipGroups() {
         return this.shipInfo;
     }
 
@@ -1926,10 +1926,10 @@ public class ShoppingCart implements Serializable {
         if (item != null) {
             for (int i = 0; i < this.shipInfo.size(); i++) {
                 CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
-                CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) csi.shipItemInfo.get(item);
+                CartShipInfo.CartShipItemInfo csii = csi.shipItemInfo.get(item);
                 if (csii != null) {
                     if (this.checkShipItemInfo(csi, csii)) {
-                        shipGroups.put(Integer.valueOf(i), csii.quantity);
+                        shipGroups.put(i, csii.quantity);
                     }
                 }
             }
@@ -1960,13 +1960,11 @@ public class ShoppingCart implements Serializable {
     }
 
     /** Returns the ShoppingCartItem (key) and quantity (value) associated with the ship group */
-    public Map getShipGroupItems(int idx) {
+    public Map<ShoppingCartItem, BigDecimal> getShipGroupItems(int idx) {
         CartShipInfo csi = this.getShipInfo(idx);
-        Map qtyMap = new HashMap();
-        Iterator i = csi.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) csi.shipItemInfo.get(item);
+        Map<ShoppingCartItem, BigDecimal> qtyMap = FastMap.newInstance();
+        for(ShoppingCartItem item : csi.shipItemInfo.keySet()) {
+            CartShipInfo.CartShipItemInfo csii = csi.shipItemInfo.get(item);
             qtyMap.put(item, csii.quantity);
         }
         return qtyMap;
@@ -2044,7 +2042,7 @@ public class ShoppingCart implements Serializable {
     public BigDecimal getItemShipGroupQty(ShoppingCartItem item, int idx) {
         if (item != null) {
             CartShipInfo csi = this.getShipInfo(idx);
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) csi.shipItemInfo.get(item);
+            CartShipInfo.CartShipItemInfo csii = csi.shipItemInfo.get(item);
             if (csii != null) {
                 return csii.quantity;
             }
@@ -2110,9 +2108,9 @@ public class ShoppingCart implements Serializable {
 
     public void cleanUpShipGroups() {
         for (CartShipInfo csi : this.shipInfo) {
-            Iterator si = csi.shipItemInfo.keySet().iterator();
+            Iterator<ShoppingCartItem> si = csi.shipItemInfo.keySet().iterator();
             while (si.hasNext()) {
-                ShoppingCartItem item = (ShoppingCartItem) si.next();
+                ShoppingCartItem item = si.next();
                 if (item.getQuantity().compareTo(BigDecimal.ZERO) == 0) {
                     si.remove();
                 }
@@ -2771,9 +2769,7 @@ public class ShoppingCart implements Serializable {
         CartShipInfo info = this.getShipInfo(idx);
         BigDecimal itemTotal = BigDecimal.ZERO;
 
-        Iterator i = info.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
+        for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
             CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
@@ -2790,10 +2786,8 @@ public class ShoppingCart implements Serializable {
         CartShipInfo info = this.getShipInfo(idx);
         BigDecimal count = BigDecimal.ZERO;
 
-        Iterator i = info.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
+        for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
+            CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
                     count = count.add(csii.quantity);
@@ -2809,10 +2803,8 @@ public class ShoppingCart implements Serializable {
         CartShipInfo info = this.getShipInfo(idx);
         BigDecimal weight = BigDecimal.ZERO;
 
-        Iterator i = info.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
+        for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
+            CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
                     weight = weight.add(item.getWeight().multiply(csii.quantity));
@@ -2828,10 +2820,8 @@ public class ShoppingCart implements Serializable {
         CartShipInfo info = this.getShipInfo(idx);
         List shippableSizes = new LinkedList();
 
-        Iterator i = info.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
+        for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
+            CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
                     shippableSizes.add(item.getSize());
@@ -2847,10 +2837,8 @@ public class ShoppingCart implements Serializable {
         CartShipInfo info = this.getShipInfo(idx);
         List itemInfos = new LinkedList();
 
-        Iterator i = info.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
+        for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
+            CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
                     Map itemInfo = item.getItemProductInfo();
@@ -2896,9 +2884,7 @@ public class ShoppingCart implements Serializable {
         CartShipInfo info = this.getShipInfo(idx);
         Map featureMap = new HashMap();
 
-        Iterator i = info.shipItemInfo.keySet().iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) i.next();
+        for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
             CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 featureMap.putAll(item.getFeatureIdQtyMap(csii.quantity));
@@ -4279,7 +4265,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public static class CartShipInfo implements Serializable {
-        public Map<Object, Object> shipItemInfo = FastMap.newInstance();
+        public Map<ShoppingCartItem, CartShipItemInfo> shipItemInfo = FastMap.newInstance();
         public List<GenericValue> shipTaxAdj = FastList.newInstance();
         public String orderTypeId = null;
         private String internalContactMechId = null;
@@ -4361,8 +4347,7 @@ public class ShoppingCart implements Serializable {
 
             //set estimated ship dates
             FastList estimatedShipDates = FastList.newInstance();
-            for (Map.Entry<Object, Object> entry : shipItemInfo.entrySet()) {
-                ShoppingCartItem item = (ShoppingCartItem) entry.getKey();
+            for (ShoppingCartItem item : shipItemInfo.keySet()) {
                 Timestamp estimatedShipDate = item.getEstimatedShipDate();
                 if (estimatedShipDate != null) {
                     estimatedShipDates.add(estimatedShipDate);
@@ -4376,8 +4361,7 @@ public class ShoppingCart implements Serializable {
 
             //set estimated delivery dates
             FastList estimatedDeliveryDates = FastList.newInstance();
-            for (Map.Entry <Object, Object> entry : shipItemInfo.entrySet()) {
-                ShoppingCartItem item = (ShoppingCartItem) entry.getKey();
+            for (ShoppingCartItem item : shipItemInfo.keySet()) {
                 Timestamp estimatedDeliveryDate = item.getDesiredDeliveryDate();
                 if (estimatedDeliveryDate != null) {
                     estimatedDeliveryDates.add(estimatedDeliveryDate);
@@ -4432,7 +4416,7 @@ public class ShoppingCart implements Serializable {
         }
 
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, BigDecimal quantity, List taxAdj) {
-            CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
+            CartShipItemInfo itemInfo = shipItemInfo.get(item);
             if (itemInfo == null) {
                 if (!isShippableToAddress(item)) {
                     throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
@@ -4460,10 +4444,10 @@ public class ShoppingCart implements Serializable {
         }
 
         public CartShipItemInfo getShipItemInfo(ShoppingCartItem item) {
-            return (CartShipItemInfo) shipItemInfo.get(item);
+            return shipItemInfo.get(item);
         }
 
-        public Set getShipItems() {
+        public Set<ShoppingCartItem> getShipItems() {
             return shipItemInfo.keySet();
         }
 
@@ -4529,9 +4513,7 @@ public class ShoppingCart implements Serializable {
 
         public BigDecimal getTotal() {
             BigDecimal shipItemTotal = ZERO;
-            Iterator iter = shipItemInfo.values().iterator();
-            while (iter.hasNext()) {
-                CartShipItemInfo info = (CartShipItemInfo) iter.next();
+            for (CartShipItemInfo info : shipItemInfo.values()) {
                 shipItemTotal = shipItemTotal.add(info.getItemSubTotal());
             }
 

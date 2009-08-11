@@ -77,6 +77,14 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="" paymentCustomMethodId="PAYPAL_REFUND_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
     -->
+    <!-- Example Standard PayPal Express Checkout Setup 
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="" paymentCustomMethodId="PAYPAL_AUTH" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="" paymentCustomMethodId="PAYPAL_AUTH" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="" paymentCustomMethodId="PAYPAL_REFUND" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    -->
+
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_WORLDPAY" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="WORLDPAY_CONFIG"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_OFFLINE" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_COD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
