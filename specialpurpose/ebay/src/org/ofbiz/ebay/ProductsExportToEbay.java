@@ -319,6 +319,7 @@ public class ProductsExportToEbay {
 
     private static void setPaymentMethodAccepted(Document itemDocument, Element itemElem, Map context) {
         String payPal = (String)context.get("paymentPayPal");
+        String payPalEmail = (String)context.get("payPalEmail");
         String visaMC = (String)context.get("paymentVisaMC");
         String amEx = (String)context.get("paymentAmEx");
         String discover = (String)context.get("paymentDiscover");
@@ -334,7 +335,10 @@ public class ProductsExportToEbay {
         // PayPal
         if (UtilValidate.isNotEmpty(payPal) && "on".equals(payPal)) {
             UtilXml.addChildElementValue(itemElem, "PaymentMethods", "PayPal", itemDocument);
-            UtilXml.addChildElementValue(itemElem, "PayPalEmailAddress", (String)context.get("payPalEmail"), itemDocument);
+            // PayPal email
+            if (UtilValidate.isNotEmpty(payPalEmail)) {
+                UtilXml.addChildElementValue(itemElem, "PayPalEmailAddress", payPalEmail, itemDocument);
+            }
         }
         // Visa/Master Card
         if (UtilValidate.isNotEmpty(visaMC) && "on".equals(visaMC)) {
