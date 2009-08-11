@@ -1034,11 +1034,6 @@ under the License.
                                 </condition>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.ProjectMgrContentList}">
-                                        <container>
-                                            <link target="EditProjectContents" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
-                                                <parameter param-name="projectId"/>
-                                            </link>
-                                        </container>
                                         <include-form name="ListContents" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PageTitleAddProjectContent}">
