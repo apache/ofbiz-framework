@@ -26,7 +26,7 @@ under the License.
                 <set field="titleProperty" value="AccountingFindApPayments"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonApPaymentDecorator" location="component://accounting/widget/ap/CommonScreens.xml">
+                <decorator-screen name="CommonApPaymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -57,7 +57,7 @@ under the License.
                 <set field="titleProperty" value="AccountingNewPaymentOutgoing"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonApPaymentDecorator" location="component://accounting/widget/ap/CommonScreens.xml">
+                <decorator-screen name="CommonApPaymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
