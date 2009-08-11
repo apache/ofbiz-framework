@@ -45,6 +45,9 @@ under the License.
           <span id="onePageCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</span>
           <span id="googleCheckoutEnabled"><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>">[${uiLabelMap.EcommerceCartToGoogleCheckout}]</a></span>
           <span id="googleCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceCartToGoogleCheckout}]</span>
+          <#if shoppingCart?has_content && (shoppingCart.getGrandTotal() > 0)>
+          <span id="microCartPayPalCheckout"><a href="<@ofbizUrl>setPayPalCheckout</@ofbizUrl>"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/></a>
+          </#if>
       <#else>
           <span class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
           <span class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</span>

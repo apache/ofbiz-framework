@@ -699,7 +699,7 @@ under the License.
     
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYPAL" hasTable="N" description="PayPal Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="PAYPAL_CONFIG" paymentGatewayConfigTypeId="PAYPAL" description="PayPal Config"/>
-    <PaymentGatewayPayPal paymentGatewayConfigId="PAYPAL_CONFIG" businessEmail="" notifyUrl="" returnUrl="" cancelReturnUrl="" imageUrl="" confirmTemplate="/order/emailconfirmation.ftl" redirectUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr" confirmUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr"/>
+    <PaymentGatewayPayPal paymentGatewayConfigId="PAYPAL_CONFIG" businessEmail="" apiUserName="" apiPassword="" apiSignature="" apiEnvironment="" notifyUrl="" returnUrl="" cancelReturnUrl="" imageUrl="" confirmTemplate="/order/emailconfirmation.ftl" redirectUrl="https://www.sandbox.paypal.com/webscr" confirmUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr" shippingCallbackUrl="" requireConfirmedShipping="N"/>
     
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="CLEARCOMMERCE" hasTable="N" description="Clear Commerce Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" paymentGatewayConfigTypeId="CLEARCOMMERCE" description="Clear Commerce Config"/>
@@ -812,9 +812,16 @@ under the License.
     <CustomMethod customMethodId="GIFT_RELEASE_VALUEL" customMethodTypeId="GIFT_RELEASE" customMethodName="valueLinkRelease" description="GIFT card ValueLink release"/>
     
     <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>
+    <CustomMethod customMethodId="PAYPAL_AUTH" customMethodTypeId="PAYPAL_AUTH" customMethodName="payPalProcessor" description="PayPal payment authorize"/>
+
     <CustomMethod customMethodId="PAYPAL_CAPTURE_PFP" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payflowPayPalCapture" description="Payflow PayPal payment capture"/>
+    <CustomMethod customMethodId="PAYPAL_CAPTURE" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payPalCapture" description="PayPal payment capture"/>
+
     <CustomMethod customMethodId="PAYPAL_REFUND_PFP" customMethodTypeId="PAYPAL_REFUND" customMethodName="payflowPayPalRefund" description="Payflow PayPal payment refund"/>
-    <CustomMethod customMethodId="PAYPAL_RELEASE_PFP" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payflowPayPalVoid" description="CC Payflow Pro release"/>
+    <CustomMethod customMethodId="PAYPAL_REFUND" customMethodTypeId="PAYPAL_REFUND" customMethodName="payPalRefund" description="PayPal payment refund"/>
+
+    <CustomMethod customMethodId="PAYPAL_RELEASE_PFP" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payflowPayPalVoid" description="Payflow PayPal Order release"/>
+    <CustomMethod customMethodId="PAYPAL_RELEASE" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payPalVoid" description="PayPal Order Release"/>
 
     <!-- Credit Cart Types -->
     <EnumerationType description="Credit Card Type" enumTypeId="CREDIT_CARD_TYPE" hasTable="N" parentTypeId=""/>

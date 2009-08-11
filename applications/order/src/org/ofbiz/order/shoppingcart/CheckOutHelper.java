@@ -799,9 +799,9 @@ public class CheckOutHelper {
 
         // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
 
-        Iterator it = csi.shipItemInfo.keySet().iterator();
+        Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) it.next();
+            ShoppingCartItem cartItem = it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
 
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got cartItem: " + cartItem, module);

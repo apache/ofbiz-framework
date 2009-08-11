@@ -47,7 +47,7 @@ public class ExpressCheckoutEvents {
 
     public static final String resourceErr = "AccountingErrorUiLabels";
     public static final String module = ExpressCheckoutEvents.class.getName();
-    public static enum CheckoutType {PAYFLOW, NONE};
+    public static enum CheckoutType {PAYFLOW, STANDARD, NONE};
     
     public static String setExpressCheckout(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
@@ -55,22 +55,28 @@ public class ExpressCheckoutEvents {
         
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         CheckoutType checkoutType = determineCheckoutType(request);
-        if (checkoutType.equals(CheckoutType.PAYFLOW)) {
+        if (!checkoutType.equals(CheckoutType.NONE)) {
+            String serviceName = null;
+            if (checkoutType.equals(CheckoutType.PAYFLOW)) {
+                serviceName = "payflowSetExpressCheckout";
+            } else if (checkoutType.equals(CheckoutType.STANDARD)) {
+                serviceName = "payPalSetExpressCheckout";
+            }
             Map<String, ? extends Object> inMap = UtilMisc.toMap("userLogin", cart.getUserLogin(), "cart", cart);
             Map<String, Object> result = null;
             try {
-                result = dispatcher.runSync("payflowSetExpressCheckout", inMap);
+                result = dispatcher.runSync(serviceName, inMap);
             } catch (GenericServiceException e) {
+                Debug.log(e, module);
                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
-                request.setAttribute("_EVENT_MESSAGE_", ServiceUtil.getErrorMessage(result));
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
                 return "error";
             }
         }
-            
         return "success";
     }
 
@@ -99,11 +105,17 @@ public class ExpressCheckoutEvents {
         
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         CheckoutType checkoutType = determineCheckoutType(request);
-        if (checkoutType.equals(CheckoutType.PAYFLOW)) {
+        if (!checkoutType.equals(CheckoutType.NONE)) {
+            String serviceName = null;
+            if (checkoutType.equals(CheckoutType.PAYFLOW)) {
+                serviceName = "payflowGetExpressCheckout";
+            } else if (checkoutType.equals(CheckoutType.STANDARD)) {
+                serviceName = "payPalGetExpressCheckout";
+            }
             Map<String, ? extends Object> inMap = UtilMisc.toMap("userLogin", cart.getUserLogin(), "cart", cart);
             Map<String, Object> result = null;
             try {
-                result = dispatcher.runSync("payflowGetExpressCheckout", inMap);
+                result = dispatcher.runSync(serviceName, inMap);
             } catch (GenericServiceException e) {
                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
                 return "error";
@@ -120,13 +132,19 @@ public class ExpressCheckoutEvents {
     
     public static Map<String, Object> doExpressCheckout(String productStoreId, String orderId, GenericValue paymentPref, GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher) {
         CheckoutType checkoutType = determineCheckoutType(delegator, productStoreId);
-        if (checkoutType.equals(CheckoutType.PAYFLOW)) {
+        if (!checkoutType.equals(CheckoutType.NONE)) {
+            String serviceName = null;
+            if (checkoutType.equals(CheckoutType.PAYFLOW)) {
+                serviceName = "payflowDoExpressCheckout";
+            } else if (checkoutType.equals(CheckoutType.STANDARD)) {
+                serviceName = "payPalDoExpressCheckout";
+            }
             Map<String, Object> inMap = FastMap.newInstance();
             inMap.put("userLogin", userLogin);
             inMap.put("orderPaymentPreference", paymentPref);
             Map<String, Object> result = null;
             try {
-                result = dispatcher.runSync("payflowDoExpressCheckout", inMap);
+                result = dispatcher.runSync(serviceName, inMap);
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -141,7 +159,7 @@ public class ExpressCheckoutEvents {
         cart.removeAttribute("payPalCheckoutToken");
         return "success";
     }
-    
+
     public static CheckoutType determineCheckoutType(HttpServletRequest request) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
@@ -153,8 +171,17 @@ public class ExpressCheckoutEvents {
         if (payPalPaymentSetting != null && payPalPaymentSetting.getString("paymentGatewayConfigId") != null) {
             try {
                 GenericValue paymentGatewayConfig = payPalPaymentSetting.getRelatedOne("PaymentGatewayConfig");
-                if (paymentGatewayConfig != null && "PAYFLOWPRO".equals(paymentGatewayConfig.getString("paymentGatewayConfigTypeId"))) {
-                    return CheckoutType.PAYFLOW;
+                String paymentGatewayConfigTypeId = paymentGatewayConfig.getString("paymentGatewayConfigTypeId");
+                if (paymentGatewayConfig != null) {
+                    if ("PAYFLOWPRO".equals(paymentGatewayConfigTypeId)) {
+                        return CheckoutType.PAYFLOW;
+                    } else if ("PAYPAL".equals(paymentGatewayConfigTypeId)) {
+                        GenericValue payPalConfig = paymentGatewayConfig.getRelatedOne("PaymentGatewayPayPal");
+                        // TODO: Probably better off with an indicator field to indicate Express Checkout use
+                        if (UtilValidate.isNotEmpty(payPalConfig.get("apiUserName"))) {
+                            return CheckoutType.STANDARD;
+                        }
+                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);

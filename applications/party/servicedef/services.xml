@@ -72,7 +72,8 @@ under the License.
     <service name="createPerson" engine="java" default-entity-name="Person"
             location="org.ofbiz.party.party.PartyServices" invoke="createPerson" auth="false">
         <description>Create a Person</description>
-        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
