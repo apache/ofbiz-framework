@@ -1053,7 +1053,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
-                <set field="parameters.workEffortId" from-field="parameters.projectId"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ProjectMgrContentList}">
