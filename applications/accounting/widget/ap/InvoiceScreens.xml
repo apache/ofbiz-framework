@@ -48,7 +48,7 @@ under the License.
                 <set field="tabButtonItem" value="viewInvoices"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
+                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -100,7 +100,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.CommonApInvoiceDecoratorLocation}">
+                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
