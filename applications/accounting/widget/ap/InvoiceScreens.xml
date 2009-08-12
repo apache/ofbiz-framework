@@ -24,17 +24,21 @@ under the License.
     <screen name="ListReports">
         <section>
             <actions>
-                <set field="headerItem" value="reports"/>
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="tabButtonItem" value="viewReports"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/ap/CommonScreens.xml">
+                <decorator-screen name="CommonApReportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingReports}" navigation-form-name="ListReports">
-                            <include-form name="ListReports" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingReports}" navigation-form-name="ListReports">
+                                    <include-form name="ListReports" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -165,6 +169,36 @@ under the License.
                                     <decorator-section name="search-results">
                                         <platform-specific>
                                             <html><html-template location="component://accounting/webapp/ap/invoices/CommissionRun.ftl"/></html>
+                                        </platform-specific>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommissionReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingCommissionReport"/>
+                <set field="tabButtonItem" value="commissionReport"/>
+                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionReport.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonApReportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="CommissionReport" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/ap/invoices/CommissionReport.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>

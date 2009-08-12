@@ -83,4 +83,14 @@ under the License.
             <link target="CommissionRun"/>
         </menu-item>
     </menu>
+
+    <menu name="ApReportTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+            default-menu-item-name="viewInvoices">
+        <menu-item name="viewReports" title="${uiLabelMap.CommonMain}">
+            <link target="listReports"/>
+        </menu-item>
+        <menu-item name="commissionReport" title="${uiLabelMap.AccountingCommissionReport}">
+            <link target="FindCommissions"/>
+        </menu-item>
+    </menu>
 </menus>

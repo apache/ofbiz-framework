@@ -1571,6 +1571,17 @@ under the License.
         </view-link>
     </view-entity>
 
+    <view-entity entity-name="InvoiceItemAndAssoc" package-name="org.ofbiz.accounting.invoice">
+        <member-entity entity-alias="INT" entity-name="InvoiceItem"/>
+        <member-entity entity-alias="IIA" entity-name="InvoiceItemAssoc"/>
+        <alias-all entity-alias="INT"/>
+        <alias-all entity-alias="IIA"/>
+        <alias name="termAmount" field="amount" entity-alias="IIA"/>
+        <view-link entity-alias="INT" rel-entity-alias="IIA" rel-optional="false">
+            <key-map field-name="invoiceId" rel-field-name="invoiceIdFrom"/>
+            <key-map field-name="invoiceItemSeqId" rel-field-name="invoiceItemSeqIdFrom"/>
+        </view-link>
+    </view-entity>
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.ledger -->
   <!-- ========================================================= -->

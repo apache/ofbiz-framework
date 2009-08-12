@@ -24,6 +24,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AccountingApCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="ApAppBar" global="true"/>
@@ -324,4 +325,24 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonApReportDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="reports"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameter.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-menu name="ApReportTabBar" location="component://accounting/widget/ap/Menus.xml"/>
+                                <container style="clear"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
