@@ -25,6 +25,9 @@ under the License.
 <#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
 ${helpTopic}
 -->
+  <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
+    <#assign helpContent = delegator.findByAnd("Content", {"contentId" : helpTopic})?if_exists>
+  </#if>
 
   <#if helpUrlsMap["Prefix"] != "Prefix">
     <#assign helpUrlPrefix = helpUrlsMap["Prefix"] />

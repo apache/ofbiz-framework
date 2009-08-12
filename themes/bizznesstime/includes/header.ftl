@@ -126,11 +126,11 @@ under the License.
             <span><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></span>
             <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />
-              <#if parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalPage">
-                <span><a href="<@ofbizUrl>selectPortletForHelp</@ofbizUrl>?portalPageId=${parameters.portalPageId}&helpUrlPrefix=${helpUrlPrefix}&helpUrlSuffix=${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></span>
+              <#if helpContent?has_content || (parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalPage")>
+                <span><a href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&portalPageId=${parameters.portalPageId}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></span>
               <#else>
                 <span><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></span>
               </#if>
-            </#if>
+           </#if>
         </div>
     </div>

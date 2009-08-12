@@ -116,13 +116,15 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
     
-    <form name="PortletList" type="list" list-name="portlets" separate-columns="true"
+    <form name="PortletList" type="list" separate-columns="true" list-name="portlets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <set field="portletHelp" value="${groovy:helpUrlsMap.get(&quot;PORTLET_&quot;.concat(portalPortletId)).equals(&quot;PORTLET_&quot;.concat(portalPortletId))?helpUrlsMap.MYPORTAL_showPortalPage:helpUrlsMap.(&quot;PORTLET_&quot;.concat(portalPortletId))}"/>
-        </row-actions>
+        <actions>
+            <entity-and entity-name="PortalPagePortletView" list="portlets">
+                <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+            </entity-and>
+        </actions>
         <field name="portletName">
-            <hyperlink also-hidden="false" target-type="plain" target="${parameters.helpUrlPrefix}${portletHelp}${parameters.helpUrlSuffix}" description="${portletName}" ></hyperlink>
+            <hyperlink also-hidden="false" target="showHelp?helpTopic=PortLet${portalPortletId}" description="${portletName}" ></hyperlink>
         </field>
         <field name="description"><display/></field>
     </form>

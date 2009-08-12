@@ -30,4 +30,12 @@ under the License.
         <event type="service" invoke="deleteAllSystemNotes"/>
         <response name="success" type="view-last"/>
     </request-map>
+    
+    <request-map uri="showHelp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showHelp"/>
+    </request-map>
+
+    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
+    
 </site-conf>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="ShowHelp">
+        <section>
+            <condition>
+                <if-empty field="parameters.portalPageId"/>
+            </condition>
+            <actions>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
+                <entity-and entity-name="Content" list="contents">
+                    <field-map field-name="contentName" from-field="parameters.helpTopic"/>
+                </entity-and>
+                <set field="content" from-field="contents[0]"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-empty field="content"/>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options"/>
+                            <decorator-section name="search-results">
+                                <label style="h2" text="Content with content name: ${parameters.helpTopic} could not be found"></label>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options"/>
+                            <decorator-section name="search-results">
+                                <content content-id="${content.contentId}" templateResourceId="${layoutSettings.VT_HELP_TEMPL}"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </fail-widgets>
+                </section>
+            </widgets>
+            <fail-widgets>
+                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <content content-id="HELP-MY-PORTAL"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <screenlet title="Select a portlet you would like to have help on....">
+                                    <include-form name="PortletList" location="component://common/widget/PortalPageForms.xml"/>
+                                </screenlet>
+                            </decorator-section>
+                        </decorator-screen>
+            </fail-widgets>
+        </section>
+    </screen>
+    
+</screens>
