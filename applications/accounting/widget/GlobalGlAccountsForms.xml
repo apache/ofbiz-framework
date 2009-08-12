@@ -86,7 +86,13 @@ under the License.
         <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
         <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"></display-entity></field>
         <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"></display-entity></field>
-        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" description="${accountName} [${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
+        <field name="parentGlAccountId">
+            <display-entity entity-name="GlAccount" description="${accountName}" key-field-name="glAccountId">
+                <sub-hyperlink target="GlAccountNavigate" description="[${parentGlAccountId}]" use-when="parentGlAccountId!=null">
+                    <parameter param-name="glAccountId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
         <field name="accountCode"><hidden/></field>
         <field name="postedBalance" widget-area-style="align-text" title-area-style="align-text"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
     </form>
@@ -229,7 +235,11 @@ under the License.
         <field name="rateCurrencyUomId"><hidden/></field>
         <field name="rateDescription"><display/></field>
         <field name="periodTypeId"><display description="${periodDescription}"/></field>
-        <field name="partyId" sort-field="true"><display description="${groupName}${lastName} ${firstName} ${middleName}"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" sort-field="true">
+            <hyperlink target="/partymgr/control/viewprofile" description="${groupName}${lastName} ${firstName} ${middleName}" target-type="inter-app">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
         <field name="workEffortId" sort-field="true"><display description="${workEffortName}"/></field>
         <field name="emplPositionTypeId" sort-field="true"><display description="${employeePositionDescription}"/></field>
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>

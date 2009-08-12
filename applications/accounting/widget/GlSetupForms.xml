@@ -353,7 +353,11 @@ under the License.
             <display-entity entity-name="GlAccountType"/>
         </field>
         <field name="glAccountId">
-            <display-entity entity-name="GlAccount" description="[${glAccountId}] ${accountCode} ${accountName}"/>
+            <display-entity entity-name="GlAccount" description="${accountCode} ${accountName}">
+                <sub-hyperlink target="GlAccountNavigate" description="${glAccountId}">
+                    <parameter param-name="glAccountId"/>
+                </sub-hyperlink>
+            </display-entity>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeGlAccountTypeDefault">
@@ -392,7 +396,11 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId"><hidden/></field>
         <field name="description"><display/></field>
-        <field name="defaultGlAccountId"><display/></field>
+        <field name="defaultGlAccountId">
+            <hyperlink target="GlAccountNavigate" description="${defaultGlAccountId}">
+                <parameter param-name="glAccountId" from-field="defaultGlAccountId"/>
+            </hyperlink>
+        </field>
         <field name="overrideGlAccountId"><display/></field>
         <field name="activeGlDescription"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -442,7 +450,11 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId"><hidden/></field>
         <field name="description"><display/></field>
-        <field name="defaultGlAccountId"><display/></field>
+        <field name="defaultGlAccountId">
+            <hyperlink target="GlAccountNavigate" description="${defaultGlAccountId}">
+                <parameter param-name="glAccountId" from-field="defaultGlAccountId"/>
+            </hyperlink>
+        </field>
         <field name="overrideGlAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}"><display/></field>
         <field name="activeGlDescription"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -539,9 +551,19 @@ under the License.
         </row-actions>
         <auto-fields-entity entity-name="PaymentMethodTypeGlAccount" default-field-type="display"/>
         <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType"/></field>
-        <field name="glAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]"/></field>
+        <field name="glAccountId">
+            <display-entity entity-name="GlAccount" description="${accountName}">
+                <sub-hyperlink target="GlAccountNavigate" description="[${glAccountId}]">
+                    <parameter param-name="glAccountId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
         <field name="organizationPartyId"><hidden/></field>
-        <field name="defaultGlAccountId"><display description="${defaultGlAccountId} : ${description}"/></field>
+        <field name="defaultGlAccountId">
+            <hyperlink target="GlAccountNavigate" description="${defaultGlAccountId} : ${description}">
+                <parameter param-name="glAccountId" from-field="defaultGlAccountId"/>
+            </hyperlink>
+        </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removePaymentMethodTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="paymentMethodTypeId"/>
@@ -929,6 +951,11 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
+        <field name="partyId">
+            <hyperlink target="/partymgr/control/viewprofile" description="${partyId}" target-type="inter-app">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
                 <entity-options description="${accountCode} - ${accountName} [${glAccountId}]" entity-name="GlAccountOrganizationAndClass">

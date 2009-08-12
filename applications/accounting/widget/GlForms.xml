@@ -754,12 +754,29 @@ under the License.
             </entity-condition>
         </actions>
 
-        <field name="acctgTransId"><display/></field>
+        <field name="acctgTransId">
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+                <parameter param-name="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
         <field name="acctgTransEntrySeqId"><display/></field>
-        <field name="glAccountId"><display/></field>
-        <field name="partyId"><display/></field>
+        <field name="glAccountId">
+            <hyperlink target="GlAccountNavigate" description="${glAccountId}" also-hidden="false">
+                <parameter param-name="glAccountId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId">
+            <hyperlink target="/partymgr/control/viewprofile" description="${partyIdTo}" target-type="inter-app">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
         <field name="productId"><display/></field>
-        <field name="organizationPartyId"><display/></field>
+        <field name="organizationPartyId">
+            <hyperlink target="/partymgr/control/viewprofile" description="${organizationPartyId}" target-type="inter-app">
+                <parameter param-name="partyId" from-field="organizationPartyId"/>
+            </hyperlink>
+        </field>
         <field name="amount"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAcctRecons}" widget-style="buttontext"><submit button-type="text-link"/></field>
@@ -828,8 +845,16 @@ under the License.
         <field name="description"><display/></field>
         <field name="createdByUserLogin"><display/></field>
         <field name="lastModifiedByUserLogin"><display/></field>
-        <field name="glAccountId"><display/></field>
-        <field name="organizationPartyId"><display/></field>
+        <field name="glAccountId">
+            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+                <parameter param-name="glAccountId"/>
+            </hyperlink>
+        </field>
+        <field name="organizationPartyId">
+            <hyperlink target="/partymgr/control/viewprofile" description="${organizationPartyId}" target-type="inter-app">
+                <parameter param-name="partyId" from-field="organizationPartyId"/>
+            </hyperlink>
+        </field>
         <field name="reconciledBalance"><display/></field>
     </form>
     <form name="ViewAcctgTrans" type="single" default-map-name="acctgTrans"

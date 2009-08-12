@@ -104,9 +104,9 @@ function getPaymentRunningTotal() {
                             <td>
                                 <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdFrom}, false))!>
                                 <#if partyName.partyTypeId == "PERSON">
-                                    ${(partyName.firstName)!} ${(partyName.lastName)!}
+                                    <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(partyName.firstName)!} ${(partyName.lastName)!}[${(payment.partyIdFrom)!}]</a>
                                 <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">
-                                    ${(partyName.groupName)!}
+                                    <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(partyName.groupName)!}[${(payment.partyIdFrom)!}]</a>
                                 </#if>
                             </td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>

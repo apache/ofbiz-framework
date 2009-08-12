@@ -59,8 +59,16 @@ under the License.
         <field name="invoiceDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="description"><display/></field>
-        <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
-        <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
+        <field name="partyIdFrom">
+            <hyperlink target="/partymgr/control/viewprofile" description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyIdFrom"/>
+            </hyperlink>
+        </field>
+        <field name="partyIdTo" parameter-name="partyId">
+            <hyperlink target="/partymgr/control/viewprofile" description="${partyNameResultTo.fullName} [${partyId}]" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
         <field name="invoiceDate"><display/></field>
         <field name="dueDate"><display/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
