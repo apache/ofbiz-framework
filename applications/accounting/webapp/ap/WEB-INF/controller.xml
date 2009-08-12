@@ -87,6 +87,10 @@ under the License.
         <response name="success" type="view" value="editPayment"/>
         <response name="error" type="view" value="NewOutgoingPayment"/>
     </request-map>
+    <request-map uri="FindCommissions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CommissionReport"/>
+    </request-map>
     <request-map uri="newInvoice">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewPurchaseInvoice"/>
@@ -114,6 +118,12 @@ under the License.
         <response name="error" type="view" value="FindVendors"/>
     </request-map>
 
+    <!-- ================ PDF generation requests ================== -->
+    <request-map uri="CommissionReport.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CommissionReportPdf"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -124,6 +134,11 @@ under the License.
     <view-map name="NewPurchaseInvoice" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#NewPurchaseInvoice"/>
     <view-map name="FindApPayments" type="screen" page="component://accounting/widget/ap/ApScreens.xml#FindApPayments"/>
     <view-map name="NewOutgoingPayment" type="screen" page="component://accounting/widget/ap/ApScreens.xml#NewOutgoingPayment"/>
+    <view-map name="CommissionReport" type="screen" page="component://accounting/widget/ap/InvoiceScreens.xml#CommissionReport"/>
+
+    <!-- PDFs  -->
+    <view-map name="CommissionReportPdf" type="screenfop" page="component://accounting/widget/ap/ApPrintScreens.xml#CommissionReportPdf" content-type="application/pdf" encoding="none"/>
+
     <!-- Vendor Mappings -->
     <view-map name="FindVendors" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#FindVendors"/>
     <view-map name="EditVendor" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#EditVendor"/>

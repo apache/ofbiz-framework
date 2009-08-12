@@ -1874,9 +1874,17 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
     </property>
+    <property key="AccountingCommissionAmount">
+        <value xml:lang="en">Commission Amount</value>
+        <value xml:lang="hi_IN">दलाली राशी</value>
+    </property>
     <property key="AccountingCommissionRun">
         <value xml:lang="en">Commission Run</value>
         <value xml:lang="hi_IN">दलाली भुगतान</value>
+    </property>
+    <property key="AccountingCommissionReport">
+        <value xml:lang="en">Commission Report</value>
+        <value xml:lang="hi_IN">दलाली विवरण</value>
     </property>
     <property key="AccountingCompanies">
         <value xml:lang="ar">شركات</value>
@@ -5495,6 +5503,10 @@
         <value xml:lang="th">ค้นหาการชำระเงิน</value>
         <value xml:lang="zh">查找支付</value>
     </property>
+    <property key="AccountingLicensedProduct">
+        <value xml:lang="en">Licensed Product</value>
+        <value xml:lang="hi_IN">लाइसेंस उत्पाद</value>
+    </property>
     <property key="AccountingMainMenu">
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="de">Haupt</value>
@@ -5705,6 +5717,10 @@
         <value xml:lang="ru">Чистый доход</value>
         <value xml:lang="th">รายได้สุทธิ</value>
         <value xml:lang="zh">净收入</value>
+    </property>
+    <property key="AccountingNetSale">
+        <value xml:lang="en">Net Sale</value>
+        <value xml:lang="hi_IN">शुद्ध विक्रय</value>
     </property>
     <property key="AccountingNewAccount">
         <value xml:lang="ar">حساب جديد</value>
@@ -6291,6 +6307,10 @@
         <value xml:lang="ru">Номер</value>
         <value xml:lang="th">หมายเลข</value>
         <value xml:lang="zh">数字</value>
+    </property>
+    <property key="AccountingNumberOfOrders">
+        <value xml:lang="en">Number of Orders</value>
+        <value xml:lang="hi_IN">आदेशों की संख्या</value>
     </property>
     <property key="AccountingNumberOfTransaction">
         <value xml:lang="de">Anzahl der Transaktionen</value>
@@ -8015,6 +8035,14 @@
         <value xml:lang="th">แสดงงานประเภทใบเสร็จการขายถึงรายได้ของหมายเลขบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">从销售发票类型到收入总账账户编号的指定列表</value>
     </property>
+    <property key="AccountingSalesAgents">
+        <value xml:lang="en">Sales Agents</value>
+        <value xml:lang="hi_IN">विक्रय दलाल</value>
+    </property>
+    <property key="AccountingSalesInvoices">
+        <value xml:lang="en">Sales Invoices</value>
+        <value xml:lang="hi_IN">विक्रय चालान </value>
+    </property>
     <property key="AccountingSecurityCodeCard">
         <value xml:lang="en">Card Security Code</value>
         <value xml:lang="es">Código de seguridad de tarjeta</value>
@@ -8439,6 +8467,10 @@
         <value xml:lang="th">รายงานผลรวมภาษี</value>
         <value xml:lang="zh">税务总表</value>
     </property>
+    <property key="AccountingTermAmount">
+        <value xml:lang="en">Term Amount</value>
+        <value xml:lang="hi_IN">शर्त राशी</value>
+    </property>
     <property key="AccountingTermTypeId">
         <value xml:lang="en">Term Type Id</value>
         <value xml:lang="es">Id TipoTérmino</value>
@@ -8454,6 +8486,10 @@
     <property key="AccountingTotalAmountPercentageIsGreaterThenOneHundred">
         <value xml:lang="en">Total amountPercentage is greater then 100.</value>
         <value xml:lang="hi_IN">कुल amountPercentage 100 से भी ज्यादा है</value>
+    </property>
+    <property key="AccountingTotalCommissionAmount">
+        <value xml:lang="en">Total Commission Amount</value>
+        <value xml:lang="hi_IN">कुल दलाली राशी</value>
     </property>
     <property key="AccountingTotalOfTheCurrentMonth">
         <value xml:lang="en">Total of the current month</value>
@@ -8566,6 +8602,14 @@
         <value xml:lang="nl">Totaal excl. BTW</value>
         <value xml:lang="th">Total excl. tax</value>
         <value xml:lang="zh">未含税合计</value>
+    </property>
+    <property key="AccountingTotalNetSales">
+        <value xml:lang="en">Total Net Sales</value>
+        <value xml:lang="hi_IN">कुल शुद्ध विक्रय</value>
+    </property>
+    <property key="AccountingTotalNumberOfOrders">
+        <value xml:lang="en">Total Number of Orders</value>
+        <value xml:lang="hi_IN">कुल आदेशों की संख्या</value>
     </property>
     <property key="AccountingTotalQuantityOnHand">
         <value xml:lang="en">Total Quantity On Hand</value>
