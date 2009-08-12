@@ -25,7 +25,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${title}</title>
+    <title>${title?if_exists}</title>
     <script language="javascript" src="<@ofbizContentUrl>/images/prototypejs/prototype.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/prototypejs/scriptaculous.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>

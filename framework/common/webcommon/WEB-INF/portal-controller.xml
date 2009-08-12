@@ -123,16 +123,10 @@ under the License.
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
-    <request-map uri="selectPortletForHelp">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="selectPortletForHelp"/>
-    </request-map>
-    
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="showPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortlet"/>
     <view-map name="showPortletDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletDecorator"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
     <view-map name="AddPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
-    <view-map name="selectPortletForHelp" type="screen" page="component://common/widget/PortalPageScreens.xml#selectPortletForHelp"/>
 </site-conf>

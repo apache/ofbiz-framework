@@ -228,6 +228,9 @@ under the License.
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
         <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
+      <index name="contentName">
+        <index-field name="contentName"/>
+      </index>
     </entity>
     <view-entity entity-name="ContentAndRole" package-name="org.ofbiz.content.content" title="Content And Role View Entity">
         <member-entity entity-alias="CNT" entity-name="Content"/>

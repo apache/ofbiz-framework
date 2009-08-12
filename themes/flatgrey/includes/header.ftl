@@ -182,8 +182,8 @@ under the License.
             </#if>
             <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />
-              <#if parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalPage">
-                <li><a href="<@ofbizUrl>selectPortletForHelp</@ofbizUrl>?portalPageId=${parameters.portalPageId}&helpUrlPrefix=${helpUrlPrefix}&helpUrlSuffix=${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
+              <#if helpContent?has_content || (parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalPage")>
+                <li><a href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&portalPageId=${parameters.portalPageId}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
               <#else>
                 <li><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
               </#if>
