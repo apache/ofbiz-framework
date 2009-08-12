@@ -29,40 +29,4 @@ under the License.
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://flatgrey/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://flatgrey/includes/appbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/flatgrey/screenshot.gif" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HELP_TEMPL" resourceValue="HELP-TEMPL-FLAT_GREY" sequenceId="01"/>
-    
-    <!-- help template -->
-    <DataResource dataResourceId="HELP-TEMPL-FLAT_GREY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
-    <ElectronicText dataResourceId="HELP-TEMPL-FLAT_GREY">
-        <textData><![CDATA[
-<div class="contentarea">
-  <div id="column-container">
-    <div id="content-main-section">
-            
-          <#if doc.root.definition?has_content> 
-            <h1>${uiLabelMap.CommonExtHelpDefinition}</h1>
-            <p class=h2>${doc.root.definition}</p></br>
-          </#if>
-
-          <#if doc.root.usedFor?has_content> 
-            <h1>${uiLabelMap.CommonExtHelpUsedFor}</h1>
-            <p class=h2>${doc.root.usedFor}</p></br>
-          </#if>
-            
-          <#if doc.root.onScreen?has_content> 
-            <h1>${uiLabelMap.CommonExtHelpOnScreen}</h1>
-            <p class=h2>${doc.root.onScreen}</p>
-          </#if>
-          
-          <#if doc.root.general?has_content> 
-            <h1>${doc.root.generalTitle?if_exists}</h1>
-            <p class=h2>${doc.root.general}</p>
-          </#if>
-          
-    </div>
-  </div>
-</div>
-        ]]></textData>
-    </ElectronicText>
-    
 </entity-engine-xml>
