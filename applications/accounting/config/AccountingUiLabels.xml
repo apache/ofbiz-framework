@@ -1669,6 +1669,10 @@
         <value xml:lang="en">Cancel Batch Payments</value>
         <value xml:lang="hi_IN">भुगतान का  बैच रद्द करे</value>
     </property>
+    <property key="AccountingCancelBatchPaymentsError">
+        <value xml:lang="en">Cannot Cancel Batch Payment [${paymentGroupId}], is associated to glReconciliation [${glReconciliationId}]</value>
+        <value xml:lang="hi_IN">बैच भुगतान [${paymentGroupId}], glReconciliation [${glReconciliationId}] से जुड़ा है , इसे रद्द नहीं कर सकते |</value>
+    </property>
     <property key="AccountingCancelCheckRun">
         <value xml:lang="en">Cancel Check Run</value>
         <value xml:lang="hi_IN">चेक/हुंडी रद्द करे</value>
