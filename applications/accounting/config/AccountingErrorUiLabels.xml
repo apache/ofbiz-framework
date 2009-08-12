@@ -21,13 +21,16 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
+        <value xml:lang="hi_IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
     </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
+        <value xml:lang="hi_IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
         <value xml:lang="fr">Echec à l'exécution du service createPaymentFromPreference</value>
+        <value xml:lang="hi_IN">सर्विस createPaymentFromPreference पर अमल(execute) करने में असफल</value>
         <value xml:lang="it">Fallita esecuzione del servizio createPaymentFromPreference</value>
         <value xml:lang="nl">OFBiz-service 'createPaymentFromPreference' is niet uitgevoerd.</value>
         <value xml:lang="th">การดำเนินการผิดพลาด createPaymentFromPreference</value>
@@ -36,6 +39,7 @@
     <property key="payPalEvents.noValidOrderIdReturned">
         <value xml:lang="en">No valid orderId returned with PayPal Callback.</value>
         <value xml:lang="fr">Aucune réf. valide de commande retournée par l'appel à PayPal.</value>
+        <value xml:lang="hi_IN">मान्य orderId Paypal Callback के साथ नहीं लौटा</value>
         <value xml:lang="it">Nessun ordine valido restituito da PayPal.</value>
         <value xml:lang="nl">Geen valide order-ID teruggegeven door PayPal Callback.</value>
         <value xml:lang="th">ไม่มีค่ารหัสรายการสั่งซื้อคืนกลับมาด้วยการเรียกกลับของ paypal</value>
@@ -44,6 +48,7 @@
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>
         <value xml:lang="fr">La commande PayPal précédente a été annulée.</value>
+        <value xml:lang="hi_IN">पिछला Paypal आदेश रद्द कर दिया गया है</value>
         <value xml:lang="it">Ordine PayPal precedente è stato annullato.</value>
         <value xml:lang="nl">Vorige PayPal-opdracht is geannuleerd.</value>
         <value xml:lang="th">กลับไปยังรายการpaypalที่ถูกยกเลิก</value>
@@ -52,6 +57,7 @@
     <property key="payPalEvents.problemsConnectingWithPayPal">
         <value xml:lang="en">Problems connecting with PayPal, please contact customer service.</value>
         <value xml:lang="fr">Les problèmes pour se connecter à PayPal, SVP entrez en contact avec le service clientèle.</value>
+        <value xml:lang="hi_IN">Paypal के साथ जोड़ने में समस्या, कृपया ग्राहक सेवा से संपर्क करें</value>
         <value xml:lang="it">Problemi nella connessione a PayPal, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen met de PayPal-verbinding. Neem contact op met de customer service van PayPal.</value>
         <value xml:lang="th">ปัญหาในการเชิ่อมต่อด้วย paypal , กรุณาติดต่อบริการลูกค้า</value>
@@ -60,6 +66,7 @@
     <property key="payPalEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems getting authentication user.</value>
         <value xml:lang="fr">Problèmes d'obtention d'authentification utilisateur</value>
+        <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problemi durante autenticazione utente</value>
         <value xml:lang="nl">Problemen met authenticatie gebruiker.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้สัญลักษณ์ผู้ใช้</value>
@@ -68,6 +75,7 @@
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
         <value xml:lang="fr">Problèmes d'obtention de la configuration du vendeur, svp entrez en contact avec le service clientèle.</value>
+        <value xml:lang="hi_IN">व्यापारी विन्यास में समस्याएँ हो रही, कृपया ग्राहक सेवा से संपर्क करें</value>
         <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen verkrijgen Handelaarsconfiguratie. Neem contact op met de customer service.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
@@ -76,6 +84,7 @@
     <property key="payPalEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems getting order header.</value>
         <value xml:lang="fr">Problèmes d'obtention d'en-tête de commande .</value>
+        <value xml:lang="hi_IN">order header में समस्याएँ हो रही</value>
         <value xml:lang="it">Problemi nel ricavare la testata ordine.</value>
         <value xml:lang="nl">Problemen verkrijgen orderkop.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้หัวข้อรายการสั่งซื้อ</value>
@@ -83,34 +92,42 @@
     </property>
     <property key="worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
+        <value xml:lang="hi_IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
         <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
     </property>
     <property key="worldPayEvents.noValidOrderIdReturned">
         <value xml:lang="en">No Valid OrderId Returned</value>
+        <value xml:lang="hi_IN">मान्य OrderId वापस नहीं लौटा</value>
         <value xml:lang="it">Nessun numero ordine restituito</value>
     </property>
     <property key="worldPayEvents.problemsConnectingWithWorldPay">
         <value xml:lang="en">Problems Connecting With WorldPay</value>
+        <value xml:lang="hi_IN">WorldPay के साथ जोड़ने में समस्या</value>
         <value xml:lang="it">Problema nella connessione con WorldPay</value>
     </property>
     <property key="worldPayEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems Getting Authentication User</value>
+        <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema durante l'autenticazione utente</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstId">
         <value xml:lang="en">Problems Getting Inst Id</value>
+        <value xml:lang="hi_IN">Inst Id में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare il parametro Inst Id</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstIdToInteger">
         <value xml:lang="en">Problems Getting Inst Id To Integer</value>
+        <value xml:lang="hi_IN">Inst Id से Integer में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel convertire il parametro Inst Id ad intero</value>
     </property>
     <property key="worldPayEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems Getting Merchant Configuration</value>
+        <value xml:lang="hi_IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
     </property>
     <property key="worldPayEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems Getting OrderHeader</value>
+        <value xml:lang="hi_IN">OrderHeader में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la testata ordine</value>
     </property>
 </resource>
