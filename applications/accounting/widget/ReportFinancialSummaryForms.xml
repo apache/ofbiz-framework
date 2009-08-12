@@ -241,7 +241,11 @@ under the License.
     </form>
     <form name="PostedTransactionTotalList" type="list" list-name="postedTransTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId"><display/></field>
+        <field name="glAccountId">
+            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+                <parameter param-name="glAccountId"/>
+            </hyperlink>
+        </field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
@@ -249,14 +253,22 @@ under the License.
 
     <form name="UnpostedTransactionTotalList" type="list" list-name="unpostedTransTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId"><display/></field>
+        <field name="glAccountId">
+            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+                <parameter param-name="glAccountId"/>
+            </hyperlink>
+        </field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="PostedAndUnpostedTransactionTotalList" type="list" list-name="postedAndUnpostedTransTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId"><display/></field>
+        <field name="glAccountId">
+            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+                <parameter param-name="glAccountId"/>
+            </hyperlink>
+        </field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="debit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="credit"><display type="currency" currency="${currencyUomId}"/></field>

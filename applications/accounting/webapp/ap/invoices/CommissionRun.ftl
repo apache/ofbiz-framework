@@ -111,8 +111,8 @@ function enableSubmitButton() {
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:enableSubmitButton();"/></td>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
-          <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</td>
-          <td>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)?if_exists}</td>
+          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</a></td>
+          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.invoiceRolePartyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)?if_exists}</a></td>
           <td>${statusItem.get("description")?if_exists}</td>
           <td>${invoice.get("referenceNumber")?if_exists}</td>
           <td>${invoice.get("description")?if_exists}</td>

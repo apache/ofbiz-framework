@@ -66,8 +66,16 @@ under the License.
             </hyperlink>
         </field>
         <field name="productId" sort-field="true"></field>
-        <field name="partyIdFrom" sort-field="true"></field>
-        <field name="partyIdTo" sort-field="true"></field>
+        <field name="partyIdFrom" sort-field="true">
+            <hyperlink target="/partymgr/control/viewprofile" description="${partyIdFrom}" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyIdFrom"/>
+            </hyperlink> 
+        </field>
+        <field name="partyIdTo" sort-field="true">
+            <hyperlink target="/partymgr/control/viewprofile" description="${partyIdTo}" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyIdTo"/>
+            </hyperlink>
+        </field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}"><hidden/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}" sort-field="true">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
