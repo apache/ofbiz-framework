@@ -841,6 +841,7 @@ under the License.
             <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
             <set field="createFinAccountTransMap.paymentId" from-field="paymentId"/>
             <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
+            <set field="createFinAccountTransMap.partyId" from-field="parameters.partyIdFrom"/>
             <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap"/>
         </if-compare>
         <field-to-list field="paymentId" list="paymentIds"/>
