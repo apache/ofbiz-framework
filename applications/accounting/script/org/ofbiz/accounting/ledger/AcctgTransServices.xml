@@ -147,10 +147,7 @@ under the License.
 
     <!-- AcctgTrans Trial Balance and Post routines -->
     <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline" xml-resource="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml"/>
 
         <!-- get all AcctgTransEntry for this trans, for each if debit add to debits total if credit add to credits total -->
         <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
@@ -441,8 +438,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getAcctgTransEntriesAndTransTotal" short-description="Calculate total of credit and debit and difference between both for passed party and group rollup parties">
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline" xml-resource="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml"/>
         <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
         <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
         <set field="partyIds[]" from-field="organizationPartyId"/>
@@ -485,8 +481,7 @@ under the License.
 
     <!-- GlAccount Trial Balance based on isPosted flag -->
     <simple-method method-name="calculateGlAccountTrialBalance" short-description="Calculate Trial Balance for a GlAccount">
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline" xml-resource="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml"/>
         <set field="openingBalanceDebit" type="BigDecimal" value="0"/>
         <set field="openingBalanceCredit" type="BigDecimal" value="0"/>
         <set field="debitCreditDifference" type="BigDecimal" value="0"/>
