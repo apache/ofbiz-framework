@@ -120,7 +120,7 @@ public class PayPalServices {
             encoder.add("L_SHIPPINGOPTIONISDEFAULT0", "true");
             encoder.add("L_SHIPPINGOPTIONNAME0", "NO_SHIPPING@_NA_");
             //TODO: This isn't working
-            encoder.add("L_SHIPPINGOPTIONLABEL0", "Calculated Offline");
+            encoder.add("L_SHIPINGPOPTIONLABEL0", "Calculated Offline");
             encoder.add("L_SHIPPINGOPTIONAMOUNT0", "0.00");
         }
         encoder.add("ALLOWNOTE", "1");
@@ -161,21 +161,21 @@ public class PayPalServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public Map<String, Object> payPalExpressCheckoutUpdate(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> payPalCheckoutUpdate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
-        String remoteHost = request.getRemoteHost();
-        if (!remoteHost.endsWith(".paypal.com")) {
-            try {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                Debug.logError("An Express Checkout Update request was received from a host other than *.paypal.com, responded with 403 Forbidden", module);
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-            return ServiceUtil.returnSuccess();
-        }
+//        String remoteHost = request.getRemoteHost();
+//        if (!remoteHost.endsWith(".paypal.com")) {
+//            try {
+//                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+//                Debug.logError("An Express Checkout Update request was received from a host other than *.paypal.com, responded with 403 Forbidden", module);
+//            } catch (IOException e) {
+//                Debug.logError(e, module);
+//            }
+//            return ServiceUtil.returnSuccess();
+//        }
         
         String requestMessage = null;
         try {
@@ -331,11 +331,11 @@ public class PayPalServices {
             line++;
         }
         encoder.add("ITEMAMT", cart.getSubTotal().add(otherAdjustments).setScale(2).toPlainString());
-        encoder.add("SHIPPINGAMT", "1.00");
+        encoder.add("SHIPPINGAMT", "0.00");
         encoder.add("TAXAMT", "0.00");
-        encoder.add("AMT", cart.getSubTotal().add(otherAdjustments).add(BigDecimal.ONE).setScale(2).toPlainString());
+        encoder.add("AMT", cart.getSubTotal().add(otherAdjustments).setScale(2).toPlainString());
         //NOTE: The docs say this is optional but then won't work without it
-        encoder.add("MAXAMT", cart.getSubTotal().add(otherAdjustments).add(BigDecimal.ONE).setScale(2).toPlainString());
+        encoder.add("MAXAMT", cart.getSubTotal().add(otherAdjustments).setScale(2).toPlainString());
     }
     
     public static Map<String, Object> getExpressCheckout(DispatchContext dctx, Map<String, Object> context) {

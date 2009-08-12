@@ -99,6 +99,22 @@ public class ExpressCheckoutEvents {
         return "success";
     }
     
+    public static String expressCheckoutUpdate(HttpServletRequest request, HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        CheckoutType checkoutType = determineCheckoutType(request);
+        if (checkoutType.equals(CheckoutType.STANDARD)) {
+            Map<String, Object> inMap = FastMap.newInstance();
+            inMap.put("request", request);
+            inMap.put("response", response);
+            try {
+                dispatcher.runSync("payPalCheckoutUpdate", inMap);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+            }
+        }
+        return "success";
+    }
+
     public static String getExpressCheckoutDetails(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
