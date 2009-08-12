@@ -518,6 +518,7 @@ under the License.
                 <and>
                     <not><if-empty field="paymentGroupMembers"/></not>
                     <not><if-empty field="paymentGroup"/></not>
+                    <if-empty field="glReconciliationId"/>
                     <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="BATCH_PAYMENT"/>
                 </and>
             </condition>

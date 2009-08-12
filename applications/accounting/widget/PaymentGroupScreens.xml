@@ -103,6 +103,10 @@ under the License.
                 <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
                     <field-map field-name="paymentGroupId"/>
                 </entity-and>
+                <service service-name="getPaymentGroupReconciliationId" result-map="resultMap">
+                    <field-map field-name="paymentGroupId"/>
+                </service>
+                <set field="glReconciliationId" from-field="resultMap.glReconciliationId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentGroupDecorator" location="${parameters.mainDecoratorLocation}">
