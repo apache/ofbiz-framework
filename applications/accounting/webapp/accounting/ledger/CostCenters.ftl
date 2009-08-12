@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if glAccountOrganizations?has_content && glAccountCategories?has_content>
+<#if glAcctgAndAmountPercentageList?has_content && glAccountCategories?has_content>
 
   <form name="costCenters" id="costCenters" method="post" action="<@ofbizUrl>createGlAcctCatMemFromCostCenters</@ofbizUrl>">
     <input type="hidden" name="_useRowSubmit" value="Y">
@@ -31,28 +31,21 @@ under the License.
         </#list>
       </tr>
       
-      <#list glAccountOrganizations as glAccountOrganization>
+      <#list glAcctgAndAmountPercentageList as glAcctgAndAmountPercentage>
         <tr>
-          <#assign glAccountOrganizationIndex = glAccountOrganization_index + 1/>
-          <td>${glAccountOrganization.glAccountId}</td>
-          <#assign glAccount = delegator.findOne("GlAccount", {"glAccountId" : glAccountOrganization.glAccountId}, true)/>
-          <td>${glAccount.accountCode}</td>
-          <td>${glAccount.accountName}</td>
+          <#assign glAccountOrganizationIndex = glAcctgAndAmountPercentage_index + 1/>
+          <td>${glAcctgAndAmountPercentage.glAccountId}</td>
+          <td>${glAcctgAndAmountPercentage.accountCode!}</td>
+          <td>${glAcctgAndAmountPercentage.accountName!}</td>
           <#list glAccountCategories as glAccountCategory>
-            
-            <#assign glAccountCategoryMember = null/>
             <td>
-              <input type="hidden" id="glAccountId_${glAccountOrganization.glAccountId}" name="glAccountId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${glAccountOrganization.glAccountId!}"/>
-              <input type="hidden" id="glAccountCategoryId_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="glAccountCategoryId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategory.glAccountCategoryId!)}"/>
+              <input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
+              <input type="hidden" id="glAccountCategoryId_${glAccountCategory.glAccountCategoryId}_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountCategoryId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategory.glAccountCategoryId!)}"/>
               
-              <#assign glAccountCategoryMembers = delegator.findByAnd("GlAccountCategoryMember", {"glAccountId" : glAccountOrganization.glAccountId, "glAccountCategoryId" : glAccountCategory.glAccountCategoryId, "thruDate" : null}, Static["org.ofbiz.base.util.UtilMisc"].toList("fromDate"))/>
-              <#if glAccountCategoryMembers?has_content>
-                <#assign glAccountCategoryMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(glAccountCategoryMembers)/>
-              </#if>
-              <#if glAccountCategoryMember != null>
-                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategoryMember.amountPercentage!)}"/>
+              <#if (glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])??>
+                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAcctgAndAmountPercentage.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}"/>
               <#else>
-                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAccountOrganization.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value=""/>
+                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAcctgAndAmountPercentage.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value=""/>
               </#if>
               <input name="_rowSubmit_o_${glAccountOrganizationIndex}${glAccountCategory_index}" type="hidden" value="Y"/>
             </td>

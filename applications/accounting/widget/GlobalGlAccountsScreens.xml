@@ -468,23 +468,29 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="tabButtonItem" value="CostCenters"/>
-                <entity-condition entity-name="GlAccountOrganization" list="glAccountOrganizations" distinct="true">
-                    <order-by field-name="glAccountId"/>
-                </entity-condition>
-                <entity-condition entity-name="GlAccountCategory" list="glAccountCategories">
-                    <condition-expr field-name="glAccountCategoryTypeId" operator="equals" value="COST_CENTER"/>
-                </entity-condition>
             </actions>
             <widgets>
                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
-                            <platform-specific>
-                                <html>
-                                    <html-template location="component://accounting/webapp/accounting/ledger/CostCenters.ftl"/>
-                                </html>
-                            </platform-specific>
-                        </screenlet>
+                        <section>
+                            <actions>
+                                <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                                <service service-name="getGlAcctgAndAmountPercentage" result-map="result">
+                                    <field-map field-name="organizationPartyId"/>
+                                </service>
+                                <set field="glAcctgAndAmountPercentageList" from-field="result.glAcctgAndAmountPercentageList" type="List"/>
+                                <set field="glAccountCategories" from-field="result.glAccountCategories" type="List"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
+                                    <platform-specific>
+                                        <html>
+                                            <html-template location="component://accounting/webapp/accounting/ledger/CostCenters.ftl"/>
+                                        </html>
+                                    </platform-specific>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

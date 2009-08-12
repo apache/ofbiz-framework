@@ -645,14 +645,22 @@ under the License.
         <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
     </service>
 
-    <service name="getGlAcctgOrgWithPostedBalanceSplit" engine="simple" default-entity-name="GlAccountOrganization"
+    <service name="getGlAcctgOrgWithPostedBalanceSplit" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAcctgOrgWithPostedBalanceSplit" auth="true">
         <description>Posted amounts split by cost center from GlAccountOrganization</description>
         <attribute name="organizationPartyId" type="String" mode="IN"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="timePeriod" type="String" mode="IN" optional="true"/>
-        <attribute name="glAcctgOrgAndCostCenterMapList" mode="OUT"  type="List" optional="true"/>
+        <attribute name="glAcctgOrgAndCostCenterList" mode="OUT"  type="List" optional="true"/>
+    </service>
+
+    <service name="getGlAcctgAndAmountPercentage" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAcctgAndAmountPercentage" auth="false">
+        <description>Get amount percentage and glAccount for cost center</description>
+        <attribute name="organizationPartyId" mode="IN" type="String"/>
+        <attribute name="glAcctgAndAmountPercentageList" mode="OUT"  type="List" optional="true"/>
+        <attribute name="glAccountCategories" mode="OUT"  type="List" optional="true"/>
     </service>
 
     <service name="getInventoryValuationList" engine="simple"

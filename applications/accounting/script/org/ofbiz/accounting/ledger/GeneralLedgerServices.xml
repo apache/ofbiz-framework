@@ -2509,12 +2509,10 @@ under the License.
     <simple-method method-name="getGlAcctgOrgWithPostedBalanceSplit" short-description="Posted amounts split by cost center from GlAccountOrganization">
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <set field="glAcctgOrgAndCostCenterMapList" type="List" value="null"/>
-        <now-timestamp field="nowThruDate"/>
+        <set field="glAcctgOrgAndCostCenterList" type="List" from-field="nullfield"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-        <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowThruDate}"/>
-
+        <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
         <if-empty field="fromDate">
             <entity-one entity-name="CustomTimePeriod" value-field="customTimePeriod" auto-field-map="false">
                 <field-map field-name="customTimePeriodId" from-field="parameters.timePeriod"/>
@@ -2529,59 +2527,89 @@ under the License.
             <condition-list>
                 <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="postedBalance" operator="not-equals" value=""/>
-                <condition-list combine="or">
-                    <condition-expr field-name="fromDate" operator="greater-equals" from-field="fromDate"/>
-                    <condition-expr field-name="thruDate" operator="less" from-field="thruDate"/>
-                </condition-list>
+                <condition-expr field-name="fromDate" operator="greater-equals" from-field="fromDate"/>
+                <condition-expr field-name="fromDate" operator="less" from-field="thruDate"/>
             </condition-list>
             <order-by field-name="glAccountId"/>
         </entity-condition>
         <if-not-empty field="glAccountOrganizations">
-            <entity-condition entity-name="GlAccountCategory" list="glAccountCategories">
-                <condition-expr field-name="glAccountCategoryTypeId" operator="equals" value="COST_CENTER"/>
+            <entity-and entity-name="GlAccountCategory" list="glAccountCategories" use-cache="true">
+                <field-map field-name="glAccountCategoryTypeId" value="COST_CENTER"/>
                 <order-by field-name="glAccountCategoryId"/>
-            </entity-condition>
-            <iterate list="glAccountOrganizations" entry="glAccountOrganization">
-            
-                <clear-field field="glAcctgOrgAndCostCenterMap"/>
-                <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccountOrganization.glAccountId"/>
-                
-                <set field="postedBalance" from-field="glAccountOrganization.postedBalance" type="BigDecimal"/>
-                <if-compare field="postedBalance" operator="less" value="0" type="BigDecimal">
-                    <set field="postedBalance" value="${postedBalance * -1}" type="BigDecimal"/>
-                </if-compare>
-                <set field="glAcctgOrgAndCostCenterMap.postedBalance" from-field="postedBalance"/>
-                <entity-one entity-name="GlAccount" value-field="glAccount" auto-field-map="false">
-                    <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
-                </entity-one>
-                <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
-                <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
-
-                <if-not-empty field="glAccountCategories">
-
+            </entity-and>
+            <if-not-empty field="glAccountCategories">
+                <iterate list="glAccountOrganizations" entry="glAccountOrganization">
+                    <clear-field field="glAcctgOrgAndCostCenterMap"/>
+                    <set field="postedBalance" from-field="glAccountOrganization.postedBalance" type="BigDecimal"/>
+                    <if-compare field="postedBalance" operator="less" value="0" type="BigDecimal">
+                        <set field="postedBalance" value="${groovy:postedBalance.negate()}" type="BigDecimal"/>
+                    </if-compare>
+                    <set field="glAcctgOrgAndCostCenterMap.postedBalance" from-field="postedBalance"/>
+                    <entity-one entity-name="GlAccount" value-field="glAccount" auto-field-map="false">
+                        <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
+                    </entity-one>
+                    <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
+                    <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
+                    <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
                     <iterate list="glAccountCategories" entry="glAccountCategory">
-                        <entity-condition entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
-                            <condition-list>
-                                <condition-expr field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
-                                <condition-expr field-name="glAccountCategoryId" from-field="glAccountCategory.glAccountCategoryId"/>
-                            </condition-list>
-                        </entity-condition>
+                        <entity-and entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
+                            <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
+                            <field-map field-name="glAccountCategoryId" from-field="glAccountCategory.glAccountCategoryId"/>
+                        </entity-and>
                         <if-not-empty field="glAccountCategoryMembers">
                             <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
                             <if-not-empty field="glAccountCategoryMember">
-                                <set field="splitAmount" value="${postedBalance * glAccountCategoryMember.amountPercentage / 100}" type="BigDecimal"/>
-                                <calculate field="splitAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}" type="BigDecimal">
-                                    <calcop operator="get" field="splitAmount"/>
-                                </calculate>
+                                <set field="divisor" value="100" type="BigDecimal"/>
+                                <set field="splitAmount" value="${groovy:postedBalance.multiply(glAccountCategoryMember.amountPercentage).divide(divisor, Integer.valueOf(ledgerDecimals), BigDecimal.ROUND_HALF_UP)}" type="BigDecimal"/>
                                 <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="splitAmount" type="BigDecimal"/>
                             </if-not-empty>
                         </if-not-empty>
                     </iterate>
+                    <field-to-list field="glAcctgOrgAndCostCenterMap" list="glAcctgOrgAndCostCenterList"/>
+                </iterate>
+            </if-not-empty>
+            <field-to-result field="glAcctgOrgAndCostCenterList"/>
+        </if-not-empty>
+    </simple-method>
 
-                    <field-to-list field="glAcctgOrgAndCostCenterMap" list="glAcctgOrgAndCostCenterMapList"/>
-                </if-not-empty>
-            </iterate>
-            <field-to-result field="glAcctgOrgAndCostCenterMapList" result-name="glAcctgOrgAndCostCenterMapList"/>
+    <simple-method method-name="getGlAcctgAndAmountPercentage" short-description="Get amount percentage and glAccount for cost center">
+        <set field="glAcctgAndAmountPercentageList" type="List" from-field="nullfield"/>
+        <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds[]" from-field="organizationPartyId"/>
+        <entity-condition entity-name="GlAccountOrganization" list="glAccountOrganizations" use-cache="true">
+            <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
+            <order-by field-name="glAccountId"/>
+        </entity-condition>
+        <if-not-empty field="glAccountOrganizations">
+            <entity-and entity-name="GlAccountCategory" list="glAccountCategories" use-cache="true">
+                <field-map field-name="glAccountCategoryTypeId" value="COST_CENTER"/>
+                <order-by field-name="glAccountCategoryId"/>
+            </entity-and>
+            <if-not-empty field="glAccountCategories">
+                <iterate list="glAccountOrganizations" entry="glAccountOrganization">
+                    <clear-field field="glAcctgOrgAndCostCenterMap"/>
+                    <get-related-one value-field="glAccountOrganization" relation-name="GlAccount" to-value-field="glAccount"/>
+                    <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
+                    <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
+                    <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
+                    <iterate list="glAccountCategories" entry="glAccountCategory">
+                        <entity-and entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
+                             <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
+                             <field-map field-name="glAccountCategoryId" from-field="glAccountCategory.glAccountCategoryId"/>
+                        </entity-and>
+                        <if-not-empty field="glAccountCategoryMembers">
+                            <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
+                            <if-not-empty field="glAccountCategoryMember">
+                                <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="glAccountCategoryMember.amountPercentage" type="BigDecimal"/>
+                            </if-not-empty>
+                        </if-not-empty>
+                    </iterate>
+                    <field-to-list field="glAcctgOrgAndCostCenterMap" list="glAcctgAndAmountPercentageList"/>
+                </iterate>
+                <field-to-result field="glAccountCategories"/>
+            </if-not-empty>
+            <field-to-result field="glAcctgAndAmountPercentageList"/>
         </if-not-empty>
     </simple-method>
 
