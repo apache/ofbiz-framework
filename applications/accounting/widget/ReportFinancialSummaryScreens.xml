@@ -1047,7 +1047,7 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="CostCenterReport"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
-                <set field="glAcctgOrgAndCostCenterMapList" from-field="parameters.glAcctgOrgAndCostCenterMapList" type="List"/>
+                <set field="glAcctgOrgAndCostCenterList" from-field="parameters.glAcctgOrgAndCostCenterList" type="List"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CostCenters.groovy"/>
             </actions>
             <widgets>
@@ -1092,7 +1092,7 @@ under the License.
                     <condition-expr field-name="glAccountCategoryTypeId" operator="equals" value="COST_CENTER"/>
                 </entity-condition>
                 <service service-name="getGlAcctgOrgWithPostedBalanceSplit" result-map="result" auto-field-map="true"/>
-                <set field="glAcctgOrgAndCostCenterMapList" from-field="result.glAcctgOrgAndCostCenterMapList" type="List"/>
+                <set field="glAcctgOrgAndCostCenterList" from-field="result.glAcctgOrgAndCostCenterList" type="List"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">

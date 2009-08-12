@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if glAcctgOrgAndCostCenterMapList?has_content && glAccountCategories?has_content>
+<#if glAcctgOrgAndCostCenterList?has_content && glAccountCategories?has_content>
   <form name="costCentersReportPdfForm" method="post" action="<@ofbizUrl>CostCentersReport.pdf</@ofbizUrl>">
     <input type="hidden" name="organizationPartyId" value="${parameters.organizationPartyId}"/>
     <input type="hidden" name="fromDate" value="${parameters.fromDate}"/>
@@ -35,20 +35,20 @@ under the License.
         <th>${glAccountCategory.description!} - (${currencyUomId})</th>
       </#list>
     </tr>
-    <#list glAcctgOrgAndCostCenterMapList as glAcctgOrgAndCostCenterMap>
-      <#if glAcctgOrgAndCostCenterMap?has_content>
+    <#list glAcctgOrgAndCostCenterList as glAcctgOrgAndCostCenter>
+      <#if glAcctgOrgAndCostCenter?has_content>
         <tr>
-          <td>${glAcctgOrgAndCostCenterMap.glAccountId?if_exists}</td>
-          <td>${glAcctgOrgAndCostCenterMap.accountCode?if_exists}</td>
-          <td>${glAcctgOrgAndCostCenterMap.accountName?if_exists}</td>
-          <td>${glAcctgOrgAndCostCenterMap.postedBalance?if_exists}</td>
+          <td>${glAcctgOrgAndCostCenter.glAccountId?if_exists}</td>
+          <td>${glAcctgOrgAndCostCenter.accountCode?if_exists}</td>
+          <td>${glAcctgOrgAndCostCenter.accountName?if_exists}</td>
+          <td>${glAcctgOrgAndCostCenter.postedBalance?if_exists}</td>
           <#list glAccountCategories as glAccountCategory>
-            <td>${(glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</td>
+            <td>${(glAcctgOrgAndCostCenter[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</td>
           </#list>
         </tr>
       </#if>
     </#list>
   </table>
 <#else>
-  <label>${uiLabelMap.AccountingNoRecordFound}</label>
+  <h2>${uiLabelMap.AccountingNoRecordFound}</h2>
 </#if>
