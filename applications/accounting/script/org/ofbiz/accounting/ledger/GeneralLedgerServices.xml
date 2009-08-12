@@ -302,9 +302,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createAcctgTransAndEntries" short-description="Verifies and posts a set of AcctgTransEntries">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <!-- first loop through and make sure all the entries are valid  -->
         <iterate list="parameters.acctgTransEntries" entry="acctgTransEntry">
@@ -878,8 +876,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="prepareIncomeStatement" short-description="Prepare data for the Income Statement">
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
             <field-map field-name="glAccountClassId" value="EXPENSE"/>
         </entity-one>
@@ -1312,9 +1309,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForSalesShipmentIssuance" short-description="Create an accounting transactions for a sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
@@ -1374,9 +1369,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForCanceledSalesShipmentIssuance" short-description="Create an accounting transactions for a canceled sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
@@ -1436,9 +1429,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForShipmentReceipt" short-description="Create an accounting transactions for a shipment receipt (D: INVENTORY_ACCOUNT, C: UNINVOICED_SHIP_RCPT or COGS_ACCOUNT for returns)">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <entity-one entity-name="ShipmentReceipt" value-field="shipmentReceipt"/>
         <get-related-one value-field="shipmentReceipt" relation-name="InventoryItem" to-value-field="inventoryItem"/>
@@ -1502,8 +1493,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForInventoryItemCostChange" short-description="Create accounting transaction when item cost is changed (D: INV_ADJ_VAL, C: INVENTORY_ACCOUNT)">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-one entity-name="InventoryItemDetail" value-field="newInventoryItemDetail"/>
         <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
             <condition-list>
@@ -1557,8 +1547,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForPhysicalInventoryVariance" short-description="Create an Account Transaction For Physical Inventory Variance">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-and entity-name="InventoryItemDetail" list="inventoryItemDetails">
             <field-map field-name="physicalInventoryId" from-field="parameters.physicalInventoryId"/>
             <order-by field-name="inventoryItemId"/>
@@ -1602,9 +1591,7 @@ under the License.
 
    <simple-method method-name="createAcctgTransForWorkEffortInventoryProduced" short-description="Create an accounting transactions for a Work Effort Inventory Produced (D: INVENTORY_ACCOUNT, C: WIP_INVENTORY)">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-one entity-name="WorkEffortInventoryProduced" value-field="workEffortInventoryProduced">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
@@ -1703,9 +1690,7 @@ under the License.
     <!-- AcctgTrans For Inventory Item Owner Change Service -->
     <simple-method method-name="createAcctgTransForInventoryItemOwnerChange" short-description="Create an accounting transactions for Inventory Item Owner Change (D: INVENTORY_ACCOUNT(old Owner) INVENTORY_ACCOUNT(new Owner), C: INVENTORY_XFER_IN(oldOwner) INVENTORY_XFER_OUT(new Owner))">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
 
@@ -1775,9 +1760,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForWorkEffortIssuance" short-description="Create an accounting transaction for inventory that is issued to a work effort (Type: INVENTORY D: RAWMAT_INVENTORY, C: WIP_INVENTORY)">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-one entity-name="WorkEffort" value-field="workEffort">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-one>
@@ -1834,8 +1817,7 @@ under the License.
     <!-- Service for the automatic creation of accounting transaction for inventory that is issued for fixed asset maintenance -->
     <simple-method method-name="createAcctgTransForFixedAssetMaintIssuance" short-description="Create an accounting transaction for inventory that is issued for fixed asset maintenance (Type: INVENTORY D: INVENTORY_ACCOUNT, C: FIXED_ASSET_MAINT)">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
@@ -1877,9 +1859,7 @@ under the License.
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
     <simple-method method-name="createAcctgTransAndEntriesForIncomingPayment" short-description="Create an accounting transaction for an incoming payment" >
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <calculate field="amountAppliedTotal"><number value="0"/></calculate>
         <calculate field="diffAmount"><number value="0"/></calculate>
@@ -1971,9 +1951,7 @@ under the License.
     <!-- Service for the automatic creation of accounting transaction for Purchase Invoice -->
     <simple-method method-name="createAcctgTransForPurchaseInvoice" short-description="Create an accounting transaction for a purchase invoice">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
@@ -2083,9 +2061,7 @@ under the License.
 
     <simple-method method-name="createAcctgTransForSalesInvoice" short-description="Create an accounting transaction for a sales invoice">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <set field="totalOrigAmount" value="0"/>
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
@@ -2148,9 +2124,7 @@ under the License.
     </simple-method>
     <!--automatic GL posting service triggered payment is created or when set payment status -->
     <simple-method method-name="createAcctgTransAndEntriesForOutgoingPayment" short-description="create accounting transactions and accounting transaction entries for outgoing payment">
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <set field="amountAppliedTotal" type="BigDecimal" value="0"/>
         <entity-one entity-name="Payment" value-field="payment"/>
@@ -2508,8 +2482,7 @@ under the License.
 
     <simple-method method-name="getGlAcctgOrgWithPostedBalanceSplit" short-description="Posted amounts split by cost center from GlAccountOrganization">
         <!-- retrieve ledger rounding properties -->
-        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
-        <set field="glAcctgOrgAndCostCenterList" type="List" from-field="nullfield"/>
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <now-timestamp field="nowTimestamp"/>
         <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
         <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
@@ -2658,4 +2631,9 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="getGlArithmeticSettingsInline" short-description="getGlArithmeticSettingsInline">
+        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals" default="4"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode" default="HalfUp"/>
+        <log level="info" message="Got settings from arithmetic.properties: ledgerDecimals=${ledgerDecimals}, roundingMode=${roundingMode}"/>
+    </simple-method>
 </simple-methods>
