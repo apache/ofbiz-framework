@@ -169,6 +169,6 @@ under the License.
     </eca>
     <eca service="depositWithdrawPayments" event="commit">
         <condition field-name="groupInOneTransaction" operator="equals" value="Y"/>
-        <action service="createPaymentGroupAndMember" mode="async"/>
+        <action service="checkAndCreateBatchForValidPayments" mode="sync"/>
     </eca>
 </service-eca>
