@@ -4520,6 +4520,14 @@
         <value xml:lang="it">Istanza del prodotto</value>
         <value xml:lang="zh">产品标识实例</value>
     </property>
+    <property key="AccountingInventoryValuation">
+        <value xml:lang="en">Inventory Valuation</value>
+        <value xml:lang="hi_IN">वस्तु मूल्यांकन</value>
+    </property>
+    <property key="AccountingInventoryValuationList">
+        <value xml:lang="en">Inventory Valuation List</value>
+        <value xml:lang="hi_IN">वस्तु मूल्यांकन सूची</value>
+    </property>
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>
         <value xml:lang="en">Inv.Nr</value>
@@ -8558,6 +8566,10 @@
         <value xml:lang="nl">Totaal excl. BTW</value>
         <value xml:lang="th">Total excl. tax</value>
         <value xml:lang="zh">未含税合计</value>
+    </property>
+    <property key="AccountingTotalQuantityOnHand">
+        <value xml:lang="en">Total Quantity On Hand</value>
+        <value xml:lang="hi_IN">कुल मात्रा हाथ पर</value>
     </property>
     <property key="AccountingTransactionHasBeenAlreadyPosted">
         <value xml:lang="en">Transaction has been already posted</value>

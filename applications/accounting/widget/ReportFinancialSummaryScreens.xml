@@ -1107,4 +1107,109 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="InventoryValuation">
+        <section>
+            <actions>
+                <set field="labelTitleProperty" value="AccountingInventoryValuation"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <include-form name="InventoryValuation" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <section>
+                                    <condition>
+                                        <if-compare field="parameters.showSearchResults" operator="equals" value="Y"/>
+                                    </condition>
+                                    <actions>
+                                        <service service-name="getInventoryValuationList" result-map="inventoryValuation"/>
+                                        <set field="inventoryValuationList" from-field="inventoryValuation.inventoryValuationList" type="List"/>
+                                    </actions>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field="inventoryValuationList"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="InventoryValuation.pdf">
+                                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                                    <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                                                    <parameter param-name="productId" from-field="parameters.productId"/>
+                                                    <parameter param-name="productCategoryId" from-field="parameters.productCategoryId"/>
+                                                    <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                                    <parameter param-name="cogsMethodId" from-field="parameters.cogsMethodId"/>
+                                                </link>
+                                                <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="InventoryValuation.csv">
+                                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                                    <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                                                    <parameter param-name="productId" from-field="parameters.productId"/>
+                                                    <parameter param-name="productCategoryId" from-field="parameters.productCategoryId"/>
+                                                    <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                                    <parameter param-name="cogsMethodId" from-field="parameters.cogsMethodId"/>
+                                                </link>
+                                                <screenlet title="${uiLabelMap.AccountingInventoryValuationList}">
+                                                    <include-form name="InventoryValuationList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <label style="h3">${uiLabelMap.AccountingNoRecordFound}</label>
+                                            </fail-widgets>
+                                        </section>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="InventoryValuationPdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <service service-name="getInventoryValuationList" result-map="inventoryValuation"/>
+                <set field="inventoryValuationList" from-field="inventoryValuation.inventoryValuationList" type="List"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <xsl-fo>
+                                <html-template location="component://accounting/webapp/accounting/reports/InventoryValuationReport.fo.ftl"/>
+                            </xsl-fo>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="InventoryValuationCsv">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <service service-name="getInventoryValuationList" result-map="inventoryValuation"/>
+                <set field="inventoryValuationList" from-field="inventoryValuation.inventoryValuationList" type="List"/>
+            </actions>
+            <widgets>
+                <container>
+                    <include-form name="InventoryValuationCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

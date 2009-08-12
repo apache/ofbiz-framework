@@ -2220,8 +2220,21 @@ under the License.
         <response name="success" type="view" value="EditDepositSlipAndMembers"/>
         <response name="error" type="view" value="NewDepositSlip"/>
     </request-map>
-
-
+    <request-map uri="InventoryValuation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InventoryValuation"/>
+    </request-map>
+    <request-map uri="InventoryValuation.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InventoryValuationPdf"/>
+        <response name="error" type="view" value="InventoryValuation"/>
+    </request-map>
+    <request-map uri="InventoryValuation.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InventoryValuationCsv"/>
+        <response name="error" type="view" value="InventoryValuation"/>
+    </request-map>
+  
     <!-- ================ Depreciation Calculation Report requests ================ -->
     <request-map uri="showFixedAssetDepreciation">
         <security https="true" auth="true"/>
@@ -2650,6 +2663,9 @@ under the License.
     <view-map name="PaymentsDepositWithdraw" type="screen" page="component://accounting/widget/FinAccountScreens.xml#PaymentsDepositWithdraw"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="NewDepositSlip" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositSlip"/>
+    <view-map name="InventoryValuation" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuation"/>
+    <view-map name="InventoryValuationPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="InventoryValuationCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationCsv" content-type="text/csv" encoding="none"/>
     <!-- Assignment Mappings -->
     <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>
 
