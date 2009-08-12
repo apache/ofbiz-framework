@@ -35,7 +35,7 @@
             <root>
                 <definition>
                     This Calendar portler will show events for a certain person, facility or fixed asset
-                </defintion>
+                </definition>
                 <usedFor>
                     It provides an overview on a dayly/weekly/or month period.
                 </usedFor>
