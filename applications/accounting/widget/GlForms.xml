@@ -947,12 +947,11 @@ under the License.
         <field name="workEffortId"><display/></field>
         <field name="shipmentId"><display/></field>
         <field name="partyId"><display/></field>
-        <field name="quot17" title="&quot;"><display/></field>
         <field name="productId"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="debitCreditFlag"><display/></field>
-        <field name="amount"><display currency="${currencyUomId}"/></field>
+        <field name="amount"><display/></field>
     </form>
 
     <form name="AcctgTransSearchResultsCsv" type="list" title="List Accounting Transactions" list-name="acctgTransList" view-size="1000">
