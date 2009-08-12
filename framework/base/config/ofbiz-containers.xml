@@ -136,7 +136,7 @@ under the License.
             </property>
             -->
             <!-- <property name="ssl-accelerator-port" value="8443"/> -->
-            <property name="enable-cross-subdomain-sessions" value="true"/>
+            <property name="enable-cross-subdomain-sessions" value="false"/>
         </property>
         <!-- all connectors support type, host, port, enable-lookups -->
         <property name="ajp-connector" value="connector">
