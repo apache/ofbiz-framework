@@ -49,6 +49,7 @@ under the License.
                     </select>
                 </td>
             </tr>
+            <#if hideExportOptions == "N">
             <tr>
                 <td align="right" class="label">${uiLabelMap.CommonCountry}</td>
                 <td>&nbsp;</td>
@@ -149,6 +150,7 @@ under the License.
                     <input type="submit" value="${uiLabelMap.EbayExportToEbay}" name="submitButton" class="smallSubmit">
                 </td>
             </tr>
+            </#if>
         </table>
     </form>
     <script language="JavaScript" type="text/javascript">
