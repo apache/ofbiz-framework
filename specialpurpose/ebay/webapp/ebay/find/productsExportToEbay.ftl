@@ -28,6 +28,7 @@ under the License.
              document.forms["ProductsExportToEbay"].submitButton.disabled = false;
          } else {
              document.forms["ProductsExportToEbay"].submitButton.disabled = true;
+             document.forms["ProductsExportToEbay"].submitButton.value = "Please select a category";
          }
     }
 </script>

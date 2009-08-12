@@ -518,8 +518,8 @@
         <value xml:lang="th">พารามิเตอร์ไม่ถูกต้องในการเรียกหมวดหมู่อีเบย์</value>
         <value xml:lang="zh">获得eBay分类的参数不正确</value>
     </property>
-    <property key="productsExportToEbay.productItemsSentCorrecltyToEbay">
-        <value xml:lang="en">Product items sent correclty to eBay</value>
+    <property key="productsExportToEbay.productItemsSentToEbay">
+        <value xml:lang="en">Product items sent to eBay</value>
         <value xml:lang="fr">Les lignes d'articles ont été envoyées corectement à Ebay</value>
         <value xml:lang="it">Prodotti inviati correttamente su eBay</value>
         <value xml:lang="th">รายการสินค้าส่งอย่างถูกต้องถึงอีเบย์</value>

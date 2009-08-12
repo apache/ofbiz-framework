@@ -100,7 +100,7 @@ public class ProductsExportToEbay {
             Debug.logError("Exception in exportToEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
         }
-        return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentCorrecltyToEbay", locale));
+        return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentToEbay", locale));
     }
 
     private static void appendRequesterCredentials(Element elem, Document doc, String token) {
@@ -199,7 +199,7 @@ public class ProductsExportToEbay {
                     UtilXml.addChildElementValue(itemElem, "Description", description, itemDocument);
                     UtilXml.addChildElementValue(itemElem, "ListingDuration", (String)context.get("listingDuration"), itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Quantity", qnt, itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "UseTaxTable", "true", itemDocument);
+                    UtilXml.addChildElementValue(itemElem, "UseTaxTable", "false", itemDocument);
 
                     setPaymentMethodAccepted(itemDocument, itemElem, context);
 
