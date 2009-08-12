@@ -2584,4 +2584,50 @@ under the License.
             <field-to-result field="glAcctgOrgAndCostCenterMapList" result-name="glAcctgOrgAndCostCenterMapList"/>
         </if-not-empty>
     </simple-method>
+
+    <simple-method method-name="getInventoryValuationList" short-description="Retrieves list for Inventory Valuation Report">
+        <entity-condition entity-name="ProductInventoryItem" list="productInventoryItems">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" from-field="parameters.productId" ignore-if-empty="true"/>
+                <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true"/>
+                <condition-expr field-name="primaryProductCategoryId" from-field="parameters.productCategoryId" ignore-if-empty="true"/>
+                <condition-expr field-name="datetimeReceived" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                <condition-expr field-name="datetimeReceived" operator="less-equals" from-field="parameters.thruDate" ignore-if-empty="true"/>
+            </condition-list>
+            <order-by field-name="productId"/>
+        </entity-condition>
+        <if-not-empty field="productInventoryItems">
+            <set field="productIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(productInventoryItems, 'productId', true);}" type="List"/>
+            <iterate list="productIds" entry="productId">
+                <set field="totalQuantityOnHand" type="BigDecimal" value="0"/>
+                <set field="totalInventoryCost" type="BigDecimal" value="0"/>
+                <set field="productAverageCost" type="BigDecimal" value="0"/>
+                <iterate list="productInventoryItems" entry="productInventoryItem">
+                    <if-compare-field field="productId" operator="equals" to-field="productInventoryItem.productId">
+                        <if-compare field="parameters.cogsMethodId" operator="equals" value="COGS_AVG_COST">
+                            <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="false">
+                                <field-map field-name="inventoryItemId" from-field="productInventoryItem.inventoryItemId"/>
+                            </entity-one>
+                            <set field="getProdAvgCostMap.inventoryItem" from-field="inventoryItem"/>
+                            <call-service service-name="getProductAverageCost" in-map-name="getProdAvgCostMap">
+                                <result-to-field result-name="unitCost" field="productAverageCost"/>
+                            </call-service>
+                        </if-compare>
+                        <set field="totalQuantityOnHand" value="${totalQuantityOnHand + productInventoryItem.quantityOnHandTotal}" type="BigDecimal"/>
+                        <set field="currencyUomId" from-field="productInventoryItem.currencyUomId"/>
+                        <set field="totalInventoryCost" value="${totalInventoryCost + (productInventoryItem.quantityOnHandTotal * productAverageCost)}" type="BigDecimal"/>
+                    </if-compare-field>
+                </iterate>
+                <set field="inventoryValuation.productId" from-field="productId"/>
+                <set field="inventoryValuation.totalQuantityOnHand" from-field="totalQuantityOnHand" type="BigDecimal"/>
+                <set field="inventoryValuation.totalInventoryCost" from-field="totalInventoryCost" type="BigDecimal"/>
+                <set field="inventoryValuation.productAverageCost" from-field="productAverageCost" type="BigDecimal"/>
+                <set field="inventoryValuation.currencyUomId" from-field="currencyUomId"/>
+                <set field="inventoryValuationList[]" from-field="inventoryValuation"/>
+                <clear-field field="inventoryValuation"/>
+            </iterate>
+            <field-to-result field="inventoryValuationList"/>
+        </if-not-empty>
+    </simple-method>
+
 </simple-methods>

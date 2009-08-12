@@ -654,4 +654,17 @@ under the License.
         <attribute name="timePeriod" type="String" mode="IN" optional="true"/>
         <attribute name="glAcctgOrgAndCostCenterMapList" mode="OUT"  type="List" optional="true"/>
     </service>
+
+    <service name="getInventoryValuationList" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getInventoryValuationList" auth="true">
+        <description>Inventory Valuation List</description>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="cogsMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="inventoryValuationList" type="List" mode="OUT" optional="true"/>
+    </service>
+
 </services>
