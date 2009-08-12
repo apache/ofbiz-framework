@@ -664,4 +664,34 @@ under the License.
         </if-not-empty>
         <field-to-result field="glReconciliationId"/>
     </simple-method>
+    <simple-method method-name="checkAndCreateBatchForValidPayments" short-description="Check the valid(unbatched) payment and create batch for same">
+        <set field="paymentIds" from-field="parameters.paymentIds"/>
+        <entity-condition entity-name="Payment" list="payments">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+        </entity-condition>
+        <iterate list="payments" entry="payment">
+            <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+            <if-compare field="isReceipt" operator="equals" value="false" type="Boolean">
+                <field-to-list field="payment.paymentId" list="disbursementPaymentIds"/>
+            </if-compare>
+        </iterate>
+        <if-not-empty field="disbursementPaymentIds">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/></add-error>
+            <check-errors/>
+        </if-not-empty>
+        <entity-condition entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+        </entity-condition>
+        <if-not-empty field="paymentGroupMembers">
+            <set field="batchPaymentIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(paymentGroupMembers, 'paymentId', true);}" type="List"/>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentsAreAlreadyBatchedError"/></add-error>
+            <check-errors/>
+        <else>
+            <set-service-fields service-name="createPaymentGroupAndMember" map="parameters" to-map="createPaymentGroupAndMemberMap"/>
+            <call-service service-name="createPaymentGroupAndMember" in-map-name="createPaymentGroupAndMemberMap">
+                <result-to-result result-name="paymentGroupId"/>
+            </call-service>            
+        </else>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

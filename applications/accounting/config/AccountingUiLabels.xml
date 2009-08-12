@@ -1703,8 +1703,8 @@
         <value xml:lang="zh">无法为应用[${payAppl}]获得支付，由于${msg}</value>
     </property>
     <property key="AccountingCannotIncludeApPaymentError">
-        <value xml:lang="en">Cannot include AP payment in a deposit batch</value>
-        <value xml:lang="hi_IN">भुगतान को देय खाते(AP) के  जमा बैच (deposit batch) खाते में शामिल नहीं कर सकते</value>
+        <value xml:lang="en">Cannot include AP payments ${disbursementPaymentIds} in a deposit batch</value>
+        <value xml:lang="hi_IN">भुगतान ${disbursementPaymentIds} को देय खाते(AP) के  जमा बैच (deposit batch) खाते में शामिल नहीं कर सकते</value>
     </property>
     <property key="AccountingCapture">
         <value xml:lang="ar">خطفة</value>
@@ -6907,6 +6907,10 @@
         <value xml:lang="ru">Платежное приложение требует указания кода накладной, кода кредитного счета, код территории налогового органа или код счета ГК</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การชำระเงินต้องการรหัสใบเสร็จการชำระเงิน, หมายเลขบัญชีธนาคาร, taxAuthGeoId หรือ หมายเลขบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">支付程序需要提供发票编号、账单账户标识或税务机关辖区编号</value>
+    </property>
+    <property key="AccountingPaymentsAreAlreadyBatchedError">
+        <value xml:lang="en">Selected payments ${batchPaymentIds} is already assigned in a batch</value>
+        <value xml:lang="hi_IN">चुने हुए भुगतान $(batchPaymentIds) पहले ही एक बैच में सौंपा है </value>
     </property>
     <property key="AccountingPaymentCancelled">
         <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>

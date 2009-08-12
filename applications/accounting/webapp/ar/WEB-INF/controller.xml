@@ -43,7 +43,7 @@ under the License.
     </request-map>
     <request-map uri="createPaymentBatch">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createPaymentGroupAndMember"/>
+        <event type="service" invoke="checkAndCreateBatchForValidPayments"/>
         <response name="success" type="view" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="BatchPayments"/>
     </request-map>
