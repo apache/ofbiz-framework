@@ -25,3 +25,9 @@ results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, 
 if (results.categories) {
     context.categories = results.categories;
 }
+
+if (!categoryCode || !"Y".equals(categoryCode.substring(0, 1))) {
+    context.hideExportOptions = "Y";
+} else {
+    context.hideExportOptions = "N";
+}

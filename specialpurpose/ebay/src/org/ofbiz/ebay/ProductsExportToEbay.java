@@ -208,9 +208,10 @@ public class ProductsExportToEbay {
                     UtilXml.addChildElementValue(itemElem, "Description", description, itemDocument);
                     UtilXml.addChildElementValue(itemElem, "ListingDuration", (String)context.get("listingDuration"), itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Quantity", qnt, itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "UseTaxTable", "false", itemDocument);
 
                     setPaymentMethodAccepted(itemDocument, itemElem, context);
+                    setShippingDetails(itemDocument, itemElem, context);
+                    setMiscDetails(itemDocument, itemElem, context);
 
                     String categoryCode = (String)context.get("ebayCategory");
                     String categoryParent = "";
@@ -395,6 +396,26 @@ public class ProductsExportToEbay {
         }
     }
 
+    // TODO: these are mandatory values that have been hardcoded
+    private static void setShippingDetails(Document itemDocument, Element itemElem, Map context) {
+        Element shippingDetails = UtilXml.addChildElement(itemElem, "ShippingDetails", itemDocument);
+        UtilXml.addChildElementValue(shippingDetails, "ShippingType", "Flat", itemDocument);
+        Element shippingServiceOptions = UtilXml.addChildElement(shippingDetails, "ShippingServiceOptions", itemDocument);
+        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingService", "UPS2ndDay", itemDocument);
+        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingServicePriority", "1", itemDocument);
+        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingServiceCost", "5", itemDocument);
+        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingServiceAdditionalCost", "2", itemDocument);
+        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingSurcharge", "1", itemDocument);
+    }
+
+    // TODO: these are mandatory values that have been hardcoded
+    private static void setMiscDetails(Document itemDocument, Element itemElem, Map context) {
+        UtilXml.addChildElementValue(itemElem, "UseTaxTable", "false", itemDocument);
+        UtilXml.addChildElementValue(itemElem, "DispatchTimeMax", "3", itemDocument);
+        Element returnPolicy = UtilXml.addChildElement(itemElem, "ReturnPolicy", itemDocument);
+        UtilXml.addChildElementValue(returnPolicy, "ReturnsAcceptedOption", "ReturnsNotAccepted", itemDocument);
+    }
+    
     public static Map getEbayCategories(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
         String categoryCode = (String)context.get("categoryCode");
