@@ -810,8 +810,8 @@ under the License.
     </request-map>
     <request-map uri="payPalCheckoutUpdate">
         <description>Handles callbacks from PayPal's Express Checkout Instant Update API</description>
-        <security auth="false" https="true"/>
-        <event type="service" invoke="payPalExpressCheckoutUpdate"/>
+        <security auth="false" https="false"/>
+        <event type="java" path="org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents" invoke="expressCheckoutUpdate"/>
         <response name="success" type="none"/>
     </request-map>
 

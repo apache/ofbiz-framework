@@ -34,6 +34,11 @@ under the License.
              location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doExpressCheckout">
         <implements service="payPalDoExpressCheckoutInterface"/>
     </service>
+    <service name="payPalCheckoutUpdate" engine="java" auth="false"
+             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="payPalCheckoutUpdate">
+        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest"/>
+        <attribute name="response" mode="IN" type="javax.servlet.http.HttpServletResponse"/>
+    </service>
     
     <service name="payPalProcessor" engine="java"
              location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doAuthorization">
