@@ -56,6 +56,7 @@ public class ProductsExportToEbay {
 
     public static Map exportToEbay(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
+        Map result = null;
         try {
             String configString = "ebayExport.properties";
 
@@ -91,16 +92,25 @@ public class ProductsExportToEbay {
             */
 
             if (!ServiceUtil.isFailure(buildDataItemsXml(dctx, context, dataItemsXml, token))) {
-                Map result = postItem(xmlGatewayUri, dataItemsXml, devID, appID, certID, "AddItem", compatibilityLevel, siteID);
+                result = postItem(xmlGatewayUri, dataItemsXml, devID, appID, certID, "AddItem", compatibilityLevel, siteID);
                 if (ServiceUtil.isFailure(result)) {
                     return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
                 }
+            } else {
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
             }
         } catch (Exception e) {
             Debug.logError("Exception in exportToEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
         }
-        return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentToEbay", locale));
+        String successMessage = UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentToEbay", locale);
+        if (result != null) {
+            String responseString = (String)result.get("successMessage");
+            if (UtilValidate.isNotEmpty(responseString)) {
+                successMessage = responseString;
+            }
+        }
+        return ServiceUtil.returnSuccess(successMessage);
     }
 
     private static void appendRequesterCredentials(Element elem, Document doc, String token) {
@@ -141,7 +151,6 @@ public class ProductsExportToEbay {
         OutputStream outputStream = connection.getOutputStream();
         outputStream.write(dataItems.toString().getBytes());
         outputStream.close();
-
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
         Map result = FastMap.newInstance();
