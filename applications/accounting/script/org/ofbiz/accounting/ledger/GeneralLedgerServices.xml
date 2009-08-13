@@ -996,8 +996,9 @@ under the License.
                 <calcop operator="get" field="totalOfCurrentFiscalPeriod"/>
             </calculate>
             <set field="glAccountTotalMap.totalOfCurrentFiscalPeriod" from-field="totalOfCurrentFiscalPeriod" type="BigDecimal"/>
-            <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
+            <set field="glAccountIncomeList[]" from-field="glAccountTotalMap"/>
         </iterate-map>
+        <set field="glAccountTotalsMap.income" from-field="glAccountIncomeList"/>
         <iterate-map map="glAccountTotalsExpenseMap" key="glAccountId" value="totalAmount">
             <clear-field field="glAccountTotalMap"/>
             <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
@@ -1012,11 +1013,11 @@ under the License.
                 <calcop operator="get" field="totalOfCurrentFiscalPeriod"/>
             </calculate>
             <set field="glAccountTotalMap.totalOfCurrentFiscalPeriod" from-field="totalOfCurrentFiscalPeriod" type="BigDecimal"/>
-            <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
+            <set field="glAccountExpenseList[]" from-field="glAccountTotalMap"/>
         </iterate-map>
-
+        <set field="glAccountTotalsMap.expenses" from-field="glAccountExpenseList"/>
         <field-to-result field="totalNetIncome" result-name="totalNetIncome"/>
-        <field-to-result field="glAccountTotalsList" result-name="glAccountTotalsList"/>
+        <field-to-result field="glAccountTotalsMap" result-name="glAccountTotalsMap"/>
     </simple-method>
 
     <simple-method method-name="prepareBalanceSheet" short-description="Prepare data for the Balance Sheet">

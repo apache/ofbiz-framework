@@ -373,11 +373,14 @@ under the License.
                                             <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
                                             <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
                                         </link>
+                                        <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
                                         <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        <container>
-                                            <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
-                                        </container>
+                                        <container style="h3"><label text="${uiLabelMap.AccountingExpences}"/></container>
+                                        <include-form name="ExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                     </container>
+                                </container>
+                                <container>
+                                    <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
                                 </container>
                             </widgets>
                         </section>
@@ -692,10 +695,11 @@ under the License.
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
+                        <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
                         <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        <container>
-                            <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
-                        </container>
+                        <container style="h3"><label text="${uiLabelMap.AccountingExpences}"/></container>
+                        <include-form name="ExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <container><label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/></container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -710,10 +714,11 @@ under the License.
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
             </actions>
             <widgets>
+                <container><label text="${uiLabelMap.AccountingIncome}"/></container>
                 <include-form name="IncomeStatementListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                <container>
-                    <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/>
-                </container>
+                <container><label text="${uiLabelMap.AccountingExpences}"/></container>
+                <include-form name="ExpenseStatementListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <container><label text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/></container>
             </widgets>
         </section>
     </screen>
