@@ -27,30 +27,30 @@ if ("Y".equals(parameters.isSearch)) {
     thruDate = parameters.thruDate;
     partyId = parameters.partyId;
     productId = parameters.productId;
-    invoiceItemAndAssocCond = [];
+    invoiceItemAndAssocProductCond = [];
     if (productId) {
-        invoiceItemAndAssocCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
     }
     if (partyId) {
-        invoiceItemAndAssocCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
     }
     if (fromDate) {
-        invoiceItemAndAssocCond.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)));
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)));
     }
     if (thruDate) {
-        invoiceItemAndAssocCond.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
     }
-    invoiceItemAndAssocList = [];
-    invoiceItemAndAssocList = delegator.findList("InvoiceItemAndAssocProduct", EntityCondition.makeCondition(invoiceItemAndAssocCond, EntityOperator.AND), null, null, null, false);
+    invoiceItemAndAssocProductList = [];
+    invoiceItemAndAssocProductList = delegator.findList("InvoiceItemAndAssocProduct", EntityCondition.makeCondition(invoiceItemAndAssocProductCond, EntityOperator.AND), null, null, null, false);
 
-    //filtering invoiceItemAndAssocList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
+    //filtering invoiceItemAndAssocProductList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
     totalQuantity = BigDecimal.ZERO;
     totalNumberOfOrders = BigDecimal.ZERO;
     totalCommissionAmount = BigDecimal.ZERO;
     totalNetSales = BigDecimal.ZERO;
     commissionReportList = [];
-    if (invoiceItemAndAssocList) {
-        productIds = EntityUtil.getFieldListFromEntityList(invoiceItemAndAssocList, "productId", true);
+    if (invoiceItemAndAssocProductList) {
+        productIds = EntityUtil.getFieldListFromEntityList(invoiceItemAndAssocProductList, "productId", true);
         productIds.each { productId ->
             quantity = BigDecimal.ZERO;
             commissionAmount = BigDecimal.ZERO;
@@ -61,23 +61,23 @@ if ("Y".equals(parameters.isSearch)) {
             commissionReportMap = [:];
             salesAgentAndTermAmtMap = [:];
             salesInvoiceIds = [];
-            invoiceItemAndAssocList.each { invoiceItemAndAssoc ->
-                if (productId.equals(invoiceItemAndAssoc.productId)) {
+            invoiceItemAndAssocProductList.each { invoiceItemAndAssocProduct ->
+                if (productId.equals(invoiceItemAndAssocProduct.productId)) {
                     partyIdTermAmountMap = [:];
                     partyIdTermAmountKey = null;
-                    assocProductId = invoiceItemAndAssoc.productId;
-                    productName = invoiceItemAndAssoc.productName;
-                    quantity = quantity.add(invoiceItemAndAssoc.quantity);
-                    commissionAmount = commissionAmount.add(invoiceItemAndAssoc.termAmount.multiply(invoiceItemAndAssoc.quantity));
-                    termAmount = termAmount.add(invoiceItemAndAssoc.termAmount);
-                    partyIdTermAmountMap.partyId = invoiceItemAndAssoc.partyIdFrom;
-                    partyIdTermAmountMap.termAmount = invoiceItemAndAssoc.termAmount;
-                    partyIdTermAmountKey = invoiceItemAndAssoc.partyIdFrom + invoiceItemAndAssoc.termAmount;
+                    assocProductId = invoiceItemAndAssocProduct.productId;
+                    productName = invoiceItemAndAssocProduct.productName;
+                    quantity = quantity.add(invoiceItemAndAssocProduct.quantity);
+                    commissionAmount = commissionAmount.add(invoiceItemAndAssocProduct.termAmount.multiply(invoiceItemAndAssocProduct.quantity));
+                    termAmount = termAmount.add(invoiceItemAndAssocProduct.termAmount);
+                    partyIdTermAmountMap.partyId = invoiceItemAndAssocProduct.partyIdFrom;
+                    partyIdTermAmountMap.termAmount = invoiceItemAndAssocProduct.termAmount;
+                    partyIdTermAmountKey = invoiceItemAndAssocProduct.partyIdFrom + invoiceItemAndAssocProduct.termAmount;
                     if (!salesAgentAndTermAmtMap.containsKey(partyIdTermAmountKey)) {
                         salesAgentAndTermAmtMap.put(partyIdTermAmountKey, partyIdTermAmountMap);
                     }
-                    salesInvoiceIds.add(invoiceItemAndAssoc.invoiceIdFrom);
-                    invoiceItemProductAmount = invoiceItemAndAssoc.amount;
+                    salesInvoiceIds.add(invoiceItemAndAssocProduct.invoiceIdFrom);
+                    invoiceItemProductAmount = invoiceItemAndAssocProduct.amount;
                 }
             }
             commissionReportMap.productId = assocProductId;

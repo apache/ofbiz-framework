@@ -18,61 +18,61 @@ under the License.
 -->
 
 <#if commissionReportList?has_content>
-    <div>
-      <a href="<@ofbizUrl>CommissionReport.pdf?isSearch=Y&productId=${parameters.productId!}&partyId=${parameters.partyId!}&fromDate=${parameters.fromDate!}&thruDate=${parameters.thruDate!}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingInvoicePDF}</a>
-    </div>
-    <table class="basic-table hover-bar" cellspacing="0">
-      <#-- Header Begins -->
-      <tr class="header-row-2">
-        <th>${uiLabelMap.AccountingLicensedProduct}</th>
-        <th>${uiLabelMap.AccountingQuantity}</th>
-        <th>${uiLabelMap.AccountingNumberOfOrders} / ${uiLabelMap.AccountingSalesInvoices}</th>
-        <th>${uiLabelMap.AccountingCommissionAmount}</th>
-        <th>${uiLabelMap.AccountingNetSale}</th>
-        <th>${uiLabelMap.AccountingSalesAgents} / ${uiLabelMap.AccountingTermAmount}</th>
+  <div>
+    <a href="<@ofbizUrl>CommissionReport.pdf?isSearch=Y&productId=${parameters.productId!}&partyId=${parameters.partyId!}&fromDate=${parameters.fromDate!}&thruDate=${parameters.thruDate!}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingInvoicePDF}</a>
+  </div>
+  <table class="basic-table hover-bar" cellspacing="0">
+    <#-- Header Begins -->
+    <tr class="header-row-2">
+      <th>${uiLabelMap.AccountingLicensedProduct}</th>
+      <th>${uiLabelMap.AccountingQuantity}</th>
+      <th>${uiLabelMap.AccountingNumberOfOrders} / ${uiLabelMap.AccountingSalesInvoices}</th>
+      <th>${uiLabelMap.AccountingCommissionAmount}</th>
+      <th>${uiLabelMap.AccountingNetSale}</th>
+      <th>${uiLabelMap.AccountingSalesAgents} / ${uiLabelMap.AccountingTermAmount}</th>
+    </tr>
+    <#-- Header Ends-->
+    <#assign alt_row = false>
+    <#list commissionReportList as commissionReport>
+      <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+        <td><a href="/catalog/control/EditProduct?productId=${commissionReport.productId!}">${commissionReport.productName!}</a></td>
+        <td>${commissionReport.quantity!}</td>
+        <td>
+          ${commissionReport.numberOfOrders!} /
+          <#if commissionReport.salesInvoiceIds?has_content>
+            <#list commissionReport.salesInvoiceIds as salesInvoiceId>
+              [<a href="/ap/control/invoiceOverview?invoiceId=${salesInvoiceId!}">${salesInvoiceId!}</a>]
+            </#list>
+          </#if>
+        </td>
+        <td><@ofbizCurrency amount = commissionReport.commissionAmount!/></td>
+        <td><@ofbizCurrency amount = commissionReport.netSale!/></td>
+        <td>
+          <#if commissionReport.salesAgentAndTermAmtMap?has_content>
+            <#list commissionReport.salesAgentAndTermAmtMap.values() as partyIdAndTermAmountMap>
+              <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : partyIdAndTermAmountMap.partyId}, true))!>
+              <h6>[${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}(<a href="/partymgr/control/viewprofile?partyId=${partyIdAndTermAmountMap.partyId!}">${partyIdAndTermAmountMap.partyId!}</a>)]
+                / <@ofbizCurrency amount = (partyIdAndTermAmountMap.termAmount)!/>
+              </h6>
+            </#list>
+          </#if>
+        </td>
       </tr>
-      <#-- Header Ends-->
-      <#assign alt_row = false>
-      <#list commissionReportList as commissionReport>
-        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-          <td><a href="/catalog/control/EditProduct?productId=${commissionReport.productId!}">${commissionReport.productName!}</a></td>
-          <td>${commissionReport.quantity!}</td>
-          <td>
-            ${commissionReport.numberOfOrders!} /
-            <#if commissionReport.salesInvoiceIds?has_content>
-              <#list commissionReport.salesInvoiceIds as salesInvoiceId>
-                [<a href="/ap/control/invoiceOverview?invoiceId=${salesInvoiceId!}">${salesInvoiceId!}</a>]
-              </#list>
-            </#if>
-          </td>
-          <td><@ofbizCurrency amount = commissionReport.commissionAmount!/></td>
-          <td><@ofbizCurrency amount = commissionReport.netSale!/></td>
-          <td>
-            <#if commissionReport.salesAgentAndTermAmtMap?has_content>
-              <#list commissionReport.salesAgentAndTermAmtMap.values() as partyIdAndTermAmountMap>
-                <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : partyIdAndTermAmountMap.partyId}, true))!>
-                <h6>[${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}(<a href="/partymgr/control/viewprofile?partyId=${partyIdAndTermAmountMap.partyId!}">${partyIdAndTermAmountMap.partyId!}</a>)]
-                  / <@ofbizCurrency amount = (partyIdAndTermAmountMap.termAmount)!/>
-                </h6>
-              </#list>
-            </#if>
-          </td>
-        </tr>
-        <#-- toggle the row color -->
-        <#assign alt_row = !alt_row>
-      </#list>
-    </table>
-    <div class="screenlet">
-      <ul>
-        <li class="label"></li>
-        <li class="label"><h3>${uiLabelMap.CommonSummary} :</h3></li>
-        <li class="label"></li>
-        <li class="label">${uiLabelMap.ManufacturingTotalQuantity} : ${totalQuantity!}</li>
-        <li class="label">${uiLabelMap.AccountingTotalCommissionAmount} : <@ofbizCurrency amount = totalCommissionAmount!/></li>
-        <li class="label">${uiLabelMap.AccountingTotalNetSales} : <@ofbizCurrency amount = totalNetSales!/></li>
-        <li class="label">${uiLabelMap.AccountingTotalNumberOfOrders} : ${totalNumberOfOrders!}</li>
-      </ul>
-    </div>
+      <#-- toggle the row color -->
+      <#assign alt_row = !alt_row>
+    </#list>
+  </table>
+  <div class="screenlet">
+    <ul>
+      <li class="label"></li>
+      <li class="label"><h3>${uiLabelMap.CommonSummary} :</h3></li>
+      <li class="label"></li>
+      <li class="label">${uiLabelMap.ManufacturingTotalQuantity} : ${totalQuantity!}</li>
+      <li class="label">${uiLabelMap.AccountingTotalCommissionAmount} : <@ofbizCurrency amount = totalCommissionAmount!/></li>
+      <li class="label">${uiLabelMap.AccountingTotalNetSales} : <@ofbizCurrency amount = totalNetSales!/></li>
+      <li class="label">${uiLabelMap.AccountingTotalNumberOfOrders} : ${totalNumberOfOrders!}</li>
+    </ul>
+  </div>
 <#else>
   <td colspan='4'><h3>${uiLabelMap.AccountingNoRecordFound}</h3></td>
 </#if>
