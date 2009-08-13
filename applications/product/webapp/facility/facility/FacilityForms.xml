@@ -70,6 +70,16 @@ under the License.
         <field name="productId"><text-find/></field>
         <field name="internalName"><text-find/></field>
         <field name="inventoryItemId"><text-find/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="serialNumber"><text-find/></field>
         <field name="softIdentifier"><text/></field>
         <field name="manufacturerPartyId">
