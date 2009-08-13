@@ -401,6 +401,7 @@ under the License.
 
     <!-- Gl Reconciliation -->
     <GlReconciliation glReconciliationId="9000" glReconciliationName="demoGlReconciliation" glAccountId="111000" organizationPartyId="Company" reconciledBalance="75000.00" reconciledDate="2009-08-08 20:03:14.000"/>
+    <GlReconciliation glReconciliationId="9001" glReconciliationName="testGlReconciliation" glAccountId="111000" organizationPartyId="Company" reconciledDate="2009-08-12 20:03:14.000"/>
 
     <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9301" fromDate="2009-07-08 11:54:03.8" amountPercentage="50"/>
     <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9302" fromDate="2009-07-08 11:54:03.8" amountPercentage="20"/>

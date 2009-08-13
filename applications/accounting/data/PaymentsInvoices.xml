@@ -205,4 +205,11 @@ under the License.
     <AcctgTrans acctgTransId="8013" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-07-10 00:00:00.000" isPosted="Y" postedDate="2009-07-11 00:00:00.000" glFiscalTypeId="ACTUAL" partyId="AcctBigSupplier" roleTypeId="BILL_FROM_VENDOR" invoiceId="8007"/>
     <AcctgTransEntry acctgTransId="8013" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="AcctBigSupplier" roleTypeId="BILL_FROM_VENDOR" productId="WG-1111" glAccountId="214000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="8013" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="AcctBigSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="100" currencyUomId="USD" origAmount="100" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <!--Data for Batch Payments-->
+    <Payment paymentId="8003" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="COMPANY_CHECK" partyIdFrom="AcctBuyer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2009-08-12 16:33:34.922" amount="20.00" currencyUomId="USD" actualCurrencyAmount="20.00" actualCurrencyUomId="USD"/>
+    <AcctgTrans acctgTransId="8014" acctgTransTypeId="INCOMING_PAYMENT" transactionDate="2009-08-13 10:51:37.47" isPosted="Y" postedDate="2009-08-13 10:51:38.159" glFiscalTypeId="ACTUAL" partyId="AcctBuyer" roleTypeId="BILL_TO_CUSTOMER" paymentId="8003"/>
+    <AcctgTransEntry acctgTransId="8014" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" glAccountId="112000" organizationPartyId="Company" amount="20.00" currencyUomId="USD" origAmount="20.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED" />
+    <AcctgTransEntry acctgTransId="8014" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="20.00" currencyUomId="USD" origAmount="20.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
 </entity-engine-xml>
