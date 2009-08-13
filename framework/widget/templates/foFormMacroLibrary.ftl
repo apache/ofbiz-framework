@@ -33,7 +33,7 @@ under the License.
     <#assign foStyle = foStyles[style]?default("")/>
     ${foStyle?default("")}
 </#macro>
-<#macro makeBlock style text><fo:block<#if style?has_content> <@getFoStyle style/></#if>><#if text?exists>${text?xml}</#if></fo:block></#macro>
+<#macro makeBlock style text><fo:block<#if style?has_content> <@getFoStyle style/></#if>><#if text?exists>${text}</#if></fo:block></#macro>
 
 
 <#macro renderField text><#if text?exists>${text}</#if></#macro>
