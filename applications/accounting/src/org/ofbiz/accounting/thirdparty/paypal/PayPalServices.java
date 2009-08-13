@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.paypal;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -32,14 +31,17 @@ import java.util.WeakHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transaction;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -49,6 +51,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFunction;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
@@ -84,7 +88,7 @@ public class PayPalServices {
     // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the 
     // session (i.e. on cart clear or successful checkout) or when the session is destroyed
     private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<TokenWrapper, WeakReference<ShoppingCart>>();
-    
+
     public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Locale locale = cart.getLocale();
@@ -97,9 +101,9 @@ public class PayPalServices {
             return ServiceUtil.returnError("Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
         }
 
-        
+
         NVPEncoder encoder = new NVPEncoder();
-        
+
         // Set Express Checkout Request Parameters
         encoder.add("METHOD", "SetExpressCheckout");
         String token = (String) cart.getAttribute("payPalCheckoutToken");
@@ -118,16 +122,14 @@ public class PayPalServices {
             encoder.add("REQCONFIRMSHIPPING", reqConfirmShipping);
             // Default shipment method
             encoder.add("L_SHIPPINGOPTIONISDEFAULT0", "true");
-            encoder.add("L_SHIPPINGOPTIONNAME0", "NO_SHIPPING@_NA_");
-            //TODO: This isn't working
-            encoder.add("L_SHIPINGPOPTIONLABEL0", "Calculated Offline");
+            encoder.add("L_SHIPPINGOPTIONNAME0", "Calculated Offline");
             encoder.add("L_SHIPPINGOPTIONAMOUNT0", "0.00");
         }
         encoder.add("ALLOWNOTE", "1");
         encoder.add("INSURANCEOPTIONOFFERED", "false");
         if (UtilValidate.isNotEmpty(payPalConfig.getString("imageUrl")));
         encoder.add("PAYMENTACTION", "Order");
-        
+
         // Cart information
         try {
             addCartDetails(encoder, cart);
@@ -143,7 +145,7 @@ public class PayPalServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         Map<String, String> errorMessages = getErrorMessageMap(decoder);
         if (UtilValidate.isNotEmpty(errorMessages)) {
             if (errorMessages.containsKey("10411")) {
@@ -156,135 +158,136 @@ public class PayPalServices {
 
         token = decoder.get("TOKEN");
         cart.setAttribute("payPalCheckoutToken", token);
-        cart.setAttribute("payPalCheckoutTokenObj", new TokenWrapper(token));
-        //PayPalServices.tokenCartMap.put(token, new ShoppingCartWrapper(cart));
+        TokenWrapper tokenWrapper = new TokenWrapper(token);
+        cart.setAttribute("payPalCheckoutTokenObj", tokenWrapper);
+        PayPalServices.tokenCartMap.put(tokenWrapper, new WeakReference<ShoppingCart>(cart));
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> payPalCheckoutUpdate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> payPalCheckoutUpdate(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
-//        String remoteHost = request.getRemoteHost();
-//        if (!remoteHost.endsWith(".paypal.com")) {
-//            try {
-//                response.sendError(HttpServletResponse.SC_FORBIDDEN);
-//                Debug.logError("An Express Checkout Update request was received from a host other than *.paypal.com, responded with 403 Forbidden", module);
-//            } catch (IOException e) {
-//                Debug.logError(e, module);
-//            }
-//            return ServiceUtil.returnSuccess();
-//        }
-        
-        String requestMessage = null;
-        try {
-            BufferedReader reader = request.getReader();
-            requestMessage = reader.readLine();
-            reader.close();
-        } catch (IOException e) {
-            Debug.logError(e, module);
+
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+
+        String token = (String)paramMap.get("TOKEN");
+        WeakReference<ShoppingCart> weakCart = tokenCartMap.get(new TokenWrapper(token));
+        ShoppingCart cart = null;
+        if (weakCart != null) {
+            cart = weakCart.get();
         }
-        if (requestMessage == null) {
+        if (cart == null) {
+            Debug.logError("Could locate the ShoppingCart for token " + token, module);
             return ServiceUtil.returnSuccess();
         }
-        
-        NVPDecoder decoder = new NVPDecoder();
+        // Since most if not all of the shipping estimate codes requires a persisted contactMechId we'll create one and
+        // then delete once we're done, now is not the time to worry about updating everything
+        String contactMechId = null;
+        Map<String, Object> inMap = FastMap.newInstance();
+        inMap.put("address1", paramMap.get("SHIPTOSTREET"));
+        inMap.put("address2", paramMap.get("SHIPTOSTREET2"));
+        inMap.put("city", paramMap.get("SHIPTOCITY"));
+        inMap.put("stateProvinceGeoId", paramMap.get("SHIPTOSTATE"));
+        inMap.put("postalCode", paramMap.get("SHIPTOZIP"));
+        String countryGeoCode = (String) paramMap.get("SHIPTOCOUNTRY");
+        String countryGeoId = PayPalServices.getCountryGeoIdFromGeoCode(countryGeoCode, delegator);
+        if (countryGeoId == null) {
+            return ServiceUtil.returnSuccess();
+        }
+        inMap.put("countryGeoId", countryGeoId);
+
         try {
-            decoder.decode(requestMessage);
+            GenericValue userLogin = delegator.findOne("UserLogin", true, UtilMisc.toMap("userLoginId", "system"));
+            inMap.put("userLogin", userLogin);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        boolean beganTransaction = false;
+        Transaction parentTransaction = null;
+        try {
+            parentTransaction = TransactionUtil.suspend();
+            beganTransaction = TransactionUtil.begin();
+        } catch (GenericTransactionException e1) {
+            Debug.logError(e1, module);
+        }
+        try {
+            Map<String, Object> outMap = dispatcher.runSync("createPostalAddress", inMap);
+            contactMechId = (String) outMap.get("contactMechId");
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+            return ServiceUtil.returnSuccess();
+        }
+        try {
+            TransactionUtil.commit(beganTransaction);
+            if (parentTransaction != null) TransactionUtil.resume(parentTransaction);
+        } catch (GenericTransactionException e) {
+            Debug.logError(e, module);
+        }
+        // clone the cart so we can modify it temporarily
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+        String oldShipAddress = cart.getShippingContactMechId();
+        coh.setCheckOutShippingAddress(contactMechId);
+        ShippingEstimateWrapper estWrapper = new ShippingEstimateWrapper(dispatcher, cart, 0);
+        int line = 0;
+        NVPEncoder encoder = new NVPEncoder();
+        encoder.add("METHOD", "CallbackResponse");
+
+        for (GenericValue shipMethod : estWrapper.getShippingMethods()) {
+            BigDecimal estimate = estWrapper.getShippingEstimate(shipMethod);
+            //Check that we have a valid estimate (allowing zero value estimates for now)
+            if (estimate == null || estimate.compareTo(BigDecimal.ZERO) < 0) {
+                continue;
+            }
+            cart.setShipmentMethodTypeId(shipMethod.getString("shipmentMethodTypeId"));
+            cart.setCarrierPartyId(shipMethod.getString("partyId"));
+            try {
+                coh.calcAndAddTax();
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                continue;
+            }
+            String estimateLabel = shipMethod.getString("partyId") + " - " + shipMethod.getString("description");
+            encoder.add("L_SHIPINGPOPTIONLABEL" + line, estimateLabel);
+            encoder.add("L_SHIPPINGOPTIONAMOUNT" + line, estimate.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
+            // Just make this first one default for now
+            encoder.add("L_SHIPPINGOPTIONISDEFAULT" + line, line == 0 ? "true" : "false");
+            encoder.add("L_TAXAMT" + line, cart.getTotalSalesTax().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
+            line++;
+        }
+        String responseMsg = null;
+        try {
+            responseMsg = encoder.encode();
         } catch (PayPalException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnSuccess();
         }
-
-        String token = decoder.get("TOKEN");
-        WeakReference<ShoppingCart> weakCart = tokenCartMap.get(new TokenWrapper(token));
-        ShoppingCart customerCart = weakCart.get();
-        if (customerCart != null) {
-            // Since most if not all of the shipping estimate codes requires a persisted contactMechId we'll create one and
-            // then delete once we're done, now is not the time to worry about updating everything
-            GenericValue shipAddress = delegator.makeValue("PostalAddress");
-            String contactMechId = delegator.getNextSeqId("ContactMech");
-            shipAddress.put("contactMechId", contactMechId);
-            shipAddress.put("address1", decoder.get("SHIPTOSTREET"));
-            shipAddress.put("address2", decoder.get("SHIPTOSTREET2"));
-            shipAddress.put("city", decoder.get("SHIPTOCITY"));
-            shipAddress.put("stateProvinceGeoId", decoder.get("SHIPTOSTATE"));
-            shipAddress.put("postalCode", decoder.get("SHIPTOZIP"));
-            String countryGeoCode = decoder.get("SHIPTOCOUNTRY"); // PayPal says it is required so I'm not going to check
+        if (responseMsg != null) {
             try {
-                String countryGeoId = PayPalServices.getCountryGeoIdFromGeoCode(countryGeoCode, delegator);
-                if (countryGeoId == null) {
-                    return ServiceUtil.returnSuccess();
-                }
-                shipAddress.put("countryGeoId", countryGeoId);
-                shipAddress.create();
-            } catch (GenericEntityException e) {
+                response.setContentLength(responseMsg.getBytes("UTF-8").length);
+            } catch (UnsupportedEncodingException e) {
                 Debug.logError(e, module);
             }
-            // clone the cart so we can modify it temporarily
-            ShoppingCart cart = new ShoppingCart(customerCart);
-            CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-            coh.setCheckOutShippingAddress(contactMechId);
-            ShippingEstimateWrapper estWrapper = new ShippingEstimateWrapper(dispatcher, cart, 0);
-            int line = 0;
-            NVPEncoder encoder = new NVPEncoder();
-            encoder.add("METHOD", "CallbackResponse");
-            
-            for (GenericValue shipMethod : estWrapper.getShippingMethods()) {
-                BigDecimal estimate = estWrapper.getShippingEstimate(shipMethod);
-                //Check that we have a valid estimate (allowing zero value estimates for now)
-                if (estimate == null || estimate.compareTo(BigDecimal.ZERO) < 0) {
-                    continue;
-                }
-                cart.setShipmentMethodTypeId(shipMethod.getString("shipmentMethodTypeId"));
-                cart.setCarrierPartyId(shipMethod.getString("partyId"));
-                try {
-                    coh.calcAndAddTax();
-                } catch (GeneralException e) {
-                    Debug.logError(e, module);
-                    continue;
-                }
-                String estimateName = shipMethod.getString("shipmentMethodTypeId") + "@" + shipMethod.getString("partyId");
-                encoder.add("L_SHIPPINGOPTIONLABEL" + line, estimateName);
-                String estimateLabel = shipMethod.getString("partyId") + " " + shipMethod.getString("description");
-                encoder.add("L_SHIPPINGOPTIONNAME" + line, estimateLabel);
-                encoder.add("L_SHIPPINGOPTIONAMOUNT" + line, estimate.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
-                // Just make this first one default for now
-                encoder.add("L_SHIPPINGOPTIONISDEFAULT" + line, line == 0 ? "true" : "false");
-                encoder.add("L_TAXAMT" + line, cart.getTotalSalesTax().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
-                line++;
-            }
-            String responseMsg = null;
-            try {
-                responseMsg = encoder.encode();
-            } catch (PayPalException e) {
-                Debug.logError(e, module);
-            }
-            if (responseMsg != null) {
-                try {
-                    response.setContentLength(responseMsg.getBytes("UTF-8").length);
-                } catch (UnsupportedEncodingException e) {
-                    Debug.logError(e, module);
-                }
 
-                try {
-                    Writer writer = response.getWriter();
-                    writer.write(responseMsg);
-                    writer.close();
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            }
-
-            // Remove the temporary ship address
             try {
-                shipAddress.remove();
-            } catch (GenericEntityException e) {
+                Writer writer = response.getWriter();
+                writer.write(responseMsg);
+                writer.close();
+            } catch (IOException e) {
                 Debug.logError(e, module);
             }
         }
 
+        // Remove the temporary ship address
+        try {
+            GenericValue postalAddress = delegator.findOne("PostalAddress", false, UtilMisc.toMap("contactMechId", contactMechId));
+            postalAddress.remove();
+            GenericValue contactMech = delegator.findOne("ContactMech", false, UtilMisc.toMap("contactMechId", contactMechId));
+            contactMech.remove();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        coh.setCheckOutShippingAddress(oldShipAddress);
         return ServiceUtil.returnSuccess();
     }
 
@@ -337,7 +340,7 @@ public class PayPalServices {
         //NOTE: The docs say this is optional but then won't work without it
         encoder.add("MAXAMT", cart.getSubTotal().add(otherAdjustments).setScale(2).toPlainString());
     }
-    
+
     public static Map<String, Object> getExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -356,7 +359,7 @@ public class PayPalServices {
         } else {
             return ServiceUtil.returnError("Express Checkout token not present in cart, cannot get checkout details.");
         }
-        
+
         NVPDecoder decoder;
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
@@ -368,7 +371,7 @@ public class PayPalServices {
         if (UtilValidate.isNotEmpty(decoder.get("NOTE"))) {
             cart.addOrderNote(decoder.get("NOTE"));
         }
-        
+
         if (cart.getUserLogin() == null) {
             try {
                 GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "anonymous");
@@ -576,12 +579,27 @@ public class PayPalServices {
                 Debug.log(e.getMessage());
             }
         }
-        
-        // Load the selected shipping method
+
+        // Load the selected shipping method - thanks to PayPal's less than sane API all we've to work with is the shipping option label
+        // that was shown to the customer
         String shipMethod = decoder.get("SHIPPINGOPTIONNAME");
-        String[] shipMethodSplit = shipMethod.split("@");
-        cart.setShipmentMethodTypeId(shipMethodSplit[0]);
-        cart.setCarrierPartyId(shipMethodSplit[1]);
+        if ("Calculated Offline".equals(shipMethod)) {
+            cart.setCarrierPartyId("_NA_");
+            cart.setShipmentMethodTypeId("NO_SHIPPING");
+        } else {
+            String[] shipMethodSplit = shipMethod.split(" - ");
+            cart.setCarrierPartyId(shipMethodSplit[0]);
+            String shippingMethodTypeDesc = StringUtils.join(shipMethodSplit, " - ", 1, shipMethodSplit.length);
+            try {
+                EntityCondition cond = EntityCondition.makeCondition(
+                        UtilMisc.toMap("productStoreId", cart.getProductStoreId(), "partyId", shipMethodSplit[0], "roleTypeId", "CARRIER", "description", shippingMethodTypeDesc)
+                );
+                GenericValue shipmentMethod = EntityUtil.getFirst(delegator.findList("ProductStoreShipmentMethView", cond, null, null, null, false));
+                cart.setShipmentMethodTypeId(shipmentMethod.getString("shipmentMethodTypeId"));
+            } catch (GenericEntityException e1) {
+                Debug.logError(e1, module);
+            }
+        }
         //Get rid of any excess ship groups
         List<CartShipInfo> shipGroups = cart.getShipGroups();
         for (int i = 1; i < shipGroups.size(); i++) {
@@ -609,7 +627,7 @@ public class PayPalServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         // Create the PayPal payment method
         inMap.clear();
         inMap.put("userLogin", cart.getUserLogin());
@@ -627,11 +645,11 @@ public class PayPalServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         String paymentMethodId = (String) outMap.get("paymentMethodId");
-        
+
         cart.clearPayments();
         BigDecimal maxAmount = cart.getGrandTotal().setScale(2, BigDecimal.ROUND_HALF_UP);
         cart.addPaymentAmount(paymentMethodId, maxAmount, true);
-        
+
         return ServiceUtil.returnSuccess();
 
     }
@@ -672,7 +690,7 @@ public class PayPalServices {
         encoder.add("ITEMAMT", subTotal.toPlainString());
         encoder.add("SHIPPINGAMT", shippingTotal.toPlainString());
         encoder.add("TAXAMT", taxTotal.toPlainString());
-        
+
         NVPDecoder decoder = null;
         try {
             decoder = sendNVPRequest(payPalPaymentSetting, encoder);
@@ -702,7 +720,7 @@ public class PayPalServices {
         inMap.put("userLogin", userLogin);
         inMap.put("paymentMethodId", payPalPaymentMethod.get("paymentMethodId"));
         inMap.put("transactionId", decoder.get("TRANSACTIONID"));
-        
+
         Map<String, Object> outMap = null;
         try {
             outMap = dispatcher.runSync("updatePayPalPaymentMethod", inMap);
@@ -724,7 +742,7 @@ public class PayPalServices {
         GenericValue payPalPaymentMethod = (GenericValue) context.get("payPalPaymentMethod");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, PaymentGatewayServices.AUTH_SERVICE_TYPE);
-        
+
         NVPEncoder encoder = new NVPEncoder();
         encoder.add("METHOD", "DoAuthorization");
         encoder.add("TRANSACTIONID", payPalPaymentMethod.getString("transactionId"));
@@ -743,11 +761,11 @@ public class PayPalServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         if (decoder == null) {
             return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
         }
-        
+
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Map<String, String> errors = getErrorMessageMap(decoder);
         if (UtilValidate.isNotEmpty(errors)) {
@@ -777,14 +795,14 @@ public class PayPalServices {
         if (authTrans == null) {
             authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
         }
-        
+
         NVPEncoder encoder = new NVPEncoder();
         encoder.add("METHOD", "DoCapture");
         encoder.add("AUTHORIZATIONID", authTrans.getString("referenceNum"));
         encoder.add("AMT", captureAmount.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
         encoder.add("CURRENCYCODE", authTrans.getString("currencyUomId"));
         encoder.add("COMPLETETYPE", "NotComplete");
-        
+
         NVPDecoder decoder = null;
         try {
             decoder = sendNVPRequest(payPalConfig, encoder);
@@ -792,11 +810,11 @@ public class PayPalServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         if (decoder == null) {
             return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
         }
-        
+
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Map<String, String> errors = getErrorMessageMap(decoder);
         if (UtilValidate.isNotEmpty(errors)) {
@@ -835,7 +853,7 @@ public class PayPalServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-    
+
         if (decoder == null) {
             return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
         }
@@ -883,7 +901,7 @@ public class PayPalServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-    
+
         if (decoder == null) {
             return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
         }
@@ -934,7 +952,7 @@ public class PayPalServices {
         }
         if (paymentGatewayConfigId != null) {
             try {
-                    payPalGatewayConfig = delegator.findOne("PaymentGatewayPayPal", true, "paymentGatewayConfigId", paymentGatewayConfigId);
+                payPalGatewayConfig = delegator.findOne("PaymentGatewayPayPal", true, "paymentGatewayConfigId", paymentGatewayConfigId);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -966,7 +984,7 @@ public class PayPalServices {
 
         return decoder;
     }
-    
+
     private static String getCountryGeoIdFromGeoCode(String geoCode, GenericDelegator delegator) {
         String geoId = null;
         try {
@@ -986,10 +1004,13 @@ public class PayPalServices {
         public TokenWrapper(String theString) {
             this.theString = theString;
         }
-        
+
         @Override
         public boolean equals(Object o) {
-            return theString.equals(o);
+            if (o == null) return false;
+            if (!(o instanceof TokenWrapper)) return false;
+            TokenWrapper other = (TokenWrapper) o;
+            return theString.equals(other.theString);
         }
         @Override
         public int hashCode() {
