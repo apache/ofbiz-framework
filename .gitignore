@@ -43,9 +43,11 @@ specialpurpose/projectmgr/build/
 specialpurpose/webpos/build/
 ofbiz.jar
 runtime/svninfo.ftl
+runtime/logs/access_log.*
 runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/data/derby/*
+runtime/catalina/work/*
 debian/EncryptPassword.class
 debian/copyright
 debian/files
