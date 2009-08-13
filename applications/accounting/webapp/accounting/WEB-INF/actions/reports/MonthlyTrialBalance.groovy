@@ -65,8 +65,12 @@ if(fromDate && thruDate && organizationPartyId) {
   if (parameters.isIncomeStatement) {
       prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement",
               [fromDate : fromDate, thruDate : thruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : parameters.glFiscalTypeId, userLogin : userLogin]);
-      context.glAccountTotalsList = prepareIncomeStatement.glAccountTotalsList;
-      context.totalNetIncome = prepareIncomeStatement.totalNetIncome;
+      glAccountTotalsMap = prepareIncomeStatement.glAccountTotalsMap;
+      if (glAccountTotalsMap) {
+          context.glAccountIncomeList = glAccountTotalsMap.income;
+          context.glAccountExpenseList = glAccountTotalsMap.expenses;
+          context.totalNetIncome = prepareIncomeStatement.totalNetIncome;
+      }
   }
 }
 

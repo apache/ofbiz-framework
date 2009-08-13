@@ -3111,6 +3111,10 @@
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบเสร็จรายการสั่งซื้อสินค้าจากรายการสั่งซื้อ</value>
         <value xml:lang="zh">从定单创建定单明细账单时出错</value>
     </property>
+    <property key="AccountingExpences">
+        <value xml:lagn="en">Expences</value>
+        <value xml:lagn="hi_IN">व्यय</value>
+    </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
         <value xml:lang="de">Das Feld erwartetes End of Life bei den Anlage-Daten ist leer.</value>
         <value xml:lang="en">Field expectedEndOfLife is empty in FixedAsset data.</value>
@@ -4483,6 +4487,10 @@
         <value xml:lang="ru">В службу создания накладной переданы неправильные значения</value>
         <value xml:lang="th">ส่งค่าผิดถึงการสร้าง invoice servic</value>
         <value xml:lang="zh">传递给新建发票服务的数值非法</value>
+    </property>
+    <property key="AccountingIncome">
+        <value xml:lagn="en">Income</value>
+        <value xml:lagn="hi_IN">आय</value>
     </property>
     <property key="AccountingIncomeStatement">
         <value xml:lang="ar">تصربح الدخل</value>
@@ -13392,5 +13400,5 @@
     <property key="PageTitleBatchPayments">
         <value xml:lang="en">Batch Payments</value>
         <value xml:lang="hi_IN">भुगतान का बैच</value>
-    </property>    
+    </property>
 </resource>
