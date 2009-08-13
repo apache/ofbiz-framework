@@ -54,7 +54,7 @@ under the License.
         <#list commissionReportList as commissionReport>
           <fo:table-row height="14px">
             <fo:table-cell>
-              <fo:block>${commissionReport.productId!}</fo:block>
+              <fo:block>${commissionReport.productName!}</fo:block>
             </fo:table-cell>
             <fo:table-cell>
               <fo:block>${commissionReport.quantity!}</fo:block>

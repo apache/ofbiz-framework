@@ -41,7 +41,7 @@ if ("Y".equals(parameters.isSearch)) {
         invoiceItemAndAssocCond.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
     }
     invoiceItemAndAssocList = [];
-    invoiceItemAndAssocList = delegator.findList("InvoiceItemAndAssoc", EntityCondition.makeCondition(invoiceItemAndAssocCond, EntityOperator.AND), null, null, null, false);
+    invoiceItemAndAssocList = delegator.findList("InvoiceItemAndAssocProduct", EntityCondition.makeCondition(invoiceItemAndAssocCond, EntityOperator.AND), null, null, null, false);
 
     //filtering invoiceItemAndAssocList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
     totalQuantity = BigDecimal.ZERO;
@@ -57,6 +57,7 @@ if ("Y".equals(parameters.isSearch)) {
             termAmount = BigDecimal.ZERO;
             invoiceItemProductAmount = BigDecimal.ZERO;
             assocProductId = null;
+            productName = null;
             commissionReportMap = [:];
             salesAgentAndTermAmtMap = [:];
             salesInvoiceIds = [];
@@ -65,6 +66,7 @@ if ("Y".equals(parameters.isSearch)) {
                     partyIdTermAmountMap = [:];
                     partyIdTermAmountKey = null;
                     assocProductId = invoiceItemAndAssoc.productId;
+                    productName = invoiceItemAndAssoc.productName;
                     quantity = quantity.add(invoiceItemAndAssoc.quantity);
                     commissionAmount = commissionAmount.add(invoiceItemAndAssoc.termAmount.multiply(invoiceItemAndAssoc.quantity));
                     termAmount = termAmount.add(invoiceItemAndAssoc.termAmount);
@@ -79,6 +81,7 @@ if ("Y".equals(parameters.isSearch)) {
                 }
             }
             commissionReportMap.productId = assocProductId;
+            commissionReportMap.productName = productName;
             commissionReportMap.quantity = quantity;
             commissionReportMap.salesAgentAndTermAmtMap = salesAgentAndTermAmtMap;
             commissionReportMap.commissionAmount = commissionAmount;

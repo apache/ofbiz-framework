@@ -1571,15 +1571,21 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="InvoiceItemAndAssoc" package-name="org.ofbiz.accounting.invoice">
-        <member-entity entity-alias="INT" entity-name="InvoiceItem"/>
+    <view-entity entity-name="InvoiceItemAndAssocProduct" package-name="org.ofbiz.accounting.invoice">
+        <member-entity entity-alias="INTM" entity-name="InvoiceItem"/>
         <member-entity entity-alias="IIA" entity-name="InvoiceItemAssoc"/>
-        <alias-all entity-alias="INT"/>
+        <member-entity entity-alias="PROD" entity-name="Product"/>
         <alias-all entity-alias="IIA"/>
         <alias name="termAmount" field="amount" entity-alias="IIA"/>
-        <view-link entity-alias="INT" rel-entity-alias="IIA" rel-optional="false">
+        <alias name="productId" entity-alias="PROD"/>
+        <alias name="productName" entity-alias="PROD"/>
+        <alias name="amount" entity-alias="INTM"/>
+        <view-link entity-alias="INTM" rel-entity-alias="IIA" rel-optional="false">
             <key-map field-name="invoiceId" rel-field-name="invoiceIdFrom"/>
             <key-map field-name="invoiceItemSeqId" rel-field-name="invoiceItemSeqIdFrom"/>
+        </view-link>
+        <view-link entity-alias="INTM" rel-entity-alias="PROD" rel-optional="false">
+            <key-map field-name="productId"/>
         </view-link>
     </view-entity>
   <!-- ========================================================= -->
