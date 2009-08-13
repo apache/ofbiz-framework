@@ -18,7 +18,6 @@ under the License.
 -->
 
 <#if commissionReportList?has_content>
-  <form name="CommissionReport" id="CommissionReport">
     <div>
       <a href="<@ofbizUrl>CommissionReport.pdf?isSearch=Y&productId=${parameters.productId!}&partyId=${parameters.partyId!}&fromDate=${parameters.fromDate!}&thruDate=${parameters.thruDate!}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingInvoicePDF}</a>
     </div>
@@ -36,13 +35,15 @@ under the License.
       <#assign alt_row = false>
       <#list commissionReportList as commissionReport>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-          <td><a href="/catalog/control/EditProduct?productId=${commissionReport.productId!}">${commissionReport.productId!}</a></td>
+          <td><a href="/catalog/control/EditProduct?productId=${commissionReport.productId!}">${commissionReport.productName!}</a></td>
           <td>${commissionReport.quantity!}</td>
           <td>
             ${commissionReport.numberOfOrders!} /
-            <#list commissionReport.salesInvoiceIds as salesInvoiceId>
-              [<a href="/ap/control/invoiceOverview?invoiceId=${salesInvoiceId!}">${salesInvoiceId!}</a>]
-            </#list>
+            <#if commissionReport.salesInvoiceIds?has_content>
+              <#list commissionReport.salesInvoiceIds as salesInvoiceId>
+                [<a href="/ap/control/invoiceOverview?invoiceId=${salesInvoiceId!}">${salesInvoiceId!}</a>]
+              </#list>
+            </#if>
           </td>
           <td><@ofbizCurrency amount = commissionReport.commissionAmount!/></td>
           <td><@ofbizCurrency amount = commissionReport.netSale!/></td>
@@ -72,7 +73,6 @@ under the License.
         <li class="label">${uiLabelMap.AccountingTotalNumberOfOrders} : ${totalNumberOfOrders!}</li>
       </ul>
     </div>
-  </form>
 <#else>
   <td colspan='4'><h3>${uiLabelMap.AccountingNoRecordFound}</h3></td>
 </#if>
