@@ -59,7 +59,7 @@ public class DelegatorInfo extends NamedInfo {
         if (UtilValidate.isEmpty(this.distributedCacheClearClassName)) this.distributedCacheClearClassName = "org.ofbiz.entityext.cache.EntityCacheServices";
 
         this.distributedCacheClearUserLoginId = element.getAttribute("distributed-cache-clear-user-login-id");
-        if (UtilValidate.isEmpty(this.distributedCacheClearUserLoginId)) this.distributedCacheClearUserLoginId = "admin";
+        if (UtilValidate.isEmpty(this.distributedCacheClearUserLoginId)) this.distributedCacheClearUserLoginId = "system";
 
         this.sequencedIdPrefix = element.getAttribute("sequenced-id-prefix");
 
