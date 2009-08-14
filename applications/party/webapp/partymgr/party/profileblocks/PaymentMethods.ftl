@@ -17,6 +17,23 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#macro maskSensitiveNumber cardNumber>
+  <#assign cardNumberDisplay = "">
+  <#if cardNumber?has_content>
+    <#assign size = cardNumber?length - 4>
+    <#if (size > 0)>
+      <#list 0 .. size-1 as foo>
+        <#assign cardNumberDisplay = cardNumberDisplay + "*">
+      </#list>
+      <#assign cardNumberDisplay = cardNumberDisplay + cardNumber[size .. size + 3]>
+    <#else>
+      <#-- but if the card number has less than four digits (ie, it was entered incorrectly), display it in full -->
+      <#assign cardNumberDisplay = cardNumber>
+    </#if>
+  </#if>
+  ${cardNumberDisplay?if_exists}
+</#macro>
+
   <div id="partyPaymentMethod" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
@@ -50,7 +67,7 @@ under the License.
                   &nbsp;-&nbsp;
                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
                     ${creditCard.cardType}
-                    ${creditCard.cardNumber}
+                    <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/>
                     ${creditCard.expireDate}
                   <#else>
                     ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
@@ -77,22 +94,8 @@ under the License.
                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
                     ${giftCard.cardNumber?default("N/A")} [${giftCard.pinNumber?default("N/A")}]
                   <#else>
-                    <#if giftCard?has_content && giftCard.cardNumber?has_content>
-                      <#assign giftCardNumber = "">
-                      <#assign pcardNumber = giftCard.cardNumber>
-                      <#if pcardNumber?has_content>
-                        <#assign psize = pcardNumber?length - 4>
-                        <#if 0 < psize>
-                          <#list 0 .. psize-1 as foo>
-                            <#assign giftCardNumber = giftCardNumber + "*">
-                          </#list>
-                          <#assign giftCardNumber = giftCardNumber + pcardNumber[psize .. psize + 3]>
-                        <#else>
-                          <#assign giftCardNumber = pcardNumber>
-                        </#if>
-                      </#if>
-                    </#if>
-                    ${giftCardNumber?default("N/A")}
+                    <@maskSensitiveNumber cardNumber=giftCard.cardNumber?if_exists/>
+                    <#if !cardNumberDisplay?has_content>N/A</#if>
                   </#if>
                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
