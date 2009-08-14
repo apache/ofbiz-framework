@@ -78,7 +78,7 @@ public class FreeMarkerWorker {
 
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
         Configuration newConfig = new Configuration();
-       
+
         newConfig.setObjectWrapper(wrapper);
         newConfig.setSharedVariable("Static", wrapper.getStaticModels());
         newConfig.setLocalizedLookup(false);
@@ -218,11 +218,11 @@ public class FreeMarkerWorker {
         }
         env.setLocale(locale);
 
-//        TimeZone timeZone = (TimeZone) context.get("timeZone");
-//        if (timeZone == null) {
-//            timeZone = TimeZone.getDefault();
-//        }
-//        env.setTimeZone(timeZone);
+        TimeZone timeZone = (TimeZone) context.get("timeZone");
+        if (timeZone == null) {
+            timeZone = TimeZone.getDefault();
+        }
+        env.setTimeZone(timeZone);
     }
 
     public static Configuration getDefaultOfbizConfig() {
