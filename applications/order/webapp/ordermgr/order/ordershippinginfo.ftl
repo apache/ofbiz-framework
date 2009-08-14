@@ -554,9 +554,11 @@ under the License.
                     <div>
                       ${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
                       <a href="/facility/control/PackingSlip.pdf?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
-                      <#if "SALES_ORDER" == orderHeader.orderTypeId>
-                        <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId":shipment.shipmentId}))>
-                        <#if "UPS" == (shipmentRouteSegment.carrierPartyId)?if_exists && "ORDER_COMPLETED" == orderHeader.statusId>
+                      <#if "SALES_ORDER" == orderHeader.orderTypeId && "ORDER_COMPLETED" == orderHeader.statusId>
+                        <#assign shipmentRouteSegments = delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipment.shipmentId})>
+                        <#if shipmentRouteSegments?has_content>
+                        <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
+                        <#if "UPS" == (shipmentRouteSegment.carrierPartyId)?if_exists>
                           <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
                         </#if>
                         <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
@@ -564,6 +566,7 @@ under the License.
                           <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
                           <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
                         </form>
+                        </#if>
                       </#if>
                     </div>
                 </#list>
