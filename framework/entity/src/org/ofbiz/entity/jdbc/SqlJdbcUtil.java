@@ -30,15 +30,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Clob;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.TreeSet;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -48,7 +44,6 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDataSourceException;
@@ -491,35 +486,7 @@ public class SqlJdbcUtil {
             }
         }
     }
-    
-    public static String lastTimeZoneId=TimeZone.getDefault().getID();
-    public static void setLastTimeZoneId(String timeZoneId){
-    	lastTimeZoneId=timeZoneId;
-    }
-    public static String getLastTimeZoneId(){
-    	return lastTimeZoneId;
-    }
-    public static String convertTimeZone(String time, String sourceTZ, String destTZ){
-		SimpleDateFormat sdf = new SimpleDateFormat(UtilDateTime.DATE_TIME_FORMAT);
-		Date specifiedTime=null;
-		try {
-			if (sourceTZ != null)
-				sdf.setTimeZone(TimeZone.getTimeZone(sourceTZ));
-			else
-				sdf.setTimeZone(TimeZone.getDefault()); 
-			specifiedTime = sdf.parse(time);
-		
-			if (destTZ != null)
-				sdf.setTimeZone(TimeZone.getTimeZone(destTZ));
-			else
-				sdf.setTimeZone(TimeZone.getDefault());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			Debug.logError("Error Convert time zone: "+e.getMessage(), module);
-		}
-		return sdf.format(specifiedTime);
-	}
-    
+
     public static void getValue(ResultSet rs, int ind, ModelField curField, GenericEntity entity, ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
         ModelFieldType mft = modelFieldTypeReader.getModelFieldType(curField.getType());
 
@@ -572,12 +539,7 @@ public class SqlJdbcUtil {
                     break;
 
                 case 2:
-                	Object value=rs.getTimestamp(ind);
-                	if (value!=null&&value instanceof java.sql.Timestamp) { 
-                		String dateField=convertTimeZone(value.toString(),"GMT",lastTimeZoneId);
-                		value= java.sql.Timestamp.valueOf(dateField);
-                	}
-                    entity.dangerousSetNoCheckButFast(curField,value);
+                    entity.dangerousSetNoCheckButFast(curField, rs.getTimestamp(ind));
                     break;
 
                 case 3:

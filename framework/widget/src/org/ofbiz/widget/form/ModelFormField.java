@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -676,8 +675,7 @@ public class ModelFormField {
         if (locale == null) locale = Locale.getDefault();
         TimeZone timeZone = (TimeZone) context.get("timeZone");
         if (timeZone == null) timeZone = TimeZone.getDefault();
-        
-        SimpleDateFormat sdf=new SimpleDateFormat(UtilDateTime.DATE_TIME_FORMAT);
+
         String returnValue;
 
         // if useRequestParameters is TRUE then parameters will always be used, if FALSE then parameters will never be used
@@ -738,32 +736,27 @@ public class ModelFormField {
                 }
             }
 
-            if (retVal != null) { 
-            	// format string based on the user's locale and time zone
-            	if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
-            		NumberFormat nf = NumberFormat.getInstance(locale); 
-            		nf.setMaximumFractionDigits(10);
-            		returnValue = nf.format(retVal);
-            	} else if (retVal instanceof java.sql.Date) {
-//          		DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
-//          		returnValue = df.format((java.util.Date) retVal);
-            		returnValue=sdf.format((java.util.Date)retVal);
-            	} else if (retVal instanceof java.sql.Time) {
-//          		DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
-//          		returnValue = df.format((java.util.Date) retVal);
-            		returnValue=sdf.format((java.util.Date)retVal);
-            	} else if (retVal instanceof java.sql.Timestamp) { 
-//          		DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
-//          		returnValue = df.format((java.util.Date) retVal);
-            		returnValue=sdf.format((java.util.Date)retVal);
-            	} else if (retVal instanceof java.util.Date) {
-//          		DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
-//          		returnValue = df.format((java.util.Date) retVal);
-            		SimpleDateFormat sdfz=new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy");
-            		returnValue=sdfz.format((java.util.Date)retVal);
-            	} else {
-            		returnValue = retVal.toString();
-            	}
+            if (retVal != null) {
+                // format string based on the user's locale and time zone
+                if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
+                    NumberFormat nf = NumberFormat.getInstance(locale);
+                    nf.setMaximumFractionDigits(10);
+                    returnValue = nf.format(retVal);
+                } else if (retVal instanceof java.sql.Date) {
+                    DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else if (retVal instanceof java.sql.Time) {
+                    DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else if (retVal instanceof java.sql.Timestamp) {
+                    DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else if (retVal instanceof java.util.Date) {
+                    DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else {
+                    returnValue = retVal.toString();
+                }
                 return returnValue; // do not encode date and number type fields
             } else {
                 returnValue = defaultValue;
