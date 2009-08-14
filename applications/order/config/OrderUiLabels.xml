@@ -1600,7 +1600,7 @@
     <property key="OrderBillUpTo">
         <value xml:lang="cs">Faktura na</value>
         <value xml:lang="de">Abbuchung bis</value>
-        <value xml:lang="en">Bill To</value>
+        <value xml:lang="en">Bill Up To</value>
         <value xml:lang="es">Facturar hasta</value>
         <value xml:lang="fr">Facturé à </value>
         <value xml:lang="hi_IN">यहां तक का मुल्य</value>
