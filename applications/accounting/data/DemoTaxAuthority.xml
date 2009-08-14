@@ -60,6 +60,7 @@
     <PartyRole partyId="ON_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
     
     <!-- _NA_ TaxAuthority defs -->
+    <ProductCategory productCategoryId="20111"/>
     <TaxAuthority taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" includeTaxInPrice="N"/>
     <TaxAuthorityGlAccount taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" organizationPartyId="Company" glAccountId="224000"/>
     <TaxAuthorityCategory taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" productCategoryId="20111"/> <!-- Micro Widgets, a category to be used to test categorized rates -->
