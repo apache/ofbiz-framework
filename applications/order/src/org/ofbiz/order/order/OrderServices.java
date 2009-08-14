@@ -4198,7 +4198,7 @@ public class OrderServices {
             // set the payToPartyId
             String payToPartyId = productStore.getString("payToPartyId");
             if (payToPartyId == null) {
-                return ServiceUtil.returnError("Failed to create Payment: Cannot get the ProductStore for the order header");
+                return ServiceUtil.returnError("Failed to create Payment: payToPartyId not set in ProductStore");
             }
 
             // create the payment
