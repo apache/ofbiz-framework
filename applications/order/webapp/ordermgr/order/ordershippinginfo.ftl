@@ -557,15 +557,15 @@ under the License.
                       <#if "SALES_ORDER" == orderHeader.orderTypeId && "ORDER_COMPLETED" == orderHeader.statusId>
                         <#assign shipmentRouteSegments = delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipment.shipmentId})>
                         <#if shipmentRouteSegments?has_content>
-                        <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
-                        <#if "UPS" == (shipmentRouteSegment.carrierPartyId)?if_exists>
-                          <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
-                        </#if>
-                        <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
-                          <input type="hidden" name="orderId" value="${orderId}"/>
-                          <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
-                          <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
-                        </form>
+                          <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
+                          <#if "UPS" == (shipmentRouteSegment.carrierPartyId)?if_exists>
+                            <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
+                          </#if>
+                          <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
+                            <input type="hidden" name="orderId" value="${orderId}"/>
+                            <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
+                            <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
+                          </form>
                         </#if>
                       </#if>
                     </div>
