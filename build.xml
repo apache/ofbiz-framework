@@ -85,6 +85,12 @@ under the License.
         </subant>
     </target>
 
+    <target name="download-selenium" description="Download the selenium files">
+        <subant target="install-seleniumxml">
+            <filelist dir="." files="framework/testtools/build.xml"/>
+        </subant>
+    </target>
+
     <target name="clean-cache"
         description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
         <property file="framework/base/config/cache.properties"/>

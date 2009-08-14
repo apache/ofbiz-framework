@@ -1,0 +1,30 @@
+<testcase>
+  <randomString size="20" out="exampleName" />
+  <randomString size="250" out="description" />
+  <randomString size="500" out="longDesc" />
+  <randomString size="250" out="comments" />
+
+  <click locator="link=New Example" />
+  <waitForPageToLoad value="10000" />
+  <select locator="statusId" option="label=Defined" />
+  <type name="exampleName" value="${exampleName}" />
+  <type name="description" value="${description}" />
+  <type name="longDescription" value="${longDesc}" />
+  <type name="comments" value="${comments}" />
+  <type name="exampleSize" value="10" />
+  <click locator="//img[@alt='View Calendar']" />
+  <click locator="link=Now" />
+  <click locator="link=OK" />
+  <select locator="anotherText" option="label=Good" />
+  <click locator="submitButton" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=Items" />
+  <waitForPageToLoad value="10000" />
+  <type name="description" value="Item 1" />
+  <type name="amount" value="100" />
+  <select locator="amountUomId" option="label=Weight: Stone (st)" />
+  <click locator="submitButton" />
+  <waitForPageToLoad value="10000" />
+  <!-- click locator="link=New Example" />
+  <waitForPageToLoad value="10000" / --> 
+</testcase>

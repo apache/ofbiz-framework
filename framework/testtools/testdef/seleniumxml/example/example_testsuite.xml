@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<testcase>
+    <setSpeed value="500" />
+	<testcase file="testdef/seleniumxml/example/example_login.xml"/>
+    <testcase file="testdef/seleniumxml/example/example_new.xml"/>
+    <testcase file="testdef/seleniumxml/example/example_search.xml"/>
+</testcase>
+

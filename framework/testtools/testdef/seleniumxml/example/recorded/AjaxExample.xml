@@ -1,0 +1,35 @@
+<testcase>
+  <open value="/example/control/updateExampleFeature" />
+  <click locator="link=Logout" />
+  <waitForPageToLoad value="10000" />
+  <type name="PASSWORD" value="ofbiz" />
+  <click locator="//input[@value='Login']" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=Ajax Examples" />
+  <waitForPageToLoad value="10000" />
+  <type name="exampleName" value="AJAX example name" />
+  <type name="description" value="AJAX description" />
+  <type name="longDescription" value="This is a long description" />
+  <type name="comments" value="this is a comment" />
+  <type name="exampleSize" value="10" />
+  <click locator="//img[@alt='View Calendar']" />
+  <click locator="//tr[5]/td[2]/div" />
+  <click locator="link=OK" />
+  <click locator="//div[@id='_G266__body']/table/tbody/tr[9]/td[2]/a/img" />
+  <click locator="link=Now" />
+  <click locator="link=OK" />
+  <select locator="anotherText" option="label=Explicit Option" />
+  <click locator="submitButton" />
+  <click locator="link=10000" />
+  <waitForPageToLoad value="10000" />
+  <type name="longDescription" value="This is a long description - this is a big update" />
+  <click locator="submitButton" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=Ajax Examples" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=10000" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=Printer Friendly" />
+  <waitForPageToLoad value="10000" />
+  <brett_cmd param1="1" param2="1" />
+</testcase>
