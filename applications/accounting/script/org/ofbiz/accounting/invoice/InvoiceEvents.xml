@@ -315,6 +315,7 @@ under the License.
         </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
+    
     <simple-method method-name="updateInvoiceItem"
         short-description="Update an existing Invoice Item">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
@@ -348,6 +349,7 @@ under the License.
             <store-value value-field="lookedUpValue"/>
         </if-compare-field>
     </simple-method>
+    
     <simple-method method-name="removeInvoiceItem" short-description="Remove an existing Invoice Item">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <set field="invoiceId" from-field="parameters.invoiceId"/>
@@ -612,4 +614,155 @@ under the License.
            <call-service service-name="updateInvoice" in-map-name="updateInvoiceCtx"/>
        </iterate>
    </simple-method>
+    
+    <simple-method method-name="addtax" short-description="Set Parameter And Call Tax Calculate Service">
+        <entity-one entity-name="Invoice" value-field="invoice">
+            <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+        </entity-one>
+        <entity-and entity-name="InvoiceItem" list="invoiceItems">
+            <field-map field-name="invoiceId" from-field="invoice.invoiceId"/>
+        </entity-and>
+        <entity-and entity-name="PartyContactMechPurpose" list="contacts">
+            <field-map field-name="partyId" from-field="invoice.partyId"/>
+            <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+        </entity-and>
+        <if-empty field="contacts">
+            <entity-and entity-name="PartyContactMechPurpose" list="contacts">
+                <field-map field-name="partyId" from-field="invoice.partyId"/>
+                <field-map field-name="contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
+            </entity-and>
+        </if-empty>
+        <if-empty field="contacts">
+            <add-error><fail-message message="cannot calculate tax, no shipping or......."/></add-error>
+        </if-empty>
+        <first-from-list entry="contactMech" list="contacts"/>
+        <entity-one entity-name="PostalAddress" value-field="postalAddress">
+            <field-map field-name="contactMechId" from-field="contactMech.contactMechId"/>
+        </entity-one>      
+        <if-compare field="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
+            <set field="addtaxMap.billToPartyId" from-field="invoice.partyId"/>
+        </if-compare>
+        <if-compare field="invoice.invoiceTypeId" value="PURCHASE_INVOICE" operator="equals">
+            <set field="addtaxMap.billToPartyId" from-field="invoice.partyIdFrom"/>
+        </if-compare>
+        <set field="addtaxMap.payToPartyId" from-field="invoice.partyIdFrom"/>
+        <iterate list="invoiceItems" entry="invoiceItem">
+            <entity-and entity-name="Product" list="product">
+                <field-map field-name="productId" from-field="invoiceItem.productId"/>
+            </entity-and>
+            <first-from-list entry="itemProduct" list="product"/>
+            <if-not-empty field="invoiceItem.productId">
+                <entity-and entity-name="InvoiceItem" list="findinvoiceItems">
+                    <field-map field-name="invoiceId" from-field="invoice.invoiceId"/>
+                    <field-map field-name="productId" from-field="invoiceItem.productId"/>
+                    <field-map field-name="invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
+                </entity-and>
+                <if-not-empty field="findinvoiceItems">
+                    <calculate field="total" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}" type="BigDecimal">
+                        <calcop operator="multiply">
+                            <calcop operator="get" field="invoiceItem.quantity"/>
+                            <calcop operator="get" field="invoiceItem.amount"/>
+                        </calcop>
+                    </calculate>
+                    <set field="totalAmount" from-field="total" type="BigDecimal"/>
+                    <calculate field="totalAmount" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}" type="BigDecimal">
+                        <calcop operator="subtract">
+                            <calcop operator="get" field="totalAmount"/>
+                            <calcop operator="get" field="invoiceItem.amount"/>
+                        </calcop>
+                    </calculate>
+                <else>
+                    <calculate field="total" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}" type="BigDecimal">
+                        <calcop operator="multiply">
+                            <calcop operator="get" field="invoiceItem.quantity"/>
+                            <calcop operator="get" field="invoiceItem.amount"/>
+                        </calcop>
+                    </calculate>
+                    <set field="totalAmount" from-field="total" type="BigDecimal"/>
+                </else>
+                </if-not-empty>
+            <else>
+                <set field="totalAmount" value="0" type="BigDecimal"/>
+            </else>
+            </if-not-empty>
+            <set field="itemAmount" from-field="totalAmount" type="BigDecimal"/>
+            <set field="itemPrice" from-field="invoiceItem.amount"/>
+            <set field="addtaxMap.itemProductList[]" from-field="itemProduct"/>
+            <set field="addtaxMap.itemAmountList[]" from-field="itemAmount" type="BigDecimal"/>
+            <set field="addtaxMap.itemPriceList[]" from-field="itemPrice"/>
+            <set field="addtaxMap.itemShippingList[]" type="BigDecimal" value="0"/>
+        </iterate>
+        <set field="addtaxMap.orderShippingAmount" type="BigDecimal" value="0"/>
+        <set field="addtaxMap.orderPromotionsAmount" type="BigDecimal" value="0"/>
+        <set field="addtaxMap.shippingAddress" from-field="postalAddress"/> 
+        <if>
+            <condition>
+                <not><if-empty field="addtaxMap.itemProductList"></if-empty></not>
+            </condition>
+            <then>
+                <call-service service-name="calcTax" in-map-name="addtaxMap">
+                    <result-to-field result-name="itemAdjustments" field="itemAdjustments"/>
+                    <result-to-field result-name="orderAdjustments" field="orderAdjustments"/>
+                </call-service>      
+                <iterate list="invoiceItems" entry="findItem">  
+                    <if>
+                        <condition>
+                            <not><if-empty field="findItem.productId"></if-empty></not>
+                        </condition>
+                        <then>
+                            <set field="invoiceItemSeqId" from-field="findItem.invoiceItemSeqId"/>
+                            <set field="productId" from-field="findItem.productId"/>
+                            <set field="itemMap.itemSeqIdList[]" from-field="invoiceItemSeqId"/>
+                            <set field="itemMap.productList[]" from-field="productId"/>
+                        </then>
+                    </if>        
+                </iterate>
+                <set field="countItemId" value="-1" type="Long"/>
+                <iterate list="itemAdjustments" entry="itemAdjustment">
+                    <calculate field="countItemId">
+                        <calcop operator="add" field="countItemId">
+                            <number value="1"/>
+                        </calcop>
+                    </calculate>
+                    <if-not-empty field="itemAdjustment">
+                        <iterate list="itemAdjustment" entry="orderAdjustment">
+                            <set field="createInvoiceItemContext.invoiceId" from-field="invoice.invoiceId"/>
+                            <set field="createInvoiceItemContext.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+                            <set field="createInvoiceItemContext.overrideGlAccountId" from-field="orderAdjustment.overrideGlAccountId"/>
+                            <set field="createInvoiceItemContext.productId" from-field="itemMap.productList[countItemId]"/>
+                            <set field="createInvoiceItemContext.taxAuthPartyId" from-field="orderAdjustment.taxAuthPartyId"/>
+                            <set field="createInvoiceItemContext.taxAuthGeoId" from-field="orderAdjustment.taxAuthGeoId"/>
+                            <set field="createInvoiceItemContext.amount" from-field="orderAdjustment.amount" type="BigDecimal"/>
+                            <set field="createInvoiceItemContext.quantity" value="1"/>
+                            <set field="createInvoiceItemContext.parentInvoiceItemSeqId" from-field="itemMap.itemSeqIdList[countItemId]"/>
+                            <set field="createInvoiceItemContext.taxAuthorityRateSeqId" from-field="orderAdjustment.taxAuthorityRateSeqId"/>
+                            <set field="createInvoiceItemContext.description" from-field="orderAdjustment.comments"/>
+                            <!--call createInvoiceItem service for every ItemAdjustment--> 
+                            <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItemContext"></call-service>
+                        </iterate>
+                    </if-not-empty>
+                </iterate>
+                <iterate list="orderAdjustments" entry="Adjustment">
+                    <if-not-empty field="Adjustment">
+                        <set field="InvoiceItemContext.invoiceId" from-field="invoice.invoiceId"/>
+                        <set field="InvoiceItemContext.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+                        <set field="InvoiceItemContext.overrideGlAccountId" from-field="Adjustment.overrideGlAccountId"/>
+                        <set field="InvoiceItemContext.taxAuthPartyId" from-field="Adjustment.taxAuthPartyId"/>
+                        <set field="InvoiceItemContext.taxAuthGeoId" from-field="Adjustment.taxAuthGeoId"/>
+                        <set field="InvoiceItemContext.amount" from-field="Adjustment.amount" type="BigDecimal"/>
+                        <set field="InvoiceItemContext.quantity" value="1"/>
+                        <set field="InvoiceItemContext.taxAuthorityRateSeqId" from-field="Adjustment.taxAuthorityRateSeqId"/>
+                        <!-- call createInvoiceItem service for every orderAdjustment -->
+                        <call-service service-name="createInvoiceItem" in-map-name="InvoiceItemContext"></call-service>
+                    </if-not-empty>
+                </iterate>
+            </then>
+            <else>
+                <add-error>
+                    <fail-message message="productId don't have value, cannot call calcTax service."/>
+                </add-error>
+                <log level="error" message="Cannot call calcTax service, when don't have productId"/>
+            </else>
+        </if> 
+    </simple-method>  
 </simple-methods>

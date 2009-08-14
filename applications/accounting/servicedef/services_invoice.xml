@@ -302,6 +302,12 @@ under the License.
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
+    
+    <service name="addtax" engine="simple" 
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceEvents.xml" invoke="addtax">
+        <description>Call Tax Calculate Service</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <service name="getInvoicesFilterByAssocType" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoicesFilterByAssocType" auth="true">

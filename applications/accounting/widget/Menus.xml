@@ -145,6 +145,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
+    
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" >
             <link target="newInvoice"/>
@@ -318,6 +319,17 @@ under the License.
             <link target="copyInvoiceToTemplate">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
                 <parameter param-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
+            </link>
+        </menu-item>
+        <menu-item name="addtax" title="Add Tax">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                </and>
+            </condition>
+            <link target="addtax">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
     </menu>
