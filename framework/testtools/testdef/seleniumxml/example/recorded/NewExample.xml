@@ -1,0 +1,35 @@
+<testcase>
+  <open value="/example/control/FindExample?portalPageId=Example" />
+  <click locator="link=Logout" />
+  <waitForPageToLoad value="10000" />
+  <type name="PASSWORD" value="ofbiz" />
+  <click locator="//input[@value='Login']" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=New Example" />
+  <waitForPageToLoad value="10000" />
+  <select locator="statusId" option="label=Defined" />
+  <type name="exampleName" value="New Example 1" />
+  <type name="description" value="This is a description" />
+  <type name="longDescription" value="Long description goes here" />
+  <type name="comments" value="comments go here" />
+  <type name="exampleSize" value="10" />
+  <click locator="//img[@alt='View Calendar']" />
+  <click locator="//tr[2]/td[5]/div" />
+  <click locator="//tr[2]/td[5]/div" />
+  <click locator="//div[@id='_G152__body']/table/tbody/tr[9]/td[2]/a/img" />
+  <click locator="//tr[3]/td[2]/div" />
+  <click locator="//tr[3]/td[2]/div" />
+  <click locator="link=OK" />
+  <select locator="anotherText" option="label=Good" />
+  <click locator="submitButton" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=Items" />
+  <waitForPageToLoad value="10000" />
+  <type name="description" value="Item 1" />
+  <type name="amount" value="100" />
+  <select locator="amountUomId" option="label=Weight: Stone (st)" />
+  <click locator="submitButton" />
+  <waitForPageToLoad value="10000" />
+  <click locator="link=New Example" />
+  <waitForPageToLoad value="10000" />
+</testcase>

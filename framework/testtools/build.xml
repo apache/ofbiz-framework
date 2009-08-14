@@ -30,17 +30,24 @@ under the License.
     <property name="ofbiz.home.dir" value="../.."/>
 
     <path id="local.class.path">
-        <!-- <fileset dir="${lib.dir}" includes="*.jar"/> -->
+        <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="../base/lib" includes="*.jar"/>
+        <fileset dir="../base/lib/scripting" includes="*.jar"/>
         <fileset dir="../base/lib/commons" includes="*.jar"/>
-        <fileset dir="../base/build/lib" includes="*.jar"/>
+    	<fileset dir="../base/build/lib" includes="*.jar"/>
         <fileset dir="../entity/lib" includes="*.jar"/>
         <fileset dir="../entity/build/lib" includes="*.jar"/>
         <fileset dir="../security/build/lib" includes="*.jar"/>
         <fileset dir="../service/lib" includes="*.jar"/>
         <fileset dir="../service/build/lib" includes="*.jar"/>
         <fileset dir="../minilang/build/lib" includes="*.jar"/>
+        <fileset dir="../webapp/lib" includes="*.jar"/>
     </path>
+	
+	<target name="init">
+		<property name="lib.dir" value="lib"/>
+		<property name="selenium.lib.dir" value="${lib.dir}"/>
+	</target>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
@@ -49,6 +56,13 @@ under the License.
     <target name="classes" depends="prepare">
         <javac15/>
     </target>
+
+
+	<target name="install-seleniumxml" depends="init" description="Download the selenium files">
+        <!--mkdir dir="${selenium.lib.dir}"/-->
+		<get src="http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0-SNAPSHOT-20081126.jar?use_mirror="
+			dest="${selenium.lib.dir}/selenium-server.jar" usetimestamp="true" />
+	</target>
 
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->
