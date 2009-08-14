@@ -2343,6 +2343,14 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="MonthlyTrialBalancePdf"/>
     </request-map>
+    
+    <!--Add Tax Settings -->
+    <request-map uri="addtax">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="addtax"/>
+        <response name="success" type="view" value="invoiceOverview"/>
+        <response name="error" type="view" value="invoiceOverview"/>
+    </request-map>
 
     <request-map uri="FindGlAccountCategory">
         <security https="true" auth="true"/>

@@ -45,6 +45,8 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 /**
@@ -149,24 +151,39 @@ public class TaxAuthorityServices {
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
             return ServiceUtil.returnError("The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.");
         }
+
         // without knowing the TaxAuthority parties, just find all TaxAuthories for the set of IDs...
         Set taxAuthoritySet = FastSet.newInstance();
         GenericValue productStore = null;
-        try {
-            getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
-            if (productStoreId != null) {
-                productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
-            }
-        } catch (GenericEntityException e) {
-            String errMsg = "Data error getting tax settings: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        }
+        // Check value productStore *** New
+        if (productStoreId!=null){
+	        try {
+	            getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
+	            if (productStoreId != null) {
+	                productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+	            }
+	         
+	        } catch (GenericEntityException e) {
+	            String errMsg = "Data error getting tax settings: " + e.toString();
+	            Debug.logError(e, errMsg, module);
+	            return ServiceUtil.returnError(errMsg);
+	        }
 
-        if (productStore == null && payToPartyId == null) {
-            throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
+	        if (productStore == null && payToPartyId == null) {
+	            throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
+	        }
         }
-
+        else
+        {
+        	try{
+        		getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);    
+        	}catch (GenericEntityException e){
+        	    String errMsg = "Data error getting tax settings: " + e.toString();
+	            Debug.logError(e, errMsg, module);
+	            return ServiceUtil.returnError(errMsg);
+        	}
+        }
+     
         // Setup the return lists.
         List orderAdjustments = FastList.newInstance();
         List itemAdjustments = FastList.newInstance();
@@ -269,7 +286,7 @@ public class TaxAuthorityServices {
             taxAuthCondOrList.add(taxAuthCond);
         }
         EntityCondition taxAuthoritiesCond = EntityCondition.makeCondition(taxAuthCondOrList, EntityOperator.OR);
-
+  
         try {
             EntityCondition productCategoryCond = null;
             if (product != null) {
@@ -301,14 +318,14 @@ public class TaxAuthorityServices {
             mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minItemPrice", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minItemPrice", EntityOperator.LESS_THAN_EQUAL_TO, itemPrice)));
             mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minPurchase", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minPurchase", EntityOperator.LESS_THAN_EQUAL_TO, itemAmount)));
             EntityCondition mainCondition = EntityCondition.makeCondition(mainExprs, EntityOperator.AND);
-
+    
             // create the orderby clause
             List orderList = UtilMisc.toList("minItemPrice", "minPurchase", "fromDate");
 
             // finally ready... do the rate query
             List lookupList = delegator.findList("TaxAuthorityRateProduct", mainCondition, null, orderList, null, false);
             List filteredList = EntityUtil.filterByDate(lookupList, true);
-
+           
             if (filteredList.size() == 0) {
                 Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition.toString(), module);
                 return adjustments;
@@ -318,7 +335,6 @@ public class TaxAuthorityServices {
             Iterator flIt = filteredList.iterator();
             while (flIt.hasNext()) {
                 GenericValue taxAuthorityRateProduct = (GenericValue) flIt.next();
-
                 BigDecimal taxRate = taxAuthorityRateProduct.get("taxPercentage") != null ? taxAuthorityRateProduct.getBigDecimal("taxPercentage") : ZERO_BASE;
                 BigDecimal taxable = ZERO_BASE;
 
@@ -376,7 +392,6 @@ public class TaxAuthorityServices {
                         GenericValue partyRelationship = (GenericValue) partyRelationshipIter.next();
                         billToPartyIdSet.add(partyRelationship.get("partyIdFrom"));
                     }
-
                     handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount, nowTimestamp, delegator);
                 } else {
                     Debug.logInfo("NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=[" + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", module);
