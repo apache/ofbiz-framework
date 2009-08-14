@@ -27,10 +27,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDataSourceException;
+import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -578,6 +583,27 @@ public class SQLProcessor {
      */
     public void setValue(java.sql.Timestamp field) throws SQLException {
         if (field != null) {
+        	GenericDelegator delegator=GenericDelegator.getGenericDelegator("default");
+        	String userId=delegator.getCurrentUserIdentifier();
+        	try {
+        		if(userId!=null){
+        			String timeZoneId=TimeZone.getDefault().getID();
+        			GenericValue userLogin=delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userId));
+        			if(userLogin!=null){
+        				if(UtilValidate.isNotEmpty(userLogin.get("lastTimeZone"))){
+        					timeZoneId=userLogin.getString("lastTimeZone");	
+        					SqlJdbcUtil.setLastTimeZoneId(timeZoneId);
+        				}
+        			}		
+        				if (field instanceof java.sql.Timestamp) { 
+        					String dateField=SqlJdbcUtil.convertTimeZone(field.toString(),timeZoneId, "GMT");
+        					field= java.sql.Timestamp.valueOf(dateField);
+        				}
+        		}
+			} catch (GenericEntityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
             _ps.setTimestamp(_ind, field);
         } else {
             _ps.setNull(_ind, Types.TIMESTAMP);
