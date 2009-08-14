@@ -9,6 +9,7 @@
 
     <property environment="env"/>
     <property name="desc" value="@component-resource-name@ Component"/>
+	<property name="name" value="ofbiz-@component-name@"/>
     <property name="component-name" value="ofbiz-@component-name@"/>
     <property name="ofbiz.home.dir" value="../.."/>
     <property name="src.dir" value="src"/>
