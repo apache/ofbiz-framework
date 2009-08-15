@@ -43,7 +43,7 @@
     </property>
     <property key="FormFieldTitle_actualEndDate">
         <value xml:lang="en">Actual End Date</value>
-        <value xml:lang="fr">Date de fin réelle</value>
+        <value xml:lang="fr">Date d'achèvement réelle</value>
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="ro">Data Finala Actuala</value>
         <value xml:lang="th">วันสิ้นสุดตามความจริง</value>
