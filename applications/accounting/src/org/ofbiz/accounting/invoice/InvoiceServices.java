@@ -234,8 +234,11 @@ public class InvoiceServices {
             GenericValue billingAccount = orderHeader.getRelatedOne("BillingAccount");
             String billingAccountId = billingAccount != null ? billingAccount.getString("billingAccountId") : null;
 
-            // TODO: ideally this should be the same time as when a shipment is sent and be passed in as a parameter
-            Timestamp invoiceDate = UtilDateTime.nowTimestamp();
+            Timestamp invoiceDate = (Timestamp)context.get("eventDate");
+            if (UtilValidate.isEmpty(invoiceDate)) {
+                // TODO: ideally this should be the same time as when a shipment is sent and be passed in as a parameter
+                invoiceDate = UtilDateTime.nowTimestamp();
+            }
             // TODO: perhaps consider billing account net days term as well?
             Long orderTermNetDays = orh.getOrderTermNetDays();
             Timestamp dueDate = null;
@@ -1085,7 +1088,7 @@ public class InvoiceServices {
         Locale locale = (Locale) context.get("locale");
         List invoicesCreated = new ArrayList();
 
-        Map serviceContext = UtilMisc.toMap("shipmentIds", UtilMisc.toList(shipmentId), "userLogin", context.get("userLogin"));
+        Map serviceContext = UtilMisc.toMap("shipmentIds", UtilMisc.toList(shipmentId), "eventDate", context.get("eventDate"), "userLogin", context.get("userLogin"));
         try {
             Map result = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
             invoicesCreated = (List) result.get("invoicesCreated");
@@ -1704,7 +1707,7 @@ public class InvoiceServices {
             }
 
             // call the createInvoiceForOrder service for each order
-            Map serviceContext = UtilMisc.toMap("orderId", orderId, "billItems", toBillItems, "invoiceId", invoiceId, "userLogin", context.get("userLogin"));
+            Map serviceContext = UtilMisc.toMap("orderId", orderId, "billItems", toBillItems, "invoiceId", invoiceId, "eventDate", context.get("eventDate"), "userLogin", context.get("userLogin"));
             try {
                 Map result = dispatcher.runSync("createInvoiceForOrder", serviceContext);
                 invoicesCreated.add(result.get("invoiceId"));
