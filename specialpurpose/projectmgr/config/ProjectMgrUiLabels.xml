@@ -1414,7 +1414,7 @@
     <property key="ProjectMgrWorkEffortActualCompletionDate">
         <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
-        <value xml:lang="fr">Date de fin réelle</value>
+        <value xml:lang="fr">Date réelle d'achèvement</value>
         <value xml:lang="it">Data fine attuale</value>
         <value xml:lang="th">วันที่ทำเสร็จจริง</value>
         <value xml:lang="zh">实际完成日期</value>
@@ -1447,7 +1447,6 @@
         <value xml:lang="en">Id</value>
         <value xml:lang="fr">Réf.</value>
         <value xml:lang="it">Impegno di lavoro</value>
-        <value xml:lang="zh">Id</value>
         <value xml:lang="zh">标识</value>
     </property>
     <property key="ProjectMgrWorkEffortIdFrom">

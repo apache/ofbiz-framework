@@ -3157,7 +3157,6 @@
         <value xml:lang="it">Dettaglio</value>
         <value xml:lang="ro">Detaliu</value>
         <value xml:lang="th">ใช้คำมากเกินไป</value>
-        <value xml:lang="zh">Verbose</value>
         <value xml:lang="zh">冗长</value>
     </property>
     <property key="WebtoolsVerboseLogLevelTooltip">
