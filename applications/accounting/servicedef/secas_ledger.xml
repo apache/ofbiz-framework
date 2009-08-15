@@ -95,7 +95,7 @@ under the License.
         <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
     </eca>
 
-    <!-- attemp to create AcctgTrans for Purchase Invoice -->
+    <!-- attempt to create AcctgTrans for Purchase Invoice -->
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
@@ -104,7 +104,7 @@ under the License.
         <action service="createAcctgTransForPurchaseInvoice" mode="sync"/>
     </eca>
 
-    <!-- attemp to create AcctgTrans for Sales Invoice -->
+    <!-- attempt to create AcctgTrans for Sales Invoice -->
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>

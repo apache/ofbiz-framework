@@ -76,6 +76,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <!-- A List of Maps, each with a shipmentId,a facilityId, and a shipGroupSeqId for each shipment created -->
         <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false"/>
     </service>
@@ -153,6 +154,7 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
         <attribute name="shipmentTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldPrimaryOrderId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldOriginFacilityId" type="String" mode="OUT" optional="true"/>

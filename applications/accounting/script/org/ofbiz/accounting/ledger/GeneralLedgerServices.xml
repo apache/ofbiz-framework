@@ -2117,6 +2117,7 @@ under the License.
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_INVOICE"/>
             <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="parameters.invoiceId"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+            <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="invoice.invoiceDate"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
             </call-service>

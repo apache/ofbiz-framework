@@ -132,9 +132,20 @@ under the License.
                     <set from-field="parameters.statusId" field="newStatusValue.statusId"/>
                     <set from-field="parameters.shipmentId" field="newStatusValue.shipmentId"/>
                     <now-timestamp field="newStatusValue.statusDate"/>
+                    <if-empty field="parameters.eventDate">
+                        <now-timestamp field="newStatusValue.statusDate"/>
+                    <else>
+                        <set field="newStatusValue.statusDate" from-field="parameters.eventDate"/> 
+                    </else>
+                    </if-empty>
                     <create-value value-field="newStatusValue"/>
                 <else>
-                    <now-timestamp field="shipmentStatus.statusDate"/>
+                    <if-empty field="parameters.eventDate">
+                        <now-timestamp field="shipmentStatus.statusDate"/>
+                    <else>
+                        <set field="shipmentStatus.statusDate" from-field="parameters.eventDate"/> 
+                    </else>
+                    </if-empty>
                     <store-value value-field="shipmentStatus"/>
                 </else>
                 </if-empty>
@@ -1350,6 +1361,7 @@ under the License.
             </entity-one>
             <!-- should never be empty - referential integrity enforced -->
 
+            <set field="eventDate" from-field="parameters.eventDate"/>
             <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
         </iterate>
 
@@ -1568,6 +1580,7 @@ under the License.
                   <then>
                     <!-- update the shipment status to packed -->
                     <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
+                    <set from-field="eventDate" field="packedContext.eventDate"/>
                     <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
                     <call-service service-name="updateShipment" in-map-name="packedContext"/>
                     <!-- update the shipment status to shipped -->

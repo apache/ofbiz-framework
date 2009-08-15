@@ -152,6 +152,7 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="billItems" type="List" mode="IN" optional="false"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="INOUT" optional="true"/>
         <attribute name="invoiceTypeId" type="String" mode="OUT" optional="true"/>
     </service>
@@ -199,6 +200,7 @@ under the License.
             invoicesCreated = List of invoiceIds which were created by this service
         </description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="setInvoicesToReadyFromShipment" engine="java"
@@ -229,6 +231,7 @@ under the License.
         </description>
         <attribute name="shipmentIds" type="List" mode="IN" optional="false"/>
         <attribute name="createSalesInvoicesForDropShipments" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoicesFromReturnShipment" engine="java"
