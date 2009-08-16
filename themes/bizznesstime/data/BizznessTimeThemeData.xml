@@ -20,6 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <VisualTheme visualThemeId="BIZZNESS_TIME" visualThemeSetId="BACKOFFICE" description="It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down"/>
+    <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_NAME" resourceValue="BIZZNESS_TIME" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/bizznesstime/css/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/bizznesstime/js/application.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>

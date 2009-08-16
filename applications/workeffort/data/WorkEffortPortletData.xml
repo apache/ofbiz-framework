@@ -45,8 +45,8 @@
             </root>
         ]]></textData>
     </ElectronicText>
-    <DataResource dataResourceId="HELP-TEMPL-FLAT_GREY"/>
-    <Content contentId="HELP-PortLetCalendar" contentTypeId="DOCUMENT" templateDataResourceId="HELP-TEMPL-FLAT_GREY" dataResourceId="HELP-PortLetCalendar" statusId="CTNT_IN_PROGRESS" contentName="PortLetCalendar" mimeTypeId="text/html"/>
+    <Content contentId="HELP-PortLetCalendar" contentTypeId="DOCUMENT" templateDataResourceId="HELP-TEMPL" dataResourceId="HELP-PortLetCalendar" statusId="CTNT_IN_PROGRESS" contentName="PortLetCalendar" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP-MYPORTAL" contentIdTo="HELP-PortLetCalendar" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
     
     
 

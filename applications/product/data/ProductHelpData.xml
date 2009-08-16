@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- =======Help===========  -->
+    <DataResource dataResourceId="HELP-PRODUCT" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Catalog Manager Help" mimeTypeId="text/xml" isPublic="Y" />
+    <ElectronicText dataResourceId="HELP-PRODUCT">
+        <textData><![CDATA[
+            <root>
+                <generalTitle>
+                    The Catalog Manager.
+                </generalTitle>
+                <general>
+                    The Catalog Manager creates and provides access to a variety of information related to Products, Catalogs, or Categories.
+                </general>
+            </root>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="HELP-PRODUCT" contentTypeId="DOCUMENT" contentName="Catalog Manager Help" templateDataResourceId="HELP-TEMPL" dataResourceId="HELP-PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP-ROOT" contentIdTo="HELP-PRODUCT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="020"/>
+</entity-engine-xml>

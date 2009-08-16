@@ -243,4 +243,12 @@ under the License.
             <link target="navigateContent"/>
         </menu-item>
     </menu>
+    <menu name="lookupMenu" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <link target="javascript:window.close();" url-mode="plain"/>
+        </menu-item>
+        <menu-item name="index" title="${uiLabelMap.CommonExtIndex}">
+            <link target="showHelp?helpTopic=navigateHelp"/>
+        </menu-item>
+    </menu>
 </menus>
