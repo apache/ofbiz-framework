@@ -21,6 +21,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Content Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
 
@@ -38,10 +39,6 @@ under the License.
         <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
-
-    <!-- Request Mappings -->
-    <request-map uri="view"><security https="false" auth="false"/><response name="success" type="request" value="main"/></request-map>
-    <request-map uri="views"><security https="true" auth="false"/><response name="success" type="request" value="main"/></request-map>
 
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>

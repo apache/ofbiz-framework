@@ -18,7 +18,6 @@ under the License.
 -->
 
   <#assign helpTopic = webSiteId + "_" + requestAttributes._CURRENT_VIEW_ />
-  <#assign helpUrlTopic = helpUrlsMap["HelpNotFound"]/>
   <#assign helpUrlPrefix = "" />
   <#assign helpUrlSuffix = "" />
 
@@ -26,7 +25,7 @@ under the License.
 ${helpTopic}
 -->
   <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
-    <#assign helpContent = delegator.findByAnd("Content", {"contentId" : helpTopic})?if_exists>
+    <#assign helpContent = delegator.findByAnd("Content", {"contentName" : helpTopic})?if_exists>
   </#if>
 
   <#if helpUrlsMap["Prefix"] != "Prefix">
@@ -37,4 +36,6 @@ ${helpTopic}
   </#if>
   <#if helpUrlsMap[helpTopic] != helpTopic >
     <#assign helpUrlTopic = helpUrlsMap[helpTopic] />
+  <#else>
+    <#assign helpTopic = "navigateHelp"/>
   </#if>

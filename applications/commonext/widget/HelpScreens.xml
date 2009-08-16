@@ -21,55 +21,163 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+    <screen name="LookupDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                </service>
+                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
+                
+                <property-map resource="general" map-name="generalProperties" global="true"/>
+                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/lookup.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
+                <container style="contentarea">
+                    <container id="column-container">
+                        <!-- by default will render left-bar only if leftbarScreen value not empty -->
+                        <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+                        <container id="content-main-section" style="${MainColumnStyle}">
+                            <decorator-section-include name="body"/>
+                        </container>
+                    </container>                            
+                </container>
+                <container style="clear"></container>
+                
+                <platform-specific><html><html-template location="component://common/webcommon/includes/lookupFooter.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="ShowHelp">
         <section>
             <condition>
-                <if-empty field="parameters.portalPageId"/>
+                <if-compare field="parameters.helpTopic" operator="equals" value="navigateHelp"/>
             </condition>
-            <actions>
-                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
-                <entity-and entity-name="Content" list="contents">
-                    <field-map field-name="contentName" from-field="parameters.helpTopic"/>
-                </entity-and>
-                <set field="content" from-field="contents[0]"/>
-            </actions>
             <widgets>
-                <section>
-                    <condition>
-                        <if-empty field="content"/>
-                    </condition>
-                    <widgets>
-                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="search-options"/>
-                            <decorator-section name="search-results">
-                                <label style="h2" text="Content with content name: ${parameters.helpTopic} could not be found"></label>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                    <fail-widgets>
-                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="search-options"/>
-                            <decorator-section name="search-results">
-                                <content content-id="${content.contentId}" templateResourceId="${layoutSettings.VT_HELP_TEMPL}"/>
-                            </decorator-section>
-                        </decorator-screen>
-                    </fail-widgets>
-                </section>
+                <include-screen name="navigateHelp"/>
             </widgets>
             <fail-widgets>
-                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="search-options">
-                                <content content-id="HELP-MY-PORTAL"/>
-                            </decorator-section>
-                            <decorator-section name="search-results">
-                                <screenlet title="Select a portlet you would like to have help on....">
+                <section>
+                    <condition>
+                        <if-empty field="parameters.portalPageId"/>
+                    </condition>
+                    <actions>
+                        <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
+                        <entity-and entity-name="Content" list="contents">
+                            <field-map field-name="contentName" from-field="parameters.helpTopic"/>
+                        </entity-and>
+                        <set field="content" from-field="contents[0]"/>
+                        <set field="contentId" value="${parameters.contentId}" default-value="${content.contentId}"/>
+                    </actions>
+                    <widgets>
+                        <section>
+                            <condition>
+                                <if-empty field="content"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="LookupDecorator">
+                                    <decorator-section name="body">
+                                        <label style="h2" text="Content with content name: ${parameters.helpTopic} or contentId: ${contentId}(${parameters.contentId}} could not be found"></label>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <decorator-screen name="LookupDecorator">
+                                    <decorator-section name="body">
+                                        <screenlet title="${uilabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
+                                            <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                            <include-screen name="showDocument"/>
+                                        </screenlet>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                    <fail-widgets>
+                        <decorator-screen name="LookupDecorator">
+                            <decorator-section name="body">
+                                <screenlet title="${uilabelMap.CommonExtHelpTitle}">
+                                    <content content-id="HELP-MYPORTAL"/>
+                                </screenlet>
+                                <screenlet title="Select a portlet you would like to have help on...." navigation-menu-name="lookupMenu">
+                                    <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
                                     <include-form name="PortletList" location="component://common/widget/PortalPageForms.xml"/>
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>
+                    </fail-widgets>
+                </section>
             </fail-widgets>
         </section>
     </screen>
     
+    <screen name="showDocument">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="contentId" from-field="parameters.contentId" default-value="${contentId}"/>
+                <property-map resource="general" map-name="generalProperties" global="true"/>
+                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+            </actions>
+            <widgets>
+                <container id="Document">
+                    <content content-id="${contentId}"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="navigateHelp">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <set field="titleProperty" value="PageTitleNavigateContent"/>
+                <entity-and entity-name="ContentAssoc" list="contentAssoc">
+                    <field-map field-name="contentId" value="HELP-ROOT"/>
+                    <field-map field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-and>
+                <set field="contentId" from-field="parameters.contentId" default-value="HELP-ROOT"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
+                                    <container style="left-border">
+                                        <container id="EditDocumentTree"/>
+                                        <platform-specific><html><html-template location="component://content/webapp/content/content/DisplayContentNav.ftl"/></html></platform-specific>
+                                    </container>
+                                    <container style="leftonly">
+                                        <include-screen name="showDocument"/>
+                                    </container>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
