@@ -19,8 +19,10 @@
 -->
 <entity-engine-xml>
     <!-- create some keys to be sure all data will load the firs time -->
-    <DataResource dataResourceId="HELP-TEMPL"/>
-    <Content contentId="HELP-ROOT"/>
-    <Content contentId="HELP-MYPORTAL"/>
+    <DataResource dataResourceId="HELP_TEMPL"/>
+    <Content contentId="HELP_ROOT"/>
+    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="HELP_ROOT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
+    <Content contentId="HELP_MYPORTAL"/>
     
 </entity-engine-xml>

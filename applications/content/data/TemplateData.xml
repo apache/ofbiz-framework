@@ -465,8 +465,8 @@ ${txt}
     
     
 <!-- help template -->
-<DataResource dataResourceId="HELP-TEMPL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
-<ElectronicText dataResourceId="HELP-TEMPL">
+<DataResource dataResourceId="HELP_TEMPL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
+<ElectronicText dataResourceId="HELP_TEMPL">
         <textData><![CDATA[
 <#if layoutSettings.VT_NAME[0] == "FLAT_GREY">          
 <div class="contentarea">
@@ -489,15 +489,16 @@ ${txt}
           
           <#if doc.root.general?has_content> 
             <h1>${doc.root.generalTitle?if_exists}</h1>
-            <p class=h2>${doc.root.general}</p>
+            <#list doc.root.general.section as section>
+              <p class=h2>${section.text}</p>
+            </#list>
           </#if>
           
     </div>
   </div>
 </div>
-</#if>
 
-<#if layoutSettings.VT_NAME[0] == "BIZZNESS_TIME">          
+<#elseif layoutSettings.VT_NAME[0] == "BIZZNESS_TIME">          
           <#if doc.root.definition?has_content> 
             <h1>${uiLabelMap.CommonExtHelpDefinition}</h1>
             <p class=h2>${doc.root.definition}</p></br>
@@ -515,28 +516,36 @@ ${txt}
           
           <#if doc.root.general?has_content> 
             <h1>${doc.root.generalTitle?if_exists}</h1>
-            <p class=h2>${doc.root.general}</p>
+            <#list doc.root.general.section as section>
+              <p class=h2>${section.text}</p>
+            </#list>
+          </#if>
+<#else>          
+          <#if doc.root.definition?has_content> 
+            <h1>${uiLabelMap.CommonExtHelpDefinition}</h1>
+            <p class=h2>${doc.root.definition}</p></br>
+          </#if>
+
+          <#if doc.root.usedFor?has_content> 
+            <h1>${uiLabelMap.CommonExtHelpUsedFor}</h1>
+            <p class=h2>${doc.root.usedFor}</p></br>
+          </#if>
+            
+          <#if doc.root.onScreen?has_content> 
+            <h1>${uiLabelMap.CommonExtHelpOnScreen}</h1>
+            <p class=h2>${doc.root.onScreen}</p>
           </#if>
           
+          <#if doc.root.general?has_content> 
+            <h1>${doc.root.generalTitle?if_exists}</h1>
+            <#list doc.root.general.section as section>
+              <p class=h2>${section.text}</p>
+            </#list>
+          </#if>
 </#if>
 
 
         ]]></textData>
 </ElectronicText>
-<DataResource dataResourceId="HELP-ROOT" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
-<ElectronicText dataResourceId="HELP-ROOT">
-    <textData><![CDATA[
-            <root>
-                <generalTitle>
-                    Welcome to the Apache OFBiz help system
-                </generalTitle>
-                <general>
-                    This system will provide you context sensitive help throughout the system.
-                </general>
-            </root>
-        ]]></textData>
-  </ElectronicText>
-  <Content contentId="HELP-ROOT" contentTypeId="DOCUMENT" templateDataResourceId="HELP-TEMPL" dataResourceId="HELP-ROOT" statusId="CTNT_IN_PROGRESS" contentName="Help system root" mimeTypeId="text/html"/>
-  
     
 </entity-engine-xml>
