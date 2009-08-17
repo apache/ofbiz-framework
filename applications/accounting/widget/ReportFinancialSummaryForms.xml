@@ -541,4 +541,36 @@ under the License.
         <field name="totalInventoryCost" use-when="currencyUomId==null" title="${uiLabelMap.CommonTotalValue}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
     </form>
 
+    <form name="ComparativeIncomeStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
+        <field name="period1FromDate" title="${uiLabelMap.FormFieldTitle_period1FromDate}" required-field="true" position="1"><date-time type="timestamp"/></field>
+        <field name="period1ThruDate" title="${uiLabelMap.FormFieldTitle_period1ThruDate}" required-field="true" position="2"><date-time type="timestamp"/></field>
+        <field name="period2FromDate" title="${uiLabelMap.FormFieldTitle_period2FromDate}" required-field="true" position="1"><date-time type="timestamp"/></field>
+        <field name="period2ThruDate" title="${uiLabelMap.FormFieldTitle_period2ThruDate}" required-field="true" position="2"><date-time type="timestamp"/></field>
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" tooltip="Please enter From and Thru date in fields above"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ComparativeIncomeStatementList" type="list" list-name="glAccountIncomeList"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-field="glAccount"/>
+        </row-actions>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="accountName" title="${uiLabelMap.FormFieldTitle_accountName}"><display description="${glAccount.accountName}"/></field>
+        <field name="period1TotalAmount" title="${uiLabelMap.AccountingPeriod1TotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="period2TotalAmount" title="${uiLabelMap.AccountingPeriod1TotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+
+    <form name="ComparativeExpenseStatementList" type="list" list-name="glAccountExpenseList" extends="ComparativeIncomeStatementList"/>
 </forms>

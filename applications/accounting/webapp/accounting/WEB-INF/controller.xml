@@ -2170,6 +2170,11 @@ under the License.
     <request-map uri="SalesInvoiceByProductCategorySummary"><security https="true" auth="true"/><response name="success" type="view" value="SalesInvoiceByProductCategorySummary"/></request-map>
     <request-map uri="TrialBalance"><security https="true" auth="true"/><response name="success" type="view" value="TrialBalance"/></request-map>
     <request-map uri="IncomeStatement"><security https="true" auth="true"/><response name="success" type="view" value="IncomeStatement"/></request-map>
+    <request-map uri="ComparativeIncomeStatement">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ComparativeIncomeStatement"/>
+        <response name="error" type="view" value="ComparativeIncomeStatement"/>
+    </request-map>
     <request-map uri="prepareIncomeStatement">
         <security https="true" auth="true"/>
         <event type="service" invoke="prepareIncomeStatement"/>
@@ -2666,6 +2671,7 @@ under the License.
     <view-map name="SalesInvoiceByProductCategorySummary" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#SalesInvoiceByProductCategorySummary"/>
     <view-map name="TrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalance"/>
     <view-map name="IncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatement"/>
+    <view-map name="ComparativeIncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatement"/>
     <view-map name="BalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheet"/>
     <view-map name="ComparativeBalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheet"/>
     <view-map name="TransactionTotals" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotals"/>

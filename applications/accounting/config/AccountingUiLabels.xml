@@ -2003,6 +2003,10 @@
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
         <value xml:lang="zh">比较资产负债表</value>
     </property>
+    <property key="AccountingComparativeIncomeStatement">
+        <value xml:lang="en">Comparative Income Statement</value>
+        <value xml:lang="hi_IN">तुलनात्मक आय विवरण</value>
+    </property>
     <property key="AccountingCompleteAcctgTransFields">
         <value xml:lang="en">Complete transaction fields</value>
         <value xml:lang="fr">Remplissez les champs de la transaction</value>
@@ -7575,6 +7579,14 @@
         <value xml:lang="th">ช่วงเวลาสั้น ๆ</value>
         <value xml:lang="zh">子时间段</value>
     </property>
+    <property key="AccountingPeriod1TotalAmount">
+        <value xml:lang="en">Period1 Total Amount</value>
+        <value xml:lang="hi_IN">अवधि 1 कुल राशि</value>
+    </property>
+    <property key="AccountingPeriod2TotalAmount">
+        <value xml:lang="en">Period2 Total Amount</value>
+        <value xml:lang="hi_IN">अवधि 2 कुल राशि</value>
+    </property>
     <property key="AccountingPeriodName">
         <value xml:lang="en">Period Name</value>
         <value xml:lang="fr">Nom de période</value>
@@ -11277,6 +11289,14 @@
         <value xml:lang="ru">Выполнено участником</value>
         <value xml:lang="th">แสดงโดยรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">执行者的会员标识</value>
+    </property>
+    <property key="FormFieldTitle_period1FromDate">
+        <value xml:lang="en">Period1 From Date</value>
+        <value xml:lang="hi_IN">अवधि 1 दिनांक से</value>
+    </property>
+    <property key="FormFieldTitle_period2FromDate">
+        <value xml:lang="en">Period2 From Date</value>
+        <value xml:lang="hi_IN">अवधि 2 दिनांक से</value>
     </property>
     <property key="FormFieldTitle_period1GlFiscalTypeId">
         <value xml:lang="en">Period1 Gl Fiscal Type Id</value>
