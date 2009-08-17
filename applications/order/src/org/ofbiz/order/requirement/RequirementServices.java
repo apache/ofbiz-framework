@@ -60,22 +60,22 @@ public class RequirementServices {
             List<EntityCondition> conditions = UtilMisc.toList(
                     EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
                     EntityUtil.getFilterByDateExpr()
-                    );
+                   );
             if (UtilValidate.isNotEmpty(statusIds)) {
-                conditions.add( EntityCondition.makeCondition("statusId", EntityOperator.IN, statusIds) );
+                conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, statusIds));
             } else {
-                conditions.add( EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED") );
+                conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED"));
             }
             if (requirementConditions != null) conditions.add(requirementConditions);
 
             // we're either getting the requirements for a given supplier, unassigned requirements, or requirements for all suppliers
             if (UtilValidate.isNotEmpty(partyId)) {
-                conditions.add( EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId) );
-                conditions.add( EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
+                conditions.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+                conditions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"));
             } else if (UtilValidate.isNotEmpty(unassignedRequirements)) {
-                conditions.add( EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, null) );
+                conditions.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, null));
             } else {
-                conditions.add( EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
+                conditions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"));
             }
 
             EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
@@ -97,7 +97,7 @@ public class RequirementServices {
 
             // join in fields with extra data about the suppliers and products
             List requirements = FastList.newInstance();
-            for (Iterator iter = requirementAndRoles.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = requirementAndRoles.iterator(); iter.hasNext();) {
                 Map union = FastMap.newInstance();
                 GenericValue requirement = (GenericValue) iter.next();
                 String productId = requirement.getString("productId");
@@ -114,7 +114,7 @@ public class RequirementServices {
                             EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
                             EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                             EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
-                            );
+                           );
                     ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
                     List<GenericValue> supplierProducts = delegator.findList("SupplierProduct", ecl, null, UtilMisc.toList("minimumOrderQuantity", "lastPrice"), null, false);
 
@@ -157,14 +157,14 @@ public class RequirementServices {
                 // how many of the products were sold (note this is for a fixed time period across all product stores)
                 BigDecimal sold = (BigDecimal) productsSold.get(productId);
                 if (sold == null) {
-                    EntityCondition prodConditions = EntityCondition.makeCondition( UtilMisc.toList(
+                    EntityCondition prodConditions = EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
                                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED", "ORDER_CANCELLED")),
                                 EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
                                 EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
-                                ), EntityOperator.AND);
-                    GenericValue count = EntityUtil.getFirst( delegator.findList("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toSet("quantityOrdered"), null, null, false));
+                               ), EntityOperator.AND);
+                    GenericValue count = EntityUtil.getFirst(delegator.findList("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toSet("quantityOrdered"), null, null, false));
                     if (count != null) {
                         sold = count.getBigDecimal("quantityOrdered");
                         if (sold != null) productsSold.put(productId, sold);
@@ -211,7 +211,7 @@ public class RequirementServices {
             GenericValue productStore = order.getRelatedOneCache("ProductStore");
             String facilityId = productStore.getString("inventoryFacilityId");
             List orderItems = order.getRelated("OrderItem");
-            for (Iterator iter = orderItems.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = orderItems.iterator(); iter.hasNext();) {
                 GenericValue item = (GenericValue) iter.next();
                 GenericValue product = item.getRelatedOne("Product");
                 if (product == null) continue;
@@ -265,7 +265,7 @@ public class RequirementServices {
             GenericValue productStore = order.getRelatedOneCache("ProductStore");
             String facilityId = productStore.getString("inventoryFacilityId");
             List orderItems = order.getRelated("OrderItem");
-            for (Iterator iter = orderItems.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = orderItems.iterator(); iter.hasNext();) {
                 GenericValue item = (GenericValue) iter.next();
                 GenericValue product = item.getRelatedOne("Product");
                 if (product == null) continue;
@@ -296,7 +296,7 @@ public class RequirementServices {
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")),
                         EntityOperator.AND);
                 List requirements = delegator.findList("Requirement", ecl, null, null, null, false);
-                for (Iterator riter = requirements.iterator(); riter.hasNext(); ) {
+                for (Iterator riter = requirements.iterator(); riter.hasNext();) {
                     GenericValue requirement = (GenericValue) riter.next();
                     pendingRequirements = pendingRequirements.add(requirement.get("quantity") == null ? BigDecimal.ZERO : requirement.getBigDecimal("quantity"));
                 }

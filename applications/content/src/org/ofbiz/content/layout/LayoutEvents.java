@@ -165,7 +165,7 @@ public class LayoutEvents {
         } catch (GenericEntityException e3) {
             request.setAttribute("_ERROR_MESSAGE_", e3.getMessage());
             return "error";
-        } catch ( GenericServiceException e) {
+        } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -269,7 +269,7 @@ public class LayoutEvents {
                     GenericValue dataResourceContentView  = (GenericValue)lst.get(0);
                     contentId = (String)dataResourceContentView.get("coContentId");
                 }
-            } catch ( GenericEntityException e) {
+            } catch (GenericEntityException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -300,7 +300,7 @@ public class LayoutEvents {
 
                 //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
                 Map result2 = dispatcher.runSync("deactivateAssocs", context2);
-            } catch ( GenericServiceException e) {
+            } catch (GenericServiceException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -523,7 +523,7 @@ public class LayoutEvents {
 
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
             Map result2 = dispatcher.runSync("deactivateAssocs", context2);
-        } catch ( GenericServiceException e) {
+        } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -595,7 +595,7 @@ public class LayoutEvents {
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
             Map result2 = dispatcher.runSync("deactivateAssocs", context2);
             */
-        } catch ( GenericServiceException e) {
+        } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
@@ -608,7 +608,7 @@ public class LayoutEvents {
         String entityName = (String)paramMap.get("entityName");
         Locale locale = UtilHttp.getLocale(request);
 
-        if (UtilValidate.isEmpty(entityName) ) {
+        if (UtilValidate.isEmpty(entityName)) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.entityname_empty", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";

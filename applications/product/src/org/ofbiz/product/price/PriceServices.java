@@ -687,19 +687,19 @@ public class PriceServices {
                 BigDecimal taxPercentage = (BigDecimal) calcTaxForDisplayResult.get("taxPercentage");
                 BigDecimal taxMultiplier = ONE_BASE.add(taxPercentage.divide(PERCENT_SCALE, taxCalcScale));
                 if (result.get("listPrice") != null) {
-                    result.put("listPrice", ((BigDecimal) result.get("listPrice")).multiply(taxMultiplier).setScale( taxFinalScale, taxRounding ));
+                    result.put("listPrice", ((BigDecimal) result.get("listPrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
                 if (result.get("defaultPrice") != null) {
-                    result.put("defaultPrice", ((BigDecimal) result.get("defaultPrice")).multiply(taxMultiplier).setScale( taxFinalScale, taxRounding ));
+                    result.put("defaultPrice", ((BigDecimal) result.get("defaultPrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
                 if (result.get("averageCost") != null) {
-                    result.put("averageCost", ((BigDecimal) result.get("averageCost")).multiply(taxMultiplier).setScale( taxFinalScale, taxRounding ));
+                    result.put("averageCost", ((BigDecimal) result.get("averageCost")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
                 if (result.get("promoPrice") != null) {
-                    result.put("promoPrice", ((BigDecimal) result.get("promoPrice")).multiply(taxMultiplier).setScale( taxFinalScale, taxRounding ));
+                    result.put("promoPrice", ((BigDecimal) result.get("promoPrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
                 if (result.get("competitivePrice") != null) {
-                    result.put("competitivePrice", ((BigDecimal) result.get("competitivePrice")).multiply(taxMultiplier).setScale( taxFinalScale, taxRounding ));
+                    result.put("competitivePrice", ((BigDecimal) result.get("competitivePrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
             } catch (GenericServiceException e) {
                 String errMsg = "Error calculating VAT tax (with calcTaxForDisplay service): " + e.toString();

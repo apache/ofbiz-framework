@@ -229,7 +229,7 @@ public class SubscriptionServices {
         GenericValue orderHeader = null;
         try {
             List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
-            if (orderRoleList.size() > 0 ) {
+            if (orderRoleList.size() > 0) {
                 GenericValue orderRole = orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
                 subContext.put("partyId", partyId);

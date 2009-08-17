@@ -138,7 +138,7 @@ public class VCard {
                             break;
                         }
                     }
-                    if(UtilValidate.isNotEmpty(email)) {
+                    if (UtilValidate.isNotEmpty(email)) {
                         serviceCtx.put("emailAddress", email);
                     }
                     for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {

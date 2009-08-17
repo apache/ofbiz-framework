@@ -353,13 +353,13 @@ public class DataEvents {
         //ContentManagementWorker.mruAdd(session, pk);
 
         String returnStr = "success";
-        if (mode.equals("CREATE") ) {
+        if (mode.equals("CREATE")) {
             // Set up return message to guide selection of follow on view
-            request.setAttribute("dataResourceId", result.get("dataResourceId") );
+            request.setAttribute("dataResourceId", result.get("dataResourceId"));
             String dataResourceTypeId = (String)serviceInMap.get("dataResourceTypeId");
             if (dataResourceTypeId != null) {
                  if (dataResourceTypeId.equals("ELECTRONIC_TEXT")
-                     || dataResourceTypeId.equals("IMAGE_OBJECT") ) {
+                     || dataResourceTypeId.equals("IMAGE_OBJECT")) {
                     returnStr = dataResourceTypeId;
                  }
             }

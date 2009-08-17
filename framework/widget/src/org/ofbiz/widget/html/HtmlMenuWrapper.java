@@ -185,12 +185,12 @@ public class HtmlMenuWrapper {
 
     public void setRequest(HttpServletRequest request) {
         this.request = request;
-        ((HtmlMenuRenderer)renderer).setRequest( request );
+        ((HtmlMenuRenderer)renderer).setRequest(request);
     }
 
     public void setResponse(HttpServletResponse response) {
         this.response = response;
-        ((HtmlMenuRenderer)renderer).setResponse( response );
+        ((HtmlMenuRenderer)renderer).setResponse(response);
     }
 
     public HttpServletRequest getRequest() {
@@ -201,7 +201,7 @@ public class HtmlMenuWrapper {
         return ((HtmlMenuRenderer)renderer).response;
     }
 
-    public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName ) {
+    public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName) {
 
         HtmlMenuWrapper menuWrapper = null;
 
@@ -232,7 +232,7 @@ public class HtmlMenuWrapper {
             menuWrapper.setRequest(request);
             menuWrapper.setResponse(response);
             Map parameterMap = UtilHttp.getParameterMap(request);
-            menuWrapper.setParameters( parameterMap);
+            menuWrapper.setParameters(parameterMap);
 
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
             menuWrapper.putInContext("userLogin", userLogin);

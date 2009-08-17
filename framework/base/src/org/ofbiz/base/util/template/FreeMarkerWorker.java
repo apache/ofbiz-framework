@@ -444,7 +444,7 @@ public class FreeMarkerWorker {
         }
         if (varNames != null) {
             for (String varName: varNames) {
-                //freemarker.ext.beans.StringModel varObj = (freemarker.ext.beans.StringModel ) varNameIter.next();
+                //freemarker.ext.beans.StringModel varObj = (freemarker.ext.beans.StringModel) varNameIter.next();
                 //Object varObj =  varNameIter.next();
                 //String varName = varObj.toString();
                 templateRoot.put(varName, FreeMarkerWorker.getWrappedObject(varName, env));
@@ -453,7 +453,7 @@ public class FreeMarkerWorker {
         return templateRoot;
     }
 
-    public static void saveContextValues(Map<String, Object> context, String [] saveKeyNames, Map<String, Object> saveMap ) {
+    public static void saveContextValues(Map<String, Object> context, String [] saveKeyNames, Map<String, Object> saveMap) {
         //Map saveMap = new HashMap();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
@@ -479,7 +479,7 @@ public class FreeMarkerWorker {
     }
 
 
-    public static void reloadValues(Map<String, Object> context, Map<String, Object> saveValues, Environment env ) {
+    public static void reloadValues(Map<String, Object> context, Map<String, Object> saveValues, Environment env) {
         for (Map.Entry<String, Object> entry: saveValues.entrySet()) {
             String key = entry.getKey();
             Object o = entry.getValue();
@@ -498,7 +498,7 @@ public class FreeMarkerWorker {
         }
     }
 
-    public static void removeValues(Map<String, ?> context, String... removeKeyNames ) {
+    public static void removeValues(Map<String, ?> context, String... removeKeyNames) {
         for (String key: removeKeyNames) {
             context.remove(key);
         }

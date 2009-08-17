@@ -189,7 +189,7 @@ public class UtilMisc {
             throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
         }
         Map<String, V> map = FastMap.newInstance();
-        for (int i = 0; i < data.length; ) {
+        for (int i = 0; i < data.length;) {
             map.put((String) data[i++], (V) data[i++]);
         }
         return map;

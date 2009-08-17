@@ -101,7 +101,7 @@ public class DataServices {
             String dataTemplateTypeId = (String) context.get("dataTemplateTypeId");
             if (UtilValidate.isEmpty(dataTemplateTypeId)) {
                 dataTemplateTypeId = "NONE";
-                context.put("dataTemplateTypeId", dataTemplateTypeId );
+                context.put("dataTemplateTypeId", dataTemplateTypeId);
             }
 
             // If textData exists, then create DataResource and return dataResourceId

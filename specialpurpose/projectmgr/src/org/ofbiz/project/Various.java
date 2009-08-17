@@ -48,7 +48,7 @@ public class Various {
                     GenericValue assoc = (GenericValue) a.next();
                     GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
                       Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
-                      if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate) ) {
+                      if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate)) {
                             nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day
                              nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
                              nextTask.store();

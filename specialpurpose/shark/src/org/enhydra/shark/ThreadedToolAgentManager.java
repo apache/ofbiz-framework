@@ -187,7 +187,7 @@ public class ThreadedToolAgentManager implements ToolAgentManager {
                                     XMLUtil.getPackage(app).getId(),
                                        ((isProcessApp)? cOwn.get("Id").toValue() : null),
                                     applicationId
-                                   );
+                                  );
                SharkUtilities.commitMappingTransaction(t);
             } catch (RootException e) {
                SharkUtilities.rollbackMappingTransaction(t,e);

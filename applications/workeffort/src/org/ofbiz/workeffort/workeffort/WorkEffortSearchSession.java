@@ -218,7 +218,7 @@ public class WorkEffortSearchSession {
         }
 
 //      add a WorkEfort fromDate thruDate  to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("fromDate")) || UtilValidate.isNotEmpty((String) parameters.get("thruDate")) ) {
+        if (UtilValidate.isNotEmpty((String) parameters.get("fromDate")) || UtilValidate.isNotEmpty((String) parameters.get("thruDate"))) {
             Timestamp fromDate =null;
             if (UtilValidate.isNotEmpty((String) parameters.get("fromDate"))) {
                 fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));

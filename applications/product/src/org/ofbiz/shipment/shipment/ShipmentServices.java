@@ -184,7 +184,7 @@ public class ShipmentServices {
                         }
                         storeAll.add(0, weightBreak);
                     }
-                    catch ( Exception e ) {
+                    catch (Exception e) {
                         Debug.logError(e, module);
                     }
                 }
@@ -284,7 +284,7 @@ public class ShipmentServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError("Cannot get shipping address entity");
             }
-        } else if ( shippingPostalCode != null) {
+        } else if (shippingPostalCode != null) {
             shipAddress = delegator.makeValue("PostalAddress");
             shipAddress.set("countryGeoId", shippingCountryCode);
             shipAddress.set("postalCodeGeoId", shippingPostalCode);
@@ -541,7 +541,7 @@ public class ShipmentServices {
                     Debug.logError(e, "Unable to lookup feature/group" + fields, module);
                 }
                 if (appl != null) {
-                    featureSurcharge = featureSurcharge.add( shippableTotal.multiply( featurePercent.movePointLeft(2) ).multiply(quantity) );
+                    featureSurcharge = featureSurcharge.add(shippableTotal.multiply(featurePercent.movePointLeft(2)).multiply(quantity));
                     featureSurcharge = featureSurcharge.add(featurePrice.multiply(quantity));
                 }
             }

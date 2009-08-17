@@ -388,7 +388,7 @@ public class OrderServices {
                             String excMsg = "Could not find related Fixed Asset for the product: " + orderItem.getString("productId");
                             Debug.logError(excMsg, module);
                             errorMessages.add(excMsg);
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotFindRelatedFixedAssetForTheProduct",UtilMisc.toMap("productId",orderItem.getString("productId")), locale ));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotFindRelatedFixedAssetForTheProduct",UtilMisc.toMap("productId",orderItem.getString("productId")), locale));
                         }
 
                         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
@@ -693,7 +693,7 @@ public class OrderServices {
                         }
                     }
                 }
-                if (techDataCalendar == null ) {
+                if (techDataCalendar == null) {
                     techDataCalendar = delegator.makeValue("TechDataCalendar");
                     Debug.logInfo("create techdata calendar because it does not exist",module);
                     String calendarId = delegator.getNextSeqId("TechDataCalendar");
@@ -1436,7 +1436,7 @@ public class OrderServices {
         List orderTaxAdjustments = null;
         try {
             orderTaxAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderAdjustmentTypeId", "SALES_TAX"));
-        } catch ( GenericEntityException e ) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to retrieve SALES_TAX adjustments for order : " + orderId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToRetrieveSalesTaxAdjustments",locale));
         }
@@ -1446,7 +1446,7 @@ public class OrderServices {
         Iterator otait = UtilMisc.toIterator(orderTaxAdjustments);
         while (otait != null && otait.hasNext()) {
             GenericValue orderTaxAdjustment = (GenericValue) otait.next();
-            if ( orderTaxAdjustment.get("amount") != null) {
+            if (orderTaxAdjustment.get("amount") != null) {
                 totalExistingOrderTax = totalExistingOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
             }
         }
@@ -1557,7 +1557,7 @@ public class OrderServices {
                         Iterator oai = orderAdj.iterator();
                         while (oai.hasNext()) {
                             GenericValue oa = (GenericValue) oai.next();
-                            if ( oa.get("amount") != null) {
+                            if (oa.get("amount") != null) {
                                 totalNewOrderTax = totalNewOrderTax.add(oa.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                             }
 
@@ -1572,7 +1572,7 @@ public class OrderServices {
                             Iterator ida = itemAdjustments.iterator();
                             while (ida.hasNext()) {
                                 GenericValue ia = (GenericValue) ida.next();
-                                if ( ia.get("amount") != null) {
+                                if (ia.get("amount") != null) {
                                     totalNewOrderTax = totalNewOrderTax.add(ia.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                                 }
                             }
@@ -1597,7 +1597,7 @@ public class OrderServices {
                 Map createOrderAdjResponse = null;
                 try {
                     createOrderAdjResponse = dispatcher.runSync("createOrderAdjustment", createOrderAdjContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     String createOrderAdjErrMsg = UtilProperties.getMessage(resource_error, "OrderErrorCallingCreateOrderAdjustmentService", locale);
                     Debug.logError(createOrderAdjErrMsg, module);
                     return ServiceUtil.returnError(createOrderAdjErrMsg);
@@ -2419,7 +2419,7 @@ public class OrderServices {
         uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
         Map bodyParameters = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", placingUserLogin, "uiLabelMap", uiLabelMap, "locale", locale);
-        if ( placingParty!= null) {
+        if (placingParty!= null) {
             bodyParameters.put("partyId", placingParty.get("partyId"));
         }
         bodyParameters.put("note", note);
@@ -2795,7 +2795,7 @@ public class OrderServices {
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
-        );
+       );
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
 
         // get the orders
@@ -4351,7 +4351,7 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List orderIds = (List) context.get("orderIdList");
 
-        for (Object orderId : orderIds){
+        for (Object orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4635,7 +4635,7 @@ public class OrderServices {
             // the original method did a "\d+" regexp to decide which is the case, this version is more explicit with its lookup of PaymentMethodType
             if (checkOutPaymentId != null) {
                 List paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, null, null, true);
-                for (Iterator iter = paymentMethodTypes.iterator(); iter.hasNext(); ) {
+                for (Iterator iter = paymentMethodTypes.iterator(); iter.hasNext();) {
                     GenericValue type = (GenericValue) iter.next();
                     if (type.get("paymentMethodTypeId").equals(checkOutPaymentId)) {
                         paymentMethodTypeId = (String) type.get("paymentMethodTypeId");
@@ -4715,7 +4715,7 @@ public class OrderServices {
 
                 // Get the cancelled quantity for the item
                 BigDecimal orderItemCancelQuantity = BigDecimal.ZERO;
-                if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity")) ) {
+                if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity"))) {
                     orderItemCancelQuantity = orderItem.getBigDecimal("cancelQuantity");
                 }
 
@@ -4791,7 +4791,7 @@ public class OrderServices {
                     orderItemQuantity = orderItem.getBigDecimal("quantity");
                 }
                 BigDecimal orderItemCancelQuantity = BigDecimal.ZERO;
-                if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity")) ) {
+                if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity"))) {
                     orderItemCancelQuantity = orderItem.getBigDecimal("cancelQuantity");
                 }
 
@@ -4801,7 +4801,7 @@ public class OrderServices {
                 Iterator srit = shipmentReceipts.iterator();
                 while (srit.hasNext()) {
                     GenericValue shipmentReceipt = (GenericValue) srit.next();
-                    if (! UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted")) ) {
+                    if (! UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted"))) {
                         receivedQuantity = receivedQuantity.add(shipmentReceipt.getBigDecimal("quantityAccepted"));
                     }
                 }
@@ -5335,7 +5335,7 @@ public class OrderServices {
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productAssocTypeId", "ALSO_BOUGHT"),
                     EntityCondition.makeConditionDate("fromDate", "thruDate")
-            ));
+           ));
             try {
                 delegator.storeByCondition("ProductAssoc", UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp()), cond);
             } catch (GenericEntityException e) {
@@ -5406,8 +5406,8 @@ public class OrderServices {
                                 EntityCondition.makeCondition("productAssocTypeId", "ALSO_BOUGHT"),
                                 EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
                                 EntityCondition.makeCondition("thruDate", null)
-                        )
-                );
+                       )
+               );
                 GenericValue existingProductAssoc = null;
                 try {
                     // No point in using the cache because of the filterByDateExpr

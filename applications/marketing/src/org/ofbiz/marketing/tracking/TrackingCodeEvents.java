@@ -260,7 +260,7 @@ public class TrackingCodeEvents {
                 }
             }
 
-            if ( visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId)) ) {
+            if (visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId))) {
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId" ,siteId);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
@@ -499,7 +499,7 @@ public class TrackingCodeEvents {
             GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder",
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"),
                     "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
-                    "hasExported", "N", "affiliateReferredTimeStamp",affiliateReferredTimeStamp ));
+                    "hasExported", "N", "affiliateReferredTimeStamp",affiliateReferredTimeStamp));
 
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, module);
             trackingCodeOrders.add(trackingCodeOrder);

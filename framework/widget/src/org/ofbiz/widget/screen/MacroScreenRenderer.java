@@ -281,7 +281,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
-        if ( image == null)
+        if (image == null)
             return ;
         String src = image.getSrc(context);
         String id = image.getId(context);

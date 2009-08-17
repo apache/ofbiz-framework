@@ -61,9 +61,9 @@ public class JythonRunner {
             String scriptText = TestUtils.readUrlText(this.urlName);
             interp.set("context", map);
             interp.exec(scriptText);
-        } catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             System.out.println("Scriptrunner, runTest, MalformedURLException error: " + e.getMessage());
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Scriptrunner, runTest, IOException error: " + e.getMessage());
         }
         

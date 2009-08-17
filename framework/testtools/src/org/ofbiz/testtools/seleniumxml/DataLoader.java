@@ -87,7 +87,7 @@ public class DataLoader {
 	private void loadData() {
 
 		int size = this.fieldNames.__len__();
-		for(int i=0; i<size; i++ ) {
+		for(int i=0; i<size; i++) {
 			PyObject name = this.fieldNames.__getitem__(i);
 			PyObject valueList = this.dataList.__getitem__(this.currentRowIndx);
 			PyObject columnIndx = this.fieldNameMap.__getitem__(name);
@@ -105,12 +105,12 @@ public class DataLoader {
 		int iter = Integer.parseInt(this.iterations);
 
 		//Iterate through entire list of data
-		if(iter == -1) {
+		if (iter == -1) {
 			iter = this.dataList.__len__();
 		}
 
 		this.currentTest = new SeleniumXml(this.parent);
-		for( int i=0; i<iter; i++) {
+		for(int i=0; i<iter; i++) {
 			loadData();
 			currentTest.runCommands(this.children);
 			next();

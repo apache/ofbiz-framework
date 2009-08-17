@@ -241,7 +241,7 @@ public class GoogleCheckoutHelper {
 
         // handle the adjustments
         OrderAdjustment adjustment = info.getOrderAdjustment();
-        if (adjustment != null){
+        if (adjustment != null) {
             addAdjustments(cart, adjustment);
             // ship group info
             Shipping shipping = info.getOrderAdjustment().getShipping();
@@ -501,7 +501,7 @@ public class GoogleCheckoutHelper {
 	
 	protected String getAddressType(int addrType) {
 	    String contactMechPurposeTypeId = "GENERAL_LOCATION";
-        switch(addrType) {
+        switch (addrType) {
             case SHIPPING_ADDRESS:
                 contactMechPurposeTypeId = "SHIPPING_LOCATION";
                 break;

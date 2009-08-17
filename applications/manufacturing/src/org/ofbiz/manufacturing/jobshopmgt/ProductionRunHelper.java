@@ -55,7 +55,7 @@ public class ProductionRunHelper {
         //        Timestamp now = UtilDateTime.nowTimestamp();
 
         try {
-            if (productionRunId != null ) {
+            if (productionRunId != null) {
                 GenericValue productionRun = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId));
                 if (productionRun != null) {
                     List productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"),null);

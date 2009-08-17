@@ -139,8 +139,8 @@ public class ContentServices {
             try {
                 Map thisResults = dispatcher.runSync("traverseContent", traversMap);
             String errorMsg = ServiceUtil.getErrorMessage(thisResults);
-            if (UtilValidate.isNotEmpty(errorMsg) ) {
-                Debug.logError( "Problem in traverseContent. " + errorMsg, module);
+            if (UtilValidate.isNotEmpty(errorMsg)) {
+                Debug.logError("Problem in traverseContent. " + errorMsg, module);
                 return ServiceUtil.returnError(errorMsg);
             }
             Map nodeMap = (Map)thisResults.get("nodeMap");
@@ -996,8 +996,8 @@ public class ContentServices {
                 if (!isPublished) {
                     //Map thisResults = dispatcher.runSync("deactivateAssocs", mapIn);
                     //String errorMsg = ServiceUtil.getErrorMessage(thisResults);
-                    //if (UtilValidate.isNotEmpty(errorMsg) ) {
-                    //Debug.logError( "Problem running deactivateAssocs. " + errorMsg, "ContentServices");
+                    //if (UtilValidate.isNotEmpty(errorMsg)) {
+                    //Debug.logError("Problem running deactivateAssocs. " + errorMsg, "ContentServices");
                     //return ServiceUtil.returnError(errorMsg);
                     //}
                     content.put("privilegeEnumId", privilegeEnumId);
@@ -1113,7 +1113,7 @@ public class ContentServices {
                 Map.Entry entry = (Map.Entry)iter.next();
                 String key = (String)entry.getKey();
                 Object value = entry.getValue();
-                if (value instanceof String ) {
+                if (value instanceof String) {
                     if (UtilValidate.isNotEmpty((String)value)) {
                         mapFiltered.put(key, value);
                     }
@@ -1122,7 +1122,7 @@ public class ContentServices {
                 }
             }
             String outputString = UtilHttp.urlEncodeArgs(mapFiltered);
-            result.put("outputString", outputString );
+            result.put("outputString", outputString);
         }
         return result;
     }

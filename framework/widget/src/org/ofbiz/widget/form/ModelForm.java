@@ -314,7 +314,7 @@ public class ModelForm extends ModelWidget {
             this.type = formElement.getAttribute("type");
         }
         if (this.target == null || formElement.hasAttribute("target")) {
-            setTarget( formElement.getAttribute("target") );
+            setTarget(formElement.getAttribute("target"));
         }
         if (this.targetWindowExdr == null || formElement.hasAttribute("target-window")) {
             setTargetWindow(formElement.getAttribute("target-window"));
@@ -930,7 +930,7 @@ public class ModelForm extends ModelWidget {
                 }
                 currentFieldGroupName = currentFieldGroup.getId();
 
-                if (lastFieldGroup != null ) {
+                if (lastFieldGroup != null) {
                     lastFieldGroupName = lastFieldGroup.getId();
                     if (!lastFieldGroupName.equals(currentFieldGroupName)) {
                         lastFieldGroup.renderEndString(writer, context, formStringRenderer);
@@ -2294,7 +2294,7 @@ public class ModelForm extends ModelWidget {
         return this.targetWindowExdr.expandString(context);
     }
 
-    public void setTargetWindow( String val ) {
+    public void setTargetWindow(String val) {
         this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
     }
 
@@ -2732,7 +2732,7 @@ public class ModelForm extends ModelWidget {
             return this.id;
         }
 
-        public void setId( String id) {
+        public void setId(String id) {
             this.id = id;
         }
 

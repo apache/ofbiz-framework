@@ -183,7 +183,7 @@ public class ProductEvents {
             Map<String, String> messageMap = UtilMisc.toMap("numProds", Integer.toString(numProds));
             messageMap.put("errProds", Integer.toString(errProds));
             errMsg = UtilProperties.getMessage(resource,"productevents.keyword_creation_complete_for_products_with_errors", messageMap, UtilHttp.getLocale(request));
-            request.setAttribute( "_ERROR_MESSAGE_", errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
     }

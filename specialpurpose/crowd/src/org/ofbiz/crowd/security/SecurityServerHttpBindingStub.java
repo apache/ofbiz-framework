@@ -42,7 +42,7 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
         _initOperationDesc5();
     }
 
-    private static void _initOperationDesc1(){
+    private static void _initOperationDesc1() {
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
@@ -62,13 +62,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -89,25 +89,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidGroupException"),
                       "com.atlassian.crowd.integration.exception.InvalidGroupException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidGroupException"), 
                       true
-                     ));
+                    ));
         _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -129,25 +129,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -168,19 +168,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidTokenException"),
                       "com.atlassian.crowd.integration.exception.InvalidTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[3] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -202,31 +202,31 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidCredentialException"),
                       "com.atlassian.crowd.integration.exception.InvalidCredentialException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidCredentialException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[4] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -246,13 +246,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -276,31 +276,31 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidCredentialException"),
                       "com.atlassian.crowd.integration.exception.InvalidCredentialException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidCredentialException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidPrincipalException"),
                       "com.atlassian.crowd.integration.exception.InvalidPrincipalException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidPrincipalException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         _operations[6] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -322,25 +322,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[7] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -359,13 +359,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[8] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -385,18 +385,18 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[9] = oper;
 
     }
 
-    private static void _initOperationDesc2(){
+    private static void _initOperationDesc2() {
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
@@ -419,19 +419,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[10] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -450,25 +450,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[11] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -493,19 +493,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationAccessDeniedException"),
                       "com.atlassian.crowd.integration.exception.ApplicationAccessDeniedException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationAccessDeniedException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[12] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -529,31 +529,31 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidAuthenticationException"),
                       "com.atlassian.crowd.integration.exception.InvalidAuthenticationException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthenticationException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationAccessDeniedException"),
                       "com.atlassian.crowd.integration.exception.ApplicationAccessDeniedException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationAccessDeniedException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InactiveAccountException"),
                       "com.atlassian.crowd.integration.exception.InactiveAccountException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InactiveAccountException"), 
                       true
-                     ));
+                    ));
         _operations[13] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -572,25 +572,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[14] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -608,13 +608,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[15] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -636,25 +636,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[16] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -678,13 +678,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[17] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -702,13 +702,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[18] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -732,18 +732,18 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[19] = oper;
 
     }
 
-    private static void _initOperationDesc3(){
+    private static void _initOperationDesc3() {
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
@@ -767,25 +767,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[20] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -805,13 +805,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[21] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -832,19 +832,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[22] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -862,13 +862,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[23] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -889,19 +889,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[24] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -923,25 +923,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[25] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -962,31 +962,31 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidAuthenticationException"),
                       "com.atlassian.crowd.integration.exception.InvalidAuthenticationException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthenticationException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationAccessDeniedException"),
                       "com.atlassian.crowd.integration.exception.ApplicationAccessDeniedException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationAccessDeniedException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InactiveAccountException"),
                       "com.atlassian.crowd.integration.exception.InactiveAccountException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InactiveAccountException"), 
                       true
-                     ));
+                    ));
         _operations[26] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1009,19 +1009,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[27] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1043,25 +1043,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[28] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1080,30 +1080,30 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[29] = oper;
 
     }
 
-    private static void _initOperationDesc4(){
+    private static void _initOperationDesc4() {
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
@@ -1125,25 +1125,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[30] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1163,13 +1163,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[31] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1190,25 +1190,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidRoleException"),
                       "com.atlassian.crowd.integration.exception.InvalidRoleException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidRoleException"), 
                       true
-                     ));
+                    ));
         _operations[32] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1233,31 +1233,31 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidAuthenticationException"),
                       "com.atlassian.crowd.integration.exception.InvalidAuthenticationException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthenticationException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationAccessDeniedException"),
                       "com.atlassian.crowd.integration.exception.ApplicationAccessDeniedException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationAccessDeniedException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InactiveAccountException"),
                       "com.atlassian.crowd.integration.exception.InactiveAccountException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InactiveAccountException"), 
                       true
-                     ));
+                    ));
         _operations[33] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1281,13 +1281,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[34] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1309,25 +1309,25 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[35] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1348,19 +1348,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[36] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1379,31 +1379,31 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidCredentialException"),
                       "com.atlassian.crowd.integration.exception.InvalidCredentialException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidCredentialException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ApplicationPermissionException"),
                       "com.atlassian.crowd.integration.exception.ApplicationPermissionException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ApplicationPermissionException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "ObjectNotFoundException"),
                       "com.atlassian.crowd.integration.exception.ObjectNotFoundException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "ObjectNotFoundException"), 
                       true
-                     ));
+                    ));
         _operations[37] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1427,13 +1427,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[38] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1457,18 +1457,18 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[39] = oper;
 
     }
 
-    private static void _initOperationDesc5(){
+    private static void _initOperationDesc5() {
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
@@ -1486,13 +1486,13 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[40] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
@@ -1510,19 +1510,19 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                       "com.atlassian.crowd.integration.exception.InvalidAuthorizationTokenException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthorizationTokenException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "InvalidAuthenticationException"),
                       "com.atlassian.crowd.integration.exception.InvalidAuthenticationException",
                       new javax.xml.namespace.QName("http://exception.integration.crowd.atlassian.com", "InvalidAuthenticationException"), 
                       true
-                     ));
+                    ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("urn:SecurityServer", "RemoteException"),
                       "java.rmi.RemoteException",
                       new javax.xml.namespace.QName("http://rmi.java", "RemoteException"), 
                       true
-                     ));
+                    ));
         _operations[41] = oper;
 
     }

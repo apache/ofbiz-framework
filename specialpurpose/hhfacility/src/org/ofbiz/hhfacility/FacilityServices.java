@@ -87,10 +87,10 @@ public class FacilityServices {
         Iterator invItemListIter = invItemList.iterator();
         while (invItemListIter.hasNext()) {
             GenericValue invItem = (GenericValue)invItemListIter.next();
-            if ( invItem != null) {
+            if (invItem != null) {
                 int qoh = ((Double)invItem.get("quantityOnHandTotal")).intValue();
 
-                if ( qoh < 0 ) {
+                if (qoh < 0) {
                     // Got a negative qoh so lets balance if off to zero.
                     Map contextInput = UtilMisc.toMap("userLogin", userLogin, "inventoryItemId", invItem.get("inventoryItemId"),
                             "varianceReasonId", "VAR_LOST", "availableToPromiseVar", new Double(qoh*-1),
@@ -117,12 +117,12 @@ public class FacilityServices {
         String locationSeqId = (String) context.get("locationSeqId");
         String locationSeqIdNew = (String) context.get("locationSeqIdNew");
         Double quantity = (Double) context.get("quantity");
-        if ( UtilValidate.isEmpty(productId) || UtilValidate.isEmpty(facilityId) ) {
+        if (UtilValidate.isEmpty(productId) || UtilValidate.isEmpty(facilityId)) {
             return ServiceUtil.returnError("productId or facilityId not found");
         }
 
         // First identify the location and get a list of inventoryItemIds for that location.
-        if ( UtilValidate.isEmpty(locationSeqId) ) {
+        if (UtilValidate.isEmpty(locationSeqId)) {
             // Assume this is the null field version
             locationSeqId = "nullField";
         }
@@ -138,7 +138,7 @@ public class FacilityServices {
         }
         int atp = ((Double)invAvailability.get("availableToPromiseTotal")).intValue();
         int qoh = ((Double)invAvailability.get("quantityOnHandTotal")).intValue();
-        if ( quantity.intValue() == qoh ) {
+        if (quantity.intValue() == qoh) {
             // No change required.
             Debug.logInfo("updateProductStocktake No change required quantity("+quantity+") = qoh("+qoh+")", module);
             return ServiceUtil.returnSuccess();
@@ -159,7 +159,7 @@ public class FacilityServices {
             GenericValue invItem = (GenericValue)invItemListIter.next();
             String locationFound = invItem.getString("locationSeqId");
             Debug.logInfo("updateProductStocktake: InvItemId("+invItem.getString("inventoryItemId")+")", module);
-            if ( locationFound == null ) {
+            if (locationFound == null) {
                 locationFound = "nullField";
             }
         }

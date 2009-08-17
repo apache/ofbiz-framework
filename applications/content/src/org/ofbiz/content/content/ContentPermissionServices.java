@@ -193,12 +193,12 @@ public class ContentPermissionServices {
             results.put("permissionStatus", "granted");
             permissionStatus = "granted";
             if (displayPassCond) {
-                 errBuf.append("\n    hasEntityPermission(" + entityAction + "): PASSED" );
+                 errBuf.append("\n    hasEntityPermission(" + entityAction + "): PASSED");
             }
 
         } else {
             if (displayFailCond) {
-                 errBuf.append("\n    hasEntityPermission(" + entityAction + "): FAILED" );
+                 errBuf.append("\n    hasEntityPermission(" + entityAction + "): FAILED");
             }
 
             if (content != null)
@@ -219,7 +219,7 @@ public class ContentPermissionServices {
                 ServiceUtil.returnError(e.getMessage());
             }
             permissionStatus = (String)results.get("permissionStatus");
-            errBuf.append("\n    permissionStatus:" );
+            errBuf.append("\n    permissionStatus:");
             errBuf.append(permissionStatus);
         }
 
@@ -228,24 +228,24 @@ public class ContentPermissionServices {
             // Don't show this if passed on 'hasEntityPermission'
             if (displayFailCond || displayPassCond) {
               if (!passed) {
-                 errBuf.append("\n    targetOperations:" );
+                 errBuf.append("\n    targetOperations:");
                  errBuf.append(targetOperations);
 
                  String errMsg = permCondGetter.dumpAsText();
-                 errBuf.append("\n" );
+                 errBuf.append("\n");
                  errBuf.append(errMsg);
-                 errBuf.append("\n    partyId:" );
+                 errBuf.append("\n    partyId:");
                  errBuf.append(partyId);
-                 errBuf.append("\n    entityIds:" );
+                 errBuf.append("\n    entityIds:");
                  errBuf.append(entityIds);
 
                  if (auxGetter != null) {
-                     errBuf.append("\n    auxList:" );
+                     errBuf.append("\n    auxList:");
                      errBuf.append(auxGetter.getList());
                  }
 
                  if (roleGetter != null) {
-                     errBuf.append("\n    roleList:" );
+                     errBuf.append("\n    roleList:");
                      errBuf.append(roleGetter.getList());
                  }
               }
@@ -275,8 +275,8 @@ public class ContentPermissionServices {
         GenericValue contentTo = null;
         GenericValue contentFrom = null;
         try {
-            contentTo = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo) );
-            contentFrom = delegator.findByPrimaryKeyCache("Content",  UtilMisc.toMap("contentId", contentIdFrom) );
+            contentTo = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo));
+            contentFrom = delegator.findByPrimaryKeyCache("Content",  UtilMisc.toMap("contentId", contentIdFrom));
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Error in retrieving content To or From. " + e.getMessage());
         }
@@ -310,7 +310,7 @@ public class ContentPermissionServices {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }
             permissionStatus = (String)permResults.get("permissionStatus");
-            if (permissionStatus == null || !permissionStatus.equals("granted") ) {
+            if (permissionStatus == null || !permissionStatus.equals("granted")) {
                 if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
                      String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
                      results.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -326,7 +326,7 @@ public class ContentPermissionServices {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }
             permissionStatus = (String)permResults.get("permissionStatus");
-            if (permissionStatus != null && permissionStatus.equals("granted") ) {
+            if (permissionStatus != null && permissionStatus.equals("granted")) {
                 results.put("permissionStatus", "granted");
             } else {
                 if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {

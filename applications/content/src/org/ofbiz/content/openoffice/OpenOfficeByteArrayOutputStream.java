@@ -49,7 +49,7 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
       {
           try {
               write(buf);
-          } catch ( java.io.IOException e ) {
+          } catch (java.io.IOException e) {
               throw(new com.sun.star.io.IOException(e.getMessage()));
           }
       }
@@ -59,7 +59,7 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
           try {
               super.flush();
               close();
-          } catch ( java.io.IOException e ) {
+          } catch (java.io.IOException e) {
               throw(new com.sun.star.io.IOException(e.getMessage()));
           }
       }
@@ -68,7 +68,7 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
       {
           try {
               super.flush();
-          } catch ( java.io.IOException e ) {
+          } catch (java.io.IOException e) {
           }
       }
 

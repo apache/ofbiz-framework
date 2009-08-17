@@ -360,7 +360,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
         if (listSize > 0) {
             writer.append("<li>");
-            writer.append(Integer.toString(lowIndex + 1)).append(" - ").append(Integer.toString(lowIndex + actualPageSize )).append(" ").append(ofLabel).append(" ").append(Integer.toString(listSize));
+            writer.append(Integer.toString(lowIndex + 1)).append(" - ").append(Integer.toString(lowIndex + actualPageSize)).append(" ").append(ofLabel).append(" ").append(Integer.toString(listSize));
             writer.append("</li>");
             appendWhitespace(writer);
         }
@@ -437,7 +437,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         // open tag
         String style = label.getStyle(context);
         String id = label.getId(context);
-        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) ) {
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id)) {
                writer.append("<span");
 
             if (UtilValidate.isNotEmpty(id)) {

@@ -226,7 +226,7 @@ public class OagisShipmentServices {
                 String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
                 if (UtilValidate.isNotEmpty(carrierCode)) {
                     String carrierPartyId = null;
-                    if ( carrierCode.startsWith("F") || carrierCode.startsWith("f")) {
+                    if (carrierCode.startsWith("F") || carrierCode.startsWith("f")) {
                         carrierPartyId = "FEDEX";
                     } else if (carrierCode.startsWith("U")|| carrierCode.startsWith("u")) {
                         carrierPartyId = "UPS";
@@ -810,7 +810,7 @@ public class OagisShipmentServices {
             EntityCondition findShipmentCondition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED")
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             List shipmentList = delegator.findList("Shipment", findShipmentCondition, null, null, null, false);
             GenericValue shipment = EntityUtil.getFirst(shipmentList);
 

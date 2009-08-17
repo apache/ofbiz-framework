@@ -1179,7 +1179,7 @@ public class UtilHttp {
 
         // collect the composite fields into a map
         Map<String, String> data = FastMap.newInstance();
-        for (Enumeration names = request.getParameterNames(); names.hasMoreElements(); ) {
+        for (Enumeration names = request.getParameterNames(); names.hasMoreElements();) {
             String name = (String) names.nextElement();
             if (!name.startsWith(prefix + COMPOSITE_DELIMITER)) continue;
 

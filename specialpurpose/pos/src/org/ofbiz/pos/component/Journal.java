@@ -75,7 +75,7 @@ public class Journal {
         // some settings needed for XUI 3.2rc2b update
         jtable.setRowHeight(30); // Better to catch the line on a touch screen (minimal height I think)
         XStyle style = currentProject.getStyleManager().getStyle("journalBorder");
-        Color borderColor = style.getStyleAsColor(XStyle.COLOR_FORE );
+        Color borderColor = style.getStyleAsColor(XStyle.COLOR_FORE);
         jtable.setGridColor(borderColor); // jtable.setBorderStyle("journalBorder"); above is not working anymore
         style = currentProject.getStyleManager().getStyle("journalData");
         Color backgoundColor = style.getStyleAsColor(XStyle.COLOR_BACK);
@@ -201,7 +201,7 @@ public class Journal {
     private String getModelText(XModel model)
     {
         StringWriter sw = new StringWriter();
-        XDataSource.outputModel( sw, model );
+        XDataSource.outputModel(sw, model);
         return "<Datasets>" + sw.toString() + "</Datasets>";
     }
 }

@@ -43,22 +43,22 @@ public class XFocusDialog extends XDialog {
 //        SwingUtilities.invokeLater(
 //            new Runnable() {
 //                public void run() {
-//                    Debug.logInfo( "isEditable in setFocus :" + m_focused.isEditable(), "======================================" );
-//                    Debug.logInfo( "isEnabled in setFocus: " + m_focused.isEnabled(), "======================================" );
-//                    Debug.logInfo( "isFocusable in setFocus :" + m_focused.isFocusable(), "======================================" );
+//                    Debug.logInfo("isEditable in setFocus :" + m_focused.isEditable(), "======================================");
+//                    Debug.logInfo("isEnabled in setFocus: " + m_focused.isEnabled(), "======================================");
+//                    Debug.logInfo("isFocusable in setFocus :" + m_focused.isFocusable(), "======================================");
 //                    m_focused.requestFocusInWindow();
 //                }
 //            }
-//        );
+//       );
 //    }
 //
 //    /**
 //     * @param m_focused the m_focused to set
 //     */
 //    public void setM_focused(XEdit focused) {
-//        Debug.logInfo( "isEditable in setM_focused :" + focused.isEditable(), "======================================" );
-//        Debug.logInfo( "isEnabled in setM_focused :" + focused.isEnabled(), "======================================" );
-//        Debug.logInfo( "isFocusable in setM_focused :" + focused.isFocusable(), "======================================" );
+//        Debug.logInfo("isEditable in setM_focused :" + focused.isEditable(), "======================================");
+//        Debug.logInfo("isEnabled in setM_focused :" + focused.isEnabled(), "======================================");
+//        Debug.logInfo("isFocusable in setM_focused :" + focused.isFocusable(), "======================================");
 //        this.m_focused = focused;
 //    }
 }

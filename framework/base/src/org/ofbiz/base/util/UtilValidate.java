@@ -354,7 +354,7 @@ public class UtilValidate {
         // if (isSignedInteger.arguments.length > 1) secondArg = isSignedInteger.arguments[1];
 
         // skip leading + or -
-        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+") ) startPos = 1;
+        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+")) startPos = 1;
         // return(isInteger(s.substring(startPos, s.length), secondArg))
     }
 
@@ -387,7 +387,7 @@ public class UtilValidate {
         }
 
         // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) > 0) ) );
+        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) > 0)));
     }
 
     /** Returns true if string s is an integer >= 0. */
@@ -404,7 +404,7 @@ public class UtilValidate {
         }
 
         // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) >= 0) ) );
+        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) >= 0)));
     }
 
     /** Returns true if string s is an integer < 0. */
@@ -421,7 +421,7 @@ public class UtilValidate {
         }
 
         // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) < 0) ) );
+        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) < 0)));
     }
 
     /** Returns true if string s is an integer <= 0. */
@@ -438,7 +438,7 @@ public class UtilValidate {
         }
 
         // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) <= 0) ) );
+        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) <= 0)));
     }
 
     /** True if string s is an unsigned floating point(real) number.
@@ -547,7 +547,7 @@ public class UtilValidate {
         // int startPos = 0;
         // if (isSignedFloat.arguments.length > 1) secondArg = isSignedFloat.arguments[1];
         // skip leading + or -
-        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+") ) startPos = 1;
+        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+")) startPos = 1;
         // return(isFloat(s.substring(startPos, s.length), secondArg))
     }
 

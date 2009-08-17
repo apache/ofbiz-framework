@@ -60,7 +60,7 @@ public class DataLoop {
             // TODO, WARNING - these name could collide with names already in the test context
             Set eSet = mp.entrySet();
             Iterator iter2 = eSet.iterator();
-            while(iter2.hasNext()) {
+            while (iter2.hasNext()) {
                     Map.Entry entry = (Map.Entry)iter2.next();
                     String name = (String)entry.getKey();
                     Object value = entry.getValue();

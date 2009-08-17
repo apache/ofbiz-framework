@@ -516,7 +516,7 @@ public class WeightPackageSession implements Serializable {
             }
             shipCostEstimateMap.put("shippableTotal", shippableTotal);
             shipCostEstimateResult = getDispatcher().runSync("calcShipmentCostEstimate", shipCostEstimateMap);
-        } catch ( GeneralException e ) {
+        } catch (GeneralException e) {
             Debug.logError(e, module);
         }
         if (UtilValidate.isNotEmpty(shipCostEstimateResult.get("shippingEstimateAmount"))) {

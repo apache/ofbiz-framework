@@ -63,9 +63,9 @@ public class GroovyRunner {
             binding.setVariable("context", map);
             binding.setVariable("seleniumXml", this.parent);
             InvokerHelper.createScript(scriptClass, binding).run();
-        } catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             System.out.println("Scriptrunner, runTest, MalformedURLException error: " + e.getMessage());
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Scriptrunner, runTest, IOException error: " + e.getMessage());
         }
         

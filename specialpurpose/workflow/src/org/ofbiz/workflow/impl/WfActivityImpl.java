@@ -720,7 +720,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
             throw new WfException(e.getMessage(), e);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[WfActivity.setLimitService]: Set limit service (" + limitService + " ) to run at " + startTime, module);
+            Debug.logVerbose("[WfActivity.setLimitService]: Set limit service (" + limitService + ") to run at " + startTime, module);
         }
     }
 

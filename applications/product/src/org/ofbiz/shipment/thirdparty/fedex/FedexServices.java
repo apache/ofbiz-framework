@@ -90,7 +90,7 @@ public class FedexServices {
 
         // xmlString should contain the auth document at the beginning
         // all documents require an <?xml version="1.0" encoding="UTF-8" ?> header
-        if (! xmlString.matches( "^(?s)<\\?xml\\s+version=\"1\\.0\"\\s+encoding=\"UTF-8\"\\s*\\?>.*")) {
+        if (! xmlString.matches("^(?s)<\\?xml\\s+version=\"1\\.0\"\\s+encoding=\"UTF-8\"\\s*\\?>.*")) {
             throw new FedexConnectException("XML header is malformed");
         }
 
@@ -115,7 +115,7 @@ public class FedexServices {
         String response = null;
         try {
             response = http.post(xmlString);
-        } catch ( HttpClientException e) {
+        } catch (HttpClientException e) {
             Debug.logError(e, "Problem connecting to Fedex server", module);
             throw new FedexConnectException("URL Connection problem", e);
         }
@@ -133,7 +133,7 @@ public class FedexServices {
     /*
     * Register a Fedex account for shipping by obtaining the meter number
     */
-    public static Map<String, Object> fedexSubscriptionRequest( DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> fedexSubscriptionRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         List<Object> errorList = FastList.newInstance();
 
@@ -332,11 +332,11 @@ public class FedexServices {
             try {
                 fDXSubscriptionReplyDocument = UtilXml.readXmlDocument(fDXSubscriptionReplyString, false);
                 Debug.log("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString);
-            } catch ( SAXException se) {
+            } catch (SAXException se) {
                 String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + se.toString();
                 Debug.logError(se, errorMessage, module);
                 return ServiceUtil.returnError(errorMessage);
-            } catch ( ParserConfigurationException pce) {
+            } catch (ParserConfigurationException pce) {
                 String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + pce.toString();
                 Debug.logError(pce, errorMessage, module);
                 return ServiceUtil.returnError(errorMessage);
@@ -357,7 +357,7 @@ public class FedexServices {
 
             result.put("meterNumber", meterNumber);
 
-        } catch ( GenericEntityException e ) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -369,7 +369,7 @@ public class FedexServices {
      *
      * Send a FDXShipRequest via the Ship Manager Direct API
      */
-    public static Map<String, Object> fedexShipRequest( DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> fedexShipRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -530,7 +530,7 @@ public class FedexServices {
             String originContactKey = "PERSON".equals(partyFrom.getString("partyTypeId")) ? "OriginContactPersonName" : "OriginContactCompanyName";
             String originContactName = PartyHelper.getPartyName(partyFrom, false);
             if (UtilValidate.isEmpty(originContactName)) {
-                return ServiceUtil.returnError("partyIdFrom for shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " has no name (required for Fedex shipments)" );
+                return ServiceUtil.returnError("partyIdFrom for shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " has no name (required for Fedex shipments)");
             }
 
             // Get and validate destination postal address
@@ -581,7 +581,7 @@ public class FedexServices {
             String destinationContactKey = "PERSON".equals(partyTo.getString("partyTypeId")) ? "DestinationContactPersonName" : "DestinationContactCompanyName";
             String destinationContactName = PartyHelper.getPartyName(partyTo, false);
             if (UtilValidate.isEmpty(destinationContactName)) {
-                return ServiceUtil.returnError("partyTo for shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " has no name (required for Fedex shipments)" );
+                return ServiceUtil.returnError("partyTo for shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " has no name (required for Fedex shipments)");
             }
 
             String homeDeliveryType = null;
@@ -808,7 +808,7 @@ public class FedexServices {
                 if (UtilValidate.isNotEmpty(dimensionsUomId) &&
                     dimensionsLength != null && dimensionsLength.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0 &&
                     dimensionsWidth != null && dimensionsWidth.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0   &&
-                    dimensionsHeight != null && dimensionsHeight.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0 ) {
+                    dimensionsHeight != null && dimensionsHeight.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
                         shipRequestContext.put("DimensionsUnits", dimensionsUomId.equals("LEN_in") ? "IN" : "CM");
                         shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
                         shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
@@ -843,10 +843,10 @@ public class FedexServices {
             // Pass the reply to the handler method
             return handleFedexShipReply(fDXShipReplyString, shipmentRouteSegment, shipmentPackageRouteSegs);
 
-        } catch ( GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error in fedexShipRequest service: " + e.toString());
-        } catch ( GenericServiceException se) {
+        } catch (GenericServiceException se) {
             Debug.logError(se, module);
             return ServiceUtil.returnError("Error in fedexShipRequest service: " + se.toString());
         }
@@ -939,7 +939,7 @@ public class FedexServices {
             Element errorMessageElement = UtilXml.firstChildElement(errorElement, "Message");
             if (errorCodeElement != null || errorMessageElement != null) {
                 String errorCode = UtilXml.childElementValue(errorElement, "Code");
-                String errorMessage = UtilXml.childElementValue( errorElement, "Message");
+                String errorMessage = UtilXml.childElementValue(errorElement, "Message");
                 if (UtilValidate.isNotEmpty(errorCode) || UtilValidate.isNotEmpty(errorMessage)) {
                     String errMsg = "An error occurred [code: " + errorCode + " [Description: " + errorMessage + "].";
                     errorList.add(errMsg);

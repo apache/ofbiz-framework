@@ -293,7 +293,7 @@ public class ShippingEvents {
                 serviceName = null;
             }
         }
-        if (( serviceName != null)) {
+        if ((serviceName != null)) {
             String configProps = storeShipMeth.getString("configProps");
             if (UtilValidate.isNotEmpty(serviceName)) {
                 // prepare the external service context
@@ -335,7 +335,7 @@ public class ShippingEvents {
                 EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION", "GENERAL_LOCATION")),
                 EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"),
                 EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate")
-        );
+       );
         EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
 
         List<GenericValue> addresses = delegator.findList("PartyContactWithPurpose", ecl, null, UtilMisc.toList("contactMechPurposeTypeId DESC"), null, false);

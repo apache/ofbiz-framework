@@ -443,7 +443,7 @@ public class PayPalServices {
                     EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityComparisonOperator.EQUALS, EntityFunction.UPPER(emailAddress)),
                     EntityUtil.getFilterByDateExpr()
 
-            ));
+           ));
             try {
                 GenericValue matchingEmail = EntityUtil.getFirst(delegator.findList("PartyAndContactMech", cond, null, UtilMisc.toList("fromDate"), null, false));
                 if (matchingEmail != null) {
@@ -527,7 +527,7 @@ public class PayPalServices {
                     EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null,"postalCodeGeoId", null)),
                     EntityUtil.getFilterByDateExpr(),
                     EntityCondition.makeCondition("partyId", partyId)
-            ));
+           ));
             try {
                 GenericValue postalMatch = EntityUtil.getFirst(delegator.findList("PartyAndPostalAddress", cond, null, UtilMisc.toList("fromDate"), null, false));
                 if (postalMatch != null) {
@@ -535,7 +535,7 @@ public class PayPalServices {
                     EntityCondition purposeCond = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition(UtilMisc.toMap("partyId", partyId, "contactMechId", postalContactId)),
                             EntityUtil.getFilterByDateExpr()
-                    ));
+                   ));
                     List<GenericValue> postalPurposes = delegator.findList("PartyContactMechPurpose", purposeCond, null, null, null, false);
                     List<Object> purposeStrings = EntityUtil.getFieldListFromEntityList(postalPurposes, "contactMechPurposeTypeId", false);
                     if (UtilValidate.isNotEmpty(purposeStrings) && purposeStrings.contains("SHIPPING_LOCATION")) {
@@ -593,7 +593,7 @@ public class PayPalServices {
             try {
                 EntityCondition cond = EntityCondition.makeCondition(
                         UtilMisc.toMap("productStoreId", cart.getProductStoreId(), "partyId", shipMethodSplit[0], "roleTypeId", "CARRIER", "description", shippingMethodTypeDesc)
-                );
+               );
                 GenericValue shipmentMethod = EntityUtil.getFirst(delegator.findList("ProductStoreShipmentMethView", cond, null, null, null, false));
                 cart.setShipmentMethodTypeId(shipmentMethod.getString("shipmentMethodTypeId"));
             } catch (GenericEntityException e1) {

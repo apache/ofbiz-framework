@@ -158,7 +158,7 @@ public class EntityTestSuite extends EntityTestCase {
             GenericValue testing = delegator.makeValue("Testing",
                             "testingId", delegator.getNextSeqId("Testing"),
                             "testingTypeId", "TEST-1"
-                    );
+                   );
             testing.put("testingName", "leaf-#" + node.getString("testingNodeId"));
             testing.put("description", "level1 leaf");
             testing.put("comments", "No-comments");
@@ -169,7 +169,7 @@ public class EntityTestSuite extends EntityTestCase {
             GenericValue member = delegator.makeValue("TestingNodeMember",
                             "testingNodeId", node.get("testingNodeId"),
                             "testingId", testing.get("testingId")
-                    );
+                   );
 
             member.put("fromDate", now);
             member.put("thruDate", UtilDateTime.getNextDayStart(now));

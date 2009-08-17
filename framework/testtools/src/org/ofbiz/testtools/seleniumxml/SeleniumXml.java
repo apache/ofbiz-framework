@@ -65,7 +65,7 @@ public class SeleniumXml {
     private String password;
 	
 	public static void main(String[] args) throws JDOMException, IOException{
-		if(args.length == 0) {
+		if (args.length == 0) {
 			System.out.println("Please include a path for the selenium XML test file.");
 		} else {
             SeleniumXml sel = new SeleniumXml();
@@ -132,81 +132,81 @@ public class SeleniumXml {
 		runCommands();
 	}
 
-	public void runCommands(){
+	public void runCommands() {
 		Element root = this.doc.getRootElement();
 		List<Element> nodes = root.getChildren();
 		runCommands(nodes);
 	}
 	
-	public void runCommands(List<Element> nodes){
+	public void runCommands(List<Element> nodes) {
 		
 		for(Element elem: nodes) {
-			if("type" == elem.getName()) {
+			if ("type" == elem.getName()) {
 				typeCmd(elem);
 				
-			} else if("clickAt" == elem.getName()) {
+			} else if ("clickAt" == elem.getName()) {
 				clickAt(elem);
-			} else if("waitForValue" == elem.getName()) {
+			} else if ("waitForValue" == elem.getName()) {
 				waitForValue(elem);
-			} else if("waitForCondition" == elem.getName()) {
+			} else if ("waitForCondition" == elem.getName()) {
 				waitForCondition(elem);
-			} else if("loadData" == elem.getName()) {
+			} else if ("loadData" == elem.getName()) {
 				loadData(elem);
-            } else if("loadData" == elem.getName()) {
+            } else if ("loadData" == elem.getName()) {
                 loadData(elem);
-            } else if("jythonRunner" == elem.getName()) {
+            } else if ("jythonRunner" == elem.getName()) {
             	jythonRunner(elem);
-            } else if("groovyRunner" == elem.getName()) {
+            } else if ("groovyRunner" == elem.getName()) {
             	groovyRunner(elem);
-            } else if("dataLoop" == elem.getName()) {
+            } else if ("dataLoop" == elem.getName()) {
                 dataLoop(elem);
-            } else if("remoteRequest" == elem.getName()) {
+            } else if ("remoteRequest" == elem.getName()) {
                 remoteRequest(elem);
-			} else if("selectPopup" == elem.getName()) {
+			} else if ("selectPopup" == elem.getName()) {
 				selectPopup(elem);
-			} else if("getAllWindowIds" == elem.getName()) {
+			} else if ("getAllWindowIds" == elem.getName()) {
 				getAllWindowIds(elem);
-			} else if("captureTextInPage" == elem.getName()) {
+			} else if ("captureTextInPage" == elem.getName()) {
 				captureTextInPageCmd(elem);
-			} else if("getSelectedLabel" == elem.getName()) {
+			} else if ("getSelectedLabel" == elem.getName()) {
 				getSelectedLabel(elem);
-			} else if("getSelectedValue" == elem.getName()) {
+			} else if ("getSelectedValue" == elem.getName()) {
 				getSelectedValue(elem);
-			} else if("getSelectedId" == elem.getName()) {
+			} else if ("getSelectedId" == elem.getName()) {
 				getSelectedId(elem);
-			} else if("testcase" == elem.getName()) {
+			} else if ("testcase" == elem.getName()) {
 				testcase(elem);
-			} else if("assertContains" == elem.getName()) {
+			} else if ("assertContains" == elem.getName()) {
 				assertContains(elem);
-			} else if("getHtmlSource" == elem.getName()) {
+			} else if ("getHtmlSource" == elem.getName()) {
 				getHtmlSource(elem);
-			} else if("getBodyText" == elem.getName()) {
+			} else if ("getBodyText" == elem.getName()) {
 				getBodyText(elem);
-			} else if("setup" == elem.getName()) {
+			} else if ("setup" == elem.getName()) {
 				continue; //setup is handled previously
-			} else if("print" == elem.getName()) {
+			} else if ("print" == elem.getName()) {
 				printCmd(elem);
-			} else if("waitForPageToLoad" == elem.getName()) {
+			} else if ("waitForPageToLoad" == elem.getName()) {
 				waitForPageToLoadCmd(elem);
-			} else if("getSelectedIds" == elem.getName()) {
+			} else if ("getSelectedIds" == elem.getName()) {
 				getSelectedIdsCmd(elem);
-			} else if("copy" == elem.getName()) {
+			} else if ("copy" == elem.getName()) {
 				copyCmd(elem);
-			} else if("append" == elem.getName()) {
+			} else if ("append" == elem.getName()) {
 				appendCmd(elem);
-			} else if("open" == elem.getName()) {
+			} else if ("open" == elem.getName()) {
 				openCmd(elem);
-			} else if("click" == elem.getName()) {
+			} else if ("click" == elem.getName()) {
 				clickCmd(elem);
-			} else if("select" == elem.getName()) {
+			} else if ("select" == elem.getName()) {
 				selectCmd(elem);
-			} else if("uniqueId" == elem.getName()) {
+			} else if ("uniqueId" == elem.getName()) {
 				uniqueIdCmd(elem);
-			} else if("randomAlphaString" == elem.getName()) {
+			} else if ("randomAlphaString" == elem.getName()) {
 				randomAlphaStringCmd(elem);
-			} else if("randomString" == elem.getName()) {
+			} else if ("randomString" == elem.getName()) {
 				randomStringCmd(elem);
-            } else if("setSpeed" == elem.getName()) {
+            } else if ("setSpeed" == elem.getName()) {
                 setSpeed(elem);
  			} else {
 				//logger.error("Unknown SeleniumXml command found:"+elem.getName());
@@ -228,7 +228,7 @@ public class SeleniumXml {
 	
 		Class[] paramTypes = null;
 		Object[] args = null;
-		if( (param1 != null)  && (param2 != null) ) {
+		if ((param1 != null)  && (param2 != null)) {
 			paramTypes = new Class[] {String.class, String.class};
 			args = new Object[] {param1, param2};
 		} else if (param1 != null) {
@@ -248,7 +248,7 @@ public class SeleniumXml {
 			Object results = m.invoke(this.sel, args);
 			
 			//Add output parameter to common map
-			if( (out != null) && (results != null)) {
+			if ((out != null) && (results != null)) {
 				addParam(out, results);
 			}
 		} catch (Exception e) {
@@ -272,19 +272,19 @@ public class SeleniumXml {
 		//this.sel.waitForCondition(script, timeout);
 		String foundValue = null;
 		for(int second=0;; second++) {
-			if(second >= maxSeconds) {
+			if (second >= maxSeconds) {
 //				throw new SeleniumException("waitForValue exceeded timeout: " + maxTime);
 			}
-			try{ 
+			try { 
 				//getValue throws an exception if it can't find locator
 				// - sleep for 1 sec and try again
 				// - otherwise break as we found the value
 				foundValue = sel.getValue(locator); 
-				if(outParam != null) {
+				if (outParam != null) {
 					this.addParam(outParam, foundValue);
 				}
 				break; //
-			} catch(Exception e) { 
+			} catch (Exception e) { 
 				//wait for 1 second and then resume
 				try {
 					Thread.sleep(1000);
@@ -349,7 +349,7 @@ public class SeleniumXml {
         String responseHandlerMode = elem.getAttributeValue("responseHandlerMode");
         List <Element> children = elem.getChildren();
         
-        RemoteRequest loader = new RemoteRequest( this, children, requestUrl, host, responseHandlerMode);
+        RemoteRequest loader = new RemoteRequest(this, children, requestUrl, host, responseHandlerMode);
         loader.runTest();
     }
 
@@ -375,7 +375,7 @@ public class SeleniumXml {
 		String src = replaceParam(elem.getAttributeValue("src"));  
 		String test = replaceParam(elem.getAttributeValue("test"));  
 		int indxSearch = src.indexOf(test);
-		if(indxSearch == -1) {
+		if (indxSearch == -1) {
 			logger.info("assertContains didn't find " + test + " in the src");
 		} else {
 			logger.info("assertContains found " + test + " in the src");
@@ -555,7 +555,7 @@ public class SeleniumXml {
 		// Find all the matches.
 		if (matcher.find()) {
 			String resultsValue = null;
-			if(group != null) {
+			if (group != null) {
 				resultsValue = matcher.group(Integer.parseInt(group));
 			} else {
 				resultsValue = matcher.group();
@@ -585,16 +585,16 @@ public class SeleniumXml {
 		int nPrefixSize = 0;
 		String paramName = elem.getAttributeValue("out");  
 		String size = elem.getAttributeValue("size");  
-		if(size != null) {
+		if (size != null) {
 			nSize = Integer.parseInt(size);
 		}
 		String prefix = elem.getAttributeValue("prefix");  
-		if(prefix != null) {
+		if (prefix != null) {
 			nPrefixSize = prefix.length();
 		}
 
 		String paramValue = null;
-		if(prefix != null) {
+		if (prefix != null) {
 			paramValue = prefix + RandomStringUtils.randomAlphabetic(nSize - nPrefixSize);
 		} else {
 			paramValue = RandomStringUtils.randomAlphabetic(nSize);
@@ -660,10 +660,10 @@ public class SeleniumXml {
 		return buf.toString();
 	}
 
-	private boolean isParam(String value ) {
+	private boolean isParam(String value) {
 
-		if( (value.indexOf("${") != -1) &&
-			(value.indexOf("}", 1) != -1) ) {
+		if ((value.indexOf("${") != -1) &&
+			(value.indexOf("}", 1) != -1)) {
 			return true;
 		} 
 		return false;
@@ -674,7 +674,7 @@ public class SeleniumXml {
 		
 		//return if Selenium has already been setup
 		//e.g. nested selenium test cases.
-		if(this.sel != null) return;
+		if (this.sel != null) return;
 		
 		String serverHost = null;
 		String serverPort = null;
@@ -682,7 +682,7 @@ public class SeleniumXml {
 		String startUrl = null;
 		
 		//First initialize with property values
-		if(props != null ) { //Get setup params from property value
+		if (props != null) { //Get setup params from property value
 			
 			serverHost = props.getProperty("serverHost", "localhost");
 			serverPort = props.getProperty("proxyPort", "4444");
@@ -695,16 +695,16 @@ public class SeleniumXml {
 		if (elem != null) { 
 		
 			//Override properties if specified
-			if( elem.getAttributeValue("serverHost") != null ) {
+			if (elem.getAttributeValue("serverHost") != null) {
 				serverHost = elem.getAttributeValue("serverHost");
 			}
-			if( elem.getAttributeValue("serverPort") != null ) {
+			if (elem.getAttributeValue("serverPort") != null) {
 				serverPort = elem.getAttributeValue("serverPort");
 			}
-			if( elem.getAttributeValue("browser") != null ) {
+			if (elem.getAttributeValue("browser") != null) {
 				browser = elem.getAttributeValue("browser");
 			}
-			if( elem.getAttributeValue("startUrl") != null ) {
+			if (elem.getAttributeValue("startUrl") != null) {
 				startUrl = elem.getAttributeValue("startUrl");
 			}
 		}

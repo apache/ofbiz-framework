@@ -358,7 +358,7 @@ public class VerifyPickSession implements Serializable {
             verifiedQty = verifiedQty.add(pickRow.getReadyToVerifyQty());
         }
 
-        if (orderedQty.compareTo(verifiedQty) != 0 ) {
+        if (orderedQty.compareTo(verifiedQty) != 0) {
             throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorAllOrderItemsAreNotVerified", locale));
         }
     }

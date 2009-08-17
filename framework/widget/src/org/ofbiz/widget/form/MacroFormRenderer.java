@@ -1848,7 +1848,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         String name = modelFormField.getParameterName(context);
         String value = modelFormField.getEntry(context, lookupField.getDefaultValue(context));
-        if ( value == null) {
+        if (value == null) {
             value = "";
         }
         String size = Integer.toString(lookupField.getSize());

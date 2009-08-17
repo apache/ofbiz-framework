@@ -96,29 +96,29 @@ public class SeleniumIDEConverter {
 
 		String cmdToCompare = cmdElem.getValue();
 		System.out.println("Checking for cmd: " + cmdToCompare);
-		if("clickAndWait".compareTo(cmdElem.getValue()) == 0 ) {
+		if ("clickAndWait".compareTo(cmdElem.getValue()) == 0) {
 			System.out.println("Found clickAndWait");
-			this.xmlDestRoot.addContent( buildCommand("click", "locator", cmd.get(1).getValue(), null, null) );
-			this.xmlDestRoot.addContent( buildCommand("waitForPageToLoad", "value", "10000", null, null) );
+			this.xmlDestRoot.addContent(buildCommand("click", "locator", cmd.get(1).getValue(), null, null));
+			this.xmlDestRoot.addContent(buildCommand("waitForPageToLoad", "value", "10000", null, null));
 
-		} else if("type".compareTo( cmdElem.getValue()) == 0  ) {
+		} else if ("type".compareTo(cmdElem.getValue()) == 0 ) {
 			System.out.println("Found type");
-			this.xmlDestRoot.addContent ( buildCommand("type", "name", cmd.get(1).getValue(), "value", cmd.get(2).getValue()) );
+			this.xmlDestRoot.addContent (buildCommand("type", "name", cmd.get(1).getValue(), "value", cmd.get(2).getValue()));
 
-		} else if("select".compareTo(cmdElem.getValue()) == 0 ) {
+		} else if ("select".compareTo(cmdElem.getValue()) == 0) {
 			System.out.println("Found select");
-			this.xmlDestRoot.addContent( buildCommand("select", "locator", cmd.get(1).getValue(), "option", cmd.get(2).getValue()) );
+			this.xmlDestRoot.addContent(buildCommand("select", "locator", cmd.get(1).getValue(), "option", cmd.get(2).getValue()));
 
-		} else if("open".compareTo(cmdElem.getValue()) == 0 ) {
+		} else if ("open".compareTo(cmdElem.getValue()) == 0) {
 			System.out.println("Found open");
-			this.xmlDestRoot.addContent( buildCommand("open", "value", cmd.get(1).getValue(), null, null) );
+			this.xmlDestRoot.addContent(buildCommand("open", "value", cmd.get(1).getValue(), null, null));
 
-		} else if("click".compareTo(cmdElem.getValue()) == 0 ) {
+		} else if ("click".compareTo(cmdElem.getValue()) == 0) {
 			Element newCmd = new Element("click");
 			newCmd.setAttribute("locator", cmd.get(1).getValue());
 			this.xmlDestRoot.addContent(newCmd);
 
-		} else if("doubleClick".compareTo(cmdElem.getValue()) == 0 ) {
+		} else if ("doubleClick".compareTo(cmdElem.getValue()) == 0) {
 			Element newCmd = new Element("doubleClick");
 			newCmd.setAttribute("locator", cmd.get(1).getValue());
 			this.xmlDestRoot.addContent(newCmd);
@@ -128,23 +128,23 @@ public class SeleniumIDEConverter {
 			Element newCmd = new Element(cmdElem.getValue());
 			//List attributes = cmdElem.getAttributes();
 			int size = cmd.size()-1;
-			for(int i=1; i<size; i++ ) {
+			for(int i=1; i<size; i++) {
 				String paramValue = cmd.get(i).getValue();
 				System.out.println("param" + (i) + " :" + paramValue);
-				newCmd.setAttribute("param" + (i), paramValue );
+				newCmd.setAttribute("param" + (i), paramValue);
 			}
 			this.xmlDestRoot.addContent(newCmd);
 		}
 
 	}
 
-	private Element buildCommand(String name, String attrib1, String value1, String attrib2, String value2 ) {
+	private Element buildCommand(String name, String attrib1, String value1, String attrib2, String value2) {
 
 		Element newCmd = new Element(name);
-		if(attrib1 != null) {
+		if (attrib1 != null) {
 			newCmd.setAttribute(attrib1, value1);
 		}
-		if(attrib2 != null) {
+		if (attrib2 != null) {
 			newCmd.setAttribute(attrib2, value2);
 		}
 		return newCmd;
@@ -153,7 +153,7 @@ public class SeleniumIDEConverter {
 
 		try {
 		      FileOutputStream out = new FileOutputStream(outputFile);
-		      XMLOutputter serializer = new XMLOutputter( Format.getPrettyFormat());
+		      XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		      serializer.output(this.xmlDestRoot, out);
 		      out.flush();
 		      out.close();
@@ -166,7 +166,7 @@ public class SeleniumIDEConverter {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		if(args.length != 2) {
+		if (args.length != 2) {
 			System.out.println("Please include the source and destination file paths.");
 		} else {
 			SeleniumIDEConverter sel = new SeleniumIDEConverter();

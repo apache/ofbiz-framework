@@ -972,7 +972,7 @@ public class ContactMechServices {
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyId = (String)context.get("partyId");
-        if (UtilValidate.isEmpty(partyId) ) {
+        if (UtilValidate.isEmpty(partyId)) {
             if (userLogin != null) {
                 partyId = userLogin.getString("partyId");
             } else {
@@ -983,7 +983,7 @@ public class ContactMechServices {
         boolean showOld = (bShowOld != null && bShowOld.booleanValue()) ? true : false;
         String contactMechTypeId = (String)context.get("contactMechTypeId");
         List<Map<String, Object>> valueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld, contactMechTypeId);
-        result.put("valueMaps", valueMaps );
+        result.put("valueMaps", valueMaps);
         return result;
     }
 

@@ -70,7 +70,7 @@ public class FopRenderer {
                 return out;
 
             } catch (TransformerException e) {
-                Debug.logError("FOP transform failed:" + e, module );
+                Debug.logError("FOP transform failed:" + e, module);
                 throw new GeneralException("Unable to transform FO to PDF", e);
             }
 

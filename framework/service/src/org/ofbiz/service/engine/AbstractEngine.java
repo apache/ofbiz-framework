@@ -110,7 +110,7 @@ public abstract class AbstractEngine implements GenericEngine {
             while (i.hasNext()) {
                 GenericServiceCallback gsc = i.next();
                 if (gsc.isEnabled()) {
-                    gsc.receiveEvent(context,t );
+                    gsc.receiveEvent(context,t);
                 } else {
                     i.remove();
                 }

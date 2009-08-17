@@ -1000,7 +1000,7 @@ public class UtilXml {
                     + String.valueOf(exception.getLineNumber())
                     + ". Error message: "
                     + exceptionMessage, module
-                );
+               );
             }
         }
 
@@ -1012,7 +1012,7 @@ public class UtilXml {
                     + String.valueOf(exception.getLineNumber())
                     + ". Error message: "
                     + exception.getMessage(), module
-                );
+               );
             }
         }
 
@@ -1024,7 +1024,7 @@ public class UtilXml {
                     + String.valueOf(exception.getLineNumber())
                     + ". Error message: "
                     + exception.getMessage(), module
-                );
+               );
             }
         }
     }

@@ -176,7 +176,7 @@ public class AgreementServices {
                     if (days >= 0) {
                         partyCommissionResult.put("days", Long.valueOf(days));
                     }
-                    if(!commissions.contains(partyCommissionResult)) {
+                    if (!commissions.contains(partyCommissionResult)) {
                         commissions.add(partyCommissionResult);
                     }
                 }

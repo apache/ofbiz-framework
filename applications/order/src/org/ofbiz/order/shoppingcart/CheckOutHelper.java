@@ -126,7 +126,7 @@ public class CheckOutHelper {
     }
 
     public Map setCheckOutShippingOptions(String shippingMethod, String shippingInstructions,
-            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate ) {
+            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
         List errorMessages = new ArrayList();
         Map result;
         String errMsg = null;
@@ -151,7 +151,7 @@ public class CheckOutHelper {
     }
 
     private List setCheckOutShippingOptionsInternal(String shippingMethod, String shippingInstructions, String orderAdditionalEmails,
-            String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate ) {
+            String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
         List errorMessages = new ArrayList();
         String errMsg = null;
 
@@ -956,7 +956,7 @@ public class CheckOutHelper {
         List<EntityExpr> payPalExprs = UtilMisc.toList(
                 EntityCondition.makeCondition("paymentMethodId", EntityOperator.NOT_EQUAL, null),
                 EntityCondition.makeCondition("paymentMethodTypeId", "EXT_PAYPAL")
-            );
+           );
         List<GenericValue> payPalPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, payPalExprs);
         if (UtilValidate.isNotEmpty(payPalPaymentPrefs)) {
             GenericValue payPalPaymentPref = EntityUtil.getFirst(payPalPaymentPrefs);

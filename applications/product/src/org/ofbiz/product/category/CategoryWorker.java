@@ -470,7 +470,7 @@ public class CategoryWorker {
             catContentWrappers.put(productCategoryId, catContentWrapper);
             List<GenericValue> subCat = getRelatedCategoriesRet(request, "subCatList", productCategoryId, true);
             if (subCat != null) {
-                getCategoryContentWrappers(catContentWrappers, subCat, request );
+                getCategoryContentWrappers(catContentWrappers, subCat, request);
             }
         }
     }

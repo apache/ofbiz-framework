@@ -389,7 +389,7 @@ public class PartyWorker {
             partyList.addAll(associatedParties);
             while (UtilValidate.isNotEmpty(associatedParties)) {
                 List<GenericValue> currentAssociatedParties = FastList.newInstance();
-                for (GenericValue associatedParty : associatedParties ) {
+                for (GenericValue associatedParty : associatedParties) {
                     EntityConditionList innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),
                             EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);

@@ -261,7 +261,7 @@ public class PermissionRecorder {
 
     //public static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
 
-    public String renderResultRowHtml(Map rMap, Map currentContentResultMap ) {
+    public String renderResultRowHtml(Map rMap, Map currentContentResultMap) {
         StringBuilder sb = new StringBuilder();
 
         // Do target row

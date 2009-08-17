@@ -167,7 +167,7 @@ public class ImageTransform {
             bufImgType = bufImg.getType();
         }
 
-        bufNewImg = new BufferedImage( (int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImgType);
+        bufNewImg = new BufferedImage((int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImgType);
 
         result.put("responseMessage", "success");
         result.put("bufferedImage", bufNewImg);

@@ -74,7 +74,7 @@ In order ta make this service active add the following to the service definition
              BufferedReader input = null;
              try {
                  if (!UtilValidate.isEmpty(file)) {
-                     input = new BufferedReader( new FileReader(file));
+                     input = new BufferedReader(new FileReader(file));
                      String line = null;
                      int size=0;
                      if (file != null) {
@@ -115,7 +115,7 @@ In order ta make this service active add the following to the service definition
                         contentAssoc.put("userLogin", userLogin);
                         dispatcher.runSync("createContentAssoc", contentAssoc);
                         int recordCount = 0;
-                        while (( line = input.readLine()) != null) {//start line
+                        while ((line = input.readLine()) != null) {//start line
                              boolean hasFolder=true;
                              String
                              rootContent=null,
@@ -173,7 +173,7 @@ In order ta make this service active add the following to the service definition
                                             contentAssocSize=contentAssocs.size();
                                         }
 
-                                        if ( contentAssocSize == 0 && contentNameMatch==false) {//New Root Content
+                                        if (contentAssocSize == 0 && contentNameMatch==false) {//New Root Content
                                             Entity = null;
                                             contentId = delegator.getNextSeqId("Content");
                                             Entity = delegator.makeValue("Content");

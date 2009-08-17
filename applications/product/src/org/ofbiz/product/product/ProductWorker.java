@@ -892,7 +892,7 @@ public class ProductWorker {
      * @return
      * @throws GenericEntityException
      */
-    public static List<GenericValue> findProductsById( GenericDelegator delegator,
+    public static List<GenericValue> findProductsById(GenericDelegator delegator,
             String idToFind, String goodIdentificationTypeId,
             boolean searchProductFirst, boolean searchAllId) throws GenericEntityException {
 
@@ -927,7 +927,7 @@ public class ProductWorker {
         return productsFound;
     }
 
-    public static List<GenericValue> findProductsById( GenericDelegator delegator, String idToFind, String goodIdentificationTypeId)
+    public static List<GenericValue> findProductsById(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId)
     throws GenericEntityException {
         return findProductsById(delegator, idToFind, goodIdentificationTypeId, true, false);
     }

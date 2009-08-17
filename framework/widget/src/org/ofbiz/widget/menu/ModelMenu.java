@@ -210,7 +210,7 @@ public class ModelMenu extends ModelWidget {
         if (this.defaultPrivilegeEnumId == null || menuElement.hasAttribute("defaultPrivilegeEnumId"))
             this.defaultPrivilegeEnumId = menuElement.getAttribute("default-privilege-enum-id");
         if (this.defaultAssociatedContentId == null || menuElement.hasAttribute("defaultAssociatedContentId"))
-            this.setDefaultAssociatedContentId( menuElement.getAttribute("default-associated-content-id"));
+            this.setDefaultAssociatedContentId(menuElement.getAttribute("default-associated-content-id"));
         if (this.orientation == null || menuElement.hasAttribute("orientation"))
             this.orientation = menuElement.getAttribute("orientation");
         if (this.menuWidth == null || menuElement.hasAttribute("menu-width"))

@@ -634,7 +634,7 @@ public class ShoppingCartEvents {
         }
         String orderId = request.getParameter("orderId_o_0");
         // set the order id if supplied
-        if(UtilValidate.isNotEmpty(orderId)) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             GenericValue thisOrder = null;
             try {
                 thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
@@ -728,11 +728,11 @@ public class ShoppingCartEvents {
             return "error";
         } else {
             totalQuantity = (BigDecimal)result.get("totalQuantity");
-            Map messageMap = UtilMisc.toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()) );
+            Map messageMap = UtilMisc.toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()));
 
             request.setAttribute("_EVENT_MESSAGE_",
                                   UtilProperties.getMessage(resource_error, "cart.add_category_defaults",
-                                          messageMap, locale ));
+                                          messageMap, locale));
 
             return "success";
         }

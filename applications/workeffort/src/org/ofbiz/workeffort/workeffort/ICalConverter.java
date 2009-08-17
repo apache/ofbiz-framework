@@ -823,7 +823,7 @@ public class ICalConverter {
         if ("TASK".equals(workEffortTypeId) || (typeValue != null && "TASK".equals(typeValue.get("parentTypeId")))) {
             isTask = true;
             resultList = components.getComponents("VTODO");
-        } else if ("EVENT".equals(workEffortTypeId) || (typeValue != null && "EVENT".equals(typeValue.get("parentTypeId")))){
+        } else if ("EVENT".equals(workEffortTypeId) || (typeValue != null && "EVENT".equals(typeValue.get("parentTypeId")))) {
             resultList = components.getComponents("VEVENT");
         } else {
             return null;

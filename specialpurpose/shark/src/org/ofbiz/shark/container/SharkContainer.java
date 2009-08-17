@@ -142,7 +142,7 @@ public class SharkContainer implements Container, Runnable
             if (iiopHost != null && iiopHost.value != null && iiopHost.value.length() > 0) {
                 if (iiopPort != null && iiopPort.value != null && iiopPort.value.length() > 0) {
                        try {
-                            p = Runtime.getRuntime().exec( java_home + "\\" + "bin\\tnameserv"
+                            p = Runtime.getRuntime().exec(java_home + "\\" + "bin\\tnameserv"
                                      + " -ORBInitialPort "
                                      +  iiopPort.value);
                             Thread.sleep(5000);

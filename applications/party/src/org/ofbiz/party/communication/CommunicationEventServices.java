@@ -247,7 +247,7 @@ public class CommunicationEventServices {
                 sendEmailToContactListContext.put("userLogin", userLogin);
                 try {
                     dispatcher.runAsync("sendEmailToContactList", sendEmailToContactListContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendEmailToContactListService", locale);
                     Debug.logError(e, errMsg, module);
                     errorMessages.add(errMsg);
@@ -779,7 +779,7 @@ public class CommunicationEventServices {
             	}
             }
             
-            if (messageBody == null ) {
+            if (messageBody == null) {
             	messageBody = wrapper.getMessageBody();
             }
                         

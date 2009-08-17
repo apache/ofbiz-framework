@@ -477,7 +477,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     GenericValue assocValue = (GenericValue) it.next();
                     contentAssocTypeId = (String) assocValue.get("contentAssocTypeId");
                     assocContext.put("contentAssocTypeId", contentAssocTypeId);
-                    //assocContext.put("contentTypeId", assocValue.get("contentTypeId") );
+                    //assocContext.put("contentTypeId", assocValue.get("contentTypeId"));
                     assocContext.put("parentContent", content);
                     String assocRelation = null;
                     // This needs to be the opposite
@@ -956,7 +956,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                         GenericValue contentTo = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdOther));
                         String contentTypeId = contentTo.getString("contentTypeId");
                         if (contentTypeId != null && contentTypeId.equals(passedContentTypeId))
-                            contentAncestorList.add(contentIdOther );
+                            contentAncestorList.add(contentIdOther);
                     }
                 }
             }
@@ -1172,13 +1172,13 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (UtilValidate.isNotEmpty(subContentId)) {
             ctx.put("subContentId", subContentId);
             ctx.put("contentId", null);
-            if (viewContentId != null && viewContentId.equals(subContentId) ) {
+            if (viewContentId != null && viewContentId.equals(subContentId)) {
                 return currentContent;
             }
         } else {
             ctx.put("contentId", contentId);
             ctx.put("subContentId", null);
-            if (viewContentId != null && viewContentId.equals(contentId) ) {
+            if (viewContentId != null && viewContentId.equals(contentId)) {
                 return currentContent;
             }
         }
@@ -1311,7 +1311,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List targetOperationList = (List)context.get("targetOperationList");
         String targetOperationString = (String)context.get("targetOperationString");
         if (Debug.infoOn()) Debug.logInfo("in prepTargetOperationList, targetOperationString(0):" + targetOperationString, "");
-        if (UtilValidate.isNotEmpty(targetOperationString) ) {
+        if (UtilValidate.isNotEmpty(targetOperationString)) {
             List opsFromString = StringUtil.split(targetOperationString, "|");
             if (UtilValidate.isEmpty(targetOperationList)) {
                 targetOperationList = FastList.newInstance();
@@ -1339,7 +1339,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List contentPurposeList = (List)context.get("contentPurposeList");
         String contentPurposeString = (String)context.get("contentPurposeString");
         if (Debug.infoOn()) Debug.logInfo("in prepContentPurposeList, contentPurposeString(0):" + contentPurposeString, "");
-        if (UtilValidate.isNotEmpty(contentPurposeString) ) {
+        if (UtilValidate.isNotEmpty(contentPurposeString)) {
             List purposesFromString = StringUtil.split(contentPurposeString, "|");
             if (UtilValidate.isEmpty(contentPurposeList)) {
                 contentPurposeList = FastList.newInstance();
@@ -1408,7 +1408,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List filteredList = getContentAssocViewList(delegator, contentIdTo, contentId, contentAssocTypeId, statusId, privilegeEnumId);
 
         GenericValue val = null;
-        if (filteredList.size() > 0 ) {
+        if (filteredList.size() > 0) {
             val = (GenericValue)filteredList.get(0);
         }
         return val;

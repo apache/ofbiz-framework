@@ -68,17 +68,17 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-        //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get( "contentId"), module);
+        //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
-        //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get( "contentId"), module);
+        //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
         final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
-        List trail = (List)templateRoot.get( "globalNodeTrail");
+        List trail = (List)templateRoot.get("globalNodeTrail");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
-        String contentAssocPredicateId = (String)templateRoot.get( "contentAssocPredicateId");
-        String strNullThruDatesOnly = (String)templateRoot.get( "nullThruDatesOnly");
+        String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
+        String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         String thisSubContentId =  (String)templateRoot.get("subContentId");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), thisSubContentId ." + thisSubContentId , module);
@@ -103,7 +103,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             subContentIdSub = (String) view.get("contentId");
         }
         // This order is taken so that the dataResourceType can be overridden in the transform arguments.
-        String subDataResourceTypeId = (String)templateRoot.get( "subDataResourceTypeId");
+        String subDataResourceTypeId = (String)templateRoot.get("subDataResourceTypeId");
         if (UtilValidate.isEmpty(subDataResourceTypeId)) {
             try {
                 subDataResourceTypeId = (String) view.get("drDataResourceTypeId");
@@ -115,11 +115,11 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             // being passed.
         }
         String mimeTypeId = ContentWorker.getMimeTypeId(delegator, view, templateRoot);
-        templateRoot.put( "drDataResourceId", dataResourceId);
-        templateRoot.put( "mimeTypeId", mimeTypeId);
-        templateRoot.put( "dataResourceId", dataResourceId);
-        templateRoot.put( "subContentId", subContentIdSub);
-        templateRoot.put( "subDataResourceTypeId", subDataResourceTypeId);
+        templateRoot.put("drDataResourceId", dataResourceId);
+        templateRoot.put("mimeTypeId", mimeTypeId);
+        templateRoot.put("dataResourceId", dataResourceId);
+        templateRoot.put("subContentId", subContentIdSub);
+        templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
 
         //final Map savedValues = FastMap.newInstance();
         //FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
@@ -164,8 +164,8 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     if (map != null)
                         thisView = (GenericValue)map.get("value");
                 }
-                //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId:" + templateRoot.get( "subContentId"), module);
-                //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId:" + templateRoot.get( "contentId"), module);
+                //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId:" + templateRoot.get("subContentId"), module);
+                //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId:" + templateRoot.get("contentId"), module);
 
                 String mimeTypeId = (String) templateRoot.get("mimeTypeId");
                 Locale locale = (Locale) templateRoot.get("locale");
@@ -202,7 +202,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             }
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
-                //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(1):" + templateRoot.get( "contentId"), module);
+                //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(1):" + templateRoot.get("contentId"), module);
                 //if (Debug.infoOn()) Debug.logInfo("in Render(0), templateRoot ." + templateRoot , module);
                 StringBuilder sb = new StringBuilder();
                 String fullRequest = editRequestName;
@@ -220,25 +220,25 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view , module);
                     if (view != null) {
                         ModelEntity modelEntity = view.getModelEntity();
-                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null )
+                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null)
                             contentId = view.getString("caContentId");
-                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("contentId") != null )
+                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("contentId") != null)
                             contentId = view.getString("contentId");
-                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("caContentIdTo") != null )
+                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("caContentIdTo") != null)
                             contentIdTo = view.getString("caContentIdTo");
-                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("contentIdTo") != null )
+                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("contentIdTo") != null)
                             contentIdTo = view.getString("contentIdTo");
-                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("caContentAssocTypeId") != null )
+                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("caContentAssocTypeId") != null)
                             contentAssocTypeId = view.getString("caContentAssocTypeId");
-                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("contentAssocTypeId") != null )
+                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("contentAssocTypeId") != null)
                             contentAssocTypeId = view.getString("contentAssocTypeId");
-                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("caMapKey") != null )
+                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("caMapKey") != null)
                             mapKey = view.getString("caMapKey");
-                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("mapKey") != null )
+                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("mapKey") != null)
                             mapKey = view.getString("mapKey");
-                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("caFromDate") != null )
+                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("caFromDate") != null)
                             fromDate = view.getString("caFromDate");
-                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("fromDate") != null )
+                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("fromDate") != null)
                             fromDate = view.getString("fromDate");
                     }
                 } else {

@@ -528,7 +528,7 @@ public class OagisInventoryServices {
                     String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
                     if (invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
                         ripCtx.put("statusId","INV_AVAILABLE");
-                    } else if (invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
+                    } else if (invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable")) {
                         ripCtx.put("statusId","INV_ON_HOLD");
                     }
                     */

@@ -224,19 +224,19 @@ public class ModelRelation extends ModelChild {
         if (keyMaps.size() < 1)
             return "";
 
-        StringBuilder returnString = new StringBuilder( keyMaps.size() * 10 );
+        StringBuilder returnString = new StringBuilder(keyMaps.size() * 10);
         int i=0;
         while (true) {
             ModelKeyMap kmap = keyMaps.get(i);
-            returnString.append( ModelUtil.upperFirstChar( kmap.fieldName));
+            returnString.append(ModelUtil.upperFirstChar(kmap.fieldName));
 
             i++;
             if (i >= keyMaps.size()) {
-                returnString.append( afterLast );
+                returnString.append(afterLast);
                 break;
             }
 
-            returnString.append( separator );
+            returnString.append(separator);
         }
 
         return returnString.toString();
@@ -246,19 +246,19 @@ public class ModelRelation extends ModelChild {
         if (keyMaps.size() < 1)
             return "";
 
-        StringBuilder returnString = new StringBuilder( keyMaps.size() * 10 );
+        StringBuilder returnString = new StringBuilder(keyMaps.size() * 10);
         int i=0;
         while (true) {
             ModelKeyMap kmap = keyMaps.get(i);
-            returnString.append( ModelUtil.upperFirstChar( kmap.relFieldName ));
+            returnString.append(ModelUtil.upperFirstChar(kmap.relFieldName));
 
             i++;
             if (i >= keyMaps.size()) {
-                returnString.append( afterLast );
+                returnString.append(afterLast);
                 break;
             }
 
-            returnString.append( separator );
+            returnString.append(separator);
         }
 
         return returnString.toString();

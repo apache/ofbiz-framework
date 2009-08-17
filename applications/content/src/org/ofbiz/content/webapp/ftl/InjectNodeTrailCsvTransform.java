@@ -99,7 +99,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), trail:"+trail,module);
                 // This will build a nodeTrail if none exists
                 // Maybe only contentId or subContentId are passed in
-                //GenericValue currentValue = getCurrentContent( delegator, trail,  userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
+                //GenericValue currentValue = getCurrentContent(delegator, trail,  userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
                 String redo = (String)templateCtx.get("redo");
 
                 if (trail == null || trail.size() == 0 || (redo != null && redo.equalsIgnoreCase("true"))) {
@@ -146,7 +146,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                                 String firstTrailContentId = (String)nd.get("contentId");
                                 if (UtilValidate.isNotEmpty(firstTrailContentId)
                                     && UtilValidate.isNotEmpty(lastPassedContentId)
-                                    && firstTrailContentId.equals(lastPassedContentId) ) {
+                                    && firstTrailContentId.equals(lastPassedContentId)) {
                                     csvTrail += "," + ContentWorker.nodeTrailToCsv(trail.subList(1, trail.size()));
                                 } else {
                                     csvTrail += "," + ContentWorker.nodeTrailToCsv(trail);

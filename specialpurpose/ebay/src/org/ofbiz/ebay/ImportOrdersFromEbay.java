@@ -1305,13 +1305,13 @@ public class ImportOrdersFromEbay {
                 // TODO:  The following comparison does not consider the To Name or Attn: lines of the address.
                 //
                 // now compare values.  If all fields match, that's our shipping address.  Return the related contact mech id.
-                if (    parameters.get("shippingAddressStreet1").toString().equals((postalAddress.get("address1").toString())) &&
+                if (   parameters.get("shippingAddressStreet1").toString().equals((postalAddress.get("address1").toString())) &&
                         parameters.get("shippingAddressStreet2").toString().equals((postalAddress.get("address2").toString())) &&
                         parameters.get("city").toString().equals((postalAddress.get("city").toString())) &&
                         parameters.get("stateProvinceGeoId").toString().equals((postalAddress.get("stateProvinceGeoId").toString())) &&
                         parameters.get("countryGeoId").toString().equals((postalAddress.get("countryGeoId").toString())) &&
                         parameters.get("shippingAddressPostalCode").toString().equals((postalAddress.get("postalCode").toString()))
-                        ) { // this is an exact address match!!
+                       ) { // this is an exact address match!!
                     return contactMechId;
                 }
             } catch (Exception e) {

@@ -53,7 +53,7 @@ public class InventoryItemTransferTest extends OFBizTestCase {
         String statusId = "IXF_REQUESTED";
         String inventoryItemId = "9005";
         ctx.put("inventoryItemId", inventoryItemId);
-        ctx.put("statusId", statusId );
+        ctx.put("statusId", statusId);
         ctx.put("facilityId", "WebStoreWarehouse");
         ctx.put("facilityIdTo", "WebStoreWarehouse");
         ctx.put("receiveDate", UtilDateTime.nowTimestamp());

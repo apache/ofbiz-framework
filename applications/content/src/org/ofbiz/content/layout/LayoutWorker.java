@@ -92,7 +92,7 @@ public class LayoutWorker {
             }
         }
 
-        if (imageFi == null ) {
+        if (imageFi == null) {
             Map messageMap = UtilMisc.toMap("imageFi", imageFi);
             String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, "layoutEvents.image_null", messageMap, locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

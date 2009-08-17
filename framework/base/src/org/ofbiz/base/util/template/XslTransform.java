@@ -69,7 +69,7 @@ public final class XslTransform {
             translet = xslTemplatesCache.get(templateName);
         }
 
-        if (translet == null ) {
+        if (translet == null) {
             String templateUrl = (String)context.get("templateUrl");
             String templateString = (String)context.get("templateString");
             Document templateDocument = (Document)context.get("templateDocument");
@@ -79,7 +79,7 @@ public final class XslTransform {
                     xslTemplatesCache.put(templateName, translet);
             }
         }
-        if (translet != null ) {
+        if (translet != null) {
             Transformer transformer = translet.newTransformer();
             if (params != null) {
                 for (Map.Entry<String, Object> entry: params.entrySet()) {

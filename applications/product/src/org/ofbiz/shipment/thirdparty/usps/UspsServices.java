@@ -621,7 +621,7 @@ public class UspsServices {
         String state = (String) context.get("state");
         String city = (String) context.get("city");
         String zip5 = (String) context.get("zip5");
-        if ( (UtilValidate.isEmpty(state) && UtilValidate.isEmpty(city) && UtilValidate.isEmpty(zip5)) ||    // No state, city or zip5
+        if ((UtilValidate.isEmpty(state) && UtilValidate.isEmpty(city) && UtilValidate.isEmpty(zip5)) ||    // No state, city or zip5
              (UtilValidate.isEmpty(zip5) && (UtilValidate.isEmpty(state) || UtilValidate.isEmpty(city)))) {  // Both state and city are required if no zip5
             String errorMessage = UtilProperties.getMessage(errorResource, "ProductUspsAddressValidationStateAndCityOrZipRqd", (Locale) context.get("locale"));
             Debug.logError(errorMessage,  module);
@@ -1573,7 +1573,7 @@ public class UspsServices {
                             shipmentRouteSegment.get("shipmentId"), 
                             shipmentPackageRouteSeg.get("shipmentPackageSeqId"),
                             shipmentRouteSegment.get("shipmentRouteSegementId")
-                    ), ':');
+                   ), ':');
             UtilXml.addChildElementValue(rootElement, "FromCustomsReference", fromCustomsReference, packageDocument);
             // Determine the container type for this package
             String container = "VARIABLE";

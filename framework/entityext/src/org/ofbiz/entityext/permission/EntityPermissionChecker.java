@@ -196,7 +196,7 @@ public class EntityPermissionChecker {
             return results;
         }
         try {
-            boolean check  = checkPermissionMethod( delegator, userLogin, targetOperations, "Content", entityIds, passedPurposes, null, privilegeEnumId);
+            boolean check  = checkPermissionMethod(delegator, userLogin, targetOperations, "Content", entityIds, passedPurposes, null, privilegeEnumId);
             if (check) {
                 results.put("permissionStatus", "granted");
             } else {
@@ -223,7 +223,7 @@ public class EntityPermissionChecker {
         if (!(targetOperationList == null) && userLoginId != null) {
             hasRoleOperation = checkHasRoleOperations(partyId, targetOperationList, delegator);
         }
-        if ( hasRoleOperation ) {
+        if (hasRoleOperation) {
             return true;
         }
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
@@ -277,7 +277,7 @@ public class EntityPermissionChecker {
         if (hasPrivilegeOp && hasPrivilegeField) {
             int privilegeEnumSeq = -1;
 
-            if ( UtilValidate.isNotEmpty(privilegeEnumId)) {
+            if (UtilValidate.isNotEmpty(privilegeEnumId)) {
                 GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
                 if (privEnum != null) {
                     String sequenceId = privEnum.getString("sequenceId");
@@ -382,7 +382,7 @@ public class EntityPermissionChecker {
             if (entity == null) continue;
             String entityId = entity.getString(pkFieldName);
             List<String> tmpPurposeList = purposes.get(entityId);
-            if (purposeList != null ) {
+            if (purposeList != null) {
                 if (tmpPurposeList != null) {
                     purposeList.addAll(tmpPurposeList);
                 }
@@ -391,7 +391,7 @@ public class EntityPermissionChecker {
             }
 
             List<String> tmpRoleList = getUserRoles(entity, userLogin, delegator);
-            if (roleList != null ) {
+            if (roleList != null) {
                 if (tmpRoleList != null) {
                     roleList.addAll(tmpRoleList);
                 }
@@ -504,7 +504,7 @@ public class EntityPermissionChecker {
 
         boolean checkAncestors = false;
         boolean hasRoleOperation =  checkHasRoleOperations(partyId, permissionConditionGetter, delegator);
-        if ( hasRoleOperation ) {
+        if (hasRoleOperation) {
             return true;
         }
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
@@ -674,7 +674,7 @@ public class EntityPermissionChecker {
     public static boolean hasMatch(String entityName, List<GenericValue> targetOperations, List<String> roles, boolean hasPurposeOp, List<String> purposes, boolean hasStatusOp, String targStatusId) {
         boolean isMatch = false;
         int targPrivilegeSeq = 0;
-    //    if (UtilValidate.isNotEmpty(targPrivilegeEnumId) && !targPrivilegeEnumId.equals("_NA_") && !targPrivilegeEnumId.equals("_00_") ) {
+    //    if (UtilValidate.isNotEmpty(targPrivilegeEnumId) && !targPrivilegeEnumId.equals("_NA_") && !targPrivilegeEnumId.equals("_00_")) {
             // need to do a lookup here to find the seq value of targPrivilegeEnumId.
             // The lookup could be a static store or it could be done on Enumeration entity.
     //    }
@@ -692,10 +692,10 @@ public class EntityPermissionChecker {
                 //testPrivilegeEnumId = (String)targetOp.get("privilegeEnumId");
             //int testPrivilegeSeq = 0;
 
-            boolean purposesCond = ( !hasPurposeOp || (purposes != null && purposes.contains(testContentPurposeTypeId) ) || testContentPurposeTypeId.equals("_NA_") );
-            boolean statusCond = ( !hasStatusOp || testStatusId.equals("_NA_") || (targStatusId != null && targStatusId.equals(testStatusId) ) );
-            //boolean privilegeCond = ( !hasPrivilegeOp || testPrivilegeEnumId.equals("_NA_") || testPrivilegeSeq <= targPrivilegeSeq || testPrivilegeEnumId.equals(targPrivilegeEnumId) );
-            boolean roleCond = ( testRoleTypeId.equals("_NA_") || (roles != null && roles.contains(testRoleTypeId) ) );
+            boolean purposesCond = (!hasPurposeOp || (purposes != null && purposes.contains(testContentPurposeTypeId)) || testContentPurposeTypeId.equals("_NA_"));
+            boolean statusCond = (!hasStatusOp || testStatusId.equals("_NA_") || (targStatusId != null && targStatusId.equals(testStatusId)));
+            //boolean privilegeCond = (!hasPrivilegeOp || testPrivilegeEnumId.equals("_NA_") || testPrivilegeSeq <= targPrivilegeSeq || testPrivilegeEnumId.equals(targPrivilegeEnumId));
+            boolean roleCond = (testRoleTypeId.equals("_NA_") || (roles != null && roles.contains(testRoleTypeId)));
 
 
             if (purposesCond && statusCond && roleCond) {
@@ -743,14 +743,14 @@ public class EntityPermissionChecker {
         }
             if (Debug.verboseOn()) Debug.logVerbose("STATUS:" + targStatusId, module);
 
-        while (permissionConditionGetter.getNext() ) {
+        while (permissionConditionGetter.getNext()) {
             String roleConditionId = permissionConditionGetter.getRoleValue();
             String auxiliaryConditionId = permissionConditionGetter.getAuxiliaryValue();
             String statusConditionId = permissionConditionGetter.getStatusValue();
 
-            boolean auxiliaryCond = ( auxiliaryConditionId == null ||  auxiliaryConditionId.equals("_NA_") || (auxiliaryValueList != null && auxiliaryValueList.contains(auxiliaryConditionId) )  );
-            boolean statusCond = ( statusConditionId == null || statusConditionId.equals("_NA_") || (targStatusId != null && targStatusId.equals(statusConditionId) ) );
-            boolean roleCond = ( roleConditionId == null || roleConditionId.equals("_NA_") || (roleValueList != null && roleValueList.contains(roleConditionId) ) );
+            boolean auxiliaryCond = (auxiliaryConditionId == null ||  auxiliaryConditionId.equals("_NA_") || (auxiliaryValueList != null && auxiliaryValueList.contains(auxiliaryConditionId)) );
+            boolean statusCond = (statusConditionId == null || statusConditionId.equals("_NA_") || (targStatusId != null && targStatusId.equals(statusConditionId)));
+            boolean roleCond = (roleConditionId == null || roleConditionId.equals("_NA_") || (roleValueList != null && roleValueList.contains(roleConditionId)));
 
             if (auxiliaryCond && statusCond && roleCond) {
                 if (Debug.verboseOn()) Debug.logVerbose("MATCHED: role:" + roleConditionId + " status:" + statusConditionId + " aux:" + auxiliaryConditionId, module);
@@ -770,10 +770,10 @@ public class EntityPermissionChecker {
 
         List<String> purposeIds = null;
         if (passedPurposes == null) {
-            purposeIds = FastList.newInstance( );
+            purposeIds = FastList.newInstance();
         } else {
-            purposeIds = FastList.newInstance( );
-            purposeIds.addAll( passedPurposes );
+            purposeIds = FastList.newInstance();
+            purposeIds.addAll(passedPurposes);
         }
 
         String entityName = entity.getEntityName();
@@ -811,7 +811,7 @@ public class EntityPermissionChecker {
 
 
         roles.remove("OWNER"); // always test with the owner of the current content
-        if ( entity.get("createdByUserLogin") != null && userLogin != null) {
+        if (entity.get("createdByUserLogin") != null && userLogin != null) {
             String userLoginId = (String)userLogin.get("userLoginId");
             String userLoginIdCB = (String)entity.get("createdByUserLogin");
             //if (Debug.infoOn()) Debug.logInfo("userLoginId:" + userLoginId + ": userLoginIdCB:" + userLoginIdCB + ":", null);
@@ -825,7 +825,7 @@ public class EntityPermissionChecker {
         List<GenericValue> relatedRoles = null;
         List<GenericValue> tmpRelatedRoles = entity.getRelatedCache(entityName + "Role");
         relatedRoles = EntityUtil.filterByDate(tmpRelatedRoles);
-        if (relatedRoles != null ) {
+        if (relatedRoles != null) {
             for (GenericValue contentRole: relatedRoles) {
                 String roleTypeId = (String)contentRole.get("roleTypeId");
                 String targPartyId = (String)contentRole.get("partyId");
@@ -840,13 +840,13 @@ public class EntityPermissionChecker {
                     try {
                         party = contentRole.getRelatedOne("Party");
                         partyTypeId = (String)party.get("partyTypeId");
-                        if ( partyTypeId != null && partyTypeId.equals("PARTY_GROUP") ) {
+                        if (partyTypeId != null && partyTypeId.equals("PARTY_GROUP")) {
                            Map<String, Object> map = FastMap.newInstance();
 
                            // At some point from/thru date will need to be added
                            map.put("partyIdFrom", partyId);
                            map.put("partyIdTo", targPartyId);
-                           if ( isGroupMember( map, delegator ) ) {
+                           if (isGroupMember(map, delegator)) {
                                if (!roles.contains(roleTypeId))
                                    roles.add(roleTypeId);
                            }
@@ -864,7 +864,7 @@ public class EntityPermissionChecker {
     /**
      * Tests to see if the user belongs to a group
      */
-    public static boolean isGroupMember( Map<String, ?> partyRelationshipValues, GenericDelegator delegator ) {
+    public static boolean isGroupMember(Map<String, ?> partyRelationshipValues, GenericDelegator delegator) {
         boolean isMember = false;
         String partyIdFrom = (String)partyRelationshipValues.get("partyIdFrom") ;
         String partyIdTo = (String)partyRelationshipValues.get("partyIdTo") ;
@@ -873,16 +873,16 @@ public class EntityPermissionChecker {
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         Timestamp thruDate = UtilDateTime.getDayStart(UtilDateTime.nowTimestamp(), 1);
 
-        if (partyRelationshipValues.get("roleTypeIdFrom") != null ) {
+        if (partyRelationshipValues.get("roleTypeIdFrom") != null) {
             roleTypeIdFrom = (String)partyRelationshipValues.get("roleTypeIdFrom") ;
         }
-        if (partyRelationshipValues.get("roleTypeIdTo") != null ) {
+        if (partyRelationshipValues.get("roleTypeIdTo") != null) {
             roleTypeIdTo = (String)partyRelationshipValues.get("roleTypeIdTo") ;
         }
-        if (partyRelationshipValues.get("fromDate") != null ) {
+        if (partyRelationshipValues.get("fromDate") != null) {
             fromDate = (Timestamp)partyRelationshipValues.get("fromDate") ;
         }
-        if (partyRelationshipValues.get("thruDate") != null ) {
+        if (partyRelationshipValues.get("thruDate") != null) {
             thruDate = (Timestamp)partyRelationshipValues.get("thruDate") ;
         }
 
@@ -898,7 +898,7 @@ public class EntityPermissionChecker {
 
         // This method is simplified to make it work, these conditions need to be added back in.
         //List joinList = UtilMisc.toList(fromExpr, thruCond, partyFromExpr, partyToExpr, relationExpr);
-        List<? extends EntityCondition> joinList = UtilMisc.toList( partyFromExpr, partyToExpr);
+        List<? extends EntityCondition> joinList = UtilMisc.toList(partyFromExpr, partyToExpr);
         EntityCondition condition = EntityCondition.makeCondition(joinList);
 
         List<GenericValue> partyRelationships = null;
@@ -956,7 +956,7 @@ public class EntityPermissionChecker {
             this.entityName = "ContentPurposeOperation";
         }
 
-        public StdPermissionConditionGetter ( String entityName, String operationFieldName, String roleFieldName, String statusFieldName, String auxiliaryFieldName, String privilegeFieldName) {
+        public StdPermissionConditionGetter (String entityName, String operationFieldName, String roleFieldName, String statusFieldName, String auxiliaryFieldName, String privilegeFieldName) {
 
             this.operationFieldName = operationFieldName;
             this.roleFieldName = roleFieldName ;
@@ -966,7 +966,7 @@ public class EntityPermissionChecker {
             this.entityName = entityName;
         }
 
-        public StdPermissionConditionGetter ( Element getterElement) {
+        public StdPermissionConditionGetter (Element getterElement) {
             this.operationFieldName = getterElement.getAttribute("operation-field-name");
             this.roleFieldName = getterElement.getAttribute("role-field-name");
             this.statusFieldName = getterElement.getAttribute("status-field-name");
@@ -1003,7 +1003,7 @@ public class EntityPermissionChecker {
             if (UtilValidate.isNotEmpty(privilegeFieldName)) {
                 privilegeEnumId = currentValue.getString(this.privilegeFieldName);
             }
-            if ( UtilValidate.isNotEmpty(privilegeEnumId)) {
+            if (UtilValidate.isNotEmpty(privilegeEnumId)) {
                 GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
                 if (privEnum != null) {
                     String sequenceId = privEnum.getString("sequenceId");
@@ -1042,7 +1042,7 @@ public class EntityPermissionChecker {
             this.entityList = FastList.newInstance();
         }
 
-        public void init( GenericDelegator delegator) throws GenericEntityException {
+        public void init(GenericDelegator delegator) throws GenericEntityException {
             EntityCondition opCond = EntityCondition.makeCondition(operationFieldName, EntityOperator.IN, this.operationList);
             this.entityList = delegator.findList(this.entityName, opCond, null, null, null, true);
         }
@@ -1148,14 +1148,14 @@ public class EntityPermissionChecker {
             this.entityIdName = "contentId";
         }
 
-        public StdAuxiliaryValueGetter ( String entityName,  String auxiliaryFieldName, String entityIdName) {
+        public StdAuxiliaryValueGetter (String entityName,  String auxiliaryFieldName, String entityIdName) {
 
             this.auxiliaryFieldName = auxiliaryFieldName ;
             this.entityName = entityName;
             this.entityIdName = entityIdName;
         }
 
-        public StdAuxiliaryValueGetter ( Element getterElement) {
+        public StdAuxiliaryValueGetter (Element getterElement) {
 
             this.auxiliaryFieldName = getterElement.getAttribute("auxiliary-field-name");
             this.entityName = getterElement.getAttribute("entity-name");
@@ -1231,7 +1231,7 @@ public class EntityPermissionChecker {
             this.roleEntityIdName = "contentId";
         }
 
-        public StdRelatedRoleGetter ( String entityName,  String roleTypeFieldName, String roleEntityIdName, String partyFieldName, String ownerEntityFieldName, String roleEntityName) {
+        public StdRelatedRoleGetter (String entityName,  String roleTypeFieldName, String roleEntityIdName, String partyFieldName, String ownerEntityFieldName, String roleEntityName) {
 
             this.roleTypeFieldName = roleTypeFieldName ;
             this.partyFieldName = partyFieldName ;
@@ -1241,7 +1241,7 @@ public class EntityPermissionChecker {
             this.roleEntityIdName = roleEntityIdName;
         }
 
-        public StdRelatedRoleGetter ( Element getterElement) {
+        public StdRelatedRoleGetter (Element getterElement) {
 
             this.roleTypeFieldName = getterElement.getAttribute("role-type-field-name");
             this.partyFieldName = getterElement.getAttribute("party-field-name");
@@ -1283,7 +1283,7 @@ public class EntityPermissionChecker {
            }
         }
 
-        public boolean isOwner( GenericValue entity, String targetPartyId) {
+        public boolean isOwner(GenericValue entity, String targetPartyId) {
             boolean isOwner = false;
             if (entity == null || targetPartyId == null) {
                 return false;
@@ -1293,10 +1293,10 @@ public class EntityPermissionChecker {
             if (modelEntity.getField("createdByUserLogin") == null) {
                 return false;
             }
-            if ( entity.get("createdByUserLogin") != null) {
+            if (entity.get("createdByUserLogin") != null) {
                 String userLoginIdCB = (String)entity.get("createdByUserLogin");
                 try {
-                    GenericValue userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginIdCB ));
+                    GenericValue userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginIdCB));
                     if (userLogin != null) {
                         String partyIdCB = userLogin.getString("partyId");
                         if (partyIdCB != null) {
@@ -1351,7 +1351,7 @@ public class EntityPermissionChecker {
             String pkFieldName = modelEntity.getFirstPkFieldName();
             GenericValue ownerContent = delegator.findByPrimaryKeyCache(entityName, UtilMisc.toMap(pkFieldName, ownerContentId));
             if (ownerContent != null) {
-                getEntityOwners(delegator, ownerContent, contentOwnerList, entityName, ownerIdFieldName );
+                getEntityOwners(delegator, ownerContent, contentOwnerList, entityName, ownerIdFieldName);
             }
         }
 
@@ -1360,7 +1360,7 @@ public class EntityPermissionChecker {
     public static int getPrivilegeEnumSeq(GenericDelegator delegator, String privilegeEnumId) throws GenericEntityException {
         int privilegeEnumSeq = -1;
 
-        if ( UtilValidate.isNotEmpty(privilegeEnumId)) {
+        if (UtilValidate.isNotEmpty(privilegeEnumId)) {
             GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
             if (privEnum != null) {
                 String sequenceId = privEnum.getString("sequenceId");
