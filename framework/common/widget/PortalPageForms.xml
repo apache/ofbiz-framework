@@ -124,7 +124,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="portletName">
-            <hyperlink also-hidden="false" target="showHelp?helpTopic=PortLet${portalPortletId}" description="${portletName}" ></hyperlink>
+            <hyperlink also-hidden="false" target="showHelp?helpTopic=HELP_${portalPortletId}" description="${portletName}" ></hyperlink>
         </field>
         <field name="description"><display/></field>
     </form>

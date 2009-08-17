@@ -18,7 +18,6 @@
     under the License.
 -->
 <entity-engine-xml>
-    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
     <Content contentId="PICTURE" contentTypeId="DOCUMENT" contentName="Picture" dataResourceId=""/>
     <Content contentId="PROD_DESCRIPTION" contentTypeId="DOCUMENT" contentName="Product Description" dataResourceId=""/>
     <Content contentId="GENERAL" contentTypeId="DOCUMENT" contentName="General" dataResourceId=""/>

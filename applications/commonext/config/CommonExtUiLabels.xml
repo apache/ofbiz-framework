@@ -28,6 +28,9 @@
     <property key="CommonExtHelpUsedFor">
         <value xml:lang="en">What is it used for?</value>
     </property>
+    <property key="CommonExtHelpOnScreen">
+        <value xml:lang="en">What's on the screen?</value>
+    </property>
     <property key="CommonExtIndex">
         <value xml:lang="en">Index</value>
     </property>

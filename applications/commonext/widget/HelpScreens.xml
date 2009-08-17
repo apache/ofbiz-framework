@@ -64,7 +64,10 @@ under the License.
     <screen name="ShowHelp">
         <section>
             <condition>
-                <if-compare field="parameters.helpTopic" operator="equals" value="navigateHelp"/>
+                <and>
+                    <if-compare field="parameters.helpTopic" operator="equals" value="navigateHelp"/>
+                    <if-empty field="parameters.portalPageId"/>
+                </and>
             </condition>
             <widgets>
                 <include-screen name="navigateHelp"/>
@@ -76,11 +79,8 @@ under the License.
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
-                        <entity-and entity-name="Content" list="contents">
-                            <field-map field-name="contentName" from-field="parameters.helpTopic"/>
-                        </entity-and>
-                        <set field="content" from-field="contents[0]"/>
-                        <set field="contentId" value="${parameters.contentId}" default-value="${content.contentId}"/>
+                        <set field="contentId" value="${parameters.contentId}" default-value="HELP_ROOT"/>
+                        <entity-one entity-name="Content" value-field="content"/>
                     </actions>
                     <widgets>
                         <section>
@@ -88,11 +88,7 @@ under the License.
                                 <if-empty field="content"/>
                             </condition>
                             <widgets>
-                                <decorator-screen name="LookupDecorator">
-                                    <decorator-section name="body">
-                                        <label style="h2" text="Content with content name: ${parameters.helpTopic} or contentId: ${contentId}(${parameters.contentId}} could not be found"></label>
-                                    </decorator-section>
-                                </decorator-screen>
+                                <include-screen name="navigateHelp"/>
                             </widgets>
                             <fail-widgets>
                                 <decorator-screen name="LookupDecorator">
@@ -110,7 +106,7 @@ under the License.
                         <decorator-screen name="LookupDecorator">
                             <decorator-section name="body">
                                 <screenlet title="${uilabelMap.CommonExtHelpTitle}">
-                                    <content content-id="HELP-MYPORTAL"/>
+                                    <content content-id="HELP_MYPORTAL"/>
                                 </screenlet>
                                 <screenlet title="Select a portlet you would like to have help on...." navigation-menu-name="lookupMenu">
                                     <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
@@ -153,11 +149,11 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <set field="titleProperty" value="PageTitleNavigateContent"/>
                 <entity-and entity-name="ContentAssoc" list="contentAssoc">
-                    <field-map field-name="contentId" value="HELP-ROOT"/>
+                    <field-map field-name="contentId" value="HELP_ROOT"/>
                     <field-map field-name="contentAssocTypeId" value="TREE_CHILD"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
-                <set field="contentId" from-field="parameters.contentId" default-value="HELP-ROOT"/>
+                <set field="contentId" from-field="parameters.contentId" default-value="HELP_ROOT"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator">
