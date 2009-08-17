@@ -594,9 +594,6 @@ under the License.
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <entity-one entity-name="GlReconciliation" value-field="currentGlReconciliation"/>
-                <entity-and entity-name="FinAccountTrans" list="finAccountTransList">
-                    <field-map field-name="glReconciliationId"/>
-                </entity-and>
                 <entity-condition entity-name="GlReconciliation" list="glReconciliationList">
                     <condition-list combine="and">
                         <condition-expr field-name="reconciledDate" operator="less" from-field="currentGlReconciliation.reconciledDate" ignore-if-empty="true"/>
@@ -604,7 +601,8 @@ under the License.
                     </condition-list>
                     <order-by field-name="reconciledDate DESC"/>
                 </entity-condition>
-                <service service-name="getTransactionTotalByGlReconcileId" result-map="transactionTotalAmount"/>
+                <service service-name="getFinAccountTransListAndTotals" result-map="transactionTotalAmount"/>
+                <set field="finAccountTransList" from-field="transactionTotalAmount.finAccountTransList" type="List"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">

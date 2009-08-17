@@ -648,12 +648,14 @@ under the License.
         <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
             <field-map field-name="paymentGroupId"/>
         </entity-and>
-        <first-from-list list="paymentGroupMembers" entry="paymentGroupMember" />
-        <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
-        <get-related-one relation-name="FinAccountTrans" value-field="payment" to-value-field="finAccountTrans"/>
-        <if-not-empty field="finAccountTrans">
-            <if-not-empty field="finAccountTrans.glReconciliationId">
-                <set field="glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
+        <if-not-empty field="paymentGroupMembers">
+            <first-from-list list="paymentGroupMembers" entry="paymentGroupMember"/>
+            <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
+            <get-related-one relation-name="FinAccountTrans" value-field="payment" to-value-field="finAccountTrans"/>
+            <if-not-empty field="finAccountTrans">
+                <if-not-empty field="finAccountTrans.glReconciliationId">
+                    <set field="glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
+                </if-not-empty>
             </if-not-empty>
         </if-not-empty>
         <field-to-result field="glReconciliationId"/>
