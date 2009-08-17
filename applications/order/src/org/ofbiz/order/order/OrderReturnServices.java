@@ -465,11 +465,11 @@ public class OrderReturnServices {
             EntityConditionList whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
                     EntityCondition.makeCondition("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))
-                ), EntityOperator.AND);
+               ), EntityOperator.AND);
             /*
             EntityConditionList havingConditions = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("quantityIssued", EntityOperator.GREATER_THAN, Double.valueOf(0))
-                ), EntityOperator.AND);
+               ), EntityOperator.AND);
              */
             List orderItemQuantitiesIssued = null;
             try {
@@ -486,7 +486,7 @@ public class OrderReturnServices {
                     GenericValue item = null;
                     try {
                         item = orderItemQuantityIssued.getRelatedOne("OrderItem");
-                    } catch ( GenericEntityException e ) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderItemInformation", locale));
                     }
@@ -517,7 +517,7 @@ public class OrderReturnServices {
                     } else {
 
                         // Don't add the OrderItem to the map of returnable OrderItems if there isn't any returnable quantity.
-                        if (((BigDecimal) serviceResult.get("returnableQuantity")).compareTo(BigDecimal.ZERO) == 0 ) {
+                        if (((BigDecimal) serviceResult.get("returnableQuantity")).compareTo(BigDecimal.ZERO) == 0) {
                             continue;
                         }
                         Map returnInfo = new HashMap();
@@ -842,7 +842,7 @@ public class OrderReturnServices {
 
             // first, compute the total credit from the return items
             BigDecimal creditTotal = ZERO;
-            for (Iterator itemsIter = returnItems.iterator(); itemsIter.hasNext(); ) {
+            for (Iterator itemsIter = returnItems.iterator(); itemsIter.hasNext();) {
                 GenericValue item = (GenericValue) itemsIter.next();
                 BigDecimal quantity = item.getBigDecimal("returnQuantity");
                 BigDecimal price = item.getBigDecimal("returnPrice");
@@ -919,7 +919,7 @@ public class OrderReturnServices {
             String itemResponseId = (String) serviceResults.get("returnItemResponseId");
 
             // loop through the items again to update them and store a status change history
-            for (Iterator itemsIter = returnItems.iterator(); itemsIter.hasNext(); ) {
+            for (Iterator itemsIter = returnItems.iterator(); itemsIter.hasNext();) {
                 GenericValue item = (GenericValue) itemsIter.next();
                 Map returnItemMap = UtilMisc.toMap("returnItemResponseId", itemResponseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", "RETURN_COMPLETED", "userLogin", userLogin);
                 // store the item changes (attached responseId)
@@ -989,10 +989,10 @@ public class OrderReturnServices {
                 EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
                 EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
-            ), EntityOperator.AND);
+           ), EntityOperator.AND);
 
         List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
+        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext();) {
             GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
             BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
@@ -1000,7 +1000,7 @@ public class OrderReturnServices {
 
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
         // TODO: cancelled payments?
-        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = (GenericValue) pAi.next();
             if (paymentAppl.getString("invoiceId") == null) {
                 BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
@@ -1039,7 +1039,7 @@ public class OrderReturnServices {
 
             // find the minimum storeCreditValidDays of all the ProductStores associated with all the Orders on the Return, skipping null ones
             Long storeCreditValidDays = null;
-            for (Iterator iter = productStores.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = productStores.iterator(); iter.hasNext();) {
                 GenericValue productStore = (GenericValue) iter.next();
                 Long thisStoreValidDays = productStore.getLong("storeCreditValidDays");
                 if (thisStoreValidDays == null) continue;
@@ -1101,7 +1101,7 @@ public class OrderReturnServices {
         }
          
         // Check for replacement order
-        if (UtilValidate.isEmpty(orderPayPrefs)){
+        if (UtilValidate.isEmpty(orderPayPrefs)) {
             List<GenericValue> returnItemResponses = FastList.newInstance();
             try {
                 returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse");
@@ -1201,7 +1201,7 @@ public class OrderReturnServices {
                     orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
                     
                     // Check for replacement order
-                    if (UtilValidate.isEmpty(orderPayPrefs)){
+                    if (UtilValidate.isEmpty(orderPayPrefs)) {
                         List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"));
                         if (UtilValidate.isNotEmpty(orderItemAssocs)) {
                             String originalOrderId = EntityUtil.getFirst(orderItemAssocs).getString("orderId");
@@ -1236,7 +1236,7 @@ public class OrderReturnServices {
                     if (UtilValidate.isNotEmpty(orgAcctgPref)) {
                         try {
                             refundPaymentMethod = orgAcctgPref.getRelatedOne("PaymentMethod");
-                        } catch ( GenericEntityException e ) {
+                        } catch (GenericEntityException e) {
                             Debug.logError("Error retrieving related refundPaymentMethod from PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);
                         }
                     }
@@ -1245,7 +1245,7 @@ public class OrderReturnServices {
                 // now; for all timestamps
                 Timestamp now = UtilDateTime.nowTimestamp();
 
-                // Assemble a map of orderPaymentPreferenceId -> list of maps of ( OPP and availableAmountForRefunding )
+                // Assemble a map of orderPaymentPreferenceId -> list of maps of (OPP and availableAmountForRefunding)
                 //     where availableAmountForRefunding = receivedAmount - alreadyRefundedAmount
                 // We break the OPPs down this way because we need to process the refunds to payment methods in a particular order
                 Map receivedPaymentTotalsByPaymentMethod = orderReadHelper.getReceivedPaymentTotalsByPaymentMethod() ;
@@ -1577,10 +1577,10 @@ public class OrderReturnServices {
             // for each return item in the response, get the list of return item billings and then a list of invoices
             Map returnInvoices = FastMap.newInstance(); // key is invoiceId, value is Invoice GenericValue
             List items = response.getRelated("ReturnItem");
-            for (Iterator itemIter = items.iterator(); itemIter.hasNext(); ) {
+            for (Iterator itemIter = items.iterator(); itemIter.hasNext();) {
                 GenericValue item = (GenericValue) itemIter.next();
                 List billings = item.getRelated("ReturnItemBilling");
-                for (Iterator billIter = billings.iterator(); billIter.hasNext(); ) {
+                for (Iterator billIter = billings.iterator(); billIter.hasNext();) {
                     GenericValue billing = (GenericValue) billIter.next();
                     GenericValue invoice = billing.getRelatedOne("Invoice");
 
@@ -1594,12 +1594,12 @@ public class OrderReturnServices {
             // for each return invoice found, sum up the related billings
             Map invoiceTotals = FastMap.newInstance(); // key is invoiceId, value is the sum of all billings for that invoice
             BigDecimal grandTotal = ZERO; // The sum of all return invoice totals
-            for (Iterator iter = returnInvoices.values().iterator(); iter.hasNext(); ) {
+            for (Iterator iter = returnInvoices.values().iterator(); iter.hasNext();) {
                 GenericValue invoice = (GenericValue) iter.next();
 
                 List billings = invoice.getRelated("ReturnItemBilling");
                 BigDecimal runningTotal = ZERO;
-                for (Iterator billIter = billings.iterator(); billIter.hasNext(); ) {
+                for (Iterator billIter = billings.iterator(); billIter.hasNext();) {
                     GenericValue billing = (GenericValue) billIter.next();
                     runningTotal = runningTotal.add(billing.getBigDecimal("amount").multiply(billing.getBigDecimal("quantity")).setScale(decimals, rounding));
                 }
@@ -1609,7 +1609,7 @@ public class OrderReturnServices {
             }
 
             // now allocate responseAmount * invoiceTotal / grandTotal to each invoice
-            for (Iterator iter = returnInvoices.values().iterator(); iter.hasNext(); ) {
+            for (Iterator iter = returnInvoices.values().iterator(); iter.hasNext();) {
                 GenericValue invoice = (GenericValue) iter.next();
                 String invoiceId = invoice.getString("invoiceId");
                 BigDecimal invoiceTotal = (BigDecimal) invoiceTotals.get(invoiceId);

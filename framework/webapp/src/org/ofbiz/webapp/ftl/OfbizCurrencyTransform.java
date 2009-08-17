@@ -103,7 +103,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
-                return Integer.valueOf( s.getAsString() );
+                return Integer.valueOf(s.getAsString());
             }
             return Integer.valueOf(o.toString());
         }

@@ -76,17 +76,17 @@ public class OfbizAmountTransform implements TemplateTransformModel {
 
             if (o instanceof NumberModel) {
                 NumberModel s = (NumberModel) o;
-                return Double.valueOf( s.getAsNumber().doubleValue() );
+                return Double.valueOf(s.getAsNumber().doubleValue());
             }
             if (o instanceof SimpleNumber) {
                 SimpleNumber s = (SimpleNumber) o;
-                return Double.valueOf( s.getAsNumber().doubleValue() );
+                return Double.valueOf(s.getAsNumber().doubleValue());
             }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
-                return Double.valueOf( s.getAsString() );
+                return Double.valueOf(s.getAsString());
             }
-            return Double.valueOf( o.toString() );
+            return Double.valueOf(o.toString());
         }
         return Double.valueOf(0.00);
     }

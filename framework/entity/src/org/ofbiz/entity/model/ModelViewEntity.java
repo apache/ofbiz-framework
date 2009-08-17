@@ -574,7 +574,7 @@ public class ModelViewEntity extends ModelEntity {
         int ptr = 0;
         ModelConversion[] currentConversions = new ModelConversion[conversions.size()];
         for (int j = 0, k; j < currentIndex.length; j++) {
-            for (int l = 0; l < maxIndex[ j ]; l++ ) {
+            for (int l = 0; l < maxIndex[ j ]; l++) {
                 while (true) {
                     for (i = 0, k = 0; i < currentIndex.length; i++) {
                         if (i == j && currentIndex[i] == l) continue;
@@ -1242,7 +1242,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
             
-            if(this.viewEntityCondition.modelViewEntity.getField(fieldName) == null) {
+            if (this.viewEntityCondition.modelViewEntity.getField(fieldName) == null) {
                 throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]");
             }
 

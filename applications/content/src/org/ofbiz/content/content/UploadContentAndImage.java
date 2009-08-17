@@ -119,11 +119,11 @@ public class UploadContentAndImage {
 
             TransactionUtil.begin();
             List contentPurposeList = ContentWorker.prepContentPurposeList(passedParams);
-            passedParams.put("contentPurposeList", contentPurposeList );
+            passedParams.put("contentPurposeList", contentPurposeList);
             String entityOperation = (String)passedParams.get("entityOperation");
             String passedContentId = (String)passedParams.get("ftlContentId");
             List targetOperationList = ContentWorker.prepTargetOperationList(passedParams, entityOperation);
-            passedParams.put("targetOperationList", targetOperationList );
+            passedParams.put("targetOperationList", targetOperationList);
             // Create or update FTL template
             Map ftlContext = FastMap.newInstance();
             ftlContext.put("userLogin", userLogin);
@@ -155,13 +155,13 @@ public class UploadContentAndImage {
                 return "error";
             }
             String ftlContentId = (String)ftlResults.get("contentId");
-            if (UtilValidate.isNotEmpty(contentIdTo) ) {
+            if (UtilValidate.isNotEmpty(contentIdTo)) {
                 Map map = FastMap.newInstance();
                     map.put("fromDate", UtilDateTime.nowTimestamp());
                     map.put("contentId", ftlContentId);
                     map.put("contentIdTo", contentIdTo);
                     map.put("userLogin", userLogin);
-                if (UtilValidate.isEmpty(contentAssocTypeId) && UtilValidate.isEmpty(passedContentId) && UtilValidate.isNotEmpty(contentIdTo) ) {
+                if (UtilValidate.isEmpty(contentAssocTypeId) && UtilValidate.isEmpty(passedContentId) && UtilValidate.isNotEmpty(contentIdTo)) {
                     // switch the association order because we are really not linking to the forum
                     // but showing that this content is released to that forum.
                     map.put("contentIdTo", ftlContentId);
@@ -170,7 +170,7 @@ public class UploadContentAndImage {
                 } else if (contentAssocTypeId.equals("PUBLISH_LINK")) {
                     map.put("contentAssocTypeId", "PUBLISH_LINK");
                     String publishOperation = (String)passedParams.get("publishOperation");
-                    if (UtilValidate.isEmpty(publishOperation) ) {
+                    if (UtilValidate.isEmpty(publishOperation)) {
                         publishOperation = "CONTENT_PUBLISH";
                     }
                     map.put("targetOperationList", StringUtil.split(publishOperation, "|"));
@@ -197,7 +197,7 @@ public class UploadContentAndImage {
             if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, module);
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlDataResourceId:" + ftlDataResourceId, module);
             // Create or update summary text subContent
-            if ( passedParams.containsKey("summaryData") ) {
+            if (passedParams.containsKey("summaryData")) {
                 Map sumContext = FastMap.newInstance();
                 sumContext.put("userLogin", userLogin);
                 sumContext.put("contentId", passedParams.get("sumContentId"));
@@ -227,7 +227,7 @@ public class UploadContentAndImage {
             }
 
             // Create or update electronic text subContent
-            if ( passedParams.containsKey("textData") ) {
+            if (passedParams.containsKey("textData")) {
                 Map txtContext = FastMap.newInstance();
                 txtContext.put("userLogin", userLogin);
                 txtContext.put("contentId", passedParams.get("txtContentId"));
@@ -324,7 +324,7 @@ public class UploadContentAndImage {
             request.setAttribute("passedParams", passedParams);
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]newTrail: " + newTrail, module);
             TransactionUtil.commit();
-        } catch ( Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
@@ -410,7 +410,7 @@ public class UploadContentAndImage {
                 }
             }
             TransactionUtil.commit();
-        } catch ( Exception e) {
+        } catch (Exception e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
@@ -448,7 +448,7 @@ public class UploadContentAndImage {
 
             ftlContext.put("userLogin", userLogin);
             Object objSequenceNum = passedParams.get("caSequenceNum");
-            if (objSequenceNum != null ) {
+            if (objSequenceNum != null) {
                 if (objSequenceNum instanceof String) {
                     Long sequenceNum = null;
                     try {

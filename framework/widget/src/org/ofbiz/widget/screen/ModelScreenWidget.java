@@ -1092,7 +1092,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 }
 
                 if (UtilValidate.isNotEmpty(mimeTypeId)
-                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0) ) {
+                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
                     screenStringRenderer.renderContentFrame(writer, context, this);
                 } else {
                     screenStringRenderer.renderContentBegin(writer, context, this);

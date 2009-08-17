@@ -138,7 +138,7 @@ public class PayPalEvents {
             || UtilValidate.isEmpty(notifyUrl)
             || UtilValidate.isEmpty(returnUrl)
             || UtilValidate.isEmpty(imageUrl)
-            || UtilValidate.isEmpty(payPalAccount) ) {
+            || UtilValidate.isEmpty(payPalAccount)) {
             Debug.logError("Payment properties is not configured properly, some notify URL from PayPal is not correctly defined!", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";

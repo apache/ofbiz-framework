@@ -72,7 +72,7 @@ public class StockMovesTest extends OFBizTestCase {
         Map<String, Object> ppsmCtx = FastMap.newInstance();
         ppsmCtx.put("productId", "GZ-2644");
         ppsmCtx.put("facilityId", "WebStoreWarehouse");
-        ppsmCtx.put("locationSeqId","TLTLTLUL01" );
+        ppsmCtx.put("locationSeqId","TLTLTLUL01");
         ppsmCtx.put("targetLocationSeqId", "TLTLTLLL01");
         ppsmCtx.put("quantityMoved", new BigDecimal("5"));
         ppsmCtx.put("userLogin", userLogin);

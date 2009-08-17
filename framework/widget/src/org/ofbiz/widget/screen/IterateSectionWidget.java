@@ -111,12 +111,12 @@ public class IterateSectionWidget extends ModelScreenWidget {
             return;
         }
         List theList = null;
-        if (obj instanceof Map ) {
+        if (obj instanceof Map) {
             Set entrySet = ((Map)obj).entrySet();
             Object [] a = entrySet.toArray();
             theList = Arrays.asList(a);
             isEntrySet = true;
-        } else if (obj instanceof List ) {
+        } else if (obj instanceof List) {
             theList = (List)obj;
         } else {
             Debug.logError("Object not list or map type", module);

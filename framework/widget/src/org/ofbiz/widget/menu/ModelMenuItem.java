@@ -134,7 +134,7 @@ public class ModelMenuItem {
                     positionStr + "], using the default of the menu renderer", module);
         }
 
-        this.setAssociatedContentId( fieldElement.getAttribute("associated-content-id"));
+        this.setAssociatedContentId(fieldElement.getAttribute("associated-content-id"));
         this.cellWidth = fieldElement.getAttribute("cell-width");
 
         dataMap.put("name", this.name);
@@ -540,7 +540,7 @@ public class ModelMenuItem {
     }
 
     public String getCellWidth() {
-        if (UtilValidate.isNotEmpty(this.cellWidth )) {
+        if (UtilValidate.isNotEmpty(this.cellWidth)) {
             return this.cellWidth ;
         } else {
             return this.modelMenu.getDefaultCellWidth ();

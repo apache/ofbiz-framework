@@ -948,7 +948,7 @@ public class LoginServices {
         }
         Debug.logInfo(" password.change.history.limit is set to " + passwordChangeHistoryLimit, module);
         Debug.logInfo(" userLogin is set to " + userLogin, module);
-        if (passwordChangeHistoryLimit > 0 && userLogin != null ) {
+        if (passwordChangeHistoryLimit > 0 && userLogin != null) {
             Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
             GenericDelegator delegator = userLogin.getDelegator();
             String newPasswordHash = newPassword;

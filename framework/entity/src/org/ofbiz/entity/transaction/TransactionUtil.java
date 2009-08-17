@@ -366,7 +366,7 @@ public class TransactionUtil implements Status {
         if (parentTx == null) return;
         try {
             TransactionManager txMgr = TransactionFactory.getTransactionManager();
-            if (txMgr != null ) {
+            if (txMgr != null) {
                 setTransactionBeginStack(popTransactionBeginStackSave());
                 setSetRollbackOnlyCause(popSetRollbackOnlyCauseSave());
                 txMgr.resume(parentTx);

@@ -101,7 +101,7 @@ public class RenderContentTransform implements TemplateTransformModel {
                     String txt = null;
 
                     String mapKey = (String)templateRoot.get("mapKey");
-                    if ( UtilValidate.isEmpty(mapKey)) {
+                    if (UtilValidate.isEmpty(mapKey)) {
                         txt = ContentWorker.renderContentAsText(dispatcher, delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
                     } else {
                         txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, mapKey, templateRoot, locale, mimeTypeId, true);

@@ -60,9 +60,9 @@ public class OpenOfficeByteArrayInputStream extends ByteArrayInputStream impleme
 
         try {
             close();
-        } catch ( IOException e) {
+        } catch (IOException e) {
             String errMsg = e.getMessage();
-            throw new com.sun.star.io.IOException( errMsg, this );
+            throw new com.sun.star.io.IOException(errMsg, this);
         }
 
     }
@@ -73,9 +73,9 @@ public class OpenOfficeByteArrayInputStream extends ByteArrayInputStream impleme
         byte [] buf2 = new byte[pos2];
         try {
             bytesRead = super.read(buf2);
-        } catch ( IOException e) {
+        } catch (IOException e) {
             String errMsg = e.getMessage();
-            throw new com.sun.star.io.IOException( errMsg, this );
+            throw new com.sun.star.io.IOException(errMsg, this);
         }
 
         if (bytesRead > 0) {

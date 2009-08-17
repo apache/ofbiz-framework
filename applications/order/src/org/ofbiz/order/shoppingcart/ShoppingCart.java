@@ -495,7 +495,7 @@ public class ShoppingCart implements Serializable {
                     String isAvailable = ShoppingCartItem.checkAvailability(productId, newQuantity, reservStart, reservLength, this);
                     if (isAvailable.compareTo("OK") != 0) {
                         Map messageMap = UtilMisc.toMap("productId", productId, "availableMessage", isAvailable);
-                        String excMsg = UtilProperties.getMessage(ShoppingCartItem.resource, "item.product_not_available", messageMap, this.getLocale() );
+                        String excMsg = UtilProperties.getMessage(ShoppingCartItem.resource, "item.product_not_available", messageMap, this.getLocale());
                         Debug.logInfo(excMsg, module);
                         throw new CartItemModifyException(isAvailable);
                     }
@@ -592,7 +592,7 @@ public class ShoppingCart implements Serializable {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
     }
 
-    /** Add an accommodation(rental )item to the shopping cart. */
+    /** Add an accommodation(rental)item to the shopping cart. */
     public int addItemToEnd(String productId, BigDecimal amount, BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
     }
@@ -1626,7 +1626,7 @@ public class ShoppingCart implements Serializable {
     /** remove all the paymentMethods based on the paymentMethodIds */
     public void clearPaymentMethodsById(List paymentMethodIdsToRemove) {
         if (UtilValidate.isEmpty(paymentMethodIdsToRemove)) return;
-        for (Iterator iter = paymentInfo.iterator(); iter.hasNext(); ) {
+        for (Iterator iter = paymentInfo.iterator(); iter.hasNext();) {
             CartPaymentInfo info = (CartPaymentInfo) iter.next();
             if (paymentMethodIdsToRemove.contains(info.paymentMethodId)) {
                 iter.remove();
@@ -1642,7 +1642,7 @@ public class ShoppingCart implements Serializable {
                 List declinedPaymentMethods = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_DECLINED"));
                 if (!UtilValidate.isEmpty(declinedPaymentMethods)) {
                     List paymentMethodIdsToRemove = new ArrayList();
-                    for (Iterator iter = declinedPaymentMethods.iterator(); iter.hasNext(); ) {
+                    for (Iterator iter = declinedPaymentMethods.iterator(); iter.hasNext();) {
                         GenericValue opp = (GenericValue) iter.next();
                         paymentMethodIdsToRemove.add(opp.getString("paymentMethodId"));
                     }
@@ -1993,7 +1993,7 @@ public class ShoppingCart implements Serializable {
         Map shipGroups = this.getShipGroups(item);
 
         if ((shipGroups != null) && (shipGroups.keySet() != null)) {
-            for (Iterator shipGroupKeys = shipGroups.keySet().iterator(); shipGroupKeys.hasNext(); ) {
+            for (Iterator shipGroupKeys = shipGroups.keySet().iterator(); shipGroupKeys.hasNext();) {
                 Integer shipGroup = (Integer) shipGroupKeys.next();
                 CartShipInfo cartShipInfo = this.getShipInfo(shipGroup.intValue());
 
@@ -2565,7 +2565,7 @@ public class ShoppingCart implements Serializable {
     public BigDecimal getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
         BigDecimal total = BigDecimal.ZERO;
         String thisPaymentMethodTypeId = null;
-        for (Iterator iter = paymentInfo.iterator(); iter.hasNext(); ) {
+        for (Iterator iter = paymentInfo.iterator(); iter.hasNext();) {
             CartPaymentInfo payment = (CartPaymentInfo) iter.next();
             if (payment.amount == null) continue;
             if (payment.paymentMethodId != null) {

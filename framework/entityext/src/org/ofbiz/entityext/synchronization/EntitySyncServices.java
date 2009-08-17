@@ -434,7 +434,7 @@ public class EntitySyncServices {
             }
 
             // if no more results from database to return, save final settings
-            if (!esc.hasMoreTimeToSync() ) {
+            if (!esc.hasMoreTimeToSync()) {
                 esc.saveFinalSyncResults();
             }
         } catch (SyncAbortException e) {

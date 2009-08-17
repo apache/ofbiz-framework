@@ -996,7 +996,7 @@ public class OrderReadHelper {
             Iterator i = validItems.iterator();
             while (i.hasNext()) {
                 GenericValue item = (GenericValue) i.next();
-                shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply( getOrderItemQuantity(item))).setScale(scale, rounding);
+                shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply(getOrderItemQuantity(item))).setScale(scale, rounding);
             }
         }
 
@@ -1062,7 +1062,7 @@ public class OrderReadHelper {
      */
     public BigDecimal getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
         BigDecimal total = ZERO;
-        for (Iterator iter = getPaymentPreferences().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = getPaymentPreferences().iterator(); iter.hasNext();) {
             GenericValue preference = (GenericValue) iter.next();
             if (preference.get("maxAmount") == null) continue;
             if (paymentMethodTypeId == null || paymentMethodTypeId.equals(preference.get("paymentMethodTypeId"))) {
@@ -1096,7 +1096,7 @@ public class OrderReadHelper {
             // get a set of invoice IDs that belong to the order
             List orderItemBillings = orderHeader.getRelatedCache("OrderItemBilling");
             Set invoiceIds = new HashSet();
-            for (Iterator iter = orderItemBillings.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = orderItemBillings.iterator(); iter.hasNext();) {
                 GenericValue orderItemBilling = (GenericValue) iter.next();
                 invoiceIds.add(orderItemBilling.get("invoiceId"));
             }
@@ -1105,14 +1105,14 @@ public class OrderReadHelper {
             List conditions = UtilMisc.toList(
                     EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
                     EntityCondition.makeCondition("invoiceId", EntityOperator.IN, invoiceIds)
-                    );
+                   );
             if (paymentMethodTypeId != null) {
                 conditions.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
             }
             EntityConditionList ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
             List payments = orderHeader.getDelegator().findList("PaymentAndApplication", ecl, null, null, null, true);
 
-            for (Iterator iter = payments.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = payments.iterator(); iter.hasNext();) {
                 GenericValue payment = (GenericValue) iter.next();
                 if (payment.get("amountApplied") == null) continue;
                 total = total.add(payment.getBigDecimal("amountApplied")).setScale(scale, rounding);
@@ -1288,13 +1288,13 @@ public class OrderReadHelper {
         List prefs = getPaymentPreferences();
 
         // add up the covered amount, but skip preferences which are declined or cancelled
-        for (Iterator iter = prefs.iterator(); iter.hasNext(); ) {
+        for (Iterator iter = prefs.iterator(); iter.hasNext();) {
             GenericValue pref = (GenericValue) iter.next();
             if ("PAYMENT_CANCELLED".equals(pref.get("statusId")) || "PAYMENT_DECLINED".equals(pref.get("statusId"))) {
                 continue;
             } else if ("PAYMENT_SETTLED".equals(pref.get("statusId"))) {
                 List responses = pref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_CAPTURE"));
-                for (Iterator respIter = responses.iterator(); respIter.hasNext(); ) {
+                for (Iterator respIter = responses.iterator(); respIter.hasNext();) {
                     GenericValue response = (GenericValue) respIter.next();
                     BigDecimal amount = response.getBigDecimal("amount");
                     if (amount != null) {
@@ -1302,7 +1302,7 @@ public class OrderReadHelper {
                     }
                 }
                 responses = pref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_REFUND"));
-                for (Iterator respIter = responses.iterator(); respIter.hasNext(); ) {
+                for (Iterator respIter = responses.iterator(); respIter.hasNext();) {
                     GenericValue response = (GenericValue) respIter.next();
                     BigDecimal amount = response.getBigDecimal("amount");
                     if (amount != null) {
@@ -1692,7 +1692,7 @@ public class OrderReadHelper {
     /** Get a set of productIds in the order. */
     public Collection getOrderProductIds() {
         Set productIds = new HashSet();
-        for (Iterator iter = getOrderItems().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = getOrderItems().iterator(); iter.hasNext();) {
             productIds.add(((GenericValue) iter.next()).getString("productId"));
         }
         return productIds;
@@ -1723,14 +1723,14 @@ public class OrderReadHelper {
 
        // since we don't have a handy grouped view entity, we'll have to group the return items by hand
        Map returnMap = FastMap.newInstance();
-       for (Iterator iter = this.getValidOrderItems().iterator(); iter.hasNext(); ) {
+       for (Iterator iter = this.getValidOrderItems().iterator(); iter.hasNext();) {
            GenericValue orderItem = (GenericValue) iter.next();
            List group = EntityUtil.filterByAnd(returnItems,
                    UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId")));
 
            // add up the returned quantities for this group TODO: received quantity should be used eventually
            BigDecimal returned = BigDecimal.ZERO;
-           for (Iterator groupiter = group.iterator(); groupiter.hasNext(); ) {
+           for (Iterator groupiter = group.iterator(); groupiter.hasNext();) {
                GenericValue returnItem = (GenericValue) groupiter.next();
                if (returnItem.getBigDecimal("returnQuantity") != null) {
                    returned = returned.add(returnItem.getBigDecimal("returnQuantity"));
@@ -1941,7 +1941,7 @@ public class OrderReadHelper {
 
         // sum up the return items that have a return item response with a billing account defined
         try {
-            for (Iterator iter = returnedItems.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = returnedItems.iterator(); iter.hasNext();) {
                 GenericValue returnItem = (GenericValue) iter.next();
                 GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse");
                 if (returnItemResponse == null) continue;
@@ -2805,7 +2805,7 @@ public class OrderReadHelper {
        try {
            // this is simply the sum of quantity billed in all related OrderItemBillings
            List billings = orderItem.getRelated("OrderItemBilling");
-           for (Iterator iter = billings.iterator(); iter.hasNext(); ) {
+           for (Iterator iter = billings.iterator(); iter.hasNext();) {
                GenericValue billing = (GenericValue) iter.next();
                BigDecimal quantity = billing.getBigDecimal("quantity");
                if (quantity != null) {

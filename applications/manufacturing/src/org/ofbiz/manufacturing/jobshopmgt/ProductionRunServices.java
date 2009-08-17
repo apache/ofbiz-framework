@@ -374,7 +374,7 @@ public class ProductionRunServices {
                                 "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
                                 "statusId",  workEffortPartyAssignment.getString("statusId"),
                                 "userLogin", userLogin
-                        );
+                       );
                         try {
                             resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
                         } catch (GenericServiceException e) {
@@ -1133,7 +1133,7 @@ public class ProductionRunServices {
                         if (! priority.equals(routingTask.get("priority"))) {
                             routingTask.set("priority", priority);
                             // update the routingTask List and re-read it to be able to have it sorted with the new value
-                            if ( ! productionRun.store()) {
+                            if (! productionRun.store()) {
                                 Debug.logError("productionRun.store(), in routingTask.priority update, fail for productionRunId ="+productionRunId,module);
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotUpdated", locale));
                             }
@@ -1426,7 +1426,7 @@ public class ProductionRunServices {
                         "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
                         "statusId",  workEffortPartyAssignment.getString("statusId"),
                         "userLogin", userLogin
-                );
+               );
                 try {
                     resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
                 } catch (GenericServiceException e) {
@@ -2230,7 +2230,7 @@ public class ProductionRunServices {
                 	return ServiceUtil.returnError("try to get BOM list from productAssoc");
                 }
                 // if so create a mandatory predecessor to this production run
-                if(UtilValidate.isNotEmpty(bomList)) {
+                if (UtilValidate.isNotEmpty(bomList)) {
                 	serviceContext.clear();
                 	serviceContext.put("productId", componentProductId);
                 	serviceContext.put("quantity", componentQuantity);

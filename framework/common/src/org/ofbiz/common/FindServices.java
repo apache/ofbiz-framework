@@ -663,7 +663,7 @@ public class FindServices {
         try {
             EntityListIterator it = (EntityListIterator) result.get("listIt");
             list = it.getPartialList(1, 1); // list starts at '1'
-            if (list != null && list.size() > 0 ) {
+            if (list != null && list.size() > 0) {
                 item = list.get(0);
             }
             it.close();

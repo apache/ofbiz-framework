@@ -233,7 +233,7 @@ public abstract class ModelTreeAction {
             initService(serviceElement);
         }
 
-        public void initService( Element serviceElement ) {
+        public void initService(Element serviceElement) {
 
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map"));
@@ -363,7 +363,7 @@ public abstract class ModelTreeAction {
 
             this.listName = UtilFormatOut.checkEmpty(entityAndElement.getAttribute("list"), entityAndElement.getAttribute("list-name"));
             if (UtilValidate.isEmpty(this.listName)) this.listName = "_LIST_ITERATOR_";
-            entityAndElement.setAttribute( "list-name", this.listName);
+            entityAndElement.setAttribute("list-name", this.listName);
 
             finder = new ByAndFinder(entityAndElement);
         }
@@ -403,7 +403,7 @@ public abstract class ModelTreeAction {
 
             this.listName = UtilFormatOut.checkEmpty(entityConditionElement.getAttribute("list"), entityConditionElement.getAttribute("list-name"));
             if (UtilValidate.isEmpty(this.listName)) this.listName = "_LIST_ITERATOR_";
-            entityConditionElement.setAttribute( "list-name", this.listName);
+            entityConditionElement.setAttribute("list-name", this.listName);
 
             finder = new ByConditionFinder(entityConditionElement);
         }

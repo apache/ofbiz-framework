@@ -345,7 +345,7 @@ public class OpenOfficeWorker{
         return extension;
 
     }
-    public static String convertToUrl(String filePath, XComponentContext xComponentContext ) throws MalformedURLException {
+    public static String convertToUrl(String filePath, XComponentContext xComponentContext) throws MalformedURLException {
 
         String returnUrl = null;
         File f = new File(filePath);

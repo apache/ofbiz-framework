@@ -26,25 +26,25 @@ public class InputWithPassword extends Input {
     protected javax.swing.JTextField savedInput;
     protected XPassword password = null;
 
-    public InputWithPassword( PosScreen page) {
-        super( page);
+    public InputWithPassword(PosScreen page) {
+        super(page);
         this.savedInput = super.input;
         this.password = (XPassword)page.findComponent("pos_inputpassword");
-        if ( this.password == null) {
+        if (this.password == null) {
             this.password = new XPassword();
         }
         this.password.setVisible(false);
         this.password.setFocusable(false);
     }
     public void setPasswordInput(boolean isPasswordInput) {
-        if ( isPasswordInput) {
+        if (isPasswordInput) {
             this.savedInput.setVisible(false);
             this.password.setText("");
-            this.password.setVisible( true);
+            this.password.setVisible(true);
             super.input = this.password;
         } else {
             this.password.setVisible(false);
-            this.savedInput.setVisible( true);
+            this.savedInput.setVisible(true);
             super.input = this.savedInput;
         }
     }

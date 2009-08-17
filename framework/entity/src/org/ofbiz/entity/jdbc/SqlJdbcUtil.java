@@ -901,14 +901,14 @@ public class SqlJdbcUtil {
 
     public static void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         if (value instanceof Collection) {
-            buffer.append("( ");
+            buffer.append("(");
             Iterator<Object> it = UtilGenerics.checkCollection(value).iterator();
             while (it.hasNext()) {
                 Object thisValue = it.next();
                 addValueSingle(buffer, field, thisValue, params);
                 if (it.hasNext()) buffer.append(", ");
             }
-            buffer.append(" )");
+            buffer.append(")");
         } else {
             addValueSingle(buffer, field, value, params);
         }

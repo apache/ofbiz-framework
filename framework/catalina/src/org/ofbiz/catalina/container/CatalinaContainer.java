@@ -434,7 +434,7 @@ public class CatalinaContainer implements Container {
         Manager manager = null;
         try {
             manager = (Manager)Class.forName(mgrClassName).newInstance();
-        } catch(Exception exc) {
+        } catch (Exception exc) {
             throw new ContainerException("Cluster configuration requires a valid manager-class property: " + exc.getMessage());
         }
         //cluster.setManagerClassName(mgrClassName);
@@ -528,7 +528,7 @@ public class CatalinaContainer implements Container {
             String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
             try {
                 sessionMgr = (Manager)Class.forName(mgrClassName).newInstance();
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 throw new ContainerException("Cluster configuration requires a valid manager-class property: " + exc.getMessage());
             }
         } else {

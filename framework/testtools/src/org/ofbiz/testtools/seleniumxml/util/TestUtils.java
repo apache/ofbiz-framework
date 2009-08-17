@@ -52,13 +52,13 @@ public class TestUtils {
 		StringBuffer buff = new StringBuffer(size);
 		int startIndx = 0;
 	
-		if(prefix != null) {
+		if (prefix != null) {
 			buff.append(prefix);
 			startIndx = prefix.length();
 		}
 
 		Random rad = new Random();
-		for(int i=startIndx; i<size; i++ ) {
+		for(int i=startIndx; i<size; i++) {
 			buff.append(charMap[rad.nextInt(charMap.length)]);
 		}
 		return buff.toString();

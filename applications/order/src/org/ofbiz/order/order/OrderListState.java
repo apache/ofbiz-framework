@@ -151,7 +151,7 @@ public class OrderListState {
     }
 
     private void changeOrderListStates(HttpServletRequest request) {
-        for (Iterator iter = parameterToOrderStatusId.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = parameterToOrderStatusId.keySet().iterator(); iter.hasNext();) {
             String param = (String) iter.next();
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
@@ -160,7 +160,7 @@ public class OrderListState {
                 orderStatusState.put(param, "N");
             }
         }
-        for (Iterator iter = parameterToOrderTypeId.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = parameterToOrderTypeId.keySet().iterator(); iter.hasNext();) {
             String param = (String) iter.next();
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
@@ -169,7 +169,7 @@ public class OrderListState {
                 orderTypeState.put(param, "N");
             }
         }
-        for (Iterator iter = parameterToFilterId.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = parameterToFilterId.keySet().iterator(); iter.hasNext();) {
             String param = (String) iter.next();
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
@@ -194,7 +194,7 @@ public class OrderListState {
     public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
 
     public boolean hasAllStatus() {
-        for (Iterator iter = orderStatusState.values().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = orderStatusState.values().iterator(); iter.hasNext();) {
             if (!"Y".equals(iter.next())) return false;
         }
         return true;
@@ -225,16 +225,16 @@ public class OrderListState {
         }
 
         List statusConditions = new ArrayList();
-        for (Iterator iter = orderStatusState.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = orderStatusState.keySet().iterator(); iter.hasNext();) {
             String status = (String) iter.next();
             if (!hasStatus(status)) continue;
-            statusConditions.add( EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)) );
+            statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
         }
         List typeConditions = new ArrayList();
-        for (Iterator iter = orderTypeState.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = orderTypeState.keySet().iterator(); iter.hasNext();) {
             String type = (String) iter.next();
             if (!hasType(type)) continue;
-            typeConditions.add( EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
+            typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
         }
 
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions,  EntityOperator.OR);

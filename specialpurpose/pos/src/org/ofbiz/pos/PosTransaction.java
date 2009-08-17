@@ -201,7 +201,7 @@ public class PosTransaction implements Serializable {
     }
 
     public List lookupItem(String sku) throws GeneralException {
-        return ProductWorker.findProductsById( session.getDelegator(), sku, null);
+        return ProductWorker.findProductsById(session.getDelegator(), sku, null);
     }
 
     public String getOrderId() {
@@ -443,9 +443,9 @@ public class PosTransaction implements Serializable {
         return pcw;
     }
 
-    public ProductConfigWrapper getProductConfigWrapper(String productId, String cartIndex ) {
+    public ProductConfigWrapper getProductConfigWrapper(String productId, String cartIndex) {
         // Get a PCW for a pre-configured product
-         trace("get Product Config Wrapper", productId + "/" + cartIndex );
+         trace("get Product Config Wrapper", productId + "/" + cartIndex);
          ProductConfigWrapper pcw = null;
          try {
             int index = Integer.parseInt(cartIndex);
@@ -490,7 +490,7 @@ public class PosTransaction implements Serializable {
 
     public void addItem(String productId, ProductConfigWrapper pcw)
         throws ItemNotFoundException, CartItemModifyException {
-        trace("add item with ProductConfigWrapper", productId );
+        trace("add item with ProductConfigWrapper", productId);
         try {
             cart.addOrIncreaseItem(productId, null, BigDecimal.ONE, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
         } catch (ItemNotFoundException e) {
@@ -507,7 +507,7 @@ public class PosTransaction implements Serializable {
 
     public void modifyConfig(String productId, ProductConfigWrapper pcw, String cartIndex)
         throws CartItemModifyException, ItemNotFoundException {
-        trace("modify item config", cartIndex );
+        trace("modify item config", cartIndex);
         try {
             int cartIndexInt = Integer.parseInt(cartIndex);
             ShoppingCartItem cartItem = cart.findCartItem(cartIndexInt);
@@ -1380,7 +1380,7 @@ public class PosTransaction implements Serializable {
     }
 
     public void saveOrder(String shoppingListName, PosScreen pos) {
-        if (cart.size() == 0 ) {
+        if (cart.size() == 0) {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
             return;
         }
@@ -1409,7 +1409,7 @@ public class PosTransaction implements Serializable {
     }
 
     public void saveSale(String  shoppingListName, PosScreen pos) {
-        if (cart.size() == 0 ) {
+        if (cart.size() == 0) {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
             return;
         }

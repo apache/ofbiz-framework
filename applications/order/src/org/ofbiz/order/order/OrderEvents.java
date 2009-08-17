@@ -124,7 +124,7 @@ public class OrderEvents {
                         try {
                             resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
                             
-                            if(ServiceUtil.isError(resultMap)) {
+                            if (ServiceUtil.isError(resultMap)) {
                                 String errorMessage = (String) resultMap.get("errorMessage");
                                 Debug.logError(errorMessage, module);
                                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
@@ -137,7 +137,7 @@ public class OrderEvents {
                             return "error";
                         }
                     }
-                } catch (GenericEntityException e ) {
+                } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return "error";
                 }

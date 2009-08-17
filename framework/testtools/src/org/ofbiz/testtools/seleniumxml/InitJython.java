@@ -56,7 +56,7 @@ public class InitJython {
 			        
 			     Properties pyProps = new Properties();
 			     
-			     if( props.getProperty("python.home") == null) {
+			     if (props.getProperty("python.home") == null) {
 			    	 //pyProps.setProperty("python.home", "c:/devtools/jython2.2rc2");
 			    	 pyProps.setProperty("python.home", "c:/devtools/Python24");
 			     } 

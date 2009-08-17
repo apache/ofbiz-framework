@@ -70,7 +70,7 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("isVariant", EntityOperator.EQUALS, "Y"),
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             EntityListIterator eliOne = delegator.find("Product", conditionOne, null, null, null, null);
             GenericValue productOne = null;
             int numSoFarOne = 0;
@@ -100,7 +100,7 @@ public class ProductUtilServices {
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "Y"),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             EntityListIterator eli = delegator.find("Product", condition, null, null, null, null);
             GenericValue product = null;
             int numSoFar = 0;
@@ -138,7 +138,7 @@ public class ProductUtilServices {
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             EntityListIterator eli = delegator.find("Product", condition, null, null, null, null);
             GenericValue product = null;
             int numSoFar = 0;
@@ -186,7 +186,7 @@ public class ProductUtilServices {
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, nowTimestamp),
                     EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, Long.valueOf(1));
             EntityListIterator eli = delegator.findListIteratorByCondition(dve, condition, havingCond, UtilMisc.toList("productId", "productCategoryId", "productIdCount"), null, null);
             GenericValue pcm = null;
@@ -245,7 +245,7 @@ public class ProductUtilServices {
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_VARIANT"),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp))
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, Long.valueOf(1));
             EntityListIterator eliOne = delegator.findListIteratorByCondition(dve, condition, havingCond, UtilMisc.toList("productId", "productIdToCount"), null, null);
             List<GenericValue> valueList = eliOne.getCompleteList();
@@ -281,7 +281,7 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp)),
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             EntityListIterator eliMulti = delegator.findListIteratorByCondition(dve, conditionWithDates, havingCond, UtilMisc.toList("productId", "productIdToCount"), null, null);
             List<GenericValue> valueMultiList = eliMulti.getCompleteList();
             eliMulti.close();
@@ -665,7 +665,7 @@ while (allCatIter.hasNext()) {
                     EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-            ), EntityOperator.AND);
+           ), EntityOperator.AND);
             EntityListIterator productFeatureAndApplEli = delegator.find("ProductFeatureAndAppl", condition, null, null, null, null);
             GenericValue productFeatureAndAppl = null;
             while ((productFeatureAndAppl = (GenericValue) productFeatureAndApplEli.next()) != null) {
@@ -715,7 +715,7 @@ while (allCatIter.hasNext()) {
                         EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
                         EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                         EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                ), EntityOperator.AND);
+               ), EntityOperator.AND);
                 if (delegator.findCountByCondition("ProductFeatureGroupAppl", condition, null, null) == 0) {
                     // if no valid ones, create one
                     GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productFeatureId", productFeatureId, "fromDate", nowTimestamp));
@@ -731,7 +731,7 @@ while (allCatIter.hasNext()) {
                     EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, subProductCategoryId),
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-            ), EntityOperator.AND);
+           ), EntityOperator.AND);
             EntityListIterator productFeatureCatGrpApplEli = delegator.find("ProductFeatureCatGrpAppl", condition, null, null, null, null);
             GenericValue productFeatureCatGrpAppl = null;
             while ((productFeatureCatGrpAppl = productFeatureCatGrpApplEli.next()) != null) {
@@ -741,7 +741,7 @@ while (allCatIter.hasNext()) {
                         EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
                         EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                         EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
-                ), EntityOperator.AND);
+               ), EntityOperator.AND);
                 if (delegator.findCountByCondition("ProductFeatureCatGrpAppl", checkCondition, null, null) == 0) {
                     // if no valid ones, create one
                     GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureCatGrpAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productCategoryId", productCategoryId, "fromDate", nowTimestamp));

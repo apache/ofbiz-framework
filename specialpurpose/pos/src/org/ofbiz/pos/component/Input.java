@@ -73,7 +73,7 @@ public class Input implements KeyboardReceiver, KeyListener {
 
     public void setFunction(String function, String value) throws IllegalArgumentException {
         if (isValidFunction(function)) {
-            this.functionStack.push( new String[] { function, value });
+            this.functionStack.push(new String[] { function, value });
             input.setText("");
         } else {
             throw new IllegalArgumentException();

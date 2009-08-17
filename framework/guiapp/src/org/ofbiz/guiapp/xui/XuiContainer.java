@@ -145,7 +145,7 @@ public abstract class XuiContainer implements Container {
                 suffix = "_" + suffix;
             }
             String language = UtilProperties.getPropertyValue(startupProperties, "Language");
-            if (language.compareTo("XuiLabels" + suffix ) != 0) {
+            if (language.compareTo("XuiLabels" + suffix) != 0) {
                 UtilProperties.setPropertyValue(startupProperties, "Language", "XuiLabels" + suffix);
             }
             frame.setVisible(true);

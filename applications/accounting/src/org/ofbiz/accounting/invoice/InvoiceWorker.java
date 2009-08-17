@@ -98,7 +98,7 @@ public class InvoiceWorker {
     public static List getTaxableInvoiceItemTypeIds(GenericDelegator delegator) throws GenericEntityException {
         List typeIds = FastList.newInstance();
         List invoiceItemTaxTypes = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "TAXABLE_INV_ITM_TY"));
-        for (Iterator iter = invoiceItemTaxTypes.iterator(); iter.hasNext(); ) {
+        for (Iterator iter = invoiceItemTaxTypes.iterator(); iter.hasNext();) {
             GenericValue invoiceItemTaxType = (GenericValue) iter.next();
             typeIds.add(invoiceItemTaxType.get("enumId"));
         }
@@ -114,10 +114,10 @@ public class InvoiceWorker {
         List invoiceTaxItems = null;
         try {
             GenericDelegator delegator = invoice.getDelegator();
-            EntityConditionList condition = EntityCondition.makeCondition( UtilMisc.toList(
+            EntityConditionList condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
                     EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
-                    ), EntityOperator.AND);
+                   ), EntityOperator.AND);
             invoiceTaxItems = delegator.findList("InvoiceItem", condition, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);
@@ -172,9 +172,9 @@ public class InvoiceWorker {
                 if (quantity == null)
                     quantity = BigDecimal.ONE;
                 if ("ITM_SALES_TAX".equals(invoiceItem.get("invoiceItemTypeId"))) {
-                    invoiceTaxTotal = invoiceTaxTotal.add( amount.multiply(quantity)).setScale(taxDecimals, taxRounding);
+                    invoiceTaxTotal = invoiceTaxTotal.add(amount.multiply(quantity)).setScale(taxDecimals, taxRounding);
                 } else {
-                    invoiceTotal = invoiceTotal.add( amount.multiply(quantity)).setScale(decimals,rounding);
+                    invoiceTotal = invoiceTotal.add(amount.multiply(quantity)).setScale(decimals,rounding);
                 }
             }
         }

@@ -183,10 +183,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if (product == null) {
-            Map messageMap = UtilMisc.toMap("productId", productId );
+            Map messageMap = UtilMisc.toMap("productId", productId);
 
             String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found",
-                                          messageMap , cart.getLocale() );
+                                          messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
@@ -199,7 +199,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                                             "productId", product.getString("productId"));
 
             String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
-                                          messageMap , cart.getLocale() );
+                                          messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new CartItemModifyException(excMsg);
@@ -214,7 +214,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                                                 "productId", product.getString("productId"));
 
                 String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
-                                              messageMap , cart.getLocale() );
+                                              messageMap , cart.getLocale());
 
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
@@ -333,8 +333,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if (product == null) {
-            Map messageMap = UtilMisc.toMap("productId", productId );
-            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , cart.getLocale() );
+            Map messageMap = UtilMisc.toMap("productId", productId);
+            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
@@ -425,7 +425,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                                             "productId", product.getString("productId"));
 
             String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
-                                          messageMap , cart.getLocale() );
+                                          messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new CartItemModifyException(excMsg);
@@ -440,7 +440,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                                                 "productId", product.getString("productId"));
 
                 String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_yet_available",
-                                              messageMap , cart.getLocale() );
+                                              messageMap , cart.getLocale());
 
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
@@ -452,7 +452,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                                                 "productId", product.getString("productId"));
 
                 String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
-                                              messageMap , cart.getLocale() );
+                                              messageMap , cart.getLocale());
 
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
@@ -467,7 +467,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                                                     "productId", product.getString("productId"));
 
                     String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
-                                                  messageMap , cart.getLocale() );
+                                                  messageMap , cart.getLocale());
 
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
@@ -481,7 +481,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
                                                     "productId", product.getString("productId"));
                     String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
-                                                  messageMap , cart.getLocale() );
+                                                  messageMap , cart.getLocale());
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
                 }
@@ -492,20 +492,20 @@ public class ShoppingCartItem implements java.io.Serializable {
         if ("ASSET_USAGE".equals(product.getString("productTypeId"))) {
             if (reservStart == null)    {
                 String excMsg = UtilProperties.getMessage(resource_error, "item.missing_reservation_starting_date",
-                                              cart.getLocale() );
+                                              cart.getLocale());
                 throw new CartItemModifyException(excMsg);
             }
 
             if (reservStart.before(UtilDateTime.nowTimestamp()))    {
                 String excMsg = UtilProperties.getMessage(resource_error, "item.reservation_from_tomorrow",
-                                              cart.getLocale() );
+                                              cart.getLocale());
                 throw new CartItemModifyException(excMsg);
             }
             newItem.setReservStart(reservStart);
 
             if (reservLength.compareTo(BigDecimal.ONE) < 0)    {
                 String excMsg = UtilProperties.getMessage(resource_error, "item.number_of_days",
-                                              cart.getLocale() );
+                                              cart.getLocale());
                 throw new CartItemModifyException(excMsg);
             }
             newItem.setReservLength(reservLength);
@@ -516,7 +516,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                      Map messageMap = UtilMisc.toMap("reservMaxPersons", product.getString("reservMaxPersons"),
                                                      "reservPersons", reservPersons);
                      String excMsg = UtilProperties.getMessage(resource_error, "item.maximum_number_of_person_renting",
-                                                   messageMap, cart.getLocale() );
+                                                   messageMap, cart.getLocale());
 
                      Debug.logInfo(excMsg,module);
                      throw new CartItemModifyException(excMsg);
@@ -540,7 +540,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Map messageMap = UtilMisc.toMap("productId", product.getString("productId"),
                                                 "availableMessage", isAvailable);
                 String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_available",
-                                              messageMap, cart.getLocale() );
+                                              messageMap, cart.getLocale());
                 Debug.logInfo(excMsg, module);
                 throw new CartItemModifyException(isAvailable);
             }
@@ -921,7 +921,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
-            if (techDataCalendarExcDay == null ) {
+            if (techDataCalendarExcDay == null) {
                 //Debug.logInfo(" No exception day record found, available: " + fixedAsset.getString("productionCapacity") + " Requested now: " + quantity, module);
                 if (fixedAsset.get("productionCapacity") != null && fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) < 0)
                     resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
@@ -983,7 +983,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (this.isPromo) {
             Map messageMap = UtilMisc.toMap("productName", this.getName(),
                                             "productId",   productId);
-            String excMsg = UtilProperties.getMessage(resource, "OrderCannotChangeQuantityInPromotion", messageMap , cart.getLocale() );
+            String excMsg = UtilProperties.getMessage(resource, "OrderCannotChangeQuantityInPromotion", messageMap , cart.getLocale());
             throw new CartItemModifyException(excMsg);
         }
 
@@ -997,7 +997,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     Map messageMap = UtilMisc.toMap("requestedQuantity", UtilFormatOut.formatQuantity(quantity.doubleValue()),
                                                     "productName",       this.getName(),
                                                     "productId",         productId);
-                    String excMsg = UtilProperties.getMessage(resource, "OrderDoNotHaveEnoughProducts", messageMap , cart.getLocale() );
+                    String excMsg = UtilProperties.getMessage(resource, "OrderDoNotHaveEnoughProducts", messageMap , cart.getLocale());
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
                 }
@@ -1846,7 +1846,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             BigDecimal[] sizeInfo = { height, width, depth };
             Arrays.sort(sizeInfo);
 
-            return ( sizeInfo[0].add(sizeInfo[0]) ).add( sizeInfo[1].add(sizeInfo[1]) ).add(sizeInfo[2]);
+            return (sizeInfo[0].add(sizeInfo[0])).add(sizeInfo[1].add(sizeInfo[1])).add(sizeInfo[2]);
         } else {
             // non-product items have 0 size
             return BigDecimal.ZERO;
@@ -1970,7 +1970,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         BigDecimal persons = this.getReservPersons();
         BigDecimal rentalValue = BigDecimal.ZERO;
         if (persons.compareTo(BigDecimal.ONE) > 0)    {
-            if (persons.compareTo(new BigDecimal("2")) > 0 ) {
+            if (persons.compareTo(new BigDecimal("2")) > 0) {
                 persons = persons.subtract(new BigDecimal("2"));
                 if (getReservNthPPPerc().compareTo(BigDecimal.ZERO) > 0) {
                     rentalValue = persons.multiply(getReservNthPPPerc());
@@ -1984,7 +1984,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         rentalValue = rentalValue.add(new BigDecimal("100"));    // add final 100 percent for first person
-        //     Debug.log("rental parameters....Nbr of persons:" + getReservPersons() + " extra% 2nd person:" + getReserv2ndPPPerc()+ " extra% Nth person:" + getReservNthPPPerc() + "  total rental adjustment:" + rentalValue/100 * getReservLength() );
+        //     Debug.log("rental parameters....Nbr of persons:" + getReservPersons() + " extra% 2nd person:" + getReserv2ndPPPerc()+ " extra% Nth person:" + getReservNthPPPerc() + "  total rental adjustment:" + rentalValue/100 * getReservLength());
         return rentalValue.movePointLeft(2).multiply(getReservLength()); // return total rental adjustment
     }
 
@@ -2326,8 +2326,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if ((this.attributes != null && attributes != null) &&
-                ( (this.attributes.size() != attributes.size()) ||
-                !(this.attributes.equals(attributes)) )) {
+                ((this.attributes.size() != attributes.size()) ||
+                !(this.attributes.equals(attributes)))) {
             return false;
         }
 

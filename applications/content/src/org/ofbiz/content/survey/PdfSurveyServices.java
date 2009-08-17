@@ -282,7 +282,7 @@ public class PdfSurveyServices {
                 String value = fs.getField(fieldName);
 
                 List questions = delegator.findByAnd("SurveyQuestionAndAppl", UtilMisc.toMap("surveyId", surveyId, "externalFieldRef", fieldName));
-                if (questions.size() == 0 ) {
+                if (questions.size() == 0) {
                     Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName, module);
                     continue;
                 }

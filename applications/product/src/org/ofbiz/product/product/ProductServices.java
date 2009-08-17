@@ -481,7 +481,7 @@ public class ProductServices {
                         UtilMisc.toList(
                                 EntityCondition.makeCondition("productId", productId), 
                                 EntityCondition.makeCondition("productIdTo", productId)
-                        ), EntityJoinOperator.OR);
+                       ), EntityJoinOperator.OR);
                 cond = EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type));
                 productAssocs = delegator.findList("ProductAssoc", cond, null, orderBy, null, true);
             } else {

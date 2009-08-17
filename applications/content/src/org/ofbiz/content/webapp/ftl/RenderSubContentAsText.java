@@ -214,25 +214,25 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 //if (Debug.infoOn()) Debug.logInfo("in Render(0), view ." + view , module);
                 if (view != null) {
                     ModelEntity modelEntity = view.getModelEntity();
-                    if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null )
+                    if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null)
                         contentId = view.getString("caContentId");
-                    if (UtilValidate.isEmpty(contentId) && modelEntity.getField("contentId") != null )
+                    if (UtilValidate.isEmpty(contentId) && modelEntity.getField("contentId") != null)
                         contentId = view.getString("contentId");
-                    if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("caContentIdTo") != null )
+                    if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("caContentIdTo") != null)
                         contentIdTo = view.getString("caContentIdTo");
-                    if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("contentIdTo") != null )
+                    if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("contentIdTo") != null)
                         contentIdTo = view.getString("contentIdTo");
-                    if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("caContentAssocTypeId") != null )
+                    if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("caContentAssocTypeId") != null)
                         contentAssocTypeId = view.getString("caContentAssocTypeId");
-                    if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("contentAssocTypeId") != null )
+                    if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("contentAssocTypeId") != null)
                         contentAssocTypeId = view.getString("contentAssocTypeId");
-                    if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("caMapKey") != null )
+                    if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("caMapKey") != null)
                         mapKey = view.getString("caMapKey");
-                    if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("mapKey") != null )
+                    if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("mapKey") != null)
                         mapKey = view.getString("mapKey");
-                    if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("caFromDate") != null )
+                    if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("caFromDate") != null)
                         fromDate = view.getString("caFromDate");
-                    if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("fromDate") != null )
+                    if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("fromDate") != null)
                         fromDate = view.getString("fromDate");
                 }
                 if (Debug.infoOn()) Debug.logInfo("in Render(0), contentIdTo ." + contentIdTo , module);

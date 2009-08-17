@@ -481,7 +481,7 @@ public class NullPosPrinter extends BaseService implements jpos.services.POSPrin
 
     private void printALine(String s) {
         printerBuffer = printerBuffer.append(s);
-        if ( s.indexOf(NullPosPrinter.PAPER_CUT) > 0 ) {
+        if (s.indexOf(NullPosPrinter.PAPER_CUT) > 0) {
             Debug.log(printerBuffer.toString(), module);
             printerBuffer = new StringBuffer();
         }

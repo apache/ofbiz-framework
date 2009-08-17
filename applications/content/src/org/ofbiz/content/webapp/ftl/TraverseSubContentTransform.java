@@ -126,13 +126,13 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         final Map traverseContext = FastMap.newInstance();
         traverseContext.put("delegator", delegator);
         Map whenMap = FastMap.newInstance();
-        whenMap.put("followWhen", (String)templateCtx.get( "followWhen"));
-        whenMap.put("pickWhen", (String)templateCtx.get( "pickWhen"));
-        whenMap.put("returnBeforePickWhen", (String)templateCtx.get( "returnBeforePickWhen"));
-        whenMap.put("returnAfterPickWhen", (String)templateCtx.get( "returnAfterPickWhen"));
+        whenMap.put("followWhen", (String)templateCtx.get("followWhen"));
+        whenMap.put("pickWhen", (String)templateCtx.get("pickWhen"));
+        whenMap.put("returnBeforePickWhen", (String)templateCtx.get("returnBeforePickWhen"));
+        whenMap.put("returnAfterPickWhen", (String)templateCtx.get("returnAfterPickWhen"));
         traverseContext.put("whenMap", whenMap);
-        String fromDateStr = (String)templateCtx.get( "fromDateStr");
-        String thruDateStr = (String)templateCtx.get( "thruDateStr");
+        String fromDateStr = (String)templateCtx.get("fromDateStr");
+        String thruDateStr = (String)templateCtx.get("thruDateStr");
         Timestamp fromDate = null;
         if (fromDateStr != null && fromDateStr.length() > 0) {
             fromDate = UtilDateTime.toTimestamp(fromDateStr);
@@ -143,11 +143,11 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             thruDate = UtilDateTime.toTimestamp(thruDateStr);
         }
         traverseContext.put("thruDate", thruDate);
-        String startContentAssocTypeId = (String)templateCtx.get( "contentAssocTypeId");
+        String startContentAssocTypeId = (String)templateCtx.get("contentAssocTypeId");
         if (startContentAssocTypeId != null)
             startContentAssocTypeId = "SUB_CONTENT";
         traverseContext.put("contentAssocTypeId", startContentAssocTypeId);
-        String direction = (String)templateCtx.get( "direction");
+        String direction = (String)templateCtx.get("direction");
         if (UtilValidate.isEmpty(direction))
             direction = "From";
         traverseContext.put("direction", direction);
@@ -288,7 +288,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 if (UtilValidate.isEmpty(contentAssocTypeId))
                     contentAssocTypeId = "";
                 assocContext.put("contentAssocTypeId", contentAssocTypeId);
-                //assocContext.put("contentTypeId", assocValue.get("contentTypeId") );
+                //assocContext.put("contentTypeId", assocValue.get("contentTypeId"));
                 String assocRelation = null;
                 String thisDirection = (String)templateCtx.get("direction");
                 String thisContentId = (String)templateCtx.get("thisContentId");

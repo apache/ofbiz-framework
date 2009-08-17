@@ -1045,7 +1045,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                     ProcessId = (String)st.nextElement();
                     strtoc = new StringTokenizer(ProcessId, "\'");
                     ProcessId = strtoc.nextToken();
-                } else if ( element.equals("ActivityStates"))
+                } else if (element.equals("ActivityStates"))
                 {
                     st.nextElement();
                     st.nextElement();

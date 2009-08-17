@@ -486,7 +486,7 @@ public class ProductConfigWrapper implements Serializable {
             if (UtilValidate.isNotEmpty(defaultConfigOptionId)) {
                 for(ConfigOption oneOption : getOptions()) {
                     String currentConfigOptionId = oneOption.getId();
-                    if (defaultConfigOptionId.compareToIgnoreCase(currentConfigOptionId) == 0  ) {
+                    if (defaultConfigOptionId.compareToIgnoreCase(currentConfigOptionId) == 0 ) {
                         return oneOption;
                     }
                 }

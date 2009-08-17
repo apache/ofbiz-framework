@@ -93,7 +93,7 @@ public class ContentManagementServices {
         GenericValue view = null;
 
         try {
-            view = ContentWorker.getSubContentCache( delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, Boolean.FALSE, null);
+            view = ContentWorker.getSubContentCache(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, Boolean.FALSE, null);
             content = ContentWorker.getContentFromView(view);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
@@ -117,7 +117,7 @@ public class ContentManagementServices {
         GenericValue view = null;
 
         try {
-            view = ContentWorker.getContentCache( delegator, contentId);
+            view = ContentWorker.getContentCache(delegator, contentId);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
         }
@@ -189,7 +189,7 @@ public class ContentManagementServices {
             List tmpPurposes = StringUtil.split(contentPurposeString, "|");
             contentPurposeList.addAll(tmpPurposes);
         }
-        if (contentPurposeList != null ) {
+        if (contentPurposeList != null) {
             context.put("contentPurposeList", contentPurposeList);
             context.put("contentPurposeString", null);
         }
@@ -260,7 +260,7 @@ public class ContentManagementServices {
 
         boolean dataResourceExists = true;
         if (Debug.infoOn()) Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, null);
-        if (UtilValidate.isNotEmpty(dataResourceTypeId) ) {
+        if (UtilValidate.isNotEmpty(dataResourceTypeId)) {
             Map dataResourceResult = FastMap.newInstance();
             try {
                 dataResourceResult = persistDataResourceAndDataMethod(dctx, context);
@@ -290,7 +290,7 @@ public class ContentManagementServices {
         context.put("skipPermissionCheck", null);  // Force check here
         boolean contentExists = true;
         if (Debug.infoOn()) Debug.logInfo("in persist... contentTypeId:" +  contentTypeId + " dataResourceTypeId:" + dataResourceTypeId + " contentId:" + contentId + " dataResourceId:" + dataResourceId, null);
-        if (UtilValidate.isNotEmpty(contentTypeId) ) {
+        if (UtilValidate.isNotEmpty(contentTypeId)) {
             if (UtilValidate.isEmpty(contentId)) {
                 contentExists = false;
             } else {
@@ -350,7 +350,7 @@ public class ContentManagementServices {
                             String contentPurposeTypeId = (String)iter.next();
                             GenericValue contentPurpose = delegator.makeValue("ContentPurpose",
                                    UtilMisc.toMap("contentId", contentId,
-                                                  "contentPurposeTypeId", contentPurposeTypeId) );
+                                                  "contentPurposeTypeId", contentPurposeTypeId));
                             contentPurpose.create();
                         }
                     }
@@ -370,7 +370,7 @@ public class ContentManagementServices {
                 Map r = ContentServices.updateContentMethod(dctx, map);
                 boolean isError = ModelService.RESPOND_ERROR.equals(r.get(ModelService.RESPONSE_MESSAGE));
                 if (isError)
-                    return ServiceUtil.returnError( (String)r.get(ModelService.ERROR_MESSAGE));
+                    return ServiceUtil.returnError((String)r.get(ModelService.ERROR_MESSAGE));
             }
         }
 
@@ -474,7 +474,7 @@ public class ContentManagementServices {
       try {
           siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
       } catch (GenericEntityException e) {
-          return ServiceUtil.returnError( e.toString());
+          return ServiceUtil.returnError(e.toString());
       }
 
       Iterator siteRoleIter = siteRoles.iterator();
@@ -498,7 +498,7 @@ public class ContentManagementServices {
           if (siteRoleVal != null && siteRoleVal.equalsIgnoreCase("Y")) {
                   // for now, will assume that any error is due to duplicates - ignore
                   //return ServiceUtil.returnError(e.toString());
-              if (fromDate == null ) {
+              if (fromDate == null) {
                   try {
                       Map newContext = FastMap.newInstance();
                       newContext.put("contentId", serviceContext.get("contentId"));
@@ -515,14 +515,14 @@ public class ContentManagementServices {
                       //addRoleToUser(delegator, dispatcher, serviceContext);
                   } catch (GenericServiceException e) {
                       Debug.logError(e, e.toString(), module);
-                      return ServiceUtil.returnError( e.toString());
+                      return ServiceUtil.returnError(e.toString());
                   } catch (Exception e2) {
                       Debug.logError(e2, e2.toString(), module);
-                      return ServiceUtil.returnError( e2.toString());
+                      return ServiceUtil.returnError(e2.toString());
                   }
               }
           } else {
-              if (fromDate != null ) {
+              if (fromDate != null) {
                       // for now, will assume that any error is due to non-existence - ignore
                       //return ServiceUtil.returnError(e.toString());
                   try {
@@ -541,10 +541,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                         return ServiceUtil.returnError(errMsg);
                   } catch (GenericServiceException e) {
                       Debug.logError(e, e.toString(), module);
-                      return ServiceUtil.returnError( e.toString());
+                      return ServiceUtil.returnError(e.toString());
                   } catch (Exception e2) {
                       Debug.logError(e2, e2.toString(), module);
-                      return ServiceUtil.returnError( e2.toString());
+                      return ServiceUtil.returnError(e2.toString());
                   }
               }
           }
@@ -649,7 +649,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       dataResource = (GenericValue)thisResult.get("dataResource");
       Map fileContext = FastMap.newInstance();
       fileContext.put("userLogin", userLogin);
-      if ( dataResourceTypeId.indexOf("_FILE") >=0) {
+      if (dataResourceTypeId.indexOf("_FILE") >=0) {
           boolean hasData = false;
           if (textData != null) {
               fileContext.put("textData", textData);
@@ -797,7 +797,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       try {
             siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
       } catch (GenericEntityException e) {
-          return ServiceUtil.returnError( e.toString());
+          return ServiceUtil.returnError(e.toString());
       }
       Iterator siteRoleIter = siteRoles.iterator();
       while (siteRoleIter.hasNext()) {
@@ -812,7 +812,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           if (siteRoleVal != null && siteRoleVal.equalsIgnoreCase("Y")) {
                   // for now, will assume that any error is due to duplicates - ignore
                   //return ServiceUtil.returnError(e.toString());
-              if (fromDate == null ) {
+              if (fromDate == null) {
                   try {
                       serviceContext.put("fromDate", UtilDateTime.nowTimestamp());
                       if (Debug.infoOn()) Debug.logInfo("updateSiteRoles, serviceContext(1):" + serviceContext, module);
@@ -825,7 +825,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                   }
               }
           } else {
-              if (fromDate != null ) {
+              if (fromDate != null) {
                       // for now, will assume that any error is due to non-existence - ignore
                       //return ServiceUtil.returnError(e.toString());
                   try {
@@ -910,7 +910,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) typeList.add(contentAssocTypeId);
         if (UtilValidate.isEmpty(typeList)) typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
         EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
-        EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
+        EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
          try {
              List listAll = delegator.findList("ContentAssoc", conditionMain, null, UtilMisc.toList("sequenceNum", "fromDate", "createdDate"), null, false);
              List listFiltered = EntityUtil.filterByDate(listAll);
@@ -1081,7 +1081,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             }
 
            EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
-           EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, thisContentId), conditionType), EntityOperator.AND);
+           EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, thisContentId), conditionType), EntityOperator.AND);
             List listAll = delegator.findByConditionCache("ContentAssoc", conditionMain, null, null);
             List listFiltered = EntityUtil.filterByDate(listAll);
             Iterator iter = listFiltered.iterator();
@@ -1590,7 +1590,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         GenericValue orderHeader = null;
         try {
             List orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
-            if (orderRoleList.size() > 0 ) {
+            if (orderRoleList.size() > 0) {
                 GenericValue orderRole = (GenericValue)orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
                 context.put("partyId", partyId);
@@ -1667,7 +1667,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
         Map result = null;
         String contentId = content.getString("contentId");
-        List contentAssocTypeIdList = (List)context.get("contentAssocTypeIdList" );
+        List contentAssocTypeIdList = (List)context.get("contentAssocTypeIdList");
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
             visitedSet = FastSet.newInstance();

@@ -1286,7 +1286,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append("\" ");
 
         String formType = modelForm.getType();
-        if (formType.equals("upload") ) {
+        if (formType.equals("upload")) {
             writer.append(" enctype=\"multipart/form-data\"");
         }
 
@@ -1813,7 +1813,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("_ic\" value=\"Y\"").append((ignCase ? " checked=\"checked\"" : "")).append("/>");
             writer.append(ignoreCase);
         } else {
-            writer.append( "<input type=\"hidden\" name=\"");
+            writer.append("<input type=\"hidden\" name=\"");
             writer.append(modelFormField.getParameterName(context));
             writer.append("_ic\" value=\"").append((ignCase ? "Y" : "")).append("\"/>");
         }
@@ -2354,7 +2354,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (viewIndex > 0) {
             writer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context)).append( "')");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context)).append("')");
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 appendOfbizUrl(writer, urlPath + linkText);
@@ -2792,7 +2792,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                writer.append(" class=\"");
                writer.append(leftStyle);
                writer.append("\"");
-               writer.append(">" );
+               writer.append(">");
             }
             writer.append(leftText);
             if (UtilValidate.isNotEmpty(leftStyle)) {
@@ -2809,7 +2809,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                writer.append(" class=\"");
                writer.append(style);
                writer.append("\"");
-               writer.append(">" );
+               writer.append(">");
             }
             writer.append(text);
             if (UtilValidate.isNotEmpty(style)) {
@@ -2826,7 +2826,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                writer.append(" class=\"");
                writer.append(rightStyle);
                writer.append("\"");
-               writer.append(">" );
+               writer.append(">");
             }
             writer.append(rightText);
             if (UtilValidate.isNotEmpty(rightStyle)) {

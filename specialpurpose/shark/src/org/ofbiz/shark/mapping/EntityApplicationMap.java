@@ -144,14 +144,14 @@ public class EntityApplicationMap implements ApplicationMap {
     }
 
     public boolean equalsByKeys(ApplicationMap applicationMap) {
-        if (applicationMap == null ) return false;
+        if (applicationMap == null) return false;
 
         if ((applicationMap.getPackageId() != null && this.getPackageId() != null))
             if (!(applicationMap.getPackageId().equals(this.getPackageId())))
                 return false;
 
         if ((applicationMap.getProcessDefinitionId() != null && this.getProcessDefinitionId() != null))
-            if ( !(applicationMap.getProcessDefinitionId().equals(this.getProcessDefinitionId())))
+            if (!(applicationMap.getProcessDefinitionId().equals(this.getProcessDefinitionId())))
                 return false;
 
         if ((applicationMap.getApplicationDefinitionId() != null && this.getApplicationDefinitionId() != null))

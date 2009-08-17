@@ -413,7 +413,7 @@ public class PackingSession implements java.io.Serializable {
         }
 
         BigDecimal total = BigDecimal.ZERO;
-        if (productId != null ) {
+        if (productId != null) {
             for (PackingSessionLine line: this.getLines()) {
                 if (productId.equals(line.getProductId())) {
                     if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
@@ -918,9 +918,9 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("shippableTotal", shippableTotal);
 
             serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
-        } catch ( GenericEntityException e ) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
-        } catch ( GenericServiceException e ) {
+        } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
 

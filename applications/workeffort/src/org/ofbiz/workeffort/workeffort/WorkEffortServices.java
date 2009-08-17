@@ -84,10 +84,10 @@ public class WorkEffortServices {
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED")
-                );
+               );
                 validWorkEfforts = EntityUtil.filterByDate(
                         delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("estimatedStartDate", "priority"), null, false)
-                );
+               );
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -120,7 +120,7 @@ public class WorkEffortServices {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
             validWorkEfforts = EntityUtil.filterByDate(
                     delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("estimatedStartDate", "priority"), null, false)
-            );
+           );
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -232,7 +232,7 @@ public class WorkEffortServices {
                 EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(constraints);
                 roleWorkEfforts = EntityUtil.filterByDate(
                         delegator.findList("WorkEffortPartyAssignByRole", ecl, null, UtilMisc.toList("priority"), null, false)
-                );
+               );
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -269,7 +269,7 @@ public class WorkEffortServices {
                 EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(constraints);
                 groupWorkEfforts = EntityUtil.filterByDate(
                         delegator.findList("WorkEffortPartyAssignByGroup", ecl, null, UtilMisc.toList("priority"), null, false)
-                );
+               );
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -672,7 +672,7 @@ public class WorkEffortServices {
                 		startDate = workEffort.getTimestamp("actualStartDate");
                 	}
                 	Timestamp endDate = workEffort.getTimestamp("estimatedCompletionDate");
-                	if (workEffort.getTimestamp("actualCompletionDate") != null){
+                	if (workEffort.getTimestamp("actualCompletionDate") != null) {
                 		endDate = workEffort.getTimestamp("actualCompletionDate");
                 	}
                 	if (endDate == null) endDate = startDate;

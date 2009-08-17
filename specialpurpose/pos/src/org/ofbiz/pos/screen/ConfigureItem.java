@@ -191,7 +191,7 @@ public class ConfigureItem extends XPage {
             while (iter.hasNext()) {
                 Question buttonQuestion = qf.get((ConfigItem)iter.next());
                 XButton button = (XButton)buttons.next();
-                questionHashMap.put(button.getName(), buttonQuestion );
+                questionHashMap.put(button.getName(), buttonQuestion);
                 buttonQuestion.setupButton(button);
                 if (buttonQuestion instanceof ListQuestion) {
                     ((ListQuestion)buttonQuestion).setupListPane(m_optionListPane);
@@ -204,7 +204,7 @@ public class ConfigureItem extends XPage {
 
     private void getButtons() {
         ArrayList buttonList = new ArrayList();
-        for(String[] buttonSingleArray : buttonArray ) {
+        for(String[] buttonSingleArray : buttonArray) {
             for(String buttonName : buttonSingleArray) {
                 //Debug.logInfo("ButtonName: "+buttonName, module);
                 XButton button = (XButton) m_dialog.findComponent(buttonName);

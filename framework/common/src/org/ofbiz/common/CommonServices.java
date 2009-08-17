@@ -294,7 +294,7 @@ public class CommonServices {
         GenericDelegator delegator = dctx.getDelegator();
         int count = ((Integer) context.get("count")).intValue();
 
-        for (int i = 0; i < count; i++ ) {
+        for (int i = 0; i < count; i++) {
             GenericValue v = delegator.makeValue("Visit");
             String seqId = delegator.getNextSeqId("Visit");
 

@@ -152,10 +152,10 @@ public class BillingAccountWorker {
                 EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
                 EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
-            ), EntityOperator.AND);
+           ), EntityOperator.AND);
 
         List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
+        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext();) {
             GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
             BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
@@ -163,7 +163,7 @@ public class BillingAccountWorker {
 
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
         // TODO: cancelled payments?
-        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = (GenericValue) pAi.next();
             if (paymentAppl.getString("invoiceId") == null) {
                 BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
@@ -254,7 +254,7 @@ public class BillingAccountWorker {
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
-        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = (GenericValue) pAi.next();
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
             GenericValue invoice = paymentAppl.getRelatedOne("Invoice");

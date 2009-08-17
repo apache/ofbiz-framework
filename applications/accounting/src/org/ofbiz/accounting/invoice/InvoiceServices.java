@@ -897,7 +897,7 @@ public class InvoiceServices {
                 // Determine commission parties for this invoiceItem
                 if (productId != null && productId.length() > 0) {
                     Map resultMap = null;
-                    try{
+                    try {
                         resultMap = dispatcher.runSync("getCommissionForProduct", UtilMisc.<String, Object>toMap(
                                 "productId", productId,
                                 "invoiceId", invoiceId,
@@ -963,7 +963,7 @@ public class InvoiceServices {
             createInvoiceMap.put("userLogin", userLogin);
             // store the invoice first
             Map createInvoiceResult = null;
-            try{
+            try {
                 createInvoiceResult = dispatcher.runSync("createInvoice", createInvoiceMap);
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionError",locale), null, null, createInvoiceResult);
@@ -1493,7 +1493,7 @@ public class InvoiceServices {
                             invoiceableShipments = delegator.findList("Shipment", EntityCondition.makeCondition("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null, null, false);
                         }
                     }
-                } catch ( GenericEntityException e ) {
+                } catch (GenericEntityException e) {
                     String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentsService", locale);
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
@@ -1549,7 +1549,7 @@ public class InvoiceServices {
                         GenericValue destinationContactMech = null;
                         try {
                             destinationContactMech = shipment.getRelatedOne("DestinationPostalAddress");
-                        } catch ( GenericEntityException e ) {
+                        } catch (GenericEntityException e) {
                             String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentService", locale);
                             Debug.logError(e, errMsg, module);
                             return ServiceUtil.returnError(errMsg);
@@ -1594,7 +1594,7 @@ public class InvoiceServices {
                             }
                             try {
                                 delegator.storeAll(orderAdjustments);
-                            } catch ( GenericEntityException e ) {
+                            } catch (GenericEntityException e) {
                                 String errMsg = UtilProperties.getMessage(resource, "AccountingProblemStoringOrderAdjustments", UtilMisc.toMap("orderAdjustments", orderAdjustments), locale);
                                 Debug.logError(e, errMsg, module);
                                 return ServiceUtil.returnError(errMsg);
@@ -1605,7 +1605,7 @@ public class InvoiceServices {
                         List orderPaymentPreferences = null;
                         try {
                             orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD"));
-                        } catch ( GenericEntityException e ) {
+                        } catch (GenericEntityException e) {
                             String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingOrderPaymentPreferences", locale);
                             Debug.logError(e, errMsg, module);
                             return ServiceUtil.returnError(errMsg);
@@ -1618,7 +1618,7 @@ public class InvoiceServices {
                             paymentMethodId = cardOrderPaymentPref.getString("paymentMethodId");
                         }
 
-                        if (paymentMethodId != null ) {
+                        if (paymentMethodId != null) {
 
                             // Release all outstanding (not settled or cancelled) authorizations, while keeping a running
                             //  total of their amounts so that the total plus the additional shipping charges can be authorized again
@@ -1638,7 +1638,7 @@ public class InvoiceServices {
                                         Map prefReleaseResult = null;
                                         try {
                                             prefReleaseResult = dispatcher.runSync("releaseOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"), "userLogin", context.get("userLogin")));
-                                        } catch ( GenericServiceException e ) {
+                                        } catch (GenericServiceException e) {
                                             String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale);
                                             Debug.logError(e, errMsg, module);
                                             return ServiceUtil.returnError(errMsg);
@@ -1678,8 +1678,8 @@ public class InvoiceServices {
                             }
 
                             // If the authorization fails, create the invoice anyway, but make a note of it
-                            boolean authFinished = ( (Boolean) authResult.get("finished") ).booleanValue();
-                            boolean authErrors = ( (Boolean) authResult.get("errors") ).booleanValue();
+                            boolean authFinished = ((Boolean) authResult.get("finished")).booleanValue();
+                            boolean authErrors = ((Boolean) authResult.get("errors")).booleanValue();
                             if (authErrors || ! authFinished) {
                                 String errMsg = UtilProperties.getMessage(resource, "AccountingUnableToAuthAdditionalShipCharges", UtilMisc.toMap("shipmentId", shipmentId, "paymentMethodId", paymentMethodId, "orderPaymentPreferenceId", orderPaymentPreferenceId), locale);
                                 Debug.logError(errMsg, module);
@@ -1697,7 +1697,7 @@ public class InvoiceServices {
             String shipmentId = (String) shipmentIds.get(0);
             try {
                 shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", shipmentId));
-            } catch ( GenericEntityException e ) {
+            } catch (GenericEntityException e) {
                 String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingShipmentItemBilling", locale);
                 return ServiceUtil.returnError(errMsg);
             }
@@ -1784,7 +1784,7 @@ public class InvoiceServices {
             // group the shipments by returnId (because we want a seperate itemized invoice for each return)
             Map itemsShippedGroupedByReturn = FastMap.newInstance();
 
-            for (Iterator iter = shippedItems.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = shippedItems.iterator(); iter.hasNext();) {
                 GenericValue item = (GenericValue) iter.next();
                 String returnId = null;
                 String returnItemSeqId = null;
@@ -1819,7 +1819,7 @@ public class InvoiceServices {
             }
 
             // loop through the returnId keys in the map and invoke the createInvoiceFromReturn service for each
-            for (Iterator iter = itemsShippedGroupedByReturn.keySet().iterator(); iter.hasNext(); ) {
+            for (Iterator iter = itemsShippedGroupedByReturn.keySet().iterator(); iter.hasNext();) {
                 String returnId = (String) iter.next();
                 List billItems = (List) itemsShippedGroupedByReturn.get(returnId);
                 if (Debug.verboseOn()) {
@@ -1894,7 +1894,7 @@ public class InvoiceServices {
             int invoiceItemSeqNum = 1;
             String invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
-            for (Iterator iter = billItems.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = billItems.iterator(); iter.hasNext();) {
                 GenericValue item = (GenericValue) iter.next();
                 boolean shipmentReceiptFound = false;
                 boolean itemIssuanceFound = false;
@@ -1985,7 +1985,7 @@ public class InvoiceServices {
 
                 // for each adjustment related to this ReturnItem, create a separate invoice item
                 List adjustments = returnItem.getRelatedCache("ReturnAdjustment");
-                for (Iterator adjIter = adjustments.iterator(); adjIter.hasNext(); ) {
+                for (Iterator adjIter = adjustments.iterator(); adjIter.hasNext();) {
                     GenericValue adjustment = (GenericValue) adjIter.next();
 
                     if (adjustment.get("amount") == null) {
@@ -2052,7 +2052,7 @@ public class InvoiceServices {
 
             // loop through return-wide adjustments and create invoice items for each
             List adjustments = returnHeader.getRelatedByAndCache("ReturnAdjustment", UtilMisc.toMap("returnItemSeqId", "_NA_"));
-            for (Iterator iter = adjustments.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = adjustments.iterator(); iter.hasNext();) {
                 GenericValue adjustment = (GenericValue) iter.next();
 
                 // determine invoice item type from the return item type
@@ -2126,7 +2126,7 @@ public class InvoiceServices {
         GenericValue invoice = null ;
         try {
             invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
-        } catch ( GenericEntityException e ) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Invoice for Invoice ID" + invoiceId, module);
             return ServiceUtil.returnError("Problem getting Invoice for Invoice ID" + invoiceId);
         }
@@ -2141,7 +2141,7 @@ public class InvoiceServices {
         try {
             paymentAppl = delegator.findByAnd("PaymentAndApplication", UtilMisc.toMap("invoiceId", invoiceId));
             // For each payment application, select only those that are RECEIVED or SENT based on whether the payment is a RECEIPT or DISBURSEMENT respectively
-            for (Iterator iter = paymentAppl.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = paymentAppl.iterator(); iter.hasNext();) {
                 GenericValue payment = (GenericValue) iter.next();
                 if ("PMNT_RECEIVED".equals(payment.get("statusId")) && UtilAccounting.isReceipt(payment)) {
                     continue; // keep
@@ -2243,7 +2243,7 @@ public class InvoiceServices {
                 Map createInvoiceItemResult = null;
                 try {
                     createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceItemFromOrder",locale) + ": " + e.toString();
                     Debug.logError(e, errMsg, module);
                     ServiceUtil.returnError(errMsg);
@@ -2262,7 +2262,7 @@ public class InvoiceServices {
 
                 try {
                     Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
                 }
 
@@ -2301,7 +2301,7 @@ public class InvoiceServices {
                 Map createInvoiceItemResult = null;
                 try {
                     createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceItemFromOrder",locale) + ": " + e.toString();
                     Debug.logError(e, errMsg, module);
                     ServiceUtil.returnError(errMsg);
@@ -2320,7 +2320,7 @@ public class InvoiceServices {
 
                 try {
                     Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
                 }
 
@@ -2339,7 +2339,7 @@ public class InvoiceServices {
     private static void createInvoiceTerms(GenericDelegator delegator, LocalDispatcher dispatcher, String invoiceId, List terms, GenericValue userLogin, Locale locale) {
         List invoiceTerms = new LinkedList();
         if ((terms != null) && (terms.size() > 0)) {
-            for (Iterator termsIter = terms.iterator(); termsIter.hasNext(); ) {
+            for (Iterator termsIter = terms.iterator(); termsIter.hasNext();) {
                 GenericValue term = (GenericValue) termsIter.next();
 
                 Map createInvoiceTermContext = FastMap.newInstance();
@@ -2358,7 +2358,7 @@ public class InvoiceServices {
                 Map createInvoiceTermResult = null;
                 try {
                     createInvoiceTermResult = dispatcher.runSync("createInvoiceTerm", createInvoiceTermContext);
-                } catch ( GenericServiceException e ) {
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceTermFromOrder",locale) + ": " + e.toString();
                     Debug.logError(e, errMsg, module);
                     ServiceUtil.returnError(errMsg);
@@ -3122,7 +3122,7 @@ public class InvoiceServices {
         List invoicedAdjustments = null;
         try {
             invoicedAdjustments = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")));
-        } catch ( GenericEntityException e ) {
+        } catch (GenericEntityException e) {
             String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService" + ": " + e.getMessage(), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
@@ -3171,7 +3171,7 @@ public class InvoiceServices {
             // 1 record exists just update and if diffrent ID delete other record and add together.
             GenericValue checkAppl = (GenericValue) checkAppls.get(0);
             // if new record  add to the already existing one.
-            if ( paymentApplication.get("paymentApplicationId") == null)    {
+            if (paymentApplication.get("paymentApplicationId") == null)    {
                 // add 2 amounts together
                 checkAppl.set("amountApplied", paymentApplication.getBigDecimal("amountApplied").
                         add(checkAppl.getBigDecimal("amountApplied")).setScale(decimals,rounding));

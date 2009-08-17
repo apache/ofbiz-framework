@@ -78,7 +78,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         final Map savedValues = FastMap.newInstance();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
-        String startContentAssocTypeId = (String)templateRoot.get( "contentAssocTypeId");
+        String startContentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
             //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, startContentAssocTypeId:" + startContentAssocTypeId, module);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
@@ -107,14 +107,14 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         final Map traverseContext = FastMap.newInstance();
         traverseContext.put("delegator", delegator);
         Map whenMap = FastMap.newInstance();
-        whenMap.put("followWhen", (String)templateRoot.get( "followWhen"));
-        whenMap.put("pickWhen", (String)templateRoot.get( "pickWhen"));
-        whenMap.put("returnBeforePickWhen", (String)templateRoot.get( "returnBeforePickWhen"));
-        whenMap.put("returnAfterPickWhen", (String)templateRoot.get( "returnAfterPickWhen"));
+        whenMap.put("followWhen", (String)templateRoot.get("followWhen"));
+        whenMap.put("pickWhen", (String)templateRoot.get("pickWhen"));
+        whenMap.put("returnBeforePickWhen", (String)templateRoot.get("returnBeforePickWhen"));
+        whenMap.put("returnAfterPickWhen", (String)templateRoot.get("returnAfterPickWhen"));
         traverseContext.put("whenMap", whenMap);
         env.setVariable("whenMap", FreeMarkerWorker.autoWrap(whenMap, env));
-        String fromDateStr = (String)templateRoot.get( "fromDateStr");
-        String thruDateStr = (String)templateRoot.get( "thruDateStr");
+        String fromDateStr = (String)templateRoot.get("fromDateStr");
+        String thruDateStr = (String)templateRoot.get("thruDateStr");
         Timestamp fromDate = null;
         if (fromDateStr != null && fromDateStr.length() > 0) {
             fromDate = UtilDateTime.toTimestamp(fromDateStr);
@@ -129,7 +129,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
             //throw new RuntimeException("contentAssocTypeId is empty.");
         //}
         traverseContext.put("contentAssocTypeId", startContentAssocTypeId);
-        String direction = (String)templateRoot.get( "direction");
+        String direction = (String)templateRoot.get("direction");
         if (UtilValidate.isEmpty(direction)) {
             direction = "From";
         }

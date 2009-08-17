@@ -55,8 +55,8 @@ public class Keyboard extends XPage {
         originalText = getText();
 //      XuiUtilities.getMaxCoordinates(m_dialog);
 //      Panel m_panel = m_dialog.PANEL;
-//      pageHelper.componentFactory.setParentComponent( this );
-//      contentPanel = ( XPanel )pageHelper.componentFactory.addComponent( XPage.PANEL, 0, 0, 800, 600 );
+//      pageHelper.componentFactory.setParentComponent(this);
+//      contentPanel = (XPanel)pageHelper.componentFactory.addComponent(XPage.PANEL, 0, 0, 800, 600);
 //      FIXME XUI dialog boxes are hardcoded to a 800*600 max ! https://issues.apache.org/jira/browse/OFBIZ-1606?focusedCommentId=12614469#action_12614469
 //      actually maxi seem to be 808*628 certainly due to margins(?)
         m_dialog.pack();

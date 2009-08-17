@@ -167,7 +167,7 @@ public class RemoteRequest {
             String paramString2 = "USERNAME=" + this.parent.getUserName()
                                + "&PASSWORD=" + this.parent.getPassword();
             String thisUri2 = this.host + "/eng/control/login?" + paramString2;
-            HttpGet req2 = new HttpGet ( thisUri2 );
+            HttpGet req2 = new HttpGet (thisUri2);
             req2.setHeader("Connection","Keep-Alive");
             HttpResponse rsp = client.execute(req2, localContext);
 
@@ -202,11 +202,11 @@ public class RemoteRequest {
             String thisUri = this.host + this.requestUrl + ";jsessionid=" + sessionId + "?"  + paramString;
             //String thisUri = this.host + this.requestUrl + "?"  + paramString;
             System.out.println("thisUri: " + thisUri);
-            HttpGet req = new HttpGet ( thisUri );
+            HttpGet req = new HttpGet (thisUri);
             System.out.println("sessionHeader: " + sessionHeader);
             req.setHeader(sessionHeader);
 
-            String responseBody = client.execute( req, responseHandler, localContext);
+            String responseBody = client.execute(req, responseHandler, localContext);
             /*
             entity = rsp.getEntity();
 
@@ -222,9 +222,9 @@ public class RemoteRequest {
                 System.out.println(EntityUtils.toString(rsp.getEntity()));
             }
             */
-        } catch(HttpResponseException e) {
+        } catch (HttpResponseException e) {
             System.out.println(e.getMessage());
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
             // If we could be sure that the stream of the entity has been
@@ -235,7 +235,7 @@ public class RemoteRequest {
             try {
               if (entity != null)
                 entity.consumeContent(); // release connection gracefully
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println("in 'finally'  " + e.getMessage());
             }
 
@@ -248,7 +248,7 @@ public class RemoteRequest {
         String paramString = "USERNAME=" + this.parent.getUserName()
                            + "&PASSWORD=" + this.parent.getPassword();
         String thisUri = this.host + "/eng/control/login?" + paramString;
-        HttpGet req = new HttpGet ( thisUri );
+        HttpGet req = new HttpGet (thisUri);
         req.setHeader("Connection","Keep-Alive");
         client.execute(req, localContext);
         
@@ -312,8 +312,8 @@ public class RemoteRequest {
             String bodyString = super.handleResponse(response);
             JSONObject jsonObject = null;
             try {
-                jsonObject = JSONObject.fromObject( bodyString );
-            } catch(JSONException e) {
+                jsonObject = JSONObject.fromObject(bodyString);
+            } catch (JSONException e) {
                 throw new HttpResponseException(0, e.getMessage());
             }
             Set<Map.Entry<String, String>> paramSet = this.parentRemoteRequest.outMap.entrySet();

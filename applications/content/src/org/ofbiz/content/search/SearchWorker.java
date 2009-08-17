@@ -222,7 +222,7 @@ public class SearchWorker {
 
     public static void indexDataResource(GenericDelegator delegator, Map context, String id) throws Exception {
         String path = null;
-        indexDataResource(delegator, context, id, path );
+        indexDataResource(delegator, context, id, path);
     }
 
     public static void indexDataResource(GenericDelegator delegator, Map context, String id, String path) throws Exception {

@@ -84,8 +84,8 @@ public class UtilJavaParse {
         if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + "(DispatchContext ");
         if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map  " + methodName + "(DispatchContext ");
         if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
-        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + "( DispatchContext ");
-        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " ( DispatchContext ");
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + "(DispatchContext ");
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
 
         // not found!
         if (methodNameIndex < 0) return -1;

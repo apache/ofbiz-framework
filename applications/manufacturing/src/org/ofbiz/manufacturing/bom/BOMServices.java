@@ -729,7 +729,7 @@ public class BOMServices {
                         } catch (GenericServiceException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                         }
-                        totalWidth = totalWidth.add( qty.multiply(productDepth) );
+                        totalWidth = totalWidth.add(qty.multiply(productDepth));
                         if (qty.compareTo(maxQuantity) == 0) shipmentPackageSeqId = null;
                         remQuantity = remQuantity.subtract(qty);
                     }

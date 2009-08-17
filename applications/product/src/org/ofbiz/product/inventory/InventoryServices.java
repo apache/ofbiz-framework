@@ -919,7 +919,7 @@ public class InventoryServices {
                                 EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
                                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
                                 EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                            ),
+                           ),
                         EntityOperator.AND),
                     null, null, null, null);
             } catch (GenericEntityException e2) {
@@ -956,7 +956,7 @@ public class InventoryServices {
                                 EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                                 EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
                                 EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                            ),
+                           ),
                         EntityOperator.AND),
                     null, null, null, null);
             } catch (GenericEntityException e1) {

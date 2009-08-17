@@ -156,7 +156,7 @@ public class TaxAuthorityServices {
         Set taxAuthoritySet = FastSet.newInstance();
         GenericValue productStore = null;
         // Check value productStore *** New
-        if (productStoreId!=null){
+        if (productStoreId!=null) {
 	        try {
 	            getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
 	            if (productStoreId != null) {
@@ -175,9 +175,9 @@ public class TaxAuthorityServices {
         }
         else
         {
-        	try{
+        	try {
         		getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);    
-        	}catch (GenericEntityException e){
+        	} catch (GenericEntityException e) {
         	    String errMsg = "Data error getting tax settings: " + e.toString();
 	            Debug.logError(e, errMsg, module);
 	            return ServiceUtil.returnError(errMsg);
