@@ -128,10 +128,10 @@ public class CommunicationEventServices {
             boolean isMultiPart = false;
             List <GenericValue> comEventContents = communicationEvent.getRelated("CommEventContentAssoc");
             if (UtilValidate.isNotEmpty(comEventContents)) {
-            	isMultiPart = true;
+                isMultiPart = true;
                 List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
                 if (UtilValidate.isNotEmpty(communicationEvent.getString("content"))) {
-                	bodyParts.add(UtilMisc.<String, Object>toMap("content", communicationEvent.getString("content"), "type", communicationEvent.getString("contentMimeTypeId")));
+                    bodyParts.add(UtilMisc.<String, Object>toMap("content", communicationEvent.getString("content"), "type", communicationEvent.getString("contentMimeTypeId")));
                 }
                 for (GenericValue comEventContent : comEventContents) {
                     GenericValue content = comEventContent.getRelatedOne("FromContent");
@@ -139,7 +139,7 @@ public class CommunicationEventServices {
                     ByteBuffer dataContent = DataResourceWorker.getContentAsByteBuffer(delegator, dataResource.getString("dataResourceId"), null, null, locale, null);
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", dataContent.array(), "type", dataResource.getString("mimeTypeId"), "filename", dataResource.getString("dataResourceName")));
                 }
-            	sendMailParams.put("bodyParts", bodyParts);
+                sendMailParams.put("bodyParts", bodyParts);
             } else {
                 sendMailParams.put("body", communicationEvent.getString("content"));
             }
@@ -165,29 +165,29 @@ public class CommunicationEventServices {
                 String sendBcc = null;
                 List <GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole");
                 if (UtilValidate.isNotEmpty(commRoles)) {
-                	for (GenericValue commRole : commRoles) { // 'from' and 'to' already defined on communication event
-                		if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom")) || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {
-                			continue;
-                		}
-                		GenericValue contactMech = commRole.getRelatedOne("ContactMech");
-                		if (UtilValidate.isNotEmpty(contactMech) && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
-                			if ("ADDRESSEE".equals(commRole.getString("roleTypeId"))) {
-                				sendTo += "," + contactMech.getString("infoString");
-                			} else if ("CC".equals(commRole.getString("roleTypeId"))) {
-                				if (sendCc != null) {
-                					sendCc += "," + contactMech.getString("infoString");
-                				} else {
-                					sendCc = contactMech.getString("infoString");
-                				}
-                			} else if ("BCC".equals(commRole.getString("roleTypeId"))) {
-                				if (sendBcc != null) {
-                					sendBcc += "," + contactMech.getString("infoString");
-                				} else {
-                					sendBcc = contactMech.getString("infoString");
-                				}
-                			}
-                		}
-                	}
+                    for (GenericValue commRole : commRoles) { // 'from' and 'to' already defined on communication event
+                        if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom")) || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {
+                            continue;
+                        }
+                        GenericValue contactMech = commRole.getRelatedOne("ContactMech");
+                        if (UtilValidate.isNotEmpty(contactMech) && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
+                            if ("ADDRESSEE".equals(commRole.getString("roleTypeId"))) {
+                                sendTo += "," + contactMech.getString("infoString");
+                            } else if ("CC".equals(commRole.getString("roleTypeId"))) {
+                                if (sendCc != null) {
+                                    sendCc += "," + contactMech.getString("infoString");
+                                } else {
+                                    sendCc = contactMech.getString("infoString");
+                                }
+                            } else if ("BCC".equals(commRole.getString("roleTypeId"))) {
+                                if (sendBcc != null) {
+                                    sendBcc += "," + contactMech.getString("infoString");
+                                } else {
+                                    sendBcc = contactMech.getString("infoString");
+                                }
+                            }
+                        }
+                    }
                 }
 
                 sendMailParams.put("communicationEventId", communicationEventId);
@@ -770,17 +770,17 @@ public class CommunicationEventServices {
             // select the plain text bodypart
             String messageBody = null;
             if (wrapper.getMainPartCount() > 1) {
-            	for (int ind=0; ind < wrapper.getMainPartCount(); ind++) {
-            		BodyPart p = wrapper.getPart(ind + "");
-            		if (p.getContentType().toLowerCase().indexOf("text/plain") > -1) {
-            			messageBody = (String) p.getContent();
-            			break;
-            		}
-            	}
+                for (int ind=0; ind < wrapper.getMainPartCount(); ind++) {
+                    BodyPart p = wrapper.getPart(ind + "");
+                    if (p.getContentType().toLowerCase().indexOf("text/plain") > -1) {
+                        messageBody = (String) p.getContent();
+                        break;
+                    }
+                }
             }
             
             if (messageBody == null) {
-            	messageBody = wrapper.getMessageBody();
+                messageBody = wrapper.getMessageBody();
             }
                         
             commEventMap.put("content", messageBody);

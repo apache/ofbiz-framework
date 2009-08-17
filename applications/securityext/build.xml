@@ -42,7 +42,7 @@ under the License.
         <fileset dir="../../framework/webapp/lib" includes="*.jar"/>
         <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
         <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
-    	<fileset dir="../../framework/testtools/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/testtools/build/lib" includes="*.jar"/>
         <fileset dir="../party/build/lib" includes="*.jar"/>
         <fileset dir="../product/build/lib" includes="*.jar"/>
         <fileset dir="../order/build/lib" includes="*.jar"/>

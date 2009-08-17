@@ -24,16 +24,16 @@ import org.ofbiz.base.util.*;
 
 custRequestList = delegator.findByAnd("CustRequest", ["fromPartyId" : fromPartyId], ["-createdDate"]);
 if (custRequestList) {
-	custReqTaskList = custRequestList.get(0).getRelated("CustRequestWorkEffort");
-	if (custReqTaskList) {
+    custReqTaskList = custRequestList.get(0).getRelated("CustRequestWorkEffort");
+    if (custReqTaskList) {
         custReqTask = custReqTaskList.get(0).getRelatedOne("WorkEffort");  // phase
         projectChildWorkEffort = custReqTask.getRelatedOne("ParentWorkEffort");  // phase name
-		if (projectChildWorkEffort) {
-			partyList = custReqTask.getRelated("WorkEffortPartyAssignment");
-			if (partyList) {
-				context.childWorkEffortId = projectChildWorkEffort.workEffortId;
-				context.partyId= partyList.get(0).partyId;
-			}
-		}
-	}
+        if (projectChildWorkEffort) {
+            partyList = custReqTask.getRelated("WorkEffortPartyAssignment");
+            if (partyList) {
+                context.childWorkEffortId = projectChildWorkEffort.workEffortId;
+                context.partyId= partyList.get(0).partyId;
+            }
+        }
+    }
 }

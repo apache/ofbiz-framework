@@ -23,13 +23,13 @@ under the License.
 <#if PayrolGroup?has_content>
 <#list PayrolGroup as payrolGroup>
 <tr class="header-row" >
-	<td>
-	[${payrolGroup.description}]
-	</td>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
+    <td>
+    [${payrolGroup.description}]
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
 </tr>
 <tr class="header-row">
 
@@ -39,21 +39,21 @@ under the License.
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-	<#if PayrolList?has_content>
-		<#list PayrolList as payrolList>
-			<#if payrolList.parentTypeId?if_exists == payrolGroup.invoiceItemTypeId?if_exists>
+    <#if PayrolList?has_content>
+        <#list PayrolList as payrolList>
+            <#if payrolList.parentTypeId?if_exists == payrolGroup.invoiceItemTypeId?if_exists>
 <tr>
-	<td align="right">
-			${payrolList.description} :
-	</td>
-	<td ><input type="text" size=10 name="${payrolList.invoiceItemTypeId}_Quantity"/></td>
-	<td ><input type="text" size=10 name="${payrolList.invoiceItemTypeId}_Amount"/></td>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
+    <td align="right">
+            ${payrolList.description} :
+    </td>
+    <td ><input type="text" size=10 name="${payrolList.invoiceItemTypeId}_Quantity"/></td>
+    <td ><input type="text" size=10 name="${payrolList.invoiceItemTypeId}_Amount"/></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
 </tr>
-			</#if>
-		</#list>
-	</#if>
+            </#if>
+        </#list>
+    </#if>
 </#list>
 </#if>
 <tr class="header-row">
@@ -64,11 +64,11 @@ under the License.
 <td>&nbsp;</td>
 </tr>
 <tr >
-	<td align="right"><b>Add all values : </b></td>
-	<td align="center" ><input type="submit" value="Add"></td>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
+    <td align="right"><b>Add all values : </b></td>
+    <td align="center" ><input type="submit" value="Add"></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
 </tr>
 </table>
 </form>

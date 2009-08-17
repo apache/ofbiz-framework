@@ -58,8 +58,8 @@
 
 <style>
 .dojoContextMenu {
-	background-color: #ccc;
-	font-size: 10px;
+    background-color: #ccc;
+    font-size: 10px;
 }
 </style>
 

@@ -79,13 +79,13 @@ under the License.
                 <tr>
                   <td class="label">${uiLabelMap.OrderShipGroup}</td>
                   <td><select name="shipGroupSeqId">
-	                  <#list shipGroups as shipGroup>
-	                     <option value="${shipGroup.shipGroupSeqId}">${shipGroup.shipGroupSeqId}</option>
-	                  </#list>
-	                  </select>
-	              </td>
+                      <#list shipGroups as shipGroup>
+                         <option value="${shipGroup.shipGroupSeqId}">${shipGroup.shipGroupSeqId}</option>
+                      </#list>
+                      </select>
+                  </td>
                 </tr>
-	          </#if>
+              </#if>
                 <tr>
                   <td class="label">${uiLabelMap.OrderDesiredDeliveryDate}</td>
                   <td>

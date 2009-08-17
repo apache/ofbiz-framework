@@ -26,17 +26,17 @@ import org.ofbiz.entity.GenericDelegator;
 
 public interface Authorization {
 
-	/**
-	 * Test to see if the specified user has permission
-	 * 
-	 * @param userId the user's userId
-	 * @param permission the raw permission string
-	 * @param context name/value pairs used for permission lookup	
-	 * @return true if the user has permission
-	 */
-	public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context);
-		       
-	/**
+    /**
+     * Test to see if the specified user has permission
+     * 
+     * @param userId the user's userId
+     * @param permission the raw permission string
+     * @param context name/value pairs used for permission lookup    
+     * @return true if the user has permission
+     */
+    public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context);
+               
+    /**
      * Test to see if the specified user has permission
      * 
      * @param session HttpSession used to obtain the userId
@@ -45,7 +45,7 @@ public interface Authorization {
      * @return true if the user has permission
      */
     public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context);
-	
+    
     /**
      * Takes a regular expression (permissionRegexp) and evaluates it against base permissions and returns permission
      * values for each match.

@@ -29,8 +29,8 @@ under the License.
 
    <fo:page-sequence master-reference="portrait" initial-page-number="1">
      <fo:flow flow-name="xsl-region-body">
-	<fo:block text-align="center">Font samples</fo:block>
-	<fo:block></fo:block>
+    <fo:block text-align="center">Font samples</fo:block>
+    <fo:block></fo:block>
         <fo:block color="red">Helvetica</fo:block>
         <fo:block font-family="Helvetica" font-style="normal" font-weight="normal">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
         <fo:block font-family="Helvetica" font-style="normal" font-weight="bold">the quick brown fox jumps over the lazy dog 1234657890</fo:block>

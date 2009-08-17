@@ -70,7 +70,7 @@ under the License.
           </tr>
           <#list activities as step>
             <#assign assignments = step.getRelated("WorkEffortPartyAssignment")>
-			<#assign assignments = EntityUtil.filterByDate(assignments)>
+            <#assign assignments = EntityUtil.filterByDate(assignments)>
             <tr>
               <#-- TODO: add external login ID to external links -->
               <td class="button-col"><a href="/workeffort/control/activity?workEffortId=${step.workEffortId}" target="workeffort">${step.workflowActivityId}</a></td>

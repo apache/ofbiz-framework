@@ -17,15 +17,15 @@
   under the License.
   -->
 <object type="application/x-shockwave-flash" data="/images/FlowPlayerLP.swf" width="320" height="263" id="FlowPlayer">
-	<param name="movie" value="/images/FlowPlayerLP.swf" />
-	<param name="quality" value="high" />
+    <param name="movie" value="/images/FlowPlayerLP.swf" />
+    <param name="quality" value="high" />
 
-	<param name="flashvars" value="config={
-		autoPlay: true,
-		bufferLength: '100',
-		loop: false,
-		initialScale: 'fit',
-		videoFile: '/content/control/stream?contentId=${contentId}',
-		showPlayListButtons: true
-		}" />
+    <param name="flashvars" value="config={
+        autoPlay: true,
+        bufferLength: '100',
+        loop: false,
+        initialScale: 'fit',
+        videoFile: '/content/control/stream?contentId=${contentId}',
+        showPlayListButtons: true
+        }" />
 </object>

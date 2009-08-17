@@ -28,13 +28,13 @@ allProjects = delegator.findList("WorkEffort", cond, (HashSet) ["workEffortId"],
 projects = [];
 allProjects.each { project ->
     result = dispatcher.runSync("getProject", ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId]);
-	if (result.projectInfo) {
-		resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId])
-		if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)
-		|| ((security.hasEntityPermission("PROJECTMGR", "_ROLE_ADMIN", session) || security.hasEntityPermission("PROJECTMGR", "_ROLE_VIEW", session)) && resultAssign)) {
-			projects.add(result.projectInfo);
-		}
-	}
+    if (result.projectInfo) {
+        resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId])
+        if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)
+        || ((security.hasEntityPermission("PROJECTMGR", "_ROLE_ADMIN", session) || security.hasEntityPermission("PROJECTMGR", "_ROLE_VIEW", session)) && resultAssign)) {
+            projects.add(result.projectInfo);
+        }
+    }
 }
 if (projects) {
     context.projects = projects;

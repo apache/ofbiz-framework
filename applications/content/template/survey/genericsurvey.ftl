@@ -255,9 +255,9 @@ under the License.
     <#-- special formatting for select boxes -->
     <#assign align = "left"/>
     <#if surveyQuestionAndAppl?exists && surveyQuestionAndAppl.surveyQuestionTypeId?has_content>
-    	<#if (surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN" || surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT" || surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION")>
-      		<#assign align = "right"/>
-    	</#if>
+        <#if (surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN" || surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT" || surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION")>
+              <#assign align = "right"/>
+        </#if>
     </#if>
 
     <#-- get an answer from the answerMap -->

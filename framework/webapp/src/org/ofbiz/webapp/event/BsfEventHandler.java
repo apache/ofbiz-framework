@@ -90,13 +90,13 @@ public class BsfEventHandler implements EventHandler {
                                 Debug.logVerbose("Loading BSF Script at location: " + cacheName, module);
                             }
                             URL scriptUrl = FlexibleLocation.resolveLocation(cacheName);
-							if (scriptUrl == null) {
-								throw new EventHandlerException("BSF script not found at location [" + cacheName + "]");
-							}
+                            if (scriptUrl == null) {
+                                throw new EventHandlerException("BSF script not found at location [" + cacheName + "]");
+                            }
                             scriptStream = scriptUrl.openStream();
-							scriptString = IOUtils.getStringFromReader(new InputStreamReader(scriptStream));
+                            scriptString = IOUtils.getStringFromReader(new InputStreamReader(scriptStream));
                             scriptStream.close();
-							eventCache.put(cacheName, scriptString);
+                            eventCache.put(cacheName, scriptString);
                         }
                     }
                 }

@@ -236,25 +236,25 @@ ${virtualJavaScript?if_exists}
     }
 
     <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
-	    function checkRadioButton() {
-		    var block1 = document.getElementById("addCart1");
-		    var block2 = document.getElementById("addCart2");
-	        <#list featureLists as featureList>
-			    <#list featureList as feature>
-				    <#if feature_index == 0>
-				        var myList = document.getElementById("FT${feature.productFeatureTypeId}");
-				         if (myList.options[0].selected == true){
-				         	block1.style.display = "none";
-				         	block2.style.display = "block";
-				         	return;
-				         }
-				    	<#break>
-				    </#if>
-			    </#list>
-	        </#list>
-	        block1.style.display = "block";
-	        block2.style.display = "none";
-	    }
+        function checkRadioButton() {
+            var block1 = document.getElementById("addCart1");
+            var block2 = document.getElementById("addCart2");
+            <#list featureLists as featureList>
+                <#list featureList as feature>
+                    <#if feature_index == 0>
+                        var myList = document.getElementById("FT${feature.productFeatureTypeId}");
+                         if (myList.options[0].selected == true){
+                             block1.style.display = "none";
+                             block2.style.display = "block";
+                             return;
+                         }
+                        <#break>
+                    </#if>
+                </#list>
+            </#list>
+            block1.style.display = "block";
+            block2.style.display = "none";
+        }
     </#if>
  //-->
  </script>

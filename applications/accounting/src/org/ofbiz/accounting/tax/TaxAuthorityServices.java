@@ -157,31 +157,31 @@ public class TaxAuthorityServices {
         GenericValue productStore = null;
         // Check value productStore *** New
         if (productStoreId!=null) {
-	        try {
-	            getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
-	            if (productStoreId != null) {
-	                productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
-	            }
-	         
-	        } catch (GenericEntityException e) {
-	            String errMsg = "Data error getting tax settings: " + e.toString();
-	            Debug.logError(e, errMsg, module);
-	            return ServiceUtil.returnError(errMsg);
-	        }
+            try {
+                getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
+                if (productStoreId != null) {
+                    productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+                }
+             
+            } catch (GenericEntityException e) {
+                String errMsg = "Data error getting tax settings: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
 
-	        if (productStore == null && payToPartyId == null) {
-	            throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
-	        }
+            if (productStore == null && payToPartyId == null) {
+                throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
+            }
         }
         else
         {
-        	try {
-        		getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);    
-        	} catch (GenericEntityException e) {
-        	    String errMsg = "Data error getting tax settings: " + e.toString();
-	            Debug.logError(e, errMsg, module);
-	            return ServiceUtil.returnError(errMsg);
-        	}
+            try {
+                getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);    
+            } catch (GenericEntityException e) {
+                String errMsg = "Data error getting tax settings: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
         }
      
         // Setup the return lists.

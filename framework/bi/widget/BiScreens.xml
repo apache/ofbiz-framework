@@ -142,7 +142,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                        	<container>
+                            <container>
                                 <section>
                                     <widgets>
                                         <platform-specific>
@@ -152,17 +152,17 @@ under the License.
                                 </section>
                             </container>
                             <container style="screenlet-body">
-                            	<link target="quickInitDataWarehouse" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext">
-                                	<parameter param-name="fromDate"/>
-                                	<parameter param-name="thruDate"/>
-                            	</link>
-                            	<label style="note"> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
-                            	<label style="note">
-                                	${uiLabelMap.BusinessIntelligenceNote29}
-                                	${uiLabelMap.BusinessIntelligenceNote30}
-                                	${uiLabelMap.BusinessIntelligenceNote31}
-                            	</label>
-                        	</container> 
+                                <link target="quickInitDataWarehouse" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext">
+                                    <parameter param-name="fromDate"/>
+                                    <parameter param-name="thruDate"/>
+                                </link>
+                                <label style="note"> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
+                                <label style="note">
+                                    ${uiLabelMap.BusinessIntelligenceNote29}
+                                    ${uiLabelMap.BusinessIntelligenceNote30}
+                                    ${uiLabelMap.BusinessIntelligenceNote31}
+                                </label>
+                            </container> 
                         </container>
                     </decorator-section>
                 </decorator-screen>

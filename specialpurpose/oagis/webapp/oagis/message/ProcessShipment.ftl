@@ -32,9 +32,9 @@ under the License.
 <#assign shipmentNotesSize = 65/>
 <n:PROCESS_SHIPMENT_001
     xmlns:n="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:os="http://www.openapplications.org/oagis_segments"
-	xmlns:of="http://www.openapplications.org/oagis_fields">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:os="http://www.openapplications.org/oagis_segments"
+    xmlns:of="http://www.openapplications.org/oagis_fields">
   <os:CNTROLAREA>
     <os:BSR>
       <of:VERB>PROCESS</of:VERB>

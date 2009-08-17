@@ -24,31 +24,31 @@ import org.ofbiz.entity.util.EntityUtil;
 
 // executes only on startup when only the basic parameters.portalPageId (from commonscreens.xml) is available
 if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
-	// look for system page according the current securitygroup
-	//get the security group
-	condSec = EntityCondition.makeCondition([
-			EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
+    // look for system page according the current securitygroup
+    //get the security group
+    condSec = EntityCondition.makeCondition([
+            EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
             EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
-			EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
-			],EntityOperator.AND);
-	portalMainPages = EntityUtil.filterByDate(delegator.findList("PortalPageAndUserLogin", condSec, null, null, null, false));
-	if (!portalMainPages) { // look for a null securityGroup if not found
-	    condSec = EntityCondition.makeCondition([
+            EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
+            ],EntityOperator.AND);
+    portalMainPages = EntityUtil.filterByDate(delegator.findList("PortalPageAndUserLogin", condSec, null, null, null, false));
+    if (!portalMainPages) { // look for a null securityGroup if not found
+        condSec = EntityCondition.makeCondition([
             EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, null),
             EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
             EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%")
-	        ],EntityOperator.AND);
-	    portalMainPages = delegator.findList("PortalPage", condSec, null, null, null, false);
-	}
+            ],EntityOperator.AND);
+        portalMainPages = delegator.findList("PortalPage", condSec, null, null, null, false);
+    }
     if (portalMainPages) {
-    	portalPageId = portalMainPages.get(0).portalPageId;
-    	// check if overridden with a privat page
-    	privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId]);
-    	if (privatMainPages) {
+        portalPageId = portalMainPages.get(0).portalPageId;
+        // check if overridden with a privat page
+        privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId]);
+        if (privatMainPages) {
             context.parameters.portalPageId = privatMainPages.get(0).portalPageId;
-    	} else {
-    		context.parameters.portalPageId = portalPageId;
-    	}
+        } else {
+            context.parameters.portalPageId = portalPageId;
+        }
     }
 }
 // Debug.log('======portalPageId: ' + parameters.portalPageId);
@@ -58,11 +58,11 @@ if (userLogin && parameters.portalPageId) {
         if (portalPage.parentPortalPageId) {
             context.parameters.parentPortalPageId = portalPage.parentPortalPageId;
         } else {
-        	if ("_NA_".equals(portalPage.ownerUserLoginId)) {
-        		context.parameters.parentPortalPageId = portalPage.portalPageId;
-        	} else {
+            if ("_NA_".equals(portalPage.ownerUserLoginId)) {
+                context.parameters.parentPortalPageId = portalPage.portalPageId;
+            } else {
                 context.parameters.parentPortalPageId = portalPage.originalPortalPageId;
-        	}
+            }
         }
     }
 }

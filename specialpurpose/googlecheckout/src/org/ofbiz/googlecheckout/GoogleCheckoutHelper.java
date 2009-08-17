@@ -354,30 +354,30 @@ public class GoogleCheckoutHelper {
         }
     }
 
-	protected String[] getPartyInfo(Address shipAddr, Address billAddr) throws GeneralException {
-	    String shipCmId = null;
-	    String billCmId = null;
-	    String partyId = null;
-	
-	    // look for an existing shipping address
-	    List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shipAddr.getAddress1(), 
-	            (UtilValidate.isEmpty(shipAddr.getAddress2()) ? null : shipAddr.getAddress2()), shipAddr.getCity(), shipAddr.getRegion(), 
-	            shipAddr.getPostalCode(), null, getCountryGeoId(shipAddr.getCountryCode()), shipAddr.getStructuredName().getFirstName(), 
-	            null, shipAddr.getStructuredName().getLastName());
-	    
-	    if (shipInfo != null && shipInfo.size() > 0) {
-	        GenericValue first = EntityUtil.getFirst(shipInfo);
-	        shipCmId = first.getString("contactMechId");
-	        partyId = first.getString("partyId");
-	        Debug.logInfo("Existing shipping address found : " + shipCmId + " (party: " + partyId + ")", module);
-	    }
-	    
-	    // look for an existing billing address
-	    List<GenericValue> billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(), 
-	            (UtilValidate.isEmpty(billAddr.getAddress2()) ? null : billAddr.getAddress2()), billAddr.getCity(), billAddr.getRegion(), 
-	            billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(), 
-	            null, billAddr.getStructuredName().getLastName());
-	    
+    protected String[] getPartyInfo(Address shipAddr, Address billAddr) throws GeneralException {
+        String shipCmId = null;
+        String billCmId = null;
+        String partyId = null;
+    
+        // look for an existing shipping address
+        List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shipAddr.getAddress1(), 
+                (UtilValidate.isEmpty(shipAddr.getAddress2()) ? null : shipAddr.getAddress2()), shipAddr.getCity(), shipAddr.getRegion(), 
+                shipAddr.getPostalCode(), null, getCountryGeoId(shipAddr.getCountryCode()), shipAddr.getStructuredName().getFirstName(), 
+                null, shipAddr.getStructuredName().getLastName());
+        
+        if (shipInfo != null && shipInfo.size() > 0) {
+            GenericValue first = EntityUtil.getFirst(shipInfo);
+            shipCmId = first.getString("contactMechId");
+            partyId = first.getString("partyId");
+            Debug.logInfo("Existing shipping address found : " + shipCmId + " (party: " + partyId + ")", module);
+        }
+        
+        // look for an existing billing address
+        List<GenericValue> billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(), 
+                (UtilValidate.isEmpty(billAddr.getAddress2()) ? null : billAddr.getAddress2()), billAddr.getCity(), billAddr.getRegion(), 
+                billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(), 
+                null, billAddr.getStructuredName().getLastName());
+        
         if (billInfo != null && billInfo.size() > 0) {
             GenericValue first = EntityUtil.getFirst(billInfo);
             billCmId = first.getString("contactMechId");
@@ -421,11 +421,11 @@ public class GoogleCheckoutHelper {
             }
         }
 
-	    return new String[] { partyId, shipCmId, billCmId };
-	}
+        return new String[] { partyId, shipCmId, billCmId };
+    }
 
-	protected String createPerson(StructuredName name) throws GeneralException {
-	    Map<String, Object> personMap = FastMap.newInstance();
+    protected String createPerson(StructuredName name) throws GeneralException {
+        Map<String, Object> personMap = FastMap.newInstance();
         personMap.put("firstName", name.getFirstName());
         personMap.put("lastName", name.getLastName());
         personMap.put("userLogin", system);
@@ -437,10 +437,10 @@ public class GoogleCheckoutHelper {
         String partyId = (String) personResp.get("partyId");
         
         Debug.logInfo("New party created : " + partyId, module);
-	    return partyId;
-	}
-	
-	protected String createPartyAddress(String partyId, Address addr) throws GeneralException {
+        return partyId;
+    }
+    
+    protected String createPartyAddress(String partyId, Address addr) throws GeneralException {
         // check for zip+4
         String postalCode = addr.getPostalCode();
         String postalCodeExt = null;
@@ -474,33 +474,33 @@ public class GoogleCheckoutHelper {
         String contactMechId = (String) addrResp.get("contactMechId");
         
         Debug.logInfo("Created new address for partyId [" + partyId + "] :" + contactMechId, module);
-	    return contactMechId;
-	}
-	
-	protected void addPurposeToAddress(String partyId, String contactMechId, int addrType) throws GeneralException {
-	    // convert the int to a purpose type ID
-	    String contactMechPurposeTypeId = getAddressType(addrType);
-	    
-	    // check to make sure the purpose doesn't already exist
-	    List<GenericValue> values = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, 
-	            "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId));
-	    
-	    if (values == null || values.size() == 0) {
-    	    Map<String, Object> addPurposeMap = FastMap.newInstance();
-    	    addPurposeMap.put("contactMechId", contactMechId);
-    	    addPurposeMap.put("partyId", partyId);	   
-    	    addPurposeMap.put("contactMechPurposeTypeId", contactMechPurposeTypeId);
-    	    addPurposeMap.put("userLogin", system);
-    	    
-    	    Map<String, Object> addPurposeResp = dispatcher.runSync("createPartyContactMechPurpose", addPurposeMap);
-    	    if (addPurposeResp != null && ServiceUtil.isError(addPurposeResp)) {
-    	        throw new GeneralException(ServiceUtil.getErrorMessage(addPurposeResp));
-    	    }
-	    }
-	}
-	
-	protected String getAddressType(int addrType) {
-	    String contactMechPurposeTypeId = "GENERAL_LOCATION";
+        return contactMechId;
+    }
+    
+    protected void addPurposeToAddress(String partyId, String contactMechId, int addrType) throws GeneralException {
+        // convert the int to a purpose type ID
+        String contactMechPurposeTypeId = getAddressType(addrType);
+        
+        // check to make sure the purpose doesn't already exist
+        List<GenericValue> values = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, 
+                "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId));
+        
+        if (values == null || values.size() == 0) {
+            Map<String, Object> addPurposeMap = FastMap.newInstance();
+            addPurposeMap.put("contactMechId", contactMechId);
+            addPurposeMap.put("partyId", partyId);       
+            addPurposeMap.put("contactMechPurposeTypeId", contactMechPurposeTypeId);
+            addPurposeMap.put("userLogin", system);
+            
+            Map<String, Object> addPurposeResp = dispatcher.runSync("createPartyContactMechPurpose", addPurposeMap);
+            if (addPurposeResp != null && ServiceUtil.isError(addPurposeResp)) {
+                throw new GeneralException(ServiceUtil.getErrorMessage(addPurposeResp));
+            }
+        }
+    }
+    
+    protected String getAddressType(int addrType) {
+        String contactMechPurposeTypeId = "GENERAL_LOCATION";
         switch (addrType) {
             case SHIPPING_ADDRESS:
                 contactMechPurposeTypeId = "SHIPPING_LOCATION";
@@ -510,9 +510,9 @@ public class GoogleCheckoutHelper {
                 break;
         }
         return contactMechPurposeTypeId;
-	}
-	
-	protected void setContactInfo(ShoppingCart cart, String contactMechPurposeTypeId, String infoString) throws GeneralException {
+    }
+    
+    protected void setContactInfo(ShoppingCart cart, String contactMechPurposeTypeId, String infoString) throws GeneralException {
         Map<String, Object> lookupMap = FastMap.newInstance();
         String cmId = null;
 
@@ -576,11 +576,11 @@ public class GoogleCheckoutHelper {
             cart.addContactMech(contactMechPurposeTypeId, cmId);
         }
     }
-	
-	protected String getCountryGeoId(String geoCode) {
-	    if (geoCode != null && geoCode.length() == 3) {
-	        return geoCode;
-	    }
+    
+    protected String getCountryGeoId(String geoCode) {
+        if (geoCode != null && geoCode.length() == 3) {
+            return geoCode;
+        }
         List<GenericValue> geos = null;
         try {
             geos = delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode, "geoTypeId", "COUNTRY"));
@@ -593,17 +593,17 @@ public class GoogleCheckoutHelper {
             return "_NA_";
         }
     }
-	
-	protected boolean hasHoldOrderNotes(String orderId) {
-	    EntityCondition idCond = EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId);
-	    EntityCondition content = EntityCondition.makeCondition("noteInfo", EntityOperator.LIKE, "%Order is held%");
-	    EntityCondition mainCond = EntityCondition.makeCondition(UtilMisc.toList(idCond, content), EntityOperator.AND);
-	    List<GenericValue> holdOrderNotes = null;	    
-	    try {
-	        holdOrderNotes = delegator.findList("OrderHeaderNoteView", mainCond, null, null, null, false);
-	    } catch (GenericEntityException e) {
-	        Debug.logError(e, module);
-	    }
-	    return UtilValidate.isNotEmpty(holdOrderNotes);
-	}
+    
+    protected boolean hasHoldOrderNotes(String orderId) {
+        EntityCondition idCond = EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId);
+        EntityCondition content = EntityCondition.makeCondition("noteInfo", EntityOperator.LIKE, "%Order is held%");
+        EntityCondition mainCond = EntityCondition.makeCondition(UtilMisc.toList(idCond, content), EntityOperator.AND);
+        List<GenericValue> holdOrderNotes = null;        
+        try {
+            holdOrderNotes = delegator.findList("OrderHeaderNoteView", mainCond, null, null, null, false);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return UtilValidate.isNotEmpty(holdOrderNotes);
+    }
 }

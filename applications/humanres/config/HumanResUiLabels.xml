@@ -1838,7 +1838,7 @@
      <property key="PageTitleFindRelocationDetails">
         <value xml:lang="en">Find Relocation Details</value>
     </property>
-	<property key="HumanResPreRequisiteSkill">
+    <property key="HumanResPreRequisiteSkill">
         <value xml:lang="en">Pre Requisite Skill</value>
     </property>
     <property key="HumanResTrainingApprovals">

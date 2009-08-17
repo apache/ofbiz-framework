@@ -23,12 +23,12 @@ ${StringUtil.wrapString(topLine.textBegin?if_exists)}
   <#if topLine.dropDownList.size() gt 1>
   <#if topLine.hiddenFieldList?exists>
     <#list topLine.hiddenFieldList as field>
-	  <input type="hidden" name="${field.name}" value="${field.value}"/>
+      <input type="hidden" name="${field.name}" value="${field.value}"/>
     </#list>
   </#if>
   <select name="${topLine.selectionName?if_exists}" onChange="javascript:document.${topLine.action}.submit();">
     <#list topLine.dropDownList as option>
-	  <option <#if option.key == topLine.selectedKey >selected="selected"</#if> value="${option.key?if_exists}">${option.value?if_exists}</option>
+      <option <#if option.key == topLine.selectedKey >selected="selected"</#if> value="${option.key?if_exists}">${option.value?if_exists}</option>
     </#list>
   </select>
 <#else>

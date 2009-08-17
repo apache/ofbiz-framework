@@ -909,7 +909,7 @@ under the License.
                         <set field="createOrderMap.returnTypeId" value="RTN_WAIT_REPLACE_RES"/>
                         <call-service service-name="processReplacementReturn" in-map-name="createOrderMap"/>
                     </if-compare>
-	            </if-not-empty>                                
+                </if-not-empty>                                
             </if-not-empty>
         </if-compare>
     </simple-method>

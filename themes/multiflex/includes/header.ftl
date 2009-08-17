@@ -119,7 +119,7 @@ under the License.
           </#if>
 
         </div>
-	  </div>
+      </div>
 
       <!-- Breadcrumbs -->
       <div class="header-breadcrumbs">

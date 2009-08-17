@@ -2651,7 +2651,7 @@ public class UpsServices {
             Document acceptAccessRequestDocument = createAccessRequestDocument();
             String acceptAccessRequestString = null;
             try {
-            	acceptAccessRequestString = UtilXml.writeXmlDocument(acceptAccessRequestDocument);
+                acceptAccessRequestString = UtilXml.writeXmlDocument(acceptAccessRequestDocument);
             } catch (IOException e) {
                 String ioeErrMsg = "Error writing the AccessRequest XML Document to a String: " + e.toString();
                 Debug.logError(e, ioeErrMsg, module);

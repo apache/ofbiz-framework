@@ -46,7 +46,7 @@ if (timesheetId) {
     if (timesheets) {
         timesheet = timesheets[0];
     } else {
-    	result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
+        result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
         if (result && result.timesheetId) {
             timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : result.timesheetId]);
         }

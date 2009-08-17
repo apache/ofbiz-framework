@@ -31,40 +31,40 @@ import org.python.util.PythonInterpreter;
 
 public class DataLoader {
 
-	private String file;
-	private String iterations;
-	private SeleniumXml parent;
-	private SeleniumXml currentTest;
-	private List children;
+    private String file;
+    private String iterations;
+    private SeleniumXml parent;
+    private SeleniumXml currentTest;
+    private List children;
 
-	private int currentRowIndx;
-
-
-	//Objects initialized from csvreader script.
-	private PyDictionary fieldNameMap;
-	private PyList dataList;
-	private PyList fieldNames;
+    private int currentRowIndx;
 
 
+    //Objects initialized from csvreader script.
+    private PyDictionary fieldNameMap;
+    private PyList dataList;
+    private PyList fieldNames;
 
 
-	public DataLoader(String file, String iterations, SeleniumXml parent, List<Element> children) {
-		super();
-		this.file = file;
-		this.iterations = iterations;
-		this.parent = parent;
-		this.children = children;
-		initData();
-	}
 
-	private void initData() {
-		// Run the python script
-		// Read header and get record count
-		PythonInterpreter interp = InitJython.getInterpreter();
 
-		Map map = new HashMap();
-		map.put("file", this.file);
-		interp.set("params", map);
+    public DataLoader(String file, String iterations, SeleniumXml parent, List<Element> children) {
+        super();
+        this.file = file;
+        this.iterations = iterations;
+        this.parent = parent;
+        this.children = children;
+        initData();
+    }
+
+    private void initData() {
+        // Run the python script
+        // Read header and get record count
+        PythonInterpreter interp = InitJython.getInterpreter();
+
+        Map map = new HashMap();
+        map.put("file", this.file);
+        interp.set("params", map);
         interp.exec("from csvreader import CSVReader");
         String cmd = "reader = CSVReader('" + this.file + "')";
         interp.exec(cmd);
@@ -78,43 +78,43 @@ public class DataLoader {
         //this.dataList = (PyArray) map.get("dataList");
         //this.fieldNames = (PyDictionary) map.get("fieldNames");
 
-	}
+    }
 
-	private void next() {
-		this.currentRowIndx = (this.currentRowIndx + 1) % this.dataList.__len__();
-	}
+    private void next() {
+        this.currentRowIndx = (this.currentRowIndx + 1) % this.dataList.__len__();
+    }
 
-	private void loadData() {
+    private void loadData() {
 
-		int size = this.fieldNames.__len__();
-		for(int i=0; i<size; i++) {
-			PyObject name = this.fieldNames.__getitem__(i);
-			PyObject valueList = this.dataList.__getitem__(this.currentRowIndx);
-			PyObject columnIndx = this.fieldNameMap.__getitem__(name);
-			Integer convIndx = (Integer) columnIndx.__tojava__(Integer.class);
-			//int convIndx = Integer.parseInt((String) columnIndx.__tojava__(String.class));
-			PyObject value = valueList.__getitem__(convIndx);
-			this.currentTest.addParam((String) name.__tojava__(String.class), (String) value.__tojava__(String.class));
-		}
+        int size = this.fieldNames.__len__();
+        for(int i=0; i<size; i++) {
+            PyObject name = this.fieldNames.__getitem__(i);
+            PyObject valueList = this.dataList.__getitem__(this.currentRowIndx);
+            PyObject columnIndx = this.fieldNameMap.__getitem__(name);
+            Integer convIndx = (Integer) columnIndx.__tojava__(Integer.class);
+            //int convIndx = Integer.parseInt((String) columnIndx.__tojava__(String.class));
+            PyObject value = valueList.__getitem__(convIndx);
+            this.currentTest.addParam((String) name.__tojava__(String.class), (String) value.__tojava__(String.class));
+        }
 
-	}
+    }
 
-	public void runTest() {
+    public void runTest() {
 
-		//Depending on the iteration instruction repeat the following until complete
-		int iter = Integer.parseInt(this.iterations);
+        //Depending on the iteration instruction repeat the following until complete
+        int iter = Integer.parseInt(this.iterations);
 
-		//Iterate through entire list of data
-		if (iter == -1) {
-			iter = this.dataList.__len__();
-		}
+        //Iterate through entire list of data
+        if (iter == -1) {
+            iter = this.dataList.__len__();
+        }
 
-		this.currentTest = new SeleniumXml(this.parent);
-		for(int i=0; i<iter; i++) {
-			loadData();
-			currentTest.runCommands(this.children);
-			next();
-		}
+        this.currentTest = new SeleniumXml(this.parent);
+        for(int i=0; i<iter; i++) {
+            loadData();
+            currentTest.runCommands(this.children);
+            next();
+        }
 
-	}
+    }
 }

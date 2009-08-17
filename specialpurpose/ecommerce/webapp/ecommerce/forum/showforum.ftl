@@ -18,5 +18,5 @@ under the License.
 -->
 
 <#list forumMessages?if_exists as forumMessage>
-	<#include "messageDisplay.ftl">
+    <#include "messageDisplay.ftl">
 </#list>

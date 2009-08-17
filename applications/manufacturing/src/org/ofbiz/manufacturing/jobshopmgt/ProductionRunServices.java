@@ -2224,34 +2224,34 @@ public class ProductionRunServices {
                 // check if a bom exists
                 List bomList = null;
                 try {
-                	bomList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", componentProductId, "productAssocTypeId", "MANUF_COMPONENT"));
-                	bomList = EntityUtil.filterByDate(bomList, UtilDateTime.nowTimestamp());
+                    bomList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", componentProductId, "productAssocTypeId", "MANUF_COMPONENT"));
+                    bomList = EntityUtil.filterByDate(bomList, UtilDateTime.nowTimestamp());
                 } catch (GenericEntityException e) {
-                	return ServiceUtil.returnError("try to get BOM list from productAssoc");
+                    return ServiceUtil.returnError("try to get BOM list from productAssoc");
                 }
                 // if so create a mandatory predecessor to this production run
                 if (UtilValidate.isNotEmpty(bomList)) {
-                	serviceContext.clear();
-                	serviceContext.put("productId", componentProductId);
-                	serviceContext.put("quantity", componentQuantity);
-                	serviceContext.put("startDate", UtilDateTime.nowTimestamp());
-                	serviceContext.put("facilityId", facilityId);
-                	serviceContext.put("userLogin", userLogin);
-                	resultService = null;
-                	try {
-                		resultService = dispatcher.runSync("createProductionRunsForProductBom", serviceContext);
-                		GenericValue workEffortPreDecessor = delegator.makeValue("WorkEffortAssoc", UtilMisc.toMap(
-                				"workEffortIdTo", productionRunId, "workEffortIdFrom", resultService.get("productionRunId"),
-                				"workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", UtilDateTime.nowTimestamp()));
-                		workEffortPreDecessor.create();
-                	} catch (GenericServiceException e) {
-                		return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
-                	} catch (GenericEntityException e) {
-                		return ServiceUtil.returnError("try to create workeffort assoc");
-                	}
-                	
+                    serviceContext.clear();
+                    serviceContext.put("productId", componentProductId);
+                    serviceContext.put("quantity", componentQuantity);
+                    serviceContext.put("startDate", UtilDateTime.nowTimestamp());
+                    serviceContext.put("facilityId", facilityId);
+                    serviceContext.put("userLogin", userLogin);
+                    resultService = null;
+                    try {
+                        resultService = dispatcher.runSync("createProductionRunsForProductBom", serviceContext);
+                        GenericValue workEffortPreDecessor = delegator.makeValue("WorkEffortAssoc", UtilMisc.toMap(
+                                "workEffortIdTo", productionRunId, "workEffortIdFrom", resultService.get("productionRunId"),
+                                "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", UtilDateTime.nowTimestamp()));
+                        workEffortPreDecessor.create();
+                    } catch (GenericServiceException e) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
+                    } catch (GenericEntityException e) {
+                        return ServiceUtil.returnError("try to create workeffort assoc");
+                    }
+                    
                 } else {
-                	components.put(componentProductId, componentQuantity);
+                    components.put(componentProductId, componentQuantity);
                 }
 
                 //  create production run notes from comments

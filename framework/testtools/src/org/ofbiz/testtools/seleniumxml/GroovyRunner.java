@@ -37,21 +37,21 @@ import org.ofbiz.testtools.seleniumxml.util.TestUtils;
 
 public class GroovyRunner {
 
-	private String urlName;
-	private SeleniumXml parent;
-	private SeleniumXml currentTest;
-	
-	private int currentRowIndx;
+    private String urlName;
+    private SeleniumXml parent;
+    private SeleniumXml currentTest;
+    
+    private int currentRowIndx;
     public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
-	
-	
-	public GroovyRunner(String urlName, SeleniumXml parent) {
-		super();
-		this.urlName = urlName;
-		this.parent = parent;
-	}
+    
+    
+    public GroovyRunner(String urlName, SeleniumXml parent) {
+        super();
+        this.urlName = urlName;
+        this.parent = parent;
+    }
 
-	public void runTest() {
+    public void runTest() {
 
         Map map = this.parent.getMap();
         map.put("url", this.urlName);
@@ -69,7 +69,7 @@ public class GroovyRunner {
             System.out.println("Scriptrunner, runTest, IOException error: " + e.getMessage());
         }
         
-		
-	}
+        
+    }
     
 }

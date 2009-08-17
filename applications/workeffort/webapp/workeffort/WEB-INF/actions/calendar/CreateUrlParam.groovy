@@ -38,7 +38,7 @@ if (workEffortTypeId) {
 }
 
 if (urlParam) {
-	urlParam = "&" + urlParam;
+    urlParam = "&" + urlParam;
 }
 
 context.put("urlParam", urlParam);

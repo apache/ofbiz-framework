@@ -851,7 +851,7 @@ public class UtilDateTime {
     }
 
     public static Timestamp getWeekEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
-    	Timestamp weekStart = getWeekStart(stamp, timeZone, locale);
+        Timestamp weekStart = getWeekStart(stamp, timeZone, locale);
         Calendar tempCal = toCalendar(weekStart, timeZone, locale);
         tempCal.add(Calendar.DAY_OF_MONTH, 6);
         return getDayEnd(new Timestamp(tempCal.getTimeInMillis()), timeZone, locale);

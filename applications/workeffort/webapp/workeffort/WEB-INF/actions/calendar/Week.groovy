@@ -35,7 +35,7 @@ workEffortTypeId = parameters.workEffortTypeId;
 entityExprList = (List) context.get("entityExprList");
 filterOutCanceledEvents = parameters.filterOutCanceledEvents;
 if (!filterOutCanceledEvents) {
-	filterOutCanceledEvents = Boolean.FALSE;
+    filterOutCanceledEvents = Boolean.FALSE;
 }
 
 Timestamp start = null;
@@ -56,10 +56,10 @@ context.nextMillis = new Long(next.getTime()).toString();
 Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale);
 
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),
-		"periodType",new Integer(Calendar.DATE));
+        "periodType",new Integer(Calendar.DATE));
 serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, 
-		"fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, 
-		"locale", locale, "timeZone", timeZone));
+        "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, 
+        "locale", locale, "timeZone", timeZone));
 if (entityExprList) {
     serviceCtx.putAll(["entityExprList" : entityExprList]);
 }

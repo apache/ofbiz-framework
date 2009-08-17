@@ -106,7 +106,7 @@ under the License.
 
     <div>
       <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearSearchHistory}</a>
-	  ${uiLabelMap.OrderClearSearchHistoryNote}
+      ${uiLabelMap.OrderClearSearchHistoryNote}
     </div>
     <#list searchOptionsHistoryList as searchOptions>
     <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
