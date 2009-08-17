@@ -21,6 +21,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.ofbiz.entity.util.EntityUtil;
 
+period1FromDate = parameters.period1FromDate;
+period1ThruDate = parameters.period1ThruDate;
+period2FromDate = parameters.period2FromDate;
+period2ThruDate = parameters.period2ThruDate;
+
 if (period1FromDate && period1ThruDate && organizationPartyId && period2FromDate && period2ThruDate) {
     onlyIncludePeriodTypeIdList = [];
     onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
@@ -28,31 +33,39 @@ if (period1FromDate && period1ThruDate && organizationPartyId && period2FromDate
     glAccountExpenseList = [];
     periodExpenses = [];
     periodIncomes = [];
-    glAccountTotalsMapForPeriod1 = getGlAccountTotals(onlyIncludePeriodTypeIdList, period1FromDate, period1ThruDate, organizationPartyId, parameters.glFiscalTypeId);
+    period1IncomeStatement = getGlAccountTotals(onlyIncludePeriodTypeIdList, Timestamp.valueOf(period1FromDate), Timestamp.valueOf(period1ThruDate), organizationPartyId, parameters.glFiscalTypeId);
     period1Expenses = [];
     period1Incomes = [];
-    if (glAccountTotalsMapForPeriod1) {
-        period1Expenses = glAccountTotalsMapForPeriod1.expenses;
-        period1Incomes = glAccountTotalsMapForPeriod1.income;
-        if (period1Incomes) 
-            periodIncomes.addAll(period1Incomes);
-        if (period1Expenses) 
-            periodExpenses.addAll(period1Expenses);
+    if (period1IncomeStatement) {
+        context.period1TotalNetIncome = period1IncomeStatement.totalNetIncome;
+        glAccountTotalsMapForPeriod1 = period1IncomeStatement.glAccountTotalsMap;
+        if (glAccountTotalsMapForPeriod1) {
+            period1Expenses = glAccountTotalsMapForPeriod1.expenses;
+            period1Incomes = glAccountTotalsMapForPeriod1.income;
+            if (period1Incomes) 
+                periodIncomes.addAll(period1Incomes);
+            if (period1Expenses) 
+                periodExpenses.addAll(period1Expenses);
+        }
     }
-    glAccountTotalsMapForPeriod2 = getGlAccountTotals(onlyIncludePeriodTypeIdList ,period2FromDate ,period2ThruDate ,organizationPartyId , parameters.glFiscalTypeId);
+    period2IncomeStatement = getGlAccountTotals(onlyIncludePeriodTypeIdList ,Timestamp.valueOf(period2FromDate) ,Timestamp.valueOf(period2ThruDate) ,organizationPartyId , parameters.glFiscalTypeId);
     period2Expenses = [];
     period2Incomes = [];
-    if (glAccountTotalsMapForPeriod2) {
-        period2Expenses = glAccountTotalsMapForPeriod2.expenses;
-        period2Incomes = glAccountTotalsMapForPeriod2.income;
-        period2Expenses.each { period2Expense ->
-            if (!((periodExpenses.glAccountId).contains(period2Expense.glAccountId)))
-                periodExpenses.add(period2Expense);
-        }
-        period2Incomes.each { period2Income ->
-            if (!((periodIncomes.glAccountId).contains(period2Income.glAccountId)))
-                periodIncomes.add(period2Income);
-        }
+    if (period2IncomeStatement) {
+        context.period2TotalNetIncome = period2IncomeStatement.totalNetIncome;
+        glAccountTotalsMapForPeriod2 = period2IncomeStatement.glAccountTotalsMap;
+        if (glAccountTotalsMapForPeriod2) {
+            period2Expenses = glAccountTotalsMapForPeriod2.expenses;
+            period2Incomes = glAccountTotalsMapForPeriod2.income;
+            period2Expenses.each { period2Expense ->
+                if (!((periodExpenses.glAccountId).contains(period2Expense.glAccountId)))
+                    periodExpenses.add(period2Expense);
+            }
+            period2Incomes.each { period2Income ->
+                if (!((periodIncomes.glAccountId).contains(period2Income.glAccountId)))
+                    periodIncomes.add(period2Income);
+            }
+        }        
     }
     periodExpenses.each { periodExpense ->
         period1TotalAmount = BigDecimal.ZERO;
@@ -107,6 +120,6 @@ private Map getGlAccountTotals(List onlyIncludePeriodTypeIdList, Timestamp fromD
         }
         prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement",
                 [fromDate : fromDate, thruDate : thruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : glFiscalTypeId, userLogin : userLogin]);
-        return glAccountTotalsMap = prepareIncomeStatement.glAccountTotalsMap;
+        return prepareIncomeStatement;
     }
 }

@@ -375,7 +375,7 @@ under the License.
                                         </link>
                                         <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
                                         <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        <container style="h3"><label text="${uiLabelMap.AccountingExpences}"/></container>
+                                        <container style="h3"><label text="${uiLabelMap.AccountingExpenses}"/></container>
                                         <include-form name="ExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                     </container>
                                 </container>
@@ -697,7 +697,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
                         <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        <container style="h3"><label text="${uiLabelMap.AccountingExpences}"/></container>
+                        <container style="h3"><label text="${uiLabelMap.AccountingExpenses}"/></container>
                         <include-form name="ExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         <container><label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/></container>
                     </decorator-section>
@@ -716,7 +716,7 @@ under the License.
             <widgets>
                 <container><label text="${uiLabelMap.AccountingIncome}"/></container>
                 <include-form name="IncomeStatementListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                <container><label text="${uiLabelMap.AccountingExpences}"/></container>
+                <container><label text="${uiLabelMap.AccountingExpenses}"/></container>
                 <include-form name="ExpenseStatementListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                 <container><label text="${uiLabelMap.AccountingNetIncome}: ${totalNetIncome}"/></container>
             </widgets>
@@ -1227,11 +1227,8 @@ under the License.
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp"/>
-                <set field="period1ThruDate" from-field="parameters.period1ThruDate" type="Timestamp"/>
-                <set field="period2FromDate" from-field="parameters.period2FromDate" type="Timestamp"/>
-                <set field="period2ThruDate" from-field="parameters.period2ThruDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeIncomeStatement.groovy"/>
+                <set field="displaySearchResult" value="${period1TotalNetIncome != 0 || period2TotalNetIncome != 0}" type="Boolean"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1239,14 +1236,84 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingComparativeIncomeStatement}">
                             <include-form name="ComparativeIncomeStatementParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.AccountingComparativeIncomeStatement}">
-                            <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
-                            <include-form name="ComparativeIncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                            <container style="h3"><label text="${uiLabelMap.AccountingExpences}"/></container>
-                            <include-form name="ComparativeExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <if-compare field="displaySearchResult" operator="equals" value="true" type="Boolean"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingComparativeIncomeStatement}">
+                                    <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="ComparativeIncomeStatements.csv">
+                                        <parameter param-name="period1FromDate" from-field="parameters.period1FromDate"/>
+                                        <parameter param-name="period1ThruDate" from-field="parameters.period1ThruDate"/>
+                                        <parameter param-name="period2FromDate" from-field="parameters.period2FromDate"/>
+                                        <parameter param-name="period2ThruDate" from-field="parameters.period2ThruDate"/>
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="currencyUomId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                    </link>
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeIncomeStatements.pdf">
+                                        <parameter param-name="period1FromDate" from-field="parameters.period1FromDate"/>
+                                        <parameter param-name="period1ThruDate" from-field="parameters.period1ThruDate"/>
+                                        <parameter param-name="period2FromDate" from-field="parameters.period2FromDate"/>
+                                        <parameter param-name="period2ThruDate" from-field="parameters.period2ThruDate"/>
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="currencyUomId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                    </link>
+                                    <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
+                                    <include-form name="ComparativeIncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    <container style="h3"><label text="${uiLabelMap.AccountingExpenses}"/></container>
+                                    <include-form name="ComparativeExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                </screenlet>
+                                <container><label style="h3" text="${uiLabelMap.AccountingPeriod1NetIncome}: ${period1TotalNetIncome}"/></container>
+                                <container><label style="h3" text="${uiLabelMap.AccountingPeriod2NetIncome}: ${period2TotalNetIncome}"/></container>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ComparativeIncomeStatementsPdf">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="isPdf" value="true" type="Boolean"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="currencyUomId" from-field="parameters.currencyUomId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeIncomeStatement.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
+                        <include-form name="ComparativeIncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <container style="h3"><label text="${uiLabelMap.AccountingExpenses}"/></container>
+                        <include-form name="ComparativeExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <container><label style="h3" text="${uiLabelMap.AccountingPeriod1NetIncome}: ${period1TotalNetIncome}"/></container>
+                        <container><label style="h3" text="${uiLabelMap.AccountingPeriod2NetIncome}: ${period2TotalNetIncome}"/></container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ComparativeIncomeStatementsCsv">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="currencyUomId" from-field="parameters.currencyUomId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeIncomeStatement.groovy"/>
+            </actions>
+            <widgets>
+                <container><label text="${uiLabelMap.AccountingIncome}"/></container>
+                <include-form name="ComparativeIncomeStatementsCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <container><label text="${uiLabelMap.AccountingExpenses}"/></container>
+                <include-form name="ComparativeExpenseStatementsCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <container><label text="${uiLabelMap.AccountingPeriod1NetIncome}: ${period1TotalNetIncome}"/></container>
+                <container><label text="${uiLabelMap.AccountingPeriod2NetIncome}: ${period2TotalNetIncome}"/></container>
             </widgets>
         </section>
     </screen>

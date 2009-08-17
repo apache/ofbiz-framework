@@ -3115,8 +3115,8 @@
         <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบเสร็จรายการสั่งซื้อสินค้าจากรายการสั่งซื้อ</value>
         <value xml:lang="zh">从定单创建定单明细账单时出错</value>
     </property>
-    <property key="AccountingExpences">
-        <value xml:lagn="en">Expences</value>
+    <property key="AccountingExpenses">
+        <value xml:lagn="en">Expenses</value>
         <value xml:lagn="hi_IN">व्यय</value>
     </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
@@ -7578,6 +7578,14 @@
         <value xml:lang="it">Periodi Figli</value>
         <value xml:lang="th">ช่วงเวลาสั้น ๆ</value>
         <value xml:lang="zh">子时间段</value>
+    </property>
+    <property key="AccountingPeriod1NetIncome">
+        <value xml:lang="en">Period1 Net Income</value>
+        <value xml:lang="hi_IN">अवधि 1 शुद्ध आय</value>
+    </property>
+    <property key="AccountingPeriod2NetIncome">
+        <value xml:lang="en">Period2 Net Income</value>
+        <value xml:lang="hi_IN">अवधि 2 शुद्ध आय</value>
     </property>
     <property key="AccountingPeriod1TotalAmount">
         <value xml:lang="en">Period1 Total Amount</value>
