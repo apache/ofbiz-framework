@@ -18,6 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
+    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="HELP_ROOT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
     <!-- =======General Help===========  -->
     <DataResource dataResourceId="HELP_ROOT" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
     <ElectronicText dataResourceId="HELP_ROOT">
