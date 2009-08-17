@@ -567,10 +567,23 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
+        <field name="glAccountId"  use-when="isPdf == true"><display description="${glAccountId}"/></field>
         <field name="accountName" title="${uiLabelMap.FormFieldTitle_accountName}"><display description="${glAccount.accountName}"/></field>
         <field name="period1TotalAmount" title="${uiLabelMap.AccountingPeriod1TotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="period2TotalAmount" title="${uiLabelMap.AccountingPeriod1TotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="ComparativeExpenseStatementList" type="list" list-name="glAccountExpenseList" extends="ComparativeIncomeStatementList"/>
+
+    <form name="ComparativeIncomeStatementsCsv" type="list" list-name="glAccountIncomeList" view-size="99999">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-field="glAccount"/>
+        </row-actions>
+        <field name="glAccountId"><display description="${glAccountId}"/></field>
+        <field name="accountName" title="${uiLabelMap.FormFieldTitle_accountName}"><display description="${glAccount.accountName}"/></field>
+        <field name="period1TotalAmount" title="${uiLabelMap.AccountingPeriod1TotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="period2TotalAmount" title="${uiLabelMap.AccountingPeriod1TotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+
+    <form name="ComparativeExpenseStatementsCsv" type="list" list-name="glAccountExpenseList" view-size="99999" extends="ComparativeIncomeStatementsCsv"/>
 </forms>

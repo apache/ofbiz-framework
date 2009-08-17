@@ -2321,6 +2321,17 @@ under the License.
         <response name="success" type="view" value="TrialBalanceSearchResultsCsv"/>
     </request-map>
 
+    <request-map uri="ComparativeIncomeStatements.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ComparativeIncomeStatementsCsv"/>
+        <response name="error" type="view" value="ComparativeIncomeStatement"/>
+    </request-map>
+    <request-map uri="ComparativeIncomeStatements.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ComparativeIncomeStatementsPdf"/>
+        <response name="error" type="view" value="ComparativeIncomeStatement"/>
+    </request-map>
+
     <!--Global GL Settings -->
     <request-map uri="acctgTransDetailReportPdf.pdf">
         <security https="true" auth="true"/>
@@ -2724,6 +2735,7 @@ under the License.
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
     <view-map name="CostCenterReport" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCenterReport"/>
     <view-map name="CostCentersReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCentersReportPdf" content-type="application/pdf" encoding="none"/>
-    
+    <view-map name="ComparativeIncomeStatementsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatementsPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="ComparativeIncomeStatementsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatementsCsv" content-type="text/csv" encoding="none"/>
     <!-- end of view mappings -->
 </site-conf>
