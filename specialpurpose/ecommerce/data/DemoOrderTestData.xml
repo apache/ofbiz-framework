@@ -81,4 +81,159 @@ under the License.
     <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200" lastUpdatedStamp="2008-06-10 13:27:07.294" lastUpdatedTxStamp="2008-06-10 13:27:07.022" createdStamp="2008-06-10 13:27:07.294" createdTxStamp="2008-06-10 13:27:07.022"/>
 
     <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" lastUpdatedStamp="2008-06-10 12:59:26.852" lastUpdatedTxStamp="2008-06-10 12:59:26.8" createdStamp="2008-06-10 12:59:26.852" createdTxStamp="2008-06-10 12:59:26.8"/>
+    
+    <!--Demo Purchase Order data for Accounting-->
+    <OrderHeader orderId="Demo1001" orderTypeId="PURCHASE_ORDER" orderName="Demo Purchase Order " salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2009-08-13 17:45:50.419" priority="2" entryDate="2009-08-13 17:45:50.419" statusId="ORDER_COMPLETED" currencyUom="USD" webSiteId="OrderEntry" remainingSubTotal="48.00" grandTotal="48.00"/>
+    <OrderItem orderId="Demo1001" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="24.00" unitListPrice="0.00" isModifiedPrice="N" itemDescription="GZ-2644-0 Round Gizmo" statusId="ITEM_COMPLETED" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
+    <OrderItemPriceInfo orderItemPriceInfoId="9001" orderId="Demo1001" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.000000, lastPrice: 24.000]"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
+    <OrderRole orderId="Demo1001" partyId="Company" roleTypeId="BILL_TO_CUSTOMER" />
+    <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
+    <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
+    <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
+    <OrderItemShipGroup orderId="Demo1001" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="9200" maySplit="N" isGift="N" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
+    <OrderItemShipGroupAssoc orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
+    
+    <OrderStatus orderStatusId="9009" statusId="ORDER_CREATED" orderId="Demo1001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="9010" statusId="ITEM_CREATED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="9011" statusId="ITEM_APPROVED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:46:15.144" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="9012" statusId="ORDER_APPROVED" orderId="Demo1001" statusDatetime="2009-08-13 17:46:15.206" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="9013" statusId="ITEM_COMPLETED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:47:47.292" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="9014" statusId="ORDER_COMPLETED" orderId="Demo1001" statusDatetime="2009-08-13 17:47:47.344" statusUserLogin="admin"/>
+    <OrderContactMech orderId="Demo1001" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200"/>
+    
+    <Shipment shipmentId="9997" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_RECEIVED" primaryOrderId="Demo1001" primaryShipGroupSeqId="00001" estimatedShipCost="0.00" destinationFacilityId="WebStoreWarehouse" destinationContactMechId="9200" destinationTelecomNumberId="9201" partyIdFrom="DemoSupplier"/>
+    <ShipmentItem shipmentId="9997" shipmentItemSeqId="00001" productId="GZ-2644" quantity="2.000000"/>
+    <ShipmentRouteSegment shipmentId="9997" shipmentRouteSegmentId="00001" destFacilityId="WebStoreWarehouse" destContactMechId="9200" destTelecomNumberId="9201" carrierPartyId="_NA_" shipmentMethodTypeId="NO_SHIPPING" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
+    <ShipmentPackage shipmentId="9997" shipmentPackageSeqId="00001" dateCreated="2009-08-13 17:46:29.751"/>
+    <ShipmentPackageContent shipmentId="9997" shipmentPackageSeqId="00001" shipmentItemSeqId="00001" quantity="2.000000"/>
+    <ShipmentPackageRouteSeg shipmentId="9997" shipmentPackageSeqId="00001" shipmentRouteSegmentId="00001"/>
+    <ShipmentStatus statusId="PURCH_SHIP_CREATED" shipmentId="9997" statusDate="2009-08-13 17:46:28.784"/>
+    <ShipmentStatus statusId="PURCH_SHIP_RECEIVED" shipmentId="9997" statusDate="2009-08-13 17:47:47.602"/>
+    <ShipmentStatus statusId="PURCH_SHIP_SHIPPED" shipmentId="9997" statusDate="2009-08-13 17:46:29.836"/>
+    <AcctgTrans acctgTransId="8015" acctgTransTypeId="SHIPMENT_RECEIPT" transactionDate="2009-08-13 17:47:48.642" isPosted="Y" postedDate="2009-08-13 17:47:49.281" glFiscalTypeId="ACTUAL" partyId="DemoSupplier" shipmentId="9997"/>
+    <AcctgTransEntry acctgTransId="8015" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="8015" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    
+    <InventoryItem inventoryItemId="9025" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" datetimeReceived="2009-08-13 17:47:31.095" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" quantityOnHandTotal="2.000000" availableToPromiseTotal="2.000000" unitCost="24.000000" currencyUomId="USD"/>
+    <ShipmentReceipt receiptId="9000" inventoryItemId="9025" productId="GZ-2644" shipmentId="9997" orderId="Demo1001" orderItemSeqId="00001" datetimeReceived="2009-08-13 17:47:31.095" quantityAccepted="2.000000" quantityRejected="0.000000"/>
+    <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="10000" effectiveDate="2009-08-13 17:47:46.78" quantityOnHandDiff="2.000000" availableToPromiseDiff="2.000000" unitCost="24.000000" orderId="Demo1001" orderItemSeqId="00001" shipmentId="9997" receiptId="9000"/>
+    <ItemIssuance itemIssuanceId="9000" orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9997" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="2.000000"/>
+
+    <Invoice invoiceId="8008" invoiceTypeId="PURCHASE_INVOICE" description="Purchase Order Invoice" partyIdFrom="DemoSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-08-13 17:47:47.929" currencyUomId="USD"/>
+    <InvoiceItem invoiceId="8008" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FPROD_ITEM" productId="GZ-2644" quantity="2.000000" amount="24.000" description="GZ-2644-0 Round Gizmo"/>
+    <OrderItemBilling orderId="Demo1001" orderItemSeqId="00001" invoiceId="8008" invoiceItemSeqId="00001" shipmentReceiptId="9000" quantity="2.000000" amount="24.00"/>
+    <AcctgTrans acctgTransId="8016" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-08-13 18:58:34.65" isPosted="Y" postedDate="2009-08-13 18:58:35.08" glFiscalTypeId="ACTUAL" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" invoiceId="8008"/>
+    <AcctgTransEntry acctgTransId="8016" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountId="214000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="8016" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <!--Demo Sales Order for Accounting-->
+    <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" webSiteId="OrderEntry" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09"/>
+    <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" correspondingPoId="" statusId="ITEM_COMPLETED"/>
+    <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" correspondingPoId="" statusId="ITEM_COMPLETED"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+
+    <OrderRole orderId="Demo1002" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
+    <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+    <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+    <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+
+    <OrderItemShipGroup orderId="Demo1002" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" isGift="N"/>
+    <OrderItemShipGroupAssoc orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
+    <OrderItemShipGroupAssoc orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="00001" quantity="1.000000"/>
+    <OrderAdjustment orderAdjustmentId="8000" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="_NA_" amount="-12.000" productPromoId="9011" productPromoRuleId="01" productPromoActionSeqId="01" createdDate="2009-08-17 14:56:44.515"/>
+    <OrderAdjustment orderAdjustmentId="8001" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="_NA_" amount="-59.990" productPromoId="9000" productPromoRuleId="01" productPromoActionSeqId="01" createdDate="2009-08-17 14:56:44.515"/>
+    <OrderAdjustment orderAdjustmentId="8002" orderAdjustmentTypeId="SHIPPING_CHARGES" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="00001" amount="12.100" createdDate="2009-08-17 14:56:44.515" createdByUserLogin="admin" lastUpdatedStamp="2009-08-17 14:56:44.778"/>
+    <OrderAdjustment orderAdjustmentId="8003" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="00001" comments="Utah County, Utah Sales Tax" amount="-0.012" taxAuthorityRateSeqId="9005" sourcePercentage="0.100000" primaryGeoId="UT-UTAH" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" overrideGlAccountId="224153"/>
+    <OrderAdjustment orderAdjustmentId="8004" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" comments="Utah County, Utah Sales Tax" amount="0.120" taxAuthorityRateSeqId="9005" sourcePercentage="0.100000" primaryGeoId="UT-UTAH" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" overrideGlAccountId="224153" createdDate="2009-08-17 14:56:44.515"/>
+    <OrderAdjustment orderAdjustmentId="8005" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" comments="Utah State Sales Tax" amount="5.699" taxAuthorityRateSeqId="9004" sourcePercentage="4.750000" primaryGeoId="UT" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" overrideGlAccountId="224153" createdDate="2009-08-17 14:56:44.515"/>
+    <OrderAdjustment orderAdjustmentId="8006" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" comments="1% OFB _NA_ Tax" amount="1.200" taxAuthorityRateSeqId="9000" sourcePercentage="1.000000" primaryGeoId="_NA_" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" overrideGlAccountId="224000" createdDate="2009-08-17 14:56:44.515"/>
+    <OrderPaymentPreference orderPaymentPreferenceId="9001" orderId="Demo1002" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" presentFlag="N" swipedFlag="N" overflowFlag="N" maxAmount="127.09" processAttempt="1" statusId="PAYMENT_SETTLED" needsNsfRetry="N" createdDate="2009-08-17 14:56:44.573"/>
+
+    <OrderStatus orderStatusId="8000" statusId="ORDER_CREATED" orderId="Demo1002" statusDatetime="2009-08-17 14:56:44.162" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8001" statusId="ITEM_CREATED" orderId="Demo1002" orderItemSeqId="00001" statusDatetime="2009-08-17 14:56:44.162" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8002" statusId="ITEM_CREATED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:56:44.162" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8003" statusId="PAYMENT_NOT_AUTH" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:56:44.938" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8004" statusId="PAYMENT_NOT_AUTH" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:56:46.344" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8005" statusId="PAYMENT_AUTHORIZED" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:56:46.523" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8006" statusId="ORDER_APPROVED" orderId="Demo1002" statusDatetime="2009-08-17 14:56:46.558" statusUserLogin="admin" lastUpdatedStamp="2009-08-17 14:56:46.561"/>
+    <OrderStatus orderStatusId="8007" statusId="ITEM_APPROVED" orderId="Demo1002" orderItemSeqId="00001" statusDatetime="2009-08-17 14:56:46.712" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8008" statusId="ITEM_APPROVED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:56:46.712" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8009" statusId="ITEM_COMPLETED" orderId="Demo1002" orderItemSeqId="00001" statusDatetime="2009-08-17 14:57:01.657" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8010" statusId="ITEM_COMPLETED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:57:02.401" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8011" statusId="ORDER_COMPLETED" orderId="Demo1002" statusDatetime="2009-08-17 14:57:02.433" statusUserLogin="admin"/>
+    <OrderStatus orderStatusId="8012" statusId="PAYMENT_SETTLED" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:57:04.825" statusUserLogin="admin"/>
+    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="9015"/>
+    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="9026"/>
+    <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9015"/>
+
+    <Shipment shipmentId="9996" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_SHIPPED" primaryOrderId="Demo1002" primaryShipGroupSeqId="00001" estimatedShipCost="12.10" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer" partyIdFrom="Company" createdDate="2009-08-17 14:56:57.553"/>
+    <ShipmentItem shipmentId="9996" shipmentItemSeqId="00001" productId="WG-1111" quantity="3.000000"/>
+    <ShipmentRouteSegment shipmentId="9996" shipmentRouteSegmentId="00001" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destContactMechId="9015" destTelecomNumberId="9025" carrierPartyId="UPS" shipmentMethodTypeId="NEXT_DAY" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
+    <ShipmentPackage shipmentId="9996" shipmentPackageSeqId="00001" dateCreated="2009-08-17 14:57:02.742"/>
+    <ShipmentPackageContent shipmentId="9996" shipmentPackageSeqId="00001" shipmentItemSeqId="00001" quantity="3.000000"/>
+    <ShipmentPackageRouteSeg shipmentId="9996" shipmentPackageSeqId="00001" shipmentRouteSegmentId="00001"/>
+    <ShipmentStatus statusId="SHIPMENT_INPUT" shipmentId="9996" statusDate="2009-08-17 16:35:36.119"/>
+    <ShipmentStatus statusId="SHIPMENT_PACKED" shipmentId="9996" statusDate="2009-08-17 16:35:39.627"/>
+    <ShipmentStatus statusId="SHIPMENT_SHIPPED" shipmentId="9996" statusDate="2009-08-17 16:35:42.707"/>
+    <AcctgTrans acctgTransId="9002" acctgTransTypeId="SALES_SHIPMENT" transactionDate="2009-08-17 14:56:59.96" isPosted="Y" postedDate="2009-08-17 14:57:01.321" glFiscalTypeId="ACTUAL" shipmentId="9996"/>
+    <AcctgTransEntry acctgTransId="9002" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="9.00" currencyUomId="USD" origAmount="9.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9002" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000" organizationPartyId="Company" amount="9.00" currencyUomId="USD" origAmount="9.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTrans acctgTransId="9003" acctgTransTypeId="SALES_SHIPMENT" transactionDate="2009-08-17 14:57:01.955" isPosted="Y" postedDate="2009-08-17 14:57:02.345" glFiscalTypeId="ACTUAL" shipmentId="9996"/>
+    <AcctgTransEntry acctgTransId="9003" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="4.50" currencyUomId="USD" origAmount="4.50" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9003" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000" organizationPartyId="Company" amount="4.50" currencyUomId="USD" origAmount="4.50" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <ItemIssuance itemIssuanceId="9001" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" inventoryItemId="9005" shipmentId="9996" shipmentItemSeqId="00001" issuedDateTime="2009-08-17 14:56:58.664" issuedByUserLoginId="admin" quantity="2.000000"/>
+    <ItemIssuance itemIssuanceId="9002" orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="00001" inventoryItemId="9005" shipmentId="9996" shipmentItemSeqId="00001" issuedDateTime="2009-08-17 14:57:01.872" issuedByUserLoginId="admin" quantity="1.000000"/>
+
+    <Invoice invoiceId="8009" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_PAID" invoiceDate="2009-08-17 14:57:03.614" paidDate="2009-08-17 14:57:04.99" currencyUomId="USD"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="2.000000" amount="59.990" description="Micro Chrome Widget"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00002" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="0.120" description="Utah County, Utah Sales Tax" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthGeoId="UT-UTAH" taxAuthorityRateSeqId="9005"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00003" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="5.699" description="Utah State Sales Tax" taxAuthPartyId="UT_TAXMAN" taxAuthGeoId="UT" taxAuthorityRateSeqId="9004"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00004" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224000" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="1.200" description="1% OFB _NA_ Tax" taxAuthPartyId="_NA_" taxAuthGeoId="_NA_" taxAuthorityRateSeqId="9000"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00005" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="1.000000" amount="59.990" description="Micro Chrome Widget"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00006" invoiceItemTypeId="ITM_PROMOTION_ADJ" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00005" quantity="1.000000" amount="-59.990"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00007" invoiceItemTypeId="ITM_PROMOTION_ADJ" quantity="1.000000" amount="-12.000"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00008" invoiceItemTypeId="ITM_SHIPPING_CHARGES" quantity="1.000000" amount="12.100"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00009" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" quantity="1.000000" amount="-0.010" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthGeoId="UT-UTAH" taxAuthorityRateSeqId="9005"/>
+    <AcctgTrans acctgTransId="9004" acctgTransTypeId="SALES_INVOICE" transactionDate="2009-08-17 14:57:06.129" isPosted="Y" postedDate="2009-08-17 14:57:06.587" glFiscalTypeId="ACTUAL" invoiceId="8009"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="119.98" currencyUomId="USD" origAmount="119.98" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY" productId="WG-1111" glAccountId="224153" organizationPartyId="Company" amount="0.12" currencyUomId="USD" origAmount="0.12" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00003" acctgTransEntryTypeId="_NA_" partyId="UT_TAXMAN" roleTypeId="TAX_AUTHORITY" productId="WG-1111" glAccountId="224153" organizationPartyId="Company" amount="5.69" currencyUomId="USD" origAmount="5.69" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00004" acctgTransEntryTypeId="_NA_" partyId="_NA_" roleTypeId="TAX_AUTHORITY" productId="WG-1111" glAccountId="224000" organizationPartyId="Company" amount="1.20" currencyUomId="USD" origAmount="1.20" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00005" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="59.99" currencyUomId="USD" origAmount="59.99" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00006" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="59.99" currencyUomId="USD" origAmount="59.99" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00007" acctgTransEntryTypeId="_NA_" glAccountId="410000" organizationPartyId="Company" amount="12.00" currencyUomId="USD" origAmount="12.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00008" acctgTransEntryTypeId="_NA_" glAccountId="409000" organizationPartyId="Company" amount="12.10" currencyUomId="USD" origAmount="12.10" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00009" acctgTransEntryTypeId="_NA_" partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY" glAccountId="224153" organizationPartyId="Company" amount="0.01" currencyUomId="USD" origAmount="0.01" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00010" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.08" currencyUomId="USD" origAmount="127.08" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <PaymentGatewayResponse paymentGatewayResponseId="9001" paymentServiceTypeEnumId="PRDS_PAY_AUTH" orderPaymentPreferenceId="9001" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" transCodeEnumId="PGT_AUTHORIZE" amount="127.09" currencyUomId="USD" referenceNum="1250501206473" altReference="1250501206473" gatewayCode="100" gatewayFlag="A" gatewayMessage="This is a test processor; no payments were captured or authorized." transactionDate="2009-08-17 14:56:46.498"/>
+    <PaymentGatewayResponse paymentGatewayResponseId="9002" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" orderPaymentPreferenceId="9001" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" transCodeEnumId="PGT_CAPTURE" amount="127.09" currencyUomId="USD" referenceNum="1250501224763" altReference="1250501224763" gatewayFlag="C" gatewayMessage="This is a test capture; no money was transferred" transactionDate="2009-08-17 14:57:04.836"/>
+    <Payment paymentId="8004" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" paymentGatewayResponseId="9002" paymentPreferenceId="9001" partyIdFrom="DemoCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2009-08-17 14:57:04.99" paymentRefNum="1250501224763" amount="127.09" currencyUomId="USD"/>
+    <AcctgTrans acctgTransId="9005" acctgTransTypeId="INCOMING_PAYMENT" transactionDate="2009-08-17 14:57:05.182" isPosted="Y" postedDate="2009-08-17 14:57:05.56" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" paymentId="8004"/>    
+    <AcctgTransEntry acctgTransId="9005" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" glAccountId="122300" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9005" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <PaymentApplication paymentApplicationId="9003" paymentId="8004" invoiceId="8009" amountApplied="127.09"/>
+    <AcctgTrans acctgTransId="9006" acctgTransTypeId="PAYMENT_APPL" transactionDate="2009-08-17 14:57:05.741" isPosted="Y" postedDate="2009-08-17 14:57:05.878" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" invoiceId="8009" paymentId="8004"/>
+    <AcctgTransEntry acctgTransId="9006" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9006" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <OrderAdjustmentBilling orderAdjustmentId="8000" invoiceId="8009" invoiceItemSeqId="00007" amount="-12.00"/>
+    <OrderAdjustmentBilling orderAdjustmentId="8001" invoiceId="8009" invoiceItemSeqId="00006" amount="-59.99"/>
+    <OrderAdjustmentBilling orderAdjustmentId="8002" invoiceId="8009" invoiceItemSeqId="00008" amount="12.10"/>
+    <OrderAdjustmentBilling orderAdjustmentId="8003" invoiceId="8009" invoiceItemSeqId="00009" amount="-0.01"/>
+    <OrderAdjustmentBilling orderAdjustmentId="8004" invoiceId="8009" invoiceItemSeqId="00002" amount="0.12"/>
+    <OrderAdjustmentBilling orderAdjustmentId="8005" invoiceId="8009" invoiceItemSeqId="00003" amount="5.69"/>
+    <OrderAdjustmentBilling orderAdjustmentId="8006" invoiceId="8009" invoiceItemSeqId="00004" amount="1.20"/>
+    <ShipmentItemBilling shipmentId="9996" shipmentItemSeqId="00001" invoiceId="8009" invoiceItemSeqId="00001"/>
+    <OrderItemBilling orderId="Demo1002" orderItemSeqId="00001" invoiceId="8009" invoiceItemSeqId="00001" itemIssuanceId="9001" quantity="2.000000" amount="59.99"/>
+    <OrderItemBilling orderId="Demo1002" orderItemSeqId="00004" invoiceId="8009" invoiceItemSeqId="00005" itemIssuanceId="9002" quantity="1.000000" amount="59.99"/>
+
 </entity-engine-xml>
