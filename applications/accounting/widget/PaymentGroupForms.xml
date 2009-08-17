@@ -37,6 +37,11 @@ under the License.
                 <field-map field-name="entityName" value="PaymentGroup"/>
             </service>
         </actions>
+        <row-actions>
+            <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
+                <field-map field-name="paymentGroupId"/>
+            </entity-and>
+        </row-actions>
         <field name="paymentGroupId" widget-style="buttontext">
             <hyperlink description="${paymentGroupId}" target="PaymentGroupOverview">
                 <parameter param-name="paymentGroupId"/>
@@ -44,17 +49,17 @@ under the License.
         </field>
         <field name="paymentGroupTypeId" title="${uiLabelMap.FormFieldTitle_paymentGroupType}"><display-entity entity-name="PaymentGroupType"/></field>
         <field name="paymentGroupName"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'}">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink target="cancelPaymentGroup" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'}">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'} @and ${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink target="cancelCheckRunPayments" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="depositSlip" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="depositSlip" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink target="DepositSlip.pdf" description="${uiLabelMap.AccountingInvoicePDF}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>

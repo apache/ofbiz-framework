@@ -37,6 +37,12 @@ under the License.
             <td><span class="label">${uiLabelMap.FormFieldTitle_glReconciliationName}</span></td>
             <td>${currentGlReconciliation.glReconciliationName?if_exists}</td>
           </tr>
+          <#if currentGlReconciliation.reconciledBalance?exists>
+            <tr>
+              <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledBalance}</span></td>
+              <td>${currentGlReconciliation.reconciledBalance?if_exists}</td>
+            </tr>
+          </#if>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
             <td>${currentGlReconciliation.reconciledDate?if_exists}</td>
@@ -56,10 +62,12 @@ under the License.
             <td><span class="label">${uiLabelMap.FormFieldTitle_glReconciliationName}</span></td>
             <td>${previousGlReconciliation.glReconciliationName?if_exists}</td>
           </tr>
-          <tr>
-            <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledBalance}</span></td>
-            <td>${previousGlReconciliation.reconciledBalance?if_exists}</td>
-          </tr>
+          <#if previousGlReconciliation.reconciledBalance?exists>
+            <tr>
+              <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledBalance}</span></td>
+              <td>${previousGlReconciliation.reconciledBalance?if_exists}</td>
+            </tr>
+          </#if>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
             <td>${previousGlReconciliation.reconciledDate?if_exists}</td>
@@ -121,7 +129,7 @@ under the License.
               <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
               <td>${finAccountTrans.transactionDate?if_exists}</td>
               <td>${finAccountTrans.entryDateId?if_exists}</td>
-              <td>${finAccountTrans.amount?if_exists}</td>
+              <td><@ofbizCurrency amount=finAccountTrans.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
               <td>
                 <#if finAccountTrans.paymentId?has_content>
                   <a href="<@ofbizUrl>paymentOverview?paymentId=${finAccountTrans.paymentId}</@ofbizUrl>">${finAccountTrans.paymentId}</a>
@@ -138,7 +146,7 @@ under the License.
       </#if>
     </div>
     <div class="right">
-      <span class="label">${uiLabelMap.AccountingTotalCapital} </span>${transactionTotalAmount.grandTotal?if_exists} 
+      <span class="label">${uiLabelMap.AccountingTotalCapital} </span><@ofbizCurrency amount=transactionTotalAmount.grandTotal isoCode=defaultOrganizationPartyCurrencyUomId/> 
       <#if !currentGlReconciliation.reconciledBalance?has_content>
         <input type="submit" value="${uiLabelMap.AccountingReconcile}"/>
       </#if>

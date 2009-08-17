@@ -248,7 +248,7 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'}">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink target="deleteDepositSlip" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
                 <parameter param-name="finAccountId"/>
@@ -399,6 +399,7 @@ under the License.
             <entity-one entity-name="PartyNameView" value-field="partyName">
                 <field-map field-name="partyId" from-field="glReconciliation.organizationPartyId"/>
             </entity-one>
+            <set field="currencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
         </row-actions>
         <auto-fields-service service-name="updateGlReconciliation" default-field-type="display" map-name="glReconciliation"/>
         <field name="glReconciliationId">
@@ -412,5 +413,6 @@ under the License.
                 <parameter param-name="partyId" from-field="partyName.partyId"/>
             </hyperlink>
         </field>
+        <field name="reconciledBalance"><display type="currency" currency="${currencyUomId}"></display></field>
     </form>
 </forms>
