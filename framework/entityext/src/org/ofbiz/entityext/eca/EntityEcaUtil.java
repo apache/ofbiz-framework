@@ -125,7 +125,7 @@ public class EntityEcaUtil {
             numDefs++;
         }
         try {
-        	Debug.logImportant("Loaded [" + numDefs + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
+            Debug.logImportant("Loaded [" + numDefs + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
         } catch (GenericConfigException e) {
             Debug.logError(e, module);
             return;

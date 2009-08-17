@@ -20,7 +20,7 @@ under the License.
 <#if autocompleteOptions?exists>
   <ul>
     <#list autocompleteOptions as autocompleteOption>
-  	  <#assign fields = autocompleteOption.values()/>
+        <#assign fields = autocompleteOption.values()/>
       <li><#list fields as field><#if field_index == 1><span class="informal"> </#if>${field}<#if (field_index > 0)><#if field_has_next> <#else></span></#if></#if></#list></li>
     </#list>
   </ul>

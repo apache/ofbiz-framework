@@ -97,15 +97,15 @@ under the License.
             var thisForm = obj_caller.target.form;
             var evalString = "";
 
-    		if (arguments.length > 2 ) {
-        		for(var i=1; i < arguments.length; i=i+2) {
+            if (arguments.length > 2 ) {
+                for(var i=1; i < arguments.length; i=i+2) {
                     evalString = "setSourceColor(thisForm." + arguments[i] + ")";
                     eval(evalString);
-        			evalString = "thisForm." + arguments[i] + ".value='" + arguments[i+1] + "'";
-        			eval(evalString);
-        		}
-    		}
-    		window.close();
+                    evalString = "thisForm." + arguments[i] + ".value='" + arguments[i+1] + "'";
+                    eval(evalString);
+                }
+            }
+            window.close();
          }
     </script>
 </head>

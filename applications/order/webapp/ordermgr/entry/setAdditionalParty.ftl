@@ -36,7 +36,7 @@ under the License.
         <tr>
           <td align="right">
             <input type="radio" name="additionalPartyType" value="Person" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if (additionalPartyType?exists && additionalPartyType == "Person")> checked="checked"</#if>>
-	  </td>
+      </td>
           <td>
             <div>${uiLabelMap.CommonPerson}</div>
           </td>

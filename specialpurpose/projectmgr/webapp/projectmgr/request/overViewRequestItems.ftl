@@ -23,8 +23,8 @@ under the License.
         </ul>
         <br class="clear"/>
     </div>
-	<table class="basic-table hover-bar" cellspacing="0" >
-	<tr class="header-row">
+    <table class="basic-table hover-bar" cellspacing="0" >
+    <tr class="header-row">
            <td>
               ${uiLabelMap.CommonNbr}
            </td>
@@ -34,9 +34,9 @@ under the License.
            <td>
            </td>
        </tr>
-	<#list custRequestItems as custRequestItemList>
-	<#if custRequestItemList.custRequestItemSeqId?has_content>
-	   <tr class="header-row">
+    <#list custRequestItems as custRequestItemList>
+    <#if custRequestItemList.custRequestItemSeqId?has_content>
+       <tr class="header-row">
            <td>
            </td>
            <td colspan="2">
@@ -44,7 +44,7 @@ under the License.
            <td>
            </td>
         </tr>
-		<tr>
+        <tr>
             <td>
               <a href="<@ofbizUrl>requestitem?custRequestId=${custRequestItemList.custRequestId}&custRequestItemSeqId=${custRequestItemList.custRequestItemSeqId}</@ofbizUrl>" class="linktext">${custRequestItemList.custRequestItemSeqId}</a>
             </td>
@@ -70,29 +70,29 @@ under the License.
                 ${uiLabelMap.CommonDate}
             </td>
         </tr>
-		<#list custRequestItemNoteViews as custRequestItemNoteViewList>
-			<#if custRequestItemNoteViewList.custRequestItemSeqId == custRequestItemList.custRequestItemSeqId>
-			<#if row?has_content>
-			     <#assign row="">
-			     <#else>
-			         <#assign row="alternate-row">
-			</#if>
-			<tr class="${row}">
-	            <td>
-	            </td>
-	            <td>
-	               ${custRequestItemNoteViewList.noteId}
-	            </td>
-	            <td >
-	               ${custRequestItemNoteViewList.noteInfo}
-	            </td>
-	            <td>
-	               ${custRequestItemNoteViewList.noteDateTime.toString().substring(0,10)}
-	            </td>
-			</tr>
-			</#if>
-		</#list>
-	</#if>
-	</#list>
-	</table>
+        <#list custRequestItemNoteViews as custRequestItemNoteViewList>
+            <#if custRequestItemNoteViewList.custRequestItemSeqId == custRequestItemList.custRequestItemSeqId>
+            <#if row?has_content>
+                 <#assign row="">
+                 <#else>
+                     <#assign row="alternate-row">
+            </#if>
+            <tr class="${row}">
+                <td>
+                </td>
+                <td>
+                   ${custRequestItemNoteViewList.noteId}
+                </td>
+                <td >
+                   ${custRequestItemNoteViewList.noteInfo}
+                </td>
+                <td>
+                   ${custRequestItemNoteViewList.noteDateTime.toString().substring(0,10)}
+                </td>
+            </tr>
+            </#if>
+        </#list>
+    </#if>
+    </#list>
+    </table>
 </div>

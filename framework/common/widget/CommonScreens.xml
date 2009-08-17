@@ -232,14 +232,14 @@ under the License.
                     </widgets>
                     <fail-widgets>
                         <screenlet title="${title}" id="findScreenlet" collapsible="true" padded="false">
-	                        <container id="search-options">
-	                            <decorator-section-include name="search-options"/>
-	                        </container>
+                            <container id="search-options">
+                                <decorator-section-include name="search-options"/>
+                            </container>
                         </screenlet>
                         <screenlet>
-		                    <container id="search-results">
-		                        <decorator-section-include name="search-results"/>
-		                    </container>
+                            <container id="search-results">
+                                <decorator-section-include name="search-results"/>
+                            </container>
                         </screenlet>
                     </fail-widgets>
                 </section>

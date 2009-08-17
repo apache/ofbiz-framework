@@ -35,23 +35,23 @@ public class DataLoop {
 
     private String dataListName;
     private SeleniumXml parent;
-	private SeleniumXml currentTest;
-	private List children;
-	
-	private int currentRowIndx;
-	
-	
-	
-	public DataLoop(String dataListName, SeleniumXml parent, List<Element> children) {
-		super();
-		this.dataListName = dataListName;
-		this.parent = parent;
-		this.children = children;
-	}
+    private SeleniumXml currentTest;
+    private List children;
+    
+    private int currentRowIndx;
+    
+    
+    
+    public DataLoop(String dataListName, SeleniumXml parent, List<Element> children) {
+        super();
+        this.dataListName = dataListName;
+        this.parent = parent;
+        this.children = children;
+    }
 
-	public void runTest() {
+    public void runTest() {
 
-		this.currentTest = new SeleniumXml(this.parent);
+        this.currentTest = new SeleniumXml(this.parent);
         Map dataMap = this.parent.getMap();
         List dataList = (List)dataMap.get(this.dataListName);
         Iterator iter = dataList.iterator();
@@ -66,8 +66,8 @@ public class DataLoop {
                     Object value = entry.getValue();
                     dataMap.put(name, value);
             }
-     	    currentTest.runCommands(this.children);
-		}
-		
-	}
+             currentTest.runCommands(this.children);
+        }
+        
+    }
 }

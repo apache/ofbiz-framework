@@ -24,9 +24,9 @@ import org.ofbiz.entity.util.*;
 partyAssign = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : parameters.workEffortId, "partyId" : parameters.userLogin.partyId]));
 
 if (partyAssign) {
-	if (partyAssign.get(0).roleTypeId.equals("CAL_OWNER")) {
-		context.isCalOwner = new Boolean(true);
-	} else{
+    if (partyAssign.get(0).roleTypeId.equals("CAL_OWNER")) {
+        context.isCalOwner = new Boolean(true);
+    } else{
         context.isCalOwner = new Boolean(false);
-	}
+    }
 }

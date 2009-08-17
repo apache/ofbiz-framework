@@ -146,7 +146,7 @@ _description"<#if id?has_content> id="${id}_description"</#if><#if currentValue?
 <script type='text/javascript' language='JavaScript'><!--
 disa = ' disabled';
 if(other_choice(document.${formName}.${fieldName}))
-	disa = '';
+    disa = '';
 document.write("<input type='text' name='${otherFieldName}' value='${otherValue}' size='${otherFieldSize}'"+disa+" onfocus='check_choice(document.${formName}.${fieldName})' />");
 if(disa && document.styleSheets)
    document.${formName}.${fieldName}.style.visibility  = 'hidden';
@@ -313,7 +313,7 @@ ${item.description}</div>
 
 <#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase>
 <#if opEquals?has_content>
-<select <#if name?has_content>name="${name}_op"</#if>	class="selectBox"><#rt/>
+<select <#if name?has_content>name="${name}_op"</#if>    class="selectBox"><#rt/>
 <option value="equals"<#if defaultOption=="equals"> selected</#if>>${opEquals}</option><#rt/>
 <option value="like"<#if defaultOption=="like"> selected</#if>>${opBeginsWith}</option><#rt/>
 <option value="contains"<#if defaultOption=="contains"> selected</#if>>${opContains}</option><#rt/>
@@ -321,7 +321,7 @@ ${item.description}</div>
 <option value="notEqual"<#if defaultOption=="notEqual"> selected</#if>>${opNotEqual}</option><#rt/>
 </select>
 <#else>
-<input type="hidden" name=<#if name?has_content> "${name}_op"</#if>	value="${defaultOption}"/><#rt/>
+<input type="hidden" name=<#if name?has_content> "${name}_op"</#if>    value="${defaultOption}"/><#rt/>
 </#if>
  <input type="text" <@renderClass className alert /> name="${name}"<#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
 <#if titleStyle?has_content><span class="${titleStyle}" ><#rt/></#if>

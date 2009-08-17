@@ -6,8 +6,8 @@
     <type name="PASSWORD" value="ofbiz" />
     <click locator="//input[@value='Login']" />
     <waitForPageToLoad value="10000" />
-	<getBodyText out="bodyText"/>
-	<getHtmlSource out="htmlSource"/>
+    <getBodyText out="bodyText"/>
+    <getHtmlSource out="htmlSource"/>
     <assertContains src="${htmlSource}" test="Welcome" />
 </testcase>
 

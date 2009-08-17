@@ -210,32 +210,32 @@ public class CrowdAuthenticator extends CrowdWorker implements Authenticator {
         // create security group(s)
         Timestamp now = UtilDateTime.nowTimestamp();
         for (String securityGroup : user.getUserGroupMapper().getSecurityGroups()) {
-        	// check and make sure the security group exists
-        	GenericValue secGroup = null;
-        	try {
-        		secGroup = delegator.findOne("SecurityGroup", UtilMisc.toMap("groupId", securityGroup), true);
-        	} catch (GenericEntityException e) {
-        		Debug.logError(e, e.getMessage(), module);
-        	}
-        	
-        	// add it to the user if it exists
-        	if (secGroup != null) {
-	            Map<String, Serializable> createSecGrpMap = FastMap.newInstance();
-	            createSecGrpMap.put("userLoginId", user.getName());
-	            createSecGrpMap.put("groupId", securityGroup);
-	            createSecGrpMap.put("fromDate", now);
-	            createSecGrpMap.put("userLogin", system);
-	
-	            Map<String, Object> createSecGrpResult;
-	            try {
-	                createSecGrpResult = dispatcher.runSync("addUserLoginToSecurityGroup", createSecGrpMap);
-	            } catch (GenericServiceException e) {
-	                throw new AuthenticatorException(e.getMessage(), e);
-	            }
-	            if (ServiceUtil.isError(createSecGrpResult)) {
-	                throw new AuthenticatorException(ServiceUtil.getErrorMessage(createSecGrpResult));
-	            }
-        	}
+            // check and make sure the security group exists
+            GenericValue secGroup = null;
+            try {
+                secGroup = delegator.findOne("SecurityGroup", UtilMisc.toMap("groupId", securityGroup), true);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, e.getMessage(), module);
+            }
+            
+            // add it to the user if it exists
+            if (secGroup != null) {
+                Map<String, Serializable> createSecGrpMap = FastMap.newInstance();
+                createSecGrpMap.put("userLoginId", user.getName());
+                createSecGrpMap.put("groupId", securityGroup);
+                createSecGrpMap.put("fromDate", now);
+                createSecGrpMap.put("userLogin", system);
+    
+                Map<String, Object> createSecGrpResult;
+                try {
+                    createSecGrpResult = dispatcher.runSync("addUserLoginToSecurityGroup", createSecGrpMap);
+                } catch (GenericServiceException e) {
+                    throw new AuthenticatorException(e.getMessage(), e);
+                }
+                if (ServiceUtil.isError(createSecGrpResult)) {
+                    throw new AuthenticatorException(ServiceUtil.getErrorMessage(createSecGrpResult));
+                }
+            }
         }
     }
 

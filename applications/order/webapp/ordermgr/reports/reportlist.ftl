@@ -47,13 +47,13 @@ these reports and helping to improve them.</div>
 <td><div>Report:</div></td>
 <td>
    <SELECT NAME="groupName" tabindex="14"  CLASS="stateSelectBox">
-	 <OPTION VALUE="orderStatus"></OPTION>
-	 <OPTION VALUE="orderStatus">Orders by Order Status</OPTION>
-	 <OPTION VALUE="ship">Orders by Ship Method</OPTION>
-	 <OPTION VALUE="payment">Orders by Payment Method</OPTION>
-	 <OPTION VALUE="adjustment">Order Items by Adjustment</OPTION>
-	 <OPTION VALUE="itemStatus">Order Items by Status</OPTION>
-	 <OPTION VALUE="product">Order Items by Product</OPTION>
+     <OPTION VALUE="orderStatus"></OPTION>
+     <OPTION VALUE="orderStatus">Orders by Order Status</OPTION>
+     <OPTION VALUE="ship">Orders by Ship Method</OPTION>
+     <OPTION VALUE="payment">Orders by Payment Method</OPTION>
+     <OPTION VALUE="adjustment">Order Items by Adjustment</OPTION>
+     <OPTION VALUE="itemStatus">Order Items by Status</OPTION>
+     <OPTION VALUE="product">Order Items by Product</OPTION>
    </SELECT>
 </td>
 </tr>
@@ -85,13 +85,13 @@ these reports and helping to improve them.</div>
 <td><div>Report:</div></td>
 <td>
    <SELECT NAME="groupName" tabindex="14"  CLASS="stateSelectBox">
-	 <OPTION VALUE="orderStatus"></OPTION>
-	 <OPTION VALUE="orderStatus">Orders by Order Status</OPTION>
-	 <OPTION VALUE="ship">Orders by Ship Method</OPTION>
-	 <OPTION VALUE="payment">Orders by Payment Method</OPTION>
-	 <OPTION VALUE="adjustment">Order Items by Adjustment</OPTION>
-	 <OPTION VALUE="itemStatus">Order Items by Status</OPTION>
-	 <OPTION VALUE="product">Order Items by Product</OPTION>
+     <OPTION VALUE="orderStatus"></OPTION>
+     <OPTION VALUE="orderStatus">Orders by Order Status</OPTION>
+     <OPTION VALUE="ship">Orders by Ship Method</OPTION>
+     <OPTION VALUE="payment">Orders by Payment Method</OPTION>
+     <OPTION VALUE="adjustment">Order Items by Adjustment</OPTION>
+     <OPTION VALUE="itemStatus">Order Items by Status</OPTION>
+     <OPTION VALUE="product">Order Items by Product</OPTION>
    </SELECT>
 </td>
 </tr>

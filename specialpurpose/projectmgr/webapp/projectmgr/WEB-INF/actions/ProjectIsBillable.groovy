@@ -25,17 +25,17 @@ projectMembers = EntityUtil.filterByDate(projectMembers);
 toPartyId = null;
 fromPartyId = null;
 projectMembers.each {member ->
-	if (member.roleTypeId.equals("INTERNAL_ORGANIZATIO")) {
-		fromPartyId = member.partyId;
-	}
-	if (member.roleTypeId.equals("CLIENT_BILLING")) {
-		toPartyId = member.partyId;
-	}
-	if (fromPartyId && toPartyId && fromPartyId.equals(toPartyId)) {
-		context.isBillable = false;
-	} else if (!toPartyId || !fromPartyId){
+    if (member.roleTypeId.equals("INTERNAL_ORGANIZATIO")) {
+        fromPartyId = member.partyId;
+    }
+    if (member.roleTypeId.equals("CLIENT_BILLING")) {
+        toPartyId = member.partyId;
+    }
+    if (fromPartyId && toPartyId && fromPartyId.equals(toPartyId)) {
         context.isBillable = false;
-	} else {	
-		context.isBillable = true;
-	}
+    } else if (!toPartyId || !fromPartyId){
+        context.isBillable = false;
+    } else {    
+        context.isBillable = true;
+    }
 }

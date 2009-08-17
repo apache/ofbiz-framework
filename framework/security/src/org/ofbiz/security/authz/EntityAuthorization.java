@@ -41,7 +41,7 @@ public class EntityAuthorization extends AbstractAuthorization {
 
     private static final String module = EntityAuthorization.class.getName();
     
-	/**
+    /**
      * UtilCache to cache a Collection of UserLoginSecurityGroup entities for each UserLogin, by userLoginId.
      */
     private static UtilCache<String, List<GenericValue>> userLoginSecurityGroupByUserLoginId = new UtilCache<String, List<GenericValue>>("security.UserLoginSecurityGroupByUserLoginId");
@@ -60,72 +60,72 @@ public class EntityAuthorization extends AbstractAuthorization {
     
     protected GenericDelegator delegator; 
     
-	@Override
-	public List<String> getAutoGrantPermissions(String userId, String permission, Map<String, ? extends Object> context) {
-	    if (Debug.verboseOn()) Debug.logVerbose("Running getAutoGrantPermissions()", module);
-	    boolean checking = true;
-	    String checkString = permission;
-	    
-	    while (checking) {
-	        if (Debug.verboseOn()) Debug.logVerbose("Looking for auto-grant permissions for : " + checkString, module);
-	        List<String> autoGrant = getPermissionAutoGrant(checkString);
-	        if (autoGrant != null && autoGrant.size() > 0) {
-	            return autoGrant;
-	        }
-	        if (checkString.indexOf(":") > -1) {
-	            checkString = checkString.substring(0, checkString.lastIndexOf(":"));
-	        } else {
-	            checking = false;
-	        }
-	    }
-		return null;
-	}
+    @Override
+    public List<String> getAutoGrantPermissions(String userId, String permission, Map<String, ? extends Object> context) {
+        if (Debug.verboseOn()) Debug.logVerbose("Running getAutoGrantPermissions()", module);
+        boolean checking = true;
+        String checkString = permission;
+        
+        while (checking) {
+            if (Debug.verboseOn()) Debug.logVerbose("Looking for auto-grant permissions for : " + checkString, module);
+            List<String> autoGrant = getPermissionAutoGrant(checkString);
+            if (autoGrant != null && autoGrant.size() > 0) {
+                return autoGrant;
+            }
+            if (checkString.indexOf(":") > -1) {
+                checkString = checkString.substring(0, checkString.lastIndexOf(":"));
+            } else {
+                checking = false;
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public boolean hasDynamicPermission(String userId, String permission, Map<String, ? extends Object> context) {
-	    if (Debug.verboseOn()) Debug.logVerbose("Running hasDynamicPermission()", module);	    
-		String permissionId = permission;
-		boolean checking = true;
-		
-		// find the dynamic access implementation
-		String dynamicAccess = null;
-		while (checking) {
-		    if (Debug.verboseOn()) Debug.logVerbose("Looking for dynamic access for permission -- " + permissionId, module);
-		    dynamicAccess = getPermissionDynamicAccess(permissionId);
-		    if (UtilValidate.isEmpty(dynamicAccess)) {
-		        if (permissionId.indexOf(":") > -1) {
-		            permissionId = permissionId.substring(0, permissionId.lastIndexOf(":"));
-		        } else {
-		            Debug.logVerbose("No sections left to check; no dynamic access implementation found", module);
-		            checking = false;
-		        }
-		    } else {
-		        if (Debug.verboseOn()) Debug.logVerbose("Dynamic access implementation found : " + dynamicAccess, module);
-		        checking = false;
-		    }
-		}
-		
-		// if one exists invoke it
-		if (UtilValidate.isNotEmpty(dynamicAccess)) {
-		    // load the dynamic access handler and invoke it
-		    if (Debug.verboseOn()) Debug.logVerbose("Loading DynamicAccessHandler for -- " + dynamicAccess, module);
-		    DynamicAccessHandler dah = DynamicAccessFactory.getDynamicAccessHandler(delegator, dynamicAccess);
-		    if (dah != null) {
-		        if (Debug.verboseOn()) Debug.logVerbose("Calling DynamicAccessHandler : " + dah.getClass().getName(), module);
-		        return dah.handleDynamicAccess(dynamicAccess, userId, permission, context);
-		    } else {
-		        if (Debug.verboseOn()) {
-		            Debug.logVerbose("No DynamicAccessHandler found for pattern matching -- " + dynamicAccess, module);
-		        }
-		    }
-		}
-		return false;
-	}
+    @Override
+    public boolean hasDynamicPermission(String userId, String permission, Map<String, ? extends Object> context) {
+        if (Debug.verboseOn()) Debug.logVerbose("Running hasDynamicPermission()", module);        
+        String permissionId = permission;
+        boolean checking = true;
+        
+        // find the dynamic access implementation
+        String dynamicAccess = null;
+        while (checking) {
+            if (Debug.verboseOn()) Debug.logVerbose("Looking for dynamic access for permission -- " + permissionId, module);
+            dynamicAccess = getPermissionDynamicAccess(permissionId);
+            if (UtilValidate.isEmpty(dynamicAccess)) {
+                if (permissionId.indexOf(":") > -1) {
+                    permissionId = permissionId.substring(0, permissionId.lastIndexOf(":"));
+                } else {
+                    Debug.logVerbose("No sections left to check; no dynamic access implementation found", module);
+                    checking = false;
+                }
+            } else {
+                if (Debug.verboseOn()) Debug.logVerbose("Dynamic access implementation found : " + dynamicAccess, module);
+                checking = false;
+            }
+        }
+        
+        // if one exists invoke it
+        if (UtilValidate.isNotEmpty(dynamicAccess)) {
+            // load the dynamic access handler and invoke it
+            if (Debug.verboseOn()) Debug.logVerbose("Loading DynamicAccessHandler for -- " + dynamicAccess, module);
+            DynamicAccessHandler dah = DynamicAccessFactory.getDynamicAccessHandler(delegator, dynamicAccess);
+            if (dah != null) {
+                if (Debug.verboseOn()) Debug.logVerbose("Calling DynamicAccessHandler : " + dah.getClass().getName(), module);
+                return dah.handleDynamicAccess(dynamicAccess, userId, permission, context);
+            } else {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("No DynamicAccessHandler found for pattern matching -- " + dynamicAccess, module);
+                }
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public boolean hasStaticPermission(String userId, String permission, Map<String, ? extends Object> context) {
-	    if (Debug.verboseOn()) Debug.logVerbose("Running hasStaticPermission()", module);
-	    Iterator<GenericValue> iterator = getUserLoginSecurityGroupByUserLoginId(userId);
+    @Override
+    public boolean hasStaticPermission(String userId, String permission, Map<String, ? extends Object> context) {
+        if (Debug.verboseOn()) Debug.logVerbose("Running hasStaticPermission()", module);
+        Iterator<GenericValue> iterator = getUserLoginSecurityGroupByUserLoginId(userId);
         GenericValue userLoginSecurityGroup = null;
 
         while (iterator.hasNext()) {
@@ -135,9 +135,9 @@ public class EntityAuthorization extends AbstractAuthorization {
             }
         }
         return false;
-	}
-	
-	/**
+    }
+    
+    /**
      * Test to see if the specified user has permission
      * 
      * @param session HttpSession used to obtain the userId
@@ -145,19 +145,19 @@ public class EntityAuthorization extends AbstractAuthorization {
      * @param context name/value pairs used for permission lookup     
      * @return true if the user has permission
      */
-	public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context) {
+    public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin != null) {
             return hasPermission(userLogin.getString("userLoginId"), permission, context);
         }
         return false;
     }
-	
-	public void setDelegator(GenericDelegator delegator) {
-	    this.delegator = delegator;
-	}
-	
-	private Iterator<GenericValue> getUserLoginSecurityGroupByUserLoginId(String userId) {
+    
+    public void setDelegator(GenericDelegator delegator) {
+        this.delegator = delegator;
+    }
+    
+    private Iterator<GenericValue> getUserLoginSecurityGroupByUserLoginId(String userId) {
         List<GenericValue> collection = userLoginSecurityGroupByUserLoginId.get(userId);
 
         if (collection == null) {
@@ -178,7 +178,7 @@ public class EntityAuthorization extends AbstractAuthorization {
         collection = EntityUtil.filterByDate(collection, true);
         return collection.iterator();
     }
-	
+    
     private boolean securityGroupHasPermission(String groupId, String permission) {
         GenericValue securityGroupPermissionValue = delegator.makeValue("SecurityGroupPermission",
                 UtilMisc.toMap("groupId", groupId, "permissionId", permission));
@@ -198,7 +198,7 @@ public class EntityAuthorization extends AbstractAuthorization {
             securityGroupPermissionCache.put(securityGroupPermissionValue, exists);
         }
         return exists.booleanValue();
-    }	
+    }    
     
     private List<String> getPermissionAutoGrant(String permission) {
         List<String> autoGrants = permissionAutoGrantCache.get(permission);

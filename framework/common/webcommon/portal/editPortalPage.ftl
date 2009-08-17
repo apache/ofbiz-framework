@@ -30,15 +30,15 @@ under the License.
             <input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/>
             <input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/>
             <input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/>
-	        <select name="columnWidthPercentage" onchange="javascript:document.updatePortalPageColum_${portalPageColumn_index}.submit()">
-	          <option value="">${uiLabelMap.CommonSetColumnWidth}</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected</#if> value="25">25%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected</#if> value="50">50%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected</#if> value="75">75%</option>
-	        </select>
-	       </form>
-	      </li>
-	    </ul>
+            <select name="columnWidthPercentage" onchange="javascript:document.updatePortalPageColum_${portalPageColumn_index}.submit()">
+              <option value="">${uiLabelMap.CommonSetColumnWidth}</option>
+              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected</#if> value="25">25%</option>
+              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected</#if> value="50">50%</option>
+              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected</#if> value="75">75%</option>
+            </select>
+           </form>
+          </li>
+        </ul>
       </td>
       <#if portalPageColumn_has_next>
         <td>&nbsp;</td>

@@ -86,12 +86,12 @@ public class ComponentConfig {
     }
 
     public static Boolean componentExists(String componentName) {
-    	ComponentConfig componentConfig = componentConfigs.get(componentName);
-    	if (componentConfig == null) {
-    		return Boolean.FALSE;
-    	} else {
-    		return Boolean.TRUE;
-    	}
+        ComponentConfig componentConfig = componentConfigs.get(componentName);
+        if (componentConfig == null) {
+            return Boolean.FALSE;
+        } else {
+            return Boolean.TRUE;
+        }
     }
     
     public static Collection<ComponentConfig> getAllComponents() {

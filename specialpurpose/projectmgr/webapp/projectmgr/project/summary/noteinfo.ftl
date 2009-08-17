@@ -47,15 +47,15 @@ under the License.
                   </td>
                   <td align="right" valign="top" width="15%">
                     <#if note.internalNote?if_exists == "N">
-	                    <div>${uiLabelMap.ProjectMgrPrintableNote}</div>
-	                      <#if project?has_content>
+                        <div>${uiLabelMap.ProjectMgrPrintableNote}</div>
+                          <#if project?has_content>
                             <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           <#else>
                             <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           </#if>
                     </#if>
                     <#if note.internalNote?if_exists == "Y">
-	                    <div>${uiLabelMap.OrderNotPrintableNote}</div>
+                        <div>${uiLabelMap.OrderNotPrintableNote}</div>
                            <#if project?has_content>
                              <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           <#else>
@@ -111,8 +111,8 @@ under the License.
                   <select name="internalNote" size="1"><option value=""></option><option value="Y" selected>${uiLabelMap.CommonYes}</option><option value="N">${uiLabelMap.CommonNo}</option></select></td>
               </tr>
               <tr>
-	            <td/><td><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>
-	          </tr>
+                <td/><td><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>
+              </tr>
             </table>
             <#if project?has_content>
               &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>

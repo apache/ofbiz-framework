@@ -212,38 +212,38 @@ public class PartyServices {
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
 
             if (party.get("statusId") == null) { // old records
-            	party.set("statusId", "PARTY_ENABLED");
+                party.set("statusId", "PARTY_ENABLED");
             }
 
-        	String oldStatusId = party.getString("statusId");
+            String oldStatusId = party.getString("statusId");
             if (!party.getString("statusId").equals(statusId)) {
 
-            	// check that status is defined as a valid change
-            	GenericValue statusValidChange = delegator.findByPrimaryKey("StatusValidChange", UtilMisc.toMap("statusId", party.getString("statusId"), "statusIdTo", statusId));
-            	if (statusValidChange == null) {
-            		String errorMsg = "Cannot change party status from " + party.getString("statusId") + " to " + statusId;
-            		Debug.logWarning(errorMsg, module);
-            		return ServiceUtil.returnError(errorMsg);
-            	}
+                // check that status is defined as a valid change
+                GenericValue statusValidChange = delegator.findByPrimaryKey("StatusValidChange", UtilMisc.toMap("statusId", party.getString("statusId"), "statusIdTo", statusId));
+                if (statusValidChange == null) {
+                    String errorMsg = "Cannot change party status from " + party.getString("statusId") + " to " + statusId;
+                    Debug.logWarning(errorMsg, module);
+                    return ServiceUtil.returnError(errorMsg);
+                }
 
-            	party.set("statusId", statusId);
-            	party.store();
+                party.set("statusId", statusId);
+                party.store();
 
-            	// record this status change in PartyStatus table
-            	GenericValue partyStatus = delegator.makeValue("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", statusDate));
-            	partyStatus.create();
+                // record this status change in PartyStatus table
+                GenericValue partyStatus = delegator.makeValue("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", statusDate));
+                partyStatus.create();
 
-            	// disable all userlogins for this user when the new status is disabled
-            	if (("PARTY_DISABLED").equals(statusId)) {
-            		List <GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
-            		for(GenericValue userLogin : userLogins) {
-            			if (!"N".equals(userLogin.getString("enabled"))) {
-            				userLogin.set("enabled", "N");
-            				userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
-            				userLogin.store();
-            			}
-            		}
-            	}
+                // disable all userlogins for this user when the new status is disabled
+                if (("PARTY_DISABLED").equals(statusId)) {
+                    List <GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+                    for(GenericValue userLogin : userLogins) {
+                        if (!"N".equals(userLogin.getString("enabled"))) {
+                            userLogin.set("enabled", "N");
+                            userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
+                            userLogin.store();
+                        }
+                    }
+                }
             }
 
             Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -290,7 +290,7 @@ public class PartyServices {
         // update status by separate service
         String oldStatusId = party.getString("statusId");
         if (party.get("statusId") == null) { // old records
-        	party.set("statusId", "PARTY_ENABLED");
+            party.set("statusId", "PARTY_ENABLED");
         }
 
         person.setNonPKFields(context);

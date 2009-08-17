@@ -162,7 +162,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         ModelForm modelForm = modelFormField.getModelForm();
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName) && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType()))) {
-        	idName += "_" + modelForm.getRowCount();
+            idName += "_" + modelForm.getRowCount();
         }
         String description = displayField.getDescription(context);
         if (UtilValidate.isNotEmpty(description)) {
@@ -332,9 +332,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-        	className = modelFormField.getWidgetStyle();
+            className = modelFormField.getWidgetStyle();
             if (modelFormField.shouldBeRed(context)) {
-            	alert = "true";
+                alert = "true";
             }
         }
 
@@ -342,7 +342,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String textSize = Integer.toString(textField.getSize());
         String maxlength = "";
         if (textField.getMaxlength() != null) {
-        	maxlength = Integer.toString(textField.getMaxlength());
+            maxlength = Integer.toString(textField.getMaxlength());
         }
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -392,7 +392,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         ModelFormField.SubHyperlink subHyperlink = textField.getSubHyperlink();
         if (subHyperlink != null && subHyperlink.shouldUse(context)) {
-        	makeHyperlinkString(writer,subHyperlink,context);
+            makeHyperlinkString(writer,subHyperlink,context);
         }
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
@@ -1875,12 +1875,12 @@ public class MacroFormRenderer implements FormStringRenderer {
         List<String> targetParameterList = lookupField.getTargetParameterList();
         targetParameterIter.append("[");
         for (String targetParameter: targetParameterList) {
-        	if (targetParameterIter.length()>1) {
-        		targetParameterIter.append(",");
-        	}
-        	targetParameterIter.append("'");
-        	targetParameterIter.append(targetParameter);
-        	targetParameterIter.append("'");
+            if (targetParameterIter.length()>1) {
+                targetParameterIter.append(",");
+            }
+            targetParameterIter.append("'");
+            targetParameterIter.append(targetParameter);
+            targetParameterIter.append("'");
         }
         targetParameterIter.append("]");
         this.appendContentUrl(imgSrc, "/images/fieldlookup.gif");
@@ -1939,7 +1939,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderNextPrev(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-    	boolean ajaxEnabled = false;
+        boolean ajaxEnabled = false;
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
         String targetService = modelForm.getPaginateTarget(context);
         if (this.javaScriptEnabled) {
@@ -2046,15 +2046,15 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-            	ajaxFirstUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
+                ajaxFirstUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
             } else {
-            	linkText = prepLinkText + 0 + anchor;
+                linkText = prepLinkText + 0 + anchor;
                 firstUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
             }
         }
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-            	ajaxPreviousUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
+                ajaxPreviousUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 previousUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2063,7 +2063,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-            	ajaxSelectUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
+                ajaxSelectUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
@@ -2076,7 +2076,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         // Next button
         if (highIndex < listSize) {
             if (ajaxEnabled) {
-            	ajaxNextUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
+                ajaxNextUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 nextUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2086,7 +2086,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         // Last button
         if (highIndex < listSize) {
             if (ajaxEnabled) {
-            	ajaxLastUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context);
+                ajaxLastUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context);
             } else {
                 linkText = prepLinkText + (listSize / viewSize) + anchor;
                 lastUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2209,7 +2209,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderPasswordField(Appendable writer, Map<String, Object> context, PasswordField passwordField) throws IOException {
-    	ModelFormField modelFormField = passwordField.getModelFormField();
+        ModelFormField modelFormField = passwordField.getModelFormField();
 
         String className = "";
         String alert = "false";
@@ -2657,11 +2657,11 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void addAsterisks(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String requiredField = "false";
         String requiredStyle = "";
-    	if (modelFormField.getRequiredField()) {
-    	    requiredField = "true";
-    	    requiredStyle = modelFormField.getRequiredFieldStyle();
+        if (modelFormField.getRequiredField()) {
+            requiredField = "true";
+            requiredStyle = modelFormField.getRequiredFieldStyle();
         }
-    	StringWriter sr = new StringWriter();
+        StringWriter sr = new StringWriter();
         sr.append("<@renderAsterisks ");
         sr.append("requiredField=\"");
         sr.append(requiredField);
@@ -2722,7 +2722,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
 
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-            	imgSrc = request.getAttribute("image").toString();
+                imgSrc = request.getAttribute("image").toString();
             }
 
             StringWriter sr = new StringWriter();
@@ -2751,9 +2751,9 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
-        	String event = "";
-        	String action = "";
-        	String imgSrc = "";
+            String event = "";
+            String action = "";
+            String imgSrc = "";
 
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
                 event = modelFormField.getEvent();
@@ -2761,7 +2761,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
 
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-            	imgSrc = request.getAttribute("image").toString();
+                imgSrc = request.getAttribute("image").toString();
             }
 
             StringWriter sr = new StringWriter();
@@ -2784,21 +2784,21 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<WidgetWorker.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-    	StringBuilder actionUrl = new StringBuilder();
-    	WidgetWorker.buildHyperlinkUrl(actionUrl, target, targetType, null, null, false, false, true, request, response, context);
+        StringBuilder actionUrl = new StringBuilder();
+        WidgetWorker.buildHyperlinkUrl(actionUrl, target, targetType, null, null, false, false, true, request, response, context);
         String name = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
-    	StringBuilder parameters = new StringBuilder();
-    	parameters.append("[");
+        StringBuilder parameters = new StringBuilder();
+        parameters.append("[");
         for (WidgetWorker.Parameter parameter: parameterList) {
-        	 if (parameters.length() > 1) {
-        		 parameters.append(",");
+             if (parameters.length() > 1) {
+                 parameters.append(",");
              }
-        	 parameters.append("{'name':'");
-        	 parameters.append(parameter.getName());
-        	 parameters.append("'");
-        	 parameters.append(",'value':'");
-        	 parameters.append(parameter.getValue(context));
-        	 parameters.append("'}");
+             parameters.append("{'name':'");
+             parameters.append(parameter.getName());
+             parameters.append("'");
+             parameters.append(",'value':'");
+             parameters.append(parameter.getValue(context));
+             parameters.append("'}");
         }
         parameters.append("]");
 

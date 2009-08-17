@@ -34,7 +34,7 @@ under the License.
         <fileset dir="../base/lib" includes="*.jar"/>
         <fileset dir="../base/lib/scripting" includes="*.jar"/>
         <fileset dir="../base/lib/commons" includes="*.jar"/>
-    	<fileset dir="../base/build/lib" includes="*.jar"/>
+        <fileset dir="../base/build/lib" includes="*.jar"/>
         <fileset dir="../entity/lib" includes="*.jar"/>
         <fileset dir="../entity/build/lib" includes="*.jar"/>
         <fileset dir="../security/build/lib" includes="*.jar"/>
@@ -43,11 +43,11 @@ under the License.
         <fileset dir="../minilang/build/lib" includes="*.jar"/>
         <fileset dir="../webapp/lib" includes="*.jar"/>
     </path>
-	
-	<target name="init">
-		<property name="lib.dir" value="lib"/>
-		<property name="selenium.lib.dir" value="${lib.dir}"/>
-	</target>
+    
+    <target name="init">
+        <property name="lib.dir" value="lib"/>
+        <property name="selenium.lib.dir" value="${lib.dir}"/>
+    </target>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
@@ -58,11 +58,11 @@ under the License.
     </target>
 
 
-	<target name="install-seleniumxml" depends="init" description="Download the selenium files">
+    <target name="install-seleniumxml" depends="init" description="Download the selenium files">
         <!--mkdir dir="${selenium.lib.dir}"/-->
-		<get src="http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0-SNAPSHOT-20081126.jar?use_mirror="
-			dest="${selenium.lib.dir}/selenium-server.jar" usetimestamp="true" />
-	</target>
+        <get src="http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0-SNAPSHOT-20081126.jar?use_mirror="
+            dest="${selenium.lib.dir}/selenium-server.jar" usetimestamp="true" />
+    </target>
 
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->

@@ -46,5 +46,5 @@ under the License.
         </#if>
       </#list>
     </ul>
-	<br class="clear" />
+    <br class="clear" />
 </div>

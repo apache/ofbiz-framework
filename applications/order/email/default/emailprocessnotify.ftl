@@ -75,7 +75,7 @@ under the License.
   </tr>
   <tr>
     <td colspan="2' align="center">
-	  <a href="${baseUrl}/ordermgr/control/orderview?orderId=${orderId}">View Order #${orderId}</a>
+      <a href="${baseUrl}/ordermgr/control/orderview?orderId=${orderId}">View Order #${orderId}</a>
     </td>
   </tr>
 </table>

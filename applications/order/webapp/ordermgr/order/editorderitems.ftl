@@ -195,12 +195,12 @@ float: right;
                       <#-- now update/cancel reason and comment field -->
                       <#if orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && ("Y" != orderItem.isPromo?if_exists)>
                         <tr><td colspan="8"><span class="label">${uiLabelMap.OrderReturnReason}</span>
-  	                      <select name="irm_${orderItem.orderItemSeqId}">
-  	                        <option value="">&nbsp;</option>
-  	                        <#list orderItemChangeReasons as reason>
-  	                          <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
-  	                        </#list>
-  	                      </select>
+                            <select name="irm_${orderItem.orderItemSeqId}">
+                              <option value="">&nbsp;</option>
+                              <#list orderItemChangeReasons as reason>
+                                <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
+                              </#list>
+                            </select>
                             <span class="label">${uiLabelMap.CommonComments}</span>
                             <input type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>
                             <#if (orderHeader.orderTypeId == 'PURCHASE_ORDER')>

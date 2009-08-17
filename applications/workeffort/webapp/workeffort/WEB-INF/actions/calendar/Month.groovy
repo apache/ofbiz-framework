@@ -70,14 +70,14 @@ getTo = UtilDateTime.getWeekEnd(end, timeZone, locale);
 lastWeekCal = UtilDateTime.toCalendar(getTo, timeZone, locale);
 followingMonthDays = lastWeekCal.get(Calendar.DAY_OF_WEEK) - monthEndDay;
 if (followingMonthDays < 0) {
-	followingMonthDays += 7;
+    followingMonthDays += 7;
 }
 numDays += followingMonthDays; 
 
 serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "numPeriods", new Integer(numDays), "periodType", new Integer(Calendar.DATE));
 serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
 if (entityExprList) {
-	serviceCtx.putAll(["entityExprList" : entityExprList]);
+    serviceCtx.putAll(["entityExprList" : entityExprList]);
 }
 
 result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
