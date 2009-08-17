@@ -756,6 +756,11 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
+        <menu-item name="ComparativeIncomeStatement" title="${uiLabelMap.AccountingComparativeIncomeStatement}">
+            <link target="ComparativeIncomeStatement">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
         <menu-item name="BalanceSheet" title="${uiLabelMap.AccountingBalanceSheet}">
             <link target="BalanceSheet">
                 <parameter param-name="organizationPartyId"/>

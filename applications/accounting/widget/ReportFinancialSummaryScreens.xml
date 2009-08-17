@@ -1217,4 +1217,37 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ComparativeIncomeStatement">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingComparativeIncomeStatement"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="ComparativeIncomeStatement"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp"/>
+                <set field="period1ThruDate" from-field="parameters.period1ThruDate" type="Timestamp"/>
+                <set field="period2FromDate" from-field="parameters.period2FromDate" type="Timestamp"/>
+                <set field="period2ThruDate" from-field="parameters.period2ThruDate" type="Timestamp"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeIncomeStatement.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingComparativeIncomeStatement}">
+                            <include-form name="ComparativeIncomeStatementParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingComparativeIncomeStatement}">
+                            <container style="h3"><label text="${uiLabelMap.AccountingIncome}"/></container>
+                            <include-form name="ComparativeIncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container style="h3"><label text="${uiLabelMap.AccountingExpences}"/></container>
+                            <include-form name="ComparativeExpenseStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
