@@ -144,6 +144,7 @@ under the License.
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_CONFIRMED"/>
         <action service="sampleInvoiceAffiliateCommission" mode="sync"/>
     </eca>
     -->

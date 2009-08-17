@@ -92,6 +92,7 @@ under the License.
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_RECEIVED"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_CONFIRMED"/>
         <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
     </eca>
 
@@ -123,6 +124,7 @@ under the License.
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_SENT"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_CONFIRMED"/>
         <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
     </eca>
     
