@@ -28,30 +28,39 @@ under the License.
         <field name="dataResourceName"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="mimeTypeId" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="localeString" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode"/>
+                <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
+                    <entity-order-by field-name="countryName"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="createdByUserLogin" position="1"><lookup target-form-name="LookupPerson"/></field>
         <field name="dataCategoryId" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${categoryName}" entity-name="DataCategory"/>
+                <entity-options description="${categoryName}" entity-name="DataCategory">
+                    <entity-order-by field-name="categoryName"/>
+                </entity-options>
             </drop-down>
          </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
