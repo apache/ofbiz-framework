@@ -603,6 +603,20 @@ under the License.
         <get-related relation-name="PaymentApplication" value-field="invoice" list="paymentApplications"/>
         <iterate list="paymentApplications" entry="paymentApplication">
             <get-related-one relation-name="Payment" value-field="paymentApplication" to-value-field="payment"/>
+            <if-compare field="payment.statusId" operator="equals" value="PMNT_CONFIRMED">
+                <set field="paymentStatusMap.paymentId" from-field="payment.paymentId"/>
+                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
+                <if-compare field="isReceipt" operator="equals" value="true" type="Boolean">
+                    <set field="paymentStatusMap.statusId" value="PMNT_RECEIVED"/>
+                <else>
+                    <if-compare field="isDisbursement" operator="equals" value="true" type="Boolean">
+                        <set field="paymentStatusMap.statusId" value="PMNT_SENT"/>
+                    </if-compare>
+                </else>
+                </if-compare>
+                <call-service service-name="setPaymentStatus" in-map-name="paymentStatusMap"/>
+            </if-compare>
             <set field="removePaymentApplicationCtx.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
             <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationCtx"/>
         </iterate>
