@@ -4540,6 +4540,9 @@
         <value xml:lang="it">Istanza del prodotto</value>
         <value xml:lang="zh">产品标识实例</value>
     </property>
+    <property key="AccountingInvalidGlReconciliationAssignment">
+        <value xml:lang="en">Invalid Gl Reconciliation Assignement: You can not assign FinAccountTrans in Approved or Cancel Status. FinAccount Transaction need to be in Created status only.</value>
+    </property>
     <property key="AccountingInventoryValuation">
         <value xml:lang="en">Inventory Valuation</value>
         <value xml:lang="hi_IN">वस्तु मूल्यांकन</value>

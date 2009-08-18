@@ -906,7 +906,13 @@ under the License.
 
     <simple-method method-name="assignGlRecToFinAccTrans" short-description="Assignment of Gl Reconciliation to Fin Account Trans">
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
-        <set field="finAccountTrans.glReconciliationId" from-field="parameters.glReconciliationId"/>
-        <store-value value-field="finAccountTrans"/>
+        <if-compare field="finAccountTrans.statusId" operator="not-equals" value="FINACT_TRNS_CREATED">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliationAssignment"/></add-error>
+            <check-errors/>
+        <else>
+            <set field="finAccountTrans.glReconciliationId" from-field="parameters.glReconciliationId"/>
+            <store-value value-field="finAccountTrans"/>
+        </else>
+        </if-compare>
     </simple-method>
 </simple-methods>
