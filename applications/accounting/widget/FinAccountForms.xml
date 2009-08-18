@@ -194,7 +194,7 @@ under the License.
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="true">
+            <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="FINACT_TRNS_STATUS"/>
                 </entity-options>
