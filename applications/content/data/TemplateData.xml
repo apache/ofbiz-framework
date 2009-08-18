@@ -468,7 +468,32 @@ ${txt}
 <DataResource dataResourceId="HELP_TEMPL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
 <ElectronicText dataResourceId="HELP_TEMPL">
         <textData><![CDATA[
-<#if layoutSettings.VT_NAME[0] == "FLAT_GREY">          
+<#if layoutSettings.VT_NAME[0] == "FLAT_GREY">
+<#--import applications/content/template/documentLib.ftl as doc/-->
+<#macro link text url>
+  <a href="${url}">${text}</a>
+</#macro>
+
+<#macro text section>
+  <#list section.* as t>
+    <#if t?node_name == "text">
+      ${t}
+    <#elseif t?node_name == "link">
+      <a href="${t.@url}">${t}</a>
+    <#elseif t?node_name == "b">
+      <b>${t}</b>
+    <#elseif t?node_name == "ol">
+      <ol>
+      <#list t.* as i>
+        <li class=h2>${i}</li>
+      </#list>
+      </ol><br/>
+    </#if>
+  </#list>
+  <br/>
+</#macro>
+
+
 <div class="contentarea">
   <div id="column-container">
     <div id="content-main-section">
@@ -490,7 +515,7 @@ ${txt}
           <#if doc.root.general?has_content> 
             <h1>${doc.root.generalTitle?if_exists}</h1>
             <#list doc.root.general.section as section>
-              <p class=h2>${section.text}</p>
+              <p class=h2><@text section/></p>
             </#list>
           </#if>
           

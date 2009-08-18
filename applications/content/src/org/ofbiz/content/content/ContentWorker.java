@@ -275,7 +275,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     throw new GeneralException(e.getMessage());
                 }
 
-                // using FTL to handle XML? not really sure what this is doing...
+                // This part is using an xml file as the input data and an ftl file to present it.
                 if (UtilValidate.isNotEmpty(mimeType)) {
                     if (mimeType.toLowerCase().indexOf("xml") >= 0) {
                         StringReader sr = new StringReader(textData);

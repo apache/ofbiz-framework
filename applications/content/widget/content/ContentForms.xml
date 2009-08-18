@@ -567,10 +567,7 @@ under the License.
             <set field="mimeTypeId" from-field="dataResource.mimeTypeId"/>
         </row-actions>
         <field name="contentId">
-            <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="ViewSimpleContent">
-                <parameter param-name="contentId" from-field="content.contentId"/>
-                <parameter param-name="dataResourceId" from-field="content.dataResourceId"/>
-            </hyperlink>
+            <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="views/ShowDocument?contentId=${content.contentId}"/>
         </field>
         <field name="contentTypeId">
             <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>
