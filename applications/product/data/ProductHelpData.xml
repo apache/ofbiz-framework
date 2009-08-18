@@ -18,24 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- =======Help===========  -->
-    <DataResource dataResourceId="HELP_PRODUCT" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Catalog Manager Help" mimeTypeId="text/xml" isPublic="Y" />
-    <ElectronicText dataResourceId="HELP_PRODUCT">
-        <textData><![CDATA[
-            <root>
-                <generalTitle>
-                    The Catalog Manager.
-                </generalTitle>
-                <general>
-                  <section>
-                    <text>
-                      The Catalog Manager creates and provides access to a variety of information related to Products, Catalogs, or Categories.
-                    </text>
-                 </section>
-                </general>
-            </root>
-        ]]></textData>
-    </ElectronicText>
-    <Content contentId="HELP_PRODUCT" contentTypeId="DOCUMENT" contentName="Catalog Manager Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <DataResource dataResourceId="HELP_PRODUCT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_PRODUCT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Product" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_PRODUCT" contentTypeId="DOCUMENT" localeString="en" contentName="Catalog Manager Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_PRODUCT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="020"/>
 </entity-engine-xml>

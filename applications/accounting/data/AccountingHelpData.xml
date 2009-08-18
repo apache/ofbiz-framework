@@ -18,25 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- =======Help===========  -->
-    <DataResource dataResourceId="HELP_ACCOUNTING" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Manager Help" mimeTypeId="text/xml" isPublic="Y" />
-    <ElectronicText dataResourceId="HELP_ACCOUNTING">
-        <textData><![CDATA[
-            <root>
-                <generalTitle>
-                    The Accounting Manager.
-                </generalTitle>
-                <general>
-                <section>
-                  <text>
-                    The Accounting Manager keeps track of financial charges, credit card processes, and receipts of payment. 
-                    The link from the Order Manager to the Accounting Manager is the Invoice Number, generated when the Order is processed.
-                    </text>
-                  </section>
-                </general>
-            </root>
-        ]]></textData>
-    </ElectronicText>
+    <DataResource dataResourceId="HELP_ACCOUNTING" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_ACCOUNTING" contentTypeId="DOCUMENT" contentName="Accounting Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ACCOUNTING" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ACCOUNTING" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 </entity-engine-xml>

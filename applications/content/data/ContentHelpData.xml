@@ -18,48 +18,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
+    <!-- system document root used in content -> navigate -->
     <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
+    <!-- show help on the system document root -->
     <ContentAssoc contentId="TREE_ROOT" contentIdTo="HELP_ROOT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
-    <!-- =======General Help===========  -->
-    <DataResource dataResourceId="HELP_ROOT" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
-    <ElectronicText dataResourceId="HELP_ROOT">
-        <textData><![CDATA[
-            <root>
-                <generalTitle>
-                    Welcome to the Apache OFBiz help system
-                </generalTitle>
-                <general>
-                    <section>
-                        <text>If you arrived at this page without selecting the index, then a specific help page was not yet available</text>
-                    </section>
-                    <section>
-                        <text>This system will provide you context sensitive help throughout the system.</text>
-                    </section>
-                    <section>
-                        <text>For more info on the help system itself check the </text>
-                    </section>
-                </general>
-            </root>
-        ]]></textData>
-    </ElectronicText>
-    <Content contentId="HELP_ROOT" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT" statusId="CTNT_IN_PROGRESS" contentName="Help system root" mimeTypeId="text/html"/>
-
+    <DataResource dataResourceId="HELP_ROOT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ROOT" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Help system root" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    <!-- how to create alternative locales -->
+    <Content contentId="HELP_ROOT_NL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT_NL" localeString="nl" statusId="CTNT_IN_PROGRESS" contentName="Help system root in dutch" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+    
     <!-- Content specific -->
-    <DataResource dataResourceId="HELP_CONTENT" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Content Manager Help" mimeTypeId="text/xml" isPublic="Y" />
-    <ElectronicText dataResourceId="HELP_CONTENT">
-        <textData><![CDATA[
-            <root>
-                <generalTitle>
-                    The Content Manager.
-                </generalTitle>
-                <general>
-                  <section>
-                    <text>The Content Management System (CMS) is designed to store data once and then allow it to be reused in multiple arrangements.</text>
-                    </section>
-                </general>
-            </root>
-        ]]></textData>
-    </ElectronicText>
+    <DataResource dataResourceId="HELP_CONTENT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Content Manager Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_CONTENT" contentTypeId="DOCUMENT" contentName="Content Manager Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_CONTENT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="050"/>
 </entity-engine-xml>
