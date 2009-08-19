@@ -433,8 +433,7 @@ under the License.
         <field name="effectiveDate" position="1"><display type="date"/></field>
         <field name="comments" position="2"><display/></field>
         <!--field name="paymentGatewayResponseId" title="Paym Gatw Resp." position="2"><display/></field-->
-        <field name="finAccountTransId" position="1"><display/></field>
-        <field name="overrideGlAccountId" position="2"><display/></field>
+        <field name="overrideGlAccountId" position="1"><display/></field>
     </form>
 
     <form name="paymentApplications" type="list" list-name="paymentApplications"
@@ -568,5 +567,18 @@ under the License.
         <field name="amount"><display/></field>
         <field name="paidAmount"><display/></field>
         <field name="outstandingAmount"><display/></field>
+    </form>
+    <form name="FinAccountTransAssociatedWithPayment" type="single" default-map-name="finAccountTrans" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="finAccountTransId" position="1"><display/></field>
+        <field name="finAccountTransTypeId" title="${uiLabelMap.FormFieldTitle_finAccountTransType}" position="2"><display-entity entity-name="FinAccountTransType" description="${description}"/></field>
+        <field name="amount" position="3"><display type="currency" currency="${payment.currencyUomId}"/></field>
+        <field name="glReconciliationId" position="1">
+            <hyperlink target="ViewGlReconciliationWithTransaction" description="${finAccountTrans.glReconciliationId}">
+                <parameter param-name="glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
+                <parameter param-name="finAccountId" from-field="finAccountTrans.finAccountId"/>
+            </hyperlink>
+        </field>
+        <field name="transactionDate" position="2"><display/></field>
+        <field name="statusId"  position="3" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
     </form>
 </forms>
