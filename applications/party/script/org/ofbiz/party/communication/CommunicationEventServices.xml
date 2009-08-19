@@ -228,6 +228,21 @@ under the License.
             <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
             <call-service service-name="createCommunicationEventRoleWithoutPermission" in-map-name="commRole"/>
         </if-not-empty>
+        
+        <!-- Check Attach File For Forward Email-->
+        <if-compare field="parameters.action" value="FORWARD" operator="equals">
+            <entity-and entity-name="CommEventContentAssoc" list="commEventContentAssoc">
+                <field-map field-name="communicationEventId" from-field="parameters.origCommEventId"/>
+            </entity-and>
+            <iterate entry="createcommEventContentAssoc" list="commEventContentAssoc">
+                <if-not-empty field="createcommEventContentAssoc">               
+                    <!-- Create communication event and content association -->
+                    <set field="contentAssoc.contentId" from-field="createcommEventContentAssoc.contentId"/>
+                    <set field="contentAssoc.communicationEventId" from-field="newEntity.communicationEventId"/>
+                    <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc"></call-service>
+                </if-not-empty>
+            </iterate>
+        </if-compare>  
     </simple-method>
 
     <simple-method method-name="updateCommunicationEvent"
