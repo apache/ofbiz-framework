@@ -24,6 +24,12 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 if ("Y".equals(parameters.noConditionFind)) {
     List paymentCond = [];
+    payments = [];
+    finAccountId = parameters.finAccountId;
+    context.finAccountId = parameters.finAccountId;
+    paymentStatusCond = EntityCondition.makeCondition([EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
+                                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR);
+    paymentCond.add(paymentStatusCond);
     if (paymentMethodTypeId) {
         paymentCond.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
     }
@@ -41,11 +47,12 @@ if ("Y".equals(parameters.noConditionFind)) {
         if (finAccountTransList) {
             finAccountTransIds = EntityUtil.getFieldListFromEntityList(finAccountTransList, "finAccountTransId", true);
             paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.IN, finAccountTransIds));
+            payments = delegator.findList("Payment", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
         }
     } else {
-        paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.NOT_EQUAL, null));
+        paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
+        payments = delegator.findList("Payment", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
     }
-    payments = delegator.findList("Payment", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];
     if (payments) {

@@ -26,13 +26,6 @@ under the License.
             <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
             <set field="noConditionFind" value="Y"/>
         </actions>
-        <field name="finAccountId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="FinAccount" description="${finAccountName} [${finAccountId}]" filter-by-date="true">
-                    <entity-constraint name="finAccountTypeId" value="BANK_ACCOUNT"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.FormFieldTitle_paymentMethodTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
@@ -58,7 +51,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="FindBatchPaymentsForDepositSlip" target="NewDepositSlip" extends="FindBatchPayments" extends-resource="component://accounting/widget/ar/forms/ArPaymentForms.xml">
-        <field name="finAccountId"><display description="${finAccountId}"/></field>
+        <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
     <form name="FindArPayments" type="single" target="findPayments" extends="FindPayments" extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml">
         <field name="parentTypeId"><hidden value="RECEIPT"/></field>
