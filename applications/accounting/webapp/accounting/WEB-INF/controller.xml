@@ -2418,9 +2418,9 @@ under the License.
 
     <request-map uri="createGlAcctCatMemFromCostCenters">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="createGlAcctCatMemFromCostCenters"/>
-        <response name="success" type="view" value="CostCenters"/>
-        <response name="error" type="view" value="CostCenters"/>
+        <event type="jsonservice" invoke="createGlAcctCatMemFromCostCenters"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
 
     <request-map uri="CostCenterReport">

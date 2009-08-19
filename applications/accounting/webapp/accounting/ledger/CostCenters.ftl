@@ -19,8 +19,7 @@ under the License.
 -->
 <#if glAcctgAndAmountPercentageList?has_content && glAccountCategories?has_content>
 
-  <form name="costCenters" id="costCenters" method="post" action="<@ofbizUrl>createGlAcctCatMemFromCostCenters</@ofbizUrl>">
-    <input type="hidden" name="_useRowSubmit" value="Y">
+  <form name="costCenters" id="costCenters" method="post">
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
         <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>
@@ -30,30 +29,31 @@ under the License.
           <th>${glAccountCategory.description!}</th>
         </#list>
       </tr>
-      
+
       <#list glAcctgAndAmountPercentageList as glAcctgAndAmountPercentage>
         <tr>
-          <#assign glAccountOrganizationIndex = glAcctgAndAmountPercentage_index + 1/>
           <td>${glAcctgAndAmountPercentage.glAccountId}</td>
           <td>${glAcctgAndAmountPercentage.accountCode!}</td>
           <td>${glAcctgAndAmountPercentage.accountName!}</td>
           <#list glAccountCategories as glAccountCategory>
             <td>
-              <input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
-              <input type="hidden" id="glAccountCategoryId_${glAccountCategory.glAccountCategoryId}_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountCategoryId_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAccountCategory.glAccountCategoryId!)}"/>
-              
+              <input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_${glAcctgAndAmountPercentage.glAccountId!}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
+              <input type="hidden" id="glAccountCategoryId_${glAccountCategory.glAccountCategoryId!}_${glAcctgAndAmountPercentage.glAccountId!}" name="glAccountCategoryId_${glAccountCategory.glAccountCategoryId!}_${glAcctgAndAmountPercentage.glAccountId!}" value="${(glAccountCategory.glAccountCategoryId!)}"/>
+              <#assign id = "amountPercentage_" + glAcctgAndAmountPercentage.glAccountId + "_" + glAccountCategory.glAccountCategoryId/>
               <#if (glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])??>
-                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAcctgAndAmountPercentage.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}"/>
+                <input type="text" id="${id}" name="${id}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}" onchange="javascript:changeAmountPercentage(id);"/>
               <#else>
-                <input type="text" id="amountPercentage_${glAccountCategory.glAccountCategoryId}_${glAcctgAndAmountPercentage.glAccountId}" name="amountPercentage_o_${glAccountOrganizationIndex}${glAccountCategory_index}" value=""/>
+                <input type="text" id="${id}" name="${id}" value="" onchange="javascript:changeAmountPercentage(id);"/>
               </#if>
-              <input name="_rowSubmit_o_${glAccountOrganizationIndex}${glAccountCategory_index}" type="hidden" value="Y"/>
             </td>
           </#list>
+          <td>
+            <span id="notValidTotal_${glAcctgAndAmountPercentage.glAccountId}" style="display:none">${uiLabelMap.FormFieldTitle_notValidTotal}</span>
+            <span id="validTotal_${glAcctgAndAmountPercentage.glAccountId}" style="display:none">${uiLabelMap.FormFieldTitle_validTotal}</span>
+          </td>
         </tr>
       </#list>
     </table>
-    <div align="right"><input type="submit" id="costCentersSubmit" value="${uiLabelMap.CommonSubmit}"/></div>
   </form>
 <#else>
   <label>${uiLabelMap.AccountingNoRecordFound}</label>

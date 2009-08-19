@@ -10952,6 +10952,10 @@
         <value xml:lang="it">Non applicata</value>
         <value xml:lang="zh">未使用</value>
     </property>
+    <property key="FormFieldTitle_notValidTotal">
+        <value xml:lang="en">Not valid total</value>
+        <value xml:lang="hi_IN">कुल वैध नहीं है</value>
+    </property>
     <property key="FormFieldTitle_notifyUrl">
         <value xml:lang="en">Notify Url</value>
         <value xml:lang="hi_IN">सूचित यूआरएल(Url)</value>
@@ -12181,6 +12185,10 @@
         <value xml:lang="hi_IN">उपयोगकर्ता नाम</value>
         <value xml:lang="it">Nome utente</value>
         <value xml:lang="zh">用户名</value>
+    </property>
+    <property key="FormFieldTitle_validTotal">
+        <value xml:lang="en">Valid total</value>
+        <value xml:lang="hi_IN">कुल वैध है</value>
     </property>
     <property key="FormFieldTitle_vendor">
         <value xml:lang="en">Vendor</value>

@@ -468,6 +468,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="tabButtonItem" value="CostCenters"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/accounting/images/costCenters.js" global="true"/>
             </actions>
             <widgets>
                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
