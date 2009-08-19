@@ -55,17 +55,19 @@ under the License.
     <screen name="BatchPayments">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleBatchPayments"/>
+                <set field="titleProperty" value="PageTitleDepositPaymentsAndCreateBatch"/>
                 <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="batchPayments"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
-                <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="cardType" from-field="parameters.cardType"/>
                 <set field="fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <set field="thruDate" type="Timestamp" from-field="parameters.thruDate"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <script location="component://accounting/webapp/ar/WEB-INF/actions/BatchPayments.groovy"/>
+                <entity-and entity-name="FinAccount" list="finAccounts">
+                    <field-map field-name="finAccountTypeId" value="BANK_ACCOUNT"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArPaymentDecorator" location="component://accounting/widget/ar/CommonScreens.xml">

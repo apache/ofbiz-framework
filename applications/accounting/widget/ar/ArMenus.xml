@@ -30,7 +30,7 @@ under the License.
         <menu-item name="findPayments" title="${uiLabelMap.PageTitleFindPayment}">
             <link target="findPayments"/>
         </menu-item>
-        <menu-item name="batchPayments" title="Batch Payments">
+        <menu-item name="batchPayments" title="${uiLabelMap.PageTitleBatchPayments}">
             <link target="batchPayments"/>
         </menu-item>
     </menu>

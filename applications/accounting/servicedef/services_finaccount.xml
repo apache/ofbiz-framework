@@ -469,6 +469,7 @@ under the License.
         <attribute name="paymentGroupTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentGroupName" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
+        <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="expirePaymentAssociationsOnFinAccountTransCancel" engine="simple" location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="expirePaymentAssociationsOnFinAccountTransCancel">
         <description>expire payment associations with paymentGroup on finAccountTrans cancel</description>

@@ -424,6 +424,10 @@ under the License.
                 <call-service service-name="updatePayment" in-map-name="updatePaymentCtx"/>
                 <clear-field field="updatePaymentCtx"/>
             </iterate>
+            <set-service-fields service-name="checkAndCreateBatchForValidPayments" map="parameters" to-map="checkAndCreateBatchForValidPaymentsMap"/>
+            <call-service service-name="checkAndCreateBatchForValidPayments" in-map-name="checkAndCreateBatchForValidPaymentsMap">
+                <result-to-result result-name="paymentGroupId"/>
+            </call-service>
         <else>
             <iterate list="payments" entry="payment">
                 <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>

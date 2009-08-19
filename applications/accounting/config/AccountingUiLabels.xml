@@ -12306,6 +12306,10 @@
         <value xml:lang="th">คัดลอกสัญญา</value>
         <value xml:lang="zh">复制合同</value>
     </property>
+    <property key="PageTitleDepositPaymentsAndCreateBatch">
+        <value xml:lang="en">Deposit Payments And Create Batch</value>
+        <value xml:lang="hi_IN">भुगतान जमा करें तथा बैच बनाएँ</value>
+    </property>
     <property key="PageTitleEditAgreement">
         <value xml:lang="de">Vereinbarung ändern</value>
         <value xml:lang="en">Edit Agreement</value>

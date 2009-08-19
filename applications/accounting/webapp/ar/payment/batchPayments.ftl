@@ -72,11 +72,12 @@ function getPaymentRunningTotal() {
         <form id="paymentBatchForm" name="paymentBatchForm" method="post" action="<@ofbizUrl>createPaymentBatch</@ofbizUrl>">
             <#if paymentList?has_content>
                 <div>
-                    <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
-                    <input type="text" size='25' id="paymentGroupName" name='paymentGroupName'>
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
                     <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
-                    <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}">
+                    <input type="hidden" name="groupInOneTransaction" value="Y"/>
+                    <#if finAccountId?has_content>
+                        <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}">
+                    </#if>
                     <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId?if_exists}">
                     <input type="hidden" name='cardType' value="${cardType?if_exists}">
                     <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}">
@@ -117,6 +118,16 @@ function getPaymentRunningTotal() {
                         </tr>
                     </#list>
                     <div align="right">
+                        <span class="label">${uiLabelMap.AccountingPaymentGroupName}</span>
+                        <input type="text" size='25' id="paymentGroupName" name='paymentGroupName'>
+                        <#if finAccounts?has_content>
+                            <span class="label">${uiLabelMap.AccountingBankAccount}</span>
+                            <select name="finAccountId">
+                                <#list finAccounts as finAccount>
+                                    <option value="${finAccount.get("finAccountId")}">${finAccount.get("finAccountName")} [${finAccount.get("finAccountId")}]</option>
+                                </#list>
+                            </select>
+                        </#if>
                         <input id="submitButton" type="submit" value="${uiLabelMap.AccountingCreateBatch}"/>
                     <div>
                 </table>
