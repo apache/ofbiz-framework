@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-    <classpathentry kind="src" path="framework/testtools/src"/>
+    <classpathentry kind="src" path="framework/testtools/src" excluding="org/ofbiz/testtools/seleniumxml/RemoteRequest.java"/>
     <classpathentry kind="src" path="framework/webslinger/src"/>
     <classpathentry kind="src" path="specialpurpose/oagis/src"/>
     <classpathentry kind="src" path="specialpurpose/hhfacility/src"/>
@@ -181,7 +181,6 @@
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-velocity-20090630-3606-466aec2fb8ad.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-wiki-20090630-3606-466aec2fb8ad.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-launcher-20090630-3606-466aec2fb8ad.jar"/>
-    <classpathentry kind="lib" path="framework/testtools/lib/selenium-server.jar"/>
     <classpathentry kind="lib" path="framework/testtools/lib/selenium-java-client-driver.jar"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>
