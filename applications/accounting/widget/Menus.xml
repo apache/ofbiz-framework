@@ -38,7 +38,7 @@ under the License.
             <link target="FindPaymentGatewayConfig"/>
         </menu-item>
         <menu-item name="billingaccount" title="${uiLabelMap.AccountingBillingMenu}"><link target="FindBillingAccount"/></menu-item>
-        <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="FindFinAccount"/></menu-item>
+        <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="FinAccountMain"/></menu-item>
         <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
