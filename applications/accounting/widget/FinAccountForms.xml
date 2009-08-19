@@ -45,7 +45,7 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FinAccount"/>
-                <field-map field-name="orderBy" value="fromDate"/>
+                <field-map field-name="orderBy" value="finAccountId"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="FinAccount" default-field-type="display"/>
