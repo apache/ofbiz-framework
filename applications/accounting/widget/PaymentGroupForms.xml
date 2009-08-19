@@ -91,13 +91,33 @@ under the License.
     
     <!-- Payment Group Member -->
     <form name="ListPaymentGroupMember" type="list" list-name="paymentGroupMembers" target="updatePaymentGroupMember">
-        <auto-fields-service service-name="updatePaymentGroupMember"/>
+        <row-actions>
+            <entity-one entity-name="Payment" value-field="payment"/>
+            <set field="paymentTypeId" from-field="payment.paymentTypeId"/>
+            <set field="partyIdFrom" from-field="payment.partyIdFrom"/>
+            <set field="partyIdTo" from-field="payment.partyIdTo"/>
+        </row-actions>
         <field name="paymentGroupId"><hidden/></field>
         <field name="paymentId">
             <hyperlink target="paymentOverview" description="${paymentId}">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${lastName} ${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]" >
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${lastName} ${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]" >
+                    <parameter param-name="partyId" from-field="partyIdTo"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType" description="${description}"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
@@ -124,15 +144,31 @@ under the License.
             <set field="statusId" from-field="payment.statusId"/>
             <set field="amount" from-field="payment.amount"/>
             <set field="paymentTypeId" from-field="payment.paymentTypeId"/>
+            <set field="partyIdFrom" from-field="payment.partyIdFrom"/>
+            <set field="partyIdTo" from-field="payment.partyIdTo"/>
         </row-actions>
         <field name="paymentId">
             <hyperlink target="paymentOverview" description="${paymentId}">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${lastName} ${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]" >
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${lastName} ${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]" >
+                    <parameter param-name="partyId" from-field="partyIdTo"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
         <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType" description="${description}"/></field>
         <field name="statusId" title="${uiLabelMap.AccountingPaymentStatus}"><display-entity entity-name="StatusItem"/></field>
-        <field name="amount"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
+        <field name="amount"><display also-hidden="false" type="currency" currency="${payment.currencyUomId}"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
     </form>
