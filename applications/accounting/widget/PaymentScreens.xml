@@ -325,6 +325,8 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitlePaymentOverview"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment"/>
+                <set field="finAccountTransId" from-field="payment.finAccountTransId"/>
+                <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment).toString()}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment).toString()}"/>
                 <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
@@ -371,6 +373,16 @@ under the License.
                                     <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${payment.currencyUomId})}">
                                         <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                     </screenlet>
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field="finAccountTransId"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <screenlet title="${uiLabelMap.AccountingFinAccountTransaction}">
+                                                    <include-form name="FinAccountTransAssociatedWithPayment" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                        </section>
                                 </container>
                                 <container style="clear"/>
                                 <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">

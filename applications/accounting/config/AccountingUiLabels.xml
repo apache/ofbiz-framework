@@ -3212,6 +3212,10 @@
         <value xml:lang="th">การอนุญาต</value>
         <value xml:lang="zh">授权</value>
     </property>
+    <property key="AccountingFinAccountTransaction">
+        <value xml:lang="en">Financial Account Transaction</value>
+        <value xml:lang="hi_IN">वित्तीय खाता लेन-देन</value>
+    </property>
     <property key="AccountingFinAccountTransations">
         <value xml:lang="de">Transaktionen</value>
         <value xml:lang="en">Transactions</value>
