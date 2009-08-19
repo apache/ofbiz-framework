@@ -480,10 +480,10 @@ under the License.
         <description>create new payment and associate with respective financial account in FinAccountTrans Entity.</description>
         <implements service="createPayment"/>
         <attribute name="isDepositWithDrawPayment" type="String" mode="IN" optional="true"/>
-        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTransTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentGroupTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="paymentIds" type="List" mode="OUT" optional="false"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="getTransactionTotalByGlReconcileId" engine="simple"

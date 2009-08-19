@@ -871,15 +871,21 @@ under the License.
         <call-service service-name="createPayment" in-map-name="createPaymentMap">
             <result-to-field result-name="paymentId"/>
         </call-service>
-        <if-compare field="parameters.isDepositWithDrawPayment" operator="equals" value="Y">
-            <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
-            <set field="createFinAccountTransMap.paymentId" from-field="paymentId"/>
-            <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
-            <set field="createFinAccountTransMap.partyId" from-field="parameters.partyIdFrom"/>
-            <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap"/>
-        </if-compare>
-        <field-to-list field="paymentId" list="paymentIds"/>
-        <field-to-result field="paymentIds"/>
+        <if-not-empty field="parameters.finAccountId">
+            <if-compare field="parameters.isDepositWithDrawPayment" operator="equals" value="Y">
+                <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
+                <set field="createFinAccountTransMap.paymentId" from-field="paymentId"/>
+                <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
+                <set field="createFinAccountTransMap.partyId" from-field="parameters.partyIdFrom"/>
+                <call-service service-name="createFinAccountTrans" in-map-name="createFinAccountTransMap">
+                    <result-to-field result-name="finAccountTransId"/>
+                </call-service>
+                <set field="updatePaymentCtx.paymentId" from-field="paymentId"/>
+                <set field="updatePaymentCtx.finAccountTransId" from-field="finAccountTransId"/>
+                <call-service service-name="updatePayment" in-map-name="updatePaymentCtx"/>
+            </if-compare>
+        </if-not-empty>
+        <field-to-result field="paymentId"/>
     </simple-method>
 
     <simple-method method-name="getTransactionTotalByGlReconcileId" short-description="Transaction Total By GlReconcile Id">
