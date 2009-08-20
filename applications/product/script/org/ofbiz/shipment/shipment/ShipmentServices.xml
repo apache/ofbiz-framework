@@ -1538,6 +1538,7 @@ under the License.
                         <set from-field="itemRes.shipGroupSeqId" field="issueContext.shipGroupSeqId"/>
                         <set from-field="itemRes.inventoryItemId" field="issueContext.inventoryItemId"/>
                         <set from-field="itemRes.quantity" field="issueContext.quantity"/>
+                        <set from-field="eventDate" field="issueContext.eventDate"/>
                         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext"/>
                       </iterate>
                     </iterate>

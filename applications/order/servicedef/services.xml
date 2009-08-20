@@ -219,6 +219,7 @@ under the License.
         <attribute name="paymentFromId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
 

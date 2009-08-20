@@ -4165,6 +4165,10 @@ public class OrderServices {
         String paymentRefNum = (String) context.get("paymentRefNum");
         String paymentFromId = (String) context.get("paymentFromId");
         String comments = (String) context.get("comments");
+        Timestamp eventDate = (Timestamp) context.get("eventDate");
+        if (UtilValidate.isEmpty(eventDate)) {
+            eventDate = UtilDateTime.nowTimestamp();
+        }
         try {
             // get the order payment preference
             GenericValue orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
@@ -4210,7 +4214,7 @@ public class OrderServices {
                 paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
                 paymentParams.put("amount", maxAmount);
                 paymentParams.put("statusId", "PMNT_RECEIVED");
-                paymentParams.put("effectiveDate", UtilDateTime.nowTimestamp());
+                paymentParams.put("effectiveDate", eventDate);
                 paymentParams.put("partyIdFrom", paymentFromId);
                 paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
                 paymentParams.put("partyIdTo", payToPartyId);
