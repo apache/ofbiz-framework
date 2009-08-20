@@ -20,6 +20,7 @@
 import org.ofbiz.entity.condition.*
 import org.ofbiz.product.inventory.InventoryWorker
 
+if (product) {
 //If product is virtual gather summary data from variants
 if (product.isVirtual && "Y".equals(product.isVirtual)) {
     //Get the virtual product feature types
@@ -158,4 +159,5 @@ if (product.isVirtual && "Y".equals(product.isVirtual)) {
     context.manufacturingOutQuantitySummaryByFacility = manufacturingOutQuantitySummaryByFacility;
     context.showEmpty = showEmpty;
     context.purchaseOrders = purchaseOrders;
+}
 }
