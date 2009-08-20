@@ -128,13 +128,11 @@ under the License.
         <condition field-name="replenishPaymentId" operator="is-not-empty"/>
         <action service="finAccountReplenish" mode="sync" run-as-user="system"/>
     </eca>
-
-    <!--
+    
     <eca service="createFinAccountTrans" event="commit">
-        <condition-field field-name="statusId" operator="equals" value="FINACT_TRNS_APPROVED"/>
+        <condition field-name="glAccountId" operator="is-not-empty"/>
         <action service="postFinAccountTransToGl" mode="sync"/>
     </eca>
-    -->
 
     <!-- sample ECA rules for the sampleInvoiceAffiliateCommission service triggering
     <eca service="createPayment" event="commit">

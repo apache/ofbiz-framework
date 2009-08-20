@@ -24,20 +24,14 @@ under the License.
     <!-- FinAccountTrans Services -->
     <simple-method method-name="postFinAccountTransToGl" short-description="Post a Financial Account Transaction to the General Ledger">
         <!-- NOTE: this is not yet complete -->
-        <!-- NOTE: this will behave differently depending on how the FinAccount is used, see comments on different GlAccounts for trans entries below -->
-
         <now-timestamp field="nowTimestamp"/>
-
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
         <set field="finAccountId" from-field="finAccountTrans.finAccountId"/>
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
-
         <set field="organizationPartyId" from-field="finAccount.organizationPartyId"/>
 
-        <!-- Figure out which GlAccount to post to using finAccount.postToGlAccountId or if not specified then use FinAccountTypeGlAccount -->
         <if-not-empty field="finAccount.postToGlAccountId">
             <set field="glAccountId" from-field="finAccount.postToGlAccountId"/>
-
             <else>
                 <entity-one entity-name="FinAccountTypeGlAccount" value-field="finAccountTypeGlAccount" auto-field-map="false">
                     <field-map field-name="organizationPartyId"/>
@@ -49,28 +43,17 @@ under the License.
             </else>
         </if-not-empty>
 
-        <!-- set initial values for AcctgTrans -->
-        <set field="createAcctgTransAndEntriesMap.finAccountTransId" from-field="parameters.finAccountTransId"/>
-        <set field="createAcctgTransAndEntriesMap.transactionDate" from-field="nowTimestamp"/>
-        <set field="createAcctgTransAndEntriesMap.glFiscalTypeId" value="ACTUAL"/>
-        <set field="createAcctgTransAndEntriesMap.partyId" from-field="finAccount.ownerPartyId"/>
-
-        <!-- set initial values for Main AcctgTransEntry -->
-        <make-value value-field="mainAcctgTransEntry" entity-name="AcctgTransEntry"/>
-        <set field="mainAcctgTransEntry.glAccountId" from-field="glAccountId"/>
-        <set field="mainAcctgTransEntry.organizationPartyId" from-field="finAccount.organizationPartyId"/>
-        <set field="mainAcctgTransEntry.partyId" from-field="finAccount.ownerPartyId"/>
-        <set field="mainAcctgTransEntry.amount" from-field="finAccountTrans.amount"/>
-        <set field="mainAcctgTransEntry.acctgTransEntryTypeId" value="_NA_"/>
-        <set field="mainAcctgTransEntry.acctgTransEntrySeqId" value="01"/>
-
-        <!-- set initial values for Offset AcctgTransEntry -->
-        <make-value value-field="offsetAcctgTransEntry" entity-name="AcctgTransEntry"/>
-        <set field="offsetAcctgTransEntry.organizationPartyId" from-field="finAccount.organizationPartyId"/>
-        <set field="offsetAcctgTransEntry.partyId" from-field="finAccount.ownerPartyId"/>
-        <set field="offsetAcctgTransEntry.amount" from-field="finAccountTrans.amount"/>
-        <set field="offsetAcctgTransEntry.acctgTransEntryTypeId" value="_NA_"/>
-        <set field="offsetAcctgTransEntry.acctgTransEntrySeqId" value="02"/>
+        <!-- set values for AcctgTrans -->
+        <set field="quickCreateAcctgTransAndEntries.finAccountTransId" from-field="parameters.finAccountTransId"/>
+        <set field="quickCreateAcctgTransAndEntries.transactionDate" from-field="nowTimestamp"/>
+        <set field="quickCreateAcctgTransAndEntries.glFiscalTypeId" value="ACTUAL"/>
+        <set field="quickCreateAcctgTransAndEntries.partyId" from-field="finAccountTrans.partyId"/>
+        <set field="quickCreateAcctgTransAndEntries.isPosted" value="N"/>
+        
+        <!-- set values for AcctgTransEntry -->
+        <set field="quickCreateAcctgTransAndEntries.organizationPartyId" from-field="finAccount.organizationPartyId"/>
+        <set field="quickCreateAcctgTransAndEntries.amount" from-field="finAccountTrans.amount"/>
+        <set field="quickCreateAcctgTransAndEntries.acctgTransEntryTypeId" value="_NA_"/>
 
         <!-- Find the other side to post to/from -
             if payment directory to account do from Payment;
@@ -80,63 +63,56 @@ under the License.
             <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
             <then>
                 <!-- TODO: somehow check to see if the deposit was not from a product, or didn't get into the general CUSTOMER CREDITS 213000 account -->
-
                 <!--
                     Handle the case where a product is purchased to deposit to account.
                     The Product should be setup so that funds go to the general CUSTOMER CREDITS account, 213000.
                     This will simply transfer from that account to the configured account above.
                 -->
-                <set field="offsetAcctgTransEntry.glAccountId" value="213000"/>
-
-                <set field="mainAcctgTransEntry.debitCreditFlag" value="D"/>
-                <set field="offsetAcctgTransEntry.debitCreditFlag" value="C"/>
-                <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="RECEIPT"/>
+                <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="parameters.glAccountId"/>
+                <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="glAccountId"/>
+                <set field="quickCreateAcctgTransAndEntries.acctgTransTypeId" value="RECEIPT"/>
             </then>
             <else-if>
                 <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
                 <then>
                     <!-- TODO: somehow determine if this is an order placed against the account or some other type of withdrawal -->
-
                     <!-- TODO: handle order placed against (paid for with) the account -->
 
-                    <set field="mainAcctgTransEntry.debitCreditFlag" value="C"/>
-                    <set field="offsetAcctgTransEntry.debitCreditFlag" value="D"/>
-                    <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
+                    <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="glAccountId"/>
+                    <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="parameters.glAccountId"/>
+                    <set field="quickCreateAcctgTransAndEntries.acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
                 </then>
             </else-if>
             <else-if>
                 <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
                 <then>
-                    <!-- TODO: what to do for an adjustment? for now nothing, will error out below -->
-
                     <!-- if positive will go to one account for write-off, if negative will go to another account for a fee -->
-
                     <!-- these will reverse depending on positive/negative amount -->
-                    <set field="mainAcctgTransEntry.debitCreditFlag" value="D"/>
-                    <set field="offsetAcctgTransEntry.debitCreditFlag" value="C"/>
+                    <if-compare field="finAccountTrans.amount" operator="less" value="0">
+                        <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="parameters.glAccountId"/>
+                        <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="glAccountId"/>
+                        <set field="quickCreateAcctgTransAndEntries.acctgTransTypeId" value="OUTGOING_PAYMENT"/>
+                    <else>
+                        <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="parameters.glAccountId"/>
+                        <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="glAccountId"/>
+                        <set field="quickCreateAcctgTransAndEntries.acctgTransTypeId" value="INCOMING_PAYMENT"/>
+                    </else>
+                    </if-compare>
                 </then>
             </else-if>
         </if>
 
         <!-- Make sure we have the glAccountId, glAccountIdOffset, organizationPartyId -->
-        <if-empty field="mainAcctgTransEntry.glAccountId">
-            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Main glAccountId"/></add-error>
+        <if-empty field="quickCreateAcctgTransAndEntries.debitGlAccountId">
+            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Debit glAccountId"/></add-error>
         </if-empty>
-        <if-empty field="offsetAcctgTransEntry.glAccountId">
-            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Offset glAccountId"/></add-error>
+        <if-empty field="quickCreateAcctgTransAndEntries.creditGlAccountId">
+            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find credit glAccountId"/></add-error>
         </if-empty>
         <if-empty field="organizationPartyId">
             <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find organizationPartyId"/></add-error>
         </if-empty>
         <check-errors/>
-
-        <!-- Post the finAccountTrans.amount to/from the given GlAccounts -->
-        <set field="createAcctgTransAndEntriesMap.acctgTransEntries[]" from-field="mainAcctgTransEntry"/>
-        <set field="createAcctgTransAndEntriesMap.acctgTransEntries[]" from-field="offsetAcctgTransEntry"/>
-        <!-- TODO: un-comment this once ready for real use
-        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesMap" include-user-login="true">
-        </call-service>
-        -->
-        <!-- TODO: do anything with return values from service? -->
+        <call-service service-name="quickCreateAcctgTransAndEntries" in-map-name="quickCreateAcctgTransAndEntries" include-user-login="true"/>
     </simple-method>
 </simple-methods>
