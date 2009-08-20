@@ -52,7 +52,7 @@ public class UelUtil {
      * @param context Evaluation context (variables)
      * @param expression UEL expression
      * @return Result object
-     * @throws Various <code>javax.el.*</code> exceptions
+     * @throws <code>javax.el.*</code> exceptions
      */
     public static Object evaluate(Map<String, ? extends Object> context, String expression) {
         return evaluate(context, expression, Object.class);
@@ -63,7 +63,7 @@ public class UelUtil {
      * @param expression UEL expression
      * @param expectedType The expected object Class to return
      * @return Result object
-     * @throws Various <code>javax.el.*</code> exceptions
+     * @throws <code>javax.el.*</code> exceptions
      */
     @SuppressWarnings("unchecked")
     public static Object evaluate(Map<String, ? extends Object> context, String expression, Class expectedType) {
@@ -77,7 +77,7 @@ public class UelUtil {
      * @param context Evaluation context (variables)
      * @param expression UEL expression
      * @param expectedType The expected object Class to set
-     * @throws Various <code>javax.el.*</code> exceptions
+     * @throws <code>javax.el.*</code> exceptions
      */
     @SuppressWarnings("unchecked")
     public static void setValue(Map<String, Object> context, String expression, Class expectedType, Object value) {
@@ -93,7 +93,7 @@ public class UelUtil {
      * to null.
      * @param context Evaluation context (variables)
      * @param expression UEL expression
-     * @throws Various <code>javax.el.*</code> exceptions
+     * @throws <code>javax.el.*</code> exceptions
      */
     public static void removeValue(Map<String, Object> context, String expression) {
         if (Debug.verboseOn()) {
