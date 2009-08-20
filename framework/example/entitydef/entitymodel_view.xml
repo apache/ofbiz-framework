@@ -55,7 +55,8 @@ under the License.
             <key-map field-name="statusId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="ExampleStatusItem" package-name="">
+
+    <view-entity entity-name="ExampleStatusItem" package-name="org.ofbiz.example.example">
         <member-entity entity-alias="SI" entity-name="StatusItem"/>
         <alias-all entity-alias="SI"/>
         <entity-condition>
