@@ -238,7 +238,9 @@ function getFinAccountTransRunningTotalAndBalances() {
               <input name="glReconciliationId_o_${finAccountTrans_index}" type="hidden" value="${glReconciliationId}"/>
             </#if>
             <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal?exists>
-              <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotalAndBalances();"/></td>
+              <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
+                <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotalAndBalances();"/></td>
+              </#if>
             </#if>
             <#if !grandTotal?exists>
               <#if finAccountTrans.finAccountTransTypeId="ADJUSTMENT">
