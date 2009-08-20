@@ -33,7 +33,9 @@ under the License.
         <sequenced-id sequence-name="ItemIssuance" field="newEntity.itemIssuanceId"/>
         <field-to-result field="newEntity.itemIssuanceId" result-name="itemIssuanceId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp field="newEntity.issuedDateTime"/>
+        <if-empty field="newEntity.issuedDateTime">
+            <now-timestamp field="newEntity.issuedDateTime"/>
+        </if-empty>
 
         <create-value value-field="newEntity"/>
 
@@ -228,6 +230,7 @@ under the License.
         </if-compare>
 
         <!--<call-simple-method method-name="findCreateIssueShipmentItem"/>-->
+        <set field="eventDate" from-field="parameters.eventDate"/>
         <call-simple-method method-name="findCreateItemIssuance"/>
         <call-simple-method method-name="associateIssueRoles"/>
 
@@ -334,6 +337,7 @@ under the License.
         <set from-field="shipmentItem.shipmentItemSeqId" field="itemIssuanceCreate.shipmentItemSeqId"/>
         <set from-field="orderItem.orderId" field="itemIssuanceCreate.orderId"/>
         <set from-field="orderItem.orderItemSeqId" field="itemIssuanceCreate.orderItemSeqId"/>
+        <set from-field="eventDate" field="itemIssuanceCreate.issuedDateTime"/>
 
         <if-not-empty field="orderItemShipGrpInvRes">
             <!-- if this is coming from an OrderItem issue instead of an OrderItemShipGrpInvRes issue, we won't have this info -->

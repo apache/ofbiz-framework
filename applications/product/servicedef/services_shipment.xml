@@ -362,17 +362,13 @@ under the License.
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuance" auth="true">
         <description>Create ItemIssuance</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="issuedDateTime"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="updateItemIssuance" auth="true">
         <description>Update ItemIssuance</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="issuedDateTime"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuance" auth="true">
@@ -407,6 +403,7 @@ under the License.
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>

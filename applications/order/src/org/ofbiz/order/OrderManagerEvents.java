@@ -57,6 +57,7 @@ public class OrderManagerEvents {
     public static final String module = OrderManagerEvents.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
+    // FIXME: this event doesn't seem to be used; we may want to remove it
     public static String processOfflinePayments(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

@@ -1361,6 +1361,7 @@ under the License.
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_SHIPMENT"/>
         <set field="createAcctgTransAndEntriesInMap.shipmentId" from-field="itemIssuance.shipmentId"/>
+        <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="itemIssuance.issuedDateTime"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
@@ -1941,6 +1942,7 @@ under the License.
             <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
             <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="paymentId"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INCOMING_PAYMENT"/>
+            <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="payment.effectiveDate"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
