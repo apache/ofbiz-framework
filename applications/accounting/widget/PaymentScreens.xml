@@ -331,6 +331,7 @@ under the License.
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment).toString()}"/>
                 <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
                     <condition-expr field-name="paymentId" from-field="paymentId"/>
+                    <order-by field-name="acctgTransId"/>
                     <order-by field-name="acctgTransEntrySeqId"/>
                 </entity-condition>
             </actions>
@@ -357,6 +358,16 @@ under the License.
                                         </link>
                                         <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                     </screenlet>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="finAccountTransId"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <screenlet title="${uiLabelMap.AccountingFinAccountTransaction}">
+                                                <include-form name="FinAccountTransAssociatedWithPayment" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                    </section>
                                 </container>
                                 <container style="clear"/>
                                 <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
