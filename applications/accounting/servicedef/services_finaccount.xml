@@ -80,11 +80,13 @@ under the License.
         <auto-attributes mode="IN" optional="true" include="nonpk">
             <exclude field-name="performedByPartyId"/>
         </auto-attributes>
+        <attribute name="glAccountId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="postFinAccountTransToGl" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountGlPostServices.xml" invoke="postFinAccountTransToGl">
         <description>Post a Financial Account Transaction to the General Ledger; meant to be called as an SECA</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+        <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
@@ -252,21 +254,16 @@ under the License.
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
-        <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
-        <attribute name="debitCreditFlag" type="String" mode="IN" optional="false"/>
-        <attribute name="errorMessage" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="reconcileDepositFinAcctgTrans" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileDepositFinAcctgTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-        <attribute name="errorMessage" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="reconcileWithdrawalFinAcctgTrans" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileWithdrawalFinAcctgTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-        <attribute name="errorMessage" type="String" mode="OUT" optional="true"/>
     </service>
 
     <!-- service credit account w/ transaction -->

@@ -131,7 +131,8 @@ under the License.
         <field name="isRefundable">
             <drop-down no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="finAccountId==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="finAccountId!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="actualBalance"><display/></field>
         <field name="availableBalance"><display/></field>
     </form>
@@ -197,6 +198,14 @@ under the License.
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="FINACT_TRNS_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccount}">
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountCode} - ${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="defaultOrganizationPartyId"/>
+                    <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
         </field>

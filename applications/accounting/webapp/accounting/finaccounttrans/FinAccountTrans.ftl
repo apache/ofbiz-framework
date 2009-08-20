@@ -242,25 +242,6 @@ function getFinAccountTransRunningTotalAndBalances() {
                 <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotalAndBalances();"/></td>
               </#if>
             </#if>
-            <#if !grandTotal?exists>
-              <#if finAccountTrans.finAccountTransTypeId="ADJUSTMENT">
-          </tr>
-          <tr>  
-                <td>
-                  <select name="debitCreditFlag_o_${finAccountTrans_index}">
-                    <option value="D">${uiLabelMap.FormFieldTitle_debit}</option>
-                    <option value="C">${uiLabelMap.FormFieldTitle_credit}</option>
-                  </select>
-                </td>
-                <td>
-                  <select name="glAccountId_o_${finAccountTrans_index}" style="width: 50%">
-                    <#list glAccountOrgAndClassList as glAccountOrgAndClass>
-                      <option value="${glAccountOrgAndClass.glAccountId}">${glAccountOrgAndClass.accountCode} - ${glAccountOrgAndClass.accountName} [${glAccountOrgAndClass.glAccountId}]</option>
-                    </#list>
-                  </select>
-                </td>
-              </#if>
-            </#if>
           </tr>
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
