@@ -6943,6 +6943,10 @@
         <value xml:lang="en">Selected payments ${batchPaymentIds} is already assigned in a batch</value>
         <value xml:lang="hi_IN">चुने हुए भुगतान $(batchPaymentIds) पहले ही एक बैच में सौंपा है </value>
     </property>
+    <property key="AccountingPaymentsAssociateWithFinAccountHasInvalidStatusError">
+        <value xml:lang="en">Associated Payments with FinAccountTrans has invalid status</value>
+        <value xml:lang="hi_IN">FinAccountTrans के साथ जुड़े भुगतान अमान्य स्थिति में है</value>
+    </property>
     <property key="AccountingPaymentCancelled">
         <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido concelado y no puede ser aplicado</value>

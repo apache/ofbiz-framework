@@ -924,5 +924,22 @@ under the License.
             <store-value value-field="finAccountTrans"/>
         </else>
         </if-compare>
+        <if-empty field="finAccountTrans.paymentId">
+            <entity-and entity-name="Payment" list="payments">
+                <field-map field-name="finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+            </entity-and>
+        <else>
+            <entity-one entity-name="Payment" value-field="payment">
+                <field-map field-name="paymentId" from-field="finAccountTrans.paymentId"/>
+            </entity-one>
+            <field-to-list field="payment" list="payments"/>
+        </else>
+        </if-empty>
+        <iterate list="payments" entry="payment">
+            <if-compare field="${payment.statusId == 'PMNT_SENT' @or payment.statusId == 'PMNT_RECEIVED' @or payment.statusId == 'PMNT_CONFIRMED'}" operator="equals" value="false">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentsAssociateWithFinAccountHasInvalidStatusError"/></add-error>
+                <check-errors/>
+            </if-compare>
+        </iterate>
     </simple-method>
 </simple-methods>
