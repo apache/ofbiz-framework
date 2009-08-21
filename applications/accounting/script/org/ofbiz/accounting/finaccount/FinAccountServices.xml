@@ -622,7 +622,12 @@ under the License.
     <simple-method method-name="getFinAccountTransRunningTotalAndBalances" short-description="Calculate running total and Balances of Financial Account Transactions">
         <set field="runningTotal" type="BigDecimal" from-field="parameters.runningTotal" default-value="0"/>
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans" auto-field-map="true"/>
-        <set field="runningTotal" value="${runningTotal + finAccountTrans.amount}" type="BigDecimal"/>
+        <if-compare field="finAccountTrans.finAccountTransTypeId"  operator="equals" value="WITHDRAWAL">
+            <set field="runningTotal" value="${runningTotal - finAccountTrans.amount}" type="BigDecimal"/>
+        <else>
+            <set field="runningTotal" value="${runningTotal + finAccountTrans.amount}" type="BigDecimal"/>
+        </else>
+        </if-compare>
         <field-to-result field="runningTotal"/>
         <set field="numberOfTransactions" type="Long" from-field="parameters.numberOfTransactions" default-value="0"/>
         <set field="numberOfTransactions" type="Long" value="${numberOfTransactions + 1}"/>
