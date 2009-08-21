@@ -217,10 +217,10 @@ public class RequestHandler {
                         callRedirect(newUrl, response, request);
                     }
                 }
-            // if this is a new session and the request is secure and forceHttpSession is true then we need the 
-            // session cookie to be created via an http response (rather than https) so we'll redirect to an
-            // unsecure request and then if necessary another redirect will occur to transfer back to https
-            } else if (forceHttpSession && request.isSecure() && session.isNew()) {
+            // if this is a new session and forceHttpSession is true and the request is secure but does not 
+            // need to be then we need the session cookie to be created via an http response (rather than https) 
+            // so we'll redirect to an unsecure request
+            } else if (forceHttpSession && request.isSecure() && session.isNew() && !requestMap.securityHttps) {
                 StringBuilder urlBuf = new StringBuilder();
                 urlBuf.append(request.getPathInfo());
                 if (request.getQueryString() != null) {
