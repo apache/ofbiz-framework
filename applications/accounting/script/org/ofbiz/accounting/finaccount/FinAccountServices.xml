@@ -685,6 +685,15 @@ under the License.
         <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_APPROVED"/>
         <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
         <if-not-empty field="finAccountTrans.glReconciliationId">
+            <set field="isGlReconciliationReconciledMap.glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
+            <call-service service-name="isGlReconciliationReconciled" in-map-name="isGlReconciliationReconciledMap">
+                <result-to-field result-name="isReconciled"/>
+            </call-service>
+            <if-compare field="isReconciled" operator="equals" value="true" type="Boolean">
+                <if-empty field="updateGlReconciliationMap.reconciledDate">
+                    <set field="updateGlReconciliationMap.reconciledDate" from-field="nowTimestamp"/>
+                </if-empty>
+            </if-compare>
             <call-service service-name="updateGlReconciliation" in-map-name="updateGlReconciliationMap"/>
         </if-not-empty>
     </simple-method>
@@ -926,41 +935,71 @@ under the License.
 
     <simple-method method-name="assignGlRecToFinAccTrans" short-description="Assignment of Gl Reconciliation to Fin Account Trans">
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
-        <if-compare field="finAccountTrans.statusId" operator="not-equals" value="FINACT_TRNS_CREATED">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliationAssignment"/></add-error>
+        <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>
+        <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+        <if-empty field="glReconciliation.reconciledBalance">
+            <if-compare field="finAccountTrans.statusId" operator="not-equals" value="FINACT_TRNS_CREATED">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliationAssignment"/></add-error>
+                <check-errors/>
+            <else>
+                <set field="finAccountTrans.glReconciliationId" from-field="glReconciliationId"/>
+                <store-value value-field="finAccountTrans"/>
+            </else>
+            </if-compare>
+            <if-empty field="finAccountTrans.paymentId">
+                <entity-and entity-name="Payment" list="payments">
+                    <field-map field-name="finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+                </entity-and>
+            <else>
+                <entity-one entity-name="Payment" value-field="payment">
+                    <field-map field-name="paymentId" from-field="finAccountTrans.paymentId"/>
+                </entity-one>
+                <field-to-list field="payment" list="payments"/>
+            </else>
+            </if-empty>
+            <iterate list="payments" entry="payment">
+                <if-compare field="${payment.statusId == 'PMNT_SENT' @or payment.statusId == 'PMNT_RECEIVED' @or payment.statusId == 'PMNT_CONFIRMED'}" operator="equals" value="false">
+                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentsAssociateWithFinAccountHasInvalidStatusError"/></add-error>
+                    <check-errors/>
+                </if-compare>
+            </iterate>
+        <else>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliation"/></add-error>
             <check-errors/>
-        <else>
-            <set field="finAccountTrans.glReconciliationId" from-field="parameters.glReconciliationId"/>
-            <store-value value-field="finAccountTrans"/>
-        </else>
-        </if-compare>
-        <if-empty field="finAccountTrans.paymentId">
-            <entity-and entity-name="Payment" list="payments">
-                <field-map field-name="finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
-            </entity-and>
-        <else>
-            <entity-one entity-name="Payment" value-field="payment">
-                <field-map field-name="paymentId" from-field="finAccountTrans.paymentId"/>
-            </entity-one>
-            <field-to-list field="payment" list="payments"/>
         </else>
         </if-empty>
-        <iterate list="payments" entry="payment">
-            <if-compare field="${payment.statusId == 'PMNT_SENT' @or payment.statusId == 'PMNT_RECEIVED' @or payment.statusId == 'PMNT_CONFIRMED'}" operator="equals" value="false">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentsAssociateWithFinAccountHasInvalidStatusError"/></add-error>
-                <check-errors/>
-            </if-compare>
-        </iterate>
     </simple-method>
+
     <simple-method method-name="removeFinAccountTransFromReconciliation" short-description="Remove finAccountTrans from reconciliation">
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
         <if-compare field="finAccountTrans.statusId" operator="equals" value="FINACT_TRNS_CREATED">
             <clear-field field="finAccountTrans.glReconciliationId"/>
             <store-value value-field="finAccountTrans"/>
         <else>
-            <add-error><fail-property resource="AccountingUiLabel" property="AccountingFinAccountTransInvalidStatusError"/></add-error>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountTransInvalidStatusError"/></add-error>
             <check-errors/>
         </else>
         </if-compare>
+    </simple-method>
+
+    <simple-method method-name="isGlReconciliationReconciled" short-description="Check GlReconciliation is Reconciled or not">
+        <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>
+        <entity-and entity-name="FinAccountTrans" list="finAccountTransList">
+            <field-map field-name="glReconciliationId"/>
+        </entity-and>
+        <set field="finAccountTransIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
+        <entity-condition entity-name="FinAccountTrans" list="finAccountTransactions">
+            <condition-list>
+                <condition-expr field-name="finAccountTransId" operator="in" from-field="finAccountTransIds"/>
+                <condition-expr field-name="statusId" value="FINACT_TRNS_CREATED"/>
+            </condition-list>
+        </entity-condition>
+        <if-not-empty field="finAccountTransactions">
+            <set field="isReconciled" value="false" type="Boolean"/>
+        <else>
+            <set field="isReconciled" value="true" type="Boolean"/>
+        </else>
+        </if-not-empty>
+        <field-to-result field="isReconciled"/>
     </simple-method>
 </simple-methods>

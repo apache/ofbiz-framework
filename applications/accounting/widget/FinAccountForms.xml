@@ -179,6 +179,9 @@ under the License.
 
     <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="statusId" value="FINACT_TRNS_CREATED"/>
+        </actions>
         <auto-fields-service service-name="createFinAccountTrans"/>
         <field name="finAccountId"><hidden/></field>
         <field name="finAccountTransId"><hidden/></field>

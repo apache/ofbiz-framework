@@ -4560,6 +4560,10 @@
         <value xml:lang="it">Istanza del prodotto</value>
         <value xml:lang="zh">产品标识实例</value>
     </property>
+    <property key="AccountingInvalidGlReconciliation">
+        <value xml:lang="en">GlReconciliation [${glReconciliationId}] is already reconciled</value>
+        <value xml:lang="hi_IN">GlReconciliation [${glReconciliationId}] पहले ही पुनर्मिलित है</value>
+    </property>
     <property key="AccountingInvalidGlReconciliationAssignment">
         <value xml:lang="en">Invalid Gl Reconciliation Assignement: You can not assign FinAccountTrans in Approved or Cancel Status. FinAccount Transaction need to be in Created status only.</value>
     </property>

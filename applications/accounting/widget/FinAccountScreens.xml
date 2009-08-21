@@ -631,12 +631,14 @@ under the License.
                 <service service-name="getFinAccountTransListAndTotals" result-map="transactionTotalAmount"/>
                 <set field="finAccountTransList" from-field="transactionTotalAmount.finAccountTransList" type="List"/>
                 <set field="finAccountTransIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
-                <entity-condition entity-name="FinAccountTrans" list="FinAccountTranstions">
+                <entity-condition entity-name="FinAccountTrans" list="finAccountTransactions">
                     <condition-list>
                         <condition-expr field-name="finAccountTransId" operator="in" from-field="finAccountTransIds"/>
                         <condition-expr field-name="statusId" value="FINACT_TRNS_CREATED"/>
                     </condition-list>
                 </entity-condition>
+                <service service-name="isGlReconciliationReconciled" result-map="reconciledMap"/>
+                <set field="isReconciled" from-field="reconciledMap.isReconciled"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
