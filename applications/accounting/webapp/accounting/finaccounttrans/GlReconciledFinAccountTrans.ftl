@@ -95,7 +95,7 @@ under the License.
             <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
             <th>${uiLabelMap.CommonStatus}</th>
             <th>${uiLabelMap.CommonComments}</th>
-            <#if FinAccountTranstions?has_content>
+            <#if finAccountTransactions?has_content>
               <th>${uiLabelMap.AccountingRemoveFromGlReconciliation}</th>
             </#if>
           </tr>
@@ -155,7 +155,7 @@ under the License.
     </div>
     <div class="right">
       <span class="label">${uiLabelMap.AccountingTotalCapital} </span><@ofbizCurrency amount=transactionTotalAmount.grandTotal isoCode=defaultOrganizationPartyCurrencyUomId/> 
-      <#if !currentGlReconciliation.reconciledBalance?has_content>
+      <#if isReconciled == false>
         <input type="submit" value="${uiLabelMap.AccountingReconcile}"/>
       </#if>
     </div>
