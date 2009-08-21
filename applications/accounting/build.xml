@@ -61,6 +61,7 @@ under the License.
             <exclude name="org/ofbiz/accounting/thirdparty/verisign/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/cybersource/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java"/>
+            <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
         </javac15>
     </target>
 

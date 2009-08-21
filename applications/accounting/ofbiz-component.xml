@@ -74,6 +74,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_rita.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_valuelink.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_orbital.xml"/>
 
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>

@@ -3223,6 +3223,30 @@ under the License.
         <key-map field-name="paymentGatewayConfigId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayOrbital"
+            package-name="org.ofbiz.accounting.payment"
+            title="Orbital Payment Gateway Config">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="username" type="short-varchar"><description>Orbital Username of account information</description></field>
+      <field name="password" type="value" encrypt="true"><description>Orbital Password of account information</description></field>
+      <field name="merchantId" type="value"><description>You merchant ID</description></field>
+      <field name="class" type="value"><description>Class for the Orbital Gateway - Default should be used - HttpsEngine</description></field>
+      <field name="hostName" type="value"><description>Address of the payment processor</description></field>
+      <field name="port" type="numeric"><description>Port of the payment processor</description></field>
+      <field name="hostNameFailover" type="value"><description>Failover Address of the payment processor</description></field>
+      <field name="portFailover" type="numeric"><description>Failover Port of the payment processor</description></field>
+      <field name="connectionTimeoutSeconds" type="numeric"><description>Timeout</description></field>
+      <field name="readTimeoutSeconds" type="numeric"><description>Read Timeout</description></field>
+      <field name="authorizationURI" type="value"><description>Authorization URI</description></field>
+      <field name="sdkVersion" type="short-varchar"><description>Target Orbital Gateway API version</description></field>
+      <field name="sslSocketFactory" type="short-varchar"><description>SSL Socket Factory (default|strict)</description></field>
+      <field name="responseType" type="short-varchar"><description>Response Type (gateway|host)</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGORB_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
+    
     <entity entity-name="PaymentGatewayRespMsg"
             package-name="org.ofbiz.accounting.payment"
             title="Payment Gateway Response Message">

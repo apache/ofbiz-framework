@@ -708,7 +708,11 @@ under the License.
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="WORLDPAY" hasTable="N" description="RBS WorldPay Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="WORLDPAY_CONFIG" paymentGatewayConfigTypeId="WORLDPAY" description="RBS WorldPay Config"/>
     <PaymentGatewayWorldPay paymentGatewayConfigId="WORLDPAY_CONFIG" redirectUrl="https://select-test.worldpay.com/wcc/purchase" instId="" authMode="A" fixContact="N" hideContact="N" hideCurrency="N" langId="" noLanguageMenu="N" withDelivery="N" testMode="100"/>
-    
+
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="ORBITAL" hasTable="N" description="Orbital Payment Gateway"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="ORBITAL_CONFIG" paymentGatewayConfigTypeId="ORBITAL" description="Orbital Config"/>
+    <PaymentGatewayOrbital paymentGatewayConfigId="ORBITAL_CONFIG" username="ofbizuser" password="ofbizpwd" merchantId="785240009879" class="com.paymentech.orbital.sdk.engine.https.HttpsEngine" hostName="orbitalvar1.paymentech.net" port="443" hostNameFailover="orbitalvar2.paymentech.net" portFailover="443" connectionTimeoutSeconds="90" readTimeoutSeconds="90" authorizationURI="/authorize" sdkVersion="PaymentechSDK_6.3.0" sslSocketFactory="default" responseType="gateway"/>
+        
     <!--  Credit Card methods by type -->
     <CustomMethodType customMethodTypeId="CC_AUTH" parentTypeId="" hasTable="N" description="Credit Card authorize methods"/>
     <CustomMethodType customMethodTypeId="CC_CAPTURE" parentTypeId="" hasTable="N" description="Credit Card capture methods"/>
@@ -754,6 +758,8 @@ under the License.
     <CustomMethod customMethodId="CC_AUTH_ALWAYSBADNUM" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always decline for bad card number"/>
     <CustomMethod customMethodId="CC_AUTH_ALWAYSFAIL" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always fail"/>
     <CustomMethod customMethodId="CC_AUTH_CAPTURE_ALWA" customMethodTypeId="CC_AUTH" customMethodName="alwaysApproveWithCaptureCCProcessor" description="CC Always authorize and capture"/>
+    <CustomMethod customMethodId="CC_AUTH_ORBITAL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuth" description="CC Orbital authorize"/>    
+    <CustomMethod customMethodId="CC_AUTH_CAPTR_ORBTL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuthCapture" description="CC Orbital authorize and capture"/>    
     
     <CustomMethod customMethodId="CC_CAPTURE_TEST" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCapture" description="CC Test capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_REAUTH" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCaptureWithReAuth" description="CC Test reauth capture"/>
@@ -765,6 +771,7 @@ under the License.
     <CustomMethod customMethodId="CC_CAPTURE_PCCHARGE" customMethodTypeId="CC_CAPTURE" customMethodName="pcChargeCCCapture" description="CC PCCharge capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_RITA" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCapture" description="CC RiTA capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_RITA_REMO" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCaptureRemote" description="CC RiTA remote capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_ORBITAL" customMethodTypeId="CC_CAPTURE" customMethodName="orbitalCCCapture" description="CC Orbital capture"/>    
     
     <CustomMethod customMethodId="CC_REFUND_TEST" customMethodTypeId="CC_REFUND" customMethodName="testCCRefund" description="CC Test refund"/>
     <CustomMethod customMethodId="CC_REFUND_TEST_FAIL" customMethodTypeId="CC_REFUND" customMethodName="testCCRefundFailure" description="CC Test refund failure"/>
@@ -775,6 +782,7 @@ under the License.
     <CustomMethod customMethodId="CC_REFUND_PCCHARGE" customMethodTypeId="CC_REFUND" customMethodName="pcChargeCCRefund" description="CC PCCharge refund"/>
     <CustomMethod customMethodId="CC_REFUND_RITA" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefund" description="CC RiTA refund"/>
     <CustomMethod customMethodId="CC_REFUND_RITA_REMOT" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefundRemote" description="CC RiTA remote refund"/>
+    <CustomMethod customMethodId="CC_REFUND_ORBITAL" customMethodTypeId="CC_REFUND" customMethodName="orbitalCCRefund" description="CC Orbital refund"/>    
     
     <CustomMethod customMethodId="CC_RELEASE_TEST" customMethodTypeId="CC_RELEASE" customMethodName="testCCRelease" description="CC Test release"/>
     <CustomMethod customMethodId="CC_RELEASE_AIM" customMethodTypeId="CC_RELEASE" customMethodName="aimCCRelease" description="CC Authorize dot net release"/>
@@ -784,6 +792,7 @@ under the License.
     <CustomMethod customMethodId="CC_RELEASE_PCCHARGE" customMethodTypeId="CC_RELEASE" customMethodName="pcChargeCCRelease" description="CC PCCharge release"/>
     <CustomMethod customMethodId="CC_RELEASE_RITA" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCRelease" description="CC RiTA release"/>
     <CustomMethod customMethodId="CC_RELEASE_RITA_REMO" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCReleaseRemote" description="CC RiTA remote release"/>
+    <CustomMethod customMethodId="CC_RELEASE_ORBITAL" customMethodTypeId="CC_RELEASE" customMethodName="orbitalCCRelease" description="CC Orbital release"/>    
     
     <CustomMethod customMethodId="CC_CREDIT_AIM" customMethodTypeId="CC_CREDIT" customMethodName="aimCCCredit" description="CC Authorize dot net credit"/>
     <CustomMethod customMethodId="CC_CREDIT_CLEARCOMME" customMethodTypeId="CC_CREDIT" customMethodName="clearCommerceCCCredit" description="CC Clear Commerce credit"/>
