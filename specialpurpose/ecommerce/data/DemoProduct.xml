@@ -84,6 +84,12 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="" paymentCustomMethodId="PAYPAL_REFUND" paymentGatewayConfigId="PAYPAL_CONFIG"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
     -->
+    <!-- Example Orbital Gateway Settings -->
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="orbitalCCAuth" paymentCustomMethodId="CC_AUTH_ORBITAL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="orbitalCCAuthCapture" paymentCustomMethodId="CC_AUTH_CAPTR_ORBTL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="orbitalCCCapture" paymentCustomMethodId="CC_CAPTURE_ORBITAL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="orbitalCCRefund" paymentCustomMethodId="CC_REFUND_ORBITAL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="orbitalCCRelease" paymentCustomMethodId="CC_RELEASE_ORBITAL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
 
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_WORLDPAY" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="WORLDPAY_CONFIG"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_OFFLINE" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
