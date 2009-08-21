@@ -18,78 +18,88 @@ under the License.
 -->
 
 <div class="screenlet">
-  <div class="screenlet-header">
-    <div class="boxhead">&nbsp;${uiLabelMap.EcommerceMyAccount}</div>
-  </div>
+  <h3>${uiLabelMap.EcommerceMyAccount}</h3>
   <div class="screenlet-body">
-    <div align="right"><a class="buttontext" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.EcommerceEditProfile}</a>&nbsp;</div><br/>
-    <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
-    <div class="screenlet-body">
-      <div class="form-row">
-        <div class="form-field">${firstName?if_exists} ${lastName?if_exists}</div>
-      </div>
-
-      <div class="form-row">
-        <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId}">
-        <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress}">
-        <div class="form-field" id="emailAddress">${emailAddress}</div>
-        <a href="mailto:${emailAddress}" class="linktext">(${uiLabelMap.PartySendEmail})</a>&nbsp;
-      </div>
-      <div class="form-row"><div id="serverError_${emailContactMechId}" class="errorMessage"></div></div>
+    <div>
+      <a class="button" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.EcommerceEditProfile}</a>
+      <h3>${uiLabelMap.PartyContactInformation}</h3>
+      <label>${firstName?if_exists} ${lastName?if_exists}</label>
+      <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId}" />
+      <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress}" />
+      <label>${emailAddress}</label>
+      <a href="mailto:${emailAddress}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
+      <div id="serverError_${emailContactMechId}" class="errorMessage"></div>
     </div>
-
     <#-- Manage Addresses -->
-    <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommerceAddressBook}</div></div>
-    <div class="screenlet-body">
-      <div align="right"><a class="buttontext" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManageAddresses}</a>&nbsp;</div>
+    <h3>${uiLabelMap.EcommerceAddressBook}</h3>
+    <div>
+      <a class="button" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManageAddresses}</a>
       <div class="left center">
-        <div class="screenlet-header"><div class='boxhead'>${uiLabelMap.EcommercePrimaryShippingAddress}</div></div>
-        <div class="screenlet-body">
+        <div class='boxhead'><h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3></div>
+        <div>
+          <ul>
           <#if shipToContactMechId?exists>
-            ${shipToAddress1?if_exists}<br/>
-            <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
-            <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
-              ${shipToStateProvinceGeoId}
-            </#if>
-              ${shipToCity?if_exists},
-              ${shipToPostalCode?if_exists}<br/>
-              ${shipToCountryGeoId?if_exists}<br/>
+            <li>${shipToAddress1?if_exists}</li>
+            <#if shipToAddress2?has_content><li>${shipToAddress2?if_exists}</li></#if>
+            <li>
+              <ul>
+                <li>
+                  <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
+                    ${shipToStateProvinceGeoId}
+                  </#if>
+                  ${shipToCity?if_exists},
+                  ${shipToPostalCode?if_exists}
+                </li>
+                <li>${shipToCountryGeoId?if_exists}</li>
+              </ul>
+            </li>
             <#if shipToTelecomNumber?has_content>
+            <li>
               ${shipToTelecomNumber.countryCode?if_exists}-
               ${shipToTelecomNumber.areaCode?if_exists}-
               ${shipToTelecomNumber.contactNumber?if_exists}
-              <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
+              <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if>
+            </li>
             </#if>
           <#else>
-            ${uiLabelMap.PartyPostalInformationNotFound}
+            <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
           </#if>
+          </ul>
         </div>
       </div>
-
-      <div class="center right">
-        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommercePrimaryBillingAddress}</div></div>
-        <div class="screenlet-body">
+      <div class="right center">
+        <div class='boxhead'><h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3></div>
+        <div>
+          <ul>
           <#if billToContactMechId?exists>
-            ${billToAddress1?if_exists}<br/>
-            <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
-            <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
-              ${billToStateProvinceGeoId}
-            </#if>
-              ${billToCity?if_exists},
-              ${billToPostalCode?if_exists}<br/>
-              ${billToCountryGeoId?if_exists}<br/>
+            <li>${billToAddress1?if_exists}</li>
+            <#if billToAddress2?has_content><li>${billToAddress2?if_exists}</li></#if>
+            <li>
+              <ul>
+                <li>
+                  <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
+                    ${billToStateProvinceGeoId}
+                  </#if>
+                  ${billToCity?if_exists},
+                  ${billToPostalCode?if_exists}
+                </li>
+                <li>${billToCountryGeoId?if_exists}</li>
+              </ul>
+            </li>
             <#if billToTelecomNumber?has_content>
+            <li>
               ${billToTelecomNumber.countryCode?if_exists}-
               ${billToTelecomNumber.areaCode?if_exists}-
               ${billToTelecomNumber.contactNumber?if_exists}
-              <#if billToExtension?exists>-${billToExtension?if_exists}</#if><br/>
+              <#if billToExtension?exists>-${billToExtension?if_exists}</#if>
+            </li>
             </#if>
           <#else>
-            ${uiLabelMap.PartyPostalInformationNotFound}
+            <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
           </#if>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="form-row"></div>
   </div>
 </div>

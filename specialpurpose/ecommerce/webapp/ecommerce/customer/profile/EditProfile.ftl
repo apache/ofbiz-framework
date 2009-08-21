@@ -17,61 +17,53 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div id="form-container" class="screenlet">
-  <div class="screenlet-header">
-    <div class='boxhead'>&nbsp;${uiLabelMap.EcommerceMyAccount}</div>
-  </div>
-  <div class="screenlet-body">
-    <form id="editUserForm" name="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
+<div class="screenlet">
+  <h3>${uiLabelMap.EcommerceMyAccount}</h3>
+  <form id="editUserForm" name="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
+    <fieldset>
       <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
       <input type="hidden" name="emailContactMechId" value="${emailContactMechId?if_exists}"/>
-
       <div class="left center">
-        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
-        <div class="screenlet-body">
-          <div class="form-row">
-            <div class="field-label"><label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="form-field"><input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" size="30" maxlength="30"></div>
-          </div>
-          <div class="form-row">
-            <div class="field-label"><label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="form-field"><input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" size="30" maxlength="30"></div>
-          </div>
-          <div class="form-row">
-            <div class="field-label">
-              <label for="emailAddress">
-                ${uiLabelMap.CommonEmail}*
-                <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
-                <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
-              </label>
-            </div>
-            <div class="form-field"><input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" size="30" maxlength="255"/></div>
-          </div>
+        <h3>${uiLabelMap.PartyContactInformation}</h3>
+        <div>
+          <label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label>
+          <input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" size="30" maxlength="30" />
+        </div>
+        <div>
+          <label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label>
+          <input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" size="30" maxlength="30" />
+        </div>
+        <div>
+          <label for="emailAddress">${uiLabelMap.CommonEmail}*
+            <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
+            <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
+          </label>
+          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" size="30" maxlength="255"/>
         </div>
       </div>
+    </fieldset>
 
+    <fieldset>
       <div class="center right">
-        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommerceAccountInformation}</div></div>
-        <div class="screenlet-body">
-          <div class="form-row">
-            <div class="field-label"><label for="userName">${uiLabelMap.CommonUsername}*</label></div>
-            <div class="form-field"><input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId?if_exists}" size="30" maxlength="255" <#if userLogin.userLoginId?exists>disabled</#if>></div>
-          </div>
-          <div class="form-row">
-            <div class="field-label"><label for="currentPassword">${uiLabelMap.CommonCurrentPassword}*</label></div>
-            <div class="form-field"><input type="password" name="currentPassword" id="currentPassword" value="" size="30" maxlength="16"></div>
-          </div>
-          <div class="form-row">
-            <div class="field-label"><label for="newPassword">${uiLabelMap.CommonNewPassword}*</label></div>
-            <div class="form-field"><input type="password" name="newPassword" id="newPassword" value="" size="30" maxlength="16"></div>
-          </div>
-          <div class="form-row">
-            <div class="field-label"><label for="newPasswordVerify">${uiLabelMap.CommonNewPasswordVerify}*</label></div>
-            <div class="form-field"><input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" size="30" maxlength="16"></div>
-          </div>
+        <h3>${uiLabelMap.EcommerceAccountInformation}</h3>
+        <div>
+          <label for="userLoginId">${uiLabelMap.CommonUsername}*</label>
+          <input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId?if_exists}" size="30" maxlength="255" <#if userLogin.userLoginId?exists>disabled="disabled"</#if> />
+        </div>
+        <div>
+          <label for="currentPassword">${uiLabelMap.CommonCurrentPassword}*</label>
+          <input type="password" name="currentPassword" id="currentPassword" value="" size="30" maxlength="16" />
+        </div>
+        <div>
+          <label for="newPassword">${uiLabelMap.CommonNewPassword}*</label>
+          <input type="password" name="newPassword" id="newPassword" value="" size="30" maxlength="16" />
+        </div>
+        <div>
+          <label for="newPasswordVerify">${uiLabelMap.CommonNewPasswordVerify}*</label>
+          <input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" size="30" maxlength="16" />
         </div>
       </div>
-      <div class="form-row">&nbsp;<a id="submitEditUserForm" href="javascript:void(0);" class="buttontext">${uiLabelMap.CommonSubmit}</a></div>
-    </form>
-  </div>
+    </fieldset>
+    <div><a id="submitEditUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>
+  </form>
 </div>
