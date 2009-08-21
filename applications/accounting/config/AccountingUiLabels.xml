@@ -3227,6 +3227,10 @@
         <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">交易</value>
     </property>
+    <property key="AccountingFinAccountTransInvalidStatusError">
+        <value xml:lang="en">FinAccountTrans must be in created status.</value>
+        <value xml:lang="hi_IN">FinAccountTrans निर्मित स्थिति में होना चाहिए</value>
+    </property>
     <property key="AccountingFinAccountTypeGlAccount">
         <value xml:lang="de">Finanzkonto-Buchungskonto</value>
         <value xml:lang="en">FinAccount Type Gl Account</value>
@@ -7998,6 +8002,10 @@
         <value xml:lang="ru">Номер ссылки</value>
         <value xml:lang="th">หมายเลขอ้างอิง</value>
         <value xml:lang="zh">优先方法编号</value>
+    </property>
+    <property key="AccountingRemoveFromGlReconciliation">
+        <value xml:lang="en">Remove From GlReconciliation</value>
+        <value xml:lang="hi_IN">GlReconciliation से हटाये</value>
     </property>
     <property key="AccountingReports">
         <value xml:lang="ar">تقارير</value>

@@ -95,6 +95,9 @@ under the License.
             <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
             <th>${uiLabelMap.CommonStatus}</th>
             <th>${uiLabelMap.CommonComments}</th>
+            <#if FinAccountTranstions?has_content>
+              <th>${uiLabelMap.AccountingRemoveFromGlReconciliation}</th>
+            </#if>
           </tr>
           <#assign alt_row = false/>
           <#list finAccountTransList as finAccountTrans>
@@ -139,6 +142,11 @@ under the License.
               <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
               <td><#if status?has_content>${status.description?if_exists}</#if></td>
               <td>${finAccountTrans.comments?if_exists}</td>
+              <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
+                <td align="center"><a href="javascript:document.reomveFinAccountTransAssociation_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
+              <#else>
+                <td/>
+              </#if>
             </tr>
             <#assign alt_row = !alt_row/>
           </#list>
@@ -153,3 +161,10 @@ under the License.
     </div>
   </div>
 </form>
+<#list finAccountTransList as finAccountTrans>
+  <form name="reomveFinAccountTransAssociation_${finAccountTrans.finAccountTransId}" method="post" action="<@ofbizUrl>reomveFinAccountTransAssociation</@ofbizUrl>">
+    <input name="finAccountTransId" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
+    <input name="finAccountId" type="hidden" value="${finAccountTrans.finAccountId}"/>
+    <input name="glReconciliationId" type="hidden" value="${glReconciliationId}"/>
+  </form>
+</#list>

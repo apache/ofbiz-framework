@@ -497,4 +497,9 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="removeFinAccountTransFromReconciliation" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="removeFinAccountTransFromReconciliation">
+        <description>Remove finaAccountTrans association with gl reconciliation</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

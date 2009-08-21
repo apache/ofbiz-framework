@@ -132,6 +132,11 @@ function getFinAccountTransRunningTotalAndBalances() {
           <#if grandTotal?exists>
             <th>${uiLabelMap.AccountingCancelTransactionStatus}</th>
           </#if>
+          <#if !grandTotal?exists>
+            <#if (parameters.glReconciliationId?has_content && parameters.glReconciliationId != "_NA_")>
+              <th>${uiLabelMap.AccountingRemoveFromGlReconciliation}</th>
+            </#if>
+          </#if>
           <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal?exists>
             <th>${uiLabelMap.CommonSelectAll} <input name="selectAll" type="checkbox" value="N" id="checkAllTransactions" onclick="javascript:togglefinAccountTransId(this);"/></th>
           </#if>
@@ -237,6 +242,13 @@ function getFinAccountTransRunningTotalAndBalances() {
             <#if glReconciliationId?has_content && glReconciliationId != "_NA_">
               <input name="glReconciliationId_o_${finAccountTrans_index}" type="hidden" value="${glReconciliationId}"/>
             </#if>
+            <#if !(grandTotal?exists)>
+              <#if (parameters.glReconciliationId?has_content && parameters.glReconciliationId != "_NA_")>
+                <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
+                  <td><a href="javascript:document.removeFinAccountTransFromReconciliation_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
+                </#if>
+              </#if>
+            </#if>
             <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal?exists>
               <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
                 <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotalAndBalances();"/></td>
@@ -248,6 +260,12 @@ function getFinAccountTransRunningTotalAndBalances() {
         </#list>
       </table>
     </form>
+    <#list finAccountTransList as finAccountTrans>
+      <form name="cancelFinAccountTransAssociation_${finAccountTrans.finAccountTransId}" method="post" action="<@ofbizUrl>cancelFinAccountTransAssociation</@ofbizUrl>">
+        <input name="finAccountTransId" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
+        <input name="finAccountId" type="hidden" value="${finAccountTrans.finAccountId}"/>
+      </form>
+    </#list>
     <#if grandTotal?exists>
       <#list finAccountTransList as finAccountTrans>
         <#if finAccountTrans.statusId?has_content && finAccountTrans.statusId == 'FINACT_TRNS_CREATED'>

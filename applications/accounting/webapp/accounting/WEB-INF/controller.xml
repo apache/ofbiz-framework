@@ -1981,6 +1981,18 @@ under the License.
         <response name="error" type="view" value="FindFinAccountTrans"/>
     </request-map>
 
+    <request-map uri="removeFinAccountTransFromReconciliation">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="removeFinAccountTransFromReconciliation"/>
+        <response name="success" type="view" value="BankReconciliation"/>
+        <response name="error" type="view" value="BankReconciliation"/>
+    </request-map>
+    <request-map uri="reomveFinAccountTransAssociation">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="removeFinAccountTransFromReconciliation"/>
+        <response name="success" type="view" value="ViewGlReconciliationWithTransaction"/>
+        <response name="error" type="view" value="ViewGlReconciliationWithTransaction"/>
+    </request-map>
     <!-- Fin Account Authority-->
     <request-map uri="EditFinAccountAuths">
         <security https="true" auth="true"/>
