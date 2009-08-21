@@ -261,7 +261,7 @@ function getFinAccountTransRunningTotalAndBalances() {
       </table>
     </form>
     <#list finAccountTransList as finAccountTrans>
-      <form name="cancelFinAccountTransAssociation_${finAccountTrans.finAccountTransId}" method="post" action="<@ofbizUrl>cancelFinAccountTransAssociation</@ofbizUrl>">
+      <form name="removeFinAccountTransFromReconciliation_${finAccountTrans.finAccountTransId}" method="post" action="<@ofbizUrl>removeFinAccountTransFromReconciliation</@ofbizUrl>">
         <input name="finAccountTransId" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
         <input name="finAccountId" type="hidden" value="${finAccountTrans.finAccountId}"/>
       </form>
