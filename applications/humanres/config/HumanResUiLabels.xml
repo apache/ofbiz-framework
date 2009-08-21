@@ -617,7 +617,7 @@
         <value xml:lang="zh">预算项目编号</value>
     </property>
     <property key="HumanResCompanyName">
-        <value xml:lang="en">OFBiz: HumanRes Manager</value>
+        <value xml:lang="en">OFBiz: Human Resources Manager</value>
         <value xml:lang="fr">OFBiz : gestion de ressources humaines</value>
         <value xml:lang="it">OFBiz: Gestione Risorse Umane</value>
         <value xml:lang="th">OFBiz: การจัดการบุคคล</value>
@@ -1179,7 +1179,7 @@
     </property>
     <property key="HumanResManagerApplication">
         <value xml:lang="de">Personalverwaltung</value>
-        <value xml:lang="en">HumanRes Manager Application</value>
+        <value xml:lang="en">Human Resources Application</value>
         <value xml:lang="fr">Application de gestion des ressources humaines</value>
         <value xml:lang="it">Applicazione Gestione Risorse Umane</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการบุคคล</value>
