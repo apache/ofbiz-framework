@@ -58,4 +58,15 @@
     <test-case case-name="auto-tests-setFinAccountTransStatus">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testSetFinAccountTransStatus"/>
     </test-case>    
+
+    <!--Test case to verify GL postings for Void Payment process-->
+    <test-case case-name="auto-test-glPostingsOnVoidPayment">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testGlPostingsOnVoidPayment"/>
+    </test-case>
+
+    <!---Test case to verify GL postings for Check Run process-->
+    <test-case case-name="auto-tests-glPostingOnCheckRun">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testGlPostingOnCheckRun"/>
+    </test-case>
+
 </test-suite>
