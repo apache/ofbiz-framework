@@ -181,7 +181,7 @@ under the License.
 
     <!-- The following three elements set up a regularly scheduled job that will automatically create
         fixed asset maintenances from ProductMaint time intervals. -->
-    <TemporalExpression tempExprId="FAM_AUTO_CREATE" tempExprTypeId="FREQUENCY" integer1="12" integer2="5"/>
+    <TemporalExpression tempExprId="FAM_AUTO_CREATE" tempExprTypeId="FREQUENCY" integer1="12" integer2="60"/>
     <JobSandbox jobId="FAM_AUTO_CREATE" jobName="Auto-create Fixed Asset Maintenances" runTime="2000-01-01 00:00:00.000" serviceName="createMaintsFromTimeInterval" poolId="pool" runAsUser="system" tempExprId="FAM_AUTO_CREATE" maxRecurrenceCount="-1"/>
 
     <!-- Fixed Asset Maintenance party roles -->
@@ -508,7 +508,7 @@ under the License.
     <InvoiceType description="Invoice Template" hasTable="N" invoiceTypeId="TEMPLATE"/>
     <InvoiceType description="Sales Invoice Template" hasTable="N" invoiceTypeId="SALES_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
     <InvoiceType description="Purchase Invoice Template" hasTable="N" invoiceTypeId="PUR_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
-    
+
     <!-- InvoiceItemAssocType records can be used in InvoiceItemAssoc entity. This will help to distinguish the record in searching for the commission invoice or withdraw invoice. More assoc types can be added later on.  -->
     <InvoiceItemAssocType description="Commission" hasTable="N" invoiceItemAssocTypeId="COMMISSION_INVOICE" parentTypeId=""/>
     <InvoiceItemAssocType description="Withdraw" hasTable="N" invoiceItemAssocTypeId="WITHDRAW_INVOICE" parentTypeId=""/>
@@ -678,7 +678,7 @@ under the License.
     <!-- payment types for POS PAID IN/OUT -->
     <PaymentType description="POS Paid Out" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="POS_PAID_OUT"/>
     <PaymentType description="POS Paid In" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="POS_PAID_IN"/>
-    
+
     <!-- Payment Group Type -->
     <PaymentGroupType paymentGroupTypeId="CHECK_RUN" parentTypeId="" hasTable="N" description="Check Run"/>
     <PaymentGroupType paymentGroupTypeId="BATCH_PAYMENT" parentTypeId="" hasTable="N" description="Batch of Payments"/>
@@ -687,24 +687,24 @@ under the License.
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" paymentGatewayConfigTypeId="AUTHORIZE_NET" description="Authorize Dot Net Config"/>
     <PaymentGatewayAuthorizeNet paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" transactionUrl="https://certification.authorize.net/gateway/transact.dll" certificateAlias="certification.authorize.net-1" apiVersion="3.1" delimitedData="TRUE" delimiterChar="|" method="CC" emailCustomer="FALSE" emailMerchant="FALSE" testMode="TRUE" relayResponse="FALSE" tranKey="" userId="" pwd="" transDescription="OFBizAuthNet"/>
-    
+
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="CYBERSOURCE" hasTable="N" description="CyberSource Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="CYBERSOURCE_CONFIG" paymentGatewayConfigTypeId="CYBERSOURCE" description="CyberSource Config"/>
     <PaymentGatewayCyberSource paymentGatewayConfigId="CYBERSOURCE_CONFIG" merchantId="[MerchantID]" apiVersion="1.43" production="false" keysDir="${sys:getProperty('ofbiz.home')}/applications/accounting/icskeys" keysFile="merchantID.p12" logEnabled="true" logDir="${sys:getProperty('ofbiz.home')}/runtime/logs" logFile="cybersource.log" logSize="10" merchantDescr="Some Nice Web Store" merchantContact="" autoBill="false" enableDav="N" fraudScore="N" ignoreAvs="false" disableBillAvs="Y" avsDeclineCodes=""/>
-    
+
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYFLOWPRO" hasTable="N" description="Payflow Pro Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="PAYFLOWPRO_CONFIG" paymentGatewayConfigTypeId="PAYFLOWPRO" description="Payflow Pro Config"/>
-    <PaymentGatewayPayflowPro paymentGatewayConfigId="PAYFLOWPRO_CONFIG" certsPath="${sys:getProperty('ofbiz.home')}/applications/accounting/pfcerts" hostAddress="pilot-payflowpro.paypal.com" hostPort="443" timeout="80" proxyAddress="" proxyPort="80" proxyLogon="" proxyPassword="" 
+    <PaymentGatewayPayflowPro paymentGatewayConfigId="PAYFLOWPRO_CONFIG" certsPath="${sys:getProperty('ofbiz.home')}/applications/accounting/pfcerts" hostAddress="pilot-payflowpro.paypal.com" hostPort="443" timeout="80" proxyAddress="" proxyPort="80" proxyLogon="" proxyPassword=""
         vendor="[Vendor]" userId="[PayFlow UserID]" pwd="[PayFlow Password]" partner="[PayFlow Partner]" checkAvs="Y" checkCvv2="Y" preAuth="Y" enableTransmit="true" logFileName="${sys:getProperty('ofbiz.home')}/runtime/logs/payflow_java.log" loggingLevel="6" maxLogFileSize="1000000" stackTraceOn="N" returnUrl="[Express Checkout Return URL]" cancelReturnUrl="[Express Checkout Cancel Return URL]" redirectUrl="[Express Checkout Customer Redirect URL]"/>
-    
+
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYPAL" hasTable="N" description="PayPal Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="PAYPAL_CONFIG" paymentGatewayConfigTypeId="PAYPAL" description="PayPal Config"/>
     <PaymentGatewayPayPal paymentGatewayConfigId="PAYPAL_CONFIG" businessEmail="" apiUserName="" apiPassword="" apiSignature="" apiEnvironment="" notifyUrl="" returnUrl="" cancelReturnUrl="" imageUrl="" confirmTemplate="/order/emailconfirmation.ftl" redirectUrl="https://www.sandbox.paypal.com/webscr" confirmUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr" shippingCallbackUrl="" requireConfirmedShipping="N"/>
-    
+
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="CLEARCOMMERCE" hasTable="N" description="Clear Commerce Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" paymentGatewayConfigTypeId="CLEARCOMMERCE" description="Clear Commerce Config"/>
     <PaymentGatewayClearCommerce paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" sourceId="mySource" groupId="myGroup" clientId="[ClearCommerce clientId]" username="[ClearCommerce username]" pwd="[ClearCommerce password]" userAlias="[ClearCommerce alias]" effectiveAlias="" processMode="P" serverURL="https://test5x.clearcommerce.com:11500" enableCVM="N"/>
-    
+
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="WORLDPAY" hasTable="N" description="RBS WorldPay Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="WORLDPAY_CONFIG" paymentGatewayConfigTypeId="WORLDPAY" description="RBS WorldPay Config"/>
     <PaymentGatewayWorldPay paymentGatewayConfigId="WORLDPAY_CONFIG" redirectUrl="https://select-test.worldpay.com/wcc/purchase" instId="" authMode="A" fixContact="N" hideContact="N" hideCurrency="N" langId="" noLanguageMenu="N" withDelivery="N" testMode="100"/>
@@ -712,27 +712,27 @@ under the License.
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="ORBITAL" hasTable="N" description="Orbital Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="ORBITAL_CONFIG" paymentGatewayConfigTypeId="ORBITAL" description="Orbital Config"/>
     <PaymentGatewayOrbital paymentGatewayConfigId="ORBITAL_CONFIG" username="ofbizuser" password="ofbizpwd" merchantId="785240009879" class="com.paymentech.orbital.sdk.engine.https.HttpsEngine" hostName="orbitalvar1.paymentech.net" port="443" hostNameFailover="orbitalvar2.paymentech.net" portFailover="443" connectionTimeoutSeconds="90" readTimeoutSeconds="90" authorizationURI="/authorize" sdkVersion="PaymentechSDK_6.3.0" sslSocketFactory="default" responseType="gateway"/>
-        
+
     <!--  Credit Card methods by type -->
     <CustomMethodType customMethodTypeId="CC_AUTH" parentTypeId="" hasTable="N" description="Credit Card authorize methods"/>
     <CustomMethodType customMethodTypeId="CC_CAPTURE" parentTypeId="" hasTable="N" description="Credit Card capture methods"/>
     <CustomMethodType customMethodTypeId="CC_REFUND" parentTypeId="" hasTable="N" description="Credit Card refund methods"/>
     <CustomMethodType customMethodTypeId="CC_RELEASE" parentTypeId="" hasTable="N" description="Credit Card release methods"/>
     <CustomMethodType customMethodTypeId="CC_CREDIT" parentTypeId="" hasTable="N" description="Credit Card credit methods"/>
-    
+
     <CustomMethodType customMethodTypeId="EFT_AUTH" parentTypeId="" hasTable="N" description="EFT authorize methods"/>
     <CustomMethodType customMethodTypeId="EFT_RELEASE" parentTypeId="" hasTable="N" description="EFT release methods"/>
-    
+
     <CustomMethodType customMethodTypeId="FIN_AUTH" parentTypeId="" hasTable="N" description="FIN account authorize methods"/>
     <CustomMethodType customMethodTypeId="FIN_CAPTURE" parentTypeId="" hasTable="N" description="FIN account capture methods"/>
     <CustomMethodType customMethodTypeId="FIN_REFUND" parentTypeId="" hasTable="N" description="FIN account refund methods"/>
     <CustomMethodType customMethodTypeId="FIN_RELEASE" parentTypeId="" hasTable="N" description="FIN account release methods"/>
-    
+
     <CustomMethodType customMethodTypeId="GIFT_AUTH" parentTypeId="" hasTable="N" description="GIFT card authorize methods"/>
     <CustomMethodType customMethodTypeId="GIFT_CAPTURE" parentTypeId="" hasTable="N" description="GIFT card capture methods"/>
     <CustomMethodType customMethodTypeId="GIFT_REFUND" parentTypeId="" hasTable="N" description="GIFT card refund methods"/>
     <CustomMethodType customMethodTypeId="GIFT_RELEASE" parentTypeId="" hasTable="N" description="GIFT card release methods"/>
-    
+
     <CustomMethodType customMethodTypeId="PAYPAL_AUTH" parentTypeId="" hasTable="N" description="PayPal authorize methods"/>
     <CustomMethodType customMethodTypeId="PAYPAL_CAPTURE" parentTypeId="" hasTable="N" description="PayPal capture methods"/>
     <CustomMethodType customMethodTypeId="PAYPAL_REFUND" parentTypeId="" hasTable="N" description="PayPal refund methods"/>
@@ -758,9 +758,9 @@ under the License.
     <CustomMethod customMethodId="CC_AUTH_ALWAYSBADNUM" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always decline for bad card number"/>
     <CustomMethod customMethodId="CC_AUTH_ALWAYSFAIL" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always fail"/>
     <CustomMethod customMethodId="CC_AUTH_CAPTURE_ALWA" customMethodTypeId="CC_AUTH" customMethodName="alwaysApproveWithCaptureCCProcessor" description="CC Always authorize and capture"/>
-    <CustomMethod customMethodId="CC_AUTH_ORBITAL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuth" description="CC Orbital authorize"/>    
-    <CustomMethod customMethodId="CC_AUTH_CAPTR_ORBTL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuthCapture" description="CC Orbital authorize and capture"/>    
-    
+    <CustomMethod customMethodId="CC_AUTH_ORBITAL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuth" description="CC Orbital authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_CAPTR_ORBTL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuthCapture" description="CC Orbital authorize and capture"/>
+
     <CustomMethod customMethodId="CC_CAPTURE_TEST" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCapture" description="CC Test capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_REAUTH" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCaptureWithReAuth" description="CC Test reauth capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_ALWAYSDEC" customMethodTypeId="CC_CAPTURE" customMethodName="testCCProcessorCaptureAlwaysDecline" description="CC Always decline capture"/>
@@ -771,8 +771,8 @@ under the License.
     <CustomMethod customMethodId="CC_CAPTURE_PCCHARGE" customMethodTypeId="CC_CAPTURE" customMethodName="pcChargeCCCapture" description="CC PCCharge capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_RITA" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCapture" description="CC RiTA capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_RITA_REMO" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCaptureRemote" description="CC RiTA remote capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_ORBITAL" customMethodTypeId="CC_CAPTURE" customMethodName="orbitalCCCapture" description="CC Orbital capture"/>    
-    
+    <CustomMethod customMethodId="CC_CAPTURE_ORBITAL" customMethodTypeId="CC_CAPTURE" customMethodName="orbitalCCCapture" description="CC Orbital capture"/>
+
     <CustomMethod customMethodId="CC_REFUND_TEST" customMethodTypeId="CC_REFUND" customMethodName="testCCRefund" description="CC Test refund"/>
     <CustomMethod customMethodId="CC_REFUND_TEST_FAIL" customMethodTypeId="CC_REFUND" customMethodName="testCCRefundFailure" description="CC Test refund failure"/>
     <CustomMethod customMethodId="CC_REFUND_AIM" customMethodTypeId="CC_REFUND" customMethodName="aimCCRefund" description="CC Authorize dot net refund"/>
@@ -782,8 +782,8 @@ under the License.
     <CustomMethod customMethodId="CC_REFUND_PCCHARGE" customMethodTypeId="CC_REFUND" customMethodName="pcChargeCCRefund" description="CC PCCharge refund"/>
     <CustomMethod customMethodId="CC_REFUND_RITA" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefund" description="CC RiTA refund"/>
     <CustomMethod customMethodId="CC_REFUND_RITA_REMOT" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefundRemote" description="CC RiTA remote refund"/>
-    <CustomMethod customMethodId="CC_REFUND_ORBITAL" customMethodTypeId="CC_REFUND" customMethodName="orbitalCCRefund" description="CC Orbital refund"/>    
-    
+    <CustomMethod customMethodId="CC_REFUND_ORBITAL" customMethodTypeId="CC_REFUND" customMethodName="orbitalCCRefund" description="CC Orbital refund"/>
+
     <CustomMethod customMethodId="CC_RELEASE_TEST" customMethodTypeId="CC_RELEASE" customMethodName="testCCRelease" description="CC Test release"/>
     <CustomMethod customMethodId="CC_RELEASE_AIM" customMethodTypeId="CC_RELEASE" customMethodName="aimCCRelease" description="CC Authorize dot net release"/>
     <CustomMethod customMethodId="CC_RELEASE_CLEARCOMM" customMethodTypeId="CC_RELEASE" customMethodName="clearCommerceCCRelease" description="CC Clear Commerce release"/>
@@ -792,23 +792,23 @@ under the License.
     <CustomMethod customMethodId="CC_RELEASE_PCCHARGE" customMethodTypeId="CC_RELEASE" customMethodName="pcChargeCCRelease" description="CC PCCharge release"/>
     <CustomMethod customMethodId="CC_RELEASE_RITA" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCRelease" description="CC RiTA release"/>
     <CustomMethod customMethodId="CC_RELEASE_RITA_REMO" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCReleaseRemote" description="CC RiTA remote release"/>
-    <CustomMethod customMethodId="CC_RELEASE_ORBITAL" customMethodTypeId="CC_RELEASE" customMethodName="orbitalCCRelease" description="CC Orbital release"/>    
-    
+    <CustomMethod customMethodId="CC_RELEASE_ORBITAL" customMethodTypeId="CC_RELEASE" customMethodName="orbitalCCRelease" description="CC Orbital release"/>
+
     <CustomMethod customMethodId="CC_CREDIT_AIM" customMethodTypeId="CC_CREDIT" customMethodName="aimCCCredit" description="CC Authorize dot net credit"/>
     <CustomMethod customMethodId="CC_CREDIT_CLEARCOMME" customMethodTypeId="CC_CREDIT" customMethodName="clearCommerceCCCredit" description="CC Clear Commerce credit"/>
     <CustomMethod customMethodId="CC_CREDIT_CYBERSOURC" customMethodTypeId="CC_CREDIT" customMethodName="cyberSourceCCCredit" description="CC CyberSource credit"/>
     <CustomMethod customMethodId="CC_CREDIT_RITA" customMethodTypeId="CC_CREDIT" customMethodName="ritaCCCreditRefund" description="CC RiTA credit"/>
-    
+
     <CustomMethod customMethodId="EFT_AUTH_TEST" customMethodTypeId="EFT_AUTH" customMethodName="testEFTProcessor" description="EFT test authorize"/>
     <CustomMethod customMethodId="EFT_AUTH_ALWAYSAPPRO" customMethodTypeId="EFT_AUTH" customMethodName="alwaysApproveEFTProcessor" description="EFT always authorize"/>
     <CustomMethod customMethodId="EFT_AUTH_ALWAYSDECLI" customMethodTypeId="EFT_AUTH" customMethodName="alwaysDeclineEFTProcessor" description="EFT always decline"/>
     <CustomMethod customMethodId="EFT_RELEASE_TEST" customMethodTypeId="EFT_RELEASE" customMethodName="testEFTRelease" description="EFT test release"/>
-    
+
     <CustomMethod customMethodId="FIN_AUTH_OFBIZ" customMethodTypeId="FIN_AUTH" customMethodName="ofbFaAuthorize" description="FIN account authorize"/>
     <CustomMethod customMethodId="FIN_CAPTURE_OFBIZ" customMethodTypeId="FIN_CAPTURE" customMethodName="ofbFaCapture" description="FIN account capture"/>
     <CustomMethod customMethodId="FIN_REFUND_OFBIZ" customMethodTypeId="FIN_REFUND" customMethodName="ofbFaRefund" description="FIN account refund"/>
     <CustomMethod customMethodId="FIN_RELEASE_OFBIZ" customMethodTypeId="FIN_RELEASE" customMethodName="ofbFaRelease" description="FIN account release"/>
-    
+
     <CustomMethod customMethodId="GIFT_AUTH_OFBIZ" customMethodTypeId="GIFT_AUTH" customMethodName="ofbGcAuthorize" description="GIFT card authorize"/>
     <CustomMethod customMethodId="GIFT_AUTH_ALWAYSAPPR" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysApproveGCProcessor" description="GIFT card always authorize"/>
     <CustomMethod customMethodId="GIFT_AUTH_ALWAYSDECL" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysDeclineGCProcessor" description="GIFT card always decline"/>
@@ -819,7 +819,7 @@ under the License.
     <CustomMethod customMethodId="GIFT_RELEASE_OFBIZ" customMethodTypeId="GIFT_RELEASE" customMethodName="ofbGcRelease" description="GIFT card release"/>
     <CustomMethod customMethodId="GIFT_RELEASE_TEST" customMethodTypeId="GIFT_RELEASE" customMethodName="testGCRelease" description="GIFT card test release"/>
     <CustomMethod customMethodId="GIFT_RELEASE_VALUEL" customMethodTypeId="GIFT_RELEASE" customMethodName="valueLinkRelease" description="GIFT card ValueLink release"/>
-    
+
     <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>
     <CustomMethod customMethodId="PAYPAL_AUTH" customMethodTypeId="PAYPAL_AUTH" customMethodName="payPalProcessor" description="PayPal payment authorize"/>
 
@@ -1046,7 +1046,7 @@ under the License.
         DDQ (Delivered Duty Unpaid)
         This arrangement is basically the same as with DDP, except for the fact that the buyer is responsible for the duty, fees and taxes.
     -->
-    
+
     <!-- Store Credit Account Type Data, to be set in Product Store -->
     <EnumerationType description="Store Credit Account" enumTypeId="STR_CRDT_ACT" hasTable="N" parentTypeId=""/>
     <Enumeration description="Financial Account" enumCode="FINACCOUNT" enumId="FIN_ACCOUNT" sequenceId="01" enumTypeId="STR_CRDT_ACT"/>

@@ -21,6 +21,6 @@
 <!-- This is a recurring job with will check for communication events which need to be send as emails. -->
 <entity-engine-xml>
     <!-- create recurring job to check email communication events with the status COM_IN_PROGRESS to send these emails.. -->
-    <TemporalExpression tempExprId="SENDEMAIL" tempExprTypeId="FREQUENCY" integer1="12" integer2="5"/>
+    <TemporalExpression tempExprId="SENDEMAIL" tempExprTypeId="FREQUENCY" integer1="12" integer2="15"/>
     <JobSandbox jobId="SENDEMAIL" jobName="Send Email" runTime="2000-01-01 00:00:00.000" serviceName="sendEmailDated" poolId="pool" runAsUser="system" tempExprId="SENDEMAIL" maxRecurrenceCount="-1"/>
 </entity-engine-xml>
