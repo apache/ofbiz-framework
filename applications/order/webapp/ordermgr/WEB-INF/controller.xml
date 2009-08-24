@@ -1594,6 +1594,11 @@ under the License.
        <response name="error" type="view" value="orderview"/>
     </request-map>
 
+    <request-map uri="crosssell">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="product"/>
+    </request-map>
+
     <!-- Lookup request mappings -->
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
