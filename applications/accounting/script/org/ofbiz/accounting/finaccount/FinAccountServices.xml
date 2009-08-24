@@ -1002,4 +1002,17 @@ under the License.
         </if-not-empty>
         <field-to-result field="isReconciled"/>
     </simple-method>
+
+    <simple-method method-name="cancelBankReconciliation" short-description="Cancel bank reconciliation.">
+        <entity-and entity-name="FinAccountTrans" list="finAccountTransList">
+            <field-map field-name="glReconciliationId" from-field="parameters.glReconciliationId"/>
+            <field-map field-name="statusId" value="FINACT_TRNS_CREATED"/>
+        </entity-and>
+        <if-not-empty field="finAccountTransList">
+            <iterate list="finAccountTransList" entry="finAccountTrans">
+                <set field="removeFinAccountTransFromReconciliationMap.finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+                <call-service service-name="removeFinAccountTransFromReconciliation" in-map-name="removeFinAccountTransFromReconciliationMap"/>
+            </iterate>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

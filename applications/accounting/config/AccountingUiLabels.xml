@@ -1665,6 +1665,10 @@
         <value xml:lang="th">โดยวันที่</value>
         <value xml:lang="zh">按日期</value>
     </property>
+    <property key="AccountingCancelBankReconciliation">
+        <value xml:lang="en">Cancel Bank Reconciliation</value>
+        <value xml:lang="hi_IN">बैन्क पुनर्मिलान रद्द करें</value>
+    </property>
     <property key="AccountingCancelBatchPayments">
         <value xml:lang="en">Cancel Batch Payments</value>
         <value xml:lang="hi_IN">भुगतान का  बैच रद्द करे</value>

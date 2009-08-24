@@ -1993,6 +1993,12 @@ under the License.
         <response name="success" type="view" value="ViewGlReconciliationWithTransaction"/>
         <response name="error" type="view" value="ViewGlReconciliationWithTransaction"/>
     </request-map>
+    <request-map uri="cancelBankReconciliation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelBankReconciliation"/>
+        <response name="success" type="view" value="ViewGlReconciliationWithTransaction"/>
+        <response name="error" type="view" value="ViewGlReconciliationWithTransaction"/>
+    </request-map>
     <!-- Fin Account Authority-->
     <request-map uri="EditFinAccountAuths">
         <security https="true" auth="true"/>
