@@ -510,4 +510,10 @@ under the License.
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
         <attribute name="isReconciled" type="Boolean" mode="OUT" optional="false"/>
     </service>
+
+    <service name="cancelBankReconciliation" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="cancelBankReconciliation">
+        <description>Cancel bank reconciliation.</description>
+        <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
