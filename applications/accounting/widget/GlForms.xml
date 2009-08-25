@@ -755,14 +755,14 @@ under the License.
         </actions>
 
         <field name="acctgTransId">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+            <hyperlink description="${acctgTransId}" target="EditAcctgTrans">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="glAccountId">
-            <hyperlink target="GlAccountNavigate" description="${glAccountId}" also-hidden="false">
+            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
                 <parameter param-name="glAccountId"/>
             </hyperlink>
         </field>
