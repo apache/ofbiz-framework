@@ -24,4 +24,15 @@
     <test-case case-name="auto-tests-CommissionRun">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoInvoiceTests.xml" name="testCommissionRun"/>
     </test-case>
+
+    <!--Test case to verify GL postings for Cancel Invoice process-->
+    <test-case case-name="auto-tests-glPostingOnCancelInvoice">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoInvoiceTests.xml" name="testGlPostingOnCancelInvoice"/>
+    </test-case>
+
+    <!--Test case to verify GL postings for Cancel Check Run process-->
+    <test-case case-name="auto-tests-glPostingOnCancelCheckRun">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoInvoiceTests.xml" name="testGlPostingOnCancelCheckRun"/>
+    </test-case>
+
 </test-suite>
