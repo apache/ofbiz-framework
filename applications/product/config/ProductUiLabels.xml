@@ -9673,7 +9673,7 @@
         <value xml:lang="th">ลบคีย์เวิร์ดทั้งหมด</value>
         <value xml:lang="zh">删除全部关键字</value>
     </property>
-    <property key="ProductDept">
+    <property key="ProductDepth">
         <value xml:lang="de">Tiefe</value>
         <value xml:lang="en">Depth</value>
         <value xml:lang="es">Profundidad</value>
