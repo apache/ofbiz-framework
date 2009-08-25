@@ -71,4 +71,143 @@ under the License.
         </iterate>
         <log level="info" message="Commission Invoice ${invoicesCreated} is created successfully for ${partyIds}"/>
     </simple-method>
+
+    <simple-method method-name="testGlPostingOnCancelInvoice" short-description="Test case to verify GL postings for Cancel Invoice functionality" login-required="false">
+        <!-- Precondition :
+            * Invoice is in ready status so accounting transaction is already posted to the GL
+            * GL Accounts associated with Invoice :8008 are ACCOUNTS PAYABLE and UNINVOICED ITEM RECEIPTS
+            * Credit in account 210000 - ACCOUNTS PAYABLE ;debitTotal $303.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1348.42
+            * Debit in account 214000 - UNINVOICED ITEM RECEIPTS;debitTotal :$408 ; creditTotal:$48 ; debitCreditDifference : $360
+        -->
+
+        <!-- Post condition : After Cancel Invoice process reverse accounting transactions are automatically posted to the GL.
+            * ACCOUNTS PAYABLE 210000  - debitTotal $351.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1300
+            * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$96 ; debitCreditDifference : $312
+        -->
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="getAcctgTransEntriesAndTransTotalMap.userLogin" from-field="userLogin"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.organizationPartyId" value="Company"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2009-01-01 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2009-12-31 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
+        </call-service>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="214000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="uninvoicedDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="uninvoicedCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="uninvoicedDebitCreditDifference"/>
+        </call-service>
+        <log level="info" message="BEFORE RUNNING CANCEL INVOICE : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
+        <log level="info" message="BEFORE RUNNING CANCEL INVOICE :UNINVOICED RECEIPTS;debitTotal :${uninvoicedDebitTotal} ; creditTotal:${uninvoicedCreditTotal} ; debitCreditDifference : ${uninvoicedDebitCreditDifference}"/>
+        <set field="invoiceId" value="8008"/>
+        <set field="cancelInvoiceMap.userLogin" from-field="userLogin"/>
+        <set field="cancelInvoiceMap.invoiceId" from-field="invoiceId"/>
+        <call-service service-name="cancelInvoice" in-map-name="cancelInvoiceMap"/>
+
+        <set field="totalPayableDebitAmount" value="${payableDebitTotal + 48}" type="BigDecimal"/>
+        <set field="totalPayableDebitCreditDifference" value="${payableDebitCreditDifference + 48}" type="BigDecimal"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
+        </call-service>
+        <assert>
+            <if-compare-field field="totalPayableDebitAmount" operator="equals" to-field="payableDebitTotal" type="BigDecimal"/>
+            <if-compare-field field="totalPayableDebitCreditDifference" operator="equals" to-field="payableDebitCreditDifference" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+        <set field="totalUnInvoicedCreditAmount" value="${uninvoicedCreditTotal + 48}" type="BigDecimal"/>
+        <set field="totalUnInvoicedDebitCreditDifference" value="${uninvoicedDebitCreditDifference - 48}" type="BigDecimal"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="214000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="uninvoicedDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="uninvoicedCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="uninvoicedDebitCreditDifference"/>
+        </call-service>
+        <assert>
+            <if-compare-field field="totalUnInvoicedCreditAmount" operator="equals" to-field="uninvoicedCreditTotal" type="BigDecimal"/>
+            <if-compare-field field="totalUnInvoicedDebitCreditDifference" operator="equals" to-field="uninvoicedDebitCreditDifference" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+        <log level="info" message="AFTER RUNNING CANCEL INVOICE : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
+        <log level="info" message="AFTER RUNNING CANCEL INVOICE : UNINVOICED RECEIPTS ;debitTotal :${uninvoicedDebitTotal} ; creditTotal:${uninvoicedCreditTotal} ; debitCreditDifference : ${uninvoicedDebitCreditDifference}"/>
+    </simple-method>
+
+    <simple-method method-name="testGlPostingOnCancelCheckRun" short-description="Test case to verify GL postings for Cancel Check Run functionality" login-required="false">
+        <!-- Precondition :
+            * Two invoices are associated with PaymentGroupId 9000 which are 8001 and 8002
+            * Invoices are in ready status so accounting transactions are already posted to the GL
+            * GL Accounts associated with Invoices are ACCOUNTS PAYABLE and UNDEPOSITED RECEIPTS
+            * ACCOUNTS PAYABLE 210000 - debitTotal $351.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1300
+            * UNDEPOSITED RECEIPTS 112000 - debitTotal :$40 ; creditTotal:$116.85 ; debitCreditDifference : $ -76.85
+        -->
+
+        <!-- Post condition : After Cancel Check Run process accounting transactions are automatically posted to the GL.
+            * ACCOUNTS PAYABLE 210000  - debitTotal $468.55 ; creditTotal:$1885.4 ; debitCreditDifference : $ -1416.5
+            * UNDEPOSITED RECEIPTS 112000 - debitTotal :$156.85 ; creditTotal:$116.85 ; debitCreditDifference : $40
+        -->
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="getAcctgTransEntriesAndTransTotalMap.userLogin" from-field="userLogin"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.organizationPartyId" value="Company"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2009-01-01 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2009-12-31 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
+        </call-service>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="112000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="undepositedDebitCreditDifference"/>
+        </call-service>
+        <log level="info" message="BEFORE  RUNNING CANCEL CHECK RUN  : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
+        <log level="info" message="BEFORE  RUNNING CANCEL CHECK RUN : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
+        <set field="paymentGroupId" value="9000"/>
+        <set field="cancelCheckRunPaymentsMap.userLogin" from-field="userLogin"/>
+        <set field="cancelCheckRunPaymentsMap.paymentGroupId" from-field="paymentGroupId"/>
+        <call-service service-name="cancelCheckRunPayments" in-map-name="cancelCheckRunPaymentsMap"/>
+        <set field="totalPayableDebitAmount" value="${payableDebitTotal + 116.85}" type="BigDecimal"/>
+        <set field="totalPayableCreditAmount" value="${payableCreditTotal + 233.7}" type="BigDecimal"/>
+        <set field="totalPayableDebitCreditDifference" value="${payableDebitCreditDifference -116.85}" type="BigDecimal"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
+        </call-service>
+        <assert>
+            <if-compare-field field="totalPayableDebitAmount" operator="equals" to-field="payableDebitTotal" type="BigDecimal"/>
+            <if-compare-field field="totalPayableCreditAmount" operator="equals" to-field="payableCreditTotal" type="BigDecimal"/>
+            <if-compare-field field="totalPayableDebitCreditDifference" operator="equals" to-field="payableDebitCreditDifference" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+        <set field="totalUndepositedDebitAmount" value="${undepositedDebitTotal + 116.85}" type="BigDecimal"/>
+        <set field="totalUndepositedDebitCreditDifference" value="${undepositedDebitCreditDifference + 116.85}" type="BigDecimal"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="112000"/>
+        <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
+            <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
+            <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
+            <result-to-field result-name="debitCreditDifference" field="undepositedDebitCreditDifference"/>
+        </call-service>
+        <assert>
+            <if-compare-field field="totalUndepositedDebitAmount" operator="equals" to-field="undepositedDebitTotal" type="BigDecimal"/>
+            <if-compare-field field="totalUndepositedDebitCreditDifference" operator="equals" to-field="undepositedDebitCreditDifference" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+        <log level="info" message="AFTER  RUNNING CANCEL CHECK RUN: ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
+        <log level="info" message="AFTER  RUNNING CANCEL CHECK RUN  : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
+    </simple-method>
+
 </simple-methods>
