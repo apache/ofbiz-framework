@@ -71,6 +71,7 @@ under the License.
     <screen name="CustSettings">
         <section>
             <actions>
+                <set field="stepLabelId" value="PartyParties"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShipSettings.groovy"/>
             </actions>
             <widgets>
