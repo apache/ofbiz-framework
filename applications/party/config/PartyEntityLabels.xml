@@ -24,6 +24,7 @@
         <value xml:lang="en">Commission rate</value>
         <value xml:lang="es">Tasa de comisión</value>
         <value xml:lang="fr">Taux de commission</value>
+        <value xml:lang="hi_IN">दलाली दर</value>
         <value xml:lang="it">Provvigione</value>
         <value xml:lang="ro">Provizion</value>
         <value xml:lang="ru">Секция</value>
@@ -35,6 +36,7 @@
         <value xml:lang="en">Exhibit</value>
         <value xml:lang="es">Despliegue</value>
         <value xml:lang="fr">Exposition</value>
+        <value xml:lang="hi_IN">प्रदर्शन करे</value>
         <value xml:lang="it">Esposizione</value>
         <value xml:lang="ro">Expozitie</value>
         <value xml:lang="ru">Образец</value>
@@ -46,6 +48,7 @@
         <value xml:lang="en">Pricing</value>
         <value xml:lang="es">Precio</value>
         <value xml:lang="fr">Prix</value>
+        <value xml:lang="hi_IN">मूल्य निर्धारण करे</value>
         <value xml:lang="it">Quotazione</value>
         <value xml:lang="ro">Cotare</value>
         <value xml:lang="ru">Ценообразование</value>
@@ -57,6 +60,7 @@
         <value xml:lang="en">Section</value>
         <value xml:lang="es">Sección</value>
         <value xml:lang="fr">Section</value>
+        <value xml:lang="hi_IN">अनुभाग</value>
         <value xml:lang="it">Sezione</value>
         <value xml:lang="ro">Sectie</value>
         <value xml:lang="ru">Секция</value>
@@ -68,6 +72,7 @@
         <value xml:lang="en">Sub-Agreement</value>
         <value xml:lang="es">Subacuerdo</value>
         <value xml:lang="fr">Sous-ensemble</value>
+        <value xml:lang="hi_IN">उप-करार</value>
         <value xml:lang="it">Sotto-Contratto</value>
         <value xml:lang="ro">Sub-Contract</value>
         <value xml:lang="ru">Подчиненный договор</value>
@@ -79,6 +84,7 @@
         <value xml:lang="en">Commission</value>
         <value xml:lang="es">Comisión</value>
         <value xml:lang="fr">Commission</value>
+        <value xml:lang="hi_IN">दलाली</value>
         <value xml:lang="it">Provvigione</value>
         <value xml:lang="ru">Комиссии</value>
         <value xml:lang="th">งานที่รับผิดชอบ</value>
@@ -89,6 +95,7 @@
         <value xml:lang="en">Employment</value>
         <value xml:lang="es">Empleo</value>
         <value xml:lang="fr">Usage</value>
+        <value xml:lang="hi_IN">रोजगार</value>
         <value xml:lang="it">Impiego</value>
         <value xml:lang="ro">Sarcina</value>
         <value xml:lang="ru">Трудовой</value>
@@ -97,6 +104,7 @@
     </property>
     <property key="AgreementType.description.EULA">
         <value xml:lang="en">End User License Agreement</value>
+        <value xml:lang="hi_IN">उपयोगकर्ता लाइसेंस अनुबंध</value>
         <value xml:lang="it">Contratto licenza utente finale</value>
         <value xml:lang="zh">最终用户版权协议</value>
     </property>
@@ -105,6 +113,7 @@
         <value xml:lang="en">Other</value>
         <value xml:lang="es">Otro</value>
         <value xml:lang="fr">Autre</value>
+        <value xml:lang="hi_IN">अन्य</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Другой</value>
@@ -116,6 +125,7 @@
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Produit(Achat-Vente)</value>
+        <value xml:lang="hi_IN">उत्पाद</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
@@ -127,6 +137,7 @@
         <value xml:lang="en">Purchase</value>
         <value xml:lang="es">Compra</value>
         <value xml:lang="fr">Achat</value>
+        <value xml:lang="hi_IN">क्रय</value>
         <value xml:lang="it">Acquisti</value>
         <value xml:lang="ro">Cumparari-achizitii</value>
         <value xml:lang="ru">Закупки</value>
@@ -138,6 +149,7 @@
         <value xml:lang="en">Sales</value>
         <value xml:lang="es">Venta</value>
         <value xml:lang="fr">Vente</value>
+        <value xml:lang="hi_IN">विक्रय</value>
         <value xml:lang="it">Vendite</value>
         <value xml:lang="ro">Vanzari</value>
         <value xml:lang="ru">Продажи</value>
@@ -149,6 +161,7 @@
         <value xml:lang="en">Activity Request</value>
         <value xml:lang="es">Petición de actuación</value>
         <value xml:lang="fr">Demande d'Activité</value>
+        <value xml:lang="hi_IN">गतिविधि का अनुरोध</value>
         <value xml:lang="it">Richiesta Attività</value>
         <value xml:lang="ro">Cerere Activitate</value>
         <value xml:lang="ru">Запрос действия</value>
@@ -160,6 +173,7 @@
         <value xml:lang="en">Conference</value>
         <value xml:lang="es">Conferencia</value>
         <value xml:lang="fr">Conférence</value>
+        <value xml:lang="hi_IN">सम्मेलन</value>
         <value xml:lang="it">Conferenza</value>
         <value xml:lang="ro">Conferinta</value>
         <value xml:lang="ru">Конференция</value>
@@ -171,6 +185,7 @@
         <value xml:lang="en">Customer Service Call</value>
         <value xml:lang="es">Llamada de servicio al cliente</value>
         <value xml:lang="fr">Appel au service client</value>
+        <value xml:lang="hi_IN">ग्राहक सेवा फोन</value>
         <value xml:lang="it">Chiamata Servizio Clienti</value>
         <value xml:lang="ro">Chemare Serviciu Clienti</value>
         <value xml:lang="ru">Сервисный звонок заказчика</value>
@@ -182,6 +197,7 @@
         <value xml:lang="en">Inquiry</value>
         <value xml:lang="es">Demanda</value>
         <value xml:lang="fr">Enquête</value>
+        <value xml:lang="hi_IN">पूछ-ताछ</value>
         <value xml:lang="it">Interrogazione</value>
         <value xml:lang="ro">Interogatie</value>
         <value xml:lang="ru">Запрос</value>
@@ -193,6 +209,7 @@
         <value xml:lang="en">Meeting</value>
         <value xml:lang="es">Reunión</value>
         <value xml:lang="fr">Réunion</value>
+        <value xml:lang="hi_IN">बैठक</value>
         <value xml:lang="it">Incontro</value>
         <value xml:lang="ro">Intalnire</value>
         <value xml:lang="ru">Собрание</value>
@@ -204,6 +221,7 @@
         <value xml:lang="en">Sales Follow Up</value>
         <value xml:lang="es">Seguimiento post-venta</value>
         <value xml:lang="fr">Suivi des Ventes</value>
+        <value xml:lang="hi_IN">बिक्री का पालन करें</value>
         <value xml:lang="it">Sollecito Vendita</value>
         <value xml:lang="ro">Solicita Vanzare</value>
         <value xml:lang="ru">Завершение продажи</value>
@@ -215,6 +233,7 @@
         <value xml:lang="en">Seminar</value>
         <value xml:lang="es">Seminario</value>
         <value xml:lang="fr">Séminaire</value>
+        <value xml:lang="hi_IN">संगोष्ठी</value>
         <value xml:lang="it">Seminario</value>
         <value xml:lang="ro">Seminar</value>
         <value xml:lang="ru">Семинар</value>
@@ -226,6 +245,7 @@
         <value xml:lang="en">Support Call</value>
         <value xml:lang="es">Llamada de soporte</value>
         <value xml:lang="fr">Appel du support</value>
+        <value xml:lang="hi_IN">समर्थन फोन</value>
         <value xml:lang="it">Chiamata Supporto</value>
         <value xml:lang="ro">Chemare Suport</value>
         <value xml:lang="ru">Звонок техподдержки</value>
@@ -237,6 +257,7 @@
         <value xml:lang="en">Auto Email</value>
         <value xml:lang="es">Coreo electrónico automático</value>
         <value xml:lang="fr">Courriel automatique</value>
+        <value xml:lang="hi_IN">ऑटो ईमेल</value>
         <value xml:lang="it">Email Automatica</value>
         <value xml:lang="ro">Email Automatic</value>
         <value xml:lang="ru">Автоматическая эл. почта</value>
@@ -248,6 +269,7 @@
         <value xml:lang="en">Comment/Note</value>
         <value xml:lang="es">Comentario</value>
         <value xml:lang="fr">Commentaire/Note</value>
+        <value xml:lang="hi_IN">टिप्पणी/नोट</value>
         <value xml:lang="it">Commento/Nota</value>
         <value xml:lang="ro">Comentariu/Nota</value>
         <value xml:lang="ru">Комментарий/Заметка</value>
@@ -259,6 +281,7 @@
         <value xml:lang="en">Email</value>
         <value xml:lang="es">Correo electrónico</value>
         <value xml:lang="fr">Courriel</value>
+        <value xml:lang="hi_IN">ईमेल</value>
         <value xml:lang="it">Email</value>
         <value xml:lang="ro">Email</value>
         <value xml:lang="ru">Эл. почта</value>
@@ -270,6 +293,7 @@
         <value xml:lang="en">Face-To-Face</value>
         <value xml:lang="es">Cara a cara</value>
         <value xml:lang="fr">Face à  face</value>
+        <value xml:lang="hi_IN">आमने सामने</value>
         <value xml:lang="it">Faccia a Faccia</value>
         <value xml:lang="ro">Fata in Fata</value>
         <value xml:lang="ru">Личная встреча</value>
@@ -281,6 +305,7 @@
         <value xml:lang="en">Fax</value>
         <value xml:lang="es">Fax</value>
         <value xml:lang="fr">Télécopie</value>
+        <value xml:lang="hi_IN">फैक्स</value>
         <value xml:lang="it">Fax</value>
         <value xml:lang="ro">Fax</value>
         <value xml:lang="ru">Факс</value>
@@ -292,6 +317,7 @@
         <value xml:lang="en">Letter</value>
         <value xml:lang="es">Carta</value>
         <value xml:lang="fr">Lettre</value>
+        <value xml:lang="hi_IN">पत्र</value>
         <value xml:lang="it">Lettera</value>
         <value xml:lang="ro">Scrisoare</value>
         <value xml:lang="ru">Письмо</value>
@@ -303,6 +329,7 @@
         <value xml:lang="en">Phone</value>
         <value xml:lang="es">Teléfono</value>
         <value xml:lang="fr">Téléphone</value>
+        <value xml:lang="hi_IN">फोन</value>
         <value xml:lang="it">Telefono</value>
         <value xml:lang="ro">Telefon</value>
         <value xml:lang="ru">Телефон</value>
@@ -314,6 +341,7 @@
         <value xml:lang="en">Web Site</value>
         <value xml:lang="es">Sitio web</value>
         <value xml:lang="fr">Site Web</value>
+        <value xml:lang="hi_IN">वेब साइट</value>
         <value xml:lang="it">Sito Web</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="ru">Web сайт</value>
@@ -325,6 +353,7 @@
         <value xml:lang="en">Billing (AP) Email</value>
         <value xml:lang="es">Correo electrónico de facturación</value>
         <value xml:lang="fr">Courriel de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) ईमेल</value>
         <value xml:lang="it">Email Fatturazione (AP)</value>
         <value xml:lang="ru">Эл. почта по вопросам оплаты (AP)</value>
         <value xml:lang="th">อีเมล์ใบเสร็จ (AP)</value>
@@ -335,6 +364,7 @@
         <value xml:lang="en">Billing (AP) Address</value>
         <value xml:lang="es">Dirección de facturación</value>
         <value xml:lang="fr">Adresse de facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) पता</value>
         <value xml:lang="it">Indirizzo Fatturazione (AP)</value>
         <value xml:lang="ro">Adresa Facturare (AP)</value>
         <value xml:lang="ru">Адрес для совершения оплаты (AP)</value>
@@ -346,6 +376,7 @@
         <value xml:lang="en">Main Fax Number</value>
         <value xml:lang="es">Número de fax principal</value>
         <value xml:lang="fr">Numéro de télécopie principal</value>
+        <value xml:lang="hi_IN">मुख्य फैक्स नंबर</value>
         <value xml:lang="it">Numero Fax Principale</value>
         <value xml:lang="ro">Numar Fax Principal</value>
         <value xml:lang="ru">Основной номер факса</value>
@@ -357,6 +388,7 @@
         <value xml:lang="en">Secondary Fax Number</value>
         <value xml:lang="es">Número de fax secundario</value>
         <value xml:lang="fr">Numéro de télécopie secondaire</value>
+        <value xml:lang="hi_IN">दूसरा फैक्स नंबर</value>
         <value xml:lang="it">Numero Fax Secondario</value>
         <value xml:lang="ro">Numar Fax Secundar</value>
         <value xml:lang="ru">Вспомогательный номер факса</value>
@@ -368,6 +400,7 @@
         <value xml:lang="en">General Correspondence Address</value>
         <value xml:lang="es">Dirección general</value>
         <value xml:lang="fr">Adresse principale</value>
+        <value xml:lang="hi_IN">सामान्य पत्राचार का पता</value>
         <value xml:lang="it">Indirizzo Generale Corrispondenza</value>
         <value xml:lang="ro">Adresa Generala Corespondenta</value>
         <value xml:lang="ru">Адрес для корреспонденции</value>
@@ -379,6 +412,7 @@
         <value xml:lang="en">Order Notification Email Address</value>
         <value xml:lang="es">Correo electrónico de notificación de pedidos</value>
         <value xml:lang="fr">Adresse courriel pour les commandes</value>
+        <value xml:lang="hi_IN">आदेश अधिसूचना ईमेल का पता</value>
         <value xml:lang="it">Indirizzo Email Notifica Ordine</value>
         <value xml:lang="ro">Adresa Email Notificare Comenzi</value>
         <value xml:lang="ru">Адрес эл.почты для уведомлений по заказам</value>
@@ -390,6 +424,7 @@
         <value xml:lang="en">Other Email Address</value>
         <value xml:lang="es">Otro correo electrónico</value>
         <value xml:lang="fr">Adresse courriel autre</value>
+        <value xml:lang="hi_IN">अन्य ईमेल पता</value>
         <value xml:lang="it">Altro Indirizzo Email</value>
         <value xml:lang="ro">Alta Adresa Email</value>
         <value xml:lang="ru">Другой адрес эл.почты</value>
@@ -401,6 +436,7 @@
         <value xml:lang="en">Payment (AR) Email</value>
         <value xml:lang="es">Correo electrónico de pago</value>
         <value xml:lang="fr">Courriel de paiement</value>
+        <value xml:lang="hi_IN">भुगतान (एआर) ईमेल</value>
         <value xml:lang="it">Email Pagamento (AR) </value>
         <value xml:lang="ru">Эл. почта по вопросам получения оплаты (AR)</value>
         <value xml:lang="th">การชำระเงินทางอีเมล์ (AR) </value>
@@ -411,6 +447,7 @@
         <value xml:lang="en">Payment (AR) Address</value>
         <value xml:lang="es">Dirección de pago</value>
         <value xml:lang="fr">Adresse du service comptabilité (paiments)</value>
+        <value xml:lang="hi_IN">भुगतान (एआर) का पता</value>
         <value xml:lang="it">Indirizzo Pagamento (AR)</value>
         <value xml:lang="ro">Adresa Plata (AR)</value>
         <value xml:lang="ru">Адрес получения оплаты (AR)</value>
@@ -422,6 +459,7 @@
         <value xml:lang="en">Assistant's Phone Number</value>
         <value xml:lang="es">Número de teléfono de asistente</value>
         <value xml:lang="fr">Numéro de téléphone de l'assistance</value>
+        <value xml:lang="hi_IN">सहायक का फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Assistente</value>
         <value xml:lang="ro">Numar Telefon Asistent</value>
         <value xml:lang="ru">Телефонный номер помощника</value>
@@ -433,6 +471,7 @@
         <value xml:lang="en">Billing (AP) Phone Number</value>
         <value xml:lang="es">Teléfono de facturación</value>
         <value xml:lang="fr">Numéro de téléphone du service facturation</value>
+        <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Fatturazione (AP)</value>
         <value xml:lang="ro">Numar Telefon Facturare (AP)</value>
         <value xml:lang="ru">Телефонный номер по вопросам оплаты (AP)</value>
@@ -441,6 +480,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_DID">
         <value xml:lang="en">Direct Inward Dialing Phone Number</value>
+        <value xml:lang="hi_IN">डायरेक्ट आवक डायलन फोन नंबर</value>
         <value xml:lang="it">Numero telefono interno diretto per connettersi</value>
         <value xml:lang="zh">直拨电话号码</value>
     </property>
@@ -449,6 +489,7 @@
         <value xml:lang="en">Main Home Phone Number</value>
         <value xml:lang="es">Teléfono principal privado</value>
         <value xml:lang="fr">Numéro de téléphone du domicile</value>
+        <value xml:lang="hi_IN">मुख्य घर का फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Casa Principale</value>
         <value xml:lang="ro">Numar Telefon Casa Principala</value>
         <value xml:lang="ru">Основной домашний телефонный номер</value>
@@ -460,6 +501,7 @@
         <value xml:lang="en">Main Mobile Phone Number</value>
         <value xml:lang="es">Teléfono móvil principal privado</value>
         <value xml:lang="fr">Numéro de téléphone portable</value>
+        <value xml:lang="hi_IN">मुख्य मोबाइल फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Mobile Principale</value>
         <value xml:lang="ro">Numar Telefon Mobil Principal</value>
         <value xml:lang="ru">Основной мобильный телефонный номер</value>
@@ -471,6 +513,7 @@
         <value xml:lang="en">Payment (AR) Phone Number</value>
         <value xml:lang="es">Teléfono Pagos</value>
         <value xml:lang="fr">Numéro de téléphone du service comptabilité</value>
+        <value xml:lang="hi_IN">भुगतान (एआर) का फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Pagamento (AR)</value>
         <value xml:lang="ro">Numar Telefon Plata (AR)</value>
         <value xml:lang="ru">Телефонный номер по вопросам получения оплаты (AR)</value>
@@ -479,6 +522,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_QUICK">
         <value xml:lang="en">Quick Calls Phone Number</value>
+        <value xml:lang="hi_IN">त्वरित कॉल फ़ोन नंबर</value>
         <value xml:lang="it">Numero di telefono per chiamate veloci</value>
         <value xml:lang="zh">快速呼叫电话号码</value>
     </property>
@@ -487,6 +531,7 @@
         <value xml:lang="en">Shipping Destination Phone Number</value>
         <value xml:lang="es">Teléfono dirección de envío</value>
         <value xml:lang="fr">Numéro de téléphone du lieu de livraison</value>
+        <value xml:lang="hi_IN">शिपिंग का गंतव्य फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Destinazione Spedizione</value>
         <value xml:lang="ro">Numar Telefon Destinatie Expediere</value>
         <value xml:lang="ru">Телефон в пункте доставки</value>
@@ -498,6 +543,7 @@
         <value xml:lang="en">Shipping Origin Phone Number</value>
         <value xml:lang="es">Teléfono origen de envíos</value>
         <value xml:lang="fr">Numéro de téléphone du lieu d'expédition</value>
+        <value xml:lang="hi_IN">शिपिंग का मूल फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Origine Spedizione</value>
         <value xml:lang="ro">Numar Telefon Origine Expediere</value>
         <value xml:lang="ru">Телефон в пункте отгрузки</value>
@@ -509,6 +555,7 @@
         <value xml:lang="en">Main Work Phone Number</value>
         <value xml:lang="es">Teléfono principal trabajo</value>
         <value xml:lang="fr">Numéro de téléphone au bureau</value>
+        <value xml:lang="hi_IN">मुख्य कार्य फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Lavoro Principale</value>
         <value xml:lang="ro">Numar Telefon Serviciu Principal</value>
         <value xml:lang="ru">Основной рабочий телефонный номер</value>
@@ -520,6 +567,7 @@
         <value xml:lang="en">Secondary Work Phone Number</value>
         <value xml:lang="es">Teléfono secundario trabajo</value>
         <value xml:lang="fr">Numéro de téléphone secondaire au bureau</value>
+        <value xml:lang="hi_IN">दूसरा कार्य फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Lavoro Secondario</value>
         <value xml:lang="ro">Numar Telefon Serviciu Secundar</value>
         <value xml:lang="ru">Вспомогательный рабочий телефонный номер</value>
@@ -531,6 +579,7 @@
         <value xml:lang="en">Previous Address</value>
         <value xml:lang="es">Dirección anterior</value>
         <value xml:lang="fr">Adresse précédente</value>
+        <value xml:lang="hi_IN">पिछला पता</value>
         <value xml:lang="it">Indirizzo Precedente</value>
         <value xml:lang="ru">Предыдущий адрес</value>
         <value xml:lang="th">ที่อยู่ก่อนหน้า</value>
@@ -541,6 +590,7 @@
         <value xml:lang="en">Primary Email Address</value>
         <value xml:lang="es">Correo electrónico principal</value>
         <value xml:lang="fr">Adresse courriel principale</value>
+        <value xml:lang="hi_IN">प्राथमिक ईमेल पता</value>
         <value xml:lang="it">Indirizzo Primario Email</value>
         <value xml:lang="ro">Adresa Primara Email</value>
         <value xml:lang="ru">Основной адрес эл.почты</value>
@@ -552,6 +602,7 @@
         <value xml:lang="en">Primary Address</value>
         <value xml:lang="es">Dirección principal</value>
         <value xml:lang="fr">Adresse principale</value>
+        <value xml:lang="hi_IN">प्राथमिक पता</value>
         <value xml:lang="it">Indirizzo Primario</value>
         <value xml:lang="ro">Adresa Primara</value>
         <value xml:lang="ru">Юридический адрес</value>
@@ -563,6 +614,7 @@
         <value xml:lang="en">Primary Phone Number</value>
         <value xml:lang="es">Teléfono principal</value>
         <value xml:lang="fr">Numéro de téléphone principal</value>
+        <value xml:lang="hi_IN">प्राथमिक फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Principale</value>
         <value xml:lang="ro">Numero Telefon Principal</value>
         <value xml:lang="ru">Основной телефонный номер</value>
@@ -574,6 +626,7 @@
         <value xml:lang="en">Primary Website URL</value>
         <value xml:lang="es">Sitio web principal</value>
         <value xml:lang="fr">URL princpale du site Web</value>
+        <value xml:lang="hi_IN">प्राथमिक वेबसाइट यूआरएल(URL)</value>
         <value xml:lang="it">URL Primario Sito Web</value>
         <value xml:lang="ro">URL Primar Sit Web</value>
         <value xml:lang="ru">URL основного Web сайта</value>
@@ -585,6 +638,7 @@
         <value xml:lang="en">Purchase Return Address</value>
         <value xml:lang="es">Dirección devolución de compras</value>
         <value xml:lang="fr">Adresse de retour des achats</value>
+        <value xml:lang="hi_IN">क्रय वापसी का पता</value>
         <value xml:lang="it">Indirizzo restituzione acquisto</value>
         <value xml:lang="ro">Adresa Returnare Cumparare</value>
         <value xml:lang="ru">Адрес возврата закупок</value>
@@ -596,6 +650,7 @@
         <value xml:lang="en">Shipping Destination Address</value>
         <value xml:lang="es">Dirección de envíos</value>
         <value xml:lang="fr">Adresse de livraison</value>
+        <value xml:lang="hi_IN">शिपिंग का गंतव्य पता</value>
         <value xml:lang="it">Indirizzo destinazione spedizione</value>
         <value xml:lang="ro">Adresa Destinatie Expediere</value>
         <value xml:lang="ru">Адрес доставки грузополучателя</value>
@@ -607,6 +662,7 @@
         <value xml:lang="en">Shipping Origin Address</value>
         <value xml:lang="es">Dirección de origen de envíos</value>
         <value xml:lang="fr">Adresse d'expédition</value>
+        <value xml:lang="hi_IN">शिपिंग का मूल पता</value>
         <value xml:lang="it">Indirizzo origine spedizione</value>
         <value xml:lang="ro">Adresa Origine Expediere</value>
         <value xml:lang="ru">Отгрузочный адрес отправителя</value>
@@ -618,6 +674,7 @@
         <value xml:lang="en">Internet Domain Name</value>
         <value xml:lang="es">Nombre de dominio Internet</value>
         <value xml:lang="fr">Nom de domaine internet</value>
+        <value xml:lang="hi_IN">इंटरनेट डोमेन का नाम</value>
         <value xml:lang="it">Nome Dominio Internet</value>
         <value xml:lang="ro">Nume Domeniu Internet</value>
         <value xml:lang="ru">Доменное имя в Интернет</value>
@@ -629,6 +686,7 @@
         <value xml:lang="en">Electronic Address</value>
         <value xml:lang="es">Dirección electrónica</value>
         <value xml:lang="fr">(Adresse électronique)</value>
+        <value xml:lang="hi_IN">इलेक्ट्रॉनिक पता</value>
         <value xml:lang="it">Indirizzo Elettronico</value>
         <value xml:lang="ro">Adresa Electronica</value>
         <value xml:lang="ru">Электронный адрес</value>
@@ -640,6 +698,7 @@
         <value xml:lang="en">Email Address</value>
         <value xml:lang="es">Correo electrónico</value>
         <value xml:lang="fr">Adresse courriel</value>
+        <value xml:lang="hi_IN">ईमेल पता</value>
         <value xml:lang="it">Indirizzo Email</value>
         <value xml:lang="ro">Adresa Email</value>
         <value xml:lang="ru">Адрес эл.почты</value>
@@ -651,6 +710,7 @@
         <value xml:lang="en">Internet IP Address</value>
         <value xml:lang="es">Dirección IP</value>
         <value xml:lang="fr">Adresse IP</value>
+        <value xml:lang="hi_IN">इंटरनेट आईपी(IP) पता</value>
         <value xml:lang="it">Indirizzo Internet IP</value>
         <value xml:lang="ro">Adresa Internet IP</value>
         <value xml:lang="ru">Интернет IP адрес</value>
@@ -662,6 +722,7 @@
         <value xml:lang="en">Postal Address</value>
         <value xml:lang="es">Dirección postal</value>
         <value xml:lang="fr">Adresse postale </value>
+        <value xml:lang="hi_IN">डाक का पता</value>
         <value xml:lang="it">Indirizzo Postale</value>
         <value xml:lang="ro">Adresa Postala</value>
         <value xml:lang="ru">Почтовый адрес</value>
@@ -673,6 +734,7 @@
         <value xml:lang="en">Phone Number</value>
         <value xml:lang="es">Número de teléfono</value>
         <value xml:lang="fr">Numéro de téléphone</value>
+        <value xml:lang="hi_IN">फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono</value>
         <value xml:lang="ro">Numar de Telefon</value>
         <value xml:lang="ru">Телефонный номер</value>
@@ -684,6 +746,7 @@
         <value xml:lang="en">Web URL/Address</value>
         <value xml:lang="es">Dirección web (URL)</value>
         <value xml:lang="fr">Adresse Web (URL)</value>
+        <value xml:lang="hi_IN">वेब यूआरएल(URL)/पता</value>
         <value xml:lang="it">URL Web/Indirizzo</value>
         <value xml:lang="ro">URL Web/Adresa</value>
         <value xml:lang="ru">Web URL/адрес</value>
@@ -695,6 +758,7 @@
         <value xml:lang="en">ASSEMBLY</value>
         <value xml:lang="es">Ensamblado</value>
         <value xml:lang="fr">Assemblage</value>
+        <value xml:lang="hi_IN">सभा</value>
         <value xml:lang="it">Assemblatore</value>
         <value xml:lang="th">กลุ่มคน</value>
         <value xml:lang="zh">装配</value>
@@ -704,6 +768,7 @@
         <value xml:lang="en">CADRE</value>
         <value xml:lang="es">Cuadro</value>
         <value xml:lang="fr">Cadre</value>
+        <value xml:lang="hi_IN">संवर्ग</value>
         <value xml:lang="it">Quadro</value>
         <value xml:lang="th">กลุ่มคน</value>
         <value xml:lang="zh">骨干</value>
@@ -712,6 +777,7 @@
         <value xml:lang="en">CHEMICAL</value>
         <value xml:lang="es">Químico</value>
         <value xml:lang="fr">Chimie</value>
+        <value xml:lang="hi_IN">रासायनिक</value>
         <value xml:lang="it">Chimico</value>
         <value xml:lang="th">ทางเคมี</value>
         <value xml:lang="zh">化学</value>
@@ -721,6 +787,7 @@
         <value xml:lang="en">DIRECTEUR</value>
         <value xml:lang="es">Director</value>
         <value xml:lang="fr">Directeur</value>
+        <value xml:lang="hi_IN">निदेशक</value>
         <value xml:lang="it">Direttore</value>
         <value xml:lang="th">ผู้จัดการ</value>
         <value xml:lang="zh">经理</value>
@@ -730,6 +797,7 @@
         <value xml:lang="en">EMPLOYEE</value>
         <value xml:lang="es">Empleado</value>
         <value xml:lang="fr">Employé</value>
+        <value xml:lang="hi_IN">कर्मचारी</value>
         <value xml:lang="it">Impiegato</value>
         <value xml:lang="th">พนักงาน</value>
         <value xml:lang="zh">雇员</value>
@@ -739,6 +807,7 @@
         <value xml:lang="en">MANUFACTURING</value>
         <value xml:lang="es">Producción</value>
         <value xml:lang="fr">Fabrication</value>
+        <value xml:lang="hi_IN">विनिर्माण</value>
         <value xml:lang="it">Addetto alla produzione</value>
         <value xml:lang="th">การผลิต</value>
         <value xml:lang="zh">制造</value>
@@ -748,6 +817,7 @@
         <value xml:lang="en">Annual Revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
         <value xml:lang="fr">Revenus annuels</value>
+        <value xml:lang="hi_IN">वार्षिक राजस्व</value>
         <value xml:lang="it">Revisore annuale</value>
         <value xml:lang="zh">年收入</value>
     </property>
@@ -755,6 +825,7 @@
         <value xml:lang="en">EEOC (Equal Employment Opportunity Commission)</value>
         <value xml:lang="es">EEOC (Comisión de Oportunidad Laboral Igualitaria de EE.UU.)</value>
         <value xml:lang="fr">HALDE (Haute Autorité de Lutte contre les Discriminations et pour l’Egalité)</value>
+        <value xml:lang="hi_IN">समान रोजगार अवसर आयोग(EEOC)</value>
         <value xml:lang="it">Commissione pari opportunità impiegati (EEOC)</value>
         <value xml:lang="zh">公平就业机会委员会</value>
     </property>
@@ -763,6 +834,7 @@
         <value xml:lang="en">Income</value>
         <value xml:lang="es">Ingreso</value>
         <value xml:lang="fr">Revenu</value>
+        <value xml:lang="hi_IN">आय</value>
         <value xml:lang="it">Tasse</value>
         <value xml:lang="ro">Taxe</value>
         <value xml:lang="ru">Доходы</value>
@@ -774,6 +846,7 @@
         <value xml:lang="en">Industry</value>
         <value xml:lang="es">Industria</value>
         <value xml:lang="fr">Industrie</value>
+        <value xml:lang="hi_IN">उद्योग</value>
         <value xml:lang="it">Industria</value>
         <value xml:lang="ro">Industrie</value>
         <value xml:lang="ru">Отрасль</value>
@@ -785,6 +858,7 @@
         <value xml:lang="en">Minority</value>
         <value xml:lang="es">Minoría</value>
         <value xml:lang="fr">Mineure</value>
+        <value xml:lang="hi_IN">अल्पसंख्यक</value>
         <value xml:lang="it">Minoritario</value>
         <value xml:lang="ro">Minoritar</value>
         <value xml:lang="ru">Меньшинство</value>
@@ -795,6 +869,7 @@
         <value xml:lang="en">Number of Employees</value>
         <value xml:lang="es">Número de empleados</value>
         <value xml:lang="fr">Nombre d'employés</value>
+        <value xml:lang="hi_IN">कर्मचारियों की संख्या</value>
         <value xml:lang="it">Numero di impiegati</value>
         <value xml:lang="zh">雇员数量</value>
     </property>
@@ -803,6 +878,7 @@
         <value xml:lang="en">Organization</value>
         <value xml:lang="es">Organización</value>
         <value xml:lang="fr">Organisation</value>
+        <value xml:lang="hi_IN">संगठन</value>
         <value xml:lang="it">Organizzazione</value>
         <value xml:lang="ro">Organizatie</value>
         <value xml:lang="ru">Организация</value>
@@ -813,6 +889,7 @@
         <value xml:lang="en">Ownership</value>
         <value xml:lang="es">Posesión</value>
         <value xml:lang="fr">Propriété</value>
+        <value xml:lang="hi_IN">स्वामित्व</value>
         <value xml:lang="it">Proprietà</value>
         <value xml:lang="zh">所有权</value>
     </property>
@@ -821,6 +898,7 @@
         <value xml:lang="en">Person</value>
         <value xml:lang="es">Persona</value>
         <value xml:lang="fr">Personne</value>
+        <value xml:lang="hi_IN">व्यक्ति</value>
         <value xml:lang="it">Persona</value>
         <value xml:lang="ro">Persoana</value>
         <value xml:lang="ru">Персона</value>
@@ -831,6 +909,7 @@
         <value xml:lang="en">SIC Code</value>
         <value xml:lang="es">Código SIC</value>
         <value xml:lang="fr">Code SIC</value>
+        <value xml:lang="hi_IN">SIC कोड</value>
         <value xml:lang="it">Codice SIC</value>
         <value xml:lang="zh">标准工业分类规则</value>
     </property>
@@ -839,6 +918,7 @@
         <value xml:lang="en">Size</value>
         <value xml:lang="es">Tamaño</value>
         <value xml:lang="fr">Taille</value>
+        <value xml:lang="hi_IN">आकार</value>
         <value xml:lang="it">Grandezza</value>
         <value xml:lang="ro">Marime</value>
         <value xml:lang="ru">Размер</value>
@@ -849,6 +929,7 @@
         <value xml:lang="en">Trade</value>
         <value xml:lang="es">Comercio</value>
         <value xml:lang="fr">Commerce</value>
+        <value xml:lang="hi_IN">व्यापार</value>
         <value xml:lang="it">Commercio</value>
         <value xml:lang="zh">贸易</value>
     </property>
@@ -856,6 +937,7 @@
         <value xml:lang="en">Retail</value>
         <value xml:lang="es">Venta al por menor</value>
         <value xml:lang="fr">Vente au détail</value>
+        <value xml:lang="hi_IN">खुदरा</value>
         <value xml:lang="it">Al dettaglio</value>
         <value xml:lang="zh">零售</value>
     </property>
@@ -863,6 +945,7 @@
         <value xml:lang="en">Wholesale</value>
         <value xml:lang="es">Venta al por mayor</value>
         <value xml:lang="fr">Vente en gros</value>
+        <value xml:lang="hi_IN">थोक</value>
         <value xml:lang="it">All'ingrosso</value>
         <value xml:lang="zh">批发</value>
     </property>
@@ -870,6 +953,7 @@
         <value xml:lang="en">Value Rating</value>
         <value xml:lang="es">Clasificación de valor</value>
         <value xml:lang="fr">Estimation de valeur</value>
+        <value xml:lang="hi_IN">मान दर्ज़ा</value>
         <value xml:lang="it">Valore classifica</value>
         <value xml:lang="zh">价值评级</value>
     </property>
@@ -877,6 +961,7 @@
         <value xml:lang="en">Account</value>
         <value xml:lang="es">Cuenta</value>
         <value xml:lang="fr">Compte</value>
+        <value xml:lang="hi_IN">खाता</value>
         <value xml:lang="it">Utenza</value>
         <value xml:lang="zh">账户</value>
     </property>
@@ -885,6 +970,7 @@
         <value xml:lang="en">Agent</value>
         <value xml:lang="es">Representante</value>
         <value xml:lang="fr">Représentant</value>
+        <value xml:lang="hi_IN">एजेंट</value>
         <value xml:lang="it">Agente</value>
         <value xml:lang="ro">Agent</value>
         <value xml:lang="ru">Агент</value>
@@ -895,6 +981,7 @@
         <value xml:lang="en">Assistant</value>
         <value xml:lang="es">Asistente</value>
         <value xml:lang="fr">Assistant</value>
+        <value xml:lang="hi_IN">सहायक</value>
         <value xml:lang="it">Assistente</value>
         <value xml:lang="zh">助理</value>
     </property>
@@ -903,6 +990,7 @@
         <value xml:lang="en">Blog Users</value>
         <value xml:lang="es">Usuario de blog</value>
         <value xml:lang="fr">Utilisateur du Blog</value>
+        <value xml:lang="hi_IN">ब्लॉग उपयोगकर्ता</value>
         <value xml:lang="it">Utente blog</value>
         <value xml:lang="ro">Blog Utilizator</value>
         <value xml:lang="ru">Пользователь блога</value>
@@ -913,6 +1001,7 @@
         <value xml:lang="en">Child</value>
         <value xml:lang="es">Descendiente</value>
         <value xml:lang="fr">Enfant</value>
+        <value xml:lang="hi_IN">निचला(Child)</value>
         <value xml:lang="it">Figlio</value>
         <value xml:lang="zh">下级</value>
     </property>
@@ -921,6 +1010,7 @@
         <value xml:lang="en">Contact</value>
         <value xml:lang="es">Contacto</value>
         <value xml:lang="fr">Contact</value>
+        <value xml:lang="hi_IN">संपर्क</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="ro">Contact</value>
         <value xml:lang="ru">Контакт</value>
@@ -932,6 +1022,7 @@
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
+        <value xml:lang="hi_IN">ग्राहक</value>
         <value xml:lang="it">Cliente</value>
         <value xml:lang="ro">Client</value>
         <value xml:lang="ru">Заказчик</value>
@@ -943,6 +1034,7 @@
         <value xml:lang="en">Distributor</value>
         <value xml:lang="es">Distribuidor</value>
         <value xml:lang="fr">Distributeur</value>
+        <value xml:lang="hi_IN">वितरक</value>
         <value xml:lang="it">Distributore</value>
         <value xml:lang="ro">Distribuitor</value>
         <value xml:lang="ru">Дистрибутор</value>
@@ -954,6 +1046,7 @@
         <value xml:lang="en">Employee</value>
         <value xml:lang="es">Empleado</value>
         <value xml:lang="fr">Employé</value>
+        <value xml:lang="hi_IN">कर्मचारी</value>
         <value xml:lang="it">Impiegato</value>
         <value xml:lang="ro">Functionar</value>
         <value xml:lang="ru">Работник</value>
@@ -964,6 +1057,7 @@
         <value xml:lang="en">Friend</value>
         <value xml:lang="es">Amigo</value>
         <value xml:lang="fr">Ami</value>
+        <value xml:lang="hi_IN">मित्र</value>
         <value xml:lang="it">Amico</value>
         <value xml:lang="zh">朋友</value>
     </property>
@@ -972,6 +1066,7 @@
         <value xml:lang="en">Group Member</value>
         <value xml:lang="es">Miembro de grupo</value>
         <value xml:lang="fr">Membre du groupe</value>
+        <value xml:lang="hi_IN">समूह के सदस्य</value>
         <value xml:lang="it">Gruppo membro</value>
         <value xml:lang="ro">Membru Grup</value>
         <value xml:lang="ru">Член группы</value>
@@ -983,6 +1078,7 @@
         <value xml:lang="en">Host Server Visitor</value>
         <value xml:lang="es">Visitante de servidor</value>
         <value xml:lang="fr">Visiteur du serveur</value>
+        <value xml:lang="hi_IN">होस्ट सर्वर के आगंतुक</value>
         <value xml:lang="it">Visitatore server host</value>
         <value xml:lang="ro">Vizitator Server Host</value>
         <value xml:lang="ru">Посетитель хостинга</value>
@@ -993,6 +1089,7 @@
         <value xml:lang="en">Lead owner</value>
         <value xml:lang="es">Encargado de lead</value>
         <value xml:lang="fr">Propriétaire principal</value>
+        <value xml:lang="hi_IN">मुख्य स्वामी</value>
         <value xml:lang="it">Proprietario</value>
         <value xml:lang="zh">线索拥有人</value>
     </property>
@@ -1000,6 +1097,7 @@
         <value xml:lang="en">Lead relation</value>
         <value xml:lang="es">Relación con lead</value>
         <value xml:lang="fr">Relation principale</value>
+        <value xml:lang="hi_IN">मुख्य रिश्ता</value>
         <value xml:lang="it">Relazione di proprietà</value>
         <value xml:lang="zh">线索关系</value>
     </property>
@@ -1008,6 +1106,7 @@
         <value xml:lang="en">Manager</value>
         <value xml:lang="es">Gerente</value>
         <value xml:lang="fr">Gestionnaire</value>
+        <value xml:lang="hi_IN">प्रबंधक</value>
         <value xml:lang="it">Capo ufficio</value>
         <value xml:lang="ro">Sef oficiu</value>
         <value xml:lang="ru">Менеджер</value>
@@ -1019,6 +1118,7 @@
         <value xml:lang="en">Owner</value>
         <value xml:lang="es">Propietario</value>
         <value xml:lang="fr">Propriétaire</value>
+        <value xml:lang="hi_IN">स्वामी</value>
         <value xml:lang="it">Proprietario</value>
         <value xml:lang="zh">拥有人</value>
     </property>
@@ -1026,6 +1126,7 @@
         <value xml:lang="en">Parent</value>
         <value xml:lang="es">Precursor</value>
         <value xml:lang="fr">Parent</value>
+        <value xml:lang="hi_IN">जनक(Parent)</value>
         <value xml:lang="it">Padre</value>
         <value xml:lang="zh">上级</value>
     </property>
@@ -1033,6 +1134,7 @@
         <value xml:lang="en">Parent account</value>
         <value xml:lang="es">Cuenta precursora</value>
         <value xml:lang="fr">Compte parent</value>
+        <value xml:lang="hi_IN">जनक खाता(Parent account)</value>
         <value xml:lang="it">Utenza padre</value>
         <value xml:lang="zh">上级账户</value>
     </property>
@@ -1041,6 +1143,7 @@
         <value xml:lang="en">Partner</value>
         <value xml:lang="es">Asociado</value>
         <value xml:lang="fr">Partenaire</value>
+        <value xml:lang="hi_IN">साथी</value>
         <value xml:lang="it">Socio</value>
         <value xml:lang="ro">Asociat</value>
         <value xml:lang="ru">Партнер</value>
@@ -1059,6 +1162,7 @@
         <value xml:lang="en">Sales Affiliate</value>
         <value xml:lang="es">Asociado de venta</value>
         <value xml:lang="fr">Membre du réseau de vente</value>
+        <value xml:lang="hi_IN">बिक्री संबद्ध</value>
         <value xml:lang="it">Affiliato vendite</value>
         <value xml:lang="ro">Afiliat Vanzare</value>
         <value xml:lang="ru">Сбытовой филиал</value>
@@ -1067,6 +1171,7 @@
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.SPOUSE">
         <value xml:lang="en">Spouse</value>
+        <value xml:lang="hi_IN">पति या पत्नी</value>
         <value xml:lang="it">Sposo</value>
         <value xml:lang="zh">配偶</value>
     </property>
@@ -1075,6 +1180,7 @@
         <value xml:lang="en">Supplier</value>
         <value xml:lang="es">Proveedor</value>
         <value xml:lang="fr">Fournisseur</value>
+        <value xml:lang="hi_IN">प्रदायक</value>
         <value xml:lang="it">Fornitore</value>
         <value xml:lang="ro">Furnizor</value>
         <value xml:lang="ru">Поставщик</value>
@@ -1086,6 +1192,7 @@
         <value xml:lang="en">ISP Visitor</value>
         <value xml:lang="es">Visitante ISP</value>
         <value xml:lang="fr">Visiteur du FAI</value>
+        <value xml:lang="hi_IN">आईएसपी(ISP) आगंतुक</value>
         <value xml:lang="it">Visitatore ISP</value>
         <value xml:lang="ro">Visitator ISP</value>
         <value xml:lang="ru">Посетитель интернет-провайдера</value>
@@ -1097,6 +1204,7 @@
         <value xml:lang="en">Web Master</value>
         <value xml:lang="es">Webmaster</value>
         <value xml:lang="fr">WebMestre</value>
+        <value xml:lang="hi_IN">वेब मास्टर</value>
         <value xml:lang="it">Web master</value>
         <value xml:lang="ro">Web Master</value>
         <value xml:lang="ru">Web мастер</value>
@@ -1108,6 +1216,7 @@
         <value xml:lang="en">Automated Agent</value>
         <value xml:lang="es">Agente automatizado</value>
         <value xml:lang="fr">Agent automatique</value>
+        <value xml:lang="hi_IN">स्वचालित(Automated) एजेंट</value>
         <value xml:lang="it">Agente automatizzato</value>
         <value xml:lang="ro">Agent Automatizat</value>
         <value xml:lang="ru">Автоматический агент</value>
@@ -1119,6 +1228,7 @@
         <value xml:lang="en">Corporation</value>
         <value xml:lang="es">Empresa</value>
         <value xml:lang="fr">Entreprise</value>
+        <value xml:lang="hi_IN">व्यापारसंध</value>
         <value xml:lang="it">Societa per azioni</value>
         <value xml:lang="ro">Societate pe Actiuni</value>
         <value xml:lang="ru">Корпорация</value>
@@ -1130,6 +1240,7 @@
         <value xml:lang="en">Family</value>
         <value xml:lang="es">Familia</value>
         <value xml:lang="fr">Famille</value>
+        <value xml:lang="hi_IN">परिवार</value>
         <value xml:lang="it">Famiglia</value>
         <value xml:lang="ro">Familie</value>
         <value xml:lang="ru">Семья</value>
@@ -1141,6 +1252,7 @@
         <value xml:lang="en">Government Agency</value>
         <value xml:lang="es">Agencia estatal</value>
         <value xml:lang="fr">Administration</value>
+        <value xml:lang="hi_IN">सरकारी एजेंसी</value>
         <value xml:lang="it">Agenzia governativa</value>
         <value xml:lang="ro">Agentie Guvernamentala</value>
         <value xml:lang="ru">Государственный орган</value>
@@ -1152,6 +1264,7 @@
         <value xml:lang="en">Informal Group</value>
         <value xml:lang="es">Grupo informal</value>
         <value xml:lang="fr">Groupe Informel</value>
+        <value xml:lang="hi_IN">अनौपचारिक समूह</value>
         <value xml:lang="it">Gruppo informale</value>
         <value xml:lang="ro">Grup Informal</value>
         <value xml:lang="ru">Неформальная группа</value>
@@ -1163,6 +1276,7 @@
         <value xml:lang="en">Legal Organization</value>
         <value xml:lang="es">Entidad jurídica</value>
         <value xml:lang="fr">Entité juridique</value>
+        <value xml:lang="hi_IN">कानूनी संगठन</value>
         <value xml:lang="it">Organizzazione legale</value>
         <value xml:lang="ro">Organitie Legala</value>
         <value xml:lang="ru">Юридическая организация</value>
@@ -1174,6 +1288,7 @@
         <value xml:lang="en">Party Group</value>
         <value xml:lang="es">Grupo de participantes</value>
         <value xml:lang="fr">Groupe d'acteurs</value>
+        <value xml:lang="hi_IN">पार्टी समूह</value>
         <value xml:lang="it">Gruppo soggetto</value>
         <value xml:lang="ro">Grup Subiect</value>
         <value xml:lang="ru">Групповой участник</value>
@@ -1185,6 +1300,7 @@
         <value xml:lang="en">Person</value>
         <value xml:lang="es">Persona</value>
         <value xml:lang="fr">Personne</value>
+        <value xml:lang="hi_IN">व्यक्ति</value>
         <value xml:lang="it">Persona</value>
         <value xml:lang="ro">Persoana</value>
         <value xml:lang="ru">Персона</value>
@@ -1196,6 +1312,7 @@
         <value xml:lang="en">Team</value>
         <value xml:lang="es">Equipo</value>
         <value xml:lang="fr">Equipe</value>
+        <value xml:lang="hi_IN">टीम</value>
         <value xml:lang="it">Squadra</value>
         <value xml:lang="ro">Echipa</value>
         <value xml:lang="ru">Рабочая группа</value>
@@ -1206,6 +1323,7 @@
         <value xml:lang="en">Account</value>
         <value xml:lang="es">Cuenta</value>
         <value xml:lang="fr">Compte</value>
+        <value xml:lang="hi_IN">खाता</value>
         <value xml:lang="it">Utenza</value>
         <value xml:lang="zh">账户</value>
     </property>
@@ -1213,6 +1331,7 @@
         <value xml:lang="en">Account Lead</value>
         <value xml:lang="es">Cuenta lead</value>
         <value xml:lang="fr">Compte principal</value>
+        <value xml:lang="hi_IN">मुख्य खाता</value>
         <value xml:lang="it">Utenza leader</value>
         <value xml:lang="zh">账户线索</value>
     </property>
@@ -1226,6 +1345,7 @@
         <value xml:lang="en">Administrator</value>
         <value xml:lang="es">Administrador</value>
         <value xml:lang="fr">Administrateur</value>
+        <value xml:lang="hi_IN">प्रशासक</value>
         <value xml:lang="it">Amministratore</value>
         <value xml:lang="ro">Administrator</value>
         <value xml:lang="ru">Администратор</value>
@@ -1237,6 +1357,7 @@
         <value xml:lang="en">Affiliate</value>
         <value xml:lang="es">Afiliado</value>
         <value xml:lang="fr">Affilié</value>
+        <value xml:lang="hi_IN">संबद्ध</value>
         <value xml:lang="it">Affiliato</value>
         <value xml:lang="ro">Afiliat</value>
         <value xml:lang="ru">Филиал</value>
@@ -1248,6 +1369,7 @@
         <value xml:lang="en">Agent</value>
         <value xml:lang="es">Representante</value>
         <value xml:lang="fr">Représentant</value>
+        <value xml:lang="hi_IN">एजेंट</value>
         <value xml:lang="it">Agente</value>
         <value xml:lang="ro">Agent</value>
         <value xml:lang="ru">Агент</value>
@@ -1259,6 +1381,7 @@
         <value xml:lang="en">Approver</value>
         <value xml:lang="es">Aprobante</value>
         <value xml:lang="fr">Approbateur</value>
+        <value xml:lang="hi_IN">अनुमोदक</value>
         <value xml:lang="it">Approvatore</value>
         <value xml:lang="ro">Aprobat</value>
         <value xml:lang="ru">Утверждающая сторона</value>
@@ -1270,6 +1393,7 @@
         <value xml:lang="en">Association</value>
         <value xml:lang="es">Asociación</value>
         <value xml:lang="fr">Association</value>
+        <value xml:lang="hi_IN">संघ</value>
         <value xml:lang="it">Associazione</value>
         <value xml:lang="ro">Asociatie</value>
         <value xml:lang="ru">Ассоциация</value>
@@ -1281,6 +1405,7 @@
         <value xml:lang="en">Automated Agent</value>
         <value xml:lang="es">Agente automatizado</value>
         <value xml:lang="fr">Agent automatisé</value>
+        <value xml:lang="hi_IN">स्वचालित(Automated) एजेंट</value>
         <value xml:lang="it">Agento automatizzato</value>
         <value xml:lang="ro">Agent Automatizat</value>
         <value xml:lang="ru">Автоматический агент</value>
@@ -1289,6 +1414,7 @@
     </property>
     <property key="RoleType.description.BCC">
         <value xml:lang="en">Blind Copy</value>
+        <value xml:lang="hi_IN">ब्लाइंड कॉपी(BCC)</value>
         <value xml:lang="it">Copia nascosta</value>
         <value xml:lang="zh">密送</value>
     </property>
@@ -1297,6 +1423,7 @@
         <value xml:lang="en">Bill-From-Vendor</value>
         <value xml:lang="es">Proveedor que factura</value>
         <value xml:lang="fr">Fournisseur émetteur de facture</value>
+        <value xml:lang="hi_IN">विक्रेता-से-बिल</value>
         <value xml:lang="it">Fatturare dal fornitore</value>
         <value xml:lang="ro">Factura De la Furnizor</value>
         <value xml:lang="ru">Счета-от вендора</value>
@@ -1308,6 +1435,7 @@
         <value xml:lang="en">Bill-To Customer</value>
         <value xml:lang="es">Cliente facturable</value>
         <value xml:lang="fr">Client facturé</value>
+        <value xml:lang="hi_IN">ग्राहक को बिल</value>
         <value xml:lang="it">Fatturare al cliente</value>
         <value xml:lang="ro">Factura la Client</value>
         <value xml:lang="ru">Счета-на заказчика</value>
@@ -1319,6 +1447,7 @@
         <value xml:lang="en">Blog</value>
         <value xml:lang="es">Blog</value>
         <value xml:lang="fr">Blog</value>
+        <value xml:lang="hi_IN">ब्लॉग</value>
         <value xml:lang="it">Blog</value>
         <value xml:lang="ro">Blog</value>
         <value xml:lang="ru">Блог</value>
@@ -1330,6 +1459,7 @@
         <value xml:lang="en">Blog Administrator</value>
         <value xml:lang="es">Administrador de blog</value>
         <value xml:lang="fr">Administrateur du blog</value>
+        <value xml:lang="hi_IN">ब्लॉग प्रशासक</value>
         <value xml:lang="it">Amministratore blog</value>
         <value xml:lang="ro">Blog Administrator</value>
         <value xml:lang="ru">Администратор блога</value>
@@ -1341,6 +1471,7 @@
         <value xml:lang="en">Blog Author</value>
         <value xml:lang="es">Autor de blog</value>
         <value xml:lang="fr">Auteur du blog</value>
+        <value xml:lang="hi_IN">ब्लॉग लेखक</value>
         <value xml:lang="it">Autore blog</value>
         <value xml:lang="ro">Blog Autor</value>
         <value xml:lang="ru">Автор блога</value>
@@ -1352,6 +1483,7 @@
         <value xml:lang="en">Blog Editor</value>
         <value xml:lang="es">Editor de blog</value>
         <value xml:lang="fr">Editeur du blog</value>
+        <value xml:lang="hi_IN">ब्लॉग संपादक</value>
         <value xml:lang="it">Editor blog</value>
         <value xml:lang="ro">Blog Editor</value>
         <value xml:lang="ru">Редактор блога</value>
@@ -1363,6 +1495,7 @@
         <value xml:lang="en">Blog Guest</value>
         <value xml:lang="es">Invitado de blog</value>
         <value xml:lang="fr">Invité du blog</value>
+        <value xml:lang="hi_IN">ब्लॉग अतिथि</value>
         <value xml:lang="it">Ospite blog</value>
         <value xml:lang="ro">Blog Oaspete</value>
         <value xml:lang="ru">Гость блога</value>
@@ -1374,6 +1507,7 @@
         <value xml:lang="en">Blog Publisher</value>
         <value xml:lang="es">Emisor de blog</value>
         <value xml:lang="fr">Editeur du blog</value>
+        <value xml:lang="hi_IN">ब्लॉग प्रकाशक</value>
         <value xml:lang="it">Pubblicatore blog</value>
         <value xml:lang="ro">Blog Publicator</value>
         <value xml:lang="ru">Издатель блога</value>
@@ -1385,6 +1519,7 @@
         <value xml:lang="en">Blog User</value>
         <value xml:lang="es">Usuario de blog</value>
         <value xml:lang="fr">Utilisateur du blog</value>
+        <value xml:lang="hi_IN">ब्लॉग उपयोगकर्ता</value>
         <value xml:lang="it">Utente blog</value>
         <value xml:lang="ro">Blog Utilizator</value>
         <value xml:lang="ru">Пользователь блога</value>
@@ -1393,6 +1528,7 @@
     </property>
     <property key="RoleType.description.BULK_CUSTOMER">
         <value xml:lang="en">Bulk Customer</value>
+        <value xml:lang="hi_IN">थोक ग्राहक</value>
         <value xml:lang="it">Grosso cliente</value>
         <value xml:lang="zh">大宗客户</value>
     </property>
@@ -1401,6 +1537,7 @@
         <value xml:lang="en">Buyer</value>
         <value xml:lang="es">Comprador</value>
         <value xml:lang="fr">Acheteur</value>
+        <value xml:lang="hi_IN">क्रेता</value>
         <value xml:lang="it">Compratore </value>
         <value xml:lang="ro">Cumparator </value>
         <value xml:lang="ru">Покупатель</value>
@@ -1412,6 +1549,7 @@
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier</value>
+        <value xml:lang="hi_IN">कैलेंडर</value>
         <value xml:lang="it">Calendario</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="ru">Календарь</value>
@@ -1423,6 +1561,7 @@
         <value xml:lang="en">Calendar Attendee</value>
         <value xml:lang="es">Participa en el calendario</value>
         <value xml:lang="fr">Agenda -Participant</value>
+        <value xml:lang="hi_IN">कैलेंडर अटेंडी</value>
         <value xml:lang="it">Membro del calendario</value>
         <value xml:lang="ro">Membru din Calendar</value>
         <value xml:lang="ru">Назначение в календаре</value>
@@ -1434,6 +1573,7 @@
         <value xml:lang="en">Calendar Delegate</value>
         <value xml:lang="es">Delegado del calendario</value>
         <value xml:lang="fr">Agenda -Délégation</value>
+        <value xml:lang="hi_IN">कैलेंडर प्रतिनिधि</value>
         <value xml:lang="it">Delegato del calendario</value>
         <value xml:lang="ro">Delegat din Calendar</value>
         <value xml:lang="ru">Делегирование в календаре</value>
@@ -1442,6 +1582,7 @@
     </property>
     <property key="RoleType.description.CAL_HOST">
         <value xml:lang="en">Calendar Host</value>
+        <value xml:lang="hi_IN">कैलेंडर मेजबान</value>
         <value xml:lang="it">Ospite calendario</value>
         <value xml:lang="zh">日历主机</value>
     </property>
@@ -1450,6 +1591,7 @@
         <value xml:lang="en">Calendar Organizer</value>
         <value xml:lang="es">Organiza el calendario</value>
         <value xml:lang="fr">Organisateur de l'agenda</value>
+        <value xml:lang="hi_IN">कैलेंडर आयोजक</value>
         <value xml:lang="it">Organizzatore del calendario</value>
         <value xml:lang="ro">Organizatorul Calendarului</value>
         <value xml:lang="ru">Календарный организатор</value>
@@ -1461,6 +1603,7 @@
         <value xml:lang="en">Calendar Owner</value>
         <value xml:lang="es">Propietario del calendario</value>
         <value xml:lang="fr">Propriétaire de l'agenda</value>
+        <value xml:lang="hi_IN">कैलेंडर स्वामी</value>
         <value xml:lang="it">Proprietario del calendario</value>
         <value xml:lang="ro">Proprietaul Calendarului</value>
         <value xml:lang="ru">Владелец календаря</value>
@@ -1472,6 +1615,7 @@
         <value xml:lang="en">Carrier</value>
         <value xml:lang="es">Transportista</value>
         <value xml:lang="fr">Transporteur</value>
+        <value xml:lang="hi_IN">वाहक</value>
         <value xml:lang="it">Corriere</value>
         <value xml:lang="ro">Corier</value>
         <value xml:lang="ru">Перевозчик</value>
@@ -1483,6 +1627,7 @@
         <value xml:lang="en">Cashier</value>
         <value xml:lang="es">Cajero</value>
         <value xml:lang="fr">Caissier</value>
+        <value xml:lang="hi_IN">खजांची</value>
         <value xml:lang="it">Cassiere </value>
         <value xml:lang="ro">Casier </value>
         <value xml:lang="ru">Кассир</value>
@@ -1491,6 +1636,7 @@
     </property>
     <property key="RoleType.description.CC">
         <value xml:lang="en">Carbon Copy</value>
+        <value xml:lang="hi_IN">कार्बन कॉपी</value>
         <value xml:lang="it">Copia conoscenza</value>
         <value xml:lang="zh">复印</value>
     </property>
@@ -1499,6 +1645,7 @@
         <value xml:lang="en">Client</value>
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
+        <value xml:lang="hi_IN">ग्राहक</value>
         <value xml:lang="it">Client</value>
         <value xml:lang="ro">Client</value>
         <value xml:lang="ru">Клиент</value>
@@ -1509,6 +1656,7 @@
         <value xml:lang="en">Client Analyst</value>
         <value xml:lang="es">Analista de clientes</value>
         <value xml:lang="fr">Analyste client</value>
+        <value xml:lang="hi_IN">ग्राहक विश्लेषक</value>
         <value xml:lang="it">Analista della clientela</value>
         <value xml:lang="zh">客户分析员</value>
     </property>
@@ -1516,6 +1664,7 @@
         <value xml:lang="en">Client Billing</value>
         <value xml:lang="es">Facturación clientes</value>
         <value xml:lang="fr">Facturation client</value>
+        <value xml:lang="hi_IN">ग्राहक बिलिंग</value>
         <value xml:lang="it">Fatturazione clientela</value>
         <value xml:lang="zh">客户收款员</value>
     </property>
@@ -1524,6 +1673,7 @@
         <value xml:lang="en">Client Manager</value>
         <value xml:lang="es">Gestor de clientes</value>
         <value xml:lang="fr">Responsable client</value>
+        <value xml:lang="hi_IN">ग्राहक प्रबंधक</value>
         <value xml:lang="it">Responsabile della clientela</value>
         <value xml:lang="zh">客户经理</value>
     </property>
@@ -1531,6 +1681,7 @@
         <value xml:lang="en">Communication Participant</value>
         <value xml:lang="es">Participante de comunicación</value>
         <value xml:lang="fr">Participant à la communication</value>
+        <value xml:lang="hi_IN">संचार भागीदार</value>
         <value xml:lang="it">Partecipante alle comunicazioni</value>
         <value xml:lang="zh">沟通参与人</value>
     </property>
@@ -1539,6 +1690,7 @@
         <value xml:lang="en">Competitor</value>
         <value xml:lang="es">Competidor</value>
         <value xml:lang="fr">Concurrent</value>
+        <value xml:lang="hi_IN">प्रतिद्वंद्वी</value>
         <value xml:lang="it">Competitore</value>
         <value xml:lang="ro">Concurent</value>
         <value xml:lang="ru">Конкурент</value>
@@ -1550,6 +1702,7 @@
         <value xml:lang="en">Consumer</value>
         <value xml:lang="es">Consumidor</value>
         <value xml:lang="fr">Consommateur</value>
+        <value xml:lang="hi_IN">उपभोक्ता</value>
         <value xml:lang="it">Consumatore</value>
         <value xml:lang="ro">Consumator</value>
         <value xml:lang="ru">Потребитель</value>
@@ -1561,6 +1714,7 @@
         <value xml:lang="en">Contact</value>
         <value xml:lang="es">Contacto</value>
         <value xml:lang="fr">Contact</value>
+        <value xml:lang="hi_IN">संपर्क</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="ro">Contat</value>
         <value xml:lang="ru">Контакт</value>
@@ -1569,36 +1723,43 @@
     </property>
     <property key="RoleType.description.CONTENT">
         <value xml:lang="en">Content Member</value>
+        <value xml:lang="hi_IN">सामग्री(Content) के सदस्य</value>
         <value xml:lang="it">Membro contenuto</value>
         <value xml:lang="zh">内容成员</value>
     </property>
     <property key="RoleType.description.CONTENT_ADMIN">
         <value xml:lang="en">Content Administrator</value>
+        <value xml:lang="hi_IN">सामग्री(Content) प्रशासक</value>
         <value xml:lang="it">Amministratore contenuto</value>
         <value xml:lang="zh">内容管理员</value>
     </property>
     <property key="RoleType.description.CONTENT_AUTHOR">
         <value xml:lang="en">Content Author</value>
+        <value xml:lang="hi_IN">सामग्री(Content) लेखक</value>
         <value xml:lang="it">Autore contenuto</value>
         <value xml:lang="zh">内容作者</value>
     </property>
     <property key="RoleType.description.CONTENT_EDITOR">
         <value xml:lang="en">Content Editor</value>
+        <value xml:lang="hi_IN">सामग्री(Content) संपादक</value>
         <value xml:lang="it">Redattore contenuto</value>
         <value xml:lang="zh">内容编辑</value>
     </property>
     <property key="RoleType.description.CONTENT_GUEST">
         <value xml:lang="en">Content Guest</value>
+        <value xml:lang="hi_IN">सामग्री(Content) अतिथि</value>
         <value xml:lang="it">Ospite contenuto</value>
         <value xml:lang="zh">内容访客</value>
     </property>
     <property key="RoleType.description.CONTENT_PUBLISHER">
         <value xml:lang="en">Content Publisher</value>
+        <value xml:lang="hi_IN">सामग्री(Content) प्रकाशक</value>
         <value xml:lang="it">Editore contenuto</value>
         <value xml:lang="zh">内容发布者</value>
     </property>
     <property key="RoleType.description.CONTENT_USER">
         <value xml:lang="en">Content User</value>
+        <value xml:lang="hi_IN">सामग्री(Content) उपयोगकर्ता</value>
         <value xml:lang="it">Utente contenuto</value>
         <value xml:lang="zh">内容用户</value>
     </property>
@@ -1607,6 +1768,7 @@
         <value xml:lang="en">Contractor</value>
         <value xml:lang="es">Contratista</value>
         <value xml:lang="fr">Entrepreneur</value>
+        <value xml:lang="hi_IN">ठेकेदार</value>
         <value xml:lang="it">Contrattatore</value>
         <value xml:lang="ro">Contract</value>
         <value xml:lang="ru">Подрядчик</value>
@@ -1618,6 +1780,7 @@
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente Comprador</value>
         <value xml:lang="fr">Client</value>
+        <value xml:lang="hi_IN">ग्राहक</value>
         <value xml:lang="it">Cliente</value>
         <value xml:lang="ro">Client</value>
         <value xml:lang="ru">Заказчик</value>
@@ -1629,6 +1792,7 @@
         <value xml:lang="en">Department</value>
         <value xml:lang="es">Departamento</value>
         <value xml:lang="fr">Département</value>
+        <value xml:lang="hi_IN">विभाग</value>
         <value xml:lang="it">Reparto </value>
         <value xml:lang="ro">Compartiment </value>
         <value xml:lang="ru">Отдел</value>
@@ -1640,6 +1804,7 @@
         <value xml:lang="en">Distribution Channel</value>
         <value xml:lang="es">Canal de distribución</value>
         <value xml:lang="fr">Canal de distribution</value>
+        <value xml:lang="hi_IN">वितरण चैनल</value>
         <value xml:lang="it">Canale di distribuzione</value>
         <value xml:lang="ro">Canal de Distributie</value>
         <value xml:lang="ru">Канал дистрибуции</value>
@@ -1651,6 +1816,7 @@
         <value xml:lang="en">Distributor</value>
         <value xml:lang="es">Distribuidor</value>
         <value xml:lang="fr">Distributeur</value>
+        <value xml:lang="hi_IN">वितरक</value>
         <value xml:lang="it">Distributore</value>
         <value xml:lang="ro">Distributor</value>
         <value xml:lang="ru">Дистрибутор</value>
@@ -1662,6 +1828,7 @@
         <value xml:lang="en">Division</value>
         <value xml:lang="es">División</value>
         <value xml:lang="fr">Division</value>
+        <value xml:lang="hi_IN">विभाजन</value>
         <value xml:lang="it">Divisione</value>
         <value xml:lang="ro">Diviziune</value>
         <value xml:lang="ru">Подразделение</value>
@@ -1670,6 +1837,7 @@
     </property>
     <property key="RoleType.description.EMAIL_ADMIN">
         <value xml:lang="en">Email Administrator</value>
+        <value xml:lang="hi_IN">ईमेल प्रशासक</value>
         <value xml:lang="it">Amministratore email</value>
         <value xml:lang="zh">电子邮件管理员</value>
     </property>
@@ -1678,6 +1846,7 @@
         <value xml:lang="en">Employee</value>
         <value xml:lang="es">Empleado</value>
         <value xml:lang="fr">Employé</value>
+        <value xml:lang="hi_IN">कर्मचारी</value>
         <value xml:lang="it">Impiegato</value>
         <value xml:lang="ro">Functionar</value>
         <value xml:lang="ru">Работник</value>
@@ -1689,6 +1858,7 @@
         <value xml:lang="en">End-User Customer</value>
         <value xml:lang="es">Cliente Comprador final</value>
         <value xml:lang="fr">Client final</value>
+        <value xml:lang="hi_IN">अंत-प्रयोक्ता ग्राहक</value>
         <value xml:lang="it">Cliente utente finale</value>
         <value xml:lang="ro">Utilizator-Final Client</value>
         <value xml:lang="ru">Конечный заказчик</value>
@@ -1700,6 +1870,7 @@
         <value xml:lang="en">Family Member</value>
         <value xml:lang="es">Miembro de familia</value>
         <value xml:lang="fr">Membre de la famille</value>
+        <value xml:lang="hi_IN">परिवार के सदस्य</value>
         <value xml:lang="it">Membro della famiglia</value>
         <value xml:lang="ro">Membru Familie</value>
         <value xml:lang="ru">Член семьи</value>
@@ -1708,21 +1879,25 @@
     </property>
     <property key="RoleType.description.FAM_ASSIGNEE">
         <value xml:lang="en">Fixed Asset Maint Assignee</value>
+        <value xml:lang="hi_IN">अचल संपत्ति रखरखाव अनुदिष्ट</value>
         <value xml:lang="it">Assegna manutenzione cespite</value>
         <value xml:lang="zh">固定资产维修保养受托人</value>
     </property>
     <property key="RoleType.description.FAM_MANAGER">
         <value xml:lang="en">Maintenance Manager or Supervisor</value>
+        <value xml:lang="hi_IN">अनुरक्षण प्रबंधक अथवा सुपरवाइजर</value>
         <value xml:lang="it">Gestione manutenzione o supervisore</value>
         <value xml:lang="zh">维修保养管理员或监管者</value>
     </property>
     <property key="RoleType.description.FAM_SUPPLIER">
         <value xml:lang="en">Maintenance Supplier or Service</value>
+        <value xml:lang="hi_IN">रखरखाव प्रदायक या सेवा</value>
         <value xml:lang="it">Manutenzione fornitore o servizio</value>
         <value xml:lang="zh">维修保养供应商或服务</value>
     </property>
     <property key="RoleType.description.FAM_WORKER">
         <value xml:lang="en">Maintenance Worker</value>
+        <value xml:lang="hi_IN">रखरखाव कार्यकर्ता</value>
         <value xml:lang="it">Impiegato manutenzione</value>
         <value xml:lang="zh">维修保养工人</value>
     </property>
@@ -1731,6 +1906,7 @@
         <value xml:lang="en">Hosting Server</value>
         <value xml:lang="es">Servidor de alojamiento</value>
         <value xml:lang="fr">Serveur hébergeur</value>
+        <value xml:lang="hi_IN">होस्टिंग सर्वर</value>
         <value xml:lang="it">Hosting server</value>
         <value xml:lang="ro">Hosting Server</value>
         <value xml:lang="ru">Сервер хостинга</value>
@@ -1742,6 +1918,7 @@
         <value xml:lang="en">Household</value>
         <value xml:lang="es">Hogar</value>
         <value xml:lang="fr">Ménage</value>
+        <value xml:lang="hi_IN">घरेलू</value>
         <value xml:lang="it">Famiglia</value>
         <value xml:lang="ro">Familia</value>
         <value xml:lang="ru">Домохозяйство</value>
@@ -1753,6 +1930,7 @@
         <value xml:lang="en">Internal Organization</value>
         <value xml:lang="es">Organización interna</value>
         <value xml:lang="fr">Organisation Interne</value>
+        <value xml:lang="hi_IN">आंतरिक संगठन</value>
         <value xml:lang="it">Organizzazione interna</value>
         <value xml:lang="ro">Organizatie Interna</value>
         <value xml:lang="ru">Внутренняя организация</value>
@@ -1764,6 +1942,7 @@
         <value xml:lang="en">ISP</value>
         <value xml:lang="es">ISP</value>
         <value xml:lang="fr">FAI</value>
+        <value xml:lang="hi_IN">आईएसपी(ISP)</value>
         <value xml:lang="it">FAI</value>
         <value xml:lang="ro">ISP</value>
         <value xml:lang="ru">Провайдер Интернет</value>
@@ -1775,6 +1954,7 @@
         <value xml:lang="en">Lead</value>
         <value xml:lang="es">Lead</value>
         <value xml:lang="fr">Dirigeant</value>
+        <value xml:lang="hi_IN">नेतृत्व</value>
         <value xml:lang="it">Leader</value>
         <value xml:lang="ro">Lead</value>
         <value xml:lang="ru">Обращение</value>
@@ -1786,6 +1966,7 @@
         <value xml:lang="en">Logged In</value>
         <value xml:lang="es">Conectado</value>
         <value xml:lang="fr">Connecté</value>
+        <value xml:lang="hi_IN">लॉगड इन</value>
         <value xml:lang="it">Autenticato</value>
         <value xml:lang="ro">Autentic</value>
         <value xml:lang="ru">Зарегистрированный</value>
@@ -1797,6 +1978,7 @@
         <value xml:lang="en">Limited Administrator</value>
         <value xml:lang="es">Administrador limitado</value>
         <value xml:lang="fr">Administrateur (avec limite)</value>
+        <value xml:lang="hi_IN">सीमित प्रशासक</value>
         <value xml:lang="it">Amministratore limitato</value>
         <value xml:lang="ro">Administrator Limitat</value>
         <value xml:lang="ru">Ограниченный администратор</value>
@@ -1808,6 +1990,7 @@
         <value xml:lang="en">Manager</value>
         <value xml:lang="es">Gerente</value>
         <value xml:lang="fr">Responsable</value>
+        <value xml:lang="hi_IN">प्रबंधक</value>
         <value xml:lang="it">Responsabile</value>
         <value xml:lang="ro">Responsabil</value>
         <value xml:lang="ru">Менеджер</value>
@@ -1817,6 +2000,7 @@
     <property key="RoleType.description.MANUFACTURER">
         <value xml:lang="en">Manufacturer</value>
         <value xml:lang="fr">Fabricant</value>
+        <value xml:lang="hi_IN">कारख़ानेदार</value>
         <value xml:lang="it">Produttore</value>
         <value xml:lang="zh">制造商</value>
     </property>
@@ -1825,6 +2009,7 @@
         <value xml:lang="en">Order Clerk</value>
         <value xml:lang="es">Empleado Comprador</value>
         <value xml:lang="fr">Employé aux commandes</value>
+        <value xml:lang="hi_IN">आदेश लिपिक</value>
         <value xml:lang="it">Impiegato ordini</value>
         <value xml:lang="ro">Functionar Comenzi</value>
         <value xml:lang="ru">Служащий по обработке заказов</value>
@@ -1836,6 +2021,7 @@
         <value xml:lang="en">Organization</value>
         <value xml:lang="es">Organización</value>
         <value xml:lang="fr">Organisation</value>
+        <value xml:lang="hi_IN">संगठन</value>
         <value xml:lang="it">Organizzazione</value>
         <value xml:lang="ro">Organizatie</value>
         <value xml:lang="ru">Организация</value>
@@ -1847,6 +2033,7 @@
         <value xml:lang="en">Organization Unit</value>
         <value xml:lang="es">Unidad de organización</value>
         <value xml:lang="fr">Unité d'organisation</value>
+        <value xml:lang="hi_IN">संगठन इकाई</value>
         <value xml:lang="it">Unità organizzativa</value>
         <value xml:lang="ro">Unitate Organizativa</value>
         <value xml:lang="ru">Организационная единица</value>
@@ -1855,6 +2042,7 @@
     </property>
     <property key="RoleType.description.ORIGINATOR">
         <value xml:lang="en">Originator</value>
+        <value xml:lang="hi_IN">उत्पन्नकर्ता</value>
         <value xml:lang="it">Iniziatore</value>
         <value xml:lang="zh">发起人</value>
     </property>
@@ -1863,6 +2051,7 @@
         <value xml:lang="en">Other Internal</value>
         <value xml:lang="es">Otro órgano interno</value>
         <value xml:lang="fr">Autre interne</value>
+        <value xml:lang="hi_IN">अन्य आंतरिक</value>
         <value xml:lang="it">Altri interni</value>
         <value xml:lang="ro">Altre Interioare</value>
         <value xml:lang="ru">Другая внутренняя</value>
@@ -1874,6 +2063,7 @@
         <value xml:lang="en">Other Organization Unit</value>
         <value xml:lang="es">Otra unidad de organización</value>
         <value xml:lang="fr">Autre unité d'organisation</value>
+        <value xml:lang="hi_IN">अन्य संगठन इकाई</value>
         <value xml:lang="it">Altra unità organizzativa</value>
         <value xml:lang="ro">Alte Unitati Organizative</value>
         <value xml:lang="ru">Другая организационная единица</value>
@@ -1885,6 +2075,7 @@
         <value xml:lang="en">Owner</value>
         <value xml:lang="es">Propietario</value>
         <value xml:lang="fr">Propriétaire</value>
+        <value xml:lang="hi_IN">स्वामी</value>
         <value xml:lang="it">Proprietario</value>
         <value xml:lang="ro">Proprietar</value>
         <value xml:lang="ru">Владелец</value>
@@ -1896,6 +2087,7 @@
         <value xml:lang="en">Packer</value>
         <value xml:lang="es">Embalador</value>
         <value xml:lang="fr">Emballeur</value>
+        <value xml:lang="hi_IN">पैकर</value>
         <value xml:lang="it">Imballatore</value>
         <value xml:lang="ro">Ambalator</value>
         <value xml:lang="ru">Упаковщик</value>
@@ -1907,6 +2099,7 @@
         <value xml:lang="en">Parent Organization</value>
         <value xml:lang="es">Organización padre</value>
         <value xml:lang="fr">Organisation parente</value>
+        <value xml:lang="hi_IN">उच्च स्तरीय(Parent) संगठन</value>
         <value xml:lang="it">Organizzazione padre</value>
         <value xml:lang="ro">Organizatii Parinte</value>
         <value xml:lang="ru">Родительская организация</value>
@@ -1918,6 +2111,7 @@
         <value xml:lang="en">Partner</value>
         <value xml:lang="es">Asociado</value>
         <value xml:lang="fr">Associé</value>
+        <value xml:lang="hi_IN">साथी</value>
         <value xml:lang="it">Socio</value>
         <value xml:lang="ro">Asociat</value>
         <value xml:lang="ru">Партнер</value>
@@ -1929,6 +2123,7 @@
         <value xml:lang="en">Permission Group</value>
         <value xml:lang="es">Grupo de permisos</value>
         <value xml:lang="fr">Groupe d'approbation</value>
+        <value xml:lang="hi_IN">अनुमति समूह</value>
         <value xml:lang="it">Gruppo permesso</value>
         <value xml:lang="ro">Grup Permis</value>
         <value xml:lang="ru">Группа прав</value>
@@ -1940,6 +2135,7 @@
         <value xml:lang="en">Permission Group Member</value>
         <value xml:lang="es">Miembro de grupo de permisos</value>
         <value xml:lang="fr">Membre du groupe d'approbation</value>
+        <value xml:lang="hi_IN">अनुमति समूह के सदस्य</value>
         <value xml:lang="it">Permesso membro gruppo</value>
         <value xml:lang="ro">Membru Grup Permis</value>
         <value xml:lang="ru">Член группы прав</value>
@@ -1951,6 +2147,7 @@
         <value xml:lang="en">Person</value>
         <value xml:lang="es">Persona</value>
         <value xml:lang="fr">Personne</value>
+        <value xml:lang="hi_IN">व्यक्ति</value>
         <value xml:lang="it">Persona</value>
         <value xml:lang="ro">Persoana</value>
         <value xml:lang="ru">Персона</value>
@@ -1962,6 +2159,7 @@
         <value xml:lang="en">Picker</value>
         <value xml:lang="es">Recogedor</value>
         <value xml:lang="fr">Préparateur</value>
+        <value xml:lang="hi_IN">पिक्कर(Picker)</value>
         <value xml:lang="it">Prelevatore</value>
         <value xml:lang="ro">Preluator?</value>
         <value xml:lang="ru">Сортировщик</value>
@@ -1984,6 +2182,7 @@
         <value xml:lang="en">Project Team</value>
         <value xml:lang="es">Equipo de proyecto</value>
         <value xml:lang="fr">Equipe du projet</value>
+        <value xml:lang="hi_IN">परियोजना टीम</value>
         <value xml:lang="it">Capo progetto</value>
         <value xml:lang="zh">项目团体</value>
     </property>
@@ -1992,6 +2191,7 @@
         <value xml:lang="en">Prospect</value>
         <value xml:lang="es">Cliente potencial</value>
         <value xml:lang="fr">Prospect</value>
+        <value xml:lang="hi_IN">अपेक्षा</value>
         <value xml:lang="it">Prospetto</value>
         <value xml:lang="ro">Prospect</value>
         <value xml:lang="ru">Перспектива</value>
@@ -2002,6 +2202,7 @@
         <value xml:lang="en">Provider Accounting</value>
         <value xml:lang="es">Contabilidad de proveedores</value>
         <value xml:lang="fr">Comptabilité fournisseur</value>
+        <value xml:lang="hi_IN">प्रदाता लेखांकन</value>
         <value xml:lang="it">Utenza del provider</value>
         <value xml:lang="zh">供应商会计人员</value>
     </property>
@@ -2009,6 +2210,7 @@
         <value xml:lang="en">Provider Analyst</value>
         <value xml:lang="es">Analista de proveedores</value>
         <value xml:lang="fr">Analyste fournisseur</value>
+        <value xml:lang="hi_IN">प्रदाता विश्लेषक</value>
         <value xml:lang="it">Analista del provider</value>
         <value xml:lang="zh">供应商分析员</value>
     </property>
@@ -2016,6 +2218,7 @@
         <value xml:lang="en">Provider Functional</value>
         <value xml:lang="es">Funcional de proveedores</value>
         <value xml:lang="fr">Conseiller fournisseur</value>
+        <value xml:lang="hi_IN">प्रदाता कार्यात्मक</value>
         <value xml:lang="it">Funzionario del provider</value>
         <value xml:lang="zh">供应商实现人员</value>
     </property>
@@ -2023,6 +2226,7 @@
         <value xml:lang="en">Provider Manager</value>
         <value xml:lang="es">Gestor de proveedores</value>
         <value xml:lang="fr">Responsable fournisseur</value>
+        <value xml:lang="hi_IN">प्रदाता प्रबंधक</value>
         <value xml:lang="it">Responsabile del provider</value>
         <value xml:lang="zh">供应商经理</value>
     </property>
@@ -2030,6 +2234,7 @@
         <value xml:lang="en">Provider Tester</value>
         <value xml:lang="es">Probador de proveedores</value>
         <value xml:lang="fr">Testeur fournisseur</value>
+        <value xml:lang="hi_IN">प्रदाता परीक्षक</value>
         <value xml:lang="it">Tester del provider</value>
         <value xml:lang="zh">供应商测试人员</value>
     </property>
@@ -2037,6 +2242,7 @@
         <value xml:lang="en">Provider Validator</value>
         <value xml:lang="es">Validador de proveedores</value>
         <value xml:lang="fr">Approbateur fournisseur</value>
+        <value xml:lang="hi_IN">प्रदाता वेलिडेटर(Validator)</value>
         <value xml:lang="it">Validatore del provider</value>
         <value xml:lang="zh">供应商检验人员</value>
     </property>
@@ -2045,6 +2251,7 @@
         <value xml:lang="en">Receiver</value>
         <value xml:lang="es">Receptor</value>
         <value xml:lang="fr">Récepteur</value>
+        <value xml:lang="hi_IN">पानेवाला(Receiver)</value>
         <value xml:lang="it">Ricevente</value>
         <value xml:lang="ro">Primitor</value>
         <value xml:lang="ru">Получатель</value>
@@ -2056,6 +2263,7 @@
         <value xml:lang="en">Referrer</value>
         <value xml:lang="es">Referente</value>
         <value xml:lang="fr">Référent</value>
+        <value xml:lang="hi_IN">संदर्भ</value>
         <value xml:lang="it">Referente</value>
         <value xml:lang="ro">Referent</value>
         <value xml:lang="ru">Ссылающийся</value>
@@ -2067,6 +2275,7 @@
         <value xml:lang="en">Regulatory Agency</value>
         <value xml:lang="es">Agencia reguladora</value>
         <value xml:lang="fr">Agence de régulation</value>
+        <value xml:lang="hi_IN">नियामक एजेंसी</value>
         <value xml:lang="it">Agenzia regolatrice</value>
         <value xml:lang="ro">Agentie Normalizatoare</value>
         <value xml:lang="ru">Регуляторное агентство</value>
@@ -2078,6 +2287,7 @@
         <value xml:lang="en">Request Manager</value>
         <value xml:lang="es">Gerente de peticiones</value>
         <value xml:lang="fr">Responsable de recherche</value>
+        <value xml:lang="hi_IN">अनुरोध प्रबंधक</value>
         <value xml:lang="it">Responsabile delle richieste</value>
         <value xml:lang="ro">Responsabil cu Cererile</value>
         <value xml:lang="ru">Менеджер запроса</value>
@@ -2089,6 +2299,7 @@
         <value xml:lang="en">Requesting Party</value>
         <value xml:lang="es">Emisor de peticiones</value>
         <value xml:lang="fr">Demandeur</value>
+        <value xml:lang="hi_IN">अनुरोध पार्टी</value>
         <value xml:lang="it">Soggetto richiesta</value>
         <value xml:lang="ro">Cerere Subiect</value>
         <value xml:lang="ru">Запрашиваемый участник</value>
@@ -2100,6 +2311,7 @@
         <value xml:lang="en">Request Taker</value>
         <value xml:lang="es">Receptor de peticiones</value>
         <value xml:lang="fr">Employé aux recherches</value>
+        <value xml:lang="hi_IN">अनुरोध लेने वाला</value>
         <value xml:lang="it">Acquirente soggetto</value>
         <value xml:lang="ro">Cerere Cumparare</value>
         <value xml:lang="ru">Получатель запроса</value>
@@ -2111,6 +2323,7 @@
         <value xml:lang="en">Reviewer</value>
         <value xml:lang="es">Revisador</value>
         <value xml:lang="fr">Vérificateur</value>
+        <value xml:lang="hi_IN">समीक्षक</value>
         <value xml:lang="it">Revisore</value>
         <value xml:lang="ro">Revizor</value>
         <value xml:lang="ru">Обозреватель</value>
@@ -2122,6 +2335,7 @@
         <value xml:lang="en">Sales Representative</value>
         <value xml:lang="es">Representante de ventas</value>
         <value xml:lang="fr">Représentant</value>
+        <value xml:lang="hi_IN">विक्रय प्रतिनिधि</value>
         <value xml:lang="it">Rappresentante di vendita</value>
         <value xml:lang="ro">Reprezentant Vanzare</value>
         <value xml:lang="ru">Торговый представитель</value>
@@ -2133,6 +2347,7 @@
         <value xml:lang="en">Shareholder</value>
         <value xml:lang="es">Accionista</value>
         <value xml:lang="fr">Actionnaire</value>
+        <value xml:lang="hi_IN">शेयरधारक</value>
         <value xml:lang="it">Azionista</value>
         <value xml:lang="ro">Actionist</value>
         <value xml:lang="ru">Пайщик</value>
@@ -2144,6 +2359,7 @@
         <value xml:lang="en">Shipment Clerk</value>
         <value xml:lang="es">Empleado de envíos</value>
         <value xml:lang="fr">Employé aux expéditions</value>
+        <value xml:lang="hi_IN">माल(Shipment) लिपिक</value>
         <value xml:lang="it">Impiegato delle spedizioni</value>
         <value xml:lang="ro">Functionar Expedieri</value>
         <value xml:lang="ru">Служащий по поставкам</value>
@@ -2155,6 +2371,7 @@
         <value xml:lang="en">Ship-From Vendor</value>
         <value xml:lang="es">Envío de proveedor</value>
         <value xml:lang="fr">Vendeur expéditeur</value>
+        <value xml:lang="hi_IN">विक्रेता से अपवाहन</value>
         <value xml:lang="it">Spedizione dal fornitore</value>
         <value xml:lang="ro">Expediere de la Furnizor</value>
         <value xml:lang="ru">Поставка-от вендора</value>
@@ -2166,6 +2383,7 @@
         <value xml:lang="en">Ship-To Customer</value>
         <value xml:lang="es">Envío a cliente</value>
         <value xml:lang="fr">Client livré</value>
+        <value xml:lang="hi_IN">ग्राहक को अपवाहन</value>
         <value xml:lang="it">Spedizione al cliente</value>
         <value xml:lang="ro">Expediere la Client</value>
         <value xml:lang="ru">Поставка-на заказчика</value>
@@ -2174,11 +2392,13 @@
     </property>
     <property key="RoleType.description.SPONSOR">
         <value xml:lang="en">Sponsor</value>
+        <value xml:lang="hi_IN">प्रायोजक</value>
         <value xml:lang="it">Sponsorizzatore</value>
         <value xml:lang="zh">赞助商</value>
     </property>
     <property key="RoleType.description.SPOUSE">
         <value xml:lang="en">Spouse</value>
+        <value xml:lang="hi_IN">पति या पत्नी</value>
         <value xml:lang="it">Sposo</value>
         <value xml:lang="zh">配偶</value>
     </property>
@@ -2187,6 +2407,7 @@
         <value xml:lang="en">Stocker</value>
         <value xml:lang="es">Almacenista</value>
         <value xml:lang="fr">Magasinier</value>
+        <value xml:lang="hi_IN">भंडारी</value>
         <value xml:lang="it">Magazziniere</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Stocker</value>
@@ -2198,6 +2419,7 @@
         <value xml:lang="en">Subscriber</value>
         <value xml:lang="es">Abonado</value>
         <value xml:lang="fr">Abonné</value>
+        <value xml:lang="hi_IN">सदस्य</value>
         <value xml:lang="it">Abbonato</value>
         <value xml:lang="ro">Abonat</value>
         <value xml:lang="ru">Подписчик</value>
@@ -2209,6 +2431,7 @@
         <value xml:lang="en">Subsidiary</value>
         <value xml:lang="es">Subsidiario</value>
         <value xml:lang="fr">Filiale</value>
+        <value xml:lang="hi_IN">सहायक</value>
         <value xml:lang="it">Filiale </value>
         <value xml:lang="ro">Filiale </value>
         <value xml:lang="ru">Дочерняя структура</value>
@@ -2220,6 +2443,7 @@
         <value xml:lang="en">Supplier</value>
         <value xml:lang="es">Proveedor</value>
         <value xml:lang="fr">Fournisseur</value>
+        <value xml:lang="hi_IN">प्रदायक</value>
         <value xml:lang="it">Fornitore</value>
         <value xml:lang="ro">Furnizor</value>
         <value xml:lang="ru">Поставщик</value>
@@ -2231,6 +2455,7 @@
         <value xml:lang="en">Supplier Agent</value>
         <value xml:lang="es">Representante de proveedor</value>
         <value xml:lang="fr">Agent fournisseur</value>
+        <value xml:lang="hi_IN">प्रदायक एजेंट</value>
         <value xml:lang="it">Agente del fornitore</value>
         <value xml:lang="ro">Agentul Furnizorului</value>
         <value xml:lang="ru">Агент поставщика</value>
@@ -2242,6 +2467,7 @@
         <value xml:lang="en">Tax Authority</value>
         <value xml:lang="es">Agencia tributaria</value>
         <value xml:lang="fr">Administration fiscale</value>
+        <value xml:lang="hi_IN">टैक्स प्राधिकरण</value>
         <value xml:lang="it">Autorità tasse</value>
         <value xml:lang="ro">Autoritati Taxe</value>
         <value xml:lang="ru">Налоговый орган</value>
@@ -2253,6 +2479,7 @@
         <value xml:lang="en">Union</value>
         <value xml:lang="es">Sindicato</value>
         <value xml:lang="fr">Syndicat</value>
+        <value xml:lang="hi_IN">संघ</value>
         <value xml:lang="it">Unione</value>
         <value xml:lang="ro">Uniune</value>
         <value xml:lang="ru">Объединение</value>
@@ -2264,6 +2491,7 @@
         <value xml:lang="en">Vendor</value>
         <value xml:lang="es">Proveedor</value>
         <value xml:lang="fr">Vendeur</value>
+        <value xml:lang="hi_IN">विक्रेता</value>
         <value xml:lang="it">Fornitore</value>
         <value xml:lang="ro">Furnizor</value>
         <value xml:lang="ru">Вендор</value>
@@ -2275,6 +2503,7 @@
         <value xml:lang="en">Visitor</value>
         <value xml:lang="es">Visitante</value>
         <value xml:lang="fr">Visiteur</value>
+        <value xml:lang="hi_IN">आगंतुक</value>
         <value xml:lang="it">Visitatore</value>
         <value xml:lang="ro">Vizitator</value>
         <value xml:lang="ru">Посетитель</value>
@@ -2286,6 +2515,7 @@
         <value xml:lang="en">Web Master</value>
         <value xml:lang="es">Webmaster</value>
         <value xml:lang="fr">Webmestre</value>
+        <value xml:lang="hi_IN">वेब मास्टर</value>
         <value xml:lang="it">Web master</value>
         <value xml:lang="ro">Web Master</value>
         <value xml:lang="ru">Web мастер</value>
@@ -2297,6 +2527,7 @@
         <value xml:lang="en">Workflow Owner</value>
         <value xml:lang="es">Propietario de proceso de trabajo</value>
         <value xml:lang="fr">Propriétaire de la séquence de travail</value>
+        <value xml:lang="hi_IN">वर्कफ़्लो स्वामी</value>
         <value xml:lang="it">Proprietario flusso di lavoro</value>
         <value xml:lang="ro">Proprietar Flux de Lucru</value>
         <value xml:lang="ru">Владелец процесса Workflow</value>
@@ -2308,6 +2539,7 @@
         <value xml:lang="en">Worker</value>
         <value xml:lang="es">Trabajador</value>
         <value xml:lang="fr">Travailleur</value>
+        <value xml:lang="hi_IN">कार्यकर्ता</value>
         <value xml:lang="it">Operaio</value>
         <value xml:lang="ro">Muncitor</value>
         <value xml:lang="ru">Рабочий</value>
@@ -2319,6 +2551,7 @@
         <value xml:lang="en">Workflow</value>
         <value xml:lang="es">Proceso de trabajo</value>
         <value xml:lang="fr">Séquence de travail</value>
+        <value xml:lang="hi_IN">वर्कफ़्लो</value>
         <value xml:lang="it">Flusso di lavoro</value>
         <value xml:lang="ro">Flux de Lucru</value>
         <value xml:lang="ru">Workflow</value>
@@ -2330,6 +2563,7 @@
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
         <value xml:lang="fr">Non applicable</value>
+        <value xml:lang="hi_IN">लागू नहीं है</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
@@ -2341,6 +2575,7 @@
         <value xml:lang="en">Agreement Termination</value>
         <value xml:lang="es">Acuerdo de finalización</value>
         <value xml:lang="fr">Convention de fin de contrat</value>
+        <value xml:lang="hi_IN">समझौते समाप्ति</value>
         <value xml:lang="it">Termini contratto</value>
         <value xml:lang="pt_PT">Limitação de Acordo</value>
         <value xml:lang="ro">Termeni Contract</value>
@@ -2368,6 +2603,7 @@
         <value xml:lang="en">Clause For Renewal</value>
         <value xml:lang="es">Cláusula para renovación</value>
         <value xml:lang="fr">Clause de renouvellement</value>
+        <value xml:lang="hi_IN">नवीनीकरण के लिए खण्ड</value>
         <value xml:lang="it">Clausola per il rinnovo</value>
         <value xml:lang="pt_PT">Cláusula para Renovação</value>
         <value xml:lang="ro">Clausa Pentru Reanoire</value>
@@ -2380,6 +2616,7 @@
         <value xml:lang="en">Commission</value>
         <value xml:lang="es">Comisión</value>
         <value xml:lang="fr">Commission</value>
+        <value xml:lang="hi_IN">दलाली</value>
         <value xml:lang="it">Provvigione</value>
         <value xml:lang="ro">Provizion</value>
         <value xml:lang="ru">Комиссия</value>
@@ -2421,6 +2658,7 @@
         <value xml:lang="en">Exclusive Relationship</value>
         <value xml:lang="es">Relación exclusiva</value>
         <value xml:lang="fr">Relation exclusive</value>
+        <value xml:lang="hi_IN">अनन्य संबंध</value>
         <value xml:lang="it">Rapporto esclusivo</value>
         <value xml:lang="pt_PT">Afinidade Exclusiva</value>
         <value xml:lang="ro">Raport Exclusiv</value>
@@ -2448,6 +2686,7 @@
         <value xml:lang="en">Financial</value>
         <value xml:lang="es">Financiero</value>
         <value xml:lang="fr">Financier</value>
+        <value xml:lang="hi_IN">वित्तीय</value>
         <value xml:lang="it">Finanziario</value>
         <value xml:lang="pt_PT">Financeiro</value>
         <value xml:lang="ro">Financiar</value>
@@ -2460,6 +2699,7 @@
         <value xml:lang="en">Penalty For Collection Agency</value>
         <value xml:lang="es">Penalización para Agencia de Recaudación</value>
         <value xml:lang="fr">Pénalité pour recouvrement</value>
+        <value xml:lang="hi_IN">संग्रह एजेंसी पर जुर्माना</value>
         <value xml:lang="it">Penalità per agenzia collezione</value>
         <value xml:lang="pt_PT">Taxa Para Agência de Cobrança</value>
         <value xml:lang="ro">Penalitati pentru Agentia de Colectie</value>
@@ -2472,6 +2712,7 @@
         <value xml:lang="en">Commission Term Fixed Per Unit</value>
         <value xml:lang="es">Comisión fija por unidad</value>
         <value xml:lang="fr">Commission fixée par unité</value>
+        <value xml:lang="hi_IN">प्रति यूनिट निश्चित दलाली की शर्त</value>
         <value xml:lang="it">Provvigione termine fisso per unità</value>
         <value xml:lang="ro">Provizion Termen Fix Pe Unitate</value>
         <value xml:lang="ru">Фиксированная комиссия на единицу</value>
@@ -2483,6 +2724,7 @@
         <value xml:lang="en">Commission Term Maximum Per Unit</value>
         <value xml:lang="es">Comisión máxima por unidad</value>
         <value xml:lang="fr">Commission maximale par unité</value>
+        <value xml:lang="hi_IN">दलाली की शर्त अधिकतम प्रति यूनिट</value>
         <value xml:lang="it">Provvigione termine massimo per unità</value>
         <value xml:lang="ro">Provizion Termen Maxim Pe Unitate</value>
         <value xml:lang="ru">Максимальная комиссия на единицу</value>
@@ -2494,6 +2736,7 @@
         <value xml:lang="en">Commission Term Minimum Per Unit</value>
         <value xml:lang="es">Comisión mínima por unidad</value>
         <value xml:lang="fr">Commission minimale par unité</value>
+        <value xml:lang="hi_IN">दलाली की शर्त न्यूनतम प्रति यूनिट</value>
         <value xml:lang="it">Provvigione termine minimo per unità</value>
         <value xml:lang="ro">Provizion Termen Minim Pe Unitate</value>
         <value xml:lang="ru">Минимальная комиссия на единицу</value>
@@ -2505,6 +2748,7 @@
         <value xml:lang="en">Commission Term Variable</value>
         <value xml:lang="es">Comisión variable</value>
         <value xml:lang="fr">Commission variable</value>
+        <value xml:lang="hi_IN">दलाली की शर्त के चर(Variable)</value>
         <value xml:lang="it">Provvigione termine variabile</value>
         <value xml:lang="ro">Provizion Termen Variabil</value>
         <value xml:lang="ru">Переменная комиссия</value>
@@ -2516,6 +2760,7 @@
         <value xml:lang="en">Late Fee (percent)</value>
         <value xml:lang="es">Penalización por retraso (%)</value>
         <value xml:lang="fr">Pénalité de retard (%)</value>
+        <value xml:lang="hi_IN">देरी शुल्क(प्रतिशत)</value>
         <value xml:lang="it">Tassa ritardata (percentuale)</value>
         <value xml:lang="pt_PT">Taxa De Atraso (percentagem)</value>
         <value xml:lang="ro">Taxa Intarziata (procent)</value>
@@ -2528,6 +2773,7 @@
         <value xml:lang="en">Non-Returnable Sales Item</value>
         <value xml:lang="es">Artículos no retornables</value>
         <value xml:lang="fr">Article non retournable</value>
+        <value xml:lang="hi_IN">गैर-वापसी की बिक्री मद</value>
         <value xml:lang="it">Riga vendita non-restituibile</value>
         <value xml:lang="pt_PT">Item À Venda Sem Devolução </value>
         <value xml:lang="ro">Linie Vanzare Ne-Restituibila</value>
@@ -2540,6 +2786,7 @@
         <value xml:lang="en">Payment (discounted if paid within specified days)</value>
         <value xml:lang="es">Pago (descuento por pago en el periodo establecido)</value>
         <value xml:lang="fr">Paiement (avec remise si payé dans un nombre de jours donnés)</value>
+        <value xml:lang="hi_IN">भुगतान(यदि निर्दिष्ट दिनों के भीतर भुगतान कर दिया तो छूट मिल सकती है)</value>
         <value xml:lang="it">Pagamento (sconto se pagato senza giorni specificati)</value>
         <value xml:lang="ro">Plata (discontinuu daca este platit fara specificarea zilelor)</value>
         <value xml:lang="ru">Платеж (скидка при оплате в течении указанного количества дней)</value>
@@ -2551,6 +2798,7 @@
         <value xml:lang="en">Payment (due on specified day of month)</value>
         <value xml:lang="es">Pago (en el día del mes especificado)</value>
         <value xml:lang="fr">Paiement (due à un jour donné du mois)</value>
+        <value xml:lang="hi_IN">भुगतान(महीने के निर्धारित दिन पर देय)</value>
         <value xml:lang="it">Pagamento (dovuto ad uno specifico giorno del mese)</value>
         <value xml:lang="ro">Plata(une zile specifice a lunii)</value>
         <value xml:lang="ru">Платеж (на определенный день месяца)</value>
@@ -2594,6 +2842,7 @@
         <value xml:lang="en">Incentive</value>
         <value xml:lang="es">Incentivo</value>
         <value xml:lang="fr">Avantage</value>
+        <value xml:lang="hi_IN">प्रोत्साहन</value>
         <value xml:lang="it">Incentivo</value>
         <value xml:lang="pt_PT">Incentivo</value>
         <value xml:lang="ro">Incentiv</value>
@@ -2611,6 +2860,7 @@
         <value xml:lang="en">Indemnification</value>
         <value xml:lang="es">Indemnización</value>
         <value xml:lang="fr">Indemnisation</value>
+        <value xml:lang="hi_IN">क्षतिपूर्ति</value>
         <value xml:lang="it">Risarcimento</value>
         <value xml:lang="pt_PT">Compensação</value>
         <value xml:lang="ro">Despagubire</value>
@@ -2623,6 +2873,7 @@
         <value xml:lang="en">Legal</value>
         <value xml:lang="es">Términos legales</value>
         <value xml:lang="fr">Légale</value>
+        <value xml:lang="hi_IN">कानूनी</value>
         <value xml:lang="it">Legale</value>
         <value xml:lang="pt_PT">Legal</value>
         <value xml:lang="ro">Legal</value>
@@ -2635,6 +2886,7 @@
         <value xml:lang="en">Non-Compete</value>
         <value xml:lang="es">No competir</value>
         <value xml:lang="fr">Non-concurrence</value>
+        <value xml:lang="hi_IN">गैर बराबरी का</value>
         <value xml:lang="it">Non-competitivo</value>
         <value xml:lang="pt_PT">Não competitivo</value>
         <value xml:lang="ro">Ne-Concorenta</value>
@@ -2647,6 +2899,7 @@
         <value xml:lang="en">Other</value>
         <value xml:lang="es">Otros</value>
         <value xml:lang="fr">Autres</value>
+        <value xml:lang="hi_IN">अन्य</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="pt_PT">Outros</value>
         <value xml:lang="ro">Alte</value>
@@ -2656,16 +2909,19 @@
     </property>
     <property key="TermType.description.PURCHASING">
         <value xml:lang="en">Purchasing</value>
+        <value xml:lang="hi_IN">क्रय</value>
         <value xml:lang="it">Acquisto</value>
         <value xml:lang="zh">采购</value>
     </property>
     <property key="TermType.description.PURCH_FREIGHT">
         <value xml:lang="en">Preferred Freight</value>
+        <value xml:lang="hi_IN">पसंदीदा भाड़ा</value>
         <value xml:lang="it">Spese di trasporto preferite</value>
         <value xml:lang="zh">优先货运</value>
     </property>
     <property key="TermType.description.PURCH_VENDOR_ID">
         <value xml:lang="en">Vendor Customer ID</value>
+        <value xml:lang="hi_IN">विक्रेता ग्राहक क्रमांक</value>
         <value xml:lang="it">Cliente fornitore</value>
         <value xml:lang="zh">供货商客户标识</value>
     </property>
@@ -2674,6 +2930,7 @@
         <value xml:lang="en">Threshold</value>
         <value xml:lang="es">Umbral</value>
         <value xml:lang="fr">Seuil</value>
+        <value xml:lang="hi_IN">दहलीज़</value>
         <value xml:lang="it">Soglia</value>
         <value xml:lang="pt_PT">Base</value>
         <value xml:lang="ro">Parte</value>
