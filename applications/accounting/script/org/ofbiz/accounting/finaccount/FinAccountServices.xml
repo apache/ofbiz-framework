@@ -654,29 +654,28 @@ under the License.
         <if-not-empty field="finAccountTrans.glReconciliationId">
             <get-related-one relation-name="GlReconciliation" value-field="finAccountTrans" to-value-field="glReconciliation"/>
             <set-service-fields service-name="updateGlReconciliation" map="glReconciliation" to-map="updateGlReconciliationMap"/>
-        <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT">
-            <set-service-fields service-name="reconcileAdjustmentFinAcctgTrans" map="parameters" to-map="reconcileAdjustmentFinAcctgTransMap"/>
-            <set field="reconcileAdjustmentFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
-            <set field="reconcileAdjustmentFinAcctgTransMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
-            <call-service service-name="reconcileAdjustmentFinAcctgTrans" in-map-name="reconcileAdjustmentFinAcctgTransMap"/>
+            <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT">
+                <set-service-fields service-name="reconcileAdjustmentFinAcctgTrans" map="parameters" to-map="reconcileAdjustmentFinAcctgTransMap"/>
+                <set field="reconcileAdjustmentFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
+                <set field="reconcileAdjustmentFinAcctgTransMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <call-service service-name="reconcileAdjustmentFinAcctgTrans" in-map-name="reconcileAdjustmentFinAcctgTransMap"/>
                 <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance + finAccountTrans.amount}"/>
-        </if-compare>
-        <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT">
-            <set-service-fields service-name="reconcileDepositFinAcctgTrans" map="parameters" to-map="reconcileDepositFinAcctgTransMap"/>
-            <set field="reconcileDepositFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
-            <call-service service-name="reconcileDepositFinAcctgTrans" in-map-name="reconcileDepositFinAcctgTransMap"/>
+            </if-compare>
+            <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT">
+                <set-service-fields service-name="reconcileDepositFinAcctgTrans" map="parameters" to-map="reconcileDepositFinAcctgTransMap"/>
+                <set field="reconcileDepositFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
+                <call-service service-name="reconcileDepositFinAcctgTrans" in-map-name="reconcileDepositFinAcctgTransMap"/>
                 <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance + finAccountTrans.amount}"/>
-        </if-compare>
-        <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL">
-            <set-service-fields service-name="reconcileWithdrawalFinAcctgTrans" map="parameters" to-map="reconcileWithdrawalFinAcctgTransMap"/>
-            <set field="reconcileWithdrawalFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
-            <call-service service-name="reconcileWithdrawalFinAcctgTrans" in-map-name="reconcileWithdrawalFinAcctgTransMap"/>
+            </if-compare>
+            <if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL">
+                <set-service-fields service-name="reconcileWithdrawalFinAcctgTrans" map="parameters" to-map="reconcileWithdrawalFinAcctgTransMap"/>
+                <set field="reconcileWithdrawalFinAcctgTransMap.finAccountTrans" from-field="finAccountTrans"/>
+                <call-service service-name="reconcileWithdrawalFinAcctgTrans" in-map-name="reconcileWithdrawalFinAcctgTransMap"/>
                 <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance - finAccountTrans.amount}"/>
-        </if-compare>
-        
-        <set-service-fields service-name="setFinAccountTransStatus" map="finAccountTrans" to-map="setFinAccountTransStatusMap"/>
-        <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_APPROVED"/>
-        <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
+            </if-compare>
+            <set-service-fields service-name="setFinAccountTransStatus" map="finAccountTrans" to-map="setFinAccountTransStatusMap"/>
+            <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_APPROVED"/>
+            <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
             <set field="isGlReconciliationReconciledMap.glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
             <call-service service-name="isGlReconciliationReconciled" in-map-name="isGlReconciliationReconciledMap">
                 <result-to-field result-name="isReconciled"/>
