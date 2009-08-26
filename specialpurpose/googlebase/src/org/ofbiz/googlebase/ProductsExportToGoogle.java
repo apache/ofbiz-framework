@@ -59,6 +59,7 @@ public class ProductsExportToGoogle {
 
     private static final String resource = "GoogleBaseUiLabels";
     private static final String module = ProductsExportToGoogle.class.getName();
+    private static final String googleBaseNSUrl = "http://base.google.com/ns/1.0";
 
     public static Map exportToGoogle(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
@@ -362,6 +363,7 @@ public class ProductsExportToGoogle {
             feedElem.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
             feedElem.setAttribute("xmlns:openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
             feedElem.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");
+            feedElem.setAttribute("xmlns:gm", "http://base.google.com/ns-metadata/1.0");
             feedElem.setAttribute("xmlns:batch", "http://schemas.google.com/gdata/batch");
             feedElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
 
@@ -381,7 +383,13 @@ public class ProductsExportToGoogle {
                 // TODO: improve this (i.e. get the relative path from the properies file)
                 String link = webSiteUrl + "/"+webSiteMountPoint+"/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
                 String title = UtilFormatOut.encodeXmlValue(prod.getString("productName"));
+                if (UtilValidate.isEmpty(title)) {
+                    title = UtilFormatOut.encodeXmlValue(prod.getString("internalName"));
+                }
                 String description = UtilFormatOut.encodeXmlValue(prod.getString("description"));
+                if (UtilValidate.isEmpty(description)) {
+                    description = UtilFormatOut.encodeXmlValue(prod.getString("internalName"));
+                }
                 String imageLink = "";
                 if (UtilValidate.isNotEmpty(prod.getString("largeImageUrl"))) {
                     imageLink = webSiteUrl + prod.getString("largeImageUrl");
@@ -426,9 +434,9 @@ public class ProductsExportToGoogle {
                 contentElem.setAttribute("type", "xhtml");
 
                 if (UtilValidate.isNotEmpty(googleProductId)) {
-                    UtilXml.addChildElementValue(entryElem, "id", googleProductId, feedDocument);
+                    UtilXml.addChildElementNSValue(entryElem, "g:id", googleProductId, feedDocument, googleBaseNSUrl);
                 } else {
-                    UtilXml.addChildElementValue(entryElem, "id", link, feedDocument);
+                    UtilXml.addChildElementNSValue(entryElem, "g:id", link, feedDocument, googleBaseNSUrl);
                 }
 
                 Element linkElem = UtilXml.addChildElement(entryElem, "link", feedDocument);
@@ -436,17 +444,17 @@ public class ProductsExportToGoogle {
                 linkElem.setAttribute("type", "text/html");
                 linkElem.setAttribute("href", link);
 
-                UtilXml.addChildElementValue(entryElem, "g:item_type", "products", feedDocument);
-                UtilXml.addChildElementValue(entryElem, "g:price", price, feedDocument);
+                UtilXml.addChildElementNSValue(entryElem, "g:item_type", "products", feedDocument, googleBaseNSUrl);
+                UtilXml.addChildElementNSValue(entryElem, "g:price", price, feedDocument, googleBaseNSUrl);
 
                 // Might be nicer to load this from the product but for now we'll set it based on the country destination
                 UtilXml.addChildElementValue(entryElem, "g:currency", productCurrency, feedDocument);
 
                 // Ensure the load goes to the correct country location either US dollar, GB sterling or DE euro
                 UtilXml.addChildElementValue(entryElem, "g:target_country", countryCode, feedDocument);
-
-                UtilXml.addChildElementValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument);
-
+                if (UtilValidate.isNotEmpty(prod.getString("brandName"))) { 
+                    UtilXml.addChildElementValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument);
+                }
                 try {
                     googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"));
                     if (UtilValidate.isNotEmpty(googleProduct)) {
@@ -456,7 +464,7 @@ public class ProductsExportToGoogle {
                     Debug.logInfo("Unable to get the SKU for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
                 }
 
-                UtilXml.addChildElementValue(entryElem, "g:condition", "new", feedDocument);
+                UtilXml.addChildElementNSValue(entryElem, "g:condition", "new", feedDocument, googleBaseNSUrl);
                 // This is a US specific requirement for product feeds
                 //                     UtilXml.addChildElementValue(entryElem, "g:mpn", "", feedDocument);
 
