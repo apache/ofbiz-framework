@@ -448,17 +448,17 @@ public class ProductsExportToGoogle {
                 UtilXml.addChildElementNSValue(entryElem, "g:price", price, feedDocument, googleBaseNSUrl);
 
                 // Might be nicer to load this from the product but for now we'll set it based on the country destination
-                UtilXml.addChildElementValue(entryElem, "g:currency", productCurrency, feedDocument);
+                UtilXml.addChildElementNSValue(entryElem, "g:currency", productCurrency, feedDocument, googleBaseNSUrl);
 
                 // Ensure the load goes to the correct country location either US dollar, GB sterling or DE euro
-                UtilXml.addChildElementValue(entryElem, "g:target_country", countryCode, feedDocument);
+                UtilXml.addChildElementNSValue(entryElem, "g:target_country", countryCode, feedDocument, googleBaseNSUrl);
                 if (UtilValidate.isNotEmpty(prod.getString("brandName"))) { 
-                    UtilXml.addChildElementValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument);
+                    UtilXml.addChildElementNSValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument, googleBaseNSUrl);
                 }
                 try {
                     googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"));
                     if (UtilValidate.isNotEmpty(googleProduct)) {
-                        UtilXml.addChildElementValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument);
+                        UtilXml.addChildElementNSValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument, googleBaseNSUrl);
                     }
                 } catch (GenericEntityException gee) {
                     Debug.logInfo("Unable to get the SKU for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
@@ -470,7 +470,7 @@ public class ProductsExportToGoogle {
 
                 // if the product has an image it will be published on Google Product Search
                 if (UtilValidate.isNotEmpty(imageLink)) {
-                    UtilXml.addChildElementValue(entryElem, "g:image_link", imageLink, feedDocument);
+                    UtilXml.addChildElementNSValue(entryElem, "g:image_link", imageLink, feedDocument, googleBaseNSUrl);
                 }
                 // if the product is exported to google for the first time, we add it to the list
                 if ("insert".equals(itemActionType)) {
@@ -485,14 +485,12 @@ public class ProductsExportToGoogle {
                 }
                 index++;
             }
-
             dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
         } catch (IOException e) {
             return ServiceUtil.returnError("IO Error creating XML document for Google :" + e.getMessage());
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Unable to read from product entity: "  + e.toString());
         }
-
 
         Map result = ServiceUtil.returnSuccess();
         result.put("newProductsInGoogle", newProductsInGoogle);
