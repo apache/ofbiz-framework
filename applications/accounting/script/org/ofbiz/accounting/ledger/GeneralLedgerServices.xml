@@ -895,9 +895,12 @@ under the License.
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="incomeAccountClassIds">
             <field field="incomeGlAccountClass" type="GenericValue"/>
         </call-class-method>
+        <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds[]" from-field="organizationPartyId"/>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
-                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="isPosted" operator="equals" value="Y"/>
                 <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId"/>
                 <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate"/>
@@ -914,14 +917,14 @@ under the License.
         </entity-condition>
 
         <set field="findCustomTimePeriodsMap.findDate" from-field="parameters.fromDate" type="Timestamp"/>
-        <set field="findCustomTimePeriodsMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="findCustomTimePeriodsMap.organizationPartyId" from-field="organizationPartyId"/>
         <call-service service-name="findCustomTimePeriods" in-map-name="findCustomTimePeriodsMap">
             <result-to-field result-name="customTimePeriodList"/>
         </call-service>
         <first-from-list list="customTimePeriodList" entry="customTimePeriod"/>
 
         <set field="acctgTransEntriesAndTransTotalMap.isPosted" value="Y"/>
-        <set field="acctgTransEntriesAndTransTotalMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="acctgTransEntriesAndTransTotalMap.organizationPartyId" from-field="organizationPartyId"/>
         <set field="acctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" from-field="customTimePeriod.fromDate" type="Timestamp"/>
         <set field="acctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" from-field="parameters.thruDate" type="Timestamp"/>
 
@@ -1041,7 +1044,10 @@ under the License.
         </call-class-method>
 
         <!-- retrieve the last closed date for the same type of time period -->
-        <set field="findLastClosedDateInMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds[]" from-field="organizationPartyId"/>
+        <set field="findLastClosedDateInMap.organizationPartyId" from-field="organizationPartyId"/>
         <set field="findLastClosedDateInMap.findDate" from-field="parameters.thruDate"/>
         <call-service service-name="findLastClosedDate" in-map-name="findLastClosedDateInMap">
             <result-to-field result-name="lastClosedDate"/>
@@ -1055,7 +1061,7 @@ under the License.
         <if-not-empty field="lastClosedTimePeriod">
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
-                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                    <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                     <condition-expr field-name="customTimePeriodId" operator="equals" from-field="lastClosedTimePeriod.customTimePeriodId"/>
                     <condition-expr field-name="glAccountClassId" operator="in" from-field="assetAccountClassIds"/>
                 </condition-list>
@@ -1066,7 +1072,7 @@ under the License.
             </iterate>
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
-                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                    <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                     <condition-expr field-name="customTimePeriodId" operator="equals" from-field="lastClosedTimePeriod.customTimePeriodId"/>
                     <condition-expr field-name="glAccountClassId" operator="in" from-field="liabilityAccountClassIds"/>
                 </condition-list>
@@ -1077,7 +1083,7 @@ under the License.
             </iterate>
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
-                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                    <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                     <condition-expr field-name="customTimePeriodId" operator="equals" from-field="lastClosedTimePeriod.customTimePeriodId"/>
                     <condition-expr field-name="glAccountClassId" operator="in" from-field="equityAccountClassIds"/>
                 </condition-list>
@@ -1090,7 +1096,7 @@ under the License.
 
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
-                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="isPosted" operator="equals" value="Y"/>
                 <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId"/>
                 <condition-expr field-name="transactionDate" operator="greater-equals" from-field="lastClosedDate"/>
@@ -1117,7 +1123,7 @@ under the License.
         </iterate>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
-                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="isPosted" operator="equals" value="Y"/>
                 <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId"/>
                 <condition-expr field-name="transactionDate" operator="greater-equals" from-field="lastClosedDate"/>
@@ -1144,7 +1150,7 @@ under the License.
         </iterate>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
-                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
                 <condition-expr field-name="isPosted" operator="equals" value="Y"/>
                 <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId"/>
                 <condition-expr field-name="transactionDate" operator="greater-equals" from-field="lastClosedDate"/>
@@ -1171,7 +1177,7 @@ under the License.
         </iterate>
 
         <!-- retrieve the last closed date for the same type of time period -->
-        <set field="prepareIncomeStatementInMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="prepareIncomeStatementInMap.organizationPartyId" from-field="organizationPartyId"/>
         <set field="prepareIncomeStatementInMap.glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
         <set field="prepareIncomeStatementInMap.fromDate" from-field="lastClosedDate"/>
         <set field="prepareIncomeStatementInMap.thruDate" from-field="parameters.thruDate"/>
@@ -1180,7 +1186,7 @@ under the License.
         </call-service>
         <!-- get the retained earnings account -->
         <entity-one entity-name="GlAccountTypeDefault" value-field="retainedEarningsAccount" use-cache="true">
-            <field-map field-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+            <field-map field-name="organizationPartyId"/>
             <field-map field-name="glAccountTypeId" value="RETAINED_EARNINGS"/>
         </entity-one>
         <if-not-empty field="retainedEarningsAccount">
