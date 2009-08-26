@@ -145,10 +145,10 @@ under the License.
                     <#if product.productTypeId == "MARKETING_PKG_AUTO" || product.productTypeId == "MARKETING_PKG_PICK">
                     ${uiLabelMap.ProductMarketingPackageATP} = ${mktgPkgATPMap.get(productId)}, ${uiLabelMap.ProductMarketingPackageQOH} = ${mktgPkgQOHMap.get(productId)}
                     </#if>
-                    <#if availableToPromiseMap.get(cartLine.getProductId()) <= 0 >
+                    <#if (availableToPromiseMap.get(cartLine.getProductId()) <= 0) && (shoppingCart.getOrderType() == "SALES_ORDER")>
                       <span style="color: red;">[${cartLine.getQuantity()}&nbsp;${uiLabelMap.OrderBackOrdered}]</span>
                     <#else>
-                      <#if availableToPromiseMap.get(cartLine.getProductId()) < cartLine.getQuantity()>
+                      <#if (availableToPromiseMap.get(cartLine.getProductId()) < cartLine.getQuantity()) && (shoppingCart.getOrderType() == "SALES_ORDER")>
                         <#assign backOrdered = cartLine.getQuantity() - availableToPromiseMap.get(cartLine.getProductId())>
                         <span style="color: red;">[${backOrdered?if_exists}&nbsp;${uiLabelMap.OrderBackOrdered}]</span>
                       </#if>
