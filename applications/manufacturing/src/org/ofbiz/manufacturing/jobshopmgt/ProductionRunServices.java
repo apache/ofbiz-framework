@@ -953,12 +953,14 @@ public class ProductionRunServices {
             double actualTotalMilliSeconds = 0.0;
             Double actualSetupMillis = workEffort.getDouble("actualSetupMillis");
             Double actualMilliSeconds = workEffort.getDouble("actualMilliSeconds");
-            if (actualSetupMillis != null) {
-                actualTotalMilliSeconds += actualSetupMillis.doubleValue();
+            if (actualSetupMillis == null) {
+                actualSetupMillis = new Double(0.0);
             }
-            if (actualMilliSeconds != null) {
-                actualTotalMilliSeconds += actualMilliSeconds.doubleValue();
+            if (actualMilliSeconds == null) {
+                actualMilliSeconds = new Double(0.0);
             }
+            actualTotalMilliSeconds += actualSetupMillis.doubleValue();
+            actualTotalMilliSeconds += actualMilliSeconds.doubleValue();
             // Get the template (aka routing task) of the work effort
             GenericValue routingTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc",
                                                             UtilMisc.toMap("workEffortIdTo", productionRunTaskId,
@@ -1027,7 +1029,15 @@ public class ProductionRunServices {
                 GenericValue usageCost = EntityUtil.getFirst(EntityUtil.filterByDate(usageCosts));
                 if (UtilValidate.isNotEmpty(setupCost) || UtilValidate.isNotEmpty(usageCost)) {
                     String currencyUomId = (setupCost != null? setupCost.getString("amountUomId"): usageCost.getString("amountUomId"));
-                    BigDecimal fixedAssetCost = (setupCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualSetupMillis.doubleValue()))).add(usageCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualMilliSeconds.doubleValue()))).setScale(decimals, rounding);
+                    BigDecimal setupCostAmount = ZERO;
+                    if (setupCost != null) {
+                        setupCostAmount = setupCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualSetupMillis.doubleValue()));
+                    }
+                    BigDecimal usageCostAmount = ZERO;
+                    if (usageCost != null) {
+                        usageCostAmount = usageCost.getBigDecimal("amount").multiply(BigDecimal.valueOf(actualMilliSeconds.doubleValue()));
+                    }
+                    BigDecimal fixedAssetCost = setupCostAmount.add(usageCostAmount).setScale(decimals, rounding);
                     fixedAssetCost = fixedAssetCost.divide(BigDecimal.valueOf(3600000), decimals, rounding);
                     // store the cost
                     Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
