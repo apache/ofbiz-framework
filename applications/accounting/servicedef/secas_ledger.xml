@@ -133,4 +133,9 @@ under the License.
         <condition field-name="statusId" operator="equals" value="INVOICE_CANCELLED"/>
         <action service="cancelInvoice" mode="sync"/>
     </eca>
+
+    <eca service="createPaymentApplication" event="commit">
+        <condition field-name="invoiceId" operator="is-not-empty"/>
+        <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
+    </eca>
 </service-eca>
