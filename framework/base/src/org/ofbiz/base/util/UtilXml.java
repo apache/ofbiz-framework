@@ -586,6 +586,14 @@ public class UtilXml {
         newElement.appendChild(document.createTextNode(childElementValue));
         return newElement;
     }
+
+    /** Creates a child element with the given namespace supportive name and appends it to the element child node list. */    
+    public static Element addChildElementNSElement(Element element, String childElementName,
+            Document document, String nameSpaceUrl) {
+        Element newElement = document.createElementNS(nameSpaceUrl, childElementName);
+        element.appendChild(newElement);         
+        return element;
+    }
     
     /** Creates a child element with the given namespace supportive name and appends it to the element child node list.
      *  Also creates a Text node with the given value and appends it to the new elements child node list.
