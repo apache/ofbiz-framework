@@ -35,7 +35,7 @@ openingBalanceDebit = BigDecimal.ZERO;
 
 decimals = UtilNumber.getBigDecimalScale("ledger.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding");
-exprs = [EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId)];
+exprs = [EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds)];
 if (fromDate) {
     exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 } else return;

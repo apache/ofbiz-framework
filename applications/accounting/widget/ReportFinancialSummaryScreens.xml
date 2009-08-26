@@ -561,6 +561,8 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -643,6 +645,8 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
@@ -669,6 +673,8 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
@@ -913,6 +919,8 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="MonthlyTrialBalance"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
                 <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
@@ -986,6 +994,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
                 <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
