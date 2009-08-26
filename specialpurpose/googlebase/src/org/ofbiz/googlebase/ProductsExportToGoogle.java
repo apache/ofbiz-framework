@@ -60,6 +60,8 @@ public class ProductsExportToGoogle {
     private static final String resource = "GoogleBaseUiLabels";
     private static final String module = ProductsExportToGoogle.class.getName();
     private static final String googleBaseNSUrl = "http://base.google.com/ns/1.0";
+    private static final String googleBaseMetadataUrl = "http://base.google.com/ns-metadata/1.0";
+    private static final String googleBaseAppUrl = "http://purl.org/atom/app#";
 
     public static Map exportToGoogle(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
@@ -419,12 +421,12 @@ public class ProductsExportToGoogle {
 
                 // status is draft or deactivate
                 if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
-                    Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
-                    UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
+                    Element appControlElem = UtilXml.addChildElementNSElement(entryElem, "app:control", feedDocument, googleBaseAppUrl);
+                    UtilXml.addChildElementNSValue(appControlElem, "app:draft", "yes", feedDocument, googleBaseAppUrl);
 
                     // status is deactivate
                     if ("deactivate".equals(statusId)) {
-                        UtilXml.addChildElement(appControlElem, "gm:disapproved", feedDocument);
+                        UtilXml.addChildElementNSElement(appControlElem, "gm:disapproved", feedDocument, googleBaseMetadataUrl);
                     }
                 }
 
