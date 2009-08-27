@@ -1,0 +1,159 @@
+Changes since the 1.75.1 release
+
+Note: This document lists changes only since the 1.75.1 release. If you instead
+want a record of the complete list of changes for the codebase over its entire
+history, you can obtain one by running the following commands:
+
+  svn checkout https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/xsl
+  svn log --xml --verbose xsl > ChangeHistory.xml
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+Release Notes: 1.75.2
+
+    Gentext
+    Common
+    FO
+    HTML
+    Manpages
+    Epub
+    Params
+    Profiling
+    XSL-Saxon
+    XSL-Xalan
+
+Release Notes: 1.75.2
+
+The following is a list of changes that have been made since the 1.75.1
+release.
+
+Gentext
+
+The following changes have been made to the gentext code since the 1.75.1
+release.
+
+  ● Keith Fahlgren: Makefile
+
+    Add Icelandic
+
+  ● dleidert: locale/ja.xml
+
+    Improved Japanese translation for Note(s). Closes bug #2823965.
+
+  ● dleidert: locale/pl.xml
+
+    Polish alphabet contains O with acute accent, not with grave accent. Closes bug #2823964.
+
+  ● Robert Stayton: locale/ja.xml
+
+    Fix translation of "index", per bug report 2796064.
+
+  ● Robert Stayton: locale/is.xml
+
+    New Icelandic locale file.
+
+Common
+
+The following changes have been made to the common code since the 1.75.1
+release.
+
+  ● Keith Fahlgren: Makefile
+
+    Add Icelandic
+
+  ● Norman Walsh: stripns.xsl
+
+    Support more downconvert cases
+
+  ● Robert Stayton: titles.xsl
+
+    Make sure title inside info is used if no other title.
+
+FO
+
+The following changes have been made to the fo code since the 1.75.1 release.
+
+  ● Robert Stayton: pi.xsl
+
+    Turn off dbfo-need for fop1.extensions also, per bug #2816141.
+
+HTML
+
+The following changes have been made to the html code since the 1.75.1 release.
+
+  ● Mauritz Jeanson: titlepage.xsl
+
+    Output "Copyright" heading in XHTML too.
+
+  ● Mauritz Jeanson: titlepage.xsl
+
+    Added stylesheet.result.type test for copyright. Closes bug #2813289.
+
+  ● Norman Walsh: htmltbl.xsl
+
+    Remove ambiguity wrt @span, @rowspan, and @colspan
+
+Manpages
+
+The following changes have been made to the manpages code since the 1.75.1
+release.
+
+  ● Mauritz Jeanson: endnotes.xsl
+
+    Added normalize-space() for ulink content. Closes bug #2793877.
+
+  ● Mauritz Jeanson: docbook.xsl
+
+    Added stylesheet.result.type test for copyright. Closes bug #2813289.
+
+Epub
+
+The following changes have been made to the epub code since the 1.75.1 release.
+
+  ● Keith Fahlgren: bin/dbtoepub; bin/lib/docbook.rb
+
+    Corrected bugs caused by path and file assumptions were not met
+
+  ● Keith Fahlgren: bin/lib/docbook.rb; docbook.xsl
+
+    Cleaning up hardcoded values into parameters and fixing Ruby library to pass them properly; all thanks to patch from Liza Daly
+
+Params
+
+The following changes have been made to the params code since the 1.75.1
+release.
+
+  ● Mauritz Jeanson: highlight.source.xml
+
+    Fixed typo.
+
+Profiling
+
+The following changes have been made to the profiling code since the 1.75.1
+release.
+
+  ● Robert Stayton: profile.xsl
+
+    Fix bug 2815493 missing exsl.node.set.available parameter.
+
+XSL-Saxon
+
+The following changes have been made to the xsl-saxon code since the 1.75.1
+release.
+
+  ● Mauritz Jeanson: src/com/nwalsh/saxon/ColumnUpdateEmitter.java; src/com/
+    nwalsh/saxon/Colum⋯
+
+    Added fixes so that colgroups in the XHTML namespace are processed properly.
+
+XSL-Xalan
+
+The following changes have been made to the xsl-xalan code since the 1.75.1
+release.
+
+  ● Mauritz Jeanson: nbproject/project.xml
+
+    Added missing NetBeans configuration.
+
