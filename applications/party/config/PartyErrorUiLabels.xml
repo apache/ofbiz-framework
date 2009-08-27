@@ -24,6 +24,7 @@
         <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event Id</value>
         <value xml:lang="es">Error: Los eventos de comunicación deben tener un e-mail asociado</value>
         <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un courriel pour évènement de communication</value>
+        <value xml:lang="hi_IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che è un'evento comunicazione email</value>
         <value xml:lang="nl">Fout: Communication event must have a from contact mech that is an email for comm event Id</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii Trebbie sa aibe un contact mech din moment ce este un cod eveniment de  comunicatie email</value>
@@ -36,6 +37,7 @@
         <value xml:lang="en">ERROR: Communication event is not an email communication and cannot be emailed for communication event Id </value>
         <value xml:lang="es">ERROR: La comunicación no es un e-mail y no puede se enviado por mail</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas un courriel et ne peut être envoyé comme réf. d'évènement de communication </value>
+        <value xml:lang="hi_IN">त्रुटि: संचार घटना(event) एक ईमेल संचार नहीं है और संचार घटना(event) क्रमांक के लिए ईमेल नहीं किया जा सकता है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non è una comunicazione email e non può essere inviata email per l'evento comunicazioni</value>
         <value xml:lang="nl">Fout: Communication event is not an email communication and cannot be emailed for communication event Id</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii nu este un email de comunicatie si nu poate fi emailed pentru codul  evenimentului comunicatii</value>
@@ -48,6 +50,7 @@
         <value xml:lang="en">ERROR: Communication Event not found for communication event Id</value>
         <value xml:lang="es">ERROR: No se ha encontrado una comunicación con dicho código</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas trouvé pour cette réf.</value>
+        <value xml:lang="hi_IN">त्रुटि: संचार घटना(event) क्रमांक के लिए संचार घटना(event) नहीं मिला है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non trovato per l'evento comunicazione con codice evento</value>
         <value xml:lang="nl">Fout: Communicatie event niet gevonden voor deze communicatie Id</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatie negasit pentru evenimentul comunicatie cu cod eveniment</value>
@@ -60,6 +63,7 @@
         <value xml:lang="en">ERROR: Communication event must have a to contact mech that is an email for comm event Id</value>
         <value xml:lang="es">ERROR: La comunicación debe tener especificado un mecanismo de contacto</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication doit avoir une coordonnée destinataire qui soit un courriel pour réf. d'évènement de communication</value>
+        <value xml:lang="hi_IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che ha un email per l'evento comunicazioni</value>
         <value xml:lang="nl">Fout: Communication event must have a to contact mech that is an email for comm event Id</value>
         <value xml:lang="ro">EROARE: Evenimentul Comunicatii Trebbie sa aibe un contact mech ca si un email pentru codul eveniment comunicatii</value>
@@ -72,6 +76,7 @@
         <value xml:lang="en">Error calling sendEmailToContactList service</value>
         <value xml:lang="es">Error llamando al servicio sendEmailToContactList</value>
         <value xml:lang="fr">Erreur à l'appel du service sendEmailToContactList</value>
+        <value xml:lang="hi_IN">SendEmailToContactList सेवा(service) बुलाने में त्रुटि</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio sendEmailToContactList</value>
         <value xml:lang="nl">Fout: calling sendEmailToContactList service</value>
         <value xml:lang="ru">Ошибка вызова службы sendEmailToContactList</value>
@@ -83,6 +88,7 @@
         <value xml:lang="en">Error calling sendMail service</value>
         <value xml:lang="es">Error llamando al servicio sendMail</value>
         <value xml:lang="fr">Erreur à l'appel du service sendEmail</value>
+        <value xml:lang="hi_IN">sendMail ﻿सेवा(service) ﻿बुलाने में त्रुटि</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio sendMail</value>
         <value xml:lang="nl">Fout: calling sendMail service</value>
         <value xml:lang="ru">Ошибка вызова службы sendMail</value>
@@ -94,6 +100,7 @@
         <value xml:lang="en">Error calling updateContactListParty service</value>
         <value xml:lang="es">Error llamando al servicio updateContactListParty</value>
         <value xml:lang="fr">Erreur à l'appel du service updateContactListParty</value>
+        <value xml:lang="hi_IN">updateContactListParty सेवा(service) बुलाने में त्रुटि</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio updateContactListParty</value>
         <value xml:lang="nl">Fout: calling updateContactListParty service</value>
         <value xml:lang="ru">Ошибка вызова службы updateContactListParty</value>
@@ -105,6 +112,7 @@
         <value xml:lang="en">Error in sendEmailToContactList service</value>
         <value xml:lang="es">Error llamando al servicio sendEmailToContactList</value>
         <value xml:lang="fr">Erreur dans le service sendEmailToContactList</value>
+        <value xml:lang="hi_IN">sendEmailToContactList सेवा(service) बुलाने में त्रुटि</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio sendEmailToContactList</value>
         <value xml:lang="ru">Ошибка в службе sendEmailToContactList</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ในบริการส่งอีเมล์ถึงรายการติดต่อ</value>
@@ -115,6 +123,7 @@
         <value xml:lang="en">Skipping invalid email address</value>
         <value xml:lang="es">Se ha omitido dirección de correo electrónico invalida</value>
         <value xml:lang="fr">Adresse courriel n'est pas valide</value>
+        <value xml:lang="hi_IN">अवैध ईमेल पता छोड़दिया</value>
         <value xml:lang="it">Scartato email non valido</value>
         <value xml:lang="nl">Foutief e-mailadres wordt overgeslagen</value>
         <value xml:lang="ru">Пропускаем неверный адрес эл.почты</value>
@@ -126,6 +135,7 @@
         <value xml:lang="en">ERROR: Cannot update specified contact info because it does not correspond to the specified party.</value>
         <value xml:lang="es">ERROR: No se puede actualizar la información del contacto, dado que no corresponte al participante</value>
         <value xml:lang="fr">ERREUR: Impossible de mettre à jour l'information de contact spécifiée parce qu'elle ne correspond pas à l'acteur spécifié.</value>
+        <value xml:lang="hi_IN">त्रुटि: निर्दिष्ट संपर्क जानकारी को अद्यतन(update) नहीं कर सकते क्योंकि यह निर्दिष्ट पार्टी के अनुरूप नहीं है|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto perchè questo non corrisponde al cliente specificato.</value>
         <value xml:lang="nl">Fout: Cannot update specified contact info because it does not correspond to the specified party.</value>
         <value xml:lang="ro">EROARE: Nu este posibila schimbarea de informatii contact pentru ca acesta nu corespunde clientului specificat.</value>
@@ -138,6 +148,7 @@
         <value xml:lang="en">ERROR: Could not add purpose to contact mechanism (write failure): ${errMessage}.</value>
         <value xml:lang="es">ERROR: No se puede añadir proposito a los mecanismos de contacto: ${errMessage}.</value>
         <value xml:lang="fr">ERREUR: Ne peut pas ajouter l'objet de la coordonnée (erreur d'écriture) : ${errMessage.</value>
+        <value xml:lang="hi_IN">त्रुटि: संपर्क तंत्र से उद्देश्य नहीं जोड़ पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiungere funzione al contatto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not add purpose to contact mechanism (write failure): ${errMessage}.</value>
         <value xml:lang="ro">EROARE: Nu este posibila adaugarea functiei la mecanismul contact (scriere falita): ${errMessage}.</value>
@@ -150,6 +161,7 @@
         <value xml:lang="en">ERROR: Could not change contact info (id generation failure).</value>
         <value xml:lang="es">ERROR: No se pudo cambiar la información de contacto (la generación de código falló).</value>
         <value xml:lang="fr">ERREUR: Ne peut pas changer l'information de contact (échec de génération d'identifiant).</value>
+        <value xml:lang="hi_IN">त्रुटि: संपर्क जानकारी नहीं बदल पाएँ (क्रमांक उत्पन्न करने में असफल)|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto (generazione codice fallito).</value>
         <value xml:lang="nl">Fout: Could not change contact info (id generation failure).</value>
         <value xml:lang="ro">EROARE: Nu este posibila schimbarea de informatii de contac (generare Cod falit).</value>
@@ -162,6 +174,7 @@
         <value xml:lang="en">ERROR: Could not change contact info (read purpose failure): ${errMessage}.</value>
         <value xml:lang="es">Error: No se puede cambiar la información de contacto: ${errMessage}.</value>
         <value xml:lang="fr">ERREUR : Ne peut pas changer l'information de contact (échec à la lecture du but de contact) : $ {errMessage.</value>
+        <value xml:lang="hi_IN">त्रुटि: संपर्क जानकारी नहीं बदल पाएँ (पठन उद्देश्य असफल): ${errMessage}|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto (errore di lettura): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not change contact info (read purpose failure): ${errMessage}.</value>
         <value xml:lang="ro">EROARE: Nu este posibila schmbarea de informatii contact (eroare de citire): ${errMessage}.</value>
@@ -174,6 +187,7 @@
         <value xml:lang="en">ERROR: Could not change contact info (write failure): ${errMessage}.</value>
         <value xml:lang="es">Error: No se ha podido cambiar la información de contato: ${errMessage}.</value>
         <value xml:lang="fr">ERREUR : Ne peut pas changer l'information de contact (erreur d'écriture) : ${errMessage}.</value>
+        <value xml:lang="hi_IN">त्रुटि: संपर्क जानकारी बदल नहीं पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto (errore di scrittura): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not change contact info (write failure): ${errMessage}.</value>
         <value xml:lang="ro">EROARE: Nu este posibil schimbul de informatii de contact (eroare la scriere): ${errMessage}.</value>
@@ -186,6 +200,7 @@
         <value xml:lang="en">ERROR: Could not create contact info (id generation failure).</value>
         <value xml:lang="es">Error: No se ha podido creat la información de contacto (fallo de generación de código).</value>
         <value xml:lang="fr">ERREUR: Impossible de créer l'information de contact (échec de génération d'identifiant).</value>
+        <value xml:lang="hi_IN">त्रुटि: संपर्क जानकारी नहीं बना पाएँ (क्रमांक उत्पन्न करने में असफल)|</value>
         <value xml:lang="it">ERRORE: Non è possibile creare informazioni contatto (generazione codice fallito).</value>
         <value xml:lang="nl">Fout: Could not create contact info (id generation failure).</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea de informatii contact (generare Cod falita).</value>
@@ -198,6 +213,7 @@
         <value xml:lang="en">Could not create contact info (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se ha podido crear la información de contacto (error de escritura): ${errMessage}.</value>
         <value xml:lang="fr">Impossible de créer l'information de contact (erreur d'écriture): ${errMessage}.</value>
+        <value xml:lang="hi_IN">संपर्क जानकारी नहीं बना पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile creare informazioni contatto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not create contact info (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea de informatii contact (scriere falita): ${errMessage}.</value>
@@ -210,6 +226,7 @@
         <value xml:lang="en">Could not create new purpose, a purpose with that type already exists.</value>
         <value xml:lang="es">No se ha podido crear nuevo propósito, ya existe uno de este tipo.</value>
         <value xml:lang="fr">N'a pas pu créer le nouveau but, un but avec ce type existe déjà.</value>
+        <value xml:lang="hi_IN">नया उद्देश्य नहीं बन पाएँ, इस प्रकार का उद्देश्य पहले से ही मौजूद है|</value>
         <value xml:lang="it">Non è possibile creare un nuovo scopop, uno scopo con questo tipo esiste già.</value>
         <value xml:lang="nl">Fout: Could not create new purpose, a purpose with that type already exists.</value>
         <value xml:lang="ro">Nu este posibila crearea unei noi functii, o functie de acest tip exista deja.</value>
@@ -222,6 +239,7 @@
         <value xml:lang="en">Could not delete contact info (party contact mech not found).</value>
         <value xml:lang="es">No se ha podido borrar la información de contacto (mec. de contacto no encontrado).</value>
         <value xml:lang="fr">Ne peut pas supprimer l'information de contact (coordonnée de l'acteur non trouvé)</value>
+        <value xml:lang="hi_IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पार्टी संपर्क तंत्र नहीं मिला)|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (contatto cliente non trovato).</value>
         <value xml:lang="nl">Fout: Could not delete contact info (party contact mech not found).</value>
         <value xml:lang="ro">Nu sterge informatile contact (mecanism contact client ne gasit).</value>
@@ -234,6 +252,7 @@
         <value xml:lang="en">Could not delete contact info (read failure): ${errMessage}.</value>
         <value xml:lang="es">Las informaciones de contacto no se pueden borrar (error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Ne peut pas supprimer l'information de contact (erreur de lecture): ${errMessage}.</value>
+        <value xml:lang="hi_IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete contact info (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu sterge informatiile contact (citare falita): ${errMessage}.</value>
@@ -245,6 +264,7 @@
         <value xml:lang="de">Kontaktinformationen können nicht gelöscht werden (Schreibfehler).</value>
         <value xml:lang="en">Could not delete contact info (write failure).</value>
         <value xml:lang="fr">Ne peut pas supprimer l'information de contact (erreur d'écriture.</value>
+        <value xml:lang="hi_IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (लिखने में असफल)|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (scrittura fallita).</value>
         <value xml:lang="nl">Fout: Could not delete contact info (write failure).</value>
         <value xml:lang="ro">Nu sterge informatiile contact (scriere falita).</value>
@@ -256,6 +276,7 @@
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Eintrag nicht gefunden).</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (record not found).</value>
         <value xml:lang="fr">Ne peut pas supprimer le but de la coordonnée (enregistrement  non trouvé).</value>
+        <value xml:lang="hi_IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ(रिकॉर्ड नहीं मिला)|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (record non trovato).</value>
         <value xml:lang="nl">Fout: Could not delete purpose from contact mechanism (record not found).</value>
         <value xml:lang="ro">Queste posibila stergerea functiei din mecanismul contact (record ne gasit).</value>
@@ -267,6 +288,7 @@
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Lesefehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (read failure): ${errMessage}.</value>
         <value xml:lang="fr">Ne peut pas supprimer le but de la coordonnée (erreur de lecture) : ${errMessage}.</value>
+        <value xml:lang="hi_IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete purpose from contact mechanism (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila stergerea de functii din mecanismul contact (citire falita): ${errMessage}.</value>
@@ -278,6 +300,7 @@
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Schreibfehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (write failure): ${errMessage}.</value>
         <value xml:lang="fr">Ne peut pas supprimer le but de la coordonnée (erreur d'écriture): ${errMessage}.</value>
+        <value xml:lang="hi_IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete purpose from contact mechanism (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila stergerea  functiei din mecanism contact (scriere falita): ${errMessage}.</value>
@@ -290,6 +313,7 @@
         <value xml:lang="en">ERROR: Could not find specified contact info (read error).</value>
         <value xml:lang="es">ERROR: No se encontró la información del contacto (error de lectura).</value>
         <value xml:lang="fr">ERREUR: Ne peut pas trouver l'information de contact spécifiée (erreur de lecture).</value>
+        <value xml:lang="hi_IN">त्रुटि: निर्दिष्ट संपर्क जानकारी नहीं मिली(पड़ने में त्रुटि)|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto (errore di lettura).</value>
         <value xml:lang="nl">Fout: Could not find specified contact info (read error).</value>
         <value xml:lang="ro">EROARE: Nu este posibila schambarea informatiilor contact (eroare de lectura).</value>
@@ -301,6 +325,7 @@
         <value xml:lang="de">Kontaktmechanismus kann nicht als POSTAL_ADDRESS aktualisiert werden. Der angegebene Kontaktmechanismus ist ein ${contactMechTypeId} </value>
         <value xml:lang="en">Could not update this contact mech as a POSTAL_ADDRESS the specified contact mech is a ${contactMechTypeId}.</value>
         <value xml:lang="fr">Impossible de mettre à jour cette coordonnée en tant qu'adresse postale, la coordonnée est un ${contactMechTypeId}.</value>
+        <value xml:lang="hi_IN">संपर्क तंत्र को POSTAL_ADDRESS के रूप में अद्यतन(update) नहीं कर पाएँ निर्दिष्ट संपर्क तंत्र एक ${contactMechTypeId} है|</value>
         <value xml:lang="it">Non è possibile aggiornare questo contatto con un POSTAL_ADDRESS specificato sul contatto ${contactMechTypeId}.</value>
         <value xml:lang="nl">Fout: Could not update this contact mech as a POSTAL_ADDRESS the specified contact mech is a ${contactMechTypeId}.</value>
         <value xml:lang="ro">Nu este possibila actualizarea acestui mecanism contact ca si un POSTAL_ADDRESS specificat in mecanismul contact ${contactMechTypeId}.</value>
@@ -312,6 +337,7 @@
         <value xml:lang="de">Kontaktmechanismus kann nicht als TELECOM_NUMBER aktualisiert werden. Der angegebene Kontaktmechanismus ist ein ${contactMechTypeId} </value>
         <value xml:lang="en">Could not update this contact mech as a TELECOM_NUMBER the specified contact mech is a ${contactMechTypeId}.</value>
         <value xml:lang="fr">Impossible de mettre à jour cette coordonnée en tant que n° de tél. la coordonée spécifiée est un ${contactMechTypeId}.</value>
+        <value xml:lang="hi_IN">संपर्क तंत्र को TELECOM_NUMBER के रूप में अद्यतन(update) नहीं कर पाएँ निर्दिष्ट संपर्क तंत्र एक ${contactMechTypeId} है|</value>
         <value xml:lang="it">Non è possibile aggiornare questo contatto con un TELECOM_NUMBER specificato sul contatto ${contactMechTypeId}.</value>
         <value xml:lang="nl">Fout: Could not update this contact mech as a TELECOM_NUMBER the specified contact mech is a ${contactMechTypeId}.</value>
         <value xml:lang="ro">Nu este posibila actualizarea acestui mecanism contact ca si un TELECOM_NUMBER specificat in meccanismul contact ${contactMechTypeId}.</value>
@@ -324,6 +350,7 @@
         <value xml:lang="en">No changes made, not updating contact mechanism.</value>
         <value xml:lang="es">no se realizaron cambios</value>
         <value xml:lang="fr">Aucunes modifications apportées, pas demise à jour de la coordonnée.</value>
+        <value xml:lang="hi_IN">कोई परिवर्तन नहीं किया, संपर्क तंत्र को अद्यतन(update) नहीं किया|</value>
         <value xml:lang="it">Nessuna modifica possibile, non aggiornabile il contatto.</value>
         <value xml:lang="nl">Fout: No changes made, not updating contact mechanism.</value>
         <value xml:lang="ro">Nu este posibila nici-o modificare, nu actualiza mecanismul contact.</value>
@@ -336,6 +363,7 @@
         <value xml:lang="en">This service (createContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the createPostalAddress service.</value>
         <value xml:lang="es">El servicio no debe ser usado para dirección postal, use el servicio de actualización de dirección postal</value>
         <value xml:lang="fr">Ce service (createContactMech) ne devrait pas être employé pour le type de coordonnée POSTAL_ADDRESS, utiliser plutôt le service createPostalAddress.</value>
+        <value xml:lang="hi_IN">ContactMechs प्रकार POSTAL_ADDRESS के लिए यह सेवा (createContactMech) उपयोग नहीं होना चाहिए, createPostalAddress सेवा का उपयोग करें|</value>
         <value xml:lang="it">Questo servizio (createContactMech) non dovrebbe essere usato per il tipo POSTAL_ADDRESS ContactMechs, usare il servizio createPostalAddress.</value>
         <value xml:lang="nl">Fout: This service (createContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the createPostalAddress service.</value>
         <value xml:lang="ro">Acest serviciu (createContactMech) nu trebuie sa fie folosit pentru tipul POSTAL_ADDRESS ContactMechs, foloseste serviciul createPostalAddress.</value>
@@ -348,6 +376,7 @@
         <value xml:lang="en">This service (createContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the createTelecomNumber service.</value>
         <value xml:lang="es">El servicio no debe ser usado para números telefónicos, use el servicio de actualización de teléfono</value>
         <value xml:lang="fr">Ce service (createContactMech) ne devrait pas être employé pour le type de coordonnée TELECOM_NUMBER, utiliser le service createTelecomNumber.</value>
+        <value xml:lang="hi_IN">ContactMechs प्रकार TELECOM_NUMBER के लिए यह सेवा (createContactMech) उपयोग नहीं होना चाहिए, createTelecomNumber सेवा का उपयोग करें|</value>
         <value xml:lang="it">Questo servizio (createContactMech) non dovrebbe essere usato per il tipo TELECOM_NUMBER ContactMechs, usare il servizio createTelecomNumber.</value>
         <value xml:lang="nl">Fout: This service (createContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the createTelecomNumber service.</value>
         <value xml:lang="ro">Acest serviciu (createContactMech) nu poate fi folosit pentru tipul TELECOM_NUMBER ContactMechs, foloseste serviciul createTelecomNumber.</value>
@@ -360,6 +389,7 @@
         <value xml:lang="en">This service (updateContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the updatePostalAddress service.</value>
         <value xml:lang="es">El servicio no debe ser usado para dirección postal, use el servicio de actualización de dirección postal</value>
         <value xml:lang="fr">Ce service (updateContactMech) ne devrait pas être employé pour le type de coordonnée POSTAL_ADDRESS, utiliser le serviceupdatePostalAddress.</value>
+        <value xml:lang="hi_IN">ContactMechs प्रकार POSTAL_ADDRESS के लिए यह सेवा (updateContactMech) उपयोग नहीं होना चाहिए, updatePostalAddress सेवा का उपयोग करें|</value>
         <value xml:lang="it">Questo servizio (updateContactMech) non dovrebbe essere usato per il tipo POSTAL_ADDRESS ContactMechs, usare il servizio updatePostalAddress.</value>
         <value xml:lang="nl">Fout: This service (updateContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the updatePostalAddress service.</value>
         <value xml:lang="ro">Acest serviciu (updateContactMech) nu poate fi folosit pentru tipul POSTAL_ADDRESS ContactMechs, foloseste serviciul updatePostalAddress.</value>
@@ -372,6 +402,7 @@
         <value xml:lang="en">This service (updateContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the updateTelecomNumber service.</value>
         <value xml:lang="es">El servicio no debe ser usado para números telefónicos, use el servicio de actualización de teléfono</value>
         <value xml:lang="fr">Ce service (updateContactMech) ne devrait pas être employé pour le type de coordonnée TELECOM_NUMBER, utiliser le serviceupdateTelecomNumber.</value>
+        <value xml:lang="hi_IN">ContactMechs प्रकार TELECOM_NUMBER के लिए यह सेवा (updateContactMech) उपयोग नहीं होना चाहिए, updateTelecomNumber सेवा का उपयोग करें|</value>
         <value xml:lang="it">Questo servizio (updateContactMech) non dovrebbe essere usato per il tipo TELECOM_NUMBER ContactMechs, usare il servizio updateTelecomNumber.</value>
         <value xml:lang="nl">Fout: This service (updateContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the updateTelecomNumber service.</value>
         <value xml:lang="ro">Acest serviciu (updateContactMech) nu poate fi folosit pentru tipul TELECOM_NUMBER ContactMechs, foloseste serviciul updateTelecomNumber.</value>
@@ -384,6 +415,7 @@
         <value xml:lang="en">ERROR: Failure generating new party ID</value>
         <value xml:lang="es">ERROR: Error al generar nuevo código de participante</value>
         <value xml:lang="fr">ERREUR: Echec lors de la génération d'un nouvelle identifiant acteur</value>
+        <value xml:lang="hi_IN">त्रुटि: नया पार्टी क्रमांक बनाने में असफल</value>
         <value xml:lang="it">ERRORE: Fallita generazione nuovo codice soggetto</value>
         <value xml:lang="nl">Fout: Failure generating new party ID</value>
         <value xml:lang="pt_PT">Erro: Falha na geração de Nova Identificação de Secção</value>
@@ -397,6 +429,7 @@
         <value xml:lang="en">Specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs</value>
         <value xml:lang="es">El código no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
         <value xml:lang="fr">L'identifiant spécifié pour l'acteur ne peut démarrer par un chiffre, cela est réservé aux identifiants générés automatiquement</value>
+        <value xml:lang="hi_IN">निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>
         <value xml:lang="it">Codice soggetto specificato non può iniziare con un numero, codice numerici sono riservati per codici generati automaticamente</value>
         <value xml:lang="nl">Specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs</value>
         <value xml:lang="pt_PT">ID de Secção especificada não pode começar com dígitos, Identificações numéricas reservadas para Identificações auto-geradas.</value>
@@ -410,6 +443,7 @@
         <value xml:lang="en">Cannot create party relationship, partyIdFrom is not in specified role.</value>
         <value xml:lang="es">No se puede crear las relación.</value>
         <value xml:lang="fr">Impossible de créer la relation à l'acteur, partyIdFrom n'est pas dans le rôle spécifié.</value>
+        <value xml:lang="hi_IN">पार्टी का रिश्ता नहीं बना सकते, partyIdFrom निर्दिष्ट भूमिका में नहीं है|</value>
         <value xml:lang="it">Non è possibile creare il rapporto soggetto, partyIdFrom non è specificato il ruolo.</value>
         <value xml:lang="nl">Cannot create party relationship, partyIdFrom is not in specified role.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiect, partyIdFrom nu specifica rolul.</value>
@@ -422,6 +456,7 @@
         <value xml:lang="en">Cannot create party relationship, partyIdTo is not in specified role.</value>
         <value xml:lang="es">No se puede crear las relación.</value>
         <value xml:lang="fr">Impossible de créer la relation à l'acteur, partyIdTo n'est pas dans le rôle spécifié.</value>
+        <value xml:lang="hi_IN">पार्टी का रिश्ता नहीं बना सकते, partyIdTo निर्दिष्ट भूमिका में नहीं है|</value>
         <value xml:lang="it">Non è possibile creare il rapporto soggetto, partyIdTo non è specificato il ruolo.</value>
         <value xml:lang="nl">Cannot create party relationship, partyIdTo is not in specified role.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiectului, partyIdTo nu specifica rolul.</value>
@@ -434,6 +469,7 @@
         <value xml:lang="en">Cannot create party relationship, partyIdTo cannot be null.</value>
         <value xml:lang="es">No se puede crear las relación, el código del participante no puede estar vacio</value>
         <value xml:lang="fr">Impossible de créer la relation à l'acteur, partyIdTo ne peut pas être nul.</value>
+        <value xml:lang="hi_IN">पार्टी का रिश्ता नहीं बना सकते, partyIdTo null नहीं हो सकता|</value>
         <value xml:lang="it">Non è possibile creare il rapporto soggetto, partyIdTo non può essere nullo.</value>
         <value xml:lang="nl">Cannot create party relationship, partyIdTo cannot be null.</value>
         <value xml:lang="ro">Nu este  possibila crearea relationarii Subiectului, partyIdTo nu poate sa fie nul.</value>
@@ -446,6 +482,7 @@
         <value xml:lang="en">Could not create party relationship: already exists.</value>
         <value xml:lang="es">No se puede crear la relación: ya existe en el sistema.</value>
         <value xml:lang="fr">Impossible de créer la relation à l'acteur : existe déjà.</value>
+        <value xml:lang="hi_IN">पार्टी का रिश्ता नहीं बना पाएँ: पहले से ही मौजूद है|</value>
         <value xml:lang="it">Non è possibile creare il rapporto soggetto: già esistente.</value>
         <value xml:lang="nl">Could not create party relationship: already exists.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiect: exista deja. </value>
@@ -458,6 +495,7 @@
         <value xml:lang="en">Could not create party role (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede crear la relación(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de créer le rôle de l'acteur (erreur de lecture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी की भूमिका तैयार नहीं कर पाएँ (पड़ने में असफल): ${errMessage}.</value>
         <value xml:lang="it">Non è possibile creare ruolo soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not create party role (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect (lectura falita): ${errMessage}.</value>
@@ -470,6 +508,7 @@
         <value xml:lang="en">Could not create party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede crear la relación(error de escritura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de créer la relation à l'acteur (erreur d'écriture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी का रिश्ता नहीं बना पाएँ (लिखने में असफल): ${errMessage}.</value>
         <value xml:lang="it">Non è possibile creare il rapporto soggetto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not create party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiect (scriere falita): ${errMessage}.</value>
@@ -482,6 +521,7 @@
         <value xml:lang="en">Could not update party relationship (relationship not found).</value>
         <value xml:lang="es">No se puede actualizar las relaciones.</value>
         <value xml:lang="fr">Impossible de mettre à jour la relation à l'acteur (relation non trouvée).</value>
+        <value xml:lang="hi_IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (रिश्ता नहीं मिला)|</value>
         <value xml:lang="it">Non è possibile aggiornare rapporto soggetto (rapporto non trovato).</value>
         <value xml:lang="nl">Could not update party relationship (relationship not found).</value>
         <value xml:lang="ro">Nu este  posibila Actualizarea raportului Subiect (nu gaseste relatie).</value>
@@ -494,6 +534,7 @@
         <value xml:lang="en">Could not update party relation (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede actualizar las relaciones(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour la relation de l'acteur (erreur de lecture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare il rapporto soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update party relation (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea relatiei Subiect (citare falita): ${errMessage}.</value>
@@ -506,6 +547,7 @@
         <value xml:lang="en">Could not update party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede actualizar las relaciones(error de escritura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour la relation de l'acteur (erreur d'écriture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare il rapporto soggetto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea relatiei Subiect (scriere falita): ${errMessage}.</value>
@@ -517,6 +559,7 @@
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden. Rolle ist schon vorhanden.</value>
         <value xml:lang="en">could not create party role exists</value>
         <value xml:lang="fr">Impossible de créer le rôle de l'acteur : il existe déjà</value>
+        <value xml:lang="hi_IN">party role exists नहीं बना पाएँ</value>
         <value xml:lang="it">Non è possibile creare un ruolo soggetto già esistente</value>
         <value xml:lang="nl">partyroleservices.could_not_create_party_role_exists</value>
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect: deja existent.</value>
@@ -528,6 +571,7 @@
         <value xml:lang="en">could not create party role read</value>
         <value xml:lang="es">No se puede crear el rol (error de lectura).</value>
         <value xml:lang="fr">Impossible de créer le rôle de l'acteur (erreur de lecture)</value>
+        <value xml:lang="hi_IN">party role read नहीं बना पाएँ</value>
         <value xml:lang="it">Non è possibile leggere il ruolo soggetto</value>
         <value xml:lang="nl">partyroleservices.could_not_create_party_role_read</value>
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect (lectura falita): ${errMessage}.</value>
@@ -539,6 +583,7 @@
         <value xml:lang="en">could not create party role write</value>
         <value xml:lang="es">No se puede crear el rol (error de escritura).</value>
         <value xml:lang="fr">Impossible de créer le rôle de l'acteur (erreur d'écriture)</value>
+        <value xml:lang="hi_IN">party role write नहीं बना पाएँ</value>
         <value xml:lang="it">Non è possibile scrivere il ruolo soggetto</value>
         <value xml:lang="nl">partyroleservices.could_not_create_party_role_write</value>
         <value xml:lang="ro">Nu este posibila crearea  rolului Subiect (scriere falita): ${errMessage}.</value>
@@ -550,6 +595,7 @@
         <value xml:lang="en">could not delete party role not found</value>
         <value xml:lang="es">No se ha podido borrar el rol. Rol no encontrado.</value>
         <value xml:lang="fr">Impossible de supprimer le rôle de l'acteur : non trouvé</value>
+        <value xml:lang="hi_IN">नष्ट नहीं कर पाएँ पार्टी भूमिका नहीं मिली</value>
         <value xml:lang="it">Non è possibile cancellare il ruolo soggetto non trovato</value>
         <value xml:lang="nl">partyroleservices.could_not_delete_party_role_not_found</value>
         <value xml:lang="ro">Nu este posibila stergerea rolului Subiect (nu gaseste rol Subiect).</value>
@@ -583,6 +629,7 @@
         <value xml:lang="en">Both 'lastName' and 'firstName' cannot be empty.</value>
         <value xml:lang="es">Nombre y Apellido no pueden estár vacios</value>
         <value xml:lang="fr">Les prénom et nom ne peuvent être vides.</value>
+        <value xml:lang="hi_IN">दोनों 'अंतिमनाम' और 'प्रथमनाम' खाली नहीं हो सकते|</value>
         <value xml:lang="it">Entrambi 'cognome' e 'nome' non possono essere vuoti.</value>
         <value xml:lang="nl">Voornaam en achternaam mogen niet leeg zijn.</value>
         <value xml:lang="ro">Entrambi 'Nume' si 'Prenume' nu pot sa fie goi.</value>
@@ -594,6 +641,7 @@
         <value xml:lang="en">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="es">El código especificado se encuentra en uso.</value>
         <value xml:lang="fr">Impossible de créer, un(e) afilié(e), l'acteur spécifié existe déjà.</value>
+        <value xml:lang="hi_IN">नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक के साथ एक संबद्ध पहले से ही मौजूद है|</value>
         <value xml:lang="it">Non è possibile creare, un'affiliato con il codice soggetto specificato già esistente.</value>
         <value xml:lang="nl">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="ro">Nu este  posibila crearea, un afiliat cu codul Subiectului specificat esista deja.</value>
@@ -605,6 +653,7 @@
         <value xml:lang="en">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear afiliado, el código del participante no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
         <value xml:lang="fr">Impossible de créer l'afilié(e), la réf. de l'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
+        <value xml:lang="hi_IN">संबद्ध नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>
         <value xml:lang="it">Non è possibile creare affiliato, codice soggetto specificato non può iniziare con un numero, codici numerici sono riservati per la generazione-automatica di codici.</value>
         <value xml:lang="nl">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="ro">Nu este posibila creare afiliat, cod Subiect specificat nu poate sa inceapa cu un numar, coduri numerice sunt rizervate pentru generarea-automatica de coduri.</value>
@@ -616,6 +665,7 @@
         <value xml:lang="en">ERROR: Could not create affiliate (id generation failure).</value>
         <value xml:lang="es">ERROR: No se pudo crear afiliado (la generación del código fallo)</value>
         <value xml:lang="fr">ERREUR : Impossible de créer l'afilié(e) (échec de génération d'identifiant).</value>
+        <value xml:lang="hi_IN">त्रुटि: संबद्ध नहीं बना पाएँ (क्रमांक उत्पन्न करने में असफल)|</value>
         <value xml:lang="it">ERRORE: Non è possibile creare affiliato (generazione codice fallita).</value>
         <value xml:lang="nl">ERROR: Could not create affiliate (id generation failure).</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea afiliat (generare cod falita).</value>
@@ -627,6 +677,7 @@
         <value xml:lang="en">Cannot create affiliate; no party entity found.</value>
         <value xml:lang="es">No se puede crear afiliación, no se encontro la entidad participante.</value>
         <value xml:lang="fr">Impossible de créer l'afilié(e); aucune entité acteur trouvée.</value>
+        <value xml:lang="hi_IN">संबद्ध नहीं बना सकते, कोई पार्टी इकाई(entity) नहीं मिली|</value>
         <value xml:lang="it">Non è possibile creare affiliato; nessun entità soggetto trovata.</value>
         <value xml:lang="nl">Cannot create affiliate; no party entity found.</value>
         <value xml:lang="ro">Nu este posibila creare afiliat; nici-o entitate Subiect gasita.</value>
@@ -639,6 +690,7 @@
         <value xml:lang="en">Cannot create party group, a party group with the specified party ID already exists.</value>
         <value xml:lang="es">No se puede crear un grupo participante, el código está en uso</value>
         <value xml:lang="fr">Impossible de créer ce groupe d'acteur. Un groupe d'acteur avec la même réf. existe déjà.</value>
+        <value xml:lang="hi_IN">पार्टी समूह नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक के साथ एक पार्टी समूह पहले से ही मौजूद है|</value>
         <value xml:lang="it">Non è possibile creare gruppo soggetto, un gruppo soggetto con il codice soggetto specificato esiste già.</value>
         <value xml:lang="nl">Cannot create party group, a party group with the specified party ID already exists.</value>
         <value xml:lang="ro">Nu este posibila crearea grupului Subiect, un grup Subiect cu codul Subiect specificat exista deja.</value>
@@ -651,6 +703,7 @@
         <value xml:lang="en">Cannot create party group, a party with the specified party ID already exists and is not a PARTY_GROUP type party, or a child of the PARTY_GROUP type.</value>
         <value xml:lang="es">No se puede crear al grupo participante, el código está en uso por un participante.</value>
         <value xml:lang="fr">Impossible de créer le groupe d'acteur, un acteur avec l'identifiant d'acteur spécifié existe déjà et n'est pas de type PARTY_GROUP, ou un enfant du type PARTY_GROUP.</value>
+        <value xml:lang="hi_IN">पार्टी समूह नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक के साथ एक पार्टी पहले से ही मौजूद है और PARTY_GROUP प्रकार की पार्टी नहीं है या PARTY_GROUP प्रकार का वंशज नहीं है|</value>
         <value xml:lang="it">Non è possibile creare gruppo soggetto, un soggetto con il codice soggetto specificato esiste già e non è un tipo soggetto PARTY_GROUP, o un figlio del tipo PARTY_GROUP.</value>
         <value xml:lang="nl">Cannot create party group, a party with the specified party ID already exists and is not a PARTY_GROUP type party, or a child of the PARTY_GROUP type.</value>
         <value xml:lang="ro">Nu este posibila crearea grupului Subiect, un Subiect cu codul Subiect specificat esista deja si nu un PARTY_GROUP tip Subiect, sau un fiu al tipului  PARTY_GROUP.</value>
@@ -663,6 +716,7 @@
         <value xml:lang="en">Cannot delete party, operation not yet implemented.</value>
         <value xml:lang="es">No se puede eliminar al participante, la operación no ha sido implementada</value>
         <value xml:lang="fr">Ne peut pas supprimer l'acteur, opération non encore implémentée.</value>
+        <value xml:lang="hi_IN">पार्टी को नष्ट नहीं कर सकते, आपरेशन अभी तक लागू नहीं किया है|</value>
         <value xml:lang="it">Non è possibile cancellare soggetto, operazione non ancora implementata.</value>
         <value xml:lang="nl">Cannot delete party, operation not yet implemented.</value>
         <value xml:lang="ro">Nu este posibila stergerea Subiectului, operatie neimplementata inca.</value>
@@ -675,6 +729,7 @@
         <value xml:lang="en">Cannot get party entities (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo obtener la entidad participante: ${errMessage}</value>
         <value xml:lang="fr">Ne peut pas obtenir des entités d'acteur (erreur de lecture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी इकाईयाँ नहीं मिली (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non possibile leggere l'entità Party (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Cannot get party entities (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila citirea entitatii party entities (citerea falita): ${errMessage}.</value>
@@ -686,6 +741,7 @@
         <value xml:lang="en">Could not add affiliate info (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo agregar información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible d'ajouter l'information de filiale (erreur d'écriture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">संबद्ध जानकारी नहीं जोड़ पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiungere informazione affiliato (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not add affiliate info (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila adaugarea informatiilor afiliat (scriere falita): ${errMessage}.</value>
@@ -698,6 +754,7 @@
         <value xml:lang="en">Cannot create party group, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear grupo de participantes, el código no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados</value>
         <value xml:lang="fr">Impossible de créer le groupe d'acteur, L'identifiant spécifié pour l'acteur ne peut démarrer par un chiffre, cela est réservé aux identifiants générés automatiquement.</value>
+        <value xml:lang="hi_IN">पार्टी समूह नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>
         <value xml:lang="it">Non è possibile creare il gruppo soggetto, specificato codice soggetto non può iniziare con un numero, codici numerici sono riservati per la generazione-autotica di codici.</value>
         <value xml:lang="nl">Cannot create party group, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="ro">Nu este posibila crearea grupului Subiect, codul Subiect specificat nu poate initia cu un numar, codurile numerice sunt rezervate pentru generarea-automata de coduri.</value>
@@ -710,6 +767,7 @@
         <value xml:lang="en">ERROR: Could not create party group (id generation failure).</value>
         <value xml:lang="es">ERROR: no se pudo crear el grupo participante (error de generación de código)</value>
         <value xml:lang="fr">ERREUR : Impossible de créer le groupe d'acteur (échec de génération d'identifiant).</value>
+        <value xml:lang="hi_IN">त्रुटि: पार्टी समूह नहीं बना पाएँ (क्रमांक उत्पन्न करने में असफल)|</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il gruppo soggetto (generazione codice fallita).</value>
         <value xml:lang="nl">ERROR: Could not create party group (id generation failure).</value>
         <value xml:lang="ro">EROARE: Nu este  posibila crearea grupului Subiect (generare cod falita).</value>
@@ -721,6 +779,7 @@
         <value xml:lang="en">Could not update affiliate information (affiliate not found).</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (filiale non trouvée).</value>
+        <value xml:lang="hi_IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (सहबद्ध नहीं मिला)|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione affiliato (affiliato non trovato).</value>
         <value xml:lang="nl">Could not update affiliate information (affiliate not found).</value>
         <value xml:lang="ro">Nu este posibila Actualizarea informatiilor afiliat (nu gaseste afiliato).</value>
@@ -732,6 +791,7 @@
         <value xml:lang="en">Could not update affiliate information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (erreur de lecture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione affiliato (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update affiliate information (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea informaiilor afiliat (citare falita): ${errMessage}.</value>
@@ -743,6 +803,7 @@
         <value xml:lang="en">Could not update affiliate information (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (erreur d'écriture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione affiliato (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update affiliate information (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea informatiilor afiliat (scriere falita): ${errMessage}.</value>
@@ -755,6 +816,7 @@
         <value xml:lang="en">Could not update party or party group information (party or partyGroup not found).</value>
         <value xml:lang="es">No se pudo actualizar la información del participante (no se encontro el participante)</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information d'acteur ou de groupe d'acteur (acteur ou partyGroup non trouvé).</value>
+        <value xml:lang="hi_IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (पार्टी या पार्टी समूह नहीं मिला)|</value>
         <value xml:lang="it">Non è possibile aggiornare soggetto o informazione gruppo soggetto (soggetto o gruppo soggetto non trovato).</value>
         <value xml:lang="nl">Could not update party or party group information (party or partyGroup not found).</value>
         <value xml:lang="ro">Nu este posibila Actualizarea Subiectului sau a informatiilor grup Subiect(Nu gaseste Subiect sau grup client/furnizor).</value>
@@ -767,6 +829,7 @@
         <value xml:lang="en">Could not update party or party group information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del participante(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information d'acteur ou de groupe d'acteur (erreur de lecture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione gruppo soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update party or party group information (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea informatiilor grup Subiect (citare falita): ${errMessage}.</value>
@@ -779,6 +842,7 @@
         <value xml:lang="en">Could not update party or party group information (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del participante(error de escritura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information d'acteur ou de groupe d'acteur (erreur d'écriture) : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare soggetto o informazione gruppo soggetto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update party or party group information (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea Subiectului sau a informatiilor grup Subiect (scriere falita): ${errMessage}.</value>
@@ -791,6 +855,7 @@
         <value xml:lang="en">Data source error occurred while adding party group: ${errMessage}.</value>
         <value xml:lang="es">Error al crear grupo de participantes:  ${errMessage}</value>
         <value xml:lang="fr">Une erreur de source de données s'est produite en ajoutant le groupe d'acteur : $ {errMessage}.</value>
+        <value xml:lang="hi_IN">पार्टी समूह जोड़ते समय डेटा स्रोत(source) में त्रुटि आ गयी: ${errMessage}|</value>
         <value xml:lang="it">Errore successo sorgente dati durante l'aggiunta del gruppo soggetto: ${errMessage}.</value>
         <value xml:lang="nl">Data source error occurred while adding party group: ${errMessage}.</value>
         <value xml:lang="ro">EROARE Sursa de Dati in timpul adaugarii grupului Subiect: ${errMessage}.</value>
@@ -803,6 +868,7 @@
         <value xml:lang="en">The party type with ID PARTY_GROUP was not found in the database, cannot create new party group.</value>
         <value xml:lang="es">Participante no encontrado; no se puede crear un nuevo grupo de participantes</value>
         <value xml:lang="fr">Le type d'acteur avec l'identifiant PARTY_GROUP n'a pas été trouvé dans la base de données, impossible de créer le nouveau groupe d'acteur.</value>
+        <value xml:lang="hi_IN">डेटाबेस में पार्टी प्रकार क्रमांक PARTY_GROUP के साथ नहीं मिला, नया पार्टी समूह नहीं बना सकते|</value>
         <value xml:lang="it">Il tipo soggetto con codice PARTY_GROUP non è stato trovato nel database, non è possibile creare un nuovo grupop soggetto.</value>
         <value xml:lang="nl">The party type with ID PARTY_GROUP was not found in the database, cannot create new party group.</value>
         <value xml:lang="ro">Tipul Subiect cu Cod PARTY_GROUP nu a fost gasit in database, nu este posibila crearea    unui nou grup Subiect.</value>
@@ -815,6 +881,7 @@
         <value xml:lang="en">Problem associating note with party "${errMessage}".</value>
         <value xml:lang="es">Problema al asociar la nota con el participante: ${errMessage}</value>
         <value xml:lang="fr">Problème en associant la note avec l'acteur "${errMessage".</value>
+        <value xml:lang="hi_IN">पार्टी के साथ नोट जोड़ने में समस्या "${errMessage}"|</value>
         <value xml:lang="it">Problema associazione nota con soggetto "${errMessage}".</value>
         <value xml:lang="nl">Problem associating note with party "${errMessage}".</value>
         <value xml:lang="ro">Probleme asociere nota la Subiect "${errMessage}".</value>
@@ -827,6 +894,7 @@
         <value xml:lang="en">Problem creating the note, no noteId returned.</value>
         <value xml:lang="es">Problema al crear la nota</value>
         <value xml:lang="fr">Le problème à la création de la note, aucune référence n'a été retournée.</value>
+        <value xml:lang="hi_IN">नोट बनाने समस्या, कोई नोटक्रमांक नहीं लौटा|</value>
         <value xml:lang="it">Problema nella creazione della nota, nessun noteId restituita.</value>
         <value xml:lang="nl">Problem creating the note, no noteId returned.</value>
         <value xml:lang="ro">Probleme la crearea notei, nici-o nota restituita.</value>
@@ -839,6 +907,7 @@
         <value xml:lang="en">Required parameter 'email' cannot be empty.</value>
         <value xml:lang="es">El campo email no puede estar vacío</value>
         <value xml:lang="fr">Le paramètre requis couriel ne peut pas être vide.</value>
+        <value xml:lang="hi_IN">आवश्यक मानक 'ईमेल' खाली नहीं हो सकता|</value>
         <value xml:lang="it">Parametro richiesto 'email' non può essere vuoto.</value>
         <value xml:lang="nl">Required parameter 'email' cannot be empty.</value>
         <value xml:lang="ro">Parametru cerut 'email' nu poate fi gol.</value>
@@ -851,6 +920,7 @@
         <value xml:lang="en">Could not add person info (write failure): {0}</value>
         <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura)</value>
         <value xml:lang="fr">Ajout d'information personne impossible (échec écriture): {0}</value>
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): {0}</value>
         <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): {0}</value>
         <value xml:lang="nl">Could not add person info (write failure): {0}</value>
         <value xml:lang="pt_PT">Impossível adicionar informação de indivíduo (falha de escrita): {0}</value>
@@ -864,6 +934,7 @@
         <value xml:lang="en">Cannot create person, a party with the specified party ID already exists and is not a PERSON type party</value>
         <value xml:lang="es">No se puede crear persona, un participante con ese código ya existe y no es de tipo PERSONA</value>
         <value xml:lang="fr">Il n'est pas possible de créer cette personne, un acteur avec le même identifiant existe et il n'est pas du type personne.</value>
+        <value xml:lang="hi_IN">व्यक्ति नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक के साथ एक पार्टी पहले से ही मौजूद है और PERSON प्रकार की पार्टी नहीं है</value>
         <value xml:lang="it">Non è possibile creare persona, un soggetto con il codice soggetto specificato esiste già e non è un soggetto di tipo PERSONA</value>
         <value xml:lang="nl">Cannot create person, a party with the specified party ID already exists and is not a PERSON type party</value>
         <value xml:lang="pt_PT">Impossível criar indivíduo, já existe uma secção com essa identificação e não é um tipo de indivíduo</value>
@@ -877,6 +948,7 @@
         <value xml:lang="en">Cannot create person, a person with the specified party ID already exists</value>
         <value xml:lang="es">No se puede crear persona, ya existe el código</value>
         <value xml:lang="fr">Il n'est pas possible de créer cette personne, un acteur avec l'identifiant spécifié existe déja.</value>
+        <value xml:lang="hi_IN">व्यक्ति नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक के साथ एक पार्टी पहले से ही मौजूद है</value>
         <value xml:lang="it">Non è possibile creare una persona, una persona con il codice soggetto specificato già esistente</value>
         <value xml:lang="nl">Cannot create person, a person with the specified party ID already exists</value>
         <value xml:lang="pt_PT">Impossível criar Indivíduo, já existe um com a Identificação de secção especificada.</value>
@@ -890,6 +962,7 @@
         <value xml:lang="en">Could not update person information (person not found)</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona</value>
         <value xml:lang="fr">Mise à jour d'information personne impossible (personne non trouvé)</value>
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (व्यक्ति नहीं मिला)</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (persona non trovata)</value>
         <value xml:lang="nl">Could not update person information (person not found)</value>
         <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (indivíduo não encontrado)</value>
@@ -903,6 +976,7 @@
         <value xml:lang="en">Could not update person information (read failure): {0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): {0}</value>
         <value xml:lang="fr">Mise à jour d'information personne impossible (échec lecture): {0}</value>
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): {0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): {0}</value>
         <value xml:lang="nl">Could not update person information (read failure): {0}</value>
         <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (falha de leitura): {0}</value>
@@ -916,6 +990,7 @@
         <value xml:lang="en">Person successfully updated.</value>
         <value xml:lang="es">Actualización finalizada correctamente</value>
         <value xml:lang="fr">Personne mise à jour avec succès.</value>
+        <value xml:lang="hi_IN">व्यक्ति सफलतापूर्वक नवीनीकृत हो गया है|</value>
         <value xml:lang="it">Persona aggiornata con successo.</value>
         <value xml:lang="nl">Persoon succesvol toegevoegd.</value>
         <value xml:lang="pt_PT">Indivíduo actualizado com sucesso.</value>
@@ -929,6 +1004,7 @@
         <value xml:lang="en">Could not update person information (write failure): {0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): {0}</value>
         <value xml:lang="fr">Mise à jour d'information personne impossible (échec écriture): {0}</value>
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): {0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): {0}</value>
         <value xml:lang="nl">Could not update person information (write failure): {0}</value>
         <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (falha de escrita): {0}</value>
