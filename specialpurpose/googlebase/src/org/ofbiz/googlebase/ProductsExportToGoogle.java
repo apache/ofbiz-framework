@@ -60,6 +60,7 @@ public class ProductsExportToGoogle {
     private static final String resource = "GoogleBaseUiLabels";
     private static final String module = ProductsExportToGoogle.class.getName();
     private static final String googleBaseNSUrl = "http://base.google.com/ns/1.0";
+    private static final String googleBaseBatchUrl = "http://schemas.google.com/gdata/batch";
     private static final String googleBaseMetadataUrl = "http://base.google.com/ns-metadata/1.0";
     private static final String googleBaseAppUrl = "http://purl.org/atom/app#";
 
@@ -416,12 +417,18 @@ public class ProductsExportToGoogle {
                     itemActionType = "insert";
                 }
                 Element entryElem = UtilXml.addChildElement(feedElem, "entry", feedDocument);
-                Element batchElem = UtilXml.addChildElement(entryElem, "batch:operation", feedDocument);
-                batchElem.setAttribute("type", itemActionType);
+                Element batchElem = UtilXml.addChildElementNSElement(entryElem, "batch:operation", feedDocument, googleBaseBatchUrl);
+                Element batchOperationElem = UtilXml.firstChildElement(batchElem, "batch:operation");
+                batchOperationElem.setAttribute("type", itemActionType);
+                
+                Element appControlElem = UtilXml.addChildElementNSElement(entryElem, "app:control", feedDocument, googleBaseAppUrl);
+                Element appControlChildElem = UtilXml.firstChildElement(appControlElem, "app:control");
+                // Add the publishing priority for the product. By default it takes about 24 hours to publish your product if you submit data from Data Feed. By adding publishing priority your data
+                // can be published in 15 - 30 minutes.
+                UtilXml.addChildElementNSValue(appControlChildElem, "gm:publishing_priority", "high", feedDocument, googleBaseMetadataUrl);
 
                 // status is draft or deactivate
                 if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
-                    Element appControlElem = UtilXml.addChildElementNSElement(entryElem, "app:control", feedDocument, googleBaseAppUrl);
                     UtilXml.addChildElementNSValue(appControlElem, "app:draft", "yes", feedDocument, googleBaseAppUrl);
 
                     // status is deactivate
@@ -445,8 +452,16 @@ public class ProductsExportToGoogle {
                 linkElem.setAttribute("rel", "alternate");
                 linkElem.setAttribute("type", "text/html");
                 linkElem.setAttribute("href", link);
-
+                
+                // item_type is the categories in which your product should belong.
                 UtilXml.addChildElementNSValue(entryElem, "g:item_type", "products", feedDocument, googleBaseNSUrl);
+                
+                // adding the default values for products types.
+                // TODO: Figure out how best we can use the product_type along with OOTB ProductType associated with Product.
+                // Google base support big list of product type and here is the link (Refer title "Browse the taxonomy"): http://base.google.com/support/bin/answer.py?hl=en&answer=66818 
+                UtilXml.addChildElementNSValue(entryElem, "g:product_type", "Electronics", feedDocument, googleBaseNSUrl);
+                UtilXml.addChildElementNSValue(entryElem, "g:product_type", "Business & Industrial", feedDocument, googleBaseNSUrl);
+                
                 UtilXml.addChildElementNSValue(entryElem, "g:price", price, feedDocument, googleBaseNSUrl);
 
                 // Might be nicer to load this from the product but for now we'll set it based on the country destination
