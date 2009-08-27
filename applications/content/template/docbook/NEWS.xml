@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+
+<article>
+<info>
+<abstract>
+<para><emphasis role="strong">Note:</emphasis> This
+            document lists changes only since the 1.75.1 release.
+            If you instead want a record of the complete list of
+            changes for the codebase over its entire history, you
+            can obtain one by running the following commands:
+            
+<screen>  <code>svn checkout https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/xsl</code>
+  <code>svn log --xml --verbose xsl &gt; ChangeHistory.xml</code></screen></para>
+</abstract>
+</info><title>Changes since the 1.75.1 release</title>
+
+<sect1 xml:id="V1.75.2">
+<title>Release Notes: 1.75.2</title>
+<para>The following is a list of changes that have been made
+        since the 1.75.1 release.</para>
+
+<sect2 xml:id="V1.75.2_Gentext">
+<title>Gentext</title>
+<para>The following changes have been made to the
+            <filename>gentext</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Keith Fahlgren: Makefile</literal></para><screen><phrase role="commit-message">Add Icelandic</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>dleidert: locale/ja.xml</literal></para><screen><phrase role="commit-message">Improved Japanese translation for Note(s). Closes bug #2823965.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>dleidert: locale/pl.xml</literal></para><screen><phrase role="commit-message">Polish alphabet contains O with acute accent, not with grave accent. Closes bug #2823964.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: locale/ja.xml</literal></para><screen><phrase role="commit-message">Fix translation of "<tag>index</tag>", per bug report 2796064.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: locale/is.xml</literal></para><screen><phrase role="commit-message">New Icelandic locale file.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of Gentext changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_Common">
+<title>Common</title>
+<para>The following changes have been made to the
+            <filename>common</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Keith Fahlgren: Makefile</literal></para><screen><phrase role="commit-message">Add Icelandic</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: stripns.xsl</literal></para><screen><phrase role="commit-message">Support more downconvert cases</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: titles.xsl</literal></para><screen><phrase role="commit-message">Make sure <tag>title</tag> inside <tag>info</tag> is used if no other <tag>title</tag>.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of Common changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_FO">
+<title>FO</title>
+<para>The following changes have been made to the
+            <filename>fo</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Robert Stayton: pi.xsl</literal></para><screen><phrase role="commit-message">Turn off dbfo-need for <parameter>fop1.extensions</parameter> also, per bug #2816141.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of FO changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_HTML">
+<title>HTML</title>
+<para>The following changes have been made to the
+            <filename>html</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Mauritz Jeanson: titlepage.xsl</literal></para><screen><phrase role="commit-message">Output "<tag>Copyright</tag>" heading in XHTML too.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Mauritz Jeanson: titlepage.xsl</literal></para><screen><phrase role="commit-message">Added stylesheet.result.type test for <tag>copyright</tag>. Closes bug #2813289.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: htmltbl.xsl</literal></para><screen><phrase role="commit-message">Remove ambiguity wrt @span, @rowspan, and @colspan</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of HTML changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_Manpages">
+<title>Manpages</title>
+<para>The following changes have been made to the
+            <filename>manpages</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Mauritz Jeanson: endnotes.xsl</literal></para><screen><phrase role="commit-message">Added normalize-space() for ulink content. Closes bug #2793877.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Mauritz Jeanson: docbook.xsl</literal></para><screen><phrase role="commit-message">Added stylesheet.result.type test for <tag>copyright</tag>. Closes bug #2813289.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of Manpages changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_Epub">
+<title>Epub</title>
+<para>The following changes have been made to the
+            <filename>epub</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Keith Fahlgren: bin/dbtoepub; bin/lib/docbook.rb</literal></para><screen><phrase role="commit-message">Corrected bugs caused by path and file assumptions were not met</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Keith Fahlgren: bin/lib/docbook.rb; docbook.xsl</literal></para><screen><phrase role="commit-message">Cleaning up hardcoded values into parameters and fixing Ruby library to pass them properly; all thanks to patch from Liza Daly</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of Epub changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_Params">
+<title>Params</title>
+<para>The following changes have been made to the
+            <filename>params</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Mauritz Jeanson: highlight.source.xml</literal></para><screen><phrase role="commit-message">Fixed typo.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of Params changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_Profiling">
+<title>Profiling</title>
+<para>The following changes have been made to the
+            <filename>profiling</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Robert Stayton: profile.xsl</literal></para><screen><phrase role="commit-message">Fix bug 2815493 missing <parameter>exsl.node.set.available</parameter> parameter.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of Profiling changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_XSL-Saxon">
+<title>XSL-Saxon</title>
+<para>The following changes have been made to the
+            <filename>xsl-saxon</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Mauritz Jeanson: src/com/nwalsh/saxon/ColumnUpdateEmitter.java; src/com/nwalsh/saxon/Colum⋯</literal></para><screen><phrase role="commit-message">Added fixes so that colgroups in the XHTML namespace are processed properly.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of XSL-Saxon changes for 1.75.2-->
+
+<sect2 xml:id="V1.75.2_XSL-Xalan">
+<title>XSL-Xalan</title>
+<para>The following changes have been made to the
+            <filename>xsl-xalan</filename> code
+            since the 1.75.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Mauritz Jeanson: nbproject/project.xml</literal></para><screen><phrase role="commit-message">Added missing NetBeans configuration.</phrase></screen>
+</listitem>
+</itemizedlist>
+</sect2><!--end of XSL-Xalan changes for 1.75.2-->
+
+</sect1>
+</article>
+
