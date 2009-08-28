@@ -116,7 +116,8 @@ public class BlogRssServices {
                 GenericValue v = (GenericValue) i.next();
                 String sub = null;
                 try {
-                    sub = ContentWorker.renderSubContentAsText(dispatcher, delegator, v.getString("contentId"), mapKey, FastMap.newInstance(), locale, mimeTypeId, true);
+                	Map<String, Object> dummy = FastMap.newInstance();
+                    sub = ContentWorker.renderSubContentAsText(dispatcher, delegator, v.getString("contentId"), mapKey, dummy, locale, mimeTypeId, true);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                 } catch (IOException e) {
