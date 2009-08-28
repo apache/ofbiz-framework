@@ -404,10 +404,9 @@ under the License.
     <service name="createWorkRequirementFulfillment" engine="simple" auth="true"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkRequirementFulfillment">
         <description>Creates a WorkRequirementFulfillment</description>
-        <auto-attributes include="pk" mode="IN" optional="false" entity-name="WorkRequirementFulfillment"/>
+        <auto-attributes include="pk" mode="IN" optional="true" entity-name="WorkRequirementFulfillment"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkRequirementFulfillment"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="Requirement"/>
-        <override name="requirementId" optional="true" mode="INOUT"/>
     </service>
     <service name="deleteWorkRequirementFulfillment" engine="simple" auth="true"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkRequirementFulfillment">
@@ -734,9 +733,9 @@ under the License.
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="migrateWorkEffortEventReminders" auth="true">
         <description>Migrate work effort event reminders. Run this service to update work effort reminders.</description>
     </service>
-    
+
     <!-- WorkEffort and Survey Services -->
-    <service name="createWorkEffortSurveyAppl" engine="simple" default-entity-name="WorkEffortSurveyAppl" 
+    <service name="createWorkEffortSurveyAppl" engine="simple" default-entity-name="WorkEffortSurveyAppl"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortSurveyAppl" auth="true">
         <description>Create a WorkEffort Survey</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
@@ -744,7 +743,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateWorkEffortSurveyAppl" default-entity-name="WorkEffortSurveyAppl" engine="simple" 
+    <service name="updateWorkEffortSurveyAppl" default-entity-name="WorkEffortSurveyAppl" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortSurveyAppl" auth="true">
         <description>Update a WorkEffort Survey</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
