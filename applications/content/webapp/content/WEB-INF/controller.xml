@@ -1791,7 +1791,15 @@ under the License.
         <response name="success" type="request-redirect" value="navigateContent"/>
         <response name="error" type="request" value="navigateContent"/>
     </request-map>
-
+    <request-map uri="showContent">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="showContent"/>
+    </request-map>
+    <request-map uri="showContentPdf">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="showContentPdf"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
@@ -1957,6 +1965,8 @@ under the License.
     <view-map name="EditDocumentTree" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocumentTree"/>
     <view-map name="EditDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocument"/>
     <view-map name="ListDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#ListDocument"/>
-
+    <view-map name="showContent" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"/>
+    <view-map name="showContentPdf" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"  content-type="application/pdf" encoding="none"/>
+    
         <!-- end of view mappings -->
 </site-conf>

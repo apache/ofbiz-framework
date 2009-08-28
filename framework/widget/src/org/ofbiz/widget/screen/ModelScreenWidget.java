@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +30,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import javolution.util.FastList;
 
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
@@ -60,8 +74,13 @@ import org.ofbiz.widget.tree.ModelTree;
 import org.ofbiz.widget.tree.TreeFactory;
 import org.ofbiz.widget.tree.TreeStringRenderer;
 import org.ofbiz.widget.xml.XmlFormRenderer;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.RequestHandlerException;
+import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  * Widget Library - Screen model class
@@ -1090,10 +1109,76 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 if (dataResource != null) {
                     mimeTypeId = dataResource.getString("mimeTypeId");
                 }
+                if (UtilValidate.isNotEmpty(content.get("mimeTypeId"))) {
+                    mimeTypeId = content.getString("mimeTypeId");
+                }
 
                 if (UtilValidate.isNotEmpty(mimeTypeId)
-                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
-                    screenStringRenderer.renderContentFrame(writer, context, this);
+                		&& ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
+                	if (mimeTypeId.equals("application/pdf")) {
+                		TransformerFactory tfactory = TransformerFactory.newInstance();
+                		try{
+/*                			
+                			//
+                			//  this part is not working. If somebody can help to make it work?
+                			//  currently using only real temp files for debugging purposes.
+                			//
+                			//  most of the code should be replaced by functions in xslTransform.java and other files.
+                			//  for debugging here mostly code using the code outside of ofbiz.
+                			//
+                			SAXParserFactory pfactory= SAXParserFactory.newInstance();
+                			pfactory.setNamespaceAware(true);
+                			pfactory.setValidating(true);
+                			pfactory.setXIncludeAware(true);
+                			XMLReader reader = null;
+                			try {
+                				reader = pfactory.newSAXParser().getXMLReader();
+                			} catch (Exception e) {
+                				throw new TransformerException("Error creating SAX parser/reader", e);
+                			}
+
+                			// do the actual preprocessing fr includes
+                			SAXSource source = new SAXSource(reader, new InputSource("/home/hans/ofbiz/svn/applications/commonext/documents/ApacheOfbiz.xml"));
+                			// compile the xsl template
+                			Transformer transformer1 = tfactory.newTransformer(new StreamSource("/home/hans/ofbiz/svn/applications/content/template/docbook/fo/docbook.xsl"));
+                			// and apply the xsl template to the source document and save in a result string
+                			StringWriter sw = new StringWriter();
+                			StreamResult sr = new StreamResult(sw);
+                			transformer1.transform(source, sr);
+                			// store into a file for debugging
+                			java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.fo"));
+                			fw.write(sw.toString());
+                			fw.close();
+
+                			
+                			Debug.log("================start fo processor=============================");
+                			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                			StreamSource src = new StreamSource("/tmp/file1.fo");
+                			FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
+                			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+                			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, baos);
+                			TransformerFactory factory = TransformerFactory.newInstance();
+                			Transformer transformer = factory.newTransformer();
+                			transformer.transform(src, new SAXResult(fop.getDefaultHandler()));
+                			baos.flush();
+                			baos.close();
+                			// write to browser
+                			writer.append(baos.toString());
+                			// store into a file for debugging
+                			java.io.FileWriter fend = new java.io.FileWriter(new java.io.File("/tmp/file1.pdf"));
+                			fend.write(baos.toString());
+                			fend.close();
+
+*/                		
+                		} catch(Exception e) {
+                			Debug.logError("================================Exception: " + e, module);
+                		}
+
+
+
+                	} else {
+                        screenStringRenderer.renderContentFrame(writer, context, this);
+                	}
                 } else {
                     screenStringRenderer.renderContentBegin(writer, context, this);
                     screenStringRenderer.renderContentBody(writer, context, this);
