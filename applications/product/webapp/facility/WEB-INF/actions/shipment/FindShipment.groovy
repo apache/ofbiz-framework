@@ -103,22 +103,19 @@ if ("Y".equals(lookupFlag)) {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            // using list iterator
-            orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
-
             // get the indexes for the partial list
             lowIndex = (((viewIndex - 1) * viewSize) + 1);
             highIndex = viewIndex * viewSize;
+            findOpts.setMaxRows(highIndex);
+            // using list iterator
+            orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
 
-            // attempt to get the full size
-            orli.last();
-            shipmentListSize = orli.currentIndex();
+            shipmentListSize = orli.getResultSizeAfterPartialList();
             if (highIndex > shipmentListSize) {
                 highIndex = shipmentListSize;
             }
 
             // get the partial list for this page
-            orli.beforeFirst();
             if (shipmentListSize > 0) {
                 shipmentList = orli.getPartialList(lowIndex, viewSize);
             } else {

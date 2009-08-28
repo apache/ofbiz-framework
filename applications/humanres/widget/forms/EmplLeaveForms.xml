@@ -39,6 +39,8 @@
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="EmplLeave"/>
                 <field-map field-name="orderBy" value="fromDate"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
             <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>

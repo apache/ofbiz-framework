@@ -150,6 +150,8 @@
                 <field-map field-name="entityName" value="WorkEffortAndPartyAssign"/>
                 <field-map field-name="distinct" value="Y"/>
                 <field-map field-name="orderBy" value="-lastStatusUpdate"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>           
             </service>
         </actions>
         <row-actions>

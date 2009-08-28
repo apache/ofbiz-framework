@@ -1396,21 +1396,20 @@ public class PartyServices {
             // do the lookup
             if (mainCond != null || "Y".equals(showAll)) {
                 try {
-                    // set distinct on so we only get one row per order
-                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-                    // using list iterator
-                    EntityListIterator pli = delegator.findListIteratorByCondition(dynamicView, mainCond, null, fieldsToSelect, orderBy, findOpts);
-
                     // get the indexes for the partial list
                     lowIndex = viewIndex * viewSize + 1;
                     highIndex = (viewIndex + 1) * viewSize;
+
+                    // set distinct on so we only get one row per order
+                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_FORWARD_ONLY, EntityFindOptions.CONCUR_READ_ONLY, -1, highIndex, true);
+                    // using list iterator
+                    EntityListIterator pli = delegator.findListIteratorByCondition(dynamicView, mainCond, null, fieldsToSelect, orderBy, findOpts);
 
                     // get the partial list for this page
                     partyList = pli.getPartialList(lowIndex, viewSize);
 
                     // attempt to get the full size
-                    pli.last();
-                    partyListSize = pli.currentIndex();
+                    partyListSize = pli.getResultsSizeAfterPartialList();
                     if (highIndex > partyListSize) {
                         highIndex = partyListSize;
                     }

@@ -153,6 +153,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="lastName"/>
                 <field-map field-name="entityName" value="PartyRelationshipAndDetail"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
@@ -183,6 +185,8 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <!--<auto-fields-entity entity-name="Person" default-field-type="display"/>-->
@@ -273,6 +277,8 @@ under the License.
           <service service-name="performFind" result-map="result" result-map-list="listIt">
             <field-map field-name="inputFields" from-field="parameters"/>
             <field-map field-name="entityName" from-field="entityName"/>
+            <field-map field-name="viewIndex" from-field="viewIndex"/>
+            <field-map field-name="viewSize" from-field="viewSize"/>
           </service>
         </actions>
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>-->
@@ -305,6 +311,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyClassificationGroup"/>
                 <field-map field-name="orderBy" value="description"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
 
@@ -364,6 +372,8 @@ under the License.
             <service service-name="performFind" result-map-list="listIt" result-map="result">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="CommunicationEvent"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}" widget-style="smallSubmit">

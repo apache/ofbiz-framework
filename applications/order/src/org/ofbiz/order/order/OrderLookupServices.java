@@ -563,6 +563,7 @@ public class OrderLookupServices {
         // get the index for the partial list
         int lowIndex = (((viewIndex.intValue() - 1) * viewSize.intValue()) + 1);
         int highIndex = viewIndex.intValue() * viewSize.intValue();
+        findOpts.setMaxRows(highIndex);
 
         if (cond != null) {
             EntityListIterator eli = null;
@@ -570,9 +571,7 @@ public class OrderLookupServices {
                 // do the lookup
                 eli = delegator.findListIteratorByCondition(dve, cond, null, fieldsToSelect, orderBy, findOpts);
 
-                // attempt to get the full size
-                eli.last();
-                orderCount = eli.currentIndex();
+                orderCount = eli.getResultsSizeAfterPartialList();
 
                 // get the partial list for this page
                 eli.beforeFirst();

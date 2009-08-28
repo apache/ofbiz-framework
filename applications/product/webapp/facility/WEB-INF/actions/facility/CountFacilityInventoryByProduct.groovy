@@ -222,11 +222,12 @@ if (action) {
     List prods = null;
     try {
         beganTransaction = TransactionUtil.begin();
-        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, orderBy, findOpts);
 
         // get the indexes for the partial list
         lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1);
         highIndex = (viewIndex.intValue() + 1) * viewSize.intValue();
+        findOpts.setMaxRows(highIndex);
+        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, orderBy, findOpts);
 
         // get the partial list for this page
         prods = prodsEli.getPartialList(lowIndex, highIndex);
@@ -333,8 +334,7 @@ if (action) {
                 }
                 productListSize = lowIndex + rows.size() + rowProcessed - 1;
             } else {
-                prodsEli.last();
-                productListSize = prodsEli.currentIndex();
+                productListSize = prodsEli.getResultSizeAfterPartialList();
             }
         }
         prodsEli.close();

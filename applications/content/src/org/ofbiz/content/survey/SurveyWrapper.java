@@ -407,7 +407,8 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            EntityListIterator eli = this.getEli(question);
+            int maxRows = startIndex + number;
+            EntityListIterator eli = this.getEli(question, maxRows);
             if (startIndex > 0 && number > 0) {
                 resp = eli.getPartialList(startIndex, number);
             } else {
@@ -545,7 +546,7 @@ public class SurveyWrapper {
             // index 1 = total yes
             // index 2 = total no
 
-            EntityListIterator eli = this.getEli(question);
+            EntityListIterator eli = this.getEli(question, -1);
 
             if (eli != null) {
                 GenericValue value;
@@ -592,7 +593,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            EntityListIterator eli = this.getEli(question);
+            EntityListIterator eli = this.getEli(question, -1);
 
             if (eli != null) {
                 GenericValue value;
@@ -681,7 +682,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            EntityListIterator eli = this.getEli(question);
+            EntityListIterator eli = this.getEli(question, -1);
             if (eli != null) {
                 GenericValue value;
                 while (((value = (GenericValue) eli.next()) != null)) {
@@ -729,12 +730,15 @@ public class SurveyWrapper {
                 EntityCondition.makeCondition("surveyId", EntityOperator.EQUALS, surveyId)), EntityOperator.AND);
     }
 
-    private EntityListIterator getEli(GenericValue question) throws GenericEntityException {
+    private EntityListIterator getEli(GenericValue question, int maxRows) throws GenericEntityException {
         EntityFindOptions efo = new EntityFindOptions();
         efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
         efo.setResultSetConcurrency(EntityFindOptions.CONCUR_READ_ONLY);
         efo.setSpecifyTypeAndConcur(true);
         efo.setDistinct(false);
+        if (maxRows > 0) {
+            efo.setMaxRows(maxRows);
+        }
 
         EntityListIterator eli = null;
         eli = delegator.find("SurveyResponseAndAnswer", makeEliCondition(question), null, null, null, efo);

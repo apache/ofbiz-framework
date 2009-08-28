@@ -429,6 +429,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="searchParameters"/>
                 <field-map field-name="entityName" value="CommunicationEventAndRole"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <row-actions>
@@ -526,6 +528,8 @@ under the License.
                 <field-map from-field="parameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
                 <field-map value="-createdStamp" field-name="orderBy"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}"><submit/></field>

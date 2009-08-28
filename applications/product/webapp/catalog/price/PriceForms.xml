@@ -29,6 +29,8 @@
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductPriceRule"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="productPriceRuleId" title="${uiLabelMap.ProductPriceRuleNameId}" widget-style="buttontext">

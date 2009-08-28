@@ -77,6 +77,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="jobCtx"/>
                 <field-map field-name="entityName" value="JobSandbox"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="jobName" title="${uiLabelMap.WebtoolsJob}" sort-field="true"><display/></field>

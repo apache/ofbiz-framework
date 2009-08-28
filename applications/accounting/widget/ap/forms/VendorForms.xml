@@ -26,6 +26,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Vendor"/>
                 <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="buttontext">

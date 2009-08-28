@@ -313,6 +313,9 @@ public class WorkEffortSearch {
             EntityFindOptions efo = new EntityFindOptions();
             efo.setDistinct(true);
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+            if (maxResults != null) {
+                efo.setMaxRows(maxResults);
+            }
 
             EntityListIterator eli = null;
             try {
@@ -415,12 +418,7 @@ public class WorkEffortSearch {
                 }
 
                 if (searchResult != null) {
-                    // we weren't at the end, so go to the end and get the index
-                    //Debug.logInfo("Getting totalResults from ending index - before last() currentIndex=" + eli.currentIndex(), module);
-                    if (eli.last()) {
-                        this.totalResults = Integer.valueOf(eli.currentIndex());
-                        //Debug.logInfo("Getting totalResults from ending index - after last() currentIndex=" + eli.currentIndex(), module);
-                    }
+                    this.totalResults = eli.getResultsSizeAfterPartialList();
                 }
                 if (this.totalResults == null || this.totalResults.intValue() == 0) {
                     int total = numRetreived;

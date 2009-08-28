@@ -35,6 +35,8 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="exampleFeatureCtx"/>
                 <field-map field-name="entityName" value="ExampleFeature"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
@@ -147,6 +149,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="description"/>
                 <field-map field-name="entityName" value="ExampleFeature"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <!--<auto-fields-entity entity-name="ExampleFeature" default-field-type="display"/>-->

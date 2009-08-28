@@ -26,6 +26,8 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Facility"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="facilityId">
@@ -99,6 +101,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndLocation"/>
                 <field-map field-name="orderBy" value="statusId|quantityOnHandTotal|serialNumber"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="inventoryItemId" widget-style="buttontext">
@@ -219,6 +223,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="productId|inventoryItemId|-inventoryItemDetailSeqId|-effectiveDate|quantityOnHandTotal"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <row-actions>
@@ -281,6 +287,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="productId|-effectiveDate|inventoryItemId|-inventoryItemDetailSeqId|quantityOnHandTotal"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <row-actions>
@@ -335,6 +343,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="InventoryItemAndDetail"/>
                 <field-map field-name="orderBy" value="-effectiveDate|productId|inventoryItemId|-inventoryItemDetailSeqId|quantityOnHandTotal"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
 

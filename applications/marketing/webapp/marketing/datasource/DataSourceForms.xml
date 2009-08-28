@@ -87,6 +87,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="orderBy" value="dataSourceTypeId"/>
                 <field-map field-name="entityName" value="DataSourceType"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
 
@@ -123,6 +125,8 @@ under the License.
             <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" widget-style="buttontext">
@@ -144,6 +148,8 @@ under the License.
             <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" widget-style="buttontext">

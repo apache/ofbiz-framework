@@ -33,6 +33,8 @@
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="payGradeCtx"/>
                 <field-map field-name="entityName" value="PayGrade"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePayGrade"/>

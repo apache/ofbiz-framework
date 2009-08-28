@@ -29,6 +29,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="employmentAppCtx"/>
                 <field-map field-name="entityName" value="EmploymentApp"/>
                 <field-map field-name="orderBy" value="applicationId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
             <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
