@@ -149,6 +149,8 @@ under the License.
               <service service-name="performFind" result-map="result" result-map-list="listIt">
                   <field-map field-name="inputFields" from-field="parameters"/>
                   <field-map field-name="entityName" value="ContentDataResourceView"/>
+                  <field-map field-name="viewIndex" from-field="viewIndex"/>
+                  <field-map field-name="viewSize" from-field="viewSize"/>
               </service>
           </actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">

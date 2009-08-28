@@ -35,6 +35,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="partyResumeCtx"/>
                 <field-map field-name="entityName" value="PartyResume"/>
                 <field-map field-name="orderBy" value="resumeId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="PartyResume" default-field-type="display"/>

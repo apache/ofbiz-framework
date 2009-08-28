@@ -878,6 +878,7 @@ public class ProductSearchSession {
                 addOnTopProdCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, now));
                 addOnTopProdCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, addOnTopProdCategoryId));
                 EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+                findOpts.setMaxRows(highIndex);
                 EntityListIterator pli = null;
                 try {
                     pli = delegator.find("ProductCategoryMember", EntityCondition.makeCondition(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toSet("productId", "sequenceNum"), UtilMisc.toList("sequenceNum"), findOpts);
@@ -886,9 +887,7 @@ public class ProductSearchSession {
                     for (GenericValue alwaysAddProductCategoryMember: addOnTopProductCategoryMembers) {
                         productIds.add(alwaysAddProductCategoryMember.getString("productId"));
                     }
-                    // attempt to get the full size
-                    pli.last();
-                    addOnTopTotalListSize = pli.currentIndex();
+                    addOnTopTotalListSize = pli.getResultsSizeAfterPartialList();
                     listSize = listSize + addOnTopTotalListSize;
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);

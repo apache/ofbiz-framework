@@ -71,6 +71,8 @@
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAssetMaintWorkEffort"/>
                 <field-map field-name="orderBy" value="-actualStartDate"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="maintHistSeqId" widget-style="linktext">

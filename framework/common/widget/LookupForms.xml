@@ -43,6 +43,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Geo"/>
                 <field-map field-name="orderBy" value="geoName"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonSegmentGroupGeoId}">

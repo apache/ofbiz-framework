@@ -193,6 +193,17 @@ public abstract class ListFinder extends Finder {
                 EntityFindOptions options = new EntityFindOptions();
                 options.setDistinct(distinct);
                 options.setResultSetType(resultSetType);
+                if (outputHandler instanceof LimitRange) {
+                    LimitRange limitRange = (LimitRange) outputHandler;
+                    int start = limitRange.getStart(context);
+                    int size = limitRange.getSize(context);
+                    options.setMaxRows(start + size);
+                } else if (outputHandler instanceof LimitView) {
+                    LimitView limitView = (LimitView) outputHandler;
+                    int index = limitView.getIndex(context);
+                    int size = limitView.getSize(context);
+                    options.setMaxRows(size * (index + 1));
+                }
                 boolean beganTransaction = false;
                 try {
                     if (useTransaction) {

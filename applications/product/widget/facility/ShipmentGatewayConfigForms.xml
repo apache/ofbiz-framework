@@ -43,6 +43,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ShipmentGatewayConfig"/>
                 <field-map field-name="orderBy" value="description"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="ShipmentGatewayConfig" default-field-type="display"/>
@@ -304,6 +306,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ShipmentGatewayConfigType"/>
                 <field-map field-name="orderBy" value="description DESC"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="ShipmentGatewayConfigType" default-field-type="display"/>

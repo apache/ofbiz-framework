@@ -156,6 +156,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" value="ReturnHeader"/>
                 <field-map field-name="orderBy" value="entryDate DESC"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="returnId"  widget-style="buttontext" title="${uiLabelMap.OrderReturnId}">

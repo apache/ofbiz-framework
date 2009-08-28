@@ -39,6 +39,8 @@ under the License.
                 <!--<field-map field-name="orderByList" from-field="resultConditions.orderByList"/>-->
                 <field-map field-name="requirementConditions" from-field="resultConditions.entityConditionList"/>
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="requirementId"><display/></field>
@@ -82,6 +84,8 @@ under the License.
           <service service-name="performFind" result-map="result" result-map-list="listIt">
             <field-map field-name="inputFields" from-field="requestParameters"/>
             <field-map field-name="entityName" from-field="entityName"/>
+            <field-map field-name="viewIndex" from-field="viewIndex"/>
+            <field-map field-name="viewSize" from-field="viewSize"/>
           </service>
         </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="display"/>

@@ -156,7 +156,8 @@ if ("true".equals(find)) {
             beganTransaction = TransactionUtil.begin();
 
             EntityFindOptions efo = new EntityFindOptions();
-            efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+            efo.setMaxRows(highIndex);
+            efo.setResultSetType(EntityFindOptions.TYPE_FORWARD_ONLY);
             EntityListIterator resultEli = null;
             fieldsToSelect = null;
 
@@ -175,10 +176,7 @@ if ("true".equals(find)) {
             resultEli = delegator.find(entityName, condition, null, fieldsToSelect, null, efo);
             resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
 
-            // DEJ 20080701 avoid using redundant query, will use eli.getResultsSizeAfterPartialList() below instead: arraySize = (int) delegator.findCountByCondition(entityName, condition, null, null);
-            // SG 20090826 switched back to findCountByCondition, resultSet.last() appears to take O(n) time whereas findCountByCondition is almost constant regardless of the result size
-            //arraySize = resultEli.getResultsSizeAfterPartialList();
-            arraySize = delegator.findCountByCondition(entityName, condition, null);
+            arraySize = resultEli.getResultsSizeAfterPartialList();
             if (arraySize < highIndex) {
                 highIndex = arraySize;
             }

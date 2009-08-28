@@ -58,17 +58,16 @@ beganTransaction = false;
 List inventoryItems = null;
 if (andCondition.size() > 1) {
     try {
-        findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-        beganTransaction = TransactionUtil.begin();
-        inventoryItemsEli = delegator.findListIteratorByCondition(inventoryItemAndLabelsView, EntityCondition.makeCondition(andCondition, EntityOperator.AND), null, null, null, findOpts);
-
         // get the indexes for the partial list
         lowIndex = ((viewIndex * viewSize) + 1);
         highIndex = (viewIndex - 1) * viewSize;
 
-        // attempt to get the full size
-        inventoryItemsEli.last();
-        inventoryItemsSize = inventoryItemsEli.currentIndex();
+        findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+        findOpts.setMaxRows(highIndex);
+        beganTransaction = TransactionUtil.begin();
+        inventoryItemsEli = delegator.findListIteratorByCondition(inventoryItemAndLabelsView, EntityCondition.makeCondition(andCondition, EntityOperator.AND), null, null, null, findOpts);
+
+        inventoryItemsSize = inventoryItemsEli.getResultSizeAfterPartialList();
         context.inventoryItemsSize = inventoryItemsSize;
         if (highIndex > inventoryItemsSize) {
             highIndex = inventoryItemsSize;

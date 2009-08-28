@@ -50,6 +50,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalesOpportunity"/>
                 <field-map field-name="orderBy" value="salesOpportunityId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="salesOpportunityId"><hidden/></field>

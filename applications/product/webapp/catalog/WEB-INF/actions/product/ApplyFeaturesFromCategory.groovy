@@ -68,6 +68,7 @@ whereCondition = EntityCondition.makeCondition([productFeatureCategoryId : produ
 EntityFindOptions efo = new EntityFindOptions();
 efo.setDistinct(true);
 efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+efo.setMaxRows(highIndex);
 
 boolean beganTransaction = false;
 try {

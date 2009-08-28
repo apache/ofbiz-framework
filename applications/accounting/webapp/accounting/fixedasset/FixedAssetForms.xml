@@ -27,6 +27,8 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
@@ -334,6 +336,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAssetMaint"/>
                 <field-map field-name="orderBy" value="-maintHistSeqId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="maintHistSeqId">
@@ -423,6 +427,8 @@ under the License.
                 <field-map field-name="inputFields" from-field="findParams"/>
                 <field-map field-name="entityName" value="FixedAssetMeter"/>
                 <field-map field-name="orderBy" value="-readingDate"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="fixedAssetId"><hidden/></field>

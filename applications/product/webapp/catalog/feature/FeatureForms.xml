@@ -122,6 +122,8 @@
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureType"/>
                 <field-map field-name="orderBy" value="productFeatureTypeId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="productFeatureTypeId" widget-style="buttontext">
@@ -173,6 +175,8 @@
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureIactn"/>
                 <field-map field-name="orderBy" value="productFeatureId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
                 </service>
             </actions>
 
@@ -301,6 +305,8 @@
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductFeatureCategory"/>
                 <field-map field-name="orderBy" value="productFeatureCategoryId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}" widget-style="buttontext">

@@ -41,15 +41,6 @@ boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
-    if (partyId) {
-        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
-    } else if (showAll.equalsIgnoreCase("true")) {
-        visitListIt = delegator.find("Visit", null, null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
-    } else {
-        // show active visits
-        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
-    }
-
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
     viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize"));
     context.viewIndex = viewIndex;
@@ -59,15 +50,22 @@ try {
     lowIndex = (((viewIndex - 1) * viewSize) + 1);
     highIndex = viewIndex * viewSize;
 
+    if (partyId) {
+        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, highIndex, true));
+    } else if (showAll.equalsIgnoreCase("true")) {
+        visitListIt = delegator.find("Visit", null, null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, highIndex, true));
+    } else {
+        // show active visits
+        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, highIndex, true));
+    }
+
     // get the partial list for this page
     visitList = visitListIt.getPartialList(lowIndex, viewSize);
     if (!visitList) {
         visitList = new ArrayList();
     }
 
-    // attempt to get the full size
-    visitListIt.last();
-    visitListSize = visitListIt.currentIndex();
+    visitListSize = visitListIt.getResultSizeAfterPartialList();
     if (highIndex > visitListSize) {
         highIndex = visitListSize;
     }

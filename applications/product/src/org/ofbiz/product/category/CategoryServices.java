@@ -286,6 +286,7 @@ public class CategoryServices {
 
                     // set distinct on
                     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+                    findOpts.setMaxRows(highIndex);
                     // using list iterator
                     EntityListIterator pli = delegator.find(entityName, mainCond, null, null, orderByFields, findOpts);
 
@@ -311,9 +312,7 @@ public class CategoryServices {
                         } else {
                             productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
 
-                            // attempt to get the full size
-                            pli.last();
-                            listSize = pli.currentIndex();
+                            listSize = pli.getResultsSizeAfterPartialList();
                         }
                     } else {
                         productCategoryMembers = pli.getCompleteList();
