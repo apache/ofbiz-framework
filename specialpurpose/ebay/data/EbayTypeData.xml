@@ -20,4 +20,5 @@ under the License.
 
 <entity-engine-xml>
     <ProductPricePurpose productPricePurposeId="EBAY" description="eBay Auction"/>
+    <ProductCategoryType productCategoryTypeId="EBAY_CATEGORY" description="eBay" hasTable="N" parentTypeId=""/>
 </entity-engine-xml>

@@ -17,14 +17,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="JavaScript" type="text/javascript">
-     function changeEbayCategory(categ, cat_desc) {
+     function changeEbayCategory(categ) {
          document.forms["ProductsExportToEbay"].action = "<@ofbizUrl>ProductsExportToEbay?categoryCode="+categ+"</@ofbizUrl>";
          document.forms["ProductsExportToEbay"].submit();
      }
 
      function activateSubmitButton() {
          categ = document.forms["ProductsExportToEbay"].ebayCategory.value;
-         if (categ != null && categ.substring(0, 1) == 'Y') {
+         if (categ != null && (categ.substring(0, 1) == 'Y' || categ == '')) {
              document.forms["ProductsExportToEbay"].submitButton.disabled = false;
          } else {
              document.forms["ProductsExportToEbay"].submitButton.disabled = true;
@@ -40,10 +40,11 @@ under the License.
                 <td>&nbsp;</td>
                 <td>
                     <input type="hidden" name="selectResult" value="${selectResult}"/>
-                    <select name="ebayCategory" onchange="changeEbayCategory(this.value, this.options[this.selectedIndex].text)">
+                    <select name="ebayCategory" onchange="changeEbayCategory(this.value)">
+                        <option value=""> </option>
                         <#if categories?exists>
                             <#list categories as category>
-                                <option value="${category.CategoryCode}">${category.CategoryName}</option>
+                                <option value="${category.CategoryCode}" <#if categoryCode?exists && categoryCode == category.CategoryCode>selected</#if>>${category.CategoryName}</option>
                             </#list>
                         </#if>
                     </select>
