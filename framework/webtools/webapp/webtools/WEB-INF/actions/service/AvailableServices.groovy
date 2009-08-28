@@ -77,96 +77,141 @@ List getEcaListForService(String selectedService) {
             actions.setAccessible(true);
             actionsVal = actions.get(curRule);
             if (actionsVal) {
-                actionsList = new ArrayList(actionsVal.size());
+                actionsList = new ArrayList();
+                setsList = new ArrayList();
                 actionsVal.each { curAction ->
-                    actionMap = [:];
                     actionClass = curAction.getClass();
+                    if (org.ofbiz.service.eca.ServiceEcaAction.equals(actionClass)) {
+                        actionMap = [:];
 
-                    //eventName
-                    eventName = actionClass.getDeclaredField("eventName");
-                    eventName.setAccessible(true);
-                    eventNameVal = eventName.get(curAction);
-                    if (eventNameVal) {
-                        actionMap.eventName = eventNameVal as String;
+                        //eventName
+                        eventName = actionClass.getDeclaredField("eventName");
+                        eventName.setAccessible(true);
+                        eventNameVal = eventName.get(curAction);
+                        if (eventNameVal) {
+                            actionMap.eventName = eventNameVal as String;
+                        }
+                        eventName.setAccessible(false);
+
+                        //ignoreError
+                        ignoreError = actionClass.getDeclaredField("ignoreError");
+                        ignoreError.setAccessible(true);
+                        ignoreErrorVal = ignoreError.get(curAction);
+                        if (ignoreErrorVal) {
+                            actionMap.ignoreError = ignoreErrorVal as String;
+                        }
+                        ignoreError.setAccessible(false);
+
+                        //ignoreFailure
+                        ignoreFailure = actionClass.getDeclaredField("ignoreFailure");
+                        ignoreFailure.setAccessible(true);
+                        ignoreFailureVal = ignoreFailure.get(curAction);
+                        if (ignoreFailureVal) {
+                            actionMap.ignoreFailure = ignoreFailureVal as String;
+                        }
+                        ignoreFailure.setAccessible(false);
+
+                        //persist
+                        persist = actionClass.getDeclaredField("persist");
+                        persist.setAccessible(true);
+                        persistVal = persist.get(curAction);
+                        if (persistVal) {
+                            actionMap.persist = persistVal as String;
+                        }
+                        persist.setAccessible(false);
+
+                        //resultMapName
+                        resultMapName = actionClass.getDeclaredField("resultMapName");
+                        resultMapName.setAccessible(true);
+                        resultMapNameVal = resultMapName.get(curAction);
+                        if (resultMapNameVal) {
+                            actionMap.resultMapName = resultMapNameVal as String;
+                        }
+                        resultMapName.setAccessible(false);
+
+                        //resultToContext
+                        resultToContext = actionClass.getDeclaredField("resultToContext");
+                        resultToContext.setAccessible(true);
+                        resultToContextVal = resultToContext.get(curAction);
+                        if (resultToContextVal) {
+                            actionMap.resultToContext = resultToContextVal as String;
+                        }
+                        resultToContext.setAccessible(false);
+
+                        //resultToResult
+                        resultToResult = actionClass.getDeclaredField("resultToResult");
+                        resultToResult.setAccessible(true);
+                        resultToResultVal = resultToResult.get(curAction);
+                        if (resultToResultVal) {
+                            actionMap.resultToResult = resultToResultVal as String;
+                        }
+                        resultToResult.setAccessible(false);
+
+                        //serviceMode
+                        serviceMode = actionClass.getDeclaredField("serviceMode");
+                        serviceMode.setAccessible(true);
+                        serviceModeVal = serviceMode.get(curAction);
+                        if (serviceModeVal) {
+                            actionMap.serviceMode = serviceModeVal as String;
+                        }
+                        serviceMode.setAccessible(false);
+
+                        //serviceName
+                        serviceName = actionClass.getDeclaredField("serviceName");
+                        serviceName.setAccessible(true);
+                        serviceNameVal = serviceName.get(curAction);
+                        if (serviceNameVal) {
+                            actionMap.serviceName = serviceNameVal as String;
+                        }
+                        serviceName.setAccessible(false);
+
+                        actionsList.add(actionMap);
+
+                    } else {  // FIXME : we should also show field-names and values for set operation
+                        setMap = [:];
+
+                        // fieldName
+                        fieldName = actionClass.getDeclaredField("fieldName");
+                        fieldName.setAccessible(true);
+                        fieldNameVal = fieldName.get(curAction);
+                        if (fieldNameVal) {
+                            setMap.fieldName = fieldNameVal as String;
+                        }
+                        fieldName.setAccessible(false);
+
+                        // envName
+                        envName = actionClass.getDeclaredField("envName");
+                        envName.setAccessible(true);
+                        envNameVal = envName.get(curAction);
+                        if (envNameVal) {
+                            setMap.envName = envNameVal as String;
+                        }
+                        envName.setAccessible(false);
+
+                        // value
+                        value = actionClass.getDeclaredField("value");
+                        value.setAccessible(true);
+                        valueVal = value.get(curAction);
+                        if (valueVal) {
+                            setMap.value = valueVal as String;
+                        }
+                        value.setAccessible(false);
+
+                        // format
+                        format = actionClass.getDeclaredField("format");
+                        format.setAccessible(true);
+                        formatVal = format.get(curAction);
+                        if (formatVal) {
+                            setMap.format = formatVal as String;
+                        }
+                        format.setAccessible(false);
+
+                        setsList.add(setMap);
                     }
-                    eventName.setAccessible(false);
-
-                    //ignoreError
-                    ignoreError = actionClass.getDeclaredField("ignoreError");
-                    ignoreError.setAccessible(true);
-                    ignoreErrorVal = ignoreError.get(curAction);
-                    if (ignoreErrorVal) {
-                        actionMap.ignoreError = ignoreErrorVal as String;
-                    }
-                    ignoreError.setAccessible(false);
-
-                    //ignoreFailure
-                    ignoreFailure = actionClass.getDeclaredField("ignoreFailure");
-                    ignoreFailure.setAccessible(true);
-                    ignoreFailureVal = ignoreFailure.get(curAction);
-                    if (ignoreFailureVal) {
-                        actionMap.ignoreFailure = ignoreFailureVal as String;
-                    }
-                    ignoreFailure.setAccessible(false);
-
-                    //persist
-                    persist = actionClass.getDeclaredField("persist");
-                    persist.setAccessible(true);
-                    persistVal = persist.get(curAction);
-                    if (persistVal) {
-                        actionMap.persist = persistVal as String;
-                    }
-                    persist.setAccessible(false);
-
-                    //resultMapName
-                    resultMapName = actionClass.getDeclaredField("resultMapName");
-                    resultMapName.setAccessible(true);
-                    resultMapNameVal = resultMapName.get(curAction);
-                    if (resultMapNameVal) {
-                        actionMap.resultMapName = resultMapNameVal as String;
-                    }
-                    resultMapName.setAccessible(false);
-
-                    //resultToContext
-                    resultToContext = actionClass.getDeclaredField("resultToContext");
-                    resultToContext.setAccessible(true);
-                    resultToContextVal = resultToContext.get(curAction);
-                    if (resultToContextVal) {
-                        actionMap.resultToContext = resultToContextVal as String;
-                    }
-                    resultToContext.setAccessible(false);
-
-                    //resultToResult
-                    resultToResult = actionClass.getDeclaredField("resultToResult");
-                    resultToResult.setAccessible(true);
-                    resultToResultVal = resultToResult.get(curAction);
-                    if (resultToResultVal) {
-                        actionMap.resultToResult = resultToResultVal as String;
-                    }
-                    resultToResult.setAccessible(false);
-
-                    //serviceMode
-                    serviceMode = actionClass.getDeclaredField("serviceMode");
-                    serviceMode.setAccessible(true);
-                    serviceModeVal = serviceMode.get(curAction);
-                    if (serviceModeVal) {
-                        actionMap.serviceMode = serviceModeVal as String;
-                    }
-                    serviceMode.setAccessible(false);
-
-                    //serviceName
-                    serviceName = actionClass.getDeclaredField("serviceName");
-                    serviceName.setAccessible(true);
-                    serviceNameVal = serviceName.get(curAction);
-                    if (serviceNameVal) {
-                        actionMap.serviceName = serviceNameVal as String;
-                    }
-                    serviceName.setAccessible(false);
-
-                    actionsList.add(actionMap);
                 }
 
                 curRuleMap.actions = actionsList;
+                curRuleMap.sets= setsList;
             }
             actions.setAccessible(true);
 
