@@ -367,22 +367,23 @@ public class FindServices {
      * @param context
      * @return Map
      */
-    public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, ?> context) {
-        Map<String, Object> result = performFind(dctx,context);
-
+    public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, Object> context) {
         Integer viewSize = (Integer) context.get("viewSize");
         if (viewSize == null) viewSize = Integer.valueOf(20);       // default
+		context.put("viewSize", viewSize);
         Integer viewIndex = (Integer) context.get("viewIndex");
         if (viewIndex == null)  viewIndex = Integer.valueOf(0);  // default
+		context.put("viewIndex", viewIndex);
+
+        Map<String, Object> result = performFind(dctx,context);
 
         int start = viewIndex.intValue() * viewSize.intValue();
         List<GenericValue> list = null;
         Integer listSize = null;
         try {
             EntityListIterator it = (EntityListIterator) result.get("listIt");
-            list = it.getPartialList(start+1, viewSize.intValue()); // list starts at '1'
-            it.last();
-            listSize = Integer.valueOf(it.currentIndex());
+            list = it.getPartialList(start+1, viewSize); // list starts at '1'
+            listSize = it.getResultsSizeAfterPartialList();
             it.close();
         } catch (Exception e) {
             Debug.logInfo("Problem getting partial list" + e,module);
@@ -423,11 +424,21 @@ public class FindServices {
         }
         Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
 
+        Integer viewSize = (Integer) context.get("viewSize");
+        Integer viewIndex = (Integer) context.get("viewIndex");
+        Integer maxRows = null;
+        if (viewSize != null && viewIndex != null) {
+            maxRows = viewSize * (viewIndex + 1);
+        }
+
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         Map<String, Object> prepareResult = null;
         try {
-            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate,"filterByDateValue", filterByDateValue, "userLogin", userLogin, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
+            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, 
+                                               "inputFields", inputFields, "filterByDate", filterByDate,
+                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin, 
+                                               "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error preparing conditions: " + gse.getMessage());
         }
@@ -436,7 +447,11 @@ public class FindServices {
 
         Map<String, Object> executeResult = null;
         try {
-            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "fieldList", fieldList, "entityConditionList", exprList, "noConditionFind", noConditionFind, "distinct", distinct, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
+            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, 
+                                                                             "fieldList", fieldList, "entityConditionList", exprList, 
+                                                                             "noConditionFind", noConditionFind, "distinct", distinct, 
+                                                                             "locale", context.get("locale"), "timeZone", context.get("timeZone"),
+                                                                             "maxRows", maxRows));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error finding iterator: " + gse.getMessage());
         }
@@ -548,13 +563,15 @@ public class FindServices {
         if (fieldList != null) {
             fieldSet = UtilMisc.makeSetWritable(fieldList);
         }
+        Integer maxRows = (Integer) context.get("maxRows");
+        maxRows = maxRows != null ? maxRows : -1;
         GenericDelegator delegator = dctx.getDelegator();
         // Retrieve entities  - an iterator over all the values
         EntityListIterator listIt = null;
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
                 listIt = delegator.find(entityName, entityConditionList, null, fieldSet, orderByList,
-                        new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, distinct));
+                        new EntityFindOptions(true, EntityFindOptions.TYPE_FORWARD_ONLY, EntityFindOptions.CONCUR_READ_ONLY, -1, maxRows, distinct));
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Error running Find on the [" + entityName + "] entity: " + e.getMessage());
@@ -655,7 +672,9 @@ public class FindServices {
      * @param context
      * @return
      */
-    public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, ?> context) {
+    public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
+        context.put("viewSize", 1);
+        context.put("viewIndex", 0);
         Map<String, Object> result = org.ofbiz.common.FindServices.performFind(dctx,context);
 
         List<GenericValue> list = null;
