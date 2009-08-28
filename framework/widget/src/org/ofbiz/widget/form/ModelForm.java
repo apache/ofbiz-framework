@@ -2434,7 +2434,6 @@ public class ModelForm extends ModelWidget {
             EntityListIterator iter = (EntityListIterator) entryList;
             try {
                 listSize = iter.getResultsSizeAfterPartialList();
-                iter.beforeFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting list size", module);
                 listSize = 0;
