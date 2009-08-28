@@ -48,38 +48,40 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class ProductsExportToEbay {
 
     private static final String resource = "EbayUiLabels";
+    private static final String configFileName = "ebayExport.properties";
     private static final String module = ProductsExportToEbay.class.getName();
 
     public static Map exportToEbay(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
         Map result = null;
         try {
-            String configString = "ebayExport.properties";
+            String configFileName = "ebayExport.properties";
 
             // get the Developer Key
-            String devID = UtilProperties.getPropertyValue(configString, "eBayExport.devID");
+            String devID = UtilProperties.getPropertyValue(configFileName, "eBayExport.devID");
 
             // get the Application Key
-            String appID = UtilProperties.getPropertyValue(configString, "eBayExport.appID");
+            String appID = UtilProperties.getPropertyValue(configFileName, "eBayExport.appID");
 
             // get the Certifcate Key
-            String certID = UtilProperties.getPropertyValue(configString, "eBayExport.certID");
+            String certID = UtilProperties.getPropertyValue(configFileName, "eBayExport.certID");
 
             // get the Token
-            String token = UtilProperties.getPropertyValue(configString, "eBayExport.token");
+            String token = UtilProperties.getPropertyValue(configFileName, "eBayExport.token");
 
             // get the Compatibility Level
-            String compatibilityLevel = UtilProperties.getPropertyValue(configString, "eBayExport.compatibilityLevel");
+            String compatibilityLevel = UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel");
 
             // get the Site ID
-            String siteID = UtilProperties.getPropertyValue(configString, "eBayExport.siteID");
+            String siteID = UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID");
 
             // get the xmlGatewayUri
-            String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "eBayExport.xmlGatewayUri");
+            String xmlGatewayUri = UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri");
 
             StringBuffer dataItemsXml = new StringBuffer();
 
@@ -135,7 +137,7 @@ public class ProductsExportToEbay {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Request of " + callName + " To eBay:\n" + dataItems.toString(), module);
         }
-
+Debug.logWarning("Request of " + callName + " To eBay:\n" + dataItems.toString(), module);
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);
@@ -210,12 +212,10 @@ public class ProductsExportToEbay {
                     UtilXml.addChildElementValue(itemElem, "Quantity", qnt, itemDocument);
 
                     setPaymentMethodAccepted(itemDocument, itemElem, context);
-                    setShippingDetails(itemDocument, itemElem, context);
                     setMiscDetails(itemDocument, itemElem, context);
 
                     String categoryCode = (String)context.get("ebayCategory");
                     String categoryParent = "";
-                    String levelLimit = "";
 
                     if (categoryCode != null) {
                         String[] params = categoryCode.split("_");
@@ -224,7 +224,6 @@ public class ProductsExportToEbay {
                             ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
                         } else {
                             categoryParent = params[1];
-                            levelLimit = params[2];
                         }
                     }
 
@@ -237,11 +236,11 @@ public class ProductsExportToEbay {
 
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));
             } catch (Exception e) {
-                Debug.logError("Exception during building data items to eBay", module);
+                Debug.logError("Exception during building data items to eBay: " + e.getMessage(), module);
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionDuringBuildingDataItemsToEbay", locale));
             }
         } catch (Exception e) {
-            Debug.logError("Exception during building data items to eBay", module);
+            Debug.logError("Exception during building data items to eBay: " + e.getMessage(), module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionDuringBuildingDataItemsToEbay", locale));
         }
         return ServiceUtil.returnSuccess();
@@ -396,24 +395,19 @@ public class ProductsExportToEbay {
         }
     }
 
-    // TODO: these are mandatory values that have been hardcoded
-    private static void setShippingDetails(Document itemDocument, Element itemElem, Map context) {
-        Element shippingDetails = UtilXml.addChildElement(itemElem, "ShippingDetails", itemDocument);
-        UtilXml.addChildElementValue(shippingDetails, "ShippingType", "Flat", itemDocument);
-        Element shippingServiceOptions = UtilXml.addChildElement(shippingDetails, "ShippingServiceOptions", itemDocument);
-        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingService", "UPS2ndDay", itemDocument);
-        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingServicePriority", "1", itemDocument);
-        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingServiceCost", "5", itemDocument);
-        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingServiceAdditionalCost", "2", itemDocument);
-        UtilXml.addChildElementValue(shippingServiceOptions, "ShippingSurcharge", "1", itemDocument);
-    }
-
-    // TODO: these are mandatory values that have been hardcoded
-    private static void setMiscDetails(Document itemDocument, Element itemElem, Map context) {
-        UtilXml.addChildElementValue(itemElem, "UseTaxTable", "false", itemDocument);
-        UtilXml.addChildElementValue(itemElem, "DispatchTimeMax", "3", itemDocument);
-        Element returnPolicy = UtilXml.addChildElement(itemElem, "ReturnPolicy", itemDocument);
-        UtilXml.addChildElementValue(returnPolicy, "ReturnsAcceptedOption", "ReturnsNotAccepted", itemDocument);
+    private static void setMiscDetails(Document itemDocument, Element itemElem, Map context) throws Exception {
+        String customXml = UtilProperties.getPropertyValue(configFileName, "eBayExport.customXml");
+        if (UtilValidate.isNotEmpty(customXml)) {
+            Document customXmlDoc = UtilXml.readXmlDocument(customXml);
+            if (UtilValidate.isNotEmpty(customXmlDoc)) {
+                Element customXmlElement = customXmlDoc.getDocumentElement();
+                List<? extends Element> eBayElements = UtilXml.childElementList(customXmlElement);
+                for (Element eBayElement: eBayElements) {
+                    Node importedElement = itemElem.getOwnerDocument().importNode(eBayElement, true);
+                    itemElem.appendChild(importedElement);
+                }
+            }
+        }
     }
     
     public static Map getEbayCategories(DispatchContext dctx, Map context) {
