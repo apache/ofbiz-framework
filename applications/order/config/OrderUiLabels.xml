@@ -1229,7 +1229,7 @@
     </property>
     <property key="OrderNewShippingAddress">
         <value xml:lang="en">New Shipping Address</value>
-    </property> 
+    </property>
     <property key="OrderAddToCart">
         <value xml:lang="cs">přidat do košíku</value>
         <value xml:lang="de">In den Warenkorb legen</value>
@@ -9719,13 +9719,13 @@
         <value xml:lang="en">View Order History</value>
     </property>
     <property key="OrderViewPermissionError">
-        <value xml:lang="de">Sie haben keine Leseberechtigung für diese Seite ("ORDERMGR_VIEW" oder "ORDERMGR_ADMIN" benötigt).</value>
-        <value xml:lang="en">You do not have permission to view this page (it needs "ORDERMGR_VIEW" or "ORDERMGR_ADMIN").</value>
-        <value xml:lang="es">Usted no tiene permiso para ver esta página. (Privilegios como "ORDERMGR_VIEW" u "ORDERMGR_ADMIN" son necesarios)</value>
-        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("ORDERMGR_VIEW" ou "ORDERMGR_ADMIN" est nécessaire)</value>
-        <value xml:lang="it">Non sei autorizzato a vedere questa pagina. ("ORDERMGR_VIEW", "ORDERMGR_ADMIN" o ruolo associato all'agente Fornitore sono necessari)</value>
+        <value xml:lang="de">Sie haben keine Leseberechtigung für diese Seite ("ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" oder "ORDERMGR_ADMIN" benötigt).</value>
+        <value xml:lang="en">You do not have permission to view this page (it needs "ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" or "ORDERMGR_ADMIN").</value>
+        <value xml:lang="es">Usted no tiene permiso para ver esta página. (Privilegios como "ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" u "ORDERMGR_ADMIN" son necesarios)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" ou "ORDERMGR_ADMIN" est nécessaire)</value>
+        <value xml:lang="it">Non sei autorizzato a vedere questa pagina. ("ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW", "ORDERMGR_ADMIN" o ruolo associato all'agente Fornitore sono necessari)</value>
         <value xml:lang="nl">You do not have permission to view this page.</value>
-        <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. ("ORDERMGR_VIEW", "ORDERMGR_ADMIN" un rol asociat la agent Furnizor sunt necesari)</value>
+        <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. ("ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW", "ORDERMGR_ADMIN" un rol asociat la agent Furnizor sunt necesari)</value>
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы.</value>
         <value xml:lang="th">คุณไม่ได้รับการนุญาตให้ดูหน้านี้</value>
         <value xml:lang="zh">你无权浏览这个页面。</value>
