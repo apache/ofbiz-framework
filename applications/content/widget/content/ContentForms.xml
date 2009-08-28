@@ -555,19 +555,11 @@ under the License.
     </form>
     <form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="Content" value-field="content">
-                <field-map field-name="contentId" from-field="contentIdTo"/>
-            </entity-one>
-            <set field="contentTypeId" from-field="content.contentTypeId"/>
-            <set field="statusId" from-field="content.statusId"/>
-            <entity-one entity-name="DataResource" value-field="dataResource">
-                <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
-            </entity-one>
-            <set field="mimeTypeId" from-field="dataResource.mimeTypeId"/>
-        </row-actions>
-        <field name="contentId">
-            <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="views/ShowDocument?contentId=${content.contentId}"/>
+        <field name="contentId" use-when="&quot;application/pdf&quot;.equals(mimeTypeId)">
+            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContentPdf?contentId=${contentId}" target-window="_blank"/>
+        </field>
+        <field name="contentId" use-when="&quot;text/html&quot;.equals(mimeTypeId)">
+            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContent?contentId=${contentId}" target-window="_blank"/>
         </field>
         <field name="contentTypeId">
             <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>
@@ -578,7 +570,7 @@ under the License.
         <field name="statusId">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="createdDate"><display description="${content.createdDate}"/></field>
+        <field name="caCreatedDate"><display/></field>
         <field name="delete" title="${uiLabelMap.CommonDelete}">
             <hyperlink target="removeDocumentFromTree" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="contentId"/>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -17,15 +17,14 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns="http://docbook.org/ns/docbook"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd">
-    <title>
-        The Accounting Manager.
-    </title>
-    <para>
-        
-          The accounting manager
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+    
+    <title>The My portal Component introduction.</title>
+    <para>                
+        Within the 'my portal' component it is possible to create a collection of screens for a specific type of user of the system. 
+        Examples are a general employee, an account manager, a customer, a supplier etc... 
+        The system makes use of special portlets which can be arranged and selected/hidden by the logged on user.
     </para>
 </section>
-

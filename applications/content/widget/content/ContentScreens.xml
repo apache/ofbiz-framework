@@ -141,14 +141,32 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="contentIdTo" from-field="parameters.contentIdTo"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-condition entity-name="ContentAssoc" list="contentAssoc">
-                    <condition-list  combine="and">
-                        <condition-expr field-name="contentId" from-field="contentId" operator="equals"/>
-                    </condition-list>
+                <entity-condition entity-name="ContentAssocViewTo" list="contentAssoc">
+                    <condition-expr field-name="contentIdStart" from-field="contentId" operator="equals"/>
                 </entity-condition>
             </actions>
             <widgets>
                 <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ShowContent">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="contentId" from-field="parameters.contentId" default-value="${contentId}"/>
+                <property-map resource="general" map-name="generalProperties" global="true"/>
+                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+            </actions>
+            <widgets>
+                <content content-id="${contentId}"/>
             </widgets>
         </section>
     </screen>

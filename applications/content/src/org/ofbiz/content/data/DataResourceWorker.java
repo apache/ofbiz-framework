@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content.data;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,7 +41,6 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -49,6 +49,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
@@ -60,8 +65,10 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.base.util.template.XslTransform;
 import org.ofbiz.common.email.NotificationServices;
 import org.ofbiz.content.content.UploadContentAndImage;
+import org.ofbiz.content.content.ContentMapFacade;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -72,11 +79,27 @@ import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+import org.ofbiz.widget.screen.ScreenFopViewHandler;
+import org.ofbiz.webapp.view.ApacheFopWorker;
+import org.ofbiz.webapp.view.FopRenderer;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import com.meterware.httpunit.GetMethodWebRequest;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * DataResourceWorker Class
@@ -661,6 +684,18 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 } catch (TemplateException e) {
                     throw new GeneralException("Error rendering FTL template", e);
                 }
+
+            } else if ("XSLT".equals(dataTemplateTypeId)) {
+                    // get the template data for rendering
+                    String templateLocation = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).toString();
+                    // render the XSLT template and file
+                    String outDoc = null;
+                    try {
+                        outDoc = XslTransform.renderTemplate(templateLocation, (String) templateContext.get("docFile"));
+                    } catch (TransformerException c) {
+                        Debug.logError("XSL TransformerException: " + c.getMessage(), module);
+                    }
+                    out.append(outDoc);
 
             // Screen Widget template
             } else if ("SCREEN_COMBINED".equals(dataTemplateTypeId)) {

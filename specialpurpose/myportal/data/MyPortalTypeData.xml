@@ -160,25 +160,7 @@
     <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE"/>
     
     <!-- Myportal help pages -->
-    <DataResource dataResourceId="HELP_MYPORTAL" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
-    <ElectronicText dataResourceId="HELP_MYPORTAL">
-        <textData><![CDATA[
-            <root>
-                <generalTitle>
-                    The My portal Component introduction.
-                </generalTitle>
-                <general>
-                    <section>
-                        <text>
-                            Within the 'my portal' component it is possible to create a collection of screens for a specific type of user of the system. 
-                            Examples are a general employee, an account manager, a customer, a supplier etc... 
-                            The system makes use of special portlets which can be arranged and selected/hidden by the logged on user.
-                        </text>
-                    </section>
-                </general>
-            </root>
-        ]]></textData>
-    </ElectronicText>
+    <DataResource dataResourceId="HELP_MYPORTAL" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/myportal/data/helpdata/HELP_MYPORTAL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_MYPORTAL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_MYPORTAL" statusId="CTNT_IN_PROGRESS" contentName="My Portal help" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MYPORTAL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
 
