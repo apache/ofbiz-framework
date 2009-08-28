@@ -24,453 +24,332 @@ under the License.
   <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
 </#if>
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <#-- left side -->
-    <td width="50%" valign="top">
+<#-- left side -->
+<div class="screenlet">
+  <h3>
+    <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED" && roleTypeId?if_exists == "PLACING_CUSTOMER">
+      <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
+    </#if>
+    ${uiLabelMap.OrderOrder}
+    <#if orderHeader?has_content>
+      ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>
+    </#if>
+    ${uiLabelMap.CommonInformation}
+    <#if (orderHeader.orderId)?exists>
+      ${externalOrder?if_exists} [ <a href="<@ofbizUrl>order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext">PDF</a> ]
+    </#if>
+  </h3>
+  <#-- placing customer information -->
+  <ul>
+    <#if localOrderReadHelper?exists && orderHeader?has_content>
+      <#assign displayParty = localOrderReadHelper.getPlacingParty()?if_exists/>
+      <#if displayParty?has_content>
+        <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+      </#if>
+      <li>
+        ${uiLabelMap.PartyName}
+        ${(displayPartyNameResult.fullName)?default("[Name Not Found]")}
+      </li>
+    </#if>
+    <#-- order status information -->
+    <li>
+      ${uiLabelMap.CommonStatus}
+      <#if orderHeader?has_content>
+        ${localOrderReadHelper.getStatusString(locale)}
+      <#else>
+        ${uiLabelMap.OrderNotYetOrdered}
+      </#if>
+    </li>
+    <#-- ordered date -->
+    <#if orderHeader?has_content>
+      <li>
+        ${uiLabelMap.CommonDate}
+        ${orderHeader.orderDate.toString()}
+      </li>
+    </#if>
+    <#if distributorId?exists>
+      <li>
+        ${uiLabelMap.OrderDistributor}
+        ${distributorId}
+      </li>
+    </#if>
+  </ul>
+</div>
 
-    <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxlink">
-                <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED" && roleTypeId?if_exists == "PLACING_CUSTOMER">
-                    <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
-                </#if>
-            </div>
-            <div class="boxhead">
-                &nbsp;${uiLabelMap.OrderOrder}&nbsp;
-                <#if orderHeader?has_content>
-                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
-                </#if>
-                ${uiLabelMap.CommonInformation}
-                <#if (orderHeader.orderId)?exists>
-                    ${externalOrder?if_exists} [ <a href="<@ofbizUrl>order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext" target="_blank">PDF</a> ]
-                </#if>
-            </div>
-        </div>
-        <div class="screenlet-body">
-            <table width="100%" border="0" cellpadding="1">
-                <#-- placing customer information -->
-                <#if localOrderReadHelper?exists && orderHeader?has_content>
-                  <#assign displayParty = localOrderReadHelper.getPlacingParty()?if_exists/>
-                  <#if displayParty?has_content>
-                      <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
-                  </#if>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.PartyName}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">
-                        ${(displayPartyNameResult.fullName)?default("[Name Not Found]")}
-                      </div>
-                    </td>
-                  </tr>
-                  <tr><td colspan="7"><hr/></td></tr>
-                </#if>
-                <#-- order status information -->
-                <tr>
-                  <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
-                  </td>
-                  <td width="5">&nbsp;</td>
-                  <td valign="top" width="80%">
-                    <#if orderHeader?has_content>
-                      <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
-                    <#else>
-                      <div class="tabletext"><b>${uiLabelMap.OrderNotYetOrdered}</b></div>
-                    </#if>
-                  </td>
-                </tr>
-                <#-- ordered date -->
-                <#if orderHeader?has_content>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonDate}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">${orderHeader.orderDate.toString()}</div>
-                    </td>
-                  </tr>
-                </#if>
-                <#if distributorId?exists>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">${distributorId}</div>
-                    </td>
-                  </tr>
-                </#if>
-            </table>
-        </div>
-    </div>
-
-      <#if paymentMethods?has_content || paymentMethodType?has_content || billingAccount?has_content>
-        <#-- order payment info -->
-    <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">&nbsp;${uiLabelMap.AccountingPaymentInformation}</div>
-        </div>
-        <div class="screenlet-body">
-            <table width="100%" border="0" cellpadding="1">
-                <#-- offline payment address infomation :: change this to use Company's address -->
-                <#if !paymentMethod?has_content && paymentMethodType?has_content>
-                  <tr>
-                    <#if paymentMethodType.paymentMethodTypeId == "EXT_OFFLINE">
-                      <td colspan="3" valign="top">
-                        <div class="tabletext" align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>
-                        <#if orderHeader?has_content && paymentAddress?has_content>
-                          <div class="tabletext" align="center"><hr/></div>
-                          <div class="tabletext" align="center"><b>${uiLabelMap.OrderSendPaymentTo}:</b></div>
-                          <#if paymentAddress.toName?has_content><div class="tabletext" align="center">${paymentAddress.toName}</div></#if>
-                          <#if paymentAddress.attnName?has_content><div class="tabletext" align="center"><b>${uiLabelMap.PartyAddrAttnName}:</b> ${paymentAddress.attnName}</div></#if>
-                          <div class="tabletext" align="center">${paymentAddress.address1}</div>
-                          <#if paymentAddress.address2?has_content><div class="tabletext" align="center">${paymentAddress.address2}</div></#if>
-                          <div class="tabletext" align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode?if_exists}
-                          <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>
-                          <div class="tabletext" align="center"><hr/></div>
-                          <div class="tabletext" align="center"><b>${uiLabelMap.EcommerceBeSureToIncludeYourOrderNb}</b></div>
-                        </#if>
-                      </td>
-                    <#else>
-                      <#assign outputted = true>
-                      <td colspan="3" valign="top">
-                        <div class="tabletext" align="center"><b>${uiLabelMap.AccountingPaymentVia} ${paymentMethodType.get("description",locale)}</b></div>
-                      </td>
-                    </#if>
-                  </tr>
-                </#if>
-                <#if paymentMethods?has_content>
-                  <#list paymentMethods as paymentMethod>
-                    <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
-                      <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
-                      <#assign formattedCardNumber = Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)>
-                    <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId>
-                      <#assign giftCard = paymentMethod.getRelatedOne("GiftCard")>
-                    <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId>
-                      <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
-                    </#if>
-
-                    <#-- credit card info -->
-                    <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId && creditCard?has_content>
-                      <#if outputted?default(false)>
-                        <tr><td colspan="3"><hr/></td></tr>
-                      </#if>
-                      <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress")>
-                      <tr>
-                        <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b></div>
-                        </td>
-                        <td width="5">&nbsp;</td>
-                        <td valign="top" width="80%">
-                          <div class="tabletext">
-                            <#if creditCard.companyNameOnCard?has_content>${creditCard.companyNameOnCard}<br/></#if>
-                            <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp</#if>
-                            ${creditCard.firstNameOnCard}&nbsp;
-                            <#if creditCard.middleNameOnCard?has_content>${creditCard.middleNameOnCard}&nbsp</#if>
-                            ${creditCard.lastNameOnCard}
-                            <#if creditCard.suffixOnCard?has_content>&nbsp;${creditCard.suffixOnCard}</#if>
-                            <br/>
-                            ${formattedCardNumber}
-                          </div>
-                        </td>
-                      </tr>
-                    <#-- Gift Card info -->
-                    <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId && giftCard?has_content>
-                      <#if outputted?default(false)>
-                        <tr><td colspan="3"><hr/></td></tr>
-                      </#if>
-                      <#if giftCard?has_content && giftCard.cardNumber?has_content>
-                        <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress")?if_exists>
-                        <#assign giftCardNumber = "">
-                        <#assign pcardNumber = giftCard.cardNumber>
-                        <#if pcardNumber?has_content>
-                          <#assign psize = pcardNumber?length - 4>
-                          <#if 0 < psize>
-                            <#list 0 .. psize-1 as foo>
-                              <#assign giftCardNumber = giftCardNumber + "*">
-                            </#list>
-                            <#assign giftCardNumber = giftCardNumber + pcardNumber[psize .. psize + 3]>
-                          <#else>
-                            <#assign giftCardNumber = pcardNumber>
-                          </#if>
-                        </#if>
-                      </#if>
-                      <tr>
-                        <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingGiftCard}</b></div>
-                        </td>
-                        <td width="5">&nbsp;</td>
-                        <td valign="top" width="80%">
-                          <div class="tabletext">
-                            ${giftCardNumber}
-                          </div>
-                        </td>
-                      </tr>
-                    <#-- EFT account info -->
-                    <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId && eftAccount?has_content>
-                      <#if outputted?default(false)>
-                        <tr><td colspan="3"><hr/></td></tr>
-                      </#if>
-                      <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")>
-                      <tr>
-                        <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b></div>
-                        </td>
-                        <td width="5">&nbsp;</td>
-                        <td valign="top" width="80%">
-                          <div class="tabletext">
-                            ${eftAccount.nameOnAccount?if_exists}<br/>
-                            <#if eftAccount.companyNameOnAccount?has_content>${eftAccount.companyNameOnAccount}<br/></#if>
-                            ${uiLabelMap.AccountingBank}: ${eftAccount.bankName}, ${eftAccount.routingNumber}<br/>
-                            ${uiLabelMap.AccountingAccount} #: ${eftAccount.accountNumber}
-                          </div>
-                        </td>
-                      </tr>
-                    </#if>
-                    <#if pmBillingAddress?has_content>
-                      <tr><td>&nbsp;</td><td colspan="2"><hr/></td></tr>
-                      <tr>
-                        <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;</div>
-                        </td>
-                        <td width="5">&nbsp;</td>
-                        <td valign="top" width="80%">
-                          <div class="tabletext">
-                            <#if pmBillingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${pmBillingAddress.toName}<br/></#if>
-                            <#if pmBillingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${pmBillingAddress.attnName}<br/></#if>
-                            ${pmBillingAddress.address1}<br/>
-                            <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}<br/></#if>
-                            ${pmBillingAddress.city}<#if pmBillingAddress.stateProvinceGeoId?has_content>, ${pmBillingAddress.stateProvinceGeoId} </#if>
-                            ${pmBillingAddress.postalCode?if_exists}<br/>
-                            ${pmBillingAddress.countryGeoId?if_exists}
-                          </div>
-                        </td>
-                      </tr>
-                    </#if>
-                    <#assign outputted = true>
+<div class="screenlet">
+  <#if paymentMethods?has_content || paymentMethodType?has_content || billingAccount?has_content>
+    <#-- order payment info -->
+    <h3>${uiLabelMap.AccountingPaymentInformation}</h3>
+    <#-- offline payment address infomation :: change this to use Company's address -->
+    <ul>
+      <#if !paymentMethod?has_content && paymentMethodType?has_content>
+        <li>
+          <#if paymentMethodType.paymentMethodTypeId == "EXT_OFFLINE">
+            ${uiLabelMap.AccountingOfflinePayment}
+            <#if orderHeader?has_content && paymentAddress?has_content>
+              ${uiLabelMap.OrderSendPaymentTo}:
+              <#if paymentAddress.toName?has_content>${paymentAddress.toName}</#if>
+              <#if paymentAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${paymentAddress.attnName}</#if>
+              ${paymentAddress.address1}
+              <#if paymentAddress.address2?has_content>${paymentAddress.address2}</#if>
+              ${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode?if_exists}
+              ${paymentAddress.countryGeoId}
+              ${uiLabelMap.EcommerceBeSureToIncludeYourOrderNb}
+            </#if>
+          <#else>
+            <#assign outputted = true>
+            ${uiLabelMap.AccountingPaymentVia} ${paymentMethodType.get("description",locale)}
+          </#if>
+        </li>
+      </#if>
+      <#if paymentMethods?has_content>
+        <#list paymentMethods as paymentMethod>
+          <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
+            <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
+            <#assign formattedCardNumber = Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)>
+          <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId>
+            <#assign giftCard = paymentMethod.getRelatedOne("GiftCard")>
+          <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId>
+            <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
+          </#if>
+          <#-- credit card info -->
+          <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId && creditCard?has_content>
+            <#if outputted?default(false)>
+            </#if>
+            <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress")>
+            <li>
+              <ul>
+                <li> ${uiLabelMap.AccountingCreditCard}
+                  <#if creditCard.companyNameOnCard?has_content>${creditCard.companyNameOnCard}</#if>
+                  <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}</#if>
+                  ${creditCard.firstNameOnCard}
+                  <#if creditCard.middleNameOnCard?has_content>${creditCard.middleNameOnCard}</#if>
+                  ${creditCard.lastNameOnCard}
+                  <#if creditCard.suffixOnCard?has_content>${creditCard.suffixOnCard}</#if>
+                </li>
+                <li>${formattedCardNumber}</li>
+              </ul>
+            </li>
+            <#-- Gift Card info -->
+          <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId && giftCard?has_content>
+            <#if outputted?default(false)>
+            </#if>
+            <#if giftCard?has_content && giftCard.cardNumber?has_content>
+              <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress")?if_exists>
+              <#assign giftCardNumber = "">
+              <#assign pcardNumber = giftCard.cardNumber>
+              <#if pcardNumber?has_content>
+                <#assign psize = pcardNumber?length - 4>
+                <#if 0 < psize>
+                  <#list 0 .. psize-1 as foo>
+                    <#assign giftCardNumber = giftCardNumber + "*">
                   </#list>
+                  <#assign giftCardNumber = giftCardNumber + pcardNumber[psize .. psize + 3]>
+                <#else>
+                  <#assign giftCardNumber = pcardNumber>
                 </#if>
-                <#-- billing account info -->
-                <#if billingAccount?has_content>
-                  <#if outputted?default(false)>
-                    <tr><td colspan="3"><hr/></td></tr>
-                  </#if>
-                  <#assign outputted = true>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">
-                        #${billingAccount.billingAccountId?if_exists} - ${billingAccount.description?if_exists}
-                      </div>
-                    </td>
-                  </tr>
-                </#if>
-                <#if (customerPoNumberSet?has_content)>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPurchaseOrderNumber}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <#list customerPoNumberSet as customerPoNumber>
-                        <div class="tabletext">${customerPoNumber?if_exists}</div>
-                      </#list>
-                    </td>
-                  </tr>
-                </#if>
-            </table>
-        </div>
-    </div>
+              </#if>
+            </#if>
+            <li>
+              ${uiLabelMap.AccountingGiftCard}
+              ${giftCardNumber}
+            </li>
+            <#-- EFT account info -->
+          <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId && eftAccount?has_content>
+            <#if outputted?default(false)>
+            </#if>
+            <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")>
+            <li>
+              <ul>
+                <li>
+                  ${uiLabelMap.AccountingEFTAccount}
+                  ${eftAccount.nameOnAccount?if_exists}
+                </li>
+                <li>
+                  <#if eftAccount.companyNameOnAccount?has_content>${eftAccount.companyNameOnAccount}</#if>
+                </li>
+                <li>
+                  ${uiLabelMap.AccountingBank}: ${eftAccount.bankName}, ${eftAccount.routingNumber}
+                </li>
+                <li>
+                  ${uiLabelMap.AccountingAccount} #: ${eftAccount.accountNumber}
+                </li>
+              </ul>
+            </li>
+          </#if>
+          <#if pmBillingAddress?has_content>
+            <li>
+              <ul>
+                <li>
+                  <#if pmBillingAddress.toName?has_content>${uiLabelMap.CommonTo}: ${pmBillingAddress.toName}</#if>
+                </li>
+                <li>
+                  <#if pmBillingAddress.attnName?has_content>${uiLabelMap.CommonAttn}: ${pmBillingAddress.attnName}</#if>
+                </li>
+                <li>
+                  ${pmBillingAddress.address1}
+                </li>
+                <li>
+                  <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}</#if>
+                </li>
+                <li>
+                  ${pmBillingAddress.city}<#if pmBillingAddress.stateProvinceGeoId?has_content>, ${pmBillingAddress.stateProvinceGeoId} </#if>
+                  ${pmBillingAddress.postalCode?if_exists}
+                  ${pmBillingAddress.countryGeoId?if_exists}
+                </li>
+              </ul>
+            </li>
+          </#if>
+          <#assign outputted = true>
+        </#list>
       </#if>
-    </td>
-
-    <td width="1">&nbsp;&nbsp;</td>
-    <#-- right side -->
-
-    <td width="50%" valign="top">
-      <#if orderItemShipGroups?has_content>
-
-    <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">&nbsp;${uiLabelMap.OrderShippingInformation}</div>
-        </div>
-        <div class="screenlet-body">
-        <#-- shipping address -->
-            <#assign groupIdx = 0>
-            <#list orderItemShipGroups as shipGroup>
-                <#if orderHeader?has_content>
-                  <#assign shippingAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
-                  <#assign groupNumber = shipGroup.shipGroupSeqId?if_exists>
-                <#else>
-                  <#assign shippingAddress = cart.getShippingAddress(groupIdx)?if_exists>
-                  <#assign groupNumber = groupIdx + 1>
-                </#if>
-
-              <table width="100%" border="0" cellpadding="1">
-                <#if shippingAddress?has_content>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDestination}</b> [${groupNumber}]</div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">
-                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${shippingAddress.toName}<br/></#if>
-                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${shippingAddress.attnName}<br/></#if>
-                        ${shippingAddress.address1}<br/>
-                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
-                        ${shippingAddress.city}<#if shippingAddress.stateProvinceGeoId?has_content>, ${shippingAddress.stateProvinceGeoId} </#if>
-                        ${shippingAddress.postalCode?if_exists}<br/>
-                        ${shippingAddress.countryGeoId?if_exists}
-                      </div>
-                    </td>
-                  </tr>
-                  <tr><td colspan="7"><hr/></td></tr>
-                </#if>
-                <tr>
-                  <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderMethod}</b></div>
-                  </td>
-                  <td width="5">&nbsp;</td>
-                  <td valign="top" width="80%">
-                    <div class="tabletext">
-                      <#if orderHeader?has_content>
-                        <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
-                        <#assign carrierPartyId = shipGroup.carrierPartyId?if_exists>
-                      <#else>
-                        <#assign shipmentMethodType = cart.getShipmentMethodType(groupIdx)?if_exists>
-                        <#assign carrierPartyId = cart.getCarrierPartyId(groupIdx)?if_exists>
-                      </#if>
-
-                      <#if carrierPartyId?exists && carrierPartyId != "_NA_">${carrierPartyId?if_exists}</#if>
-                      ${(shipmentMethodType.description)?default("N/A")}
-                      <#if shippingAccount?exists><br/>${uiLabelMap.AccountingUseAccount}: ${shippingAccount}</#if>
-                    </div>
-                  </td>
-                </tr>
-                <#-- tracking number -->
-                <#if trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderTrackingNumber}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
-                      <#if shipGroup.trackingNumber?has_content>
-                        <div class="tabletext">${shipGroup.trackingNumber}</div>
-                      </#if>
-                      <#if orderShipmentInfoSummaryList?has_content>
-                        <#list orderShipmentInfoSummaryList as orderShipmentInfoSummary>
-                          <div class="tabletext">
-                            <#if (orderShipmentInfoSummaryList?size > 1)>${orderShipmentInfoSummary.shipmentPackageSeqId}: </#if>
-                            Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
-                            <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNumber}${orderShipmentInfoSummary.boxNumber}</#if>
-                            <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
-                          </div>
-                        </#list>
-                      </#if>
-                    </td>
-                  </tr>
-                </#if>
-                <tr><td colspan="7"><hr/></td></tr>
-                <#-- splitting preference -->
-                <#if orderHeader?has_content>
-                  <#assign maySplit = shipGroup.maySplit?default("N")>
-                <#else>
-                  <#assign maySplit = cart.getMaySplit(groupIdx)?default("N")>
-                </#if>
-                <tr>
-                  <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSplittingPreference}</b></div>
-                  </td>
-                  <td width="5">&nbsp;</td>
-                  <td valign="top" width="80%">
-                    <div class="tabletext">
-                      <#if maySplit?default("N") == "N">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</#if>
-                      <#if maySplit?default("N") == "Y">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</#if>
-                    </div>
-                  </td>
-                </tr>
-                <#-- shipping instructions -->
-                <#if orderHeader?has_content>
-                  <#assign shippingInstructions = shipGroup.shippingInstructions?if_exists>
-                <#else>
-                  <#assign shippingInstructions =  cart.getShippingInstructions(groupIdx)?if_exists>
-                </#if>
-
-                <#if shippingInstructions?has_content>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInstructions}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">${shippingInstructions}</div>
-                    </td>
-                  </tr>
-                </#if>
-                <tr><td colspan="7"><hr/></td></tr>
-                <#-- gift settings -->
-                <#if orderHeader?has_content>
-                  <#assign isGift = shipGroup.isGift?default("N")>
-                  <#assign giftMessage = shipGroup.giftMessage?if_exists>
-                <#else>
-                  <#assign isGift = cart.getIsGift(groupIdx)?default("N")>
-                  <#assign giftMessage = cart.getGiftMessage(groupIdx)?if_exists>
-                </#if>
-
-               <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-                <tr>
-                  <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGift}?</b></div>
-                  </td>
-                  <td width="5">&nbsp;</td>
-                  <td valign="top" width="80%">
-                    <div class="tabletext">
-                      <#if isGift?default("N") == "N">${uiLabelMap.OrderThisIsNotGift}.</#if>
-                      <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisIsGift}.</#if>
-                    </div>
-                  </td>
-                </tr>
-                <#if giftMessage?has_content>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr>
-                    <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftMessage}</b></div>
-                    </td>
-                    <td width="5">&nbsp;</td>
-                    <td valign="top" width="80%">
-                      <div class="tabletext">${giftMessage}</div>
-                    </td>
-                  </tr>
-                </#if>
-               </#if>
-                <#if shipGroup_has_next>
-                  <tr><td colspan="7"><hr/></td></tr>
-                  <tr><td colspan="7"><hr/></td></tr>
-                </#if>
-              </table>
-
-                <#assign groupIdx = groupIdx + 1>
-            </#list><#-- end list of orderItemShipGroups -->
-        </div>
-    </div>
-
+      <#-- billing account info -->
+      <#if billingAccount?has_content>
+        <#if outputted?default(false)>
+        </#if>
+        <#assign outputted = true>
+        <li>
+          ${uiLabelMap.AccountingBillingAccount}
+          #${billingAccount.billingAccountId?if_exists} - ${billingAccount.description?if_exists}
+        </li>
       </#if>
-    </td>
-  </tr>
-</table>
+      <#if (customerPoNumberSet?has_content)>
+        <li>
+          ${uiLabelMap.OrderPurchaseOrderNumber}
+          <#list customerPoNumberSet as customerPoNumber>
+            ${customerPoNumber?if_exists}
+          </#list>
+        </li>
+      </#if>
+    </ul>
+  </#if>
+</div>
+<#-- right side -->
+<div class="screenlet">
+  <#if orderItemShipGroups?has_content>
+    <h3>${uiLabelMap.OrderShippingInformation}</h3>
+    <#-- shipping address -->
+    <#assign groupIdx = 0>
+    <#list orderItemShipGroups as shipGroup>
+      <#if orderHeader?has_content>
+        <#assign shippingAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
+        <#assign groupNumber = shipGroup.shipGroupSeqId?if_exists>
+      <#else>
+        <#assign shippingAddress = cart.getShippingAddress(groupIdx)?if_exists>
+        <#assign groupNumber = groupIdx + 1>
+      </#if>
+      <ul>
+        <#if shippingAddress?has_content>
+          <li>
+            <ul>
+              <li>
+                ${uiLabelMap.OrderDestination} [${groupNumber}]
+                <#if shippingAddress.toName?has_content>${uiLabelMap.CommonTo}: ${shippingAddress.toName}</#if>
+              </li>
+              <li>
+                <#if shippingAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${shippingAddress.attnName}</#if>
+              </li>
+              <li>
+                ${shippingAddress.address1}
+              </li>
+              <li>
+                <#if shippingAddress.address2?has_content>${shippingAddress.address2}</#if>
+              </li>
+              <li>
+                ${shippingAddress.city}<#if shippingAddress.stateProvinceGeoId?has_content>, ${shippingAddress.stateProvinceGeoId} </#if>
+                ${shippingAddress.postalCode?if_exists}
+              </li>
+              <li>
+                ${shippingAddress.countryGeoId?if_exists}
+              </li>
+            </ul>
+          </li>
+        </#if>
+        <li>
+          <ul>
+            <li>
+              ${uiLabelMap.OrderMethod}
+              <#if orderHeader?has_content>
+                <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
+                <#assign carrierPartyId = shipGroup.carrierPartyId?if_exists>
+              <#else>
+                <#assign shipmentMethodType = cart.getShipmentMethodType(groupIdx)?if_exists>
+                <#assign carrierPartyId = cart.getCarrierPartyId(groupIdx)?if_exists>
+              </#if>
+              <#if carrierPartyId?exists && carrierPartyId != "_NA_">${carrierPartyId?if_exists}</#if>
+              ${(shipmentMethodType.description)?default("N/A")}
+            </li>
+            <li>
+              <#if shippingAccount?exists>${uiLabelMap.AccountingUseAccount}: ${shippingAccount}</#if>
+            </li>
+          </ul>
+        </li>
+        <#-- tracking number -->
+        <#if trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
+          <li>
+            ${uiLabelMap.OrderTrackingNumber}
+            <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
+            <#if shipGroup.trackingNumber?has_content>
+              ${shipGroup.trackingNumber}
+            </#if>
+            <#if orderShipmentInfoSummaryList?has_content>
+              <#list orderShipmentInfoSummaryList as orderShipmentInfoSummary>
+                <#if (orderShipmentInfoSummaryList?size > 1)>${orderShipmentInfoSummary.shipmentPackageSeqId}: </#if>
+                Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
+                <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNumber}${orderShipmentInfoSummary.boxNumber}</#if>
+                <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
+              </#list>
+            </#if>
+          </li>
+          </#if>
+          <#-- splitting preference -->
+          <#if orderHeader?has_content>
+            <#assign maySplit = shipGroup.maySplit?default("N")>
+          <#else>
+            <#assign maySplit = cart.getMaySplit(groupIdx)?default("N")>
+          </#if>
+          <li>
+            ${uiLabelMap.OrderSplittingPreference}
+            <#if maySplit?default("N") == "N">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</#if>
+            <#if maySplit?default("N") == "Y">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</#if>
+          </li>
+          <#-- shipping instructions -->
+          <#if orderHeader?has_content>
+            <#assign shippingInstructions = shipGroup.shippingInstructions?if_exists>
+          <#else>
+            <#assign shippingInstructions =  cart.getShippingInstructions(groupIdx)?if_exists>
+          </#if>
+          <#if shippingInstructions?has_content>
+            <li>
+              ${uiLabelMap.OrderInstructions}
+              ${shippingInstructions}
+            </li>
+          </#if>
+          <#-- gift settings -->
+          <#if orderHeader?has_content>
+            <#assign isGift = shipGroup.isGift?default("N")>
+            <#assign giftMessage = shipGroup.giftMessage?if_exists>
+          <#else>
+            <#assign isGift = cart.getIsGift(groupIdx)?default("N")>
+            <#assign giftMessage = cart.getGiftMessage(groupIdx)?if_exists>
+          </#if>
+          <#if productStore.showCheckoutGiftOptions?if_exists != "N">
+          <li>
+            ${uiLabelMap.OrderGift}?
+            <#if isGift?default("N") == "N">${uiLabelMap.OrderThisIsNotGift}.</#if>
+            <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisIsGift}.</#if>
+          </li>
+          <#if giftMessage?has_content>
+            <li>
+              ${uiLabelMap.OrderGiftMessage}
+              ${giftMessage}
+            </li>
+          </#if>
+        </#if>
+        <#if shipGroup_has_next>
+        </#if>
+      </ul>
+      <#assign groupIdx = groupIdx + 1>
+    </#list><#-- end list of orderItemShipGroups -->
+  </#if>
+</div>
