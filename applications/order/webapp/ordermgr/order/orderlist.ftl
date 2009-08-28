@@ -225,5 +225,5 @@ under the License.
     </div>
   </div>
 <#else>
-<h3>${uiLabelMap.OrderViewPermissionError}</h3>
+  <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>
