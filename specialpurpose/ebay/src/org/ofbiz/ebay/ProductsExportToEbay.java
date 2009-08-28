@@ -226,21 +226,25 @@ public class ProductsExportToEbay {
                     setPaymentMethodAccepted(itemDocument, itemElem, context);
                     setMiscDetails(itemDocument, itemElem, context);
 
+                    String primaryCategoryId = "";
                     String categoryCode = (String)context.get("ebayCategory");
-                    String categoryParent = "";
-
                     if (categoryCode != null) {
                         String[] params = categoryCode.split("_");
 
                         if (params == null || params.length != 3) {
                             ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
                         } else {
-                            categoryParent = params[1];
+                            primaryCategoryId = params[1];
+                        }
+                    } else {
+                        GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")))));
+                        if (UtilValidate.isNotEmpty(productCategoryValue)) {
+                            primaryCategoryId = productCategoryValue.getString("categoryName");
                         }
                     }
 
                     Element primaryCatElem = UtilXml.addChildElement(itemElem, "PrimaryCategory", itemDocument);
-                    UtilXml.addChildElementValue(primaryCatElem, "CategoryID", categoryParent, itemDocument);
+                    UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
 
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     startPriceElem.setAttribute("currencyID", "USD");

@@ -18,6 +18,7 @@
  */
 
 categoryCode = parameters.categoryCode;
+context.categoryCode = categoryCode; 
 userLogin = parameters.userLogin;
 
 results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin]);
@@ -26,8 +27,13 @@ if (results.categories) {
     context.categories = results.categories;
 }
 
-if (!categoryCode || !"Y".equals(categoryCode.substring(0, 1))) {
-    context.hideExportOptions = "Y";
+if (categoryCode) {
+    if (!"Y".equals(categoryCode.substring(0, 1)) && !"".equals(categoryCode)) {
+        context.hideExportOptions = "Y";
+    } else {
+        context.hideExportOptions = "N";
+    }
 } else {
     context.hideExportOptions = "N";
 }
+

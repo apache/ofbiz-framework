@@ -31,7 +31,7 @@ under the License.
         <attribute type="List" mode="IN" name="selectResult" optional="false"/>
         <attribute type="String" mode="IN" name="country" optional="false"/>
         <attribute type="String" mode="IN" name="location" optional="false"/>
-        <attribute type="String" mode="IN" name="ebayCategory" optional="false"/>
+        <attribute type="String" mode="IN" name="ebayCategory" optional="true"/>
         <attribute type="String" mode="IN" name="paymentPayPal" optional="true"/>
         <attribute type="String" mode="IN" name="paymentVisaMC" optional="true"/>
         <attribute type="String" mode="IN" name="paymentAmEx" optional="true"/>
