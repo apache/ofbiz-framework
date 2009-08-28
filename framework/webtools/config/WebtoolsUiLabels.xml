@@ -1082,6 +1082,10 @@
         <value xml:lang="th">เครื่องมือ Entity XML </value>
         <value xml:lang="zh">实体XML工具</value>
     </property>
+    <property key="WebtoolsEnvName">
+        <value xml:lang="en">Env Name</value>
+        <value xml:lang="fr">Nom de var. d'env.</value>
+    </property>
     <property key="WebtoolsErrorLogLevel">
         <value xml:lang="en">Error</value>
         <value xml:lang="fr">Erreur</value>
@@ -1386,7 +1390,7 @@
     </property>
     <property key="WebtoolsInParameters">
         <value xml:lang="en">In parameters</value>
-        <value xml:lang="fr">Dans les paramètres</value>
+        <value xml:lang="fr">Paramètres en entrée</value>
         <value xml:lang="it">Parametri in Ingresso</value>
         <value xml:lang="ro">Parametri de Intrare</value>
         <value xml:lang="th">ค่าตัวแปร</value>
@@ -2658,6 +2662,10 @@
         <value xml:lang="ro">Lista servizi per</value>
         <value xml:lang="th">รายการ Services สำหรับ</value>
         <value xml:lang="zh">服务列表：</value>
+    </property>
+    <property key="WebtoolsSet">
+        <value xml:lang="en">Set</value>
+        <value xml:lang="fr">Affectation</value>
     </property>
     <property key="WebtoolsShowShowWSDL">
         <value xml:lang="en">Show wsdl</value>

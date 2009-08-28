@@ -151,18 +151,27 @@ under the License.
         <table class="basic-table" cellspacing='0'>
           <tr class="header-row">
             <td>${uiLabelMap.WebtoolsEventName}</td>
-            <td>${uiLabelMap.WebtoolsRunOnError}</td>
-            <td>${uiLabelMap.WebtoolsRunOnFailure}</td>
+            <#if ecaMapList.runOnError?exists>
+              <td>${uiLabelMap.WebtoolsRunOnError}</td>
+            </#if>
+            <#if ecaMapList.runOnFailure?exists>
+              <td>${uiLabelMap.WebtoolsRunOnFailure}</td>
+            </#if>
             <td>${uiLabelMap.WebtoolsActions}</td>
             <td>${uiLabelMap.WebtoolsConditions}</td>
+            <td>${uiLabelMap.WebtoolsSet}</td>
           </tr>
           <#list ecaMapList as ecaMap>
             <tr>
               <td>${ecaMap.eventName?if_exists}</td>
-              <td>${ecaMap.runOnError?if_exists}</div></td>
-              <td>${ecaMap.runOnFailure?if_exists}</div></td>
-              <td>
-                <#if ecaMap.actions?exists && ecaMap.actions?has_content>
+              <#if ecaMap.runOnError?exists>
+                <td>${ecaMap.runOnError}</div></td>
+              </#if>
+              <#if ecaMap.runOnFailure?exists>
+                <td>${ecaMap.runOnFailure}</div></td>
+              </#if>
+              <#if ecaMap.actions?has_content>
+                <td>
                   <#list ecaMap.actions as action>
                     <table class="basic-table" cellspacing='0'>
                       <tr>
@@ -186,17 +195,17 @@ under the License.
                       </tr>
                     </table>
                   </#list>
-                </#if>
-              </td>
-              <td>
-                <#if ecaMap.conditions?exists && ecaMap.conditions?has_content>
+                </td>
+              </#if>
+              <#if ecaMap.conditions?has_content>
+                <td>
                   <#list ecaMap.conditions as condition>
                     <table class='basic-table' cellspacing='0'>
                       <tr>
                         <td><b>${uiLabelMap.WebtoolsCompareType}</b> ${condition.compareType?default(uiLabelMap.CommonNA)}</td>
                         <td>
                           <b>${uiLabelMap.WebtoolsConditionService}</b>
-                          <#if condition.conditionService?exists && condition.conditionService?has_content>
+                          <#if condition.conditionService?has_content>
                             <a href='<@ofbizUrl>${url}?sel_service_name=${condition.conditionService}</@ofbizUrl>'>${condition.conditionService?default(uiLabelMap.CommonNA)}</a>
                           <#else>
                             ${condition.conditionService?default(uiLabelMap.CommonNA)}
@@ -205,7 +214,10 @@ under the License.
                         <td><b>${uiLabelMap.WebtoolsFormat}</b> ${condition.format?default(uiLabelMap.CommonNA)}</td>
                       </tr>
                       <tr>
-                        <td><b>${uiLabelMap.WebtoolsIsService}</b> ${condition.isService?default(uiLabelMap.CommonNA)}</td>
+                        <#if condition.isService?has_content>
+                          <td><b>${uiLabelMap.WebtoolsIsService}</b> ${condition.isService}</td>
+                          <td colspan="2">&nbsp;</td>
+                        </#if>
                         <td><b>${uiLabelMap.WebtoolsIsConstant}</b> ${condition.isConstant?default(uiLabelMap.CommonNA)}</td>
                         <td><b>${uiLabelMap.WebtoolsOperator}</b> ${condition.operator?default(uiLabelMap.CommonNA)}</td>
                       </tr>
@@ -221,8 +233,38 @@ under the License.
                       </tr>
                     </table><br/>
                   </#list>
-                </#if>
-              </td>
+                </td>
+              </#if>
+              <#if ecaMap.sets?has_content>
+                <td>
+                  <#list ecaMap.sets as set>
+                    <table class='basic-table' cellspacing='0'>
+                      <tr>
+                        <td><b>${uiLabelMap.WebtoolsFieldName}</b> ${set.fieldName?default(uiLabelMap.CommonNA)}</td>
+                        <td colspan="2">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <#if set.envName?has_content>
+                          <td><b>${uiLabelMap.WebtoolsEnvName}</b> ${set.envName}</td>
+                          <td colspan="2">&nbsp;</td>
+                        </#if>
+                      </tr>
+                      <tr>
+                        <#if set.value?has_content>
+                          <td><b>${uiLabelMap.CommonValue}</b> ${set.value}</td>
+                          <td colspan="2">&nbsp;</td>
+                        </#if>
+                      </tr>
+                      <tr>
+                        <#if set.format?has_content>
+                          <td><b>${uiLabelMap.WebtoolsFormat}</b> ${set.format}</td>
+                          <td colspan="2">&nbsp;</td>
+                        </#if>
+                      </tr>
+                    </table><br/>
+                  </#list>
+                </td>
+              </#if>
             </tr>
             <tr><td colspan='5'><hr></td></tr>
           </#list>
