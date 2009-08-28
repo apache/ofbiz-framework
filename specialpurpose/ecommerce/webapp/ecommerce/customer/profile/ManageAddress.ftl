@@ -17,229 +17,237 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
+<#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
 <div class="screenlet">
-  <form id="refreshRequestForm" name="refreshRequestForm" method="post" action="<@ofbizUrl>manageAddress</@ofbizUrl>">
+  <form id="refreshRequestForm" method="post" action="<@ofbizUrl>manageAddress</@ofbizUrl>">
   </form>
 
-  <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceAddressBook}</div></div>
+  <h3>${uiLabelMap.EcommerceAddressBook}</h3>
   <div class="screenlet-body">
     <#-- Add address -->
-    <div class="form-row" align="right">
-      <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.EcommerceAddNewAddress}</a>
-    </div>
+    <a class="button" id="addAddress" href="javascript:void(0)">${uiLabelMap.EcommerceAddNewAddress}</a>
     <div id="displayCreateAddressForm" class="popup" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
-      <form id="createPostalAddressForm" name="createPostalAddressForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
-        <input type="hidden" name="roleTypeId" value="CUSTOMER">
-        <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
-        <div class="form-row">
-          ${uiLabelMap.PartyAddressLine1}*
-          <span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
-          <div class="form-field">
-            <input type="text" class="required" name="address1" id="address1" value="" size="30" maxlength="30">
+      <form id="createPostalAddressForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
+        <fieldset>
+          <input type="hidden" name="roleTypeId" value="CUSTOMER" />
+          <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
+          <div>
+            <label for="address1">${uiLabelMap.PartyAddressLine1}*
+               <span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
+            </label>
+            <input type="text" class="required" name="address1" id="address1" value="" maxlength="30" />
           </div>
-        </div>
-        <div class="form-row">
-          ${uiLabelMap.PartyAddressLine2}<div class="form-field"><input type="text" name="address2" value="" size="30" maxlength="30"></div>
-        </div>
-        <div class="form-row">
-          ${uiLabelMap.PartyCity}*
-          <span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
-          <div class="form-field">
-            <input type="text" class="required" name="city" id="city" value="" size="30" maxlength="30">
+          <div>
+            <label for="address2">${uiLabelMap.PartyAddressLine2}</label>
+            <input type="text" name="address2" id="address2" value="" maxlength="30" />
           </div>
-        </div>
-        <div class="form-row">
-          ${uiLabelMap.PartyZipCode}*
-          <span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
-          <div class="form-field">
-            <input type="text" class="required" name="postalCode" id="postalCode" value="" size="30" maxlength="10">
+          <div>
+            <label for="city">${uiLabelMap.PartyCity}*
+              <span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
+            </label>
+            <input type="text" class="required" name="city" id="city" value="" maxlength="30" />
           </div>
-        </div>
-        <div class="form-row">
-          ${uiLabelMap.PartyCountry}*
-          <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
-          <div class="form-field">
-            <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
-              <#if countryGeoId??>
-                <option value="${countryGeoId}">${countryGeoId}</option>
-              </#if>
-              ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-            </select>
+          <div>
+            <label for="postalCode">${uiLabelMap.PartyZipCode}*
+              <span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
+            </label>
+            <input type="text" class="required" name="postalCode" id="postalCode" value="" maxlength="10" />
           </div>
-        </div>
-        <div id="states" class="form-row">
-          ${uiLabelMap.PartyState}*
-          <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
-          <div class="form-field">
-            <select name="stateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
+          <div>
+            <label for="countryGeoId">${uiLabelMap.PartyCountry}*
+              <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
+            </label>
+             <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
+               <#if countryGeoId??>
+                 <option value="${countryGeoId}">${countryGeoId}</option>
+               </#if>
+               ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+             </select>
+          </div>
+          <div id="states">
+            <label for="stateProvinceGeoId">${uiLabelMap.PartyState}*
+              <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
+            </label>  
+              <select name="stateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
               <#if stateProvinceGeoId?has_content>
                 <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
               <#else>
                 <option value="_NA_">${uiLabelMap.PartyNoState}</option>
               </#if>
-            </select>
+              </select>
           </div>
-        </div>
-        <div class="form-row">
-          <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>
-          <input type="checkbox" name="setBillingPurpose" id="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
-        </div>
-        <div class="form-row">
-          <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
-          <input type="checkbox" name="setShippingPurpose" id="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
-        </div>
-        <div class="form-row">
-          <a href="javascript:void(0);" id="submitPostalAddressForm" class="buttontext" onclick="createPartyPostalAddress('submitPostalAddressForm')">${uiLabelMap.CommonSubmit}</a>
-          <form action="">
-            <input class="popup_closebox buttontext" type="button" value="${uiLabelMap.CommonClose}"/>
-          </form>
-        </div>
+          <div>
+            <label for="setBillingPurpose">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>
+            <input type="checkbox" name="setBillingPurpose" id="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if> />
+          </div>
+          <div>
+            <label for="setShippingPurpose">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
+            <input type="checkbox" name="setShippingPurpose" id="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
+          </div>
+          <div>
+            <a href="javascript:void(0);" id="submitPostalAddressForm" class="button" onclick="createPartyPostalAddress('submitPostalAddressForm')">${uiLabelMap.CommonSubmit}</a>
+            <a href="javascript:void(0);" class="popup_closebox button" >${uiLabelMap.CommonClose}</a>
+          </div>
+        </fieldset>
       </form>
     </div>
     <script type="text/javascript">
-      new Popup('displayCreateAddressForm','addAddress', {modal: true, position: 'center', trigger: 'click'})
+      //<![CDATA[
+        new Popup('displayCreateAddressForm','addAddress', {modal: true, position: 'center', trigger: 'click'})
+      //]]>
     </script>
   </div>
 
   <#-- Default Addresses -->
   <div class="left center">
-    <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceDefaultAddresses}</div></div>
+    <h3>${uiLabelMap.EcommerceDefaultAddresses}</h3>
     <div class="screenlet-body">
       <#--===================================== Billing Address and Telecom number ===========================================-->
       <h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3>
+      <ul>
       <#if billToContactMechId?exists>
-        ${billToAddress1?if_exists}<br/>
-        <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
-        <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
-          ${billToStateProvinceGeoId}
-        </#if>
+        <li>${billToAddress1?if_exists}</li>
+        <#if billToAddress2?has_content><li>${billToAddress2?if_exists}</li></#if>
+        <li>
+          <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
+            ${billToStateProvinceGeoId}
+          </#if>
           ${billToCity?if_exists},
-          ${billToPostalCode?if_exists}<br/>
-          ${billToCountryGeoId?if_exists}<br/>
+          ${billToPostalCode?if_exists}
+        </li>
+        <li>${billToCountryGeoId?if_exists}</li>
         <#if billToTelecomNumber?has_content>
+        <li>
           ${billToTelecomNumber.countryCode?if_exists}-
           ${billToTelecomNumber.areaCode?if_exists}-
           ${billToTelecomNumber.contactNumber?if_exists}
-          <#if billToExtension?exists>-${billToExtension?if_exists}</#if><br/>
+          <#if billToExtension?exists>-${billToExtension?if_exists}</#if>
+        </li>
         </#if>
-        <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit}</a>&nbsp;
+        <li><a id="updateBillToPostalAddress" href="javascript:void(0)" class="button popup_link">${uiLabelMap.CommonEdit}</a></li>
       <#else>
-        ${uiLabelMap.PartyPostalInformationNotFound}
+        <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
       </#if>
+      </ul>
       <div id="displayEditBillToPostalAddress" class="popup" style="display: none;">
         <#include "EditBillToAddress.ftl"/>
       </div>
-      <div class="form-row"><hr class="sepbar"/></div>
       <script type="text/javascript">
+        //<![CDATA[
         new Popup('displayEditBillToPostalAddress', 'updateBillToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+        //]]>
       </script>
 
     <#--===================================== Shipping Address and Telecom number ===========================================-->
       <h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3>
+      <ul>
       <#if shipToContactMechId?exists>
-        ${shipToAddress1?if_exists}<br/>
-        <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
+        <li>${shipToAddress1?if_exists}</li>
+        <#if shipToAddress2?has_content><li>${shipToAddress2?if_exists}</li></#if>
+        <li>
         <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
           ${shipToStateProvinceGeoId}
         </#if>
           ${shipToCity?if_exists},
-          ${shipToPostalCode?if_exists}<br/>
-          ${shipToCountryGeoId?if_exists}<br/>
+          ${shipToPostalCode?if_exists}
+        </li>
+        <li>${shipToCountryGeoId?if_exists}</li>
         <#if shipToTelecomNumber?has_content>
+        <li>
           ${shipToTelecomNumber.countryCode?if_exists}-
           ${shipToTelecomNumber.areaCode?if_exists}-
           ${shipToTelecomNumber.contactNumber?if_exists}
-          <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
+          <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if>
+        </li>
         </#if>
-        <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit}</a>&nbsp;
+        <li><a id="updateShipToPostalAddress" href="javascript:void(0)" class="button popup_link">${uiLabelMap.CommonEdit}</a></li>
       <#else>
-        ${uiLabelMap.PartyPostalInformationNotFound}
+        <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
       </#if>
+      </ul>
       <div id="displayEditShipToPostalAddress" class="popup" style="display: none;">
         <#include "EditShipToAddress.ftl"/>
       </div>
-      <div class="form-row"><hr class="sepbar"/></div>
       <script type="text/javascript">
+         //<![CDATA[
           new Popup('displayEditShipToPostalAddress','updateShipToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+          //]]>
       </script>
     </div>
   </div>
 
   <#-- Additional Addresses -->
   <div class="center right">
-    <div class="screenlet-header">
-      <div class="boxhead">&nbsp;${uiLabelMap.EcommerceAdditionalAddresses}</div>
-    </div>
+    <h3>${uiLabelMap.EcommerceAdditionalAddresses}</h3>
 
     <div class="screenlet-body">
-      <#assign postalAddressFlag = "N">
+      <#assign postalAddressFlag = "N" />
       <#list partyContactMechValueMaps as partyContactMechValueMap>
-        <#assign contactMech = partyContactMechValueMap.contactMech?if_exists>
+        <#assign contactMech = partyContactMechValueMap.contactMech?if_exists />
         <#if contactMech.contactMechTypeId?if_exists = "POSTAL_ADDRESS">
-          <#assign partyContactMech = partyContactMechValueMap.partyContactMech?if_exists>
+          <#assign partyContactMech = partyContactMechValueMap.partyContactMech?if_exists />
           <#if !(partyContactMechValueMap.partyContactMechPurposes?has_content)>
-            <#assign postalAddressFlag = "Y">
-            <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists>
+            <#assign postalAddressFlag = "Y" />
+            <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists />
             <div id="displayEditAddressForm_${contactMech.contactMechId}" class="popup" style="display: none;">
               <#include "EditPostalAddress.ftl"/>
             </div>
             <#if postalAddress?exists>
-              <div class="form-row">
-                <div class="form-label"></div>
+              <div>
                 <div class="form-field">
                   <div>
-                    ${postalAddress.address1}<br/>
-                    <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
-                    ${postalAddress.city}
-                    <#if postalAddress.stateProvinceGeoId?has_content && postalAddress.stateProvinceGeoId != "_NA_">
-                      ${postalAddress.stateProvinceGeoId}
-                    </#if>
-                    &nbsp;${postalAddress.postalCode?if_exists}
-                    <#if postalAddress.countryGeoId?has_content><br/>${postalAddress.countryGeoId}</#if>
+                    <ul>
+                      <li>${postalAddress.address1}</li>
+                      <#if postalAddress.address2?has_content><li>${postalAddress.address2}</li></#if>
+                      <li>${postalAddress.city}</li>
+                      <li>
+                      <#if postalAddress.stateProvinceGeoId?has_content && postalAddress.stateProvinceGeoId != "_NA_">
+                        ${postalAddress.stateProvinceGeoId}
+                      </#if>
+                        ${postalAddress.postalCode?if_exists}
+                      </li>
+                    <#if postalAddress.countryGeoId?has_content><li>${postalAddress.countryGeoId}</li></#if>
+                    </ul>
                     <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId?if_exists = "USA")>
-                      <#assign addr1 = postalAddress.address1?if_exists>
-                      <#if (addr1.indexOf(" ") gt 0)>
-                        <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
-                        <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
+                      <#assign addr1 = postalAddress.address1?if_exists />
+                      <#if (addr1.indexOf(" ") > 0)>
+                        <#assign addressNum = addr1.substring(0, addr1.indexOf(" ")) />
+                        <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1) />
                         <a target="_blank" href="#" class="linktext">(${uiLabelMap.CommonLookupWhitepages})</a>
                       </#if>
                     </#if>
                   </div>
                 </div>
               </div>
-              <div class="form-row">
+              <div>
                 <span>
-                  <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="buttontext popup_link" onclick="showState('${contactMech.contactMechId}')">${uiLabelMap.CommonEdit}</a>&nbsp;
-                  <form name= "deletePostalAddress_${contactMech.contactMechId}" method= "post" action= "<@ofbizUrl>deletePostalAddress</@ofbizUrl>">
-                    <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}"/>
-                    <a href='javascript:document.deletePostalAddress_${contactMech.contactMechId}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
+                  <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="button popup_link" onclick="showState('${contactMech.contactMechId}')">${uiLabelMap.CommonEdit}</a></span>
+                  <form id="deletePostalAddress_${contactMech.contactMechId}" method= "post" action= "<@ofbizUrl>deletePostalAddress</@ofbizUrl>">
+                    <fieldset>
+                      <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}" />
+                      <a href="javascript:$('deletePostalAddress_${contactMech.contactMechId}').submit()" class='button'>${uiLabelMap.CommonDelete}</a>
+                    </fieldset>
                   </form> 
-                </span>
               </div>
               <script type="text/javascript">
+                //<![CDATA[
                 new Popup('displayEditAddressForm_${contactMech.contactMechId}','update_${contactMech.contactMechId}', {modal: true, position: 'center', trigger: 'click'})
+                //]]>
               </script>
             <#else>
-              <div class="form-row">
-                <div class="form-label">
-                  <h5>${uiLabelMap.PartyPostalInformationNotFound}.</h5>
-                </div>
+              <div>
+                 <label>${uiLabelMap.PartyPostalInformationNotFound}.</label>
               </div>
             </#if>
-            <div class="form-row"><hr class="sepbar"/></div>
           </#if>
         </#if>
       </#list>
       <#if postalAddressFlag == "N">
-        <div class="form-row">
-          <div class="form-label">
-            <h5>${uiLabelMap.PartyPostalInformationNotFound}.</h5>
-          </div>
+        <div>
+            <label>${uiLabelMap.PartyPostalInformationNotFound}.</label>
         </div>
       </#if>
     </div>
   </div>
-  <div class="form-row"></div>
 </div>

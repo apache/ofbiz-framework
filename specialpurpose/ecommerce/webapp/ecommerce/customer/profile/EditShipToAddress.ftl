@@ -18,90 +18,72 @@ under the License.
 -->
 
 <div id="shipToServerError" class="errorMessage"></div>
-<form id="editShipToPostalAddress" name="editShipToPostalAddress" method="post" action="<@ofbizUrl></@ofbizUrl>">
-  <div>
+<form id="editShipToPostalAddress" method="post" action="<@ofbizUrl></@ofbizUrl>">
+  <fieldset>
     <input type="hidden" name="setShippingPurpose" value="Y"/>
     <input type="hidden" name="contactMechId" value="${shipToContactMechId?if_exists}"/>
     <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
     <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
-    <div class="form-row">
-      <label>${uiLabelMap.PartyAddressLine1}*</label>
-      <span>
-        <input type="text" class="left required" name="address1" id="shipToAddress1" value="${shipToAddress1?if_exists}" size="30" maxlength="30">
-        <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span>
-      </span>
+    <div>
+      <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*</label>
+      <input type="text" class="left required" name="address1" id="shipToAddress1" value="${shipToAddress1?if_exists}" size="30" maxlength="30" />
+      <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span>
     </div>
-    <div class="form-row">
-      <label>${uiLabelMap.PartyAddressLine2}</label>
-      <span>
-        <input type="text" class="left" name="address2" value="${shipToAddress2?if_exists}" size="30" maxlength="30">
-      </span>
+    <div>
+      <label for="shipToAddress2">${uiLabelMap.PartyAddressLine2}</label>
+      <input type="text" class="left" name="address2" id="shipToAddress2" value="${shipToAddress2?if_exists}" size="30" maxlength="30" />
     </div>
-    <div class="form-row">
-      <label>${uiLabelMap.PartyCity}*</label>
-      <span>
-        <input type="text" class="left required" name="city" id="shipToCity" value="${shipToCity?if_exists}" size="30" maxlength="30">
-        <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(required)</span>
-      </span>
+    <div>
+      <label for="shipToCity">${uiLabelMap.PartyCity}*</label>
+      <input type="text" class="left required" name="city" id="shipToCity" value="${shipToCity?if_exists}" size="30" maxlength="30" />
+      <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(required)</span>
     </div>
-    <div class="form-row">
-      <label>${uiLabelMap.PartyZipCode}*</label>
-      <span>
-        <input type="text" class="left required" name="postalCode" id="shipToPostalCode" value="${shipToPostalCode?if_exists}" size="12" maxlength="10">
-        <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span>
-      </span>
+    <div>
+      <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}*</label>
+      <input type="text" class="left required" name="postalCode" id="shipToPostalCode" value="${shipToPostalCode?if_exists}" size="12" maxlength="10" />
+      <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span>
     </div>
-    <div class="form-row">
-      <label>${uiLabelMap.PartyCountry}*</label>
-      <span>
-        <select name="countryGeoId" id="shipToCountryGeoId" class="left required" style="width: 70%">
-          <#if shipToCountryGeoId??>
-            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryGeoId!)}</option>
-          </#if>
-          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-        </select>
-        <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span>
-      </span>
+    <div>
+      <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*</label>
+      <select name="countryGeoId" id="shipToCountryGeoId" class="left required" style="width: 70%">
+        <#if shipToCountryGeoId??>
+          <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryGeoId!)}</option>
+        </#if>
+        ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+      </select>
+      <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span>
     </div>
-    <div id="shipToStates" class="form-row">
-      <label>${uiLabelMap.PartyState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label>
-      <span>
-        <select name="stateProvinceGeoId" id="shipToStateProvinceGeoId" style="width: 70%">
-          <#if shipToStateProvinceGeoId?has_content>
-            <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
-          <#else>
-            <option value="_NA_">${uiLabelMap.PartyNoState}</option>
-          </#if>
-        </select>
-      </span>
+    <div id="shipToStates">
+      <label for="shipToStateProvinceGeoId">${uiLabelMap.PartyState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label>
+      <select name="stateProvinceGeoId" id="shipToStateProvinceGeoId" style="width: 70%">
+        <#if shipToStateProvinceGeoId?has_content>
+          <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
+        <#else>
+          <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+        </#if>
+      </select>
     </div>
     <#if shipToTelecomNumber?has_content>
-      <div class="form-row">
-        <div class="field-label">
-          <label>${uiLabelMap.PartyPhoneNumber}*</label>
-          <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"></span>
-          <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"></span>
-          <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"></span>
-          <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(required)</span>
-        </div>
-        <div>
-          <input type="hidden" name="phoneContactMechId" value="${shipToTelecomNumber.contactMechId?if_exists}"/>
-          <input type="text" name="countryCode" id="shipToCountryCode" class="required" value="${shipToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="areaCode" id="shipToAreaCode" class="required" value="${shipToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="contactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${shipToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="extension" value="${extension?default("${shipToExtension?if_exists}")}" size="3" maxlength="3"/>
-        </div>
+      <div>
+        <label>${uiLabelMap.PartyPhoneNumber}*</label>
+        <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"></span>
+        <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"></span>
+        <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"></span>
+        <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(required)</span>
+        <input type="hidden" name="phoneContactMechId" value="${shipToTelecomNumber.contactMechId?if_exists}" />
+        <input type="text" name="countryCode" id="shipToCountryCode" class="required" value="${shipToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3" />
+        - <input type="text" name="areaCode" id="shipToAreaCode" class="required" value="${shipToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3" />
+        - <input type="text" name="contactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${shipToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7" />
+        - <input type="text" name="extension" value="${extension?default("${shipToExtension?if_exists}")}" size="3" maxlength="3" />
       </div>
     </#if>
-    <div class="form-row">
-      <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>
-      <input type="checkbox" name="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
+    <div>
+      <label for="setBillingPurposeForShipping">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>
+      <input type="checkbox" name="setBillingPurpose" id="setBillingPurposeForShipping" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if>/>
     </div>
-    <div class="form-row">
-      <a name="submitEditShipToPostalAddress" id="submitEditShipToPostalAddress" class="buttontext" onclick="updatePartyShipToPostalAddress('submitEditShipToPostalAddress')">${uiLabelMap.CommonSubmit}</a>
-      <form action="">
-        <input class="popup_closebox buttontext" type="button" value="${uiLabelMap.CommonClose}"/>
-      </form>
+    <div>
+      <a name="submitEditShipToPostalAddress" id="submitEditShipToPostalAddress" class="button" onclick="updatePartyShipToPostalAddress('submitEditShipToPostalAddress')">${uiLabelMap.CommonSubmit}</a>
+      <a class="popup_closebox button">${uiLabelMap.CommonClose}</a>
     </div>
-  </div>
+  </fieldset>
 </form>
