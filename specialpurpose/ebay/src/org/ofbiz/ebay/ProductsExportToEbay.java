@@ -137,7 +137,7 @@ public class ProductsExportToEbay {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Request of " + callName + " To eBay:\n" + dataItems.toString(), module);
         }
-Debug.logWarning("Request of " + callName + " To eBay:\n" + dataItems.toString(), module);
+
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);
