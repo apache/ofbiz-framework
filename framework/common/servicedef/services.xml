@@ -207,6 +207,7 @@ under the License.
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="fieldList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="orderByList" type="java.util.List" mode="IN" optional="true"/>
+        <attribute name="maxRows" mode="IN" type="Integer" optional="true"/>
         <attribute name="entityConditionList" type="org.ofbiz.entity.condition.EntityConditionList" mode="IN" optional="true"/>
         <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
         <attribute name="distinct" type="String" mode="IN" optional="true"><!-- distinct find only done when this is Y --></attribute>
@@ -224,6 +225,8 @@ under the License.
         <attribute name="distinct" type="String" mode="IN" optional="true"><!-- distinct find only done when this is Y --></attribute>
         <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
         <attribute name="filterByDateValue" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="viewIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
         <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>

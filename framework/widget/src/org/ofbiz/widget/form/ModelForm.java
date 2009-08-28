@@ -780,6 +780,12 @@ public class ModelForm extends ModelWidget {
      *   use the same form definitions for many types of form UIs
      */
     public void renderFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        //  increment the paginator
+        this.incrementPaginatorNumber(context);
+        // Populate the viewSize and viewIndex so they are available for use during form actions
+        context.put("viewIndex", this.getViewIndex(context));
+        context.put("viewSize", this.getViewSize(context));
+
         runFormActions(context);
 
         setWidgetBoundaryComments(context);
@@ -1283,8 +1289,6 @@ public class ModelForm extends ModelWidget {
 
     public void preparePager(Map<String, Object> context) {
 
-        //  increment the paginator
-        this.incrementPaginatorNumber(context);
         this.rowCount = 0;
         String lookupName = this.getListName();
         if (UtilValidate.isEmpty(lookupName)) {
@@ -2429,8 +2433,7 @@ public class ModelForm extends ModelWidget {
         } else if (entryList instanceof EntityListIterator) {
             EntityListIterator iter = (EntityListIterator) entryList;
             try {
-                iter.last();
-                listSize = iter.currentIndex();
+                listSize = iter.getResultsSizeAfterPartialList();
                 iter.beforeFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting list size", module);
