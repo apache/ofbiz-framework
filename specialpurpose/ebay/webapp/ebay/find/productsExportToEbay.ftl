@@ -85,7 +85,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.FormFieldTitle_startPrice}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="text" name="startPrice" size="12" maxlength="12" value="1.0"/>
+                    <input type="text" name="startPrice" size="12" maxlength="12" value=""/>
                 </td>
             </tr>
             <tr>
@@ -106,19 +106,19 @@ under the License.
                     <table class="basic-table" cellspacing="0">
                         <tr>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentPayPal}</td>
-                            <td width="2%"><input type="checkbox" name="paymentPayPal" checked="checked"/></td>
+                            <td width="2%"><input type="checkbox" name="paymentPayPal"/></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentVisaMC}</td>
-                            <td width="2%"><input type="checkbox" name="paymentVisaMC" checked="checked"/></td>
+                            <td width="2%"><input type="checkbox" name="paymentVisaMC"/></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentAmEx}</td>
-                            <td width="2%"><input type="checkbox" name="paymentAmEx" checked="checked"/></td>
+                            <td width="2%"><input type="checkbox" name="paymentAmEx"/></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentDiscover}</td>
-                            <td width="2%"><input type="checkbox" name="paymentDiscover" checked="checked"/></td>
+                            <td width="2%"><input type="checkbox" name="paymentDiscover"/></td>
                         </tr>
                         <tr>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentMOCC}</td>
-                            <td width="2%"><input type="checkbox" name="paymentMOCC" checked="checked"/></td>
+                            <td width="2%"><input type="checkbox" name="paymentMOCC"/></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentPersonalCheck}</td>
-                            <td width="2%"><input type="checkbox" name="paymentPersonalCheck" checked="checked"/></td>
+                            <td width="2%"><input type="checkbox" name="paymentPersonalCheck"/></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCCAccepted}</td>
                             <td width="2%"><input type="checkbox" name="paymentCCAccepted"/></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCashInPerson}</td>
