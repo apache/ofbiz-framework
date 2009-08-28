@@ -26,8 +26,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDataSourceException;
 import org.ofbiz.entity.GenericEntityException;
@@ -37,7 +35,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
- * SQLProcessor - provides utitlity functions to ease database access
+ * SQLProcessor - provides utility functions to ease database access
  *
  */
 public class SQLProcessor {
@@ -60,9 +58,6 @@ public class SQLProcessor {
     private PreparedStatement _ps = null;
 
     // / The database resources to be used
-    private Statement _stmt = null;
-
-    // / The database resources to be used
     private ResultSet _rs = null;
 
     private ResultSetMetaData _rsmd = null;
@@ -78,9 +73,6 @@ public class SQLProcessor {
 
     // / true in case the connection shall be closed.
     private boolean _bDeleteConnection = false;
-
-    private Map<String, String> _needClobWorkAroundWrite = null;
-    private Map<String, String> _needBlobWorkAroundWrite = null;
 
     /**
      * Construct an object based on the helper/datasource
@@ -216,17 +208,6 @@ public class SQLProcessor {
             }
 
             _ps = null;
-        }
-
-        if (_stmt != null) {
-            try {
-                _stmt.close();
-                if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() statement close : _manualTX=" + _manualTX, module);
-            } catch (SQLException sqle) {
-                Debug.logWarning(sqle.getMessage(), module);
-            }
-
-            _stmt = null;
         }
 
         if ((_connection != null) && _bDeleteConnection) {
@@ -404,7 +385,7 @@ public class SQLProcessor {
     }
 
     /**
-     * Execute a query baed ont SQL string given
+     * Execute a query based on the SQL string given
      *
      * @param sql  The SQL string to be executed
      * @return  The result set of the query
@@ -476,7 +457,7 @@ public class SQLProcessor {
     }
 
     /**
-     * Getter: get the currently activ ResultSet
+     * Getter: get the currently active ResultSet
      *
      * @return ResultSet
      */
@@ -708,7 +689,7 @@ public class SQLProcessor {
         if (field != null) {
             _ps.setBoolean(_ind, field.booleanValue());
         } else {
-            _ps.setNull(_ind, Types.NULL); // TODO: really should be Types.BOOLEAN, but that wasn't introduced until Java 1.4... hmmm what to do?
+            _ps.setNull(_ind, Types.BOOLEAN);
         }
         _ind++;
     }
@@ -850,7 +831,7 @@ public class SQLProcessor {
         // do not set fetch size when using the cursor connection
         if (_connection instanceof CursorConnection) return;
 
-        // check if the statement was called with a specific fetchsize, if not grab the default from the datasource
+        // check if the statement was called with a specific fetch size, if not grab the default from the datasource
         if (fetchSize < 0) {
             DatasourceInfo ds = EntityConfigUtil.getDatasourceInfo(helperName);
             if (ds != null) {

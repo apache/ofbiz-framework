@@ -33,6 +33,8 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericResultSetClosedException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.datasource.GenericDAO;
 import org.ofbiz.entity.jdbc.SQLProcessor;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
@@ -56,15 +58,26 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     protected boolean closed = false;
     protected boolean haveMadeValue = false;
     protected GenericDelegator delegator = null;
+    protected GenericDAO genericDAO = null;
+    protected EntityCondition whereCondition = null;
+    protected EntityCondition havingCondition = null;
 
     private boolean haveShowHasNextWarning = false;
+    private Integer resultSize = null;
 
     public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
+        this(sqlp, modelEntity, selectFields, modelFieldTypeReader, null, null, null);
+    }
+
+    public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader, GenericDAO genericDAO, EntityCondition whereCondition, EntityCondition havingCondition) {
         this.sqlp = sqlp;
         this.resultSet = sqlp.getResultSet();
         this.modelEntity = modelEntity;
         this.selectFields = selectFields;
         this.modelFieldTypeReader = modelFieldTypeReader;
+        this.genericDAO = genericDAO;
+        this.whereCondition = whereCondition;
+        this.havingCondition = havingCondition;
     }
 
     public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
@@ -196,7 +209,23 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         if (closed) throw new GenericResultSetClosedException("This EntityListIterator has been closed, this operation cannot be performed");
 
         try {
-            return resultSet.absolute(rowNum);
+            if (resultSet.getType() == ResultSet.TYPE_FORWARD_ONLY && Math.abs(rowNum) < this.getResultsSizeAfterPartialList()) {
+                int actualRowNum = rowNum;
+                if (actualRowNum < 0) {
+                    actualRowNum = this.getResultsSizeAfterPartialList() + actualRowNum + 1;
+                }
+                while (actualRowNum != currentIndex()) {
+                    if (actualRowNum > currentIndex()) {
+                        this.next();
+                    } else {
+                        // This will throw an exception but we would have to do that anyway
+                        this.previous();
+                    }
+                }
+                return true;
+            } else {
+                return resultSet.absolute(rowNum);
+            }
         } catch (SQLException e) {
             if (!closed) {
                 this.close();
@@ -454,7 +483,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
                 }
             } else {
                 // if can't reposition to desired index, throw exception
-                if (!resultSet.absolute(start)) {
+                if (!this.absolute(start)) {
                     // maybe better to just return an empty list here...
                     return list;
                     //throw new GenericEntityException("Could not move to the start position of " + start + ", there are probably not that many results for this find.");
@@ -490,7 +519,12 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     }
 
     public int getResultsSizeAfterPartialList() throws GenericEntityException {
-        if (this.last()) {
+        if (genericDAO != null) {
+            if (resultSize == null) {
+                resultSize = (int) genericDAO.selectCountByCondition(modelEntity, whereCondition, havingCondition, null);
+            }
+            return resultSize;
+        } else if (this.last()) {
             return this.currentIndex();
         } else {
             // evidently no valid rows in the ResultSet, so return 0
