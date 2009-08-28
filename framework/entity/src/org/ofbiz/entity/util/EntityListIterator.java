@@ -61,15 +61,16 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     protected GenericDAO genericDAO = null;
     protected EntityCondition whereCondition = null;
     protected EntityCondition havingCondition = null;
+    protected boolean distinctQuery = false;
 
     private boolean haveShowHasNextWarning = false;
     private Integer resultSize = null;
 
     public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
-        this(sqlp, modelEntity, selectFields, modelFieldTypeReader, null, null, null);
+        this(sqlp, modelEntity, selectFields, modelFieldTypeReader, null, null, null, false);
     }
 
-    public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader, GenericDAO genericDAO, EntityCondition whereCondition, EntityCondition havingCondition) {
+    public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader, GenericDAO genericDAO, EntityCondition whereCondition, EntityCondition havingCondition, boolean distinctQuery) {
         this.sqlp = sqlp;
         this.resultSet = sqlp.getResultSet();
         this.modelEntity = modelEntity;
@@ -78,6 +79,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         this.genericDAO = genericDAO;
         this.whereCondition = whereCondition;
         this.havingCondition = havingCondition;
+        this.distinctQuery = distinctQuery;
     }
 
     public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
@@ -521,7 +523,12 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     public int getResultsSizeAfterPartialList() throws GenericEntityException {
         if (genericDAO != null) {
             if (resultSize == null) {
-                resultSize = (int) genericDAO.selectCountByCondition(modelEntity, whereCondition, havingCondition, null);
+                EntityFindOptions efo = null;
+                if (distinctQuery) {
+                    efo = new EntityFindOptions();
+                    efo.setDistinct(distinctQuery);
+                }
+                resultSize = (int) genericDAO.selectCountByCondition(modelEntity, whereCondition, havingCondition, efo);
             }
             return resultSize;
         } else if (this.last()) {
