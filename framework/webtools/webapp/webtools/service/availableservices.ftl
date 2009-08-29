@@ -214,10 +214,7 @@ under the License.
                         <td><b>${uiLabelMap.WebtoolsFormat}</b> ${condition.format?default(uiLabelMap.CommonNA)}</td>
                       </tr>
                       <tr>
-                        <#if condition.isService?has_content>
-                          <td><b>${uiLabelMap.WebtoolsIsService}</b> ${condition.isService}</td>
-                          <td colspan="2">&nbsp;</td>
-                        </#if>
+                        <td><b>${uiLabelMap.WebtoolsIsService}</b> ${condition.isService?default(uiLabelMap.CommonNA)}</td>
                         <td><b>${uiLabelMap.WebtoolsIsConstant}</b> ${condition.isConstant?default(uiLabelMap.CommonNA)}</td>
                         <td><b>${uiLabelMap.WebtoolsOperator}</b> ${condition.operator?default(uiLabelMap.CommonNA)}</td>
                       </tr>
