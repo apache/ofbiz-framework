@@ -20,12 +20,8 @@
 <section xmlns="http://docbook.org/ns/docbook"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd">
-    <title>
-        The Accounting Manager.
-    </title>
     <para>
-        
-          The accounting manager
+          The help screen text
     </para>
 </section>
 
