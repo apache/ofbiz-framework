@@ -1118,7 +1118,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 	if (mimeTypeId.equals("application/pdf")) {
                 		TransformerFactory tfactory = TransformerFactory.newInstance();
                 		try{
-/*                			
+                			
                 			//
                 			//  this part is not working. If somebody can help to make it work?
                 			//  currently using only real temp files for debugging purposes.
@@ -1154,7 +1154,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 			Debug.log("================start fo processor=============================");
                 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 			StreamSource src = new StreamSource("/tmp/file1.fo");
-                			FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
+                			FopFactory fopFactory = FopFactory.newInstance();
                 			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
                 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, baos);
                 			TransformerFactory factory = TransformerFactory.newInstance();
@@ -1169,7 +1169,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 			fend.write(baos.toString());
                 			fend.close();
 
-*/                		
+               		
                 		} catch(Exception e) {
                 			Debug.logError("================================Exception: " + e, module);
                 		}
