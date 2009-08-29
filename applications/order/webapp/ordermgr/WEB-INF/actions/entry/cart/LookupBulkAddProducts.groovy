@@ -30,16 +30,17 @@ conditionList = [];
 orConditionList = [];
 mainConditionList = [];
 
-//make sure the look up is case insensitive
-conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
-        EntityOperator.LIKE, productId.toUpperCase() + "%"));
+if (productId) {
+    //make sure the look up is case insensitive
+    conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
+            EntityOperator.LIKE, productId.toUpperCase() + "%"));
+}
 
 // do not include configurable products
 conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED"));
 
-// no virtual products: note that isVirtual could be null, which in some databases is different than isVirtual != "Y".
+// no virtual products: note that isVirtual could be null,
 // we consider those products to be non-virtual and hence addable to the order in bulk
-orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
 orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "N"));
 orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null));
 
