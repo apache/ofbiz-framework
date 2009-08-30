@@ -20,7 +20,7 @@ under the License.
 <#macro renderField text><#if text?exists>${text?replace(",", "")}</#if></#macro>
 
 <#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
-<@renderField description />, <#rt/>
+<@renderField description />,<#rt/>
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
