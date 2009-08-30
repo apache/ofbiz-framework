@@ -133,9 +133,17 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         }
     }
 
-    /** Sets the cursor position to last result; if result set is empty returns false */
+    /** Sets the cursor position to first result; if result set is empty returns false */
     public boolean first() throws GenericEntityException {
         try {
+            if (resultSet.getType() == ResultSet.TYPE_FORWARD_ONLY) {
+                if (resultSet.isFirst()) return true;
+
+                if (resultSet.isBeforeFirst()) {
+                    return resultSet.next(); 
+                }
+            }
+
             return resultSet.first();
         } catch (SQLException e) {
             if (!closed) {
