@@ -1346,7 +1346,7 @@ public class ModelForm extends ModelWidget {
 
         if (iter instanceof EntityListIterator) {
             try {
-                ((EntityListIterator) iter).first();
+                ((EntityListIterator) iter).beforeFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error rewinding list form render EntityListIterator: " + e.toString(), module);
             }

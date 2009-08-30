@@ -136,14 +136,6 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     /** Sets the cursor position to first result; if result set is empty returns false */
     public boolean first() throws GenericEntityException {
         try {
-            if (resultSet.getType() == ResultSet.TYPE_FORWARD_ONLY) {
-                if (resultSet.isFirst()) return true;
-
-                if (resultSet.isBeforeFirst()) {
-                    return resultSet.next(); 
-                }
-            }
-
             return resultSet.first();
         } catch (SQLException e) {
             if (!closed) {
@@ -219,23 +211,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         if (closed) throw new GenericResultSetClosedException("This EntityListIterator has been closed, this operation cannot be performed");
 
         try {
-            if (resultSet.getType() == ResultSet.TYPE_FORWARD_ONLY && Math.abs(rowNum) < this.getResultsSizeAfterPartialList()) {
-                int actualRowNum = rowNum;
-                if (actualRowNum < 0) {
-                    actualRowNum = this.getResultsSizeAfterPartialList() + actualRowNum + 1;
-                }
-                while (actualRowNum != currentIndex()) {
-                    if (actualRowNum > currentIndex()) {
-                        this.next();
-                    } else {
-                        // This will throw an exception but we would have to do that anyway
-                        this.previous();
-                    }
-                }
-                return true;
-            } else {
-                return resultSet.absolute(rowNum);
-            }
+            return resultSet.absolute(rowNum);
         } catch (SQLException e) {
             if (!closed) {
                 this.close();
