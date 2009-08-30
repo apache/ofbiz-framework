@@ -306,8 +306,7 @@ public class PaymentWorker {
         try {
             List cond = UtilMisc.toList(
                     EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, payment.getString("paymentId")),
-                    EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId"))
-                   );
+                    EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId")));
             EntityCondition partyCond = EntityCondition.makeCondition(cond, EntityOperator.OR);
             paymentApplications = payment.getDelegator().findList("PaymentApplication", partyCond, null, UtilMisc.toList("invoiceId", "billingAccountId"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {

@@ -306,7 +306,7 @@ public class OrderReturnServices {
     public static Map sendReturnCancelNotification(DispatchContext dctx, Map context) {
         return sendReturnNotificationScreen(dctx, context, "PRDS_RTN_CANCEL");
     }
-    
+
     // cancel replacement order if return not received within 30 days and send notification
     public static Map<String,Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -315,7 +315,7 @@ public class OrderReturnServices {
         List<GenericValue> returnHeaders = null;
         try {
             returnHeaders = delegator.findList("ReturnHeader", EntityCondition.makeCondition(
-                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "RETURN_ACCEPTED"), EntityOperator.AND, 
+                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "RETURN_ACCEPTED"), EntityOperator.AND,
                     EntityCondition.makeCondition("returnHeaderTypeId", EntityOperator.EQUALS, "CUSTOMER_RETURN")), null, UtilMisc.toList("entryDate"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Return headers", module);
@@ -339,7 +339,7 @@ public class OrderReturnServices {
                 if (cancelDate.equals(nowDate) || nowDate.after(cancelDate)) {
                     try {
                         List<GenericValue> returnItems = delegator.findList("ReturnItem", EntityCondition.makeCondition(
-                                EntityCondition.makeCondition("returnId", EntityOperator.EQUALS, returnId), EntityOperator.AND, 
+                                EntityCondition.makeCondition("returnId", EntityOperator.EQUALS, returnId), EntityOperator.AND,
                                 EntityCondition.makeCondition("returnTypeId", EntityOperator.EQUALS, "RTN_WAIT_REPLACE_RES")), null, UtilMisc.toList("createdStamp"), null, false);
                         for (GenericValue returnItem : returnItems) {
                             GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse");
@@ -464,12 +464,11 @@ public class OrderReturnServices {
             // OrderItems which have been issued may be returned.
             EntityConditionList whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
-                    EntityCondition.makeCondition("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))
-               ), EntityOperator.AND);
+                    EntityCondition.makeCondition("orderItemStatusId", EntityOperator.IN,
+                            UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))), EntityOperator.AND);
             /*
             EntityConditionList havingConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("quantityIssued", EntityOperator.GREATER_THAN, Double.valueOf(0))
-               ), EntityOperator.AND);
+                    EntityCondition.makeCondition("quantityIssued", EntityOperator.GREATER_THAN, Double.valueOf(0))), EntityOperator.AND);               
              */
             List orderItemQuantitiesIssued = null;
             try {
@@ -964,7 +963,7 @@ public class OrderReturnServices {
 
         return ServiceUtil.returnSuccess();
     }
-    
+
     /**
      * Helper method to get billing account balance, cannot use BillingAccountWorker.getBillingAccountBalance()
      * due to circular build dependency.
@@ -988,8 +987,9 @@ public class OrderReturnServices {
                 EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                 EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
-                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
-           ), EntityOperator.AND);
+                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN,
+                        UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED"))),
+                        EntityOperator.AND); // PAYMENT_NOT_AUTH
 
         List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
         for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext();) {
@@ -1089,7 +1089,7 @@ public class OrderReturnServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         Map serviceResult = FastMap.newInstance();
-        
+
         GenericValue orderHeader = null;
         List<GenericValue> orderPayPrefs = FastList.newInstance();
         try {
@@ -1099,7 +1099,7 @@ public class OrderReturnServices {
             Debug.logError("Problem looking up order information for orderId #" + orderId, module);
             ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderCannotGetOrderHeader", locale));
         }
-         
+
         // Check for replacement order
         if (UtilValidate.isEmpty(orderPayPrefs)) {
             List<GenericValue> returnItemResponses = FastList.newInstance();
@@ -1109,7 +1109,7 @@ public class OrderReturnServices {
                 Debug.logError("Problem getting ReturnItemResponses", module);
                 ServiceUtil.returnError(e.getMessage());
             }
-            
+
             for (GenericValue returnItemResponse : returnItemResponses) {
                 GenericValue returnItem = null;
                 GenericValue returnHeader = null;
@@ -1120,7 +1120,7 @@ public class OrderReturnServices {
                     Debug.logError("Problem getting ReturnItem", module);
                     ServiceUtil.returnError(e.getMessage());
                 }
-                
+
                 if ("RETURN_RECEIVED".equals(returnHeader.getString("statusId"))) {
                     String returnId = returnItem.getString("returnId");
                     String returnTypeId = returnItem.getString("returnTypeId");
@@ -1199,7 +1199,7 @@ public class OrderReturnServices {
 
                     List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED"), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_RECEIVED"));
                     orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
-                    
+
                     // Check for replacement order
                     if (UtilValidate.isEmpty(orderPayPrefs)) {
                         List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"));
@@ -1250,10 +1250,10 @@ public class OrderReturnServices {
                 // We break the OPPs down this way because we need to process the refunds to payment methods in a particular order
                 Map receivedPaymentTotalsByPaymentMethod = orderReadHelper.getReceivedPaymentTotalsByPaymentMethod() ;
                 Map refundedTotalsByPaymentMethod = orderReadHelper.getReturnedTotalsByPaymentMethod() ;
-                
-                // getOrderPaymentPreferenceTotalByType has been called because getReceivedPaymentTotalsByPaymentMethod does not 
+
+                // getOrderPaymentPreferenceTotalByType has been called because getReceivedPaymentTotalsByPaymentMethod does not
                 // return payments captured from Billing Account.This is because when payment is captured from Billing Account
-                // then no entry is maintained in Payment entity. 
+                // then no entry is maintained in Payment entity.
                 BigDecimal receivedPaymentTotalsByBillingAccount = orderReadHelper.getOrderPaymentPreferenceTotalByType("EXT_BILLACT");
 
                 /*
@@ -1273,7 +1273,7 @@ public class OrderReturnServices {
                     if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
                         orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add((BigDecimal)receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
-                    
+
                     if (receivedPaymentTotalsByBillingAccount != null) {
                         orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(receivedPaymentTotalsByBillingAccount);
                     }
@@ -1301,7 +1301,7 @@ public class OrderReturnServices {
 
                 // This can be extended to support additional electronic types
                 List electronicTypes = UtilMisc.toList("CREDIT_CARD", "EFT_ACCOUNT", "FIN_ACCOUNT", "GIFT_CARD");
-                
+
                 // Figure out if EXT_PAYPAL should be considered as an electronic type
                 if (productStore != null) {
                     ExpressCheckoutEvents.CheckoutType payPalType = ExpressCheckoutEvents.determineCheckoutType(delegator, productStore.getString("productStoreId"));
@@ -1428,7 +1428,7 @@ public class OrderReturnServices {
                             Iterator itemsIter = items.iterator();
                             while (itemsIter.hasNext()) {
                                 GenericValue item = (GenericValue) itemsIter.next();
-                                
+
                                 Map returnItemMap = UtilMisc.toMap("returnItemResponseId", responseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", returnItemStatusId, "userLogin", userLogin);
                                 //Debug.log("Updating item status", module);
                                 try {
@@ -2069,7 +2069,7 @@ public class OrderReturnServices {
                         }
                         if (ServiceUtil.isError(serviceResult)) {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }                        
+                        }
                     } else {
                         OrderChangeHelper.approveOrder(dispatcher, userLogin, createdOrderId);
                     }

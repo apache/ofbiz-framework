@@ -125,8 +125,7 @@ public class TechDataServices {
                 if (! workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom")) ||
                 ! workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo")) ||
                 ! workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId")) ||
-                ! sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))
-               ) {
+                ! sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))) {
                     if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null) sequenceNumNotOk = "Y";
                     else if (routingTaskAssoc.getTimestamp("thruDate") == null) {
                         if (thruDate == null) sequenceNumNotOk = "Y";
