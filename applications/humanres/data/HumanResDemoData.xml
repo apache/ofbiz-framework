@@ -20,34 +20,12 @@ under the License.
 <entity-engine-xml>
     <Party partyId="DemoEmployee"/><PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
 
-    <EmplPositionType emplPositionTypeId="PROGRAMMER" hasTable="N" description="Programmer"/>
-    <EmplPositionType emplPositionTypeId="SYS_ADMIN" hasTable="N" description="System Administrator"/>
-    <EmplPositionType emplPositionTypeId="BIZ_ANALYST" hasTable="N" description="Business Analyst"/>
-    <EmplPositionType emplPositionTypeId="_NA_"/>
     <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="DemoEmployee" emplPositionTypeId="_NA_" fromDate="2000-01-30 17:58:56.038" rateAmount="2300"/>
     <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="PROGRAMMER" fromDate="2000-01-30 17:58:56.038" rateAmount="2000"/>
     <EmplPosition emplPositionId="DEMO100" statusId="EMPL_POS_ACTIVE" partyId="Company" emplPositionTypeId="PROGRAMMER" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
     <EmplPositionFulfillment emplPositionId="DEMO100" partyId="DemoEmployee" fromDate="2009-01-30 17:58:02.745"/>
     <EmplPositionTypeRate emplPositionTypeId="PROGRAMMER" rateTypeId="AVERAGE_PAY_RATE" fromDate="2009-01-30 17:58:56.038"/>
     <Employment roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" partyIdFrom="Company" partyIdTo="DemoEmployee" fromDate="2000-01-30 17:50:15.767"/>
-    
-     <!-- OFBiz Recruitment security -->
-    <SecurityGroup groupId="HUMANRES_APPROVER" description="This security group is for those who will approve the internal job posting application."/>
-    <SecurityGroup groupId="HUMANRES_EMPLOYEE" description="This security group is for all the employees who want to apply for internal Job Posting."/>
-
-    <!-- Recruitment  permission -->
-    <SecurityPermission description="Approver can update the IJP approval status with this permission." permissionId="HUMANRES_APPROVE"/>
-    
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_CREATE"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="PARTYMGR_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_UPDATE"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_APPROVE"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="HUMANRES_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="HUMANRES_CREATE"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="PARTYMGR_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="OFBTOOLS_VIEW"/>
     
     <Party partyId="DemoApprover" partyTypeId="PERSON"/>
     <Person partyId="DemoApprover" firstName="Demo" lastName="Approver"/>
@@ -58,14 +36,4 @@ under the License.
     <UserLogin userLoginId="demoemployee" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" requirePasswordChange="N" partyId="DemoEmployee"/>
     <UserLoginSecurityGroup groupId="HUMANRES_EMPLOYEE" userLoginId="demoemployee" fromDate="2001-01-01 12:00:00.0"/>
 
-    <JobInterviewType jobInterviewTypeId="JOB_INTERVW" description="It is a process in which an employee is evaluated by an employer for prospective employment in their company"/>
-    <JobInterviewType jobInterviewTypeId="EXIT_INTERVW" description="It is conducted by an employer of a departing employee"/>
-    <JobInterviewType jobInterviewTypeId="INFORMAL_INTERVW" description="It is a meeting in which a job seeker asks for advice rather than employment"/>
-    <JobInterviewType jobInterviewTypeId="CASE_INTERVW" description="It is an interview in which the applicant is given a question/situation and asked to resolve it"/>
-    
-    <EnumerationType description="Exam Type" enumTypeId="EXAM_TYPE" hasTable="N" parentTypeId=""/>
-    <Enumeration description="Written Aptitude Exam" enumCode="WRITTEN_APT" enumId="EXAM_WRITTEN_APT" sequenceId="01" enumTypeId="EXAM_TYPE"/>
-    <Enumeration description="Technical Exam" enumCode="TECHNICAL" enumId="EXAM_TECHNICAL" sequenceId="02" enumTypeId="EXAM_TYPE"/>
-    <Enumeration description="Group Discussion" enumCode="GROUP_DISCN" enumId="EXAM_GROUP_DISCN" sequenceId="03" enumTypeId="EXAM_TYPE"/>
-    
 </entity-engine-xml>
