@@ -85,7 +85,7 @@ public class PayPalServices {
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
     // so that we can quickly grab the cart, perform shipment estimates and send the info back to PayPal.
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
-    // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the
+    // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the 
     // session (i.e. on cart clear or successful checkout) or when the session is destroyed
     private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<TokenWrapper, WeakReference<ShoppingCart>>();
 
@@ -441,7 +441,9 @@ public class PayPalServices {
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(UtilMisc.toMap("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS")),
                     EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityComparisonOperator.EQUALS, EntityFunction.UPPER(emailAddress)),
-                    EntityUtil.getFilterByDateExpr()));
+                    EntityUtil.getFilterByDateExpr()
+
+           ));
             try {
                 GenericValue matchingEmail = EntityUtil.getFirst(delegator.findList("PartyAndContactMech", cond, null, UtilMisc.toList("fromDate"), null, false));
                 if (matchingEmail != null) {
@@ -524,14 +526,16 @@ public class PayPalServices {
                     EntityCondition.makeCondition(postalMap),
                     EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null,"postalCodeGeoId", null)),
                     EntityUtil.getFilterByDateExpr(),
-                    EntityCondition.makeCondition("partyId", partyId)));
+                    EntityCondition.makeCondition("partyId", partyId)
+           ));
             try {
                 GenericValue postalMatch = EntityUtil.getFirst(delegator.findList("PartyAndPostalAddress", cond, null, UtilMisc.toList("fromDate"), null, false));
                 if (postalMatch != null) {
                     postalContactId = postalMatch.getString("contactMechId");
                     EntityCondition purposeCond = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition(UtilMisc.toMap("partyId", partyId, "contactMechId", postalContactId)),
-                            EntityUtil.getFilterByDateExpr()));
+                            EntityUtil.getFilterByDateExpr()
+                   ));
                     List<GenericValue> postalPurposes = delegator.findList("PartyContactMechPurpose", purposeCond, null, null, null, false);
                     List<Object> purposeStrings = EntityUtil.getFieldListFromEntityList(postalPurposes, "contactMechPurposeTypeId", false);
                     if (UtilValidate.isNotEmpty(purposeStrings) && purposeStrings.contains("SHIPPING_LOCATION")) {
@@ -588,8 +592,8 @@ public class PayPalServices {
             String shippingMethodTypeDesc = StringUtils.join(shipMethodSplit, " - ", 1, shipMethodSplit.length);
             try {
                 EntityCondition cond = EntityCondition.makeCondition(
-                        UtilMisc.toMap("productStoreId", cart.getProductStoreId(),
-                                "partyId", shipMethodSplit[0], "roleTypeId", "CARRIER", "description", shippingMethodTypeDesc));
+                        UtilMisc.toMap("productStoreId", cart.getProductStoreId(), "partyId", shipMethodSplit[0], "roleTypeId", "CARRIER", "description", shippingMethodTypeDesc)
+               );
                 GenericValue shipmentMethod = EntityUtil.getFirst(delegator.findList("ProductStoreShipmentMethView", cond, null, null, null, false));
                 cart.setShipmentMethodTypeId(shipmentMethod.getString("shipmentMethodTypeId"));
             } catch (GenericEntityException e1) {
@@ -872,7 +876,7 @@ public class PayPalServices {
             // so until further testing proves we should do otherwise I'm just going to return requested void amount
             result.put("releaseAmount", context.get("releaseAmount"));
             result.put("releaseRefNum", decoder.get("AUTHORIZATIONID"));
-        }
+        }        
         return result;
     }
 
@@ -918,7 +922,7 @@ public class PayPalServices {
             result.put("refundResult", true);
             result.put("refundAmount", new BigDecimal(decoder.get("NETREFUNDAMT")));
             result.put("refundRefNum", decoder.get("REFUNDTRANSACTIONID"));
-        }
+        }        
         return result;
     }
 

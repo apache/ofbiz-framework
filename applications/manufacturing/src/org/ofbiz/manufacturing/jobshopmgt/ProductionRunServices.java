@@ -373,7 +373,8 @@ public class ProductionRunServices {
                                 "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
                                 "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
                                 "statusId",  workEffortPartyAssignment.getString("statusId"),
-                                "userLogin", userLogin);
+                                "userLogin", userLogin
+                       );
                         try {
                             resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
                         } catch (GenericServiceException e) {
@@ -1434,7 +1435,8 @@ public class ProductionRunServices {
                         "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
                         "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
                         "statusId",  workEffortPartyAssignment.getString("statusId"),
-                        "userLogin", userLogin);
+                        "userLogin", userLogin
+               );
                 try {
                     resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
                 } catch (GenericServiceException e) {
@@ -2228,7 +2230,7 @@ public class ProductionRunServices {
                     BigDecimal totalQuantity = (BigDecimal)components.get(componentProductId);
                     componentQuantity = totalQuantity.add(componentQuantity);
                 }
-
+                
                 // check if a bom exists
                 List bomList = null;
                 try {
@@ -2257,7 +2259,7 @@ public class ProductionRunServices {
                     } catch (GenericEntityException e) {
                         return ServiceUtil.returnError("try to create workeffort assoc");
                     }
-
+                    
                 } else {
                     components.put(componentProductId, componentQuantity);
                 }
