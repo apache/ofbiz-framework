@@ -830,6 +830,9 @@
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
+        <field name="downloadLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent">
                 <parameter param-name="contentId"/>
