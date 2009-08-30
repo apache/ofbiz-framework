@@ -571,7 +571,7 @@ public class FindServices {
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
                 listIt = delegator.find(entityName, entityConditionList, null, fieldSet, orderByList,
-                        new EntityFindOptions(true, EntityFindOptions.TYPE_FORWARD_ONLY, EntityFindOptions.CONCUR_READ_ONLY, -1, maxRows, distinct));
+                        new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, maxRows, distinct));
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Error running Find on the [" + entityName + "] entity: " + e.getMessage());
