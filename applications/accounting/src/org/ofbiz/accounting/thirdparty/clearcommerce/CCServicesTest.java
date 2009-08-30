@@ -105,7 +105,8 @@ public class CCServicesTest extends OFBizTestCase {
                     "creditCard", creditCard,
                     "billingAddress", billingAddress,
                     "shippingAddress", shippingAddress,
-                    "orderId", orderId);
+                    "orderId", orderId
+           );
             serviceInput.put("processAmount", new BigDecimal("200.00"));
 
             // run the service (make sure in payment
@@ -138,7 +139,8 @@ public class CCServicesTest extends OFBizTestCase {
                     "creditAmount", creditAmount,
                     "billToEmail", emailAddr,
                     "creditCard", creditCard,
-                    "creditAmount", new BigDecimal("200.00"));
+                    "creditAmount", new BigDecimal("200.00")
+           );
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);
 
@@ -169,7 +171,8 @@ public class CCServicesTest extends OFBizTestCase {
                     "creditAmount", creditAmount,
                     "billToEmail", emailAddr,
                     "creditCard", creditCard,
-                    "pbOrder", pbOrder);          // if supplied, the crediting is for a subscription and credit by period is managed by ClearCommerce
+                    "pbOrder", pbOrder          // if supplied, the crediting is for a subscription and credit by period is managed by ClearCommerce
+           );
             serviceMap.put("creditAmount", new BigDecimal("200.00"));
 
             // run the service
@@ -218,7 +221,8 @@ cancelled. If the order is to be resumed, a new recurring order must be submitte
 
             Map serviceMap = UtilMisc.toMap(
                     "orderId", "4488668f-2db0-3002-002b-0003ba1d84d5",
-                    "paymentConfig", configFile);
+                    "paymentConfig", configFile
+           );
 
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCReport",serviceMap);
