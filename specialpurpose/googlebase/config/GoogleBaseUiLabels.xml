@@ -61,6 +61,9 @@
         <value xml:lang="th">Web Site Url</value>
         <value xml:lang="zh">网站网址</value>
     </property>
+    <property key="GoogleBaseAddGoogleBaseConfiguration">
+        <value xml:lang="en">Add Google Base Configuration</value>
+    </property>
     <property key="GoogleBaseApplication">
         <value xml:lang="en">Google Base Integration</value>
         <value xml:lang="fr">Intégration de Google Base</value>
@@ -73,6 +76,9 @@
         <value xml:lang="fr">Ofbiz</value>
         <value xml:lang="it">Ofbiz</value>
         <value xml:lang="th">Ofbiz</value>
+    </property>
+    <property key="GoogleBaseConfiguration">
+        <value xml:lang="en">Google Base Configurations</value>
     </property>
     <property key="GoogleBaseExportCountryCode">
         <value xml:lang="en">Select your country destination</value>

@@ -139,4 +139,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="EditGoogleBaseConfigs">
+        <section>
+            <actions>
+                <set field="titleProperty" value="GoogleBaseConfiguration"/>
+                <set field="headerItem" value="GoogleBaseConfigs"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListGoogleBaseConfigs" location="component://googlebase/widget/GoogleBaseForms.xml"/>
+                        <screenlet id="add-gbs-configuration" title="${uiLabelMap.GoogleBaseAddGoogleBaseConfiguration}" collapsible="true">
+                            <include-form name="AddGoogleBaseConfig" location="component://googlebase/widget/GoogleBaseForms.xml"/>
+                        </screenlet>     
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
