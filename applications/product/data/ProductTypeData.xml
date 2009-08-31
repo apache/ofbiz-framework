@@ -192,6 +192,7 @@ under the License.
     <ProductCategoryType description="Mix and Match" hasTable="N" parentTypeId="" productCategoryTypeId="MIXMATCH_CATEGORY"/>
     <ProductCategoryType description="Cross Sell" hasTable="N" parentTypeId="" productCategoryTypeId="CROSS_SELL_CATEGORY"/>
     <ProductCategoryType description="Tax" hasTable="N" parentTypeId="" productCategoryTypeId="TAX_CATEGORY"/>
+    <ProductCategoryType description="Google Base" hasTable="N" parentTypeId="" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
 
     <!-- product geo data -->
     <EnumerationType description="Product Geo Data" enumTypeId="PROD_GEO" hasTable="N" parentTypeId=""/>

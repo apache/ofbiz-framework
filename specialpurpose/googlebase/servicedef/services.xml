@@ -36,6 +36,7 @@ under the License.
         <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
         <attribute type="String" mode="IN" name="webSiteMountPoint" optional="false"/>
         <attribute type="String" mode="IN" name="countryCode" optional="false"/>
+        <attribute type="String" mode="IN" name="productStoreId" optional="true"/>
     </service>
     <service name="exportProductCategoryToGoogle" engine="java"
              location="org.ofbiz.googlebase.ProductsExportToGoogle" invoke="exportProductCategoryToGoogle" auth="true">

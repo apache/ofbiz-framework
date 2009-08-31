@@ -175,6 +175,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="googlebase"/>
                 <set field="titleProperty" value="PageTitleGoogleBaseProductsExportToGoogle"/>
+                <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/productsExportToGoogle.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
