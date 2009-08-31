@@ -90,6 +90,7 @@ public class GoogleBaseSearchEvents {
                 String trackingCodeId = (String) request.getParameter("trackingCodeId");
                 String webSiteMountPoint = (String) request.getParameter("webSiteMountPoint");
                 String countryCode = (String) request.getParameter("countryCode");
+                String productStoreId = (String) request.getParameter("productStoreId");
 
                 // Export all or selected products to Google Base
                 try {
@@ -103,6 +104,7 @@ public class GoogleBaseSearchEvents {
                                                "countryCode", countryCode);
                     inMap.put("trackingCodeId", trackingCodeId);
                     inMap.put("userLogin", userLogin);
+                    inMap.put("productStoreId", productStoreId);
                     Map exportResult = dispatcher.runSync("exportToGoogle", inMap);
                     if (ServiceUtil.isError(exportResult)) {
                         List errorMessages = (List)exportResult.get(ModelService.ERROR_MESSAGE_LIST);

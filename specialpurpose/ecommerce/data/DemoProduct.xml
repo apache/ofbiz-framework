@@ -200,7 +200,53 @@ under the License.
         linkInfo="http://www.google.com/"/>
     <ProductCategoryLink productCategoryId="100" linkSeqId="03" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="3" linkTypeEnumId="PCLT_CAT_ID" linkInfo="101"/>
+    
+    <ProdCatalog prodCatalogId="GoogleCatalog" catalogName="Google Catalog"/>
+    <ProductStoreCatalog productStoreId="9000" prodCatalogId="GoogleCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
+                
+    <!-- Categories Specific to Google Base -->
+    <ProductCategory categoryName="Google Base Browse Root"
+        longDescription="Google Base Primary Browse Root Category" productCategoryId="GOOGLE_BASE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Animals"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_ANIMALS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Arts &amp; Entertainment"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_ART_N_ENTMNT" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Business &amp; Industrial"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_BUZ_N_INDSTRL" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Cameras &amp; Optics"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_CMRA_N_OPTCS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Clothing &amp; Accessories"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_CLTNG_N_ACECRS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Food, Beverages &amp; Tobacco"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_FD_BVRG_N_TBCO" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Furniture"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_FURNITURE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Hardware"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_HARDWARE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Health &amp; Beauty"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_HLTH_N_BEAUTY" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Home &amp; Garden"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_HME_N_GRDN" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Luggage"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_LUGGAGE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Mature"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_MATURE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Media"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_MEDIA" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Motor Vehicles"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_MTR_VEHICL" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Offices Supplies"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_OFFC_SPPLS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Software"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_SOFTWARE" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Sporting Goods"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_SPRTNG_GDS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategory categoryName="Toys &amp; Games"
+        primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_TYS_GMS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
 
+    <ProdCatalogCategory prodCatalogId="GoogleCatalog" productCategoryId="GOOGLE_BASE" fromDate="2001-05-13 12:00:00.0"
+        sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
+        
     <Product productId="GZ-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1001" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Nan Gizmo" internalName="Nan Gizmo" description="Indian style Nan gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1004" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Rainbow Gizmo" internalName="Rainbow Gizmo" description="The only multi-colored gizmo" longDescription="This is the original multi-colored gizmo, only available from OFBiz!" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -506,6 +552,41 @@ under the License.
     
     <!-- Added record to check role based permission for limited admin user -->
     <ProductCategoryMember productCategoryId="TSTLTDADMIN" productId="GZ-2644" fromDate="2003-03-04 18:55:14.547"/>
+    
+    <!-- Product Category Member records specific to Google Base -->
+    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-1001" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-1000" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-1005" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-2002" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_HARDWARE" productId="GZ-2644" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_LUGGAGE" productId="GZ-1004" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_TYS_GMS" productId="GZ-7000" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_TYS_GMS" productId="GZ-9290" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_TYS_GMS" productId="GZ-2644" fromDate="2009-07-28 12:15:00.0"/>        
+    <ProductCategoryMember productCategoryId="GB_MTR_VEHICL" productId="GZ-8544" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_MTR_VEHICL" productId="WG-9943" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_MTR_VEHICL" productId="WG-9944" fromDate="2009-07-28 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="GB_OFFC_SPPLS" productId="WG-1111" fromDate="2009-07-28 12:15:00.0"/>
+    
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_ANIMALS"/>        
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_ART_N_ENTMNT"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_BUZ_N_INDSTRL"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_CMRA_N_OPTCS"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_CLTNG_N_ACECRS"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_FD_BVRG_N_TBCO"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_FURNITURE"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_HARDWARE"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_HLTH_N_BEAUTY"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_HME_N_GRDN"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_LUGGAGE"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MATURE"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MEDIA"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MATURE"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_MTR_VEHICL"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_OFFC_SPPLS"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_SOFTWARE"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_SPRTNG_GDS"/>
+    <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_TYS_GMS"/>
     
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="100"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="101"/>

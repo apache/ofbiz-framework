@@ -19,7 +19,6 @@ under the License.
 -->
 
 <entity-engine-xml>
-
-    <GoodIdentificationType description="Google Id" goodIdentificationTypeId="GOOGLE_ID" hasTable="N" parentTypeId=""/>
-    <WebSite webSiteId="GOOGLEBASE" siteName="Google Base Application" visualThemeSetId="BACKOFFICE"/>
+    <WebSite webSiteId="GOOGLEBASE" productStoreId="9000" />
+    <GoogleBaseConfig productStoreId="9000" developerKey="HKLh9khgVieditoO0b4JR2fnBT2yXp_ZAY8_yft3CFXhHIE1NvwkxQ1pZ4qyVEGh_FtRe5KtJPTKDorNP" authenticationUrl="https://www.google.com/accounts/ClientLogin" accountEmail="ofbiztest@yahoo.com" accountPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" postItemsUrl="http://www.google.com/base/feeds/items/batch" webSiteUrl="http://demo.ofbiz.org"/>       
 </entity-engine-xml>
