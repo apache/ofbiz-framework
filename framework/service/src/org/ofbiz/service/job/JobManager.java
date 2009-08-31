@@ -210,9 +210,11 @@ public class JobManager {
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
         List<GenericValue> crashed = null;
 
-        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("finishDateTime", null));
-        exprs.add(EntityCondition.makeCondition("cancelDateTime", null));
-        exprs.add(EntityCondition.makeCondition("runByInstanceId", instanceId));
+        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId));
+        List<String> openStatuses = UtilMisc.toList("SERVICE_PENDING",
+                                                    "SERVICE_QUEUED",
+                                                    "SERVICE_RUNNING");
+        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, openStatuses));
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs);
 
         try {
