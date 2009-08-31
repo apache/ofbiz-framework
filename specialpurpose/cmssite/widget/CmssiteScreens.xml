@@ -83,13 +83,4 @@
         </section>
     </screen>
 
-    <screen name="publicDocs">
-        <section>
-            <widgets>
-                <link style="h2" text="The Apache OFBiz document" target="/cmssite/cms/APACHE_OFBIZ_HTML" target-window="_BLANK" url-mode="plain"></link>
-            </widgets>
-        </section>
-    </screen>
-    
-    
 </screens>
