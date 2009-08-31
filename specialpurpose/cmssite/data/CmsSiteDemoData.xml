@@ -81,6 +81,7 @@ under the License.
                 <li><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></li>
                 <li><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with blog using screen decorator</a></li>
                 <li><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></li>
+                <li><a href="${thisContent.content.PUBLIC_DOCS.link}">The ofbiz public documents</a></li>
               </ul>  
             </div>
             ]]></textData>
@@ -170,5 +171,11 @@ under the License.
     <Content contentId="OFBIZ_HOME" contentTypeId="DOCUMENT" contentName="OFBiz Site Home Page" dataResourceId="OFBIZ_HOME"/>
     <ContentAssoc contentId="OFBIZ_PPOINT" contentIdTo="OFBIZ_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
     <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+
+    <!-- documents website -->
+    <DataResource dataResourceId="PUBLIC_DOCS" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#publicDocs"/>
+    <Content contentId="PUBLIC_DOCS" contentTypeId="DOCUMENT" contentName="OFBIz public documents" dataResourceId="PUBLIC_DOCS"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
 
 </entity-engine-xml>
