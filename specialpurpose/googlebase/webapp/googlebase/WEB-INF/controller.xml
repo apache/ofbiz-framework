@@ -47,6 +47,30 @@ under the License.
         <response name="success" type="view" value="ProductsExportToGoogle"/>
         <response name="error" type="view" value="ProductsExportToGoogle"/>
     </request-map>
+    
+    <!-- Request entries for GoogleBaseConfig UI -->
+    <request-map uri="EditGoogleBaseConfigs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditGoogleBaseConfigs"/>
+    </request-map>
+    <request-map uri="createGoogleBaseConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createGoogleBaseConfig"/>
+        <response name="success" type="view" value="EditGoogleBaseConfigs"/>
+        <response name="error" type="view" value="EditGoogleBaseConfigs"/>
+    </request-map>
+    <request-map uri="updateGoogleBaseConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGoogleBaseConfig"/>
+        <response name="success" type="view" value="EditGoogleBaseConfigs"/>
+        <response name="error" type="view" value="EditGoogleBaseConfigs"/>
+    </request-map>
+    <request-map uri="deleteGoogleBaseConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteGoogleBaseConfig"/>
+        <response name="success" type="view" value="EditGoogleBaseConfigs"/>
+        <response name="error" type="view" value="EditGoogleBaseConfigs"/>
+    </request-map>
 
     <!-- end of request mappings -->
 
@@ -56,5 +80,6 @@ under the License.
     <view-map name="keywordsearch" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#keywordsearch"/>
     <view-map name="EditProduct" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#EditProduct"/>
     <view-map name="ProductsExportToGoogle" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#ProductsExportToGoogle"/>
+    <view-map name="EditGoogleBaseConfigs" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#EditGoogleBaseConfigs"/>
     <!-- end of view mappings -->
 </site-conf>

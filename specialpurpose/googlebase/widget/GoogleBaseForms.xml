@@ -66,4 +66,37 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.GoogleBaseExportToGoogle}"><submit button-type="button"/></field>
     </form>
+    
+    <form name="ListGoogleBaseConfigs" type="list"  list-name="googleBaseConfigs"  target="updateGoogleBaseConfig"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="GoogleBaseConfig">
+                <order-by field-name="productStoreId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateGoogleBaseConfig"/>
+        <field name="productStoreId"><display/></field>
+        <field name="deleteGoogleBaseConfig" title="" widget-style="buttontext">
+            <hyperlink target="deleteGoogleBaseConfig" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="accountPassword"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="AddGoogleBaseConfig" type="single" target="createGoogleBaseConfig" title="">
+        <auto-fields-service service-name="createGoogleBaseConfig"/>
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="accountPassword"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
 </forms>

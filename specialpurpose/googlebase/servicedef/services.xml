@@ -46,4 +46,21 @@ under the License.
         <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
         <attribute type="String" mode="IN" name="imageUrl" optional="true"/>
     </service>
+    
+    <!-- Start configuration services -->
+    <service name="createGoogleBaseConfig" default-entity-name="GoogleBaseConfig" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GoogleBaseConfig</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateGoogleBaseConfig" default-entity-name="GoogleBaseConfig" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GoogleBaseConfig</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGoogleBaseConfig" default-entity-name="GoogleBaseConfig" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GoogleBaseConfig</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>
