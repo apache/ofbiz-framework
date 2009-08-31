@@ -170,6 +170,8 @@ under the License.
     <screen name="ProductsExportToEbay">
         <section>
             <actions>
+                <property-map resource="ebayExport.properties" map-name="ebayExportProperties" global="true"/>
+                <set field="webSiteUrl" value="${ebayExportProperties.webSiteUrl}"/>
                 <set field="headerItem" value="export"/>
                 <set field="titleProperty" value="PageTitleEbayProductsExportToEbay"/>
                 <set field="selectResult" from-field="parameters.selectResult"/>

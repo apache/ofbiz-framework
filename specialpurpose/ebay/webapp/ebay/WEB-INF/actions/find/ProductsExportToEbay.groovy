@@ -36,4 +36,3 @@ if (categoryCode) {
 } else {
     context.hideExportOptions = "N";
 }
-
