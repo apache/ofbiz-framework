@@ -21,109 +21,6 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="main-decorator">
-        <section>
-            <actions>
-                <property-map resource="GoogleBaseUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="activeApp" value="googlebase" global="true"/>
-
-                <set field="layoutSettings.companyName" from-field="uiLabelMap.GoogleBaseCompanyName" global="true"/>
-                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.GoogleBaseApplication" global="true"/>
-                <set field="applicationMenuName" value="GoogleBaseAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://googlebase/widget/GoogleBaseMenus.xml" global="true"/>
-                <set field="applicationTitle" value="${uiLabelMap.GoogleBaseApplication}" global="true"/>
-            </actions>
-            <widgets>
-                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CommonFindDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="googlebase"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="GOOGLEBASE" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.GoogleBaseViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CommonProductDecorator">
-        <section>
-            <actions>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-
-                <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-field="product"/>
-                <set field="productName" from-field="product.productName"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for GOOGLEBASE, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="GOOGLEBASE" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition><not><if-empty field="product"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/product/ProductTabBar.ftl"/></html>
-                                        </platform-specific>
-                                        <container>
-                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
-                                            <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content"/>
-                                        </container>
-
-                                        <!-- add Create Product and View Product (in ecommerce) links -->
-                                        <container style="button-bar">
-                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
-                                            <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext"/>
-                                            <link target="/ecommerce/control/product" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext">
-                                                <parameter param-name="product_id" from-field="productId"/>
-                                            </link>
-                                            <link target="ProductBarCode.pdf" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext">
-                                                <parameter param-name="productId"/>
-                                                <parameter param-name="productName"/>
-                                            </link>
-                                        </container>
-                                    </widgets>
-                                </section>
-
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="advancedsearch">
         <section>
             <actions>
@@ -138,7 +35,7 @@ under the License.
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFindDecorator">
+                <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/find/advancedsearch.ftl"/></html>
@@ -156,7 +53,7 @@ under the License.
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFindDecorator">
+                <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/find/keywordsearch.ftl"/></html>

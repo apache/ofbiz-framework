@@ -33,8 +33,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.googlecheckout.config -->  
-    <!--  - org.ofbiz.googlebase.shipping -->  
+    <!--  - org.ofbiz.googlebase.config -->  
     <!-- ========================================================= -->
     
     <!-- ========================================================= -->
