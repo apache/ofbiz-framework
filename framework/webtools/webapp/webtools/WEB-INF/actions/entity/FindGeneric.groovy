@@ -157,7 +157,7 @@ if ("true".equals(find)) {
 
             EntityFindOptions efo = new EntityFindOptions();
             efo.setMaxRows(highIndex);
-            efo.setResultSetType(EntityFindOptions.TYPE_FORWARD_ONLY);
+            efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             EntityListIterator resultEli = null;
             fieldsToSelect = null;
 
