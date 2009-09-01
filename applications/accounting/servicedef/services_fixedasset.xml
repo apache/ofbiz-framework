@@ -198,11 +198,6 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="migrateFixedAssetMaintMeter" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
-        <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
-        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
-    </service>
     <!-- FixedAsset Maintenance Order Create/Update/Delete-->
     <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
