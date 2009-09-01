@@ -371,18 +371,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="migrateStatusToFinAccountTrans" short-description="Migrate statusId to FinAccountTrans entity">
-        <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
-            <use-iterator/>
-        </entity-condition>    
-        <iterate list="finAccountTransList" entry="finAccountTrans">
-            <if-empty field="finAccountTrans.statusId">
-                <set field="finAccountTrans.statusId" value="FINACT_TRNS_APPROVED"/>
-                <store-value value-field="finAccountTrans"/>
-            </if-empty>
-        </iterate>
-    </simple-method>
-    
     <simple-method method-name="depositWithdrawPayments" short-description="Deposit withdraw payments">
         <set field="paymentIds" from-field="parameters.paymentIds"/>
         <set field="finAccountId" from-field="parameters.finAccountId"/>

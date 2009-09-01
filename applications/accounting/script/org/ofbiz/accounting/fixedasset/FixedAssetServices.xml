@@ -453,24 +453,6 @@ under the License.
             </iterate>
         </iterate>
     </simple-method>
-    <simple-method method-name="migrateFixedAssetMaintMeter" short-description="Copy FixedAssetMaintMeter To FixedAssetMeter">
-        <entity-condition list="maintMeterList" entity-name="FixedAssetMaintMeter"/>
-        <iterate list="maintMeterList" entry="maintMeter">
-            <make-value value-field="newEntity" entity-name="FixedAssetMeter"/>
-            <set-pk-fields map="maintMeter" value-field="newEntity"/>
-            <set-nonpk-fields map="maintMeter" value-field="newEntity"/>
-            <set field="newEntity.readingDate" from-field="maintMeter.createdStamp"/>
-            <entity-one entity-name="FixedAssetMeter" value-field="lookedUpValue" auto-field-map="false">
-                <field-map field-name="fixedAssetId" from-field="newEntity.fixedAssetId"/>
-                <field-map field-name="productMeterTypeId" from-field="newEntity.productMeterTypeId"/>
-                <field-map field-name="readingDate" from-field="newEntity.readingDate"/>
-            </entity-one>
-            <if-empty field="lookedUpValue">
-                <create-value value-field="newEntity"/>
-                <check-errors/>
-            </if-empty>
-        </iterate>
-    </simple-method>
 
     <!--  create/update/delete FixedAssetMaintOrder -->
     <simple-method method-name="createFixedAssetMaintOrder" short-description="Create a FixedAsset Maintenance Order">

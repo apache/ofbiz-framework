@@ -447,16 +447,6 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
-    <service name="migrateStatusToFinAccountTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="migrateStatusToFinAccountTrans">
-        <description>
-            Migrate statusId to FinAccountTrans entity,
-            this service can be used to upgrade existing data i.e it sets the statusId(new field in entity) to "Approved" if found empty.
-            Before running this service, load the seed data for StatusType and StatusItem from the file :
-            accounting/data/AccountingTypeData.xml
-        </description>
-    </service>
-    
     <service name="depositWithdrawPayments" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="depositWithdrawPayments">
         <description>Deposit withdraw payments</description>

@@ -32,4 +32,20 @@ under the License.
             accounting/data/AccountingTypeData.xml
         </description>
     </service>
+
+    <service name="migrateStatusToFinAccountTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateStatusToFinAccountTrans">
+        <description>
+            Migrate statusId to FinAccountTrans entity,
+            this service can be used to upgrade existing data i.e it sets the statusId(new field in entity) to "Approved" if found empty.
+            Before running this service, load the seed data for StatusType and StatusItem from the file :
+            accounting/data/AccountingTypeData.xml
+        </description>
+    </service>
+
+    <service name="migrateFixedAssetMaintMeter" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
+        <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+    </service>
 </services>
