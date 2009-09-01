@@ -640,7 +640,11 @@ public class ProductSearch {
             efo.setDistinct(true);
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             if (maxResults != null) {
-                efo.setMaxRows(maxResults);
+                int queryMaxResults = maxResults;
+                if (resultOffset != null) {
+                    queryMaxResults += resultOffset - 1;
+                }
+                efo.setMaxRows(queryMaxResults);
             }
 
             EntityListIterator eli = null;
