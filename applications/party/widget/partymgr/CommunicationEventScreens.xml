@@ -77,6 +77,12 @@ under the License.
                     <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                     <order-by field-name="-entryDate"/>
                 </entity-condition>
+                <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
+                    <field-map field-name="partyIdFrom" from-field="partyId"/>
+                    <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                    <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                    <order-by field-name="partyIdTo"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -86,8 +92,34 @@ under the License.
                                 <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="h1"><label text="${uiLabelMap.PageTitleListCommunications}"/></container>
+                                <container style="h1"><label text="${uiLabelMap.PageTitleListCommunications} ${partyId}"/></container>
                                 <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="contacts"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <horizontal-separator></horizontal-separator>
+                                        <container style="h1"><label text="${uiLabelMap.PageTitleListCommunicationsRelatedParties} ${partyId}"/></container>
+                                        <iterate-section entry="contact" list="contacts">
+                                            <section>
+                                                <condition>
+                                                    <not><if-empty field="contacts"/></not>
+                                                </condition>
+                                                <actions>
+                                                    <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
+                                                        <condition-expr field-name="partyId" operator="equals" value="${contact.partyIdTo}"/>
+                                                        <order-by field-name="-entryDate"/>
+                                                    </entity-condition>
+                                                </actions>
+                                                <widgets>
+                                                    <container style="h2"><label text="${contact.partyIdTo}"/></container>
+                                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                                </widgets>
+                                            </section>
+                                        </iterate-section>
+                                    </widgets>
+                                </section>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>

@@ -1945,6 +1945,9 @@
         <value xml:lang="th">รายการการติดต่อสื่อสาร</value>
         <value xml:lang="zh">沟通列表</value>
     </property>
+    <property key="PageTitleListCommunicationsRelatedParties">
+        <value xml:lang="en">List Communications of related parties</value>
+    </property>
     <property key="PageTitleListUnknownPartyComms">
         <value xml:lang="de">Kommunikation von unbekannter Herkunft</value>
         <value xml:lang="en">Communications from Unknown origin</value>
