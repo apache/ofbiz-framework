@@ -138,4 +138,10 @@ under the License.
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
     </eca>
+
+    <!-- set GlReconciliation status after creating GlReconciliation Entries -->
+    <eca service="createGlReconciliationEntry" event="commit">
+        <condition field-name="statusId" operator="is-not-empty"/>
+        <action service="setGlReconciliationStatus" mode="sync"/>
+    </eca>
 </service-eca>

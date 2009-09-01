@@ -422,6 +422,7 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="organizationPartyId" title="${uiLabelMap.PartyParty}">
             <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyName.firstName} ${partyName.lastName}${partyName.groupName} [${partyName.partyId}]">
                 <parameter param-name="partyId" from-field="partyName.partyId"/>

@@ -94,7 +94,7 @@ function getFinAccountTransRunningTotalAndBalances() {
         <input name="openingBalance" type="hidden" value="${glReconciliationApprovedGrandTotal}"/>
         <input name="openingBalanceWithUom" type="hidden" id="openingBalanceWithUom" value="<@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/>"/>
       </#if>
-      <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId, "reconciledBalance" : null}, Static["org.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"))>
+      <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId, "statusId" : "GLREC_CREATED"}, Static["org.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"))>
       <#if (glReconciliationId?has_content && (glReconciliationId == "_NA_" && finAccountTransList?has_content)) || !grandTotal?exists>
         <div align="right">
           <#if grandTotal?exists>
