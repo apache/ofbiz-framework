@@ -35,7 +35,7 @@ under the License.
                     <tr>
                         <td><a href="/ordermgr/control/orderview?orderId=${order.orderId?if_exists}" class="buttontext" target="_blank">${order.orderId?if_exists}</a></td>
                         <td>${order.pickSheetPrintedDate?if_exists}</td>
-                        <td><#if "Y" == order.isVerified>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></td>
+                        <td><#if "Y" == order.isVerified>${uiLabelMap.CommonY}</#if></td>
                     </tr>
                 </#list>
             <#else>
