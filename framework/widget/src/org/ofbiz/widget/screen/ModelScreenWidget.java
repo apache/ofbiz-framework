@@ -1109,7 +1109,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 if (dataResource != null) {
                     mimeTypeId = dataResource.getString("mimeTypeId");
                 }
-                if (UtilValidate.isNotEmpty(content.get("mimeTypeId"))) {
+                if (UtilValidate.isNotEmpty(content)) {
                     mimeTypeId = content.getString("mimeTypeId");
                 }
 
