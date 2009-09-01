@@ -74,11 +74,7 @@ under the License.
                 <set field="subTabButtonItem" value="CommunicationEvent"/>
                 <set field="partyId" value="${parameters.partyId}"/>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
-                    <condition-list combine="or">
-                        <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
-                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
-                        <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
-                    </condition-list>
+                    <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                     <order-by field-name="-entryDate"/>
                 </entity-condition>
             </actions>
