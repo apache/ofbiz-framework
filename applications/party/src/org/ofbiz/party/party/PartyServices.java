@@ -1401,7 +1401,7 @@ public class PartyServices {
                     highIndex = (viewIndex + 1) * viewSize;
 
                     // set distinct on so we only get one row per order
-                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_FORWARD_ONLY, EntityFindOptions.CONCUR_READ_ONLY, -1, highIndex, true);
+                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, highIndex, true);
                     // using list iterator
                     EntityListIterator pli = delegator.findListIteratorByCondition(dynamicView, mainCond, null, fieldsToSelect, orderBy, findOpts);
 
