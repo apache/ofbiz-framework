@@ -76,6 +76,9 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_orbital.xml"/>
 
+    <!-- Accounting Migration Service Definition -->
+    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
+
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_payment.xml"/>

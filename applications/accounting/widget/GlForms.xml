@@ -788,6 +788,14 @@ under the License.
         <field name="glReconciliationName"><text/></field>
         <field name="description"><text/></field>
         <field name="glAccountId"><display/></field>
+        <field name="statusId" use-when="glReconciliationId == null"><hidden value="GLREC_CREATED"/></field>
+        <field name="statusId" use-when="glReconciliationId != null" title="${uiLabelMap.CommonStatus}">
+            <drop-down>
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="GLREC_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="reconciledDate"><date-time/></field>
         <field name="organizationPartyId"><display/></field>
         <field name="reconciledBalance"><display/></field>

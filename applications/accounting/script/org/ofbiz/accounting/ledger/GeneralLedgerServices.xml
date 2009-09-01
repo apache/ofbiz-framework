@@ -202,9 +202,15 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
+        <if-empty field="newEntity.statusId">
+            <set field="newEntity.statusId" value="GLREC_CREATED"/>
+        </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlReconciliation" short-description="Update an GlReconciliation">
+        <set-service-fields service-name="setGlReconciliationStatus" map="parameters" to-map="setGlReconciliationStatusMap"/>
+        <call-service service-name="setGlReconciliationStatus" in-map-name="setGlReconciliationStatusMap"/>
+        <check-errors/>
         <entity-one entity-name="GlReconciliation" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
@@ -243,6 +249,12 @@ under the License.
         <call-service service-name="updateAcctgTransEntry" in-map-name="updateAcctgTransEntryInMap"/>
         <check-errors/>
 
+        <!-- Returns status "Reconciled" if it is "Created" -->
+        <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+        <if-compare field="glReconciliation.statusId" operator="equals" value="GLREC_CREATED">
+            <set field="statusId" value="GLREC_RECONCILED"/>
+            <field-to-result field="statusId"/>
+        </if-compare>
         <!-- when changing entries, also update the last modified info for the GlReconciliation -->
         <call-simple-method method-name="updateGlReconciliationLastModified"/>
     </simple-method>
@@ -2672,5 +2684,25 @@ under the License.
             </else>
             </if-compare>
         </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="setGlReconciliationStatus" short-description="Set Gl Reconciliation status">
+        <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+        <field-to-result field="glReconciliation.statusId" result-name="oldStatusId"/>
+        <if-compare-field field="glReconciliation.statusId" operator="not-equals" to-field="parameters.statusId">
+            <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
+                <field-map field-name="statusId" from-field="glReconciliation.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
+            </entity-one>
+            <if-empty field="statusChange">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/></add-error>
+                <log level="error" message="Cannot change from ${glReconciliation.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+            <else>
+                <set field="glReconciliation.statusId" from-field="parameters.statusId"/>
+                <store-value value-field="glReconciliation"/>
+            </else>
+            </if-empty>
+        </if-compare-field>
     </simple-method>
 </simple-methods>

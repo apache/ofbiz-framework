@@ -2181,6 +2181,7 @@ under the License.
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="glAccountId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
       <field name="organizationPartyId" type="id-ne"></field>
       <field name="reconciledBalance" type="currency-amount"></field>
       <field name="reconciledDate" type="date-time"></field>
@@ -2190,6 +2191,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="GLREC_GLPARTY" rel-entity-name="Party">
         <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="GLREC_STI" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
       </relation>
     </entity>
     <entity entity-name="GlReconciliationEntry"

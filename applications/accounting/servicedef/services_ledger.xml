@@ -165,6 +165,7 @@ under the License.
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="updateGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="updateGlReconciliationEntry" auth="true">
@@ -682,5 +683,12 @@ under the License.
         <attribute name="glAccountCategoryId" mode="IN" type="String"/>
         <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
     </service>
-    
+
+    <service name="setGlReconciliationStatus" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="setGlReconciliationStatus">
+        <description>Set Gl Reconciliation status</description>
+        <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
 </services>
