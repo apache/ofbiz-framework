@@ -73,11 +73,11 @@ under the License.
                 <set field="tabButtonItem" value="PartyCommEvents"/>
                 <set field="subTabButtonItem" value="CommunicationEvent"/>
                 <set field="partyId" value="${parameters.partyId}"/>
-                <set field="partyIdFrom" value="${parameters.partyIdFrom}" default-value="${parameters.partyId}"/>
-                <set field="partyIdTo" value="${parameters.partyIdTo}" default-value="${parameters.partyId}"/>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
-                    <condition-list combine="and">
+                    <condition-list combine="or">
                         <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
+                        <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
                     </condition-list>
                     <order-by field-name="-entryDate"/>
                 </entity-condition>
@@ -91,7 +91,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleListCommunications}"/></container>
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListPartyCommEvents"/>
+                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
