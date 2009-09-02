@@ -584,7 +584,7 @@ public class ServiceUtil {
     public static GenericValue getUserLogin(DispatchContext dctx, Map<String, ? extends Object> context, String runAsUser) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericDelegator delegator = dctx.getDelegator();
-        if (runAsUser != null) {
+        if (UtilValidate.isNotEmpty(runAsUser)) {
             try {
                 GenericValue runAs = delegator.findByPrimaryKeyCache("UserLogin", "userLoginId", runAsUser);
                 if (runAs != null) {
