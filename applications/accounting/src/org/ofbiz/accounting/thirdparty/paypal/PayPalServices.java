@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transaction;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
@@ -189,14 +190,14 @@ public class PayPalServices {
         inMap.put("address1", paramMap.get("SHIPTOSTREET"));
         inMap.put("address2", paramMap.get("SHIPTOSTREET2"));
         inMap.put("city", paramMap.get("SHIPTOCITY"));
-        inMap.put("stateProvinceGeoId", paramMap.get("SHIPTOSTATE"));
-        inMap.put("postalCode", paramMap.get("SHIPTOZIP"));
         String countryGeoCode = (String) paramMap.get("SHIPTOCOUNTRY");
         String countryGeoId = PayPalServices.getCountryGeoIdFromGeoCode(countryGeoCode, delegator);
         if (countryGeoId == null) {
             return ServiceUtil.returnSuccess();
         }
         inMap.put("countryGeoId", countryGeoId);
+        inMap.put("stateProvinceGeoId", parseStateProvinceGeoId((String)paramMap.get("SHIPTOSTATE"), countryGeoId, delegator));
+        inMap.put("postalCode", paramMap.get("SHIPTOZIP"));
 
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", true, UtilMisc.toMap("userLoginId", "system"));
@@ -517,9 +518,10 @@ public class PayPalServices {
         postalMap.put("address1", decoder.get("SHIPTOSTREET"));
         postalMap.put("address2", decoder.get("SHIPTOSTREET2"));
         postalMap.put("city", decoder.get("SHIPTOCITY"));
-        postalMap.put("stateProvinceGeoId", decoder.get("SHIPTOSTATE"));
+        String countryGeoId = PayPalServices.getCountryGeoIdFromGeoCode(decoder.get("SHIPTOCOUNTRYCODE"), delegator);
+        postalMap.put("countryGeoId", countryGeoId);
+        postalMap.put("stateProvinceGeoId", parseStateProvinceGeoId(decoder.get("SHIPTOSTATE"), countryGeoId, delegator));
         postalMap.put("postalCode", decoder.get("SHIPTOZIP"));
-        postalMap.put("countryGeoId", PayPalServices.getCountryGeoIdFromGeoCode(decoder.get("SHIPTOCOUNTRYCODE"), delegator));
         if (!newParty) {
             // We want an exact match only
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
@@ -997,6 +999,30 @@ public class PayPalServices {
             Debug.logError(e, module);
         }
         return geoId;
+    }
+
+    private static String parseStateProvinceGeoId(String payPalShipToState, String countryGeoId, GenericDelegator delegator) {
+        String lookupField = "geoName";
+        List<EntityCondition> conditionList = FastList.newInstance();
+        conditionList.add(EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"));
+        if ("USA".equals(countryGeoId) || "CAN".equals(countryGeoId)) {
+            // PayPal returns two letter code for US and Canadian States/Provinces
+            String geoTypeId = "USA".equals(countryGeoId) ? "STATE" : "PROVINCE";
+            conditionList.add(EntityCondition.makeCondition("geoTypeId", geoTypeId));
+            lookupField = "geoCode";
+        }
+        conditionList.add(EntityCondition.makeCondition(lookupField, payPalShipToState));
+        EntityCondition cond = EntityCondition.makeCondition(conditionList);
+        GenericValue geoAssocAndGeoTo = null;
+        try {
+            geoAssocAndGeoTo = EntityUtil.getFirst(delegator.findList("GeoAssocAndGeoTo", cond, null, null, null, true));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (geoAssocAndGeoTo != null) {
+            return geoAssocAndGeoTo.getString("geoId");
+        }
+        return null;
     }
 
     public static class TokenWrapper implements Serializable {
