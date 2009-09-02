@@ -895,6 +895,7 @@ in contained elements. */
     background: url("/bluelight/bar1.gif") repeat-x;
     margin-left: 15px;
     padding-top: 1em;
+    display: inline; /* IE Fix */
 }
 
 .tabbar .breadcrumbs-sep {
