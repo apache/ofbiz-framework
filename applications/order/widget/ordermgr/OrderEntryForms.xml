@@ -39,8 +39,6 @@ under the License.
                 <!--<field-map field-name="orderByList" from-field="resultConditions.orderByList"/>-->
                 <field-map field-name="requirementConditions" from-field="resultConditions.entityConditionList"/>
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="requirementId"><display/></field>
