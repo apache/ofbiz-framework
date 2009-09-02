@@ -24,6 +24,7 @@ under the License.
     <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
       <input type="hidden" name="VIEW_SIZE" value="25"/>
       <input type="hidden" name="PAGING" value="Y"/>
+      <input type="hidden" name="noConditionFind" value="Y"/>
       <table cellspacing="0" class="basic-table">
         <#if searchCategory?has_content>
             <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
@@ -77,6 +78,26 @@ under the License.
               </td>
             </tr>
         </#if>
+        <tr>
+          <td class="label" align="right" valign="top">
+            ${uiLabelMap.ProductProductName}:
+          </td>
+          <td valign="middle">
+            <div>
+              <input type="text" name="SEARCH_PRODUCT_NAME" size="20" value="${requestParameters.SEARCH_PRODUCT_NAME?if_exists}"/>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="label" align="right" valign="top">
+            ${uiLabelMap.ProductInternalName}:
+          </td>
+          <td valign="middle">
+            <div>
+              <input type="text" name="SEARCH_INTERNAL_PROD_NAME" size="20" value="${requestParameters.SEARCH_INTERNAL_PROD_NAME?if_exists}"/>
+            </div>
+          </td>
+        </tr>
         <tr>
           <td class="label" align="right" valign="top">
             ${uiLabelMap.ProductKeywords}:

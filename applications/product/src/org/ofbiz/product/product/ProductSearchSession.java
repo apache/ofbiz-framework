@@ -42,6 +42,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -87,7 +88,9 @@ public class ProductSearchSession {
         /** Basic copy constructor */
         public ProductSearchOptions(ProductSearchOptions productSearchOptions) {
             this.constraintList = FastList.newInstance();
-            this.constraintList.addAll(productSearchOptions.constraintList);
+            if (UtilValidate.isNotEmpty(productSearchOptions.constraintList)) {
+                this.constraintList.addAll(productSearchOptions.constraintList);
+            }
             this.topProductCategoryId = productSearchOptions.topProductCategoryId;
             this.resultSortOrder = productSearchOptions.resultSortOrder;
             this.viewIndex = productSearchOptions.viewIndex;
@@ -593,6 +596,20 @@ public class ProductSearchSession {
             constraintsChanged = true;
         }
 
+        // if productName were specified, add a constraint for them
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_PRODUCT_NAME"))) {
+            String productName = (String) parameters.get("SEARCH_PRODUCT_NAME");
+            searchAddConstraint(new ProductSearch.ProductFieldConstraint(productName, "productName"), session);
+            constraintsChanged = true;
+        }
+
+        // if internalName were specified, add a constraint for them
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_INTERNAL_PROD_NAME"))) {
+            String internalName = (String) parameters.get("SEARCH_INTERNAL_PROD_NAME");
+            searchAddConstraint(new ProductSearch.ProductFieldConstraint(internalName, "internalName"), session);
+            constraintsChanged = true;
+        }
+
         for (int kwNum = 1; kwNum < 10; kwNum++) {
             if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING" + kwNum))) {
                 String keywordString = (String) parameters.get("SEARCH_STRING" + kwNum);
@@ -862,8 +879,13 @@ public class ProductSearchSession {
         List<String> productIds = FastList.newInstance();
         String visitId = VisitHandler.getVisitId(session);
         List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
-        // if no constraints, don't do a search...
-        if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
+        Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
+        String noConditionFind = (String) requestParams.get("noConditionFind");
+        if (UtilValidate.isEmpty(noConditionFind)) {
+            noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind"); 
+        }
+        // if noConditionFind to Y then find without conditions otherwise search according to constraints.
+        if ("Y".equals(noConditionFind) || UtilValidate.isNotEmpty(productSearchConstraintList)) {
             // if the search options have changed since the last search, put at the beginning of the options history list
             checkSaveSearchOptionsHistory(session);
 
@@ -914,7 +936,9 @@ public class ProductSearchSession {
             ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
 
             ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
-            productSearchContext.addProductSearchConstraints(productSearchConstraintList);
+            if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
+                productSearchContext.addProductSearchConstraints(productSearchConstraintList);
+            }
             productSearchContext.setResultSortOrder(resultSortOrder);
             productSearchContext.setResultOffset(resultOffset);
             productSearchContext.setMaxResults(maxResults);
@@ -951,6 +975,7 @@ public class ProductSearchSession {
         result.put("previousViewSize", previousViewSize);
         result.put("searchConstraintStrings", searchConstraintStrings);
         result.put("searchSortOrderString", searchSortOrderString);
+        result.put("noConditionFind", noConditionFind);
 
         return result;
     }
@@ -962,6 +987,9 @@ public class ProductSearchSession {
         StringBuilder searchParamString = new StringBuilder();
 
         List<ProductSearchConstraint> constraintList = productSearchOptions.getConstraintList();
+        if (UtilValidate.isEmpty(constraintList)) {
+            constraintList = new ArrayList<ProductSearchConstraint>();
+        }
         int categoriesCount = 0;
         int featuresCount = 0;
         int featureCategoriesCount = 0;
