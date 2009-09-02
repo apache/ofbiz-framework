@@ -73,18 +73,18 @@ under the License.
           <td align="right">
             <b>
             <#if 0 < viewIndex?int>
-              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if 0 < listSize?int>
               ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             </#if>
             <#if highIndex?int < listSize?int>
-              | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+              | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
             </#if>
             <#if paging == "Y">
-              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
+              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
             <#else>
-              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=${previousViewSize}/~clearSearch=N/~PAGING=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOn}</a>
+              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=${previousViewSize}/~clearSearch=N/~PAGING=Y/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOn}</a>
             </#if>
             </b>
           </td>
@@ -120,18 +120,18 @@ under the License.
           <td align="right">
             <b>
             <#if 0 < viewIndex?int>
-              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if 0 < listSize?int>
               ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             </#if>
             <#if highIndex?int < listSize?int>
-              | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+              | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
             </#if>
             <#if paging == "Y">
-              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
+              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
             <#else>
-              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=${previousViewSize}/~clearSearch=N/~PAGING=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOn}</a>
+              <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=${previousViewSize}/~clearSearch=N/~PAGING=Y/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOn}</a>
             </#if>
             </b>
           </td>

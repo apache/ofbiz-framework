@@ -1866,6 +1866,49 @@ public class ProductSearch {
         }
     }
 
+    public static class ProductFieldConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "ProductField";
+        protected String keyword;
+        protected String productFieldName;
+
+        public ProductFieldConstraint(String keyword, String productFieldName) {
+            this.keyword = keyword;
+            this.productFieldName = productFieldName;
+        }
+
+        @Override
+        public void addConstraint(ProductSearchContext productSearchContext) {
+            productSearchContext.dynamicViewEntity.addAlias("PROD", productFieldName, null, null, null, null, null);
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(productFieldName ,EntityOperator.LIKE, keyword + "%"));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.keyword)));
+        }
+
+        @Override
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            return UtilProperties.getMessage(resource, "ProductKeywords", locale);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof ProductFieldConstraint) {
+                ProductFieldConstraint that = (ProductFieldConstraint) psc;
+                if (this.keyword == null) {
+                    if (that.keyword != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.keyword.equals(that.keyword)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     // ======================================================================
     // Result Sort Classes
     // ======================================================================

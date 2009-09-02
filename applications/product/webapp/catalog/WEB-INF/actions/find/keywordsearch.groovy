@@ -38,6 +38,7 @@ productCategories = delegator.findList("ProductCategory", expr, null, ['descript
 context.applicationTypes = applicationTypes;
 context.productCategories = productCategories;
 
+context.noConditionFind = result.noConditionFind;
 context.productIds = result.productIds;
 context.viewIndex = result.viewIndex;
 context.viewSize = result.viewSize;
