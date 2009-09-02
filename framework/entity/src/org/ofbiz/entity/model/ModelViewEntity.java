@@ -1229,7 +1229,7 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             // If IN or BETWEEN operator, see if value is a literal list and split it
-            if ((operator == EntityOperator.IN || operator == EntityOperator.BETWEEN)
+            if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
                     && value instanceof String) {
                 String delim = null;
                 if (((String)value).indexOf("|") >= 0) {
@@ -1247,7 +1247,7 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
-            if (!((operator == EntityOperator.IN || operator == EntityOperator.BETWEEN)
+            if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
                     && value instanceof Collection)) {
                 // now to a type conversion for the target fieldName
                 value = this.viewEntityCondition.modelViewEntity.convertFieldValue(this.viewEntityCondition.modelViewEntity.getField(fieldName), value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
@@ -1263,7 +1263,7 @@ public class ModelViewEntity extends ModelEntity {
                 rhs = EntityFieldValue.makeFieldValue(this.relFieldName, this.relEntityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             }
             
-            if (operator == EntityOperator.NOT_EQUAL && value != null) {
+            if (operator.equals(EntityOperator.NOT_EQUAL) && value != null) {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
