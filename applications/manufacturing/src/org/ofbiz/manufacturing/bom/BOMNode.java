@@ -775,7 +775,9 @@ public class BOMNode {
      *
      */
     public void setQuantityMultiplier(BigDecimal quantityMultiplier) {
-        this.quantityMultiplier = quantityMultiplier;
+        if (quantityMultiplier != null) {
+            this.quantityMultiplier = quantityMultiplier;
+        }
     }
 
     /** Getter for property ruleApplied.
@@ -807,7 +809,9 @@ public class BOMNode {
      *
      */
     public void setScrapFactor(BigDecimal scrapFactor) {
-        this.scrapFactor = scrapFactor;
+        if (scrapFactor != null) {
+            this.scrapFactor = scrapFactor;
+        }
     }
 
     /** Getter for property childrenNodes.
