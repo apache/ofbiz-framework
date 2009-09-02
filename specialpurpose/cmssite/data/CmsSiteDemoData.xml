@@ -177,5 +177,6 @@ under the License.
     <Content contentId="PUBLIC_DOCS" contentTypeId="DOCUMENT" contentName="OFBIz public documents" dataResourceId="PUBLIC_DOCS"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
-
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
+    
 </entity-engine-xml>
