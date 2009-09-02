@@ -74,3 +74,25 @@ your template file:
     <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
+
+<#macro fieldErrors fieldName>
+  <#if errorMessageList?has_content>
+    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName, true, errorMessageList)>
+    <ul>
+      <#list fieldMessages as errorMsg>
+        <li class="errorMessage">${errorMsg}</li>
+      </#list>
+    </ul>
+  </#if>
+</#macro>
+
+<#macro fieldErrorsMulti fieldName1 fieldName2 fieldName3 fieldName4>
+  <#if errorMessageList?has_content>
+    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
+    <ul>
+      <#list fieldMessages as errorMsg>
+        <li class="errorMessage">${errorMsg}</li>
+      </#list>
+    </ul>
+  </#if>
+</#macro>
