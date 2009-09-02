@@ -528,8 +528,6 @@ under the License.
                 <field-map field-name="partyId" from-field="lookupPartyId"/>
                 <field-map field-name="compareDate" from-field="custRequest.custRequestDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="custRequestId"><hidden/></field>
