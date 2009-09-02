@@ -83,4 +83,22 @@
         </section>
     </screen>
 
+    <screen name="publicDocs">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link style="h2" text="The Apache OFBiz document HTML version" target="/cmssite/cms/APACHE_OFBIZ_HTML" target-window="_BLANK" url-mode="plain"></link>
+                        </container>
+                        <container>
+                            <link style="h2" text="The Apache OFBiz document PDF version" target="/cmssite/cms/APACHE_OFBIZ_PDF" target-window="_BLANK" url-mode="plain"></link>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    
 </screens>
