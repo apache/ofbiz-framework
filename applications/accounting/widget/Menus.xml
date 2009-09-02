@@ -355,11 +355,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="payment.paymentId"/></not>
-                    <or>
-                        <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
-                        <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
-                        <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
-                    </or>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
             </condition>
             <link target="editPayment">
