@@ -129,6 +129,10 @@ under the License.
                     <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]"/>
+                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]"/>
+                <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]"/>
+                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]"/>
                 <property-map resource="CommonHelpUrls" map-name="helpUrlsMap" global="true"/>
             </actions>
             <widgets>
