@@ -53,8 +53,12 @@ under the License.
                         </form>
                     </td>
                     <td align="center">
-                        <a href="<@ofbizUrl>promo_deleteProductStorePromoAppl?productStoreId=${(productStorePromoAppl.productStoreId)?if_exists}&productPromoId=${(productStorePromoAppl.productPromoId)?if_exists}&fromDate=${productStorePromoAppl.getTimestamp("fromDate").toString()}</@ofbizUrl>" class="buttontext">
-                        ${uiLabelMap.CommonDelete}</a>
+                       <form method="post" action="<@ofbizUrl>promo_deleteProductStorePromoAppl</@ofbizUrl>">
+                           <input type="hidden" name="productStoreId" value="${productStorePromoAppl.productStoreId}">
+                           <input type="hidden" name="productPromoId" value="${productStorePromoAppl.productPromoId}">
+                           <input type="hidden" name="fromDate" value="${productStorePromoAppl.fromDate}">
+                           <input type="submit" value="${uiLabelMap.CommonDelete}">
+                       </form>
                     </td>
                 </tr>
                 <#-- toggle the row color -->
