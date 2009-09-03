@@ -270,7 +270,8 @@ public class RequirementServices {
                 GenericValue product = item.getRelatedOne("Product");
                 if (product == null) continue;
                 
-                if (!"PRODRQM_ATP".equals(product.get("requirementMethodEnumId")) && !"PRODRQM_ATP".equals(productStore.get("requirementMethodEnumId"))) continue;
+                if (!("PRODRQM_ATP".equals(product.get("requirementMethodEnumId")) || 
+                        ("PRODRQM_ATP".equals(productStore.get("requirementMethodEnumId")) && product.get("requirementMethodEnumId") == null))) continue;
 
                 BigDecimal quantity = item.getBigDecimal("quantity");
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
