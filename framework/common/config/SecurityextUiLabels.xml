@@ -159,7 +159,7 @@
         <value xml:lang="zh">密码是空的，请重新输入。</value>
     </property>
     <property key="loginevents.password_was_changed_with_success">
-        <value xml:lang="en">Your password has been changed with success</value>
+        <value xml:lang="en">Your password has been changed successfully</value>
         <value xml:lang="fr">Votre mot de passe a été changé avec succès</value>
     </property>
     <property key="loginevents.problems_with_configuration_contact_customer_service">
