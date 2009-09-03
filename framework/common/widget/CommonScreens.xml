@@ -129,11 +129,6 @@ under the License.
                     <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
-                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/header.ftl"/>
-                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/footer.ftl"/>
-                <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/appbar.ftl"/>
-                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
-
                 <property-map resource="CommonHelpUrls" map-name="helpUrlsMap" global="true"/>
             </actions>
             <widgets>
@@ -209,7 +204,7 @@ under the License.
                     <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
                 </service>
                 <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
-                
+
                 <property-map resource="general" map-name="generalProperties" global="true"/>
                 <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
