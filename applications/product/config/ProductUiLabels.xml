@@ -7146,7 +7146,7 @@
     <property key="ProductAddToCompareListSuccess">
         <value xml:lang="de">${name} wurde erfolgreich zum Produktvergleich hinzugefügt</value>
         <value xml:lang="en">Product ${name} successfully added to compare list</value>
-        <value xml:lang="fr">Succès d'ajouter ${name} à la liste de produits à comparer</value>
+        <value xml:lang="fr">${name} à été ajouté à la liste de produits à comparer</value>
     </property>
     <property key="ProductAddToPackage">
         <value xml:lang="de">Zu Paket hinzufügen</value>
