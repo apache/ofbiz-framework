@@ -822,7 +822,7 @@
     </property>
     <property key="PageTitleCreateWeekTimesheet">
         <value xml:lang="en">Create Timesheet for This Week</value>
-        <value xml:lang="fr">Créer la feuille d'activité pour cette semaine</value>
+        <value xml:lang="fr">Créer une feuille d'activité pour cette semaine</value>
         <value xml:lang="it">Creare Timbratura per Questa Settimana</value>
         <value xml:lang="nl">Create Timesheet for This Week</value>
         <value xml:lang="ro">Creare Pontaj pentru Saptamana Curenta</value>
@@ -1665,7 +1665,7 @@
     <property key="WorkEffortCreate">
         <value xml:lang="en">Create Work Effort</value>
         <value xml:lang="es">Crear esfuerzo de trabajo</value>
-        <value xml:lang="fr">Créer la tâche</value>
+        <value xml:lang="fr">Créer une tâche</value>
         <value xml:lang="it">Creato Impegno di Lavoro</value>
         <value xml:lang="nl">Nieuw actie</value>
         <value xml:lang="ro">Creat Sarcina de Lucru</value>
@@ -3360,7 +3360,7 @@
     <property key="WorkEffortTimesheetCreate">
         <value xml:lang="en">Create Timesheet</value>
         <value xml:lang="es">Crear hoja de tiempos</value>
-        <value xml:lang="fr">Créer la feuille d'activité</value>
+        <value xml:lang="fr">Créer une feuille d'activité</value>
         <value xml:lang="it">Creare timbratura</value>
         <value xml:lang="nl">Nieuw tijdschema</value>
         <value xml:lang="ro">Creare Pontaj</value>

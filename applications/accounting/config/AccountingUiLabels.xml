@@ -2305,7 +2305,7 @@
     <property key="AccountingCreatePaymentAcctgTrans">
         <value xml:lang="de">Zahlungs-Kontenbuchung erstellen</value>
         <value xml:lang="en">Create Payment Accounting Transaction</value>
-        <value xml:lang="fr">Créer la transaction de paiement</value>
+        <value xml:lang="fr">Créer une transaction de paiement</value>
         <value xml:lang="hi_IN">भुगतान लेखा गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
         <value xml:lang="nl">Maak transactie voor betaalrekening aan</value>
@@ -2347,7 +2347,7 @@
     <property key="AccountingCreateSalesAcctgTrans">
         <value xml:lang="de">Verkaufs-Kontenbuchung erstellen</value>
         <value xml:lang="en">Create Sales Accounting Transaction</value>
-        <value xml:lang="fr">Créer la transaction de vente</value>
+        <value xml:lang="fr">Créer une transaction de vente</value>
         <value xml:lang="hi_IN">बिक्री लेखा गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
         <value xml:lang="nl">Maak transatie voor verkoopadministratie</value>
