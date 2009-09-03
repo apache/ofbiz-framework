@@ -573,11 +573,11 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updatePassword(DispatchContext ctx, Map<String, ?> context) {
-        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "loginevents.password_was_changed_with_success", locale));
 
         // load the external auth modules -- note: this will only run once and cache the objects
         if (!AuthHelper.authenticatorsLoaded()) {
@@ -641,7 +641,7 @@ public class LoginServices {
                     errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_userlogin_with_id_not_exist", messageMap, locale);
                     return ServiceUtil.returnError(errMsg);
                 }
-                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                //result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
                 result.put("updatedUserLogin", userLoginToUpdate);
                 return result;
             } else {
@@ -693,7 +693,7 @@ public class LoginServices {
             }
         }
 
-        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        //result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         result.put("updatedUserLogin", userLoginToUpdate);
         return result;
     }
