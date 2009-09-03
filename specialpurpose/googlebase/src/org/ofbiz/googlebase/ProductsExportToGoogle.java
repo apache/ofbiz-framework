@@ -349,12 +349,11 @@ public class ProductsExportToGoogle {
 
             Document feedDocument = UtilXml.makeEmptyXmlDocument("feed");
             Element feedElem = feedDocument.getDocumentElement();
-            feedElem.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
-            feedElem.setAttribute("xmlns:openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
-            feedElem.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");
-            feedElem.setAttribute("xmlns:gm", "http://base.google.com/ns-metadata/1.0");
-            feedElem.setAttribute("xmlns:batch", "http://schemas.google.com/gdata/batch");
-            feedElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
+            feedElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "http://www.w3.org/2005/Atom");
+            feedElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:gm", googleBaseMetadataUrl);
+            feedElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:g", googleBaseNSUrl);
+            feedElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:batch", googleBaseBatchUrl);
+            feedElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:app", googleBaseAppUrl);
 
             // Iterate the product list getting all the relevant data
             Iterator productsListItr = productsList.iterator();
@@ -369,8 +368,8 @@ public class ProductsExportToGoogle {
                     Debug.logInfo("Price not found for product [" + prod.getString("productId")+ "]; product will not be exported.", module);
                     continue;
                 }
-                // TODO: improve this (i.e. get the relative path from the properies file)
-                String link = webSiteUrl + "/"+webSiteMountPoint+"/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
+                // TODO: improve this (i.e. get the relative path from the properties file)
+                String link = webSiteUrl + "/" + webSiteMountPoint + "/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
                 String title = UtilFormatOut.encodeXmlValue(prod.getString("productName"));
                 if (UtilValidate.isEmpty(title)) {
                     title = UtilFormatOut.encodeXmlValue(prod.getString("internalName"));
@@ -501,7 +500,7 @@ public class ProductsExportToGoogle {
                 }
                 index++;
             }
-            //Debug.logInfo("The value of generated String is ======== " + UtilXml.writeXmlDocument(feedDocument), module);
+            //Debug.logInfo("The value of generated String is ========\n" + UtilXml.writeXmlDocument(feedDocument), module);
             dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
         } catch (IOException e) {
             return ServiceUtil.returnError("IO Error creating XML document for Google :" + e.getMessage());
