@@ -43,6 +43,18 @@
                 <listitem><para>The content can be easily presented in the selected visual schemas (To be implemented)</para></listitem>
             </orderedlist>
         </para>
+        <para>
+        	If you want to contribute to this document, you are very welcome.
+        	Several possibilities exist:
+            <orderedlist>
+                <listitem><para>Convert existing OFBiz documents on the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site to the <link xl:href="http://docbook.org">docbook</link> format</link></para></listitem>
+                <listitem><para>Write new document chapters for an OFBiz component</para></listitem>
+                <listitem><para>Write new Help screens which can be inserted as sections in the document.</para></listitem>
+            </orderedlist>
+			How to contribute? It depends if you have a local OFBiz system or not. If you have, check the appendix for an explanation how the document text is stored within the OFBiz system.
+			If you do not have a local OFBiz system write your text in an xml editor using the DocBook V5.0 schema's.
+			If you have text to contribute create a Jira issue and upload your text to the issue.			
+        </para>
     </preface>
     
     <chapter>
@@ -53,5 +65,30 @@
     </chapter>
     <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
     <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
+    
+	<anchor/>
+    <appendix>
+    	<title>The Apache OFBiz documentation system</title>
+    	<para>
+    		The OFBiz documentation system consist out of a number of DocBook xml files. In general the files are stored within the subject component either in the 'documents' or data/helpdata directories.
+    		The 'master' document is stored in the file applications/commonext/documents/ApacheOfbiz.xml. The docbook schemas are stored in the applications/content/dtd directory and the stylesheets are 
+    		stored in the applications/content/templates/docbook directory.  
+    	</para>
+    	<para>
+    		the definition of the content and dataresource records can be found in the application/content/data/ContentType.xml file at the bottom. The are in this file because the documentation and helpfile 
+    		are considered 'seed' data: essential for the operation of OFBiz.
+    	</para>
+    	<para>
+    		If you are looking for docbook files format examples, please look at the following files:
+            <orderedlist>
+                <listitem><para>The master document at: applications/commonext/documents/ApacheOfbiz.xml</para></listitem>
+                <listitem><para>An example for a chapter of a component at: applications/accounting/documents/Accounting.xml</para></listitem>
+                <listitem><para>An example of a help screen: applications/accounting/data/helpdata/HELP_ACCOUNTING.xml</para>
+                	<note><para>Please note that we are currently creating the ftl files to show these help file properly</para></note>
+                </listitem>
+            </orderedlist>
+    		
+    	</para>
+    </appendix>
     
 </book>
