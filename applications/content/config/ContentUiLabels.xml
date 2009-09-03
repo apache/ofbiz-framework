@@ -1289,7 +1289,7 @@
         <value xml:lang="ar">إضافة فئة سؤال</value>
         <value xml:lang="de">Fragenkategorie erstellen</value>
         <value xml:lang="en">Create Question Category</value>
-        <value xml:lang="fr">Créer la catégorie question</value>
+        <value xml:lang="fr">Créer une catégorie de question</value>
         <value xml:lang="it">Creare categoria domanda</value>
         <value xml:lang="ro">Creare Categorie Intrebare</value>
         <value xml:lang="th">สร้างคำถามหมวดหมู่คำถาม</value>
@@ -1299,7 +1299,7 @@
         <value xml:lang="ar">إضافة زيادة سؤال</value>
         <value xml:lang="de">Frage Wahlmöglichkeit erstellen</value>
         <value xml:lang="en">Create Question Option</value>
-        <value xml:lang="fr">Créer la question option</value>
+        <value xml:lang="fr">Créer une question</value>
         <value xml:lang="it">Creare opzione domanda</value>
         <value xml:lang="ro">Creare Optiune Intrebare</value>
         <value xml:lang="th">สร้างทางเลือกคำถาม</value>
@@ -1310,7 +1310,7 @@
         <value xml:lang="de">Befragung Anwort erstellen</value>
         <value xml:lang="en">Create Survey Response</value>
         <value xml:lang="es">Crear respuesta</value>
-        <value xml:lang="fr">Créer la réponse de sondage</value>
+        <value xml:lang="fr">Créer une réponse</value>
         <value xml:lang="it">Creare risposta sondaggio</value>
         <value xml:lang="ro">Creare Raspuns Sondaj</value>
         <value xml:lang="th">สร้างคำตอบ</value>
@@ -1320,7 +1320,7 @@
         <value xml:lang="ar">تحرير زيادة سؤال</value>
         <value xml:lang="de">Frage Wahlmöglichkeit bearbeiten</value>
         <value xml:lang="en">Edit Question Option</value>
-        <value xml:lang="fr">Modifier la question option</value>
+        <value xml:lang="fr">Modifier la question</value>
         <value xml:lang="it">Aggiorna opzione domanda</value>
         <value xml:lang="ro">Actualizeaza Optiune Intrebare</value>
         <value xml:lang="th">แก้ไขลักษณะคำถาม</value>
