@@ -94,7 +94,7 @@ expanded"><a <#if javaScriptEnabled>onclick="javascript:toggleScreenlet(this, '$
 >&nbsp</a></li>
 </#if>
 <#if !collapsed>
-${menuString}
+${menuString?replace("µµ","\"")}
 </#if>
 </ul><br class="clear" /></div><div <#if collapsibleAreaId?has_content> id="${collapsibleAreaId}" <#if collapsed> style="display: none;"</#if></#if><#if padded> class="screenlet-body"</#if>>
 </#if>
