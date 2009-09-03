@@ -7139,10 +7139,14 @@
         <value xml:lang="zh">添加到分类</value>
     </property>
     <property key="ProductAddToCompare">
+        <value xml:lang="de">Vergleichen</value>
         <value xml:lang="en">Add To Compare</value>
+        <value xml:lang="fr">Comparer</value>
     </property>
     <property key="ProductAddToCompareListSuccess">
+        <value xml:lang="de">${name} wurde erfolgreich zum Produktvergleich hinzugefügt</value>
         <value xml:lang="en">Product ${name} successfully added to compare list</value>
+        <value xml:lang="fr">Succès d'ajouter ${name} à la liste de produits à comparer</value>
     </property>
     <property key="ProductAddToPackage">
         <value xml:lang="de">Zu Paket hinzufügen</value>
