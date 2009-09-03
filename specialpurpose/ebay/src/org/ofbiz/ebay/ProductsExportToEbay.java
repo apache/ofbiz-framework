@@ -229,7 +229,7 @@ public class ProductsExportToEbay {
 
                     ProductContentWrapper pcw = new ProductContentWrapper(dctx.getDispatcher(), prod, locale, "text/html");
                     StringUtil.StringWrapper ebayDescription = pcw.get("EBAY_DESCRIPTION");
-                    if (UtilValidate.isNotEmpty(ebayDescription)) {
+                    if (UtilValidate.isNotEmpty(ebayDescription.toString())) {
                         UtilXml.addChildElementCDATAValue(itemElem, "Description", ebayDescription.toString(), itemDocument);
                     } else {
                         UtilXml.addChildElementValue(itemElem, "Description", encoder.encode(prod.getString("productName")), itemDocument);
