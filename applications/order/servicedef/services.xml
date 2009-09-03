@@ -115,7 +115,7 @@ under the License.
         <attribute name="salesChannelEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemGroups" type="List" mode="IN" optional="true"/>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
-        <attribute name="orderTerms" type="List" mode="IN" optional="false"/>
+        <attribute name="orderTerms" type="List" mode="IN" optional="true"/>
         <!-- workeffort contains the rental start/enddate, nbr of persons. WorkEfforts is mandatory for ordertype = RENTAL_ORDER_ITEM-->
         <attribute name="workEfforts" type="List" mode="IN" optional="true"/>
         <attribute name="orderAdjustments" type="List" mode="IN" optional="false"/>
