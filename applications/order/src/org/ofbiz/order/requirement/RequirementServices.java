@@ -276,10 +276,12 @@ public class RequirementServices {
                 BigDecimal ordered = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
                 if (ordered.compareTo(BigDecimal.ZERO) <= 0) continue;
 
-                // get the minimum stock for this facility (don't do anything if not configured)
+                // get the minimum stock for this facility (if not configured assume a minimum of zero, ie create requirements when it goes into backorder)
                 GenericValue productFacility = delegator.findByPrimaryKey("ProductFacility", UtilMisc.toMap("facilityId", facilityId, "productId", product.get("productId")));
-                if (productFacility == null || productFacility.get("minimumStock") == null) continue;
-                BigDecimal minimumStock = productFacility.getBigDecimal("minimumStock");
+                BigDecimal minimumStock = BigDecimal.ZERO;
+                if (productFacility != null && productFacility.get("minimumStock") != null) {
+                    minimumStock = productFacility.getBigDecimal("minimumStock");
+                }
 
                 // get the facility ATP for product, which should be updated for this item's reservation
                 Map results = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("userLogin", userLogin, "productId", product.get("productId"), "facilityId", facilityId));
