@@ -10455,5 +10455,15 @@
     <property key="OrderShipToCountry">
         <value xml:lang="en">Ship to Country</value>
     </property>
+    <property key="SizeAvailableSingle">
+        <value xml:lang="de">Größe</value>
+        <value xml:lang="en">Size</value>
+        <value xml:lang="fr">Taille</value>
+    </property>
+    <property key="SizeAvailableMultiple">
+        <value xml:lang="de">Verfügbare Größen</value>
+        <value xml:lang="en">Sizes Available</value>
+        <value xml:lang="fr">Tailles Disponibles</value>
+    </property>
 
 </resource>
