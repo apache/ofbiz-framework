@@ -318,6 +318,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createRequirementFromItemATP" short-description="Create a Requirement for an item based on ATP inventory quantity and minimum">
+        <!-- NOTE DEJ20090902: this service is not called anywhere, instead the createATPRequirementsForOrder service (written in Java) is called; why this is the case I don't know... -->
         <check-permission permission="ORDERMGR" action="_CREATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateRequirementFromItemATP"/>
         </check-permission>
