@@ -299,7 +299,7 @@ ${virtualJavaScript?if_exists}
         <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage"/>
       </#if>
     </td>
-    <td> 
+    <td>
       <#if productAdditionalImage1?string?has_content>
         <div class="additionalImage">
           <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200"/></a>
@@ -626,7 +626,7 @@ ${virtualJavaScript?if_exists}
     <div id="download-files">
       <div>${uiLabelMap.OrderDownloadFilesTitle}:</div>
       <#list downloadProductContentAndInfoList as downloadProductContentAndInfo>
-        <div>${downloadProductContentAndInfo.contentName}<#if downloadProductContentAndInfo.description?has_content> - ${downloadProductContentAndInfo.description}</#if></div>
+        <div>${downloadProductContentAndInfo.contentName?if_exists}<#if downloadProductContentAndInfo.description?has_content> - ${downloadProductContentAndInfo.description}</#if></div>
       </#list>
     </div>
   </#if>
