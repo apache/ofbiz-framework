@@ -575,6 +575,7 @@
     </property>
     <property key="ContentDataResourceUpload">
         <value xml:lang="en">Upload</value>
+        <value xml:lang="fr">Télécharger vers le serveur</value>
     </property>
     <property key="ContentDataSetup">
         <value xml:lang="ar">إعداد مورد المعلومات</value>
@@ -616,6 +617,7 @@
     </property>
     <property key="ContentDownload">
         <value xml:lang="en">Download</value>
+        <value xml:lang="fr">Télécharger</value>
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
