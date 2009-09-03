@@ -2565,6 +2565,9 @@
         <value xml:lang="it">Spiacente, al momento non disponiamo in magazzino di ${requestedQuantity} pezzi del prodotto ${productName} (product ID: ${productId}), questi non saranno aggiunti al carrello. Puoi provare a richiedere una quantità minore, a riprovare più tardi, o contattare il servizio assistenza clienti.</value>
         <value xml:lang="zh">对不起，我们没有足够的库存(你要求${requestedQuantity})产品${productName} (产品标识：${productId})，所以没有添加到购物车。请用小一些的数量试一试，稍后再试，或打客户服务电话获取更多信息。</value>
     </property>
+    <property key="OrderDoNotInclude">
+        <value xml:lang="en">Do Not Include</value>
+    </property>
     <property key="OrderDoPromotions">
         <value xml:lang="de">Aktionen anwenden</value>
         <value xml:lang="en">Run Promotions</value>
@@ -4657,6 +4660,9 @@
     </property>
     <property key="OrderOnlineUPSShippingEstimates">
         <value xml:lang="en">Online UPS Shipping estimates based on weight and dimensions of packages</value>
+    </property>
+    <property key="OrderOnlyInclude">
+        <value xml:lang="en">Only Include</value>
     </property>
     <property key="OrderOnOrder">
         <value xml:lang="de">Auf Auftrag</value>
@@ -8730,6 +8736,9 @@
         <value xml:lang="zh">送货给另一个会员</value>
         <value xml:lang="zh_CN">发货给另一客户</value>
     </property>
+    <property key="OrderShipToCountry">
+        <value xml:lang="en">Ship to Country</value>
+    </property>
     <property key="OrderShipToParty">
         <value xml:lang="de">Versand an Akteur</value>
         <value xml:lang="en">Ship to Party</value>
@@ -8917,6 +8926,16 @@
         <value xml:lang="th">แสดงหัวข้อของข้อความนี้</value>
         <value xml:lang="zh">显示这个明细的便笺</value>
         <value xml:lang="zh_CN">显示此条款注释</value>
+    </property>
+    <property key="OrderSizeAvailableSingle">
+        <value xml:lang="de">Größe</value>
+        <value xml:lang="en">Size</value>
+        <value xml:lang="fr">Taille</value>
+    </property>
+    <property key="OrderSizeAvailableMultiple">
+        <value xml:lang="de">Verfügbare Größen</value>
+        <value xml:lang="en">Sizes Available</value>
+        <value xml:lang="fr">Tailles Disponibles</value>
     </property>
     <property key="OrderSkidsPallets">
         <value xml:lang="de">Pallette</value>
@@ -10425,45 +10444,4 @@
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
     </property>
-    <property key="ProjectMgrActualHours">
-        <value xml:lang="en">Actual Hours</value>
-        <value xml:lang="fr">Heures réelles</value>
-        <value xml:lang="it">Ore attuali</value>
-        <value xml:lang="th">ชั่วโมงจริง</value>
-        <value xml:lang="zh">实际工时</value>
-    </property>
-    <property key="ProjectMgrPlannedHours">
-        <value xml:lang="en">Planned Hours</value>
-        <value xml:lang="fr">Heures planifiées</value>
-        <value xml:lang="it">Ore pianificate</value>
-        <value xml:lang="th">ชั่วโมงที่วางแผน</value>
-        <value xml:lang="zh">已计划工时</value>
-    </property>
-    <property key="ProjectMgrProjectName">
-        <value xml:lang="en">Project Name</value>
-        <value xml:lang="fr">Nom du projet</value>
-        <value xml:lang="it">Nome progetto</value>
-        <value xml:lang="th">ชื่อโปรเจค</value>
-        <value xml:lang="zh">项目名称</value>
-    </property>
-    <property key="OrderOnlyInclude">
-        <value xml:lang="en">Only Include</value>
-    </property>
-    <property key="OrderDoNotInclude">
-        <value xml:lang="en">Do Not Include</value>
-    </property>
-    <property key="OrderShipToCountry">
-        <value xml:lang="en">Ship to Country</value>
-    </property>
-    <property key="SizeAvailableSingle">
-        <value xml:lang="de">Größe</value>
-        <value xml:lang="en">Size</value>
-        <value xml:lang="fr">Taille</value>
-    </property>
-    <property key="SizeAvailableMultiple">
-        <value xml:lang="de">Verfügbare Größen</value>
-        <value xml:lang="en">Sizes Available</value>
-        <value xml:lang="fr">Tailles Disponibles</value>
-    </property>
-
 </resource>
