@@ -103,9 +103,9 @@ under the License.
           <#if sizeProductFeatureAndAppls?has_content>
             <div>
               <#if (sizeProductFeatureAndAppls?size == 1)>
-                Size:
+                ${uiLabelMap.SizeAvailableSingle}:
               <#else>
-                Sizes Available:
+                ${uiLabelMap.SizeAvailableMultiple}:
               </#if>
               <#list sizeProductFeatureAndAppls as sizeProductFeatureAndAppl>
                 ${sizeProductFeatureAndAppl.abbrev?default(sizeProductFeatureAndAppl.description?default(sizeProductFeatureAndAppl.productFeatureId))}<#if sizeProductFeatureAndAppl_has_next>,</#if>
