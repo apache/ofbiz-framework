@@ -17,11 +17,15 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns="http://docbook.org/ns/docbook"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd">
-    <para>
-          The help screen text
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="5.0" 
+	xmlns:xl="http://www.w3.org/1999/xlink" 
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+	xmlns="http://docbook.org/ns/docbook">
+	<title>The help screen paragraph</title>
+	<para>
+		The help screen text for more information please see the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link>
     </para>
 </section>
 
