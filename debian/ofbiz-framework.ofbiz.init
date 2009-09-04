@@ -243,7 +243,7 @@ start() {
 			$MEMIF \
 			$CLASS
 	)
-	wait_for_status 40 "Running" "start"
+	wait_for_status 120 "Running" "start"
 }
 
 stop() {
