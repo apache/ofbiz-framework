@@ -4500,6 +4500,10 @@
         <value xml:lang="th">Custom method name for UoM conversion not found</value>
         <value xml:lang="zh">没有找到用于货币转换的定制方法名称</value>
     </property>
+    <property key="CommonNoDetailImageAvailableToDisplay">
+        <value xml:lang="en">No detail image available to display.</value>
+        <value xml:lang="fr">Aucune image détaillée à afficher.</value>
+    </property>
     <property key="CommonNoElementFound">
         <value xml:lang="ar">لا عنصر موجود</value>
         <value xml:lang="de">Kein Element gefunden</value>

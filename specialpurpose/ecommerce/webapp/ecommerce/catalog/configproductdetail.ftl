@@ -58,7 +58,7 @@ ${virtualJavaScript?if_exists}
 
     function popupDetail() {
         var defaultDetailImage = "${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}";
-        if (defaultDetailImage == null || defaultDetailImage == "null") {
+        if (defaultDetailImage == null || defaultDetailImage == "null" || defaultDetailImage == "") {
             defaultDetailImage = "_NONE_";
         }
 
@@ -67,9 +67,13 @@ ${virtualJavaScript?if_exists}
         }
 
         if (detailImageUrl == "_NONE_") {
-            alert("No detail image available to display.");
+            hack = document.createElement('span');
+            hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
+            alert(hack.innerHTML);
+            return;
             return;
         }
+        alert(detailImageUrl);
         popUp("<@ofbizUrl>detailImage?detail=" + detailImageUrl + "</@ofbizUrl>", 'detailImage', '400', '550');
     }
 
@@ -244,7 +248,7 @@ function getConfigDetails(event) {
         <div>${uiLabelMap.ProductRegularPrice}: <span class='basePrice'><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <div>
-        
+
           <#if price.isSale?exists && price.isSale>
             <span class='salePrice'>${uiLabelMap.OrderOnSale}!</span>
             <#assign priceStyle = "salePrice">
@@ -252,7 +256,7 @@ function getConfigDetails(event) {
             <#assign priceStyle = "regularPrice">
           </#if>
             ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
-        
+
       </div>
       <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
         <#assign priceSaved = price.listPrice - price.price>
@@ -363,7 +367,7 @@ function getConfigDetails(event) {
       </form>
     <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
-        
+
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}">
           <input type="hidden" name="product_id" value="${product.productId}">
@@ -427,7 +431,7 @@ function getConfigDetails(event) {
     </td>
   </tr>
 
-  
+
 
   <#-- Long description of product -->
   <tr>
@@ -456,7 +460,7 @@ function getConfigDetails(event) {
                 </div>
             </td>
           </tr>
-          
+
           <#assign counter = 0>
           <#assign questions = configwrapper.questions>
           <#list questions as question>
@@ -598,14 +602,14 @@ function getConfigDetails(event) {
             </#if>
             </td>
           </tr>
-          
+
           <#assign counter = counter + 1>
         </#list>
         </table>
       </form>
     </td>
   </tr>
-  
+
 
   <#-- Product Reviews -->
   <tr>
@@ -645,7 +649,7 @@ function getConfigDetails(event) {
                 <div>${productReview.productReview?if_exists}</div>
               </td>
             </tr>
-           
+
           </table>
         </td>
       </tr>
@@ -678,7 +682,7 @@ function getConfigDetails(event) {
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
     <tr><td colspan="2"><h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2></td></tr>
-   
+
     <#list assocProducts as productAssoc>
       <tr><td>
         <div>
@@ -700,7 +704,7 @@ function getConfigDetails(event) {
         </td>
       </tr>
       <#local listIndex = listIndex + 1>
-      
+
     </#list>
     ${setRequestAttribute("optProductId", "")}
     ${setRequestAttribute("formNamePrefix", "")}
@@ -725,7 +729,7 @@ ${setRequestAttribute("productValue", productValue)}
 <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
 <#if commonFeatureResultIds?has_content>
   <h2>Similar Products That Might Interest You...</h2>
- 
+
 
   <#list commonFeatureResultIds as commonFeatureResultId>
     <div>
