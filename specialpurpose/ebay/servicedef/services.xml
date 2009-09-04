@@ -30,7 +30,7 @@ under the License.
         <description>Export products to eBay</description>
         <attribute type="List" mode="IN" name="selectResult" optional="false"/>
         <attribute type="String" mode="IN" name="country" optional="false"/>
-        <attribute type="String" mode="IN" name="location" optional="false"/>
+        <attribute type="String" mode="IN" name="location" optional="true"/>
         <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
         <attribute type="String" mode="IN" name="ebayCategory" optional="true"/>
         <attribute type="String" mode="IN" name="paymentPayPal" optional="true"/>
