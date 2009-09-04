@@ -184,7 +184,7 @@ under the License.
         <field name="costComponentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CostComponentType" description="${description}">
-                    <entity-constraint name="parentTypeId" operator="equals" env-name="null"/>
+                    <entity-constraint name="parentTypeId" operator="equals" env-name="nullField"/>
                 </entity-options>
             </drop-down>
         </field>
