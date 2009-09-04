@@ -192,7 +192,7 @@ while (<FIND>) {
 trap 'rm -f "\$tmpconffile"' EXIT
 tmpconffile=`tempfile -m 644`
 munge_conffile "\$tmpconffile" "$file"
-ucf "\$tmpconffile" /etc/ofbiz/$file
+ucf --debconf-ok "\$tmpconffile" /etc/ofbiz/$file
 ucfr ofbiz /etc/ofbiz/$file
 rm -f "\$tmpconffile"
 trap '' EXIT
@@ -201,7 +201,7 @@ _EOF_
 		my $postrm = <<_EOF_;
 for ext in '~' '%' .bak .dpkg-tmp .dpkg-new .dpkg-old .dpkg-dist;  do rm -f /etc/ofbiz/$file\$ext; done
 rm -f /etc/ofbiz/$file
-if which ucf >/dev/null; then ucf --purge /etc/ofbiz/$file; fi
+if which ucf >/dev/null; then ucf --debconf-ok --purge /etc/ofbiz/$file; fi
 if which ucfr >/dev/null; then ucfr --purge ofbiz /etc/ofbiz/$file; fi
 _EOF_
 		push(@{$scripts{$pkg}->{'postrm'}->{'purge'}}, $postrm);
