@@ -712,8 +712,10 @@ under the License.
         <auto-attributes mode="IN" entity-name="JobRequisition" include="nonpk" optional="true"/>
         <override name="noOfResources" optional="false"/>
         <override name="qualification" optional="false"/>
-        <override name="durationMonths" optional="false"/>
         <override name="jobLocation" optional="false"/>
+        <override name="skillTypeId" optional="false"/>
+        <override name="experienceMonths" optional="false"/>
+        <override name="experienceYears" optional="false"/>
     </service>
     
     <service name="updateJobRequisition" engine="simple" default-entity-name="JobRequisition"
@@ -723,8 +725,10 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="noOfResources" optional="false"/>
-        <override name="durationMonths" optional="false"/>
         <override name="jobLocation" optional="false"/>
+        <override name="skillTypeId" optional="false"/>
+        <override name="experienceMonths" optional="false"/>
+        <override name="experienceYears" optional="false"/>
     </service>
     
     <service name="deleteJobRequisition" engine="simple" default-entity-name="JobRequisition"

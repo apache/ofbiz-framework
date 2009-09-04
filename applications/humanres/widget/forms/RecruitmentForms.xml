@@ -33,7 +33,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="jobPostingTypeId">
+        <field name="jobPostingTypeEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
@@ -79,50 +79,38 @@ under the License.
         <field name="skillTypeId">
             <display-entity entity-name="SkillType" description="${description}"/>
         </field>
-        <field name="jobPostingTypeId"><display/></field>
+        <field name="jobPostingTypeEnumId"><display/></field>
         <field name="examTypeEnumId"><display/></field>
         <field name="qualification"><display/></field>
         <field name="jobLocation"><display/></field>
         <field name="experienceYears"><display/></field>
         <field name="experienceMonths"><display/></field>
+        <field name="applyLink" title="${uiLabelMap.CommonApply}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonApply}" target="EditInternalJobPosting"> 
+                <parameter param-name="jobRequisitionId"/> 
+            </hyperlink>
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobRequisition"> 
                 <parameter param-name="jobRequisitionId"/> 
             </hyperlink>
         </field>
     </form>
-    <form name="EditJobRequisition" type="single" target="updateJobRequisition">
+    <form name="EditJobRequisition" type="single" target="updateJobRequisition" default-map-name="jobRequisition">
         <alt-target use-when="jobRequisition==null" target="createJobRequisition"/>
-        <auto-fields-service service-name="updateJobRequisition" map-name="jobRequisition"/>
-        <field use-when="jobRequisition!=null" name="jobRequisitionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="jobRequisitionId" use-when="jobRequisition==null"><ignored/></field>
-        <field name="jobPostingTypeId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
-                    <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="skillTypeId">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="jobLocation" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
-        <field name="age"></field>
-        <field name="noOfResources" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
+        <field use-when="jobRequisition!=null" name="jobRequisitionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="jobDescription" title="${uiLabelMap.CommonDescription}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="jobLocation" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="age"><text/></field>
+        <field name="noOfResources" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="gender">
             <drop-down allow-empty="true">
                 <option key="M" description="${uiLabelMap.CommonMale}"/>
                 <option key="F" description="${uiLabelMap.CommonFemale}"/>
             </drop-down>
         </field>
-        <field name="durationMonths" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
-        <field name="experienceMonths"></field>
-        <field name="experienceYears"></field>
+        <field name="durationMonths"><text/></field>
         <field name="qualification" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyQualType" key-field-name="partyQualTypeId" description="${description}">
@@ -139,6 +127,17 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="skillCriteria" title="${uiLabelMap.HumanResSkills} ${uiLabelMap.CommonRequired}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="SkillType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="experienceMonths" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="experienceYears" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="jobPostingTypeEnumId"><hidden value="JOB_POSTING_INTR"/></field>
         <field name="submitButton" use-when="jobRequisition==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="jobRequisition!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -146,7 +145,7 @@ under the License.
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="find"/>
         <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="applyingPartyId" use-when="hasAdminPermission"><hidden/></field>
-        <field name="applyingPartyId" use-when=""><hidden value="${partyId}"/></field>
+        <field name="applyingPartyId" use-when="!hasAdminPermission"><hidden value="${partyId}"/></field>
         <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
@@ -195,6 +194,11 @@ under the License.
             </display-entity>
         </field>
         <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><display/></field>
+        <field name="jobRequisitionId" widget-style="buttontext">
+            <hyperlink target="EditJobRequisition" description="${jobRequisitionId}">
+                <parameter param-name="jobRequisitionId"/>
+            </hyperlink>
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteInternalJobPosting"> 
                 <parameter param-name="applicationId"/> 
@@ -212,7 +216,7 @@ under the License.
         <field name="applyingPartyId"><hidden value="${partyId}"/></field>
         <field name="approverPartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="jobRequisitionId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupJobRequisition"/></field>
-        <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><hidden value="IJP_CREATED"/></field>
+        <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><hidden value="IJP_APPLIED"/></field>
         <field name="emplPositionId"><hidden/></field>
         <field name="employmentAppSourceTypeId"><hidden/></field>
         <field name="referredByPartyId"><hidden/></field>
@@ -304,7 +308,7 @@ under the License.
             </drop-down>
         </field>
         <field name="jobInterviewTypeId">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false">
                 <entity-options description="${jobInterviewTypeId}" entity-name="JobInterviewType">
                     <entity-order-by field-name="jobInterviewTypeId"/>
                 </entity-options>
