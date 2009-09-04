@@ -68,7 +68,7 @@ if [ -f "/etc/ofbiz/debconf.cfg" ]; then
 	PROPS="$PROPS -Dofbiz.system.props=/etc/ofbiz/debconf.cfg"
 fi
 
-if [ "x$JAVA_HOME" == x ]; then
+if [ "x$JAVA_HOME" = x ]; then
 	if [ "x$JAVA_HOMES" != x ]; then
 		for possible in $JAVA_HOMES; do
 			if [ -e "$possible/bin/java" ]; then
@@ -77,7 +77,7 @@ if [ "x$JAVA_HOME" == x ]; then
 			fi
 		done
 	fi
-	if [ "x$JAVA_HOME" == x ]; then
+	if [ "x$JAVA_HOME" = x ]; then
 		log_failure_msg "Couldn't find a java."
 		if [ "x$JAVA_HOMES" != x ]; then
 			log_failure_msg "Tried $JAVA_HOMES"
