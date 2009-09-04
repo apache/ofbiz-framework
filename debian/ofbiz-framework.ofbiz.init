@@ -204,7 +204,7 @@ wait_for_status() {
 }
 
 ofbiz_shutdown() {
-	run_ofbiz_cmd -shutdown
+	run_ofbiz_cmd -shutdown >/dev/null
 }
 
 wait_for_stop() {
