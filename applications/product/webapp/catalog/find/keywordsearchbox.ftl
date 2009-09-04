@@ -25,7 +25,9 @@ under the License.
          document.forms["advancedsearchform"].elements["SEARCH_CATEGORY_ID"].value=document.forms["advancedsearchform"].elements["DUMMYCAT"].value;
      }
      function submitProductJump() {
-         document.forms["productjumpform"].action=document.forms["productjumpform"].elements["DUMMYPAGE"].value;
+         productId = document.forms["productjumpform"].elements["productId"].value;
+         document.forms["productjumpform"].elements["productId"].value = productId.replace(" ","");
+         document.forms["productjumpform"].action = document.forms["productjumpform"].elements["DUMMYPAGE"].value;
          document.forms["productjumpform"].submit();
      }
  //-->
