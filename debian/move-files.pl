@@ -206,7 +206,7 @@ if which ucfr >/dev/null; then ucfr --purge ofbiz /etc/ofbiz/$file; fi
 _EOF_
 		push(@{$scripts{$pkg}->{'postrm'}->{'purge'}}, $postrm);
 	} elsif ($type =~ m/^var(cache|lib|log|tmp)$/) {
-		my $new = "/var/$1/$pkg";
+		my $new = "/var/$1/ofbiz";
 		copylink($base, $new, $file);
 		my $postrm = <<_EOF_;
 if dpkg-statoverride --list "$new/$file" > /dev/null; then dpkg-statoverride --remove "$new/$file"; fi
