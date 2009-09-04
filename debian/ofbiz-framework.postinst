@@ -104,7 +104,6 @@ if [ -e /etc/ofbiz/dbc-debconf.cfg ]; then
 	. /etc/ofbiz/dbc-debconf.cfg
 fi
 if [ -r "/etc/ofbiz/debconf.cfg" ]; then
-	chown root:ofbiz "/etc/ofbiz/debconf.cfg"
 	eval `sed -n 's/^ofbiz\.admin\.\(port\|key\)=\(.*\)/ofbiz_admin_\1=\2;/p' "/etc/ofbiz/debconf.cfg" `
 fi
 if [ "$1" = "triggered" ]; then
@@ -148,6 +147,9 @@ case "$1" in
 			mv "$out.new" "$out"
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
+			fi
+			if [ -r "/etc/ofbiz/debconf.cfg" ]; then
+				chown root:ofbiz "/etc/ofbiz/debconf.cfg"
 			fi
 			if ! dpkg-statoverride --list "/var/lib/ofbiz" > /dev/null; then
 				dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
