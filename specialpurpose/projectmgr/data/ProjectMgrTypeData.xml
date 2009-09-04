@@ -37,7 +37,7 @@ under the License.
     <WorkEffortType workEffortTypeId="TASK_TEMPLATE" parentTypeId="TEMPLATE" description="Project Task Template"/>
 
     <!-- some skills required. -->
-    <SkillType skillTypeId="9000" description="Java/BSH"/>
+    <SkillType skillTypeId="9000" description="Java/Groovy/BSH"/>
     <SkillType skillTypeId="9001" description="Mini Language"/>
     <SkillType skillTypeId="9002" description="HTML/FTL"/>
     <SkillType skillTypeId="9003" description="Javascript/Dojo"/>
