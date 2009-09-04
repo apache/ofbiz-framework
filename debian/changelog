@@ -1,3 +1,14 @@
+xofbiz (UNRELEASED) unstable; urgency=low
+
+  * Increase start timeout from 40 seconds to 120.
+  * Let ucf use debconf.
+  * When stopping, don't print anything from ofbiz.jar.
+  * Chown debconf.cfg after the ofbiz group is created.
+  * Don't have per-package var folders.
+  * Fix bashism in /etc/init.d/ofbiz.
+
+ -- Adam Heath <doogie@brainfood.com>  Fri, 04 Sep 2009 16:41:32 -0500
+
 ofbiz (684378) unstable; urgency=low
 
   * Start adding debian stuff to upstream.
