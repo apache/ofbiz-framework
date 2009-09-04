@@ -248,6 +248,7 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
+        <#assign rowCount = 0>
         <#list partyList as partyRow>
           <#assign partyType = partyRow.getRelatedOne("PartyType")?if_exists>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -305,7 +306,14 @@ under the License.
             <td class="button-col align-float">
               <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
               <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
-                <a href="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}&amp;viewIndex=1&amp;viewSize=20">${uiLabelMap.OrderOrders}</a>
+                  <form name= "searchorders_o_${rowCount}" method= "post" action= "/ordermgr/control/searchorders">
+                    <input type= "hidden" name= "lookupFlag" value= "Y">
+                    <input type= "hidden" name= "hideFields" value= "Y">
+                    <input type= "hidden" name= "partyId" value= "${partyRow.partyId}">
+                    <input type= "hidden" name= "viewIndex" value= "1">
+                    <input type= "hidden" name= "viewSize" value= "20">
+                    <a href="javascript:document.searchorders_o_${rowCount}.submit()">${uiLabelMap.OrderOrders}</a>
+                </form>
                 <a href="/ordermgr/control/FindQuote?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrderQuotes}</a>
               </#if>
               <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
@@ -314,6 +322,7 @@ under the License.
               </#if>
             </td>
           </tr>
+          <#assign rowCount = rowCount + 1>
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
         </#list>
