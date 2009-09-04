@@ -96,7 +96,7 @@ ${virtualJavaScript?if_exists}
 
     function popupDetail() {
         var defaultDetailImage = "${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}";
-        if (defaultDetailImage == null || defaultDetailImage == "null") {
+        if (defaultDetailImage == null || defaultDetailImage == "null" || defaultDetailImage == "") {
             defaultDetailImage = "_NONE_";
         }
 
@@ -105,7 +105,9 @@ ${virtualJavaScript?if_exists}
         }
 
         if (detailImageUrl == "_NONE_") {
-            alert("No detail image available to display.");
+            hack = document.createElement('span');
+            hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
+            alert(hack.innerHTML);
             return;
         }
         popUp("<@ofbizUrl>detailImage?detail=" + detailImageUrl + "</@ofbizUrl>", 'detailImage', '400', '550');

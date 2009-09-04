@@ -26,7 +26,7 @@ ${virtualJavaScript?if_exists}
      function popupDetailInline(inlineCounter) {
         var imageField = 'detailImage' + inlineCounter;
         var defaultDetailImage = document.getElementById(imageField);
-        if (defaultDetailImage == null || defaultDetailImage == "null") {
+        if (defaultDetailImage == null || defaultDetailImage == "null" || defaultDetailImage == "") {
             defaultDetailImage = "_NONE_";
         }
         var fieldName = 'detailImageUrl' + inlineCounter;
@@ -35,7 +35,10 @@ ${virtualJavaScript?if_exists}
         }
 
         if (window[fieldName] == "_NONE_") {
-            alert("No detail image available to display.");
+            hack = document.createElement('span');
+            hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
+            alert(hack.innerHTML);
+            return;
             return;
         }
         popUp("<@ofbizUrl>detailImage?detail=" + window[fieldName] + "</@ofbizUrl>", 'detailImage', '400', '550');
