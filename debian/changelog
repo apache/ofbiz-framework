@@ -1,4 +1,4 @@
-xofbiz (UNRELEASED) unstable; urgency=low
+ofbiz (UNRELEASED) unstable; urgency=low
 
   * Increase start timeout from 40 seconds to 120.
   * Let ucf use debconf.
