@@ -114,14 +114,14 @@ will generally always be reserved for the logo at the top of the page.
     <legend>${uiLabelMap.PartyFullName}</legend>
     <input type="hidden" name="emailProductStoreId" value="${productStoreId}"/>
     <#----------------------------------------------------------------------
-    Each input row should be enclosed in a <div></div> with a class name
-    of "form-row". This will ensure than each input field clears the one
+    Each input row should be enclosed in a <div></div>. 
+    This will ensure than each input field clears the one
     above it. Alternately, if you want several inputs to float next to
     each other, you can enclose them in a table as illustrated below for
     the phone numbers, or you can enclose each label/input pair in a span
 
     Example:
-    <div class="form-row">
+    <div>
       <span>
         <input type="text" name="expMonth" value=""/>
         <label for="expMonth">Exp. Month</label>
@@ -132,7 +132,7 @@ will generally always be reserved for the logo at the top of the page.
       </span>
     </div>
     ----------------------------------------------------------------------->
-    <div class="form-row">
+    <div>
       <label for="USER_TITLE">${uiLabelMap.CommonTitle}</label>
       <@fieldErrors fieldName="USER_TITLE"/>
       <select name="USER_TITLE" id="USER_TITLE">
@@ -149,25 +149,25 @@ will generally always be reserved for the logo at the top of the page.
       </select>
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="USER_FIRST_NAME">${uiLabelMap.PartyFirstName}*</label>
       <@fieldErrors fieldName="USER_FIRST_NAME"/>
       <input type="text" name="USER_FIRST_NAME" id="USER_FIRST_NAME" value="${requestParameters.USER_FIRST_NAME?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="USER_MIDDLE_NAME">${uiLabelMap.PartyMiddleInitial}</label>
       <@fieldErrors fieldName="USER_MIDDLE_NAME"/>
       <input type="text" name="USER_MIDDLE_NAME" id="USER_MIDDLE_NAME" value="${requestParameters.USER_MIDDLE_NAME?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="USER_LAST_NAME">${uiLabelMap.PartyLastName}*</label>
       <@fieldErrors fieldName="USER_LAST_NAME"/>
       <input type="text" name="USER_LAST_NAME" id="USER_LAST_NAME" value="${requestParameters.USER_LAST_NAME?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="USER_SUFFIX">${uiLabelMap.PartySuffix}</label>
       <@fieldErrors fieldName="USER_SUFFIX"/>
       <input type="text" class='inputBox' name="USER_SUFFIX" id="USER_SUFFIX" value="${requestParameters.USER_SUFFIX?if_exists}" />
@@ -177,31 +177,31 @@ will generally always be reserved for the logo at the top of the page.
 
   <fieldset class="col">
     <legend>${uiLabelMap.PartyShippingAddress}</legend>
-    <div class="form-row">
+    <div>
       <label for="CUSTOMER_ADDRESS1">${uiLabelMap.PartyAddressLine1}*</label>
       <@fieldErrors fieldName="CUSTOMER_ADDRESS1"/>
       <input type="text" name="CUSTOMER_ADDRESS1" id="CUSTOMER_ADDRESS1" value="${requestParameters.CUSTOMER_ADDRESS1?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="CUSTOMER_ADDRESS2">${uiLabelMap.PartyAddressLine2}</label>
       <@fieldErrors fieldName="CUSTOMER_ADDRESS2"/>
       <input type="text" name="CUSTOMER_ADDRESS2" id="CUSTOMER_ADDRESS2" value="${requestParameters.CUSTOMER_ADDRESS2?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="CUSTOMER_CITY">${uiLabelMap.PartyCity}*</label>
       <@fieldErrors fieldName="CUSTOMER_CITY"/>
       <input type="text" name="CUSTOMER_CITY" id="CUSTOMER_CITY" value="${requestParameters.CUSTOMER_CITY?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="CUSTOMER_POSTAL_CODE">${uiLabelMap.PartyZipCode}*</label>
       <@fieldErrors fieldName="CUSTOMER_POSTAL_CODE"/>
       <input type="text" name="CUSTOMER_POSTAL_CODE" id="CUSTOMER_POSTAL_CODE" value="${requestParameters.CUSTOMER_POSTAL_CODE?if_exists}" />
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="customerCountry">${uiLabelMap.PartyCountry}*</label>
       <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
       <select name="CUSTOMER_COUNTRY" onclick="hideShowUsaStates();" id="customerCountry">
@@ -212,7 +212,7 @@ will generally always be reserved for the logo at the top of the page.
       </select>
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="customerState">${uiLabelMap.PartyState}*</label>
       <@fieldErrors fieldName="CUSTOMER_STATE"/>
       <select name="CUSTOMER_STATE" id="customerState">
@@ -224,7 +224,7 @@ will generally always be reserved for the logo at the top of the page.
       </select>
     </div>
 
-    <div class="form-row">
+    <div>
       <label for="CUSTOMER_ADDRESS_ALLOW_SOL">${uiLabelMap.PartyAllowAddressSolicitation}</label>
       <select name="CUSTOMER_ADDRESS_ALLOW_SOL" id="CUSTOMER_ADDRESS_ALLOW_SOL">
         <#if (((requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -321,12 +321,12 @@ will generally always be reserved for the logo at the top of the page.
 
   <fieldset class="col">
     <legend>${uiLabelMap.PartyEmailAddress}</legend>
-    <div class="form-row">
+    <div>
       <label for= "CUSTOMER_EMAIL">${uiLabelMap.PartyEmailAddress}*</label>
       <@fieldErrors fieldName="CUSTOMER_EMAIL"/>
       <input type="text" name="CUSTOMER_EMAIL" id="CUSTOMER_EMAIL" value="${requestParameters.CUSTOMER_EMAIL?if_exists}" onchange="changeEmail()" onkeyup="changeEmail()" />
     </div>
-    <div class="form-row">
+    <div>
       <label for="CUSTOMER_EMAIL_ALLOW_SOL">${uiLabelMap.PartyAllowSolicitation}</label>
       <select name="CUSTOMER_EMAIL_ALLOW_SOL" id="CUSTOMER_EMAIL_ALLOW_SOL">
         <#if (((requestParameters.CUSTOMER_EMAIL_ALLOW_SOL)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -348,7 +348,7 @@ will generally always be reserved for the logo at the top of the page.
         </label>
       </div>
 
-      <div class="form-row">
+      <div>
         <label for="USERNAME">${uiLabelMap.CommonUsername}*</label>
         <input type="text" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME?if_exists}" onfocus="clickUsername();" onchange="changeEmail();"/>
       </div>
@@ -358,25 +358,25 @@ will generally always be reserved for the logo at the top of the page.
   <fieldset class="col">
     <legend>${uiLabelMap.CommonPassword}</legend>
     <#if createAllowPassword>
-      <div class="form-row">
+      <div>
         <label for="PASSWORD">${uiLabelMap.CommonPassword}*</label>
         <@fieldErrors fieldName="PASSWORD"/>
         <input type="password" name="PASSWORD" id="PASSWORD" onfocus="setLastFocused(this);"/>
       </div>
 
-      <div class="form-row">
+      <div>
         <label for="CONFIRM_PASSWORD">${uiLabelMap.PartyRepeatPassword}*</label>
         <@fieldErrors fieldName="CONFIRM_PASSWORD"/>
         <input type="password" class='inputBox' name="CONFIRM_PASSWORD" id="CONFIRM_PASSWORD" value="" maxlength="50"/>
       </div>
 
-      <div class="form-row">
+      <div>
         <label for="PASSWORD_HINT">${uiLabelMap.PartyPasswordHint}</label>
         <@fieldErrors fieldName="PASSWORD_HINT"/>
         <input type="text" class='inputBox' name="PASSWORD_HINT" id="PASSWORD_HINT" value="${requestParameters.PASSWORD_HINT?if_exists}" maxlength="100"/>
       </div>
     <#else/>
-      <div class="form-row">
+      <div>
         <label>${uiLabelMap.PartyReceivePasswordByEmail}.</div>
       </div>
     </#if>
@@ -385,13 +385,13 @@ will generally always be reserved for the logo at the top of the page.
 
 <#------------------------------------------------------------------------------
 To create a consistent look and feel for all buttons, input[type=submit], 
-and a tags acting assubmit buttons, all button actions should have a 
+and a tags acting as submit buttons, all button actions should have a 
 class name of "button". No other class names should be used to style 
 button actions.
 ------------------------------------------------------------------------------->
 <div class="buttons">
-  <a href="javascript:document.newuserform.submit()" class="button">${uiLabelMap.CommonSave}</a>
-  <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="button reset">${uiLabelMap.CommonBack}</a>
+  <a href="javascript:document.newuserform.submit()">${uiLabelMap.CommonSave}</a>
+  <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="reset">${uiLabelMap.CommonBack}</a>
 </div>
 
 <script type="text/javascript">
