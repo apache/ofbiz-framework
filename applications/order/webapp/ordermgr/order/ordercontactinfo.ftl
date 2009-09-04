@@ -56,8 +56,15 @@ under the License.
                 <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
                 <div>
                    <a href="<@ofbizUrl>/orderentry?partyId=${partyId}&amp;orderTypeId=${orderHeader.orderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNewOrder}</a>
-                   <a href="<@ofbizUrl>/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
+                   <a href="javascript:document.searchOtherOrders.submit()" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
                 </div>
+                  <form name="searchOtherOrders" method="post" action="<@ofbizUrl>searchorders</@ofbizUrl>">
+                    <input type="hidden" name="lookupFlag" value="Y"/>
+                    <input type="hidden" name="hideFields" value="Y"/>
+                    <input type="hidden" name="partyId" value="${partyId}">
+                    <input type="hidden" name="viewIndex" value="1"/>
+                    <input type="hidden" name="viewSize" value="20"/>
+                  </form>
                 </#if>
               </#if>
             </div>
