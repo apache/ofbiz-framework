@@ -258,7 +258,7 @@
     <menu name="InternalJobPostingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="InternalJobPosting" type="simple" menu-container-style="button-bar tab-bar" 
         default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="InternalJobPosting" title="${uiLabelMap.HumanResInternalJobPosting}">
+        <menu-item name="InternalJobPosting" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonApplications}">
             <link target="FindInternalJobPosting"/>
         </menu-item>
         <menu-item name="JobInterview" title="${uiLabelMap.HumanResJobInterview}">

@@ -732,6 +732,10 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="EmploymentApp" field="newEntity.applicationId"/>
         <field-to-result field="newEntity.applicationId" result-name="applicationId"/>
+        <if-empty field="newEntity.applicationDate">
+            <now-timestamp field="nowTimestamp"/>
+            <set from-field="nowTimestamp" field="newEntity.applicationDate"/>
+        </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
     
