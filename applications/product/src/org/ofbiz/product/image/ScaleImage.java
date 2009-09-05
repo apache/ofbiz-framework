@@ -18,11 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.product.image;
 
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -79,8 +77,7 @@ public class ScaleImage {
         int index;
         Map<String, Map<String, String>> imgPropertyMap = FastMap.newInstance();
         BufferedImage bufImg, bufNewImg;
-        double imgHeight, imgWidth, scaleFactor;
-        AffineTransformOp op;
+        double imgHeight, imgWidth;
         Map<String, String> imgUrlMap = FastMap.newInstance();
         Map<String, Object> resultXMLMap = FastMap.newInstance();
         Map<String, Object> resultBufImgMap = FastMap.newInstance();
@@ -161,35 +158,6 @@ public class ScaleImage {
 
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {
                     bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
-                    Double scaleFactorDb = (Double) resultScaleImgMap.get("scaleFactor");
-                    scaleFactor = scaleFactorDb.doubleValue();
-
-                    // define Interpolation
-                    Map<RenderingHints.Key, Object> rhMap = FastMap.newInstance();
-                        rhMap.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-                        rhMap.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                        rhMap.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-                        rhMap.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-                        rhMap.put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-                        rhMap.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-                        rhMap.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-                        rhMap.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
-                        rhMap.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                    RenderingHints rh = new RenderingHints(rhMap);
-
-                    /* IMAGE TRANFORMATION */
-                    AffineTransform tx = new AffineTransform();
-                    tx.scale(scaleFactor, scaleFactor);
-
-
-                    try {
-                        op = new AffineTransformOp(tx, rh);
-                    } catch (ImagingOpException e) {
-                        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.transform_is_non_invertible", locale)  + e.toString();
-                        Debug.logError(errMsg, module);
-                        result.put("errorMessage", errMsg);
-                        return result;
-                    }
 
                     // write the New Scaled Image
                     String newFileLocation = null;
@@ -216,7 +184,7 @@ public class ScaleImage {
 
                     // write new image
                     try {
-                        ImageIO.write(op.filter(bufImg, bufNewImg), imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
+                        ImageIO.write((RenderedImage) bufNewImg, imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);

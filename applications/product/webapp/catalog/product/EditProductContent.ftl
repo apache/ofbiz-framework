@@ -160,7 +160,6 @@ under the License.
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
         <input type="text" name="originalImageUrl" value="${(product.originalImageUrl)?default('')}" size="60" maxlength="255">
-        <br/><span class="tooltip">${uiLabelMap.ProductOriginalImageMessage} : {ofbiz.home}/applications/product/config/ImageProperties.xml&quot;</span>
         <#if productId?has_content>
             <div>
             <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -201,5 +200,6 @@ under the License.
                 </td>
             </tr>
         </table>
+        <span class="tooltip">${uiLabelMap.ProductOriginalImageMessage} : {ofbiz.home}/applications/product/config/ImageProperties.xml&quot;</span>
     </form>
 </#if>
