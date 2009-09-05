@@ -42,6 +42,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -62,44 +63,14 @@ public class ProductsExportToEbay {
 
     public static Map exportToEbay(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
+        GenericDelegator delegator = dctx.getDelegator();
         Map result = null;
         try {
-            String configFileName = "ebayExport.properties";
-
-            // get the Developer Key
-            String devID = UtilProperties.getPropertyValue(configFileName, "eBayExport.devID");
-
-            // get the Application Key
-            String appID = UtilProperties.getPropertyValue(configFileName, "eBayExport.appID");
-
-            // get the Certifcate Key
-            String certID = UtilProperties.getPropertyValue(configFileName, "eBayExport.certID");
-
-            // get the Token
-            String token = UtilProperties.getPropertyValue(configFileName, "eBayExport.token");
-
-            // get the Compatibility Level
-            String compatibilityLevel = UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel");
-
-            // get the Site ID
-            String siteID = UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID");
-
-            // get the xmlGatewayUri
-            String xmlGatewayUri = UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri");
-
+            Map<String, Object> eBayConfigResult = buildEbayConfig(context, delegator);
             StringBuffer dataItemsXml = new StringBuffer();
-
-            /*
-            String itemId = "";
-            if (!ServiceUtil.isFailure(buildAddTransactionConfirmationItemRequest(context, dataItemsXml, token,  itemId))) {
-                Map result = postItem(xmlGatewayUri, dataItemsXml, devID, appID, certID, "AddTransactionConfirmationItem");
-                Debug.logInfo(result.toString(), module);
-            }
-            */
-
-            Map resultMap = buildDataItemsXml(dctx, context, dataItemsXml, token);
+            Map resultMap = buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString());
             if (!ServiceUtil.isFailure(resultMap)) {
-                result = postItem(xmlGatewayUri, dataItemsXml, devID, appID, certID, "AddItem", compatibilityLevel, siteID);
+                result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 if (ServiceUtil.isFailure(result)) {
                     return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
                 }
@@ -265,7 +236,6 @@ public class ProductsExportToEbay {
                     }
                     setPaymentMethodAccepted(itemDocument, itemElem, context);
                     setMiscDetails(itemDocument, itemElem, context);
-
                     String primaryCategoryId = "";
                     String categoryCode = (String)context.get("ebayCategory");
                     if (categoryCode != null) {
@@ -282,7 +252,6 @@ public class ProductsExportToEbay {
                             primaryCategoryId = productCategoryValue.getString("categoryName");
                         }
                     }
-
                     Element primaryCatElem = UtilXml.addChildElement(itemElem, "PrimaryCategory", itemDocument);
                     UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
 
@@ -470,37 +439,15 @@ public class ProductsExportToEbay {
     }
     
     public static Map getEbayCategories(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String categoryCode = (String)context.get("categoryCode");
         Map result = null;
 
         try {
-            String configString = "ebayExport.properties";
-
-            // get the Developer Key
-            String devID = UtilProperties.getPropertyValue(configString, "eBayExport.devID");
-
-            // get the Application Key
-            String appID = UtilProperties.getPropertyValue(configString, "eBayExport.appID");
-
-            // get the Certifcate Key
-            String certID = UtilProperties.getPropertyValue(configString, "eBayExport.certID");
-
-            // get the Token
-            String token = UtilProperties.getPropertyValue(configString, "eBayExport.token");
-
-            // get the Compatibility Level
-            String compatibilityLevel = UtilProperties.getPropertyValue(configString, "eBayExport.compatibilityLevel");
-
-            // get the Site ID
-            String siteID = UtilProperties.getPropertyValue(configString, "eBayExport.siteID");
-
-            // get the xmlGatewayUri
-            String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "eBayExport.xmlGatewayUri");
-
+            Map<String, Object> eBayConfigResult = buildEbayConfig(context, delegator);
             String categoryParent = "";
             String levelLimit = "";
-
             if (categoryCode != null) {
                 String[] params = categoryCode.split("_");
 
@@ -515,9 +462,8 @@ public class ProductsExportToEbay {
             }
 
             StringBuffer dataItemsXml = new StringBuffer();
-
-            if (!ServiceUtil.isFailure(buildCategoriesXml(context, dataItemsXml, token, siteID, categoryParent, levelLimit))) {
-                Map resultCat = postItem(xmlGatewayUri, dataItemsXml, devID, appID, certID, "GetCategories", compatibilityLevel, siteID);
+            if (!ServiceUtil.isFailure(buildCategoriesXml(context, dataItemsXml, eBayConfigResult.get("token").toString(), eBayConfigResult.get("siteID").toString(), categoryParent, levelLimit))) {
+                Map resultCat = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetCategories", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 String successMessage = (String)resultCat.get("successMessage");
                 if (successMessage != null) {
                     result = readEbayCategoriesResponse(successMessage, locale);
@@ -578,4 +524,17 @@ public class ProductsExportToEbay {
         }
         return results;
     }
+    
+    private static Map<String, Object> buildEbayConfig(Map<String, Object> context, GenericDelegator delegator) {
+        Map<String, Object> buildEbayConfigContext = FastMap.newInstance();
+        buildEbayConfigContext.put("devID", UtilProperties.getPropertyValue(configFileName, "eBayExport.devID"));
+        buildEbayConfigContext.put("appID", UtilProperties.getPropertyValue(configFileName, "eBayExport.appID"));
+        buildEbayConfigContext.put("certID", UtilProperties.getPropertyValue(configFileName, "eBayExport.certID"));
+        buildEbayConfigContext.put("token", UtilProperties.getPropertyValue(configFileName, "eBayExport.token"));
+        buildEbayConfigContext.put("compatibilityLevel", UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel"));
+        buildEbayConfigContext.put("siteID", UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID"));
+        buildEbayConfigContext.put("xmlGatewayUri", UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri"));
+        return buildEbayConfigContext;
+    }    
+    
 }
