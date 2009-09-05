@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 categoryCode = parameters.categoryCode;
 context.categoryCode = categoryCode; 
@@ -35,4 +36,10 @@ if (categoryCode) {
     }
 } else {
     context.hideExportOptions = "N";
+}
+
+webSite = WebSiteWorker.getWebSite(request);
+if (webSite) {
+    context.productStoreId = webSite.productStoreId;;
+    context.webSiteUrl = webSite.getString("standardContentPrefix")?:"http://demo.ofbiz.org";
 }

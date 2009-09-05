@@ -34,6 +34,7 @@ under the License.
 </script>
 <div>
     <form method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">
+        <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}">
         <table border="0" cellpadding="2" cellspacing="0">
              <tr>
                 <td align="right" class="label">${uiLabelMap.FormFieldTitle_ebayCategory}</td>
