@@ -71,9 +71,8 @@ ${virtualJavaScript?if_exists}
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
             alert(hack.innerHTML);
             return;
-            return;
         }
-        alert(detailImageUrl);
+        detailImageUrl = detailImageUrl.replace(/\&\#47;/g, "/");
         popUp("<@ofbizUrl>detailImage?detail=" + detailImageUrl + "</@ofbizUrl>", 'detailImage', '400', '550');
     }
 
