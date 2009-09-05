@@ -208,6 +208,16 @@ public class ProductsExportToEbay {
                     if (UtilValidate.isEmpty(qnt)) {
                         qnt = "1";
                     }
+                    String productDescription = "";
+                    String description = prod.getString("description");
+                    String longDescription = prod.getString("longDescription");
+                    if (UtilValidate.isNotEmpty(description)) {
+                        productDescription = description;
+                    } else if (UtilValidate.isNotEmpty(longDescription)) {
+                        productDescription = longDescription;
+                    } else if (UtilValidate.isNotEmpty(prod.getString("productName"))) {
+                        productDescription = prod.getString("productName");
+                    }
                     String startPrice = (String)context.get("startPrice");
                     if (UtilValidate.isEmpty(startPrice)) {
                         GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
@@ -234,7 +244,7 @@ public class ProductsExportToEbay {
                     if (UtilValidate.isNotEmpty(ebayDescription.toString())) {
                         UtilXml.addChildElementCDATAValue(itemElem, "Description", ebayDescription.toString(), itemDocument);
                     } else {
-                        UtilXml.addChildElementValue(itemElem, "Description", encoder.encode(prod.getString("productName")), itemDocument);
+                        UtilXml.addChildElementValue(itemElem, "Description", encoder.encode(productDescription), itemDocument);
                     }
                     String smallImage = prod.getString("smallImageUrl");
                     String mediumImage = prod.getString("mediumImageUrl");
@@ -277,7 +287,7 @@ public class ProductsExportToEbay {
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     startPriceElem.setAttribute("currencyID", "USD");
                 }
-
+                //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module); 
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));
             } catch (Exception e) {
                 Debug.logError("Exception during building data items to eBay: " + e.getMessage(), module);
