@@ -49,6 +49,7 @@ under the License.
         <attribute type="String" mode="IN" name="listingDuration" optional="false"/>
         <attribute type="String" mode="IN" name="startPrice" optional="true"/>
         <attribute type="String" mode="IN" name="quantity" optional="true"/>
+        <attribute type="String" mode="IN" name="productStoreId" optional="true"/>
     </service>
     <service name="getEbayCategories" engine="java"
              location="org.ofbiz.ebay.ProductsExportToEbay" invoke="getEbayCategories" auth="true">
