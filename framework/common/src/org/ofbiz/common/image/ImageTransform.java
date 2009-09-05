@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.common.image;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +29,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
@@ -167,7 +170,10 @@ public class ImageTransform {
             bufImgType = bufImg.getType();
         }
 
-        bufNewImg = new BufferedImage((int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), bufImgType);
+        // scale original image with new size
+        Image newImg = bufImg.getScaledInstance((int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), Image.SCALE_SMOOTH);
+        
+        bufNewImg = ImageTransform.toBufferedImage(newImg, bufImgType);
 
         result.put("responseMessage", "success");
         result.put("bufferedImage", bufNewImg);
@@ -244,5 +250,39 @@ public class ImageTransform {
         result.put("xml", valueMap);
         return result;
 
+    }
+    
+    /**
+     * toBufferedImage
+     * <p>
+     * Transform from an Image instance to a BufferedImage instance
+     *
+     * @param image             Source image
+     * @return BufferedImage
+     */
+    public static BufferedImage toBufferedImage(Image image) {
+        return ImageTransform.toBufferedImage(image, BufferedImage.TYPE_INT_ARGB_PRE);
+    }
+     
+    public static BufferedImage toBufferedImage(Image image, int bufImgType) {
+        /** Check if the image isn't already a BufferedImage instance */
+        if( image instanceof BufferedImage ) {
+                return( (BufferedImage)image );
+        } else {
+                /** Full image loading */
+                image = new ImageIcon(image).getImage();
+                
+                /** new BufferedImage creation */
+                BufferedImage bufferedImage = new BufferedImage(
+                            image.getWidth(null),
+                            image.getHeight(null),
+                            bufImgType);
+                
+                Graphics2D g = bufferedImage.createGraphics();
+                g.drawImage(image,0,0,null);
+                g.dispose();
+                
+                return( bufferedImage );
+        } 
     }
 }
