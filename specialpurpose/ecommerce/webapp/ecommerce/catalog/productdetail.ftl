@@ -110,6 +110,7 @@ ${virtualJavaScript?if_exists}
             alert(hack.innerHTML);
             return;
         }
+        detailImageUrl = detailImageUrl.replace(/\&\#47;/g, "/");
         popUp("<@ofbizUrl>detailImage?detail=" + detailImageUrl + "</@ofbizUrl>", 'detailImage', '400', '550');
     }
 
