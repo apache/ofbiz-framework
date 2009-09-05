@@ -154,6 +154,13 @@ under the License.
                 </td>
             </tr>
             <tr>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_customXml}</td>
+                <td>&nbsp;</td>
+                <td>
+                    <textarea cols="60" rows="6" wrap="hard" name="customXml">${customXml?if_exists}</textarea>
+                </td>
+            </tr>
+            <tr>
                 <td colspan=2>&nbsp;</td>
                 <td>
                     <input type="submit" value="${uiLabelMap.EbayExportToEbay}" name="submitButton" class="smallSubmit">

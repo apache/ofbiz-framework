@@ -424,15 +424,10 @@ public class ProductsExportToEbay {
     }
 
     private static void setMiscDetails(Document itemDocument, Element itemElem, Map context, GenericDelegator delegator) throws Exception {
-        String productStoreId = (String) context.get("productStoreId");
+        String customXmlFromUI = (String) context.get("customXml");
         String customXml = "";
-        if (UtilValidate.isNotEmpty(productStoreId)) {
-            GenericValue eBayConfig = delegator.findOne("EbayConfig", false, UtilMisc.toMap("productStoreId", productStoreId));
-            if (UtilValidate.isNotEmpty(eBayConfig.getString("customXml"))) {
-                customXml = eBayConfig.getString("customXml");
-            } else {
-                customXml = UtilProperties.getPropertyValue(configFileName, "eBayExport.customXml");
-            }
+        if (UtilValidate.isNotEmpty(customXmlFromUI)) {
+            customXml = customXmlFromUI;
         } else {
             customXml = UtilProperties.getPropertyValue(configFileName, "eBayExport.customXml");   
         }

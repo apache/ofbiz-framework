@@ -97,6 +97,9 @@
         <value xml:lang="th">ส่งการชำระเงินโดยผู้ซื้อ</value>
         <value xml:lang="zh">买家发送的支付</value>
     </property>
+    <property key="FormFieldTitle_customXml">
+        <value xml:lang="en">Custom XML</value>
+    </property>
     <property key="FormFieldTitle_eBayPaymentStatus">
         <value xml:lang="en">eBay Payment Status</value>
         <value xml:lang="fr">Statut de paiement Ebay</value>

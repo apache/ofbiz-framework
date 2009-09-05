@@ -40,6 +40,9 @@ if (categoryCode) {
 
 webSite = WebSiteWorker.getWebSite(request);
 if (webSite) {
-    context.productStoreId = webSite.productStoreId;;
+    productStoreId = webSite.productStoreId;
+    context.productStoreId = productStoreId;
+    eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
+    context.customXml = eBayConfig.customXml;
     context.webSiteUrl = webSite.getString("standardContentPrefix")?:"http://demo.ofbiz.org";
 }
