@@ -39,8 +39,8 @@ ${virtualJavaScript?if_exists}
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
             alert(hack.innerHTML);
             return;
-            return;
         }
+        window[fieldName] = window[fieldName].replace(/\&\#47;/g, "/");
         popUp("<@ofbizUrl>detailImage?detail=" + window[fieldName] + "</@ofbizUrl>", 'detailImage', '400', '550');
     }
 
