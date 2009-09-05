@@ -219,10 +219,12 @@ public class ProductsExportToEbay {
                         productDescription = prod.getString("productName");
                     }
                     String startPrice = (String)context.get("startPrice");
+                    String currencyUomId = null;
                     if (UtilValidate.isEmpty(startPrice)) {
                         GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
                         if (UtilValidate.isNotEmpty(startPriceValue)) {
                             startPrice = startPriceValue.getString("price");
+                            currencyUomId = startPriceValue.getString("currencyUomId");
                         } else {
                             return ServiceUtil.returnFailure("Unable to find a starting price for auction of product with id [" + prod.getString("productId") + "]");
                         }
@@ -285,7 +287,10 @@ public class ProductsExportToEbay {
                     UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
 
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
-                    startPriceElem.setAttribute("currencyID", "USD");
+                    if (UtilValidate.isEmpty(currencyUomId)) {
+                        currencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                    }
+                    startPriceElem.setAttribute("currencyID", currencyUomId);
                 }
                 //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module); 
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));
