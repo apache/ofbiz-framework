@@ -90,7 +90,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
 
             // handle nulls better
             if (o == null) {
-                o = 0;
+                return null;
             }
 
             if (o instanceof NumberModel) {
@@ -107,7 +107,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
             return Integer.valueOf(o.toString());
         }
-        return 0;
+        return null;
     }
 
     public Writer getWriter(final Writer out, Map args) {
@@ -120,8 +120,8 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         // check the rounding -- DEFAULT is 10 to not round for display, only use this when necessary
         // rounding should be handled by the code, however some times the numbers are coming from
         // someplace else (i.e. an integration)
-        int roundingNumber = getInteger(args, "rounding");
-        if (roundingNumber == 0) roundingNumber = 10;
+        Integer roundingNumber = getInteger(args, "rounding");
+        if (roundingNumber == null) roundingNumber = 10;
         final int rounding = roundingNumber;
 
         return new Writer(out) {
