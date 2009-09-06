@@ -957,6 +957,22 @@
         <value xml:lang="it">Valore classifica</value>
         <value xml:lang="zh">价值评级</value>
     </property>
+    <property key="PartyContentType.description.INTERNAL">
+        <value xml:lang="en">Internal Content</value>
+        <value xml:lang="fr">Contenu à usage interne</value>
+    </property>
+    <property key="PartyContentType.description.USERDEF">
+        <value xml:lang="en">User Defined Content</value>
+        <value xml:lang="fr">Contenu concernant l'utilisateur</value>
+    </property>
+    <property key="PartyContentType.description.LGOIMGURL">
+        <value xml:lang="en">Logo Image URL</value>
+        <value xml:lang="fr">URL vers un logo</value>
+    </property>
+    <property key="PartyContentType.description.VNDSHPINF">
+        <value xml:lang="en">Vendor Shipping Info</value>
+        <value xml:lang="fr">Informations transporteur</value>
+    </property>
     <property key="PartyRelationshipType.partyRelationshipName.ACCOUNT">
         <value xml:lang="en">Account</value>
         <value xml:lang="es">Cuenta</value>
