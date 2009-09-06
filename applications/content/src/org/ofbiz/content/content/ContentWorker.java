@@ -274,7 +274,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     throw new GeneralException(e.getMessage());
                 }
 
-                // This part is using an xml file as the input data and an ftl file to present it.
+                // This part is using an xml file as the input data and an ftl or xsl file to present it.
                 if (UtilValidate.isNotEmpty(mimeType)) {
                 	if (mimeType.toLowerCase().indexOf("xml") >= 0) {
                 		GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));

@@ -29,8 +29,10 @@ under the License.
     <#if !helpContent?has_content>
       <#assign helpContent = delegator.findByAnd("Content", {"contentId" : webSiteId})>
     </#if>
+    <#if !helpContent?has_content>
+        <#assign helpTopic = "navigateHelp"/>
+    </#if>
   </#if>
-
 <#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
 ${helpTopic}
 -->
@@ -42,6 +44,4 @@ ${helpTopic}
   </#if>
   <#if helpUrlsMap[helpTopic] != helpTopic >
     <#assign helpUrlTopic = helpUrlsMap[helpTopic] />
-  <#else>
-    <#assign helpTopic = "navigateHelp"/>
   </#if>

@@ -1966,7 +1966,7 @@ under the License.
     <view-map name="EditDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocument"/>
     <view-map name="ListDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#ListDocument"/>
     <view-map name="showContent" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"/>
-    <view-map name="showContentPdf" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"  content-type="application/pdf"/>
+    <view-map name="showContentPdf" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"  content-type="application/pdf" encoding="none"/>
     
         <!-- end of view mappings -->
 </site-conf>

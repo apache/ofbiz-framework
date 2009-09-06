@@ -18,9 +18,4 @@
     under the License.
 -->
 <entity-engine-xml>
-    <!-- create some keys to be sure all data will load the firs time -->
-    <DataResource dataResourceId="HELP_TEMPL"/>
-    <Content contentId="TREE_ROOT"/>
-    <Content contentId="HELP_ROOT"/>
-    <Content contentId="HELP_MYPORTAL"/>
 </entity-engine-xml>
