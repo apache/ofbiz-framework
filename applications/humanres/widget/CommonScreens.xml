@@ -165,12 +165,19 @@ under the License.
                                         </entity-one>
                                     </actions>
                                     <widgets>
-                                        <include-menu name="EmploymentBar" location="component://humanres/widget/Menus.xml"/>
-                                        <container style="button-bar">
-                                            <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
-                                        </container>
-                                        <label style="h1" text="${emplName.lastName},${emplName.firstName} ${emplName.middleName} [${emplName.partyId}] ${uiLabelMap.CommonFor}"></label>
-                                        <label style="h1" text="${orgName.groupName} [${orgName.partyId}]"></label>
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field="parameters.fromDate"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="EmploymentBar" location="component://humanres/widget/Menus.xml"/>
+                                                <container style="button-bar">
+                                                    <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
+                                                </container>
+                                                <label style="h1" text="${emplName.lastName},${emplName.firstName} ${emplName.middleName} [${emplName.partyId}] ${uiLabelMap.CommonFor}"></label>
+                                                <label style="h1" text="${orgName.groupName} [${orgName.partyId}]"></label>
+                                            </widgets>
+                                        </section>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

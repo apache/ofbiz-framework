@@ -52,7 +52,7 @@
         <make-value entity-name="PartyResume" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="PartyResume" field="newEntity.resumeId"/>
-        <field-to-result field="resumeId" result-name="resumeId"/>
+        <field-to-result field="resumeId" result-name="newEntity.resumeId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
 
@@ -325,8 +325,11 @@
 
     <simple-method method-name="createTerminationReason" short-description="Create a Termination Reason">
         <make-value entity-name="TerminationReason" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="TerminationReason" field="newEntity.terminationReasonId"/>
+        <if-empty field="newEntity.terminationReasonId">
+            <sequenced-id sequence-name="TerminationReason" field="newEntity.terminationReasonId"/>
+        </if-empty>
         <field-to-result field="newEntity.terminationReasonId" result-name="terminationReasonId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -486,8 +489,11 @@
     <!-- Skill Types -->
     <simple-method method-name="createSkillType" short-description="Create a SkillType">
         <make-value entity-name="SkillType" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="SkillType" field="newEntity.skillTypeId"/>
+        <if-empty field="newEntity.skillTypeId">
+            <sequenced-id sequence-name="SkillType" field="newEntity.skillTypeId"/>
+        </if-empty>
         <field-to-result field="newEntity.skillTypeId" result-name="skillTypeId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -548,9 +554,10 @@
 
     <simple-method method-name="createTerminationType" short-description="Create a TerminationType">
         <make-value entity-name="TerminationType" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.terminationTypeId">
-        <sequenced-id sequence-name="TerminationType" field="newEntity.terminationTypeId"/>
+            <sequenced-id sequence-name="TerminationType" field="newEntity.terminationTypeId"/>
         </if-empty>
         <field-to-result field="newEntity.terminationTypeId" result-name="terminationTypeId"/>
         <create-value value-field="newEntity"/>
@@ -581,6 +588,11 @@
         <entity-one entity-name="EmplPositionType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteEmplPositionType" short-description="Delete EmplPositionType">
+        <entity-one entity-name="EmplPositionType" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="updateEmplPositionTypeRate" short-description="Update/create EmplPositionTypeRate">

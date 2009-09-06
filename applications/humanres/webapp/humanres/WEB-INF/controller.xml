@@ -110,7 +110,7 @@ under the License.
     <request-map uri="deletePartyResume">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyResume"/>
-        <response name="success" type="view" value="EditPartyResume"/>
+        <response name="success" type="view" value="FindPartyResumes"/>
     </request-map>
     <request-map uri="FindPartySkills">
         <security https="true" auth="true"/>
@@ -312,12 +312,12 @@ under the License.
     <request-map uri="createPayGrade">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPayGrade"/>
-        <response name="success" type="view" value="FindPayGrades"/>
+        <response name="success" type="view" value="EditPayGrade"/>
         <response name="error" type="view" value="EditPayGrade"/>
     </request-map>
     <request-map uri="updatePayGrade">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updatePayGrade"/>
+        <event type="service" invoke="updatePayGrade"/>
         <response name="success" type="view" value="EditPayGrade"/>
         <response name="error" type="view" value="EditPayGrade"/>
     </request-map>
@@ -717,6 +717,11 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="updateEmplPositionType"/>
         <response name="success" type="view" value="EditEmplPositionTypes"/>
+    </request-map>
+    <request-map uri="deleteEmplPositionType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteEmplPositionType"/>
+        <response name="success" type="view" value="FindEmplPositionTypes"/>
     </request-map>
     <request-map uri="EditEmplPositionTypeRates">
         <security https="true" auth="true"/>
