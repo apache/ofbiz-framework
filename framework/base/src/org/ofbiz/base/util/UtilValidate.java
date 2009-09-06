@@ -486,14 +486,13 @@ public class UtilValidate {
             float temp = Float.parseFloat(s);
             if (!allowNegative && temp < 0) return false;
             if (!allowPositive && temp > 0) return false;
-            String floatString = Float.toString(temp);
-            int decimalPoint = floatString.indexOf(".");
+            int decimalPoint = s.indexOf(".");
             if (decimalPoint == -1) {
                 if (minDecimal > 0) return false;
                 return true;
             }
             // 1.2345; length=6; point=1; num=4
-            int numDecimals = floatString.length() - decimalPoint;
+            int numDecimals = s.length() - decimalPoint - 1;
             if (minDecimal >= 0 && numDecimals < minDecimal) return false;
             if (maxDecimal >= 0 && numDecimals > maxDecimal) return false;
             return true;
@@ -511,14 +510,13 @@ public class UtilValidate {
             double temp = Double.parseDouble(s);
             if (!allowNegative && temp < 0) return false;
             if (!allowPositive && temp > 0) return false;
-            String doubleString = Double.toString(temp);
-            int decimalPoint = doubleString.indexOf(".");
+            int decimalPoint = s.indexOf(".");
             if (decimalPoint == -1) {
                 if (minDecimal > 0) return false;
                 return true;
             }
             // 1.2345; length=6; point=1; num=4
-            int numDecimals = doubleString.length() - decimalPoint;
+            int numDecimals = s.length() - decimalPoint - 1;
             if (minDecimal >= 0 && numDecimals < minDecimal) return false;
             if (maxDecimal >= 0 && numDecimals > maxDecimal) return false;
             return true;
