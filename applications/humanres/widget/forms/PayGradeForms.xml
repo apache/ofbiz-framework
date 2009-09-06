@@ -43,15 +43,21 @@
                 <parameter param-name="payGradeId"/>
             </hyperlink>
         </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePayGrade" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="payGradeId"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="EditPayGrade" type="single" target="updatePayGrade" title=""
         header-row-style="header-row" default-table-style="basic-table" default-map-name="payGrade">
         <alt-target use-when="payGradeId==null" target="createPayGrade"/>
-        <auto-fields-service default-field-type="edit" service-name="createPayGrade"/>
+        <auto-fields-service service-name="updatePayGrade"/>
         <field use-when="payGrade!=null" name="payGradeId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="payGrade==null" name="payGradeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="payGradeName"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="payGrade==null" name="payGradeId"><text/></field>
+        <field name="payGradeName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="payGrade!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListSalarySteps" type="multi" target="updateSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" paginate-target="findSalarySteps"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
