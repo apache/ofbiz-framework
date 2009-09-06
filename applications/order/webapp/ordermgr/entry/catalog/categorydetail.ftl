@@ -19,7 +19,11 @@ under the License.
 
 <#macro paginationControls>
     <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
-    <#if (viewIndexMax?int > 1)>
+      <#-- if the list size/view size (that is total number of items allowed on the page for this page)
+      is 0 or 1 then there is only 1 page of items - so display the pagination drop down anyhow
+      'cause its cool and people should see it.
+      -->
+      <#if (viewIndexMax?int > -1)>
         <div class="product-prevnext">
             <#-- Start Page Select Drop-Down -->
             <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
@@ -32,7 +36,7 @@ under the License.
             <#if (viewIndex?int > 1)>
                 <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
-            <#if (listSize?int > 0)>
+            <#if ((listSize?int - viewSize?int) > 0)>
                 <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
             </#if>
             <#if highIndex?int < listSize?int>
