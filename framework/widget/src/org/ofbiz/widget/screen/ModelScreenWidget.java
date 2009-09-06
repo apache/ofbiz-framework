@@ -18,19 +18,32 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.io.Writer;
+import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -50,6 +63,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -77,10 +91,19 @@ import org.ofbiz.widget.xml.XmlFormRenderer;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.RequestHandlerException;
 import org.ofbiz.webapp.view.ApacheFopWorker;
+import org.ofbiz.webapp.view.FopRenderer;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.FormattingResults;
+import org.apache.fop.apps.MimeConstants;
+import org.apache.fop.apps.PageSequenceResults;
+
 
 /**
  * Widget Library - Screen model class
@@ -1117,7 +1140,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 		&& ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
                 	if (mimeTypeId.equals("application/pdf")) {
                 		TransformerFactory tfactory = TransformerFactory.newInstance();
-                		try{
+                		try {
                 			
                 			//
                 			//  this part is not working. If somebody can help to make it work?
@@ -1138,7 +1161,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 			}
 
                 			// do the actual preprocessing fr includes
-                			SAXSource source = new SAXSource(reader, new InputSource("/home/hans/ofbiz/svn/applications/commonext/documents/ApacheOfbiz.xml"));
+                			String fileName = "/home/hans/ofbiz/svn/applications/commonext/documents/ApacheOfbiz.xml";
+                			SAXSource source = new SAXSource(reader, new InputSource(fileName));
                 			// compile the xsl template
                 			Transformer transformer1 = tfactory.newTransformer(new StreamSource("/home/hans/ofbiz/svn/applications/content/template/docbook/fo/docbook.xsl"));
                 			// and apply the xsl template to the source document and save in a result string
@@ -1146,36 +1170,50 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 			StreamResult sr = new StreamResult(sw);
                 			transformer1.transform(source, sr);
                 			// store into a file for debugging
-                			java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.fo"));
-                			fw.write(sw.toString());
-                			fw.close();
+//                			java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.fo"));
+//                			fw.write(sw.toString());
+//                			fw.close();
 
                 			
-                			Debug.log("================start fo processor=============================");
-                			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                			StreamSource src = new StreamSource("/tmp/file1.fo");
-                			FopFactory fopFactory = FopFactory.newInstance();
-                			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-                			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, baos);
-                			TransformerFactory factory = TransformerFactory.newInstance();
-                			Transformer transformer = factory.newTransformer();
-                			transformer.transform(src, new SAXResult(fop.getDefaultHandler()));
-                			baos.flush();
-                			baos.close();
-                			// write to browser
-                			writer.append(baos.toString());
-                			// store into a file for debugging
-                			java.io.FileWriter fend = new java.io.FileWriter(new java.io.File("/tmp/file1.pdf"));
-                			fend.write(baos.toString());
-                			fend.close();
+                            FopFactory fopFactory = FopFactory.newInstance();                            
+                            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+                            // configure foUserAgent as desired
+                    
+                            // Setup output stream.  Note: Using BufferedOutputStream
+                            // for performance reasons (helpful with FileOutputStreams).
+//                            OutputStream out = new FileOutputStream("/tmp/file.pdf");
+//                            out = new BufferedOutputStream(out);
+//                            OutputStream outWriter = (OutputStream) writer;
+                            ByteArrayOutputStream out = new ByteArrayOutputStream();
+                            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
 
-               		
+                            // Setup JAXP using identity transformer
+                            TransformerFactory factory = TransformerFactory.newInstance();
+                            Transformer transformer = factory.newTransformer(); // identity transformer
+                            
+                            // Setup input stream
+                            Source src = new StreamSource(new ByteArrayInputStream(sw.toString().getBytes()));
+
+                            // Resulting SAX events (the generated FO) must be piped through to FOP
+                            Result result = new SAXResult(fop.getDefaultHandler());
+                            
+                            // Start XSLT transformation and FOP processing
+                            transformer.transform(src, result);
+                            
+                            out.flush();
+                            out.close();
+                            // to a file for debugging
+                           FileOutputStream fw = new FileOutputStream("/tmp/file.pdf");
+                			fw.write(out.toByteArray());
+                			fw.close();
+                            HttpServletResponse response = (HttpServletResponse) context.get("response");
+                            response.setContentType("application/pdf");
+                            response.setContentLength(out.size());
+                            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+                			writer.append(new String(out.toByteArray()));
                 		} catch(Exception e) {
-                			Debug.logError("================================Exception: " + e, module);
+                			Debug.logError("Exception converting from FO to PDF: " + e, module);
                 		}
-
-
-
                 	} else {
                         screenStringRenderer.renderContentFrame(writer, context, this);
                 	}

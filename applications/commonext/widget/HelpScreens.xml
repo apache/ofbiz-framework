@@ -79,7 +79,7 @@ under the License.
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
-                        <set field="contentId" value="${parameters.contentId}" default-value="HELP_ROOT"/>
+                        <set field="contentId" value="${parameters.helpTopic}" default-value="HELP_ROOT"/>
                         <entity-one entity-name="Content" value-field="content"/>
                     </actions>
                     <widgets>

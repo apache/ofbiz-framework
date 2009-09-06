@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -17,16 +17,23 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Component Section</title>
-	<section>
-		<title>Introduction Paragraph</title>
-		<para>
-			and a introduction paragraph in Accounting
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Product  Catalog overview</title>
+    <para>Introduction</para>
+    <section>
+        <title>subsection heading</title>
+        <para>Subsection content</para>
+    </section>
+    <section>
+        <title>Subsection 2 title</title>
+        <para>
+        The Main accounting help screen. For more information please 
+        see the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> for more info.
         </para>
-	</section>
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_main.xml" />
-</chapter>
+    </section>
+</section>
+

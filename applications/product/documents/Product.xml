@@ -21,12 +21,12 @@
 	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
 	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Component Section</title>
+	<title>The Product Catalog Component</title>
 	<section>
 		<title>Introduction Paragraph</title>
 		<para>
-			and a introduction paragraph in Accounting
+			and a introduction paragraph 
         </para>
 	</section>
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_main.xml" />
+	<xi:include href="../data/helpdata/HELP_PRODCATALOG_main.xml" />
 </chapter>

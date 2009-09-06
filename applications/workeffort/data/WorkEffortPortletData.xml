@@ -29,23 +29,10 @@
         editFormLocation="component://workeffort/widget/CalendarForms.xml"
         screenshot="/images/portlets/Calendar.png"/>
     <PortletPortletCategory portalPortletId="Calendar" portletCategoryId="EVENTSTASKS"/>
-    <DataResource dataResourceId="HELP_Calendar" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
-    <ElectronicText dataResourceId="HELP_Calendar">
-        <textData><![CDATA[
-            <root>
-                <definition>
-                    This Calendar portler will show events for a certain person, facility or fixed asset
-                </definition>
-                <usedFor>
-                    It provides an overview on a dayly/weekly/or month period.
-                </usedFor>
-                <onScreen>
-                    You will see the particular view with the ability to add an event.
-                </onScreen>
-            </root>
-        ]]></textData>
-    </ElectronicText>
-    <Content contentId="HELP_Calendar" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_Calendar" statusId="CTNT_IN_PROGRESS" contentName="Help portlet Celendar" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="HELP_Calendar" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+      objectInfo="applications/workeffort/data/helpdata/HELP_PORTLET_CALENDER.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_Calendar" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_Calendar" statusId="CTNT_IN_PROGRESS" 
+        contentName="Help portlet Calendar" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_MYPORTAL" contentIdTo="HELP_Calendar" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
     
     

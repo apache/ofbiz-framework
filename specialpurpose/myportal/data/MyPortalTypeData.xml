@@ -160,8 +160,11 @@
     <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE"/>
     
     <!-- Myportal help pages -->
-    <DataResource dataResourceId="HELP_MYPORTAL" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/myportal/data/helpdata/HELP_MYPORTAL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_MYPORTAL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_MYPORTAL" statusId="CTNT_IN_PROGRESS" contentName="My Portal help" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="HELP_MYPORTAL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+      objectInfo="specialpurpose/myportal/data/helpdata/HELP_MYPORTAL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+      dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_MYPORTAL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_MYPORTAL" statusId="CTNT_IN_PROGRESS" 
+      contentName="My Portal help" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MYPORTAL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
 
 </entity-engine-xml>

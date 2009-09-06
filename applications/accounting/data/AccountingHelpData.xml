@@ -18,7 +18,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <DataResource dataResourceId="HELP_ACCOUNTING" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ACCOUNTING" contentTypeId="DOCUMENT" contentName="Accounting Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ACCOUNTING" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <DataResource dataResourceId="HELP_ACCOUNTING" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="Accounting Overview" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ACCOUNTING" contentTypeId="DOCUMENT" contentName="Accounting Overview" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_ACCOUNTING" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ACCOUNTING" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="ACCOUNTING_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Main Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_main" contentTypeId="DOCUMENT" contentName="Accounting Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 </entity-engine-xml>

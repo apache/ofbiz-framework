@@ -17,13 +17,12 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<root>
-    <generalTitle>
-        The Content Manager.
-    </generalTitle>
-    <general>
-        <section>
-            <text>The Content Management System (CMS) is designed to store data once and then allow it to be reused in multiple arrangements.</text>
-        </section>
-    </general>
-</root>
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Content Manager Overview</title>
+    <para>The Document Content Management System (DMS/CMS) is designed to store data once and then allow it to be reused in multiple arrangements.</para>
+</section>
+
