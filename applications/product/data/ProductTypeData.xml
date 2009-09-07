@@ -147,6 +147,7 @@ under the License.
     <GoodIdentificationType description="SKU" goodIdentificationTypeId="SKU" hasTable="N" parentTypeId=""/>
     <GoodIdentificationType description="UPCA" goodIdentificationTypeId="UPCA" hasTable="N" parentTypeId=""/>
     <GoodIdentificationType description="UPCE" goodIdentificationTypeId="UPCE" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="EAN" goodIdentificationTypeId="EAN" hasTable="N" parentTypeId=""/>
 
     <InventoryItemType description="Serialized" hasTable="N" inventoryItemTypeId="SERIALIZED_INV_ITEM" parentTypeId=""/>
     <InventoryItemType description="Non-Serialized" hasTable="N" inventoryItemTypeId="NON_SERIAL_INV_ITEM" parentTypeId=""/>
