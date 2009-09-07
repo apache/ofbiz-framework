@@ -805,7 +805,6 @@ public class RequestHandler {
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
-Debug.log("===================rendering view: " + view + " contentType: " + contentType + " viewHandler:" + vh.getName());            
             vh.render(view, nextPage, viewMap.info, contentType, charset, req, resp);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
