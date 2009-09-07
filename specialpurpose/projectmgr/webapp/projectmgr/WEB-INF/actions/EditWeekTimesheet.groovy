@@ -41,11 +41,17 @@ if (timesheetId) {
     timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : timesheetId]);
     partyId = timesheet.partyId; // use the party from this timesheet
 } else {
-    start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
-    timesheets = delegator.findByAnd("Timesheet", ["partyId" : partyId, "fromDate" : start]);
-    if (timesheets) {
-        timesheet = timesheets[0];
-    } else {
+    // make sure because of timezone changes, not a duplicate timesheet is created
+    midweek = UtilDateTime.addDaysToTimestamp(UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp()),3);
+    entryExprs = EntityCondition.makeCondition([
+        EntityCondition.makeCondition("fromDate", EntityComparisonOperator.LESS_THAN, midweek),
+        EntityCondition.makeCondition("thruDate", EntityComparisonOperator.GREATER_THAN, midweek),
+        EntityCondition.makeCondition("partyId", EntityComparisonOperator.EQUALS, partyId)
+        ], EntityOperator.AND);
+    entryIterator = delegator.find("Timesheet", entryExprs, null, null, null, null);
+    timesheet = entryIterator.next();
+    entryIterator.close();
+    if (timesheet == null) {
         result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
         if (result && result.timesheetId) {
             timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : result.timesheetId]);
