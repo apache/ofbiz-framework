@@ -17,16 +17,32 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Component.</title>
-	<section>
-		<title>Introductio</title>
-		<para>
-			Please find here a general introduction to the accounting component (to be continued)
-        </para>
-	</section>
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_main.xml" />
-</chapter>
+	<title>The Entity Engine.</title>
+
+    <section>
+    <title>Entity Engine guide.</title>
+    <para>
+       <link xl:href="http://ofbiz.apache.org/docs/entity.html">Entity engine Guide(to be converted)</link>
+    </para>
+    </section>
+    
+    <section>
+    <title>Entity Engine Configuration Guide.</title>
+    <para>
+          <link xl:href="http://ofbiz.apache.org/docs/entityconfig.html">entity engine configuration guide (to be converted)</link>
+    </para>
+    </section>
+    
+    <section>
+    <title>Entity overview.</title>
+    <para>
+        <link xl:href="http://docs.ofbiz.org/display/OFBTECH/General+Entity+Overview">Entity overview (to be converted)</link>
+    </para>
+        
+    </section>
+	
+</section>

@@ -264,13 +264,8 @@ under the License.
     <Content contentId="TREE_ROOT"/>
     <DataResource dataResourceId="DOCBOOK_HTML_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/docbook/html/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
     <DataResource dataResourceId="DOCBOOK_PDF_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/docbook/fo/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
-    <DataResource dataResourceId="APACHE_OFBIZ" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/documents/ApacheOfbiz.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="APACHE_OFBIZ_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The general Apache document in one page HTML" mimeTypeId="text/html"/>
-    <Content contentId="APACHE_OFBIZ_PDF" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_PDF_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The general Apache document in PDF format" mimeTypeId="application/pdf"/>
+
+    <!-- localization example file -->
     <DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
-    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
-    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
-    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
     
 </entity-engine-xml>

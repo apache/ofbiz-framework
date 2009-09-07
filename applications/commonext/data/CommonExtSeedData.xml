@@ -18,4 +18,21 @@
     under the License.
 -->
 <entity-engine-xml>
+    <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <DataResource dataResourceId="APACHE_OFBIZ" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/documents/ApacheOfbiz.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The User &amp; Technical Apache OFBiz document in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <Content contentId="APACHE_OFBIZ_PDF" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_PDF_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The general Apache document in PDF format" mimeTypeId="application/pdf"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <DataResource dataResourceId="APACHE_OFBIZ_TECH" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/documents/ApacheOfbizTechnical.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_T_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ_TECH" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The Apache OFBiz Technical Guide in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_T_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+    <DataResource dataResourceId="APACHE_OFBIZ_USER" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/documents/ApacheOfbizTechnical.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz User document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_U_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ_TECH" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The Apache OFBizUser Guide in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_U_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
 </entity-engine-xml>

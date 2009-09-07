@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -17,16 +17,24 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-	xmlns:xl="http://www.w3.org/1999/xlink" 
-	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Main help screen.</title>
-    <para>Introduction</para>
-    <section>
-        <title>subsection heading</title>
-        <para>Subsection content</para>
-    </section>
-</section>
+	<title>The OFBiz Framework.</title>
+	<section>
+		<title>Introduction.</title>
+		<para>
+			For a core configuration guide check <link xl:href="http://ofbiz.apache.org/docs/coreconfig.html">the OFBiz website.</link>
+        </para>
+	</section>
+    <xi:include href="../entity/documents/EntityEngine.xml" />
+    <xi:include href="../service/documents/ServiceEngine.xml" />
 
+    <section>
+        <title>The widget system: screens and forms.</title>
+        <para>
+
+        </para>
+    </section>
+</chapter>
