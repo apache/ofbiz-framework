@@ -28,12 +28,12 @@ import org.ofbiz.order.order.OrderReadHelper;
 // so we'll take a best effort approach to limit the size of the results
 maxRows = null;
 // TODO: Find a way to get the pagination parameters for a given form
-if (!parameters.containsKey("VIEW_INDEX_1")) {
+if (!parameters.containsKey("VIEW_INDEX_2")) {
     // There's only one set of pagination parameters so it must be for us
-    if (parameters.VIEW_SIZE_0) {
-        if (parameters.VIEW_INDEX_0) {
-            viewSize = Integer.valueOf(parameters.VIEW_SIZE_0);
-            viewIndex = Integer.valueOf(parameters.VIEW_INDEX_0);
+    if (parameters.VIEW_SIZE_1) {
+        if (parameters.VIEW_INDEX_1) {
+            viewSize = Integer.valueOf(parameters.VIEW_SIZE_1);
+            viewIndex = Integer.valueOf(parameters.VIEW_INDEX_1);
             maxRows = viewSize * (viewIndex + 1); 
         }
     }
@@ -81,7 +81,6 @@ selectedFields = ["productId", "supplierProductId", "supplierProductName", "last
 supplierProducts = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
 
 newProductList = [];
-skippedResults = 0;
 for (supplierProduct in supplierProducts) {
     productId = supplierProduct.productId;
 
@@ -93,7 +92,7 @@ for (supplierProduct in supplierProducts) {
     }
     if (newProductList.size() >= maxRows) {
         // We've got enough results to display, keep going to get the result size but skip the heavy stuff
-        skippedResults += productFacilityList.size();
+        newProductList.add(null);
     } else {
         quantityOnOrder = 0.0;
         // find approved purchase orders
@@ -136,5 +135,5 @@ for (supplierProduct in supplierProducts) {
         }
     }
 }
-context.productListSize = newProductList.size() + skippedResults;
+context.productListSize = newProductList.size();
 context.productList = newProductList;
