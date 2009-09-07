@@ -960,10 +960,12 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUpdateUserLogin" short-description="Create and update a user login" login-required="false">
+        <if-empty field="parameters.partyId">
+            <request-to-field request-name="partyId" field="parameters.partyId"/>
+        </if-empty>
         <if-empty field="userLogin">
             <call-map-processor xml-resource="component://securityext/script/org/ofbiz/securityext/login/LoginMapProcs.xml"
                 processor-name="userLogin" in-map-name="parameters" out-map-name="userLoginMap"/>
-
             <if-not-empty field="userLoginMap.userLoginId">
                 <entity-one entity-name="UserLogin" value-field="existingUserLogin">
                     <field-map field-name="userLoginId" value="${userLoginMap.userLoginId}"/>
@@ -990,7 +992,6 @@ under the License.
             <entity-one entity-name="UserLogin" value-field="userLoginCtx.userLogin" auto-field-map="false">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
-
             <call-service service-name="createUserLogin" in-map-name="userLoginCtx"/>
             <entity-one entity-name="UserLogin" value-field="userLogin">
                 <field-map field-name="userLoginId" from-field="userLoginMap.userLoginId"/>
