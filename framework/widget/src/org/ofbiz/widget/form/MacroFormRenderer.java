@@ -2289,7 +2289,9 @@ public class MacroFormRenderer implements FormStringRenderer {
             width = Integer.toString(imageField.getWidth());
         }
 
-        height = Integer.toString(imageField.getHeight());
+        if (imageField.getHeight() != null) {
+            height = Integer.toString(imageField.getHeight());
+        }
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
