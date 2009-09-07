@@ -172,8 +172,7 @@ under the License.
         </field>
     </form>
     <form name="LookupBulkAddSupplierProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProducts"
-        override-list-size="${productListSize}">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProducts" view-size="5">
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
                 <parameter param-name="productId"/>
