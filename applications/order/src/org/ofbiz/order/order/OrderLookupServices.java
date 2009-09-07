@@ -417,9 +417,8 @@ public class OrderLookupServices {
         String cardNumber = (String) context.get("cardNumber");
         String accountNumber = (String) context.get("accountNumber");
 
-        if (billingAccountId != null || finAccountId != null || cardNumber != null || accountNumber != null) {
+        if (finAccountId != null || cardNumber != null || accountNumber != null) {
             dve.addMemberEntity("OP", "OrderPaymentPreference");
-            dve.addAlias("OP", "billingAccountId");
             dve.addAlias("OP", "finAccountId");
             dve.addAlias("OP", "paymentMethodId");
             dve.addViewLink("OH", "OP", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("orderId", "orderId")));
@@ -427,6 +426,9 @@ public class OrderLookupServices {
 
         // search by billing account ID
         if (UtilValidate.isNotEmpty(billingAccountId)) {
+            dve.addMemberEntity("BL", "BillingAccount");
+            dve.addAlias("BL", "billingAccountId");
+            dve.addViewLink("OH", "BL", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("billingAccountId", "billingAccountId")));
             paramList.add("billingAccountId=" + billingAccountId);
             conditions.add(makeExpr("billingAccountId", billingAccountId));
         }
