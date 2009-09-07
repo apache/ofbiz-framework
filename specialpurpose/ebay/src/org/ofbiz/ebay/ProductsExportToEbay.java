@@ -81,14 +81,18 @@ public class ProductsExportToEbay {
             Debug.logError("Exception in exportToEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
         }
-        String successMessage = UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentToEbay", locale);
+        String responseMessage = UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentToEbay", locale);
         if (result != null) {
-            String responseString = (String)result.get("successMessage");
-            if (UtilValidate.isNotEmpty(responseString)) {
-                successMessage = responseString;
+            Map response = exportToEbayResponse((String) result.get("successMessage"));
+            if (UtilValidate.isNotEmpty(response) && "fail".equals(response.get("responseMessage"))) {
+                responseMessage = (String) response.get("errorMessage");
+                return ServiceUtil.returnError(responseMessage);
+            } else if (UtilValidate.isNotEmpty(response) && "success".equals(response.get("responseMessage"))) {
+                responseMessage = (String) response.get("successMessage");
+                return ServiceUtil.returnSuccess(responseMessage);
             }
         }
-        return ServiceUtil.returnSuccess(successMessage);
+        return ServiceUtil.returnSuccess(responseMessage);
     }
 
     private static void appendRequesterCredentials(Element elem, Document doc, String token) {
@@ -562,5 +566,29 @@ public class ProductsExportToEbay {
         }    
         return buildEbayConfigContext;
     }    
-    
+
+    private static Map exportToEbayResponse(String msg) {
+        Map result = FastMap.newInstance();
+        try {
+            Document docResponse = UtilXml.readXmlDocument(msg, true);
+            Element elemResponse = docResponse.getDocumentElement();
+            String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
+            if (ack != null && "Failure".equals(ack)) {
+                String errorMessage = "";
+                List errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator errorElemIter = errorList.iterator();
+                while (errorElemIter.hasNext()) {
+                    Element errorElement = (Element) errorElemIter.next();
+                    errorMessage = UtilXml.childElementValue(errorElement, "LongMessage");
+                }
+                result = ServiceUtil.returnFailure(errorMessage);
+            } else {
+                result = ServiceUtil.returnSuccess("The data exported successfully to eBay.");
+            }
+        } catch (Exception e) {
+            Debug.logError("Error in processing xml string" + e.getMessage(), module);
+            return ServiceUtil.returnFailure();
+        }
+        return result;
+    }
 }
