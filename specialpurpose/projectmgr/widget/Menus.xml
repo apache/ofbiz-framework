@@ -378,7 +378,7 @@
                 <not><if-empty field="workEffort"/></not>
             </condition>
             <link target="EditTaskNotes">
-                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="EditWorkEffortSurveyAppls" title="${uiLabelMap.EcommerceSurveys}">
