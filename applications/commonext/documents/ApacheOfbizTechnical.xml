@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+	  xmlns:xl="http://www.w3.org/1999/xlink"
+	  xmlns:xi="http://www.w3.org/2001/XInclude"
+	  xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+	  xmlns="http://docbook.org/ns/docbook">
+
+    <info>
+        <title>Apache OFBiz Technical documentation.</title>
+        <copyright><year>2009</year><holder>Apache Foundation</holder></copyright>
+    </info> 
+
+    <dedication>
+        <para>
+            I was reading the book in development from Norman Walsh called <link xl:href="http://www.docbook.org/tdg5/en/html/docbook.html">DocBook 5.0: The Definitive Guide
+            </link> and found that a book can have a dedication. My first thought was there is only one man to whom this book can be dedicated. Without him I would not have been writing it.
+            Sometimes i talk to other people about my dinners with David Jones in Pucket, Thailand which were very revealing to me. At a relative young age David designed and developed with Andy Zenesky 
+            the cornerstones of the OFBiz system called entity engine and recognized that in 2001 SOA (System Oriented Architecture) would be the future. 
+            So, David, thank you very much spending your efforts creating this excellent system. 
+        </para>
+    </dedication>
+
+    <chapter>
+        <title>Introduction.</title>
+        <para>
+            Welcome to Apache OFBiz the ready to use open source ERP system.
+        </para>
+    
+        <section>
+            <title>The production setup guide.</title>
+            <para>
+                   An excellent guide to configure the system in a production environment, read the document at the <link xl:href="http://docs.ofbiz.org/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide">OFBiz documentation site</link>
+            </para>
+        </section>
+    
+
+        <xi:include href="../../../framework/documents/Framework.xml"/>
+    
+
+    </chapter>
+    
+
+
+
+    <appendix>
+    	<title>The Apache OFBiz documentation system</title>
+
+    <section>
+        <title>Overview.</title>
+        <para>
+            The OFBiz documentation system consist out of a number of DocBook xml
+            files. In general the files are stored within the subject
+            component either in the 'documents' or data/helpdata
+            directories.
+            The 'master' document is stored in the file
+            applications/commonext/documents/ApacheOfbiz.xml. The
+            docbook schemas are stored in the applications/content/dtd
+            directory and the stylesheets are
+            stored in the applications/content/templates/docbook directory.  
+    	</para>
+        <para>
+            the definition of the content and dataresource records can be found in
+            the application/content/data/ContentType.xml file at the
+            bottom. They are in this file because the documentation and
+            helpfile
+            are considered 'seed' data: essential for the operation of OFBiz.
+    	</para>
+        <para>
+            If you are looking for docbook files format examples, please
+            look at the following files:
+            <orderedlist>
+                <listitem>
+                    <para>The master document at:
+                        applications/commonext/documents/ApacheOfbiz.xml
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>An example for a chapter of a component at:
+                        applications/accounting/documents/Accounting.xml
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>An example of a help screen:
+                        applications/accounting/data/helpdata/HELP_ACCOUNTING_main.xml
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>An example of content creation:
+                        applications/accounting/data/AccountingHelpData.xml
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+
+    <section>
+        <title>Contributing a new help screen, a few steps.</title>
+        <para>
+            So if you would like to create a new help menu for a certain
+            screen, you need to do the following:
+            <orderedlist>
+                <listitem>
+                    <para>In the helplink.ftl un-comment the
+                        ${helpTopic} variable so it will appear at the
+                        top right hand of your screen</para>
+                </listitem>
+                <listitem>
+                    <para>in the specific component data/helpData create
+                        the HELP_${helpTopic}.xml file. you can find an
+                        example in the HELP_ACCOUNTING_main.xml file.</para>
+                </listitem>
+                <listitem>
+                    <para>Update/create the
+                        data/${componentName}HelpData.xml, an example
+                        can be found in the AccountingHelpData.xml. If
+                        new make also an entry in the
+                        ofbiz-component.xml</para>
+                </listitem>
+                <listitem>
+                    <para>Load the HelpDataFile and the file should
+                        show up when you click on the help button.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Submit the change to the svn repository or
+                        create a diff file and attach it to a jira
+                        issue.</para>
+                </listitem>
+                <listitem>
+                    <para>
+                        If the help text is usefull in the ofbiz document include it in the files in the document directory.
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+    </appendix>
+    
+    <appendix>
+        <section>
+            <title>Revisions Requiring Data Migration.</title>
+            <para>
+                   A List of migration actions you need to perform can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBTECH/Revisions+Requiring+Data+Migration">OFBiz documentation site</link>
+            </para>
+        </section>
+    </appendix>
+    
+    
+</book>

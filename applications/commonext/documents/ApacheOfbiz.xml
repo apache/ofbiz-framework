@@ -17,150 +17,18 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+<set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
 	  xmlns:xl="http://www.w3.org/1999/xlink"
 	  xmlns:xi="http://www.w3.org/2001/XInclude"
 	  xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
 	  xmlns="http://docbook.org/ns/docbook">
 
-	<info>
-	    <title>Apache OFBiz official documentation</title>
-        <copyright><year>2009</year><holder>Apache Foundation</holder></copyright>
-	</info>	
+    <info>
+        <title>Apache OFBiz official documentation.</title>
+        <copyright><year>2009</year><holder>Apache Foundation.</holder></copyright>
+    </info> 
 
-    <preface>
-        <para>
-            This Book is in an experimental stage and acts as a proof of concept. It could be the start of moving the ofbiz documentation from the current 
-            <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> to the OFBiz content component. It is currently open for discussion by the OFBiz community. 
-        </para>
-        <para>
-            The advantages of using it within OFBiz are:
-            <orderedlist>
-                <listitem><para>No external system required for documentation</para></listitem>
-                <listitem><para>The content of the internal help files can be used within the documentation</para></listitem>
-                <listitem><para>The documentation always has the same version as the system (It is part of it)</para></listitem>
-                <listitem><para>The content is stored in a internationally accepted <link xl:href="http://docbook.org">'DocBook'</link> format</para></listitem>
-                <listitem><para>The content can be easily presented in the selected visual schemas (To be implemented)</para></listitem>
-            </orderedlist>
-        </para>
-        <para>
-        	If you want to contribute to this document, you are very welcome.
-        	Several possibilities exist:
-            <orderedlist>
-                <listitem><para>Convert existing OFBiz documents on the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site to the <link xl:href="http://docbook.org">docbook</link> format</link></para></listitem>
-                <listitem><para>Write new document chapters for an OFBiz component</para></listitem>
-                <listitem><para>Write new Help screens which can be inserted as sections in the document.</para></listitem>
-            </orderedlist>
-			How to contribute? It depends if you have a local OFBiz system or not. If you have, check the appendix for an explanation how the document text is stored within the OFBiz system.
-			If you do not have a local OFBiz system write your text in an xml editor using the DocBook V5.0 schema's.
-			If you have text to contribute create a Jira issue and upload your text to the issue.			
-        </para>
-    </preface>
-    
-    <chapter>
-        <title>Introduction</title>
-        <para>
-            Welcome to Apache OFBiz the ready to use open source ERP system.
-        </para>
-    </chapter>
-    <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
-    <xi:include href="../../../applications/product/documents/Product.xml"/>
-    <xi:include href="../../../applications/content/documents/Content.xml"/>
-    <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
-    
-	<anchor/>
-    <appendix>
-    	<title>The Apache OFBiz documentation system</title>
+    <xi:include href="ApacheOfbizUser.xml"/>
+    <xi:include href="ApacheOfbizTechnical.xml"/>
 
-    <section>
-        <title>Overview</title>
-        <para>
-            The OFBiz documentation system consist out of a number of DocBook xml
-            files. In general the files are stored within the subject
-            component either in the 'documents' or data/helpdata
-            directories.
-            The 'master' document is stored in the file
-            applications/commonext/documents/ApacheOfbiz.xml. The
-            docbook schemas are stored in the applications/content/dtd
-            directory and the stylesheets are
-            stored in the applications/content/templates/docbook directory.  
-    	</para>
-        <para>
-            the definition of the content and dataresource records can be found in
-            the application/content/data/ContentType.xml file at the
-            bottom. They are in this file because the documentation and
-            helpfile
-            are considered 'seed' data: essential for the operation of OFBiz.
-    	</para>
-        <para>
-            If you are looking for docbook files format examples, please
-            look at the following files:
-            <orderedlist>
-                <listitem>
-                    <para>The master document at:
-                        applications/commonext/documents/ApacheOfbiz.xml
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>An example for a chapter of a component at:
-                        applications/accounting/documents/Accounting.xml
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>An example of a help screen:
-                        applications/accounting/data/helpdata/HELP_ACCOUNTING_main.xml
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>An example of content creation:
-                        applications/accounting/data/AccountingHelpData.xml
-                    </para>
-                </listitem>
-            </orderedlist>
-        </para>
-    </section>
-
-    <section>
-        <title>Contributing a new help screen, a few steps</title>
-        <para>
-            So if you would like to create a new help menu for a certain
-            screen, you need to do the following:
-            <orderedlist>
-                <listitem>
-                    <para>In the helplink.ftl un-comment the
-                        ${helpTopic} variable so it will appear at the
-                        top right hand of your screen</para>
-                </listitem>
-                <listitem>
-                    <para>in the specific component data/helpData create
-                        the HELP_${helpTopic}.xml file. you can find an
-                        example in the HELP_ACCOUNTING_main.xml file.</para>
-                </listitem>
-                <listitem>
-                    <para>Update/create the
-                        data/${componentName}HelpData.xml, an example
-                        can be found in the AccountingHelpData.xml. If
-                        new make also an entry in the
-                        ofbiz-component.xml</para>
-                </listitem>
-                <listitem>
-                    <para>Load the HelpDataFile and the file should
-                        show up when you click on the help button.
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>Submit the change to the svn repository or
-                        create a diff file and attach it to a jira
-                        issue.</para>
-                </listitem>
-                <listitem>
-                    <para>
-                        If the help text is usefull in the ofbiz document include it in the files in the document directory.
-                    </para>
-                </listitem>
-            </orderedlist>
-        </para>
-    </section>
-    </appendix>
-    
-</book>
+</set>
