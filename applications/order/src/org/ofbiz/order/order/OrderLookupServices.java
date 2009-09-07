@@ -426,9 +426,6 @@ public class OrderLookupServices {
 
         // search by billing account ID
         if (UtilValidate.isNotEmpty(billingAccountId)) {
-            dve.addMemberEntity("BL", "BillingAccount");
-            dve.addAlias("BL", "billingAccountId");
-            dve.addViewLink("OH", "BL", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("billingAccountId", "billingAccountId")));
             paramList.add("billingAccountId=" + billingAccountId);
             conditions.add(makeExpr("billingAccountId", billingAccountId));
         }
@@ -532,7 +529,7 @@ public class OrderLookupServices {
             dve.addAlias("PA", "countryGeoId");
             dve.addViewLink("OH", "OCM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("orderId"));
             dve.addViewLink("OCM", "PA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
-            
+
             EntityConditionList exprs = null;
             if ("Y".equals(includeCountry)) {
                 exprs = EntityCondition.makeCondition(UtilMisc.toList(
@@ -554,7 +551,7 @@ public class OrderLookupServices {
         if (conditions.size() > 0 || showAll.equalsIgnoreCase("Y")) {
             cond = EntityCondition.makeCondition(conditions, EntityOperator.AND);
         }
-        
+
         if (Debug.verboseOn()) {
             Debug.log("Find order query: " + cond.toString());
         }
