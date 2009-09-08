@@ -22,11 +22,11 @@ under the License.
         <h3>${uiLabelMap.PageTitleEditProductFeatures}</h3>
     </div>
     <div class="screenlet-body">
+        <form method="post" action="<@ofbizUrl>UpdateFeatureToProductApplication</@ofbizUrl>" name="selectAllForm">
+        <input type="hidden" name="_useRowSubmit" value="Y"/>
+        <input type="hidden" name="_checkGlobalScope" value="Y"/>
+        <input type="hidden" name="productId" value="${productId}"/>
         <table cellspacing="0" class="basic-table">
-            <form method="post" action="<@ofbizUrl>UpdateFeatureToProductApplication</@ofbizUrl>" name="selectAllForm">
-            <input type="hidden" name="_useRowSubmit" value="Y">
-            <input type="hidden" name="_checkGlobalScope" value="Y">
-            <input type="hidden" name="productId" value="${productId}">
             <tr class="header-row">
                 <td><b>${uiLabelMap.CommonId}</b></td>
                 <td><b>${uiLabelMap.CommonDescription}</b></td>
@@ -34,18 +34,17 @@ under the License.
                 <td><b>${uiLabelMap.ProductCategory}</b></td>
                 <td><b>${uiLabelMap.CommonFromDate}</b></td>
                 <td><b>${uiLabelMap.ProductThruDateAmountSequenceApplicationType}</b></td>
-                <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"></td>
+                <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"/></b></td>
             </tr>
-            <#assign rowCount = 0>
             <#assign rowClass = "2">
             <#list productFeatureAndAppls as productFeatureAndAppl>
                 <#assign curProductFeatureType = productFeatureAndAppl.getRelatedOneCache("ProductFeatureType")>
                 <#assign curProductFeatureApplType = productFeatureAndAppl.getRelatedOneCache("ProductFeatureApplType")>
                 <#assign curProductFeatureCategory = (productFeatureAndAppl.getRelatedOneCache("ProductFeatureCategory")?if_exists)>
-                <tr id="productFeatureId_tableRow_${rowCount}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                    <input type="hidden" name="productId_o_${rowCount}" value="${(productFeatureAndAppl.productId)?if_exists}">
-                    <input type="hidden" name="productFeatureId_o_${rowCount}" value="${(productFeatureAndAppl.productFeatureId)?if_exists}">
-                    <input type="hidden" name="fromDate_o_${rowCount}" value="${(productFeatureAndAppl.fromDate)?if_exists}">
+                <tr id="productFeatureId_tableRow_${productFeatureAndAppl_index}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                    <input type="hidden" name="productId_o_${productFeatureAndAppl_index}" value="${(productFeatureAndAppl.productId)?if_exists}">
+                    <input type="hidden" name="productFeatureId_o_${productFeatureAndAppl_index}" value="${(productFeatureAndAppl.productFeatureId)?if_exists}">
+                    <input type="hidden" name="fromDate_o_${productFeatureAndAppl_index}" value="${(productFeatureAndAppl.fromDate)?if_exists}">
                     <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${(productFeatureAndAppl.productFeatureId)?if_exists}</@ofbizUrl>" class="buttontext">
                         ${(productFeatureAndAppl.productFeatureId)?if_exists}</a></td>
                     <td>${(productFeatureAndAppl.get("description",locale))?if_exists}</td>
@@ -59,11 +58,11 @@ under the License.
                     <td>
                         <#assign hasExpired = false>
                         <#if (productFeatureAndAppl.getTimestamp("thruDate"))?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(productFeatureAndAppl.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
-                        <input type='text' size='25' name='thruDate_o_${rowCount}' value='${(productFeatureAndAppl.thruDate)?if_exists}' <#if hasExpired> style='color: red;'</#if>>
-                        <a href="javascript:call_cal(document.selectAllForm.thruDate_o_${rowCount}, '${(productFeatureAndAppl.thruDate)?default(nowTimestamp?string)}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-                        <input type="text" size='6' name='amount_o_${rowCount}' value='${(productFeatureAndAppl.amount)?if_exists}'>
-                        <input type="text" size='5' name='sequenceNum_o_${rowCount}' value='${(productFeatureAndAppl.sequenceNum)?if_exists}'>
-                        <select name='productFeatureApplTypeId_o_${rowCount}' size="1">
+                        <input type='text' size='25' name='thruDate_o_${productFeatureAndAppl_index}' value='${(productFeatureAndAppl.thruDate)?if_exists}' <#if hasExpired> style='color: red;'</#if>>
+                        <a href="javascript:call_cal(document.selectAllForm.thruDate_o_${productFeatureAndAppl_index}, '${(productFeatureAndAppl.thruDate)?default(nowTimestamp?string)}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+                        <input type="text" size='6' name='amount_o_${productFeatureAndAppl_index}' value='${(productFeatureAndAppl.amount)?if_exists}'>
+                        <input type="text" size='5' name='sequenceNum_o_${productFeatureAndAppl_index}' value='${(productFeatureAndAppl.sequenceNum)?if_exists}'>
+                        <select name='productFeatureApplTypeId_o_${productFeatureAndAppl_index}' size="1">
                         <#if (productFeatureAndAppl.productFeatureApplTypeId)?exists>
                             <option value='${(productFeatureAndAppl.productFeatureApplTypeId)?if_exists}'><#if curProductFeatureApplType?exists> ${(curProductFeatureApplType.get("description",locale))?if_exists} <#else> [${productFeatureAndAppl.productFeatureApplTypeId}]</#if></option>
                             <option value='${productFeatureAndAppl.productFeatureApplTypeId}'> </option>
@@ -74,18 +73,12 @@ under the License.
                         </select>
                     </td>
                     <td align="right">
-                        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');">
+                        <input type="checkbox" name="_rowSubmit_o_${productFeatureAndAppl_index}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${productFeatureAndAppl_index}');">
                     </td>
                     <td>
-                      <form name= "RemoveFeatureFromProduct_o_${rowCount}" method= "post" action= "<@ofbizUrl>RemoveFeatureFromProduct</@ofbizUrl>">
-                        <input type= "hidden" name= "productId" value= "${(productFeatureAndAppl.productId)?if_exists}">
-                        <input type= "hidden" name= "productFeatureId" value= "${(productFeatureAndAppl.productFeatureId)?if_exists}">
-                        <input type= "hidden" name= "fromDate" value= "${productFeatureAndAppl.getString("fromDate")}">
-                        <a href="javascript:document.RemoveFeatureFromProduct_o_${rowCount}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
-                      </form>
+                      <a href="javascript:document.RemoveFeatureFromProduct_o_${productFeatureAndAppl_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </td>
                 </tr>
-                <#assign rowCount = rowCount + 1>
                 <#-- toggle the row color -->
                 <#if rowClass == "2">
                     <#assign rowClass = "1">
@@ -93,10 +86,22 @@ under the License.
                     <#assign rowClass = "2">
                 </#if>
             </#list>
-            <input type="hidden" name="_rowCount" value="${rowCount}">
-            <tr><td colspan="8" align="center"><input type="submit" value='${uiLabelMap.CommonUpdate}'/></td></tr>
+            
+            <tr>
+              <td colspan="8" align="center">
+                <input type="hidden" name="_rowCount" value="${productFeatureAndAppls.size()}"/>
+                <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <#list productFeatureAndAppls as productFeatureAndAppl>
+            <form name= "RemoveFeatureFromProduct_o_${productFeatureAndAppl_index}" method= "post" action= "<@ofbizUrl>RemoveFeatureFromProduct</@ofbizUrl>">
+              <input type= "hidden" name= "productId" value= "${(productFeatureAndAppl.productId)?if_exists}"/>
+              <input type= "hidden" name= "productFeatureId" value= "${(productFeatureAndAppl.productFeatureId)?if_exists}"/>
+              <input type= "hidden" name= "fromDate" value= "${productFeatureAndAppl.getString("fromDate")}"/>
             </form>
-        </table>
+        </#list>
     </div>
 </div>
 <div class="screenlet">
@@ -105,15 +110,15 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>ApplyFeaturesFromCategory</@ofbizUrl>" style='margin: 0;'>
-            <input type="hidden" name="productId" value="${productId}">
+            <input type="hidden" name="productId" value="${productId}"/>
             <select name='productFeatureCategoryId' size="1">
-                <option value='' selected>${uiLabelMap.ProductChooseFeatureCategory}</option>
+                <option value='' selected="selected">${uiLabelMap.ProductChooseFeatureCategory}</option>
                 <#list productFeatureCategories as productFeatureCategory>
                     <option value='${(productFeatureCategory.productFeatureCategoryId)?if_exists}'>${(productFeatureCategory.description)?if_exists} [${(productFeatureCategory.productFeatureCategoryId)?if_exists}]</option>
                 </#list>
             </select>
             <select name='productFeatureGroupId' size="1">
-                <option value='' selected>${uiLabelMap.ProductChooseFeatureGroup}</option>
+                <option value='' selected="selected">${uiLabelMap.ProductChooseFeatureGroup}</option>
                 <#list productFeatureGroups as productFeatureGroup>
                     <option value='${(productFeatureGroup.productFeatureGroupId)?if_exists}'>${(productFeatureGroup.description)?if_exists} [${(productFeatureGroup.productFeatureGroupId)?if_exists}]</option>
                 </#list>
@@ -122,12 +127,12 @@ under the License.
             <select name='productFeatureApplTypeId' size="1">
                 <#list productFeatureApplTypes as productFeatureApplType>
                    <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'
-                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
-                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId?if_exists =="STANDARD_FEATURE")>selected</#if>
+                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected="selected"</#if>
+                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId?if_exists =="STANDARD_FEATURE")>selected="selected"</#if>
                    >${(productFeatureApplType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
-            <input type="submit" value='${uiLabelMap.CommonAdd}'>
+            <input type="submit" value='${uiLabelMap.CommonAdd}'/>
         </form>
     </div>
 </div>
@@ -137,30 +142,30 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>ApplyFeatureToProductFromTypeAndCode</@ofbizUrl>" name='addFeatureByTypeIdCode'>
-            <input type="hidden" name="productId" value="${productId}">
+            <input type="hidden" name="productId" value="${productId}"/>
             <span class='label'>${uiLabelMap.ProductFeatureType}: </span><select name='productFeatureTypeId' size="1">
                 <#list productFeatureTypes as productFeatureType>
                 <option value='${(productFeatureType.productFeatureTypeId)?if_exists}'>${(productFeatureType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
-            <span class='label'>${uiLabelMap.CommonIdCode}: </span><input type="text" size='10' name='idCode' value=''>
+            <span class='label'>${uiLabelMap.CommonIdCode}: </span><input type="text" size='10' name='idCode' value=''/>
             <br/>
             <span class='label'>${uiLabelMap.ProductFeatureApplicationType}: </span>
             <select name='productFeatureApplTypeId' size="1">
                 <#list productFeatureApplTypes as productFeatureApplType>
                    <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'
-                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
-                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected</#if>
+                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected="selected"</#if>
+                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected="selected"</#if>
                    >${(productFeatureApplType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
             <br/>
-            <span class='label'>${uiLabelMap.CommonFrom} : </span><input type="text" size='25' name='fromDate'>
-            <a href="javascript:call_cal(document.addFeatureByTypeIdCode.fromDate, '${nowTimestamp?string}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-            <span class='label'>${uiLabelMap.CommonThru} : </span><input type="text" size='25' name='thruDate'>
-            <a href="javascript:call_cal(document.addFeatureByTypeIdCode.thruDate, '${nowTimestamp?string}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-            <span class='label'>${uiLabelMap.CommonSequence} : </span><input type="text" size='5' name='sequenceNum'>
-            <input type="submit" value="${uiLabelMap.CommonAdd}">
+            <span class='label'>${uiLabelMap.CommonFrom} : </span><input type="text" size='25' name='fromDate'/>
+            <a href="javascript:call_cal(document.addFeatureByTypeIdCode.fromDate, '${nowTimestamp?string}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+            <span class='label'>${uiLabelMap.CommonThru} : </span><input type="text" size='25' name='thruDate'/>
+            <a href="javascript:call_cal(document.addFeatureByTypeIdCode.thruDate, '${nowTimestamp?string}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+            <span class='label'>${uiLabelMap.CommonSequence} : </span><input type="text" size='5' name='sequenceNum'/>
+            <input type="submit" value="${uiLabelMap.CommonAdd}"/>
         </form>
     </div>
 </div>
@@ -170,30 +175,30 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>ApplyFeatureToProduct</@ofbizUrl>" name="addFeatureById">
-            <input type="hidden" name="productId" value="${productId}">
+            <input type="hidden" name="productId" value="${productId}"/>
             <span class="label">${uiLabelMap.CommonId}: </span>
-            <input type="text" size="10" name="productFeatureId" value="">
+            <input type="text" size="10" name="productFeatureId" value=""/>
             <span class='label'>
                 <a href="javascript:call_fieldlookup2(document.addFeatureById.productFeatureId,'LookupProductFeature');">
-                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}">
+                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                 </a>
             </span>
             <span class="label">${uiLabelMap.ProductFeatureApplicationType}: </span>
             <select name="productFeatureApplTypeId" size="1">
                 <#list productFeatureApplTypes as productFeatureApplType>
                    <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'
-                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
-                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected</#if>
+                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected="selected"</#if>
+                   <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected="selected"</#if>
                    >${(productFeatureApplType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
             <br/>
-            <span class="label">${uiLabelMap.CommonFrom} : </span><input type="text" size="25" name="fromDate">
-            <a href="javascript:call_cal(document.addFeatureById.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-            <span class="label">${uiLabelMap.CommonThru} : </span><input type="text" size="25" name="thruDate">
-            <a href="javascript:call_cal(document.addFeatureById.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-            <span class="label">${uiLabelMap.CommonSequence} : </span><input type="text" size="5" name="sequenceNum">
-            <input type="submit" value="${uiLabelMap.CommonAdd}">
+            <span class="label">${uiLabelMap.CommonFrom} : </span><input type="text" size="25" name="fromDate"/>
+            <a href="javascript:call_cal(document.addFeatureById.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+            <span class="label">${uiLabelMap.CommonThru} : </span><input type="text" size="25" name="thruDate"/>
+            <a href="javascript:call_cal(document.addFeatureById.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+            <span class="label">${uiLabelMap.CommonSequence} : </span><input type="text" size="5" name="sequenceNum"/>
+            <input type="submit" value="${uiLabelMap.CommonAdd}"/>
         </form>
     </div>
 </div>
