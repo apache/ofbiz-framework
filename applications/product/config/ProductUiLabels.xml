@@ -1276,6 +1276,10 @@
         <value xml:lang="th">รหัสบรรจุภัณฑ์</value>
         <value xml:lang="zh">容器标识</value>
     </property>
+    <property key="FormFieldTitle_contentType">
+        <value xml:lang="en">content Type</value>
+        <value xml:lang="fr">Typde de contenu</value>
+    </property>
     <property key="FormFieldTitle_correspondingProductId">
         <value xml:lang="de">Dazugehörige Produkt ID</value>
         <value xml:lang="en">Corresponding Product Id</value>
@@ -7936,7 +7940,7 @@
         <value xml:lang="de">Body Screen Pfad</value>
         <value xml:lang="en">Body Screen Location</value>
         <value xml:lang="es">Ubicación de la Pantalla Principal</value>
-        <value xml:lang="fr">Emplacement dans l'écran</value>
+        <value xml:lang="fr">Emplacement de l'écran</value>
         <value xml:lang="it">Posizione Corpo Videata</value>
         <value xml:lang="ro">Pozitie Corp Videata</value>
         <value xml:lang="ru">Путь к экрану содержания</value>
