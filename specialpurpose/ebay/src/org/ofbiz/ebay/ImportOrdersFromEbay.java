@@ -72,33 +72,11 @@ public class ImportOrdersFromEbay {
         Locale locale = (Locale) context.get("locale");
         Map result = FastMap.newInstance();
         try {
-            String configString = "ebayExport.properties";
-
-            // get the Developer Key
-            String devID = UtilProperties.getPropertyValue(configString, "eBayExport.devID");
-
-            // get the Application Key
-            String appID = UtilProperties.getPropertyValue(configString, "eBayExport.appID");
-
-            // get the Certifcate Key
-            String certID = UtilProperties.getPropertyValue(configString, "eBayExport.certID");
-
-            // get the Token
-            String token = UtilProperties.getPropertyValue(configString, "eBayExport.token");
-
-            // get the Compatibility Level
-            String compatibilityLevel = UtilProperties.getPropertyValue(configString, "eBayExport.compatibilityLevel");
-
-            // get the Site ID
-            String siteID = UtilProperties.getPropertyValue(configString, "eBayExport.siteID");
-
-            // get the xmlGatewayUri
-            String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "eBayExport.xmlGatewayUri");
-
+            Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
             StringBuffer sellerTransactionsItemsXml = new StringBuffer();
 
-            if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, token))) {
-                result = postItem(xmlGatewayUri, sellerTransactionsItemsXml, devID, appID, certID, "GetSellerTransactions", compatibilityLevel, siteID);
+            if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, eBayConfigResult.get("token").toString()))) {
+                result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), sellerTransactionsItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetSellerTransactions", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 String success = (String)result.get(ModelService.SUCCESS_MESSAGE);
                 if (success != null) {
                     result = checkOrders(delegator, dispatcher, locale, context, success);
@@ -189,33 +167,11 @@ public class ImportOrdersFromEbay {
                 transactionId = (String)orderHeader.get("transactionId");
             }
 
-            String configString = "ebayExport.properties";
-
-            // get the Developer Key
-            String devID = UtilProperties.getPropertyValue(configString, "eBayExport.devID");
-
-            // get the Application Key
-            String appID = UtilProperties.getPropertyValue(configString, "eBayExport.appID");
-
-            // get the Certifcate Key
-            String certID = UtilProperties.getPropertyValue(configString, "eBayExport.certID");
-
-            // get the Token
-            String token = UtilProperties.getPropertyValue(configString, "eBayExport.token");
-
-            // get the Compatibility Level
-            String compatibilityLevel = UtilProperties.getPropertyValue(configString, "eBayExport.compatibilityLevel");
-
-            // get the Site ID
-            String siteID = UtilProperties.getPropertyValue(configString, "eBayExport.siteID");
-
-            // get the xmlGatewayUri
-            String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "eBayExport.xmlGatewayUri");
-
+            Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
             StringBuffer completeSaleXml = new StringBuffer();
 
-            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, token))) {
-                result = postItem(xmlGatewayUri, completeSaleXml, devID, appID, certID, "CompleteSale", compatibilityLevel, siteID);
+            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
+                result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), completeSaleXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "CompleteSale", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 String successMessage = (String)result.get("successMessage");
                 if (successMessage != null) {
                     return readCompleteSaleResponse(successMessage, locale);
