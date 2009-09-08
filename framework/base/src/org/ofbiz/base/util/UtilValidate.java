@@ -1303,7 +1303,7 @@ public class UtilValidate {
 
     public static boolean isValidEan(String ean) {
         if (ean == null || ean.length() != 13) {
-            throw new IllegalArgumentException("Invalid UPC length; must be 12 characters");
+            throw new IllegalArgumentException("Invalid EAN length; must be 13 characters");
         }
         char csum = ean.charAt(13);
         char calcSum = calcChecksum(ean, 13);
