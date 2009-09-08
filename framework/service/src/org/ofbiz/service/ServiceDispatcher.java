@@ -34,7 +34,6 @@ import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.LRUMap;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -105,7 +104,7 @@ public class ServiceDispatcher {
         try {
             GenericDelegator origDelegator = this.delegator;
             if (!this.delegator.getOriginalDelegatorName().equals(this.delegator.getDelegatorName())) {
-                origDelegator = DelegatorFactory.getGenericDelegator(this.delegator.getOriginalDelegatorName());
+                origDelegator = GenericDelegator.getGenericDelegator(this.delegator.getOriginalDelegatorName());
             }
             this.jm = JobManager.getInstance(origDelegator, enableJM);
         } catch (GeneralRuntimeException e) {
@@ -277,12 +276,11 @@ public class ServiceDispatcher {
         // get eventMap once for all calls for speed, don't do event calls if it is null
         Map<String, List<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
 
+        // check the locale
+        Locale locale = this.checkLocale(context);
+
         // setup the engine and context
         DispatchContext ctx = localContext.get(localName);
-        GenericDelegator delegator = ctx.getDelegator();
-        Locale locale = this.checkLocale(context);
-        delegator.setLocale(locale);
-
         GenericEngine engine = this.getGenericEngine(modelService.engineName);
 
         // set IN attributes with default-value as applicable
@@ -358,7 +356,7 @@ public class ServiceDispatcher {
 
                     // now that we have authed, if there is a userLogin, set the EE userIdentifier
                     if (userLogin != null && userLogin.getString("userLoginId") != null) {
-                        delegator.setUserIdentifier(userLogin.getString("userLoginId"));
+                        GenericDelegator.pushUserIdentifier(userLogin.getString("userLoginId"));
                     }
 
                     // pre-validate ECA
@@ -553,6 +551,9 @@ public class ServiceDispatcher {
 
                 // call notifications -- event is determined from the result (success, error, fail)
                 modelService.evalNotifications(this.getLocalContext(localName), context, result);
+
+                // clear out the EE userIdentifier
+                GenericDelegator.popUserIdentifier();
             }
         } catch (GenericTransactionException te) {
             Debug.logError(te, "Problems with the transaction", module);

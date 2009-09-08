@@ -49,7 +49,6 @@ import org.apache.xmlrpc.server.XmlRpcNoSuchHandlerException;
 import org.apache.xmlrpc.util.HttpUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericDispatcher;
@@ -75,7 +74,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
-        this.delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+        this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         this.setHandlerMapping(new ServiceRpcHandler());
 

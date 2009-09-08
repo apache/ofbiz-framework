@@ -32,7 +32,6 @@ import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityFactory;
@@ -68,7 +67,7 @@ public class WebDavServlet extends GenericServlet {
             Thread.currentThread().setContextClassLoader(loader);
             ServletContext context = this.getServletContext();
             String delegatorName = context.getInitParameter("entityDelegatorName");
-            this.delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+            this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
             String dispatcherName = context.getInitParameter("localDispatcherName");
             this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.delegator);
             this.security = SecurityFactory.getInstance(this.delegator);

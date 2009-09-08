@@ -43,7 +43,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
@@ -118,7 +117,7 @@ public class CoreEvents {
             return "error";
         }
 
-        GenericDelegator delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+        GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorName);
 
         if (delegator == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_delegator_name_defined", locale);

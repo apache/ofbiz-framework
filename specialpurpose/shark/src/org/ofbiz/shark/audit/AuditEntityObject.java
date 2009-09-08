@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.shark.audit;
 
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 
@@ -41,7 +40,7 @@ public abstract class AuditEntityObject {
 
     public GenericDelegator getGenericDelegator() {
         if (this.delegator == null && delegatorName != null) {
-            this.delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+            this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
         return this.delegator;
     }

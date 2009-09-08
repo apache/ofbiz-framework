@@ -41,7 +41,6 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -2407,7 +2406,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (UtilValidate.isEmpty(delegatorName)) {
                 throw new IllegalStateException("Bad delegator name");
             }
-            delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+            delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
         return delegator;
     }

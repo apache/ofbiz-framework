@@ -41,7 +41,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -134,7 +133,7 @@ public class EntitySyncServices {
         GenericDelegator delegator = dctx.getDelegator();
         String overrideDelegatorName = (String) context.get("delegatorName");
         if (UtilValidate.isNotEmpty(overrideDelegatorName)) {
-            delegator = DelegatorFactory.getGenericDelegator(overrideDelegatorName);
+            delegator = GenericDelegator.getGenericDelegator(overrideDelegatorName);
             if (delegator == null) {
                 return ServiceUtil.returnError("Could not find delegator with specified name " + overrideDelegatorName);
             }

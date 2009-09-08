@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
@@ -53,7 +52,7 @@ public class ServiceStreamHandler implements EventHandler {
 
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
-        this.delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+        this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
     }
 
