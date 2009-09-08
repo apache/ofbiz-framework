@@ -29,6 +29,7 @@ under the License.
     <process field="nickname"><copy/></process>
     <process field="gender"><copy/></process>
     <process field="birthDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyBirthDateMissingError"/></convert></process>
+    <process field="deceasedDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyDeceasedDateMissingError"/></convert></process>
     <process field="height"><convert type="Double"><fail-property resource="PartyUiLabels" property="PartyHeightNotValidNumber"/></convert></process>
     <process field="weight"><convert type="Double"><fail-property resource="PartyUiLabels" property="PartyWeightNotValidNumber"/></convert></process>
     <process field="mothersMaidenName"><copy/></process>
