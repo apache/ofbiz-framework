@@ -40,6 +40,8 @@ import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 import org.xml.sax.SAXException;
 
+import org.ofbiz.base.util.UtilGenerics;
+
 public class SeleniumIDEConverter {
 
     private Document ideFile;
@@ -80,8 +82,8 @@ public class SeleniumIDEConverter {
         Element e1 = root.getChild("body",ns);
         Element e2 = e1.getChild("table",ns);
         Element e3 = e2.getChild("tbody",ns);
-        List<Element> list = e3.getChildren("tr", ns);
-        List<Element> commands = root.getChild("body",ns).getChild("table",ns).getChild("tbody",ns).getChildren("tr", ns);
+        List<Element> list = UtilGenerics.cast(e3.getChildren("tr", ns));
+        List<Element> commands = UtilGenerics.cast(root.getChild("body",ns).getChild("table",ns).getChild("tbody",ns).getChildren("tr", ns));
         for(Element elem: commands) {
             processIDECommand(elem);
         }
@@ -91,7 +93,7 @@ public class SeleniumIDEConverter {
     private void processIDECommand(Element elem) throws JDOMException {
 
 
-        List<Element> cmd = elem.getChildren("td", ns);
+        List<Element> cmd = UtilGenerics.cast(elem.getChildren("td", ns));
         Element cmdElem = cmd.get(0);
 
         String cmdToCompare = cmdElem.getValue();

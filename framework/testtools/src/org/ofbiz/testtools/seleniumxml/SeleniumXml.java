@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -31,6 +30,8 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.lang.reflect.*;
+
+import javolution.util.FastMap;
 
 import junit.framework.Assert;
 
@@ -43,6 +44,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.testtools.seleniumxml.util.TestUtils;
 
 import com.thoughtworks.selenium.DefaultSelenium;
@@ -83,7 +85,7 @@ public class SeleniumXml {
     }
     
     public SeleniumXml() throws IOException {
-        this.map = new HashMap<String, Object>();
+        this.map = FastMap.newInstance();
         if (props == null) {
             props = new Properties();
             initConfig();
@@ -134,7 +136,7 @@ public class SeleniumXml {
 
     public void runCommands() {
         Element root = this.doc.getRootElement();
-        List<Element> nodes = root.getChildren();
+        List<Element> nodes = UtilGenerics.cast(root.getChildren());
         runCommands(nodes);
     }
     
@@ -310,7 +312,7 @@ public class SeleniumXml {
             
             String file = elem.getAttributeValue("file");
             String iterations = elem.getAttributeValue("iterations");
-            List children = elem.getChildren();
+            List<Element> children = UtilGenerics.cast(elem.getChildren());
             
             DataLoader loader = new DataLoader(file, iterations, this, children);
             loader.runTest();
@@ -333,7 +335,7 @@ public class SeleniumXml {
     public void dataLoop(Element elem) {
         
         String dataListName = elem.getAttributeValue("dataListName");
-        List children = elem.getChildren();
+        List<Element> children = UtilGenerics.cast(elem.getChildren());
         
         DataLoop looper = new DataLoop(dataListName, this, children);
         looper.runTest();
@@ -347,7 +349,7 @@ public class SeleniumXml {
             host = props.getProperty("startUrl");
         }
         String responseHandlerMode = elem.getAttributeValue("responseHandlerMode");
-        List <Element> children = elem.getChildren();
+        List <Element> children = UtilGenerics.cast(elem.getChildren());
         
         RemoteRequest loader = new RemoteRequest(this, children, requestUrl, host, responseHandlerMode);
         loader.runTest();
@@ -398,12 +400,12 @@ public class SeleniumXml {
     
     private void getAllWindowIds(Element elem) {
         String[] winIds = this.sel.getAllWindowIds();
-        for(int i=0; i<winIds.length; i++) {
-            logger.info("WindowId: " + winIds[i]);
+        for (String winId: winIds) {
+            logger.info("WindowId: " + winId);
         }
         String[] winNames = this.sel.getAllWindowNames();
-        for(int i=0; i<winIds.length; i++) {
-            logger.info("WindowName: " + winNames[i]);
+        for (String winName: winNames) {
+            logger.info("WindowName: " + winName);
         }
         
         //this.sel.selectWindow("name=" + winNames[1]);
@@ -638,7 +640,7 @@ public class SeleniumXml {
     }
 
     public String replaceParam(String value) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         int end = 0;
         int start = 0;
         String replacedVal = null;
@@ -729,7 +731,7 @@ public class SeleniumXml {
         return this.password;
     }
     
-    public Map <String, ? extends Object> getMap() {
+    public Map <String, Object> getMap() {
         return this.map;
     }
 }

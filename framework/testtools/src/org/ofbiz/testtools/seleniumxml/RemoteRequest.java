@@ -21,11 +21,12 @@ package org.ofbiz.testtools.seleniumxml;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastMap;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -124,8 +125,8 @@ public class RemoteRequest {
 
     private void initData() {
         
-        this.inMap = new HashMap();
-        this.outMap = new HashMap();
+        this.inMap = FastMap.newInstance();
+        this.outMap = FastMap.newInstance();
         String nm, name, value, fieldName = null;
         for(Element elem: this.children) {
             nm = elem.getName();
@@ -318,7 +319,7 @@ public class RemoteRequest {
             }
             Set<Map.Entry<String, String>> paramSet = this.parentRemoteRequest.outMap.entrySet();
             Iterator<Map.Entry<String, String>> paramIter = paramSet.iterator();
-            Map parentDataMap = this.parentRemoteRequest.parent.getMap();
+            Map<String, Object> parentDataMap = this.parentRemoteRequest.parent.getMap();
             while (paramIter.hasNext()) {
                 Map.Entry<String, String> paramPair = paramIter.next();
                 if (jsonObject.containsKey(paramPair.getKey())) {

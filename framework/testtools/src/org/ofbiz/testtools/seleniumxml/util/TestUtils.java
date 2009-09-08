@@ -49,7 +49,7 @@ public class TestUtils {
     }
     
     static public String createRandomString(String prefix, int size) {
-        StringBuffer buff = new StringBuffer(size);
+        StringBuilder buff = new StringBuilder(size);
         int startIndx = 0;
     
         if (prefix != null) {

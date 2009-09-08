@@ -31,12 +31,14 @@ import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
 
+import org.ofbiz.base.util.UtilGenerics;
+
 public class DataLoop {
 
     private String dataListName;
     private SeleniumXml parent;
     private SeleniumXml currentTest;
-    private List children;
+    private List<Element> children;
     
     private int currentRowIndx;
     
@@ -52,17 +54,12 @@ public class DataLoop {
     public void runTest() {
 
         this.currentTest = new SeleniumXml(this.parent);
-        Map dataMap = this.parent.getMap();
-        List dataList = (List)dataMap.get(this.dataListName);
-        Iterator iter = dataList.iterator();
-        while (iter.hasNext()) {
-            Map mp = (Map)iter.next();
+        Map<String, Object> dataMap = this.parent.getMap();
+        List<Map<String, Object>> dataList = UtilGenerics.cast(dataMap.get(this.dataListName));
+        for (Map<String, Object> mp: dataList) {
             // TODO, WARNING - these name could collide with names already in the test context
-            Set eSet = mp.entrySet();
-            Iterator iter2 = eSet.iterator();
-            while (iter2.hasNext()) {
-                    Map.Entry entry = (Map.Entry)iter2.next();
-                    String name = (String)entry.getKey();
+            for (Map.Entry<String, Object> entry: mp.entrySet()) {
+                    String name = entry.getKey();
                     Object value = entry.getValue();
                     dataMap.put(name, value);
             }
