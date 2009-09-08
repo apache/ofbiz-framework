@@ -22,7 +22,14 @@
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
-	<title>The SFA (Sales force Automation) Main help screen.</title>
-    <para>Introduction</para>
+    <title>The SFA Main screen</title>
+	<section>
+		<para>
+			The SFA main screen allows the quick create of any new lead and/or
+			contact which is available on any SFA screen.
+			Further this screen is designed to provide an overview of this users
+			activity.
+        </para>
+	</section>
 </section>
 

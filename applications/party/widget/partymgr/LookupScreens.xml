@@ -165,6 +165,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="LookupLead">
+        <section>
+            <condition>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PartyLookupLead}"/>
+                <set field="entityName" value="PartyRoleAndPartyDetail"/>
+                <set field="parameters.roleTypeId" value="LEAD"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="lookupPerson" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupPerson" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="LookupPartyAndUserLoginAndPerson">
         <section>

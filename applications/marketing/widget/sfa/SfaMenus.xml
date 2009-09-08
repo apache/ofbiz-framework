@@ -54,6 +54,9 @@ under the License.
         <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
             <link target="NewAccount"/>
         </menu-item>
+        <menu-item name="AssignAccountToMe" title="${uiLabelMap.PageTitleAssignAccountFromExisting}">
+            <link target="AssignAccountToMe"/>
+        </menu-item>
     </menu>
 
     <menu name="LeadTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -90,6 +93,9 @@ under the License.
         </menu-item>
         <menu-item name="NewLeadFromVCard" title="${uiLabelMap.PageTitleCreateLeadFromVCard}">
             <link target="NewLeadFromVCard"/>
+        </menu-item>
+        <menu-item name="AssignLeadToMe" title="${uiLabelMap.PageTitleAssignLeadFromExisting}">
+            <link target="AssignLeadToMe"/>
         </menu-item>
     </menu>
 

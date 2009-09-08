@@ -5904,6 +5904,9 @@
         <value xml:lang="en">Lookup Internal Organization</value>
         <value xml:lang="hi_IN">आंतरिक संगठन लुकअप</value>
     </property>
+    <property key="PartyLookupLead">
+        <value xml:lang="en">Lookup Party with the role Lead</value>
+    </property>
     <property key="PartyLookupParty">
         <value xml:lang="de">Akteur suchen</value>
         <value xml:lang="en">Lookup Party</value>

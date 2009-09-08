@@ -292,6 +292,7 @@ under the License.
                                     <widgets>
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="partyRelContacts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
@@ -334,6 +335,7 @@ under the License.
                                                 </actions>
                                                 <widgets>
                                                     <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="partyRelContacts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
                                             </section>
                                             <section>
@@ -367,6 +369,7 @@ under the License.
                                     <widgets>
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="partyRelAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
