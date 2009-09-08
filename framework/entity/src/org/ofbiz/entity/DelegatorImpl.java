@@ -857,18 +857,22 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return eli;
     }
 
+    @Deprecated
     public List<GenericValue> findAll(String entityName) throws GenericEntityException {
         return this.findList(entityName, null, null, null, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findAll(String entityName, List<String> orderBy) throws GenericEntityException {
         return this.findList(entityName, null, null, orderBy, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findAll(String entityName, String... orderBy) throws GenericEntityException {
         return findList(entityName, null, null, Arrays.asList(orderBy), null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findAllByPrimaryKeys(Collection<GenericPK> primaryKeys) throws GenericEntityException {
         boolean beganTransaction = false;
         try {
@@ -925,6 +929,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         }
     }
 
+    @Deprecated
     public List<GenericValue> findAllByPrimaryKeysCache(Collection<GenericPK> primaryKeys) throws GenericEntityException {
         boolean beganTransaction = false;
         try {
@@ -992,23 +997,28 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         }
     }
 
+    @Deprecated
     public List<GenericValue> findAllCache(String entityName) throws GenericEntityException {
         return this.findList(entityName, null, null, null, null, true);
     }
 
+    @Deprecated
     public List<GenericValue> findAllCache(String entityName, List<String> orderBy) throws GenericEntityException {
         return this.findList(entityName, null, null, orderBy, null, true);
     }
 
+    @Deprecated
     public List<GenericValue> findAllCache(String entityName, String... orderBy) throws GenericEntityException {
         return findList(entityName, null, null, Arrays.asList(orderBy), null, true);
     }
 
+    @Deprecated
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions) throws GenericEntityException {
         EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
+    @Deprecated
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException {
         EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, orderBy, null, false);
@@ -1028,6 +1038,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return findByAnd(entityName, UtilMisc.<String, Object> toMap(fields));
     }
 
+    @Deprecated
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, T... expressions) throws GenericEntityException {
         EntityConditionList<T> ecl = EntityCondition.makeCondition(EntityOperator.AND, expressions);
         return this.findList(entityName, ecl, null, null, null, false);
@@ -1041,14 +1052,17 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.findList(entityName, EntityCondition.makeCondition(fields), null, orderBy, null, true);
     }
 
+    @Deprecated
     public List<GenericValue> findByAndCache(String entityName, Object... fields) throws GenericEntityException {
         return this.findByAndCache(entityName, UtilMisc.<String, Object> toMap(fields));
     }
 
+    @Deprecated
     public List<GenericValue> findByCondition(String entityName, EntityCondition entityCondition, Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException {
         return this.findList(entityName, entityCondition, UtilMisc.toSet(fieldsToSelect), orderBy, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException {
         boolean beganTransaction = false;
         try {
@@ -1080,10 +1094,12 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         }
     }
 
+    @Deprecated
     public List<GenericValue> findByConditionCache(String entityName, EntityCondition entityCondition, Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException {
         return this.findList(entityName, entityCondition, UtilMisc.collectionToSet(fieldsToSelect), orderBy, null, true);
     }
 
+    @Deprecated
     public List<GenericValue> findByLike(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         List<EntityExpr> likeExpressions = FastList.newInstance();
         if (fields != null) {
@@ -1095,6 +1111,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findByLike(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
         List<EntityExpr> likeExpressions = FastList.newInstance();
         if (fields != null) {
@@ -1106,6 +1123,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findByLike(String entityName, Object... fields) throws GenericEntityException {
         Map<String, ? extends Object> fieldMap = UtilMisc.<String, Object> toMap(fields);
         List<EntityExpr> likeExpressions = FastList.newInstance();
@@ -1118,35 +1136,42 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
+    @Deprecated
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions) throws GenericEntityException {
         EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.OR);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
+    @Deprecated
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException {
         EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.OR);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findByOr(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         EntityCondition ecl = EntityCondition.makeCondition(fields, EntityOperator.OR);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findByOr(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
         EntityCondition ecl = EntityCondition.makeCondition(fields, EntityOperator.OR);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
+    @Deprecated
     public List<GenericValue> findByOr(String entityName, Object... fields) throws GenericEntityException {
         EntityCondition ecl = EntityCondition.makeCondition(EntityOperator.OR, fields);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
+    @Deprecated
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, T... expressions) throws GenericEntityException {
         return this.findList(entityName, EntityCondition.makeCondition(EntityOperator.AND, expressions), null, null, null, false);
     }
 
+    @Deprecated
     public GenericValue findByPrimaryKey(GenericPK primaryKey) throws GenericEntityException {
         return findOne(primaryKey.getEntityName(), primaryKey, false);
     }
@@ -1155,10 +1180,12 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return findOne(entityName, fields, false);
     }
 
+    @Deprecated
     public GenericValue findByPrimaryKey(String entityName, Object... fields) throws GenericEntityException {
         return findByPrimaryKey(entityName, UtilMisc.<String, Object> toMap(fields));
     }
 
+    @Deprecated
     public GenericValue findByPrimaryKeyCache(GenericPK primaryKey) throws GenericEntityException {
         return findOne(primaryKey.getEntityName(), primaryKey, true);
     }
@@ -1171,6 +1198,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return findByPrimaryKeyCache(entityName, UtilMisc.<String, Object> toMap(fields));
     }
 
+    @Deprecated
     public GenericValue findByPrimaryKeyCacheSingle(String entityName, Object singlePkValue) throws GenericEntityException {
         return findOne(entityName, makePKSingle(entityName, singlePkValue), true);
     }
@@ -1221,26 +1249,32 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         }
     }
 
+    @Deprecated
     public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, String... keys) throws GenericEntityException {
         return findByPrimaryKeyPartial(primaryKey, UtilMisc.makeSetWritable(Arrays.asList(keys)));
     }
 
+    @Deprecated
     public GenericValue findByPrimaryKeySingle(String entityName, Object singlePkValue) throws GenericEntityException {
         return findOne(entityName, makePKSingle(entityName, singlePkValue), false);
     }
 
+    @Deprecated
     public long findCountByAnd(String entityName) throws GenericEntityException {
         return findCountByCondition(entityName, null, null, null);
     }
 
+    @Deprecated
     public long findCountByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return findCountByCondition(entityName, EntityCondition.makeCondition(fields, EntityOperator.AND), null, null);
     }
 
+    @Deprecated
     public long findCountByAnd(String entityName, Object... fields) throws GenericEntityException {
         return findCountByCondition(entityName, EntityCondition.makeCondition(UtilMisc.<String, Object> toMap(fields), EntityOperator.AND), null, null);
     }
 
+    @Deprecated
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition) throws GenericEntityException {
         return findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
     }
@@ -1370,10 +1404,12 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return eli;
     }
 
+    @Deprecated
     public EntityListIterator findListIteratorByCondition(String entityName, EntityCondition entityCondition, Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException {
         return this.find(entityName, entityCondition, null, UtilMisc.collectionToSet(fieldsToSelect), orderBy, null);
     }
 
+    @Deprecated
     public EntityListIterator findListIteratorByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException {
 
         return this.find(entityName, whereEntityCondition, havingEntityCondition, UtilMisc.collectionToSet(fieldsToSelect), orderBy, findOptions);
@@ -1608,6 +1644,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.delegatorData.modelReader;
     }
 
+    @Deprecated
     public List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo) throws GenericEntityException {
         return getMultiRelation(value, relationNameOne, relationNameTwo, null);
     }
@@ -1747,6 +1784,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.findByAnd(relation.getRelEntityName(), fields, orderBy);
     }
 
+    @Deprecated
     public List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> byAndFields, GenericValue value) throws GenericEntityException {
         return this.getRelated(relationName, byAndFields, null, value);
     }
@@ -1833,6 +1871,7 @@ public class DelegatorImpl implements Cloneable, GenericDelegator {
         return this.findByPrimaryKeyCache(relation.getRelEntityName(), fields);
     }
 
+    @Deprecated
     public List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy, GenericValue value) throws GenericEntityException {
         return this.getRelated(relationName, null, orderBy, value);
     }
