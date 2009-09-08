@@ -92,6 +92,7 @@ under the License.
                 <process field="USER_TITLE"><copy to-field="personalTitle"/></process>
                 <process field="USER_SUFFIX"><copy to-field="suffix"/></process>
                 <process field="USER_BIRTHDATE"><convert type="Date" to-field="birthDate"><fail-property resource="PartyUiLabels" property="PartyBirthDateMissingError"/></convert></process>
+                <process field="USER_DECEASEDDATE"><convert type="Date" to-field="deceasedDate"><fail-property resource="PartyUiLabels" property="PartyDeceasedDateMissingError"/></convert></process>
                 <process field="USER_GENDER"><copy to-field="gender"/></process>
             </simple-map-processor>
         </call-map-processor>

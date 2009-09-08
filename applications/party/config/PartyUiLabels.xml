@@ -39,6 +39,9 @@
         <value xml:lang="th">วันเกิด</value>
         <value xml:lang="zh">生日</value>
     </property>
+    <property key="FormFieldTitle_deceasedDate">
+        <value xml:lang="en">Deceased Date</value>
+    </property>
     <property key="FormFieldTitle_certProvisionId">
         <value xml:lang="de">Zertifikatsaussteller ID</value>
         <value xml:lang="en">Cert Provision Id</value>
@@ -2943,6 +2946,9 @@
         <value xml:lang="th">วันเกิด</value>
         <value xml:lang="zh">生日</value>
     </property>
+    <property key="PartyDeceasedDate">
+        <value xml:lang="en">Deceased Date</value>
+    </property>
     <property key="PartyBirthDateMissingError">
         <value xml:lang="cs">Datum narození není ve správném formátu, musí odpovídat následujícímu formátu: rrrr-mm-dd, např. 2004-12-31</value>
         <value xml:lang="de">Geburtsdatum ist nicht im richtigen Format, es muss dem folgenden Muster entsprechen: yyyy-mm-dd, z.B. 1982-07-21</value>
@@ -2959,6 +2965,9 @@
         <value xml:lang="ru">Дата рождения в неверном формате: нужно вводит как гггг-мм-дд, например 1982-07-21</value>
         <value xml:lang="th">รูปแบบของวันเกิดไม่ถูกต้อง: ต้องเป็น yyyy-mm-dd, คล้ายกับ 1982-07-21</value>
         <value xml:lang="zh">生日格式错误：必须是yyyy-mm-dd，如1982-07-21</value>
+    </property>
+    <property key="PartyDeceasedDateMissingError">
+        <value xml:lang="en">Deceaseddate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
     </property>
     <property key="PartyBusinessPhone">
         <value xml:lang="cs">Telefon do zaměstnání</value>
