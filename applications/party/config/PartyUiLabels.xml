@@ -2961,7 +2961,7 @@
     </property>
     <property key="PartyDeceasedDate">
         <value xml:lang="en">Deceased Date</value>
-        <value xml:lang="en">Date de décès</value>
+        <value xml:lang="fr">Date de décès</value>
     </property>
     <property key="PartyBirthDateMissingError">
         <value xml:lang="cs">Datum narození není ve správném formátu, musí odpovídat následujícímu formátu: rrrr-mm-dd, např. 2004-12-31</value>
@@ -2982,7 +2982,7 @@
     </property>
     <property key="PartyDeceasedDateMissingError">
         <value xml:lang="en">Deceaseddate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
-        <value xml:lang="en">Format de la date de décès non correct : doit être aaaa-mm-jj, du type 1982-07-21</value>
+        <value xml:lang="fr">Format de la date de décès non correct : doit être aaaa-mm-jj, du type 1982-07-21</value>
     </property>
     <property key="PartyBusinessPhone">
         <value xml:lang="cs">Telefon do zaměstnání</value>
@@ -4979,7 +4979,6 @@
         <value xml:lang="es">Extension</value>
         <value xml:lang="fr">Extension</value>
         <value xml:lang="hi_IN">विस्तार</value>
-        <value xml:lang="hi_IN">Extension</value>
         <value xml:lang="it">Interno</value>
         <value xml:lang="ja">Extension</value>
         <value xml:lang="nl">Toestel</value>
@@ -9815,7 +9814,7 @@
     <property key="PartyViewCommProducts">
         <value xml:lang="en">View Communication Products</value>
         <value xml:lang="hi_IN">संचार के उत्पाद देखें</value>
-        
+
     </property>
     <property key="PartyViewCommunicationEvent">
         <value xml:lang="de">Kommunikationsereignis anzeigen</value>

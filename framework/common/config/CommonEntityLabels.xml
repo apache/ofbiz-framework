@@ -6436,11 +6436,6 @@
         <value xml:lang="it">Creato</value>
         <value xml:lang="zh">已创建</value>
     </property>
-    <property key="StatusItem.description.COM_ROLE_READ">
-        <value xml:lang="en">Read</value>
-        <value xml:lang="it">Letto</value>
-        <value xml:lang="zh">读</value>
-    </property>
     <property key="StatusItem.description.COM_UNKNOWN_PARTY">
         <value xml:lang="de">Unbekannter Akteur</value>
         <value xml:lang="en">Unknown Party</value>

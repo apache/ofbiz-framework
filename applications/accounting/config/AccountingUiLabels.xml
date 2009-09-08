@@ -3553,7 +3553,7 @@
         <value xml:lang="zh">日历</value>
     </property>
     <property key="AccountingFixedAssetClassEnumId">
-        <value xml:lang="en">Anlagen-Klasse</value>
+        <value xml:lang="de">Anlagen-Klasse</value>
         <value xml:lang="en">Fixed Asset Class Enum Id</value>
         <value xml:lang="fr">Réf. de la classe d'actif immobilisé</value>
         <value xml:lang="hi_IN">अचल संपत्ति वर्ग Enum क्रमांक</value>
@@ -3581,7 +3581,7 @@
     </property>
     <property key="AccountingFixedAssetEdit">
         <value xml:lang="ar">استحداث/تحديث أصل ثابت</value>
-        <value xml:lang="en">Anlage erstellen/ändern</value>
+        <value xml:lang="de">Anlage erstellen/ändern</value>
         <value xml:lang="en">Create/Update Fixed Asset</value>
         <value xml:lang="es">Crear/Actualizar Activo Fijo</value>
         <value xml:lang="fr">Créer/modifier une immobilisation</value>
@@ -4005,7 +4005,7 @@
     </property>
     <property key="AccountingFixedAssetProductTypeId">
         <value xml:lang="ar">نوع الإستعمال</value>
-        <value xml:lang="en">Art der Nutzung</value>
+        <value xml:lang="de">Art der Nutzung</value>
         <value xml:lang="en">Type of usage</value>
         <value xml:lang="es">Tipo de uso</value>
         <value xml:lang="fr">Type d'utilisation</value>
@@ -6636,7 +6636,7 @@
     </property>
     <property key="AccountingPartyBilledTo">
         <value xml:lang="ar">مفوترة إلى</value>
-        <value xml:lang="en">Rechnungsempfänger</value>
+        <value xml:lang="de">Rechnungsempfänger</value>
         <value xml:lang="en">Party Billed To</value>
         <value xml:lang="es">Grupo pagado destino</value>
         <value xml:lang="fr">Acteur facturé</value>
