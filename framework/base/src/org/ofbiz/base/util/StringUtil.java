@@ -78,6 +78,7 @@ public class StringUtil {
 
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
     public static final SimpleEncoder xmlEncoder = new XmlEncoder();
+    public static final SimpleEncoder stringEncoder = new StringEncoder();
 
     public static interface SimpleEncoder {
         public String encode(String original);
@@ -95,6 +96,15 @@ public class StringUtil {
         }
     }
 
+    public static class StringEncoder implements SimpleEncoder {
+        public String encode(String original) {
+            if (original != null) {
+                original = original.replace("\"", "\\\"");
+            }
+            return original;
+        }
+    }
+
     // ================== Begin General Functions ==================
 
     public static SimpleEncoder getEncoder(String type) {
@@ -102,6 +112,8 @@ public class StringUtil {
             return StringUtil.xmlEncoder;
         } else if ("html".equals(type)) {
             return StringUtil.htmlEncoder;
+        } else if ("string".equals(type)) {
+            return StringUtil.stringEncoder;
         } else {
             return null;
         }
