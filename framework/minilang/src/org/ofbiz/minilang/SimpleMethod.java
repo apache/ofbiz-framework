@@ -94,7 +94,7 @@ public class SimpleMethod {
     private static final Method methodOperationExecMethod;
     static {
         Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
-        Iterator<MethodOperation.Factory> it = ServiceRegistry.lookupProviders(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader());
+        Iterator<MethodOperation.Factory<MethodOperation>> it = UtilGenerics.cast(ServiceRegistry.lookupProviders(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader()));
         while (it.hasNext()) {
             MethodOperation.Factory<MethodOperation> factory = it.next();
             mapFactories.put(factory.getName(), factory);
