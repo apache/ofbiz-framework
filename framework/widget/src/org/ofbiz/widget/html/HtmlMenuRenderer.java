@@ -408,8 +408,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     writer.append("\"");
                 }
 
-                writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
-
                 writer.append(" name=\"");
                 writer.append(uniqueItemName);
                 writer.append("\">");
