@@ -2157,7 +2157,7 @@
         <value xml:lang="de">E-Mail Typ</value>
         <value xml:lang="en">Email Type</value>
         <value xml:lang="es">Tipo de e-mail</value>
-        <value xml:lang="fr">Courriel type</value>
+        <value xml:lang="fr">Type de courriel</value>
         <value xml:lang="hi_IN">ईमेल के प्रकार</value>
         <value xml:lang="it">Tipo email</value>
         <value xml:lang="nl">Email Type</value>
@@ -2869,7 +2869,7 @@
         <value xml:lang="de">Von Adresse</value>
         <value xml:lang="en">From Address</value>
         <value xml:lang="es">Dirección de origen</value>
-        <value xml:lang="fr">à partir de l'adresse</value>
+        <value xml:lang="fr">Adresse d'émission</value>
         <value xml:lang="hi_IN">पते से</value>
         <value xml:lang="it">Dall'indirizzo</value>
         <value xml:lang="nl">Adres van</value>
