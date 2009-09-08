@@ -53,7 +53,7 @@ public class GroovyRunner {
 
     public void runTest() {
 
-        Map map = this.parent.getMap();
+        Map<String, Object> map = this.parent.getMap();
         map.put("url", this.urlName);
         try {
             String scriptText = TestUtils.readUrlText(this.urlName);

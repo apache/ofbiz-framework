@@ -18,9 +18,10 @@
  */
 package org.ofbiz.testtools.seleniumxml;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.jdom.Element;
 import org.python.core.PyArray;
@@ -35,7 +36,7 @@ public class DataLoader {
     private String iterations;
     private SeleniumXml parent;
     private SeleniumXml currentTest;
-    private List children;
+    private List<Element> children;
 
     private int currentRowIndx;
 
@@ -62,7 +63,7 @@ public class DataLoader {
         // Read header and get record count
         PythonInterpreter interp = InitJython.getInterpreter();
 
-        Map map = new HashMap();
+        Map<String, Object> map = FastMap.newInstance();
         map.put("file", this.file);
         interp.set("params", map);
         interp.exec("from csvreader import CSVReader");
