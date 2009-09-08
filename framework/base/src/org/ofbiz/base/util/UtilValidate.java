@@ -1298,19 +1298,32 @@ public class UtilValidate {
     }
 
     public static char calcUpcChecksum(String upc) {
-        if (upc != null && upc.length() == 12) {
-            upc = upc.substring(0, 11);
+        return calcChecksum(upc, 12);
+    }
+
+    public static boolean isValidEan(String ean) {
+        if (ean == null || ean.length() != 13) {
+            throw new IllegalArgumentException("Invalid UPC length; must be 12 characters");
         }
-        if (upc == null || upc.length() != 11) {
-            throw new IllegalArgumentException("Illegal size of UPC; must be 11 characters");
+        char csum = ean.charAt(13);
+        char calcSum = calcChecksum(ean, 13);
+        return csum == calcSum;
+    }
+
+    public static char calcChecksum(String value, int length) {
+        if (value != null && value.length() == length + 1) {
+            value = value.substring(0, length);
+        }
+        if (value == null || value.length() != length) {
+            throw new IllegalArgumentException("Illegal size of value; must be either" + length + " or " + (length + 1) + " characters");
         }
         int oddsum = 0;
         int evensum = 0;
-        for (int i = upc.length() - 1; i >= 0; i--) {
-            if ((upc.length() - i) % 2 == 0) {
-                evensum += Character.digit(upc.charAt(i), 10);
+        for (int i = value.length() - 1; i >= 0; i--) {
+            if ((value.length() - i) % 2 == 0) {
+                evensum += Character.digit(value.charAt(i), 10);
             } else {
-                oddsum += Character.digit(upc.charAt(i), 10);
+                oddsum += Character.digit(value.charAt(i), 10);
             }
         }
         int check = 10 - ((evensum + 3 * oddsum) % 10);
