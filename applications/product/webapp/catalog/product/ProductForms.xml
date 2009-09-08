@@ -212,7 +212,7 @@ under the License.
         <field use-when="product!=null" position="1" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${product.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${product.lastModifiedDate}" also-hidden="false"/>
         </field>
-        <field use-when="product!=null" position="2" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:">
+        <field use-when="product!=null" position="2" name="createdByText" title="${uiLabelMap.CommonCreatedBy}:">
             <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
         </field>
         <sort-order>

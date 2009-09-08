@@ -929,7 +929,7 @@ under the License.
         <field name="orderTypeId" title="${uiLabelMap.OrderOrderType}">
             <display-entity entity-name="OrderType" key-field-name="orderTypeId" description="${description}"/>
         </field>
-        <field name="createdBy" title="${uiLabelMap.OrderCreatedBy}">
+        <field name="createdBy" title="${uiLabelMap.CommonCreatedBy}">
             <display description="${orderHeader.createdBy}"/>
         </field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>

@@ -1664,7 +1664,7 @@
         <value xml:lang="zh_CN">已创建</value>
     </property>
     <property key="CommonCreatedBy">
-        <value xml:lang="de">Angelegt von</value>
+        <value xml:lang="de">Erstellt von</value>
         <value xml:lang="en">Created By</value>
         <value xml:lang="es">Creado por</value>
         <value xml:lang="fr">Créé par</value>

@@ -177,7 +177,7 @@ under the License.
             </tr>
             <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderCreatedBy}</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.CommonCreatedBy}</td>
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">
                   <#if orderHeader.createdBy?has_content>
