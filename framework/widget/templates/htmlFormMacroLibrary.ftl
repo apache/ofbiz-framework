@@ -130,7 +130,7 @@ _description"<#if id?has_content> id="${id}_description"</#if><#if currentValue?
  <option selected="selected" value="${currentValue}">${explicitDescription}</option><#rt/>
  <option value="${currentValue}">---</option><#rt/>
 </#if>
-<#if allowEmpty?has_content>
+<#if allowEmpty?has_content || !options?has_content>
 <option value="">&nbsp;</option>
 </#if>
 <#list options as item>
