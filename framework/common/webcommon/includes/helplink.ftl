@@ -25,6 +25,9 @@ under the License.
     <#if (helpTopic?length > 20)> 
      <#assign helpTopic = helpTopic?substring(0,20)>
     </#if>
+${helpTopic}<#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
+${helpTopic}
+-->
     <#assign helpContent = delegator.findByAnd("Content", {"contentId" : helpTopic})>
     <#if !helpContent?has_content>
       <#assign helpContent = delegator.findByAnd("Content", {"contentId" : webSiteId})>
@@ -33,9 +36,6 @@ under the License.
         <#assign helpTopic = "navigateHelp"/>
     </#if>
   </#if>
-<#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
-${helpTopic}
--->
   <#if helpUrlsMap["Prefix"] != "Prefix">
     <#assign helpUrlPrefix = helpUrlsMap["Prefix"] />
   </#if>
