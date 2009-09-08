@@ -61,8 +61,10 @@ under the License.
               <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)?if_exists/>
               <#assign langAttr = localeFound.toString()?replace("_", "-")>
               <#assign langDir = "ltr">
-              <#if "ar.iw"?contains(langAttr?substring(0, 2))>
-                <#assign langDir = "rtl">
+              <#if 1 < langAttr?length>
+                <#if "ar.iw"?contains(langAttr?substring(0, 2))>
+                  <#assign langDir = "rtl">
+                </#if>
               </#if>
               <option <#if parameters.labelLocaleName?exists && parameters.labelLocaleName == localeFound>selected="selected"</#if> value="${localeFound}" lang="${langAttr}" dir="${langDir}"><#if locale?exists && locale?has_content>${locale.getDisplayName(locale)}<#else>${localeFound}</#if></option>
             </#list>
