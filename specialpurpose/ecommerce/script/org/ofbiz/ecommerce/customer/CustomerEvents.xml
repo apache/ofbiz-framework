@@ -963,6 +963,14 @@ under the License.
         <if-empty field="parameters.partyId">
             <request-to-field request-name="partyId" field="parameters.partyId"/>
         </if-empty>
+        <if-empty field="parameters.username">
+            <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
+                <field field="request" type="javax.servlet.ServletRequest"/>
+            </call-class-method>
+            <if-compare field="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
+                <set field="parameters.username" from-field="parameters.emailAddress"/>
+            </if-compare>
+        </if-empty>
         <if-empty field="userLogin">
             <call-map-processor xml-resource="component://securityext/script/org/ofbiz/securityext/login/LoginMapProcs.xml"
                 processor-name="userLogin" in-map-name="parameters" out-map-name="userLoginMap"/>
