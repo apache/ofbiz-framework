@@ -30,6 +30,9 @@ under the License.
         <menu-item name="service" title="${uiLabelMap.WebtoolsServiceEngineTools}">
             <link target="ServiceList"/>
         </menu-item>
+        <menu-item name="labels" title="${uiLabelMap.WebtoolsLabelManager}">
+            <link target="SearchLabels"/>
+        </menu-item>
         <menu-item name="logging" title="${uiLabelMap.WebtoolsLogging}">
             <link target="LogView"/>
         </menu-item>
