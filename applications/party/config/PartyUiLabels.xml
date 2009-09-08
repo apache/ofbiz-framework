@@ -41,6 +41,7 @@
     </property>
     <property key="FormFieldTitle_deceasedDate">
         <value xml:lang="en">Deceased Date</value>
+        <value xml:lang="fr">Date de décès</value>
     </property>
     <property key="FormFieldTitle_certProvisionId">
         <value xml:lang="de">Zertifikatsaussteller ID</value>
@@ -2948,6 +2949,7 @@
     </property>
     <property key="PartyDeceasedDate">
         <value xml:lang="en">Deceased Date</value>
+        <value xml:lang="en">Date de décès</value>
     </property>
     <property key="PartyBirthDateMissingError">
         <value xml:lang="cs">Datum narození není ve správném formátu, musí odpovídat následujícímu formátu: rrrr-mm-dd, např. 2004-12-31</value>
@@ -2955,7 +2957,7 @@
         <value xml:lang="en">Birthdate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
         <value xml:lang="en_GB">Date of birth is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
         <value xml:lang="es">Formato de la fecha de nacimiento incorrecto: ponga yyyy-mm-dd, como 1982-07-21</value>
-        <value xml:lang="fr">Format de la date de naissance non correct : doit être yyyy-mm-dd, du type 1982-07-21</value>
+        <value xml:lang="fr">Format de la date de naissance non correct : doit être aaaa-mm-jj, du type 1982-07-21</value>
         <value xml:lang="hi_IN">जन्म-तिथी ठीक नही है yyyy-mm-dd के रूप मे लिखीये जैसे - 1982-07-21</value>
         <value xml:lang="it">La data di nascita non è formattata correttamente: dovrebbe essere yyyy-mm-dd, come 1982-07-21</value>
         <value xml:lang="ja">Birthdate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
@@ -2968,6 +2970,7 @@
     </property>
     <property key="PartyDeceasedDateMissingError">
         <value xml:lang="en">Deceaseddate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
+        <value xml:lang="en">Format de la date de décès non correct : doit être aaaa-mm-jj, du type 1982-07-21</value>
     </property>
     <property key="PartyBusinessPhone">
         <value xml:lang="cs">Telefon do zaměstnání</value>
