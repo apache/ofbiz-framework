@@ -33,7 +33,7 @@ under the License.
  //-->
  </script>
 
-<form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch?VIEW_SIZE=25&PAGING=Y</@ofbizUrl>" style="margin: 0;">
+<form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch?VIEW_SIZE=25&amp;PAGING=Y</@ofbizUrl>" style="margin: 0;">
   <span class="label">${uiLabelMap.ProductKeywords}:</span><input type="text"name="SEARCH_STRING" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/>
   <span class="label">
     ${uiLabelMap.ProductCategoryId}:
