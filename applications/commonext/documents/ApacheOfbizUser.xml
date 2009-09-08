@@ -68,6 +68,7 @@
     <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
     <xi:include href="../../../applications/product/documents/Product.xml"/>
     <xi:include href="../../../applications/content/documents/Content.xml"/>
+    <xi:include href="../../../applications/marketing/documents/Marketing.xml"/>
     <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
     
     <appendix>
