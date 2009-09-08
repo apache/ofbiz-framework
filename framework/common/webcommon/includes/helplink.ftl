@@ -25,7 +25,7 @@ under the License.
     <#if (helpTopic?length > 20)> 
      <#assign helpTopic = helpTopic?substring(0,20)>
     </#if>
-${helpTopic}<#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
+<#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
 ${helpTopic}
 -->
     <#assign helpContent = delegator.findByAnd("Content", {"contentId" : helpTopic})>
