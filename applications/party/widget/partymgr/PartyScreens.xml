@@ -1229,4 +1229,35 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <!-- PartyIdentification Screen -->
+    <screen name="ListPartyIdentifications">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListPartyIdentifications"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="viewidentifications"/>
+
+                <set field="labelTitleProperty" value="PartyIdentification"/>
+
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="Party" value-field="party" use-cache="true"/>
+                <entity-one entity-name="PartyIdentification" value-field="partyIdentification"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyPartyIdentificationList}">
+                             <include-form name="listPartyIdentification" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyPartyIdentification}" navigation-menu-name="newPartyIdentification" id="PartyIdentificationCreationPanel">
+                             <include-menu name="newPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                             <include-form name="editPartyIdentification" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

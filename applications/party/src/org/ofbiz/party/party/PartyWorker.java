@@ -407,4 +407,107 @@ public class PartyWorker {
         }
         return partyIds;
     }
+    
+    /**
+     * Generic service to find party by id.
+     * By default return the party find by partyId
+     * but you can pass searchPartyFirst at false if you want search in partyIdentification before
+     * or pass searchAllId at true to find apartyuct with this id (party.partyId and partyIdentification.idValue)
+     * @param delegator
+     * @param idToFind
+     * @param partyIdentificationTypeId
+     * @param searchPartyFirst
+     * @param searchAllId
+     * @return
+     * @throws GenericEntityException
+     */
+    public static List<GenericValue> findPartiesById(GenericDelegator delegator,
+            String idToFind, String partyIdentificationTypeId,
+            boolean searchPartyFirst, boolean searchAllId) throws GenericEntityException {
+
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = " + partyIdentificationTypeId, module);
+
+        GenericValue party = null;
+        List<GenericValue> partiesFound = null;
+
+        // 1) look if the idToFind given is a real partyId
+        if (searchPartyFirst) {
+            party = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", idToFind));
+        }
+
+        if (searchAllId || (searchPartyFirst && UtilValidate.isEmpty(party))) {
+            // 2) Retrieve party in PartyIdentification
+            Map<String, String> conditions = UtilMisc.toMap("idValue", idToFind);
+            if (UtilValidate.isNotEmpty(partyIdentificationTypeId)) {
+                conditions.put("partyIdentificationTypeId", partyIdentificationTypeId);
+            }
+            partiesFound = delegator.findByAndCache("PartyIdentificationAndParty", conditions, UtilMisc.toList("partyId"));
+        }
+
+        if (! searchPartyFirst) {
+            party = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", idToFind));
+        }
+
+        if (UtilValidate.isNotEmpty(party)) {
+            if (UtilValidate.isNotEmpty(partiesFound)) partiesFound.add(party);
+            else partiesFound = UtilMisc.toList(party);
+        }
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze partyIdentification: found party.partyId = " + party + ", and list : " + partiesFound, module);
+        return partiesFound;
+    }
+
+    public static List<GenericValue> findPartiesById(GenericDelegator delegator, String idToFind, String partyIdentificationTypeId)
+    throws GenericEntityException {
+        return findPartiesById(delegator, idToFind, partyIdentificationTypeId, true, false);
+    }
+
+    public static String findPartyId(GenericDelegator delegator, String idToFind, String partyIdentificationTypeId) throws GenericEntityException {
+        GenericValue party = findParty(delegator, idToFind, partyIdentificationTypeId);
+        if (UtilValidate.isNotEmpty(party)) {
+            return party.getString("partyId");
+        } else {
+            return null;
+        }
+    }
+
+    public static String findPartyId(GenericDelegator delegator, String idToFind) throws GenericEntityException {
+        return findPartyId(delegator, idToFind, null);
+    }
+
+    public static GenericValue findParty(GenericDelegator delegator, String idToFind, String partyIdentificationTypeId) throws GenericEntityException {
+        List<GenericValue> parties = findPartiesById(delegator, idToFind, partyIdentificationTypeId);
+        GenericValue party = EntityUtil.getFirst(parties);
+        return party;
+    }
+
+    public static List<GenericValue> findParties(GenericDelegator delegator, String idToFind, String partyIdentificationTypeId) throws GenericEntityException {
+        List<GenericValue> partiesByIds = findPartiesById(delegator, idToFind, partyIdentificationTypeId);
+        List<GenericValue> parties = null;
+        if (UtilValidate.isNotEmpty(partiesByIds)) {
+            for (GenericValue party : partiesByIds) {
+                GenericValue partyToAdd = party;
+                //retreive party GV if the actual genericValue came from viewEntity
+                if (! "Party".equals(party.getEntityName())) {
+                    partyToAdd = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", party.get("partyId")));
+                }
+
+                if (UtilValidate.isEmpty(parties)) {
+                    parties = UtilMisc.toList(partyToAdd);
+                }
+                else {
+                    parties.add(partyToAdd);
+                }
+            }
+        }
+        return parties;
+    }
+
+    public static List<GenericValue> findParties(GenericDelegator delegator, String idToFind) throws GenericEntityException {
+        return findParties(delegator, idToFind, null);
+    }
+
+    public static GenericValue findParty(GenericDelegator delegator, String idToFind) throws GenericEntityException {
+        return findParty(delegator, idToFind, null);
+    }
+
 }

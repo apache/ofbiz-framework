@@ -167,7 +167,7 @@
     <property key="OrderCaughtNumberFormatExceptionOnCartUpdate">
         <value xml:lang="en">Caught number format exception on cart update. </value>
         <value xml:lang="es">Excepción de formato de número capturada en la actualización del carro.</value>
-        <value xml:lang="fr">Exception du format de numéro attrpé dans la mise à jour du chariot. </value>
+        <value xml:lang="fr">Exception du format de n° lors de la mise à jour du panier. </value>
         <value xml:lang="it">Eccezione formato numerico sull'aggiornamento carrello. </value>
         <value xml:lang="ro">Exceptie format numeric </value>
         <value xml:lang="ru">При обновлении корзины перехвачено исключение вызванное неверным форматом числа. </value>

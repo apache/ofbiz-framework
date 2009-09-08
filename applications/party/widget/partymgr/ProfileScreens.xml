@@ -137,6 +137,20 @@
             </widgets>
         </section>
     </screen>
+    
+    <screen name="PartyIdentifications">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyPartyIdentifications}" navigation-menu-name="newPartyIdentification" id="PartyIdentificationPanel">
+                    <include-menu name="newPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>                
+                    <include-form name="listPartyIdentification" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="PaymentMethods">
         <section>

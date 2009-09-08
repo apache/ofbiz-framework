@@ -1735,4 +1735,46 @@ public class PartyServices {
         }
         return partyId;
     }
+    
+    
+    /**
+     * Finds partyId(s) corresponding to a party reference, partyId or a GoodIdentification idValue
+     * @param dctx
+     * @param context
+     * @param context.partyId use to search with partyId or goodIdentification.idValue
+     * @return a GenericValue with a partyId and a List of complementary partyId found
+     */
+    public static Map<String, Object> findPartyById(DispatchContext ctx, Map<String, Object> context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        String idToFind = (String) context.get("idToFind");
+        String partyIdentificationTypeId = (String) context.get("partyIdentificationTypeId");
+        String searchPartyFirstContext = (String) context.get("searchPartyFirst");
+        String searchAllIdContext = (String) context.get("searchAllId");
+
+        boolean searchPartyFirst = UtilValidate.isNotEmpty(searchPartyFirstContext) && "N".equals(searchPartyFirstContext) ? false : true;
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext)&& "Y".equals(searchAllIdContext) ? true : false;
+
+        GenericValue party = null;
+        List<GenericValue> partiesFound = null;
+        try {
+            partiesFound = PartyWorker.findPartiesById(delegator, idToFind, partyIdentificationTypeId, searchPartyFirst, searchAllId);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            ServiceUtil.returnError(e.getMessage());
+        }
+
+        if (UtilValidate.isNotEmpty(partiesFound)) {
+            // gets the first partyId of the List
+            party = EntityUtil.getFirst(partiesFound);
+            // remove this partyId
+            partiesFound.remove(0);
+        }
+
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("party", party);
+        result.put("partiesFound", partiesFound);
+
+        return result;
+    }
+
 }

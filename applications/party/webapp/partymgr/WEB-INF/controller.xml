@@ -53,6 +53,7 @@ under the License.
     </request-map>
     <request-map uri="EditPartyRelationships"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRelationships"/></request-map>
     <request-map uri="viewroles"><security https="true" auth="true"/><response name="success" type="view" value="viewroles"/></request-map>
+    <request-map uri="viewidentifications"><security https="true" auth="true"/><response name="success" type="view" value="viewidentifications"/></request-map>  
     <request-map uri="linkparty"><security https="true" auth="true"/><response name="success" type="view" value="linkparty"/></request-map>
     <request-map uri="partyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="partyInvitation"/></request-map>
     <request-map uri="editPartyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="editPartyInvitation"/></request-map>
@@ -648,6 +649,25 @@ under the License.
         <event type="service" invoke="createRoleType"/>
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
+    </request-map>
+
+    <request-map uri="createPartyIdentification">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyIdentification"/>
+        <response name="success" type="view" value="viewidentifications"/>
+        <response name="error" type="view" value="viewidentifications"/>
+    </request-map>
+    <request-map uri="deletePartyIdentification">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deletePartyIdentification"/>
+        <response name="success" type="view" value="viewidentifications"/>
+        <response name="error" type="view" value="viewidentifications"/>
+    </request-map>
+    <request-map uri="updatePartyIdentification">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyIdentification"/>
+        <response name="success" type="view" value="viewidentifications"/>
+        <response name="error" type="view" value="viewidentifications"/>
     </request-map>
 
     <request-map uri="createPartyRelationshipType">
@@ -1251,6 +1271,7 @@ under the License.
     <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>
     <view-map name="partyContentList" type="screen" page="component://party/widget/partymgr/ProfileScreens.xml#ContentList"/>
     <view-map name="viewroles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewroles"/>
+    <view-map name="viewidentifications" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ListPartyIdentifications"/>
     <view-map name="linkparty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#linkparty"/>
     <view-map name="EditPartyRelationships" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyRelationships"/>
     <view-map name="viewvendor" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewvendor"/>

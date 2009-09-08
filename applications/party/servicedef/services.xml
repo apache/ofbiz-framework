@@ -247,6 +247,17 @@ under the License.
         <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
         <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
     </service>
+    
+    <service name="findPartiesById" engine="java"  auth="true"
+            location="org.ofbiz.party.party.PartyServices" invoke="findPartyById">
+        <description>Find the partyId corresponding to a reference and a reference type</description>
+        <attribute type="String" mode="IN" name="idToFind" optional="false"/>
+        <attribute type="String" mode="IN" name="partyIdentificationTypeId" optional="true"/>
+        <attribute type="String" mode="IN" name="searchPartyFirst" optional="true"/>
+        <attribute type="String" mode="IN" name="searchAllId" optional="true"/>
+        <attribute type="org.ofbiz.entity.GenericValue" mode="OUT" name="party" optional="true"/>
+        <attribute type="List" mode="OUT" name="partiesFound" optional="true"/>
+    </service>   
 
     <!-- Party Role services -->
     <service name="createPartyRole" engine="simple"
@@ -634,6 +645,33 @@ under the License.
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
+    <!-- PartyIdentification -->
+    <service name="createPartyIdentification" engine="entity-auto" default-entity-name="PartyIdentification" invoke="create">
+        <description>create PartyIdentification entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>   
+    <service name="updatePartyIdentification" engine="entity-auto" default-entity-name="PartyIdentification" invoke="update">
+        <description>update PartyIdentification entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>   
+    <service name="deletePartyIdentification" engine="entity-auto" default-entity-name="PartyIdentification" invoke="delete">
+        <description>delete PartyClassificationGroup</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>   
+    <service name="createPartyIdentifications" engine="simple" default-entity-name="PartyIdentification"
+            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyNameFromPerson">
+        <description>create many identifications with format in map identifications : [partyType : TYPE, TYPE : value]</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
+        <attribute name="partyId" mode="IN" type="String"/>
+        <attribute name="indentifications" mode="IN" type="Map" />
+    </service>
+    
 
     <!-- Vendor -->
     <service name="createVendor" engine="simple"
