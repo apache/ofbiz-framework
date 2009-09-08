@@ -21,9 +21,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<#if layoutSettings.VT_NAME[0] == "FLAT_GREY">
-<#------------------------------------------->
+<style>
+<#if layoutSettings.VT_NAME[0] == "BIZZNESS_TIME">   
+body{background:none;}
+.left-border{float:left;width:25%;}
+.contentarea{margin: 0 0 0 0.5em;padding:0 0 0 0.5em;}
+.leftonly{float:none;min-height:25em;}
+</#if>
+</style>
 <#macro para para>
 <p>
   <#list para?children as child>
@@ -53,7 +58,8 @@ under the License.
   </#list>
   <br/><br/>
 </#macro>
-
+<#if layoutSettings.VT_NAME[0] == "FLAT_GREY">
+<#------------------------------------------->
 <div class="contentarea">
   <div id="column-container">
     <div id="content-main-section">
@@ -61,39 +67,10 @@ under the License.
     </div>
   </div>
 </div>
-
+<#elseif layoutSettings.VT_NAME[0] == "BIZZNESS_TIME">   
+		<@section inSection=doc.section first="yes"/>
 <#else><#-- other templates  -->          
 <#----------------------------->
-<#macro para para>
-<p>
-  <#list para?children as child>
-    <#if child?node_type = "text">
-  ${child}
-    <#elseif child?node_type = 'element' && child?node_name = "link">
-  <a href="${child["@xl:href"]}">${child}</a>
-    </#if>
-  </#list>
-  <br/>              
-</p>
-</#macro>
-
-<#macro section inSection first="no">
-  <#list inSection.* as subSection>
-    <#if subSection?node_name = "title">
-      <#if first = "yes"> 
-        <h1>${subSection}</h1>
-      <#else>
-        <h2>${subSection}</h2>
-      </#if>
-    <#elseif subSection?node_name = "para">
-        <@para para=subSection/>
-    <#elseif subSection?node_name = "section">
-        <@section inSection=subSection/>
-    </#if>
-  </#list>
-  <br/><br/>
-</#macro>
-
 <div class="contentarea">
   <div id="column-container">
     <div id="content-main-section">
