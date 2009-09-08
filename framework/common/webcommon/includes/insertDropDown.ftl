@@ -17,10 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<form method="post"  action="<@ofbizUrl>${topLine.action}</@ofbizUrl>"  onSubmit="javascript:submitFormDisableSubmits(this)" name="${topLine.action}" id="${topLine.action}">
 ${StringUtil.wrapString(topLine.textBegin?if_exists)}
 <#assign listSize = topLine.dropDownList.size()>
-  <#if topLine.dropDownList.size() gt 1>
+<#if topLine.dropDownList.size() gt 1>
+<form method="post" action="<@ofbizUrl>${topLine.action}</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="${topLine.action}" id="${topLine.action}">
   <#if topLine.hiddenFieldList?exists>
     <#list topLine.hiddenFieldList as field>
       <input type="hidden" name="${field.name}" value="${field.value}"/>
@@ -31,8 +31,8 @@ ${StringUtil.wrapString(topLine.textBegin?if_exists)}
       <option <#if option.key == topLine.selectedKey >selected="selected"</#if> value="${option.key?if_exists}">${option.value?if_exists}</option>
     </#list>
   </select>
+</form>
 <#else>
   ${topLine.dropDownList[0].value?if_exists}
 </#if>
 ${StringUtil.wrapString(topLine.textEnd?if_exists)}
-</form>
