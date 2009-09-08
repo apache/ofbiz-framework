@@ -19,14 +19,14 @@
 package org.ofbiz.marketing.tracking;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -287,7 +287,7 @@ public class TrackingCodeEvents {
         String prodCatalogId = trackingCode.getString("prodCatalogId");
         if (prodCatalogId != null && prodCatalogId.length() > 0) {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new ArrayList());
+            CategoryWorker.setTrail(request, FastList.<String>newInstance());
         }
 
         // if forward/redirect is needed, do a response.sendRedirect and return null to tell the control servlet to not do any other requests/views
@@ -435,10 +435,10 @@ public class TrackingCodeEvents {
     }
 
     /** Makes a list of TrackingCodeOrder entities to be attached to the current order; called by the createOrder event; the values in the returned List will not have the orderId set */
-    public static List makeTrackingCodeOrders(HttpServletRequest request) {
+    public static List<GenericValue> makeTrackingCodeOrders(HttpServletRequest request) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
-        List trackingCodeOrders = new LinkedList();
+        List<GenericValue> trackingCodeOrders = FastList.newInstance();
 
         Cookie[] cookies = request.getCookies();
         Timestamp affiliateReferredTimeStamp = null;

@@ -309,7 +309,7 @@ public class VerifyPickSession implements Serializable {
         this.updateProduct();
 
         // Update the shipment status to Picked, this will trigger createInvoicesFromShipment and finally a invoice will be created
-        Map updateShipmentCtx = FastMap.newInstance();
+        Map<String, Object> updateShipmentCtx = FastMap.newInstance();
         updateShipmentCtx.put("shipmentId", shipmentId);
         updateShipmentCtx.put("statusId", "SHIPMENT_PICKED");
         updateShipmentCtx.put("userLogin", this.getUserLogin());
@@ -429,7 +429,7 @@ public class VerifyPickSession implements Serializable {
     protected void updateProduct() throws GeneralException {
         for (VerifyPickSessionRow pickRow : this.getPickRows()) {
             if (UtilValidate.isNotEmpty(pickRow.getOriginGeoId())) {
-                Map updateProductCtx = FastMap.newInstance();
+                Map<String, Object> updateProductCtx = FastMap.newInstance();
                 updateProductCtx.put("originGeoId", pickRow.getOriginGeoId());
                 updateProductCtx.put("productId", pickRow.getProductId());
                 updateProductCtx.put("userLogin", this.getUserLogin());

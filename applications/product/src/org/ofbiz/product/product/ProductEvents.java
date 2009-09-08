@@ -35,6 +35,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -1063,7 +1064,7 @@ public class ProductEvents {
             Debug.logWarning("Session attribute productCompareList contains something other than the expected product list, overwriting.", module);
             compareList = FastList.newInstance();
         } else {
-            compareList = (List) compareListObj;
+            compareList = UtilGenerics.cast(compareListObj);
         }
         return compareList;
     }
