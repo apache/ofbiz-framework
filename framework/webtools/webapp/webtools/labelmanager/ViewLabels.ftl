@@ -48,10 +48,14 @@ under the License.
     <#if parameters.searchLabels?exists>
       <#assign rowNum = "2">
       <#assign rowNumber = 1>
+      <#assign totalLabels = 0>
+      <#assign missingLabels = 0>
+      <#assign existingLabels = 0>
       <#assign previousKey = "">
       <#list labelsList as labelList>
         <#assign label = labels.get(labelList)>
         <#assign labelKey = label.labelKey>
+        <#assign totalLabels = totalLabels + 1>
         <#if references?exists>
           <#assign referenceNum = 0>
           <#assign reference = references.get(labelKey)?if_exists>
@@ -98,8 +102,10 @@ under the License.
               <#if showLocale>
                 <#if labelVal?has_content>
                   <td>${labelVal.getLabelValue()}</td>
+                  <#assign existingLabels = existingLabels + 1>
                 <#else>
                   <td>&nbsp;</td>
+                  <#assign missingLabels = missingLabels + 1>
                 </#if>
               </#if>
             </#list>
@@ -113,6 +119,18 @@ under the License.
           <#assign rowNumber = rowNumber + 1>
         </#if>
       </#list>
+      <tr class="header-row">
+        <td/>
+        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabels}</td>
+        <td colspan="2">
+          ${uiLabelMap.WebtoolsLabelStatsExist}:<br/>
+          ${uiLabelMap.WebtoolsLabelStatsMissing}:
+        </td>
+        <td>
+          ${existingLabels}<br/>
+          ${missingLabels}
+        </td>
+      </tr>
     </#if>
   </table>
 </div>
