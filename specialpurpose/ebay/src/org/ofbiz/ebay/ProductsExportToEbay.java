@@ -194,16 +194,26 @@ public class ProductsExportToEbay {
                         productDescription = prod.getString("productName");
                     }
                     String startPrice = (String)context.get("startPrice");
-                    String currencyUomId = null;
+                    String startPriceCurrencyUomId = null;
                     if (UtilValidate.isEmpty(startPrice)) {
                         GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
                         if (UtilValidate.isNotEmpty(startPriceValue)) {
                             startPrice = startPriceValue.getString("price");
-                            currencyUomId = startPriceValue.getString("currencyUomId");
+                            startPriceCurrencyUomId = startPriceValue.getString("currencyUomId");
                         } else {
                             return ServiceUtil.returnFailure("Unable to find a starting price for auction of product with id [" + prod.getString("productId") + "]");
                         }
                     }
+                    
+                    // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately. 
+                    GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"))));
+                    String buyItNowPrice = null;
+                    String buyItNowCurrencyUomId = null;
+                    if (UtilValidate.isNotEmpty(buyItNowPriceValue)) {
+                        buyItNowPrice = buyItNowPriceValue.getString("price");
+                        buyItNowCurrencyUomId = buyItNowPriceValue.getString("currencyUomId");
+                    } 
+                    
                     Element itemElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);
                     String location = (String)context.get("location");
@@ -260,10 +270,18 @@ public class ProductsExportToEbay {
                     UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
 
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
-                    if (UtilValidate.isEmpty(currencyUomId)) {
-                        currencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                    if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
+                        startPriceCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
                     }
-                    startPriceElem.setAttribute("currencyID", currencyUomId);
+                    startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
+ 
+                    if (UtilValidate.isNotEmpty(buyItNowPrice)) {
+                        Element buyNowPriceElem = UtilXml.addChildElementValue(itemElem, "BuyItNowPrice", buyItNowPrice, itemDocument);
+                        if (UtilValidate.isEmpty(buyItNowCurrencyUomId)) {
+                            buyItNowCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                        }
+                        buyNowPriceElem.setAttribute("currencyID", buyItNowCurrencyUomId);
+                    }   
                 }
                 //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module); 
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));
