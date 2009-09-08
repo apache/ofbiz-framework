@@ -119,6 +119,15 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="AssignLeadToMe" type="single" target="createPartyRelationship">
+        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="roleTypeIdFrom"><hidden value="OWNER"/></field>
+        <field name="roleTypeIdTo"><hidden value="LEAD"/></field>
+        <field name="partyRelationshipTypeId"><hidden value="LEAD_OWNER"/></field>
+        <field name="partyId" parameter-name="partyIdTo"><lookup target-form-name="LookupLead"/></field>
+        <field name="assign"><submit/></field>
+    </form>
+
     <form name="QuickAddLead" type="single" target="quickAddLead">
         <field name="firstName" title="${uiLabelMap.CommonFirst} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
         <field name="lastName" title="${uiLabelMap.CommonLast} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>

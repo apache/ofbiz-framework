@@ -33,7 +33,7 @@ under the License.
   <a href="${child["@xl:href"]}">${child}</a>
     </#if>
   </#list>
-  <br/>              
+  <br/><br/>            
 </p>
 </#macro>
 

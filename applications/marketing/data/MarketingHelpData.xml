@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- chapter -->
+    <!-- chapter Marketing-->
     <DataResource dataResourceId="HELP_MARKETING" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/marketing/data/helpdata/HELP_MARKETING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Marketing Overview" mimeTypeId="text/xml" isPublic="Y" />
@@ -28,13 +28,41 @@ under the License.
 
     <!-- marketing help -->
     <DataResource dataResourceId="MARKETING_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="MARKETING Main Help" mimeTypeId="text/xml" isPublic="Y" />
+        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Main Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="MARKETING_main" contentTypeId="DOCUMENT" contentName="MARKETING Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_MARKETING" contentIdTo="MARKETING_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
+    <!-- Chapter SFA -->
+    <DataResource dataResourceId="HELP_SFA" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/marketing/data/helpdata/HELP_SFA.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="SFA Overview" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_SFA" contentTypeId="DOCUMENT" contentName="SFA Overview" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_SFA" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_SFA" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+    
     <!-- sfa help -->
     <DataResource dataResourceId="SFA_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/marketing/data/helpdata/HELP_SFA_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SFA Main Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SFA_main" contentTypeId="DOCUMENT" contentName="SFA Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SFA_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_MARKETING" contentIdTo="SFA_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+    <ContentAssoc contentId="HELP_SFA" contentIdTo="SFA_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="SFA_FindLeads" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/marketing/data/helpdata/HELP_SFA_FindLeads.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SFA Leads find/list Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SFA_FindLeads" contentTypeId="DOCUMENT" contentName="SFA Leads find/list Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SFA_FindLeads" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_SFA" contentIdTo="SFA_FindLeads" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="SFA_FindAccounts" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/marketing/data/helpdata/HELP_SFA_FindAccounts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SFA Accounts find/list Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SFA_FindAccounts" contentTypeId="DOCUMENT" contentName="SFA Accounts find/list Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SFA_FindAccounts" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_SFA" contentIdTo="SFA_FindAccounts" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="SFA_FindContacts" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/marketing/data/helpdata/HELP_SFA_FindContacts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SFA Contacts find/list Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SFA_FindContacts" contentTypeId="DOCUMENT" contentName="SFA Contacts find/list Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SFA_FindContacts" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_SFA" contentIdTo="SFA_FindContacts" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="SFA_FindSalesOpportu" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/marketing/data/helpdata/HELP_SFA_FindSalesOpportu.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SFA SalesOpportunities find/list Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SFA_FindSalesOpportu" contentTypeId="DOCUMENT" contentName="SFA SalesOpportunities find/list Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SFA_FindSalesOpportu" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_SFA" contentIdTo="SFA_FindSalesOpportu" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 </entity-engine-xml>

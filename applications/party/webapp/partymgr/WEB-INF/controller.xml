@@ -660,7 +660,7 @@ under the License.
     <request-map uri="createPartyRelationship">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyRelationship"/>
-        <response name="success" type="view" value="EditPartyRelationships"/>
+        <response name="success" type="view-last" value="EditPartyRelationships"/>
         <response name="error" type="view" value="EditPartyRelationships"/>
     </request-map>
     <request-map uri="createPartyRelationshipContactAccount">
@@ -1190,6 +1190,7 @@ under the License.
     <request-map uri="LookupPartyEmail"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyEmail"/></request-map>
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupContact"><security https="true" auth="true"/><response name="success" type="view" value="LookupContact"/></request-map>
+    <request-map uri="LookupLead"><security https="true" auth="true"/><response name="success" type="view" value="LookupLead"/></request-map>
     <request-map uri="LookupPartyAndUserLoginAndPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyAndUserLoginAndPerson"/></request-map>
     <request-map uri="LookupUserLoginAndPartyDetails"><security https="true" auth="true"/><response name="success" type="view" value="LookupUserLoginAndPartyDetails"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
@@ -1323,6 +1324,7 @@ under the License.
     <view-map name="LookupPartyClassificationGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyClassificationGroup"/>
     <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
     <view-map name="LookupContact" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContact"/>
+    <view-map name="LookupLead" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupLead"/>
     <view-map name="LookupPartyAndUserLoginAndPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyAndUserLoginAndPerson"/>
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
     <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>

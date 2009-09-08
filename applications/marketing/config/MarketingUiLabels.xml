@@ -1177,6 +1177,12 @@
         <value xml:lang="th">เพิ่มประเภทรหัส Tracking ใหม่</value>
         <value xml:lang="zh">新建跟踪码类型</value>
     </property>
+    <property key="PageTitleAssignLeadFromExisting">
+        <value xml:lang="en">Assign Existing Lead</value>
+    </property>
+    <property key="PageTitleAssignAccountFromExisting">
+        <value xml:lang="en">Assign Existing Account</value>
+    </property>
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
         <value xml:lang="es">Crear nueva cuenta</value>

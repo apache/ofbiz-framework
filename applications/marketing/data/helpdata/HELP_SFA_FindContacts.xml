@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -17,19 +17,16 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+	xmlns:xl="http://www.w3.org/1999/xlink" 
 	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
+    <title>The SFA Accounts find/list screen</title>
+	<section>
+		<para>
+		  The Accounts screen will show you the list which you have created ore which have been assigned to you.
+        </para>
+	</section>
+</section>
 
-    <title>The Marketing Component.</title>
-
-    <para>
-        The marketing component is supporting you to create, select and follow sales opportunities
-        in order to create sales orders for the company.
-    </para>
-
-    <xi:include href="../data/helpdata/HELP_MARKETING.xml" />
-    <xi:include href="../data/helpdata/HELP_SFA.xml" />
-</chapter>

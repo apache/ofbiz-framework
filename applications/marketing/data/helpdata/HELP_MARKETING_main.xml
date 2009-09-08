@@ -22,7 +22,11 @@
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
-	<title>The Marketing Main help screen.</title>
-    <para>Introduction</para>
+    <title>Marketing main help screen.</title>
+    <section>
+        <para>
+            This page acts as an placeholder of the overview of the marketing activity in the company.
+        </para>
+    </section>
 </section>
 

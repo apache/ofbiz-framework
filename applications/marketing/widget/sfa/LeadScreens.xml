@@ -211,6 +211,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+	<screen name="AssignLeadToMe">
+		<section>
+			<actions>
+				<set field="titleProperty" value="PageTitleAssignLeadFromExisting" />
+				<set field="headerItem" value="Leads" />
+			</actions>
+			<widgets>
+				<decorator-screen name="CommonPartyDecorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+						<container style="no-clear">
+							<screenlet title="${uiLabelMap.PageTitleAssignLeadFromExisting}">
+								<include-form name="AssignLeadToMe"
+									location="component://marketing/widget/sfa/forms/LeadForms.xml" />
+							</screenlet>
+						</container>
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
     
     <screen name="LeadPartyDataSource">
         <section>
