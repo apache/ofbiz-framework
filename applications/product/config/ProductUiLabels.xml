@@ -1278,7 +1278,7 @@
     </property>
     <property key="FormFieldTitle_contentType">
         <value xml:lang="en">content Type</value>
-        <value xml:lang="fr">Typde de contenu</value>
+        <value xml:lang="fr">Type de contenu</value>
     </property>
     <property key="FormFieldTitle_correspondingProductId">
         <value xml:lang="de">Dazugehörige Produkt ID</value>
