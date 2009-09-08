@@ -34,7 +34,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -103,7 +102,7 @@ public class WeightPackageSession implements Serializable {
 
     public GenericDelegator getDelegator() {
         if (_delegator == null) {
-            _delegator = DelegatorFactory.getGenericDelegator(delegatorName);
+            _delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
         return _delegator;
     }

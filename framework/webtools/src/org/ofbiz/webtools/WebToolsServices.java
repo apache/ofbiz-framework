@@ -62,7 +62,6 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -350,7 +349,7 @@ public class WebToolsServices {
         }
 
         String groupNameToUse = overrideGroup != null ? overrideGroup : "org.ofbiz";
-        GenericDelegator delegator = UtilValidate.isNotEmpty(overrideDelegator) ? DelegatorFactory.getGenericDelegator(overrideDelegator) : dctx.getDelegator();
+        GenericDelegator delegator = UtilValidate.isNotEmpty(overrideDelegator) ? GenericDelegator.getGenericDelegator(overrideDelegator) : dctx.getDelegator();
 
         String helperName = delegator.getGroupHelperName(groupNameToUse);
         if (helperName == null) {

@@ -19,7 +19,6 @@
 package org.ofbiz.entity.cache;
 
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 
 public abstract class AbstractCache<K, V> {
@@ -32,7 +31,7 @@ public abstract class AbstractCache<K, V> {
     }
 
     public GenericDelegator getDelegator() {
-        return DelegatorFactory.getGenericDelegator(delegatorName);
+        return GenericDelegator.getGenericDelegator(delegatorName);
     }
 
     public void remove(String entityName) {

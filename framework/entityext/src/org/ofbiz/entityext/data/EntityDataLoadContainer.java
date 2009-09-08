@@ -35,7 +35,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
@@ -225,7 +224,7 @@ public class EntityDataLoadContainer implements Container {
 
         String delegatorNameToUse = overrideDelegator != null ? overrideDelegator : delegatorName;
         String groupNameToUse = overrideGroup != null ? overrideGroup : entityGroupName;
-        GenericDelegator delegator = DelegatorFactory.getGenericDelegator(delegatorNameToUse);
+        GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorNameToUse);
         if (delegator == null) {
             throw new ContainerException("Invalid delegator name!");
         }
