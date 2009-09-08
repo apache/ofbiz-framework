@@ -136,7 +136,7 @@ under the License.
         <#if headerImageUrl?exists>
           <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(headerImageUrl)}</@ofbizContentUrl>"/></a></li>
         </#if>
-        <li width=20/>
+        <li/>
         <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
           <li class=h4>
           <div class="divHidden">
@@ -152,16 +152,16 @@ under the License.
             <p class="expanded">
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
               <a href="javascript:document.setUserPreferenceCompactHeaderY.submit()">&nbsp;&nbsp;</a>
-              <form name="setUserPreferenceCompactHeaderY" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
-                <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
-                <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
-                <input name="userPrefValue" value="Y" type="hidden"/>
-              </form>
            </p>
+           <form name="setUserPreferenceCompactHeaderY" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)">
+             <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
+             <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
+             <input name="userPrefValue" value="Y" type="hidden"/>
+           </form>
             <#if layoutSettings.topLines?has_content>
               <#list layoutSettings.topLines as topLine>
               <#if topLine.text?exists>
-                <p>${topLine.text}<a href="${topLine.url?if_exists}&externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></p>
+                <p>${topLine.text}<a href="${StringUtil.wrapString(topLine.url?if_exists)}&amp;externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></p>
               <#elseif topLine.dropDownList?exists>
                 <p><#include "component://common/webcommon/includes/insertDropDown.ftl"/></p>
               <#else>
@@ -183,7 +183,7 @@ under the License.
             <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />
               <#if helpContent?has_content ||  helpTopic == "navigateHelp" || (parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalP")>
-                <li><a href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
+                <li><a href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
               <#else>
                 <li><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
               </#if>
