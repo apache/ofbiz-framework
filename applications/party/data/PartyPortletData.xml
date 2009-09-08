@@ -36,6 +36,13 @@
         screenshot="/images/portlets/Attributes.png"/>
     <PortletPortletCategory portalPortletId="Attributes" portletCategoryId="PROFILE"/>
 
+    <PortalPortlet portalPortletId="PartyIdentifications" portletName="Party Identification"
+        screenName="PartyIdentifications"
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Identification associate to a party"
+        screenshot=""/>
+    <PortletPortletCategory portalPortletId="PartyIdentifications" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings"
         screenName="AvsSettings"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
@@ -137,6 +144,7 @@
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="4"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="PartyIdentifications" portletSeqId="00001" columnSeqId="00001" sequenceNum="6"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="2"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>

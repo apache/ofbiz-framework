@@ -1025,4 +1025,44 @@ under the License.
         <field name="estimatedAmount"><display/></field>
         <field name="partyId"><display/></field>
     </form>
+    
+    <form name="listPartyIdentification" type="list" list-name="listIt"
+                 default-table-style="basic-table hover-bar" target="updatePartyIdentification">
+        <actions>
+            <entity-and entity-name="PartyIdentificationAndParty" >
+                <field-map field-name="partyId" from-field="partyId"/>
+            </entity-and>
+        </actions>
+        <field name="partyIdentificationTypeId"><hidden /></field>
+        <field name="partyId"><hidden /></field>
+        <field name="partyIdentTypeDesc"><display /></field>
+        <field name="idValue"><display /></field>
+        <field name="delete">
+             <hyperlink target="deletePartyIdentification" description="${uiLabelMap.CommonDelete}">
+                 <parameter param-name="partyId"/>
+                 <parameter param-name="partyIdentificationTypeId"/>
+             </hyperlink>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit /></field>
+    </form>
+    
+    <form name="editPartyIdentification" type="single" list-name="partyIdents"
+                 default-table-style="basic-table hover-bar" target="createPartyIdentification" focus-field-name="idValue">
+        <alt-target use-when="partyIdentification !=null" target="updatePartyIdentification"/>
+        <field name="partyIdentificationTypeId" use-when="partyIdentification == null">
+            <drop-down>
+                <entity-options description="${description}" entity-name="PartyIdentificationType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyIdentificationTypeId" use-when="partyIdentification != null"> 
+            <display-entity entity-name="PartyIdentificationType"/>
+        </field>
+        <field name="partyId"><hidden /></field>
+        <field name="idValue"><text /></field>
+        <field name="submit" title="${uiLabelMap.CommonCreate}" use-when="partyIdentification == null"><submit /></field>
+        <field name="submit" title="${uiLabelMap.CommonUpdate}" use-when="partyIdentification != null"><submit /></field>
+    </form>
+    
 </forms>

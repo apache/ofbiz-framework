@@ -901,6 +901,14 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
     </property>
+    <property key="FormFieldTitle_partyIdentTypeDesc">
+        <value xml:lang="en">Identification Type</value>
+        <value xml:lang="fr">Type de numéro</value>
+    </property>
+    <property key="FormFieldTitle_partyIdentificationTypeId">
+        <value xml:lang="en">Identification Type</value>
+        <value xml:lang="fr">Type de numéro</value>
+    </property>
     <property key="FormFieldTitle_partyIdFrom">
         <value xml:lang="de">Akteur ID von</value>
         <value xml:lang="en">From Party ID</value>
@@ -1951,6 +1959,10 @@
     </property>
     <property key="PageTitleListCommunicationsRelatedParties">
         <value xml:lang="en">List Communications of related parties</value>
+    </property>
+    <property key="PageTitleListPartyIdentifications">
+        <value xml:lang="en">List Identification Number</value>
+        <value xml:lang="fr">Liste des numéros d'identification</value>
     </property>
     <property key="PageTitleListUnknownPartyComms">
         <value xml:lang="de">Kommunikation von unbekannter Herkunft</value>
@@ -7356,6 +7368,18 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
     </property>
+    <property key="PartyPartyIdentification">
+        <value xml:lang="en">Identification Number</value>
+        <value xml:lang="fr">N° d'identification</value>
+    </property>
+    <property key="PartyPartyIdentificationList">
+        <value xml:lang="en">List Identification Number</value>
+        <value xml:lang="fr">Liste des numéros d'identification</value>
+    </property>
+    <property key="PartyPartyIdentifications">
+        <value xml:lang="en">Identification Numbers</value>
+        <value xml:lang="fr">Numéros d'identification</value>
+    </property>
     <property key="PartyPartyIdMissing">
         <value xml:lang="de">Akteur ID fehlt</value>
         <value xml:lang="en">Party ID missing</value>
@@ -7811,7 +7835,7 @@
         <value xml:lang="de">Mindestens eine Telefonnummer wird im folgenden benötigt</value>
         <value xml:lang="en">At least one phone number is required below</value>
         <value xml:lang="es">Se requiere al menos un número de teléfono debajo</value>
-        <value xml:lang="fr">Au moins un numéro de téléphone est exigé ci-dessous</value>
+        <value xml:lang="fr">Au moins un n° de téléphone est exigé ci-dessous</value>
         <value xml:lang="hi_IN">नीचे कम से कम एक फोन नंबर आवश्यक है</value>
         <value xml:lang="it">Al minimo un numero di telefono è richiesto qui sotto</value>
         <value xml:lang="nl">Ten minste één telefoonnummer moet worden opgegeven</value>

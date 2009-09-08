@@ -192,6 +192,24 @@ under the License.
         </iterate>
         <field-to-result field="geos"/>
     </simple-method>
+    
+    <!-- PartyIdentification methods -->
+    <simple-method method-name="createPartyIdentifications" short-description="create mass party identification with association between vale and type">
+        <set field="partyIdentCtx.partyId" from-field="parameters.partyId"/>
+        <iterate-map key="key" value="value" map="parameters.identifications">
+            <entity-one value-field="identificationType" entity-name="PartyIdentificationType" use-cache="true">
+                <field-map field-name="partyIdentificationTypeId" from-field="value"/>              
+            </entity-one>          
+            <if-not-empty field="identificationType">   
+                <set field="idValue" value="${parameters.identifications.${identificationType.partyIdentificationTypeId}}"/>          
+                <if-not-empty field="idValue">
+                    <set field="partyIdentCtx.partyIdentificationTypeId" from-field="identificationType.partyIdentificationTypeId"/>
+                    <set field="partyIdentCtx.idValue" from-field="idValue"/>
+                    <call-service service-name="createPartyIdentification" in-map-name="partyIdentCtx"/>
+                </if-not-empty> 
+            </if-not-empty>
+        </iterate-map>
+    </simple-method>
 
     <!-- PartyClassification methods -->
     <simple-method method-name="createPartyClassification" short-description="create a PartyClassification">

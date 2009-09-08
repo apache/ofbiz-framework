@@ -1671,6 +1671,54 @@ under the License.
       <key-map field-name="partyId"/>
     </view-link>
   </view-entity>
+  
+     <entity entity-name="PartyIdentification"
+            package-name="org.ofbiz.party.party"
+            title="Party Identification Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="partyIdentificationTypeId" type="id-ne"></field>
+      <field name="idValue" type="id-long"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="partyIdentificationTypeId"/>
+      <relation type="one" fk-name="PARTY_ID_TYPE" rel-entity-name="PartyIdentificationType">
+        <key-map field-name="partyIdentificationTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_ID_PRODICT" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <index name="PARTY_ID_VALIDX" unique="false">
+          <index-field name="idValue"/>
+      </index>
+    </entity> 
+    <view-entity entity-name="PartyIdentificationAndParty"
+                package-name="org.ofbiz.party.party"
+                title="PartyIdentification and Party View Entity">
+      <member-entity entity-alias="PI" entity-name="PartyIdentification"/>
+      <member-entity entity-alias="PIT" entity-name="PartyIdentificationType"/>
+      <member-entity entity-alias="PA" entity-name="Party"/>
+      <alias-all entity-alias="PI" />
+      <alias-all entity-alias="PA" />
+      <alias name="partyIdentTypeDesc" field="description"  entity-alias="PIT"/>
+      <view-link entity-alias="PI" rel-entity-alias="PA">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PI" rel-entity-alias="PIT">
+        <key-map field-name="partyIdentificationTypeId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="PartyIdentificationType"
+            package-name="org.ofbiz.party.party"
+            title="Party Identification Type Entity">
+      <field name="partyIdentificationTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="partyIdentificationTypeId"/>
+      <relation type="one" fk-name="PARTY_ID_TYPE_PAR" title="Parent" rel-entity-name="PartyIdentificationType">
+        <key-map field-name="parentTypeId" rel-field-name="partyIdentificationTypeId"/>
+      </relation>
+    </entity>
+  
     <entity entity-name="PartyGeoPoint"
         package-name="org.ofbiz.party.party"
         title="Party Geo Location with history">

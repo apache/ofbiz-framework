@@ -77,6 +77,11 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
+        <menu-item name="viewidentifications" title="${uiLabelMap.PartyPartyIdentifications}">
+            <link target="viewidentifications">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
         <menu-item name="linkparty" title="${uiLabelMap.PartyLink}">
             <link target="linkparty">
                 <parameter param-name="partyId"/>
@@ -655,6 +660,14 @@
         <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
             <link target="${parameters._LAST_VIEW_NAME_}?portalPageId=${parameters.portalPageId}&amp;partyId=${parameters.partyId}&amp;editPartyRel=Y"/>
         </menu-item>  
+    </menu>
+    
+    <menu name="newPartyIdentification">
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <link target="viewidentifications">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+            </link>
+        </menu-item>
     </menu>
     
 </menus>

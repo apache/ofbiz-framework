@@ -19,8 +19,6 @@
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa102" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
     <Party partyId="DemoCustCompany"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
-    <Party partyId="DemoSupplier"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
 
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1"/>
@@ -42,7 +40,7 @@
     <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner" enabled="Y"/>
     <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
-    
+
     <Party partyId="DemoLeadOwner1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLeadOwner1" firstName="Demo" lastName="LeadOwner1"/>
     <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_"/>
@@ -70,12 +68,12 @@
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
     <!-- Status Valid Change   -->
     <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="LEAD_CONVERTED" transitionName="Convert Lead To Contact"/>
-    
+
     <Party partyId="DemoLead" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead" firstName="Demo" lastName="Lead"/>
     <PartyRole partyId="DemoLead" roleTypeId="_NA_"/>
     <PartyRole partyId="DemoLead" roleTypeId="LEAD"/>
-    
+
     <Party partyId="DemoLead1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead1" firstName="Demo" lastName="Lead1"/>
     <PartyRole partyId="DemoLead1" roleTypeId="_NA_"/>
@@ -85,7 +83,7 @@
     <Person partyId="DemoLead2" firstName="Demo" lastName="Lead2"/>
     <PartyRole partyId="DemoLead2" roleTypeId="_NA_"/>
     <PartyRole partyId="DemoLead2" roleTypeId="LEAD"/>
-    
+
     <Party partyId="DemoLead3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead3" firstName="Demo" lastName="Lead3"/>
     <PartyRole partyId="DemoLead3" roleTypeId="_NA_"/>
@@ -107,7 +105,7 @@
     <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
     <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead1" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
     <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead2" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
-    
+
     <!-- Leads of DemoLeadOwner1 -->
     <PartyRelationship partyIdFrom="DemoLeadOwner1" roleTypeIdFrom="OWNER" partyIdTo="DemoLead3" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
     <PartyRelationship partyIdFrom="DemoLeadOwner1" roleTypeIdFrom="OWNER" partyIdTo="DemoLead4" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
