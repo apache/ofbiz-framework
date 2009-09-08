@@ -9430,17 +9430,6 @@
         <value xml:lang="th">สร้างสินค้าโดยทั้งหมด</value>
         <value xml:lang="zh">创建虚拟产品</value>
     </property>
-    <property key="ProductCreatedBy">
-        <value xml:lang="de">Erstellt von</value>
-        <value xml:lang="en">Created By</value>
-        <value xml:lang="es">Creador por</value>
-        <value xml:lang="fr">Créé par</value>
-        <value xml:lang="it">Creato Da</value>
-        <value xml:lang="ro">Creat De la </value>
-        <value xml:lang="ru">Создан</value>
-        <value xml:lang="th">สร้างโดย</value>
-        <value xml:lang="zh">创建者</value>
-    </property>
     <property key="ProductCreatedByUserLogin">
         <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
         <value xml:lang="en">Created By User Login</value>

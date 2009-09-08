@@ -2353,19 +2353,6 @@
         <value xml:lang="th">สร้างที่อยู่การส่งสินค้าใหม่</value>
         <value xml:lang="zh">新建送货地址</value>
     </property>
-    <property key="OrderCreatedBy">
-        <value xml:lang="de">Erstellt von</value>
-        <value xml:lang="en">Created by</value>
-        <value xml:lang="es">Creado por</value>
-        <value xml:lang="fr">Créé par</value>
-        <value xml:lang="it">Creato da</value>
-        <value xml:lang="nl">Aangemaakt door</value>
-        <value xml:lang="ro">Creat de la</value>
-        <value xml:lang="ru">Создан</value>
-        <value xml:lang="th">สร้างโดย</value>
-        <value xml:lang="zh">创建者</value>
-        <value xml:lang="zh_CN">创建人</value>
-    </property>
     <property key="OrderCubicMeasurement">
         <value xml:lang="de">Volumenmessung</value>
         <value xml:lang="en">Cubic Measurement</value>
