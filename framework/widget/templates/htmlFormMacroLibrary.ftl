@@ -68,7 +68,7 @@ under the License.
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
-    </textarea><#rt/>
+    </textarea><#lt/>
     <#if visualEdtiorEnalble?has_content>
         <script language="javascript" src="/images/htmledit/whizzywig.js" type="text/javascript"></script><#rt/>
         <script language="javascript" type="text/javascript"> buttonPath = "/images/htmledit/"; cssFile="/images/htmledit/simple.css"; makeWhizzyWig("${id?default("")}", "${buttons?default("")}")</script>
@@ -436,7 +436,7 @@ ${item.description}</div>
 </#if>
 <li class="${paginateNextStyle}<#if highIndex lt listSize>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxNextUrl}')<#else>${nextUrl}</#if>">${paginateNextLabel}</a><#else>-disabled">${paginateNextLabel}</#if></li>
 <li class="${paginateLastStyle}<#if highIndex lt listSize>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxLastUrl}')<#else>${lastUrl}</#if>">${paginateLastLabel}</a><#else>-disabled">${paginateLastLabel}</#if></li>
-</ul></div>
+</ul></div><br/>
 </#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete><input type="file" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete><input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/></#macro>
