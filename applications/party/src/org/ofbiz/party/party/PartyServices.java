@@ -32,6 +32,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -1095,7 +1096,7 @@ public class PartyServices {
                 dynamicView.addAlias("PRSHP", "partyIdTo");
                 dynamicView.addAlias("PRSHP", "partyRelationshipTypeId");
                 dynamicView.addViewLink("PT", "PRSHP", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "partyIdTo"));
-                List<String> ownerPartyIds = (List) context.get("ownerPartyIds");
+                List<String> ownerPartyIds = UtilGenerics.cast(context.get("ownerPartyIds"));
                 EntityCondition relationshipCond = null;
                 if (UtilValidate.isEmpty(ownerPartyIds)) {
                     String partyIdFrom = userLogin.getString("partyId");
