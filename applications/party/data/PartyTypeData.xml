@@ -263,7 +263,7 @@ under the License.
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Child" partyRelationshipTypeId="CHILD" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Contact Relation" partyRelationshipTypeId="CONTACT_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Lead Relation" partyRelationshipTypeId="LEAD_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Lead Owner" partyRelationshipTypeId="LEAD_OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Lead Owned by" partyRelationshipTypeId="LEAD_OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Customer" partyRelationshipTypeId="CUSTOMER_REL" roleTypeIdValidFrom="CUSTOMER" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Distributor" partyRelationshipTypeId="DISTRIBUTION_CHANNEL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="Y" parentTypeId="" partyRelationshipName="Employee" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
@@ -278,9 +278,9 @@ under the License.
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Spouse" partyRelationshipTypeId="SPOUSE" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Supplier" partyRelationshipTypeId="SUPPLIER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Web Master" partyRelationshipTypeId="WEB_MASTER_ASSIGNMEN" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Account" partyRelationshipTypeId="ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Account owned by" partyRelationshipTypeId="ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Assistant" partyRelationshipTypeId="ASSISTANT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Owner" partyRelationshipTypeId="OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Owned by" partyRelationshipTypeId="OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Parent Account" partyRelationshipTypeId="PARENT_ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Reports To" partyRelationshipTypeId="REPORTS_TO" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Lead Owners/Managers" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
