@@ -63,7 +63,7 @@ public class ComponentResourceHandler implements ResourceHandler {
 
     public Document getDocument() throws GenericConfigException {
         try {
-            return UtilXml.readXmlDocument(this.getStream(), this.getFullLocation());
+            return UtilXml.readXmlDocument(this.getStream(), this.getFullLocation(), true);
         } catch (org.xml.sax.SAXException e) {
             throw new GenericConfigException("Error reading " + this.toString(), e);
         } catch (javax.xml.parsers.ParserConfigurationException e) {
