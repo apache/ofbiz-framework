@@ -519,14 +519,14 @@ padding-right:5px;
 
 .submenutext,a.submenutext,a.submenutext:visited {
 border-right:1px solid #5886C6;
-color:#FF0;
+color:#000;
 font-weight:700;
 padding-left:6px;
 padding-right:5px;
 }
 
 a.submenutext:hover {
-color:#FF0;
+color:#000;
 }
 
 .submenutextdisabled,a.submenutextdisabled {
@@ -538,7 +538,7 @@ padding-right:5px;
 }
 
 a.submenutextdisabled:hover {
-color:#FF0;
+color:#000;
 font-weight:700;
 }
 
@@ -549,13 +549,13 @@ padding-left:6px;
 }
 
 .submenutextright,a.submenutextright {
-color:#FF0;
+color:#000;
 font-weight:700;
 padding-left:6px;
 }
 
 a.submenutextright:hover {
-color:#FF0;
+color:#000;
 text-decoration:underline;
 }
 
@@ -566,7 +566,7 @@ padding-left:6px;
 }
 
 a.submenutextrightdisabled:hover {
-color:#FF0;
+color:#000;
 }
 
 a.lightbuttontext {
