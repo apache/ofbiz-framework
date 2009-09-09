@@ -525,8 +525,13 @@ under the License.
             <set-service-fields service-name="updateProductAverageCost" map="productAverageCost" to-map="updateProductAverageCostMap"/>
             <now-timestamp field="updateProductAverageCostMap.thruDate"/>
             <call-service service-name="updateProductAverageCost" in-map-name="updateProductAverageCostMap"/>
-
-            <set field="productAverageCostMap.averageCost" value="${(productAverageCost.averageCost + inventoryItem.unitCost)/2}" type="BigDecimal"/>
+            <set field="serviceInMap.productId" from-field="parameters.productId"/>
+            <set field="serviceInMap.facilityId" from-field="parameters.facilityId"/>
+            <call-service service-name="getInventoryAvailableByFacility" in-map-name="serviceInMap">
+                <result-to-field result-name="quantityOnHandTotal"/> 
+            </call-service>
+            <set field="oldProductQuantity" value="${quantityOnHandTotal - parameters.quantityAccepted}"/>
+            <set field="productAverageCostMap.averageCost" value="${((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted))/(quantityOnHandTotal)}" type="BigDecimal"/>
             <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
             <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
             <calculate field="productAverageCostMap.averageCost" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
