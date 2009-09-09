@@ -1011,4 +1011,27 @@ under the License.
             </iterate>
         </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="getAssociatedAcctgTransEntriesWithFinAccountTrans" short-description="Get associated acctgTransEntries with finAccountTrans">
+        <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
+        <if-empty field="finAccountTrans.paymentId">
+            <entity-and entity-name="Payment" list="payments">
+                <field-map field-name="finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+            </entity-and>
+        <else>
+            <entity-one entity-name="Payment" value-field="payment">
+                <field-map field-name="paymentId" from-field="finAccountTrans.paymentId"/>
+            </entity-one>
+            <field-to-list field="payment" list="payments"/>
+        </else>
+        </if-empty>
+        <set field="paymentIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(payments, 'paymentId', true);}" type="List"/>
+        <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
+            <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
+            <order-by field-name="acctgTransId"/>
+            <order-by field-name="acctgTransEntrySeqId"/>
+        </entity-condition>
+        <field-to-result field="acctgTransAndEntries"/>
+    </simple-method>
 </simple-methods>

@@ -506,4 +506,11 @@ under the License.
         <description>Cancel bank reconciliation.</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <service name="getAssociatedAcctgTransEntriesWithFinAccountTrans" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getAssociatedAcctgTransEntriesWithFinAccountTrans">
+        <description>Get associated acctgTransEntries with finAccountTrans</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransAndEntries" type="List" mode="OUT" optional="true"/>
+    </service>
 </services>

@@ -615,6 +615,8 @@ under the License.
     <screen name="ViewGlReconciliationWithTransaction">
         <section>
             <actions>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
                 <set field="titleProperty" value="AccountingEditFinAccountReconciliations"/>
                 <set field="tabButtonItem" value="EditFinAccountReconciliations"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
