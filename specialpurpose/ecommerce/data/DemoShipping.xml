@@ -42,6 +42,7 @@ under the License.
     <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
     <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
     <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
+    <ShipmentMethodType description="Third Day" shipmentMethodTypeId="THIRD_DAY"/>
     <ShipmentMethodType description="Second Day" shipmentMethodTypeId="SECOND_DAY"/>
     <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
     <ShipmentMethodType description="Next Afternoon" shipmentMethodTypeId="NEXT_PM"/>
@@ -51,12 +52,15 @@ under the License.
     <ShipmentMethodType description="Priority Overnight" shipmentMethodTypeId="PR_OVERNIGHT"/>
     <ShipmentMethodType description="First Overnight" shipmentMethodTypeId="FI_OVERNIGHT"/>
     <ShipmentMethodType description="Same Day" shipmentMethodTypeId="SAME_DAY"/>
+    <ShipmentMethodType description="International Express" shipmentMethodTypeId="INT_EXPRESS"/>
 
     <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
     <!-- For USPS, only certain container types are allowed for rate estimates of Priority or Express service codes -->
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Parcel"/>
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="6" carrierServiceCode="Express"/>
-    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3" carrierServiceCode="03"/>
+    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="INT_EXPRESS" sequenceNumber="8" carrierServiceCode="INTEXPRESS"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="4" carrierServiceCode="03"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="THIRD_DAY" sequenceNumber="3" carrierServiceCode="THIRDDAY"/>
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="2" carrierServiceCode="02"/>
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
     <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
