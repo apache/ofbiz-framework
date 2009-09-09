@@ -764,7 +764,7 @@ under the License.
                             <set field="newAcctgTransEntry.glAccountId" from-field="oldAcctgTransEntry.glAccountId"/>
                             <set field="organizationPartyId" from-field="oldAcctgTransEntry.organizationPartyId"/>
                             <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
-                            <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.ownerPartyId"/>
+                            <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.partyId"/>
                             <set field="newAcctgTransEntry.amount" from-field="oldAcctgTransEntry.amount"/>
                             <set field="newAcctgTransEntry.acctgTransEntryTypeId" from-field="oldAcctgTransEntry.acctgTransEntryTypeId"/>
                             <set field="newAcctgTransEntry.debitCreditFlag" value="C"/>
@@ -782,7 +782,7 @@ under the License.
                 <make-value value-field="newAcctgTransEntry" entity-name="AcctgTransEntry"/>
                 <set field="newAcctgTransEntry.glAccountId" from-field="finAccount.postToGlAccountId"/>
                 <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
-                <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.ownerPartyId"/>
+                <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.partyId"/>
                 <set field="newAcctgTransEntry.amount" from-field="entryAmount"/>
                 <set field="newAcctgTransEntry.acctgTransEntryTypeId" value="_NA_"/>
                 <set field="newAcctgTransEntry.debitCreditFlag" value="D"/>
@@ -847,7 +847,7 @@ under the License.
                             <set field="newAcctgTransEntry.glAccountId" from-field="oldAcctgTransEntry.glAccountId"/>
                             <set field="organizationPartyId" from-field="oldAcctgTransEntry.organizationPartyId"/>
                             <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
-                            <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.ownerPartyId"/>
+                            <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.partyId"/>
                             <set field="newAcctgTransEntry.amount" from-field="oldAcctgTransEntry.amount"/>
                             <set field="newAcctgTransEntry.acctgTransEntryTypeId" from-field="oldAcctgTransEntry.acctgTransEntryTypeId"/>
                             <set field="newAcctgTransEntry.debitCreditFlag" value="D"/>
@@ -865,7 +865,7 @@ under the License.
                 <make-value value-field="newAcctgTransEntry" entity-name="AcctgTransEntry"/>
                 <set field="newAcctgTransEntry.glAccountId" from-field="finAccount.postToGlAccountId"/>
                 <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
-                <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.ownerPartyId"/>
+                <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.partyId"/>
                 <set field="newAcctgTransEntry.amount" from-field="entryAmount"/>
                 <set field="newAcctgTransEntry.acctgTransEntryTypeId" value="_NA_"/>
                 <set field="newAcctgTransEntry.debitCreditFlag" value="C"/>
