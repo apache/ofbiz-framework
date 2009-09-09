@@ -23,6 +23,7 @@ import org.ofbiz.party.contact.ContactHelper;
 if (userLogin) {
     party = userLogin.getRelatedOne("Party");
     person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
+    context.partyId = person.partyId;
     context.firstName = person.firstName;
     context.lastName = person.lastName;
 
