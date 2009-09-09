@@ -161,7 +161,7 @@ function setAlternateGwp(field) {
       <table>
         <thead>
             <tr>
-              <th></th> 
+              <th></th>
               <th scope="row">${uiLabelMap.OrderProduct}</th>
               <#if asslGiftWraps?has_content && productStore.showCheckoutGiftOptions?if_exists != "N">>
                 <th scope="row">
@@ -324,7 +324,7 @@ function setAlternateGwp(field) {
         <#if shoppingCart.getAdjustments()?has_content>
               <tr>
                 <th>${uiLabelMap.CommonSubTotal}:</th>
-                <td><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></td>
+                <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></td>
                 <td>&nbsp;</td>
               </tr>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
