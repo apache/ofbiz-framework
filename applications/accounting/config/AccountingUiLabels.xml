@@ -10965,6 +10965,9 @@
         <value xml:lang="en">GL Account Category Type Id</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार क्रमांक</value>
     </property>
+    <property key="FormFieldTitle_glTransactions">
+        <value xml:lang="en">Gl Transactions</value>
+    </property>
     <property key="FormFieldTitle_newGlAccountCategory">
         <value xml:lang="en">New GL Account Category</value>
         <value xml:lang="hi_IN">नई जीएल(Gl) खाता श्रेणी</value>

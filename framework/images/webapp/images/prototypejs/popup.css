@@ -2,7 +2,7 @@
  popup.js
 */
 div.popup {
-  max-width: 600px;
+  max-width: 1200px;
   width: 250px;
   border: 1px solid red;
   padding: 5px;

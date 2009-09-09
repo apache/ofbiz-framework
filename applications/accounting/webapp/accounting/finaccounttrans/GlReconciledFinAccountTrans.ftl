@@ -101,6 +101,7 @@ under the License.
             <th>${uiLabelMap.CommonComments}</th>
             <#if finAccountTransactions?has_content>
               <th>${uiLabelMap.AccountingRemoveFromGlReconciliation}</th>
+              <th>${uiLabelMap.FormFieldTitle_glTransactions}</th>
             </#if>
           </tr>
           <#assign alt_row = false/>
@@ -150,6 +151,17 @@ under the License.
                 <td align="center"><a href="javascript:document.reomveFinAccountTransAssociation_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
               <#else>
                 <td/>
+              </#if>
+              <#if finAccountTrans.paymentId?has_content>
+                <td align="center">
+                  <a id="toggleGlTransactions_${finAccountTrans.finAccountTransId}" href="javascript:void(0)" class="buttontext">${uiLabelMap.FormFieldTitle_glTransactions}</a>
+                  <#include "ShowGlTransactions.ftl"/>
+                  <script type="text/javascript">
+                    new Popup('displayGlTransactions_${finAccountTrans.finAccountTransId}','toggleGlTransactions_${finAccountTrans.finAccountTransId}', {modal: true, position: 'none', trigger: 'click', cursor_margin:0})
+                  </script>
+                </td>   
+              <#else>
+                </td>
               </#if>
             </tr>
             <#assign alt_row = !alt_row/>
