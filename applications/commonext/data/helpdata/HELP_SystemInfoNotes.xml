@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -20,14 +20,21 @@
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
     xmlns:xl="http://www.w3.org/1999/xlink" 
     xmlns:xi="http://www.w3.org/2001/XInclude"
-    xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
+    <title>The System Event Portlet</title>
+    <para>
+        This portlet shows changes which happened in the system for the logged on user.
+The first two functions which are working now:
+1. Incoming communication events (email, internal notes)
+2. tasks which are assigned either in projectmanager or workeffort
 
-    
-    <title>The My portal Component introduction.</title>
-    <para>                
-        Within the 'my portal' component it is possible to create a collection of screens for a specific type of user of the system. 
-        Examples are a general employee, an account manager, a customer, a supplier etc... 
-        The system makes use of special portlets which can be arranged and selected/hidden by the logged on user.
-    </para>
+These event can be notified to the user even when not logged on to ofbiz by using a firefox plugin and when it changes the employee is notified from within firefox
+The plugin: http://updatescanner.mozdev.org/en/index.html
+and it should check the following url: (adjust to your requirements)
+https://localhost:8443/myportal/control/showPortlet?portalPortletId=SystemInfoNotes&USERNAME=admin&PASSWORD=ofbiz
+
+In the flat grey theme i also have added notifications in the header when they are available.    
+</para>
+
 </section>
