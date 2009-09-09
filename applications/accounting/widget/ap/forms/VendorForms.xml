@@ -79,4 +79,7 @@ under the License.
             </drop-down>
         </field>
     </form>
+    <form name="FindApPaymentGroups" target="FindApPaymentGroups" extends="FindPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="paymentGroupTypeId"><hidden value="CHECK_RUN"/></field>
+    </form>
 </forms>

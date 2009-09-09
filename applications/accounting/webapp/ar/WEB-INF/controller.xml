@@ -79,6 +79,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewSalesInvoice"/>
     </request-map>
+    <request-map uri="FindArPaymentGroups">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindArPaymentGroups"/>
+    </request-map>
 
     <!-- end of request mappings -->
 
@@ -87,6 +91,7 @@ under the License.
     <view-map name="ListReports" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#ListReports"/>
     <view-map name="FindPayments" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#FindPayments"/>
     <view-map name="BatchPayments" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#BatchPayments"/>
+    <view-map name="FindArPaymentGroups" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#FindArPaymentGroups"/>
     <view-map name="NewIncomingPayment" type="screen" page="component://accounting/widget/ar/ArPaymentScreens.xml#NewIncomingPayment"/>
     <view-map name="FindArInvoices" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#FindArInvoices"/>
     <view-map name="NewSalesInvoice" type="screen" page="component://accounting/widget/ar/InvoiceScreens.xml#NewSalesInvoice"/>

@@ -63,5 +63,7 @@ under the License.
             </drop-down>
         </field>
     </form>
-    
+    <form name="FindArPaymentGroups" target="FindArPaymentGroups" extends="FindPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+        <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
+    </form>
 </forms>
