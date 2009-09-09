@@ -799,6 +799,7 @@ under the License.
         <field name="reconciledDate"><date-time/></field>
         <field name="organizationPartyId"><display/></field>
         <field name="reconciledBalance"><display/></field>
+        <field name="openingBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(&quot;${glReconciliation.statusId}&quot;)"><display/></field>
         <field use-when="glReconciliationId!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
     <form name="ListGlReconciliationEntries" type="list" use-row-submit="true"

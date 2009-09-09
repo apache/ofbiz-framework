@@ -9837,6 +9837,10 @@
         <value xml:lang="it">Id client</value>
         <value xml:lang="zh">客户标识</value>
     </property>
+    <property key="FormFieldTitle_closingBalance">
+        <value xml:lang="en">Closing Balance</value>
+        <value xml:lang="hi_IN">बंद शेष</value>
+    </property>
     <property key="FormFieldTitle_closingBalanceCredit">
         <value xml:lang="en">Closing Balance Credit</value>
         <value xml:lang="hi_IN">बंद शेष जमा</value>
