@@ -1138,6 +1138,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
                 if (UtilValidate.isNotEmpty(mimeTypeId)
                 		&& ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
+                	
+/*                	
+ 					// this code is not yet working, will update it the next few weeks...(Hans)
                 	if (mimeTypeId.equals("application/pdf")) {
                 		TransformerFactory tfactory = TransformerFactory.newInstance();
                 		try {
@@ -1215,8 +1218,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 			Debug.logError("Exception converting from FO to PDF: " + e, module);
                 		}
                 	} else {
-                        screenStringRenderer.renderContentFrame(writer, context, this);
-                	}
+*/                        screenStringRenderer.renderContentFrame(writer, context, this);
+//                	}
                 } else {
                     screenStringRenderer.renderContentBegin(writer, context, this);
                     screenStringRenderer.renderContentBody(writer, context, this);
