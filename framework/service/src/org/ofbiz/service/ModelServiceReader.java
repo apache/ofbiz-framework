@@ -20,6 +20,8 @@ package org.ofbiz.service;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
@@ -44,12 +46,15 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.service.engine.GenericEngine;
 import org.ofbiz.service.group.GroupModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import org.webslinger.invoker.Wrap;
 
 import freemarker.template.utility.StringUtil;
 
@@ -258,6 +263,16 @@ public class ModelServiceReader implements Serializable {
         ModelService service = new ModelService();
 
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
+        Wrap<GenericInvoker> wrap = new Wrap<GenericInvoker>().fileName(resourceLocation + '#' + service.name).wrappedClass(GenericInvokerImpl.class);
+        for (Method method: GenericInvokerImpl.class.getDeclaredMethods()) {
+            wrap.wrap(method);
+        }
+        Object startLine = serviceElement.getUserData("startLine");
+        if (startLine != null) {
+            wrap.lineNumber(((Integer) startLine).intValue());
+        }
+        service.invoker = wrap.newInstance(new Class<?>[] {ModelService.class}, new Object[] {service});
+
         service.definitionLocation = resourceLocation;
         service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
@@ -741,7 +756,7 @@ public class ModelServiceReader implements Serializable {
         Document document = null;
 
         try {
-            document = UtilXml.readXmlDocument(url, true);
+            document = UtilXml.readXmlDocument(url, true, true);
         } catch (SAXException sxe) {
             // Error generated during parsing)
             Exception x = sxe;
@@ -757,5 +772,57 @@ public class ModelServiceReader implements Serializable {
         }
 
         return document;
+    }
+
+    public static class GenericInvokerImpl implements GenericInvoker {
+        private final ModelService modelService;
+
+        public GenericInvokerImpl(ModelService modelService) {
+            this.modelService = modelService;
+        }
+
+        public Map<String, Object> runSync(String localName, GenericEngine engine, Map<String, Object> context) throws GenericServiceException {
+            return engine.runSync(localName, modelService, context);
+        }
+
+        public void runSyncIgnore(String localName, GenericEngine engine, Map<String, Object> context) throws GenericServiceException {
+            engine.runSyncIgnore(localName, modelService, context);
+        }
+
+        public void runAsync(String localName, GenericEngine engine, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
+            engine.runAsync(localName, modelService, context, requester, persist);
+        }
+
+        public void runAsync(String localName, GenericEngine engine, Map<String, Object> context, boolean persist) throws GenericServiceException {
+            engine.runAsync(localName, modelService, context, persist);
+        }
+
+        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, int mode) throws GenericServiceException {
+            engine.sendCallbacks(modelService, context, mode);
+        }
+
+        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
+            engine.sendCallbacks(modelService, context, result, mode);
+        }
+
+        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException {
+            engine.sendCallbacks(modelService, context, t, mode);
+        }
+
+        public GenericInvokerImpl copy(ModelService modelService) {
+            try {
+                try {
+                    return getClass().getConstructor(ModelService.class).newInstance(modelService);
+                } catch (InvocationTargetException e) {
+                    throw e.getCause();
+                }
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Error e) {
+                throw e;
+            } catch (Throwable e) {
+                throw (InternalError) new InternalError(e.getMessage()).initCause(e);
+            }
+        }
     }
 }
