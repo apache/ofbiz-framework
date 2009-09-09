@@ -343,7 +343,7 @@ under the License.
     <ProductFeature productFeatureId="EC_MANLIFT" description="Manlift" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_SERVICE_BODY" description="Service Body" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_TRACTOR" description="Tractor" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    <ProductFeature productFeatureId="EC_PASSENGER" description="Passeneger Vehicle" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
+    <ProductFeature productFeatureId="EC_PASSENGER" description="Passenger Vehicle" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_COMPRESSOR" description="Compressor" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_TRENCHER" description="Trencher" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_PULLER" description="Puller" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
