@@ -64,4 +64,34 @@ under the License.
             <not-empty><fail-property resource="PartyUiLabels" property="CommonFromDateMissing"/></not-empty>
             <convert type="Timestamp"><fail-property resource="PartyUiLabels" property="CommonFromDateNotValidDateTime"/></convert></process>
     </simple-map-processor>
+    
+    <simple-map-processor name="person">
+        <process field="firstName">
+            <copy/>
+            <not-empty>
+                <fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/>
+            </not-empty>
+        </process>
+        <process field="lastName">
+            <copy/>
+            <not-empty>
+                <fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/>
+            </not-empty>
+        </process>
+    </simple-map-processor>
+    
+    <simple-map-processor name="emailAddress">
+        <process field="emailContactMechId">
+            <copy to-field="contactMechId" set-if-null="false"/>
+        </process>
+        <process field="emailAddress">
+            <not-empty>
+                <fail-property resource="PartyUiLabels" property="PartyEmailAddressMissingError"/>
+            </not-empty>
+            <validate-method method="isEmail">
+                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
+            </validate-method>
+            <copy/>
+        </process>
+    </simple-map-processor>
 </simple-map-processors>
