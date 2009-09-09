@@ -61,7 +61,7 @@ public final class MainResourceHandler implements ResourceHandler {
 
     public Document getDocument() throws GenericConfigException {
         try {
-            return UtilXml.readXmlDocument(this.getStream(), this.xmlFilename);
+            return UtilXml.readXmlDocument(this.getStream(), this.xmlFilename, true);
         } catch (org.xml.sax.SAXException e) {
             throw new GenericConfigException("Error reading " + this.toString(), e);
         } catch (javax.xml.parsers.ParserConfigurationException e) {
