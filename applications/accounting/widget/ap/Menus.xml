@@ -22,7 +22,7 @@ under the License.
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="FindApInvoices"/></menu-item>
         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
-        <menu-item name="PaymentGroup" title="${uiLabelMap.AccountingPaymentGroup}"><link target="FindPaymentGroup"/></menu-item>
+        <menu-item name="apPaymentGroups" title="${uiLabelMap.AccountingApPaymentGroupMenu}"><link target="FindApPaymentGroups"/></menu-item>
         <menu-item name="findVendors" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}"><link target="findVendors"/></menu-item>
         <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
     </menu>

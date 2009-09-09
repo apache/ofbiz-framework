@@ -23,7 +23,7 @@ under the License.
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
-        <menu-item name="PaymentGroup" title="${uiLabelMap.AccountingPaymentGroup}"><link target="FindPaymentGroup"/></menu-item>
+        <menu-item name="arPaymentGroups" title="${uiLabelMap.AccountingArPaymentGroupMenu}"><link target="FindArPaymentGroups"/></menu-item>
         <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="ListReports"/></menu-item>
     </menu>
     <menu name="ArPaymentTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

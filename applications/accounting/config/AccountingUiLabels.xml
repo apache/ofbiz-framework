@@ -1031,6 +1031,9 @@
         <value xml:lang="nl">Toon rapporten</value>
         <value xml:lang="zh">报表列表</value>
     </property>
+    <property key="AccountingArPaymentGroupMenu">
+        <value xml:lang="en">AR Payment Groups</value>
+    </property>
     <property key="AccountingAritmeticPropertiesNotConfigured">
         <value xml:lang="ar">الخاصيات الحسابية لخدمات الفاتورة ليست مرتبة بطريقة ملائمة. لا يمكن المضي قدما.</value>
         <value xml:lang="de">Die arithmetischen Einstellungen für die Rechnungs-Services sind nicht richtig konfiguriert. Die Verarbeitung kann nicht fortgesetzt werden.</value>
@@ -1853,6 +1856,9 @@
         <value xml:lang="ru">Чеки</value>
         <value xml:lang="th">ตรวจสอบ</value>
         <value xml:lang="zh">支票</value>
+    </property>
+    <property key="AccountingApPaymentGroupMenu">
+        <value xml:lang="en">AP Payment Groups</value>
     </property>
     <property key="AccountingClosedTimePeriods">
         <value xml:lang="de">Abgeschlossener Buchungszeitraum</value>
@@ -3261,6 +3267,9 @@
         <value xml:lang="en">Fin Account Trans Associated To Gl Reconciliation</value>
         <value xml:lang="hi_IN">Gl मिलान से जुड़े Fin खाता</value>
     </property>
+    <property key="AccountingFindApPaymentGroups">
+        <value xml:lang="en">Find AP Payment Groups</value>
+    </property>
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
         <value xml:lang="hi_IN">एपी (AP) चालान खोजें</value>
@@ -3272,6 +3281,9 @@
     <property key="AccountingFindArInvoices">
         <value xml:lang="en">Find AR Invoices</value>
         <value xml:lang="hi_IN">लेखा प्राप्य चालान खोजें</value>
+    </property>
+    <property key="AccountingFindArPaymentGroups">
+        <value xml:lang="en">Find AR Payment Groups</value>
     </property>
     <property key="AccountingFindArPayments">
         <value xml:lang="en">Find AR Payments</value>
