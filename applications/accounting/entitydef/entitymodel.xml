@@ -2184,6 +2184,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="organizationPartyId" type="id-ne"></field>
       <field name="reconciledBalance" type="currency-amount"></field>
+      <field name="openingBalance" type="currency-amount"></field>
       <field name="reconciledDate" type="date-time"></field>
       <prim-key field="glReconciliationId"/>
       <relation type="one" fk-name="GLREC_GLACCT" rel-entity-name="GlAccount">

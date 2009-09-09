@@ -491,6 +491,8 @@ under the License.
                                 </not>
                             </condition>
                             <actions>
+                                <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+                                <set field="parameters.openingBalance" from-field="glReconciliation.openingBalance"/>
                                 <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
                                 <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
                                 <set field="createdApprovedGrandTotal" type="BigDecimal" from-field="finAccountTransListAndTotals.createdApprovedGrandTotal"/>

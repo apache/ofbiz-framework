@@ -604,6 +604,9 @@ under the License.
         <field-to-result field="totalApprovedTransactions"/>
         <field-to-result field="createdApprovedGrandTotal"/>
         <field-to-result field="totalCreatedApprovedTransactions"/>
+        <if-not-empty field="parameters.openingBalance">
+            <set field="glReconciliationApprovedGrandTotal" type="BigDecimal" value="${glReconciliationApprovedGrandTotal + parameters.openingBalance}"/>
+        </if-not-empty>
         <field-to-result field="glReconciliationApprovedGrandTotal"/>
     </simple-method>
 
@@ -621,7 +624,8 @@ under the License.
         <set field="numberOfTransactions" type="Long" value="${numberOfTransactions + 1}"/>
         <field-to-result field="numberOfTransactions"/>
         <set field="openingBalance" type="BigDecimal" from-field="parameters.openingBalance" default-value="0"/>
-        <set field="endingBalance" type="BigDecimal" value="${openingBalance + runningTotal}"/>
+        <set field="reconciledBalance" type="BigDecimal" from-field="parameters.reconciledBalance" default-value="0"/>
+        <set field="endingBalance" type="BigDecimal" value="${openingBalance + reconciledBalance + runningTotal}"/>
         <set-service-fields service-name="getPartyAccountingPreferences" map="parameters" to-map="getPartyAccountingPreferencesMap"/>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="getPartyAccountingPreferencesMap">
             <result-to-field result-name="partyAccountingPreference"/>

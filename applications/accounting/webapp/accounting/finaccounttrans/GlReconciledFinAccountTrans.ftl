@@ -51,6 +51,10 @@ under the License.
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
             <td>${currentGlReconciliation.reconciledDate?if_exists}</td>
           </tr>
+          <tr>
+            <td><span class="label">${uiLabelMap.AccountingOpeningBalance}</span></td>
+            <td><@ofbizCurrency amount=currentGlReconciliation.openingBalance?default('0')/></td>
+          </tr>
         </table>
       </#if>
     </div>
@@ -75,6 +79,10 @@ under the License.
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
             <td>${previousGlReconciliation.reconciledDate?if_exists}</td>
+          </tr>
+          <tr>
+            <td><span class="label">${uiLabelMap.AccountingOpeningBalance}</span></td>
+            <td><@ofbizCurrency amount=previousGlReconciliation.openingBalance?default('0')/></td>
           </tr>
         </table>
       </#if>

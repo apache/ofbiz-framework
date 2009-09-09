@@ -219,6 +219,7 @@ under the License.
         <attribute name="thruTransactionDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="fromEntryDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruEntryDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="openingBalance" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="finAccountTransList" type="List" mode="OUT" optional="true"/>
         <attribute name="searchedNumberOfRecords" type="Integer" mode="OUT" optional="true"/>
         <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
@@ -236,6 +237,7 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="openingBalance" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="reconciledBalance" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="runningTotal" type="BigDecimal" mode="INOUT" optional="true"/>
         <attribute name="numberOfTransactions" type="Long" mode="INOUT" optional="true"/>
         <attribute name="finAccountTransRunningTotal" type="String" mode="OUT" optional="true"/>

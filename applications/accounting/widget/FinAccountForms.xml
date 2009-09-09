@@ -429,5 +429,6 @@ under the License.
             </hyperlink>
         </field>
         <field name="reconciledBalance"><display type="currency" currency="${currencyUomId}"></display></field>
+        <field name="openingBalance"><display type="currency" currency="${currencyUomId}"></display></field>
     </form>
 </forms>

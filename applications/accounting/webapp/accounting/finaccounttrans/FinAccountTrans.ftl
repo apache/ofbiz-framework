@@ -70,7 +70,8 @@ function getFinAccountTransRunningTotalAndBalances() {
             $('showFinAccountTransRunningTotal').update("");
             $('finAccountTransRunningTotal').update("");
             $('numberOfFinAccountTransaction').update("");
-            $('endingBalance').update($('openingBalanceWithUom').value);
+            $('endingBalance').update($('endingBalanceInput').value);
+            
         }
         $('submitButton').disabled = true;
     }
@@ -91,8 +92,8 @@ function getFinAccountTransRunningTotalAndBalances() {
       <input name="finAccountId" type="hidden" value="${parameters.finAccountId}"/>
       <input name="statusId" type="hidden" value="${parameters.statusId?if_exists}"/>
       <#if !grandTotal?exists>
-        <input name="openingBalance" type="hidden" value="${glReconciliationApprovedGrandTotal}"/>
-        <input name="openingBalanceWithUom" type="hidden" id="openingBalanceWithUom" value="<@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/>"/>
+        <input name="reconciledBalance" type="hidden" value="${(glReconciliation.reconciledBalance)?if_exists}"/>
+        <input name="reconciledBalanceWithUom" type="hidden" id="reconciledBalanceWithUom" value="<@ofbizCurrency amount=(glReconciliation.reconciledBalance)?default('0')/>"/>
       </#if>
       <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId, "statusId" : "GLREC_CREATED"}, Static["org.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"))>
       <#if (glReconciliationId?has_content && (glReconciliationId == "_NA_" && finAccountTransList?has_content)) || !grandTotal?exists>
@@ -168,6 +169,7 @@ function getFinAccountTransRunningTotalAndBalances() {
           </#if>
           <#if finAccountTrans.glReconciliationId?has_content>
             <#assign glReconciliation = delegator.findOne("GlReconciliation", {"glReconciliationId" : finAccountTrans.glReconciliationId}, true)>
+            <input name="openingBalance_o_${finAccountTrans_index}" type="hidden" value="${glReconciliation.openingBalance?if_exists}"/>
           </#if>
           <#if finAccountTrans.partyId?has_content>
             <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : finAccountTrans.partyId}, true))!>
@@ -296,15 +298,18 @@ function getFinAccountTransRunningTotalAndBalances() {
         <tr>
           <th>${uiLabelMap.AccountingRunningTotal} / ${uiLabelMap.AccountingNumberOfTransaction}</th>
           <th>${uiLabelMap.AccountingOpeningBalance}</th>
-          <th>${uiLabelMap.AccountingEndingBalance}</th>
+          <th>${uiLabelMap.FormFieldTitle_reconciledBalance}</th>
+          <th>${uiLabelMap.FormFieldTitle_closingBalance}</th>
         </tr>
         <tr>
           <td>
             <span id="finAccountTransRunningTotal"></span> / 
             <span id="numberOfFinAccountTransaction"></span>
           </td>
-          <td><@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/></td>
+          <td><@ofbizCurrency amount=glReconciliation.openingBalance?default('0')/></td>
+          <td><@ofbizCurrency amount=glReconciliation.reconciledBalance?default('0')/></td>
           <td id="endingBalance"><@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/></td>
+          <input type="hidden" id="endingBalanceInput" value="<@ofbizCurrency amount=glReconciliationApprovedGrandTotal?if_exists/>"/>
         </tr>
       </table>
     </#if>
