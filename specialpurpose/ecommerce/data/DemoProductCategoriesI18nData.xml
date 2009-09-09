@@ -27,7 +27,7 @@
 
     <ElectronicText dataResourceId="DR100DESCFR" textData="Gizmos (français)"/>
     <ElectronicText dataResourceId="DR100DESCIT" textData="Gizmos (italiano)"/>
-    <ElectronicText dataResourceId="DR100DESCEN" textData="Gizmos (english)"/>
+    <ElectronicText dataResourceId="DR100DESCEN" textData="Gizmos"/>
 
     <Content contentId="C100DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR100DESCFR" description="DESCRIPTION FR Gizmos" localeString="fr"/>
     <Content contentId="C100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR100DESCIT" description="DESCRIPTION IT Gizmos" localeString="it"/>
@@ -81,7 +81,7 @@
 
     <ElectronicText dataResourceId="DR200DESCFR" textData="Widgets (français)"/>
     <ElectronicText dataResourceId="DR200DESCIT" textData="Widgets (italiano)"/>
-    <ElectronicText dataResourceId="DR200DESCEN" textData="Widgets (english)"/>
+    <ElectronicText dataResourceId="DR200DESCEN" textData="Widgets"/>
 
     <Content contentId="C200DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR200DESCFR" description="DESCRIPTION FR Gizmos" localeString="fr"/>
     <Content contentId="C200DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR200DESCIT" description="DESCRIPTION IT Gizmos" localeString="it"/>
@@ -153,7 +153,7 @@
 
     <ElectronicText dataResourceId="DR20111DESCFR" textData="Micro Widgets (français)"/>
     <ElectronicText dataResourceId="DR20111DESCIT" textData="Micro Widgets (italiano)"/>
-    <ElectronicText dataResourceId="DR20111DESCEN" textData="Micro Widgets (english)"/>
+    <ElectronicText dataResourceId="DR20111DESCEN" textData="Micro Widgets"/>
 
     <Content contentId="C20111DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCFR" description="DESCRIPTION FR Micro Widgets" localeString="fr"/>
     <Content contentId="C20111DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCIT" description="DESCRIPTION IT Micro Widgets" localeString="it"/>
