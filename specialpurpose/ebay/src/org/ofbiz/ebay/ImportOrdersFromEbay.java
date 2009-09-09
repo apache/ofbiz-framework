@@ -1197,28 +1197,25 @@ public class ImportOrdersFromEbay {
         if (shippingService != null) {
             if ("USPSPriority".equals(shippingService)) {
                 partyId = "USPS";
-                shipmentMethodTypeId = "PRIORITY";
+                shipmentMethodTypeId = "STANDARD";
             } else if ("UPSGround".equals(shippingService)) {
                 partyId = "UPS";
                 shipmentMethodTypeId = "GROUND";
             } else if ("UPS3rdDay".equals(shippingService)) {
                 partyId = "UPS";
-                shipmentMethodTypeId = "3DAY";
+                shipmentMethodTypeId = "THIRD_DAY";
             } else if ("UPS2ndDay".equals(shippingService)) {
                 partyId = "UPS";
-                shipmentMethodTypeId = "2DAY";
-            } else if ("UPS2ndDay".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "2DAY";
+                shipmentMethodTypeId = "SECOND_DAY";
             } else if ("USPSExpressMailInternational".equals(shippingService)) {
                 partyId = "USPS";
                 shipmentMethodTypeId = "INT_EXPRESS";
             } else if ("UPSNextDay".equals(shippingService)) {
                 partyId = "UPS";
-                shipmentMethodTypeId = "1DAY_SAVER";
+                shipmentMethodTypeId = "NEXT_DAY";
             } else if ("UPSNextDayAir".equals(shippingService)) {
                 partyId = "UPS";
-                shipmentMethodTypeId = "1DAY";
+                shipmentMethodTypeId = "AIR";
             } else if ("ShippingMethodStandard".equals(shippingService)) {
                 partyId = "UPS";
                 shipmentMethodTypeId = "GROUND";
@@ -1227,10 +1224,9 @@ public class ImportOrdersFromEbay {
                 shipmentMethodTypeId = "INT_EXPRESS";
             } else if ("LocalDelivery".equals(shippingService)) {
                 partyId = "_NA_";
-                shipmentMethodTypeId = "PICK_UP";
+                shipmentMethodTypeId = "STANDARD";
             }
         }
-
         cart.setCarrierPartyId(partyId);
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);
     }
