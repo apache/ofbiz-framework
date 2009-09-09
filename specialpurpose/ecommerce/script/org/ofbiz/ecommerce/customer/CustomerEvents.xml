@@ -922,7 +922,7 @@ under the License.
        </if-not-empty>
 
         <!-- Create Update email address -->
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>
 
@@ -1276,9 +1276,9 @@ under the License.
 
     <simple-method method-name="createCustomerProfile" short-description="create a customer profile" login-required="false">
         <!-- Process all map -->
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personCtx"/>
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressCtx"/>
         <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
             processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
@@ -1385,7 +1385,7 @@ under the License.
 
         <call-simple-method method-name="createUpdateUserLogin"/>
 
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>
         <set-service-fields service-name="createUpdatePartyEmailAddress" map="emailAddressContext" to-map="createUpdatePartyEmailCtx"/>

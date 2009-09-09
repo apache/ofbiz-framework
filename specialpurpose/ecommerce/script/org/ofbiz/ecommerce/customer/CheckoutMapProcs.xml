@@ -21,21 +21,6 @@ under the License.
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-map-processor name="person">
-        <process field="firstName">
-            <copy/>
-            <not-empty>
-                <fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/>
-            </not-empty>
-        </process>
-        <process field="lastName">
-            <copy/>
-            <not-empty>
-                <fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/>
-            </not-empty>
-        </process>
-    </simple-map-processor>
-
     <simple-map-processor name="phoneNumber">
         <process field="phoneContactMechId">
             <copy to-field="contactMechId" set-if-null="false"/>
@@ -59,21 +44,6 @@ under the License.
             </not-empty>
         </process>
         <process field="extension">
-            <copy/>
-        </process>
-    </simple-map-processor>
-
-    <simple-map-processor name="emailAddress">
-        <process field="emailContactMechId">
-            <copy to-field="contactMechId" set-if-null="false"/>
-        </process>
-        <process field="emailAddress">
-            <not-empty>
-                <fail-property resource="PartyUiLabels" property="PartyEmailAddressMissingError"/>
-            </not-empty>
-            <validate-method method="isEmail">
-                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
-            </validate-method>
             <copy/>
         </process>
     </simple-map-processor>
