@@ -322,14 +322,19 @@ function setAlternateGwp(field) {
     </table>
     <table>
         <#if shoppingCart.getAdjustments()?has_content>
+            <tr>
+              <th>${uiLabelMap.CommonSubTotal}:</th>
+              <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></td>
+              <td>&nbsp;</td>
+            </tr>
+            <#if (shoppingCart.getDisplaySubTotal()-shoppingCart.getSubTotal() > 0.0)>
               <tr>
-                <th>${uiLabelMap.CommonSubTotal}:</th>
-                <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></td>
-                <td>&nbsp;</td>
+                <th>${uiLabelMap.OrderSalesTaxIncluded}:</th>
+                <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal()-shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></td>
               </tr>
+            </#if>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
               <#assign adjustmentType = cartAdjustment.getRelatedOneCache("OrderAdjustmentType")>
-              <!-- adjustment info: ${cartAdjustment.toString()} -->
               <tr>
                 <th>
                     ${uiLabelMap.EcommerceAdjustment} - ${adjustmentType.get("description",locale)?if_exists}
@@ -339,13 +344,6 @@ function setAlternateGwp(field) {
                 <td>&nbsp;</td>
               </tr>
             </#list>
-        </#if>
-
-        <#if (shoppingCart.getTotalSalesTax() > 0.0)>
-        <tr>
-          <th>${uiLabelMap.OrderSalesTax}:</th>
-          <td><@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/></td>
-        </tr>
         </#if>
         <tr>
           <th>${uiLabelMap.EcommerceCartTotal}:</th>

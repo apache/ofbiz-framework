@@ -8191,6 +8191,12 @@
         <value xml:lang="zh">营业税</value>
         <value xml:lang="zh_CN">销售税</value>
     </property>
+    <property key="OrderSalesTaxIncluded">
+        <value xml:lang="en">Of which Sales Tax included</value>
+        <value xml:lang="en_GB">Of which VAT included</value>
+        <value xml:lang="fr">Dont TVA incluse</value>
+        <value xml:lang="ja">Of which Sales Tax included</value>
+    </property>
     <property key="OrderSave">
         <value xml:lang="cs">Ušetříte</value>
         <value xml:lang="de">Sie sparen</value>
