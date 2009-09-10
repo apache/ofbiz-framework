@@ -54,6 +54,7 @@ public class MarketingServices {
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         String contactListId = (String) context.get("contactListId");
         String email = (String) context.get("email");
+        String partyId = (String) context.get("partyId");
 
         if (!UtilValidate.isEmail(email)) {
             String error = UtilProperties.getMessage(resourceMarketing, "MarketingCampaignInvalidEmailInput", locale);
@@ -73,16 +74,18 @@ public class MarketingServices {
             GenericValue userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
 
             // associate the email with anonymous user TODO: do we need a custom contact mech purpose type, say MARKETING_EMAIL?
-            input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", "_NA_", "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
+            if (partyId == null) {
+                partyId = "_NA_";
+            }
+            input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", partyId, "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
             Map<String, Object> serviceResults = dispatcher.runSync("createPartyEmailAddress", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
             }
             String contactMechId = (String) serviceResults.get("contactMechId");
-
             // create a new association at this fromDate to the anonymous party with status accepted
             input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"),
-                    "partyId", "_NA_", "fromDate", fromDate, "statusId", "CLPT_ACCEPTED", "preferredContactMechId", contactMechId);
+                    "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_ACCEPTED", "preferredContactMechId", contactMechId);
             serviceResults = dispatcher.runSync("createContactListParty", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
