@@ -32,6 +32,9 @@
         <value xml:lang="it">OFBiz</value>
         <value xml:lang="th">OFBiz</value>
     </property>
+    <property key="EbayEBayOrders">
+        <value xml:lang="en">eBay Orders</value>
+    </property>
     <property key="EbayExportToEbay">
         <value xml:lang="de">zu eBay exportieren</value>
         <value xml:lang="en">Export To eBay</value>
@@ -323,6 +326,12 @@
         <value xml:lang="it">Esportazioni Prodotti su eBay</value>
         <value xml:lang="th">ส่งออกสินค้าถึงอีเบย์</value>
         <value xml:lang="zh">把产品导出到eBay</value>
+    </property>
+    <property key="buildEbayConfig.unableToFindEbayConfig">
+        <value xml:lang="en">Unable to find eBay configurations.</value>
+    </property>
+    <property key="buildEbayConfig.exceptionInGetOrdersFromEbay">
+        <value xml:lang="en">Exception in getting orders from Ebay.</value>
     </property>
     <property key="ordersImportFromEbay.cannotConvertFromDate">
         <value xml:lang="en">Cannot convert from date, from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format</value>

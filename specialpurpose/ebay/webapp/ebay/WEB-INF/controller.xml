@@ -68,6 +68,28 @@ under the License.
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
+    
+    <!-- New Import Order entries -->
+    <request-map uri="eBayOrders">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EbayOrders"/>
+        <response name="failure" type="view" value="EbayOrders"/>
+    </request-map>
+
+    <request-map uri="GetEbayOrders">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getEbayOrders"/>
+        <response name="success" type="view" value="EbayOrders"/>
+        <response name="failure" type="view" value="EbayOrders"/>
+    </request-map>
+
+    <request-map uri="ImportEbayOrders">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="ImportEbayOrders"/>
+        <response name="success" type="view" value="EbayOrders"/>
+        <response name="failure" type="view" value="EbayOrders"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -76,5 +98,6 @@ under the License.
     <view-map name="keywordsearch" type="screen" page="component://ebay/widget/EbayScreens.xml#keywordsearch"/>
     <view-map name="ProductsExportToEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ProductsExportToEbay"/>
     <view-map name="ManageOrdersFromEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ManageOrdersFromEbay"/>
+    <view-map name="EbayOrders" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayOrders"/>
     <!-- end of view mappings -->
 </site-conf>
