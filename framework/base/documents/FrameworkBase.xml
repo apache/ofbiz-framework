@@ -21,17 +21,19 @@
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Welkom in het Apache OFBiz help systeem.</title>
+    <title>Framework Base components</title>
+    <para>
+        This part of the framework contain the basic components like the several different connectors, catalina(tomcat)
+        which are the base of the other framwork.
+    </para>
+    
     <section>
+        <title>Java Mail Listener</title>
         <para>
-            Als je op deze pagina beland zonder de index geselecteerd te
-            hebben,wordt veroorzaakt doordat de specifieke help pagina nog niet
-            beschikbaar is.
-        </para>
-    </section>
-    <section>
-        <para>
-            Dit help systeem geeft je scherm afhankelijke informatie.
+            The java mail listener will logon to the mailserver as defined in the config/ofbiz-containers.xml and will
+            receive the mail present in the POP/IMAP mail account. When mail is received it will trigger MCA rules.
+            Examples of MCA files can be found in the party and content component. 
         </para>
     </section>
 </section>
+

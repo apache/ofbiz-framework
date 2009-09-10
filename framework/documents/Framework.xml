@@ -28,13 +28,8 @@
 			For a core configuration guide check <link xl:href="http://ofbiz.apache.org/docs/coreconfig.html">the OFBiz website.</link>
         </para>
 	</section>
+    <xi:include href="../base/documents/FrameworkBase.xml" />
     <xi:include href="../entity/documents/EntityEngine.xml" />
     <xi:include href="../service/documents/ServiceEngine.xml" />
 
-    <section>
-        <title>The widget system: screens and forms.</title>
-        <para>
-
-        </para>
-    </section>
 </chapter>
