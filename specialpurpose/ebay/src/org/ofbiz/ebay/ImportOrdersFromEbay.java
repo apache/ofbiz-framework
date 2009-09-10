@@ -18,24 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.ebay;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.Timestamp;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Collection;
 
 import javolution.util.FastMap;
 
@@ -52,12 +44,12 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.party.contact.ContactHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -76,7 +68,7 @@ public class ImportOrdersFromEbay {
             StringBuffer sellerTransactionsItemsXml = new StringBuffer();
 
             if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, eBayConfigResult.get("token").toString()))) {
-                result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), sellerTransactionsItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetSellerTransactions", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                result = EbayHelper.postItem(eBayConfigResult.get("xmlGatewayUri").toString(), sellerTransactionsItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetSellerTransactions", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 String success = (String)result.get(ModelService.SUCCESS_MESSAGE);
                 if (success != null) {
                     result = checkOrders(delegator, dispatcher, locale, context, success);
@@ -171,7 +163,7 @@ public class ImportOrdersFromEbay {
             StringBuffer completeSaleXml = new StringBuffer();
 
             if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
-                result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), completeSaleXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "CompleteSale", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                result = EbayHelper.postItem(eBayConfigResult.get("xmlGatewayUri").toString(), completeSaleXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "CompleteSale", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 String successMessage = (String)result.get("successMessage");
                 if (successMessage != null) {
                     return readCompleteSaleResponse(successMessage, locale);
@@ -184,62 +176,6 @@ public class ImportOrdersFromEbay {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInSetEbayOrderToComplete", locale));
         }
         return ServiceUtil.returnSuccess();
-    }
-
-    private static String toString(InputStream inputStream) throws IOException {
-        String string;
-        StringBuilder outputBuilder = new StringBuilder();
-        if (inputStream != null) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            while (null != (string = reader.readLine())) {
-                outputBuilder.append(string).append('\n');
-            }
-        }
-        return outputBuilder.toString();
-    }
-
-    private static Map postItem(String postItemsUrl, StringBuffer dataItems, String devID, String appID, String certID,
-                                String callName, String compatibilityLevel, String siteID) throws IOException {
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Request of " + callName + " To eBay:\n" + dataItems.toString(), module);
-        }
-
-        HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("X-EBAY-API-COMPATIBILITY-LEVEL", compatibilityLevel);
-        connection.setRequestProperty("X-EBAY-API-DEV-NAME", devID);
-        connection.setRequestProperty("X-EBAY-API-APP-NAME", appID);
-        connection.setRequestProperty("X-EBAY-API-CERT-NAME", certID);
-        connection.setRequestProperty("X-EBAY-API-CALL-NAME", callName);
-        connection.setRequestProperty("X-EBAY-API-SITEID", siteID);
-        connection.setRequestProperty("Content-Type", "text/xml");
-
-        OutputStream outputStream = connection.getOutputStream();
-        outputStream.write(dataItems.toString().getBytes());
-        outputStream.close();
-
-        int responseCode = connection.getResponseCode();
-        InputStream inputStream = null;
-        Map result = FastMap.newInstance();
-        String response = null;
-
-        if (responseCode == HttpURLConnection.HTTP_CREATED ||
-            responseCode == HttpURLConnection.HTTP_OK) {
-            inputStream = connection.getInputStream();
-            response = toString(inputStream);
-            result = ServiceUtil.returnSuccess(response);
-        } else {
-            inputStream = connection.getErrorStream();
-            result = ServiceUtil.returnFailure(toString(inputStream));
-        }
-
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Response of " + callName + " From eBay:\n" + response, module);
-        }
-
-        return result;
     }
 
     private static Map checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, String response) {
@@ -281,10 +217,11 @@ public class ImportOrdersFromEbay {
              Element transElem = transDoc.getDocumentElement();
              transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
 
-             appendRequesterCredentials(transElem, transDoc, token);
+             EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
              UtilXml.addChildElementValue(transElem, "DetailLevel", "ReturnAll", transDoc);
+             UtilXml.addChildElementValue(transElem, "IncludeContainingOrder", "true", transDoc);
 
-             String fromDateOut = convertDate(fromDate, "yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+             String fromDateOut = EbayHelper.convertDate(fromDate, "yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
              if (fromDateOut != null) {
                  UtilXml.addChildElementValue(transElem, "ModTimeFrom", fromDateOut, transDoc);
              } else {
@@ -293,14 +230,14 @@ public class ImportOrdersFromEbay {
              }
 
 
-             fromDateOut = convertDate(thruDate, "yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+             fromDateOut = EbayHelper.convertDate(thruDate, "yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
              if (fromDateOut != null) {
                  UtilXml.addChildElementValue(transElem, "ModTimeTo", fromDateOut, transDoc);
              } else {
                  Debug.logError("Cannot convert thru date from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format", module);
                  return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.cannotConvertThruDate", locale));
              }
-
+             //Debug.logInfo("The value of generated string is ======= " + UtilXml.writeXmlDocument(transDoc), module);
              dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
          } catch (Exception e) {
              Debug.logError("Exception during building get seller transactions request", module);
@@ -316,7 +253,7 @@ public class ImportOrdersFromEbay {
              Element transElem = transDoc.getDocumentElement();
              transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
 
-             appendRequesterCredentials(transElem, transDoc, token);
+             EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
              UtilXml.addChildElementValue(transElem, "DetailName", "ShippingServiceDetails", transDoc);
              UtilXml.addChildElementValue(transElem, "DetailName", "TaxJurisdiction", transDoc);
              dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
@@ -341,7 +278,7 @@ public class ImportOrdersFromEbay {
             Element transElem = transDoc.getDocumentElement();
             transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
 
-            appendRequesterCredentials(transElem, transDoc, token);
+            EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
 
             UtilXml.addChildElementValue(transElem, "ItemID", itemId, transDoc);
 
@@ -380,11 +317,6 @@ public class ImportOrdersFromEbay {
         return ServiceUtil.returnSuccess();
     }
 
-    private static void appendRequesterCredentials(Element elem, Document doc, String token) {
-        Element requesterCredentialsElem = UtilXml.addChildElement(elem, "RequesterCredentials", doc);
-        UtilXml.addChildElementValue(requesterCredentialsElem, "eBayAuthToken", token, doc);
-    }
-
     private static Map readCompleteSaleResponse(String msg, Locale locale) {
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
@@ -410,6 +342,7 @@ public class ImportOrdersFromEbay {
         List orders = null;
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
+//            Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
             Element elemResponse = docResponse.getDocumentElement();
             String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
             List paginationList = UtilXml.childElementList(elemResponse, "PaginationResult");
@@ -1175,19 +1108,6 @@ public class ImportOrdersFromEbay {
             orderHeader = EntityUtil.getFirst(entities);
         }
         return orderHeader;
-    }
-
-    private static String convertDate(String dateIn, String fromDateFormat, String toDateFormat) {
-        String dateOut;
-        try {
-            SimpleDateFormat formatIn = new SimpleDateFormat(fromDateFormat);
-            SimpleDateFormat formatOut= new SimpleDateFormat(toDateFormat);
-            Date data = formatIn.parse(dateIn, new ParsePosition(0));
-            dateOut = formatOut.format(data);
-        } catch (Exception e) {
-            dateOut = null;
-        }
-        return dateOut;
     }
 
     private static void setShipmentMethodType(ShoppingCart cart, String shippingService) {
