@@ -163,8 +163,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="postGlJournal" short-description="Post a GlJournal">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run postGlJournal you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
         <!-- first calculate the trial balance for the journal and make sure debits and credits match -->
         <set from-field="parameters.glJournalId" field="trialBalanceCallMap.glJournalId"/>
         <call-service service-name="calculateGlJournalTrialBalance" in-map-name="trialBalanceCallMap">
