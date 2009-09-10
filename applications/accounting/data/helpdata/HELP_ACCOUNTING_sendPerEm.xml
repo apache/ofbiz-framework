@@ -22,19 +22,8 @@ under the License.
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Introduction</title>
-    <para>The Accounting Manager application is used to manage the accounting function for a business. It gives access to various sub tabs
-	related to OFBiz accounting configuration and setup.</para>
-    <section>
-        <title>Subsection heading</title>
-        <para>Subsection content</para>
-    </section>
-	<section>
-        <title>Subsection 2 title</title>
-        <para>
-		The Main accounting Introduction screen. For more information please 
-		see the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> for more info.
-        </para>
-    </section>
+	<title>The Accounting Send Per Email help screen.</title>
+    <para>This is used to send a copy of the invoice details to one or more email addresses. The invoice is included as an attachment and the user can add a simple accompanying email message.</para>
+    
 </section>
 
