@@ -2204,9 +2204,12 @@
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">商品</value>
     </property>
+    <property key="ProductType.description.MARKETING_PKG">
+        <value xml:lang="en">Marketing Package</value>
+    </property>
     <property key="ProductType.description.MARKETING_PKG_AUTO">
         <value xml:lang="de">Marketingpaket</value>
-        <value xml:lang="en">Marketing Package</value>
+        <value xml:lang="en">Marketing Package: Auto Manufactured</value>
         <value xml:lang="es">Paquete de marketing</value>
         <value xml:lang="fr">Conditionnement marketing</value>
         <value xml:lang="it">Pacco di vendita</value>

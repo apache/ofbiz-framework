@@ -105,4 +105,38 @@ public class CommonWorkers {
 
         return geoList;
     }
+    
+    /**
+     * A generic method to be used on Type enities, e.g. ProductType.  Recurse to the root level in the type hierarchy
+     * and checks if the specified type childType has parentType as its parent somewhere in the hierarchy.
+     * 
+     * @param delegator       The GenericDelegator object.
+     * @param entityName      Name of the Type entity on which check is performed.
+     * @param primaryKey      Primary Key field of the Type entity.
+     * @param childType       Type value for which the check is performed.
+     * @param parentTypeField Field in Type entity which stores the parent type.
+     * @param parentType      Value of the parent type against which check is performed.
+     * @return boolean value based on the check results.
+     */
+    public static boolean hasParentType(GenericDelegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
+        GenericValue childTypeValue = null;
+        try {
+            childTypeValue = delegator.findOne(entityName, UtilMisc.toMap(primaryKey, childType), true);
+        } catch (GenericEntityException e) {
+            Debug.logError("Error finding "+entityName+" record for type "+childType, module);
+        }
+        if (childTypeValue != null) {
+            if (parentType.equals(childTypeValue.getString(primaryKey))) return true;
+            
+            if (childTypeValue.getString(parentTypeField) != null) {
+                if (parentType.equals(childTypeValue.getString(parentTypeField))) {
+                    return true;
+                } else {
+                    hasParentType(delegator, entityName, primaryKey, childTypeValue.getString(parentTypeField), parentTypeField, parentType);
+                }
+            }
+        }
+        
+        return false;
+    }
 }

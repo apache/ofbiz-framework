@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.ofbiz.common.CommonWorkers
 import org.ofbiz.entity.condition.*
 import org.ofbiz.product.inventory.InventoryWorker
 
@@ -85,8 +86,7 @@ if (product) {
             quantitySummary.totalAvailableToPromise = resultOutput.availableToPromiseTotal;
     
             // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
-            if ("MARKETING_PKG_AUTO".equals(product.productTypeId) ||
-                "MARKETING_PKG_PICK".equals(product.productTypeId)) {
+            if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")) {
                 resultOutput = dispatcher.runSync("getMktgPackagesAvailable", [productId : productId, facilityId : facility.facilityId]);
                 quantitySummary.mktgPkgQOH = resultOutput.quantityOnHandTotal;
                 quantitySummary.mktgPkgATP = resultOutput.availableToPromiseTotal;

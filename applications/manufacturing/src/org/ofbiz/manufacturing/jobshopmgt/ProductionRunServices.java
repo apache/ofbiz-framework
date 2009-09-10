@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -2811,7 +2812,7 @@ public class ProductionRunServices {
             if (product == null) {
                 return ServiceUtil.returnError("Error: product with id [" + inventoryItem.get("productId") + "] not found.");
             }
-            if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+            if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_AUTO")) {
                 Map serviceContext = UtilMisc.toMap("inventoryItemId", inventoryItemId,
                                                     "userLogin", userLogin);
                 /*

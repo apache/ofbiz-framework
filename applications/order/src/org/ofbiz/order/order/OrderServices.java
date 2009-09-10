@@ -48,6 +48,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
+import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.common.DataModelConstants;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
@@ -1166,7 +1167,7 @@ public class OrderServices {
                             }
                             if (reserveInventory) {
                                 // for MARKETING_PKG_PICK reserve the components
-                                if ("MARKETING_PKG_PICK".equals(product.get("productTypeId"))) {
+                                if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_PICK")) {
                                     Map componentsRes = dispatcher.runSync("getAssociatedProducts", UtilMisc.toMap("productId", orderItem.getString("productId"), "type", "PRODUCT_COMPONENT"));
                                     if (ServiceUtil.isError(componentsRes)) {
                                         resErrorMessages.add(componentsRes.get(ModelService.ERROR_MESSAGE));
@@ -1226,7 +1227,7 @@ public class OrderServices {
                             }
                             // Reserving inventory or not we still need to create a marketing package
                             // If the product is a marketing package auto, attempt to create enough packages to bring ATP back to 0, won't necessarily create enough to cover this order.
-                            if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
+                            if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_AUTO")) {
                                 // do something tricky here: run as the "system" user
                                 // that can actually create and run a production run
                                 GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
