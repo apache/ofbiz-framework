@@ -531,9 +531,7 @@ under the License.
     </form>
     <form name="FindDelivProductContent" type="single" target="ProductionRunContent">
         <field name="productionRunId"><hidden/></field>
-        <field name="productId" entry-name="delivProductId">
-            <display/>
-        </field>
+        <field name="productId" entry-name="delivProductId"><hidden/></field>
         <field name="contentLocale">
             <text default-value="${locale}"/>
         </field>

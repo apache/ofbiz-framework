@@ -222,6 +222,9 @@ if (productionRunId) {
                 }
             }
         }
+        // Content
+        productionRunContents = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortContentAndInfo", [workEffortId : productionRunId], ["-fromDate"]));
+        context.productionRunContents = productionRunContents;
         context.productionRunComponentsData = productionRunComponentsData;
         context.productionRunComponentsDataReadyForIssuance = productionRunComponentsDataReadyForIssuance;
         context.productionRunComponentsAlreadyIssued = productionRunComponentsAlreadyIssued;

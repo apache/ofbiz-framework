@@ -23,7 +23,7 @@ import org.ofbiz.entity.util.EntityUtil;
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 context.productionRunId = productionRunId;
 
-delivGoodStandard = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRunId, workEffortGoodStdTypeId : "PRUN_PROD_DELIV"], ["-fromDate"])));
+delivGoodStandard = EntityUtil.getFirst(delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRunId, workEffortGoodStdTypeId : "PRUN_PROD_DELIV", statusId : "WEGS_CREATED"], ["-fromDate"]));
 if (delivGoodStandard) {
     context.delivProductId = delivGoodStandard.productId;
 }
