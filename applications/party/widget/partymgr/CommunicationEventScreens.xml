@@ -204,7 +204,7 @@ under the License.
                 <set field="tabButtonItem" value="OverView"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-                <set field="partyIdFrom" from-field="parameters.partyId" default-value="userLogin.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
             </actions>
             <widgets>
                 <section>
