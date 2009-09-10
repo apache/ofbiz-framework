@@ -74,13 +74,13 @@ under the License.
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell padding="2pt">
-                            <fo:block> title="${uiLabelMap.ManufacturingStartDate}":</fo:block>
+                            <fo:block>${uiLabelMap.ManufacturingStartDate}:</fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                             <fo:block><#if productionRunData.estimatedStartDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedStartDate, "dd/MM/yyyy")}</#if></fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
-                            <fo:block>${uiLabelMap.FormFieldTitle_actualStartDate}:</fo:block>
+                            <fo:block>${uiLabelMap.CommonStartDate}:</fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                             <fo:block><#if productionRunData.actualStartDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualStartDate, "dd/MM/yyyy")}</#if></fo:block>
@@ -94,7 +94,7 @@ under the License.
                             <fo:block><#if productionRunData.estimatedCompletionDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedCompletionDate, "dd/MM/yyyy")}</#if></fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
-                            <fo:block>${uiLabelMap.FormFieldTitle_actualCompletionDate}:</fo:block>
+                            <fo:block>${uiLabelMap.ManufacturingActualCompletionDate}:</fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                             <fo:block><#if productionRunData.actualCompletionDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualCompletionDate, "dd/MM/yyyy")}</#if></fo:block>
@@ -184,7 +184,7 @@ under the License.
               <fo:table-column column-width="3.0cm"/>
                 <fo:table-header>
                     <fo:table-row background-color="${dimColor}">
-                        <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_fixedAssetId}</fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block>${uiLabelMap.FixedAsset}</fo:block></fo:table-cell>
                         <fo:table-cell><fo:block>${uiLabelMap.ManufacturingRoutingTask}</fo:block></fo:table-cell>
                         <fo:table-cell><fo:block>${uiLabelMap.CommonDescription}</fo:block></fo:table-cell>
                         <fo:table-cell><fo:block>${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}</fo:block></fo:table-cell>
@@ -214,6 +214,33 @@ under the License.
                     </#list>
                 </fo:table-body>
             </fo:table>
+
+            <#if productionRunContents?has_content>
+            <fo:block space-after.optimum="0.3cm"></fo:block>
+            <fo:table>
+              <fo:table-column column-width="9cm"/>
+              <fo:table-column column-width="9cm"/>
+                <fo:table-header>
+                    <fo:table-row background-color="${dimColor}">
+                        <fo:table-cell><fo:block>Documents</fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block>Link</fo:block></fo:table-cell>
+                    </fo:table-row>
+                </fo:table-header>
+                <fo:table-body>
+                    <#assign rowColor = "white">
+                    <#list productionRunContents as productionRunContent>
+                        <fo:table-row>
+                            <fo:table-cell padding="2pt">
+                                <fo:block>${productionRunContent.contentName?if_exists}</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="2pt">
+                                <fo:block><fo:basic-link background-color="lightblue" external-destination="<@ofbizContentUrl>/content/control/ViewBinaryDataResource?dataResourceId=${productionRunContent.drDataResourceId}</@ofbizContentUrl>">${uiLabelMap.CommonView}</fo:basic-link></fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </#list>
+                </fo:table-body>
+            </fo:table>
+            </#if>
         </fo:flow>
         </fo:page-sequence>
 </#if>
