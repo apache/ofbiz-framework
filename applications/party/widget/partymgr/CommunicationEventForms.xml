@@ -416,7 +416,7 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
     <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: &quot;true&quot;.equals(parameters.all)?&quot;-entryDate&quot;:&quot;entryDate&quot;}"/>
             <set field="searchParameters.partyId" from-field="partyId"/>
@@ -495,7 +495,7 @@ under the License.
     </form>
 
     <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi" use-row-submit="true" separate-columns="true"
-           target="deleteCommunicationEvents" header-row-style="header-row-2">
+           target="deleteCommunicationEvents">
         <actions>
             <entity-and  list="commEvents" entity-name="CommunicationEventAndRole">
                 <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
@@ -522,7 +522,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2" target="deleteCommunicationEvent">
+    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" target="deleteCommunicationEvent">
         <actions>
             <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
@@ -819,7 +819,7 @@ under the License.
     <form name="ListMyUnknownPartyEmails" type="multi" use-row-submit="true"
         title="Email List unknown parties" list-name="commEventsUnknown"
         target="deleteCommunicationEvents" default-entity-name="CommunicationEvent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
         </row-actions>
@@ -897,7 +897,7 @@ under the License.
     </form>
 
     <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml" target="deleteCommunicationEvent"
-        use-row-submit="true" header-row-style="header-row-2" list-name="commEventDraft">
+        use-row-submit="true" list-name="commEventDraft">
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
                 <parameter param-name="communicationEventId"/>

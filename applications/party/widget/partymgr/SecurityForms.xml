@@ -90,7 +90,7 @@ under the License.
 
     <!-- SecurityGroupUserLogin -->
     <form name="ListSecurityGroupUserLogins" type="list" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="UserLoginAndSecurityGroup">
                 <condition-expr field-name="groupId" from-field="groupId"/>
@@ -127,7 +127,7 @@ under the License.
     </form>
 
     <form name="ListUserLoginSecurityGroups" type="list" extends="ListSecurityGroupUserLogins"
-        list-name="userLoginSecurityGroups" header-row-style="header-row-2" target="userLogin_updateUserLoginToSecurityGroup"
+        list-name="userLoginSecurityGroups" target="userLogin_updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="UserLoginAndSecurityGroup">
@@ -174,7 +174,7 @@ under the License.
 
     <!-- SecurityGroupProtectedViews -->
     <form name="ListSecurityGroupProtectedViews" type="list" list-name="securityGroupProtectedViewsList" target="updateProtectedViewToSecurityGroup"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ProtectedView">
                 <condition-expr field-name="groupId" from-field="groupId"/>

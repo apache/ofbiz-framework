@@ -88,7 +88,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFindSubscription" target="" type="list" list-name="listIt"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table"
+        odd-row-style="alternate-row" default-table-style="basic-table"
         paginate-target="FindSubscription" paginate="true">
         <actions>
             <service service-name="performFind" result-map-list="listIt" result-map="performFindResult">
@@ -290,7 +290,7 @@ under the License.
 
     <!-- SubscriptionResource Forms -->
     <form name="ListSubscriptionResources" type="list" list-name="examples"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table"
+        odd-row-style="alternate-row" default-table-style="basic-table"
         paginate-target="FindSubscriptionResource">
         <actions>
             <entity-condition entity-name="SubscriptionResource">
@@ -349,7 +349,7 @@ under the License.
 
     <!-- ProductSubscriptionResource -->
     <form name="ListSubscriptionResourceProducts" type="list"  list-name="productSubscriptionResource"  target="updateProductSubscriptionResourceSr"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductSubscriptionResource">
                 <condition-expr field-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
@@ -411,7 +411,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditSubscriptionAttributes" type="list"  list-name="subscriptionAttributes"  target="UpdateSubscriptionAttribute"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateSubscriptionAttribute"/>
 
         <field name="subscriptionId"><hidden/></field>
@@ -426,7 +426,7 @@ under the License.
 
     <!-- Subscription Communication Event  -->
     <form name="listSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="SubscriptionAndCommEvent">
                 <condition-expr field-name="subscriptionId" from-field="subscriptionId"/>

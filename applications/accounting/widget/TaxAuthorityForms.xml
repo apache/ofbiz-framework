@@ -72,7 +72,7 @@ under the License.
     </form>
 
     <form name="ListTaxAuthorityCategories" type="list"  list-name="taxAuthorityCategoryList" target="updateTaxAuthorityCategory"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityCategory" list="taxAuthorityCategoryList">
                 <condition-list combine="and">
@@ -111,7 +111,7 @@ under the License.
     </form>
 
     <form name="ListTaxAuthorityAssocs" type="list" list-name="taxAuthorityAssocList" target="updateTaxAuthorityAssoc"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityAssoc" list="taxAuthorityAssocList">
                 <condition-list combine="and">
@@ -175,7 +175,7 @@ under the License.
     </form>
 
     <form name="ListTaxAuthorityGlAccounts" type="list"  list-name="taxAuthorityGlAccountList" target="updateTaxAuthorityGlAccount"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityGlAccount" list="taxAuthorityGlAccountList">
                 <condition-list combine="and">
@@ -223,7 +223,7 @@ under the License.
     </form>
 
     <form name="ListTaxAuthorityRateProducts" type="list" list-name="taxAuthorityRateProductList" target="updateTaxAuthorityRateProduct" separate-columns="true"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityRateProduct" list="taxAuthorityRateProductList">
                 <condition-list combine="and">

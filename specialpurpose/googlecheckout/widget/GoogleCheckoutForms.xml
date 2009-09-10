@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
         
     <form name="ListGoogleCheckoutConfigurations" type="list"  list-name="googleCheckoutConfigurations"  target="updateGoogleCheckoutConfiguration"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GoogleCoConfiguration">
                 <order-by field-name="productStoreId"/>
@@ -112,7 +112,7 @@ under the License.
     </form>
         
     <form name="ListGoogleCheckoutShippingMethods" type="list"  list-name="googleCheckoutShippingMethods"  target="updateGoogleCheckoutShippingMethod"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GoogleCoShippingMethod">
                 <order-by field-name="shipmentMethodName"/>

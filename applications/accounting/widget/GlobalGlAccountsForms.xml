@@ -225,7 +225,7 @@ under the License.
         <field name="reconciledAmount"><display/></field>
     </form>
     <form name="ListRateAmounts" type="list" target="deleteRateAmount" paginate-target="viewRateAmounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="sortField" from-field="parameters.sortField" default-value="rateTypeId"/>
             <entity-condition entity-name="RateAmountAndRelations" filter-by-date="true">

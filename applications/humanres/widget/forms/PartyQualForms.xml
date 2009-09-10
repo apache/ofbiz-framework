@@ -50,7 +50,7 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPartyQuals" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartyQualExt?partyId=${partyId}" paginate-target="FindPartyQuals"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="partyQualCtx"/>

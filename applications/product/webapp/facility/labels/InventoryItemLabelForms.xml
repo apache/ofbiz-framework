@@ -36,7 +36,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateInventoryItemLabelTypes" type="list" target="updateInventoryItemLabelType" title="" list-name="inventoryItemLabelTypes"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelType"/>
         <field name="inventoryItemLabelTypeId"><display/></field>
         <field name="parentTypeId">
@@ -88,7 +88,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelAppl" title="" list-name="inventoryItemLabelAppls"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId"><hidden/></field>
         <field name="inventoryItemLabelTypeId"><hidden/></field>

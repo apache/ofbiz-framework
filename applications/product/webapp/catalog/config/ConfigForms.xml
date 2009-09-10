@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindProductConfigItems" type="list" list-name="listIt"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+        target="" paginate="true">
         <actions>
             <service service-name="performFind" result-map-list="listIt" result-map="performFindResult">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -193,7 +193,7 @@ under the License.
 
     <form name="ListProductConfigItem" type="list" list-name="productConfigs"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+        target="" paginate="true">
         <actions>
             <entity-condition entity-name="ProductConfigAndProduct" list="productConfigs" distinct="true">
                 <condition-list>
@@ -217,7 +217,7 @@ under the License.
 
     <form name="ProductConfigOptionList" type="list" list-name="configOptionList"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+        target="" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display"/>
         <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
             <hyperlink target="EditProductConfigOptions" description="${configOptionId} - ${configOptionName}">
@@ -237,7 +237,7 @@ under the License.
 
     <form name="ProductConfigList" type="list" list-name="configProducts"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+        target="" paginate="true">
         <row-actions>
             <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId"/>
