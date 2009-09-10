@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -186,8 +188,8 @@ public class OrderManagerEvents {
             if (!UtilValidate.isEmpty(amountStr)) {
                 BigDecimal paymentTypeAmount = BigDecimal.ZERO;
                 try {
-                    paymentTypeAmount = new BigDecimal(NumberFormat.getNumberInstance(locale).parse(amountStr).doubleValue());
-                } catch (java.text.ParseException pe) {
+                    paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeConvert(amountStr, "BigDecimal", null, locale);
+                } catch (GeneralException e) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsPaymentParsingAmount", locale));
                     return "error";
                 }
