@@ -76,6 +76,7 @@ under the License.
             The intent is for anonymous sign ups to email lists.  Also validates email format.</description>
         <attribute name="contactListId" type="String" mode="IN" optional="false"/>
         <attribute name="email" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- MarketingCampaignRole Services -->
