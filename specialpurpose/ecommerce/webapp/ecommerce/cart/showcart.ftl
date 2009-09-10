@@ -331,6 +331,7 @@ function setAlternateGwp(field) {
               <tr>
                 <th>${uiLabelMap.OrderSalesTaxIncluded}:</th>
                 <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal()-shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></td>
+                <td>&nbsp;</td>
               </tr>
             </#if>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
