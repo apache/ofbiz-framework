@@ -23,7 +23,8 @@ under the License.
 
   <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
     <#if (helpTopic?length > 20)> 
-     <#assign helpTopic = helpTopic?substring(0,20)>
+     <#assign len = helpTopic?length - 5/>
+     <#assign helpTopic = helpTopic?substring(0,15) + helpTopic?substring(len)/>
     </#if>
 <#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
 ${helpTopic}
