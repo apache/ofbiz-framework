@@ -672,9 +672,9 @@ under the License.
             <set-service-fields service-name="updateGlReconciliation" map="glReconciliation" to-map="updateGlReconciliationMap"/>
             <set field="isAdjustmentOrDeposit" value="${finAccountTrans.finAccountTransTypeId == 'ADJUSTMENT' @or finAccountTrans.finAccountTransTypeId == 'DEPOSIT'}" type="Boolean"/> 
             <if-compare field="isAdjustmentOrDeposit" operator="equals" value="true" type="Boolean">
-                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance + finAccountTrans.amount}"/>
+                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance + finAccountTrans.amount}" type="BigDecimal"/>
             <else>
-                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance - finAccountTrans.amount}"/>
+                <set field="updateGlReconciliationMap.reconciledBalance" value="${glReconciliation.reconciledBalance - finAccountTrans.amount}" type="BigDecimal"/>
             </else>
             </if-compare>
             <set field="isGlReconciliationReconciledMap.glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
