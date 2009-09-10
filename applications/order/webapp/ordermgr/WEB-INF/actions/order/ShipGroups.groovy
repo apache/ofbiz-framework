@@ -21,6 +21,7 @@ import javolution.util.FastMap;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.entity.util.EntityUtil;
 
 orderId = parameters.orderId;
@@ -107,9 +108,8 @@ shipGroups.each { shipGroup ->
         line.quantityShipped = quantityShipped;
         line.quantityOpen = quantityOpen;
 
-        if ("MARKETING_PKG_AUTO".equals(product.productTypeId) ||
-                "MARKETING_PKG_PICK".equals(product.productTypeId)) {
-            assocType = "MARKETING_PKG_AUTO".equals(product.productTypeId) ? "MANUF_COMPONENT" : "PRODUCT_COMPONENT";
+        if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")) {
+            assocType = CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG_AUTO") ? "MANUF_COMPONENT" : "PRODUCT_COMPONENT";
             sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType);
             line.expandedList = sublines;
         }

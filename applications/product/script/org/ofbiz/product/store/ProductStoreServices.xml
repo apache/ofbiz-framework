@@ -581,24 +581,17 @@ under the License.
 
             <set from-field="parameters.productId" field="callServiceMap.productId"/>
             <set from-field="productStore.inventoryFacilityId" field="callServiceMap.facilityId"/>
-            <if>
-                <condition>
-                    <or>
-                        <if-compare field="product.productTypeId" value="MARKETING_PKG_AUTO" operator="equals"/>
-                        <if-compare field="product.productTypeId" value="MARKETING_PKG_PICK" operator="equals"/>
-                    </or>
-                </condition>
-                <then>
-                    <call-service service-name="getMktgPackagesAvailable" in-map-name="callServiceMap">
-                        <result-to-field result-name="availableToPromiseTotal"/>
-                    </call-service>
-                </then>
+            <set field="isMarketingPkg" value="${groovy: org.ofbiz.common.CommonWorkers.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')}" type="Boolean"/>
+            <if-compare field="isMarketingPkg" operator="equals" value="true" type="Boolean">
+                <call-service service-name="getMktgPackagesAvailable" in-map-name="callServiceMap">
+                    <result-to-field result-name="availableToPromiseTotal"/>
+                </call-service>
                 <else>
                     <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
                         <result-to-field result-name="availableToPromiseTotal"/>
                     </call-service>
                 </else>
-            </if>
+            </if-compare>
             <!-- check to see if we got enough back... -->
             <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="BigDecimal">
                 <set value="Y" field="available"/>
@@ -621,24 +614,17 @@ under the License.
                     <!-- Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order. -->
                     <set from-field="parameters.productId" field="callServiceMap.productId"/>
                     <set from-field="productStoreFacility.facilityId" field="callServiceMap.facilityId"/>
-                    <if>
-                        <condition>
-                            <or>
-                                <if-compare field="product.productTypeId" value="MARKETING_PKG_AUTO" operator="equals"/>
-                                <if-compare field="product.productTypeId" value="MARKETING_PKG_PICK" operator="equals"/>
-                            </or>
-                        </condition>
-                        <then>
-                            <call-service service-name="getMktgPackagesAvailable" in-map-name="callServiceMap">
-                                <result-to-field result-name="availableToPromiseTotal"/>
-                            </call-service>
-                        </then>
+                    <set field="isMarketingPkg" value="${groovy: org.ofbiz.common.CommonWorkers.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')}" type="Boolean"/>
+                    <if-compare field="isMarketingPkg" operator="equals" value="true" type="Boolean">
+                        <call-service service-name="getMktgPackagesAvailable" in-map-name="callServiceMap">
+                            <result-to-field result-name="availableToPromiseTotal"/>
+                        </call-service>
                         <else>
                             <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
                                 <result-to-field result-name="availableToPromiseTotal"/>
                             </call-service>
                         </else>
-                    </if>
+                    </if-compare>
 
                     <clear-field field="callServiceMap"/>
 

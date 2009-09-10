@@ -20,6 +20,7 @@
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 
 import org.ofbiz.base.util.*;
+import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.entity.condition.*;
 
 // Since this script is run after ViewShipment, we will re-use the shipment in the context
@@ -110,15 +111,15 @@ shipmentPackages.each { shipmentPackage ->
         line.product = product;
         line.quantityRequested = quantityRequestedByProduct.get(product.productId);
         line.quantityInPackage = content.quantity;
-        if (productTypeId.equals("MARKETING_PKG_PICK") && line.quantityInPackage > line.quantityRequested) {
+        if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityInPackage > line.quantityRequested) {
             line.quantityInPackage = line.quantityRequested;
         }
         line.quantityInShipment = quantityInShipmentByProduct.get(product.productId);
-        if (productTypeId.equals("MARKETING_PKG_PICK") && line.quantityInShipment > line.quantityRequested) {
+        if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityInShipment > line.quantityRequested) {
             line.quantityInShipment = line.quantityRequested;
         }
         line.quantityShipped = quantityShippedByProduct.get(product.productId);
-        if (productTypeId.equals("MARKETING_PKG_PICK") && line.quantityShipped > line.quantityRequested) {
+        if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityShipped > line.quantityRequested) {
             line.quantityShipped = line.quantityRequested;
         }
         lines.add(line);

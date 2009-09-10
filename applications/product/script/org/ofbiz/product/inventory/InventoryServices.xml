@@ -675,7 +675,8 @@ under the License.
         <set field="quantityOnHandTotal" value="0" type="BigDecimal"/>
         <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
         <entity-one entity-name="Product" value-field="product"/>
-        <if-compare field="product.productTypeId" operator="equals" value="MARKETING_PKG_AUTO">
+        <set field="isMarketingPkgAuto" value="${groovy: org.ofbiz.common.CommonWorkers.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
+        <if-compare field="isMarketingPkgAuto" operator="equals" value="true" type="Boolean">
             <set value="MANUF_COMPONENT" field="lookupMktgPkgParams.type"/>
         <else>
             <set value="PRODUCT_COMPONENT" field="lookupMktgPkgParams.type"/>
