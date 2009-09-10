@@ -487,6 +487,7 @@ under the License.
         <set value="Y" field="roleTypeIdFromInclueAllChildTypes"/>
 
         <set value="Y" field="includeFromToSwitched"/>
+        <set value="true" field="useCache"/>
 
         <call-simple-method method-name="followPartyRelationshipsInline"/>
 
