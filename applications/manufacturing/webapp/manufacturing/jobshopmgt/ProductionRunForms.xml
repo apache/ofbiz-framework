@@ -157,7 +157,7 @@ under the License.
         <field name="estimatedTotalMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedTotalMilliSeconds}" ><display/></field>
     </form>
     <form name="ListProductionRunRoutingTasks" type="list" target="ProductionRunTasks" title="" list-name="productionRunRoutingTasks"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}" type="BigDecimal"/>
         </row-actions>

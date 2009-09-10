@@ -46,7 +46,7 @@ under the License.
     </form>
 
     <form name="ListInvoices" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice" paginate-target="findInvoices"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -503,7 +503,7 @@ under the License.
     <form name="ListPaymentsNotAppliedForeignCurrency" extends="ListPaymentsNotApplied" list-name="paymentsActualCurrency"/>
 
     <form name="ListInvoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">

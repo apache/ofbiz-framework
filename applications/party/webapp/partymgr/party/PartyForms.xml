@@ -292,7 +292,7 @@ under the License.
     </form>
 
     <form name="UpdatePartyTaxAuthInfo" type="list" list-name="partyTaxInfos" target="updatePartyTaxAuthInfo"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updatePartyTaxAuthInfo"/>
         <field name="partyId"><hidden/></field>
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="[${geoId}] ${geoName}" also-hidden="true"/></field>
@@ -369,7 +369,7 @@ under the License.
     </form>
 
     <form name="ListPartyRates" type="list" target="deletePartyRate"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyRate" filter-by-date="true">
                 <condition-expr field-name="partyId" from-field="partyId"/>
@@ -469,7 +469,7 @@ under the License.
     </form>
 
     <form name="ListSegmentRoles" type="list" target="updateSegmentGroupRole"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="SegmentGroupRole">
                 <field-map field-name="partyId"/>

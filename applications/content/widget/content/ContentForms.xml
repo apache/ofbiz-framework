@@ -68,7 +68,7 @@ under the License.
     </form>
 
     <form name="ListContent" target="" title="" list-name="listIt" type="list" paginate-target="findContent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -376,7 +376,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentRole" target="update${contentRoleTarget}ContentRole" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentRole" use-cache="true">
                 <field-map from-field="contentId" field-name="contentId"/>
@@ -413,7 +413,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentPurpose" target="updateContentPurpose" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentPurpose" use-cache="true">
                 <field-map from-field="contentId" field-name="contentId"/>
@@ -439,7 +439,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentAttribute" target="updateContentAttribute" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentAttribute" use-cache="true">
                 <field-map from-field="contentId" field-name="contentId"/>
@@ -476,7 +476,7 @@ under the License.
         <field name="thruDate"><display type="date"/></field>
     </form>
     <form name="ListContentMetaData" target="updateContentMetaData" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentMetaData" use-cache="true">
                 <field-map from-field="contentId" field-name="contentId"/>
@@ -530,7 +530,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContent" use-cache="true" list="workEffortContents">
                 <field-map from-field="contentId" field-name="contentId"/>
@@ -558,7 +558,7 @@ under the License.
         </field>
     </form>
     <form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" use-when="&quot;application/pdf&quot;.equals(mimeTypeId)">
             <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContentPdf?contentId=${contentId}" target-window="_blank"/>
         </field>

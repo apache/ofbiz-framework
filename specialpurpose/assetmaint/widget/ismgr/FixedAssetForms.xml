@@ -109,7 +109,7 @@ under the License.
     </form>
     <!-- list all Computer Hardware in a tabular format -->
     <form name="ListComputerHardware" type="list" list-name="listIt" paginate-target="ListFixedAssets"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -141,7 +141,7 @@ under the License.
 
     <!-- list all Computer Software in a tabular format -->
     <form name="ListComputerSoftware" type="list" list-name="listIt" paginate-target="ListFixedAssets"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -170,7 +170,7 @@ under the License.
 
     <!-- list all children fixed assets in a tabular format -->
     <form name="ChildrenFixedAssets" type="list" list-name="listIt"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAsset" list="listIt">
                 <condition-list combine="and">

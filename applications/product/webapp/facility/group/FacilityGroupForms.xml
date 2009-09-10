@@ -53,7 +53,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupRollupTo" type="list" target="updateFacilityGroupToGroup" title="" list-name="currentGroupRollups"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateFacilityGroupToGroup"/>
         <field name="showFacilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
@@ -89,7 +89,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupRollupFrom" type="list" target="updateFacilityGroupToGroup" title="" list-name="parentGroupRollups"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateFacilityGroupToGroup"/>
         <field name="showFacilityGroupId"><hidden value="${parentFacilityGroupId}"/></field>
         <field name="parentFacilityGroupId"><hidden/></field>
@@ -126,7 +126,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupMembers" type="list" target="updateFacilityToGroup" title="" list-name="facilityGroupMembers"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateFacilityToGroup"/>
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="facilityId">
@@ -160,7 +160,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupRoles" type="list" target="removePartyFromFacilityGroup" title="" list-name="facilityRoles"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="removePartyFromFacilityGroup"/>
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="partyId">

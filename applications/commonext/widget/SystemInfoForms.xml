@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="SystemInfoNotes" type="list" list-name="systemInfoNotes" 
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="noteDateTime" title="Date info created"><display type="date-time"/></field>
         <field name="noteInfo" title="System Info Note"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}&amp;id=${moreInfoItemId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
     </form>
@@ -38,7 +38,7 @@ under the License.
     </form>
 
     <form name="SystemInfoStatus" type="list" list-name="systemInfoStatus"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="noteDateTime" title="Date Last Changed"><display type="date-time"/></field>
         <field name="noteInfo" title="System Info Status"><hyperlink target="/myportal/control/showPortletDecorator?portalPortletId=${moreInfoPortletId}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
     </form>

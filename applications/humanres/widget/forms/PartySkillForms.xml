@@ -38,7 +38,7 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPartySkills" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkillExt" paginate-target="findPartySkills"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartySkill">
                 <condition-expr field-name="partyId" from-field="partyId"/>

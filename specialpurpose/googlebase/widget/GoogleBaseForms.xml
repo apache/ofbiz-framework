@@ -68,7 +68,7 @@ under the License.
     </form>
     
     <form name="ListGoogleBaseConfigs" type="list"  list-name="googleBaseConfigs"  target="updateGoogleBaseConfig"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GoogleBaseConfig">
                 <order-by field-name="productStoreId"/>
