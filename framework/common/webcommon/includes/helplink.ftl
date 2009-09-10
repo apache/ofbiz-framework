@@ -21,22 +21,15 @@ under the License.
   <#assign helpUrlPrefix = "" />
   <#assign helpUrlSuffix = "" />
 
-  <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
-    <#if (helpTopic?length > 20)> 
-     <#assign len = helpTopic?length - 5/>
-     <#assign helpTopic = helpTopic?substring(0,15) + helpTopic?substring(len)/>
-    </#if>
+
 <#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
 ${helpTopic}
 -->
-    <#assign helpContent = delegator.findByAnd("Content", {"contentId" : helpTopic})>
-    <#if !helpContent?has_content>
-      <#assign helpContent = delegator.findByAnd("Content", {"contentId" : webSiteId})>
-    </#if>
-    <#if !helpContent?has_content>
-        <#assign helpTopic = "navigateHelp"/>
-    </#if>
+  <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
+    <#assign helpContent = "Y"> <!-- content in ofbiz -->
   </#if>
+  
+  <!-- content in confluence --> 
   <#if helpUrlsMap["Prefix"] != "Prefix">
     <#assign helpUrlPrefix = helpUrlsMap["Prefix"] />
   </#if>

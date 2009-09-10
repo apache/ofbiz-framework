@@ -79,7 +79,10 @@ under the License.
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
-                        <set field="contentId" value="${parameters.helpTopic}" default-value="HELP_ROOT"/>
+                        <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                            <field-map field-name="mapKey" from-field="parameters.helpTopic"/>
+                        </entity-and>
+                        <set field="contentId" from-field="contentAssocs[0].contentIdTo"/>
                         <entity-one entity-name="Content" value-field="content"/>
                     </actions>
                     <widgets>
@@ -137,7 +140,7 @@ under the License.
             </actions>
             <widgets>
                 <container id="Document">
-                    <content content-id="${contentId}"/>
+                    <content content-id="${contentId}" />
                 </container>
             </widgets>
         </section>
