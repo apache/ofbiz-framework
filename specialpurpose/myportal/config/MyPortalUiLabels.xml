@@ -247,14 +247,14 @@
     </property>
     <property key="MyPortalTaskPlanEndDate">
         <value xml:lang="en">Task Plan End</value>
-        <value xml:lang="fr">Fin prévue de la tâche</value>
+        <value xml:lang="fr">Fin estimée de la tâche</value>
         <value xml:lang="it">Fine compito pianificata</value>
         <value xml:lang="th">สิ้นสุดชิ้นงาน</value>
         <value xml:lang="zh">任务计划结束</value>
     </property>
     <property key="MyPortalTaskPlanStartDate">
         <value xml:lang="en">Task Plan Start</value>
-        <value xml:lang="fr">Début prévu de la tâche</value>
+        <value xml:lang="fr">Début estimé de la tâche</value>
         <value xml:lang="it">Inizio compito pianificato</value>
         <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
         <value xml:lang="zh">任务计划开始</value>

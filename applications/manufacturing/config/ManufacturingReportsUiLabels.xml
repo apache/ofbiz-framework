@@ -58,7 +58,7 @@
     <property key="ManufacturingEstimatedShipDate">
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de Términación</value>
-        <value xml:lang="fr">Date d'achèvement</value>
+        <value xml:lang="fr">Date d'expédition estimée</value>
         <value xml:lang="it">Data Spedizione Stimata</value>
         <value xml:lang="ro">Data Expediere Stimata</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>

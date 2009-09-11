@@ -914,7 +914,7 @@
     </property>
     <property key="HumanResEstimatedFromDate">
         <value xml:lang="en">Estimated FromDate</value>
-        <value xml:lang="fr">Date de début prévue</value>
+        <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">จากประมาณวันที่</value>
         <value xml:lang="zh">预计起始日期</value>

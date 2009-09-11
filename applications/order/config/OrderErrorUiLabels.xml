@@ -72,7 +72,7 @@
     <property key="OrderCannotGetOrderHeader">
         <value xml:lang="en">Cannot get order header : </value>
         <value xml:lang="es">No se puede obtener encabezado del pedido :</value>
-        <value xml:lang="fr">Ne peut pas obtenir l'en-tête de la commande :</value>
+        <value xml:lang="fr">Impossible d'obtenir l'en-tête de la commande :</value>
         <value xml:lang="it">Non è possibile leggere testata ordine : </value>
         <value xml:lang="ro">Nu este posibila citerea Antetului Comenzii : </value>
         <value xml:lang="ru">Невозможно получить шапку заказа: </value>
@@ -82,7 +82,7 @@
     <property key="OrderCannotReadTheOrderItemEntity">
         <value xml:lang="en">Cannot read the order item entity</value>
         <value xml:lang="es">No se puede leer el ítem del pedido</value>
-        <value xml:lang="fr">Ne peut pas lire la ligne de la commande</value>
+        <value xml:lang="fr">Impossible de lire la ligne de la commande</value>
         <value xml:lang="it">Non è possibile leggere l'entità riga ordine</value>
         <value xml:lang="ro">Nu este posibila citerea entitatii linie comanda</value>
         <value xml:lang="ru">Невозможно прочитать объект позиции заказа</value>
@@ -92,7 +92,7 @@
     <property key="OrderCannotRemoveItemsOnceReturnIsApproved">
         <value xml:lang="en">Cannot remove items once return is approved</value>
         <value xml:lang="es">No puede retirar ítems una vez que se aprueba la devolución</value>
-        <value xml:lang="fr">Ne peut pas enlever des articles une fois que le retour est approuvé</value>
+        <value xml:lang="fr">Impossible d'enlever des articles une fois que le retour est approuvé</value>
         <value xml:lang="it">Non è possibile rimuovere righe una volta che il reso è approvato</value>
         <value xml:lang="ro">Nu este posibila stergerea liniilor din moment ce returnarea a fost aprobata.</value>
         <value xml:lang="ru">После утверждения возврата удаление позиций невозможно</value>
@@ -102,7 +102,7 @@
     <property key="OrderCannotUpdateNoAvailableGroupsToChange">
         <value xml:lang="en">Cannot update; No available group(s) to change</value>
         <value xml:lang="es">No se pudo actualizar; No hay grupos disponibles a cambiar</value>
-        <value xml:lang="fr">Ne peut pas mettre à jour; Aucun groupe(s) disponible(s) à changer</value>
+        <value xml:lang="fr">Impossible de mettre à jour; Aucun groupe(s) disponible(s) à changer</value>
         <value xml:lang="it">Non è possibile la modifica; Nessun gruppo(i) disponibile(i) da modificare</value>
         <value xml:lang="ro">Nu este posibila modificarea; Nici-un grup(uri) nu este  disponibil(e) pentru modificare</value>
         <value xml:lang="ru">Невозможно обновить; Нет доступных для изменения групп</value>
@@ -112,7 +112,7 @@
     <property key="OrderCannotUpdateNullOrderHeader">
         <value xml:lang="en">Cannot update null order header [ ${orderId} ]</value>
         <value xml:lang="es">No se puede actualizar encabezado del pedido [ ${orderId} ]</value>
-        <value xml:lang="fr">Ne peut pas mettre à jour l'en-tête de commande [ ${orderId} ]</value>
+        <value xml:lang="fr">Impossible de mettre à jour l'en-tête de commande [ ${orderId} ]</value>
         <value xml:lang="it">Non è possibile modificare a null testata ordine [ ${orderId} ]</value>
         <value xml:lang="ro">Nu este posibila anularea Antetului comenzii[ ${orderId} ]</value>
         <value xml:lang="ru">Невозможно обновить шапку заказа с пустым значением [ ${orderId} ]</value>
@@ -122,7 +122,7 @@
     <property key="OrderCannotUpdateProblemGettingOrderShipmentPreference">
         <value xml:lang="en">Cannot update; Problem getting OrderShipmentPreference</value>
         <value xml:lang="es">No se pudo actualizar; problema obteniendo la preferencia de envío del pedido</value>
-        <value xml:lang="fr">Ne peut pas mettre à jour; Problème en obtenant la préférence d'expédition de la commande</value>
+        <value xml:lang="fr">Impossible de mettre à jour; Problème en obtenant la préférence d'expédition de la commande</value>
         <value xml:lang="it">Non è possibile modificare; Problema leggendo OrderShipmentPreference</value>
         <value xml:lang="ro">Nu este posibila modificarea; Probleme la citerea OrderShipmentPreference</value>
         <value xml:lang="ru">Невозможно обновить; проблема при получении OrderShipmentPreference</value>
@@ -132,7 +132,7 @@
     <property key="OrderCannotUpdateProblemSettingOrderShipmentPreference">
         <value xml:lang="en">Cannot update; Problem setting OrderShipmentPreference</value>
         <value xml:lang="es">No se pudo actualizar; problema estableciendo la preferencia de envío del pedido</value>
-        <value xml:lang="fr">Ne peut pas mettre à jour; Problème en mettant la préférence d'expédition de la commande</value>
+        <value xml:lang="fr">Impossible de mettre à jour; Problème en mettant la préférence d'expédition de la commande</value>
         <value xml:lang="it">Non è possibile modificare; Problema scrivendo OrderShipmentPreference</value>
         <value xml:lang="ro">Nu este posibila modificarea; Probleme la scriere OrderShipmentPreference</value>
         <value xml:lang="ru">Невозможно обновить; проблема установки OrderShipmentPreference</value>
@@ -504,7 +504,7 @@
     <property key="OrderErrorCouldNotChangeOrderStatus">
         <value xml:lang="en">ERROR : Could not change order status (</value>
         <value xml:lang="es">ERROR: No puede cambiar el estado del pedido (</value>
-        <value xml:lang="fr">Ne peut pas changer le statut de la commande (</value>
+        <value xml:lang="fr">Impossible de changer le statut de la commande (</value>
         <value xml:lang="it">ERRORE : Non è possibile cambiare stato ordine (</value>
         <value xml:lang="ro">EROARE : Nu este posibila schimbarea statului comenzii (</value>
         <value xml:lang="ru">ОШИБКА: Невозможно изменить статус заказа (</value>

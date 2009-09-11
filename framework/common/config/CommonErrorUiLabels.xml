@@ -39,7 +39,7 @@
     </property>
     <property key="ImageTransform.height_scale_factor_is_null">
         <value xml:lang="en">Height scale factor is null</value>
-        <value xml:lang="fr">Le facteur 'hauteur' de redimensionnement est nul</value>
+        <value xml:lang="fr">Le ratio 'hauteur' de redimensionnement est nul</value>
         <value xml:lang="hi_IN">ऊँचाई पैमाने पहलू null है</value>
         <value xml:lang="zh">高度缩放因子是null</value>
     </property>
@@ -75,7 +75,7 @@
     </property>
     <property key="ImageTransform.width_scale_factor_is_null">
         <value xml:lang="en">Width scale factor is null</value>
-        <value xml:lang="fr">Le facteur 'largeur' de redimensionnement est nul</value>
+        <value xml:lang="fr">Le ratio 'largeur' de redimensionnement est nul</value>
         <value xml:lang="hi_IN">चौड़ाई पैमाने कारक(Width scale factor) null है</value>
         <value xml:lang="zh">宽度缩放因子是null</value>
     </property>

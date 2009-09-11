@@ -8631,7 +8631,7 @@
     <property key="StatusItem.description.WIP_INCOMING_PLAN">
         <value xml:lang="en">WIP_INCOMING_PLAN</value>
         <value xml:lang="es">Entrante planificado</value>
-        <value xml:lang="fr">En cours : article entrant prévu</value>
+        <value xml:lang="fr">En cours : article entrant estimé</value>
         <value xml:lang="it">Entrata pianificata</value>
         <value xml:lang="th">WIP_INCOMING_PLAN</value>
         <value xml:lang="zh">计划收入</value>
@@ -8663,7 +8663,7 @@
     <property key="StatusItem.description.WIP_OUTGOING_PLAN">
         <value xml:lang="en">WIP_OUTGOING_PLAN</value>
         <value xml:lang="es">Saliente planificado</value>
-        <value xml:lang="fr">En cours : article sortant prévu</value>
+        <value xml:lang="fr">En cours : article sortant estimé</value>
         <value xml:lang="it">Uscita pianificata</value>
         <value xml:lang="th">WIP_OUTGOING_PLAN</value>
         <value xml:lang="zh">计划支出</value>

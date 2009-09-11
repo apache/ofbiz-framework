@@ -225,7 +225,7 @@
         <value xml:lang="de">Konnte Zweck nicht erstellen. Ein Zweck mit diesem Typ existiert bereits.</value>
         <value xml:lang="en">Could not create new purpose, a purpose with that type already exists.</value>
         <value xml:lang="es">No se ha podido crear nuevo propósito, ya existe uno de este tipo.</value>
-        <value xml:lang="fr">N'a pas pu créer le nouveau but, un but avec ce type existe déjà.</value>
+        <value xml:lang="fr">Impossible de créer le nouveau but, un but avec ce type existe déjà.</value>
         <value xml:lang="hi_IN">नया उद्देश्य नहीं बन पाएँ, इस प्रकार का उद्देश्य पहले से ही मौजूद है|</value>
         <value xml:lang="it">Non è possibile creare un nuovo scopop, uno scopo con questo tipo esiste già.</value>
         <value xml:lang="nl">Fout: Could not create new purpose, a purpose with that type already exists.</value>
@@ -238,7 +238,7 @@
         <value xml:lang="de">Kontaktinformation konnte nicht gelöscht werden (Akteur Kontaktmechanismus nicht gefunden)</value>
         <value xml:lang="en">Could not delete contact info (party contact mech not found).</value>
         <value xml:lang="es">No se ha podido borrar la información de contacto (mec. de contacto no encontrado).</value>
-        <value xml:lang="fr">Ne peut pas supprimer l'information de contact (coordonnée de l'acteur non trouvé)</value>
+        <value xml:lang="fr">Impossible de supprimer l'information de contact (coordonnée de l'acteur non trouvé)</value>
         <value xml:lang="hi_IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पार्टी संपर्क तंत्र नहीं मिला)|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (contatto cliente non trovato).</value>
         <value xml:lang="nl">Fout: Could not delete contact info (party contact mech not found).</value>
@@ -251,7 +251,7 @@
         <value xml:lang="de">Kontaktinformationen können nicht gelöscht werden (Lesefehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete contact info (read failure): ${errMessage}.</value>
         <value xml:lang="es">Las informaciones de contacto no se pueden borrar (error de lectura): ${errMessage}</value>
-        <value xml:lang="fr">Ne peut pas supprimer l'information de contact (erreur de lecture): ${errMessage}.</value>
+        <value xml:lang="fr">Impossible de supprimer l'information de contact (erreur de lecture): ${errMessage}.</value>
         <value xml:lang="hi_IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete contact info (read failure): ${errMessage}.</value>
@@ -263,7 +263,7 @@
     <property key="contactmechservices.could_not_delete_contact_info_write">
         <value xml:lang="de">Kontaktinformationen können nicht gelöscht werden (Schreibfehler).</value>
         <value xml:lang="en">Could not delete contact info (write failure).</value>
-        <value xml:lang="fr">Ne peut pas supprimer l'information de contact (erreur d'écriture.</value>
+        <value xml:lang="fr">Impossible de supprimer l'information de contact (erreur d'écriture.</value>
         <value xml:lang="hi_IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (लिखने में असफल)|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (scrittura fallita).</value>
         <value xml:lang="nl">Fout: Could not delete contact info (write failure).</value>
@@ -275,7 +275,7 @@
     <property key="contactmechservices.could_not_delete_purpose_from_contact_mechanism_not_found">
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Eintrag nicht gefunden).</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (record not found).</value>
-        <value xml:lang="fr">Ne peut pas supprimer le but de la coordonnée (enregistrement  non trouvé).</value>
+        <value xml:lang="fr">Impossible de supprimer le but de la coordonnée (enregistrement  non trouvé).</value>
         <value xml:lang="hi_IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ(रिकॉर्ड नहीं मिला)|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (record non trovato).</value>
         <value xml:lang="nl">Fout: Could not delete purpose from contact mechanism (record not found).</value>
@@ -287,7 +287,7 @@
     <property key="contactmechservices.could_not_delete_purpose_from_contact_mechanism_read">
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Lesefehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (read failure): ${errMessage}.</value>
-        <value xml:lang="fr">Ne peut pas supprimer le but de la coordonnée (erreur de lecture) : ${errMessage}.</value>
+        <value xml:lang="fr">Impossible de supprimer le but de la coordonnée (erreur de lecture) : ${errMessage}.</value>
         <value xml:lang="hi_IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete purpose from contact mechanism (read failure): ${errMessage}.</value>
@@ -299,7 +299,7 @@
     <property key="contactmechservices.could_not_delete_purpose_from_contact_mechanism_write">
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Schreibfehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (write failure): ${errMessage}.</value>
-        <value xml:lang="fr">Ne peut pas supprimer le but de la coordonnée (erreur d'écriture): ${errMessage}.</value>
+        <value xml:lang="fr">Impossible de supprimer le but de la coordonnée (erreur d'écriture): ${errMessage}.</value>
         <value xml:lang="hi_IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (लिखने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete purpose from contact mechanism (write failure): ${errMessage}.</value>
@@ -715,7 +715,7 @@
         <value xml:lang="de">Akteur kann nicht gelöscht werden (ist noch nicht implementiert).</value>
         <value xml:lang="en">Cannot delete party, operation not yet implemented.</value>
         <value xml:lang="es">No se puede eliminar al participante, la operación no ha sido implementada</value>
-        <value xml:lang="fr">Ne peut pas supprimer l'acteur, opération non encore implémentée.</value>
+        <value xml:lang="fr">Impossible de supprimer l'acteur, opération non encore implémentée.</value>
         <value xml:lang="hi_IN">पार्टी को नष्ट नहीं कर सकते, आपरेशन अभी तक लागू नहीं किया है|</value>
         <value xml:lang="it">Non è possibile cancellare soggetto, operazione non ancora implementata.</value>
         <value xml:lang="nl">Cannot delete party, operation not yet implemented.</value>
@@ -728,7 +728,7 @@
         <value xml:lang="de">Akteur Entitäten können nicht geholt werden (Lesefehler): ${errMessage}.</value>
         <value xml:lang="en">Cannot get party entities (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo obtener la entidad participante: ${errMessage}</value>
-        <value xml:lang="fr">Ne peut pas obtenir des entités d'acteur (erreur de lecture) : $ {errMessage}.</value>
+        <value xml:lang="fr">Impossible d'obtenir des entités d'acteur (erreur de lecture) : $ {errMessage}.</value>
         <value xml:lang="hi_IN">पार्टी इकाईयाँ नहीं मिली (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non possibile leggere l'entità Party (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Cannot get party entities (read failure): ${errMessage}.</value>
