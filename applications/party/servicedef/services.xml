@@ -1248,4 +1248,13 @@ under the License.
             location="org.ofbiz.party.communication.CommunicationEventServices" invoke="logIncomingMessage">
         <implements service="mailProcessInterface"/>
     </service>    
+    
+    <service name="quickCreateCustomer" engine="simple" 
+            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="quickCreateCustomer">
+        <description>Create customer profile on basis of First Name ,Last Name and Email Address</description>
+        <attribute name="firstName" type="String" mode="IN" optional="false"/>
+        <attribute name="lastName" type="String" mode="IN" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>
