@@ -74,7 +74,7 @@
                                 <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
                             </widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.HumanResEditPayGrade}">
+                        <screenlet title="${uiLabelMap.HumanResEditPayGrade} [${payGradeId}]">
                             <section>
                                 <widgets>
                                     <include-form name="EditPayGrade" location="component://humanres/widget/forms/PayGradeForms.xml"/>
@@ -106,7 +106,7 @@
                                 <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
                             </widgets>
                         </section>
-                        <screenlet id="AddSalaryStepPanel" title="${uiLabelMap.HumanResAddSalaryStep}" collapsible="true">
+                        <screenlet id="AddSalaryStepPanel" title="${uiLabelMap.HumanResAddSalaryStep} [${payGradeId}]" collapsible="true">
                             <include-form name="AddSalaryStep" location="component://humanres/widget/forms/PayGradeForms.xml"/>
                         </screenlet>
                         <include-form name="ListSalarySteps" location="component://humanres/widget/forms/PayGradeForms.xml"/>
