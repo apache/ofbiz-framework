@@ -29,10 +29,13 @@ under the License.
         </para>
 	</section>
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_main.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_findInvoi.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceOv.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoi.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_listInvoi.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_sendPerEm.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceRo.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_findInvoices.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceOverview.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoice.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_newInvoice.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoiceApplications.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_listInvoiceItems.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoiceTimeEntries.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_sendPerEmail.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceRoles.xml" />
 </chapter>
