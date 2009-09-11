@@ -1429,7 +1429,7 @@ under the License.
       <field name="defaultAmount" type="currency-amount"></field>
       <field name="defaultSequenceNum" type="numeric"></field>
       <field name="abbrev" type="id"></field>
-      <field name="idCode" type="id"></field>
+      <field name="idCode" type="id-long"></field>
       <prim-key field="productFeatureId"/>
       <relation type="one" fk-name="PROD_FEAT_CATEGORY" rel-entity-name="ProductFeatureCategory">
         <key-map field-name="productFeatureCategoryId"/>
