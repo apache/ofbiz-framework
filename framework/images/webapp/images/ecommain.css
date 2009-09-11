@@ -1016,3 +1016,15 @@ color:#454545;
 .fieldwitherrors .calendar_date_select {
 border:2px solid red;
 }
+p#microCartNotEmpty {
+margin-bottom: 0;
+}
+#microcart li {
+display: inline;
+}
+#microcart li#microCartPayPalCheckout img {
+width: 135px;
+}
+#microcart li#googleCheckoutEnabled img {
+width: 145px;
+}
