@@ -25,7 +25,7 @@
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="ListResources" type="list" list-name="resources" paginate-target="FindResource"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getPartyEmail" result-map="emailResult"/>
             <service service-name="getPartyTelephone" result-map="telResult"/>

@@ -55,7 +55,7 @@ under the License.
     </form>
 
     <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
-        odd-row-style="alternate-row"  default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row"  header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="Invoice" list="billingAccountInvoices">
                 <condition-list>
@@ -154,7 +154,7 @@ under the License.
     </form>
 
     <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="BillingAccountRole" list="billingAccountRoleList">
                 <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
@@ -254,7 +254,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListBillingAccountPayments" type="list" list-name="payments" paginate-target="BillingAccountPayments"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentAndApplication" list="payments">
                 <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>

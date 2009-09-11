@@ -186,7 +186,7 @@ under the License.
     </form>
 
     <form name="ReturnStatusHistory" type="list" list-name="orderReturnStatusHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
         <field name="returnItemSeqId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -194,7 +194,7 @@ under the License.
         <field name="changeByUserLoginId" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
     </form>
     <form name="ReturnAndReceivedQuantityHistory" type="list" list-name="orderReturnItemHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText"><display/></field>
         <field name="newValueText"><display/></field>
@@ -202,7 +202,7 @@ under the License.
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
     </form>
     <form name="ReturnReasonHistory" type="list" list-name="orderReturnItemHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText">
             <display-entity entity-name="ReturnReason" description="${description}" key-field-name="returnReasonId"/>
@@ -214,7 +214,7 @@ under the License.
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
     </form>
     <form name="ReturnTypeHistory" type="list" list-name="orderReturnItemHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText">
             <display-entity entity-name="ReturnType" description="${description}" key-field-name="returnTypeId"/>
@@ -226,7 +226,7 @@ under the License.
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
     </form>
     <form name="ReturnPriceHistory" type="list" list-name="orderReturnItemHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText"><display type="currency"/></field>
         <field name="newValueText"><display type="currency"/></field>

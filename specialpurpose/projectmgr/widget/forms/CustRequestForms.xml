@@ -136,7 +136,7 @@ under the License.
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
     </form>
     <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="listIt" paginate-target="requestlist"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="createdDate"/>
             <set field="parameters.statusId" value="CRQ_REVIEWED"/>

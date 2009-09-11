@@ -29,7 +29,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentType" list-name="contentList" target="updateContentType" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
           <entity-condition entity-name="ContentType" use-cache="false"/>
         </actions>
@@ -62,7 +62,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentTypeAttr" list-name="contentList" target="updateContentTypeAttr" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
         <entity-condition entity-name="ContentTypeAttr" use-cache="false"/>
         </actions>
@@ -90,7 +90,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentAssocType" list-name="contentList" target="updateContentAssocType" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentAssocType" use-cache="false"/>
         </actions>
@@ -117,7 +117,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentPurposeType" list-name="contentList" target="updateContentPurposeType" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentPurposeType" use-cache="false"/>
         </actions>
@@ -144,7 +144,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentAssocPredicate" list-name="contentList" target="updateContentAssocPredicate" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentAssocPredicate" use-cache="false"/>
         </actions>
@@ -171,7 +171,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentOperation" list-name="contentList" target="updateContentOperation" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentOperation" use-cache="false"/>
         </actions>
@@ -215,7 +215,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateContentPurposeOperation" target="" title="" type="list" list-name="contentList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-one entity-name="ContentPurposeOperation" use-cache="false"/>
         </actions>

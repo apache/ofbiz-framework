@@ -71,7 +71,7 @@ under the License.
     </form>
 
     <form name="ListProductManufacturingRules" type="list" target="UpdateProductManufacturingRule" title="" list-name="manufacturingRules"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductManufacturingRule" map-name="manufacturingRule"/>
         <field name="ruleId"><display/></field>
         <field name="ruleSeqId"><display/></field>

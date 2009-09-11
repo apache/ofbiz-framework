@@ -37,7 +37,7 @@ under the License.
     </form>
 
     <form name="BasicExpressionList" type="list"
-         default-table-style="basic-table hover-bar" odd-row-style="alternate-row">
+         default-table-style="basic-table hover-bar" odd-row-style="alternate-row" header-row-style="header-row-2">
         <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}">
             <hyperlink also-hidden="false" target-type="plain" description="${tempExprId}" target="editTemporalExpression">
                 <parameter param-name="tempExprId"/>

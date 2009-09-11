@@ -50,7 +50,7 @@ under the License.
     </form>
 
     <form name="ListAgreements" list-name="listIt" target="" title="" type="list" paginate-target="FindAgreement"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="entityName" value="Agreement"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -205,7 +205,7 @@ under the License.
         </field>
     </form>
     <form name="ListAgreementTerms" target="updateAgreementTerm" list-name="agreementTerms" paginate-target="ListAgreementTerms" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementTerm" list="agreementTerms">
                 <field-map field-name="agreementId" from-field="agreementId"/>
@@ -574,7 +574,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
                 <field-map from-field="agreementId" field-name="agreementId"/>
@@ -591,7 +591,7 @@ under the License.
         </field>
     </form>
     <form name="ListAgreementRoles" list-name="agreementRoles" type="list" paginate-target="FindAgreementRoles"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementRole" use-cache="true" list="agreementRoles">
                 <field-map field-name="agreementId" from-field="agreementId"/>
