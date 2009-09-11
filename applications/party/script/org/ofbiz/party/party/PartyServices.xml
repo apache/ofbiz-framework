@@ -993,4 +993,32 @@ under the License.
         <field-to-result field="partyId"/>
     </simple-method>
 
+    <simple-method method-name="quickCreateCustomer" short-description="Create customer profile on basis of First Name ,Last Name and Email Address" login-required="false">
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
+                processor-name="person" in-map-name="parameters" out-map-name="personInMap"/>
+        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
+                processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressInMap"/>
+        <check-errors/>
+        
+        <!-- create person  -->
+        <call-service service-name="createPerson" in-map-name="personInMap">
+            <result-to-field result-name="partyId"/>
+            <result-to-result result-name="partyId"/>
+        </call-service>
+
+        <!-- Create email address -->
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="emailAddressInMap.partyId" from-field="partyId"/>
+        <set field="emailAddressInMap.userLogin" from-field="userLogin"/>
+        <set field="emailAddressInMap.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressInMap"/>
+        
+        <!-- Create the PartyRole -->
+        <set field="createPartyRoleInMap.partyId" from-field="partyId"/>
+        <set field="createPartyRoleInMap.roleTypeId" value="CUSTOMER"/>
+        <set field="createPartyRoleInMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyRole" in-map-name="createPartyRoleInMap"/>
+    </simple-method>
 </simple-methods>
