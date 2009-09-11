@@ -57,7 +57,7 @@
         <value xml:lang="en">Actual Route (fixed asset usage) Cost</value>
         <value xml:lang="es">Coste de ruta actual (uso de activo fijo)</value>
         <value xml:lang="fr">Coût réel d'itinéraire (utilisation d'immobilisation)</value>
-        <value xml:lang="it">Costo attuale itinerario (uso cespiti)</value>
+        <value xml:lang="it">Costo effettivo ciclo (utilizzo cespiti)</value>
         <value xml:lang="ro">Cost Actual Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Действительная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทัรพย์สินไม่หมุนเวียน) โดยแท้จริง</value>
@@ -128,7 +128,7 @@
         <value xml:lang="en">Estimated Standard Route (fixed asset usage) Cost</value>
         <value xml:lang="es">Coste estimado estándar de ruta (uso de activo fijo)</value>
         <value xml:lang="fr">Estimation standard de coût d'itinéraire (utilisation d'immobilisation)</value>
-        <value xml:lang="it">Costo standard itinerario stimato (uso cespiti)</value>
+        <value xml:lang="it">Costo standard ciclo stimato (utilizzo cespiti)</value>
         <value xml:lang="ro">Cost Standard Itinerariu Stimat (folosire mijloace fixe)</value>
         <value xml:lang="ru">Оценочная стандартная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route  มาตรฐานโดยประมาณ (การใช้ทรัพย์สินไม่ถาวร)</value>
@@ -172,7 +172,7 @@
         <value xml:lang="en">Route (fixed asset usage) Cost</value>
         <value xml:lang="es">Coste de ruta (uso de activo fijo)</value>
         <value xml:lang="fr">Coût d'itinéraire (utilisation d'immobilisation)</value>
-        <value xml:lang="it">Costo itinerario (uso cespiti)</value>
+        <value xml:lang="it">Costo ciclo (utilizzo cespiti)</value>
         <value xml:lang="ro">Cost Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทรัพย์สินไม่ถาวร) </value>
