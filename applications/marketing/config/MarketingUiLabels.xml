@@ -68,19 +68,19 @@
     </property>
     <property key="FormFieldTitle_expectedResponsePercent">
         <value xml:lang="en">Expected Response Percent</value>
-        <value xml:lang="fr">Pourcentage de réponse prévu</value>
+        <value xml:lang="fr">Pourcentage de réponse estimé</value>
         <value xml:lang="it">Percentuale risposta aspettata</value>
         <value xml:lang="zh">期望响应百分比</value>
     </property>
     <property key="FormFieldTitle_expectedRevenue">
         <value xml:lang="en">Expected Revenue</value>
-        <value xml:lang="fr">Revenu prévu</value>
+        <value xml:lang="fr">Revenu estimé</value>
         <value xml:lang="it">Entrate aspettata</value>
         <value xml:lang="zh">期望收入</value>
     </property>
     <property key="FormFieldTitle_forecastAmount">
         <value xml:lang="en">Forecast Amount</value>
-        <value xml:lang="fr">Montant prévu</value>
+        <value xml:lang="fr">Montant estimé</value>
         <value xml:lang="it">Importo previsione di vendita</value>
         <value xml:lang="zh">预测金额</value>
     </property>
@@ -98,7 +98,7 @@
     </property>
     <property key="FormFieldTitle_parentSalesForecastId">
         <value xml:lang="en">Parent Sales Forecast Id</value>
-        <value xml:lang="fr">Réf. de vente parente prévue</value>
+        <value xml:lang="fr">Réf. de vente parente estimée</value>
         <value xml:lang="it">Previsione di vendita padre</value>
         <value xml:lang="zh">上级销售预测标识</value>
     </property>
@@ -110,7 +110,7 @@
     </property>
     <property key="FormFieldTitle_percentOfQuotaForecast">
         <value xml:lang="en">Percent Of Quota Forecast</value>
-        <value xml:lang="fr">Pourcentage de quota prévu</value>
+        <value xml:lang="fr">Pourcentage de quota estimé</value>
         <value xml:lang="it">Quota percentuale della previsione di vendita</value>
         <value xml:lang="zh">预测指标的百分比</value>
     </property>
@@ -136,13 +136,13 @@
     </property>
     <property key="FormFieldTitle_salesForecastDetailId">
         <value xml:lang="en">Sales Forecast Detail Id</value>
-        <value xml:lang="fr">Réf. de détail de vente prévue</value>
+        <value xml:lang="fr">Réf. de détail de vente estimée</value>
         <value xml:lang="it">Dettaglio previsione di vendita</value>
         <value xml:lang="zh">销售预测细节标识</value>
     </property>
     <property key="FormFieldTitle_salesForecastId">
         <value xml:lang="en">Sales Forecast Id</value>
-        <value xml:lang="fr">Réf. de vente prévue</value>
+        <value xml:lang="fr">Réf. de vente estimée</value>
         <value xml:lang="it">Previsione di vendita</value>
         <value xml:lang="zh">销售预测标识</value>
     </property>

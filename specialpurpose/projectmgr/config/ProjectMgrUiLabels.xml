@@ -1430,7 +1430,7 @@
     <property key="ProjectMgrWorkEffortEstimatedCompletionDate">
         <value xml:lang="de">Soll-Enddatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
-        <value xml:lang="fr">Date de fin prévue</value>
+        <value xml:lang="fr">Date d'achèvement estimée</value>
         <value xml:lang="it">Data fine stimata</value>
         <value xml:lang="th">วันที่เสร็จโดยประมาณ</value>
         <value xml:lang="zh">估计完成日期</value>
@@ -1438,7 +1438,7 @@
     <property key="ProjectMgrWorkEffortEstimatedStartDate">
         <value xml:lang="de">Soll-Anfangsdatum</value>
         <value xml:lang="en">Estimated Start Date</value>
-        <value xml:lang="fr">Date de début prévue</value>
+        <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data inizio stimata</value>
         <value xml:lang="th">วันที่เริ่มโดยประมาณ</value>
         <value xml:lang="zh">估计开始日期</value>

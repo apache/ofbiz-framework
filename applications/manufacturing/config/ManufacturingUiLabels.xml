@@ -92,7 +92,7 @@
         <value xml:lang="de">Geschätzte Dauer</value>
         <value xml:lang="en">Estimated Duration</value>
         <value xml:lang="es">Duración estimada</value>
-        <value xml:lang="fr">Durée prévue</value>
+        <value xml:lang="fr">Durée estimée</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ประมาณเวลา</value>
         <value xml:lang="zh">预计用时</value>
@@ -1281,7 +1281,7 @@
         <value xml:lang="de">Berechnetes Fertigstellungsdatum</value>
         <value xml:lang="en">Calculated Completion Date</value>
         <value xml:lang="es">Fecha de fin estimada</value>
-        <value xml:lang="fr">Date de fin prévue</value>
+        <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data Completamento Calcolata</value>
         <value xml:lang="ro">Data Completarii Calculata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
@@ -1291,7 +1291,7 @@
         <value xml:lang="de">Geschätztes Start-Datum</value>
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="es">Fecha de inicio estimada</value>
-        <value xml:lang="fr">Date de début prévue</value>
+        <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">ประมาณวันที่เริ่มต้น</value>

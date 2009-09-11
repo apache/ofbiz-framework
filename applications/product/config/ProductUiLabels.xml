@@ -54,6 +54,7 @@
     </property>
     <property key="FacilityEstimatedShippingCharges">
         <value xml:lang="en">Estimated shipping charges</value>
+        <value xml:lang="en">Frais d'expédition estimés</value>
     </property>
     <property key="FacilityFacility">
         <value xml:lang="de">Lager</value>
@@ -1673,7 +1674,7 @@
         <value xml:lang="de">Geschätztes Versanddatum</value>
         <value xml:lang="en">Est. Ship Date</value>
         <value xml:lang="es">Fecha de envío estimada</value>
-        <value xml:lang="fr">Date estimée d'expédition</value>
+        <value xml:lang="fr">Date d'expédition estimée</value>
         <value xml:lang="it">Data Spedizione Stimata</value>
         <value xml:lang="ro">Data Expediere Stimata</value>
         <value xml:lang="ru">Ожид. дата поставки</value>
@@ -11866,7 +11867,7 @@
         <value xml:lang="de">Eingehende Lieferungen</value>
         <value xml:lang="en">Incoming Shipments</value>
         <value xml:lang="es">Envíos entrantes</value>
-        <value xml:lang="fr">Expéditions prévues</value>
+        <value xml:lang="fr">Expéditions estimées</value>
         <value xml:lang="it">Spedizioni in Arrivo</value>
         <value xml:lang="ro">Expediere in Sosire </value>
         <value xml:lang="ru">Входящие поставки</value>
@@ -14388,7 +14389,7 @@
         <value xml:lang="de">Nicht konfiguriert</value>
         <value xml:lang="en">Not Set</value>
         <value xml:lang="es">No configurado</value>
-        <value xml:lang="fr">Pas prévu</value>
+        <value xml:lang="fr">Non estimé</value>
         <value xml:lang="it">Non Impostato</value>
         <value xml:lang="ro">NeSetat</value>
         <value xml:lang="ru">Не установлено</value>

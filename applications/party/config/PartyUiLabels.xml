@@ -119,7 +119,7 @@
         <value xml:lang="de">Kommunikationsereignis Zweck ID</value>
         <value xml:lang="en">Communication Event Purpose Type Id</value>
         <value xml:lang="es">Código Propósito del evento de comunicación</value>
-        <value xml:lang="fr">Réf. type d'objet d'évènement de communication</value>
+        <value xml:lang="fr">Réf. de type de but d'évènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना प्रयोजन प्रकार का क्रमांक(communicationEventPrpTypId)</value>
         <value xml:lang="it">Tipo Funzione Evento Comunicazione</value>
         <value xml:lang="nl">Doelsoort communicatie-actie</value>
@@ -3841,7 +3841,7 @@
         <value xml:lang="de">Kontaktzweck</value>
         <value xml:lang="en">Contact Purposes</value>
         <value xml:lang="es">Propósitos Del Contacto</value>
-        <value xml:lang="fr">Objets des coordonnées</value>
+        <value xml:lang="fr">Buts du contact</value>
         <value xml:lang="hi_IN">सम्पर्क विषय</value>
         <value xml:lang="it">Scopi contatto</value>
         <value xml:lang="ja">Contact Purposes</value>
@@ -4073,7 +4073,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createCommunicationEventPurpose you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter un objet à un appel il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour ajouter un but à un appel il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="hi_IN">सुरक्षा त्रुटि: createCommunicationEventPurpose चलाने के लिए आप को PARTYMGR_CREATE या PARTYMGR_ADMIN की अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createCommunicationEventPurpose tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Toegangfout: om OFBIZ-service 'createCommunicationEventPurpose' te draaien heb je 'PARTYMGR_CREATE'- of 'PARTYMGR_ADMIN'-permissie nodig</value>
@@ -4592,7 +4592,7 @@
         <value xml:lang="de">Kommunikation Arbeitszweck bearbeiten</value>
         <value xml:lang="en">Edit Communication Work Purpose</value>
         <value xml:lang="es">Editar propósito de trabajo</value>
-        <value xml:lang="fr">Modifier la communication de but d'activité</value>
+        <value xml:lang="fr">Modifier le but de la communication de la tâche</value>
         <value xml:lang="hi_IN">संचार कार्य प्रयोजन को संपादित करें</value>
         <value xml:lang="it">Aggiorna Comunicazione Work</value>
         <value xml:lang="nl">Doelstelling communicatie wijzigen</value>
@@ -4924,7 +4924,7 @@
         <value xml:lang="de">Ereignis Zweck</value>
         <value xml:lang="en">Event Purpose(s)</value>
         <value xml:lang="es">Propósito(s) del evento</value>
-        <value xml:lang="fr">Objet de l'appel</value>
+        <value xml:lang="fr">But(s) de l'appel</value>
         <value xml:lang="hi_IN">घटना प्रयोजन (ओं)</value>
         <value xml:lang="it">Evento Funzione(i)</value>
         <value xml:lang="nl">Doelstellingen acties</value>
@@ -6244,7 +6244,7 @@
         <value xml:lang="de">Zweck Typ nicht gefunden mit der ID</value>
         <value xml:lang="en">Purpose Type not found with ID</value>
         <value xml:lang="es">Tipo de propósito no encontrado</value>
-        <value xml:lang="fr">Type d'usage non trouvé avec la réf</value>
+        <value xml:lang="fr">Type de but non trouvé avec la réf</value>
         <value xml:lang="hi_IN">इस क्रमांक के साथ उद्देश्य प्रकार नहीं मिला</value>
         <value xml:lang="it">Tipo Funzione non trovata con Codice </value>
         <value xml:lang="nl">Soor doelstelling niet gevonden</value>
@@ -6356,7 +6356,7 @@
         <value xml:lang="de">Hinweis: Diese neue Kontakt Information wird den folgenden Zweck haben</value>
         <value xml:lang="en">Note: this new contact information will have the purpose</value>
         <value xml:lang="es">Nota: este información tendrá propósito</value>
-        <value xml:lang="fr">Note : ces nouvelles coordonnées auront pour usage</value>
+        <value xml:lang="fr">Note : ces nouvelles coordonnées auront pour but</value>
         <value xml:lang="hi_IN">नोट: इस नयी संपर्क जानकारी का उद्देश्य होगा</value>
         <value xml:lang="it">Nota: quetso nuova informazione contatto avrà la funzione</value>
         <value xml:lang="nl">Opm: this new contact information will have the purpose</value>
@@ -8121,7 +8121,7 @@
         <value xml:lang="de">Verwendungszweck nicht gefunden mit der ID</value>
         <value xml:lang="en">Contact Purpose Type Not Found with ID</value>
         <value xml:lang="es">Tipo de uso no encontrado con la ID</value>
-        <value xml:lang="fr">Type d'objet pour coordonnées non trouvé pour cette réf.</value>
+        <value xml:lang="fr">Type de but de coordonnées non trouvé pour cette réf.</value>
         <value xml:lang="hi_IN">क्रमांक के साथ संपर्क प्रयोजन प्रकार नहीं मिला</value>
         <value xml:lang="it">Tipo funzione contatto non trovate con codice</value>
         <value xml:lang="ja">Contact Purpose Type Not Found with ID</value>
