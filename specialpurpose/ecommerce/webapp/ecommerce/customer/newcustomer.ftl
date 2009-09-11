@@ -25,35 +25,35 @@ under the License.
          lastFocusedName = formElement.name;
      }
      function clickUsername() {
-         if (document.forms["newuserform"].elements["UNUSEEMAIL"].checked) {
+         if ($('UNUSEEMAIL').checked) {
              if (lastFocusedName == "UNUSEEMAIL") {
-                 document.forms["newuserform"].elements["PASSWORD"].focus();
+                 $('PASSWORD').focus();
              } else if (lastFocusedName == "PASSWORD") {
-                 document.forms["newuserform"].elements["UNUSEEMAIL"].focus();
+                 $('UNUSEEMAIL').focus();
              } else {
-                 document.forms["newuserform"].elements["PASSWORD"].focus();
+                 $('PASSWORD').focus();
              }
          }
      }
      function changeEmail() {
-         if (document.forms["newuserform"].elements["UNUSEEMAIL"].checked) {
-             document.forms["newuserform"].elements["USERNAME"].value=document.forms["newuserform"].elements["CUSTOMER_EMAIL"].value;
+         if ($('UNUSEEMAIL').checked) {
+             $('USERNAME').value = $F('CUSTOMER_EMAIL');
          }
      }
      function setEmailUsername() {
-         if (document.forms["newuserform"].elements["UNUSEEMAIL"].checked) {
-             document.forms["newuserform"].elements["USERNAME"].value=document.forms["newuserform"].elements["CUSTOMER_EMAIL"].value;
-             // don't disable, make the browser not submit the field: document.forms["newuserform"].elements["USERNAME"].disabled=true;
+         if ($('UNUSEEMAIL').checked) {
+             $('USERNAME').value = $F('CUSTOMER_EMAIL');
+             // don't disable, make the browser not submit the field: $('USERNAME').disabled=true;
          } else {
-             document.forms["newuserform"].elements["USERNAME"].value='';
-             // document.forms["newuserform"].elements["USERNAME"].disabled=false;
+             $('USERNAME').value='';
+             // $('USERNAME').disabled=false;
          }
      }
      function hideShowUsaStates() {
-         if (document.getElementById("customerCountry").value == "USA" || document.getElementById("customerCountry").value == "UMI") {
-             document.getElementById("customerState").style.display = "block";
+         if ($('customerCountry').value == "USA" || $('customerCountry').value == "UMI") {
+             $('customerState').style.display = "block";
          } else {
-             document.getElementById("customerState").style.display = "none";
+             $('customerState').style.display = "none";
          }
      }
    //]]>
@@ -93,7 +93,7 @@ will generally always be reserved for the logo at the top of the page.
   </#if>
 </#macro>
 
-<form method="post" action="<@ofbizUrl>createcustomer${previousParams}</@ofbizUrl>" name="newuserform">
+<form method="post" action="<@ofbizUrl>createcustomer${previousParams}</@ofbizUrl>" id="newuserform">
   
   
   <#----------------------------------------------------------------------
@@ -390,12 +390,12 @@ class name of "button". No other class names should be used to style
 button actions.
 ------------------------------------------------------------------------------->
 <div class="buttons">
-  <a href="javascript:document.newuserform.submit()">${uiLabelMap.CommonSave}</a>
+  <a href="javascript:$('newuserform').submit()">${uiLabelMap.CommonSave}</a>
   <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="reset">${uiLabelMap.CommonBack}</a>
 </div>
 
 <script type="text/javascript">
   //<![CDATA[
-  hideShowUsaStates();
+      hideShowUsaStates();
   //]]>
 </script>
