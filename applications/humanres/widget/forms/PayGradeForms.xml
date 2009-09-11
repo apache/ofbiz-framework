@@ -63,7 +63,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-one entity-name="SalaryStep" auto-field-map="true"/>
-            <entity-condition entity-name="SalaryStep"><order-by field-name="salaryStepSeqId"/></entity-condition>
+            <entity-condition entity-name="SalaryStep"> <condition-expr field-name="payGradeId" operator="equals" from-field="payGradeId"/><order-by field-name="salaryStepSeqId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateSalaryStep"/>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display also-hidden="true"/></field>
