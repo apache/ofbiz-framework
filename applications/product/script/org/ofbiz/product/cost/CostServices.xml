@@ -276,11 +276,12 @@ under the License.
     </simple-method>
     <simple-method method-name="calculateProductCosts" short-description="Calculates the product's cost">
         <!-- the existing costs are expired -->
-        <!--
+        <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="cancelMap.costComponentTypeId"/>
         <set from-field="parameters.productId" field="cancelMap.productId"/>
         <set from-field="parameters.currencyUomId" field="cancelMap.costUomId"/>
         <call-service service-name="cancelCostComponents" in-map-name="cancelMap"/>
-        -->
+        <set value="${parameters.costComponentTypePrefix}_MAT_COST" field="cancelMap.costComponentTypeId"/>
+        <call-service service-name="cancelCostComponents" in-map-name="cancelMap"/>
         <!-- calculate the total materials' cost -->
         <set from-field="parameters.productId" field="callSvcMap.productId"/>
         <call-service service-name="getManufacturingComponents" in-map-name="callSvcMap">
