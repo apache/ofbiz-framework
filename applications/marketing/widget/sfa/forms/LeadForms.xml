@@ -155,7 +155,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ViewLeadPartyDataSources" type="list" list-name="partyDataSources" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="partyId"><hidden/></field>
         <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}">
             <display-entity entity-name="DataSource"/>

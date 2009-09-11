@@ -101,7 +101,7 @@
     </form>
 
     <form name="ListWorkEffortPartyAssigns" extends="ListWorkEffortPartyAssigns" extends-resource="component://workeffort/widget/WorkEffortPartyAssignForms.xml"
-        default-table-style="basic-table">
+        header-row-style="header-row-2" default-table-style="basic-table">
         <field name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
         </field>
@@ -156,7 +156,7 @@
     </form>
 
     <form name="ListWorkEffortChildren" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="WorkEffortAssocView">
                 <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>

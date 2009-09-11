@@ -140,7 +140,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ViewPhysicalInventoryAndVariance" type="list" target="" title="" list-name="physicalInventoryAndVarianceDatas"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="PhysicalInventoryAndVariance" map-name="physicalInventoryAndVariance" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
@@ -179,7 +179,7 @@ under the License.
         itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
     </form>
     <form name="InventoryItemReservations" type="list" target="" title="" list-name="inventoryItemReservations"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
@@ -190,7 +190,7 @@ under the License.
     </form>
     <!-- Inventory Item Labels -->
     <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditInventoryItemLabel" description="${inventoryItemLabelId}" also-hidden="true">

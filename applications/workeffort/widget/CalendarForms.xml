@@ -89,7 +89,7 @@ under the License.
         <field name="actualCompletionDate" use-when="parentWorkEffortId!=null"><display type="date-time"/></field>
     </form>
     <form name="showCalEventRoles" type="list" list-name="roles" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortPartyAssignment" list="roles" filter-by-date="true">
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>

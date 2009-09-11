@@ -59,7 +59,7 @@ under the License.
         <field name="qualification"><hidden/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListJobRequisitions" list-name="listIt" type="list" odd-row-style="alternate-row" 
+    <form name="ListJobRequisitions" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
         paginate-target="FindJobRequisitions" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="JobRequisition"/>
@@ -162,7 +162,7 @@ under the License.
         <field name="referredByPartyId"><hidden/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListInternalJobPosting" list-name="listIt" type="list" odd-row-style="alternate-row" 
+    <form name="ListInternalJobPosting" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
         paginate-target="FindInternalJobPosting" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="EmploymentApp"/>
@@ -252,7 +252,7 @@ under the License.
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListInterview" type="list" list-name="listIt" paginate-target="FindJobInterview" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListInterview" type="list" list-name="listIt" paginate-target="FindJobInterview" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="JobInterview"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -343,7 +343,7 @@ under the License.
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListApprovals" list-name="listIt" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListApprovals" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="EmploymentApp"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -415,7 +415,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListRelocation" list-name="listIt" type="list" odd-row-style="alternate-row"
+    <form name="ListRelocation" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2"
         default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">

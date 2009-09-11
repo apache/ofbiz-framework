@@ -22,7 +22,7 @@ under the License.
  xsi:noNamespaceSchemaLocation="../../widget/dtd/widget-form.xsd">
 
     <form name="ListPortalPages" type="list" list-name="portalPages" paginate-target="ManagePortalPages" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portalPageId" title="${uiLabelMap.CommonEdit}">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="ManagePortalPages">
                 <parameter param-name="portalPageId"/>
@@ -103,7 +103,7 @@ under the License.
     </form>
 
     <form name="PortletCategoryAndPortlet" type="list" list-name="portletCat" paginate-target="AddPortlet" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portletCategoryId" title="Category">
             <hyperlink description="${portletCategoryId}" target="AddPortlet">
                 <parameter param-name="portletCategoryId"/>
@@ -117,7 +117,7 @@ under the License.
     </form>
     
     <form name="PortletList" type="list" separate-columns="true" list-name="portlets"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PortalPagePortletView" list="portlets">
                 <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>

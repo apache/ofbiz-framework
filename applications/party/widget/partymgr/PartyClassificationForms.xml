@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListPartyClassifications" type="list" target="updatePartyClassification"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
         <entity-and entity-name="PartyClassification">
             <field-map field-name="partyId"/>
@@ -121,7 +121,7 @@ under the License.
     </form>
 
     <form name="ListPartyClassificationGroupParties" type="list" target="updatePartyClassificationParty"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PartyClassification">
                 <field-map field-name="partyClassificationGroupId"/>

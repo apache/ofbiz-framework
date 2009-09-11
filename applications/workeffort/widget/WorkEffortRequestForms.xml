@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListWorkEffortRequests" separate-columns="true" target="ListWorkEffortRequests" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortCustRequestView">
                 <field-map field-name="workEffortId"/>
@@ -53,7 +53,7 @@ under the License.
     </form>
 
     <form name="ListWorkEffortRequestItems" separate-columns="true" target="ListWorkEffortRequestItems" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortCustRequestItemView">
                 <field-map field-name="workEffortId"/>

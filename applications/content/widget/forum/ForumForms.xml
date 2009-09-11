@@ -21,7 +21,7 @@ under the License.
     <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListForumGroups" type="list" list-name="forumGroups" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId">
             <hyperlink target="findForums" description="${uiLabelMap.FormFieldTitle_forums}">
                 <parameter param-name="forumGroupId" from-field="contentId"/>
@@ -40,7 +40,7 @@ under the License.
     </form>
 
     <form name="ListForums" type="list" list-name="forums"  separate-columns="true" target="updateForum"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentIdTo"><hidden value="${caContentIdTo}"/></field>
         <field name="contentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
@@ -82,7 +82,7 @@ under the License.
     </form>
 
     <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -102,7 +102,7 @@ under the License.
     </form>
 
     <form name="ForumGroupRoles" type="list" list-name="forumRoles" target="updateForumGroupRole" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>

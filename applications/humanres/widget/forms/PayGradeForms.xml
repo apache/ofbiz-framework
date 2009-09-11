@@ -28,7 +28,7 @@
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPayGrades" type="list" list-name="listIt" title="" target="updatePayGrade" paginate-target="FindPayGrade"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="payGradeCtx"/>
@@ -60,7 +60,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="payGrade!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListSalarySteps" type="multi" target="updateSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" paginate-target="findSalarySteps"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-one entity-name="SalaryStep" auto-field-map="true"/>
             <entity-condition entity-name="SalaryStep"> <condition-expr field-name="payGradeId" operator="equals" from-field="payGradeId"/><order-by field-name="salaryStepSeqId"/></entity-condition>

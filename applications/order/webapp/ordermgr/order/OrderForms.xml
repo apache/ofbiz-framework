@@ -96,7 +96,7 @@ under the License.
         <field name="productStoreId"> <display-entity entity-name="ProductStore"/> </field>
     </form>
     <form name="ListOrderTerms" type="list" list-name="orderTerms" target="updateOrderTerm" title=""
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListOrderTerms">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="ListOrderTerms">
         <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>
         <field name="termTypeId"><display-entity also-hidden="true" entity-name="TermType"/></field>
         <field name="orderId"><hidden/></field>
@@ -150,14 +150,14 @@ under the License.
     </form>
 
     <form name="OrderShipmentMethodHistory" type="list" list-name="orderShipmentHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="shipmentMethod"><display/></field>
         <field name="changedDate"><display/></field>
         <field name="changedByUser"><display/></field>
     </form>
 
     <form name="OrderUnitPriceHistory" type="list" list-name="orderUnitPriceHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId"><display/></field>
         <field name="oldValue"><display type="currency"/></field>
         <field name="newValue"><display type="currency"/></field>
@@ -166,7 +166,7 @@ under the License.
     </form>
 
     <form name="OrderQuantityHistory" type="list" list-name="orderQuantityHistories"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId"><display/></field>
         <field name="oldValue"><display/></field>
         <field name="newValue"><display/></field>
@@ -199,7 +199,7 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
     <form name="ListCustomerOrders" type="list" target="" list-name="listIt" title="" odd-row-style="alternate-row" 
-        default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="OrderHeaderAndRoles">
                 <field-map field-name="partyId" from-field="partyId"/>

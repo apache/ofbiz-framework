@@ -63,7 +63,7 @@ under the License.
         <field name="roleTypeId"> <hidden value="CAL_ATTENDEE"/></field>
         <field name="add"><submit/></field>
     </form>
-    <form name="ListTrainingParticipants" list-name="listIt" title="" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListTrainingParticipants" list-name="listIt" title="" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -99,7 +99,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTrainingApprovals" type="list" list-name="listIt" target="updateTrainingStatus" title="" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListTrainingApprovals" type="list" list-name="listIt" target="updateTrainingStatus" title="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -167,7 +167,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTrainingStatus" list-name="listIt" title="" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListTrainingStatus" list-name="listIt" title="" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
