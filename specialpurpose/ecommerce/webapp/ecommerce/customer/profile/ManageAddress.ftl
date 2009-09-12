@@ -28,7 +28,7 @@ under the License.
     <a class="button" id="addAddress" href="javascript:void(0)">${uiLabelMap.EcommerceAddNewAddress}</a>
     <div id="displayCreateAddressForm" class="popup" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
-      <form id="createPostalAddressForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
+      <form id="createPostalAddressForm" method="post" action="">
         <fieldset>
           <input type="hidden" name="roleTypeId" value="CUSTOMER" />
           <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
