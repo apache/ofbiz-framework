@@ -126,7 +126,7 @@ public class FinAccountPaymentServices {
 
         try {
             // fin the store requires a pin number; validate the PIN with the code
-            Map findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
+            Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
             GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", findProductStoreFinActSettingMap);
 
             if (finAccountSettings == null) {
@@ -205,7 +205,7 @@ public class FinAccountPaymentServices {
             } else {
                 BigDecimal availableBalanceOriginal = availableBalance;
                 availableBalance = availableBalance.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
-                if (availableBalance != availableBalanceOriginal) {
+                if (availableBalance.compareTo(availableBalanceOriginal) != 0) {
                     Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance [" + availableBalanceOriginal + "] was different after rounding [" + availableBalance + "]; it should never have made it into the database this way, so check whatever put it there.", module);
                 }
             }
@@ -716,7 +716,7 @@ public class FinAccountPaymentServices {
 
         // get the product store settings
         GenericValue finAccountSettings;
-        Map psfasFindMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
+        Map<String, Object> psfasFindMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
             finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", psfasFindMap);
         } catch (GenericEntityException e) {
@@ -804,7 +804,7 @@ public class FinAccountPaymentServices {
         }
 
         // hit the payment method for the amount to replenish
-        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount);
+        Map<String, BigDecimal> orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount);
         Map<String, Object> replOrderCtx = FastMap.newInstance();
         replOrderCtx.put("productStoreId", productStoreId);
         replOrderCtx.put("paymentMethodId", paymentMethod.getString("paymentMethodId"));
@@ -942,7 +942,7 @@ public class FinAccountPaymentServices {
 
         // payment amount should always be positive; adjustments may
         // create the payment for the transaction
-        Map paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
+        Map<String, Object> paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
         paymentCtx.put("paymentMethodTypeId", paymentMethodType);
         paymentCtx.put("partyIdTo", partyIdTo);
         paymentCtx.put("partyIdFrom", partyIdFrom);
@@ -968,7 +968,7 @@ public class FinAccountPaymentServices {
         paymentId = (String) payResult.get("paymentId");
 
         // create the initial transaction
-        Map transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
+        Map<String, Object> transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
         transCtx.put("finAccountId", finAccountId);
         transCtx.put("partyId", partyId);
         transCtx.put("orderId", orderId);
