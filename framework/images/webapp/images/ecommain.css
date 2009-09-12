@@ -336,7 +336,7 @@ height:auto!important;
 padding:4px;
 }
 
-#ecom-mainarea .screenlet h3 {
+#ecom-mainarea .screenlet h3, #ecom-mainarea .screenlet legend {
 background:#1C334D;
 color:#fff;
 height:auto!important;
