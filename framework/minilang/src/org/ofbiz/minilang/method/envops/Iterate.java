@@ -78,29 +78,31 @@ public class Iterate extends MethodOperation {
             EntityListIterator eli = (EntityListIterator) objList;
 
             GenericValue theEntry;
-            while ((theEntry = eli.next()) != null) {
-                entryAcsr.put(methodContext, theEntry);
+            try {
+                while ((theEntry = eli.next()) != null) {
+                    entryAcsr.put(methodContext, theEntry);
 
-                if (!SimpleMethod.runSubOps(subOps, methodContext)) {
-                    // only return here if it returns false, otherwise just carry on
+                    if (!SimpleMethod.runSubOps(subOps, methodContext)) {
+                        // only return here if it returns false, otherwise just carry on
+                        return false;
+                    }
+                }
+            } finally {
+                // close the iterator
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    String errMsg = "ERROR: Error closing entityListIterator in " + simpleMethod.getShortDescription() + " [" + e.getMessage() + "]: " + rawString();
+                    if (methodContext.getMethodType() == MethodContext.EVENT) {
+                        methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
+                        methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
+                    } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+                        methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
+                        methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
+                    }
                     return false;
                 }
-            }
-
-            // close the iterator
-            try {
-                eli.close();
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                String errMsg = "ERROR: Error closing entityListIterator in " + simpleMethod.getShortDescription() + " [" + e.getMessage() + "]: " + rawString();
-                if (methodContext.getMethodType() == MethodContext.EVENT) {
-                    methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                    methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-                } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                    methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                    methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-                }
-                return false;
             }
         } else {
             Collection<Object> theList = UtilGenerics.checkList(objList);
