@@ -237,7 +237,7 @@ public class BOMNode {
             }
             productPartRules = EntityUtil.filterByDate(productPartRules, inDate);
             newNode = substituteNode(oneChildNode, productFeatures, productPartRules);
-            if (newNode == oneChildNode) {
+            if (newNode.equals(oneChildNode)) {
                 // If no substitution has been done (no valid rule applied),
                 // we try to search for a generic link-rule
                 List genericLinkRules = delegator.findByAnd("ProductManufacturingRule",
@@ -249,9 +249,8 @@ public class BOMNode {
                                                         "productIdIn", node.get("productIdTo"))));
                 }
                 genericLinkRules = EntityUtil.filterByDate(genericLinkRules, inDate);
-                newNode = null;
                 newNode = substituteNode(oneChildNode, productFeatures, genericLinkRules);
-                if (newNode == oneChildNode) {
+                if (newNode.equals(oneChildNode)) {
                     // If no substitution has been done (no valid rule applied),
                     // we try to search for a generic node-rule
                     List genericNodeRules = delegator.findByAnd("ProductManufacturingRule",
@@ -260,7 +259,7 @@ public class BOMNode {
                     genericNodeRules = EntityUtil.filterByDate(genericNodeRules, inDate);
                     newNode = null;
                     newNode = substituteNode(oneChildNode, productFeatures, genericNodeRules);
-                    if (newNode == oneChildNode) {
+                    if (newNode.equals(oneChildNode)) {
                         // If no substitution has been done (no valid rule applied),
                         // we try to set the default (first) node-substitution
                         if (UtilValidate.isNotEmpty(genericNodeRules)) {
@@ -269,7 +268,7 @@ public class BOMNode {
                         }
                         // -----------------------------------------------------------
                         // We try to apply directly the selected features
-                        if (newNode == oneChildNode) {
+                        if (newNode.equals(oneChildNode)) {
                             Map selectedFeatures = new HashMap();
                             if (productFeatures != null) {
                                 GenericValue feature = null;
