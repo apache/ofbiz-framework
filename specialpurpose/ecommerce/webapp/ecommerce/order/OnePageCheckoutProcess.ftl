@@ -19,15 +19,15 @@ under the License.
 
 <div>
   <#assign shoppingCart = sessionAttributes.shoppingCart?if_exists />
-  <h1>${uiLabelMap.OrderCheckout}</h1>
-    <#if shoppingCart?has_content && shoppingCart.size() gt 0>
+  <h2>${uiLabelMap.OrderCheckout}</h2>
+    <#if shoppingCart?has_content && shoppingCart.size() &gt; 0>
       <div id="checkoutPanel">
 
 <#-- ========================================================================================================================== -->
         <div id="cartPanel" class="screenlet">
           <h3>${uiLabelMap.EcommerceStep} 1: ${uiLabelMap.PageTitleShoppingCart}</h3>
           <div id="cartSummaryPanel" style="display: none;">
-            <a href="javascript:void(0);" id="openCartPanel" class="buttons">${uiLabelMap.EcommerceClickHereToEdit}</a>
+            <a href="javascript:void(0);" id="openCartPanel" class="button">${uiLabelMap.EcommerceClickHereToEdit}</a>
             <table id="cartSummaryPanel_cartItems" summary="This table displays the list of item added into Shopping Cart.">
               <thead>
                 <tr>
@@ -48,7 +48,7 @@ under the License.
                       <#assign parentProductId = cartLine.getProductId() />
                     </#if>
                     <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
-                    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = ""></#if>
+                    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
                   </#if>
                   <tr id="cartItemDisplayRow_${cartLine_index}">
                     <td headers="orderItem"><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt = "Product Image" /></td>
@@ -69,7 +69,7 @@ under the License.
                 </tr>
                 <#assign orderAdjustmentsTotal = 0 />
                 <#list shoppingCart.getAdjustments() as cartAdjustment>
-                  <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal())>
+                  <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
                 </#list>
                 <tr id="completedCartDiscountRow">
                   <th id="productDiscount" scope="row">${uiLabelMap.ProductDiscount}</th>
@@ -120,7 +120,7 @@ under the License.
                                 <#assign parentProductId = cartLine.getProductId() />
                               </#if>
                               <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
-                              <#if !smallImageUrl?string?has_content><#assign smallImageUrl = ""></#if>
+                              <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
                               <#if smallImageUrl?string?has_content>
                                 <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" />
                               </#if>
@@ -187,11 +187,12 @@ under the License.
                       <input id="productPromoCode" name="productPromoCode" type="text" value="" />
                     </div>
                   </fieldset>
+                <fieldset>
+                  <a href="javascript:void(0);" class="button" id="updateShoppingCart" >${uiLabelMap.EcommerceContinueToStep} 2</a>
+                  <a style="display: none" class="button" href="javascript:void(0);" id="processingShipping">${uiLabelMap.EcommercePleaseWait}....</a>
+                </fieldset>
             </form>
-            <div class="buttons">
-              <a href="javascript:void(0);" id="updateShoppingCart" >${uiLabelMap.EcommerceContinueToStep} 2</a>
-              <a style="display: none" href="javascript:void(0);" id="processingShipping">${uiLabelMap.EcommercePleaseWait}....</a>
-            </div>
+              
           </div>
         </div>
 
@@ -199,7 +200,7 @@ under the License.
         <div id="shippingPanel" class="screenlet">
           <h3>${uiLabelMap.EcommerceStep} 2: ${uiLabelMap.FacilityShipping}</h3>
           <div id="shippingSummaryPanel" style="display: none;">
-            <a href="javascript:void(0);" id="openShippingPanel" class="buttons">${uiLabelMap.EcommerceClickHereToEdit}</a>
+            <a href="javascript:void(0);" id="openShippingPanel" class="button">${uiLabelMap.EcommerceClickHereToEdit}</a>
             <div id="shippingCompleted">
               <ul>
                 <li>
@@ -242,7 +243,6 @@ under the License.
                   <#else>
                     <input type="hidden" name="keepAddressBook" value="N" />
                   </#if>
-              </fieldset>
                   <div id="shippingFormServerError" class="errorMessage"></div>
                   <div>
                       <span>
@@ -373,11 +373,12 @@ under the License.
                             </select>
                         </span>
                     </div>
+                  </fieldset>
+                  <fieldset>
+                    <a href="javascript:void(0);" class="button" id="savePartyAndShippingContact">${uiLabelMap.EcommerceContinueToStep} 3</a>
+                    <a style="display:none" class="button" href="javascript:void(0);" id="processingShippingOptions">${uiLabelMap.EcommercePleaseWait}....</a>
+                  </fieldset>
             </form>
-            <div class="buttons">
-              <span><a href="javascript:void(0);" id="savePartyAndShippingContact">${uiLabelMap.EcommerceContinueToStep} 3</a></span>
-              <span><a style="display:none" href="javascript:void(0);" id="processingShippingOptions">${uiLabelMap.EcommercePleaseWait}....</a></span>
-            </div>
           </div>
         </div>
 
@@ -385,7 +386,7 @@ under the License.
         <div id="shippingOptionPanel" class="screenlet">
           <h3>${uiLabelMap.EcommerceStep} 3: ${uiLabelMap.PageTitleShippingOptions}</h3>
           <div id="shippingOptionSummaryPanel" class="screenlet-body" style="display: none;">
-            <a href="javascript:void(0);" id="openShippingOptionPanel" class="buttons">${uiLabelMap.EcommerceClickHereToEdit}</a>
+            <a href="javascript:void(0);" id="openShippingOptionPanel" class="button">${uiLabelMap.EcommerceClickHereToEdit}</a>
             <div class="completed" id="shippingOptionCompleted">
               <ul>
                 <li>${uiLabelMap.CommonMethod}</li>
@@ -408,11 +409,11 @@ under the License.
                       </select>
                   </div>
               </fieldset>
+              <fieldset>
+                <a href="javascript:void(0);" class="button" id="saveShippingMethod">${uiLabelMap.EcommerceContinueToStep} 4</a>
+                <a style="display:none" class="button" href="javascript:void(0);" id="processingBilling">${uiLabelMap.EcommercePleaseWait}....</a>
+              </fieldset>
             </form>
-            <div class="buttons">
-              <a href="javascript:void(0);" id="saveShippingMethod">${uiLabelMap.EcommerceContinueToStep} 4</a>
-              <a style="display:none" href="javascript:void(0);" id="processingBilling">${uiLabelMap.EcommercePleaseWait}....</a>
-            </div>
           </div>
         </div>
 
@@ -420,7 +421,7 @@ under the License.
         <div id="billingPanel" class="screenlet">
           <h3>${uiLabelMap.EcommerceStep} 4: ${uiLabelMap.AccountingBilling}</h3>
           <div id="billingSummaryPanel" class="screenlet-body" style="display: none;">
-            <a href="javascript:void(0);" id="openBillingPanel" class="buttons">${uiLabelMap.EcommerceClickHereToEdit}</a>
+            <a href="javascript:void(0);" id="openBillingPanel" class="button">${uiLabelMap.EcommerceClickHereToEdit}</a>
             <div class="completed" id="billingCompleted">
               <ul>
                 <li>
@@ -579,7 +580,7 @@ under the License.
                     </fieldset>
                     <fieldset class="col">
                         <div>
-                                <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">checked</#if> />${uiLabelMap.FacilityBillingAddressSameShipping}
+                                <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">checked</#if> /><label for="useShippingAddressForBilling">${uiLabelMap.FacilityBillingAddressSameShipping}</label>
                         </div>
                         <div id="billingAddress" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div>
@@ -626,14 +627,14 @@ under the License.
                                   <option value="_NA_">${uiLabelMap.PartyNoState}</option>
                                 </#if>
                               </select>
+                          </div>
                         </div>
-                    </div>
-              </fieldset>
+                    </fieldset>
+                    <fieldset>
+                      <a href="javascript:void(0);" class="button" id="savePaymentAndBillingContact">${uiLabelMap.EcommerceContinueToStep} 5</a>
+                      <a href="javascript:void(0);" class="button" style="display: none;" id="processingOrderSubmitPanel">${uiLabelMap.EcommercePleaseWait}....</a>
+                    </fieldset>
             </form>
-            <div class="buttons">
-              <span><a href="javascript:void(0);" id="savePaymentAndBillingContact">${uiLabelMap.EcommerceContinueToStep} 5</a></span>
-              <span><a href="javascript:void(0);" style="display: none;" id="processingOrderSubmitPanel">${uiLabelMap.EcommercePleaseWait}....</a></span>
-            </div>
           </div>
         </div>
 
@@ -643,10 +644,8 @@ under the License.
           <div id="orderSubmitPanel" style="display: none;">
             <form id="orderSubmitForm" action="<@ofbizUrl>onePageProcessOrder</@ofbizUrl>" method="post">
                 <fieldset>
-                  <div class="buttons">
                     <input type="button" id="processOrderButton" name="processOrderButton" value="${uiLabelMap.OrderSubmitOrder}" />
                     <input type="button" style="display: none;" id="processingOrderButton" name="processingOrderButton" value="${uiLabelMap.OrderSubmittingOrder}" />
-                  </div>
                 </fieldset>
             </form>
           </div>
@@ -655,14 +654,12 @@ under the License.
     </#if>
 
 <#-- ========================================================================================================================== -->
-    <div id="emptyCartCheckoutPanel" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none;"</#if>>
-      <div>
+    <div id="emptyCartCheckoutPanel" <#if shoppingCart?has_content && shoppingCart.size() &gt; 0> style="display: none;"</#if>>
         <h3>${uiLabelMap.EcommerceStep} 1: ${uiLabelMap.PageTitleShoppingCart}</h3>
         <span>You currently have no items in your cart. Click <a href="<@ofbizUrl>main</@ofbizUrl>">here</a> to view our products.</span>
         <h3>${uiLabelMap.EcommerceStep} 2: ${uiLabelMap.FacilityShipping}</h3>
         <h3>${uiLabelMap.EcommerceStep} 3: ${uiLabelMap.PageTitleShippingOptions}</h3>
         <h3>${uiLabelMap.EcommerceStep} 4: ${uiLabelMap.AccountingBilling}</h3>
         <h3>${uiLabelMap.EcommerceStep} 5: ${uiLabelMap.OrderSubmitOrder}</h3>
-      </div>
     </div>
 </div>
