@@ -102,13 +102,13 @@ under the License.
                 <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
                     ${contactMech.infoString?if_exists}
-                    <form method="post" action="<@ofbizUrl>NewDraftCommunicationEvent</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="createEmail">
+                    <form method="post" action="<@ofbizUrl>NewDraftCommunicationEvent</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="createEmail${contactMech.infoString?replace("&#64;","")?replace(".","")}">
                       <input name="partyIdFrom" value="${userLogin.partyId}" type="hidden"/>
-                      <input name="partyIdTo" value="${partyId}" type="hidden"/>
+                      <input name="contactMechIdTo" value="${contactMech.contactMechId}" type="hidden"/>
                       <input name="my" value="My" type="hidden"/>
                       <input name="statusId" value="COM_PENDING" type="hidden"/>
                       <input name="communicationEventTypeId" value="EMAIL_COMMUNICATION" type="hidden"/>
-                    </form><a class="buttontext" href="javascript:document.createEmail.submit()">${uiLabelMap.CommonSendEmail}</a>
+                    </form><a class="buttontext" href="javascript:document.createEmail${contactMech.infoString?replace("&#64;","")?replace(".","")}.submit()">${uiLabelMap.CommonSendEmail}</a>
                   </div>
                 <#elseif "WEB_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
