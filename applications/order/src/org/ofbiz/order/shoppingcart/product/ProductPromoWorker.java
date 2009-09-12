@@ -1372,7 +1372,7 @@ public class ProductPromoWorker {
                 }
             }
 
-            if (quantityDesired == startingQuantity || quantityDesired.compareTo(BigDecimal.ZERO) > 0) {
+            if (quantityDesired.compareTo(startingQuantity) == 0 || quantityDesired.compareTo(BigDecimal.ZERO) > 0) {
                 // couldn't find any (or enough) cart items to give a discount to, don't consider action run
                 actionResultInfo.ranAction = false;
                 // clear out any action uses for this so they don't become part of anything else
@@ -1418,7 +1418,7 @@ public class ProductPromoWorker {
                 }
             }
 
-            if (quantityDesired == startingQuantity) {
+            if (quantityDesired.compareTo(startingQuantity) == 0) {
                 // couldn't find any cart items to give a discount to, don't consider action run
                 actionResultInfo.ranAction = false;
             } else {
