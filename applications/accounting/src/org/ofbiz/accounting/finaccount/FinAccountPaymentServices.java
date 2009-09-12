@@ -126,7 +126,7 @@ public class FinAccountPaymentServices {
 
         try {
             // fin the store requires a pin number; validate the PIN with the code
-            Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
+            Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
             GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", findProductStoreFinActSettingMap);
 
             if (finAccountSettings == null) {
@@ -716,7 +716,7 @@ public class FinAccountPaymentServices {
 
         // get the product store settings
         GenericValue finAccountSettings;
-        Map<String, Object> psfasFindMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
+        Map<String, Object> psfasFindMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
             finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", psfasFindMap);
         } catch (GenericEntityException e) {
@@ -942,7 +942,7 @@ public class FinAccountPaymentServices {
 
         // payment amount should always be positive; adjustments may
         // create the payment for the transaction
-        Map<String, Object> paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
+        Map<String, Object> paymentCtx = UtilMisc.<String, Object>toMap("paymentTypeId", paymentType);
         paymentCtx.put("paymentMethodTypeId", paymentMethodType);
         paymentCtx.put("partyIdTo", partyIdTo);
         paymentCtx.put("partyIdFrom", partyIdFrom);
@@ -968,7 +968,7 @@ public class FinAccountPaymentServices {
         paymentId = (String) payResult.get("paymentId");
 
         // create the initial transaction
-        Map<String, Object> transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
+        Map<String, Object> transCtx = UtilMisc.<String, Object>toMap("finAccountTransTypeId", txType);
         transCtx.put("finAccountId", finAccountId);
         transCtx.put("partyId", partyId);
         transCtx.put("orderId", orderId);

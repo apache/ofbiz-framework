@@ -1816,7 +1816,7 @@ public class InvoiceServices {
                 description = "Return Invoice for Vendor Return #" + returnId;
             }
             // set the invoice data
-            Map<String, Object> input = UtilMisc.toMap("invoiceTypeId", invoiceTypeId, "statusId", "INVOICE_IN_PROCESS");
+            Map<String, Object> input = UtilMisc.<String, Object>toMap("invoiceTypeId", invoiceTypeId, "statusId", "INVOICE_IN_PROCESS");
             input.put("partyId", returnHeader.get("toPartyId"));
             input.put("partyIdFrom", returnHeader.get("fromPartyId"));
             input.put("currencyUomId", returnHeader.get("currencyUomId"));
