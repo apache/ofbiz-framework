@@ -239,9 +239,9 @@ function doPublish() {
                     <td><input type="text" name="~ml${idx}" size="6" maxlength="20" value="${featureMl.get(assocProduct.productId)?if_exists}"/></td>
                     <td><input type="text" name="~ntwt${idx}" size="6" maxlength="20" value="${featureNtwt.get(assocProduct.productId)?if_exists}"/></td>
                     <td><input type="text" name="~grams${idx}" size="6" maxlength="20" value="${featureGrams.get(assocProduct.productId)?if_exists}"/></td>
-                    <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${assocProduct.productId}</@ofbizUrl>">${featureHazmat.get(assocProduct.productId)?if_exists}</a></td>
-                    <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${featureSalesThru.get(assocProduct.productId)?if_exists}</a></td>
-                    <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${assocProduct.productId}</@ofbizUrl>">${featureThruDate.get(assocProduct.productId)?if_exists}</a></td>
+                    <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${assocProduct.productId}</@ofbizUrl>">${StringUtil.wrapString(featureHazmat.get(assocProduct.productId)?if_exists)}</a></td>
+                    <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${StringUtil.wrapString(featureSalesThru.get(assocProduct.productId)?if_exists)}</a></td>
+                    <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${assocProduct.productId}</@ofbizUrl>">${StringUtil.wrapString(featureThruDate.get(assocProduct.productId)?if_exists)}</a></td>
                 </tr>
                 <#assign idx = idx + 1/>
                 <#-- toggle the row color -->
@@ -265,9 +265,9 @@ function doPublish() {
                     <td><input type="text" name="~ml" size="6" maxlength="20" value="${ml?if_exists}"></td>
                     <td><input type="text" name="~ntwt" size="6" maxlength="20" value="${ntwt?if_exists}"></td>
                     <td><input type="text" name="~grams" size="6" maxlength="20" value="${grams?if_exists}"></td>
-                    <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${product.productId}</@ofbizUrl>">${hazmat?if_exists}</a></td>
-                    <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>">${salesthru?if_exists}</a></td>
-                    <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${product.productId}</@ofbizUrl>">${thrudate?if_exists}</a></td>
+                    <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${product.productId}</@ofbizUrl>">${StringUtil.wrapString(hazmat?if_exists)}</a></td>
+                    <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>">${StringUtil.wrapString(salesthru?if_exists)}</a></td>
+                    <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${product.productId}</@ofbizUrl>">${StringUtil.wrapString(thrudate?if_exists)}</a></td>
                 </tr>
                 <tr>
                     <td colspan=10 align="right"><input type="submit" value="${uiLabelMap.ProductUpdateShipping}"></td>
