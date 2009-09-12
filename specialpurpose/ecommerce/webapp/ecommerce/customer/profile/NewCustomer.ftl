@@ -21,13 +21,12 @@ under the License.
   <h3>${uiLabelMap.EcommerceMyAccount}</h3>
   <div class="screenlet-body">
     <form id="newUserForm" method="post" action="<@ofbizUrl>createCustomerProfile</@ofbizUrl>">
-      <fieldset>
+      <fieldset class="left center">
+        <legend>${uiLabelMap.PartyContactInformation}</legend>
         <input type="hidden" name="roleTypeId" value="CUSTOMER" />
         <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL" />
         <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
         <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
-        <div class="left center">
-          <h3>${uiLabelMap.PartyContactInformation}</h3>
           <div>
             <label for="firstName">${uiLabelMap.PartyFirstName}* <span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label>
             <input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" size="30" maxlength="30" />
@@ -42,12 +41,10 @@ under the License.
             </label>
             <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" size="30" maxlength="255" />
           </div>
-        </div>
+          <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
       </fieldset>
-      <fieldset>
-        <div class="center right">
-          <h3>${uiLabelMap.EcommerceAccountInformation}</h3>
-          <div id="userNameAndPasswordPanel">
+      <fieldset class="center right" id="userNameAndPasswordPanel">
+          <legend>${uiLabelMap.EcommerceAccountInformation}</legend>
             <div>
               <label for="username">${uiLabelMap.CommonUsername}* <span id="advice-required-username" style="display: none" class="errorMessage">(required)</span></label>
               <input type="text" name="username" id="username" class="required" value="${parameters.username?if_exists}" size="30" maxlength="255" />
@@ -62,13 +59,9 @@ under the License.
               <input type="password" name="passwordVerify" id="passwordVerify" class="required validate-passwordVerify" value="${parameters.passwordVerify?if_exists}" maxlength="16" />
               <span id="advice-validate-passwordVerify-passwordVerify" class="errorMessage" style="display:none">${uiLabelMap["loginservices.password_did_not_match_verify_password"]}</span>
             </div>
-          </div>
-        </div>
-        <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
       </fieldset>
-      <fieldset>
-        <div class="left center">
-          <h3>${uiLabelMap.OrderShippingInformation}</h3>
+      <fieldset class="left center">
+          <legend>${uiLabelMap.OrderShippingInformation}</legend>
           <div>
             <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span></label>
             <input type="text" name="shipToAddress1" id="shipToAddress1" class="required" value="${parameters.shipToAddress1?if_exists}" />
@@ -123,11 +116,9 @@ under the License.
             <input type="checkbox" class="checkbox" name="useShippingAddressForBilling" id="useShippingAddressForBilling" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked="checked"</#if> />
             <label for="useShippingAddressForBilling">${uiLabelMap.FacilityBillingAddressSameShipping}</label>
           </div>
-        </div>
       </fieldset>
-      <fieldset>
-        <div class="center right">
-          <h3>${uiLabelMap.PageTitleBillingInformation}</h3>
+      <fieldset class="center right">
+          <legend>${uiLabelMap.PageTitleBillingInformation}</legend>
           <div id="billingAddress">
             <div>
               <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span></label>
@@ -178,7 +169,6 @@ under the License.
               - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension?if_exists}")}" size="3" maxlength="3"/>
             </div>
           </div>
-        </div>
       </fieldset>
       <div><a id="submitNewUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>
     </form>
