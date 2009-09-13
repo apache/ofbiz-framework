@@ -6053,6 +6053,9 @@
         <value xml:lang="th">นามสกุลเดิมก่อนแต่งงาน</value>
         <value xml:lang="zh">母亲婚前姓</value>
     </property>
+    <property key="PartyMainRole">
+        <value xml:lang="en">Main Role</value>
+    </property>
     <property key="PartyManagerApplication">
         <value xml:lang="de">Akteur Manager Anwendung</value>
         <value xml:lang="en">Party Manager Application</value>

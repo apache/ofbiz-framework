@@ -974,7 +974,7 @@
         <value xml:lang="fr">Informations transporteur</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.ACCOUNT">
-        <value xml:lang="en">Account</value>
+        <value xml:lang="en">Account Owned by</value>
         <value xml:lang="es">Cuenta</value>
         <value xml:lang="fr">Compte</value>
         <value xml:lang="hi_IN">खाता</value>
@@ -1102,7 +1102,7 @@
         <value xml:lang="zh">主机服务器访问者</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.LEAD_OWNER">
-        <value xml:lang="en">Lead owner</value>
+        <value xml:lang="en">Lead owned by</value>
         <value xml:lang="es">Encargado de lead</value>
         <value xml:lang="fr">Propriétaire principal</value>
         <value xml:lang="hi_IN">मुख्य स्वामी</value>

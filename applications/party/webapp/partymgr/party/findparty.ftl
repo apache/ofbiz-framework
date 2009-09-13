@@ -245,6 +245,7 @@ under the License.
             <td>${uiLabelMap.ProductSoftIdentifier}</td>
           </#if>
           <td>${uiLabelMap.PartyType}</td>
+          <td>${uiLabelMap.PartyMainRole}</td>
           <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
@@ -303,6 +304,10 @@ under the License.
               <td>${partyRow.softIdentifier?if_exists}</td>
             </#if>
             <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
+            <td>
+              <#assign mainRole = dispatcher.runSync("getPartyMainRole", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRow.partyId, "userLogin", userLogin))/>
+              ${mainRole.description?if_exists}
+            </td>
             <td class="button-col align-float">
               <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
               <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
