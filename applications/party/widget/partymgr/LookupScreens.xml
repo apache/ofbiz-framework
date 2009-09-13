@@ -126,7 +126,7 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyPerson}"/>
-                <set field="entityName" value="Person"/>
+                <set field="entityName" value="PartyAndPerson"/>
                 <set field="queryString" from-field="result.queryString"/>
             </actions>
             <widgets>
