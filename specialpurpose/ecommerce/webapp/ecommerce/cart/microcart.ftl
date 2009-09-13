@@ -27,7 +27,7 @@ under the License.
             <p id="microCartNotEmpty">
                 ${uiLabelMap.EcommerceCartHas} <strong id="microCartQuantity">${shoppingCart.getTotalQuantity()}</strong>
                 <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
-                <strong id="microCartTotal"><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></strong>
+                <strong id="microCartTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></strong>
             </p>
         <#else>
             <p>${uiLabelMap.OrderShoppingCartEmpty}</p>
