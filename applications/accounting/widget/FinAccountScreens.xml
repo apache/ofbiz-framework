@@ -120,14 +120,14 @@ under the License.
                                 <not><if-empty field="finAccountId"/></not>
                             </condition>
                             <widgets>
-                                    <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"/>
+                                <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"></label>
                                 <screenlet id="EditFinAccountPanel" collapsible="true">
                                     <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext"/>
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                    <label style="h1" text="${uiLabelMap.AccountingCreateNewFinAccount}"/>
+                                    <label style="h1" text="${uiLabelMap.AccountingCreateNewFinAccount}"></label>
                                 <screenlet id="CreateFinAccountPanel" collapsible="true">
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
@@ -153,7 +153,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                            <label style="h1" text="${uiLabelMap.AccountingEditFinAccountRoleFor}"/>
+                        <label style="h1" text="${uiLabelMap.AccountingEditFinAccountRoleFor}"/>
                         <screenlet id="FinAccountRolePanel" collapsible="true">
                             <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -176,7 +176,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                            <label style="h1" text="${uiLabelMap.AccountingEditFinAccountTransactionFor}"/>
+                        <label style="h1" text="${uiLabelMap.AccountingEditFinAccountTransactionFor}"/>
                         <screenlet id="FinAccountTransPanel" collapsible="true">
                             <include-form name="AddFinAccountTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -588,7 +588,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                            <label text="${uiLabelMap.AccountingEditFinAccountReconciliations}"/>
+                        <label style="h1" text="${uiLabelMap.AccountingEditFinAccountReconciliations}"/>
                         <screenlet id="FinAccountReconciliationPanel" collapsible="true">
                             <include-form name="EditFinAccountReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -631,7 +631,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                            <label style="h1" text="${uiLabelMap.AccountingGlReconciliationFor}"></label>
+                        <label style="h1" text="${uiLabelMap.AccountingGlReconciliationFor}"></label>
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
                         </platform-specific>
