@@ -1257,4 +1257,14 @@ under the License.
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
     </service>
+
+    <service name="getPartyMainRole" engine="simple" 
+            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartyMainRole">
+        <description>Get the main role of this party which is a child of the MAIN_ROLE roletypeId</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="description" type="String" mode="OUT" optional="true"/>
+    </service>
+
+
 </services>

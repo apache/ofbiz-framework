@@ -147,8 +147,10 @@ under the License.
     <Enumeration description="Party Email Address Verification" enumCode="EMAIL_VERIFY" enumId="PRDS_EMAIL_VERIFY" sequenceId="03" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Party Invitation" enumCode="INVITE_EMAIL" enumId="PRDS_PARTYINV_EMAIL" sequenceId="04" enumTypeId="PARTY_EMAIL"/>
 
+    <!-- the groups which are the main roles on he party listing -->
+    <RoleType description="Main Role" hasTable="N" parentTypeId="" roleTypeId="MAIN_ROLE"/>
+
     <!-- top level role types -->
-    <RoleType description="Account" hasTable="N" parentTypeId="" roleTypeId="ACCOUNT"/>
     <RoleType description="Account Lead" hasTable="N" parentTypeId="" roleTypeId="ACCOUNT_LEAD"/>
     <RoleType description="Administrator" hasTable="N" parentTypeId="" roleTypeId="ADMIN"/>
     <RoleType description="Agent" hasTable="N" parentTypeId="" roleTypeId="AGENT"/>
@@ -157,16 +159,14 @@ under the License.
     <RoleType description="Client" hasTable="N" parentTypeId="" roleTypeId="CLIENT"/>
     <RoleType description="Communication Participant" hasTable="N" parentTypeId="" roleTypeId="COMMEVENT_ROLE"/>
     <RoleType description="Consumer" hasTable="N" parentTypeId="" roleTypeId="CONSUMER"/>
-    <RoleType description="Contact" hasTable="N" parentTypeId="" roleTypeId="CONTACT"/>
     <RoleType description="Contractor" hasTable="N" parentTypeId="" roleTypeId="CONTRACTOR"/>
     <RoleType description="Customer" hasTable="N" parentTypeId="" roleTypeId="CUSTOMER"/>
     <RoleType description="Distribution Channel" hasTable="N" parentTypeId="" roleTypeId="DISTRIBUTION_CHANNEL"/>
     <RoleType description="ISP" hasTable="N" parentTypeId="" roleTypeId="ISP"/>
     <RoleType description="Hosting Server" hasTable="N" parentTypeId="" roleTypeId="HOSTING_SERVER"/>
-    <RoleType description="Lead" hasTable="N" parentTypeId="" roleTypeId="LEAD"/>
     <RoleType description="Manufacturer" hasTable="N" parentTypeId="" roleTypeId="MANUFACTURER"/>
     <RoleType description="Not Applicable" hasTable="N" parentTypeId="" roleTypeId="_NA_"/>
-    <RoleType description="Organization" hasTable="N" parentTypeId="" roleTypeId="ORGANIZATION_ROLE"/>
+    <RoleType description="Organization" hasTable="N" parentTypeId="MAIN_ROLE" roleTypeId="ORGANIZATION_ROLE"/>
     <RoleType description="Owner" hasTable="N"  parentTypeId="" roleTypeId="OWNER"/>
     <RoleType description="Prospect" hasTable="N" parentTypeId="" roleTypeId="PROSPECT"/>
     <RoleType description="Person" hasTable="N" parentTypeId="" roleTypeId="PERSON_ROLE"/>
@@ -174,6 +174,7 @@ under the License.
     <RoleType description="Request Manager" hasTable="N" parentTypeId="" roleTypeId="REQ_MANAGER"/>
     <RoleType description="Requesting Party" hasTable="N" parentTypeId="" roleTypeId="REQ_REQUESTER"/>
     <RoleType description="Request Taker" hasTable="N" parentTypeId="" roleTypeId="REQ_TAKER"/>
+    <RoleType description="Sales Force Autm." hasTable="N" parentTypeId="MAIN_ROLE" roleTypeId="SFA_ROLE"/>
     <RoleType description="Shareholder" hasTable="N" parentTypeId="" roleTypeId="SHAREHOLDER"/>
     <RoleType description="Subscriber" hasTable="N" parentTypeId="" roleTypeId="SUBSCRIBER"/>
     <RoleType description="Vendor" hasTable="N" parentTypeId="" roleTypeId="VENDOR"/>
@@ -182,6 +183,7 @@ under the License.
     <RoleType description="Workflow" hasTable="N" parentTypeId="" roleTypeId="WORKFLOW_ROLE"/>
 
     <!-- second level role types -->
+    <RoleType description="Account" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="ACCOUNT"/>
     <RoleType description="Addressee" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="ADDRESSEE"/>
     <RoleType description="Association" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="ASSOCIATION"/>
     <RoleType description="Bill-From Vendor" hasTable="N" parentTypeId="VENDOR" roleTypeId="BILL_FROM_VENDOR"/>
@@ -195,6 +197,7 @@ under the License.
     <RoleType description="Calendar Owner" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_OWNER"/>
     <RoleType description="Carrier" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="CARRIER"/>
     <RoleType description="Competitor" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="COMPETITOR"/>
+    <RoleType description="Contact" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="CONTACT"/>
     <RoleType description="Carbon Copy" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="CC"/>
     <RoleType description="Originator" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="ORIGINATOR"/>
     <RoleType description="Distributor" hasTable="N" parentTypeId="DISTRIBUTION_CHANNEL" roleTypeId="DISTRIBUTOR"/>
@@ -202,6 +205,7 @@ under the License.
     <RoleType description="End-User Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="END_USER_CUSTOMER"/>
     <RoleType description="Household" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="HOUSEHOLD"/>
     <RoleType description="Internal Organization" hasTable="Y" parentTypeId="ORGANIZATION_ROLE" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <RoleType description="Lead" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="LEAD"/>
     <RoleType description="Limited Administrator" hasTable="N" parentTypeId="ADMIN" roleTypeId="LTD_ADMIN"/>
     <RoleType description="Organization Unit" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="ORGANIZATION_UNIT"/>
     <RoleType description="Partner" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="PARTNER"/>

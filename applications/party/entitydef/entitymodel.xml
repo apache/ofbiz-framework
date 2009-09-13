@@ -2620,6 +2620,24 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="roleTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="RoleTypeIn3Levels"
+        package-name="org.ofbiz.party.party" title="Party Role View in 4 levels">
+        <member-entity entity-alias="RT1" entity-name="RoleType" />
+        <member-entity entity-alias="RT2" entity-name="RoleType" />
+        <member-entity entity-alias="RT3" entity-name="RoleType" />
+        <alias entity-alias="RT1" name="topRoleTypeId" field="roleTypeId" />
+        <alias entity-alias="RT1" name="topDescription" field="description" />
+        <alias entity-alias="RT2" name="midRoleTypeId" field="roleTypeId" />
+        <alias entity-alias="RT2" name="midDescription" field="description" />
+        <alias entity-alias="RT3" name="lowRoleTypeId" field="roleTypeId" />
+        <alias entity-alias="RT3" name="lowDescription" field="description" />
+        <view-link entity-alias="RT1" rel-entity-alias="RT2" rel-optional="true">
+            <key-map field-name="roleTypeId" rel-field-name="parentTypeId"/>
+        </view-link>
+        <view-link entity-alias="RT2" rel-entity-alias="RT3" rel-optional="true">
+            <key-map field-name="roleTypeId" rel-field-name="parentTypeId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="RoleTypeAndParty"
             package-name="org.ofbiz.party.party"
             title="Party Role View Entity">

@@ -1021,4 +1021,31 @@ under the License.
         <set field="createPartyRoleInMap.userLogin" from-field="userLogin"/>
         <call-service service-name="createPartyRole" in-map-name="createPartyRoleInMap"/>
     </simple-method>
+
+    <simple-method method-name="getPartyMainRole"
+        short-description="Get the main role of this party which is a child of the MAIN_ROLE roletypeId">
+        <entity-and entity-name="PartyRole" list="partyRoles">
+            <field-map field-name="partyId" from-field="parameters.partyId" />
+        </entity-and>
+        <!-- find the role in the list -->
+        <clear-field field="mainRoleTypeId"/>
+        <iterate entry="partyRole" list="partyRoles">
+            <if-empty field="mainRoleTypeId">
+                <entity-and entity-name="RoleTypeIn3Levels" list="roleTypeIn3Levels">
+                    <field-map field-name="topRoleTypeId" value="MAIN_ROLE" />
+                    <field-map field-name="lowRoleTypeId" from-field="partyRole.roleTypeId" />
+                </entity-and>
+                <if-not-empty field="roleTypeIn3Levels">
+                    <set field="mainRoleTypeId" from-field="partyRole.roleTypeId" />
+                </if-not-empty>
+            </if-empty>
+        </iterate>
+        <if-not-empty field="mainRoleTypeId">
+            <field-to-result field="mainRoleTypeId" result-name="roleTypeId" />
+            <entity-one entity-name="RoleType" value-field="roleType">
+                <field-map field-name="roleTypeId" from-field="mainRoleTypeId" />
+            </entity-one>
+            <field-to-result result-name="description" field="roleType.description" />
+        </if-not-empty>
+    </simple-method>
 </simple-methods>
