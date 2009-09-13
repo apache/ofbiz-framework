@@ -291,7 +291,7 @@
         <value xml:lang="zh">文章</value>
     </property>
     <property key="EcommerceBlogContentNotFound">
-        <value xml:lang="da">Kan ikke finde blog indhold!</value>   
+        <value xml:lang="da">Kan ikke finde blog indhold!</value>
         <value xml:lang="en">Unable to find Blog content!</value>
         <value xml:lang="fr">Impossible de trouver le contenu du blog !</value>
         <value xml:lang="it">Non è possibile trovare il contenuto Blog!</value>
@@ -2179,7 +2179,7 @@
         <value xml:lang="de">Produktnummer</value>
         <value xml:lang="en">Product Number</value>
         <value xml:lang="es">Producto</value>
-        <value xml:lang="fr">N° d'article</value>
+        <value xml:lang="fr">N° d'article : </value>
         <value xml:lang="hi_IN">सामान नम्बर:</value>
         <value xml:lang="it">Codice prodotto:</value>
         <value xml:lang="ja">Product ID:</value>
@@ -2236,7 +2236,7 @@
         <value xml:lang="zh">询价历史记录</value>
     </property>
     <property key="EcommerceRate">
-        <value xml:lang="da">Hyppighed</value>    
+        <value xml:lang="da">Hyppighed</value>
         <value xml:lang="de">Steuern</value>
         <value xml:lang="en">Rate</value>
         <value xml:lang="es">Tasa</value>
