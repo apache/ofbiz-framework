@@ -120,18 +120,14 @@ under the License.
                                 <not><if-empty field="finAccountId"/></not>
                             </condition>
                             <widgets>
-                                <container style="h1">
-                                    <label text="${uiLabelMap.AccountingEditFinAccount}"/>
-                                </container>
+                                    <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"/>
                                 <screenlet id="EditFinAccountPanel" collapsible="true">
                                     <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext"/>
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="h1">
-                                    <label text="${uiLabelMap.AccountingCreateNewFinAccount}"/>
-                                </container>
+                                    <label style="h1" text="${uiLabelMap.AccountingCreateNewFinAccount}"/>
                                 <screenlet id="CreateFinAccountPanel" collapsible="true">
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
@@ -157,9 +153,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${uiLabelMap.AccountingEditFinAccountRoleFor}"/>
-                        </container>
+                            <label style="h1" text="${uiLabelMap.AccountingEditFinAccountRoleFor}"/>
                         <screenlet id="FinAccountRolePanel" collapsible="true">
                             <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -182,9 +176,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${uiLabelMap.AccountingEditFinAccountTransactionFor}"/>
-                        </container>
+                            <label style="h1" text="${uiLabelMap.AccountingEditFinAccountTransactionFor}"/>
                         <screenlet id="FinAccountTransPanel" collapsible="true">
                             <include-form name="AddFinAccountTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -481,9 +473,7 @@ under the License.
                         <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
                             <parameter param-name="finAccountId" from-field="finAccountId"/>
                         </link>
-                        <container style="h1">
-                            <label text="${uiLabelMap.AccountingReconcileFinAccountTransFor}"/>
-                        </container>
+                            <label style="h1" text="${uiLabelMap.AccountingReconcileFinAccountTransFor}"/>
                         <section>
                             <condition>
                                 <not>
@@ -550,9 +540,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${uiLabelMap.AccountingCreateNewDepositPaymentFor}"/>
-                        </container>
+                            <label style="h1" text="${uiLabelMap.AccountingCreateNewDepositPaymentFor}"/>
                         <screenlet id="EditDepositPaymentPanel" collapsible="true">
                             <include-form name="EditDepositPayment" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -574,9 +562,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${uiLabelMap.AccountingCreateNewWithdrawalPaymentFor}"/>
-                        </container>
+                            <label style="h1" text="${uiLabelMap.AccountingCreateNewWithdrawalPaymentFor}"/>
                         <screenlet id="EditWithdrawalPaymentPanel" collapsible="true">
                             <include-form name="EditWithdrawalPayment" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -602,9 +588,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
                             <label text="${uiLabelMap.AccountingEditFinAccountReconciliations}"/>
-                        </container>
                         <screenlet id="FinAccountReconciliationPanel" collapsible="true">
                             <include-form name="EditFinAccountReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
@@ -647,9 +631,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${uiLabelMap.AccountingGlReconciliationFor}"></label>
-                        </container>
+                            <label style="h1" text="${uiLabelMap.AccountingGlReconciliationFor}"></label>
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
                         </platform-specific>
