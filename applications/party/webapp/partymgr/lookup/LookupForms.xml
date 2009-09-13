@@ -182,12 +182,7 @@ under the License.
     <form name="listLookupPerson" type="list" list-name="listIt" paginate-target="LookupPerson"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" from-field="entityName"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
-            </service>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="Person" default-field-type="display"/>-->
         <field name="partyId"  widget-style="smallSubmit" title="${uiLabelMap.PartyPartyId}">
@@ -274,12 +269,7 @@ under the License.
     <form name="listLookupPartyGroup" type="list" list-name="listIt" paginate-target="LookupPartyGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-          <service service-name="performFind" result-map="result" result-map-list="listIt">
-            <field-map field-name="inputFields" from-field="parameters"/>
-            <field-map field-name="entityName" from-field="entityName"/>
-            <field-map field-name="viewIndex" from-field="viewIndex"/>
-            <field-map field-name="viewSize" from-field="viewSize"/>
-          </service>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
