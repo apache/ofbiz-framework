@@ -327,10 +327,10 @@ function setAlternateGwp(field) {
               <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></td>
               <td>&nbsp;</td>
             </tr>
-            <#if (shoppingCart.getDisplaySubTotal()-shoppingCart.getSubTotal() > 0.0)>
+            <#if (shoppingCart.getDisplayTaxIncluded() > 0.0)>
               <tr>
                 <th>${uiLabelMap.OrderSalesTaxIncluded}:</th>
-                <td><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal()-shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></td>
+                <td><@ofbizCurrency amount=shoppingCart.getDisplayTaxIncluded() isoCode=shoppingCart.getCurrency()/></td>
                 <td>&nbsp;</td>
               </tr>
             </#if>

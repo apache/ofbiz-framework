@@ -2522,6 +2522,11 @@ public class ShoppingCart implements Serializable {
         return itemsTotal;
     }
 
+    public BigDecimal getDisplayTaxIncluded() {
+        BigDecimal taxIncluded  = getDisplaySubTotal().subtract(getSubTotal());
+        return taxIncluded.setScale(taxFinalScale, taxRounding);
+    }
+
     public BigDecimal getDisplayRecurringSubTotal() {
         BigDecimal itemsTotal = BigDecimal.ZERO;
         Iterator i = iterator();
