@@ -28,5 +28,5 @@ under the License.
 			Please find here a general introduction to the party component (to be continued)
         </para>
 	</section>
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_findparty.xml" />
+	<xi:include href="../data/helpdata/HELP_PARTY_findparty.xml" />
 </chapter>
