@@ -39,7 +39,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <!-- To use conventional pages uncomment following screens i.e. newcustomer and viewprofile and comment new screens i.e. newcustomer and viewprofile screens below -->
+    <!--
     <screen name="newcustomer">
         <section>
             <actions>
@@ -76,6 +77,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    -->
     <screen name="editcontactmech">
         <section>
             <actions>
@@ -518,8 +520,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- To use new pages uncomment following screens i.e. newcustomer and viewprofile and comment existing newcustomer and viewprofile screens above -->
-    <!--
+
     <screen name="newcustomer">
         <section>
             <actions>
@@ -563,7 +564,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    -->
 
     <screen name="EditProfile">
         <section>
