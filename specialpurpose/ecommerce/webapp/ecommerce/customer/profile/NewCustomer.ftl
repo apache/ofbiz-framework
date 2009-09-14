@@ -117,9 +117,8 @@ under the License.
             <label for="useShippingAddressForBilling">${uiLabelMap.FacilityBillingAddressSameShipping}</label>
           </div>
       </fieldset>
-      <fieldset class="center right">
+      <fieldset class="center right" id="billingAddress">
           <legend>${uiLabelMap.PageTitleBillingInformation}</legend>
-          <div id="billingAddress">
             <div>
               <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span></label>
               <input type="text" name="billToAddress1" id="billToAddress1" class="required" value="${parameters.billToAddress1?if_exists}" />
@@ -168,7 +167,6 @@ under the License.
               - <input type="text" name="billToContactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${parameters.billToContactNumber?if_exists}")}" size="6" maxlength="7"/>
               - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension?if_exists}")}" size="3" maxlength="3"/>
             </div>
-          </div>
       </fieldset>
       <div><a id="submitNewUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>
     </form>
