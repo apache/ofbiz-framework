@@ -51,7 +51,7 @@ public class EntityExpr extends EntityCondition {
     };
 
     private Object lhs = null;
-    private EntityOperator<?> operator = null;
+    private EntityOperator<?, ?, ?> operator = null;
     private Object rhs = null;
 
     protected EntityExpr() {}
