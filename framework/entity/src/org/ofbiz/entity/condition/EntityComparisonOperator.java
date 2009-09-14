@@ -41,7 +41,7 @@ import org.ofbiz.entity.model.ModelField;
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  */
-public class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean> {
+public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean> {
 
     public static final String module = EntityComparisonOperator.class.getName();
 
@@ -129,9 +129,7 @@ public class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean
         }
     }
 
-    public <T> boolean compare(Comparable<T> lhs, T rhs) {
-        throw new UnsupportedOperationException(codeString);
-    }
+    public abstract boolean compare(L lhs, R rhs);
 
     public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
@@ -158,7 +156,7 @@ public class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean
         }
 
         if (leftValue == WILDCARD || rightValue == WILDCARD) return true;
-        return compare((Comparable) leftValue, rightValue);
+        return compare((L) leftValue, (R) rightValue);
     }
 
     @Override
