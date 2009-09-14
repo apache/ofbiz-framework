@@ -135,14 +135,14 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     static { register("greater-equals", GREATER_THAN_EQUAL_TO); }
     static { register("greater-than-equal-to", GREATER_THAN_EQUAL_TO); }
     static { register("greaterThanEqualTo", GREATER_THAN_EQUAL_TO); }
-    public static final EntityComparisonOperator IN = new ComparableEntityComparisonOperator(ID_IN, "IN") {
+    public static final EntityComparisonOperator IN = new CollectionEntityComparisonOperator(ID_IN, "IN") {
         @Override
         public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
         protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register("in", IN); }
-    public static final EntityComparisonOperator BETWEEN = new ComparableEntityComparisonOperator(ID_BETWEEN, "BETWEEN") {
+    public static final EntityComparisonOperator BETWEEN = new CollectionEntityComparisonOperator(ID_BETWEEN, "BETWEEN") {
         @Override
         public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
@@ -165,7 +165,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         public <T> boolean compare(Comparable<T> lhs, T rhs) { return !EntityComparisonOperator.compareLike(lhs, rhs); }
     };
     static { register("not-like", NOT_LIKE); }
-    public static final EntityComparisonOperator NOT_IN = new ComparableEntityComparisonOperator(ID_NOT_IN, "NOT IN") {
+    public static final EntityComparisonOperator NOT_IN = new CollectionEntityComparisonOperator(ID_NOT_IN, "NOT IN") {
         @Override
         public <T> boolean compare(Comparable<T> lhs, T rhs) { return !EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
@@ -278,8 +278,8 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         }
     };
 
-    public static abstract class ComparableEntityComparisonOperator extends EntityComparisonOperator<Comparable, Collection<Comparable>> {
-        public ComparableEntityComparisonOperator(int id, String code) {
+    public static abstract class CollectionEntityComparisonOperator extends EntityComparisonOperator<Comparable, Collection<Comparable>> {
+        public CollectionEntityComparisonOperator(int id, String code) {
             super(id, code);
         }
     }
