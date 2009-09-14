@@ -29,7 +29,7 @@ import org.ofbiz.entity.util.EntityFindOptions
 import org.ofbiz.product.inventory.*
 
 action = request.getParameter("action");
-
+statusId = request.getParameter("statusId");
 searchParameterString = "";
 searchParameterString = "action=Y&facilityId=" + facilityId;
 
@@ -164,15 +164,39 @@ if (action) {
 
     prods.each { oneProd ->
         oneInventory = [:];
+        resultMap = [:];
         oneInventory.checkTime = checkTime;
         oneInventory.facilityId = facilityId;
         oneInventory.productId = oneProd.productId;
-        oneInventory.minimumStock = oneProd.minimumStock as String;
+        minimumStock = oneProd.minimumStock as String;
+        oneInventory.minimumStock = minimumStock;
         oneInventory.reorderQuantity = oneProd.reorderQuantity;
         oneInventory.daysToShip = oneProd.daysToShip;
-        rows.add(oneInventory);
-    }
 
+        resultMap = dispatcher.runSync("getProductInventoryAndFacilitySummary", [productId : oneProd.productId, minimumStock : minimumStock, facilityId : oneProd.facilityId, checkTime : checkTime, statusId : statusId]);
+        if (resultMap) {
+            oneInventory.totalAvailableToPromise = resultMap.totalAvailableToPromise;
+            oneInventory.totalQuantityOnHand = resultMap.totalQuantityOnHand;
+            oneInventory.quantityOnOrder = resultMap.quantityOnOrder;
+            oneInventory.offsetQOHQtyAvailable = resultMap.offsetQOHQtyAvailable;
+            oneInventory.offsetATPQtyAvailable = resultMap.offsetATPQtyAvailable;
+            oneInventory.usageQuantity = resultMap.usageQuantity;
+            oneInventory.defultPrice = resultMap.defultPrice;
+            oneInventory.listPrice = resultMap.listPrice;
+            oneInventory.wholeSalePrice = resultMap.wholeSalePrice;
+            if (offsetQOHQty && offsetATPQty) {
+                if ((offsetQOHQty && resultMap.offsetQOHQtyAvailable < offsetQOH) && (offsetATPQty && resultMap.offsetATPQtyAvailable < offsetATP)) {
+                    rows.add(oneInventory);
+                }
+            }else if (offsetQOHQty || offsetATPQty) {
+                if ((offsetQOHQty && resultMap.offsetQOHQtyAvailable < offsetQOH) || (offsetATPQty && resultMap.offsetATPQtyAvailable < offsetATP)) {
+                    rows.add(oneInventory);
+                }
+            } else {
+                rows.add(oneInventory);
+            }
+        }
+    }
 }
 context.inventoryByProduct = rows;
 context.searchParameterString = searchParameterString;
