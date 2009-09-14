@@ -295,6 +295,9 @@ public class EbayOrderServices {
                             Map<String, Object> orderCtx = FastMap.newInstance();    
                             Element ordersElement = (Element) ordersElemIter.next();
                             String externalOrderId = UtilXml.childElementValue(ordersElement, "OrderID");
+                            if (externalOrderExists(delegator, externalOrderId) != null) {
+                                continue;
+                            }
                             orderCtx.put("externalId", externalOrderId);
                             orderCtx.put("amountPaid", UtilXml.childElementValue(ordersElement, "Total", "0"));
                             orderCtx.put("createdDate", UtilXml.childElementValue(ordersElement, "CreatedTime"));
