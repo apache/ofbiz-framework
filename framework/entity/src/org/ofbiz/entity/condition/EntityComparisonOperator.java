@@ -41,7 +41,7 @@ import org.ofbiz.entity.model.ModelField;
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  */
-public class EntityComparisonOperator extends EntityOperator<Boolean> {
+public class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean> {
 
     public static final String module = EntityComparisonOperator.class.getName();
 

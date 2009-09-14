@@ -35,7 +35,7 @@ import org.ofbiz.entity.model.ModelEntity;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
-public class EntityJoinOperator extends EntityOperator<Boolean> {
+public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition, Boolean> {
 
     protected boolean shortCircuitValue;
 
