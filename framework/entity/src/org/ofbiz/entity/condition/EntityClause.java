@@ -36,13 +36,13 @@ public class EntityClause {
     private String secondField = "";
     private ModelEntity firstModelEntity = null;
     private ModelEntity secondModelEntity = null;
-    private EntityOperator<?> interFieldOperation = null;
-    private EntityOperator<?> intraFieldOperation = null;
+    private EntityOperator interFieldOperation = null;
+    private EntityOperator intraFieldOperation = null;
 
     private Object value = null;
     public EntityClause() {}
 
-    public EntityClause(String firstEntity, String secondEntity, String firstField, String secondField, EntityOperator<?> interFieldOperation, EntityOperator<?> intraFieldOperation) {
+    public EntityClause(String firstEntity, String secondEntity, String firstField, String secondField, EntityOperator interFieldOperation, EntityOperator intraFieldOperation) {
         this.firstEntity = firstEntity;
         this.secondEntity = secondEntity;
         this.firstField = firstField;
@@ -51,7 +51,7 @@ public class EntityClause {
         this.intraFieldOperation = intraFieldOperation;
     }
 
-    public EntityClause(String firstEntity, String firstField, Object value, EntityOperator<?> interFieldOperation, EntityOperator<?> intraFieldOperation) {
+    public EntityClause(String firstEntity, String firstField, Object value, EntityOperator interFieldOperation, EntityOperator intraFieldOperation) {
         this.firstEntity = firstEntity;
         this.firstField = firstField;
         this.value = value;
@@ -80,11 +80,11 @@ public class EntityClause {
         return value;
     }
 
-    public EntityOperator<?> getInterFieldOperation() {
+    public EntityOperator getInterFieldOperation() {
         return interFieldOperation;
     }
 
-    public EntityOperator<?> getIntraFieldOperation() {
+    public EntityOperator getIntraFieldOperation() {
         return intraFieldOperation;
     }
 
@@ -104,11 +104,11 @@ public class EntityClause {
         this.secondField = secondField;
     }
 
-    public void setInterFieldOperation(EntityOperator<?> interFieldOperation) {
+    public void setInterFieldOperation(EntityOperator interFieldOperation) {
         this.interFieldOperation = interFieldOperation;
     }
 
-    public void setIntraFieldOperation(EntityOperator<?> intraFieldOperation) {
+    public void setIntraFieldOperation(EntityOperator intraFieldOperation) {
         this.intraFieldOperation = intraFieldOperation;
     }
 

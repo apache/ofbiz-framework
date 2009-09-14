@@ -1223,7 +1223,7 @@ public class ModelViewEntity extends ModelEntity {
         }
         
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
-            EntityOperator<?> operator = EntityOperator.lookup(this.operator);
+            EntityOperator operator = EntityOperator.lookup(this.operator);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + this.operator);
             }
@@ -1326,7 +1326,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            EntityOperator<?> operator = EntityOperator.lookup(this.combine);
+            EntityOperator operator = EntityOperator.lookup(this.combine);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operator);
             }
