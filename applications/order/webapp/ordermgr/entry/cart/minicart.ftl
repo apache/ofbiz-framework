@@ -30,11 +30,11 @@ under the License.
         <#if (shoppingCartSize > 0)>
           <#if hidetoplinks?default("N") != "Y">
             <ul>
-              <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttons">${uiLabelMap.OrderViewCart}</a></li>
-              <li><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttons">${uiLabelMap.OrderCheckout}</a></li>
-              <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttons">${uiLabelMap.OrderCheckoutQuick}</a></li>
-              <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttons">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="buttons">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+              <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="button">${uiLabelMap.OrderViewCart}</a></li>
+              <li><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckout}</a></li>
+              <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckoutQuick}</a></li>
+              <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
+              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
             </ul>
           </#if>
           <table>
@@ -44,7 +44,14 @@ under the License.
                 <th>${uiLabelMap.OrderItem}</th>
                 <th>${uiLabelMap.CommonSubtotal}</th>
               </tr>
-            <thead>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="3">
+                  ${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/>
+                </td>
+              </tr>
+            </tfoot>
             <tbody>
             <#list shoppingCart.items() as cartLine>
               <tr>
@@ -57,31 +64,24 @@ under the License.
                           <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a>
                       </#if>
                   <#else>
-                    <b>${cartLine.getItemTypeDescription()?if_exists}</b>
+                    <strong>${cartLine.getItemTypeDescription()?if_exists}</strong>
                   </#if>
                 </td>
                 <td><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></td>
               </tr>
               <#if cartLine.getReservStart()?exists>
-                <tr><td>&nbsp;</td><td colspan="2">(${cartLine.getReservStart()?string("yyyy-MM-dd")}, ${cartLine.getReservLength()} <#if cartLine.getReservLength() == 1>${uiLabelMap.CommonDay}<#else/>${uiLabelMap.CommonDays}</#if>)</td></tr>
+                <tr><td>&nbsp;</td><td colspan="2">(${cartLine.getReservStart()?string("yyyy-MM-dd")}, ${cartLine.getReservLength()} <#if cartLine.getReservLength() == 1>${uiLabelMap.CommonDay}<#else>${uiLabelMap.CommonDays}</#if>)</td></tr>
               </#if>
             </#list>
             </tbody>
-            <tfoot>
-            <tr>
-              <th colspan="3">
-                ${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/>
-              </th>
-            </tr>
-            </tfoot>
           </table>
           <#if hidebottomlinks?default("N") != "Y">
             <ul>
-              <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttons">${uiLabelMap.OrderViewCart}</a></li>
-              <li><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttons">${uiLabelMap.OrderCheckout}</a></li>
-              <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttons">${uiLabelMap.OrderCheckoutQuick}</a></li>
-              <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="buttons">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="buttons">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+              <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="button">${uiLabelMap.OrderViewCart}</a></li>
+              <li><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckout}</a></li>
+              <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckoutQuick}</a></li>
+              <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
+              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
             </ul>
           </#if>
         <#else>
