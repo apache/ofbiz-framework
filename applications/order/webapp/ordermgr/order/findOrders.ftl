@@ -281,7 +281,7 @@ function toggleOrderIdList() {
                     </#if>
                     <option value="">${uiLabelMap.CommonAnyWebSite}</option>
                     <#list webSites as webSite>
-                      <option value="${webSite.webSiteId}">${webSite.siteName}</option>
+                      <option value="${webSite.webSiteId}">${webSite.siteName?if_exists}</option>
                     </#list>
                   </select>
                 </td>
