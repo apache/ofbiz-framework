@@ -19,11 +19,10 @@ under the License.
 
 <div class="screenlet">
   <h3>${uiLabelMap.EcommerceMyAccount}</h3>
-  <form id="editUserForm" name="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
-    <fieldset>
-      <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-      <input type="hidden" name="emailContactMechId" value="${emailContactMechId?if_exists}"/>
-      <div class="left center">
+  <form id="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
+    <fieldset class="left center">
+      <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL" />
+      <input type="hidden" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
         <h3>${uiLabelMap.PartyContactInformation}</h3>
         <div>
           <label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label>
@@ -38,13 +37,11 @@ under the License.
             <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
             <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
           </label>
-          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" size="30" maxlength="255"/>
+          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" size="30" maxlength="255" />
         </div>
-      </div>
     </fieldset>
 
-    <fieldset>
-      <div class="center right">
+    <fieldset class="center right">
         <h3>${uiLabelMap.EcommerceAccountInformation}</h3>
         <div>
           <label for="userLoginId">${uiLabelMap.CommonUsername}*</label>
@@ -62,7 +59,6 @@ under the License.
           <label for="newPasswordVerify">${uiLabelMap.CommonNewPasswordVerify}*</label>
           <input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" size="30" maxlength="16" />
         </div>
-      </div>
     </fieldset>
     <div><a id="submitEditUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>
   </form>
