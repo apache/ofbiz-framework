@@ -33,7 +33,7 @@
         <value xml:lang="th">OFBiz</value>
     </property>
     <property key="EbayEBayOrders">
-        <value xml:lang="en">eBay Orders</value>
+        <value xml:lang="en">eBay Orders Import</value>
     </property>
     <property key="EbayExportToEbay">
         <value xml:lang="de">zu eBay exportieren</value>

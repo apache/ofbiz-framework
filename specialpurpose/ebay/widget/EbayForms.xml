@@ -99,19 +99,6 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
-    </form>
-
-    <form name="ListEbayOrders" type="multi" use-row-submit="true" list-name="orderList" target="ImportEbayOrders"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="productStoreId"><hidden/></field>
-        <field name="eBayOrderId" title="${uiLabelMap.EbayEbayOrderId}"><display/></field>
-        <field name="orderId">
-            <hyperlink target="orderview" description="${orderId}">
-                <parameter param-name="orderId"/>
-            </hyperlink>
-        </field>
-        <field name="createdDate"><display/></field>
-        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}"><submit button-type="button"/></field>
     </form>
 </forms>
