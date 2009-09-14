@@ -287,11 +287,13 @@
     </property>
     <property key="WorkEffortType.description.BUSINESS_TRAVEL">
         <value xml:lang="en">Business Travel</value>
+        <value xml:lang="en">Voyage professionnel</value>
         <value xml:lang="it">Viaggio di lavoro</value>
         <value xml:lang="zh">商务旅行</value>
     </property>
     <property key="WorkEffortType.description.COMPANY_EVENT">
         <value xml:lang="en">Company Events</value>
+        <value xml:lang="fr">Séminaire d'entreprise</value>
         <value xml:lang="it">Eventi aziendali</value>
         <value xml:lang="zh">公司事件</value>
     </property>
@@ -307,11 +309,13 @@
     </property>
     <property key="WorkEffortType.description.MEETING">
         <value xml:lang="en">Meeting</value>
+        <value xml:lang="fr">Réunion</value>
         <value xml:lang="it">Incontri</value>
         <value xml:lang="zh">会议</value>
     </property>
     <property key="WorkEffortType.description.PERSONAL_TIMEOFF">
         <value xml:lang="en">Personal Time Off</value>
+        <value xml:lang="fr">Temps libre personnel</value>
         <value xml:lang="it">Tempo libero personale</value>
         <value xml:lang="zh">个人空闲时间</value>
     </property>
@@ -327,6 +331,7 @@
     </property>
     <property key="WorkEffortType.description.PHASE_TEMPLATE">
         <value xml:lang="en">Project Phase Template</value>
+        <value xml:lang="fr">Modèle de phase de projet</value>
         <value xml:lang="it">Fase progetto template</value>
         <value xml:lang="zh">项目阶段模板</value>
     </property>
@@ -370,11 +375,13 @@
     </property>
     <property key="WorkEffortType.description.PROJECT_TEMPLATE">
         <value xml:lang="en">Project Template</value>
+        <value xml:lang="fr">Modèle de projet</value>
         <value xml:lang="it">Progetto template</value>
         <value xml:lang="zh">项目模板</value>
     </property>
     <property key="WorkEffortType.description.PUBLISH_PROPS">
         <value xml:lang="en">Publish Properties</value>
+        <value xml:lang="fr">Propriétés de publication</value>
         <value xml:lang="it">Pubblica properties</value>
         <value xml:lang="zh">发布属性</value>
     </property>
@@ -408,13 +415,19 @@
     </property>
     <property key="WorkEffortType.description.TASK_TEMPLATE">
         <value xml:lang="en">Project Task Template</value>
+        <value xml:lang="en">Modèle de tâche de projet</value>
         <value xml:lang="it">Compito progetto template</value>
         <value xml:lang="zh">项目任务模板</value>
     </property>
     <property key="WorkEffortType.description.TEMPLATE">
         <value xml:lang="en">Template</value>
+        <value xml:lang="fr">Modèle</value>
         <value xml:lang="it">Template</value>
         <value xml:lang="zh">模板</value>
+    </property>
+    <property key="WorkEffortType.description.TRAINING">
+        <value xml:lang="en">Training</value>
+        <value xml:lang="fr">Formation</value>
     </property>
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>

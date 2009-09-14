@@ -1598,6 +1598,7 @@
     </property>
     <property key="RoleType.description.CAL_HOST">
         <value xml:lang="en">Calendar Host</value>
+        <value xml:lang="fr">Hôte du calendrier</value>
         <value xml:lang="hi_IN">कैलेंडर मेजबान</value>
         <value xml:lang="it">Ospite calendario</value>
         <value xml:lang="zh">日历主机</value>
@@ -1940,6 +1941,10 @@
         <value xml:lang="ru">Домохозяйство</value>
         <value xml:lang="th">สมาชิกในองค์กร</value>
         <value xml:lang="zh">家庭</value>
+    </property>
+    <property key="RoleType.description.ICAL_MEMBER">
+        <value xml:lang="en">Calendar Member</value>
+        <value xml:lang="fr">Membre iCalendar</value>
     </property>
     <property key="RoleType.description.INTERNAL_ORGANIZATIO">
         <value xml:lang="de">Interne Organisation</value>
