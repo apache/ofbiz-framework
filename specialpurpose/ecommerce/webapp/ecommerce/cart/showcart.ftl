@@ -150,7 +150,7 @@ function setAlternateGwp(field) {
               <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.OrderCheckout}</span></#if>
             </div>
         </div>
-        <br>
+        <br/>
         <h1>&nbsp;${uiLabelMap.OrderShoppingCart}</h1>
     </div>
     <div>
