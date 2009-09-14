@@ -113,10 +113,29 @@ under the License.
     <service name="getEbayOrders" engine="java" transaction-timeout="300"
              location="org.ofbiz.ebay.EbayOrderServices" invoke="getEbayOrders" auth="true">
         <description>Get Orders from eBay</description>
-        <attribute type="String" mode="IN" name="productStoreId" optional="false"/>
-        <attribute type="String" mode="IN" name="fromDate" optional="false"/>
-        <attribute type="String" mode="IN" name="thruDate" optional="false"/>
-        <attribute type="List" mode="OUT" name="orderList" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="String" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="String" mode="IN" optional="false"/>
+        <attribute name="orderList" type="List" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="importEbayOrders" engine="java" transaction-timeout="7200"
+             location="org.ofbiz.ebay.EbayOrderServices" invoke="importEbayOrders" auth="true">
+        <description>Import Order from eBay</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="externalId" type="String" mode="IN" optional="false"/>
+        <attribute name="emailBuyer" type="String" mode="IN" optional="true"/>
+        <attribute name="amountPaid" type="String" mode="IN" optional="true"/>                
+        <attribute name="createdDate" type="String" mode="IN" optional="false"/>
+        <attribute name="paidTime" type="String" mode="IN" optional="true"/>
+        <attribute name="shippedTime" type="String" mode="IN" optional="true"/>
+        <attribute name="ebayUserIdBuyer" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingAddressCtx" type="Map" mode="IN" optional="true"/>
+        <attribute name="shippingServiceSelectedCtx" type="Map" mode="IN" optional="true"/>
+        <attribute name="shippingDetailsCtx" type="Map" mode="IN" optional="true"/>
+        <attribute name="checkoutStatusCtx" type="Map" mode="IN" optional="true"/>
+        <attribute name="externalTransactionCtx" type="Map" mode="IN" optional="true"/>
+        <attribute name="orderItemList" type="List" mode="IN" optional="true"/>
     </service>
     
 </services>

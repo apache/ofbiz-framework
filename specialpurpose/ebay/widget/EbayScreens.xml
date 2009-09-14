@@ -206,24 +206,20 @@ under the License.
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="EBAY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="search-options">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.EbayEBayOrders}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
                                         <include-form name="FindEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
-                                    </decorator-section>
-                                    <decorator-section name="search-results">
-                                        <include-form name="ListEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
-                                    </decorator-section>
-                                </decorator-screen>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
