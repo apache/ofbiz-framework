@@ -42,7 +42,7 @@ under the License.
           <li id="googleCheckoutEnabled"><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>"><img src="https://checkout.google.com/buttons/checkout.gif?merchant_id=634321449957567&amp;w=160&amp;h=43&amp;style=white&amp;variant=text&amp;loc=en_US" alt="[${uiLabelMap.EcommerceCartToGoogleCheckout}]" /></a></li>
           <li id="googleCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceCartToGoogleCheckout}]</li>
           <#if shoppingCart?has_content && (shoppingCart.getGrandTotal() > 0)>
-            <li id="microCartPayPalCheckout"><a href="<@ofbizUrl>setPayPalCheckout</@ofbizUrl>"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="[PayPal Express Checkout]" /></a><li>
+            <li id="microCartPayPalCheckout"><a href="<@ofbizUrl>setPayPalCheckout</@ofbizUrl>"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="[PayPal Express Checkout]" /></a></li>
           </#if>
       <#else>
           <li class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</li>
