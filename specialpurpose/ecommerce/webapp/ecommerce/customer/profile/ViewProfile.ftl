@@ -35,8 +35,7 @@ under the License.
     <div>
       <a class="button" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManageAddresses}</a>
       <div class="left center">
-        <div class='boxhead'><h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3></div>
-        <div>
+        <h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3>
           <ul>
           <#if shipToContactMechId?exists>
             <li>${shipToAddress1?if_exists}</li>
@@ -65,11 +64,9 @@ under the License.
             <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
           </#if>
           </ul>
-        </div>
       </div>
       <div class="right center">
-        <div class='boxhead'><h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3></div>
-        <div>
+        <h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3>
           <ul>
           <#if billToContactMechId?exists>
             <li>${billToAddress1?if_exists}</li>
@@ -98,7 +95,6 @@ under the License.
             <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
           </#if>
           </ul>
-        </div>
       </div>
     </div>
   </div>

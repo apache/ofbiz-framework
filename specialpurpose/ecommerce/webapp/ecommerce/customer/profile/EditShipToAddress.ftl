@@ -20,10 +20,10 @@ under the License.
 <div id="shipToServerError" class="errorMessage"></div>
 <form id="editShipToPostalAddress" method="post" action="<@ofbizUrl></@ofbizUrl>">
   <fieldset>
-    <input type="hidden" name="setShippingPurpose" value="Y"/>
-    <input type="hidden" name="contactMechId" value="${shipToContactMechId?if_exists}"/>
-    <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
-    <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
+    <input type="hidden" name="setShippingPurpose" value="Y" />
+    <input type="hidden" name="contactMechId" value="${shipToContactMechId?if_exists}" />
+    <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+    <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
     <div>
       <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*</label>
       <input type="text" class="left required" name="address1" id="shipToAddress1" value="${shipToAddress1?if_exists}" size="30" maxlength="30" />
@@ -79,7 +79,7 @@ under the License.
     </#if>
     <div>
       <label for="setBillingPurposeForShipping">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>
-      <input type="checkbox" name="setBillingPurpose" id="setBillingPurposeForShipping" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if>/>
+      <input type="checkbox" name="setBillingPurpose" id="setBillingPurposeForShipping" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if> />
     </div>
     <div>
       <a name="submitEditShipToPostalAddress" id="submitEditShipToPostalAddress" class="button" onclick="updatePartyShipToPostalAddress('submitEditShipToPostalAddress')">${uiLabelMap.CommonSubmit}</a>
