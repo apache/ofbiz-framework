@@ -267,7 +267,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="acctgTransEntries" type="java.util.List" mode="IN" optional="false"/>
-        <attribute name="acctgTransId" type="String" mode="OUT"/>
+        <override name="acctgTransId" type="String" mode="OUT"/>
     </service>
     <service name="calculateAcctgTransTrialBalance" default-entity-name="AcctgTrans" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="calculateAcctgTransTrialBalance" auth="true">
