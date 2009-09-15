@@ -357,21 +357,26 @@ public class EbayHelper {
     public static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state,
             String country) {
         try {
+            String geoCode = null;
             Debug.logInfo("correctCityStateCountry params: " + city + ", " + state + ", " + country, module);
             if (UtilValidate.isEmpty(country)) {
-                country = "US";
+                geoCode = "US";
             }
             country = country.toUpperCase();
             if (country.indexOf("UNITED STATES") > -1 || country.indexOf("USA") > -1) {
-                country = "US";
+                geoCode = "US";
             }
-            Debug.logInfo("GeoCode: " + country, module);
-            Map outMap = getCountryGeoId(dispatcher.getDelegator(), country);
+            if (UtilValidate.isEmpty(geoCode)) {
+                geoCode = country;
+            }
+            Debug.logInfo("GeoCode: " + geoCode, module);
+            Map outMap = getCountryGeoId(dispatcher.getDelegator(), geoCode);
             String geoId = (String) outMap.get("geoId");
             if (UtilValidate.isEmpty(geoId)) {
                 geoId = "USA";
             }
             map.put("countryGeoId", geoId);
+            country = geoId;
             Debug.logInfo("Country geoid: " + geoId, module);
             if (geoId.equals("USA") || geoId.equals("CAN")) {
                 if (UtilValidate.isNotEmpty(state)) {
@@ -524,7 +529,6 @@ public class EbayHelper {
                 // now compare values. If all fields match, that's our shipping
                 // address. Return the related contact mech id.
                 if (context.get("shippingAddressStreet1").toString().equals((postalAddress.get("address1").toString()))
-                        && context.get("shippingAddressStreet2").toString().equals((postalAddress.get("address2").toString()))
                         && context.get("city").toString().equals((postalAddress.get("city").toString()))
                         && context.get("stateProvinceGeoId").toString().equals((postalAddress.get("stateProvinceGeoId").toString()))
                         && context.get("countryGeoId").toString().equals((postalAddress.get("countryGeoId").toString()))
