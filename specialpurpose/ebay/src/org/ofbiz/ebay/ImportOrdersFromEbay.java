@@ -342,7 +342,7 @@ public class ImportOrdersFromEbay {
         List orders = null;
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
-//            Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
+            //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
             Element elemResponse = docResponse.getDocumentElement();
             String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
             List paginationList = UtilXml.childElementList(elemResponse, "PaginationResult");
@@ -372,6 +372,10 @@ public class ImportOrdersFromEbay {
                             String itemId = "";
 
                             Element transactionElement = (Element) transactionElemIter.next();
+                            List containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");                            
+                            if (containingOrders != null && containingOrders.size() > 0) {
+                                continue;
+                            }
                             order.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));
 
                             // retrieve buyer
