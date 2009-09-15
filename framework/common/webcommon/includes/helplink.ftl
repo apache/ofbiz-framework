@@ -26,10 +26,11 @@ under the License.
 ${helpTopic}
 -->
   <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
-    <#assign helpContent = "Y"> <!-- content in ofbiz -->
+    <#assign helpContent = "Y"/>
+    <#assign pageAvail = delegator.findByAnd("ContentAssoc", {"mapKey" : helpTopic})/>
   </#if>
   
-  <!-- content in confluence --> 
+  <#-- content in confluence --> 
   <#if helpUrlsMap["Prefix"] != "Prefix">
     <#assign helpUrlPrefix = helpUrlsMap["Prefix"] />
   </#if>
