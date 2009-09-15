@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindFacility" type="list" list-name="listIt" paginate-target="FindFacility"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -444,13 +444,6 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="${facilityInventoryByProductScreen}" override-list-size="${overrideListSize}">
         <row-actions>
-            <service service-name="getProductInventoryAndFacilitySummary" result-map="resultMap">
-                <field-map field-name="minimumStock" from-field="minimumStock"/>
-                <field-map field-name="productId" from-field="productId"/>
-                <field-map field-name="facilityId" from-field="facilityId"/>
-                <field-map field-name="checkTime" from-field="checkTime"/>
-                <field-map field-name="statusId" from-field="statusId"/>
-            </service>
             <script location="component://product/webapp/facility/WEB-INF/actions/facility/ComputeProductSellThroughData.groovy"/>
         </row-actions>
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
@@ -466,18 +459,18 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}"><display description="${resultMap.totalAvailableToPromise}"/></field>
-        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}"><display description="${resultMap.totalQuantityOnHand}"/></field>
-        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"><display description="${resultMap.quantityOnOrder}"/></field>
-        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}"><display /></field>
+        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}"><display/></field>
+        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}"><display/></field>
+        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"><display/></field>
+        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}"><display/></field>
         <field name="reorderQuantity" title="${uiLabelMap.ProductReorderQuantity}"><display/></field>
         <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}"><display/></field>
-        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}"><display description="${resultMap.offsetQOHQtyAvailable}"/></field>
-        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}"><display description="${resultMap.offsetATPQtyAvailable}"/></field>
-        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}"><display description="${resultMap.usageQuantity}"/></field>
-        <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><display description="${resultMap.defultPrice}"/></field>
-        <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display description="${resultMap.listPrice}"/></field>
-        <field name="wholeSalePrice" title="${uiLabelMap.ProductWholeSalePrice}"><display description="${resultMap.wholeSalePrice}"/></field>
+        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}"><display/></field>
+        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}"><display/></field>
+        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}"><display/></field>
+        <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><display/></field>
+        <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display/></field>
+        <field name="wholeSalePrice" title="${uiLabelMap.ProductWholeSalePrice}"><display/></field>
         <field name="fromDateSellThrough" entry-name="parameters.fromDateSellThrough"><display/></field>
         <field name="sellThroughInitialInventory"><display/></field>
         <field name="sellThroughInventorySold"><display/></field>
