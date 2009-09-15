@@ -31,7 +31,7 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
-        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersSearchFromEbay}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportSearchSingleTransactionFromEbay}"><submit button-type="button"/></field>
     </form>
     <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -85,7 +85,7 @@ under the License.
         <field name="errorMessage"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="${canImportOrder}"><check/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
-        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportSingleTransactionFromEbay}" widget-style="smallSubmit"><submit/></field>
     </form>
     
     <form name="FindEbayOrders" type="single" target="GetEbayOrders"

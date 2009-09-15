@@ -72,6 +72,12 @@
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการแสดงหน้านี้  ("EBAY_VIEW" ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限(需要EBAY_VIEW)。</value>
     </property>
+    <property key="EbayImportSingleTransactionFromEbay">
+        <value xml:lang="en">Import Single Transactions</value>
+    </property>
+    <property key="EbayImportSearchSingleTransactionFromEbay">
+        <value xml:lang="en">Search Single Transactions From eBay</value>
+    </property>
     <property key="FormFieldTitle_amountPaid">
         <value xml:lang="en">Amount Paid</value>
         <value xml:lang="fr">Montant payé</value>
