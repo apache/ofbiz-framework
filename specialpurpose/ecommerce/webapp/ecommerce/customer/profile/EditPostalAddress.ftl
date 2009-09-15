@@ -25,7 +25,6 @@ under the License.
     <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}" />
     <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
     <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
-    <div class="screenlet-body">
       <div>
         <label for="address1_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine1}*</label>
         <input type="text" class="left required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" style="width: 50%" size="30" maxlength="30" />
@@ -80,6 +79,5 @@ under the License.
         <a name="submitEditPostalAddress_${contactMech.contactMechId}" id="submitEditPostalAddress_${contactMech.contactMechId}" class="button" onclick="updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}')">${uiLabelMap.CommonSubmit}</a>
         <a href="javascript:void(0);" class="popup_closebox button">${uiLabelMap.CommonClose}</a>
       </div>
-    </div>
   </fieldset>
 </form>

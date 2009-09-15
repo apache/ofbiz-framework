@@ -131,7 +131,7 @@ under the License.
       </#if>
       </ul>
       <div id="displayEditBillToPostalAddress" class="popup" style="display: none;">
-        <#include "EditBillToAddress.ftl"/>
+        <#include "EditBillToAddress.ftl" />
       </div>
       <script type="text/javascript">
         //<![CDATA[
@@ -167,7 +167,7 @@ under the License.
       </#if>
       </ul>
       <div id="displayEditShipToPostalAddress" class="popup" style="display: none;">
-        <#include "EditShipToAddress.ftl"/>
+        <#include "EditShipToAddress.ftl" />
       </div>
       <script type="text/javascript">
          //<![CDATA[
@@ -191,12 +191,10 @@ under the License.
             <#assign postalAddressFlag = "Y" />
             <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists />
             <div id="displayEditAddressForm_${contactMech.contactMechId}" class="popup" style="display: none;">
-              <#include "EditPostalAddress.ftl"/>
+              <#include "EditPostalAddress.ftl" />
             </div>
             <#if postalAddress?exists>
-              <div>
                 <div class="form-field">
-                  <div>
                     <ul>
                       <li>${postalAddress.address1}</li>
                       <#if postalAddress.address2?has_content><li>${postalAddress.address2}</li></#if>
@@ -217,9 +215,7 @@ under the License.
                         <a target="_blank" href="#" class="linktext">(${uiLabelMap.CommonLookupWhitepages})</a>
                       </#if>
                     </#if>
-                  </div>
                 </div>
-              </div>
               <div>
                 <span>
                   <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="button popup_link" onclick="showState('${contactMech.contactMechId}')">${uiLabelMap.CommonEdit}</a></span>
