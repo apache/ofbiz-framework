@@ -1229,6 +1229,10 @@
         <value xml:lang="th">สถานะกิจกรรม</value>
         <value xml:lang="zh">行动状态</value>
     </property>
+    <property key="WorkEffortAddCalendarEvent">
+        <value xml:lang="en">Add/modify a calendar event</value>
+        <value xml:lang="fr">Ajouter/modifier un évènement</value>
+    </property>
     <property key="WorkEffortAddChild">
         <value xml:lang="en">Add New WorkEffort Child</value>
         <value xml:lang="fr">Ajouter une nouvelle tâche enfant</value>
@@ -1563,6 +1567,10 @@
         <value xml:lang="ru">Просмотр недели</value>
         <value xml:lang="th">แสดงปฏิทินรายสัปดาห์</value>
         <value xml:lang="zh">浏览日历周</value>
+    </property>
+    <property key="WorkEffortCancelCalendarEvent">
+        <value xml:lang="en">Cancel a calendar event</value>
+        <value xml:lang="fr">Annuler un évènement</value>
     </property>
     <property key="WorkEffortCommEventId">
         <value xml:lang="en">Comm Event Id</value>
@@ -2558,6 +2566,10 @@
         <value xml:lang="en">override Default Rate amount</value>
         <value xml:lang="it">Sostituisci importo di default tasso</value>
         <value xml:lang="zh">覆盖缺省费率金额</value>
+    </property>
+    <property key="WorkEffortParticipants">
+        <value xml:lang="en">Participants</value>
+        <value xml:lang="fr">Participants</value>
     </property>
     <property key="WorkEffortParties">
         <value xml:lang="en">Parties</value>
