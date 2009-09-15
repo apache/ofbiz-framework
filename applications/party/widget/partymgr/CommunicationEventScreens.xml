@@ -342,7 +342,7 @@ under the License.
                 <set field="my" from-field="parameters.my" default-value=""/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="communicationEvent.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="contactMechIdTo" from-field="communicationEvent.contactMechIdTo" default-value="${parameters.contactMechIdTo"/>
+                <set field="contactMechIdTo" from-field="communicationEvent.contactMechIdTo" default-value="${parameters.contactMechIdTo}"/>
             </actions>
             <widgets>
                 <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
