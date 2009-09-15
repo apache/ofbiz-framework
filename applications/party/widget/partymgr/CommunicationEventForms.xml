@@ -146,7 +146,7 @@ under the License.
         <alt-target use-when="communicationEvent!=null" target="sendCommunicationEvent"/>
         <field name="communicationEventId"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="EMAIL_COMMUNICATION"/></field>
-        <field name="contactMechIdTo"><hidden value="${parameters.contactMechIdTo}"/></field>
+        <field name="contactMechIdTo"><hidden value="${contactMechIdTo}"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
