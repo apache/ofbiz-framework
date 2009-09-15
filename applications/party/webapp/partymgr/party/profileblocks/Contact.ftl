@@ -104,6 +104,7 @@ under the License.
                     ${contactMech.infoString?if_exists}
                     <form method="post" action="<@ofbizUrl>NewDraftCommunicationEvent</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="createEmail${contactMech.infoString?replace("&#64;","")?replace(".","")}">
                       <input name="partyIdFrom" value="${userLogin.partyId}" type="hidden"/>
+                      <input name="partyIdTo" value="${partyId}" type="hidden"/>
                       <input name="contactMechIdTo" value="${contactMech.contactMechId}" type="hidden"/>
                       <input name="my" value="My" type="hidden"/>
                       <input name="statusId" value="COM_PENDING" type="hidden"/>

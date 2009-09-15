@@ -142,6 +142,9 @@ under the License.
                 </condition-list>
                 <order-by field-name="infoString"/>
             </entity-condition>
+            <entity-one entity-name="ContactMech" value-field="contactMechTo">
+                <field-map field-name="contactMechId" from-field="contactMechIdTo"/>
+            </entity-one>
         </actions>
         <alt-target use-when="communicationEvent!=null" target="sendCommunicationEvent"/>
         <field name="communicationEventId"><hidden/></field>
@@ -157,7 +160,10 @@ under the License.
                 <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
             </drop-down>
         </field>
-        <field name="partyIdTo" position="1">
+        <field name="partyIdTo" position="1" tooltip="Email: ${contactMechTo.infoString}" use-when="contactMechTo!=null">
+            <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
+        </field>
+        <field name="partyIdTo" position="1" use-when="contactMechTo==null">
             <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}" position="2"><date-time type="date"/></field>
