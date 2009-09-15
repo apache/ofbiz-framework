@@ -38,4 +38,11 @@ under the License.
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoiceTimeEntries.xml" />
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_sendPerEmail.xml" />
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceRoles.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_findPayments.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_newPayment.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_paymentOverview.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editPaymentApplications.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editPayment.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindSalesInvoicesByDueDate.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindPurchaseInvoicesByDueDate.xml" />
 </chapter>
