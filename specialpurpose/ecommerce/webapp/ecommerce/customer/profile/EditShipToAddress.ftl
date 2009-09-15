@@ -18,7 +18,7 @@ under the License.
 -->
 
 <div id="shipToServerError" class="errorMessage"></div>
-<form id="editShipToPostalAddress" method="post" action="<@ofbizUrl></@ofbizUrl>">
+<form id="editShipToPostalAddress" method="post" action="">
   <fieldset>
     <input type="hidden" name="setShippingPurpose" value="Y" />
     <input type="hidden" name="contactMechId" value="${shipToContactMechId?if_exists}" />

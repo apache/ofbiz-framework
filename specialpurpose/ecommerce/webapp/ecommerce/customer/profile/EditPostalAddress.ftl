@@ -20,7 +20,7 @@ under the License.
 <div id="serverError_${contactMech.contactMechId}" class="errorMessage"></div>
 <#assign postalAddress = delegator.findOne("PostalAddress", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechId", contactMech.contactMechId), true) />
 
-<form id="editPostalAddress_${contactMech.contactMechId}" method="post" action="<@ofbizUrl></@ofbizUrl>">
+<form id="editPostalAddress_${contactMech.contactMechId}" method="post" action="">
   <fieldset>
     <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}" />
     <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
