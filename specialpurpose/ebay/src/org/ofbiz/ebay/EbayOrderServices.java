@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -59,6 +60,8 @@ public class EbayOrderServices {
     
     private static final String resource = "EbayUiLabels";
     private static final String module = EbayOrderServices.class.getName();
+    private static List<String> orderImportSuccessMessageList = FastList.newInstance();
+    private static List<String> orderImportFailureMessageList = FastList.newInstance();
     
     public static Map<String, Object> getEbayOrders(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -80,11 +83,19 @@ public class EbayOrderServices {
             String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.exceptionInGetOrdersFromEbay" + e.getMessage(), locale);
             return ServiceUtil.returnError(errMsg);
         }
+        if (orderImportSuccessMessageList != null && orderImportSuccessMessageList.size() > 0) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            result.put(ModelService.SUCCESS_MESSAGE_LIST, orderImportSuccessMessageList);
+        }
+        
+        if (orderImportFailureMessageList != null && orderImportFailureMessageList.size() > 0) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+            result.put(ModelService.ERROR_MESSAGE_LIST, orderImportFailureMessageList);
+        }
         return result;
     }
 
     public static Map<String, Object> importEbayOrders(DispatchContext dctx, Map<String, Object> context) {
-        Debug.logInfo("The value of context map is " + context, module);
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -324,6 +335,11 @@ public class EbayOrderServices {
                             }
                             orderCtx.put("shippingAddressCtx", shippingAddressCtx);
                             
+                            if (UtilValidate.isEmpty(shippingAddressCtx)) {
+                                String shippingAddressMissingMsg = "Shipping Address is missing for eBay Order ID (" + externalOrderId + ")";
+                                orderImportFailureMessageList.add(shippingAddressMissingMsg);
+                            }
+                            
                             // Retrieve shipping service selected
                             Map<String, Object> shippingServiceSelectedCtx = FastMap.newInstance();
                             List shippingServiceSelectedList = UtilXml.childElementList(ordersElement, "ShippingServiceSelected");
@@ -338,6 +354,11 @@ public class EbayOrderServices {
                                 }
                             }
                             orderCtx.put("shippingServiceSelectedCtx", shippingServiceSelectedCtx);
+                            
+                            if (UtilValidate.isEmpty(shippingServiceSelectedCtx.get("shippingService").toString())) {
+                                String shippingServiceMissingMsg = "Shipping Method is missing for eBay Order ID (" + externalOrderId + ")";
+                                orderImportFailureMessageList.add(shippingServiceMissingMsg);
+                            }
                             
                             // Retrieve shipping details
                             Map<String, Object> shippingDetailsCtx = FastMap.newInstance();
@@ -453,6 +474,7 @@ public class EbayOrderServices {
     }
     
     private static Map createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, boolean create) {
+        Map<String, Object> result = FastMap.newInstance();
         try {
             String productStoreId = (String) context.get("productStoreId");
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -525,7 +547,7 @@ public class EbayOrderServices {
             Iterator orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
                 Map orderItem = (Map) orderItemIter.next();
-                addItem(cart, orderItem, dispatcher, 0);
+                addItem(cart, orderItem, dispatcher, delegator, 0);
             }
             
             // set partyId from
@@ -667,6 +689,11 @@ public class EbayOrderServices {
 
                 String orderId = (String)orderCreate.get("orderId");
                 Debug.logInfo("Created order with id: " + orderId, module);
+                
+                if (UtilValidate.isNotEmpty(orderId)) {
+                    String orderCreatedMsg = "Order created successfully with ID (" + orderId + ") & eBay Order ID associated with this order is (" + externalId + "). \n";
+                    orderImportSuccessMessageList.add(orderCreatedMsg);
+                }
 
                 // approve the order
                 if (UtilValidate.isNotEmpty(orderId)) {
@@ -700,8 +727,14 @@ public class EbayOrderServices {
         return orderHeader;
     }
     
-    private static void addItem(ShoppingCart cart, Map orderItem, LocalDispatcher dispatcher, int groupIdx) throws GeneralException {
+    private static void addItem(ShoppingCart cart, Map orderItem, LocalDispatcher dispatcher, GenericDelegator delegator, int groupIdx) throws GeneralException {
         String productId = (String) orderItem.get("productId");
+        GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+        if (UtilValidate.isEmpty(product)) {
+            String productMissingMsg = "The product having ID (" + productId + ") is misssing in the system.";
+            orderImportFailureMessageList.add(productMissingMsg);
+        }
+        
         BigDecimal qty = new BigDecimal(orderItem.get("quantity").toString());
         BigDecimal price = new BigDecimal(orderItem.get("transactionPrice").toString());
         price = price.setScale(ShoppingCart.scale, ShoppingCart.rounding);
