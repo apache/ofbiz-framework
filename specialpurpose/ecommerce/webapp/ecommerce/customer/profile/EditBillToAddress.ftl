@@ -18,7 +18,7 @@ under the License.
 -->
 
 <div id="billToServerError" class="errorMessage"></div>
-<form id="editBillToPostalAddress" method="post" action="<@ofbizUrl></@ofbizUrl>">
+<form id="editBillToPostalAddress" method="post" action="">
   <fieldset>
     <input type="hidden" name="setBillingPurpose" value="Y" />
     <input type="hidden" name="contactMechId" value="${billToContactMechId?if_exists}" />
