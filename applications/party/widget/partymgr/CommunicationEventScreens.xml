@@ -342,7 +342,8 @@ under the License.
                 <set field="my" from-field="parameters.my" default-value=""/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="communicationEvent.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="contactMechIdTo" from-field="communicationEvent.contactMechIdTo" default-value="${parameters.contactMechIdTo}"/>
+                <!-- if contactmechIdTo provided should override the one in the db record: see contacts.ftl where this is used. -->
+                <set field="contactMechIdTo" from-field="parameters.contactMechIdTo" default-value="${communicationEvent.contactMechIdTo}"/>
             </actions>
             <widgets>
                 <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
