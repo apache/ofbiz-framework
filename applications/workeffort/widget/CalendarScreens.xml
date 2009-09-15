@@ -40,13 +40,15 @@ under the License.
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
                     </actions>
                     <widgets>
+                      <include-screen name="eventDetail"/>
+                      <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortDayView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
                             <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <include-screen name="eventDetail"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
                             </platform-specific>
                         </screenlet>
+                      </container>
                     </widgets>
                 </section>
                 <section>
@@ -60,13 +62,15 @@ under the License.
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
                     </actions>
                     <widgets>
+                      <include-screen name="eventDetail"/>
+                      <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
                             <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <include-screen name="eventDetail"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
                             </platform-specific>
                         </screenlet>
+                      </container>
                     </widgets>
                 </section>
                 <section>
@@ -77,13 +81,15 @@ under the License.
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
                     </actions>
                     <widgets>
+                      <include-screen name="eventDetail"/>
+                      <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
                             <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                            <include-screen name="eventDetail"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
                             </platform-specific>
                         </screenlet>
+                      </container>
                     </widgets>
                 </section>
                 <section>
@@ -94,12 +100,15 @@ under the License.
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Upcoming.groovy"/>
                     </actions>
                     <widgets>
+                      <include-screen name="eventDetail"/>
+                      <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}" navigation-menu-name="Upcoming">
                             <include-menu name="Upcoming" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/webapp/workeffort/calendar/upcoming.ftl"/></html>
                             </platform-specific>
                         </screenlet>
+                      </container>
                     </widgets>
                 </section>
             </widgets>
@@ -154,12 +163,21 @@ under the License.
                                 </and>
                             </condition>
                             <widgets><!-- edit section -->
-                                <container style="lefthalf">
-                                    <label style="h1" text="Add/Edit a Calendar Event"/>
-                                    <include-form name="editCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                <container style="lefthalf" >
+                                    <screenlet title="${uiLabelMap.WorkEffortAddCalendarEvent}">
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field="workEffort"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <include-form name="cancelEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                        <include-form name="editCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                    </screenlet>
                                 </container>
                                 <container style="righthalf">
-                                    <label style="h1" text="Participants"/>
+                                  <screenlet title="${uiLabelMap.WorkEffortParticipants}">
                                     <include-form name="showCalEventRolesDel" location="component://workeffort/widget/CalendarForms.xml"/>
                                     <section>
                                         <condition>
@@ -170,26 +188,21 @@ under the License.
                                         </condition>
                                         <widgets>
                                             <include-form name="addCalEventRole" location="component://workeffort/widget/CalendarForms.xml"/>
-                                            <section>
-                                                <condition>
-                                                    <not><if-empty field="workEffort"/></not>
-                                                </condition>
-                                                <widgets>
-                                                    <include-form name="cancelEvent" location="component://workeffort/widget/CalendarForms.xml"/>
-                                                </widgets>
-                                            </section>
                                         </widgets>
                                     </section>
+                                  </screenlet>
                                 </container>
                             </widgets>
                             <fail-widgets><!-- view section -->
                                 <container style="lefthalf">
-                                    <label style="h1" text="Calendar Event Summary"/>
+                                  <screenlet title="${uiLabelMap.WorkEffortSummary}">
                                     <include-form name="showCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
+                                  </screenlet>
                                 </container>
                                 <container style="righthalf">
-                                    <label style="h1" text="Participants"/>
+                                  <screenlet title="${uiLabelMap.WorkEffortParticipants}">
                                     <include-form name="showCalEventRoles" location="component://workeffort/widget/CalendarForms.xml"/>
+                                  </screenlet>
                                 </container>
                             </fail-widgets>
                         </section>                

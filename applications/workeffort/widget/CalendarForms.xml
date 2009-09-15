@@ -69,7 +69,7 @@ under the License.
     <form name="cancelEvent" type="single" target="updateWorkEffort">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="currentStatusId"><hidden value="CAL_CANCELLED"/></field>
-        <field name="cancel" title="Cancel the Event"><submit/></field>
+        <field name="cancel" title="${uiLabelMap.WorkEffortCancelCalendarEvent}"><submit/></field>
     </form>
     <form name="showCalEvent" type="single" default-map-name="workEffort">
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
@@ -106,7 +106,7 @@ under the License.
         </field>
     </form>
     <form name="showCalEventRolesDel" type="list" extends="showCalEventRoles" target="deleteWorkEffortPartyAssign">
-        <field name="remove"><submit/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </form>
     <form name="addCalEventRole" type="single" target="createWorkEffortPartyAssign">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
@@ -120,7 +120,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="add"><submit/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     
 </forms>
