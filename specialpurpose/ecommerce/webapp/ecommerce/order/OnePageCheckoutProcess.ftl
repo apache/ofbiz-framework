@@ -39,30 +39,7 @@ under the License.
                   <th id="itemTotal">${uiLabelMap.EcommerceItemTotal}</th>
                 </tr>
               </thead>
-              <tbody>
-                <#list shoppingCart.items() as cartLine>
-                  <#if cartLine.getProductId()?exists>
-                    <#if cartLine.getParentProductId()?exists>
-                      <#assign parentProductId = cartLine.getParentProductId() />
-                    <#else>
-                      <#assign parentProductId = cartLine.getProductId() />
-                    </#if>
-                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
-                    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
-                  </#if>
-                  <tr id="cartItemDisplayRow_${cartLine_index}">
-                    <td headers="orderItem"><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt = "Product Image" /></td>
-                    <td headers="description">${cartLine.getName()?if_exists}</td>
-                    <td headers="unitPrice">${cartLine.getDisplayPrice()}</td>
-                    <td headers="quantity"><span id="completedCartItemQty_${cartLine_index}">${cartLine.getQuantity()?string.number}</span></td>
-                    <td headers="adjustment"><span id="completedCartItemAdjustment_${cartLine_index}"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency() /></span></td>
-                    <td headers="itemTotal" align="right"><span id="completedCartItemSubTotal_${cartLine_index}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency() /></span></td>
-                  </tr>
-                </#list>
-              </tbody>
-            </table>
-            <table id="cartSummaryPanel_cartTotals">
-              <tbody>
+              <tfoot>
                 <tr id="completedCartSubtotalRow">
                   <th id="subTotal" scope="row">${uiLabelMap.CommonSubtotal}</th>
                   <td headers="subTotal" id="completedCartSubTotal"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency() /></td>
@@ -87,6 +64,27 @@ under the License.
                   <th id="grandTotal" scope="row">${uiLabelMap.OrderGrandTotal}</th>
                   <td headers="grandTotal" id="completedCartDisplayGrandTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency() /></td>
                 </tr>
+              </tfoot>
+              <tbody>
+                <#list shoppingCart.items() as cartLine>
+                  <#if cartLine.getProductId()?exists>
+                    <#if cartLine.getParentProductId()?exists>
+                      <#assign parentProductId = cartLine.getParentProductId() />
+                    <#else>
+                      <#assign parentProductId = cartLine.getProductId() />
+                    </#if>
+                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
+                    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
+                  </#if>
+                  <tr id="cartItemDisplayRow_${cartLine_index}">
+                    <td headers="orderItem"><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt = "Product Image" /></td>
+                    <td headers="description">${cartLine.getName()?if_exists}</td>
+                    <td headers="unitPrice">${cartLine.getDisplayPrice()}</td>
+                    <td headers="quantity"><span id="completedCartItemQty_${cartLine_index}">${cartLine.getQuantity()?string.number}</span></td>
+                    <td headers="adjustment"><span id="completedCartItemAdjustment_${cartLine_index}"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency() /></span></td>
+                    <td headers="itemTotal" align="right"><span id="completedCartItemSubTotal_${cartLine_index}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency() /></span></td>
+                  </tr>
+                </#list>
               </tbody>
             </table>
           </div>
@@ -109,6 +107,34 @@ under the License.
                         <th id="removeItem">${uiLabelMap.FormFieldTitle_removeButton}</th>
                       </tr>
                     </thead>
+                    <tfoot>
+                      <tr>
+                        <th scope="row">${uiLabelMap.CommonSubtotal}</th>
+                        <td id="cartSubTotal"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency() /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">${uiLabelMap.ProductDiscount}</th>
+                        <td id="cartDiscountValue">
+                            <#assign orderAdjustmentsTotal = 0  />
+                            <#list shoppingCart.getAdjustments() as cartAdjustment>
+                              <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
+                            </#list>
+                            <@ofbizCurrency amount=orderAdjustmentsTotal isoCode=shoppingCart.getCurrency() />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">${uiLabelMap.OrderShippingAndHandling}</th>
+                        <td id="cartTotalShipping"><@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency() /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">${uiLabelMap.OrderSalesTax}</th>
+                        <td id="cartTotalSalesTax"><@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency() /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">${uiLabelMap.OrderGrandTotal}</th>
+                        <td id="cartDisplayGrandTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency() /></td>
+                      </tr>
+                    </tfoot>
                     <tbody id="updateBody">
                       <#list shoppingCart.items() as cartLine>
                         <tr id="cartItemRow_${cartLine_index}">
@@ -150,36 +176,6 @@ under the License.
                       </#list>
                     </tbody>
                   </table>
-                  <table id="editCartPanel_cartTotals">
-                    <tbody>
-                      <tr>
-                        <th scope="row">${uiLabelMap.CommonSubtotal}</th>
-                        <td id="cartSubTotal"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency() /></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">${uiLabelMap.ProductDiscount}</th>
-                        <td id="cartDiscountValue">
-                            <#assign orderAdjustmentsTotal = 0  />
-                            <#list shoppingCart.getAdjustments() as cartAdjustment>
-                              <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
-                            </#list>
-                            <@ofbizCurrency amount=orderAdjustmentsTotal isoCode=shoppingCart.getCurrency() />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">${uiLabelMap.OrderShippingAndHandling}</th>
-                        <td id="cartTotalShipping"><@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency() /></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">${uiLabelMap.OrderSalesTax}</th>
-                        <td id="cartTotalSalesTax"><@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency() /></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">${uiLabelMap.OrderGrandTotal}</th>
-                        <td id="cartDisplayGrandTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency() /></td>
-                      </tr>
-                    </tbody>
-                  </table>
                   </fieldset>
                   <fieldset id="productPromoCodeFields">
                     <div>
@@ -192,7 +188,6 @@ under the License.
                   <a style="display: none" class="button" href="javascript:void(0);" id="processingShipping">${uiLabelMap.EcommercePleaseWait}....</a>
                 </fieldset>
             </form>
-              
           </div>
         </div>
 
