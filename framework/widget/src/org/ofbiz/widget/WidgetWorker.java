@@ -176,7 +176,7 @@ public class WidgetWorker {
                 writer.append('"');
             }
             if (UtilValidate.isNotEmpty(confirmation)){
-                writer.append(" onClick=\"return confirm('");
+                writer.append(" onclick=\"return confirm('");
                 writer.append(confirmation);
                 writer.append("')\"");
             }
@@ -216,7 +216,7 @@ public class WidgetWorker {
             }
             
             if (UtilValidate.isNotEmpty(confirmation)){
-                writer.append(" onClick=\"return confirm('");
+                writer.append(" onclick=\"return confirm('");
                 writer.append(confirmation);
                 writer.append("')\"");
             }

@@ -1046,7 +1046,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
             appendClassNames(writer, context, modelFormField);
             if (UtilValidate.isNotEmpty(confirmation)) {
-                writer.append("onClick=\" return confirm('");
+                writer.append("onclick=\" return confirm('");
                 writer.append(confirmation);
                 writer.append("); \" ");
             }
@@ -1089,7 +1089,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
             
             if (UtilValidate.isNotEmpty(confirmation)) {
-                writer.append("onClick=\" return confirm('");
+                writer.append("onclick=\" return confirm('");
                 writer.append(confirmation);
                 writer.append("); \" ");
             }
