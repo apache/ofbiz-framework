@@ -112,7 +112,7 @@ under the License.
         <field name="dataSourceId" position="2" title="${uiLabelMap.SfaDataSourceLabel}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
-                    <entity-constraint name="dataSourceTypeId" operator="equals" value="SLSOPP_SRC"/>
+                    <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
                 </entity-options>
             </drop-down>
         </field>
