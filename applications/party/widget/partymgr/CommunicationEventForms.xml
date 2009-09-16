@@ -802,14 +802,19 @@ under the License.
         <field name="partyIdTo"><hidden/></field>
         <field name="datetimeStarted"><hidden/></field>
         <field name="my"><hidden value="${my}"/></field>
+        <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>
         <field name="uploadedFile"><file/></field>
+        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>        
         <field name="send" title=" ">
             <hyperlink also-hidden="true"
                 target-type="plain" description="${uiLabelMap.CommonUpload}"
                 target="javascript:(document.uploadContent.datetimeStarted.value=document.EditEmail.datetimeStarted.value),(document.uploadContent.partyIdTo.value=document.EditEmail.partyIdTo.value),(document.uploadContent.subject.value=document.EditEmail.subject.value),(document.uploadContent.content.value=document.EditEmail.content.value),(document.uploadContent.submit())"/>
         </field>
     </form>
-    <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile"/>    
+    <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile">
+        <field name="send"><ignored/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
+    </form>      
 
     <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">

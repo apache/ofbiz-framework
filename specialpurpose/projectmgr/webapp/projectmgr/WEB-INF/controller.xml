@@ -25,6 +25,7 @@
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
+    <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
 
     <description>Project Management Component Site Configuration File</description>
 

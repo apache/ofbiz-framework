@@ -77,6 +77,13 @@
 
 <#-------------------------------------------------------------------------------------call ofbiz function-->
     function callDocument(ctx) {
+    	var tabitem='${tabButtonItem?if_exists}';
+    	if(tabitem=="navigateContent")
+			listDocument='<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
+        if(tabitem=="LookupContentTree")
+    		listDocument='<@ofbizUrl>/views/ListContentTree</@ofbizUrl>';
+        if(tabitem=="LookupDetailContentTree")
+        	listDocument='<@ofbizUrl>/views/ViewContentDetail</@ofbizUrl>';
         var bindArgs = {
             url: listDocument,
             method: 'POST',
@@ -87,7 +94,7 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data;
+                innerPage.innerHTML = data; 
             }
         };
         dojo.io.bind(bindArgs);
@@ -190,6 +197,23 @@
         };
         dojo.io.bind(bindArgs);
     }
+ <#------------------------------------------------------pagination function -->
+    function nextPrevDocumentList(url){
+    	url= '<@ofbizUrl>'+url+'</@ofbizUrl>';
+    	 var bindArgs = {
+            url: url,
+            method: 'POST',
+            mimetype: 'text/html',
+            error: function(type, data, evt) {
+                alert("An error occured loading content! : " + data);
+            },
+            load: function(type, data, evt) { 
+                var innerPage = dojo.byId('Document');
+                innerPage.innerHTML = data;
+            }
+        };
+        dojo.io.bind(bindArgs);
+    }
 </script>
 
 <style>
@@ -197,6 +221,14 @@
     background-color: #ccc;
     font-size: 10px;
 }
+<#if tabButtonItem?has_content>
+	<#if tabButtonItem=="LookupContentTree"||tabButtonItem=="LookupDetailContentTree">
+body{background:none;}
+.left-border{float:left;width:25%;}
+.contentarea{margin: 0 0 0 0.5em;padding:0 0 0 0.5em;}
+.leftonly{float:none;min-height:25em;}
+	</#if>
+</#if>
 </style>
 
 <#-- looping macro -->
