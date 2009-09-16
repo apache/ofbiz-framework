@@ -49,6 +49,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.w3c.dom.Document;
@@ -60,11 +61,17 @@ public class ProductsExportToEbay {
     private static final String resource = "EbayUiLabels";
     private static final String configFileName = "ebayExport.properties";
     private static final String module = ProductsExportToEbay.class.getName();
+    private static List<String> productExportSuccessMessageList = FastList.newInstance();
+    private static List<String> productExportFailureMessageList = FastList.newInstance();
+    
 
     public static Map exportToEbay(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
         GenericDelegator delegator = dctx.getDelegator();
-        Map result = null;
+        productExportSuccessMessageList.clear();
+        productExportFailureMessageList.clear();
+        Map<String, Object> result = FastMap.newInstance();
+        Map response = null;
         try {
             List selectResult = (List)context.get("selectResult");
             List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
@@ -72,13 +79,23 @@ public class ProductsExportToEbay {
                 Iterator productsListIter = productsList.iterator();
                 while (productsListIter.hasNext()) {
                     GenericValue product = (GenericValue) productsListIter.next();
+                    GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
+                    if (UtilValidate.isEmpty(startPriceValue)) {
+                        String startPriceMissingMsg = "Unable to find a starting price for auction of product with id (" + product.getString("productId") + "). So Ignoring the export of this product to eBay.  \n";
+                        productExportFailureMessageList.add(startPriceMissingMsg);
+                        // Ignore the processing of product having no start price value
+                        continue;
+                    }
                     Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
                     StringBuffer dataItemsXml = new StringBuffer();
                     Map resultMap = buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString(), product);
                     if (!ServiceUtil.isFailure(resultMap)) {
-                        result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-                        if (ServiceUtil.isFailure(result)) {
-                            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
+                        response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                        if (ServiceUtil.isFailure(response)) {
+                            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(response));
+                        }
+                        if (UtilValidate.isNotEmpty(response)) {
+                            exportToEbayResponse((String) response.get("successMessage"), product);
                         }
                     } else {
                         return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
@@ -89,19 +106,15 @@ public class ProductsExportToEbay {
             Debug.logError("Exception in exportToEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
         }
-        String responseMessage = UtilProperties.getMessage(resource, "productsExportToEbay.productItemsSentToEbay", locale);
-        if (result != null) {
-            Map response = exportToEbayResponse((String) result.get("successMessage"));
-            if (UtilValidate.isNotEmpty(response) && "fail".equals(response.get("responseMessage"))) {
-                responseMessage = (String) response.get("errorMessage");
-                return ServiceUtil.returnError(responseMessage);
-            } else if (UtilValidate.isNotEmpty(response) && "success".equals(response.get("responseMessage"))) {
-                responseMessage = (String) response.get("successMessage");
-                return ServiceUtil.returnSuccess(responseMessage);
-            }
+        if (UtilValidate.isNotEmpty(productExportSuccessMessageList)) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            result.put(ModelService.SUCCESS_MESSAGE_LIST, productExportSuccessMessageList);
         }
-        
-        return ServiceUtil.returnSuccess(responseMessage);
+        if (UtilValidate.isNotEmpty(productExportFailureMessageList)) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+            result.put(ModelService.ERROR_MESSAGE_LIST, productExportFailureMessageList);
+        }
+        return result;
     }
 
     private static void appendRequesterCredentials(Element elem, Document doc, String token) {
@@ -203,9 +216,7 @@ public class ProductsExportToEbay {
                     if (UtilValidate.isNotEmpty(startPriceValue)) {
                         startPrice = startPriceValue.getString("price");
                         startPriceCurrencyUomId = startPriceValue.getString("currencyUomId");
-                    } else {
-                        return ServiceUtil.returnFailure("Unable to find a starting price for auction of product with id [" + prod.getString("productId") + "]");
-                    }
+                    } 
                 }
                     
                 // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately. 
@@ -555,8 +566,8 @@ public class ProductsExportToEbay {
         return results;
     }
     
-    private static Map exportToEbayResponse(String msg) {
-        Map result = FastMap.newInstance();
+    private static Map exportToEbayResponse(String msg, GenericValue product) {
+        Map result = ServiceUtil.returnSuccess();
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
             Element elemResponse = docResponse.getDocumentElement();
@@ -569,9 +580,10 @@ public class ProductsExportToEbay {
                     Element errorElement = (Element) errorElemIter.next();
                     errorMessage = UtilXml.childElementValue(errorElement, "LongMessage");
                 }
-                result = ServiceUtil.returnFailure(errorMessage);
+                productExportFailureMessageList.add(errorMessage);
             } else {
-                result = ServiceUtil.returnSuccess("The data exported successfully to eBay.");
+                String productSuccessfullyExportedMsg = "Product successfully exported with ID (" + product.getString("productId") + "). \n";
+                productExportSuccessMessageList.add(productSuccessfullyExportedMsg);
             }
         } catch (Exception e) {
             Debug.logError("Error in processing xml string" + e.getMessage(), module);
