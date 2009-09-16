@@ -43,6 +43,8 @@ import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
@@ -448,23 +450,24 @@ public class ProductWorker {
         if (product == null) {
             return null;
         }
-        List<GenericValue> features = FastList.newInstance();
+        List<GenericValue> features = null;
         try {
             if (product != null) {
                 List<GenericValue> productAppls;
-                if (productFeatureApplTypeId == null) {
-                    productAppls = product.getRelated("ProductFeatureAppl");
-                } else {
-                    productAppls = product.getRelatedByAnd("ProductFeatureAppl",
-                            UtilMisc.toMap("productFeatureApplTypeId", productFeatureApplTypeId));
+                List<EntityCondition> condList = UtilMisc.toList(
+                        EntityCondition.makeCondition("productId", product.getString("productId")),
+                        EntityUtil.getFilterByDateExpr()
+                );
+                if (productFeatureApplTypeId != null) {
+                    condList.add(EntityCondition.makeCondition("productFeatureApplTypeId", productFeatureApplTypeId));
                 }
-                for (GenericValue productAppl: productAppls) {
-                    features.add(productAppl.getRelatedOne("ProductFeature"));
-                }
-                features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
+                EntityCondition cond = EntityCondition.makeCondition(condList);
+                productAppls = product.getDelegator().findList("ProductFeatureAppl", cond, null, UtilMisc.toList("description"), null, false);
+                features = EntityUtil.getRelated("ProductFeature", productAppls);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
+            features = FastList.newInstance();
         }
         return features;
     }
