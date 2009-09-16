@@ -42,15 +42,21 @@ under the License.
             <#assign orderId = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
             <#assign shipGroupAssoc = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("OrderItemShipGroupAssoc", {"orderId" : orderId}))/>
             <#assign shipGroup = delegator.findOne("OrderItemShipGroup", {"orderId" : orderId, "shipGroupSeqId" : shipGroupAssoc.shipGroupSeqId}, false)>
-            <#assign shipGroupShipment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Shipment", {"primaryOrderId" : shipGroup.orderId, "primaryShipGroupSeqId" : shipGroup.shipGroupSeqId}))/>
-            <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipGroupShipment.shipmentId}))>
-            <#if "UPS" == shipmentRouteSegment.carrierPartyId>
-              <a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
-              <form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
-                <input type="hidden" name="returnId" value="${returnId}"/>
-                <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
-                <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
-              </form>
+            <#if shipGroup?exists>
+              <#assign shipGroupShipment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Shipment", {"primaryOrderId" : shipGroup.orderId, "primaryShipGroupSeqId" : shipGroup.shipGroupSeqId}))/>
+              <#if shipGroupShipment?exists>
+                <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipGroupShipment.shipmentId}))>
+                <#if shipmentRouteSegment?exists>
+                  <#if "UPS" == shipmentRouteSegment.carrierPartyId>
+                    <a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
+                    <form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
+                      <input type="hidden" name="returnId" value="${returnId}"/>
+                      <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
+                      <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
+                    </form>
+                  </#if>
+                </#if>
+              </#if>
             </#if>
           </#if>
         </#if>
