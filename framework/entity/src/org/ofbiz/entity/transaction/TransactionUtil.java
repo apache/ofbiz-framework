@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import javax.sql.XAConnection;
 import javax.transaction.HeuristicMixedException;
@@ -71,6 +72,54 @@ public class TransactionUtil implements Status {
     private static ThreadLocal<List<RollbackOnlyCause>> setRollbackOnlyCauseSave = new ThreadLocal<List<RollbackOnlyCause>>();
     private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<Timestamp>();
     private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<Timestamp>();
+
+    public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws Throwable {
+        return doNewTransaction(ifErrorMessage, true, callable);
+    }
+
+    public static <V> V doNewTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws Throwable {
+        Transaction tx = TransactionUtil.suspend();
+        try {
+            return doTransaction(ifErrorMessage, printException, callable);
+        } finally {
+            TransactionUtil.resume(tx);
+        }
+    }
+
+    public static <V> V doTransaction(String ifErrorMessage, Callable<V> callable) throws Throwable {
+        return doTransaction(ifErrorMessage, true, callable);
+    }
+
+    public static <V> V doTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws Throwable {
+        boolean tx = TransactionUtil.begin();
+        Throwable transactionAbortCause = null;
+        try {
+            try {
+                return callable.call();
+            } catch (Throwable t) {
+                while (t.getCause() != null) {
+                    t = t.getCause();
+                }
+                throw t;
+            }
+        } catch (Error e) {
+            transactionAbortCause = e;
+            throw e;
+        } catch (RuntimeException e) {
+            transactionAbortCause = e;
+            throw e;
+        } catch (Throwable t) {
+            transactionAbortCause = t;
+            throw t;
+        } finally {
+            if (transactionAbortCause == null) {
+                TransactionUtil.commit(tx);
+            } else {
+                if (printException) transactionAbortCause.printStackTrace();
+                TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
+            }
+        }
+    }
 
     /** Begins a transaction in the current thread IF transactions are available; only
      * tries if the current transaction status is ACTIVE, if not active it returns false.

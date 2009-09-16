@@ -18,49 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.webslinger;
 
-import javax.transaction.Transaction;
 
 import org.ofbiz.entity.transaction.TransactionUtil;
 import java.util.concurrent.Callable;
 
 public class EntityTransactionUtil {
+    /** @deprecated use TransactionUtil.doNewTransaction */
+    @Deprecated
     public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws Throwable {
-        Transaction tx = TransactionUtil.suspend();
-        try {
-            return doTransaction(ifErrorMessage, callable);
-        } finally {
-            TransactionUtil.resume(tx);
-        }
+        return TransactionUtil.doNewTransaction(ifErrorMessage, callable);
     }
 
+    /** @deprecated use TransactionUtil.doNewTransaction */
+    @Deprecated
     public static <V> V doTransaction(String ifErrorMessage, Callable<V> callable) throws Throwable {
-        boolean tx = TransactionUtil.begin();
-        Throwable transactionAbortCause = null;
-        try {
-            try {
-                return callable.call();
-            } catch (Throwable t) {
-                while (t.getCause() != null) {
-                    t = t.getCause();
-                }
-                throw t;
-            }
-        } catch (Error e) {
-            transactionAbortCause = e;
-            throw e;
-        } catch (RuntimeException e) {
-            transactionAbortCause = e;
-            throw e;
-        } catch (Throwable t) {
-            transactionAbortCause = t;
-            throw t;
-        } finally {
-            if (transactionAbortCause == null) {
-                TransactionUtil.commit(tx);
-            } else {
-                transactionAbortCause.printStackTrace();
-                TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
-            }
-        }
+        return TransactionUtil.doTransaction(ifErrorMessage, callable);
     }
 }
