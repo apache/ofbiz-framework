@@ -192,6 +192,7 @@ under the License.
                                     </section>
                                   </screenlet>
                                 </container>
+                                <container style="clear"/>
                             </widgets>
                             <fail-widgets><!-- view section -->
                                 <container style="lefthalf">
