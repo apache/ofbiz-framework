@@ -1014,7 +1014,15 @@ under the License.
         <set field="emailAddressInMap.userLogin" from-field="userLogin"/>
         <set field="emailAddressInMap.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
         <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressInMap"/>
-        
+
+        <!-- Signup for Contact List -->
+        <if-compare field="parameters.subscribeContactList" operator="equals" value="Y">
+            <set field="signUpForContactListMap.partyId" from-field="partyId"/>
+            <set field="signUpForContactListMap.contactListId" from-field="parameters.contactListId"/>
+            <set field="signUpForContactListMap.email" from-field="parameters.emailAddress"/>
+            <call-service service-name="signUpForContactList" in-map-name="signUpForContactListMap"/>
+        </if-compare>
+
         <!-- Create the PartyRole -->
         <set field="createPartyRoleInMap.partyId" from-field="partyId"/>
         <set field="createPartyRoleInMap.roleTypeId" value="CUSTOMER"/>
