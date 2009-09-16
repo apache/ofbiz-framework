@@ -43,7 +43,7 @@ under the License.
                     </and>
                 </condition>
                 <then>
-                     <log level="info" message="ContactMechId: ${partyAndContactMech.contactMechId} already exists with value: ${partyAndContactMech.infoString} for party: ${parameters.partyId}" and ContactMechTypeId: ${partyAndContactMech.contactMechTypeId}/>
+                     <log level="info" message="ContactMechId: ${partyAndContactMech.contactMechId} already exists with value: ${partyAndContactMech.infoString} for party: ${parameters.partyId} and ContactMechTypeId: ${partyAndContactMech.contactMechTypeId}"/>
                     <field-to-result field="partyAndContactMech.contactMechId" result-name="contactMechId"/>
                     <return response-code="success"/>
                 </then>
