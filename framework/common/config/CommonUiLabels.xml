@@ -1404,46 +1404,16 @@
         <value xml:lang="zh">配置：</value>
     </property>
     <property key="CommonConfirm">
-        <value xml:lang="ar">تأكيد</value>
-        <value xml:lang="de">Bestätigen</value>
-        <value xml:lang="en">Confirm</value>
-        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="en">Do you confirm ?</value>
         <value xml:lang="fr">Vous confirmez ?</value>
-        <value xml:lang="hi_IN">पुष्टि</value>
-        <value xml:lang="it">Conferma</value>
-        <value xml:lang="pt">Confirmar</value>
-        <value xml:lang="ro">Confirma</value>
-        <value xml:lang="ru">Подтвердить</value>
-        <value xml:lang="th">ยืนยัน</value>
-        <value xml:lang="zh">确认</value>
     </property>
     <property key="CommonConfirmAdd">
-        <value xml:lang="ar">تأكيد</value>
-        <value xml:lang="de">Bestätigen</value>
-        <value xml:lang="en">Confirm</value>
-        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="en">Do you confirm the addition?</value>
         <value xml:lang="fr">Confirmez-vous l'ajout ?</value>
-        <value xml:lang="hi_IN">पुष्टि</value>
-        <value xml:lang="it">Conferma</value>
-        <value xml:lang="pt">Confirmar</value>
-        <value xml:lang="ro">Confirma</value>
-        <value xml:lang="ru">Подтвердить</value>
-        <value xml:lang="th">ยืนยัน</value>
-        <value xml:lang="zh">确认</value>
     </property>
     <property key="CommonConfirmDelete">
-        <value xml:lang="ar">تأكيد</value>
-        <value xml:lang="de">Bestätigen</value>
-        <value xml:lang="en">Confirm Delete</value>
-        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="en">Do you confirm the suppression?</value>
         <value xml:lang="fr">Confirmez-vous la suppression ?</value>
-        <value xml:lang="hi_IN">पुष्टि</value>
-        <value xml:lang="it">Conferma</value>
-        <value xml:lang="pt">Confirmar</value>
-        <value xml:lang="ro">Confirma</value>
-        <value xml:lang="ru">Подтвердить</value>
-        <value xml:lang="th">ยืนยัน</value>
-        <value xml:lang="zh">确认</value>
     </property>
     <property key="CommonConfirmAdd">
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
