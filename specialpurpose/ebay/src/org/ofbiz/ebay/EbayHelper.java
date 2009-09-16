@@ -165,42 +165,17 @@ public class EbayHelper {
         return outputBuilder.toString();
     }
     
-    public static void setShipmentMethodType(ShoppingCart cart, String shippingService) {
+    public static void setShipmentMethodType(ShoppingCart cart, String shippingService, String productStoreId, GenericDelegator delegator) {
         String partyId = "_NA_";
         String shipmentMethodTypeId = "NO_SHIPPING";
-
-        if (shippingService != null) {
-            if ("USPSPriority".equals(shippingService)) {
-                partyId = "USPS";
-                shipmentMethodTypeId = "STANDARD";
-            } else if ("UPSGround".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "GROUND";
-            } else if ("UPS3rdDay".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "THIRD_DAY";
-            } else if ("UPS2ndDay".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "SECOND_DAY";
-            } else if ("USPSExpressMailInternational".equals(shippingService)) {
-                partyId = "USPS";
-                shipmentMethodTypeId = "INT_EXPRESS";
-            } else if ("UPSNextDay".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "NEXT_DAY";
-            } else if ("UPSNextDayAir".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "AIR";
-            } else if ("ShippingMethodStandard".equals(shippingService)) {
-                partyId = "UPS";
-                shipmentMethodTypeId = "GROUND";
-            } else if ("StandardInternational".equals(shippingService)) {
-                partyId = "USPS";
-                shipmentMethodTypeId = "INT_EXPRESS";
-            } else if ("LocalDelivery".equals(shippingService)) {
-                partyId = "_NA_";
-                shipmentMethodTypeId = "STANDARD";
+        try {
+            GenericValue ebayShippingMethod = delegator.findOne("EbayShippingMethod", UtilMisc.toMap("shipmentMethodName", shippingService, "productStoreId", productStoreId), false);
+            if (UtilValidate.isNotEmpty(ebayShippingMethod)) {
+                partyId = ebayShippingMethod.getString("carrierPartyId");
+                shipmentMethodTypeId = ebayShippingMethod.getString("shipmentMethodTypeId");
             }
+        } catch (GenericEntityException e) {
+            Debug.logInfo("Unable to find EbayShippingMethod", module);
         }
         cart.setCarrierPartyId(partyId);
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);
