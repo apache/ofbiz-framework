@@ -348,6 +348,7 @@ under the License.
         <description>Refund payment authorization for a single OrderPaymentPreference</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
     
