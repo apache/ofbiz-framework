@@ -110,7 +110,7 @@ if ("Y".equals(lookupFlag)) {
             // using list iterator
             orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
 
-            shipmentListSize = orli.getResultSizeAfterPartialList();
+            shipmentListSize = orli.getResultsSizeAfterPartialList();
             if (highIndex > shipmentListSize) {
                 highIndex = shipmentListSize;
             }

@@ -67,7 +67,7 @@ if (andCondition.size() > 1) {
         beganTransaction = TransactionUtil.begin();
         inventoryItemsEli = delegator.findListIteratorByCondition(inventoryItemAndLabelsView, EntityCondition.makeCondition(andCondition, EntityOperator.AND), null, null, null, findOpts);
 
-        inventoryItemsSize = inventoryItemsEli.getResultSizeAfterPartialList();
+        inventoryItemsSize = inventoryItemsEli.getResultsSizeAfterPartialList();
         context.inventoryItemsSize = inventoryItemsSize;
         if (highIndex > inventoryItemsSize) {
             highIndex = inventoryItemsSize;
