@@ -98,11 +98,38 @@ under the License.
     <form name="ViewGatewayResponseRelations" type="single" target="" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId" widget-style="buttontext">
-          <hyperlink also-hidden="false" target-type="inter-app" description="${orderId}" target="/ordermgr/control/orderview">
+            <hyperlink also-hidden="false" target-type="inter-app" description="${orderId}" target="/ordermgr/control/orderview">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="orderPaymentPreferenceId"><display/></field>
+    </form>
+    <form name="ViewGatewayResponsePayments" type="list" list-name="payments" title="">
+        <field name="paymentId" widget-style="buttontext">
+            <hyperlink description="${paymentId}" target="paymentOverview">
+                <parameter param-name="paymentId"/>
+            </hyperlink>
+        </field>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}"><display-entity entity-name="PaymentType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="comments"><display/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]" >
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]" >
+                    <parameter param-name="partyId" from-field="partyIdTo"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="effectiveDate"><display/></field>
+        <field name="currencyUomId"><hidden/></field>
+        <field name="amount"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
     </form>
     
     <!-- displays the gateway response in detail -->

@@ -350,7 +350,6 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
-
         <menu-item name="editPayment" title="${uiLabelMap.AccountingPaymentTabHeader}">
             <condition>
                 <and>
@@ -374,6 +373,14 @@ under the License.
                 </and>
             </condition>
             <link target="editPaymentApplications">
+                <parameter param-name="paymentId" from-field="payment.paymentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="paymentGatewayTransactions" title="${uiLabelMap.AccountingTransactions}">
+            <condition>
+                <not><if-empty field="payment.paymentId"/></not>
+            </condition>
+            <link target="paymentGatewayTransactions">
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
