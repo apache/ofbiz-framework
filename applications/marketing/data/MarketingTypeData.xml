@@ -91,4 +91,6 @@ under the License.
     <WebSite webSiteId="MARKETING" siteName="Marketing Manager" visualThemeSetId="BACKOFFICE"/>
     <WebSite webSiteId="SFA" siteName="SFA Manager" visualThemeSetId="BACKOFFICE"/>
 
+    <EnumerationType enumTypeId="SLSOPP_TYP_ENUM" description="Sales Opportunity Type"/>
+    
 </entity-engine-xml>
