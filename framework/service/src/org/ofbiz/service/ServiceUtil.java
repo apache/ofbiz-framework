@@ -161,6 +161,13 @@ public class ServiceUtil {
         return returnMessage(ModelService.RESPOND_SUCCESS, null);
     }
 
+    /** A small routine used all over to improve code efficiency, make a result map with the message and the success response code */
+    public static Map<String, Object> returnSuccess(List<String> successMessageList) {
+        Map result = returnMessage(ModelService.RESPOND_SUCCESS, null);
+        result.put(ModelService.SUCCESS_MESSAGE_LIST, successMessageList);
+        return result;
+    }
+
     /** A small routine to make a result map with the message and the response code
      * NOTE: This brings out some bad points to our message convention: we should be using a single message or message list
      *  and what type of message that is should be determined by the RESPONSE_MESSAGE (and there's another annoyance, it should be RESPONSE_CODE)
