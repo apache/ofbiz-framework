@@ -130,4 +130,16 @@
 
     <PartyRelationship partyIdFrom="DemoLeadOwnersGroup" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="DemoLeadOwner" roleTypeIdTo="OWNER" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER"/>
     <PartyRelationship partyIdFrom="DemoLeadOwnersGroup" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="DemoLeadOwner1" roleTypeIdTo="OWNER" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER"/>
+
+    <SalesOpportunityStage opportunityStageId="SOSTG_PROSPECT" description="Prospect" defaultProbability="0.050000" sequenceNum="1" lastUpdatedStamp="2009-04-20 10:23:33.982" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.982" createdTxStamp="2009-04-20 10:23:33.972"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_PROPOSAL" description="Proposal" defaultProbability="0.200000" sequenceNum="2" lastUpdatedStamp="2009-04-20 10:23:33.98" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.98" createdTxStamp="2009-04-20 10:23:33.972"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_QUOTED" description="Quoted" defaultProbability="0.400000" sequenceNum="3" lastUpdatedStamp="2009-04-20 10:23:33.983" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.983" createdTxStamp="2009-04-20 10:23:33.972"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_CLOSED" description="Closed" defaultProbability="1.000000" sequenceNum="4" lastUpdatedStamp="2009-04-20 10:23:33.978" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.978" createdTxStamp="2009-04-20 10:23:33.972"/>
+
+    <Enumeration enumId="SLSOPP_ECOMMERCE" enumTypeId="SLSOPP_TYP_ENUM" description="Ecommerce"/> 
+    <Enumeration enumId="SLSOPP_ERP" enumTypeId="SLSOPP_TYP_ENUM" description="ERP"/> 
+    <Enumeration enumId="SLSOPP_INSTALL" enumTypeId="SLSOPP_TYP_ENUM" description="Installation"/> 
+    <Enumeration enumId="SLSOPP_CUSTM" enumTypeId="SLSOPP_TYP_ENUM" description="Customization"/> 
+    <Enumeration enumId="SLSOPP_SUPPORT" enumTypeId="SLSOPP_TYP_ENUM" description="Support plan"/> 
+
 </entity-engine-xml>
