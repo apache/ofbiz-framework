@@ -63,8 +63,8 @@ under the License.
     </entity>
     
     <entity entity-name="EbayShippingMethod"
-            package-name="org.ofbiz.googlecheckout.shipping"
-            title="Google Shipping Method Config">
+            package-name="org.ofbiz.ebay.shipping"
+            title="Ebay Shipping Method Config">
         <field name="shipmentMethodName" type="id-long-ne"></field>
         <field name="productStoreId" type="id-ne"></field>
         <field name="amount" type="currency-amount"></field>

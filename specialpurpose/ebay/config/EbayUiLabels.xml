@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EbayAddEbayShippingMethod">
+        <value xml:lang="en">Add Ebay Shipping Method</value>
+    </property>
     <property key="EbayApplication">
         <value xml:lang="en">Ebay Integration</value>
         <value xml:lang="fr">Intégration Ebay</value>
@@ -64,6 +67,9 @@
         <value xml:lang="it">Ricerca Ordini Da Importare Da eBay</value>
         <value xml:lang="th">ค้นหารายการสั่งซื้อสินค้าไปยังการนำเข้าสินค้าจากอีเบย์</value>
         <value xml:lang="zh">搜索从eBay导入的订单</value>
+    </property>
+    <property key="EbayShippingMethodConfigurations">
+        <value xml:lang="en">Shipping Method Configurations</value>
     </property>
     <property key="EbayViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("EBAY_VIEW" needed)</value>

@@ -138,4 +138,19 @@ under the License.
         <attribute name="orderItemList" type="List" mode="IN" optional="true"/>
     </service>
     
+    <service name="createEbayShippingMethod" default-entity-name="EbayShippingMethod" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a EbayShippingMethod</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateEbayShippingMethod" default-entity-name="EbayShippingMethod" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a EbayShippingMethod</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteEbayShippingMethod" default-entity-name="EbayShippingMethod" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a EbayShippingMethod</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>

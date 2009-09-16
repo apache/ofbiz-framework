@@ -22,5 +22,6 @@ under the License.
         <menu-item name="export" title="${uiLabelMap.EbayExportToEbay}"><link target="advancedsearch"/></menu-item>
         <menu-item name="importOrders" title="${uiLabelMap.EbayImportSingleTransactionFromEbay}"><link target="ManageOrdersFromEbay"/></menu-item>
         <menu-item name="eBayOrders" title="${uiLabelMap.EbayEBayOrders}"><link target="eBayOrders"/></menu-item>
+        <menu-item name="eBayShippingMethods" title="${uiLabelMap.EbayShippingMethodConfigurations}"><link target="EbayShippingMethods"/></menu-item>        
     </menu>
 </menus>
