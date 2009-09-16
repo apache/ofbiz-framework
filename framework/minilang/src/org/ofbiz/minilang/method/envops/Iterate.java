@@ -104,13 +104,9 @@ public class Iterate extends MethodOperation {
                     return false;
                 }
             }
-        } else {
+        } else if (objList instanceof Collection) {
             Collection<Object> theList = UtilGenerics.checkList(objList);
 
-            if (theList == null) {
-                if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
-                return true;
-            }
             if (theList.size() == 0) {
                 if (Debug.verboseOn()) Debug.logVerbose("List with name " + listAcsr + " has zero entries, doing nothing: " + rawString(), module);
                 return true;
@@ -124,6 +120,25 @@ public class Iterate extends MethodOperation {
                     return false;
                 }
             }
+        } else if (objList instanceof Iterator) {
+            Iterator<Object> theIterator = UtilGenerics.cast(objList);
+            if (!theIterator.hasNext()) {
+                if (Debug.verboseOn()) Debug.logVerbose("List with name " + listAcsr + " has no more entries, doing nothing: " + rawString(), module);
+                return true;
+            }
+
+            while (theIterator.hasNext()) {
+                Object theEntry = theIterator.next();
+                entryAcsr.put(methodContext, theEntry);
+
+                if (!SimpleMethod.runSubOps(subOps, methodContext)) {
+                    // only return here if it returns false, otherwise just carry on
+                    return false;
+                }
+            }
+        } else {
+            if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
+            return true;
         }
         entryAcsr.put(methodContext, oldEntryValue);
         return true;
