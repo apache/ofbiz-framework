@@ -42,73 +42,75 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
-            <tr class="header-row">
-                <td>${uiLabelMap.ProductProductNameId}</td>
-                <td>${uiLabelMap.CommonFromDateTime}</td>
-                <td align="center">${uiLabelMap.ProductThruDateTimeSequenceQuantity} ${uiLabelMap.CommonComments}</td>
-                <td>&nbsp;</td>
-            </tr>
-            <#if (listSize > 0)>
-                <tr><td>
-                <form method="post" action="<@ofbizUrl>updateCategoryProductMember?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex}</@ofbizUrl>" name="updateCategoryProductForm">
-                    <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
-                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
-                    <#assign rowClass = "2">
-                    <#list productCategoryMembers as productCategoryMember>
-                    <#assign suffix = "_o_" + productCategoryMember_index>
-                    <#assign product = productCategoryMember.getRelatedOne("Product")>
-                    <#assign hasntStarted = false>
-                    <#if productCategoryMember.fromDate?exists && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
-                    <#assign hasExpired = false>
-                    <#if productCategoryMember.thruDate?exists && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                            <td>
-                                <#if (product.smallImageUrl)?exists>
-                                   <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" height="40" width="40" align="middle"></a>
-                                </#if>
-                               <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>" class="buttontext"><#if product?exists>${(product.internalName)?if_exists}</#if> [${(productCategoryMember.productId)?if_exists}]</a>
-                            </td>
-                            <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)?if_exists}</td>
-                            <td align="center">
-                                <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)?if_exists}">
-                                <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)?if_exists}">
-                                <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)?if_exists}">
-                                <input type="text" size="25" name="thruDate${suffix}" value="${(productCategoryMember.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if>>
-                                <a href="javascript:call_cal(document.updateCategoryProductForm.thruDate${suffix}, '${(productCategoryMember.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                                <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}">
-                                <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}">
-                                <br/>
-                                <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>
-                            </td>
-                            <td align="center">
-                              <a href="javascript:document.deleteProductFromCategory_${productCategoryMember.productId}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
-                            </td>
-                        </tr>
-                        <#-- toggle the row color -->
-                        <#if rowClass == "2">
-                            <#assign rowClass = "1">
-                        <#else>
-                            <#assign rowClass = "2">
-                        </#if>
-                    </#list>
-                    <tr valign="middle">
-                        <td colspan="4" align="center">
-                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-                            <input type="hidden" value="${productCategoryMembers.size()}" name="_rowCount">
-                        </td>
-                    </tr>
+          <tr class="header-row">
+            <td>${uiLabelMap.ProductProductNameId}</td>
+            <td>${uiLabelMap.CommonFromDateTime}</td>
+            <td align="center">${uiLabelMap.ProductThruDateTimeSequenceQuantity} ${uiLabelMap.CommonComments}</td>
+            <td>&nbsp;</td>
+          </tr>
+          <#if (listSize > 0)>
+            <tr><td>
+              <#assign rowClass = "2">
+              <#assign rowCount = 0>
+              <#list productCategoryMembers as productCategoryMember>
+                <#assign suffix = "_o_" + productCategoryMember_index>
+                <#assign product = productCategoryMember.getRelatedOne("Product")>
+                <#assign hasntStarted = false>
+                <#if productCategoryMember.fromDate?exists && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
+                <#assign hasExpired = false>
+                <#if productCategoryMember.thruDate?exists && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
+                <form method="post" action="<@ofbizUrl>updateCategoryProductMember</@ofbizUrl>" name="updateCategoryProductForm">
+                  <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
+                  <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
+                  <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
+                  <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
+                  <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                    <td>
+                      <#if (product.smallImageUrl)?exists>
+                         <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" height="40" width="40" align="middle"></a>
+                      </#if>
+                      <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>" class="buttontext"><#if product?exists>${(product.internalName)?if_exists}</#if> [${(productCategoryMember.productId)?if_exists}]</a>
+                    </td>
+                    <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)?if_exists}</td>
+                    <td align="center">
+                        <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)?if_exists}">
+                        <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)?if_exists}">
+                        <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)?if_exists}">
+                        <input type="text" size="25" name="thruDate${suffix}" value="${(productCategoryMember.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if>>
+                        <a href="javascript:call_cal(document.updateCategoryProductForm.thruDate${suffix}, '${(productCategoryMember.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                        <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}">
+                        <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}">
+                        <br/>
+                        <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>
+                    </td>
+                    <td align="center">
+                      <a href="javascript:document.deleteProductFromCategory_o_${rowCount}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                    </td>
+                  </tr>
+                  <#-- toggle the row color -->
+                  <#if rowClass == "2">
+                      <#assign rowClass = "1">
+                  <#else>
+                      <#assign rowClass = "2">
+                  </#if>
+                  <tr valign="middle">
+                      <td colspan="4" align="center">
+                          <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
+                          <input type="hidden" value="${productCategoryMembers.size()}" name="_rowCount">
+                      </td>
+                  </tr>
                 </form>
-                <#list productCategoryMembers as productCategoryMember>
-                    <form name="deleteProductFromCategory_${productCategoryMember.productId}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
-                        <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
-                        <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
-                        <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}"/>
-                        <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
-                        <input type="hidden" name="fromDate" value="${(productCategoryMember.fromDate)?if_exists}"/>
-                        <input name="activeOnly" type="hidden" value="${activeOnly.toString()}"/>
-                    </form>
-                </#list>
-            </#if>
+                <form name="deleteProductFromCategory_o_${rowCount}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
+                  <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
+                  <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
+                  <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}">
+                  <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
+                  <input type="hidden" name="fromDate" value="${productCategoryMember.getString("fromDate")?if_exists}"/>
+                  <input type="hidden" name="activeOnly" value="${activeOnly.toString()}"/>
+                </form>
+                <#assign rowCount = rowCount + 1>
+              </#list>
+          </#if>
         </table>
     </div>
     <div class="screenlet-title-bar">
