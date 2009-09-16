@@ -331,11 +331,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         this.request.setAttribute("image", hyperlinkField.getImage());
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
-
         WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
-                hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), modelFormField,
-                this.request, this.response, context);
-
+                hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), hyperlinkField.getConfirmation(context), modelFormField,
+                this.request, this.response, context);               
         this.appendTooltip(writer, context, modelFormField);
         //appendWhitespace(writer);
     }
@@ -343,12 +341,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void makeHyperlinkString(Appendable writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
         if (subHyperlink == null) {
             return;
-        }
+        }        
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
             WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
-                    subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getModelFormField(),
-                    this.request, this.response, context);
+                    subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
+                    this.request, this.response, context);            
         }
     }
 
@@ -1041,12 +1039,18 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelForm modelForm = modelFormField.getModelForm();
         String event = null;
         String action = null;
+        String confirmation =  submitField.getConfirmation(context);
 
         if ("text-link".equals(submitField.getButtonType())) {
             writer.append("<a");
 
             appendClassNames(writer, context, modelFormField);
-
+            if (UtilValidate.isNotEmpty(confirmation)) {
+                writer.append("onClick=\" return confirm('");
+                writer.append(confirmation);
+                writer.append("); \" ");
+            }
+            
             writer.append(" href=\"javascript:document.");
             writer.append(modelForm.getCurrentFormName(context));
             writer.append(".submit()\">");
@@ -1082,6 +1086,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("=\"");
                 writer.append(action);
                 writer.append('"');
+            }
+            
+            if (UtilValidate.isNotEmpty(confirmation)) {
+                writer.append("onClick=\" return confirm('");
+                writer.append(confirmation);
+                writer.append("); \" ");
             }
 
             writer.append("/>");
@@ -1136,6 +1146,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
             if (ajaxEnabled) {
                 writer.append(" onclick=\"");
+                if (UtilValidate.isNotEmpty(confirmation)) {
+                    writer.append("if  (confirm('");
+                    writer.append(confirmation);
+                    writer.append(");) ");
+                }
                 writer.append("ajaxSubmitFormUpdateAreas('");
                 writer.append(formId);
                 writer.append("', '").append(createAjaxParamsFromUpdateAreas(updateAreas, null, context));
@@ -2855,7 +2870,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
                 targetType="plain";
             }
-            WidgetWorker.makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, modelFormField, this.request, this.response, null, null);
+            WidgetWorker.makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, null, modelFormField, this.request, this.response, null, null);
         } else if (modelFormField.isSortField()) {
             renderSortField (writer, context, modelFormField, titleText);
         } else if (modelFormField.isRowSubmit()) {

@@ -450,10 +450,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
 
             writer.append(" href=\"");
+            String confirmationMsg = link.getConfirmation(context);
             if ("hidden-form".equals(linkType)) {
-                if (link.getRequestConfirmation()) {
+                if (UtilValidate.isNotEmpty(confirmationMsg)) {
                     writer.append("javascript:confirmActionFormLink('");
-                    writer.append(link.getConfirmationMsg(context));
+                    writer.append(confirmationMsg);
                     writer.append("', '");
                     writer.append(uniqueItemName);
                     writer.append("')");
@@ -463,9 +464,9 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     writer.append(".submit()");
                 }
             } else {
-                if (link.getRequestConfirmation()) {
+                if (UtilValidate.isNotEmpty(confirmationMsg)) {
                     writer.append("javascript:confirmActionLink('");
-                    writer.append(link.getConfirmationMsg(context));
+                    writer.append(confirmationMsg);
                     writer.append("', '");
                     WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
                             link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);

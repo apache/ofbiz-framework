@@ -32,6 +32,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -722,6 +723,19 @@ public class ModelMenuItem {
 
         public List<WidgetWorker.Parameter> getParameterList() {
             return this.parameterList;
+        }
+        
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message)) {
+                return message;
+            }
+            else if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}");
+                setConfirmationMsg(defaultMessage);
+                return getConfirmationMsg(context);
+            }
+            return "";
         }
         
         public boolean getRequestConfirmation() {

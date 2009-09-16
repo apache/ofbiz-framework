@@ -119,14 +119,13 @@ public class WidgetWorker {
         writer.append(buffer.toString());
         writer.append(location);
     }
-
     public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target,
-            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField,
+            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
         if ("hidden-form".equals(realLinkType)) {
             if (modelFormField != null && "multi".equals(modelFormField.getModelForm().getType())) {
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation, modelFormField, request, response, context);
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
                 Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
@@ -138,16 +137,15 @@ public class WidgetWorker {
                 WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
             } else {
                 WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation, modelFormField, request, response, context);
             }
         } else {
-            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, modelFormField, request, response, context, targetWindow);
+            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, confirmation, modelFormField, request, response, context, targetWindow);
         }
 
     }
-
     public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList,
-            String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
+            String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
             throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
@@ -177,7 +175,11 @@ public class WidgetWorker {
                 writer.append(modelFormField.getAction(context));
                 writer.append('"');
             }
-
+            if (UtilValidate.isNotEmpty(confirmation)){
+                writer.append(" onClick=\"return confirm('");
+                writer.append(confirmation);
+                writer.append("')\"");
+            }
             writer.append('>');
 
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
@@ -190,8 +192,8 @@ public class WidgetWorker {
             writer.append("</a>");
         }
     }
-
-    public static void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    
+    public static void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
 
@@ -211,6 +213,12 @@ public class WidgetWorker {
                 writer.append("=\"");
                 writer.append(modelFormField.getAction(context));
                 writer.append('"');
+            }
+            
+            if (UtilValidate.isNotEmpty(confirmation)){
+                writer.append(" onClick=\"return confirm('");
+                writer.append(confirmation);
+                writer.append("')\"");
             }
 
             writer.append('>');

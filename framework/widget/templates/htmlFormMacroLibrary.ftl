@@ -170,13 +170,13 @@ ${item.description}</div>
 </#list>
 </#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc containerId ajaxUrl>
+<#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl>
 <#if buttonType=="text-link">
- <a <@renderClass className alert /> href="javascript:document.${formName}.submit()"><#if title?has_content>${title}</#if> </a>
+ <a <@renderClass className alert /> href="javascript:document.${formName}.submit()" <#if confirmation?has_content>onclick="return confirm('${confirmation}');"</#if>><#if title?has_content>${title}</#if> </a>
 <#elseif buttonType=="image">
- <input type="image" src="${imgSrc}" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if title?has_content> alt="${title}"</#if><#if event?has_content> ${event}="${action}"</#if> />
+ <input type="image" src="${imgSrc}" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if title?has_content> alt="${title}"</#if><#if event?has_content> ${event}="${action}"</#if> <#if confirmation?has_content>onclick="return confirm('${confirmation}');"</#if>/>
 <#else>
-<input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /><#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if><#if containerId?has_content> onclick="ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"</#if>/></#if>
+<input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /><#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if><#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation}')) </#if>ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"<#else><#if confirmation?has_content> onclick="return confirm('${confirmation}');"</#if></#if>/></#if>
 </#macro>
 
 <#macro renderResetField className alert name title>
@@ -469,5 +469,5 @@ ${item.description}</div>
 <#if requiredField=="true"><#if requiredStyle?has_content>*</#if></#if>
 </#macro>
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow><form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${name}"><#list parameters as parameter><input name="${parameter.name}" value="${parameter.value}" type="hidden"/></#list></form></#macro>
-<#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"<#if action?has_content && event?has_content> ${event}="${action}"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
-<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc linkUrl targetWindow description><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if><#if action?has_content && event?has_content> ${event}="${action}"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
+<#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"<#if action?has_content && event?has_content> ${event}="${action}"</#if><#if confirmation?has_content> onclick="return confirm('${confirmation}')"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
+<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc linkUrl targetWindow description confirmation><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if><#if action?has_content && event?has_content> ${event}="${action}"</#if><#if confirmation?has_content> onclick="return confirm('${confirmation}')"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
