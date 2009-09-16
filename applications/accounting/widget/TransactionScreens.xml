@@ -114,6 +114,20 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
+                                    <label text="${uiLabelMap.AccountingPaymentsMenu}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ViewGatewayResponsePayments" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleViewGatewayResponse}"/>
                                 </container>
                             </container>
