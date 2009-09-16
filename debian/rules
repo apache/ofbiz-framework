@@ -44,18 +44,28 @@ merge:
 
 make-orig:
 	set -ex; \
-	rm -rf ../orig; \
+	process_orig_dir() { \
+		wait; \
+		cp -a $$1/changelog changelog; \
+		mv $$1/changelog "$$1/ofbiz-$$2/changelog"; \
+		tar -C $$1 -c "ofbiz-$$2" | gzip -9 > "$$1/ofbiz_$$2.orig.tar.gz"; \
+		mv "$$1/ofbiz_$$2.orig.tar.gz" ..; \
+		rm -rf $$1; \
+	}; \
+	if [ -d .git ]; then \
+		rm -rf debian/orig-work; mkdir -p debian/orig-work/ofbiz-$(UPSTREAM_VERSION); \
+		treeish=`git svn find-rev r$(UPSTREAM_VERSION)`;\
+		git svn log -v -r "$(UPSTREAM_VERSION):0" > debian/orig-work/changelog & \
+		(cd debian/orig-work; git clone -n ../.. ofbiz-$(UPSTREAM_VERSION); cd ofbiz-$(UPSTREAM_VERSION); git checkout $$treeish; rm -rf .git); \
+		process_orig_dir debian/orig-work "$(UPSTREAM_VERSION)"; \
+		exit; \
+	fi; \
 	set -- `(svk info . 2>/dev/null || true) | awk -F '[ ,]+' '/^(Depot Path|Mirrored From): /{print $$3, $$5}'`;\
 	if [ "$$1" ]; then \
-		mkdir -p ../orig; \
+		rm -rf ../orig; mkdir -p ../orig; \
 		svk log -v > ../orig/changelog & \
-		svk co --export "$$1" "../orig/ofbiz-$$3"; \
-		wait; \
-		cp -a ../orig/changelog changelog; \
-		mv ../orig/changelog "../orig/ofbiz-$$3/changelog"; \
-		tar -C ../orig -c "ofbiz-$$3" | gzip -9 > "../orig/ofbiz_$$3.orig.tar.gz"; \
-		mv "../orig/ofbiz_$$3.orig.tar.gz" ..; \
-		rm -rf ../orig; \
+		svk co --export "$$1" "../orig/ofbiz-$$3" & \
+		process_orig_dir ../orig $$3; \
 	fi \
 
 clean-debian:
