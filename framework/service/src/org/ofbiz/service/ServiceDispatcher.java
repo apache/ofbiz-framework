@@ -608,7 +608,7 @@ public class ServiceDispatcher {
         }
         boolean debugging = checkDebug(service, 1, true);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[ServiceDispatcher.runAsync] : prepareing service " + service.name + " [" + service.location + "/" + service.invoke +
+            Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke +
                 "] (" + service.engineName + ")", module);
         }
 
