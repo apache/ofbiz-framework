@@ -65,7 +65,7 @@ try {
         visitList = new ArrayList();
     }
 
-    visitListSize = visitListIt.getResultSizeAfterPartialList();
+    visitListSize = visitListIt.getResultsSizeAfterPartialList();
     if (highIndex > visitListSize) {
         highIndex = visitListSize;
     }

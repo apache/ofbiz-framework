@@ -334,7 +334,7 @@ if (action) {
                 }
                 productListSize = lowIndex + rows.size() + rowProcessed - 1;
             } else {
-                productListSize = prodsEli.getResultSizeAfterPartialList();
+                productListSize = prodsEli.getResultsSizeAfterPartialList();
             }
         }
         prodsEli.close();
