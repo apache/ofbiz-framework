@@ -320,7 +320,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
 
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
-                hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), modelFormField,
+                hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), hyperlinkField.getConfirmation(context), modelFormField,
                 this.request, this.response, context);
 
         this.appendTooltip(writer, context, modelFormField);
@@ -996,6 +996,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String buttonType =  submitField.getButtonType();
         String formName = modelForm.getCurrentFormName(context);
         String imgSrc = submitField.getImageLocation();
+        String confirmation = submitField.getConfirmation(context);
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -1050,6 +1051,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (ajaxEnabled) {
             sr.append(formId);
         }
+        sr.append("\" confirmation =\"");
+        sr.append(confirmation );
         sr.append("\" ajaxUrl=\"");
         if (ajaxEnabled) {
             sr.append(ajaxUrl);
@@ -2478,8 +2481,8 @@ public class MacroFormRenderer implements FormStringRenderer {
                 targetType="plain";
             }
             StringWriter sr = new StringWriter();
-            WidgetWorker.makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, modelFormField, this.request, this.response, null, null);
-            String title = sr.toString().replace("\"", "\'");
+            WidgetWorker.makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, null, modelFormField, this.request, this.response, null, null);
+            String title = sr.toString().replace("\"", "\'");            
             sr = new StringWriter();
             sr.append("<@renderHyperlinkTitle ");
             sr.append(" name=\"");
@@ -2652,7 +2655,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
             WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
-                    subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getModelFormField(),
+                    subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
                     this.request, this.response, context);
         }
     }
@@ -2680,12 +2683,12 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target,
-            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField,
+            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, String confirmation , ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
         if ("hidden-form".equals(realLinkType)) {
             if (modelFormField != null && "multi".equals(modelFormField.getModelForm().getType())) {
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation , modelFormField, request, response, context);
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
                 Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
@@ -2697,16 +2700,16 @@ public class MacroFormRenderer implements FormStringRenderer {
                 WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
             } else {
                 WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
-                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation , modelFormField, request, response, context);
             }
         } else {
-            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, modelFormField, request, response, context, targetWindow);
+            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, confirmation , modelFormField, request, response, context, targetWindow);
         }
 
     }
 
     public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList,
-            String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
+            String description, String confirmation , ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
             throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
@@ -2745,12 +2748,14 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(targetWindow);
             sr.append("\" description=\"");
             sr.append(description);
+            sr.append("\" confirmation =\"");
+            sr.append(confirmation );            
             sr.append("\" />");
             executeMacro(sr.toString());
         }
     }
-
-    public void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    
+    public void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String confirmation , ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             String event = "";
@@ -2780,6 +2785,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(imgSrc);
             sr.append("\" description=\"");
             sr.append(description);
+            sr.append("\" confirmation =\"");
+            sr.append(confirmation );            
             sr.append("\" />");
             executeMacro(sr.toString());
         }

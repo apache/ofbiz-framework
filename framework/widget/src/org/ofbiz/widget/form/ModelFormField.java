@@ -42,6 +42,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -2236,6 +2237,8 @@ public class ModelFormField {
         protected FlexibleStringExpander targetWindowExdr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
+        protected boolean requestConfirmation = false;
+        protected FlexibleStringExpander confirmationMsgExdr;
         protected HyperlinkField() {
             super();
         }
@@ -2258,7 +2261,8 @@ public class ModelFormField {
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
             this.image = element.getAttribute("image-location");
-
+            this.setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
+            this.setConfirmationMsg(element.getAttribute("confirmation-message"));
             List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
@@ -2273,7 +2277,28 @@ public class ModelFormField {
         public boolean getAlsoHidden() {
             return this.alsoHidden;
         }
+        
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
 
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message)) {
+                return message;
+            }
+            else if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}");
+                setConfirmationMsg(defaultMessage);
+                return getConfirmationMsg(context);
+            }
+            return "";
+        }       
+        
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }       
+        
         public String getLinkType() {
             return this.linkType;
         }
@@ -2334,6 +2359,14 @@ public class ModelFormField {
         public void setTarget(String string) {
             this.target = FlexibleStringExpander.getInstance(string);
         }
+       
+        public void setRequestConfirmation(boolean val) {
+            this.requestConfirmation = val;
+        }
+        
+        public void setConfirmationMsg(String val) {
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
+        }
     }
 
     public static class SubHyperlink {
@@ -2345,6 +2378,8 @@ public class ModelFormField {
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected boolean requestConfirmation = false;
+        protected FlexibleStringExpander confirmationMsgExdr;
         protected ModelFormField modelFormField;
 
         public SubHyperlink(Element element, ModelFormField modelFormField) {
@@ -2355,15 +2390,16 @@ public class ModelFormField {
             this.linkStyle = element.getAttribute("link-style");
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
-
             List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
             }
+            setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
+            setConfirmationMsg(element.getAttribute("confirmation-message"));
 
             this.modelFormField = modelFormField;
         }
-
+        
         public String getLinkStyle() {
             return this.linkStyle;
         }
@@ -2412,7 +2448,28 @@ public class ModelFormField {
                 return "";
             }
         }
-
+        
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+        
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+        
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message)) {
+                return message;
+            }
+            else if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}");
+                setConfirmationMsg(defaultMessage);
+                return getConfirmationMsg(context);
+            }
+            return "";
+        }       
+        
         public ModelFormField getModelFormField() {
             return this.modelFormField;
         }
@@ -2480,6 +2537,14 @@ public class ModelFormField {
          */
         public void setUseWhen(String string) {
             this.useWhen = FlexibleStringExpander.getInstance(string);
+        } 
+        
+        public void setRequestConfirmation(boolean val) {
+            this.requestConfirmation = val;
+        }
+        
+        public void setConfirmationMsg(String val) {
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
         }
     }
 
@@ -3112,6 +3177,8 @@ public class ModelFormField {
         protected String buttonType;
         protected String imageLocation;
         protected FlexibleStringExpander backgroundSubmitRefreshTargetExdr;
+        protected boolean requestConfirmation = false;
+        protected FlexibleStringExpander confirmationMsgExdr;
 
         protected SubmitField() {
             super();
@@ -3130,7 +3197,9 @@ public class ModelFormField {
             this.buttonType = element.getAttribute("button-type");
             this.imageLocation = element.getAttribute("image-location");
             this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element.getAttribute("background-submit-refresh-target"));
-        }
+            setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
+            setConfirmationMsg(element.getAttribute("confirmation-message"));
+        }        
 
         @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -3143,8 +3212,29 @@ public class ModelFormField {
 
         public String getImageLocation() {
             return imageLocation;
-        }
+        }        
 
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+        
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+        
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message)) {
+                return message;
+            }
+            else if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}");
+                setConfirmationMsg(defaultMessage);
+                return getConfirmationMsg(context);
+            }
+            return "";
+        }       
+        
         /**
          * @param string
          */
@@ -3161,7 +3251,16 @@ public class ModelFormField {
 
         public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
             return this.backgroundSubmitRefreshTargetExdr.expandString(context);
+        }        
+        
+        public void setRequestConfirmation(boolean val) {
+            this.requestConfirmation = val;
         }
+        
+        public void setConfirmationMsg(String val) {
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
+        }
+
     }
 
     public static class ResetField extends FieldInfo {

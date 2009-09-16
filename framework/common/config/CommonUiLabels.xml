@@ -1408,7 +1408,7 @@
         <value xml:lang="de">Bestätigen</value>
         <value xml:lang="en">Confirm</value>
         <value xml:lang="es">Confirmar</value>
-        <value xml:lang="fr">Confirmer</value>
+        <value xml:lang="fr">Vous confirmez ?</value>
         <value xml:lang="hi_IN">पुष्टि</value>
         <value xml:lang="it">Conferma</value>
         <value xml:lang="pt">Confirmar</value>
@@ -1416,6 +1416,62 @@
         <value xml:lang="ru">Подтвердить</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="zh">确认</value>
+    </property>
+    <property key="CommonConfirmAdd">
+        <value xml:lang="ar">تأكيد</value>
+        <value xml:lang="de">Bestätigen</value>
+        <value xml:lang="en">Confirm</value>
+        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="fr">Confirmez-vous l'ajout ?</value>
+        <value xml:lang="hi_IN">पुष्टि</value>
+        <value xml:lang="it">Conferma</value>
+        <value xml:lang="pt">Confirmar</value>
+        <value xml:lang="ro">Confirma</value>
+        <value xml:lang="ru">Подтвердить</value>
+        <value xml:lang="th">ยืนยัน</value>
+        <value xml:lang="zh">确认</value>
+    </property>
+    <property key="CommonConfirmDelete">
+        <value xml:lang="ar">تأكيد</value>
+        <value xml:lang="de">Bestätigen</value>
+        <value xml:lang="en">Confirm Delete</value>
+        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="fr">Confirmez-vous la suppression ?</value>
+        <value xml:lang="hi_IN">पुष्टि</value>
+        <value xml:lang="it">Conferma</value>
+        <value xml:lang="pt">Confirmar</value>
+        <value xml:lang="ro">Confirma</value>
+        <value xml:lang="ru">Подтвердить</value>
+        <value xml:lang="th">ยืนยัน</value>
+        <value xml:lang="zh">确认</value>
+    </property>
+    <property key="CommonConfirmAdd">
+        <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
+        <value xml:lang="de">BestÃ¤tigen</value>
+        <value xml:lang="en">Confirm adding ?</value>
+        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="fr">Confirmez-vous l'ajout ?</value>
+        <value xml:lang="hi_IN">à¤ªà¥à¤·à¥à¤Ÿà¤¿</value>
+        <value xml:lang="it">Conferma</value>
+        <value xml:lang="pt">Confirmar</value>
+        <value xml:lang="ro">Confirma</value>
+        <value xml:lang="ru">ÐŸÐ¾Ð´Ñ‚Ð²ÐµÑ€Ð´Ð¸Ñ‚ÑŒ</value>
+        <value xml:lang="th">à¸¢à¸·à¸™à¸¢à¸±à¸™</value>
+        <value xml:lang="zh">ç¡®è®¤</value>
+    </property>
+    <property key="CommonConfirmDelete">
+        <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
+        <value xml:lang="de">BestÃ¤tigen</value>
+        <value xml:lang="en">Confirm Delete</value>
+        <value xml:lang="es">Confirmar</value>
+        <value xml:lang="fr">Confirmez vous la suppression ?</value>
+        <value xml:lang="hi_IN">à¤ªà¥à¤·à¥à¤Ÿà¤¿</value>
+        <value xml:lang="it">Conferma</value>
+        <value xml:lang="pt">Confirmar</value>
+        <value xml:lang="ro">Confirma</value>
+        <value xml:lang="ru">ÐŸÐ¾Ð´Ñ‚Ð²ÐµÑ€Ð´Ð¸Ñ‚ÑŒ</value>
+        <value xml:lang="th">à¸¢à¸·à¸™à¸¢à¸±à¸™</value>
+        <value xml:lang="zh">ç¡®è®¤</value>
     </property>
     <property key="CommonContactMechID">
         <value xml:lang="ar">إحداثيات</value>
@@ -1438,7 +1494,7 @@
         <value xml:lang="de">Kontakt Zweck</value>
         <value xml:lang="en">Contact Purpose</value>
         <value xml:lang="es">Propósito del contacto</value>
-        <value xml:lang="fr">Objet du contact</value>
+        <value xml:lang="fr">But du contact</value>
         <value xml:lang="hi_IN">संपर्क प्रयोजन</value>
         <value xml:lang="it">Funzione contatto</value>
         <value xml:lang="nl">Kontact reden</value>
