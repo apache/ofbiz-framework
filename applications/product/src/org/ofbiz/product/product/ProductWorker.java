@@ -547,6 +547,38 @@ public class ProductWorker {
         }
         return featureTypeFeatures;
     }
+    
+    /**
+     * For a given variant product, returns the list of features that would qualify it for
+     * selection from the virtual product
+     * @param variantProduct - the variant from which to derive the selection features
+     * @return a List of ProductFeature GenericValues
+     */
+    public static List<GenericValue> getVariantSelectionFeatures(GenericValue variantProduct) {
+        if (!"Y".equals(variantProduct.getString("isVariant"))) {
+            return null;
+        }
+        GenericValue virtualProduct = ProductWorker.getParentProduct(variantProduct.getString("productId"), variantProduct.getDelegator());
+        if (virtualProduct == null || !"Y".equals(virtualProduct.getString("productId"))) {
+            return null;
+        }
+        // The selectable features from the virtual product
+        List<GenericValue> selectableFeatures = ProductWorker.getProductFeaturesByApplTypeId(virtualProduct, "SELECTABLE_FEATURE");
+        // A list of distinct ProductFeatureTypes derived from the selectable features
+        List<String> selectableTypes = EntityUtil.getFieldListFromEntityList(selectableFeatures, "productFeatureTypeId", true);
+        // The standard features from the variant product
+        List<GenericValue> standardFeatures = ProductWorker.getProductFeaturesByApplTypeId(variantProduct, "STANDARD_FEATURE");
+        List<GenericValue> result = FastList.newInstance();
+        for (GenericValue standardFeature : standardFeatures) {
+            // For each standard variant feature check it is also a virtual selectable feature and 
+            // if a feature of the same type hasn't already been added to the list
+            if (selectableTypes.contains(standardFeature.getString("productFeatureTypeId")) && selectableFeatures.contains(standardFeature)) {
+                result.add(standardFeature);
+                selectableTypes.remove(standardFeature.getString("productFeatureTypeId"));
+            }
+        }
+        return result;
+    }
 
     public static Map<String, List<GenericValue>> getOptionalProductFeatures(GenericDelegator delegator, String productId) {
         Map<String, List<GenericValue>> featureMap = new LinkedHashMap<String, List<GenericValue>>();
