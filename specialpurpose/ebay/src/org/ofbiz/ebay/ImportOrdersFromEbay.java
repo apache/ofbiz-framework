@@ -789,7 +789,7 @@ public class ImportOrdersFromEbay {
                 cart.setMaySplit(Boolean.FALSE);
 
                 Debug.logInfo("Setting shipment method: " + (String) parameters.get("shippingService"), module);
-                EbayHelper.setShipmentMethodType(cart, (String) parameters.get("shippingService"));
+                EbayHelper.setShipmentMethodType(cart, (String) parameters.get("shippingService"), productStoreId, delegator);
 
                 cart.makeAllShipGroupInfos();
 

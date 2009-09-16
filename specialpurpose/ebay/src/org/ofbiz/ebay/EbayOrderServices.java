@@ -678,7 +678,7 @@ public class EbayOrderServices {
                 cart.setMaySplit(Boolean.FALSE);
 
                 Debug.logInfo("Setting shipment method: " + (String) shippingServiceSelectedCtx.get("shippingService"), module);
-                EbayHelper.setShipmentMethodType(cart, (String) shippingServiceSelectedCtx.get("shippingService"));
+                EbayHelper.setShipmentMethodType(cart, (String) shippingServiceSelectedCtx.get("shippingService"), productStoreId, delegator);
                 cart.makeAllShipGroupInfos();
 
                 // create the order

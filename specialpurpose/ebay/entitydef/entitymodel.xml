@@ -61,5 +61,32 @@ under the License.
             <key-map field-name="webSiteId"/>
         </relation>
     </entity>
+    
+    <entity entity-name="EbayShippingMethod"
+            package-name="org.ofbiz.googlecheckout.shipping"
+            title="Google Shipping Method Config">
+        <field name="shipmentMethodName" type="id-long-ne"></field>
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="amount" type="currency-amount"></field>
+        <field name="additionalAmount" type="currency-amount"></field>
+        <field name="additionalPercent" type="fixed-point"></field>
+        <field name="methodTypeEnumId" type="id-ne"></field>
+        <field name="carrierPartyId" type="id-ne"></field>
+        <field name="shipmentMethodTypeId" type="id-ne"></field>      
+        <prim-key field="shipmentMethodName"/>
+        <prim-key field="productStoreId"/>
+        <relation type="one" fk-name="EBYSM_PRD_STRE" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="EBYSM_TPE_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="methodTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="EBYSM_CRIER_PRTY" rel-entity-name="Party">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="EBYSM_SHMETH_TPE" rel-entity-name="ShipmentMethodType">
+            <key-map field-name="shipmentMethodTypeId"/>
+        </relation>
+    </entity>
 </entitymodel>    
     
