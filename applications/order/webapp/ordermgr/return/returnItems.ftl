@@ -62,8 +62,8 @@ under the License.
        </#if>
         <#if (adjEditable)>
           <#assign rowCount = rowCount + 1>
-          <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
        </#if>
+       <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
     </tr>
 </#macro>
 
