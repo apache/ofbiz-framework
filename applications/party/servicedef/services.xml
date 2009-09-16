@@ -980,6 +980,7 @@ under the License.
     <service name="getPartyTelephone" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartyTelephone" auth="false">
         <description>Get the party Email Telephone</description>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="countryCode" type="String" mode="OUT" optional="true"/>
