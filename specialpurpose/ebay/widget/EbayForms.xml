@@ -101,4 +101,66 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}"><submit button-type="button"/></field>
     </form>
+    
+    <form name="ListEbayShippingMethods" type="list"  list-name="eBayShippingMethods"  target="updateEbayShippingMethod"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EbayShippingMethod">
+                <order-by field-name="shipmentMethodName"/>
+                <order-by field-name="productStoreId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEbayShippingMethod"/>
+        <field name="productStoreId"><display/></field>
+        <field name="shipmentMethodName"><display/></field>
+        <field name="methodTypeEnumId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EBAY_SHIP_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="shipmentMethodTypeId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="deleteEbayShippingMethod" title="" widget-style="buttontext">
+            <hyperlink target="deleteEbayShippingMethod" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="shipmentMethodName"/>
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="AddEbayShippingMethod" type="single" target="createEbayShippingMethod" title="">
+        <auto-fields-service service-name="createEbayShippingMethod"/>
+        <field name="methodTypeEnumId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EBAY_SHIP_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="shipmentMethodTypeId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
 </forms>

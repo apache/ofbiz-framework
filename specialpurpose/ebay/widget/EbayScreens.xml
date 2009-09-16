@@ -225,4 +225,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="EbayShippingMethods">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayShippingMethodConfigurations"/>
+                <set field="headerItem" value="eBayShippingMethods"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="shipmentMethodName" from-field="parameters.shipmentMethodName"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEbayShippingMethods" location="component://ebay/widget/EbayForms.xml"/>
+                        <screenlet id="add-ebay-shipping-method" title="${uiLabelMap.EbayAddEbayShippingMethod}" collapsible="true">
+                            <include-form name="AddEbayShippingMethod" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
