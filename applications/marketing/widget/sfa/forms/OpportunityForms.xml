@@ -27,15 +27,16 @@ under the License.
         <field name="opportunityName" title="${uiLabelMap.SfaFindOpportunities}"><text-find size="25" default-option="contains"></text-find></field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}">
             <drop-down allow-empty="true">
-            <entity-options description="${description}" entity-name="SalesOpportunityStage">
-            </entity-options>
+                <entity-options description="${description}" entity-name="SalesOpportunityStage">
+                    <entity-order-by field-name="sequenceNum"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="type" title="${uiLabelMap.SfaType}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
                     <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
-                    <entity-order-by field-name="sequenceId"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -56,11 +57,12 @@ under the License.
         </actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
-            <hyperlink target="ViewSalesOpportunity" description="${opportunityName}">
+            <hyperlink target="ViewSalesOpportunity" description="${opportunityName}[${salesOpportunityId}]">
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
-        <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display/></field>
+        <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
+        <field name="nextStep"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="estimatedCloseDate" title="${uiLabelMap.SfaCloseDate}"><display/></field>
         <field name="editButton" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
@@ -80,18 +82,10 @@ under the License.
 
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="30"/></field>
         
-        <field name="accountPartyId" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupAccounts" default-value="${accountPartyId}"/></field>
         <field name="leadPartyId" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupLeads" default-value="${leadPartyId}"/></field>
+        <field name="accountPartyId" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccounts" default-value="${accountPartyId}"/></field>
         <field name="typeEnumId" title="${uiLabelMap.SfaType}"></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="25"></text></field>
-        <field name="typeEnumId" position="1" title="${uiLabelMap.SfaType}">
-            <drop-down allow-empty="true">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
-                    <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="estimatedAmount" position="1" title="${uiLabelMap.SfaEstimatedAmount}"><text size="25"/></field>
         <field name="currencyUomId" position="2" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
@@ -101,18 +95,28 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedCloseDate" position="1" title="${uiLabelMap.SfaCloseDate}" widget-style="required"><date-time/></field>
-        <field name="opportunityStageId" position="2" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
-            <drop-down >
-                <entity-options description="${description}" entity-name="SalesOpportunityStage">
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><text size="25"/></field>
-        <field name="dataSourceId" position="2" title="${uiLabelMap.SfaDataSourceLabel}">
+        <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}" widget-style="required"><date-time/></field>
+        <field name="dataSourceId" position="1" title="${uiLabelMap.SfaDataSourceLabel}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
                     <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
+            <drop-down>
+                <entity-options description="${description}" entity-name="SalesOpportunityStage">
+                    <entity-order-by field-name="sequenceNum"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="typeEnumId" position="2" title="${uiLabelMap.SfaType}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                    <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
