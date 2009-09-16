@@ -66,17 +66,25 @@ public class ProductsExportToEbay {
         GenericDelegator delegator = dctx.getDelegator();
         Map result = null;
         try {
-            Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
-            StringBuffer dataItemsXml = new StringBuffer();
-            Map resultMap = buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString());
-            if (!ServiceUtil.isFailure(resultMap)) {
-                result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-                if (ServiceUtil.isFailure(result)) {
-                    return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
+            List selectResult = (List)context.get("selectResult");
+            List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
+            if (UtilValidate.isNotEmpty(productsList)) {
+                Iterator productsListIter = productsList.iterator();
+                while (productsListIter.hasNext()) {
+                    GenericValue product = (GenericValue) productsListIter.next();
+                    Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
+                    StringBuffer dataItemsXml = new StringBuffer();
+                    Map resultMap = buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString(), product);
+                    if (!ServiceUtil.isFailure(resultMap)) {
+                        result = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                        if (ServiceUtil.isFailure(result)) {
+                            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
+                        }
+                    } else {
+                        return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
+                    }
                 }
-            } else {
-                return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
-            }
+            } 
         } catch (Exception e) {
             Debug.logError("Exception in exportToEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
@@ -92,6 +100,7 @@ public class ProductsExportToEbay {
                 return ServiceUtil.returnSuccess(responseMessage);
             }
         }
+        
         return ServiceUtil.returnSuccess(responseMessage);
     }
 
@@ -155,7 +164,7 @@ public class ProductsExportToEbay {
         return result;
     }
 
-    private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml, String token) {
+    private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml, String token, GenericValue prod) {
         Locale locale = (Locale)context.get("locale");
         try {
             GenericDelegator delegator = dctx.getDelegator();
@@ -165,8 +174,6 @@ public class ProductsExportToEbay {
             StringUtil.SimpleEncoder encoder = StringUtil.getEncoder("xml");
 
             // Get the list of products to be exported to eBay
-            List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
-
             try {
                 Document itemDocument = UtilXml.makeEmptyXmlDocument("AddItemRequest");
                 Element itemRequestElem = itemDocument.getDocumentElement();
@@ -174,115 +181,110 @@ public class ProductsExportToEbay {
 
                 appendRequesterCredentials(itemRequestElem, itemDocument, token);
 
-                // Iterate the product list getting all the relevant data
-                Iterator productsListItr = productsList.iterator();
-                while (productsListItr.hasNext()) {
-                    GenericValue prod = (GenericValue)productsListItr.next();
-                    String title = encoder.encode(prod.getString("internalName"));
-                    String qnt = (String)context.get("quantity");
-                    if (UtilValidate.isEmpty(qnt)) {
-                        qnt = "1";
-                    }
-                    String productDescription = "";
-                    String description = prod.getString("description");
-                    String longDescription = prod.getString("longDescription");
-                    if (UtilValidate.isNotEmpty(description)) {
-                        productDescription = description;
-                    } else if (UtilValidate.isNotEmpty(longDescription)) {
-                        productDescription = longDescription;
-                    } else if (UtilValidate.isNotEmpty(prod.getString("productName"))) {
-                        productDescription = prod.getString("productName");
-                    }
-                    String startPrice = (String)context.get("startPrice");
-                    String startPriceCurrencyUomId = null;
-                    if (UtilValidate.isEmpty(startPrice)) {
-                        GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
-                        if (UtilValidate.isNotEmpty(startPriceValue)) {
-                            startPrice = startPriceValue.getString("price");
-                            startPriceCurrencyUomId = startPriceValue.getString("currencyUomId");
-                        } else {
-                            return ServiceUtil.returnFailure("Unable to find a starting price for auction of product with id [" + prod.getString("productId") + "]");
-                        }
-                    }
-                    
-                    // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately. 
-                    GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"))));
-                    String buyItNowPrice = null;
-                    String buyItNowCurrencyUomId = null;
-                    if (UtilValidate.isNotEmpty(buyItNowPriceValue)) {
-                        buyItNowPrice = buyItNowPriceValue.getString("price");
-                        buyItNowCurrencyUomId = buyItNowPriceValue.getString("currencyUomId");
-                    } 
-                    
-                    Element itemElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);
-                    String location = (String)context.get("location");
-                    if (UtilValidate.isNotEmpty(location)) {
-                        UtilXml.addChildElementValue(itemElem, "Location", location, itemDocument);
-                    }
-                    UtilXml.addChildElementValue(itemElem, "ApplicationData", prod.getString("productId"), itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "SKU", prod.getString("productId"), itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "Title", title, itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "ListingDuration", (String)context.get("listingDuration"), itemDocument);
-                    UtilXml.addChildElementValue(itemElem, "Quantity", qnt, itemDocument);
-
-                    ProductContentWrapper pcw = new ProductContentWrapper(dctx.getDispatcher(), prod, locale, "text/html");
-                    StringUtil.StringWrapper ebayDescription = pcw.get("EBAY_DESCRIPTION");
-                    if (UtilValidate.isNotEmpty(ebayDescription.toString())) {
-                        UtilXml.addChildElementCDATAValue(itemElem, "Description", ebayDescription.toString(), itemDocument);
-                    } else {
-                        UtilXml.addChildElementValue(itemElem, "Description", encoder.encode(productDescription), itemDocument);
-                    }
-                    String smallImage = prod.getString("smallImageUrl");
-                    String mediumImage = prod.getString("mediumImageUrl");
-                    String largeImage = prod.getString("largeImageUrl");
-                    String ebayImage = null;
-                    if (UtilValidate.isNotEmpty(largeImage)) {
-                        ebayImage = largeImage;
-                    } else if (UtilValidate.isNotEmpty(mediumImage)) {
-                        ebayImage = mediumImage;
-                    } else if (UtilValidate.isNotEmpty(smallImage)) {
-                        ebayImage = smallImage;
-                    }
-                    if (UtilValidate.isNotEmpty(ebayImage)) {
-                        Element pictureDetails = UtilXml.addChildElement(itemElem, "PictureDetails", itemDocument);
-                        UtilXml.addChildElementValue(pictureDetails, "PictureURL", webSiteUrl + ebayImage, itemDocument);
-                    }
-                    setPaymentMethodAccepted(itemDocument, itemElem, context);
-                    setMiscDetails(itemDocument, itemElem, context, delegator);
-                    String primaryCategoryId = "";
-                    String categoryCode = (String)context.get("ebayCategory");
-                    if (categoryCode != null) {
-                        String[] params = categoryCode.split("_");
-
-                        if (params == null || params.length != 3) {
-                            ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
-                        } else {
-                            primaryCategoryId = params[1];
-                        }
-                    } else {
-                        GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")))));
-                        if (UtilValidate.isNotEmpty(productCategoryValue)) {
-                            primaryCategoryId = productCategoryValue.getString("categoryName");
-                        }
-                    }
-                    Element primaryCatElem = UtilXml.addChildElement(itemElem, "PrimaryCategory", itemDocument);
-                    UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
-
-                    Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
-                    if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
-                        startPriceCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
-                    }
-                    startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
- 
-                    if (UtilValidate.isNotEmpty(buyItNowPrice)) {
-                        Element buyNowPriceElem = UtilXml.addChildElementValue(itemElem, "BuyItNowPrice", buyItNowPrice, itemDocument);
-                        if (UtilValidate.isEmpty(buyItNowCurrencyUomId)) {
-                            buyItNowCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
-                        }
-                        buyNowPriceElem.setAttribute("currencyID", buyItNowCurrencyUomId);
-                    }   
+                String title = encoder.encode(prod.getString("internalName"));
+                String qnt = (String)context.get("quantity");
+                if (UtilValidate.isEmpty(qnt)) {
+                    qnt = "1";
                 }
+                String productDescription = "";
+                String description = prod.getString("description");
+                String longDescription = prod.getString("longDescription");
+                if (UtilValidate.isNotEmpty(description)) {
+                    productDescription = description;
+                } else if (UtilValidate.isNotEmpty(longDescription)) {
+                    productDescription = longDescription;
+                } else if (UtilValidate.isNotEmpty(prod.getString("productName"))) {
+                    productDescription = prod.getString("productName");
+                }
+                String startPrice = (String)context.get("startPrice");
+                String startPriceCurrencyUomId = null;
+                if (UtilValidate.isEmpty(startPrice)) {
+                    GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
+                    if (UtilValidate.isNotEmpty(startPriceValue)) {
+                        startPrice = startPriceValue.getString("price");
+                        startPriceCurrencyUomId = startPriceValue.getString("currencyUomId");
+                    } else {
+                        return ServiceUtil.returnFailure("Unable to find a starting price for auction of product with id [" + prod.getString("productId") + "]");
+                    }
+                }
+                    
+                // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately. 
+                GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"))));
+                String buyItNowPrice = null;
+                String buyItNowCurrencyUomId = null;
+                if (UtilValidate.isNotEmpty(buyItNowPriceValue)) {
+                    buyItNowPrice = buyItNowPriceValue.getString("price");
+                    buyItNowCurrencyUomId = buyItNowPriceValue.getString("currencyUomId");
+                } 
+                
+                Element itemElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
+                UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);
+                String location = (String)context.get("location");
+                if (UtilValidate.isNotEmpty(location)) {
+                    UtilXml.addChildElementValue(itemElem, "Location", location, itemDocument);
+                }
+                UtilXml.addChildElementValue(itemElem, "ApplicationData", prod.getString("productId"), itemDocument);
+                UtilXml.addChildElementValue(itemElem, "SKU", prod.getString("productId"), itemDocument);
+                UtilXml.addChildElementValue(itemElem, "Title", title, itemDocument);
+                UtilXml.addChildElementValue(itemElem, "ListingDuration", (String)context.get("listingDuration"), itemDocument);
+                UtilXml.addChildElementValue(itemElem, "Quantity", qnt, itemDocument);
+
+                ProductContentWrapper pcw = new ProductContentWrapper(dctx.getDispatcher(), prod, locale, "text/html");
+                StringUtil.StringWrapper ebayDescription = pcw.get("EBAY_DESCRIPTION");
+                if (UtilValidate.isNotEmpty(ebayDescription.toString())) {
+                    UtilXml.addChildElementCDATAValue(itemElem, "Description", ebayDescription.toString(), itemDocument);
+                } else {
+                    UtilXml.addChildElementValue(itemElem, "Description", encoder.encode(productDescription), itemDocument);
+                }
+                String smallImage = prod.getString("smallImageUrl");
+                String mediumImage = prod.getString("mediumImageUrl");
+                String largeImage = prod.getString("largeImageUrl");
+                String ebayImage = null;
+                if (UtilValidate.isNotEmpty(largeImage)) {
+                    ebayImage = largeImage;
+                } else if (UtilValidate.isNotEmpty(mediumImage)) {
+                    ebayImage = mediumImage;
+                } else if (UtilValidate.isNotEmpty(smallImage)) {
+                    ebayImage = smallImage;
+                }
+                if (UtilValidate.isNotEmpty(ebayImage)) {
+                    Element pictureDetails = UtilXml.addChildElement(itemElem, "PictureDetails", itemDocument);
+                    UtilXml.addChildElementValue(pictureDetails, "PictureURL", webSiteUrl + ebayImage, itemDocument);
+                }
+                setPaymentMethodAccepted(itemDocument, itemElem, context);
+                setMiscDetails(itemDocument, itemElem, context, delegator);
+                String primaryCategoryId = "";
+                String categoryCode = (String)context.get("ebayCategory");
+                if (categoryCode != null) {
+                    String[] params = categoryCode.split("_");
+
+                    if (params == null || params.length != 3) {
+                        ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
+                    } else {
+                        primaryCategoryId = params[1];
+                    }
+                } else {
+                    GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")))));
+                    if (UtilValidate.isNotEmpty(productCategoryValue)) {
+                        primaryCategoryId = productCategoryValue.getString("categoryName");
+                    }
+                }
+                Element primaryCatElem = UtilXml.addChildElement(itemElem, "PrimaryCategory", itemDocument);
+                UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
+
+                Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
+                if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
+                    startPriceCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                }
+                startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
+ 
+                if (UtilValidate.isNotEmpty(buyItNowPrice)) {
+                    Element buyNowPriceElem = UtilXml.addChildElementValue(itemElem, "BuyItNowPrice", buyItNowPrice, itemDocument);
+                if (UtilValidate.isEmpty(buyItNowCurrencyUomId)) {
+                    buyItNowCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                }
+                buyNowPriceElem.setAttribute("currencyID", buyItNowCurrencyUomId);
+                }   
                 //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module); 
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));
             } catch (Exception e) {
