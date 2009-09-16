@@ -24,7 +24,7 @@ under the License.
     <#-- pass through the dataResourceId so the response can be associated with it -->
     <input type="hidden" name="dataResourceId" value="${parameters.dataResourceId?if_exists}"/>
     <input type="hidden" name="rootContentId" value="${parameters.rootContentId?if_exists}"/>
-    ${surveyString}
+    ${StringUtil.wrapString(surveyString)}
   </form>
 <#else>
   <h1>Problem rendering the survey.</h1>
