@@ -557,8 +557,8 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <!--form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <field name="contentId" use-when="&quot;application/pdf&quot;.equals(mimeTypeId)">
             <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContentPdf?contentId=${contentId}" target-window="_blank"/>
         </field>
@@ -583,7 +583,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </form-->
     <form name="AddDocument"  target="addDocumentToTree" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -615,5 +615,19 @@ under the License.
             </drop-down>
         </field>
         <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </form>
+    <form name="ViewContentDetail" type="single" default-map-name="lookupContentDetail">
+        <field name="contentId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
+        </field>
+        <field name="contentName"><display/></field>
+        <field name="contentTypeId"><display/></field>
+        <field name="ownerContentId"><display/></field>
+        <field name="mimeTypeId"><display/></field>
+        <field name="select" widget-style="buttontext" title=" " use-when="contentId!=null">
+            <hyperlink also-hidden="true"
+                target-type="plain" description="${uiLabelMap.CommonSelect}"
+                target="javascript:set_value('${contentId}')"/>            
+        </field>
     </form>
 </forms>

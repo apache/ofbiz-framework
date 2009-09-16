@@ -139,14 +139,23 @@ under the License.
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="ListDocument"/>
                 <set field="contentIdTo" from-field="parameters.contentIdTo"/>
                 <set field="contentId" from-field="parameters.contentId"/>
-                <entity-condition entity-name="ContentAssocViewTo" list="contentAssoc">
+                <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="30" type="Integer"/>
+                <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
+               <!-- <entity-condition entity-name="ContentAssocViewTo" list="contentAssoc">
                     <condition-expr field-name="contentIdStart" from-field="contentId" operator="equals"/>
-                </entity-condition>
+                    </entity-condition>-->
+                <script location="component://content/webapp/content/WEB-INF/actions/content/GetContentLookupList.groovy"/>
             </actions>
             <widgets>
-                <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>
+<!--                <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>-->
+                <platform-specific>
+                    <html>
+                        <html-template location="component://content/webapp/content/lookup/ContentTreeLookupList.ftl"/>
+                    </html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
@@ -493,6 +502,142 @@ under the License.
                         <include-form name="ListLookupContent" location="component://content/widget/content/ContentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListContentTree">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="ListContentTree"/>
+                <set field="contentIdTo" from-field="parameters.contentIdTo"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="30" type="Integer"/>
+                <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/content/GetContentLookupList.groovy"/>
+            </actions>
+            <widgets>
+                <container id="Document">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://content/webapp/content/lookup/ContentTreeLookupList.ftl"/>
+                        </html>
+                    </platform-specific>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="LookupContentTree">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupContent}"/>
+                <set field="tabButtonItem" value="LookupContentTree"/>
+                <set field="labelTitleProperty" value="PageTitleNavigateContent"/>
+                <entity-and entity-name="ContentAssoc" list="contentAssoc">
+                    <field-map field-name="contentId" value="TREE_ROOT"/>
+                    <field-map field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://commonext/widget/HelpScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleLookupContent}">
+                                    <container style="left-border">
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://content/webapp/content/content/ContentNav.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </container>
+                                    <container style="leftonly">
+                                        <include-screen name="ListContentTree"/>
+                                    </container>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>     
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="LookupDetailContentTree">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupContent}"/>
+                <set field="tabButtonItem" value="LookupDetailContentTree"/>
+                <set field="labelTitleProperty" value="PageTitleNavigateContent"/>
+                <entity-and entity-name="ContentAssoc" list="contentAssoc">
+                    <field-map field-name="contentId" value="TREE_ROOT"/>
+                    <field-map field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <decorator-screen name="LookupDecorator" location="component://commonext/widget/HelpScreens.xml">
+                            <decorator-section name="body">
+                                <screenlet title="${uiLabelMap.PageTitleLookupContent}">
+                                    <container style="left-border">
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://content/webapp/content/content/ContentNav.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </container>
+                                    <container style="leftonly">
+                                        <container style="contentarea">
+                                            <include-screen name="ViewContentDetail"/>
+                                        </container>
+                                    </container>
+                                </screenlet>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ViewContentDetail">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="contentIdTo" from-field="parameters.contentIdTo"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-field="lookupContentDetail">
+                    <field-map field-name="contentId" from-field="contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-empty field="lookupContentDetail"/>
+                    </condition>
+                    <widgets>
+                        <container id="Document">
+                            <label style="" text="${uiLabelMap.PageTitlePleaseSelectData}"></label>
+                        </container>
+                    </widgets>
+                    <fail-widgets>
+                        <container id="Document">
+                            <include-form name="ViewContentDetail" location="component://content/widget/content/ContentForms.xml"/>
+                        </container>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>

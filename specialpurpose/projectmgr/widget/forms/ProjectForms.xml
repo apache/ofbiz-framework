@@ -862,6 +862,10 @@
         <field name="workEffortId" map-name="parameters"><hidden/></field>
         <field name="projectId" map-name="parameters"><hidden/></field>
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="content==null" name="contentIdTo" title="${uiLabelMap.FormFieldTitle_existContentId}">
+            <lookup target-form-name="LookupTreeContent"/>
+        </field>
+        
         <field name="workEffortContentTypeId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="WorkEffortContentType" key-field-name="workEffortContentTypeId"/>
@@ -876,34 +880,35 @@
                 <entity-options description="${description}" entity-name="ContentType"/>
             </drop-down>
         </field>
-        <field name="statusId" use-when="content==null">
+        <!--field name="statusId" use-when="content==null">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
-        </field>
-        <field name="statusId" use-when="content!=null">
+        </field-->
+        <!--field name="statusId" use-when="content!=null">
             <drop-down allow-empty="false" current-description="${currentStatus.description}" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${content.statusId}"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
-        </field>
-        <!--field name="mimeTypeId" >
+        </field-->
+        <field name="mimeTypeId" >
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
-        </field-->
+        </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
-        <field name="dataCategoryId" use-when="dataResource==null">
+        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
+        <!--field name="dataCategoryId" use-when="dataResource==null">
             <drop-down allow-empty="false">
                 <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
             </drop-down>
-        </field>
-        <field name="dataCategoryId" use-when="dataResource!=null">
+        </field-->
+        <!--field name="dataCategoryId" use-when="dataResource!=null">
             <drop-down allow-empty="false">
                 <entity-options description="${categoryName}" entity-name="DataCategory">
                     <entity-constraint name="dataCategoryId" value="${dataResource.dataCategoryId}"/>
@@ -911,7 +916,7 @@
                 </entity-options>
                 <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
             </drop-down>
-        </field>
+        </field-->
         <field name="createButton" use-when="content==null"><submit button-type="button"/></field>
         <field name="updateButton" use-when="content!=null"><submit button-type="button"/></field>
     </form>

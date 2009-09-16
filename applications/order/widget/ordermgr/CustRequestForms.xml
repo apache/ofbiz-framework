@@ -561,8 +561,8 @@ under the License.
             </entity-one>
         </actions>
         <field name="custRequestId" map-name="parameters"><hidden/></field>
-        <field name="contentId">
-            <lookup target-form-name="LookupContent"/>
+        <field name="contentId" title="Existing Content Id">
+            <lookup target-form-name="LookupTreeContent"/>
         </field>
         <field name="contentTypeId">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
@@ -591,7 +591,7 @@ under the License.
             </drop-down>
         </field-->
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
-        <field name="dataCategoryId" use-when="dataResource==null">
+       <!-- <field name="dataCategoryId" use-when="dataResource==null">
             <drop-down allow-empty="false">
                 <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
             </drop-down>
@@ -604,7 +604,8 @@ under the License.
                 </entity-options>
                 <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
             </drop-down>
-        </field>
+            </field>-->
+        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
     <form name="ListCustRequestContent" type="list" list-name="custRequestAndContents"

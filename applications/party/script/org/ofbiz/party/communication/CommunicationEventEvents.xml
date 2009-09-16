@@ -29,52 +29,53 @@ under the License.
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="uploadedFile"/>
         </call-class-method>
-        <if-empty field="formInput.imageFileName">
-            <add-error><fail-message message="Upload file is missing..."/></add-error>
+        <if-empty field="formInput.formInput.contentId">
+            <if-empty field="formInput.imageFileName">
+                <add-error><fail-message message="Upload file is missing..."/></add-error>
+            </if-empty>
+            <check-errors/>
+            
+            <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
+            
+            <!-- Create Data Resource -->
+            <set-service-fields service-name="createContentFromUploadedFile"
+                map="formInput.formInput" to-map="data"/>
+            <set field="data.dataResourceTypeId" value="LOCAL_FILE"/>
+            <set field="data.dataTemplateTypeId" value="NONE"/>
+            <set field="data.dataCategoryId" from-field="formInput.formInput.dataCategoryId"/>
+            
+            <set field="data.statusId" from-field="formInput.formInput.resourceStatusId"/>
+            <set field="data.dataResourceName" from-field="formInput.imageFileName"/>
+            <set field="data.mimeTypeId" from-field="mimeType.mimeTypeId"/>
+            <set field="data.uploadedFile" from-field="formInput.imageData"/>
+            <set field="data._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+            <set field="data._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+            <call-service service-name="createDataResource" in-map-name="data">
+                <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
+            </call-service>
+            
+            <!-- Create attach upload to data resource -->
+            <set-service-fields service-name="attachUploadToDataResource" map="formInput.formInput"
+                to-map="attachMap"/>
+            <set field="attachMap.uploadedFile" from-field="formInput.imageData"/>
+            <set field="attachMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+            <set field="attachMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+            <set field="attachMap.dataResourceId" from-field="parameters.dataResourceId"/>
+            <set field="attachMap.mimeTypeId" from-field="mimeType.mimeTypeId"/>
+            <call-service service-name="attachUploadToDataResource" in-map-name="attachMap"/>
+            
+            <!-- Create content from dataResource -->
+            <set-service-fields service-name="createContentFromDataResource"
+                map="formInput.formInput" to-map="contentMap"/>
+            <set field="contentMap.roleTypeId" from-field="formInput.formInput.roleTypeId"/>
+            <set field="contentMap.partyId" from-field="formInput.formInput.partyId"/>
+            <set field="contentMap.contentTypeId" from-field="formInput.formInput.contentTypeId"/>
+            <set field="contentMap.dataResourceId" from-field="parameters.dataResourceId"/>
+            <call-service service-name="createContentFromDataResource" in-map-name="contentMap">
+                <result-to-field result-name="contentId" field="parameters.contentId"/>
+            </call-service>
+            <log level="always" message=" Content : ${parameters.contentId}"/>
         </if-empty>
-        <check-errors/>
-        
-        <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
-
-        <!-- Create Data Resource -->
-        <set-service-fields service-name="createContentFromUploadedFile"
-            map="formInput.formInput" to-map="data"/>
-        <set field="data.dataResourceTypeId" value="LOCAL_FILE"/>
-        <set field="data.dataTemplateTypeId" value="NONE"/>
-        <set field="data.dataCategoryId" from-field="formInput.formInput.dataCategoryId"/>
-
-        <set field="data.statusId" from-field="formInput.formInput.resourceStatusId"/>
-        <set field="data.dataResourceName" from-field="formInput.imageFileName"/>
-        <set field="data.mimeTypeId" from-field="mimeType.mimeTypeId"/>
-        <set field="data.uploadedFile" from-field="formInput.imageData"/>
-        <set field="data._uploadedFile_fileName" from-field="formInput.imageFileName"/>
-        <set field="data._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-        <call-service service-name="createDataResource" in-map-name="data">
-            <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
-        </call-service>
-
-        <!-- Create attach upload to data resource -->
-        <set-service-fields service-name="attachUploadToDataResource" map="formInput.formInput"
-            to-map="attachMap"/>
-        <set field="attachMap.uploadedFile" from-field="formInput.imageData"/>
-        <set field="attachMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
-        <set field="attachMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-        <set field="attachMap.dataResourceId" from-field="parameters.dataResourceId"/>
-        <set field="attachMap.mimeTypeId" from-field="mimeType.mimeTypeId"/>
-        <call-service service-name="attachUploadToDataResource" in-map-name="attachMap"/>
-
-        <!-- Create content from dataResource -->
-        <set-service-fields service-name="createContentFromDataResource"
-            map="formInput.formInput" to-map="contentMap"/>
-        <set field="contentMap.roleTypeId" from-field="formInput.formInput.roleTypeId"/>
-        <set field="contentMap.partyId" from-field="formInput.formInput.partyId"/>
-        <set field="contentMap.contentTypeId" from-field="formInput.formInput.contentTypeId"/>
-        <set field="contentMap.dataResourceId" from-field="parameters.dataResourceId"/>
-        <call-service service-name="createContentFromDataResource" in-map-name="contentMap">
-            <result-to-field result-name="contentId" field="parameters.contentId"/>
-        </call-service>
-        <log level="always" message=" Content : ${parameters.contentId}"/>
-
         <!-- Create party content -->
         <set-service-fields service-name="createPartyContent" map="formInput.formInput"
             to-map="partycontent"/>
@@ -97,6 +98,23 @@ under the License.
         <!-- save header fields -->
         <set-service-fields service-name="updateCommunicationEvent" map="formInput.formInput" to-map="updateMap"/>
         <call-service service-name="updateCommunicationEvent" in-map-name="updateMap"/>
+
+        <!-- create ContentAssoc-->
+        <set-service-fields service-name="createContentAssoc" map="formInput.formInput" to-map="contentMap"/>
+        <if-not-empty field="formInput.formInput.contentIdFrom">
+            <set field="contentMap.contentAssocTypeId" value="SUB_CONTENT"/>
+            <set field="contentMap.contentIdFrom" from-field="formInput.formInput.contentIdFrom"/>
+            <set field="contentMap.contentId" from-field="formInput.formInput.contentIdFrom"/>
+            <set field="contentMap.contentIdTo" from-field="parameters.contentId"/>
+            <now-timestamp field="contentMap.fromDate"/>
+            <entity-and entity-name="ContentAssoc" list="contentAssoList">
+                <field-map field-name="contentId" from-field="contentMap.contentId"/>
+                <field-map field-name="contentIdTo" from-field="contentMap.contentIdTo"/>
+            </entity-and>
+            <if-empty field="contentAssonList">
+                <call-service service-name="createContentAssoc" in-map-name="contentMap"/>           
+            </if-empty>
+        </if-not-empty>
 
         <!-- Return to request -->
         <field-to-request field="formInput.formInput.communicationEventId" request-name="communicationEventId"/>

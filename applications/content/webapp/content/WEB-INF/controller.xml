@@ -1760,6 +1760,14 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupSurveyResponse"/>
     </request-map>
+    <request-map uri="LookupTreeContent">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupTreeContent"/>
+    </request-map>
+    <request-map uri="LookupDetailContentTree">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupDetailContentTree"/>
+    </request-map>
 
     <!-- lookup other components -->
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
@@ -1948,6 +1956,8 @@ under the License.
 
     <!-- lookup content component -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
+    <view-map name="LookupTreeContent" page="component://content/widget/content/ContentScreens.xml#LookupContentTree" type="screen"/>
+    <view-map name="LookupDetailContentTree" page="component://content/widget/content/ContentScreens.xml#LookupDetailContentTree" type="screen"/>
     <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
     <view-map name="LookupSurvey" page="component://content/widget/SurveyScreens.xml#LookupSurvey" type="screen"/>
     <view-map name="LookupSurveyResponse" page="component://content/widget/SurveyScreens.xml#LookupSurveyResponse" type="screen"/>
@@ -1965,6 +1975,8 @@ under the License.
     <view-map name="EditDocumentTree" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocumentTree"/>
     <view-map name="EditDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocument"/>
     <view-map name="ListDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#ListDocument"/>
+    <view-map name="ListContentTree" type="screen" page="component://content/widget/content/ContentScreens.xml#ListContentTree"/>
+    <view-map name="ViewContentDetail" type="screen" page="component://content/widget/content/ContentScreens.xml#ViewContentDetail"/>
     <view-map name="showContent" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"/>
     <view-map name="showContentPdf" type="screen" page="component://content/widget/content/ContentScreens.xml#ShowContent"  content-type="application/pdf" encoding="none"/>
     

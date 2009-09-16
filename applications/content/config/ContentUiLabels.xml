@@ -4165,4 +4165,16 @@
         <value xml:lang="th">หัวข้อ WebSite</value>
         <value xml:lang="zh">网站内容</value>
     </property>
+    <property key="FormFieldTitle_contentStatusId">
+        <value xml:lang="en">Status Id</value>
+    </property>
+    <property key="FormFieldTitle_caCratedDate">
+        <value xml:lang="en">ca Created Date</value>
+    </property>
+    <property key="FormFieldTitle_existContentId">
+        <value xml:lang="en">Existing Content Id</value>
+    </property>
+    <property key="PageTitlePleaseSelectData">
+        <value xml:lang="en">Please select data</value>
+    </property>
 </resource>
