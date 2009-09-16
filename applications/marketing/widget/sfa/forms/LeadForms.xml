@@ -62,7 +62,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="DataSource" key-field-name="dataSourceId" description="${dataSourceId} - ${description}">
                     <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
-                    <entity-order-by field-name="dataSourceId"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
