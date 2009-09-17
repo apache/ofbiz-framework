@@ -122,7 +122,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
                 <property-map resource="general" map-name="generalProperties" global="true"/>
-                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
+                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="BIZZNESS_TIME"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
@@ -211,7 +211,7 @@ under the License.
                 <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
 
                 <property-map resource="general" map-name="generalProperties" global="true"/>
-                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="SMOOTH_FEATHER"/>
+                <set field="defaultVisualThemeId" from-field="generalProperties.defaultVisualThemeId" default-value="BIZZNESS_TIME"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="${defaultVisualThemeId}" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
