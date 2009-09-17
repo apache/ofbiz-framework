@@ -30,12 +30,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -44,6 +47,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.minilang.method.entityops.FilterListByAnd;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -67,6 +71,8 @@ public class EbayOrderServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
+        orderImportSuccessMessageList.clear();
+        orderImportFailureMessageList.clear();
         Map<String, Object> result = FastMap.newInstance();
         try {
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
@@ -83,15 +89,6 @@ public class EbayOrderServices {
             String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.exceptionInGetOrdersFromEbay" + e.getMessage(), locale);
             return ServiceUtil.returnError(errMsg);
         }
-        if (orderImportSuccessMessageList != null && orderImportSuccessMessageList.size() > 0) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE_LIST, orderImportSuccessMessageList);
-        }
-        
-        if (orderImportFailureMessageList != null && orderImportFailureMessageList.size() > 0) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
-            result.put(ModelService.ERROR_MESSAGE_LIST, orderImportFailureMessageList);
-        }
         return result;
     }
 
@@ -100,11 +97,33 @@ public class EbayOrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = FastMap.newInstance();
+        String externalId = (String) context.get("externalId");
+        List orderList = (List) context.get("orderList");
         try {
+            if (UtilValidate.isNotEmpty(orderList)) {
+                Iterator orderListIter = orderList.iterator();
+                while (orderListIter.hasNext()) {
+                    Map orderMapCtx = (Map) orderListIter.next();
+                    if (externalId.equals(orderMapCtx.get("externalId").toString())) {
+                        context.clear();
+                        context.putAll(orderMapCtx);
+                        break;
+                    }
+                } 
+            }
             result = createShoppingCart(delegator, dispatcher, locale, context, true);
         } catch (Exception e) {
             Debug.logError("Exception in importOrderFromEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInImportOrderFromEbay", locale));
+        }
+        if (UtilValidate.isNotEmpty(orderImportSuccessMessageList)) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            result.put(ModelService.SUCCESS_MESSAGE_LIST, orderImportSuccessMessageList);
+        }
+        
+        if (UtilValidate.isNotEmpty(orderImportSuccessMessageList)) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+            result.put(ModelService.ERROR_MESSAGE_LIST, orderImportFailureMessageList);
         }
         return result;
     }
@@ -148,13 +167,17 @@ public class EbayOrderServices {
 
     private static Map<String, Object> checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, String responseMsg) {
         StringBuffer errorMessage = new StringBuffer();
+        Map<String, Object> result = FastMap.newInstance();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List<GenericValue> orders = readGetOrdersResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
         if (orders == null || orders.size() == 0) {
             Debug.logError("No orders found", module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.noOrdersFound", locale));
         }
-        return ServiceUtil.returnSuccess();
+        if (UtilValidate.isNotEmpty(orders)) {
+            result.put("orderList", orders);
+        }
+        return result;
     }
     
 // Sample xml data that is being generated from GetOrders request  
@@ -453,7 +476,7 @@ public class EbayOrderServices {
                                 orderCtx.put("emailBuyer", buyersEmailId);
                             }
                             orderCtx.put("userLogin", userLogin);
-                            Map<String, Object> result = dispatcher.runSync("importEbayOrders", orderCtx);
+                            //Map<String, Object> result = dispatcher.runSync("importEbayOrders", orderCtx);
                             fetchedOrders.add(orderCtx);
                         }
                     }

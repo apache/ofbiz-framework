@@ -131,9 +131,16 @@ under the License.
         <response name="failure" type="view" value="EbayOrders"/>
     </request-map>
 
-    <request-map uri="ImportEbayOrders">
+    <request-map uri="importEbayOrders">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="importEbayOrders"/>
+        <response name="success" type="request" value="updatedEbayOrders"/>
+        <response name="failure" type="view" value="EbayOrders"/>
+    </request-map>
+
+    <request-map uri="updatedEbayOrders">
+        <security https="true" auth="true"/>
+        <event type="groovy" path="component://ebay/webapp/ebay/WEB-INF/actions/find/" invoke="updatedEbayOrders.groovy"/>
         <response name="success" type="view" value="EbayOrders"/>
         <response name="failure" type="view" value="EbayOrders"/>
     </request-map>
