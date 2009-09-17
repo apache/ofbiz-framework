@@ -69,6 +69,31 @@ under the License.
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
     
+    <!-- Ebay configuration setting request -->
+    
+    <request-map uri="EbayConfigurations">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EbayConfigurations"/>
+    </request-map>
+    <request-map uri="createEbayConfiguration">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEbayConfiguration"/>
+        <response name="success" type="view" value="EbayConfigurations"/>
+        <response name="error" type="view" value="EbayConfigurations"/>
+    </request-map>
+    <request-map uri="updateEbayConfiguration">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEbayConfiguration"/>
+        <response name="success" type="view" value="EbayConfigurations"/>
+        <response name="error" type="view" value="EbayConfigurations"/>
+    </request-map>
+    <request-map uri="deleteEbayConfiguration">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteEbayConfiguration"/>
+        <response name="success" type="view" value="EbayConfigurations"/>
+        <response name="error" type="view" value="EbayConfigurations"/>
+    </request-map>
+    
     <request-map uri="EbayShippingMethods">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EbayShippingMethods"/>
@@ -123,6 +148,7 @@ under the License.
     <view-map name="ManageOrdersFromEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ManageOrdersFromEbay"/>
     <view-map name="EbayOrders" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayOrders"/>
     
+    <view-map name="EbayConfigurations" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayConfigurations"/>
     <view-map name="EbayShippingMethods" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayShippingMethods"/>
     <!-- end of view mappings -->
 </site-conf>

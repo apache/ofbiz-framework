@@ -102,6 +102,55 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}"><submit button-type="button"/></field>
     </form>
     
+    <!-- Ebay configuration settings forms  -->
+    <form name="ListEbayConfigurations" type="list"  list-name="eBayConfigurations"  target="updateEbayConfiguration"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EbayConfig">
+                <order-by field-name="productStoreId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEbayConfiguration"/>
+        <field name="productStoreId"><display/></field>
+        <field name="token"><textarea cols="60" rows="5"/></field>
+        <field name="customXml"><textarea cols="60" rows="5"/></field> 
+        <field name="webSiteId">
+            <drop-down allow-empty="true">
+                <entity-options description="${siteName}" entity-name="WebSite">
+                    <entity-order-by field-name="siteName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="deleteEbayConfiguration" title="" widget-style="buttontext">
+            <hyperlink target="deleteEbayConfiguration" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="AddEbayConfiguration" type="single" target="createEbayConfiguration" title="">
+        <auto-fields-service service-name="createEbayConfiguration"/>
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="token"><textarea cols="60" rows="5"/></field>
+        <field name="customXml"><textarea cols="60" rows="5"/></field> 
+        <field name="webSiteId">
+            <drop-down allow-empty="true">
+                <entity-options description="${siteName}" entity-name="WebSite">
+                    <entity-order-by field-name="siteName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
     <form name="ListEbayShippingMethods" type="list"  list-name="eBayShippingMethods"  target="updateEbayShippingMethod"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
