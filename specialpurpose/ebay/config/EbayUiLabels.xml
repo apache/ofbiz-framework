@@ -22,6 +22,9 @@
     <property key="EbayAddEbayShippingMethod">
         <value xml:lang="en">Add Ebay Shipping Method</value>
     </property>
+    <property key="EbayAddEbayConfiguration">
+        <value xml:lang="en">Add Ebay Configuration</value>
+    </property>
     <property key="EbayApplication">
         <value xml:lang="en">Ebay Integration</value>
         <value xml:lang="fr">Intégration Ebay</value>
@@ -34,6 +37,9 @@
         <value xml:lang="fr">OFBiz</value>
         <value xml:lang="it">OFBiz</value>
         <value xml:lang="th">OFBiz</value>
+    </property>
+    <property key="EbayConfigurations">
+        <value xml:lang="en">Ebay Configurations</value>
     </property>
     <property key="EbayEBayOrders">
         <value xml:lang="en">eBay Orders Import</value>

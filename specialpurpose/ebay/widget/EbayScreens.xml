@@ -226,6 +226,26 @@ under the License.
         </section>
     </screen>
     
+    <screen name="EbayConfigurations">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayConfigurations"/>
+                <set field="headerItem" value="eBayConfigurations"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEbayConfigurations" location="component://ebay/widget/EbayForms.xml"/>
+                        <screenlet id="add-ebay-configuration" title="${uiLabelMap.EbayAddEbayConfiguration}" collapsible="true">
+                            <include-form name="AddEbayConfiguration" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>     
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="EbayShippingMethods">
         <section>
             <actions>
