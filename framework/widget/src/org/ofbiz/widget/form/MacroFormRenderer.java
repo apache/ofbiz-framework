@@ -339,6 +339,12 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
+        if (UtilValidate.isNotEmpty(value)) {
+            StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
+            if (encoder != null) {
+                value = encoder.encode(value);
+            }
+        }
         String textSize = Integer.toString(textField.getSize());
         String maxlength = "";
         if (textField.getMaxlength() != null) {
