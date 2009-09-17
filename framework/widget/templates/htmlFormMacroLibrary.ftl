@@ -93,18 +93,18 @@ ${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if
  <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
  <#if isTwelveHour>
 <#assign x=11>
-<#list 1..x as i>
+<#list 0..x as i>
 <option value="${i}" <#if hour1?has_content><#if i=hour1>selected</#if></#if>>${i}</option><#rt/>
 </#list>
 <#else>
 <#assign x=23>
-<#list 1..x as i>
+<#list 0..x as i>
 <option value="${i}"<#if hour2?has_content><#if i=hour2> selected</#if></#if>>${i}</option><#rt/>
 </#list>
 </#if>
 </select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
 <#assign x=59>
-<#list 1..x as i>
+<#list 0..x as i>
 <option value="${i}"<#if minutes?has_content><#if i=minutes> selected</#if></#if>>${i}</option><#rt/>
 </#list>
 </select><#rt/>
