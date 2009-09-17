@@ -550,6 +550,7 @@ public class CatalinaContainer implements Container {
         context.setReloadable(contextReloadable);
         context.setDistributable(distribute);
         context.setCrossContext(crossContext);
+        context.setPrivileged(appInfo.privileged);
         context.setManager(sessionMgr);
         context.getServletContext().setAttribute("_serverId", appInfo.server);
         context.getServletContext().setAttribute("componentName", appInfo.componentConfig.getComponentName());
