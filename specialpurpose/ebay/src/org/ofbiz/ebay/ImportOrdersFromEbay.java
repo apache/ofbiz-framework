@@ -88,11 +88,6 @@ public class ImportOrdersFromEbay {
         Locale locale = (Locale) context.get("locale");
         Map order = FastMap.newInstance();
         Map result = FastMap.newInstance();
-        Debug.logInfo("The value of =============" + context.get("externalId"), module);
-        List orderList = (List) context.get("orderList");
-        if (UtilValidate.isNotEmpty(orderList)) {
-            Debug.logInfo("The value of list is ==============" + orderList, module);
-        }
         try {
             order.put("productStoreId", (String) context.get("productStoreId"));
             order.put("userLogin", (GenericValue) context.get("userLogin"));
@@ -122,7 +117,7 @@ public class ImportOrdersFromEbay {
             order.put("shippingAddressStateOrProvince", (String) context.get("shippingAddressStateOrProvince"));
             order.put("shippingAddressCityName", (String) context.get("shippingAddressCityName"));
 
-            //result = createShoppingCart(delegator, dispatcher, locale, order, true);
+            result = createShoppingCart(delegator, dispatcher, locale, order, true);
         } catch (Exception e) {
             Debug.logError("Exception in importOrderFromEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInImportOrderFromEbay", locale));
