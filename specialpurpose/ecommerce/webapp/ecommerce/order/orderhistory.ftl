@@ -32,6 +32,7 @@ under the License.
         </tr>
       </thead>
       <tbody>
+        <#if orderHeaderList?has_content>
         <#list orderHeaderList as orderHeader>
           <#assign status = orderHeader.getRelatedOneCache("StatusItem") />
           <tr>
@@ -53,7 +54,7 @@ under the License.
             <td><a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a></td>
           </tr>
         </#list>
-        <#if !orderHeaderList?has_content>
+        <#else>
           <tr><td colspan="9">${uiLabelMap.OrderNoOrderFound}</td></tr>
         </#if>
       </tbody>
@@ -83,8 +84,7 @@ under the License.
               <td><a href="<@ofbizUrl>orderstatus?orderId=${porderHeader.orderId}</@ofbizUrl>" class="buttont">${uiLabelMap.CommonView}</a></td>
             </tr>
           </#list>
-        </#if>
-        <#if !porderHeaderList?has_content>
+        <#else>
           <tr><td colspan="9">${uiLabelMap.OrderNoOrderFound}</td></tr>
         </#if>
       </tbody>
@@ -103,6 +103,7 @@ under the License.
         </tr>
       </thead>
       <tbody>
+        <#if downloadOrderRoleAndProductContentInfoList?has_content>
         <#list downloadOrderRoleAndProductContentInfoList as downloadOrderRoleAndProductContentInfo>
           <tr>
             <td>${downloadOrderRoleAndProductContentInfo.orderId}</td>
@@ -114,7 +115,7 @@ under the License.
             </td>
           </tr>
         </#list>
-        <#if !downloadOrderRoleAndProductContentInfoList?has_content>
+        <#else>
           <tr><td colspan="9">${uiLabelMap.EcommerceDownloadNotFound}</td></tr>
         </#if>
       </tbody>
