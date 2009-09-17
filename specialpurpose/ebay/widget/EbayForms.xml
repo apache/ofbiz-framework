@@ -102,6 +102,26 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}"><submit button-type="button"/></field>
     </form>
     
+    <form name="ListEbayOrders" type="multi" use-row-submit="true" list-name="orderList" target="importEbayOrders"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><hidden/></field>
+       <field name="externalId" title="${uiLabelMap.EbayEbayOrderId}"><display/></field>
+        <field name="orderId">
+            <hyperlink target="orderview" description="${orderId}">
+                <parameter param-name="orderId"/>
+            </hyperlink>
+        </field>
+       <field name="buyerName" map-name="shippingAddressCtx"><display/></field>
+       <field name="emailBuyer"><display/></field>
+       <field name="amountPaid"><display/></field>
+        <field name="createdDate"><display/></field>
+       <field name="paidTime"><hidden/></field>
+       <field name="shippedTime"><hidden/></field>
+       <field name="ebayUserIdBuyer"><hidden/></field>
+       <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    
     <!-- Ebay configuration settings forms  -->
     <form name="ListEbayConfigurations" type="list"  list-name="eBayConfigurations"  target="updateEbayConfiguration"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">

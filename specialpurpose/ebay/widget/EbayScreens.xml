@@ -202,24 +202,29 @@ under the License.
                 <set field="titleProperty" value="EbayEBayOrders"/>
                 <set field="headerItem" value="eBayOrders"/>
                 <set field="orderList" from-field="parameters.orderList"/>
+                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/eBayOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.EbayEBayOrders}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
                                         <include-form name="FindEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

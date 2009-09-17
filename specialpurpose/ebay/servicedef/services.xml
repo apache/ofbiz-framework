@@ -130,12 +130,7 @@ under the License.
         <attribute name="paidTime" type="String" mode="IN" optional="true"/>
         <attribute name="shippedTime" type="String" mode="IN" optional="true"/>
         <attribute name="ebayUserIdBuyer" type="String" mode="IN" optional="true"/>
-        <attribute name="shippingAddressCtx" type="Map" mode="IN" optional="true"/>
-        <attribute name="shippingServiceSelectedCtx" type="Map" mode="IN" optional="true"/>
-        <attribute name="shippingDetailsCtx" type="Map" mode="IN" optional="true"/>
-        <attribute name="checkoutStatusCtx" type="Map" mode="IN" optional="true"/>
-        <attribute name="externalTransactionCtx" type="Map" mode="IN" optional="true"/>
-        <attribute name="orderItemList" type="List" mode="IN" optional="true"/>
+        <attribute name="orderList" type="List" mode="IN" optional="true"/>
     </service>
     
     <service name="createEbayConfiguration" default-entity-name="EbayConfig" engine="entity-auto" invoke="create" auth="true">
