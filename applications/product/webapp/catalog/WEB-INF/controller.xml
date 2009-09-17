@@ -686,7 +686,7 @@ under the License.
     <request-map uri="updateSimpleTextContentForProduct">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateSimpleTextContentForProduct"/>
-        <response name="success" type="view" value="EditProductContentContent"/>
+        <response name="success" type="view" value="EditProductContent"/>
         <response name="error" type="view" value="EditProductContentContent"/>
     </request-map>
     <request-map uri="createSimpleTextContentForProduct">
