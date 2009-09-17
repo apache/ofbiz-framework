@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -17,17 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
-	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-
-    <title>The Application Common Component.</title>
-
-    <xi:include href="../data/helpdata/HELP_COMMONEXT.xml" />
+<entity-engine-xml>
     
-    <xi:include href="../data/helpdata/HELP_SETUP.xml" />
-    <xi:include href="../data/helpdata/HELP_SETUP_initialsetup.xml" />
-    <xi:include href="../data/helpdata/HELP_SETUP_firstproduct.xml" />
-</chapter>
+    <WebSite webSiteId="SETUP" siteName="Setup Manager" visualThemeSetId="BACKOFFICE"/>
+</entity-engine-xml>

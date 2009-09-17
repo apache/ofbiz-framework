@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="USPS" partyTypeId="PARTY_GROUP"/>
+    <Party partyId="UPS" partyTypeId="PARTY_GROUP"/>
+    <Party partyId="DHL" partyTypeId="PARTY_GROUP"/>
+    <Party partyId="FEDEX" partyTypeId="PARTY_GROUP"/>
+    <Party partyId="_NA_" partyTypeId="PERSON"/>
+    
+    <Person partyId="_NA_"/>
+    <PartyGroup partyId="USPS" groupName="USPS"/>
+    <PartyGroup partyId="UPS" groupName="UPS"/>
+    <PartyGroup partyId="DHL" groupName="DHL"/>
+    <PartyGroup partyId="FEDEX" groupName="Federal Express"/>
+    
+    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
+    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
+    <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
+    
+    <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
+    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+    <ShipmentMethodType description="Ground Home Delivery" shipmentMethodTypeId="GROUND_HOME"/>
+    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
+    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
+    <ShipmentMethodType description="Second Day" shipmentMethodTypeId="SECOND_DAY"/>
+    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
+    <ShipmentMethodType description="Next Afternoon" shipmentMethodTypeId="NEXT_PM"/>
+    <ShipmentMethodType description="Next Morning" shipmentMethodTypeId="NEXT_AM"/>
+    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
+    <ShipmentMethodType description="Standard Overnight" shipmentMethodTypeId="ST_OVERNIGHT"/>
+    <ShipmentMethodType description="Priority Overnight" shipmentMethodTypeId="PR_OVERNIGHT"/>
+    <ShipmentMethodType description="First Overnight" shipmentMethodTypeId="FI_OVERNIGHT"/>
+    <ShipmentMethodType description="Same Day" shipmentMethodTypeId="SAME_DAY"/>
+
+    <!-- For USPS, only certain container types are allowed for rate estimates of Priority or Express service codes -->
+    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Parcel"/>
+    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="6" carrierServiceCode="Express"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3" carrierServiceCode="03"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="2" carrierServiceCode="02"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2" carrierServiceCode="02"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
+    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
+    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="8"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="9" carrierServiceCode="E"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="10" carrierServiceCode="N"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="11" carrierServiceCode="S"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="12" carrierServiceCode="G"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="SAME_DAY" sequenceNumber="12" carrierServiceCode="SAMEDAY"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_AM" sequenceNumber="13" carrierServiceCode="FIRSTOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="FI_OVERNIGHT" sequenceNumber="13" carrierServiceCode="FIRSTOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="14" carrierServiceCode="PRIORITYOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="PR_OVERNIGHT" sequenceNumber="14" carrierServiceCode="PRIORITYOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="15" carrierServiceCode="STANDARDOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="ST_OVERNIGHT" sequenceNumber="15" carrierServiceCode="STANDARDOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="16" carrierServiceCode="FEDEX2DAY"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="17" carrierServiceCode="FEDEXEXPRESSSAVER"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="18" carrierServiceCode="FEDEXGROUND"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND_HOME" sequenceNumber="19" carrierServiceCode="GROUNDHOMEDELIVERY"/>
+    
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9000" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9001" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9002" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9003" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9004" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9005" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9006" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    
+    <ShipmentBoxType shipmentBoxTypeId="FXENV" description="FedEx Envelope" dimensionUomId="LEN_in" boxLength="9.5" boxWidth="12.5" boxHeight="0"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXENV_LGL" description="FedEx Envelope (Legal)" dimensionUomId="LEN_in" boxLength="10" boxWidth="15.75" boxHeight="0"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXPAK_SM" description="FedEx Pak (Small)" dimensionUomId="LEN_in" boxLength="10.25" boxWidth="12.75" boxHeight="0"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXPAK_LRG" description="FedEx Pak (Large)" dimensionUomId="LEN_in" boxLength="12" boxWidth="15.5" boxHeight="0"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXBOX_SM" description="FedEx Box (Small)" dimensionUomId="LEN_in" boxLength="12.25" boxWidth="10.875" boxHeight="1.5"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXBOX_MED" description="FedEx Box (Medium)" dimensionUomId="LEN_in" boxLength="13.25" boxWidth="11.5" boxHeight="2.375"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXBOX_LRG" description="FedEx Box (Large)" dimensionUomId="LEN_in" boxLength="17.875" boxWidth="12.375" boxHeight="3"/>
+    <ShipmentBoxType shipmentBoxTypeId="FXTUBE" description="FedEx Tube" dimensionUomId="LEN_in" boxLength="38" boxWidth="6" boxHeight="5.2"/>
+    <ShipmentBoxType shipmentBoxTypeId="FX10KGBOX" description="FedEx 10KG Box" dimensionUomId="LEN_in" boxLength="15.8125" boxWidth="12.9375" boxHeight="10.1875"/>
+    <ShipmentBoxType shipmentBoxTypeId="FX25KGBOX" description="FedEx 25KG Box" dimensionUomId="LEN_in" boxLength="21.5625" boxWidth="16.5625" boxHeight="13.1875"/>
+    <ShipmentBoxType shipmentBoxTypeId="YOURPACKNG" description="Your Packaging" dimensionUomId="LEN_in" boxLength="15" boxWidth="10" boxHeight="5"/>
+    
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXENV" partyId="FEDEX" packagingTypeCode="FEDEXENVELOPE"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXENV_LGL" partyId="FEDEX" packagingTypeCode="FEDEXENVELOPE"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXPAK_SM" partyId="FEDEX" packagingTypeCode="FEDEXPAK"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXPAK_LRG" partyId="FEDEX" packagingTypeCode="FEDEXPAK"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXBOX_SM" partyId="FEDEX" packagingTypeCode="FEDEXBOX"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXBOX_MED" partyId="FEDEX" packagingTypeCode="FEDEXBOX"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXBOX_LRG" partyId="FEDEX" packagingTypeCode="FEDEXBOX"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FXTUBE" partyId="FEDEX" packagingTypeCode="FEDEXTUBE"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FX10KGBOX" partyId="FEDEX" packagingTypeCode="FEDEX10KGBOX"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="FX25KGBOX" partyId="FEDEX" packagingTypeCode="FEDEX25KGBOX"/>
+    <CarrierShipmentBoxType shipmentBoxTypeId="YOURPACKNG" partyId="FEDEX" packagingTypeCode="YOURPACKAGING"/>
+</entity-engine-xml>

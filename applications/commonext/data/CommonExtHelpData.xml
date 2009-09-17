@@ -27,4 +27,15 @@ under the License.
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_COMMONEXT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
     <!-- setup component help -->
+    <DataResource dataResourceId="HELP_SETUP" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Setup" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_SETUP" contentTypeId="DOCUMENT" localeString="en" contentName="OFBiz Setup Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SETUP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_COMMONEXT" contentIdTo="HELP_SETUP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="SETUP_initialsetup" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_initialsetup.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Setup Main Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SETUP_initialsetup" contentTypeId="DOCUMENT" contentName="Main OFBiz Setup Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_initialsetup" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_initialsetup" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="001" mapKey="SETUP_initialsetup"/>
+    
+    <DataResource dataResourceId="SETUP_firstproduct" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_firstproduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Setup The First Product Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SETUP_firstproduct" contentTypeId="DOCUMENT" contentName="Setup The First Product Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_firstproduct" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstproduct" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-13 01:01:01" sequenceNum="002" mapKey="SETUP_firstproduct"/>
 </entity-engine-xml>

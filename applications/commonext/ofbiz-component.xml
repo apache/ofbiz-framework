@@ -28,6 +28,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SystemInfoPortletData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/SetupData.xml"/>
     
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
@@ -35,4 +36,10 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     
+    <webapp name="ofbizsetup"
+        title="Setup"
+        server="default-server"
+        location="webapp/ofbizsetup"
+        base-permission="OFBTOOLS"
+        mount-point="/ofbizsetup"/>
 </ofbiz-component>

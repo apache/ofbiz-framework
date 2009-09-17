@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="SetupCompanyName">
+        <value xml:lang="en">OFBiz: Setup Component </value>
+    </property>
+    <property key="SetupCompanySubtitle">
+        <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
+        <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
+        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
+        <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
+        <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
+        <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
+        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <value xml:lang="ru">Входит в состав семейства Open For Business</value>
+        <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
+        <value xml:lang="zh_CN">OFBiz的一部分</value>
+    </property>
+    <property key="SetupApp">
+        <value xml:lang="en">Setup Application</value>
+    </property>
+    <property key="SetupNewComponent">
+        <value xml:lang="en">Setup New Component</value>
+    </property>
+    <property key="SetupOrganization">
+        <value xml:lang="en">Organization</value>
+    </property>
+    <property key="SetupProductStore">
+        <value xml:lang="en">Product Store</value>
+    </property>
+    <property key="SetupWebSite">
+        <value xml:lang="en">Web Site</value>
+    </property>
+    <property key="SetupFacility">
+        <value xml:lang="en">Facility</value>
+    </property>
+    <property key="SetupOrganizationPartyId">
+        <value xml:lang="en">Organization Party Id</value>
+    </property>
+    <property key="SetupOrganizationName">
+        <value xml:lang="en">Organization name</value>
+    </property>
+    <property key="SetupOrganizationInformation">
+        <value xml:lang="en">Organization Information</value>
+    </property>
+    <property key="SetupEditOrganizationInformation">
+        <value xml:lang="en">Edit Organization Information</value>
+    </property>
+    <property key="SetupProductStoreName">
+        <value xml:lang="en">Product Store name</value>
+    </property>
+    <property key="SetupResults">
+        <value xml:lang="en">Results</value>
+    </property>
+    <property key="SetupCreateNewOrganization">
+        <value xml:lang="en">Create Organization</value>
+    </property>
+    <property key="SetupFirstCustomer">
+        <value xml:lang="en">First Customer</value>
+    </property>
+    <property key="SetupFirstProduct">
+        <value xml:lang="en">First Product</value>
+    </property>
+    <property key="SetupFacilityDescription">
+        <value xml:lang="en">Description</value>
+    </property>
+    <property key="SetupEditProductStore">
+        <value xml:lang="en">Edit Product Store</value>
+    </property>
+    <property key="SetupCreateNewOrganization">
+        <value xml:lang="en">Create New Organization</value>
+    </property>
+    <property key="SetupTheFirstCustomerOf">
+        <value xml:lang="en">The First Customer of</value>
+    </property>
+    <property key="SetupProductCatalog">
+        <value xml:lang="en">Product Catalog</value>
+    </property>
+    <property key="SetupPageError">
+        <value xml:lang="en">You do not have sufficient data to access this page.</value>
+    </property>
+    <property key="PageTitleProductInfomation">
+        <value xml:lang="en">Product Infomation</value>
+    </property>
+    <property key="PageTitleEditProductCategory">
+        <value xml:lang="en">Edit Product Category</value>
+    </property>
+    <property key="SetupSetToComplete">
+        <value xml:lang="en">Set to complete</value>
+    </property>
+    <property key="SetupInitialSetup">
+        <value xml:lang="en">Initial Setup</value>
+    </property>
+</resource>

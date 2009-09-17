@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
+    
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="initialsetup"/>
+    </request-map>
+    <request-map uri="initialsetup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="initialsetup"/>
+    </request-map>
+    
+    <request-map uri="editpartygroup"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyGroup"/></request-map>
+    <request-map uri="updatePartyGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePartyGroup"/>
+        <response name="success" type="request" value="viewprofile"/>
+        <response name="error" type="view" value="EditPartyGroup"/>
+    </request-map>
+    <request-map uri="editperson"><security https="true" auth="true"/><response name="success" type="view" value="EditPerson"/></request-map>
+    <request-map uri="updatePerson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePerson"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view" value="EditPerson"/>
+    </request-map>
+    <request-map uri="viewprofile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewprofile" save-home-view="true"/>
+    </request-map>
+
+    <!-- Entity Export requests -->
+    <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
+    <request-map uri="entityExportAll">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityExportAll"/>
+        <response name="success" type="view" value="EntityExportAll"/>
+        <response name="error" type="view" value="EntityExportAll"/>
+    </request-map>
+    
+    <!-- ================ Product Store Requests ============= -->
+    <request-map uri="FindProductStore">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindProductStore"/>
+    </request-map>
+    <request-map uri="EditProductStore">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductStore"/>
+    </request-map>
+    <request-map uri="createProductStore">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createProductStoreWithDefaultSetting"/>
+        <response name="success" type="view" value="EditProductStore"/>
+        <response name="error" type="view" value="EditProductStore"/>
+    </request-map>
+    <request-map uri="updateProductStore">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductStore"/>
+        <response name="success" type="view" value="EditProductStore"/>
+        <response name="error" type="view" value="EditProductStore"/>
+    </request-map>
+    
+    <request-map uri="createOrganization">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createOrganization"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="initialsetup"/>
+    </request-map>
+    
+    <request-map uri="addGeneralLedger">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="setupDefaultGeneralLedger"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="initialsetup"/>
+    </request-map>
+    
+    <request-map uri="OrganizationToComplete">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyRole"/>
+        <response name="success" type="view" value="initialsetup"/>
+        <response name="error" type="view" value="initialsetup"/>
+    </request-map>
+
+    <request-map uri="ViewFacility">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewFacility"/>
+    </request-map>
+    <request-map uri="EditFacility">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFacility"/>
+    </request-map>
+    <request-map uri="CreateFacility">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createFacilityAndContactMech"/>
+        <response name="success" type="view" value="EditFacility"/>
+        <response name="error" type="view" value="EditFacility"/>
+    </request-map>
+    <request-map uri="UpdateFacility">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFacility"/>
+        <response name="success" type="view" value="EditFacility"/>
+        <response name="error" type="view" value="EditFacility"/>
+    </request-map>
+    
+    <request-map uri="FindWebSite"><security https="true" auth="true"/><response name="success" type="view" value="FindWebSite"/></request-map>
+    <request-map uri="EditWebSite"><security https="true" auth="true"/><response name="success" type="view" value="EditWebSite"/></request-map>
+    <request-map uri="createWebSite">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createWebSite"/>
+        <response name="success" type="view" value="EditWebSite"/>
+        <response name="error" type="view" value="EditWebSite"/>
+    </request-map>
+    <request-map uri="updateWebSite">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateWebSite"/>
+        <response name="success" type="view" value="EditWebSite"/>
+        <response name="error" type="view" value="EditWebSite"/>
+    </request-map>
+    <!-- ================ First Product Requests ============= -->
+    <request-map uri="firstproduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="firstproduct"/>
+    </request-map>
+    <request-map uri="createProdCatalog">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createProdCatalogAndProductStoreCatalog"/>
+        <response name="success" type="view" value="firstproduct"/>
+        <response name="error" type="view" value="firstproduct"/>
+    </request-map>
+    <request-map uri="updateProdCatalog">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProdCatalog"/>
+        <response name="success" type="view" value="firstproduct"/>
+        <response name="error" type="view" value="firstproduct"/>
+    </request-map>
+    
+    <request-map uri="EditCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCategory"/>
+    </request-map>
+    <request-map uri="createProductCategory">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createProductCategoryAndAddToProdCatalog"/>
+        <response name="success" type="view" value="EditCategory"/>
+        <response name="error" type="view" value="EditCategory"/>
+    </request-map>
+    
+    <request-map uri="updateProductCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductCategory"/>
+        <response name="success" type="view" value="EditCategory"/>
+        <response name="error" type="view" value="EditCategory"/>
+    </request-map>
+    <request-map uri="NewProduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProduct"/>
+    </request-map>
+    <request-map uri="createProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductInCategory"/>
+        <response name="success" type="view" value="EditProduct"/>
+        <response name="error" type="view" value="EditProduct"/>
+    </request-map>
+    <request-map uri="updateProduct">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="updateProductInCategory"/>
+        <response name="success" type="view" value="EditProduct"/>
+        <response name="error" type="view" value="EditProduct"/>
+    </request-map>
+    <!-- ================ First Customer Requests ============= -->
+    <request-map uri="firstcustomer">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="firstcustomer" save-home-view="true"/>
+    </request-map>
+    <request-map uri="createCustomer">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createCustomer"/>
+        <response name="success" type="view" value="firstcustomer"/>
+        <response name="error" type="view" value="firstcustomer"/>
+    </request-map>
+    
+    <!-- ================ Lookup Requests ============= -->
+    <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
+    <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    <!-- end of request mappings -->
+    
+    <!-- View Mappings -->
+    <view-map name="initialsetup" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#InitialSetup"/>
+    <view-map name="viewprofile" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#viewprofile"/>
+    <view-map name="EditPerson" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#EditPerson"/>
+    <view-map name="EditPartyGroup" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#EditPartyGroup"/>
+    
+    <view-map name="ViewFacility" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#ViewFacility"/>
+    <view-map name="EditFacility" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditFacility"/>
+    
+    <view-map name="FindProductStore" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#FindProductStore"/>
+    <view-map name="EditProductStore" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditProductStore"/>
+
+    <view-map name="EntityExportAll" type="screen" page="component://commonext/widget/ofbizsetup/CommonScreens.xml#EntityExportAll"/>
+    <view-map name="EditProductStore" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditProductStore"/>
+    
+    <view-map name="FindWebSite" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#FindWebSite" type="screen"/>
+    <view-map name="EditWebSite" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditWebSite" type="screen"/>
+    
+    <view-map name="firstcustomer" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#FirstCustomer"/>
+    <view-map name="firstproduct" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditProdCatalog"/>
+    <view-map name="EditCategory" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditCategory"/>
+    <view-map name="EditProduct" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditProduct"/>
+    
+    <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
+    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
+</site-conf>
