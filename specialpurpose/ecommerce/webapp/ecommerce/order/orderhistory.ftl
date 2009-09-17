@@ -81,7 +81,7 @@ under the License.
               <td>${porderHeader.orderId}</td>
               <td><@ofbizCurrency amount=porderHeader.grandTotal isoCode=porderHeader.currencyUom /></td>
               <td>${pstatus.get("description",locale)}</td>
-              <td><a href="<@ofbizUrl>orderstatus?orderId=${porderHeader.orderId}</@ofbizUrl>" class="buttont">${uiLabelMap.CommonView}</a></td>
+              <td><a href="<@ofbizUrl>orderstatus?orderId=${porderHeader.orderId}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a></td>
             </tr>
           </#list>
         <#else>
