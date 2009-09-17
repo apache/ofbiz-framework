@@ -33,27 +33,27 @@ under the License.
       </thead>
       <tbody>
         <#if orderHeaderList?has_content>
-        <#list orderHeaderList as orderHeader>
-          <#assign status = orderHeader.getRelatedOneCache("StatusItem") />
-          <tr>
-            <td>${orderHeader.orderDate.toString()}</td>
-            <td>${orderHeader.orderId}</td>
-            <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom /></td>
-            <td>${status.get("description",locale)}</td>
-            <#-- invoices -->
-            <#assign invoices = delegator.findByAnd("OrderItemBilling", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", "${orderHeader.orderId}"), Static["org.ofbiz.base.util.UtilMisc"].toList("invoiceId")) />
-            <#if invoices?has_content>
-              <td>
-                <#list invoices as invoice>
-                  <a href="<@ofbizUrl>invoice.pdf?invoiceId=${invoice.invoiceId}</@ofbizUrl>" class="button">(${invoice.invoiceId} PDF)</a>
-                </#list>
-              </td>
-            <#else>
-              <td></td>
-            </#if>
-            <td><a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a></td>
-          </tr>
-        </#list>
+          <#list orderHeaderList as orderHeader>
+            <#assign status = orderHeader.getRelatedOneCache("StatusItem") />
+            <tr>
+              <td>${orderHeader.orderDate.toString()}</td>
+              <td>${orderHeader.orderId}</td>
+              <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom /></td>
+              <td>${status.get("description",locale)}</td>
+              <#-- invoices -->
+              <#assign invoices = delegator.findByAnd("OrderItemBilling", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", "${orderHeader.orderId}"), Static["org.ofbiz.base.util.UtilMisc"].toList("invoiceId")) />
+              <#if invoices?has_content>
+                <td>
+                  <#list invoices as invoice>
+                    <a href="<@ofbizUrl>invoice.pdf?invoiceId=${invoice.invoiceId}</@ofbizUrl>" class="button">(${invoice.invoiceId} PDF)</a>
+                  </#list>
+                </td>
+              <#else>
+                <td></td>
+              </#if>
+              <td><a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a></td>
+            </tr>
+          </#list>
         <#else>
           <tr><td colspan="9">${uiLabelMap.OrderNoOrderFound}</td></tr>
         </#if>
@@ -104,17 +104,17 @@ under the License.
       </thead>
       <tbody>
         <#if downloadOrderRoleAndProductContentInfoList?has_content>
-        <#list downloadOrderRoleAndProductContentInfoList as downloadOrderRoleAndProductContentInfo>
-          <tr>
-            <td>${downloadOrderRoleAndProductContentInfo.orderId}</td>
-            <td>${downloadOrderRoleAndProductContentInfo.productName}</td>
-            <td>${downloadOrderRoleAndProductContentInfo.contentName?if_exists}</td>
-            <td>${downloadOrderRoleAndProductContentInfo.description?if_exists}</td>
-            <td>
-              <a href="<@ofbizUrl>downloadDigitalProduct/${downloadOrderRoleAndProductContentInfo.contentName?if_exists}?dataResourceId=${downloadOrderRoleAndProductContentInfo.dataResourceId}</@ofbizUrl>" class="button">Download</a>
-            </td>
-          </tr>
-        </#list>
+          <#list downloadOrderRoleAndProductContentInfoList as downloadOrderRoleAndProductContentInfo>
+            <tr>
+              <td>${downloadOrderRoleAndProductContentInfo.orderId}</td>
+              <td>${downloadOrderRoleAndProductContentInfo.productName}</td>
+              <td>${downloadOrderRoleAndProductContentInfo.contentName?if_exists}</td>
+              <td>${downloadOrderRoleAndProductContentInfo.description?if_exists}</td>
+              <td>
+                <a href="<@ofbizUrl>downloadDigitalProduct/${downloadOrderRoleAndProductContentInfo.contentName?if_exists}?dataResourceId=${downloadOrderRoleAndProductContentInfo.dataResourceId}</@ofbizUrl>" class="button">Download</a>
+              </td>
+            </tr>
+          </#list>
         <#else>
           <tr><td colspan="9">${uiLabelMap.EcommerceDownloadNotFound}</td></tr>
         </#if>
