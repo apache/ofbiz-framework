@@ -77,13 +77,13 @@
 
 <#-------------------------------------------------------------------------------------call ofbiz function-->
     function callDocument(ctx) {
-    	var tabitem='${tabButtonItem?if_exists}';
-    	if(tabitem=="navigateContent")
-			listDocument='<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
+        var tabitem='${tabButtonItem?if_exists}';
+        if(tabitem=="navigateContent")
+            listDocument='<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
         if(tabitem=="LookupContentTree")
-    		listDocument='<@ofbizUrl>/views/ListContentTree</@ofbizUrl>';
+            listDocument='<@ofbizUrl>/views/ListContentTree</@ofbizUrl>';
         if(tabitem=="LookupDetailContentTree")
-        	listDocument='<@ofbizUrl>/views/ViewContentDetail</@ofbizUrl>';
+            listDocument='<@ofbizUrl>/views/ViewContentDetail</@ofbizUrl>';
         var bindArgs = {
             url: listDocument,
             method: 'POST',
@@ -199,8 +199,8 @@
     }
  <#------------------------------------------------------pagination function -->
     function nextPrevDocumentList(url){
-    	url= '<@ofbizUrl>'+url+'</@ofbizUrl>';
-    	 var bindArgs = {
+        url= '<@ofbizUrl>'+url+'</@ofbizUrl>';
+         var bindArgs = {
             url: url,
             method: 'POST',
             mimetype: 'text/html',
@@ -222,12 +222,12 @@
     font-size: 10px;
 }
 <#if tabButtonItem?has_content>
-	<#if tabButtonItem=="LookupContentTree"||tabButtonItem=="LookupDetailContentTree">
+    <#if tabButtonItem=="LookupContentTree"||tabButtonItem=="LookupDetailContentTree">
 body{background:none;}
 .left-border{float:left;width:25%;}
 .contentarea{margin: 0 0 0 0.5em;padding:0 0 0 0.5em;}
 .leftonly{float:none;min-height:25em;}
-	</#if>
+    </#if>
 </#if>
 </style>
 

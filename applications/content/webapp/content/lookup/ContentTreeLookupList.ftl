@@ -40,7 +40,7 @@
         <td></td>
   </tr>
    <#if (arraySize > 0)>
-   		<tr><td colspan="3"><hr/></td></tr>
+           <tr><td colspan="3"><hr/></td></tr>
    </#if>
 </table>
 <table class="basic-table hover-bar" cellspacing="0">
@@ -63,39 +63,39 @@
   </tr>
 </#if>
 <#if contentAssoc?has_content>  
-   	<#assign alt_row = false/>
-   	<#assign listcount=0>
-  	<#list contentAssoc as contentData>
-  	<#if tabButtonItem=="ListContentTree">
-		<#--Form ListContentTree-->
-  		<tr <#if alt_row> class="alternate-row"</#if>> 
-  			<td><a class="plain" href="javascript:set_value('${contentData.contentId?if_exists}')">${contentData.contentId?if_exists}</a></td>
-  			<td>${contentData.contentName?if_exists}</td>
-  			<td>${contentData.mimeTypeId?if_exists}</td>
-  		</tr>
-  	<#elseif tabButtonItem=="ListDocument">
-  		<#--Form ListDocument-->
-  		<tr <#if alt_row> class="alternate-row"</#if>>
-  			<td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId?if_exists}">${contentData.contentId?if_exists}</a></td>
-  			<td>${contentData.contentTypeId?if_exists}</td>
-  			<td>${contentData.mimeTypeId?if_exists}</td>
-  			<td>${contentData.statusId?if_exists}</td>
-  			<#if contentData.caFromDate?has_content>
+       <#assign alt_row = false/>
+       <#assign listcount=0>
+      <#list contentAssoc as contentData>
+      <#if tabButtonItem=="ListContentTree">
+        <#--Form ListContentTree-->
+          <tr <#if alt_row> class="alternate-row"</#if>> 
+              <td><a class="plain" href="javascript:set_value('${contentData.contentId?if_exists}')">${contentData.contentId?if_exists}</a></td>
+              <td>${contentData.contentName?if_exists}</td>
+              <td>${contentData.mimeTypeId?if_exists}</td>
+          </tr>
+      <#elseif tabButtonItem=="ListDocument">
+          <#--Form ListDocument-->
+          <tr <#if alt_row> class="alternate-row"</#if>>
+              <td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId?if_exists}">${contentData.contentId?if_exists}</a></td>
+              <td>${contentData.contentTypeId?if_exists}</td>
+              <td>${contentData.mimeTypeId?if_exists}</td>
+              <td>${contentData.statusId?if_exists}</td>
+              <#if contentData.caFromDate?has_content>
              <#assign caFromDate = Static["org.ofbiz.base.util.UtilDateTime"].toDateString(contentData.caFromDate, "dd/MM/yyyy")/>
             </#if> 
-  			<td>${caFromDate?if_exists}</td>
-  			<td><a href="javascript:document.listDocumentForm_${listcount}.submit()" >${uiLabelMap.CommonDelete}</a></td>
-  		</tr>
-  		<form action="<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>" name="listDocumentForm_${listcount}" method="post">
-        	<input type="hidden" name="contentId" value="${contentData.contentIdStart?if_exists}"/>
-        	<input type="hidden" name="contentIdTo" value="${contentData.contentId?if_exists}"/>
-        	<input type="hidden" name="contentAssocTypeId" value="${contentData.caContentAssocTypeId?if_exists}"/>
-        	<input type="hidden" name="fromDate" value="${contentData.fromDate?if_exists}"/>
-  		</form>
- 	</#if>
- 		<#assign alt_row = !alt_row/>
- 		<#assign listcount=listcount+1>
-  	</#list>
+              <td>${caFromDate?if_exists}</td>
+              <td><a href="javascript:document.listDocumentForm_${listcount}.submit()" >${uiLabelMap.CommonDelete}</a></td>
+          </tr>
+          <form action="<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>" name="listDocumentForm_${listcount}" method="post">
+            <input type="hidden" name="contentId" value="${contentData.contentIdStart?if_exists}"/>
+            <input type="hidden" name="contentIdTo" value="${contentData.contentId?if_exists}"/>
+            <input type="hidden" name="contentAssocTypeId" value="${contentData.caContentAssocTypeId?if_exists}"/>
+            <input type="hidden" name="fromDate" value="${contentData.fromDate?if_exists}"/>
+          </form>
+     </#if>
+         <#assign alt_row = !alt_row/>
+         <#assign listcount=listcount+1>
+      </#list>
 </#if>
 </table>
 </div>

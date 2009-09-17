@@ -35,7 +35,7 @@
 try {
     viewIndex = Integer.valueOf((String)parameters.get("VIEW_INDEX")).intValue();
 } catch (NumberFormatException nfe) {
-    	viewIndex = 0;
+        viewIndex = 0;
 }
 
 context.viewIndexFirst = 0;
@@ -70,9 +70,9 @@ if (errMsgList) {
 curFindString = UtilFormatOut.encodeQuery(curFindString);
 context.curFindString = curFindString;
 try {
-	viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
+    viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
 } catch (NumberFormatException nfe) {
-	
+    
 }
 
 context.viewSize = viewSize;
@@ -83,42 +83,42 @@ int highIndex = (viewIndex+1)*viewSize;
 context.lowIndex = lowIndex;
 int arraySize = 0;
 List resultPartialList = null;
-	conditions = [EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS,(String)parameters.get("contentId"))];
+    conditions = [EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS,(String)parameters.get("contentId"))];
 
 if ((highIndex - lowIndex + 1) > 0) {
-	// get the results as an entity list iterator
-	boolean beganTransaction = false;
-	if(resultPartialList==null){
+    // get the results as an entity list iterator
+    boolean beganTransaction = false;
+    if(resultPartialList==null){
     try {
-    	beganTransaction = TransactionUtil.begin();
-    	allConditions = EntityCondition.makeCondition( conditions, EntityOperator.AND );
-    	fieldsToSelect = FastSet.newInstance();
-    	//fieldsToSelect=["contentId", "contentName", "mimeTypeId"] as Set;
-    	findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    	EntityListIterator listIt=null;
-    	listIt = delegator.find("ContentAssocViewTo", allConditions, null, null, ["contentId ASC"], findOptions);
-    	resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1);
-    	
-    	arraySize = listIt.getResultsSizeAfterPartialList();
-    	if (arraySize < highIndex) {
-    		highIndex = arraySize;
-    	}
-    	listIt.close();
-	} catch (GenericEntityException e) {
-		Debug.logError(e, "Failure in operation, rolling back transaction", "GetContentLookupList.groovy");
-		try {
-			// only rollback the transaction if we started one...
-			TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e);
-		} catch (GenericEntityException e2) {
-			Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "GetContentLookupList.groovy");
-		}
-		// after rolling back, rethrow the exception
-		throw e;
-	} finally {
-		// only commit the transaction if we started one... this will throw an exception if it fails
-		TransactionUtil.commit(beganTransaction);
-	}
-	}
+        beganTransaction = TransactionUtil.begin();
+        allConditions = EntityCondition.makeCondition( conditions, EntityOperator.AND );
+        fieldsToSelect = FastSet.newInstance();
+        //fieldsToSelect=["contentId", "contentName", "mimeTypeId"] as Set;
+        findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+        EntityListIterator listIt=null;
+        listIt = delegator.find("ContentAssocViewTo", allConditions, null, null, ["contentId ASC"], findOptions);
+        resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1);
+        
+        arraySize = listIt.getResultsSizeAfterPartialList();
+        if (arraySize < highIndex) {
+            highIndex = arraySize;
+        }
+        listIt.close();
+    } catch (GenericEntityException e) {
+        Debug.logError(e, "Failure in operation, rolling back transaction", "GetContentLookupList.groovy");
+        try {
+            // only rollback the transaction if we started one...
+            TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e);
+        } catch (GenericEntityException e2) {
+            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "GetContentLookupList.groovy");
+        }
+        // after rolling back, rethrow the exception
+        throw e;
+    } finally {
+        // only commit the transaction if we started one... this will throw an exception if it fails
+        TransactionUtil.commit(beganTransaction);
+    }
+    }
 }
 context.highIndex = highIndex;
 context.arraySize = arraySize;
