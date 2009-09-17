@@ -56,6 +56,9 @@ public class ObjectType {
      * @throws ClassNotFoundException
      */
     public static Class<?> loadClass(String className) throws ClassNotFoundException {
+        int genericsStart = className.indexOf("<");
+        if (genericsStart != -1) className = className.substring(0, genericsStart);
+
         // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
         Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
 
@@ -72,6 +75,9 @@ public class ObjectType {
      * @throws ClassNotFoundException
      */
     public static Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
+        int genericsStart = className.indexOf("<");
+        if (genericsStart != -1) className = className.substring(0, genericsStart);
+
         // Handle array classes. Details in http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16437
         if (className.endsWith("[]")) {
             if (Character.isLowerCase(className.charAt(0)) && className.indexOf(".") < 0) {
@@ -466,6 +472,11 @@ public class ObjectType {
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
         if (obj == null) {
             return null;
+        }
+
+        int genericsStart = type.indexOf("<");
+        if (genericsStart != -1) {
+            type = type.substring(0, genericsStart);
         }
 
         if (obj.getClass().getName().equals(type)) {
