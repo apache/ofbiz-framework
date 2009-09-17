@@ -72,6 +72,7 @@
     <xi:include href="../../../applications/content/documents/Content.xml"/>
     <xi:include href="../../../applications/marketing/documents/Marketing.xml"/>
     <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
+    <xi:include href="../../../applications/commonext/documents/Setup.xml"/>
     
     <appendix>
         <title>New features recently added</title>

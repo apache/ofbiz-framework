@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
+    <screen name="InitialSetup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="SetupCreateNewOrganization"/>
+                <set field="target" value="createOrganization"/>
+                <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
+                <entity-condition entity-name="PartyRole" list="parties">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                </entity-condition>
+                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="ListOrganizations" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.SetupCreateNewOrganization}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="NewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFacility">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductNewFacility"/>
+                <set field="tabButtonItemTop" value="facility"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/FindFacility.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <actions>
+                                        <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacility.groovy"/>
+                                    </actions>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://commonext/webapp/ofbizsetup/organization/EditFacility.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditProductStore">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductStore"/>
+                <set field="tabButtonItemTop" value="productstore"/>
+                <set field="labelTitleProperty" value="ProductStore"/>
+                
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProductStoreAndWebSite.groovy"/>
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/FindFacility.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field="showScreen" operator="equals" value="origin"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field="productStoreId"/></not></condition>
+                                    <widgets>
+                                        <container>
+                                            <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}] ${uiLabelMap.${extraFunctionName}}"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.SetupEditProductStore}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditProductStore" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showScreen" operator="equals" value="message"/>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h3">${uiLabelMap.SetupPageError}</label>
+                                    </widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditWebSite">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditWebSite"/>
+                <set field="tabButtonItemTop" value="website"/>
+                <set field="labelTitleProperty" value="PageTitleEditWebSite"/>
+                
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProductStoreAndWebSite.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field="showScreen" operator="equals" value="origin"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field="webSiteId"/></not></condition>
+                                    <widgets>
+                                        <container>
+                                            <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <widgets>
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar">
+                                                <container style="h3">
+                                                    <label text="${uiLabelMap.PageTitleEditWebSite}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <widgets>
+                                                        <include-form name="EditWebSite" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                                    </widgets>
+                                                </section>
+                                            </container>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showScreen" operator="equals" value="message"/>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h3">${uiLabelMap.SetupPageError}</label>
+                                    </widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- First Product -->
+    <screen name="EditProdCatalog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductCatalog"/>
+                <set field="tabButtonItem" value="productcatalog"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProdCatalog.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFirstProductDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field="showScreen" operator="equals" value="origin"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                                </container>
+                                <container style="clear"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleEditProductCatalog}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditProdCatalog" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditCategory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductCategories"/>
+
+                <set field="tabButtonItem" value="productcategory"/>
+                <set field="labelTitleProperty" value="ProductCategory"/>
+
+                <set field="partyId" from-field="parameters.partyId"/>
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProdCatalog.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFirstProductDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field="showErrorMsg" operator="equals" value="N"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
+                                </container>
+                                <screenlet name="CreateProductCategory" title="${uiLabelMap.PageTitleEditProductCategory}">
+                                    <include-form name="EditProductCategory" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h2">${uiLabelMap.SetupPageError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProduct"/>
+                <set field="tabButtonItem" value="product"/>
+                <set field="labelTitleProperty" value="ProductProduct"/>
+                
+                <set field="partyId" from-field="parameters.partyId"/>           
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProdCatalog.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFirstProductDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field="showErrorMsg" operator="equals" value="N"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
+                                </container>
+                                <include-form name="EditProduct" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h2">${uiLabelMap.SetupPageError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonFirstProductDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItemTop" value="firstproduct"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <and>
+                                        <not><if-empty field="showScreen"/></not>
+                                        <if-compare field="showScreen" operator="equals" value="origin"/>
+                                    </and>
+                                    <not><if-empty field="showErrorMsg"/></not>
+                                </or>      
+                            </condition>
+                            <widgets>
+                                <include-menu name="FirstProductTabBar" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
+                            </widgets>
+                        </section>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

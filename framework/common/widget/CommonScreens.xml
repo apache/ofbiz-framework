@@ -134,6 +134,7 @@ under the License.
                 <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]"/>
                 <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]"/>
                 <property-map resource="CommonHelpUrls" map-name="helpUrlsMap" global="true"/>
+                <script location="component://commonext/script/changeOrgPartyId.groovy"/>
             </actions>
             <widgets>
                 <!-- render header -->

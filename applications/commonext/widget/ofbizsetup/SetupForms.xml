@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="NewOrganization" type="single" target="${target}${previousParams}"
+        focus-field-name="USER_TITLE" header-row-style="header-row" default-table-style="basic-table">
+        <field name="USE_ADDRESS"><hidden value="${USE_ADDRESS}"/></field>
+        <field name="partyId"><text/></field>
+        <field name="groupName" title="${uiLabelMap.SetupOrganizationName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+
+        <field name="ShippingAddressTitle" title="${uiLabelMap.PartyAddressMailingShipping}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="USER_ADDRESS2" title="${uiLabelMap.CommonAddress2}"><text size="30" maxlength="60"/></field>
+        <field name="USER_CITY" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="USER_STATE" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
+                    <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
+        <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="USER_ADDRESS_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="WorkPhoneTitle" title="${uiLabelMap.PartyContactWorkPhoneNumber}" title-area-style="group-label" widget-style="tooltip"><display description="${uiLabelMap.PartyPhoneNumberRequired}" also-hidden="false"/></field>
+        <field name="USER_WORK_COUNTRY" title="${uiLabelMap.PartyCountryCode}"><text size="4" maxlength="10"/></field>
+        <field name="USER_WORK_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
+        <field name="USER_WORK_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
+        <field name="USER_WORK_EXT" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
+        <field name="USER_WORK_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="FaxPhoneTitle" title="${uiLabelMap.PartyContactFaxPhoneNumber}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="USER_FAX_COUNTRY" title="${uiLabelMap.PartyCountryCode}"><text size="4" maxlength="10"/></field>
+        <field name="USER_FAX_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
+        <field name="USER_FAX_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
+        <field name="USER_FAX_EXT" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
+        <field name="USER_FAX_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="EmailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field use-when="require_email!=null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="60" maxlength="250"/></field>
+        <field use-when="require_email==null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" widget-style="required"><text size="60" maxlength="250"/></field>
+        <field name="USER_EMAIL_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
+    </form>
+    
+    <form name="NewCustomer" extends="NewUser" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="customerPartyId"><hidden value="CUST${partyId}"/></field>
+        <field use-when="displayPassword!=null" name="USERNAME" title="${uiLabelMap.CommonUsername}"><text size="30" maxlength="250"/></field>
+        <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}"><password size="15" maxlength="250"/></field>
+        <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}"><password size="15" maxlength="250"/></field>
+        <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyCustomerTemporaryPassword}"><text size="30" maxlength="250"/></field>
+        <field name="USER_ADDRESS_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="USER_HOME_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="USER_WORK_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="USER_FAX_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="USER_MOBILE_ALLOW_SOL"><hidden value="Y"/></field>
+        <field name="USER_EMAIL_ALLOW_SOL"><hidden value="Y"/></field>
+    </form>
+    
+    <form name="ViewOrganization" type="single" default-map-name="lookupGroup">
+        <field name="partyId" title="${uiLabelMap.SetupOrganizationPartyId}"><display/></field>
+        <field name="groupName" title="${uiLabelMap.SetupOrganizationName}"><display/></field>
+        <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+    </form>
+    
+    <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="productStore==null" target="createProductStore"/>
+        
+        <field use-when="productStore!=null" name="productStoreId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
+        <field use-when="productStore==null&amp;&amp;productStoreId==null" name="productStoreId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+        <field use-when="productStore==null&amp;&amp;productStoreId!=null" name="productStoreId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${productStoreId}]"><text size="20" maxlength="20"/></field>
+        
+        <field name="storeName" title="${uiLabelMap.ProductStoreName}"><text size="30" maxlength="60"/></field>
+        <field name="companyName"><hidden value="${partyGroup.groupName}"/></field>
+        <field name="primaryStoreGroupId"><hidden/></field>
+        <field name="title"><hidden/></field>
+        <field name="subtitle"><hidden/></field>
+        <field name="payToPartyId"><hidden value="${partyId}"/></field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="inventoryFacilityId"><hidden value="${parameters.facilityId}"/></field>
+        <field name="visualThemeId"><hidden value="FLAT_GREY"/></field>
+        <field name="manualAuthIsCapture"><hidden value="N"/></field>
+        <field name="prorateShipping"><hidden value="Y"/></field>
+        <field name="prorateTaxes"><hidden value="Y"/></field>
+        <field name="viewCartOnAdd"><hidden value="N"/></field>
+        <field name="autoSaveCart"><hidden value="N"/></field>
+        <field name="autoApproveReviews"><hidden value="N"/></field>
+        <field name="autoInvoiceDigitalItems"><hidden value="Y"/></field>
+        <field name="reqShipAddrForDigItems"><hidden value="Y"/></field>
+        <field name="isDemoStore"><hidden value="Y"/></field>
+        <field name="isImmediatelyFulfilled"><hidden value="N"/></field>
+        <field name="checkInventory"><hidden value="Y"/></field>
+        <field name="requireInventory"><hidden value="N"/></field>
+        <field name="reserveInventory"><hidden value="Y"/></field>
+        <field name="reserveOrderEnumId"><hidden value="INVRO_FIFO_REC"/></field>
+        <field name="balanceResOnOrderCreation"><hidden value="Y"/></field>
+        <field name="oneInventoryFacility"><hidden value="Y"/></field>
+        <field name="requirementMethodEnumId"><hidden/></field>
+        <field name="defaultCurrencyUomId"><hidden/></field>
+        <field name="defaultSalesChannelEnumId"><hidden value="WEB_SALES_CHANNEL"/></field>
+        <field name="allowPassword"><hidden value="Y"/></field>
+        <field name="retryFailedAuths"><hidden value="Y"/></field>
+        <field name="headerApprovedStatus"><hidden value="ORDER_APPROVED"/></field>
+        <field name="itemApprovedStatus"><hidden value="ITEM_APPROVED"/></field>
+        <field name="digitalItemApprovedStatus"><hidden value="ITEM_APPROVED"/></field>
+        <field name="headerDeclinedStatus"><hidden value="ORDER_REJECTED"/></field>
+        <field name="itemDeclinedStatus"><hidden value="ITEM_REJECTED"/></field>
+        <field name="headerCancelStatus"><hidden value="ORDER_CANCELLED"/></field>
+        <field name="itemCancelStatus"><hidden value="ITEM_CANCELLED"/></field>
+        <field name="storeCreditAccountEnumId"><hidden value="FIN_ACCOUNT"/></field>
+        <field name="explodeOrderItems"><hidden value="N"/></field>
+        <field name="checkGcBalance"><hidden value="N"/></field>
+        <field name="usePrimaryEmailUsername"><hidden value="N"/></field>
+        <field name="requireCustomerRole"><hidden value="N"/></field>
+        <field name="showCheckoutGiftOptions"><hidden value="Y"/></field>
+        <field name="selectPaymentTypePerItem"><hidden value="N"/></field>
+        <field name="showPricesWithVatTax"><hidden value="N"/></field>
+        <field name="showTaxIsExempt"><hidden value="Y"/></field>
+        <field name="vatTaxAuthGeoId"><hidden/></field>
+        <field name="vatTaxAuthPartyId"><hidden/></field>
+        <field name="prodSearchExcludeVariants"><hidden value="Y"/></field>
+        <field name="enableDigProdUpload"><hidden value="N"/></field>
+        <field name="digProdUploadCategoryId"><hidden/></field>
+        <field name="autoOrderCcTryExp"><hidden value="Y"/></field>
+        <field name="autoOrderCcTryOtherCards"><hidden value="Y"/></field>
+        <field name="autoOrderCcTryLaterNsf"><hidden value="Y"/></field>
+        <field name="autoApproveInvoice"><hidden value="Y"/></field>
+        <field name="autoApproveOrder"><hidden value="Y"/></field>
+        <field name="shipIfCaptureFails"><hidden value="Y"/></field>
+        <field name="setOwnerUponIssuance"><hidden/></field>
+        <field name="reqReturnInventoryReceive"><hidden value="N"/></field>
+        <field name="addToCartReplaceUpsell"><hidden/></field>
+        <field name="addToCartRemoveIncompat"><hidden/></field>
+        <field name="splitPayPrefPerShpGrp"><hidden/></field>
+        <field name="autoOrderCcTryLaterMax"><hidden/></field>
+        <field name="orderNumberPrefix"><hidden value="WS"/></field>
+        <field name="defaultLocaleString"><hidden value="en_US"/></field>
+        <field name="enableAutoSuggestionList"><hidden/></field>
+        <field name="showOutOfStockProducts"><hidden value="Y"/></field>
+        <field name="authDeclinedMessage"><hidden value="There has been a problem with your method of payment. Please try a different method or call customer service."/></field>
+        <field name="authFraudMessage"><hidden value="Your order has been rejected and your account has been disabled due to fraud."/></field>
+        <field name="authErrorMessage"><hidden value="Problem connecting to payment processor; we will continue to retry and notify you by email."/></field>
+        <field name="defaultPassword"><hidden/></field>
+        <field name="inventoryFacilityLink"><hidden/></field>
+        <field name="paymentList"><hidden value="${paymentList}"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditWebSite" extends="EditWebSite" extends-resource="component://content/webapp/content/website/WebSiteForms.xml">
+        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="httpHost"><hidden/></field>
+        <field name="httpPort"><hidden/></field>
+        <field name="httpsHost"><hidden/></field>
+        <field name="httpsPort"><hidden/></field>
+        <field name="enableHttps"><hidden/></field>
+        <field name="standardContentPrefix"><hidden/></field>
+        <field name="secureContentPrefix"><hidden/></field>
+        <field name="cookieDomain"><hidden/></field>
+        <field name="productStoreId"><hidden/></field>
+        <field name="allowProductStoreChange"><hidden/></field>
+        <field name="siteName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+    </form>
+    
+    <form name="EditProdCatalog" extends="EditProdCatalog" extends-resource="component://product/webapp/catalog/catalog/ProdCatalogForms.xml">
+        <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+        <field name="catalogName" title="${uiLabelMap.ProductCatalogName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="useQuickAdd"><hidden value="Y"/></field>
+        <field name="styleSheet"><hidden/></field>
+        <field name="headerLogo"><hidden/></field>
+        <field name="contentPathPrefix"><hidden/></field>
+        <field name="templatePathPrefix"><hidden/></field>
+        <field name="viewAllowPermReqd"><hidden value="N"/></field>
+        <field name="purchaseAllowPermReqd"><hidden value="N"/></field>
+    </form>
+    
+    <form name="EditProductCategory" type="single" header-row-style="header-row" default-table-style="basic-table" 
+        default-map-name="productCategory" target="updateProductCategory">
+        
+        <alt-target use-when="productCategory==null" target="createProductCategory"/>
+        
+        <field use-when="productCategory!=null" name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" tooltip="${uiLabelMap.ProductNotModificationRecrationCategory}."><display/></field>
+        <field use-when="productCategory==null&amp;&amp;productCategoryId==null" name="productCategoryId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field> 
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="prodCatalogId"><hidden value="${prodCatalogId}"/></field>
+        <field name="productCategoryTypeId"><hidden value="CATALOG_CATEGORY"/></field>
+        <field name="categoryName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="description" title="${uiLabelMap.ProductProductDescription}"><textarea cols="60" rows="2"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>  
+    
+    <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="product==null" target="createProduct"/>
+        <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
+        
+        <field position="1" use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}"><display/></field>
+        <field position="1" use-when="product==null&amp;&amp;productId!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotFindProductId} [${productId}]"><text size="20" maxlength="20"/></field>
+        <field position="1" use-when="product==null&amp;&amp;productId==null" name="productId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+        
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="productCategoryId"><hidden value="${productCategoryId}"/></field>
+        <field name="productTypeId"><hidden value="FINISHED_GOOD"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="productName" title="${uiLabelMap.ProductProductName}" ><text size="30" maxlength="60"/></field>
+        <field name="description" title="${uiLabelMap.ProductShortDescription}"><text size="60" maxlength="250"/></field>
+        <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><text size="8" default-value="${defaultPrice}"/></field>
+        <field name="averageCost" title="${uiLabelMap.ProductAverageCost}"><text size="8" default-value="${averageCost}"/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.ProductUpdateProduct}" use-when="product!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.ProductCreateProduct}" use-when="product==null" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListProduct" type="single" default-map-name="product" odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="productId"><display/></field>
+        <field name="internalName"><display/></field>
+        <field name="productName"><display/></field>
+        <field name="description"><display/></field>
+    </form>
+    
+    <form name="ListOrganizations" type="list" title="Internal Organizations" list-name="parties"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="10">
+        <row-actions>
+            <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
+            <entity-condition entity-name="PartyRole" list="partyRoles">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" operator="equals" from-field="partyId"/>
+                    <condition-expr field-name="roleTypeId" operator="equals" value="ORGANIZATION_ROLE"/>
+                </condition-list>
+            </entity-condition>
+            <set field="partyRole" from-field="partyRoles[0]"/>
+        </row-actions>
+        <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
+        <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyAcctgPreference==null" widget-style="buttontext">
+            <hyperlink target="addGeneralLedger" description="${uiLabelMap.AccountingSetup}">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyAcctgPreference!=null" widget-style="buttontext">
+            <hyperlink target="viewprofile" description="${uiLabelMap.AccountingSetup}">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="setToComplete" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyRole==null" widget-style="buttontext">
+            <hyperlink target="OrganizationToComplete" description="${uiLabelMap.SetupSetToComplete}">
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId" value="ORGANIZATION_ROLE"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="EditCustomer" extends="EditPerson" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>
