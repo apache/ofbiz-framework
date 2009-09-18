@@ -44,6 +44,9 @@
     <property key="EbayEBayOrders">
         <value xml:lang="en">eBay Orders Import</value>
     </property>
+    <property key="EbayEbayOrderIdOrTransactionId">
+        <value xml:lang="en">OrderID / TransactionID</value>
+    </property>
     <property key="EbayExportToEbay">
         <value xml:lang="de">zu eBay exportieren</value>
         <value xml:lang="en">Export To eBay</value>
