@@ -56,7 +56,7 @@
         <value xml:lang="de">Konton-Nr</value>
         <value xml:lang="en">Account ID</value>
         <value xml:lang="es">Id cuenta</value>
-        <value xml:lang="fr">Réf. du compte</value>
+        <value xml:lang="fr">Compte</value>
         <value xml:lang="hi_IN">लेखा क्रमांक</value>
         <value xml:lang="it">Codice Conto</value>
         <value xml:lang="nl">Rekeningnr.</value>
@@ -11671,7 +11671,7 @@
     <property key="FormFieldTitle_reconcileStatusId">
         <value xml:lang="en">Reconcile Status Id</value>
         <value xml:lang="es">Id Status Reconciliación</value>
-        <value xml:lang="fr">Ref. de statut de rapprochement</value>
+        <value xml:lang="fr">Statut de rapprochement</value>
         <value xml:lang="hi_IN">मिलान स्थिति(Status) क्रमांक</value>
         <value xml:lang="it">Codice Stato Riconcilazione</value>
         <value xml:lang="nl">ID status afstemmen</value>

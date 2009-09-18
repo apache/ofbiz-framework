@@ -320,7 +320,7 @@
     </property>
     <property key="ContentCompDocParentContentId">
         <value xml:lang="en">Parent Content ID</value>
-        <value xml:lang="fr">Réf. du contenu parent</value>
+        <value xml:lang="fr">Contenu parent</value>
         <value xml:lang="it">Contenuto padre</value>
         <value xml:lang="zh">上级内容标识</value>
     </property>
@@ -1010,7 +1010,7 @@
         <value xml:lang="ar">PDF تعريف محتوى</value>
         <value xml:lang="de">PDF Inhalt ID</value>
         <value xml:lang="en">PDF Content ID</value>
-        <value xml:lang="fr">Réf. contenu PDF</value>
+        <value xml:lang="fr">Contenu PDF</value>
         <value xml:lang="it">Contenuto PDF</value>
         <value xml:lang="ro">Continut PDF</value>
         <value xml:lang="th">หัวข้อ PDF</value>
@@ -1482,7 +1482,7 @@
         <value xml:lang="de">Befragung ID</value>
         <value xml:lang="en">Survey ID</value>
         <value xml:lang="es">Id de Encuesta</value>
-        <value xml:lang="fr">Réf. de sondage</value>
+        <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Numero sondaggio</value>
         <value xml:lang="ro">Numer Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจ</value>
@@ -1742,7 +1742,7 @@
         <value xml:lang="ar">AcroForm (PDF) Content ID</value>
         <value xml:lang="de">AcroForm (PDF) Inhalt ID</value>
         <value xml:lang="en">AcroForm (PDF) Content ID</value>
-        <value xml:lang="fr">Réf. de contenu AcroForm (PDF)</value>
+        <value xml:lang="fr">Contenu AcroForm (PDF)</value>
         <value xml:lang="it">Contenuto AcroForm (PDF)</value>
         <value xml:lang="ro">Continut AcroForm (PDF)</value>
         <value xml:lang="th">AcroForm (PDF) Content ID</value>
@@ -1780,7 +1780,7 @@
     </property>
     <property key="FormFieldTitle_approvalStatusId">
         <value xml:lang="en">Approval Status Id</value>
-        <value xml:lang="fr">Réf. de statu d'approbation</value>
+        <value xml:lang="fr">Statut d'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
         <value xml:lang="zh">批准状态标识</value>
     </property>
@@ -1788,7 +1788,7 @@
         <value xml:lang="ar">تعريف توقعة ارتباط المحتوى</value>
         <value xml:lang="de">Inhalt Zuordnung Prädikat ID</value>
         <value xml:lang="en">Content Assoc Predicate Id</value>
-        <value xml:lang="fr">Réf. de prédicat de contenu d'association</value>
+        <value xml:lang="fr">Prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อแสดงความคิดเห็น</value>
@@ -1798,7 +1798,7 @@
         <value xml:lang="ar">المحتوى إلى</value>
         <value xml:lang="de">Inhalt ID zu</value>
         <value xml:lang="en">Content Id To</value>
-        <value xml:lang="fr">Réf.de contenu vers</value>
+        <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
         <value xml:lang="ro">Continut A</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
@@ -1845,7 +1845,7 @@
     <property key="FormFieldTitle_coContentId">
         <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content Id</value>
-        <value xml:lang="fr">Ref. de contenu</value>
+        <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
         <value xml:lang="zh">内容标识</value>
@@ -1880,7 +1880,7 @@
         <value xml:lang="ar">مرتكبة من طرف</value>
         <value xml:lang="de">Eingebracht von Akteur ID</value>
         <value xml:lang="en">Committed By Party Id</value>
-        <value xml:lang="fr">Réf. de téléchargement par acteur</value>
+        <value xml:lang="fr">Téléchargement par acteur</value>
         <value xml:lang="it">Registrato Dal Soggetto</value>
         <value xml:lang="ro">Registrat de Partenerul</value>
         <value xml:lang="th">รับผิดชอบโดยกลุ่มผู้ใช้นี้</value>
@@ -1890,7 +1890,7 @@
         <value xml:lang="ar">تعريف موافقة المحتوى</value>
         <value xml:lang="de">Inhalt Genehmigung ID</value>
         <value xml:lang="en">Content Approval Id</value>
-        <value xml:lang="fr">Réf. de contenu d'approbation</value>
+        <value xml:lang="fr">Contenu d'approbation</value>
         <value xml:lang="it">Codice Approvazione Contenuto</value>
         <value xml:lang="ro">Cod Aprovare Continut</value>
         <value xml:lang="th">รหัสหัวข้อความคิดเห็น</value>
@@ -1900,7 +1900,7 @@
         <value xml:lang="ar">تعربف توقعة ارتباط المحتوى</value>
         <value xml:lang="de">Inhalt Zuordnung Prädikat ID</value>
         <value xml:lang="en">Content Assoc Predicate Id</value>
-        <value xml:lang="fr">Réf. de prédicat de contenu d'association</value>
+        <value xml:lang="fr">Prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสกลุ่หัวข้อควาคิดเห็น</value>
@@ -1910,7 +1910,7 @@
         <value xml:lang="ar">تعريف نوع ارتباط المحتوى</value>
         <value xml:lang="de">Inhalt Zuordnungstyp ID</value>
         <value xml:lang="en">Content Assoc Type Id</value>
-        <value xml:lang="fr">Réf. de contenu d'association</value>
+        <value xml:lang="fr">Contenu d'association</value>
         <value xml:lang="it">Tipo Associazione Contenuto</value>
         <value xml:lang="ro">Tip Asociatie Continut</value>
         <value xml:lang="th">รหัสประเภทกลุ่หัวข้อควาคิดเห็น</value>
@@ -1921,7 +1921,7 @@
         <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content Id</value>
         <value xml:lang="es">Código de contenido</value>
-        <value xml:lang="fr">Réf. de contenu</value>
+        <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="nl">Content-ID</value>
         <value xml:lang="ro">Continut</value>
@@ -1933,7 +1933,7 @@
         <value xml:lang="ar">محتوى من</value>
         <value xml:lang="de">Inhalt ID von</value>
         <value xml:lang="en">Content Id From</value>
-        <value xml:lang="fr">Réf. de contenu depuis</value>
+        <value xml:lang="fr">Contenu depuis</value>
         <value xml:lang="it">Codice Contenuto A</value>
         <value xml:lang="ro">Cod Continut A</value>
         <value xml:lang="th">รหัสหัวข้อจาก</value>
@@ -1943,7 +1943,7 @@
         <value xml:lang="ar">محتوى إلى</value>
         <value xml:lang="de">Inhalt ID zu</value>
         <value xml:lang="en">Content Id To</value>
-        <value xml:lang="fr">Réf. de contenu vers</value>
+        <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Codice Contenuto A</value>
         <value xml:lang="ro">Cod Continut A</value>
         <value xml:lang="th">รหัสหัวข้อถึง</value>
@@ -1965,7 +1965,7 @@
         <value xml:lang="ar">تعريف عملية المحتوى</value>
         <value xml:lang="de">Inhalt Handhabung ID</value>
         <value xml:lang="en">Content Operation Id</value>
-        <value xml:lang="fr">Réf. d'opération de contenu</value>
+        <value xml:lang="fr">Opération de contenu</value>
         <value xml:lang="it">Operazione Contenuto</value>
         <value xml:lang="ro">Operatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อปฏิบัติการ</value>
@@ -2007,7 +2007,7 @@
         <value xml:lang="ar">تعريف تسلسل مراجعة المحتوى</value>
         <value xml:lang="de">Inhalt Version Seq. ID</value>
         <value xml:lang="en">Content Revision Seq Id</value>
-        <value xml:lang="fr">Réf. séq. de révision de contenu</value>
+        <value xml:lang="fr">Séq. de révision de contenu</value>
         <value xml:lang="it">Numero Sequenza Revisione Contenuto</value>
         <value xml:lang="ro">Numar Secventa Reviziune Continut</value>
         <value xml:lang="th">รหัสหัวข้อที่ปรับปรุง</value>
@@ -2030,7 +2030,7 @@
         <value xml:lang="de">Inhaltstyp ID</value>
         <value xml:lang="en">Content Type Id</value>
         <value xml:lang="es">Código Tipo de contenido</value>
-        <value xml:lang="fr">Réf. de type de contenu</value>
+        <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
         <value xml:lang="ro">Tip Continut</value>
         <value xml:lang="ru">Код типа контента</value>
@@ -2054,7 +2054,7 @@
         <value xml:lang="de">Datenkategorie ID</value>
         <value xml:lang="en">Data Category Id</value>
         <value xml:lang="es">Código Categoría de datos</value>
-        <value xml:lang="fr">Réf. de catégorie de données</value>
+        <value xml:lang="fr">Catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
         <value xml:lang="ro">Categorie Date</value>
         <value xml:lang="ru">Код категории данных</value>
@@ -2066,7 +2066,7 @@
         <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Resource Id</value>
         <value xml:lang="es">Código Recurso de datos</value>
-        <value xml:lang="fr">Réf. de ressource de données</value>
+        <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
         <value xml:lang="nl">ID databron</value>
         <value xml:lang="ro">Resurse Date</value>
@@ -2101,7 +2101,7 @@
         <value xml:lang="de">Datenressource Typ ID</value>
         <value xml:lang="en">Data Resource Type Id</value>
         <value xml:lang="es">Código Tipo de recurso de datos</value>
-        <value xml:lang="fr">Réf. de type de ressource de données</value>
+        <value xml:lang="fr">Type de ressource de données</value>
         <value xml:lang="it">Tipo risorsa dati</value>
         <value xml:lang="nl">Soort databron</value>
         <value xml:lang="ro">Tip Resurse Date</value>
@@ -2114,7 +2114,7 @@
         <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Source Id</value>
         <value xml:lang="es">Código Fuente de datos</value>
-        <value xml:lang="fr">Réf. de source de données</value>
+        <value xml:lang="fr">Source de données</value>
         <value xml:lang="it">Risorsa dati</value>
         <value xml:lang="ro">Risursa Date</value>
         <value xml:lang="ru">Код источника данных</value>
@@ -2126,7 +2126,7 @@
         <value xml:lang="de">Datenvorlagetyp ID</value>
         <value xml:lang="en">Data Template Type Id</value>
         <value xml:lang="es">Código Plantilla de datos</value>
-        <value xml:lang="fr">Réf. de type de modèle de données</value>
+        <value xml:lang="fr">Type de modèle de données</value>
         <value xml:lang="it">Tipo Template Dati</value>
         <value xml:lang="ro">Tip Template Date</value>
         <value xml:lang="ru">Код типа шаблона данных</value>
@@ -2162,7 +2162,7 @@
         <value xml:lang="ar">تعريف مجموعة الحروف</value>
         <value xml:lang="de">Zeichensatz ID</value>
         <value xml:lang="en">Character Set Id</value>
-        <value xml:lang="fr">Réf. de jeu de caractères</value>
+        <value xml:lang="fr">Jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
         <value xml:lang="ro">Set de Caractere</value>
         <value xml:lang="th">รหัสเซ็ตลักษณะ</value>
@@ -2182,7 +2182,7 @@
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
         <value xml:lang="de">Datenressourcentyp ID (dr)</value>
         <value xml:lang="en">Dr Data Resource Type Id</value>
-        <value xml:lang="fr">Réf. de type de ressource de données (Dr)</value>
+        <value xml:lang="fr">Type de ressource de données (Dr)</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
         <value xml:lang="ro">Tip Resurse Date</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มา</value>
@@ -2202,7 +2202,7 @@
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
         <value xml:lang="de">Datenvorlagetyp ID (Dr)</value>
         <value xml:lang="en">Dr Data Template Type Id</value>
-        <value xml:lang="fr">Réf. de type de modèle de données (Dr)</value>
+        <value xml:lang="fr">Type de modèle de données (Dr)</value>
         <value xml:lang="it">Tipo Template Dati</value>
         <value xml:lang="ro">Tip Template Date</value>
         <value xml:lang="th">รหัสประเภท Template ของข้อมูล</value>
@@ -2223,7 +2223,7 @@
         <value xml:lang="de">Mime Typ ID (Dr)</value>
         <value xml:lang="en">Dr Mime Type Id</value>
         <value xml:lang="es">Tipo de documento</value>
-        <value xml:lang="fr">Réf. de type mime (Dr)</value>
+        <value xml:lang="fr">Type Mime (Dr)</value>
         <value xml:lang="it">Tipo Mime</value>
         <value xml:lang="nl">Documentsoort</value>
         <value xml:lang="ro">Tip Mime</value>
@@ -2257,7 +2257,7 @@
         <value xml:lang="ar">تعريف وحدة قياس المدة</value>
         <value xml:lang="de">Dauer Einheit ID</value>
         <value xml:lang="en">Duration Uom Id</value>
-        <value xml:lang="fr">Réf. de durée Uom</value>
+        <value xml:lang="fr">Durée UOM</value>
         <value xml:lang="it">Udm Durata</value>
         <value xml:lang="ro">Udm Durata</value>
         <value xml:lang="th">รหัสช่วงเวลา Uom</value>
@@ -2287,7 +2287,7 @@
     </property>
     <property key="FormFieldTitle_enumTypeId">
         <value xml:lang="en">Enum Type Id</value>
-        <value xml:lang="fr">Réf. de type d'énumération</value>
+        <value xml:lang="fr">Type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
         <value xml:lang="zh">枚举类型标识</value>
     </property>
@@ -2295,7 +2295,7 @@
         <value xml:lang="ar">تعريف تتمة الملف</value>
         <value xml:lang="de">Dateierweiterung ID</value>
         <value xml:lang="en">File Extension Id</value>
-        <value xml:lang="fr">Réf. d'extension de fichier</value>
+        <value xml:lang="fr">Extension de fichier</value>
         <value xml:lang="it">Estensione File</value>
         <value xml:lang="ro">Extensie Fisier</value>
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
@@ -2497,7 +2497,7 @@
         <value xml:lang="ar">تعاريف المحتوى للتدليل (فرق بين التعاريف بفراغ)</value>
         <value xml:lang="de">Inhalt IDs zum Indexieren (IDs mit einem Leerzeichen trennen)</value>
         <value xml:lang="en">Content ids to index (separate ids with a space)</value>
-        <value xml:lang="fr">Réf. de contenus à indexer (réf. séparées par un espace)</value>
+        <value xml:lang="fr">Contenus à indexer (séparées par un espace)</value>
         <value xml:lang="it">Codici Contenuto da indicizzare (separare codici con uno spazio)</value>
         <value xml:lang="ro">Cod Continut de indicizat (separare cod cu un spatiu)</value>
         <value xml:lang="th">รหัสหัวข้อถึงดัชนี(แยกตามรหัสและที่อยู่)</value>
@@ -2508,7 +2508,7 @@
         <value xml:lang="de">Instanz von Inhalt ID</value>
         <value xml:lang="en">Instance Of Content Id</value>
         <value xml:lang="es">Código Instancia de contenido</value>
-        <value xml:lang="fr">Réf. d'exemple de contenu</value>
+        <value xml:lang="fr">Exemple de contenu</value>
         <value xml:lang="it">Instanza Del Contenuto</value>
         <value xml:lang="ro">Instanta Continutului</value>
         <value xml:lang="ru">Код экземпляра контента</value>
@@ -2531,7 +2531,7 @@
         <value xml:lang="ar">تعريف محتوى البند</value>
         <value xml:lang="de">Position Inhalt ID</value>
         <value xml:lang="en">Item Content Id</value>
-        <value xml:lang="fr">Réf. de contenu d'article</value>
+        <value xml:lang="fr">Contenu d'article</value>
         <value xml:lang="it">Numero Riga Contenuto</value>
         <value xml:lang="ro">Numar Linie Continut</value>
         <value xml:lang="th">รหัสหัวข้อสิ่งของ</value>
@@ -2619,7 +2619,7 @@
         <value xml:lang="ar">تعريف توقع الميتا معلومات</value>
         <value xml:lang="de">Metadaten Prädikat ID</value>
         <value xml:lang="en">Meta Data Predicate Id</value>
-        <value xml:lang="fr">Réf. de prédicat de méta-données</value>
+        <value xml:lang="fr">Prédicat de méta-données</value>
         <value xml:lang="it">Predicato Meta Data</value>
         <value xml:lang="ro">Predicat Meta Data</value>
         <value xml:lang="th">รหัสข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
@@ -2671,7 +2671,7 @@
         <value xml:lang="ar">تعريف مورد معلومات جديد</value>
         <value xml:lang="de">Neue Datenressource ID</value>
         <value xml:lang="en">New Data Resource Id</value>
-        <value xml:lang="fr">Réf. de nouvelle ressource de données</value>
+        <value xml:lang="fr">Nouvelle ressource de données</value>
         <value xml:lang="it">Nuovo Codice Risorsa Dati</value>
         <value xml:lang="ro">Cod Nou Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -2693,7 +2693,7 @@
         <value xml:lang="ar">تعريف مورد معلومات قديم</value>
         <value xml:lang="de">Alte Datenressource ID</value>
         <value xml:lang="en">Old Data Resource Id</value>
-        <value xml:lang="fr">Réf. d'ancienne ressource de données</value>
+        <value xml:lang="fr">Ancienne ressource de données</value>
         <value xml:lang="it">Vecchio Codice Risorsa Dati</value>
         <value xml:lang="ro">Cod Vechi Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูลเดิม</value>
@@ -2704,7 +2704,7 @@
         <value xml:lang="de">Besitzer Inhalt ID</value>
         <value xml:lang="en">Owner Content Id</value>
         <value xml:lang="es">Código del propietario</value>
-        <value xml:lang="fr">Réf. de contenu propriétaire</value>
+        <value xml:lang="fr">Contenu propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
         <value xml:lang="ro">Proprietar Continut</value>
         <value xml:lang="ru">Код владельца контента</value>
@@ -2725,7 +2725,7 @@
         <value xml:lang="ar">تعريف فئة الوالد</value>
         <value xml:lang="de">Übergeordnete Kategorie ID</value>
         <value xml:lang="en">Parent Category Id</value>
-        <value xml:lang="fr">Réf. de catégorie parente</value>
+        <value xml:lang="fr">Catégorie parente</value>
         <value xml:lang="it">Categoria Padre</value>
         <value xml:lang="ro">Categorie Parinte</value>
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
@@ -2764,7 +2764,7 @@
         <value xml:lang="de">Privileg Aufzählung ID</value>
         <value xml:lang="en">Privilege Enum Id</value>
         <value xml:lang="es">Tipo privilegio</value>
-        <value xml:lang="fr">Réf. d'énumération de privilège</value>
+        <value xml:lang="fr">Enumération de privilège</value>
         <value xml:lang="it">Enumerazione Privilegio</value>
         <value xml:lang="ro">Enumerare Privilegiu</value>
         <value xml:lang="ru">Код привилегий</value>
@@ -2800,7 +2800,7 @@
         <value xml:lang="ar">تعريف المرجع</value>
         <value xml:lang="de">Referenz ID</value>
         <value xml:lang="en">Reference Id</value>
-        <value xml:lang="fr">Réf. de référence</value>
+        <value xml:lang="fr">Référence</value>
         <value xml:lang="it">Numero Riferimento</value>
         <value xml:lang="ro">Numar de Referinta</value>
         <value xml:lang="th">รหัสการอ้างอิง</value>
@@ -2810,7 +2810,7 @@
         <value xml:lang="ar">تعريف تفصيل المرجع</value>
         <value xml:lang="de">Zugehöriges Detail ID</value>
         <value xml:lang="en">Related Detail Id</value>
-        <value xml:lang="fr">Réf. de détail lié</value>
+        <value xml:lang="fr">Détail lié</value>
         <value xml:lang="it">Dettaglio Relativo</value>
         <value xml:lang="ro">Detaliu Relativ</value>
         <value xml:lang="th">รหัสรายละเอียดที่เกี่ยวข้อง</value>
@@ -2940,7 +2940,7 @@
         <value xml:lang="de">Befragung ID</value>
         <value xml:lang="en">Survey Id</value>
         <value xml:lang="es">Código de encuesta</value>
-        <value xml:lang="fr">Réf. de sondage</value>
+        <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Numero Sondaggio</value>
         <value xml:lang="ro">Numar Sondaj</value>
         <value xml:lang="ru">Код обзора</value>
@@ -2951,7 +2951,7 @@
         <value xml:lang="ar">تعريف عمود متعدد الجواب لتصويت</value>
         <value xml:lang="de">Befragung Mehrfachantwort Kolonne ID</value>
         <value xml:lang="en">Survey Multi Resp Col Id</value>
-        <value xml:lang="fr">Réf. de colonne (sondage multi réponse)</value>
+        <value xml:lang="fr">Colonne (sondage multi réponse)</value>
         <value xml:lang="it">Colonna Risposta Multipla Sondaggio</value>
         <value xml:lang="ro">Coloana Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -2961,7 +2961,7 @@
         <value xml:lang="ar">تعريف جواب متعدد لتصويت</value>
         <value xml:lang="de">Befragung Mehrfachantwort ID</value>
         <value xml:lang="en">Survey Multi Resp Id</value>
-        <value xml:lang="fr">Réf. de sondage multi réponse</value>
+        <value xml:lang="fr">Sondage multi réponse</value>
         <value xml:lang="it">Risposta Multipla Sondaggio</value>
         <value xml:lang="ro">Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -2983,7 +2983,7 @@
         <value xml:lang="ar">تعريف تسلسل صفحة تصويت</value>
         <value xml:lang="de">Befragungsseite Seq. ID</value>
         <value xml:lang="en">Survey Page Seq Id</value>
-        <value xml:lang="fr">Réf. séq. de page de sondage</value>
+        <value xml:lang="fr">Séq. de page de sondage</value>
         <value xml:lang="it">Numero Sequenza Pagina Sondaggio</value>
         <value xml:lang="ro">Numar Secventa Pagina Sondaj</value>
         <value xml:lang="th">รหัสหน้าการสำรวจ</value>
@@ -2993,7 +2993,7 @@
         <value xml:lang="ar">تعريف فئة سؤال تصويت</value>
         <value xml:lang="de">Befragung Fragenkategorie ID</value>
         <value xml:lang="en">Survey Question Category Id</value>
-        <value xml:lang="fr">Réf. de catégorie de question (sondage)</value>
+        <value xml:lang="fr">Catégorie de question (sondage)</value>
         <value xml:lang="it">Categoria Domanda Sondaggio</value>
         <value xml:lang="ro">Categorie Intrebare Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจหมวดหมู่คำถาม</value>
@@ -3003,7 +3003,7 @@
         <value xml:lang="ar">تعريف نوع سؤال تصويت</value>
         <value xml:lang="de">Befragung Fragentyp ID</value>
         <value xml:lang="en">Survey Question Type Id</value>
-        <value xml:lang="fr">Réf. de type de question (sondage)</value>
+        <value xml:lang="fr">Type de question (sondage)</value>
         <value xml:lang="it">Tipo Domanda Sondaggio</value>
         <value xml:lang="ro">Tip Intrebare</value>
         <value xml:lang="th">รหัสการสำรวจประเภทคำถาม</value>
@@ -3013,7 +3013,7 @@
         <value xml:lang="ar">تعريف جواب تصويت</value>
         <value xml:lang="de">Befragung Antwort ID</value>
         <value xml:lang="en">Survey Response Id</value>
-        <value xml:lang="fr">Réf. de réponse au sondage</value>
+        <value xml:lang="fr">Réponse au sondage</value>
         <value xml:lang="it">Risposta Sondaggio</value>
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบ</value>
@@ -3044,7 +3044,7 @@
         <value xml:lang="de">Vorlage Datenressource ID</value>
         <value xml:lang="en">Template Data Resource Id</value>
         <value xml:lang="es">Código Plantilla de fuente de datos</value>
-        <value xml:lang="fr">Réf.  de modèle de ressource de données</value>
+        <value xml:lang="fr">Modèle de ressource de données</value>
         <value xml:lang="it">Template Risorsa Dati</value>
         <value xml:lang="ro">Template Resurse Date</value>
         <value xml:lang="ru">Код шаблона ресурса данных</value>
@@ -3114,7 +3114,7 @@
     <property key="FormFieldTitle_webSiteContentTypeId">
         <value xml:lang="de">Webseite Inhaltstyp ID</value>
         <value xml:lang="en">Web Site Content Type Id</value>
-        <value xml:lang="fr">Réf. type de contenu de site Web</value>
+        <value xml:lang="fr">Type de contenu de site Web</value>
         <value xml:lang="it">Tipo Contenuto Sito Web</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ Web Site</value>
         <value xml:lang="zh">网站内容类型标识</value>
@@ -3124,7 +3124,7 @@
         <value xml:lang="de">Webseite ID</value>
         <value xml:lang="en">Web Site Id</value>
         <value xml:lang="es">Código del sitio web</value>
-        <value xml:lang="fr">Réf. de site web</value>
+        <value xml:lang="fr">Site web</value>
         <value xml:lang="it">Sito web</value>
         <value xml:lang="nl">Web Site Id</value>
         <value xml:lang="ro">Sit Web</value>
