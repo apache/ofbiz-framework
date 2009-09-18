@@ -494,7 +494,7 @@ under the License.
         <alt-target use-when="electronicText==null" target="addHtmlText"/>
         <auto-fields-entity entity-name="ElectronicText"/>
         <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display/></field>
-        <field name="textData" id-name="textData"><textarea cols="120" rows="20" visual-editor-enable="true"/></field>
+        <field name="textData" id-name="textData" encode-output="false"><textarea cols="120" rows="20" visual-editor-enable="true"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
