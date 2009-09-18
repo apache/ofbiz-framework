@@ -94,7 +94,7 @@ under the License.
                                         <not><if-empty field="currentValue.contentId"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
                                         <label style="h1" text="${uiLabelMap.PageTitleAddContent}"/>
@@ -160,7 +160,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
                                         <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
@@ -271,7 +271,7 @@ under the License.
                                 <container style="widget-container">
                                     <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
                                 </container>
-                                <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${${extraFunctionName}}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

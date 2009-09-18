@@ -25,6 +25,7 @@ under the License.
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="findDataResource"/>
                 <set field="titleProperty" value="PageTitleFindDataResource"/>
+                <set field="labelTitleProperty" value="PageTitleFindDataResource"/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
@@ -171,6 +172,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResource"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResource"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResource"/>
                 <set field="dataResourceId" from-field="parameters.dataResourceId"/>
@@ -184,7 +186,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResource}"/>
+                                    <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -204,7 +206,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}"/>
+                                            <label text="${uiLabelMap.PageTitleEditDataResource}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
@@ -242,6 +244,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUploadImageDataResource"/>
+                <set field="labelTitleProperty" value="PageTitleUploadImageDataResource"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="uploadImage"/>
                 <entity-one entity-name="DataResource" value-field="currentValue">
@@ -277,6 +280,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleAddDataResourceText"/>
+                <set field="labelTitleProperty" value="PageTitleAddDataResourceText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="adddataresourcetext"/>
             </actions>
@@ -293,6 +297,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleAddDataResourceUrl"/>
+                <set field="labelTitleProperty" value="PageTitleAddDataResourceUrl"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="adddataresourceurl"/>
             </actions>
@@ -310,6 +315,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleAddDataResourceUpload"/>
+                <set field="labelTitleProperty" value="PageTitleAddDataResourceUpload"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="adddataresourceupload"/>
             </actions>
@@ -326,6 +332,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceText"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResourceText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editdataresourcetext"/>
             </actions>
@@ -342,6 +349,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceUrl"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResourceUrl"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editdataresourceurl"/>
             </actions>
@@ -358,6 +366,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceUpload"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResourceUpload"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editdataresourceupload"/>
             </actions>
@@ -374,6 +383,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditElectronicText"/>
+                <set field="labelTitleProperty" value="PageTitleEditElectronicText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editElectronicText"/>
                 <entity-one entity-name="DataResource" value-field="currentValue"/>
@@ -404,6 +414,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceAttribute"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResourceAttribute"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceAttribute"/>
                 <entity-one entity-name="DataResource" value-field="currentValue">
@@ -427,6 +438,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceRole"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResourceRole"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceRole"/>
                 <entity-one entity-name="DataResource" value-field="currentValue">
@@ -450,6 +462,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceProductFeatures"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataResourceProductFeatures"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceProductFeatures"/>
                 <entity-one entity-name="DataResource" value-field="currentValue">
@@ -473,6 +486,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditHtmlText"/>
+                <set field="labelTitleProperty" value="PageTitleEditHtmlText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editHtmlText"/>
                 <entity-one entity-name="DataResource" value-field="currentValue"/>
