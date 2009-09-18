@@ -17,6 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
+//<![CDATA[
 function toggle(e) {
     e.checked = !e.checked;
 }
@@ -88,40 +89,43 @@ function gwAll(e) {
     }
     cform.submit();
 }
+//]]>
 </script>
 
 <script type="text/javascript">
+//<![CDATA[
 function setAlternateGwp(field) {
   window.location=field.value;
 };
+//]]>
 </script>
-<#assign fixedAssetExist = shoppingCart.containAnyWorkEffortCartItems()/> <#-- change display format when rental items exist in the shoppingcart -->
+<#assign fixedAssetExist = shoppingCart.containAnyWorkEffortCartItems() /> <#-- change display format when rental items exist in the shoppingcart -->
 <div>
-    <h1>
+    <h2>
         <#if ((sessionAttributes.lastViewedProducts)?has_content && sessionAttributes.lastViewedProducts?size > 0)>
-          <#assign continueLink = "/product?product_id=" + sessionAttributes.lastViewedProducts.get(0)>
+          <#assign continueLink = "/product?product_id=" + sessionAttributes.lastViewedProducts.get(0) />
         <#else>
-          <#assign continueLink = "/main">
+          <#assign continueLink = "/main" />
         </#if>
         <a href="<@ofbizUrl>${continueLink}</@ofbizUrl>" class="submenutext">${uiLabelMap.EcommerceContinueShopping}</a>
         <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.OrderCheckout}</span></#if>
         ${uiLabelMap.CommonQuickAdd}
-    </h1>
+    </h2>
     <div>
         <div class="tabletext">
             <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="quickaddform">
                 <fieldset>
-                ${uiLabelMap.EcommerceProductNumber}<input type="text" class="inputBox" name="add_product_id" value="${requestParameters.add_product_id?if_exists}"/>
+                ${uiLabelMap.EcommerceProductNumber}<input type="text" class="inputBox" name="add_product_id" value="${requestParameters.add_product_id?if_exists}" />
                 <#-- check if rental data present  insert extra fields in Quick Add-->
                 <#if product?exists && product.getString("productTypeId") == "ASSET_USAGE">
-                    ${uiLabelMap.EcommerceStartDate}: <input type="text" class="inputBox" size="10" name="reservStart" value=${requestParameters.reservStart?default("")}/>
-                    ${uiLabelMap.EcommerceLength}: <input type="text" class="inputBox" size="2" name="reservLength" value=${requestParameters.reservLength?default("")}/>
+                    ${uiLabelMap.EcommerceStartDate}: <input type="text" class="inputBox" size="10" name="reservStart" value=${requestParameters.reservStart?default("")} />
+                    ${uiLabelMap.EcommerceLength}: <input type="text" class="inputBox" size="2" name="reservLength" value=${requestParameters.reservLength?default("")} />
                     </div>
                     <div>
-                    &nbsp;&nbsp;${uiLabelMap.OrderNbrPersons}: <input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")}/>
+                    &nbsp;&nbsp;${uiLabelMap.OrderNbrPersons}: <input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")} />
                 </#if>
-                ${uiLabelMap.CommonQuantity}: <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}"/>
-                <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToCart}"/>
+                ${uiLabelMap.CommonQuantity}: <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}" />
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToCart}" />
                 <#-- <a href="javascript:document.quickaddform.submit()" class="button"><span>[${uiLabelMap.OrderAddToCart}]</span></a> -->
                 </fieldset>
             </form>
@@ -130,7 +134,9 @@ function setAlternateGwp(field) {
 </div>
 
 <script type="text/javascript">
+//<![CDATA[
   document.quickaddform.add_product_id.focus();
+//]]>
 </script>
 
 <div>
@@ -150,15 +156,15 @@ function setAlternateGwp(field) {
               <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.OrderCheckout}</span></#if>
             </div>
         </div>
-        <br/>
-        <h1>&nbsp;${uiLabelMap.OrderShoppingCart}</h1>
+        <br />
+        <h2>&nbsp;${uiLabelMap.OrderShoppingCart}</h2>
     </div>
     <div>
 
   <#if (shoppingCartSize > 0)>
     <form method="post" action="<@ofbizUrl>modifycart</@ofbizUrl>" name="cartform">
       <fieldset>
-      <input type="hidden" name="removeSelected" value="false"/>
+      <input type="hidden" name="removeSelected" value="false" />
       <table>
         <thead>
             <tr>
@@ -181,16 +187,16 @@ function setAlternateGwp(field) {
               <th scope="row">${uiLabelMap.EcommerceUnitPrice}</th>
               <th scope="row">${uiLabelMap.EcommerceAdjustments}</th>
               <th scope="row">${uiLabelMap.EcommerceItemTotal}</th>
-              <th scope="row"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/></th>
+              <th scope="row"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);" /></th>
             </tr>
         </thead>
         <tbody>
-        <#assign itemsFromList = false>
-        <#assign promoItems = false>
+        <#assign itemsFromList = false />
+        <#assign promoItems = false />
         <#list shoppingCart.items() as cartLine>
 
-          <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
-          <#assign lineOptionalFeatures = cartLine.getOptionalProductFeatures()>
+          <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine) />
+          <#assign lineOptionalFeatures = cartLine.getOptionalProductFeatures() />
           <#-- show adjustment info -->
           <#list cartLine.getAdjustments() as cartLineAdjustment>
             <!-- cart line ${cartLineIndex} adjustment: ${cartLineAdjustment} -->
@@ -199,10 +205,10 @@ function setAlternateGwp(field) {
           <tr id="cartItemDisplayRow_${cartLineIndex}">
             <td>
                 <#if cartLine.getShoppingListId()?exists>
-                  <#assign itemsFromList = true>
+                  <#assign itemsFromList = true />
                   <a href="<@ofbizUrl>editShoppingList?shoppingListId=${cartLine.getShoppingListId()}</@ofbizUrl>" class="linktext">L</a>&nbsp;&nbsp;
                 <#elseif cartLine.getIsPromo()>
-                  <#assign promoItems = true>
+                  <#assign promoItems = true />
                   <a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="button">P</a>&nbsp;&nbsp;
                 <#else>
                   &nbsp;
@@ -213,15 +219,15 @@ function setAlternateGwp(field) {
                     <#-- product item -->
                     <#-- start code to display a small image of the product -->
                     <#if cartLine.getParentProductId()?exists>
-                      <#assign parentProductId = cartLine.getParentProductId()/>
+                      <#assign parentProductId = cartLine.getParentProductId() />
                     <#else>
-                      <#assign parentProductId = cartLine.getProductId()/>
+                      <#assign parentProductId = cartLine.getProductId() />
                     </#if>
-                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
-                    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
+                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
+                    <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg" /></#if>
                     <#if smallImageUrl?string?has_content>
                       <a href="<@ofbizUrl>product?product_id=${parentProductId}</@ofbizUrl>">
-                        <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" class="imageborder"/>
+                        <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" class="imageborder" />
                       </a>
                     </#if>
                     <#-- end code to display a small image of the product -->
@@ -230,7 +236,7 @@ function setAlternateGwp(field) {
                     ${cartLine.getName()?if_exists}</a> : ${cartLine.getDescription()?if_exists}
                     <#-- For configurable products, the selected options are shown -->
                     <#if cartLine.getConfigWrapper()?exists>
-                      <#assign selectedOptions = cartLine.getConfigWrapper().getSelectedOptions()?if_exists>
+                      <#assign selectedOptions = cartLine.getConfigWrapper().getSelectedOptions()?if_exists />
                       <#if selectedOptions?exists>
                         <div>&nbsp;</div>
                         <#list selectedOptions as option>
@@ -242,8 +248,8 @@ function setAlternateGwp(field) {
                     </#if>
 
                     <#-- if inventory is not required check to see if it is out of stock and needs to have a message shown about that... -->
-                    <#assign itemProduct = cartLine.getProduct()>
-                    <#assign isStoreInventoryNotRequiredAndNotAvailable = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequiredAndAvailable(request, itemProduct, cartLine.getQuantity(), false, false)>
+                    <#assign itemProduct = cartLine.getProduct() />
+                    <#assign isStoreInventoryNotRequiredAndNotAvailable = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequiredAndAvailable(request, itemProduct, cartLine.getQuantity(), false, false) />
                     <#if isStoreInventoryNotRequiredAndNotAvailable && itemProduct.inventoryMessage?has_content>
                         (${itemProduct.inventoryMessage})
                     </#if>
@@ -259,14 +265,14 @@ function setAlternateGwp(field) {
                   <select name="dummyAlternateGwpSelect${cartLineIndex}" onchange="setAlternateGwp(this);" class="selectBox">
                   <option value="">- ${uiLabelMap.OrderChooseAnotherGift} -</option>
                   <#list cartLine.getAlternativeOptionProductIds() as alternativeOptionProductId>
-                    <#assign alternativeOptionName = Static["org.ofbiz.product.product.ProductWorker"].getGwpAlternativeOptionName(dispatcher, delegator, alternativeOptionProductId, requestAttributes.locale)>
+                    <#assign alternativeOptionName = Static["org.ofbiz.product.product.ProductWorker"].getGwpAlternativeOptionName(dispatcher, delegator, alternativeOptionProductId, requestAttributes.locale) />
                     <option value="<@ofbizUrl>setDesiredAlternateGwpProductId?alternateGwpProductId=${alternativeOptionProductId}&alternateGwpLine=${cartLineIndex}</@ofbizUrl>">${alternativeOptionName?default(alternativeOptionProductId)}</option>
                   </#list>
                   </select>
                   <#-- this is the old way, it lists out the options and is not as nice as the drop-down
                   <ul>
                   <#list cartLine.getAlternativeOptionProductIds() as alternativeOptionProductId>
-                    <#assign alternativeOptionName = Static["org.ofbiz.product.product.ProductWorker"].getGwpAlternativeOptionName(delegator, alternativeOptionProductId, requestAttributes.locale)>
+                    <#assign alternativeOptionName = Static["org.ofbiz.product.product.ProductWorker"].getGwpAlternativeOptionName(delegator, alternativeOptionProductId, requestAttributes.locale) />
                     <li class="tabletext"><a href="<@ofbizUrl>setDesiredAlternateGwpProductId?alternateGwpProductId=${alternativeOptionProductId}&alternateGwpLine=${cartLineIndex}</@ofbizUrl>" class="button">Select: ${alternativeOptionName?default(alternativeOptionProductId)}</a></li>
                   </#list>
                   </ul>
@@ -275,10 +281,10 @@ function setAlternateGwp(field) {
             </td>
 
             <#-- gift wrap option -->
-            <#assign showNoGiftWrapOptions = false>
+            <#assign showNoGiftWrapOptions = false />
             <td >
-              <#assign giftWrapOption = lineOptionalFeatures.GIFT_WRAP?if_exists>
-              <#assign selectedOption = cartLine.getAdditionalProductFeatureAndAppl("GIFT_WRAP")?if_exists>
+              <#assign giftWrapOption = lineOptionalFeatures.GIFT_WRAP?if_exists />
+              <#assign selectedOption = cartLine.getAdditionalProductFeatureAndAppl("GIFT_WRAP")?if_exists />
               <#if giftWrapOption?has_content>
                 <select class="selectBox" name="option^GIFT_WRAP_${cartLineIndex}" onchange="javascript:document.cartform.submit()">
                   <option value="NO^">${uiLabelMap.EcommerceNoGiftWrap}</option>
@@ -305,18 +311,18 @@ function setAlternateGwp(field) {
                         ${cartLine.getQuantity()?string.number}
                     </#if>
                 <#else><#-- Is Promo or Shoppinglist -->
-                       <#if fixedAssetExist == true><#if cartLine.getReservStart()?exists><table><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="10" name="reservStart_${cartLineIndex}" value=${cartLine.getReservStart()?string}/></td><td><input type="text" class="inputBox" size="2" name="reservLength_${cartLineIndex}" value=${cartLine.getReservLength()?string.number}/></td></tr><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="3" name="reservPersons_${cartLineIndex}" value=${cartLine.getReservPersons()?string.number}/></td><td class="tabletext"><#else>
+                       <#if fixedAssetExist == true><#if cartLine.getReservStart()?exists><table><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="10" name="reservStart_${cartLineIndex}" value=${cartLine.getReservStart()?string}/></td><td><input type="text" class="inputBox" size="2" name="reservLength_${cartLineIndex}" value=${cartLine.getReservLength()?string.number}/></td></tr><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="3" name="reservPersons_${cartLineIndex}" value=${cartLine.getReservPersons()?string.number} /></td><td class="tabletext"><#else>
                            <table><tr><td>--</td><td>--</td></tr><tr><td>--</td><td class="tabletext"></#if>
-                        <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/></td></tr></table>
+                        <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" /></td></tr></table>
                     <#else><#-- fixedAssetExist -->
-                        <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/>
+                        <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" />
                     </#if>
                 </#if>
             </td>
             <td><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></td>
             <td><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></td>
             <td><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></td>
-            <td><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}" onclick="javascript:checkToggle(this);"/><#else>&nbsp;</#if></td>
+            <td><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}" onclick="javascript:checkToggle(this);" /><#else>&nbsp;</#if></td>
           </tr>
         </#list>
     </tbody>
@@ -336,7 +342,7 @@ function setAlternateGwp(field) {
               </tr>
             </#if>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
-              <#assign adjustmentType = cartAdjustment.getRelatedOneCache("OrderAdjustmentType")>
+              <#assign adjustmentType = cartAdjustment.getRelatedOneCache("OrderAdjustmentType") />
               <tr>
                 <th>
                     ${uiLabelMap.EcommerceAdjustment} - ${adjustmentType.get("description",locale)?if_exists}
@@ -401,7 +407,7 @@ function setAlternateGwp(field) {
         </tr>
         <tr>
           <td>
-            <input type="checkbox" onclick="javascript:document.cartform.submit()" name="alwaysShowcart" <#if shoppingCart.viewCartOnAdd()>checked</#if>/>&nbsp;${uiLabelMap.EcommerceAlwaysViewCartAfterAddingAnItem}.</div>
+            <input type="checkbox" onclick="javascript:document.cartform.submit()" name="alwaysShowcart" <#if shoppingCart.viewCartOnAdd()>checked</#if> />&nbsp;${uiLabelMap.EcommerceAlwaysViewCartAfterAddingAnItem}.</div>
           </td>
         </tr>
       </table>
@@ -416,15 +422,15 @@ function setAlternateGwp(field) {
 
 <div>
     <div>
-        <h1>${uiLabelMap.ProductPromoCodes}</h1>
+        <h2>${uiLabelMap.ProductPromoCodes}</h2>
     </div>
     <div>
         <div class="tabletext">
             <form method="post" action="<@ofbizUrl>addpromocode<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addpromocodeform">
                 <fieldset>
-                <input type="text" class="inputBox" size="15" name="productPromoCodeId" value=""/>
-                <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddCode}"/>
-                <#assign productPromoCodeIds = (shoppingCart.getProductPromoCodesEntered())?if_exists>
+                <input type="text" class="inputBox" size="15" name="productPromoCodeId" value="" />
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddCode}" />
+                <#assign productPromoCodeIds = (shoppingCart.getProductPromoCodesEntered())?if_exists />
                 <#if productPromoCodeIds?has_content>
                     ${uiLabelMap.ProductPromoCodesEntered}
                     <ul>
@@ -442,7 +448,7 @@ function setAlternateGwp(field) {
 <#if showPromoText?exists && showPromoText>
 <div>
     <div>
-        <h1>${uiLabelMap.OrderSpecialOffers}</h1>
+        <h2>${uiLabelMap.OrderSpecialOffers}</h2>
     </div>
     <div>
         <#-- show promotions text -->
@@ -459,7 +465,7 @@ function setAlternateGwp(field) {
 <#if associatedProducts?has_content>
 <div>
     <div>
-        <h1>${uiLabelMap.EcommerceYouMightAlsoIntrested}:</h1>
+        <h2>${uiLabelMap.EcommerceYouMightAlsoIntrested}:</h2>
     </div>
     <div>
         <#-- random complementary products -->
