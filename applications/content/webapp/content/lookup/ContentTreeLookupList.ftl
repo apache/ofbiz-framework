@@ -55,6 +55,7 @@
 <#--Form ListDocument-->
  <tr class="header-row">
     <td>${uiLabelMap.FormFieldTitle_contentId}</td>
+    <td>${uiLabelMap.CommonView}</td>
     <td>${uiLabelMap.FormFieldTitle_contentTypeId}</td>
     <td>${uiLabelMap.FormFieldTitle_mimeTypeId}</td>
     <td>${uiLabelMap.FormFieldTitle_contentStatusId}</td>
@@ -76,7 +77,8 @@
       <#elseif tabButtonItem=="ListDocument">
           <#--Form ListDocument-->
           <tr <#if alt_row> class="alternate-row"</#if>>
-              <td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId?if_exists}">${contentData.contentId?if_exists}</a></td>
+              <td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId?if_exists}">${contentData.contentName?if_exists}[${contentData.contentId?if_exists}]</a></td>
+              <td><a class="plain" href="/content/control/showContent?contentId=${contentData.contentId?if_exists}" target="_blank">${uiLabelMap.CommonView}</a></td>
               <td>${contentData.contentTypeId?if_exists}</td>
               <td>${contentData.mimeTypeId?if_exists}</td>
               <td>${contentData.statusId?if_exists}</td>
