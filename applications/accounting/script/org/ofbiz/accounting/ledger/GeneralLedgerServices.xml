@@ -2439,44 +2439,40 @@ under the License.
         <set field="glAccountId" from-field="parameters.glAccountId"/>
         <set field="glAccountCategoryId" from-field="parameters.glAccountCategoryId"/>
         <set field="amountPercentage" from-field="parameters.amountPercentage" type="BigDecimal"/>
-
-        <set-service-fields service-name="calculateCostCenterTotal" map="parameters" to-map="calculateCostCenterTotalMap"/>
-        <call-service service-name="calculateCostCenterTotal" in-map-name="calculateCostCenterTotalMap"/>
-        <check-errors/>
+        <set field="totalAmountPercentage" from-field="parameters.totalAmountPercentage" type="BigDecimal"/>
         <entity-and entity-name="GlAccountCategoryMember" list="glAccountCategoryMemberList" filter-by-date="true">
             <field-map field-name="glAccountId" from-field="glAccountId"/>
             <field-map field-name="glAccountCategoryId" from-field="glAccountCategoryId"/>
         </entity-and>
         <first-from-list list="glAccountCategoryMemberList" entry="glAccountCategoryMember"/>
-        <if-empty field="glAccountCategoryMember">
-            <set field="createGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
-            <set field="createGlAccountCategoryMemberMap.glAccountCategoryId" from-field="glAccountCategoryId"/>
-            <set field="createGlAccountCategoryMemberMap.glAccountId" from-field="glAccountId"/>
-            <now-timestamp field="createGlAccountCategoryMemberMap.fromDate"/>
-            <call-service service-name="createGlAccountCategoryMember" in-map-name="createGlAccountCategoryMemberMap"/>
-            <log level="info" message="GlAccountCategoryMember created for [${glAccountCategoryId}] and [${glAccountId}]"/>
-        <else>
-           <if-compare field="amountPercentage" operator="not-equals" value="0" type="BigDecimal">
-                <if-compare-field field="glAccountCategoryMember.amountPercentage" operator="not-equals" to-field="nullfield">
-                    <set-service-fields service-name="updateGlAccountCategoryMember" to-map="updateGlAccountCategoryMemberMap" map="glAccountCategoryMember"/>
-                    <set field="updateGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
-                    <call-service service-name="updateGlAccountCategoryMember" in-map-name="updateGlAccountCategoryMemberMap"/>
-                <else>
-                    <set field="createGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
-                    <set field="createGlAccountCategoryMemberMap.glAccountCategoryId" from-field="glAccountCategoryId"/>
-                    <set field="createGlAccountCategoryMemberMap.glAccountId" from-field="glAccountId"/>
-                    <now-timestamp field="createGlAccountCategoryMemberMap.fromDate"/>
-                    <call-service service-name="createGlAccountCategoryMember" in-map-name="createGlAccountCategoryMemberMap"/>
-                    <log level="info" message="GlAccountCategoryMember created for [${glAccountCategoryId}] and [${glAccountId}]"/>
-                </else>
-                </if-compare-field>
+        <if-compare field="totalAmountPercentage" operator="equals" value="100" type="BigDecimal">
+            <if-empty field="glAccountCategoryMember">
+                <set field="createGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
+                <set field="createGlAccountCategoryMemberMap.glAccountCategoryId" from-field="glAccountCategoryId"/>
+                <set field="createGlAccountCategoryMemberMap.glAccountId" from-field="glAccountId"/>
+                <now-timestamp field="createGlAccountCategoryMemberMap.fromDate"/>
+                <call-service service-name="createGlAccountCategoryMember" in-map-name="createGlAccountCategoryMemberMap"/>
+                <log level="info" message="GlAccountCategoryMember created for [${glAccountCategoryId}] and [${glAccountId}]"/>
             <else>
-                <now-timestamp field="glAccountCategoryMember.thruDate"/>
-                <store-value value-field="glAccountCategoryMember"/>
+                <set-service-fields service-name="updateGlAccountCategoryMember" to-map="updateGlAccountCategoryMemberMap" map="glAccountCategoryMember"/>
+                <set field="updateGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
+                <call-service service-name="updateGlAccountCategoryMember" in-map-name="updateGlAccountCategoryMemberMap"/>
+            </else>
+            </if-empty>
+        <else>
+           <if-compare field="totalAmountPercentage" operator="equals" value="0" type="BigDecimal">
+                <if-not-empty field="glAccountCategoryMember">
+                    <now-timestamp field="glAccountCategoryMember.thruDate"/>
+                    <store-value value-field="glAccountCategoryMember"/>
+                    <log level="info" message="GlAccountCategoryMember expired for [${glAccountCategoryId}] and [${glAccountId}]"/>
+                </if-not-empty>
+            <else>
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingTotalAmountPercentageIsNotEqualOneHundred"/></add-error>
+                <check-errors/>
             </else>
             </if-compare>
         </else>
-        </if-empty>
+        </if-compare>
     </simple-method>
 
     <simple-method method-name="updateGlAccountCategoryMember" short-description="Update GL Account Category Member">
@@ -2650,38 +2646,6 @@ under the License.
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals" default="4"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode" default="HalfUp"/>
         <log level="info" message="Got settings from arithmetic.properties: ledgerDecimals=${ledgerDecimals}, roundingMode=${roundingMode}"/>
-    </simple-method>
-
-    <simple-method method-name="calculateCostCenterTotal" short-description="Calculate cost center total">
-        <set field="amountPercentage" from-field="parameters.amountPercentage" type="BigDecimal"/>
-        <if-not-empty field="amountPercentage">
-            <if-compare field="amountPercentage" operator="greater" value="100" type="BigDecimal">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingTotalAmountPercentageIsGreaterThenOneHundred"/></add-error>
-                <check-errors/>
-            <else>
-                <entity-condition entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
-                    <condition-list>
-                        <condition-expr field-name="glAccountId" from-field="parameters.glAccountId"/>
-                    </condition-list>
-                    <order-by field-name="glAccountCategoryId DESC"/>
-                </entity-condition>
-                <set field="totalAmountPercentage" value="0" type="BigDecimal"/>
-                <iterate list="glAccountCategoryMembers" entry="glAccountCategoryMember">
-                    <if-compare-field field="glAccountCategoryMember.glAccountCategoryId" operator="not-equals" to-field="parameters.glAccountCategoryId">
-                        <set field="totalAmountPercentage" value="${groovy:totalAmountPercentage.add(glAccountCategoryMember.amountPercentage)}" type="BigDecimal"/>
-                    </if-compare-field>
-                </iterate>
-                <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
-                <set field="totalAmountPercentage" value="${groovy:totalAmountPercentage.add(amountPercentage)}" type="BigDecimal"/>
-                <if-compare field="totalAmountPercentage" operator="not-equals" value="100" type="BigDecimal">
-                    <if-compare-field field="glAccountCategoryMember.glAccountCategoryId" operator="equals" to-field="parameters.glAccountCategoryId">
-                        <add-error><fail-property resource="AccountingUiLabels" property="AccountingTotalAmountPercentageIsGreaterThenOneHundred"/></add-error>
-                        <check-errors/>
-                    </if-compare-field>
-                </if-compare>
-            </else>
-            </if-compare>
-        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="setGlReconciliationStatus" short-description="Set Gl Reconciliation status">

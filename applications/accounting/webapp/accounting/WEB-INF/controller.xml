@@ -2434,13 +2434,6 @@ under the License.
         <response name="success" type="view" value="CostCenters"/>
     </request-map>
 
-    <request-map uri="createGlAcctCatMemFromCostCenters">
-        <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createGlAcctCatMemFromCostCenters"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-
     <request-map uri="CostCenterReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="CostCenterReport"/>
@@ -2458,6 +2451,12 @@ under the License.
         <response name="success" type="view" value="CostCentersReportPdf"/>
     </request-map>
 
+    <request-map uri="createUpdateCostCenter">
+        <security auth="true" https="true"/>
+        <event type="jsonservice-multi"  invoke="createUpdateCostCenter"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

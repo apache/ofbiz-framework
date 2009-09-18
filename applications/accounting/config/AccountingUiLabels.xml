@@ -8574,9 +8574,9 @@
         <value xml:lang="th">รหัสประเภทช่วงระยะเวลา</value>
         <value xml:lang="zh">条件类型标识</value>
     </property>
-    <property key="AccountingTotalAmountPercentageIsGreaterThenOneHundred">
-        <value xml:lang="en">Total amountPercentage is greater then 100.</value>
-        <value xml:lang="hi_IN">कुल amountPercentage 100 से भी ज्यादा है</value>
+    <property key="AccountingTotalAmountPercentageIsNotEqualOneHundred">
+        <value xml:lang="en">Total amountPercentage is not equal 100.</value>
+        <value xml:lang="hi_IN">कुल amountPercentage बराबर 100 नहीं है</value>
     </property>
     <property key="AccountingTotalCommissionAmount">
         <value xml:lang="en">Total Commission Amount</value>

@@ -16,24 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-function changeAmountPercentage(elementId) {
-    idArray = elementId.split('_');
-    var data = null;
-    new Ajax.Request('createGlAcctCatMemFromCostCenters', {
+Event.observe(window, 'load', function() {
+    Event.observe($('costCentersSubmit'), 'click', processCostCenterData);
+});
+function processCostCenterData() {
+    new Ajax.Request($('costCenters').action, {
         asynchronous: false,
         onSuccess: function(transport) {
-            data = transport.responseText.evalJSON(true);
-        },
-        parameters: {amountPercentage : $F(elementId), glAccountId : idArray[1], glAccountCategoryId : idArray[2]}
+            if (transport.responseText == "") {
+                Effect.Appear('errorMessage', {duration: 0.0});
+            } 
+        }, parameters: $('costCenters').serialize(), requestHeaders: {Accept: 'application/json'}
     });
-    if (data._ERROR_MESSAGE_LIST_ != undefined) {
-        Effect.Appear('notValidTotal_'+idArray[1], {duration: 0.0});
-        Effect.Fade('notValidTotal_'+idArray[1], {duration: 5.0});
-    } else {
-        Effect.Appear('validTotal_'+idArray[1], {duration: 0.0});
-        Effect.Fade('validTotal_'+idArray[1], {duration: 5.0});
-    }
 }
-
-
