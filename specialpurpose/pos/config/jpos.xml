@@ -233,7 +233,8 @@ under the License.
         <prop name="parity" type="String" value="None"/>
         <prop name="stopBits" type="String" value="1"/>
         <prop name="PortName" type="String" value="COM1"/>  <!-- Windows -->
-        <!--prop name="PortName" type="String" value="/dev/ttyS0"/--> <!-- Linux -->
+        <!--prop name="PortName" type="String" value="/dev/ttyS0"/--> <!-- RS232 Linux -->
+        <!--prop name="PortName" type="String" value="/dev/usbtm0"/--> <!-- USB Linux, set before something "sudo chmod 666 /dev/usbtm0" -->
         <prop name="ReceiveTimeout" type="String" value="10"/>
         <prop name="TwoByteCharacter" type="String" value="0"/>
         <prop name="Page254UseCode" type="String" value="0"/>
