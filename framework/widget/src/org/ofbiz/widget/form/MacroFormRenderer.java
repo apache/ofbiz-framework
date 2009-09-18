@@ -88,6 +88,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     public static final String module = MacroFormRenderer.class.getName();
     private Template macroLibrary;
     private Environment environment;
+    private StringUtil.SimpleEncoder internalEncoder;
     protected RequestHandler rh;
     protected HttpServletRequest request;
     protected HttpServletResponse response;
@@ -103,6 +104,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
+        internalEncoder = StringUtil.getEncoder("string");
     }
 
     public boolean getRenderPagination() {
@@ -142,6 +144,18 @@ public class MacroFormRenderer implements FormStringRenderer {
         //writer.append(' ');
     }
 
+    private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
+        if (UtilValidate.isEmpty(value)) {
+            return value;
+        }
+        StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
+        if (modelFormField.getEncodeOutput() && encoder != null) {
+            value = encoder.encode(value);
+        } else {
+            value = internalEncoder.encode(value);
+        }
+        return value;
+    }
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
@@ -165,12 +179,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             idName += "_" + modelForm.getRowCount();
         }
         String description = displayField.getDescription(context);
-        if (UtilValidate.isNotEmpty(description)) {
-            StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
-            if (encoder != null) {
-                description = encoder.encode(description);
-            }
-        }
+        description = encode(description, modelFormField, context);
 
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
         boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
@@ -339,12 +348,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
-        if (UtilValidate.isNotEmpty(value)) {
-            StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
-            if (encoder != null) {
-                value = encoder.encode(value);
-            }
-        }
+        value = encode(value, modelFormField, context);
         String textSize = Integer.toString(textField.getSize());
         String maxlength = "";
         if (textField.getMaxlength() != null) {
@@ -371,7 +375,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
-        sr.append("\" value=r\"");
+        sr.append("\" value=\"");
         sr.append(value);
         sr.append("\" textSize=\"");
         sr.append(textSize);
@@ -432,12 +436,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             readonly = "readonly";
         }
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
-        if (UtilValidate.isNotEmpty(value)) {
-            StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
-            if (encoder != null) {
-                value = encoder.encode(value);
-            }
-        }
+        value = encode(value, modelFormField, context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextareaField ");
         sr.append("name=\"");
@@ -446,7 +445,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
-        sr.append("\" value=r\"");
+        sr.append("\" value=\"");
         sr.append(value);
         sr.append("\" cols=\"");
         sr.append(cols);
@@ -456,8 +455,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(id);
         sr.append("\" readonly=\"");
         sr.append(readonly);
-        sr.append("\" value=\"");
-        sr.append(value);
         sr.append("\" visualEdtiorEnalble=\"");
         sr.append(visualEdtiorEnalble);
         sr.append("\" buttons=\"");
@@ -728,7 +725,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         options.append("[");
         Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         int count = 0;
-        StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = optionValueIter.next();
             if (options.length() > 1) {
@@ -738,11 +734,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             options.append(optionValue.getKey());
             options.append("'");
             options.append(",'description':'");
-            if (encoder != null) {
-                options.append(encoder.encode(optionValue.getDescription()));
-            } else {
-                options.append(optionValue.getDescription());
-            }
+            String description = encode(optionValue.getDescription(), modelFormField, context);
+            options.append(description);
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 options.append("'");
@@ -1131,10 +1124,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 // the method will set its content to work fine in most browser
                 sb.append("&nbsp;");
             } else {
-                StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
-                if (encoder != null) {
-                    titleText = encoder.encode(titleText);
-                }
+                titleText = encode(titleText, modelFormField, context);
                 renderHyperlinkTitle(sb, context, modelFormField, titleText);
             }
         }
