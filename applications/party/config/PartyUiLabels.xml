@@ -46,7 +46,7 @@
     <property key="FormFieldTitle_certProvisionId">
         <value xml:lang="de">Zertifikatsaussteller ID</value>
         <value xml:lang="en">Cert Provision Id</value>
-        <value xml:lang="fr">Réf. disposition de certificat</value>
+        <value xml:lang="fr">Disposition de certificat</value>
         <value xml:lang="hi_IN">प्रमाणपत्र प्रावधान क्रमांक</value>
         <value xml:lang="it">Fornitore certificato</value>
         <value xml:lang="nl">ID certificaat-uitgever</value>
@@ -106,7 +106,7 @@
         <value xml:lang="de">Kommunikationsereignis ID</value>
         <value xml:lang="en">Communication Event Id</value>
         <value xml:lang="es">Código Evento de comunicación</value>
-        <value xml:lang="fr">Réf. d'évènement de communication</value>
+        <value xml:lang="fr">Evènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना क्रमांक(communicationEventId)</value>
         <value xml:lang="it">Codice evento comunicazioni</value>
         <value xml:lang="nl">Communication Event Id</value>
@@ -119,7 +119,7 @@
         <value xml:lang="de">Kommunikationsereignis Zweck ID</value>
         <value xml:lang="en">Communication Event Purpose Type Id</value>
         <value xml:lang="es">Código Propósito del evento de comunicación</value>
-        <value xml:lang="fr">Réf. de type de but d'évènement de communication</value>
+        <value xml:lang="fr">Type de but d'évènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना प्रयोजन प्रकार का क्रमांक(communicationEventPrpTypId)</value>
         <value xml:lang="it">Tipo Funzione Evento Comunicazione</value>
         <value xml:lang="nl">Doelsoort communicatie-actie</value>
@@ -132,7 +132,7 @@
         <value xml:lang="de">Kommunikationsereignis Typ ID</value>
         <value xml:lang="en">Comm.Type Id</value>
         <value xml:lang="es">Código Tipo de evento de comunicación</value>
-        <value xml:lang="fr">Réf. de type d'évènement de communication</value>
+        <value xml:lang="fr">Type d'évènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना प्रकार का क्रमांक(communicationEventTypeId)</value>
         <value xml:lang="it">Tipo evento communicazioni</value>
         <value xml:lang="nl">Soort communicatie-actie</value>
@@ -190,7 +190,7 @@
         <value xml:lang="de">Kontaktmechanismus Typ ID</value>
         <value xml:lang="en">Contact Mech Type Id</value>
         <value xml:lang="es">Código Tipo Mecanismo de contacto</value>
-        <value xml:lang="fr">Réf. type de coordonées</value>
+        <value xml:lang="fr">Type de coordonnées</value>
         <value xml:lang="hi_IN">संपर्क यांत्रिक प्रकार का क्रमांक</value>
         <value xml:lang="it">Tipo contatto</value>
         <value xml:lang="nl">Soort contactmech</value>
@@ -269,7 +269,7 @@
     </property>
     <property key="FormFieldTitle_destinationFacilityId">
         <value xml:lang="en">Destination Facility Id</value>
-        <value xml:lang="fr">Réf. de lieu de stockage de destination</value>
+        <value xml:lang="fr">Lieu de stockage de destination</value>
         <value xml:lang="hi_IN">गंतव्य सुविधा क्रमांक(destinationFacilityId)</value>
         <value xml:lang="it">Stabilimento destinazione</value>
         <value xml:lang="zh">目的地设备标识</value>
@@ -313,7 +313,7 @@
         <value xml:lang="de">Beschäftigungsstatus Aufzählung ID</value>
         <value xml:lang="en">Employment Status Enum Id</value>
         <value xml:lang="es">Estado de empleo</value>
-        <value xml:lang="fr">Réf. statut salarial</value>
+        <value xml:lang="fr">Statut salarial</value>
         <value xml:lang="hi_IN">रोजगार स्थिति Enum क्रमांक</value>
         <value xml:lang="it">Stato Impiegato</value>
         <value xml:lang="nl">Arbeidstatus Enum Id</value>
@@ -377,7 +377,7 @@
         <value xml:lang="de">Von Akteur ID</value>
         <value xml:lang="en">From Party Id</value>
         <value xml:lang="es">Código Participante origen</value>
-        <value xml:lang="fr">Réf. d'expéditeur</value>
+        <value xml:lang="fr">Expéditeur</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक से</value>
         <value xml:lang="it">Dal Soggetto</value>
         <value xml:lang="ro">De la Subiect </value>
@@ -553,7 +553,7 @@
         <value xml:lang="de">Mitglied ID</value>
         <value xml:lang="en">Member Id</value>
         <value xml:lang="es">Código de miembro</value>
-        <value xml:lang="fr">Réf. de membre</value>
+        <value xml:lang="fr">Membre</value>
         <value xml:lang="hi_IN">सदस्य क्रमांक</value>
         <value xml:lang="it">Codice Membro</value>
         <value xml:lang="nl">Lid ID</value>
@@ -564,7 +564,7 @@
     </property>
     <property key="FormFieldTitle_messageId">
         <value xml:lang="en">Message Id</value>
-        <value xml:lang="fr">Réf. de message</value>
+        <value xml:lang="fr">Message</value>
         <value xml:lang="hi_IN">संदेश क्रमांक</value>
         <value xml:lang="it">Messaggio</value>
         <value xml:lang="zh">消息标识</value>
@@ -671,7 +671,7 @@
         <value xml:lang="de">Notiz ID</value>
         <value xml:lang="en">Note Id</value>
         <value xml:lang="es">Código Nota</value>
-        <value xml:lang="fr">Réf. de la note</value>
+        <value xml:lang="fr">Note</value>
         <value xml:lang="hi_IN">नोट क्रमांक</value>
         <value xml:lang="it">Codice Nota</value>
         <value xml:lang="nl">Notitienr. </value>
@@ -761,7 +761,7 @@
         <value xml:lang="de">Herkunft Kommunikationsereignis ID</value>
         <value xml:lang="en">Orig Comm Event Id</value>
         <value xml:lang="es">Código Origen de evento de comunicación</value>
-        <value xml:lang="fr">Réf. d'origine d'évènement de communication</value>
+        <value xml:lang="fr">Origine d'évènement de communication</value>
         <value xml:lang="hi_IN">मूल संचार घटना क्रमांक</value>
         <value xml:lang="it">Evento Comunicazione Origine</value>
         <value xml:lang="nl">Oorsprong communicatie-actie</value>
@@ -770,7 +770,7 @@
     </property>
     <property key="FormFieldTitle_originContactMechId">
         <value xml:lang="en">Origin Contact Mech Id</value>
-        <value xml:lang="fr">Réf. de coordonnées d'origine</value>
+        <value xml:lang="fr">Coordonnées d'origine</value>
         <value xml:lang="hi_IN">मूल संपर्क यांत्रिक क्रमांक</value>
         <value xml:lang="it">Contatto origine</value>
         <value xml:lang="zh">初始联系方法标识</value>
@@ -820,7 +820,7 @@
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
         <value xml:lang="en">Parent Comm Event Id</value>
         <value xml:lang="es">Codigo Precursor del evento de comunicación</value>
-        <value xml:lang="fr">Réf. évènement de comm de parent</value>
+        <value xml:lang="fr">Evènement de communication de parent</value>
         <value xml:lang="hi_IN">उच्च(Parent) संचार घटना क्रमांक</value>
         <value xml:lang="it">Evento comunicazione padre</value>
         <value xml:lang="nl">Ouder comm.-actie ID</value>
@@ -831,7 +831,7 @@
         <value xml:lang="de">Übergeordnete Gruppe ID</value>
         <value xml:lang="en">Parent Group Id</value>
         <value xml:lang="es">Código Precursos de grupo</value>
-        <value xml:lang="fr">Réf. groupe père</value>
+        <value xml:lang="fr">Groupe parent</value>
         <value xml:lang="hi_IN">उच्च(Parent) समूह क्रमांक</value>
         <value xml:lang="it">Codice gruppo padre</value>
         <value xml:lang="nl">Ouder Groep-ID</value>
@@ -845,7 +845,7 @@
         <value xml:lang="de">Übergeordneter Typ ID</value>
         <value xml:lang="en">Parent Type Id</value>
         <value xml:lang="es">Código Precursos de tipo</value>
-        <value xml:lang="fr">Réf. type père</value>
+        <value xml:lang="fr">Type parent</value>
         <value xml:lang="hi_IN">उच्च(Parent) प्रकार का क्रमांक</value>
         <value xml:lang="it">Tipo Padre</value>
         <value xml:lang="nl">Ouder type ID</value>
@@ -882,7 +882,7 @@
     </property>
     <property key="FormFieldTitle_partyContentTypeId">
         <value xml:lang="en">Parent Content Type Id</value>
-        <value xml:lang="fr">Réf. de type de contenu parent</value>
+        <value xml:lang="fr">Type de contenu parent</value>
         <value xml:lang="hi_IN">उच्च(Parent) सामग्री(content) प्रकार का क्रमांक</value>
         <value xml:lang="it">Tipo contenuto padre</value>
         <value xml:lang="zh">上级内容类型标识</value>
@@ -892,7 +892,7 @@
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Id Grupo</value>
-        <value xml:lang="fr">Réf. acteur</value>
+        <value xml:lang="fr">Acteur</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक</value>
         <value xml:lang="it">Codice Soggetto</value>
         <value xml:lang="nl">Relatie-ID</value>
@@ -939,7 +939,7 @@
         <value xml:lang="de">Akteur Einladung ID</value>
         <value xml:lang="en">Party Invitation Id</value>
         <value xml:lang="es">Código Invitación de participante</value>
-        <value xml:lang="fr">Réf. invitation acteur</value>
+        <value xml:lang="fr">Invitation d'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण क्रमांक</value>
         <value xml:lang="it">Invito soggetto</value>
         <value xml:lang="nl">Uitnodigingnr. relatie</value>
@@ -976,7 +976,7 @@
         <value xml:lang="de">Akteur Steuer ID</value>
         <value xml:lang="en">Party Tax Id</value>
         <value xml:lang="es">CIF/NIF</value>
-        <value xml:lang="fr">Réf. taxe acteur</value>
+        <value xml:lang="fr">Taxe d'acteur</value>
         <value xml:lang="hi_IN">पार्टी कर(tax) क्रमांक</value>
         <value xml:lang="it">Codice Autorità Tasse</value>
         <value xml:lang="nl">BSN relatie</value>
@@ -1067,7 +1067,7 @@
         <value xml:lang="de">Bevorzugter Kontaktmechanismus ID</value>
         <value xml:lang="en">Preferred Contact Mech Id</value>
         <value xml:lang="es">Código Mecanismo de Contacto preferido</value>
-        <value xml:lang="fr">Réf. coordonnées par défault</value>
+        <value xml:lang="fr">Coordonnées par défault</value>
         <value xml:lang="hi_IN">पसंदीदा संपर्क यांत्रिक क्रमांक</value>
         <value xml:lang="it">Codice Contatto Preferito</value>
         <value xml:lang="nl">Voorkeur contactmech</value>
@@ -1080,7 +1080,7 @@
         <value xml:lang="de">Bevorzugte Währungseinheit ID</value>
         <value xml:lang="en">Preferred Currency Uom Id</value>
         <value xml:lang="es">Código de moneda preferida</value>
-        <value xml:lang="fr">réf. devise par défault</value>
+        <value xml:lang="fr">Devise par défaut</value>
         <value xml:lang="hi_IN">पसंदीदा मुद्रा माप की इकाई(Uom) क्रमांक</value>
         <value xml:lang="it">Valuta Preferita</value>
         <value xml:lang="nl">Voorkeurvaluta</value>
@@ -1144,7 +1144,7 @@
         <value xml:lang="de">Rolle Typ ID von</value>
         <value xml:lang="en">Role Type Id From</value>
         <value xml:lang="es">Código Tipo de rol desde</value>
-        <value xml:lang="fr">Réf. rôle d'origine</value>
+        <value xml:lang="fr">Rôle d'origine</value>
         <value xml:lang="hi_IN">भूमिका प्रकार क्रमांक से</value>
         <value xml:lang="it">Tipo ruolo da</value>
         <value xml:lang="nl">Roltype van</value>
@@ -1157,7 +1157,7 @@
         <value xml:lang="de">Rolle Typ ID nach</value>
         <value xml:lang="en">Role Type Id To</value>
         <value xml:lang="es">Código Tipo de rol hacia</value>
-        <value xml:lang="fr">Réf. rôle de destination</value>
+        <value xml:lang="fr">Rôle de destination</value>
         <value xml:lang="hi_IN">भूमिका प्रकार क्रमांक को</value>
         <value xml:lang="it">Tipo ruolo a</value>
         <value xml:lang="nl">Role Type Id To</value>
@@ -1267,7 +1267,7 @@
         <value xml:lang="de">Steuerbehörde Akteur</value>
         <value xml:lang="en">Tax Authority Party</value>
         <value xml:lang="es">Código de la Autoridad Tributaria</value>
-        <value xml:lang="fr">Réf. administration fiscale</value>
+        <value xml:lang="fr">Administration fiscale</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण पार्टी</value>
         <value xml:lang="it">Autorità Tasse</value>
         <value xml:lang="nl">Belastinginstantie</value>
@@ -1297,7 +1297,7 @@
     </property>
     <property key="FormFieldTitle_toPartyId">
         <value xml:lang="en">To Party Id</value>
-        <value xml:lang="fr">Réf. d'acteur destinataire</value>
+        <value xml:lang="fr">Acteur destinataire</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक को</value>
         <value xml:lang="it">Al soggetto</value>
         <value xml:lang="zh">到会员标识</value>
@@ -3687,7 +3687,7 @@
         <value xml:lang="de">Kontakt Mech ID fehlt</value>
         <value xml:lang="en">Contact Mech ID is missing</value>
         <value xml:lang="es">Falta ID de contacto</value>
-        <value xml:lang="fr">Réf. de coordonnées absente</value>
+        <value xml:lang="fr">Coordonnées absente</value>
         <value xml:lang="hi_IN">सम्पर्क Mech ID नही है</value>
         <value xml:lang="it">Codice Contatto mancante</value>
         <value xml:lang="ja">Contact Mech ID is missing</value>
@@ -3940,7 +3940,7 @@
         <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content ID</value>
         <value xml:lang="es">Tipo de contenido</value>
-        <value xml:lang="fr">Réf. de contenu</value>
+        <value xml:lang="fr">Contenu</value>
         <value xml:lang="hi_IN">सामग्री क्रमांक</value>
         <value xml:lang="it">Codice Contenuto</value>
         <value xml:lang="nl">Content ID</value>
@@ -5269,7 +5269,7 @@
     <property key="PartyGroupPartyId">
         <value xml:lang="en">Group Party ID</value>
         <value xml:lang="es">Código de grupo de participante</value>
-        <value xml:lang="fr">Réf. de groupe d'acteur</value>
+        <value xml:lang="fr">Groupe d'acteur</value>
         <value xml:lang="hi_IN">समूह पार्टी क्रमांक</value>
         <value xml:lang="it">Codice gruppo soggetto</value>
         <value xml:lang="nl">Group Party ID</value>
@@ -5550,7 +5550,7 @@
         <value xml:lang="de">Akteur ID an</value>
         <value xml:lang="en">Party Id To</value>
         <value xml:lang="es">Cdoigo Participante a</value>
-        <value xml:lang="fr">Réf. d'acteur dest.</value>
+        <value xml:lang="fr">Acteur dest.</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक को</value>
         <value xml:lang="it">Soggetto A</value>
         <value xml:lang="nl">Relatie tot</value>
@@ -5594,7 +5594,7 @@
         <value xml:lang="de">Akteur Einladung ID</value>
         <value xml:lang="en">Party Invitation Id</value>
         <value xml:lang="es">Código Invitación de participante</value>
-        <value xml:lang="fr">Réf. d'invitation d'acteur</value>
+        <value xml:lang="fr">Invitation d'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण क्रमांक</value>
         <value xml:lang="it">Invito Soggetto</value>
         <value xml:lang="nl">Uitnodiging</value>
@@ -7158,7 +7158,7 @@
         <value xml:lang="de">Organisation Akteur ID</value>
         <value xml:lang="en">Organization Party ID</value>
         <value xml:lang="es">Código de participante</value>
-        <value xml:lang="fr">Réf. de l'organisation de l'acteur</value>
+        <value xml:lang="fr">Organisation de l'acteur</value>
         <value xml:lang="hi_IN">संगठन पार्टी क्रमांक</value>
         <value xml:lang="it">Codice Organizzazione</value>
         <value xml:lang="nl">ID Organization Party</value>
@@ -7344,7 +7344,7 @@
         <value xml:lang="de">Akteur ID/Benuterzanmeldung ID</value>
         <value xml:lang="en">PartyID/UserLoginID</value>
         <value xml:lang="es">Código / usuario</value>
-        <value xml:lang="fr">Réf. de l'acteur et ident. de connexion</value>
+        <value xml:lang="fr">Acteur / ident. de connexion</value>
         <value xml:lang="hi_IN">पार्टीक्रमांक/प्रयोक्तालॉगिनक्रमांक</value>
         <value xml:lang="it">Codice Soggetto / Codice Utente</value>
         <value xml:lang="nl">Relatie-ID/Loginnaam</value>
@@ -7359,7 +7359,7 @@
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código de participante</value>
-        <value xml:lang="fr">Réf. de l'acteur</value>
+        <value xml:lang="fr">Acteur</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक</value>
         <value xml:lang="it">Codice soggetto</value>
         <value xml:lang="nl">Relatie-ID</value>
@@ -7386,7 +7386,7 @@
         <value xml:lang="de">Akteur ID fehlt</value>
         <value xml:lang="en">Party ID missing</value>
         <value xml:lang="es">Falta el código de participante</value>
-        <value xml:lang="fr">Réf. d'acteur disparue</value>
+        <value xml:lang="fr">Acteur disparu</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक गायब है</value>
         <value xml:lang="it">Soggetto mancante</value>
         <value xml:lang="nl">Relatie-ID ontbreekt</value>
@@ -7474,7 +7474,7 @@
         <value xml:lang="de">des Akteur mit der ID</value>
         <value xml:lang="en">of the Party with ID </value>
         <value xml:lang="es">Del participante con código</value>
-        <value xml:lang="fr">L'acteur avec la Réf.</value>
+        <value xml:lang="fr">L'acteur avec la réf.</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक के साथ</value>
         <value xml:lang="it">Il Soggetto con Codice</value>
         <value xml:lang="nl">van de relatie met ID</value>
@@ -7694,7 +7694,7 @@
         <value xml:lang="de">Berechtigung ID</value>
         <value xml:lang="en">Permission ID</value>
         <value xml:lang="es">Código de permiso</value>
-        <value xml:lang="fr">Réf. d'autorisation</value>
+        <value xml:lang="fr">Autorisation</value>
         <value xml:lang="hi_IN">अनुमति क्रमांक</value>
         <value xml:lang="it">Codice Permesso</value>
         <value xml:lang="nl">Permissie</value>
@@ -8009,7 +8009,7 @@
         <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Código de producto</value>
-        <value xml:lang="fr">Réf. Produit</value>
+        <value xml:lang="fr">Produit</value>
         <value xml:lang="hi_IN">उत्पाद क्रमांक</value>
         <value xml:lang="it">Codice Prodotto</value>
         <value xml:lang="nl">Product-Id</value>
@@ -8503,7 +8503,7 @@
         <value xml:lang="de">Akteur Rolle Typ ID von (neu)</value>
         <value xml:lang="en">Party Role Type Id From (NEW)</value>
         <value xml:lang="es">Código Tipo de rol de participante, de</value>
-        <value xml:lang="fr">Réf. rôle d'origine</value>
+        <value xml:lang="fr">Rôle d'origine</value>
         <value xml:lang="hi_IN">पार्टी भूमिका प्रकार क्रमांक से (नया)</value>
         <value xml:lang="it">Tipo Ruolo Soggetto Da</value>
         <value xml:lang="nl">Relatie rol van (NEW)</value>
@@ -8514,7 +8514,7 @@
     </property>
     <property key="PartyRoleTypeIdMissing">
         <value xml:lang="en">Role Type ID is missing.</value>
-        <value xml:lang="fr">Réf. de type de rôle manquant</value>
+        <value xml:lang="fr">Type de rôle manquant</value>
         <value xml:lang="hi_IN">भूमिका प्रकार क्रमांक गायब है|</value>
         <value xml:lang="it">Tipo ruolo è mancante.</value>
         <value xml:lang="ro">Tip Rol lipseste.</value>
@@ -8525,7 +8525,7 @@
         <value xml:lang="de">Akteur Rolle Typ ID an (neu)</value>
         <value xml:lang="en">Party Role Type Id To (NEW)</value>
         <value xml:lang="es">Codigo Tipo de rol de participante, para</value>
-        <value xml:lang="fr">Réf. rôle de destination</value>
+        <value xml:lang="fr">Rôle de destination</value>
         <value xml:lang="hi_IN">पार्टी भूमिका प्रकार क्रमांक को (नया)</value>
         <value xml:lang="it">Tipo Ruolo Soggetto A</value>
         <value xml:lang="nl">Soort relatie rol ID met(NEW)</value>
@@ -8581,7 +8581,7 @@
         <value xml:lang="de">Sicherheitsgruppe ID</value>
         <value xml:lang="en">Security Group ID</value>
         <value xml:lang="es">Grupo de seguridad</value>
-        <value xml:lang="fr">Réf. de groupe de sécurité </value>
+        <value xml:lang="fr">Groupe de sécurité </value>
         <value xml:lang="hi_IN">सुरक्षा समूह क्रमांक</value>
         <value xml:lang="it">Codice gruppo sicurezza</value>
         <value xml:lang="nl">ID beveiligingsgroep</value>
@@ -8637,7 +8637,7 @@
         <value xml:lang="de">Segmentgruppe ID</value>
         <value xml:lang="en">Segment Group Id</value>
         <value xml:lang="es">Código Grupo de segmento</value>
-        <value xml:lang="fr">Réf. du groupe de segmentation</value>
+        <value xml:lang="fr">Groupe de segmentation</value>
         <value xml:lang="hi_IN">अनुभाग समूह क्रमांक</value>
         <value xml:lang="it">Codice Segmento</value>
         <value xml:lang="nl">ID segmentgroep</value>
@@ -8650,7 +8650,7 @@
         <value xml:lang="de">Lager ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Tienda</value>
-        <value xml:lang="fr">Réf. du centre de profit (grp de segment.)</value>
+        <value xml:lang="fr">Centre de profit (grp de segment.)</value>
         <value xml:lang="hi_IN">उत्पाद स्टोर क्रमांक</value>
         <value xml:lang="it">Codice Negozio</value>
         <value xml:lang="nl">ID magazijn</value>
@@ -8663,7 +8663,7 @@
         <value xml:lang="de">Segment Typ ID</value>
         <value xml:lang="en">Segment Type Id</value>
         <value xml:lang="es">Tipo de segmento</value>
-        <value xml:lang="fr">Réf. de type de segmentation</value>
+        <value xml:lang="fr">Type de segmentation</value>
         <value xml:lang="hi_IN">अनुभाग प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Segmento</value>
         <value xml:lang="nl">ID segmenttype</value>
@@ -8780,7 +8780,7 @@
         <value xml:lang="de">Folgenummer ID</value>
         <value xml:lang="en">Sequence Id</value>
         <value xml:lang="es">Secuencia</value>
-        <value xml:lang="fr">Réf. séquence</value>
+        <value xml:lang="fr">Séquence</value>
         <value xml:lang="hi_IN">अनुक्रम क्रमांक</value>
         <value xml:lang="it">Codice Sequenza</value>
         <value xml:lang="nl">Volgende ID</value>
@@ -8835,7 +8835,7 @@
         <value xml:lang="de">Service-Management Kundenanfrage ID</value>
         <value xml:lang="en">Service management Customer Request Id</value>
         <value xml:lang="es">Gestión de servicios, Código de petición de cliente</value>
-        <value xml:lang="fr">Réf. de demande de service</value>
+        <value xml:lang="fr">Demande de service</value>
         <value xml:lang="hi_IN">सेवा प्रबंधन ग्राहक अनुरोध क्रमांक</value>
         <value xml:lang="it">Gestione servizio codice richiesta soggetto</value>
         <value xml:lang="nl">Service management ID klantverzoek</value>
@@ -9177,7 +9177,7 @@
         <value xml:lang="de">Steuer ID</value>
         <value xml:lang="en">Tax ID</value>
         <value xml:lang="es">Código de Impuesto</value>
-        <value xml:lang="fr">Réf. TVA</value>
+        <value xml:lang="fr">TVA</value>
         <value xml:lang="hi_IN">कर(tax) क्रमांक</value>
         <value xml:lang="it">ID Tasse</value>
         <value xml:lang="nl">BTW nummer</value>
@@ -9656,7 +9656,7 @@
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="es">Código de usuario</value>
-        <value xml:lang="fr">Réf. d'identifiant de connexion</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्ता लॉगिन क्रमांक</value>
         <value xml:lang="it">Codice utente login</value>
         <value xml:lang="nl">User Login Id</value>
@@ -9934,7 +9934,7 @@
         <value xml:lang="de">Besucher ID</value>
         <value xml:lang="en">Visitor ID</value>
         <value xml:lang="es">Código Visitante</value>
-        <value xml:lang="fr">Réf. visiteur</value>
+        <value xml:lang="fr">Visiteur</value>
         <value xml:lang="hi_IN">आगंतुक क्रमांक</value>
         <value xml:lang="it">Codice visitatore</value>
         <value xml:lang="nl">Bezoeker-ID</value>

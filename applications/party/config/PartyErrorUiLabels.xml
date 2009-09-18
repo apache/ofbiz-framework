@@ -640,6 +640,7 @@
     <property key="partyservices.cannot_create_affiliate_ID_already_exists">
         <value xml:lang="en">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="es">El código especificado se encuentra en uso.</value>
+        <value xml:lang="fr">Impossible de créer, un(e) afilié(e), l'acteur spécifié existe déjà.</value>
         <value xml:lang="fr">Impossible de créer, un(e) affilié(e), l'acteur spécifié existe déjà.</value>
         <value xml:lang="hi_IN">नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक के साथ एक संबद्ध पहले से ही मौजूद है|</value>
         <value xml:lang="it">Non è possibile creare, un'affiliato con il codice soggetto specificato già esistente.</value>
@@ -652,7 +653,7 @@
     <property key="partyservices.cannot_create_affiliate_digit">
         <value xml:lang="en">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear afiliado, el código del participante no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
-        <value xml:lang="fr">Impossible de créer l'affilié(e), la réf. de l'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
+        <value xml:lang="fr">Impossible de créer l'affilié(e), la réf. d'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
         <value xml:lang="hi_IN">संबद्ध नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>
         <value xml:lang="it">Non è possibile creare affiliato, codice soggetto specificato non può iniziare con un numero, codici numerici sono riservati per la generazione-automatica di codici.</value>
         <value xml:lang="nl">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
