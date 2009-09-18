@@ -45,4 +45,10 @@ under the License.
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editPayment.xml" />
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindSalesInvoicesByDueDate.xml" />
 	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindPurchaseInvoicesByDueDate.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindGatewayResponses.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_AuthorizeTransaction.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_CaptureTransaction.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_ViewGatewayResponse.xml" />
+	<xi:include href="../data/helpdata/HELP_ACCOUNTING_ManualTransaction.xml" />
+	
 </chapter>
