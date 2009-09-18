@@ -62,7 +62,7 @@ public class EbayOrderServices {
     private static final String module = EbayOrderServices.class.getName();
     private static boolean isGetSellerTransactionsCall = false;
     private static boolean isGetOrdersCall = false;
-    private static List orderList = FastList.newInstance();
+    private static List orderList = new ArrayList();
     private static List getSellerTransactionsContainingOrderList = new ArrayList(); 
     private static List<String> orderImportSuccessMessageList = FastList.newInstance();
     private static List<String> orderImportFailureMessageList = FastList.newInstance();
@@ -73,6 +73,7 @@ public class EbayOrderServices {
         Locale locale = (Locale) context.get("locale");
         orderImportSuccessMessageList.clear();
         orderImportFailureMessageList.clear();
+        orderList.clear();
         Map<String, Object> result = FastMap.newInstance();
         try {
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
@@ -94,7 +95,6 @@ public class EbayOrderServices {
                 if (getOrdersSuccessMsg != null) {
                     isGetOrdersCall = true;
                     result = checkOrders(delegator, dispatcher, locale, context, getOrdersSuccessMsg);
-                    context.remove("isGetOrdersRequest");
                 }
             }
         } catch (Exception e) {
@@ -228,15 +228,17 @@ public class EbayOrderServices {
         StringBuffer errorMessage = new StringBuffer();
         Map<String, Object> result = FastMap.newInstance();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        if (isGetSellerTransactionsCall) {
+        if (isGetSellerTransactionsCall && !isGetOrdersCall) {
             List getSellerTransactionList = readGetSellerTransactionResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
             if (UtilValidate.isNotEmpty(getSellerTransactionList)) {
                 orderList.addAll(getSellerTransactionList);
             }
+            isGetSellerTransactionsCall = false;
             return ServiceUtil.returnSuccess();
         } else if (isGetOrdersCall) {
             List getOrdersList = readGetOrdersResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
             orderList.addAll(getOrdersList);
+            isGetOrdersCall = false;
         }
         if (orderList == null || orderList.size() == 0) {
             Debug.logError("No orders found", module);
@@ -759,10 +761,10 @@ public class EbayOrderServices {
                             // retrieve item
                             List orderItemList = new ArrayList();
                             String itemId = "";
-                            Map<String, Object> orderItemCtx = FastMap.newInstance();
                             List item = UtilXml.childElementList(transactionElement, "Item");
                             Iterator itemElemIter = item.iterator();
                             while (itemElemIter.hasNext()) {
+                                Map<String, Object> orderItemCtx = FastMap.newInstance();
                                 Element itemElement = (Element)itemElemIter.next();
                                 itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
                                 orderItemCtx.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
@@ -816,6 +818,7 @@ public class EbayOrderServices {
                             orderCtx.put("ebayUserIdBuyer", buyerCtx.get("ebayUserIdBuyer").toString());
                             
                             // Now finally put the root map in the fetched orders list.
+                            orderCtx.put("userLogin", userLogin);
                             fetchedOrders.add(orderCtx);
                         }
                     }
@@ -903,7 +906,6 @@ public class EbayOrderServices {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.paymentIsStillNotReceived", locale));
             }
  
-            //List orderItemList = (List) context.get("orderItemList");
             List orderItemList = (List) context.get("orderItemList");
             Iterator orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
@@ -956,7 +958,6 @@ public class EbayOrderServices {
                     }
                 }
             }
-
             // order has to be created ?
             if (create) {
                 Debug.logInfo("Importing new order from eBay", module);
@@ -1095,9 +1096,12 @@ public class EbayOrderServices {
             String productMissingMsg = "The product having ID (" + productId + ") is misssing in the system.";
             orderImportFailureMessageList.add(productMissingMsg);
         }
-        
         BigDecimal qty = new BigDecimal(orderItem.get("quantity").toString());
-        BigDecimal price = new BigDecimal(orderItem.get("transactionPrice").toString());
+        String itemPrice = (String) orderItem.get("transactionPrice");
+        if (UtilValidate.isEmpty(itemPrice)) {
+            itemPrice = (String) orderItem.get("amount");
+        }
+        BigDecimal price = new BigDecimal(itemPrice);
         price = price.setScale(ShoppingCart.scale, ShoppingCart.rounding);
         
         HashMap<Object, Object> attrs = new HashMap<Object, Object>();
@@ -1106,11 +1110,9 @@ public class EbayOrderServices {
         int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, null, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
         ShoppingCartItem cartItem = cart.findCartItem(idx);
         cartItem.setQuantity(qty, dispatcher, cart, true, false);
-
         // locate the price verify it matches the expected price
         BigDecimal cartPrice = cartItem.getBasePrice();
         cartPrice = cartPrice.setScale(ShoppingCart.scale, ShoppingCart.rounding);
-
         if (price.doubleValue() != cartPrice.doubleValue()) {
             // does not match; honor the price but hold the order for manual review
             cartItem.setIsModifiedPrice(true);

@@ -468,7 +468,7 @@ public class ImportOrdersFromEbay {
                                 if (UtilValidate.isEmpty(productId)) {
                                     productId = UtilXml.childElementValue(itemElement, "ApplicationData", "");
                                     if (UtilValidate.isEmpty(productId)) {
-                                         productId = retrieveProductIdFromTitle(delegator, (String)order.get("title"));
+                                         productId = EbayHelper.retrieveProductIdFromTitle(delegator, (String)order.get("title"));
                                     }
                                 }
                                 order.put("productId", productId);
@@ -832,32 +832,5 @@ public class ImportOrdersFromEbay {
             orderHeader = EntityUtil.getFirst(entities);
         }
         return orderHeader;
-    }
-
-    private static String retrieveProductIdFromTitle(GenericDelegator delegator, String title) {
-        String productId = "";
-        try {
-            // First try to get an exact match: title == internalName
-            List products = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
-            if (UtilValidate.isNotEmpty(products) && products.size() == 1) {
-                productId = (String) ((GenericValue)products.get(0)).get("productId");
-            }
-            // If it fails, attempt to get the product id from the first word of the title
-            if (UtilValidate.isEmpty(productId)) {
-                String titleFirstWord = null;
-                if (title != null && title.indexOf(' ') != -1) {
-                    titleFirstWord = title.substring(0, title.indexOf(' '));
-                }
-                if (UtilValidate.isNotEmpty(titleFirstWord)) {
-                    GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", titleFirstWord));
-                    if (UtilValidate.isNotEmpty(product)) {
-                        productId = product.getString("productId");
-                    }
-                }
-            }
-        } catch (GenericEntityException e) {
-            productId = "";
-        }
-        return productId;
     }
 }
