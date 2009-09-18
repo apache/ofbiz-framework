@@ -644,6 +644,7 @@ under the License.
         <attribute name="glAccountId" mode="IN" type="String"/>
         <attribute name="glAccountCategoryId" mode="IN" type="String"/>
         <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
+        <attribute name="totalAmountPercentage" mode="IN" type="BigDecimal" optional="true"/>
     </service>
 
     <service name="getGlAcctgOrgWithPostedBalanceSplit" engine="simple"
@@ -676,19 +677,18 @@ under the License.
         <attribute name="inventoryValuationList" type="List" mode="OUT" optional="true"/>
     </service>
 
-    <service name="calculateCostCenterTotal" engine="simple" auth="true" 
-            location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="calculateCostCenterTotal">
-        <description>Calculate Cost Center total with respect to the glAccountId</description>
-        <attribute name="glAccountId" mode="IN" type="String"/>
-        <attribute name="glAccountCategoryId" mode="IN" type="String"/>
-        <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
-    </service>
-
     <service name="setGlReconciliationStatus" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="setGlReconciliationStatus">
         <description>Set Gl Reconciliation status</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="createUpdateCostCenter" engine="java" auth="true" invoke="createUpdateCostCenter" 
+        location="org.ofbiz.accounting.ledger.GeneralLedgerServices">
+        <description>Create Update CostCenters</description>
+        <attribute name="glAccountId" mode="IN" type="String"/>
+        <attribute name="amountPercentageMap" type="Map" string-map-prefix="amp_" mode="IN" optional="true"/>
     </service>
 </services>

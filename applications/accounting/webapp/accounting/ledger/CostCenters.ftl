@@ -19,7 +19,9 @@ under the License.
 -->
 <#if glAcctgAndAmountPercentageList?has_content && glAccountCategories?has_content>
 
-  <form name="costCenters" id="costCenters" method="post">
+  <form id="costCenters" method="post" action="<@ofbizUrl>createUpdateCostCenter</@ofbizUrl>">
+    <div id="errorMessage" class="errorMessage" style="display : none">${uiLabelMap.AccountingTotalAmountPercentageIsNotEqualOneHundred}</div>
+    <input type="hidden" name="_useRowSubmit" value="Y">
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
         <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>
@@ -31,29 +33,25 @@ under the License.
       </tr>
 
       <#list glAcctgAndAmountPercentageList as glAcctgAndAmountPercentage>
+        <input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_o_${glAcctgAndAmountPercentage_index}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
         <tr>
           <td>${glAcctgAndAmountPercentage.glAccountId}</td>
           <td>${glAcctgAndAmountPercentage.accountCode!}</td>
           <td>${glAcctgAndAmountPercentage.accountName!}</td>
           <#list glAccountCategories as glAccountCategory>
             <td>
-              <input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_${glAcctgAndAmountPercentage.glAccountId!}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
-              <input type="hidden" id="glAccountCategoryId_${glAccountCategory.glAccountCategoryId!}_${glAcctgAndAmountPercentage.glAccountId!}" name="glAccountCategoryId_${glAccountCategory.glAccountCategoryId!}_${glAcctgAndAmountPercentage.glAccountId!}" value="${(glAccountCategory.glAccountCategoryId!)}"/>
-              <#assign id = "amountPercentage_" + glAcctgAndAmountPercentage.glAccountId + "_" + glAccountCategory.glAccountCategoryId/>
               <#if (glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])??>
-                <input type="text" id="${id}" name="${id}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}" onchange="javascript:changeAmountPercentage(id);"/>
+                <input type="text" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}"/>
               <#else>
-                <input type="text" id="${id}" name="${id}" value="" onchange="javascript:changeAmountPercentage(id);"/>
+                <input type="text" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value=""/>
               </#if>
             </td>
           </#list>
-          <td>
-            <span id="notValidTotal_${glAcctgAndAmountPercentage.glAccountId}" style="display:none">${uiLabelMap.FormFieldTitle_notValidTotal}</span>
-            <span id="validTotal_${glAcctgAndAmountPercentage.glAccountId}" style="display:none">${uiLabelMap.FormFieldTitle_validTotal}</span>
-          </td>
+          <input name="_rowSubmit_o_${glAcctgAndAmountPercentage_index}" type="hidden" value="Y"/>
         </tr>
       </#list>
     </table>
+    <div align="right"><input type="button" id="costCentersSubmit" value="${uiLabelMap.CommonSubmit}"/></div>
   </form>
 <#else>
   <label>${uiLabelMap.AccountingNoRecordFound}</label>
