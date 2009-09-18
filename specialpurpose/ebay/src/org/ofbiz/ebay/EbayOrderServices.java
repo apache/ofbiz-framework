@@ -399,9 +399,13 @@ public class EbayOrderServices {
                             Map<String, Object> orderCtx = FastMap.newInstance();    
                             Element ordersElement = (Element) ordersElemIter.next();
                             String externalOrderId = UtilXml.childElementValue(ordersElement, "OrderID");
-                            if (externalOrderExists(delegator, externalOrderId) != null) {
-                                continue;
+                            GenericValue orderExist = externalOrderExists(delegator, externalOrderId);
+                            if (orderExist != null) {
+                                orderCtx.put("orderId", (String) orderExist.get("orderId"));
+                            } else {
+                                orderCtx.put("orderId", "");
                             }
+                            
                             orderCtx.put("externalId", externalOrderId);
                             orderCtx.put("amountPaid", UtilXml.childElementValue(ordersElement, "Total", "0"));
                             orderCtx.put("createdDate", UtilXml.childElementValue(ordersElement, "CreatedTime"));
@@ -548,6 +552,9 @@ public class EbayOrderServices {
                                 orderCtx.put("emailBuyer", buyersEmailId);
                             }
                             orderCtx.put("userLogin", userLogin);
+                            orderCtx.put("isEbayOrder", "Y");
+                            orderCtx.put("isEbayTransaction", "");
+                            
                             //Map<String, Object> result = dispatcher.runSync("importEbayOrders", orderCtx);
                             fetchedOrders.add(orderCtx);
                         }
@@ -803,7 +810,9 @@ public class EbayOrderServices {
                             GenericValue orderExist = externalOrderExists(delegator, itemId);
                             if (orderExist != null) {
                                 orderCtx.put("orderId", (String) orderExist.get("orderId"));
-                            } 
+                            } else {
+                                orderCtx.put("orderId", "");
+                            }
 
                             // retrieve transaction price
                             orderCtx.put("transactionPrice", UtilXml.childElementValue(transactionElement, "TransactionPrice", "0"));
@@ -817,8 +826,11 @@ public class EbayOrderServices {
                             orderCtx.put("emailBuyer", buyerCtx.get("emailBuyer").toString());
                             orderCtx.put("ebayUserIdBuyer", buyerCtx.get("ebayUserIdBuyer").toString());
                             
-                            // Now finally put the root map in the fetched orders list.
                             orderCtx.put("userLogin", userLogin);
+                            orderCtx.put("isEbayTransaction", "Y");
+                            orderCtx.put("isEbayOrder", "");
+                            
+                            // Now finally put the root map in the fetched orders list.
                             fetchedOrders.add(orderCtx);
                         }
                     }

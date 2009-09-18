@@ -104,8 +104,14 @@ under the License.
     
     <form name="ListEbayOrders" type="multi" use-row-submit="true" list-name="orderList" target="importEbayOrders"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="canImportOrder" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId)}" type="Boolean"/>
+            <set field="isEbayOrder" value="${bsh: org.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayOrder)}" type="Boolean"/>
+            <set field="isEbayTransaction" value="${bsh: org.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayTransaction)}" type="Boolean"/>
+        </row-actions>
         <field name="productStoreId"><hidden/></field>
-       <field name="externalId" title="${uiLabelMap.EbayEbayOrderId}"><display/></field>
+       <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayOrder}" tooltip="eBay Order"><display/></field>
+       <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayTransaction}" tooltip="eBay Transaction"><display/></field>
         <field name="orderId">
             <hyperlink target="orderview" description="${orderId}">
                 <parameter param-name="orderId"/>
@@ -118,7 +124,8 @@ under the License.
        <field name="paidTime"><hidden/></field>
        <field name="shippedTime"><hidden/></field>
        <field name="ebayUserIdBuyer"><hidden/></field>
-       <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="${canImportOrder}"><check/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
     </form>
     
