@@ -22,26 +22,26 @@ under the License.
 </#if>
 
 <#if associatedProducts?has_content>
-<div class="screenlet">
+  <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderHelpAlsoInterestedIn}</div>
+      <div class="boxhead">&nbsp;${uiLabelMap.OrderHelpAlsoInterestedIn}</div>
     </div>
     <div class="screenlet-body">
-    <table cellspacing="0" cellpadding="1" border="0">
-      <#-- random complementary products -->
-      <#list associatedProducts as assocProduct>
-        <tr>
-          <td>
-            ${setRequestAttribute("optProduct", assocProduct)}
-            ${setRequestAttribute("listIndex", assocProduct_index)}
-            ${screens.render(productsummaryScreen)}
-          </td>
-        </tr>
-        <#if assocProduct_has_next>
-          <tr><td><hr></td></tr>
-        </#if>
-      </#list>
-    </table>
+      <table cellspacing="0" cellpadding="1" border="0">
+        <#-- random complementary products -->
+        <#list associatedProducts as assocProduct>
+          <tr>
+            <td>
+              ${setRequestAttribute("optProduct", assocProduct)}
+              ${setRequestAttribute("listIndex", assocProduct_index)}
+              ${screens.render(productsummaryScreen)}
+            </td>
+          </tr>
+          <#if assocProduct_has_next>
+            <tr><td><hr></td></tr>
+          </#if>
+        </#list>
+      </table>
     </div>
-</div>
+  </div>
 </#if>
