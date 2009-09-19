@@ -989,6 +989,22 @@ under the License.
         <attribute name="extension" type="String" mode="OUT" optional="true"/>
     </service>
 
+    <service name="getPartyPostalAddress" engine="simple"
+        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartyPostalAddress" auth="false">
+        <description>Get the party postal address</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+        <attribute name="address1" type="String" mode="OUT" optional="true"/>
+        <attribute name="address2" type="String" mode="OUT" optional="true"/>
+        <attribute name="directions" type="String" mode="OUT" optional="true"/>
+        <attribute name="city" type="String" mode="OUT" optional="true"/>
+        <attribute name="postalCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="OUT" optional="true"/>
+        <attribute name="countyGeoId" type="String" mode="OUT" optional="true"/>
+        <attribute name="countryGeoId" type="String" mode="OUT" optional="true"/>
+    </service>
+
     <service name="createPartyCarrierAccount" engine="simple" default-entity-name="PartyCarrierAccount"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyCarrierAccount" auth="true">
         <description>Create a PartyCarrierAccount record</description>
