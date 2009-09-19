@@ -247,7 +247,7 @@ public class WidgetWorker {
             writer.append("\"");
         }
 
-        writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
+        writer.append(" onsubmit=\"javascript:submitFormDisableSubmits(this)\"");
 
         writer.append(" name=\"");
         writer.append(makeLinkHiddenFormName(context, modelFormField));

@@ -1328,7 +1328,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append("\"");
 
-        writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
+        writer.append(" onsubmit=\"javascript:submitFormDisableSubmits(this)\"");
 
         if (!modelForm.getClientAutocompleteFields()) {
             writer.append(" autocomplete=\"off\"");

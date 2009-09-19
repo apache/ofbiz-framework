@@ -113,7 +113,7 @@ under the License.
 
 <#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name linkUrl text imgStr>
 <#if "hidden-form" == linkType>
-<form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onSubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
+<form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
 <#list parameterList as parameter>
 <input name="${parameter.name}" value="${parameter.value}" type="hidden"/><#rt/>
 </#list>
