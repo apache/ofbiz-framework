@@ -94,18 +94,18 @@ ${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if
  <#if isTwelveHour>
 <#assign x=11>
 <#list 0..x as i>
-<option value="${i}" <#if hour1?has_content><#if i=hour1>selected</#if></#if>>${i}</option><#rt/>
+<option value="${i}"<#if hour1?has_content><#if i=hour1> selected="selected"</#if></#if>>${i}</option><#rt/>
 </#list>
 <#else>
 <#assign x=23>
 <#list 0..x as i>
-<option value="${i}"<#if hour2?has_content><#if i=hour2> selected</#if></#if>>${i}</option><#rt/>
+<option value="${i}"<#if hour2?has_content><#if i=hour2> selected="selected"</#if></#if>>${i}</option><#rt/>
 </#list>
 </#if>
 </select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
 <#assign x=59>
 <#list 0..x as i>
-<option value="${i}"<#if minutes?has_content><#if i=minutes> selected</#if></#if>>${i}</option><#rt/>
+<option value="${i}"<#if minutes?has_content><#if i=minutes> selected="selected"</#if></#if>>${i}</option><#rt/>
 </#list>
 </select><#rt/>
 <#if isTwelveHour>
@@ -314,11 +314,11 @@ ${item.description}</div>
 <#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase>
 <#if opEquals?has_content>
 <select <#if name?has_content>name="${name}_op"</#if>    class="selectBox"><#rt/>
-<option value="equals"<#if defaultOption=="equals"> selected</#if>>${opEquals}</option><#rt/>
+<option value="equals"<#if defaultOption=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
 <option value="like"<#if defaultOption=="like"> selected</#if>>${opBeginsWith}</option><#rt/>
-<option value="contains"<#if defaultOption=="contains"> selected</#if>>${opContains}</option><#rt/>
-<option value="empty"<#rt/><#if defaultOption=="empty"> selected</#if>>${opIsEmpty}</option><#rt/>
-<option value="notEqual"<#if defaultOption=="notEqual"> selected</#if>>${opNotEqual}</option><#rt/>
+<option value="contains"<#if defaultOption=="contains"> selected="selected"</#if>>${opContains}</option><#rt/>
+<option value="empty"<#rt/><#if defaultOption=="empty"> selected="selected"</#if>>${opIsEmpty}</option><#rt/>
+<option value="notEqual"<#if defaultOption=="notEqual"> selected="selected"</#if>>${opNotEqual}</option><#rt/>
 </select>
 <#else>
 <input type="hidden" name=<#if name?has_content> "${name}_op"</#if>    value="${defaultOption}"/><#rt/>
@@ -347,10 +347,10 @@ ${item.description}</div>
 <span class="${titleStyle}"><#rt/>
 </#if>
 <select<#if name?has_content> name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
-<option value="equals"<#if defaultOptionFrom=="equals"> selected</#if>>${opEquals}</option><#rt/>
-<option value="sameDay"<#if defaultOptionFrom=="sameDay"> selected</#if>>${opSameDay}</option><#rt/>
-<option value="greaterThanFromDayStart"<#if defaultOptionFrom=="greaterThanFromDayStart"> selected</#if>>${opGreaterThanFromDayStart}</option><#rt/>
-<option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected</#if>>${opGreaterThan}</option><#rt/>
+<option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
+<option value="sameDay"<#if defaultOptionFrom=="sameDay"> selected="selected"</#if>>${opSameDay}</option><#rt/>
+<option value="greaterThanFromDayStart"<#if defaultOptionFrom=="greaterThanFromDayStart"> selected="selected"</#if>>${opGreaterThanFromDayStart}</option><#rt/>
+<option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected="selected"</#if>>${opGreaterThan}</option><#rt/>
 </select><#rt/>
 <#if titleStyle?has_content>
  </span><#rt/>
@@ -370,10 +370,10 @@ ${item.description}</div>
  <span class="${titleStyle}"><#rt/>
 </#if>
 <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox"><#rt/>
-<option value="opLessThan"<#if defaultOptionThru=="opLessThan"> selected</#if>>${opLessThan}</option><#rt/>
-<option value="upToDay"<#if defaultOptionThru=="upToDay"> selected</#if>>${opUpToDay}</option><#rt/>
-<option value="upThruDay"<#if defaultOptionThru=="upThruDay"> selected</#if>>${opUpThruDay}</option><#rt/>
-<option value="empty"<#if defaultOptionFrom=="empty"> selected</#if>>${opIsEmpty}</option><#rt/>
+<option value="opLessThan"<#if defaultOptionThru=="opLessThan"> selected="selected"</#if>>${opLessThan}</option><#rt/>
+<option value="upToDay"<#if defaultOptionThru=="upToDay"> selected="selected"</#if>>${opUpToDay}</option><#rt/>
+<option value="upThruDay"<#if defaultOptionThru=="upThruDay"> selected="selected"</#if>>${opUpThruDay}</option><#rt/>
+<option value="empty"<#if defaultOptionFrom=="empty"> selected="selected"</#if>>${opIsEmpty}</option><#rt/>
 </select><#rt/>
 <#if titleStyle?has_content>
 </span>
@@ -386,9 +386,9 @@ ${item.description}</div>
  <span class="${titleStyle}" ><#rt/>
 </#if>
 <select <#if name?has_content>name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
-<option value="equals"<#if defaultOptionFrom=="equals"> selected</#if>>${opEquals}</option><#rt/>
-<option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected</#if>>${opGreaterThan}</option><#rt/>
-<option value="greaterThanEqualTo"<#if defaultOptionFrom=="greaterThanEqualTo"> selected</#if>>${opGreaterThanEquals}</option><#rt/>
+<option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
+<option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected="selected"</#if>>${opGreaterThan}</option><#rt/>
+<option value="greaterThanEqualTo"<#if defaultOptionFrom=="greaterThanEqualTo"> selected="selected"</#if>>${opGreaterThanEquals}</option><#rt/>
 </select><#rt/>
 <#if titleStyle?has_content>
 </span><#rt/>
@@ -399,8 +399,8 @@ ${item.description}</div>
  <span class="${titleStyle}" ><#rt/>
 </#if>
 <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox"><#rt/>
-<option value="lessThan"<#if defaultOptionThru=="lessThan"> selected</#if>>${opLessThan?html}</option><#rt/>
-<option value="lessThanEqualTo"<#if defaultOptionThru=="lessThanEqualTo"> selected</#if>>${opLessThanEquals?html}</option><#rt/>
+<option value="lessThan"<#if defaultOptionThru=="lessThan"> selected="selected"</#if>>${opLessThan?html}</option><#rt/>
+<option value="lessThanEqualTo"<#if defaultOptionThru=="lessThanEqualTo"> selected="selected"</#if>>${opLessThanEquals?html}</option><#rt/>
 </select><#rt/>
 <#if titleStyle?has_content>
  </span>
@@ -430,7 +430,7 @@ ${item.description}</div>
 <#assign x=listSize/viewSize?floor>
 <#if listSize gt (viewIndex*viewSize)><#assign x=x+1></#if>
 <#list 1..x as i>
-<#if i == (viewIndex+1)><option selected value="<#else><option value="</#if>${i-1}">${i}</option>
+<#if i == (viewIndex+1)><option selected="selected" value="<#else><option value="</#if>${i-1}">${i}</option>
 </#list>
 </select></li><li>${commonDisplaying}</li>
 </#if>
