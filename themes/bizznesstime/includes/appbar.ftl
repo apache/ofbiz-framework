@@ -27,7 +27,7 @@ under the License.
             <h2 class="contracted">${uiLabelMap.CommonApplications}</h2>
             <div id="header-nav" class="clearfix" style="display:none">
                 <ul>
-                <h4>${uiLabelMap.CommonPrimaryApps}</h4>
+                <li><h4>${uiLabelMap.CommonPrimaryApps}</h4></li>
                     <#list displayApps as display>
               <#assign thisApp = display.getContextRoot()>
               <#assign permission = true>
