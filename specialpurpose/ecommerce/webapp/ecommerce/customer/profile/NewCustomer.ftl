@@ -29,17 +29,17 @@ under the License.
         <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
           <div>
             <label for="firstName">${uiLabelMap.PartyFirstName}* <span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label>
-            <input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" size="30" maxlength="30" />
+            <input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" maxlength="30" />
           </div>
           <div>
             <label for="lastName">${uiLabelMap.PartyLastName}* <span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label>
-            <input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName?if_exists}" size="30" maxlength="30" />
+            <input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName?if_exists}" maxlength="30" />
           </div>
           <div>
             <label for="emailAddress">${uiLabelMap.CommonEmail}*
               <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
             </label>
-            <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" size="30" maxlength="255" />
+            <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" maxlength="255" />
           </div>
           <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
       </fieldset>
@@ -47,7 +47,7 @@ under the License.
           <legend>${uiLabelMap.EcommerceAccountInformation}</legend>
             <div>
               <label for="username">${uiLabelMap.CommonUsername}* <span id="advice-required-username" style="display: none" class="errorMessage">(required)</span></label>
-              <input type="text" name="username" id="username" class="required" value="${parameters.username?if_exists}" size="30" maxlength="255" />
+              <input type="text" name="username" id="username" class="required" value="${parameters.username?if_exists}" maxlength="255" />
             </div>
             <div>
               <label for="password">${uiLabelMap.CommonPassword}* <span id="advice-required-password" style="display: none" class="errorMessage">(required)</span></label>

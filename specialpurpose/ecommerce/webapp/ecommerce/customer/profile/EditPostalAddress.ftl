@@ -27,26 +27,26 @@ under the License.
     <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
       <div>
         <label for="address1_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine1}*</label>
-        <input type="text" class="left required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" style="width: 50%" size="30" maxlength="30" />
+        <input type="text" class="required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" maxlength="30" />
         <span id="advice-required-address1_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </div>
       <div>
         <label for="additionalAddress2_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine2}</label>
-        <input type="text" class="left" name="address2" id="additionalAddress2_${contactMech.contactMechId}" value="${postalAddress.address2?if_exists}" style="width: 50%" size="30" maxlength="30" />
+        <input type="text" name="address2" id="additionalAddress2_${contactMech.contactMechId}" value="${postalAddress.address2?if_exists}" maxlength="30" />
       </div>
       <div>
         <label for="city_${contactMech.contactMechId}">${uiLabelMap.PartyCity}*</label>
-        <input type="text" class="left required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city?if_exists}" size="30" maxlength="30" />
+        <input type="text" class="required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city?if_exists}" maxlength="30" />
         <span id="advice-required-city_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </div>
       <div>
         <label for="postalCode_${contactMech.contactMechId}">${uiLabelMap.PartyZipCode}*</label>
-        <input type="text" class="left required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode?if_exists}" size="12" maxlength="10" />
+        <input type="text" class="required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode?if_exists}" maxlength="10" />
         <span id="advice-required-postalCode_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </div>
       <div>
         <label for="countryGeoId_${contactMech.contactMechId}">${uiLabelMap.PartyCountry}*</label>
-        <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
+        <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="required">
           <#if postalAddress.countryGeoId??>
             <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.countryGeoId), true) />
             <option value="${postalAddress.countryGeoId}">${geo.geoName!(postalAddress.countryGeoId)}</option>
@@ -57,7 +57,7 @@ under the License.
       </div>
       <div id="states_${contactMech.contactMechId}">
         <label for="stateProvinceGeoId_${contactMech.contactMechId}">${uiLabelMap.PartyState}*</label>
-        <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}" style="width: 70%">
+        <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}">
           <#if postalAddress.stateProvinceGeoId??>
             <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.stateProvinceGeoId), true) />
             <option value="${postalAddress.stateProvinceGeoId}">${geo.geoName!(postalAddress.stateProvinceGeoId)}</option>

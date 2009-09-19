@@ -26,18 +26,18 @@ under the License.
         <h3>${uiLabelMap.PartyContactInformation}</h3>
         <div>
           <label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label>
-          <input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" size="30" maxlength="30" />
+          <input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" maxlength="30" />
         </div>
         <div>
           <label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label>
-          <input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" size="30" maxlength="30" />
+          <input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" maxlength="30" />
         </div>
         <div>
           <label for="emailAddress">${uiLabelMap.CommonEmail}*
             <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
             <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
           </label>
-          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" size="30" maxlength="255" />
+          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" maxlength="255" />
         </div>
     </fieldset>
 
@@ -45,19 +45,19 @@ under the License.
         <h3>${uiLabelMap.EcommerceAccountInformation}</h3>
         <div>
           <label for="userLoginId">${uiLabelMap.CommonUsername}*</label>
-          <input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId?if_exists}" size="30" maxlength="255" <#if userLogin.userLoginId?exists>disabled="disabled"</#if> />
+          <input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId?if_exists}" maxlength="255" <#if userLogin.userLoginId?exists>disabled="disabled"</#if> />
         </div>
         <div>
           <label for="currentPassword">${uiLabelMap.CommonCurrentPassword}*</label>
-          <input type="password" name="currentPassword" id="currentPassword" value="" size="30" maxlength="16" />
+          <input type="password" name="currentPassword" id="currentPassword" value="" maxlength="16" />
         </div>
         <div>
           <label for="newPassword">${uiLabelMap.CommonNewPassword}*</label>
-          <input type="password" name="newPassword" id="newPassword" value="" size="30" maxlength="16" />
+          <input type="password" name="newPassword" id="newPassword" value="" maxlength="16" />
         </div>
         <div>
           <label for="newPasswordVerify">${uiLabelMap.CommonNewPasswordVerify}*</label>
-          <input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" size="30" maxlength="16" />
+          <input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" maxlength="16" />
         </div>
     </fieldset>
     <div><a id="submitEditUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>

@@ -26,26 +26,26 @@ under the License.
     <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
     <div>
       <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}*</label>
-      <input type="text" class="left required" name="address1" id="billToAddress1" value="${billToAddress1?if_exists}" size="30" maxlength="30" />
+      <input type="text" class="required" name="address1" id="billToAddress1" value="${billToAddress1?if_exists}" maxlength="30" />
       <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span>
     </div>
     <div>
       <label for="billToAddress2">${uiLabelMap.PartyAddressLine2}</label>
-      <input type="text" class="left" name="address2" id="billToAddress2" value="${billToAddress2?if_exists}" size="30" maxlength="30" />
+      <input type="text" name="address2" id="billToAddress2" value="${billToAddress2?if_exists}" maxlength="30" />
     </div>
     <div>
       <label for="billToCity">${uiLabelMap.PartyCity}*</label>
-      <input type="text" class="left required" name="city" id="billToCity" value="${billToCity?if_exists}" size="30" maxlength="30" />
+      <input type="text" class="required" name="city" id="billToCity" value="${billToCity?if_exists}" maxlength="30" />
       <span id="advice-required-billToCity" style="display: none" class="errorMessage">(required)</span>
     </div>
     <div>
       <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*</label>
-      <input type="text" class="left required" name="postalCode" id="billToPostalCode" value="${billToPostalCode?if_exists}" size="12" maxlength="10" />
+      <input type="text" class="required" name="postalCode" id="billToPostalCode" value="${billToPostalCode?if_exists}" maxlength="10" />
       <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(required)</span>
     </div>
     <div>
       <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*</label>
-      <select name="countryGeoId" id="billToCountryGeoId" class="left required" style="width: 70%">
+      <select name="countryGeoId" id="billToCountryGeoId" class="required">
         <#if billToCountryGeoId??>
           <option value='${billToCountryGeoId!}'>${billToCountryProvinceGeo!(billToCountryGeoId!)}</option>
         </#if>
@@ -55,7 +55,7 @@ under the License.
     </div>
     <div id="billToStates">
       <label for="billToStateProvinceGeoId">${uiLabelMap.PartyState}*<span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label>
-      <select name="stateProvinceGeoId" id="billToStateProvinceGeoId" style="width: 70%">
+      <select name="stateProvinceGeoId" id="billToStateProvinceGeoId">
         <#if billToStateProvinceGeoId?has_content>
           <option value='${billToStateProvinceGeoId!}'>${billToStateProvinceGeo!(billToStateProvinceGeoId!)}</option>
         <#else>
