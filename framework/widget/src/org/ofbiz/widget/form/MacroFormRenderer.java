@@ -498,7 +498,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         int maxlength = 30;
 
         if (shortDateInput) {
-            //size = maxlength = 15;
+            size = maxlength = 10;
             if (uiLabelMap != null) {
                 localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
