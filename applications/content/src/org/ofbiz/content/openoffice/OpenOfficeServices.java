@@ -91,7 +91,7 @@ public class OpenOfficeServices {
 
         try {
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
-            byte[] inByteArray = inByteBuffer.getBytes();
+            byte[] inByteArray = inByteBuffer.array();
 
             // The following line work in linux, but not Windows or Mac environment. It is preferred because it does not use temporary files
             //OpenOfficeByteArrayInputStream oobais = new OpenOfficeByteArrayInputStream(inByteArray);
@@ -115,7 +115,7 @@ public class OpenOfficeServices {
             }
             fis.close();
 
-            results.put("outByteBuffer", new ByteBuffer(baos.toByteArray()));
+            results.put("outByteBuffer", ByteBuffer.wrap(baos.toByteArray()));
             baos.close();
 
         } catch (MalformedURLException e) {
