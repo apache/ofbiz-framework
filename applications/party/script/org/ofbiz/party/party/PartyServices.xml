@@ -770,6 +770,91 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="getPartyPostalAddress" short-description="Get the postal address of the party">
+        <set field="findMap.partyId" from-field="parameters.partyId"/>
+        <if-empty field="parameters.contactMechPurposeTypeId">
+                <!-- search in this order if not provided-->
+                <set field="type" value="GENERAL_LOCATION"/><field-to-list field="type" list="types"/>
+                <set field="type" value="BILLING_LOCATION"/><field-to-list field="type" list="types"/>
+                <set field="type" value="PAYMENT_LOCATION"/><field-to-list field="type" list="types"/>
+                <set field="type" value="SHIPPING_LOCATION"/><field-to-list field="type" list="types"/>
+                <else>
+                    <set field="type" from-field="parameters.contactMechPurposeTypeId"/><field-to-list field="type" list="types"/>
+                </else>
+        </if-empty>
+        <set field="findMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
+        <find-by-and entity-name="PartyContactDetailByPurpose" map="findMap" list="addressAll1"></find-by-and>
+        <filter-list-by-date list="addressAll1" to-list="addressAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
+        <filter-list-by-date list="addressAll2" to-list="addressAll3"/>
+        <if-not-empty field="addressAll3">
+            <iterate entry="type" list="types">
+                <iterate entry="address" list="addressAll3">
+                    <if-empty field="found">
+                        <if-compare-field field="address.contactMechPurposeTypeId" to-field="type" operator="equals">
+                            <set field="found" value="notImportant"/>
+                            <field-to-result field="address.contactMechId" result-name="contactMechId"/>
+                            <if-not-empty field="address.address1">
+                                <field-to-result field="address.address1" result-name="address1"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.address2">
+                                <field-to-result field="address.address2" result-name="address2"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.directions">
+                                <field-to-result field="address.directions" result-name="directions"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.city">
+                                <field-to-result field="address.city" result-name="city"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.postalCode">
+                                <field-to-result field="address.postalCode" result-name="postalCode"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.stateProvinceGeoId">
+                                <field-to-result field="address.stateProvinceGeoId" result-name="stateProvinceGeoId"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.countyGeoId">
+                                <field-to-result field="address.countyGeoId" result-name="countyGeoId"/>
+                            </if-not-empty>
+                            <if-not-empty field="address.countryGeoId">
+                                <field-to-result field="address.countryGeoId" result-name="countryGeoId"/>
+                            </if-not-empty>
+                            <field-to-result field="address.contactMechPurposeTypeId" result-name="contactMechPurposeTypeId"/>
+                        </if-compare-field>
+                    </if-empty>
+                </iterate>
+            </iterate>
+            <else>
+                <find-by-and entity-name="PartyAndContactMech" map="findMap" list="addressAll1"/>
+                <filter-list-by-date list="addressAll1" to-list="addressAll2"/>
+                <first-from-list entry="address" list="addressAll2"/>
+                      <field-to-result field="address.contactMechId" result-name="contactMechId"/>
+                      <if-not-empty field="address.paAddress1">
+                          <field-to-result field="address.paAddress1" result-name="address1"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paAddress2">
+                          <field-to-result field="address.paAddress2" result-name="address2"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paDirections">
+                          <field-to-result field="address.paDirections" result-name="directions"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paCity">
+                          <field-to-result field="address.paCity" result-name="city"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paPostalCode">
+                          <field-to-result field="address.paPostalCode" result-name="postalCode"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paStateProvinceGeoId">
+                          <field-to-result field="address.paStateProvinceGeoId" result-name="stateProvinceGeoId"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paCountyGeoId">
+                          <field-to-result field="address.paCountyGeoId" result-name="countyGeoId"/>
+                      </if-not-empty>
+                      <if-not-empty field="address.paCountryGeoId">
+                          <field-to-result field="address.paCountryGeoId" result-name="countryGeoId"/>
+                      </if-not-empty>
+            </else>
+        </if-not-empty>
+    </simple-method>
+
     <!-- address match map -->
     <simple-method method-name="createAddressMatchMap" short-description="create a AddressMatchMap">
         <call-object-method obj-field="parameters.mapValue" method-name="toUpperCase" ret-field="parameters.mapValue"/>
