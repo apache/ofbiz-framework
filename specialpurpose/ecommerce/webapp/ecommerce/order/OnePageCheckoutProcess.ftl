@@ -109,11 +109,11 @@ under the License.
                     </thead>
                     <tfoot>
                       <tr>
-                        <th scope="row">${uiLabelMap.CommonSubtotal}</th>
+                        <th scope="row" colspan="6">${uiLabelMap.CommonSubtotal}</th>
                         <td id="cartSubTotal"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency() /></td>
                       </tr>
                       <tr>
-                        <th scope="row">${uiLabelMap.ProductDiscount}</th>
+                        <th scope="row" colspan="6">${uiLabelMap.ProductDiscount}</th>
                         <td id="cartDiscountValue">
                             <#assign orderAdjustmentsTotal = 0  />
                             <#list shoppingCart.getAdjustments() as cartAdjustment>
@@ -123,15 +123,15 @@ under the License.
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">${uiLabelMap.OrderShippingAndHandling}</th>
+                        <th scope="row" colspan="6">${uiLabelMap.OrderShippingAndHandling}</th>
                         <td id="cartTotalShipping"><@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency() /></td>
                       </tr>
                       <tr>
-                        <th scope="row">${uiLabelMap.OrderSalesTax}</th>
+                        <th scope="row" colspan="6">${uiLabelMap.OrderSalesTax}</th>
                         <td id="cartTotalSalesTax"><@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency() /></td>
                       </tr>
                       <tr>
-                        <th scope="row">${uiLabelMap.OrderGrandTotal}</th>
+                        <th scope="row" colspan="6">${uiLabelMap.OrderGrandTotal}</th>
                         <td id="cartDisplayGrandTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency() /></td>
                       </tr>
                     </tfoot>
@@ -528,6 +528,7 @@ under the License.
                           </#if>
                         </div>
                         <div>
+                          <span>
                                 <label for="cardType">${uiLabelMap.AccountingCardType}*<span id="advice-required-cardType" style="display: none;" class="errorMessage"> (required)</span></label>
                                 <select name="cardType" id="cardType">
                                   <#if cardType?has_content>
@@ -535,6 +536,7 @@ under the License.
                                   </#if>
                                   ${screens.render("component://common/widget/CommonScreens.xml#cctypes")}
                                 </select>
+                          </span>
                         </div>
                         <div>
                             <span>
