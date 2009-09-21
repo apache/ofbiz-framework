@@ -56,6 +56,7 @@ under the License.
              location="org.ofbiz.ebay.ProductsExportToEbay" invoke="getEbayCategories" auth="true">
         <description>Get the list of eBay categories</description>
         <attribute type="String" mode="IN" name="categoryCode" optional="true"/>
+        <attribute type="String" mode="IN" name="productStoreId" optional="true"/>
         <attribute type="List" mode="OUT" name="categories" optional="true"/>
     </service>
 

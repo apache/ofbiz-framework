@@ -18,11 +18,21 @@
  */
 import org.ofbiz.webapp.website.WebSiteWorker;
 
+webSite = WebSiteWorker.getWebSite(request);
+productStoreId = "9000"; // provide the default value
+if (webSite) {
+    productStoreId = webSite.productStoreId;
+    context.productStoreId = productStoreId;
+    eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
+    context.customXml = eBayConfig.customXml;
+    context.webSiteUrl = webSite.getString("standardContentPrefix")?:"http://demo.ofbiz.org";
+}
+
 categoryCode = parameters.categoryCode;
 context.categoryCode = categoryCode; 
 userLogin = parameters.userLogin;
 
-results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin]);
+results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
 
 if (results.categories) {
     context.categories = results.categories;
@@ -36,13 +46,4 @@ if (categoryCode) {
     }
 } else {
     context.hideExportOptions = "N";
-}
-
-webSite = WebSiteWorker.getWebSite(request);
-if (webSite) {
-    productStoreId = webSite.productStoreId;
-    context.productStoreId = productStoreId;
-    eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
-    context.customXml = eBayConfig.customXml;
-    context.webSiteUrl = webSite.getString("standardContentPrefix")?:"http://demo.ofbiz.org";
 }
