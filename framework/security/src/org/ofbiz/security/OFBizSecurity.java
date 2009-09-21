@@ -47,18 +47,6 @@ public class OFBizSecurity implements Security {
 
     public static final String module = OFBizSecurity.class.getName();
 
-    /**
-     * UtilCache to cache a Collection of UserLoginSecurityGroup entities for each UserLogin, by userLoginId.
-     */
-    protected static UtilCache<String, List<GenericValue>> userLoginSecurityGroupByUserLoginId = new UtilCache<String, List<GenericValue>>("security.UserLoginSecurityGroupByUserLoginId");
-
-    /**
-     * UtilCache to cache whether or not a certain SecurityGroupPermission row exists or not.
-     * For each SecurityGroupPermissionPK there is a Boolean in the cache specifying whether or not it exists.
-     * In this way the cache speeds things up whether or not the user has a permission.
-     */
-    protected static UtilCache<GenericValue, Boolean> securityGroupPermissionCache = new UtilCache<GenericValue, Boolean>("security.SecurityGroupPermissionCache");
-
     protected GenericDelegator delegator = null;
 
     protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
@@ -84,17 +72,13 @@ public class OFBizSecurity implements Security {
      * @see org.ofbiz.security.Security#findUserLoginSecurityGroupByUserLoginId(java.lang.String)
      */
     public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
-        List<GenericValue> collection = userLoginSecurityGroupByUserLoginId.get(userLoginId);
-
-        if (collection == null) {
-            try {
-                collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userLoginId), null);
-                // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
-                if (collection == null) collection = FastList.newInstance();
-                userLoginSecurityGroupByUserLoginId.put(userLoginId, collection);
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
+        List<GenericValue> collection;
+        try {
+            collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userLoginId), null);
+        } catch (GenericEntityException e) {
+            // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
+            collection = FastList.newInstance();
+            Debug.logWarning(e, module);
         }
         // filter each time after cache retreival, ie cache will contain entire list
         collection = EntityUtil.filterByDate(collection, true);
@@ -107,22 +91,12 @@ public class OFBizSecurity implements Security {
     public boolean securityGroupPermissionExists(String groupId, String permission) {
         GenericValue securityGroupPermissionValue = delegator.makeValue("SecurityGroupPermission",
                 UtilMisc.toMap("groupId", groupId, "permissionId", permission));
-        Boolean exists = (Boolean) securityGroupPermissionCache.get(securityGroupPermissionValue);
-
-        if (exists == null) {
-            try {
-                if (delegator.findOne(securityGroupPermissionValue.getEntityName(), securityGroupPermissionValue, false) != null) {
-                    exists = Boolean.TRUE;
-                } else {
-                    exists = Boolean.FALSE;
-                }
-            } catch (GenericEntityException e) {
-                exists = Boolean.FALSE;
-                Debug.logWarning(e, module);
-            }
-            securityGroupPermissionCache.put(securityGroupPermissionValue, exists);
+        try {
+            return delegator.findOne(securityGroupPermissionValue.getEntityName(), securityGroupPermissionValue, false) != null;
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+            return false;
         }
-        return exists.booleanValue();
     }
 
     /**
@@ -293,7 +267,7 @@ public class OFBizSecurity implements Security {
 
     public void clearUserData(GenericValue userLogin) {
         if (userLogin != null) {
-            userLoginSecurityGroupByUserLoginId.remove(userLogin.getString("userLoginId"));
+            delegator.getCache().remove("UserLoginSecurityGroup", EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
         }
     }
 
