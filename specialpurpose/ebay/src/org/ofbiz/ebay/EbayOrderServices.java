@@ -915,9 +915,7 @@ public class EbayOrderServices {
             // set the order date with the eBay created date
             Timestamp orderDate = UtilDateTime.nowTimestamp();
             if (UtilValidate.isNotEmpty((String) context.get("createdDate"))) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                Date createdDate = sdf.parse((String) context.get("createdDate"));
-                orderDate = new Timestamp(createdDate.getTime());
+                orderDate = UtilDateTime.toTimestamp((String) context.get("createdDate"));
             }
             cart.setOrderDate(orderDate);
             // Before import the order from eBay to OFBiz is mandatory that the payment has be received
