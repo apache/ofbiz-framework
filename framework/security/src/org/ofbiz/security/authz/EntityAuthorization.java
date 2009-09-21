@@ -33,6 +33,8 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.cache.Cache;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.authz.da.DynamicAccessFactory;
 import org.ofbiz.security.authz.da.DynamicAccessHandler;
@@ -40,23 +42,6 @@ import org.ofbiz.security.authz.da.DynamicAccessHandler;
 public class EntityAuthorization extends AbstractAuthorization {
 
     private static final String module = EntityAuthorization.class.getName();
-    
-    /**
-     * UtilCache to cache a Collection of UserLoginSecurityGroup entities for each UserLogin, by userLoginId.
-     */
-    private static UtilCache<String, List<GenericValue>> userLoginSecurityGroupByUserLoginId = new UtilCache<String, List<GenericValue>>("security.UserLoginSecurityGroupByUserLoginId");
-
-    /**
-     * UtilCache to cache whether or not a certain SecurityGroupPermission row exists or not.
-     * For each SecurityGroupPermissionPK there is a Boolean in the cache specifying whether or not it exists.
-     * In this way the cache speeds things up whether or not the user has a permission.
-     */
-    private static UtilCache<GenericValue, Boolean> securityGroupPermissionCache = new UtilCache<GenericValue, Boolean>("security.SecurityGroupPermissionCache");
-
-    /**
-     * UtilCache to cache Permission Auto Grant permissions
-     */
-    private static UtilCache<String, List<String>> permissionAutoGrantCache = new UtilCache<String, List<String>>("security.PermissionAutoGrantCache");
     
     protected GenericDelegator delegator; 
     
@@ -158,20 +143,14 @@ public class EntityAuthorization extends AbstractAuthorization {
     }
     
     private Iterator<GenericValue> getUserLoginSecurityGroupByUserLoginId(String userId) {
-        List<GenericValue> collection = userLoginSecurityGroupByUserLoginId.get(userId);
+        List<GenericValue> collection;
 
-        if (collection == null) {
-            try {
-                collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userId), null);
-                
-                // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
-                if (collection == null) {
-                    collection = FastList.newInstance();
-                }
-                userLoginSecurityGroupByUserLoginId.put(userId, collection);
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
+        try {
+            collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userId), null);
+        } catch (GenericEntityException e) {
+            // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
+            collection = FastList.newInstance();
+            Debug.logWarning(e, module);
         }
         
         // filter each time after cache retrieval, i.e. cache will contain entire list
@@ -182,32 +161,25 @@ public class EntityAuthorization extends AbstractAuthorization {
     private boolean securityGroupHasPermission(String groupId, String permission) {
         GenericValue securityGroupPermissionValue = delegator.makeValue("SecurityGroupPermission",
                 UtilMisc.toMap("groupId", groupId, "permissionId", permission));
-        Boolean exists = (Boolean) securityGroupPermissionCache.get(securityGroupPermissionValue);
 
-        if (exists == null) {
-            try {
-                if (delegator.findOne(securityGroupPermissionValue.getEntityName(), securityGroupPermissionValue, false) != null) {
-                    exists = Boolean.TRUE;
-                } else {
-                    exists = Boolean.FALSE;
-                }
-            } catch (GenericEntityException e) {
-                exists = Boolean.FALSE;
-                Debug.logWarning(e, module);
-            }
-            securityGroupPermissionCache.put(securityGroupPermissionValue, exists);
+        try {
+            return delegator.findOne(securityGroupPermissionValue.getEntityName(), securityGroupPermissionValue, false) != null;
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+            return false;
         }
-        return exists.booleanValue();
     }    
     
     private List<String> getPermissionAutoGrant(String permission) {
-        List<String> autoGrants = permissionAutoGrantCache.get(permission);
+        Cache cache = delegator.getCache();
+        EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toMap("permissionId", permission));
+        List<String> autoGrants = cache.get("SecurityPermissionAutoGrant", condition, "EntityAuthorization.autoGrants");
         if (autoGrants == null) {
             autoGrants = FastList.newInstance();
             
             List<GenericValue> values = null;
             try {
-                values = delegator.findByAnd("SecurityPermissionAutoGrant", UtilMisc.toMap("permissionId", permission), null);
+                values = delegator.findList("SecurityPermissionAutoGrant", condition, null, null, null, true);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -217,7 +189,7 @@ public class EntityAuthorization extends AbstractAuthorization {
                     autoGrants.add(v.getString("grantPermission"));
                 }
             }
-            permissionAutoGrantCache.put(permission, autoGrants);
+            cache.put("SecurityPermissionAutoGrant", condition, "EntityAuthorization.autoGrants", autoGrants);
         }
         return autoGrants;
     }
