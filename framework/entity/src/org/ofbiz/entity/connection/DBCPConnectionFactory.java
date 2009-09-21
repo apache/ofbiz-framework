@@ -90,12 +90,12 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             maxIdle = maxIdle > minSize ? maxIdle : minSize;
 
             try {
-                timeBetweenEvictionRunsMillis = Integer.parseInt(jotmJdbcElement.getAttribute("timeBetweenEvictionRunsMillis"));
+                timeBetweenEvictionRunsMillis = Integer.parseInt(jotmJdbcElement.getAttribute("time-between-eviction-runs-millis"));
             } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [timeBetweenEvictionRunsMillis=" + jotmJdbcElement.getAttribute("timeBetweenEvictionRunsMillis") + "]; the values MUST be numbers, using default of 600000.", module);
+                Debug.logError("Problems with pool settings [time-between-eviction-runs-millis=" + jotmJdbcElement.getAttribute("time-between-eviction-runs-millis") + "]; the values MUST be numbers, using default of 600000.", module);
                 timeBetweenEvictionRunsMillis = 600000;
             } catch (Exception e) {
-                Debug.logError("Problems with pool settings [timeBetweenEvictionRunsMillis], using default of 600000.", module);
+                Debug.logError("Problems with pool settings [time-between-eviction-runs-millis], using default of 600000.", module);
                 timeBetweenEvictionRunsMillis = 600000;
             }
 
