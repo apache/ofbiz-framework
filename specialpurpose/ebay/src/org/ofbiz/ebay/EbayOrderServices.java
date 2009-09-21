@@ -984,7 +984,7 @@ public class EbayOrderServices {
                 String contactMechId = null;
                 String emailContactMechId = null;
                 String phoneContactMechId = null;
-                GenericValue partyAttribute = null;
+                
                 Map<String, Object> shippingAddressCtx =  (Map) context.get("shippingAddressCtx");
                 if (UtilValidate.isNotEmpty(shippingAddressCtx)) {
                     String buyerName = (String) shippingAddressCtx.get("buyerName");
@@ -997,14 +997,24 @@ public class EbayOrderServices {
                     EbayHelper.correctCityStateCountry(dispatcher, shippingAddressCtx, city, state, country);
                     
                     List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shippingAddressCtx.get("shippingAddressStreet1").toString(), 
-                            (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), city, state, 
-                            shippingAddressCtx.get("shippingAddressPostalCode").toString(), null, country, firstName, null, lastName);
+                            (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), shippingAddressCtx.get("city").toString(), shippingAddressCtx.get("stateProvinceGeoId").toString(), 
+                            shippingAddressCtx.get("shippingAddressPostalCode").toString(), null, shippingAddressCtx.get("countryGeoId").toString(), firstName, null, lastName);
                     if (shipInfo != null && shipInfo.size() > 0) {
                         GenericValue first = EntityUtil.getFirst(shipInfo);
                         partyId = first.getString("partyId");
                         Debug.logInfo("Existing shipping address found for : (party: " + partyId + ")", module);
                     }
                 }
+                
+                // If matching party not found then try to find partyId from PartyAttribute entity.
+                GenericValue partyAttribute = null;
+                if (UtilValidate.isNotEmpty((String) context.get("eiasTokenBuyer"))) {
+                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer"))));
+                    if (UtilValidate.isNotEmpty(partyAttribute)) {
+                        partyId = (String) partyAttribute.get("partyId");
+                    }                    
+                }
+                
                 // if we get a party, check its contact information.
                 if (UtilValidate.isNotEmpty(partyId)) {
                     Debug.logInfo("Found existing party associated to the eBay buyer: " + partyId, module);
@@ -1030,6 +1040,8 @@ public class EbayOrderServices {
 
                 // create new party's contact information
                 if (UtilValidate.isEmpty(contactMechId)) {
+                    Map<String, Object> buyerCtx = (Map) context.get("buyerCtx");
+                    String eiasTokenBuyer = (String) buyerCtx.get("eiasTokenBuyer");
                     Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", shippingAddressCtx);
                     if (UtilValidate.isEmpty(contactMechId)) {
@@ -1039,7 +1051,7 @@ public class EbayOrderServices {
                     Debug.logInfo("Creating new phone number for party: " + partyId, module);
                     EbayHelper.createPartyPhone(dispatcher, partyId, (String) shippingAddressCtx.get("shippingAddressPhone"), userLogin);
                     Debug.logInfo("Creating association to eBay buyer for party: " + partyId, module);
-                    EbayHelper.createEbayCustomer(dispatcher, partyId, (String) context.get("ebayUserIdBuyer"), (String) context.get("eiasTokenBuyer"), userLogin);
+                    EbayHelper.createEbayCustomer(dispatcher, partyId, (String) context.get("ebayUserIdBuyer"), eiasTokenBuyer, userLogin);
                     String emailBuyer = (String) context.get("emailBuyer");
                     if (UtilValidate.isNotEmpty(emailBuyer) && !emailBuyer.equalsIgnoreCase("Invalid Request")) {
                         Debug.logInfo("Creating new email for party: " + partyId, module);
