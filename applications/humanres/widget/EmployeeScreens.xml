@@ -191,28 +191,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditEmployeeTrainings">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleViewPersonTraining"/>
-                <set field="tabButtonItem" value="EditEmployeeTrainings"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
-                <set field="personTrainingsCtx.partyId" from-field="parameters.partyId"/>
-                <set field="parameters.insideEmployee" value="true"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="ListEmployeeTrainings" location="component://humanres/widget/forms/EmployeeForms.xml"/>
-                        <screenlet id="AddPersonTrainingPanel" title="${uiLabelMap.HumanResAddPersonTraining}" collapsible="true">
-                            <include-form name="AddEmployeeTraining" location="component://humanres/widget/forms/EmployeeForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="EditEmployeeEmploymentApps">
         <section>
             <actions>

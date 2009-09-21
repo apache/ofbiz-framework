@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="AddEmployee" type="single" target="createEmployee"
         header-row-style="header-row" default-table-style="basic-table">
@@ -183,27 +183,6 @@
         <field name="fromDate"><date-time type="timestamp"/></field>
         <field name="thruDate"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    <form name="ListEmployeeTrainings" type="list" list-name="listIt" separate-columns="true" target="updateEmployeeTraining" paginate-target="FindPersonTrainings"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="PersonTraining">
-                <condition-expr field-name="partyId" from-field="partyId"/>
-                <order-by field-name="fromDate"/>
-            </entity-condition>
-        </actions>
-        <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/>
-        <field name="partyId"><hidden/></field>
-        <field name="trainingClassTypeId"><display-entity description="${description}" entity-name="TrainingClassType"/></field>
-        <field name="thruDate"><date-time type="timestamp"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmployeeTraining" also-hidden="false" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="partyId"/>
-                <parameter param-name="trainingClassTypeId"/>
-                <parameter param-name="fromDate"/>
-            </hyperlink>
-        </field>
     </form>
     <form name="AddEmplLeave" type="single" target="createEmplLeave">
         <auto-fields-service service-name="createEmplLeave"/>
