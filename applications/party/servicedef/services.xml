@@ -204,12 +204,8 @@ under the License.
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="setPartyProfileDefaults" auth="true">
         <description>Sets the party (customer) profile defaults</description>
         <permission-service service-name="partyIdPermissionCheck" main-action="UPDATE"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="defaultShipAddr" type="String" mode="IN" optional="true"/>
-        <attribute name="defaultBillAddr" type="String" mode="IN" optional="true"/>
-        <attribute name="defaultPayMeth" type="String" mode="IN" optional="true"/>
-        <attribute name="defaultShipMeth" type="String" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="PartyProfileDefault" include="all" optional="true"/>
+        <override name="productStoreId" optional="false"/>
     </service>
 
     <service name="createPartyAttribute" engine="simple" default-entity-name="PartyAttribute"
