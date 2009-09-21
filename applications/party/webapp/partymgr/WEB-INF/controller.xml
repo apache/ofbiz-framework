@@ -54,7 +54,7 @@ under the License.
     </request-map>
     <request-map uri="EditPartyRelationships"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRelationships"/></request-map>
     <request-map uri="viewroles"><security https="true" auth="true"/><response name="success" type="view" value="viewroles"/></request-map>
-    <request-map uri="viewidentifications"><security https="true" auth="true"/><response name="success" type="view" value="viewidentifications"/></request-map>  
+    <request-map uri="viewidentifications"><security https="true" auth="true"/><response name="success" type="view" value="viewidentifications"/></request-map>
     <request-map uri="linkparty"><security https="true" auth="true"/><response name="success" type="view" value="linkparty"/></request-map>
     <request-map uri="partyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="partyInvitation"/></request-map>
     <request-map uri="editPartyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="editPartyInvitation"/></request-map>
@@ -1108,18 +1108,6 @@ under the License.
     </request-map>
     <request-map uri="EditPersonTrainings">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPersonTrainings"/>
-        <response name="error" type="view" value="EditPersonTrainings"/>
-    </request-map>
-    <request-map uri="createPersonTrainingExt">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createPersonTraining"/>
-        <response name="success" type="view" value="EditPersonTrainings"/>
-        <response name="error" type="view" value="EditPersonTrainings"/>
-    </request-map>
-    <request-map uri="updatePersonTrainingsExt">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updatePersonTraining"/>
         <response name="success" type="view" value="EditPersonTrainings"/>
         <response name="error" type="view" value="EditPersonTrainings"/>
     </request-map>
