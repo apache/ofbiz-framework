@@ -60,4 +60,11 @@ if (userLogin) {
         context.shipToExtension = pcm.extension;
     }
 
+    shipToFaxNumberList = ContactHelper.getContactMech(party, "FAX_SHIPPING", "TELECOM_NUMBER", false)
+    if (shipToFaxNumberList) {
+        shipToFaxNumber = (EntityUtil.getFirst(shipToFaxNumberList)).getRelatedOne("TelecomNumber");
+        faxPartyContactMech = EntityUtil.getFirst(shipToFaxNumber.getRelated("PartyContactMech"));
+        context.shipToFaxNumber = shipToFaxNumber;
+        context.shipToFaxExtension = faxPartyContactMech.extension;
+    }
 }

@@ -51,6 +51,8 @@ under the License.
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK_SEC" description="Secondary Work Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER" description="Main Fax Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER_SEC" description="Secondary Fax Number"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FAX_SHIPPING" description="Shipping Destination Fax Number"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FAX_BILLING" description="Billing Destination Fax Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_MOBILE" description="Main Mobile Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_ASSISTANT" description="Assistant's Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary Phone Number"/>

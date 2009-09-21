@@ -71,4 +71,12 @@ if (userLogin) {
         context.billToTelecomNumber = billToTelecomNumber;
         context.billToExtension = pcm.extension;
     }
+
+    billToFaxNumberList = ContactHelper.getContactMech(party, "FAX_BILLING", "TELECOM_NUMBER", false)
+    if (billToFaxNumberList) {
+        billToFaxNumber = (EntityUtil.getFirst(billToFaxNumberList)).getRelatedOne("TelecomNumber");
+        faxPartyContactMech = EntityUtil.getFirst(billToFaxNumber.getRelated("PartyContactMech"));
+        context.billToFaxNumber = billToFaxNumber;
+        context.billToFaxExtension = faxPartyContactMech.extension;
+    }
 }
