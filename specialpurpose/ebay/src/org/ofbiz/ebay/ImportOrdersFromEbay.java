@@ -126,13 +126,13 @@ public class ImportOrdersFromEbay {
         return result;
     }
 
-    public static Map setEbayOrderToComplete(DispatchContext dctx, Map context) {
+    public static Map<String, Object> setEbayOrderToComplete(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         String externalId = (String) context.get("externalId");
         String transactionId = (String) context.get("transactionId");
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         try {
             if (orderId == null && externalId == null) {
                 Debug.logError("orderId or externalId must be filled", module);
@@ -157,9 +157,14 @@ public class ImportOrdersFromEbay {
                 // get externalId and transactionId from OrderHeader
                 externalId = (String)orderHeader.get("externalId");
                 transactionId = (String)orderHeader.get("transactionId");
+                String productStoreId = (String) orderHeader.get("productStoreId");
+                if (UtilValidate.isNotEmpty(productStoreId)) {
+                    context.put("productStoreId", productStoreId);
+                }
             }
 
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
+            
             StringBuffer completeSaleXml = new StringBuffer();
 
             if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
