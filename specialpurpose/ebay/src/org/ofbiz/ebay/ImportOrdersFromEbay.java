@@ -251,24 +251,6 @@ public class ImportOrdersFromEbay {
          return ServiceUtil.returnSuccess();
     }
 
-    private static Map buildGetEbayDetailsRequest(Map context, StringBuffer dataItemsXml, String token) {
-        Locale locale = (Locale)context.get("locale");
-        try {
-             Document transDoc = UtilXml.makeEmptyXmlDocument("GeteBayDetailsRequest");
-             Element transElem = transDoc.getDocumentElement();
-             transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
-
-             EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
-             UtilXml.addChildElementValue(transElem, "DetailName", "ShippingServiceDetails", transDoc);
-             UtilXml.addChildElementValue(transElem, "DetailName", "TaxJurisdiction", transDoc);
-             dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
-         } catch (Exception e) {
-             Debug.logError("Exception during building get eBay details request", module);
-             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionDuringBuildingGetEbayDetailsRequest", locale));
-         }
-         return ServiceUtil.returnSuccess();
-    }
-
     public static Map buildCompleteSaleRequest(GenericDelegator delegator, Locale locale, String itemId, String transactionId, Map context, StringBuffer dataItemsXml, String token) {
         String paid = (String)context.get("paid");
         String shipped = (String)context.get("shipped");
