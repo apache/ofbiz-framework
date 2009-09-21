@@ -1839,7 +1839,7 @@
         <value xml:lang="zh">过滤标签信息</value>
     </property>
     <property key="WebtoolsLabelManagerSecuryError">
-        <value xml:lang="de">Sie haben keine Berechtigung für den Label Manager (Sie benötigen LABEL_MANAGER_VIEW)</value
+        <value xml:lang="de">Sie haben keine Berechtigung für den Label Manager (Sie benötigen LABEL_MANAGER_VIEW)</value>
         <value xml:lang="en">Cannot view Labels Info pages without LABEL_MANAGER_VIEW permission.</value>
         <value xml:lang="fr">Impossible d'accèder à la page de gestion des traductions sans l'autorisation LABEL_MANAGER_VIEW.</value>
         <value xml:lang="it">Non e posssibile visualizzare la pagina Gestione delle Label senza il permesso LABEL_MANAGER_VIEW.</value>
