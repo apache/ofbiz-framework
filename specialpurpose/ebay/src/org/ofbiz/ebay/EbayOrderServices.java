@@ -408,7 +408,11 @@ public class EbayOrderServices {
                             
                             orderCtx.put("externalId", externalOrderId);
                             orderCtx.put("amountPaid", UtilXml.childElementValue(ordersElement, "Total", "0"));
-                            orderCtx.put("createdDate", UtilXml.childElementValue(ordersElement, "CreatedTime"));
+                            String createdDate = UtilXml.childElementValue(ordersElement, "CreatedTime");
+                            if (UtilValidate.isNotEmpty(createdDate)) {
+                                createdDate = EbayHelper.convertDate(createdDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd HH:mm:ss.SSS");
+                                orderCtx.put("createdDate", createdDate);
+                            }
                             orderCtx.put("paidTime", UtilXml.childElementValue(ordersElement, "PaidTime"));
                             orderCtx.put("shippedTime", UtilXml.childElementValue(ordersElement, "ShippedTime"));
                             orderCtx.put("ebayUserIdBuyer", UtilXml.childElementValue(ordersElement, "BuyerUserID"));
@@ -609,7 +613,11 @@ public class EbayOrderServices {
                             Map<String, Object> orderCtx = FastMap.newInstance();
                             
                             orderCtx.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));
-                            orderCtx.put("createdDate", UtilXml.childElementValue(transactionElement, "CreatedDate"));
+                            String createdDate = UtilXml.childElementValue(transactionElement, "CreatedDate");
+                            if (UtilValidate.isNotEmpty(createdDate)) {
+                                createdDate = EbayHelper.convertDate(createdDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd HH:mm:ss.SSS");
+                                orderCtx.put("createdDate", createdDate);
+                            }
                             orderCtx.put("paidTime", UtilXml.childElementValue(transactionElement, "PaidTime"));
                             orderCtx.put("shippedTime", UtilXml.childElementValue(transactionElement, "ShippedTime"));
                             orderCtx.put("productStoreId", productStoreId);
