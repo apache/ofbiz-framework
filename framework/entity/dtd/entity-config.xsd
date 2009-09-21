@@ -425,7 +425,7 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:nonNegativeInteger" name="pool-maxsize" default="50"/>
         <xs:attribute type="xs:nonNegativeInteger" name="pool-minsize" default="2"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="timeBetweenEvictionRunsMillis" default="600000"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="time-between-eviction-runs-millis" default="600000"/>
         <xs:attribute type="xs:nonNegativeInteger" name="pool-sleeptime" default="300000"/>
         <xs:attribute type="xs:nonNegativeInteger" name="pool-lifetime" default="600000"/>
         <xs:attribute type="xs:nonNegativeInteger" name="pool-deadlock-maxwait" default="300000"/>
