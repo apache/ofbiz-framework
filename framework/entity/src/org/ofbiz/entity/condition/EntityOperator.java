@@ -55,8 +55,15 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
 
     private static HashMap<String, EntityOperator> registry = new HashMap<String, EntityOperator>();
 
+    private static void registerCase(String name, EntityOperator operator) {
+        registry.put(name.toLowerCase(), operator);
+        registry.put(name.toUpperCase(), operator);
+    }
+
     private static void register(String name, EntityOperator operator) {
-        registry.put(name, operator);
+        registerCase(name, operator);
+        registerCase(name.replaceAll("-", "_"), operator);
+        registerCase(name.replaceAll("_", "-"), operator);
     }
 
     public static EntityOperator lookup(String name) {
