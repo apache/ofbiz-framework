@@ -31,7 +31,6 @@ under the License.
     <ul>
       <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>">${uiLabelMap.OrderCheckout}</a></li>
       <li><a href="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">${uiLabelMap.OrderCheckoutQuick}</a></li>
-      <li><a href="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">${uiLabelMap.OrderCheckoutQuick}</a></li>
       <li><a href="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
       <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
     </ul>
