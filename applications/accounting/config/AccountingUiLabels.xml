@@ -3134,8 +3134,8 @@
         <value xml:lang="zh">从定单创建定单明细账单时出错</value>
     </property>
     <property key="AccountingExpenses">
-        <value xml:lagn="en">Expenses</value>
-        <value xml:lagn="hi_IN">व्यय</value>
+        <value xml:lang="en">Expenses</value>
+        <value xml:lang="hi_IN">व्यय</value>
     </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
         <value xml:lang="de">Das Feld erwartetes End of Life bei den Anlage-Daten ist leer.</value>
@@ -4529,8 +4529,8 @@
         <value xml:lang="zh">传递给新建发票服务的数值非法</value>
     </property>
     <property key="AccountingIncome">
-        <value xml:lagn="en">Income</value>
-        <value xml:lagn="hi_IN">आय</value>
+        <value xml:lang="en">Income</value>
+        <value xml:lang="hi_IN">आय</value>
     </property>
     <property key="AccountingIncomeStatement">
         <value xml:lang="ar">تصربح الدخل</value>
@@ -6512,12 +6512,6 @@
         <value xml:lang="th">ยกเลิกรายได้บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">覆盖收入总账账户标识</value>
     </property>
-    <property key="AccountingPostedTransactionTotals">
-        <value xml:lang="de">Gebuchte Geamtsumme</value>
-        <value xml:lang="en">Posted Totals</value>
-        <value xml:lang="hi_IN">पोस्टेड योग</value>
-        <value xml:lang="it">Totali Contabilizzati</value>
-    </property>
     <property key="AccountingPostedAndUnpostedTransactionTotals">
         <value xml:lang="de">Gebuchte und nicht-gebuchte Gesamtsumme</value>
         <value xml:lang="en">Posted And Unposted Totals</value>
@@ -7721,6 +7715,7 @@
         <value xml:lang="zh">交易过账</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
+        <value xml:lang="de">Gebuchte Geamtsumme</value>
         <value xml:lang="en">Posted Totals</value>
         <value xml:lang="fr">Totaux comptabilisés</value>
         <value xml:lang="hi_IN">कुल पोस्टेड</value>
