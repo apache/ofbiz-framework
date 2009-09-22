@@ -146,7 +146,17 @@ under the License.
         </field>
         <field position="3" title="${uiLabelMap.ProductShippingDepth}" name="shippingDepth"><text size="10" maxlength="20"/></field>
 
-        <field position="1" name="weight" title="${uiLabelMap.ProductWeight}"><text size="10" maxlength="20"/></field>
+        <field position="1" title="${uiLabelMap.ProductProductDiameter}" name="productDiameter"><text size="10" maxlength="20"/></field>
+        <field position="2" name="diameterUomId" title="${uiLabelMap.ProductDiameterUomId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${abbreviation}]">
+                    <entity-constraint name="uomTypeId" value="LENGTH_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field position="1" name="productWeight" title="${uiLabelMap.ProductProductWeight}"><text size="10" maxlength="20"/></field>
         <field position="2" name="weightUomId" title="${uiLabelMap.ProductWeightUomId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${abbreviation}]">
@@ -155,6 +165,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field position="3" name="weight" title="${uiLabelMap.ProductWeight}"><text size="10" maxlength="20"/></field>
+
         <field position="1" name="quantityIncluded" title="${uiLabelMap.ProductQuantityIncluded}"><text size="10" maxlength="20"/></field>
         <field position="2" name="quantityUomId" title="${uiLabelMap.ProductQuantityUomId}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
@@ -263,8 +275,11 @@ under the License.
                 <sort-field name="productDepth"/>
                 <sort-field name="depthUomId"/>
                 <sort-field name="shippingDepth"/>
-                <sort-field name="weight"/>
+                <sort-field name="productDiameter"/>
+                <sort-field name="diameterUomId"/>
+                <sort-field name="productWeight"/>
                 <sort-field name="weightUomId"/>
+                <sort-field name="weight"/>
                 <sort-field name="quantityIncluded"/>
                 <sort-field name="quantityUomId"/>
                 <sort-field name="quantityIncluded"/>
