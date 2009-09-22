@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if requestParameters.product_id?exists>
-  <form name="reviewProduct" method="post" action="<@ofbizUrl>createProductReview</@ofbizUrl>">
+  <form id="reviewProduct" method="post" action="<@ofbizUrl>createProductReview</@ofbizUrl>">
     <fieldset>
       <input type="hidden" name="productStoreId" value="${productStore.productStoreId}" />
       <input type="hidden" name="productId" value="${requestParameters.product_id}" />
@@ -51,11 +51,11 @@ under the License.
         <span><label for="yes">${uiLabelMap.EcommercePostAnonymous}:</label></span>
         <span>
           <label for="yes">${uiLabelMap.CommonYes}</label>
-          <input type="radio" id="yes" name="postedAnonymous" value="true">
+          <input type="radio" id="yes" name="postedAnonymous" value="true" />
         </span>
         <span>
           <label for="no">${uiLabelMap.CommonNo}</label>
-          <input type="radio" id="no" name="postedAnonymous" value="false" checked="checked">
+          <input type="radio" id="no" name="postedAnonymous" value="false" checked="checked" />
         </span>
       </div>
       <div>
@@ -63,7 +63,7 @@ under the License.
         <textarea class="textAreaBox" name="productReview" cols="40"></textarea>
       </div>
       <div>
-        <a href="javascript:document.reviewProduct.submit();" class="button">[${uiLabelMap.CommonSave}]</a>
+        <a href="javascript:$('reviewProduct').submit();" class="button">[${uiLabelMap.CommonSave}]</a>
         <a href="<@ofbizUrl>product?product_id=${requestParameters.product_id}</@ofbizUrl>" class="button">[${uiLabelMap.CommonCancel}]</a>
       </div>
     </fieldset>

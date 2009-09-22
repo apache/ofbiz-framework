@@ -55,7 +55,7 @@ under the License.
             </tr>
           </#list>
         <#else>
-          <tr><td colspan="9">${uiLabelMap.OrderNoOrderFound}</td></tr>
+          <tr><td colspan="6">${uiLabelMap.OrderNoOrderFound}</td></tr>
         </#if>
       </tbody>
     </table>
@@ -85,7 +85,7 @@ under the License.
             </tr>
           </#list>
         <#else>
-          <tr><td colspan="9">${uiLabelMap.OrderNoOrderFound}</td></tr>
+          <tr><td colspan="5">${uiLabelMap.OrderNoOrderFound}</td></tr>
         </#if>
       </tbody>
     </table>
@@ -116,7 +116,7 @@ under the License.
             </tr>
           </#list>
         <#else>
-          <tr><td colspan="9">${uiLabelMap.EcommerceDownloadNotFound}</td></tr>
+          <tr><td colspan="5">${uiLabelMap.EcommerceDownloadNotFound}</td></tr>
         </#if>
       </tbody>
     </table>
