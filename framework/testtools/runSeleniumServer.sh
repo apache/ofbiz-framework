@@ -6,6 +6,6 @@ else
   JAVA=java
 fi
 
-"$JAVA" -jar ../../framework/testtools/lib/selenium-server.jar  -timeout 240
+"$JAVA" -jar ../../framework/testtools/lib/selenium-server.jar  -singleWindow  -trustAllSSLCertificates -timeout 240
 exit 0
 

@@ -267,5 +267,5 @@ under the License.
 
     <!-- localization example file -->
     <DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
-    
+   
 </entity-engine-xml>
