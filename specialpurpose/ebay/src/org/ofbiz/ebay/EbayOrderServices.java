@@ -62,7 +62,8 @@ public class EbayOrderServices {
     private static final String module = EbayOrderServices.class.getName();
     private static boolean isGetSellerTransactionsCall = false;
     private static boolean isGetOrdersCall = false;
-    private static List orderList = new ArrayList();
+    private static boolean isGetMyeBaySellingCall = false;
+    private static List orderList = FastList.newInstance();
     private static List getSellerTransactionsContainingOrderList = new ArrayList(); 
     private static List<String> orderImportSuccessMessageList = FastList.newInstance();
     private static List<String> orderImportFailureMessageList = FastList.newInstance();
@@ -97,8 +98,18 @@ public class EbayOrderServices {
                     result = checkOrders(delegator, dispatcher, locale, context, getOrdersSuccessMsg);
                 }
             }
+            
+            StringBuffer getMyeBaySellingXml = new StringBuffer();
+            if (!ServiceUtil.isFailure(buildGetMyeBaySellingRequest(context, getMyeBaySellingXml, eBayConfigResult.get("token").toString()))) {
+                result = EbayHelper.postItem(eBayConfigResult.get("xmlGatewayUri").toString(), getMyeBaySellingXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetMyeBaySelling", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                String getMyeBaySellingSuccessMsg = (String) result.get(ModelService.SUCCESS_MESSAGE);
+                if (getMyeBaySellingSuccessMsg != null) {
+                    isGetMyeBaySellingCall = true;
+                    result = checkOrders(delegator, dispatcher, locale, context, getMyeBaySellingSuccessMsg);
+                }
+            }
         } catch (Exception e) {
-            String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.exceptionInGetOrdersFromEbay" + e.getMessage(), locale);
+            String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.exceptionInGetOrdersFromEbay========" + e.getMessage(), locale);
             return ServiceUtil.returnError(errMsg);
         }
         return result;
@@ -224,11 +235,31 @@ public class EbayOrderServices {
          return ServiceUtil.returnSuccess();
     }
 
+    private static Map<String, Object> buildGetMyeBaySellingRequest(Map<String, Object> context, StringBuffer getMyeBaySellingXml, String token) {
+        Locale locale = (Locale) context.get("locale");
+        try {
+             Document transDoc = UtilXml.makeEmptyXmlDocument("GetMyeBaySellingRequest");
+             Element transElem = transDoc.getDocumentElement();
+             transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
+
+             EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
+             
+             Element deletedFromSoldListElem = UtilXml.addChildElement(transElem, "DeletedFromSoldList", transDoc);
+             UtilXml.addChildElementValue(deletedFromSoldListElem, "Sort", "ItemID", transDoc);
+             //Debug.logInfo("The value of generated string is ======= " + UtilXml.writeXmlDocument(transDoc), module);
+             getMyeBaySellingXml.append(UtilXml.writeXmlDocument(transDoc));
+         } catch (Exception e) {
+             Debug.logError("Exception during building MyeBaySelling request", module);
+             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionDuringBuildingMyeBaySellingRequest", locale));
+         }
+         return ServiceUtil.returnSuccess();
+    }
+    
     private static Map<String, Object> checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, String responseMsg) {
         StringBuffer errorMessage = new StringBuffer();
         Map<String, Object> result = FastMap.newInstance();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        if (isGetSellerTransactionsCall && !isGetOrdersCall) {
+        if (isGetSellerTransactionsCall) {
             List getSellerTransactionList = readGetSellerTransactionResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
             if (UtilValidate.isNotEmpty(getSellerTransactionList)) {
                 orderList.addAll(getSellerTransactionList);
@@ -237,8 +268,25 @@ public class EbayOrderServices {
             return ServiceUtil.returnSuccess();
         } else if (isGetOrdersCall) {
             List getOrdersList = readGetOrdersResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
-            orderList.addAll(getOrdersList);
+            if (UtilValidate.isNotEmpty(getOrdersList)) {
+                orderList.addAll(getOrdersList);                
+            }
             isGetOrdersCall = false;
+            return ServiceUtil.returnSuccess();
+        } else if (isGetMyeBaySellingCall) {
+            // for now fetching only deleted transaction & orders value from the sold list.
+            List eBayDeletedOrdersAndTransactionList = readGetMyeBaySellingResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
+            if (UtilValidate.isNotEmpty(eBayDeletedOrdersAndTransactionList)) {
+                Debug.logInfo("The value of getMyeBaySellingList" + eBayDeletedOrdersAndTransactionList, module);
+                Iterator orderListIter = orderList.iterator();
+                while (orderListIter.hasNext()) {
+                    Map orderCtx = (Map) orderListIter.next();
+                    if (eBayDeletedOrdersAndTransactionList.contains(orderCtx.get("externalId"))) {
+                         // Now finally exclude orders & transaction that has been deleted from sold list.
+                        orderList.remove(orderCtx);
+                    }
+                }
+            }
         }
         if (orderList == null || orderList.size() == 0) {
             Debug.logError("No orders found", module);
@@ -579,7 +627,6 @@ public class EbayOrderServices {
         return fetchedOrders;
     }
     
-    
     private static List readGetSellerTransactionResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
         List fetchedOrders = new ArrayList();
         try {
@@ -855,6 +902,72 @@ public class EbayOrderServices {
             Debug.logError("Exception during read response from Ebay", module);
         }
         return fetchedOrders;
+    }
+    
+    private static List readGetMyeBaySellingResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+        List fetchDeletedOrdersAndTransactions = new ArrayList();
+        try {
+            Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
+            //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
+            Element elemResponse = docResponse.getDocumentElement();
+            String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
+            List paginationList = UtilXml.childElementList(elemResponse, "PaginationResult");
+
+            if (ack != null && "Success".equals(ack)) {
+                // retrieve transaction array
+                List deletedFromSoldList = UtilXml.childElementList(elemResponse, "DeletedFromSoldList");
+                Iterator deletedFromSoldElemIter = deletedFromSoldList.iterator();
+                while (deletedFromSoldElemIter.hasNext()) {
+                    Element deletedFromSoldElement = (Element) deletedFromSoldElemIter.next();
+                    // retrieve transaction
+                    List orderTransactionArrayList = UtilXml.childElementList(deletedFromSoldElement, "OrderTransactionArray");
+                    Iterator orderTransactionArrayElemIter = orderTransactionArrayList.iterator();
+                    while (orderTransactionArrayElemIter.hasNext()) {
+                        Element orderTransactionArrayElement = (Element) orderTransactionArrayElemIter.next();
+                        List orderTransactionList = UtilXml.childElementList(orderTransactionArrayElement, "OrderTransaction");
+                        Iterator orderTransactionElemIter = orderTransactionList.iterator();
+                        while (orderTransactionElemIter.hasNext()) {
+                            Element orderTransactionElement = (Element) orderTransactionElemIter.next();
+
+                            List sellerOrderList = UtilXml.childElementList(orderTransactionElement, "Order");
+                            Iterator sellerOrderElemIter = sellerOrderList.iterator();
+                            while (sellerOrderElemIter.hasNext()) {
+                                Element sellerOrderElement = (Element) sellerOrderElemIter.next();
+                                String orderId = UtilXml.childElementValue(sellerOrderElement, "OrderID");
+                                if (UtilValidate.isNotEmpty(orderId)) {
+                                    fetchDeletedOrdersAndTransactions.add(orderId);
+                                }
+                            }    
+                            List transactionList = UtilXml.childElementList(orderTransactionElement, "Transaction");
+                            Iterator transactionElemIter = transactionList.iterator();
+                            while (transactionElemIter.hasNext()) {
+                                Element transactionElement = (Element) transactionElemIter.next();
+                                
+                                List itemList = UtilXml.childElementList(transactionElement, "Item");
+                                Iterator itemElemIter = itemList.iterator();
+                                while (itemElemIter.hasNext()) {
+                                    Element itemElement = (Element) itemElemIter.next();
+                                    String itemId = UtilXml.childElementValue(itemElement, "ItemID");
+                                    if (UtilValidate.isNotEmpty(itemId)) {
+                                        fetchDeletedOrdersAndTransactions.add(itemId);
+                                    }
+                                }
+                            }
+                        }
+                    }    
+                }
+            } else {
+                List errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator errorElemIter = errorList.iterator();
+                while (errorElemIter.hasNext()) {
+                    Element errorElement = (Element) errorElemIter.next();
+                    errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
+                }
+            }
+        } catch (Exception e) {
+            Debug.logError("Exception during read response from Ebay", module);
+        }
+        return fetchDeletedOrdersAndTransactions;
     }
     
     private static Map createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, boolean create) {
