@@ -22,33 +22,9 @@ under the License.
 	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
 	xmlns="http://docbook.org/ns/docbook">
 	<title>The Accounting Component.</title>
-	<section>
-		<title>Introduction</title>
-		<para>
-			Please find here a general introduction to the accounting component (to be continued)
-        </para>
-	</section>
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_main.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_findInvoices.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceOverview.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoice.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_newInvoice.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoiceApplications.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_listInvoiceItems.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editInvoiceTimeEntries.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_sendPerEmail.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_invoiceRoles.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_findPayments.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_newPayment.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_paymentOverview.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editPaymentApplications.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_editPayment.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindSalesInvoicesByDueDate.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindPurchaseInvoicesByDueDate.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_FindGatewayResponses.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_AuthorizeTransaction.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_CaptureTransaction.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_ViewGatewayResponse.xml" />
-	<xi:include href="../data/helpdata/HELP_ACCOUNTING_ManualTransaction.xml" />
-	
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_main.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_invoices.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_payments.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_payment_gateway.xml" />
 </chapter>

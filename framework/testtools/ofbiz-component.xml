@@ -35,8 +35,6 @@
     <!-- entitydef -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     
-    <entity-resource type="data" reader-name="seed" loader="main" location="documents/SeleniumHelpData.xml"/>
-    
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     

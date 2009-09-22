@@ -18,8 +18,6 @@
     under the License.
 -->
 <entity-engine-xml>
-    <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
-    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
 
     <DataResource dataResourceId="APACHE_OFBIZ" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/documents/ApacheOfbiz.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="APACHE_OFBIZ_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The User &amp; Technical Apache OFBiz document in one page HTML" mimeTypeId="text/html"/>

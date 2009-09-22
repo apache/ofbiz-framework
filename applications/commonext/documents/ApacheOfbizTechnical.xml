@@ -41,7 +41,14 @@
     <chapter>
         <title>Introduction.</title>
         <para>
-            Welcome to Apache OFBiz the ready to use open source ERP system.
+            Welcome to Apache OFBiz, the ready to use open source ERP system. Let me first say if you downloaded 
+            the system for the first time it will be very overwhelming because the system is pretty big what is actually pretty normal for an ERP system
+            because of its size.
+        </para>
+        <para>
+            This document is describing the technical aspects of the system. How to install it, how to load the data and how to make the system available to the Internet.
+            This is described pretty well in the 'production setup guide' in the next section. If you looking how to setup the system from a user point of view then better
+            have a look at the Apache OFBiz user guide.
         </para>
     
         <section>
@@ -49,6 +56,69 @@
             <para>
                    An excellent guide to configure the system in a production environment, read the document at the <link xl:href="http://docs.ofbiz.org/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide">OFBiz documentation site</link>
             </para>
+        </section>
+        
+        <section>
+            <title>The quick setup of an Ubuntu/Debian Linux Apache OFBiz server</title>
+            <orderedlist>
+            <listitem>
+                <para>Upgrade Linux to Ubuntu/Debian remotely using Grub menu</para>
+                <para>
+                    Although OFBiz will be run on most operating systems a lot of installations are done on either Debian or
+                    Ubuntu which is also based on Debian.
+                </para>
+                <para>
+                    If you have a version if Linux running already on your server which using the GRUB menu, it is possible to upgrade to Debian/Ubuntu
+                    without even touching the server physically. With the method below the debian installer is loaded into a Ram disk from where it can
+                    reformat and repartition the harddisk and install the system.
+                    Practice this first on a local server, because if after the reboot the server is unreachable you have to ask somebody at the datacenter to manually reboot the system.
+                </para>
+                <orderedlist>
+                    <listitem>
+                        <para>Get the OS kernel and the related initrd.gz</para>
+                        <para>
+                            Make sure you server can handle 64bit if you take that version, if not sure take the 32bit version.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Uncompress the initrd.gz</para>
+                    </listitem>
+                    <listitem>
+                        <para>Edit the initrd.gz content</para>
+                    </listitem>
+                    <listitem>
+                        <para>Create the new Archive</para>
+                    </listitem>
+                    <listitem>
+                        <para>Copy the Kernel and the new initrd.gz to the server</para>
+                        <para>
+                            Logon to your server and copy these to files to the /boot/grub directory.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Copy the Kernel and the new initrd.gz to the server</para>
+                    </listitem>
+                    <listitem>
+                        <para>Edit the /boot/grub/menu.lst file</para>
+                    </listitem>
+                    <listitem>
+                        <para>Reboot the server</para>
+                    </listitem>
+                </orderedlist>
+            </listitem>            
+            <listitem>
+                <para>Install Apache</para>
+            </listitem>            
+            <listitem>
+                <para>Install PostGreSQl</para>
+            </listitem>            
+            <listitem>
+                <para>Install Ofbiz</para>
+            </listitem>            
+            <listitem>
+                <para>Install Ubuntu</para>
+            </listitem>
+            </orderedlist>
         </section>
     
 

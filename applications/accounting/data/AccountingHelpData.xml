@@ -27,112 +27,127 @@ under the License.
 
     <DataResource dataResourceId="ACCOUNTING_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_main" contentTypeId="DOCUMENT" contentName="Accounting Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="ACCOUNTING_main" contentTypeId="DOCUMENT" contentName="Accounting Main." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_main"/>
+    <!-- invoices -->
+    <DataResource dataResourceId="ACCOUNTING_invoices" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_invoices.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Invoice Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_invoices" contentTypeId="DOCUMENT" contentName="Invoices." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_invoices" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_invoices" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_invoices"/>
 
-<DataResource dataResourceId="ACCOUNTING_findInvoi" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_findInvoi" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_findInvoices.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Invoices Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_findInvoi" contentTypeId="DOCUMENT" contentName="Accounting Find Invoices Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_findInvoi" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_findInvoi" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_findInvoices"/>
+    <Content contentId="ACCOUNTING_findInvoi" contentTypeId="DOCUMENT" contentName="Find Invoices." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_findInvoi" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_findInvoi" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_findInvoices"/>
 
-<DataResource dataResourceId="ACCOUNTING_invoiceOv" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_invoiceOv" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_invoiceOverview.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Invoice Overview Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_invoiceOv" contentTypeId="DOCUMENT" contentName="Accounting Invoice Overview Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_invoiceOv" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_invoiceOv" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_invoiceOverview"/>
+    <Content contentId="ACCOUNTING_invoiceOv" contentTypeId="DOCUMENT" contentName="Invoice Overview." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_invoiceOv" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_invoiceOv" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_invoiceOverview"/>
 
-<DataResource dataResourceId="ACCOUNTING_editInvoi" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_editInvoi" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_editInvoice.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Invoice Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_editInvoi" contentTypeId="DOCUMENT" contentName="Accounting Edit Invoice Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editInvoi" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_editInvoi" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editInvoice"/>
+    <Content contentId="ACCOUNTING_editInvoi" contentTypeId="DOCUMENT" contentName="Edit Invoice." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editInvoi" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_editInvoi" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editInvoice"/>
 
-<DataResource dataResourceId="ACCOUNTING_editInvAp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_editInvAp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_editInvoiceApplications.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Invoice Applications Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_editInvAp" contentTypeId="DOCUMENT" contentName="Accounting Edit Invoice Applications Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editInvAp" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_editInvAp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editInvoiceApplications"/>
+    <Content contentId="ACCOUNTING_editInvAp" contentTypeId="DOCUMENT" contentName="Edit Invoice Applications." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editInvAp" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_editInvAp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editInvoiceApplications"/>
 
-<DataResource dataResourceId="ACCOUNTING_editInvTE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_editInvTE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_editInvoiceTimeEntries.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Invoice Time Entries Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_editInvTE" contentTypeId="DOCUMENT" contentName="Accounting Edit Invoice Time Entries Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editInvTE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_editInvTE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editInvoiceTimeEntries"/>
+    <Content contentId="ACCOUNTING_editInvTE" contentTypeId="DOCUMENT" contentName="Edit Invoice Time Entries." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editInvTE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_editInvTE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editInvoiceTimeEntries"/>
 
-<DataResource dataResourceId="ACCOUNTING_listInvoi" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_listInvoi" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_listInvoiceItems.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Invoices Items Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_listInvoi" contentTypeId="DOCUMENT" contentName="Accounting List Invoices Items Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_listInvoi" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_listInvoi" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_listInvoiceItems"/>
+    <Content contentId="ACCOUNTING_listInvoi" contentTypeId="DOCUMENT" contentName="List Invoices Items." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_listInvoi" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_listInvoi" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_listInvoiceItems"/>
 
-<DataResource dataResourceId="ACCOUNTING_sendPerEm" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_sendPerEm" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_sendPerEmail.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Invoice Send Per Email Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_sendPerEm" contentTypeId="DOCUMENT" contentName="Accounting Invoice Send Per Email Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_sendPerEm" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_sendPerEm" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_sendPerEmail"/>
+    <Content contentId="ACCOUNTING_sendPerEm" contentTypeId="DOCUMENT" contentName="Invoice Send Per Email." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_sendPerEm" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_sendPerEm" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_sendPerEmail"/>
 
-<DataResource dataResourceId="ACCOUNTING_newInvoic" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_newInvoic" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_newInvoice.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting New Invoice Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_newInvoic" contentTypeId="DOCUMENT" contentName="Accounting New Invoice Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_newInvoic" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_newInvoic" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_newInvoice"/>
+    <Content contentId="ACCOUNTING_newInvoic" contentTypeId="DOCUMENT" contentName="New Invoice." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_newInvoic" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_newInvoic" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_newInvoice"/>
 
-<DataResource dataResourceId="ACCOUNTING_invoiceRo" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_invoiceRo" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_invoiceRoles.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Invoice Roles Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="ACCOUNTING_invoiceRo" contentTypeId="DOCUMENT" contentName="Accounting Invoice Roles Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_invoiceRo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_invoiceRo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_invoiceRoles"/>
+    <Content contentId="ACCOUNTING_invoiceRo" contentTypeId="DOCUMENT" contentName="Invoice Roles." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_invoiceRo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_invoices" contentIdTo="ACCOUNTING_invoiceRo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_invoiceRoles"/>
+    <!-- payments -->
+    <DataResource dataResourceId="ACCOUNTING_payments" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_payments.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Payment Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_payments" contentTypeId="DOCUMENT" contentName="Payments." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_payments" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_payments" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_payments"/>
 
-<DataResource dataResourceId="ACCOUNTING_newPaymen" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_newPaymen" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_newPayment.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting New Payment Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_newPaymen" contentTypeId="DOCUMENT" contentName="Accounting New Payment Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_newPaymen" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_newPaymen" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_newPayment"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_newPaymen" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_newPayment"/>
 
-<DataResource dataResourceId="ACCOUNTING_findPayme" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_findPayme" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_findPayments.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Payments Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_findPayme" contentTypeId="DOCUMENT" contentName="Accounting Find Payments Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_findPayme" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_findPayme" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_findPayments"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_findPayme" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_findPayments"/>
 
-<DataResource dataResourceId="ACCOUNTING_paymentOv" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_paymentOv" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_paymentOverview.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Payment Overview Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_paymentOv" contentTypeId="DOCUMENT" contentName="Accounting Payment Overview Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_paymentOv" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_paymentOv" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_paymentOverview"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_paymentOv" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_paymentOverview"/>
 
-<DataResource dataResourceId="ACCOUNTING_editPayAp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_editPayAp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_editPaymentApplications.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Payment Applications Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_editPayAp" contentTypeId="DOCUMENT" contentName="Accounting Payment Applications Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editPayAp" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_editPayAp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editPaymentApplications"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_editPayAp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editPaymentApplications"/>
 
-<DataResource dataResourceId="ACCOUNTING_editPayme" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_editPayme" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_editPayment.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Payment Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_editPayme" contentTypeId="DOCUMENT" contentName="Accounting Edit Payment Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_editPayme" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_editPayme" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editPayment"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_editPayme" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_editPayment"/>
 
-<DataResource dataResourceId="ACCOUNTING_FindSInDD" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_FindSInDD" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindSalesInvoicesByDueDate.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Sales Invoices By Due New Payment Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_FindSInDD" contentTypeId="DOCUMENT" contentName="Accounting Find Sales Invoices By Due Date Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindSInDD" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_FindSInDD" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindSalesInvoicesByDueDate"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_FindSInDD" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindSalesInvoicesByDueDate"/>
 
-<DataResource dataResourceId="ACCOUNTING_FindPInDD" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_FindPInDD" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindPurchaseInvoicesByDueDate.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Purchase Invoices By Due New Payment Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_FindPInDD" contentTypeId="DOCUMENT" contentName="Accounting Find Purchase Invoices By Due Date Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindPInDD" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_FindPInDD" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindPurchaseInvoicesByDueDate"/>
+    <ContentAssoc contentId="ACCOUNTING_payments" contentIdTo="ACCOUNTING_FindPInDD" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindPurchaseInvoicesByDueDate"/>
+    <!-- payment gateway -->
+    <DataResource dataResourceId="ACCOUNTING_paygatew" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_paygatew.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Payment Gateway" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_paygatew" contentTypeId="DOCUMENT" contentName="Payment Gateway." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_paygatew" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_paygatew" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_paygatew"/>
 
-<DataResource dataResourceId="ACCOUNTING_FindGWRes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_FindGWRes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindGatewayResponses.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Gateway Responses Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_FindGWRes" contentTypeId="DOCUMENT" contentName="Accounting Find Gateway Responses Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindGWRes" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_FindGWRes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindGatewayResponses"/>
+    <ContentAssoc contentId="ACCOUNTING_paygatew" contentIdTo="ACCOUNTING_FindGWRes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindGatewayResponses"/>
 
-<DataResource dataResourceId="ACCOUNTING_AuthTrans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_AuthTrans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_AuthorizeTransaction.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Authorize Transaction Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_AuthTrans" contentTypeId="DOCUMENT" contentName="Accounting Authorize Transactions Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_AuthTrans" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_AuthTrans" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_AuthorizeTransaction"/>
+    <ContentAssoc contentId="ACCOUNTING_paygatew" contentIdTo="ACCOUNTING_AuthTrans" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_AuthorizeTransaction"/>
 
-<DataResource dataResourceId="ACCOUNTING_CaptTrans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_CaptTrans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_CaptureTransaction.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Capture Transaction Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_CaptTrans" contentTypeId="DOCUMENT" contentName="Accounting Capture Transaction Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_CaptTrans" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_CaptTrans" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_CaptureTransaction"/>
+    <ContentAssoc contentId="ACCOUNTING_paygatew" contentIdTo="ACCOUNTING_CaptTrans" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_CaptureTransaction"/>
 
-<DataResource dataResourceId="ACCOUNTING_ViewGWRes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_ViewGWRes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ViewGatewayResponse.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting View Gateway Response Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_ViewGWRes" contentTypeId="DOCUMENT" contentName="Accounting View Gateway Response Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ViewGWRes" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_ViewGWRes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ViewGatewayResponse"/>
+    <ContentAssoc contentId="ACCOUNTING_paygatew" contentIdTo="ACCOUNTING_ViewGWRes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ViewGatewayResponse"/>
 
-<DataResource dataResourceId="ACCOUNTING_ManTrans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+    <DataResource dataResourceId="ACCOUNTING_ManTrans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ManualTransaction.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Manual Transaction Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_ManTrans" contentTypeId="DOCUMENT" contentName="Accounting Manual Transaction Help" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ManTrans" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
-    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_ManTrans" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ManualTransaction"/>
+    <ContentAssoc contentId="ACCOUNTING_paygatew" contentIdTo="ACCOUNTING_ManTrans" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ManualTransaction"/>
 
 </entity-engine-xml>
