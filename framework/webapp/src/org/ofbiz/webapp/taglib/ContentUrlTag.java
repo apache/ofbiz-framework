@@ -66,7 +66,11 @@ public class ContentUrlTag extends BodyTagSupport {
             return;
         }
         GenericValue webSite = WebSiteWorker.getWebSite(request);
-        if (request.isSecure()) {
+        appendContentPrefix(webSite, request.isSecure(), urlBuffer);
+    }
+
+    public static void appendContentPrefix(GenericValue webSite, boolean secure, Appendable urlBuffer) throws IOException {
+        if (secure) {
             if (webSite != null && UtilValidate.isNotEmpty(webSite.getString("secureContentPrefix"))) {
                 urlBuffer.append(webSite.getString("secureContentPrefix").trim());
             } else {
