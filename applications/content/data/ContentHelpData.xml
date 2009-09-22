@@ -18,6 +18,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
+
+    <Content contentId="HELP_MYPORTAL"/><!--  portlets are in most components -->
+    <Content contentId="HELP_ROOT"/><!-- should be in the first component loaded -->
+    <PortletCategory portletCategoryId="REPORT" description="Reports"/>
+    <DataResource dataResourceId="HELP_TEMPL"/><!--  further defined in the content component -->
+
+    <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
     <!-- system document root used in content -> navigate -->
     <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
     <!-- show help on the system document root -->

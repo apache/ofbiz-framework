@@ -38,8 +38,11 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/TemplateData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentSecurityData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/MiscData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/PartyHelpData.xml"/> <!-- party is loaded first and this file needs contentTypeData -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHelpData.xml"/>
+    <!-- these files cannot be loaded in their original component because they are earlier than the content component -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/PartyHelpData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/SeleniumHelpData.xml"/>
+
     <entity-resource type="data" reader-name="demo" loader="main" location="data/UsersDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogPubPtData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogUsersData.xml"/>
