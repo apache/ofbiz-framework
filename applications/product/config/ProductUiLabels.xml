@@ -9808,6 +9808,9 @@
         <value xml:lang="it">esempio: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
         <value xml:lang="zh">样例: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
     </property>
+    <product key="ProductDiameterUomId">
+        <value xml:lang="en">Diameter Uom Id</value>
+    </product>
     <property key="ProductDifferentCurrencies">
         <value xml:lang="en">Items with different currencies</value>
         <value xml:lang="fr">Articles utilisant différentes devises</value>
@@ -15928,6 +15931,9 @@
         <value xml:lang="th">คำอธิบายสินค้า</value>
         <value xml:lang="zh">产品描述</value>
     </property>
+    <property key="ProductProductDiameter">
+        <value xml:lang="en">Product Diameter</value>
+    </property>
     <property key="ProductProductFeatureCategories">
         <value xml:lang="de">Produktmerkmale Kategorien</value>
         <value xml:lang="en">Product Feature Categories</value>
@@ -16299,6 +16305,9 @@
         <value xml:lang="ru">Тип продукта</value>
         <value xml:lang="th">ประเภทสินค้า</value>
         <value xml:lang="zh">产品类型</value>
+    </property>
+    <property key="ProductProductWeight">
+        <value xml:lang="en">Product Weight</value>
     </property>
     <property key="ProductProductWidth">
         <value xml:lang="de">Produkt Breite</value>
