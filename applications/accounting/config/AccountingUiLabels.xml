@@ -1209,7 +1209,7 @@
         <value xml:lang="zh">结欠余额</value>
     </property>
     <property key="AccountingBalanceOfTheAccount">
-        <value xml:lagn="en">Balance Of The Account</value>
+        <value xml:lang="en">Balance Of The Account</value>
         <value xml:lang="hi_IN">शेष खाते के</value>
     </property>
     <property key="AccountingBalanceSheet">
