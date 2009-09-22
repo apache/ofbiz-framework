@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns="http://docbook.org/ns/docbook"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd">
+    
+    <title>OFBiz SeleniumXml Introduction</title>
+    <para>
+        This is a short document to help you get started using SeleniumXml to test your OFBiz application. Here is a copy of the presentation that was given at the ApacheCon2008 OFBiz Conference that describes more about the project:<ulink>http://us.apachecon.com/presentation/materials/118/ApacheCon2008_SeleniumXml.pdf</ulink>
+    </para>
+    <section>
+        <title>Installing SeleniumXml</title>
+        <para>1. From the ofbiz directory run the following ant command to download the needed selenium- server.jar file.</para>
+        <para>2. ant download-selenium</para>
+        <para>3. ant run-install-extseed (For run install help data and example test)</para>
+        <para>4. Build the source by running “ant” in the testtools directory or your OFBIZ_HOME</para>
+        <para>You should now have everything you need to run a seleniumXml test.</para> 
+    </section>
+    
+    <section>
+    <title>Running the Example Test</title>
+    
+        <para>SeleniumXml requires the selenium server to be running. The selenium server uses a default proxy port of 4444. The default port can be changed when you start the server. Selenium tries to automatically change the proxy settings in the testing browser. If you are getting communication errors with the server you may have to manually change your proxy settings in your browser.</para>
+        <section>
+            <title>1. Start ofbiz as normal.</title>
+            <para>Note: Before run ofbiz with selenium should changes ofbiz to use HTTP as the default at file (framework/webapp/config/url.properties) . Instead everything just works through port 8080. Selenium supports https but it is more complicated so for this introduction I have turned https off.</para>
+        </section>
+        <section>
+            <title>2. Start the selenium server:</title>
+            <para>runSeleniumServer.bat / runSeleniumServer.sh </para>
+        </section>
+        <section>
+            <title>3. Change the configuration for your preferred browser in the testtools/config/seleniumxml.properties file. The default is firefox (e.g. browser=*firefox) but you can change it to any of the selenium supported browsers.</title>
+            <para>Selenium supported browsers: <ulink>http://seleniumhq.org/about/platforms.html#browsers</ulink></para> 
+        </section>
+        <section>
+            <title>4. Run the Example test</title>
+            <section>
+                <title>4.1 run the Example test  .bat/.sh file</title>
+                        <para>runSeleniumXml.bat / runSeleniumXml.sh testdef/seleniumxml/example/example_testsuite.xml</para>
+                        <para>The above test combines three different tests into a single test suite. Data is passed from one test to another to allow you to share generated data.</para>
+                        <para>You will get an assertion (or other exception) if the test fails.</para>
+                        <para>The test uses a .5 second delay for demo purposes. (see example_testsuite.xml and the setSpeed value="500"  command). You can remove this at the start of the test if you don't want the delay</para>
+                        <para>- Here are some screen shots of what you should be seeing.</para>
+                            <!--para>
+                                <graphic fileref="/images/seleniums/ofbizSeleniumSetup1.jpeg" height="150" width="400"></graphic>
+                            </para>
+                            <para>
+                                <graphic fileref="/images/seleniums/ofbizSeleniumSetup2.jpeg" height="150" width="400"></graphic> <graphic fileref="/images/seleniums/ofbizSeleniumSetup3.jpeg" height="150" width="400"></graphic>/>
+                            </para-->
+            </section>
+            <section>
+                <title>4.2 run the Example test  webtools/Run Selenium</title>
+                        <para>
+                            First you need to open the file example_testsuite.xml and comment out first part.. and enable the bottom one
+                            Here is another way to run the selenium test suite and you can create new test suite for your web application. Scroll up on this page then you will see the link "Run Selenium" next to "Selenium Intro" click on that link. 
+                            On that page you will see the list of available test suites. So you can click on "Run" to run the test suite you want but please remember that the Selenium server should be started before you "run" any test.
+                            You can also create new test suite by fill in the information to the form and put the directory location of your test suite in the field "Test Suite Path" then submit. If you want to know how the test is created you can take a look at the file example_testsuite.xml for more info.
+                        </para>
+            </section>
+        </section>
+    </section>
+    <section>
+        <title>Creating New Tests :</title> 
+        <para>The easiest way to create a new test is to use the Selenium IDE plugin for Firefox. This allows you to records your own Selenium tests. You can then save the test and convert it to a seleniumXml test easily.</para>
+        <para>1. Install the latest plugin at <ulink>http://seleniumhq.org/projects/ide/</ulink></para>
+        <para>2. Record your steps as you run through your ofbiz application.</para>
+        <para>3. Then convert the saved XML file using the convertSeleniumIDE.bat script.</para>
+    </section>
+    <section>
+        <title>For example:</title> 
+        <para>1. convertSeleniumIDE.bat testdef/seleniumxml/example/recorded/AjaxExample.html testdef/seleniumxml/example/recorded/AjaxExample.xml</para>
+        <para>2. Manually modify the commands to suit your needs.</para>
+    </section>
+</section>

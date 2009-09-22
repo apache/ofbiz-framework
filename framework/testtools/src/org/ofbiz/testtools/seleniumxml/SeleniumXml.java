@@ -18,11 +18,17 @@
  */
 package org.ofbiz.testtools.seleniumxml;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -31,10 +37,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.lang.reflect.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javolution.util.FastMap;
-
 import junit.framework.Assert;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -43,9 +51,12 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.ofbiz.testtools.seleniumxml.util.TestUtils;
 
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.testtools.seleniumxml.util.TestUtils;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilURL;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 //import com.thoughtworks.selenium.SeleniumException;
@@ -53,7 +64,8 @@ import com.thoughtworks.selenium.DefaultSelenium;
 
 public class SeleniumXml {
     
-    public static final String PROPS_NAME = "selenium.config";
+    //public static final String PROPS_NAME = "selenium.config";
+    public static String PROPS_NAME = "selenium.config";
     Logger  logger = Logger.getLogger(SeleniumXml.class.getName());
 
     public static final int MAX_STR_LENGTH = 15;
@@ -83,6 +95,35 @@ public class SeleniumXml {
             sel.runTest(args[0]);
         }
     }
+   
+    /* call run test suite from webtool selenium */
+    public static String runTestSuite(HttpServletRequest request, HttpServletResponse response){
+    	Map parameters = UtilHttp.getParameterMap(request);
+    	String para = (String)parameters.get("testSuitePath");
+    	if(para == null){
+    		System.out.println("Error message : Test suite Path  is null");
+    		return "success";
+    	}
+    	if(para.length()==0){
+    		System.out.println("Error message : Test suite Path  is null");
+    		return "success";
+    	}
+    	 try{
+    		 URL url = UtilURL.fromResource("seleniumXml.properties");
+    		 if (props == null) {
+	            props = new Properties();
+	            initConfig(url);
+    		 }
+    		 SeleniumXml sel = new SeleniumXml();
+    		 sel.runTest(para.trim());
+        }catch(JDOMException jdome){
+    		 System.out.println(jdome.getMessage());
+    	 }catch(IOException ioe){
+    		 System.out.println("Error message : "+ioe.getMessage());
+    	 }finally{
+    		 return "success";
+    	 }
+    }
     
     public SeleniumXml() throws IOException {
         this.map = FastMap.newInstance();
@@ -95,7 +136,12 @@ public class SeleniumXml {
 
     private static void initConfig() throws IOException {
         try {
-            String configFile = System.getProperty(PROPS_NAME);
+        	String configFile  = "";
+        	if(System.getProperty(PROPS_NAME)==null){
+        		configFile = PROPS_NAME;
+        	}else{
+        		configFile = System.getProperty(PROPS_NAME);
+        	}
             if (configFile == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + PROPS_NAME + " is not set, cannot resolve location.";
                 throw new MalformedURLException(errMsg);
@@ -106,6 +152,19 @@ public class SeleniumXml {
             in.close();
 
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    private static void initConfig(URL url) throws IOException {
+        try {
+            if (url == null) {
+                String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + url.toString() + " is not set, cannot resolve location.";
+                throw new MalformedURLException(errMsg);
+            }
+           // BasicConfigurator.configure();
+            props = UtilProperties.getProperties(url);
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
@@ -136,7 +195,8 @@ public class SeleniumXml {
 
     public void runCommands() {
         Element root = this.doc.getRootElement();
-        List<Element> nodes = UtilGenerics.cast(root.getChildren());
+        //List<Element> nodes = UtilGenerics.cast(root.getChildren());
+        List<Element> nodes = root.getChildren();
         runCommands(nodes);
     }
     
@@ -735,4 +795,3 @@ public class SeleniumXml {
         return this.map;
     }
 }
-
