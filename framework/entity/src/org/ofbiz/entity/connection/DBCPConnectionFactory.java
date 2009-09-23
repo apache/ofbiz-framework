@@ -151,6 +151,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             pool.setFactory(factory);
 
             mds = new ManagedDataSource(pool, xacf.getTransactionRegistry());
+            //mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
             mds.setAccessToUnderlyingConnectionAllowed(true);
 
             // cache the pool
