@@ -21,9 +21,6 @@ package org.ofbiz.ebay;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -63,8 +60,8 @@ public class EbayOrderServices {
     private static boolean isGetSellerTransactionsCall = false;
     private static boolean isGetOrdersCall = false;
     private static boolean isGetMyeBaySellingCall = false;
-    private static List orderList = FastList.newInstance();
-    private static List getSellerTransactionsContainingOrderList = new ArrayList(); 
+    private static List<Map<String, Object>> orderList = FastList.newInstance();
+    private static List<String> getSellerTransactionsContainingOrderList = FastList.newInstance(); 
     private static List<String> orderImportSuccessMessageList = FastList.newInstance();
     private static List<String> orderImportFailureMessageList = FastList.newInstance();
     
@@ -124,9 +121,9 @@ public class EbayOrderServices {
         List orderList = (List) context.get("orderList");
         try {
             if (UtilValidate.isNotEmpty(orderList)) {
-                Iterator orderListIter = orderList.iterator();
+                Iterator<Map<String, Object>> orderListIter = orderList.iterator();
                 while (orderListIter.hasNext()) {
-                    Map orderMapCtx = (Map) orderListIter.next();
+                    Map<String, Object> orderMapCtx = orderListIter.next();
                     if (externalId.equals(orderMapCtx.get("externalId").toString())) {
                         context.clear();
                         context.putAll(orderMapCtx);
@@ -165,7 +162,7 @@ public class EbayOrderServices {
              
              if (UtilValidate.isNotEmpty(getSellerTransactionsContainingOrderList)) {
                  Element orderIdArrayElem = UtilXml.addChildElement(transElem, "OrderIDArray", transDoc);
-                 Iterator orderIdListIter = getSellerTransactionsContainingOrderList.iterator();
+                 Iterator<String> orderIdListIter = getSellerTransactionsContainingOrderList.iterator();
                  while (orderIdListIter.hasNext()) {
                      String orderId = (String) orderIdListIter.next();
                      UtilXml.addChildElementValue(orderIdArrayElem, "OrderID", orderId, transDoc);
@@ -260,14 +257,14 @@ public class EbayOrderServices {
         Map<String, Object> result = FastMap.newInstance();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (isGetSellerTransactionsCall) {
-            List getSellerTransactionList = readGetSellerTransactionResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
+            List<Map<String, Object>> getSellerTransactionList = readGetSellerTransactionResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
             if (UtilValidate.isNotEmpty(getSellerTransactionList)) {
                 orderList.addAll(getSellerTransactionList);
             }
             isGetSellerTransactionsCall = false;
             return ServiceUtil.returnSuccess();
         } else if (isGetOrdersCall) {
-            List getOrdersList = readGetOrdersResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
+            List<Map<String, Object>> getOrdersList = readGetOrdersResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
             if (UtilValidate.isNotEmpty(getOrdersList)) {
                 orderList.addAll(getOrdersList);                
             }
@@ -275,12 +272,12 @@ public class EbayOrderServices {
             return ServiceUtil.returnSuccess();
         } else if (isGetMyeBaySellingCall) {
             // for now fetching only deleted transaction & orders value from the sold list.
-            List eBayDeletedOrdersAndTransactionList = readGetMyeBaySellingResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
+            List<String> eBayDeletedOrdersAndTransactionList = readGetMyeBaySellingResponse(responseMsg, locale, (String) context.get("productStoreId"), delegator, dispatcher, errorMessage, userLogin);
             if (UtilValidate.isNotEmpty(eBayDeletedOrdersAndTransactionList)) {
                 Debug.logInfo("The value of getMyeBaySellingList" + eBayDeletedOrdersAndTransactionList, module);
-                Iterator orderListIter = orderList.iterator();
+                Iterator<Map<String, Object>> orderListIter = orderList.iterator();
                 while (orderListIter.hasNext()) {
-                    Map orderCtx = (Map) orderListIter.next();
+                    Map<String, Object> orderCtx = (Map<String, Object>) orderListIter.next();
                     if (eBayDeletedOrdersAndTransactionList.contains(orderCtx.get("externalId"))) {
                          // Now finally exclude orders & transaction that has been deleted from sold list.
                         orderList.remove(orderCtx);
@@ -418,8 +415,8 @@ public class EbayOrderServices {
 //</GetOrdersResponse>
     
     
-    private static List readGetOrdersResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
-        List fetchedOrders = new ArrayList();
+    private static List<Map<String, Object>> readGetOrdersResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+        List<Map<String, Object>> fetchedOrders = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
             //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
@@ -429,19 +426,19 @@ public class EbayOrderServices {
             int totalOrders = 0;
             
             if (ack != null && "Success".equals(ack)) {
-                List orderArrays = UtilXml.childElementList(elemResponse, "OrderArray");
+                List<? extends Element> orderArrays = UtilXml.childElementList(elemResponse, "OrderArray");
                 if (orderArrays != null && orderArrays.size() > 0) {
                     totalOrders = orderArrays.size();
                 }
                 if (totalOrders > 0) {
                     // retrieve transaction array
-                    Iterator orderArraysElemIter = orderArrays.iterator();
+                    Iterator<? extends Element> orderArraysElemIter = orderArrays.iterator();
                     while (orderArraysElemIter.hasNext()) {
                         Element orderArraysElement = (Element) orderArraysElemIter.next();
 
                         // retrieve transaction
-                        List orders = UtilXml.childElementList(orderArraysElement, "Order");
-                        Iterator ordersElemIter = orders.iterator();
+                        List<? extends Element> orders = UtilXml.childElementList(orderArraysElement, "Order");
+                        Iterator<? extends Element> ordersElemIter = orders.iterator();
                         
                         while (ordersElemIter.hasNext()) {
                             Map<String, Object> orderCtx = FastMap.newInstance();    
@@ -468,8 +465,8 @@ public class EbayOrderServices {
                             
                             // Retrieve shipping address 
                             Map<String, Object> shippingAddressCtx = FastMap.newInstance();
-                            List shippingAddressList = UtilXml.childElementList(ordersElement, "ShippingAddress");
-                            Iterator shippingAddressElemIter = shippingAddressList.iterator();
+                            List<? extends Element> shippingAddressList = UtilXml.childElementList(ordersElement, "ShippingAddress");
+                            Iterator<? extends Element> shippingAddressElemIter = shippingAddressList.iterator();
                             while (shippingAddressElemIter.hasNext()) {
                                 Element shippingAddressElement = (Element)shippingAddressElemIter.next();
                                 shippingAddressCtx.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name"));
@@ -491,8 +488,8 @@ public class EbayOrderServices {
                             
                             // Retrieve shipping service selected
                             Map<String, Object> shippingServiceSelectedCtx = FastMap.newInstance();
-                            List shippingServiceSelectedList = UtilXml.childElementList(ordersElement, "ShippingServiceSelected");
-                            Iterator shippingServiceSelectedElemIter = shippingServiceSelectedList.iterator();
+                            List<? extends Element> shippingServiceSelectedList = UtilXml.childElementList(ordersElement, "ShippingServiceSelected");
+                            Iterator<? extends Element> shippingServiceSelectedElemIter = shippingServiceSelectedList.iterator();
                             while (shippingServiceSelectedElemIter.hasNext()) {
                                 Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
                                 shippingServiceSelectedCtx.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService"));
@@ -511,8 +508,8 @@ public class EbayOrderServices {
                             
                             // Retrieve shipping details
                             Map<String, Object> shippingDetailsCtx = FastMap.newInstance();
-                            List shippingDetailsList = UtilXml.childElementList(ordersElement, "ShippingDetails");
-                            Iterator shippingDetailsElemIter = shippingDetailsList.iterator();
+                            List<? extends Element> shippingDetailsList = UtilXml.childElementList(ordersElement, "ShippingDetails");
+                            Iterator<? extends Element> shippingDetailsElemIter = shippingDetailsList.iterator();
                             while (shippingDetailsElemIter.hasNext()) {
                                 Element shippingDetailsElement = (Element) shippingDetailsElemIter.next();
                                 shippingDetailsCtx.put("insuranceFee", UtilXml.childElementValue(shippingDetailsElement, "InsuranceFee", "0"));
@@ -520,8 +517,8 @@ public class EbayOrderServices {
                                 shippingDetailsCtx.put("insuranceWanted", UtilXml.childElementValue(shippingDetailsElement, "InsuranceWanted", "false"));
 
                                 // Retrieve sales Tax
-                                List salesTaxList = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
-                                Iterator salesTaxElemIter = salesTaxList.iterator();
+                                List<? extends Element> salesTaxList = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
+                                Iterator<? extends Element> salesTaxElemIter = salesTaxList.iterator();
                                 while (salesTaxElemIter.hasNext()) {
                                     Element salesTaxElement = (Element) salesTaxElemIter.next();
                                     shippingDetailsCtx.put("salesTaxAmount", UtilXml.childElementValue(salesTaxElement, "SalesTaxAmount", "0"));
@@ -534,8 +531,8 @@ public class EbayOrderServices {
                             
                             // Retrieve checkout status
                             Map<String, Object> checkoutStatusCtx = FastMap.newInstance();
-                            List checkoutStatusList = UtilXml.childElementList(ordersElement, "CheckoutStatus");
-                            Iterator checkoutStatusElemIter = checkoutStatusList.iterator();
+                            List<? extends Element> checkoutStatusList = UtilXml.childElementList(ordersElement, "CheckoutStatus");
+                            Iterator<? extends Element> checkoutStatusElemIter = checkoutStatusList.iterator();
                             while (checkoutStatusElemIter.hasNext()) {
                                 Element statusElement = (Element) checkoutStatusElemIter.next();
                                 checkoutStatusCtx.put("eBayPaymentStatus", UtilXml.childElementValue(statusElement, "eBayPaymentStatus"));
@@ -546,8 +543,8 @@ public class EbayOrderServices {
                             
                             // Retrieve external transaction
                             Map<String, Object> externalTransactionCtx = FastMap.newInstance();
-                            List externalTransactionList = UtilXml.childElementList(ordersElement, "ExternalTransaction");
-                            Iterator externalTransactionElemIter = externalTransactionList.iterator();
+                            List<? extends Element> externalTransactionList = UtilXml.childElementList(ordersElement, "ExternalTransaction");
+                            Iterator<? extends Element> externalTransactionElemIter = externalTransactionList.iterator();
                             while (externalTransactionElemIter.hasNext()) {
                                 Element externalTransactionElement = (Element) externalTransactionElemIter.next();
                                 externalTransactionCtx.put("externalTransactionID", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionID"));
@@ -558,24 +555,24 @@ public class EbayOrderServices {
                             orderCtx.put("externalTransactionCtx", externalTransactionCtx);
                             
                             // Retrieve Transactions Array --> Transactions | Order Items
-                            List orderItemList = new ArrayList();
+                            List<Map<String, Object>> orderItemList = FastList.newInstance();
                             String buyersEmailId = null;
-                            List transactionArrayList = UtilXml.childElementList(ordersElement, "TransactionArray");
-                            Iterator transactionArrayElemIter = transactionArrayList.iterator();
+                            List<? extends Element> transactionArrayList = UtilXml.childElementList(ordersElement, "TransactionArray");
+                            Iterator<? extends Element> transactionArrayElemIter = transactionArrayList.iterator();
                             while (transactionArrayElemIter.hasNext()) { 
                                 Element transactionArrayElement = (Element) transactionArrayElemIter.next();
                                 
                                 boolean buyerEmailExists = false;
-                                List transactionList = UtilXml.childElementList(transactionArrayElement, "Transaction");
-                                Iterator transactionElemIter = transactionList.iterator();
+                                List<? extends Element> transactionList = UtilXml.childElementList(transactionArrayElement, "Transaction");
+                                Iterator<? extends Element> transactionElemIter = transactionList.iterator();
                                 while (transactionElemIter.hasNext()) { 
                                     Map<String, Object> transactionCtx = FastMap.newInstance();
                                     Element transactionElement = (Element) transactionElemIter.next();
                                     
                                     // Retrieve Buyer email
                                     if (!buyerEmailExists) {
-                                        List buyerList = UtilXml.childElementList(transactionElement, "Buyer");
-                                        Iterator buyerElemIter = buyerList.iterator();
+                                        List<? extends Element> buyerList = UtilXml.childElementList(transactionElement, "Buyer");
+                                        Iterator<? extends Element> buyerElemIter = buyerList.iterator();
                                         while (buyerElemIter.hasNext()) {
                                             Element buyerElement = (Element) buyerElemIter.next();
                                             buyersEmailId = UtilXml.childElementValue(buyerElement, "Email");
@@ -586,8 +583,8 @@ public class EbayOrderServices {
                                     }
                                     
                                     // Retrieve Order Item info
-                                    List itemList = UtilXml.childElementList(transactionElement, "Item");
-                                    Iterator itemElemIter = itemList.iterator();
+                                    List<? extends Element> itemList = UtilXml.childElementList(transactionElement, "Item");
+                                    Iterator<? extends Element> itemElemIter = itemList.iterator();
                                     while (itemElemIter.hasNext()) {
                                         Element itemElement = (Element) itemElemIter.next();
                                         transactionCtx.put("goodIdentificationIdValue", UtilXml.childElementValue(itemElement, "ItemID"));
@@ -614,8 +611,8 @@ public class EbayOrderServices {
                 }
                //Debug.logInfo("The generated string is ======= " + fetchedOrders.toString(), module);
             } else {
-                List errorList = UtilXml.childElementList(elemResponse, "Errors");
-                Iterator errorElemIter = errorList.iterator();
+                List<? extends Element> errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator<? extends Element> errorElemIter = errorList.iterator();
                 while (errorElemIter.hasNext()) {
                     Element errorElement = (Element) errorElemIter.next();
                     errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
@@ -627,17 +624,17 @@ public class EbayOrderServices {
         return fetchedOrders;
     }
     
-    private static List readGetSellerTransactionResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
-        List fetchedOrders = new ArrayList();
+    private static List<Map<String, Object>> readGetSellerTransactionResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+        List<Map<String, Object>> fetchedOrders = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
             //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
             Element elemResponse = docResponse.getDocumentElement();
             String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
-            List paginationList = UtilXml.childElementList(elemResponse, "PaginationResult");
+            List<? extends Element> paginationList = UtilXml.childElementList(elemResponse, "PaginationResult");
 
             int totalOrders = 0;
-            Iterator paginationElemIter = paginationList.iterator();
+            Iterator<? extends Element> paginationElemIter = paginationList.iterator();
             while (paginationElemIter.hasNext()) {
                 Element paginationElement = (Element) paginationElemIter.next();
                 String totalNumberOfEntries = UtilXml.childElementValue(paginationElement, "TotalNumberOfEntries", "0");
@@ -647,14 +644,14 @@ public class EbayOrderServices {
             if (ack != null && "Success".equals(ack)) {
                 if (totalOrders > 0) {
                     // retrieve transaction array
-                    List transactions = UtilXml.childElementList(elemResponse, "TransactionArray");
-                    Iterator transactionsElemIter = transactions.iterator();
+                    List<? extends Element> transactions = UtilXml.childElementList(elemResponse, "TransactionArray");
+                    Iterator<? extends Element> transactionsElemIter = transactions.iterator();
                     while (transactionsElemIter.hasNext()) {
                         Element transactionsElement = (Element) transactionsElemIter.next();
 
                         // retrieve transaction
-                        List transaction = UtilXml.childElementList(transactionsElement, "Transaction");
-                        Iterator transactionElemIter = transaction.iterator();
+                        List<? extends Element> transaction = UtilXml.childElementList(transactionsElement, "Transaction");
+                        Iterator<? extends Element> transactionElemIter = transaction.iterator();
                         while (transactionElemIter.hasNext()) {
                             Element transactionElement = (Element) transactionElemIter.next();
                             Map<String, Object> orderCtx = FastMap.newInstance();
@@ -670,8 +667,8 @@ public class EbayOrderServices {
                             orderCtx.put("productStoreId", productStoreId);
                             
                             // if any transaction contains order then add it in the list and give it to GetOrders request.
-                            List containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");
-                            Iterator containingOrdersIter = containingOrders.iterator();
+                            List<? extends Element> containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");
+                            Iterator<? extends Element> containingOrdersIter = containingOrders.iterator();
                             while (containingOrdersIter.hasNext()) {
                                 Element containingOrdersElement = (Element) containingOrdersIter.next();
                                 String orderId = UtilXml.childElementValue(containingOrdersElement, "OrderID");
@@ -686,8 +683,8 @@ public class EbayOrderServices {
                             // retrieve buyer
                             Map<String, Object> shippingAddressCtx = FastMap.newInstance();
                             Map<String, Object> buyerCtx = FastMap.newInstance();
-                            List buyer = UtilXml.childElementList(transactionElement, "Buyer");
-                            Iterator buyerElemIter = buyer.iterator();
+                            List<? extends Element> buyer = UtilXml.childElementList(transactionElement, "Buyer");
+                            Iterator<? extends Element> buyerElemIter = buyer.iterator();
                             while (buyerElemIter.hasNext()) {
                                 Element buyerElement = (Element)buyerElemIter.next();
                                 buyerCtx.put("emailBuyer", UtilXml.childElementValue(buyerElement, "Email", ""));
@@ -695,14 +692,14 @@ public class EbayOrderServices {
                                 buyerCtx.put("ebayUserIdBuyer", UtilXml.childElementValue(buyerElement, "UserID", ""));
 
                                 // retrieve buyer information
-                                List buyerInfo = UtilXml.childElementList(buyerElement, "BuyerInfo");
-                                Iterator buyerInfoElemIter = buyerInfo.iterator();
+                                List<? extends Element> buyerInfo = UtilXml.childElementList(buyerElement, "BuyerInfo");
+                                Iterator<? extends Element> buyerInfoElemIter = buyerInfo.iterator();
                                 while (buyerInfoElemIter.hasNext()) {
                                     Element buyerInfoElement = (Element)buyerInfoElemIter.next();
 
                                     // retrieve shipping address
-                                    List shippingAddressInfo = UtilXml.childElementList(buyerInfoElement, "ShippingAddress");
-                                    Iterator shippingAddressElemIter = shippingAddressInfo.iterator();
+                                    List<? extends Element> shippingAddressInfo = UtilXml.childElementList(buyerInfoElement, "ShippingAddress");
+                                    Iterator<? extends Element> shippingAddressElemIter = shippingAddressInfo.iterator();
                                     while (shippingAddressElemIter.hasNext()) {
                                         Element shippingAddressElement = (Element)shippingAddressElemIter.next();
                                         shippingAddressCtx.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name", ""));
@@ -723,8 +720,8 @@ public class EbayOrderServices {
                             
                             // retrieve shipping service selected
                             Map<String, Object> shippingServiceSelectedCtx = FastMap.newInstance();                            
-                            List shippingServiceSelected = UtilXml.childElementList(transactionElement, "ShippingServiceSelected");
-                            Iterator shippingServiceSelectedElemIter = shippingServiceSelected.iterator();
+                            List<? extends Element> shippingServiceSelected = UtilXml.childElementList(transactionElement, "ShippingServiceSelected");
+                            Iterator<? extends Element> shippingServiceSelectedElemIter = shippingServiceSelected.iterator();
                             while (shippingServiceSelectedElemIter.hasNext()) {
                                 Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
                                 shippingServiceSelectedCtx.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService", ""));
@@ -755,8 +752,8 @@ public class EbayOrderServices {
                             
                             // retrieve shipping details
                             Map<String, Object> shippingDetailsCtx = FastMap.newInstance();
-                            List shippingDetails = UtilXml.childElementList(transactionElement, "ShippingDetails");
-                            Iterator shippingDetailsElemIter = shippingDetails.iterator();
+                            List<? extends Element> shippingDetails = UtilXml.childElementList(transactionElement, "ShippingDetails");
+                            Iterator<? extends Element> shippingDetailsElemIter = shippingDetails.iterator();
                             while (shippingDetailsElemIter.hasNext()) {
                                 Element shippingDetailsElement = (Element)shippingDetailsElemIter.next();
                                 shippingDetailsCtx.put("insuranceFee", UtilXml.childElementValue(shippingDetailsElement, "InsuranceFee", "0"));
@@ -764,8 +761,8 @@ public class EbayOrderServices {
                                 shippingDetailsCtx.put("insuranceWanted", UtilXml.childElementValue(shippingDetailsElement, "InsuranceWanted", "false"));
 
                                 // retrieve sales Tax
-                                List salesTax = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
-                                Iterator salesTaxElemIter = salesTax.iterator();
+                                List<? extends Element> salesTax = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
+                                Iterator<? extends Element> salesTaxElemIter = salesTax.iterator();
                                 while (salesTaxElemIter.hasNext()) {
                                     Element salesTaxElement = (Element)salesTaxElemIter.next();
                                     shippingDetailsCtx.put("salesTaxAmount", UtilXml.childElementValue(salesTaxElement, "SalesTaxAmount", "0"));
@@ -775,13 +772,13 @@ public class EbayOrderServices {
                                 }
 
                                 // retrieve tax table
-                                List taxTable = UtilXml.childElementList(shippingDetailsElement, "TaxTable");
-                                Iterator taxTableElemIter = taxTable.iterator();
+                                List<? extends Element> taxTable = UtilXml.childElementList(shippingDetailsElement, "TaxTable");
+                                Iterator<? extends Element> taxTableElemIter = taxTable.iterator();
                                 while (taxTableElemIter.hasNext()) {
                                     Element taxTableElement = (Element)taxTableElemIter.next();
 
-                                    List taxJurisdiction = UtilXml.childElementList(taxTableElement, "TaxJurisdiction");
-                                    Iterator taxJurisdictionElemIter = taxJurisdiction.iterator();
+                                    List<? extends Element> taxJurisdiction = UtilXml.childElementList(taxTableElement, "TaxJurisdiction");
+                                    Iterator<? extends Element> taxJurisdictionElemIter = taxJurisdiction.iterator();
                                     while (taxJurisdictionElemIter.hasNext()) {
                                         Element taxJurisdictionElement = (Element)taxJurisdictionElemIter.next();
 
@@ -795,8 +792,8 @@ public class EbayOrderServices {
                             
                             // retrieve status
                             Map<String, Object> checkoutStatusCtx = FastMap.newInstance();
-                            List status = UtilXml.childElementList(transactionElement, "Status");
-                            Iterator statusElemIter = status.iterator();
+                            List<? extends Element> status = UtilXml.childElementList(transactionElement, "Status");
+                            Iterator<? extends Element> statusElemIter = status.iterator();
                             while (statusElemIter.hasNext()) {
                                 Element statusElement = (Element)statusElemIter.next();
                                 checkoutStatusCtx.put("eBayPaymentStatus", UtilXml.childElementValue(statusElement, "eBayPaymentStatus", ""));
@@ -809,8 +806,8 @@ public class EbayOrderServices {
                             
                             // retrieve external transaction
                             Map<String, Object> externalTransactionCtx = FastMap.newInstance();
-                            List externalTransaction = UtilXml.childElementList(transactionElement, "ExternalTransaction");
-                            Iterator externalTransactionElemIter = externalTransaction.iterator();
+                            List<? extends Element> externalTransaction = UtilXml.childElementList(transactionElement, "ExternalTransaction");
+                            Iterator<? extends Element> externalTransactionElemIter = externalTransaction.iterator();
                             while (externalTransactionElemIter.hasNext()) {
                                 Element externalTransactionElement = (Element)externalTransactionElemIter.next();
                                 externalTransactionCtx.put("externalTransactionID", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionID", ""));
@@ -821,10 +818,10 @@ public class EbayOrderServices {
                             orderCtx.put("externalTransactionCtx", externalTransactionCtx);
                             
                             // retrieve item
-                            List orderItemList = new ArrayList();
+                            List<Map<String, Object>> orderItemList = FastList.newInstance();
                             String itemId = "";
-                            List item = UtilXml.childElementList(transactionElement, "Item");
-                            Iterator itemElemIter = item.iterator();
+                            List<? extends Element> item = UtilXml.childElementList(transactionElement, "Item");
+                            Iterator<? extends Element> itemElemIter = item.iterator();
                             while (itemElemIter.hasNext()) {
                                 Map<String, Object> orderItemCtx = FastMap.newInstance();
                                 Element itemElement = (Element)itemElemIter.next();
@@ -843,8 +840,8 @@ public class EbayOrderServices {
                                 }
                                 orderItemCtx.put("productId", productId);
                                 // retrieve selling status
-                                List sellingStatus = UtilXml.childElementList(itemElement, "SellingStatus");
-                                Iterator sellingStatusitemElemIter = sellingStatus.iterator();
+                                List<? extends Element> sellingStatus = UtilXml.childElementList(itemElement, "SellingStatus");
+                                Iterator<? extends Element> sellingStatusitemElemIter = sellingStatus.iterator();
                                 while (sellingStatusitemElemIter.hasNext()) {
                                     Element sellingStatusElement = (Element)sellingStatusitemElemIter.next();
                                     orderItemCtx.put("amount", UtilXml.childElementValue(sellingStatusElement, "CurrentPrice", "0"));
@@ -891,8 +888,8 @@ public class EbayOrderServices {
                     }
                 }
             } else {
-                List errorList = UtilXml.childElementList(elemResponse, "Errors");
-                Iterator errorElemIter = errorList.iterator();
+                List<? extends Element> errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator<? extends Element> errorElemIter = errorList.iterator();
                 while (errorElemIter.hasNext()) {
                     Element errorElement = (Element) errorElemIter.next();
                     errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
@@ -904,33 +901,32 @@ public class EbayOrderServices {
         return fetchedOrders;
     }
     
-    private static List readGetMyeBaySellingResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
-        List fetchDeletedOrdersAndTransactions = new ArrayList();
+    private static List<String> readGetMyeBaySellingResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+        List<String> fetchDeletedOrdersAndTransactions = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
             //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(docResponse), module);
             Element elemResponse = docResponse.getDocumentElement();
             String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
-            List paginationList = UtilXml.childElementList(elemResponse, "PaginationResult");
 
             if (ack != null && "Success".equals(ack)) {
                 // retrieve transaction array
-                List deletedFromSoldList = UtilXml.childElementList(elemResponse, "DeletedFromSoldList");
-                Iterator deletedFromSoldElemIter = deletedFromSoldList.iterator();
+                List<? extends Element> deletedFromSoldList = UtilXml.childElementList(elemResponse, "DeletedFromSoldList");
+                Iterator<? extends Element> deletedFromSoldElemIter = deletedFromSoldList.iterator();
                 while (deletedFromSoldElemIter.hasNext()) {
                     Element deletedFromSoldElement = (Element) deletedFromSoldElemIter.next();
                     // retrieve transaction
-                    List orderTransactionArrayList = UtilXml.childElementList(deletedFromSoldElement, "OrderTransactionArray");
-                    Iterator orderTransactionArrayElemIter = orderTransactionArrayList.iterator();
+                    List<? extends Element> orderTransactionArrayList = UtilXml.childElementList(deletedFromSoldElement, "OrderTransactionArray");
+                    Iterator<? extends Element> orderTransactionArrayElemIter = orderTransactionArrayList.iterator();
                     while (orderTransactionArrayElemIter.hasNext()) {
                         Element orderTransactionArrayElement = (Element) orderTransactionArrayElemIter.next();
-                        List orderTransactionList = UtilXml.childElementList(orderTransactionArrayElement, "OrderTransaction");
-                        Iterator orderTransactionElemIter = orderTransactionList.iterator();
+                        List<? extends Element> orderTransactionList = UtilXml.childElementList(orderTransactionArrayElement, "OrderTransaction");
+                        Iterator<? extends Element> orderTransactionElemIter = orderTransactionList.iterator();
                         while (orderTransactionElemIter.hasNext()) {
                             Element orderTransactionElement = (Element) orderTransactionElemIter.next();
 
-                            List sellerOrderList = UtilXml.childElementList(orderTransactionElement, "Order");
-                            Iterator sellerOrderElemIter = sellerOrderList.iterator();
+                            List<? extends Element> sellerOrderList = UtilXml.childElementList(orderTransactionElement, "Order");
+                            Iterator<? extends Element> sellerOrderElemIter = sellerOrderList.iterator();
                             while (sellerOrderElemIter.hasNext()) {
                                 Element sellerOrderElement = (Element) sellerOrderElemIter.next();
                                 String orderId = UtilXml.childElementValue(sellerOrderElement, "OrderID");
@@ -938,13 +934,13 @@ public class EbayOrderServices {
                                     fetchDeletedOrdersAndTransactions.add(orderId);
                                 }
                             }    
-                            List transactionList = UtilXml.childElementList(orderTransactionElement, "Transaction");
-                            Iterator transactionElemIter = transactionList.iterator();
+                            List<? extends Element> transactionList = UtilXml.childElementList(orderTransactionElement, "Transaction");
+                            Iterator<? extends Element> transactionElemIter = transactionList.iterator();
                             while (transactionElemIter.hasNext()) {
                                 Element transactionElement = (Element) transactionElemIter.next();
                                 
-                                List itemList = UtilXml.childElementList(transactionElement, "Item");
-                                Iterator itemElemIter = itemList.iterator();
+                                List<? extends Element> itemList = UtilXml.childElementList(transactionElement, "Item");
+                                Iterator<? extends Element> itemElemIter = itemList.iterator();
                                 while (itemElemIter.hasNext()) {
                                     Element itemElement = (Element) itemElemIter.next();
                                     String itemId = UtilXml.childElementValue(itemElement, "ItemID");
@@ -957,8 +953,8 @@ public class EbayOrderServices {
                     }    
                 }
             } else {
-                List errorList = UtilXml.childElementList(elemResponse, "Errors");
-                Iterator errorElemIter = errorList.iterator();
+                List<? extends Element> errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator<? extends Element> errorElemIter = errorList.iterator();
                 while (errorElemIter.hasNext()) {
                     Element errorElement = (Element) errorElemIter.next();
                     errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
@@ -970,8 +966,7 @@ public class EbayOrderServices {
         return fetchDeletedOrdersAndTransactions;
     }
     
-    private static Map createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, boolean create) {
-        Map<String, Object> result = FastMap.newInstance();
+    private static Map<String, Object> createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, boolean create) {
         try {
             String productStoreId = (String) context.get("productStoreId");
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1038,9 +1033,9 @@ public class EbayOrderServices {
             }
  
             List orderItemList = (List) context.get("orderItemList");
-            Iterator orderItemIter = orderItemList.iterator();
+            Iterator<Map<String, Object>> orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
-                Map orderItem = (Map) orderItemIter.next();
+                Map<String, Object> orderItem = (Map<String, Object>) orderItemIter.next();
                 addItem(cart, orderItem, dispatcher, delegator, 0);
             }
             
@@ -1049,7 +1044,7 @@ public class EbayOrderServices {
                 cart.setBillFromVendorPartyId(payToPartyId);
             }
             // Apply shipping costs as order adjustment
-            Map<String, Object> shippingServiceSelectedCtx =  (Map) context.get("shippingServiceSelectedCtx");
+            Map shippingServiceSelectedCtx =  (Map) context.get("shippingServiceSelectedCtx");
             
             String shippingCost = (String) shippingServiceSelectedCtx.get("shippingServiceCost");
             if (UtilValidate.isNotEmpty(shippingCost)) {
@@ -1073,7 +1068,7 @@ public class EbayOrderServices {
                 }
             }
             // Apply sales tax as order adjustment
-            Map<String, Object> shippingDetailsCtx = (Map) context.get("shippingDetailsCtx");
+            Map shippingDetailsCtx = (Map) context.get("shippingDetailsCtx");
             String salesTaxAmount = (String) shippingDetailsCtx.get("salesTaxAmount");
             String salesTaxPercent = (String) shippingDetailsCtx.get("salesTaxPercent");
             if (UtilValidate.isNotEmpty(salesTaxAmount)) {
@@ -1095,10 +1090,8 @@ public class EbayOrderServices {
                 // set partyId to
                 String partyId = null;
                 String contactMechId = null;
-                String emailContactMechId = null;
-                String phoneContactMechId = null;
                 
-                Map<String, Object> shippingAddressCtx =  (Map) context.get("shippingAddressCtx");
+                Map shippingAddressCtx =  (Map) context.get("shippingAddressCtx");
                 if (UtilValidate.isNotEmpty(shippingAddressCtx)) {
                     String buyerName = (String) shippingAddressCtx.get("buyerName");
                     String firstName = (String) buyerName.substring(0, buyerName.indexOf(" "));
@@ -1153,7 +1146,7 @@ public class EbayOrderServices {
 
                 // create new party's contact information
                 if (UtilValidate.isEmpty(contactMechId)) {
-                    Map<String, Object> buyerCtx = (Map) context.get("buyerCtx");
+                    Map buyerCtx = (Map) context.get("buyerCtx");
                     String eiasTokenBuyer = (String) buyerCtx.get("eiasTokenBuyer");
                     Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", shippingAddressCtx);
@@ -1190,9 +1183,9 @@ public class EbayOrderServices {
                 Debug.logInfo("Creating CheckOutHelper.", module);
                 CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
                 Debug.logInfo("Creating order.", module);
-                Map orderCreate = checkout.createOrder(userLogin);
+                Map<?, ?> orderCreate = checkout.createOrder(userLogin);
 
-                String orderId = (String)orderCreate.get("orderId");
+                String orderId = (String) orderCreate.get("orderId");
                 Debug.logInfo("Created order with id: " + orderId, module);
                 
                 if (UtilValidate.isNotEmpty(orderId)) {
@@ -1225,14 +1218,14 @@ public class EbayOrderServices {
     private static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId, module);
         GenericValue orderHeader = null;
-        List orderHeaderList = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
+        List<GenericValue> orderHeaderList = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
         if (orderHeaderList != null && orderHeaderList.size() > 0) {
             orderHeader = EntityUtil.getFirst(orderHeaderList);
         }
         return orderHeader;
     }
     
-    private static void addItem(ShoppingCart cart, Map orderItem, LocalDispatcher dispatcher, GenericDelegator delegator, int groupIdx) throws GeneralException {
+    private static void addItem(ShoppingCart cart, Map<String, Object> orderItem, LocalDispatcher dispatcher, GenericDelegator delegator, int groupIdx) throws GeneralException {
         String productId = (String) orderItem.get("productId");
         GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         if (UtilValidate.isEmpty(product)) {
