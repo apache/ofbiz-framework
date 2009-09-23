@@ -42,7 +42,7 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
     public static final String module = MinervaConnectionFactory.class.getName();
     protected static Map<String, XAPoolDataSource> dsCache = FastMap.newInstance();
 
-    public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
+    public Connection getConnection(String helperName, Element jdbcElement) throws SQLException, GenericEntityException {
         XAPoolDataSource pds = dsCache.get(helperName);
         if (pds != null) {
             return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
@@ -62,10 +62,10 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
             if (ds == null)
                 throw new GenericEntityException("XADataSource was not created, big problem!");
 
-            ds.setDriver(jotmJdbcElement.getAttribute("jdbc-driver"));
-            ds.setURL(jotmJdbcElement.getAttribute("jdbc-uri"));
+            ds.setDriver(jdbcElement.getAttribute("jdbc-driver"));
+            ds.setURL(jdbcElement.getAttribute("jdbc-uri"));
 
-            String transIso = jotmJdbcElement.getAttribute("isolation-level");
+            String transIso = jdbcElement.getAttribute("isolation-level");
             if (transIso != null && transIso.length() > 0) {
                 if ("Serializable".equals(transIso)) {
                     pds.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
@@ -82,26 +82,26 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
 
             // set the datasource in the pool
             pds.setDataSource(ds);
-            pds.setJDBCUser(jotmJdbcElement.getAttribute("jdbc-username"));
-            pds.setJDBCPassword(jotmJdbcElement.getAttribute("jdbc-password"));
+            pds.setJDBCUser(jdbcElement.getAttribute("jdbc-username"));
+            pds.setJDBCPassword(jdbcElement.getAttribute("jdbc-password"));
 
             // set the transaction manager in the pool
             pds.setTransactionManager(TransactionFactory.getTransactionManager());
 
             // configure the pool settings
             try {
-                pds.setMaxSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-maxsize")));
+                pds.setMaxSize(Integer.parseInt(jdbcElement.getAttribute("pool-maxsize")));
             } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [pool-maxsize=" + jotmJdbcElement.getAttribute("pool-maxsize") + "]; the values MUST be numbers, using default of 20.", module);
+                Debug.logError("Problems with pool settings [pool-maxsize=" + jdbcElement.getAttribute("pool-maxsize") + "]; the values MUST be numbers, using default of 20.", module);
                 pds.setMaxSize(20);
             } catch (Exception e) {
                 Debug.logError(e, "Problems with pool settings", module);
                 pds.setMaxSize(20);
             }
             try {
-                pds.setMinSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-minsize")));
+                pds.setMinSize(Integer.parseInt(jdbcElement.getAttribute("pool-minsize")));
             } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [pool-minsize=" + jotmJdbcElement.getAttribute("pool-minsize") + "]; the values MUST be numbers, using default of 5.", module);
+                Debug.logError("Problems with pool settings [pool-minsize=" + jdbcElement.getAttribute("pool-minsize") + "]; the values MUST be numbers, using default of 5.", module);
                 pds.setMinSize(2);
             } catch (Exception e) {
                 Debug.logError(e, "Problems with pool settings", module);
