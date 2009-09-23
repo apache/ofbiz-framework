@@ -47,7 +47,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
     public static final String module = DBCPConnectionFactory.class.getName();
     protected static Map<String, ManagedDataSource> dsCache = FastMap.newInstance();
 
-    public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
+    public Connection getConnection(String helperName, Element jdbcElement) throws SQLException, GenericEntityException {
         ManagedDataSource mds = dsCache.get(helperName);
         if (mds != null) {
             return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
@@ -61,26 +61,26 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
             // connection properties
             TransactionManager txMgr = TransactionFactory.getTransactionManager();
-            String driverName = jotmJdbcElement.getAttribute("jdbc-driver");
-            String dbUri = jotmJdbcElement.getAttribute("jdbc-uri");
-            String dbUser = jotmJdbcElement.getAttribute("jdbc-username");
-            String dbPass = jotmJdbcElement.getAttribute("jdbc-password");
+            String driverName = jdbcElement.getAttribute("jdbc-driver");
+            String dbUri = jdbcElement.getAttribute("jdbc-uri");
+            String dbUser = jdbcElement.getAttribute("jdbc-username");
+            String dbPass = jdbcElement.getAttribute("jdbc-password");
 
             // pool settings
             int maxSize, minSize, timeBetweenEvictionRunsMillis;
             try {
-                maxSize = Integer.parseInt(jotmJdbcElement.getAttribute("pool-maxsize"));
+                maxSize = Integer.parseInt(jdbcElement.getAttribute("pool-maxsize"));
             } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [pool-maxsize=" + jotmJdbcElement.getAttribute("pool-maxsize") + "]; the values MUST be numbers, using default of 20.", module);
+                Debug.logError("Problems with pool settings [pool-maxsize=" + jdbcElement.getAttribute("pool-maxsize") + "]; the values MUST be numbers, using default of 20.", module);
                 maxSize = 20;
             } catch (Exception e) {
                 Debug.logError("Problems with pool settings [pool-maxsize], using default of 20.", module);
                 maxSize = 20;
             }
             try {
-                minSize = Integer.parseInt(jotmJdbcElement.getAttribute("pool-minsize"));
+                minSize = Integer.parseInt(jdbcElement.getAttribute("pool-minsize"));
             } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [pool-minsize=" + jotmJdbcElement.getAttribute("pool-minsize") + "]; the values MUST be numbers, using default of 2.", module);
+                Debug.logError("Problems with pool settings [pool-minsize=" + jdbcElement.getAttribute("pool-minsize") + "]; the values MUST be numbers, using default of 2.", module);
                 minSize = 2;
             } catch (Exception e) {
                 Debug.logError("Problems with pool settings [pool-minsize], using default of 2.", module);
@@ -90,9 +90,9 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             maxIdle = maxIdle > minSize ? maxIdle : minSize;
 
             try {
-                timeBetweenEvictionRunsMillis = Integer.parseInt(jotmJdbcElement.getAttribute("time-between-eviction-runs-millis"));
+                timeBetweenEvictionRunsMillis = Integer.parseInt(jdbcElement.getAttribute("time-between-eviction-runs-millis"));
             } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [time-between-eviction-runs-millis=" + jotmJdbcElement.getAttribute("time-between-eviction-runs-millis") + "]; the values MUST be numbers, using default of 600000.", module);
+                Debug.logError("Problems with pool settings [time-between-eviction-runs-millis=" + jdbcElement.getAttribute("time-between-eviction-runs-millis") + "]; the values MUST be numbers, using default of 600000.", module);
                 timeBetweenEvictionRunsMillis = 600000;
             } catch (Exception e) {
                 Debug.logError("Problems with pool settings [time-between-eviction-runs-millis], using default of 600000.", module);
@@ -134,7 +134,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             factory.setValidationQuery("select example_type_id from example_type limit 1");
             factory.setDefaultReadOnly(false);
 
-            String transIso = jotmJdbcElement.getAttribute("isolation-level");
+            String transIso = jdbcElement.getAttribute("isolation-level");
             if (transIso != null && transIso.length() > 0) {
                 if ("Serializable".equals(transIso)) {
                     factory.setDefaultTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
