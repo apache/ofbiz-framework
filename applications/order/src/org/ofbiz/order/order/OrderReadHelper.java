@@ -1104,8 +1104,7 @@ public class OrderReadHelper {
             // get the payments of the desired type for these invoices TODO: in models where invoices can have many orders, this needs to be refined
             List conditions = UtilMisc.toList(
                     EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                    EntityCondition.makeCondition("invoiceId", EntityOperator.IN, invoiceIds)
-                   );
+                    EntityCondition.makeCondition("invoiceId", EntityOperator.IN, invoiceIds));
             if (paymentMethodTypeId != null) {
                 conditions.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
             }
@@ -2282,8 +2281,13 @@ public class OrderReadHelper {
     }
 
     public static BigDecimal getOrderGrandTotal(List orderItems, List adjustments) {
+        Map orderTaxByTaxAuthGeoAndParty = getOrderTaxByTaxAuthGeoAndParty(adjustments);
+        List taxByTaxAuthGeoAndPartyList = (List) orderTaxByTaxAuthGeoAndParty.get("taxByTaxAuthGeoAndPartyList");
+        BigDecimal taxGrandTotal = (BigDecimal) orderTaxByTaxAuthGeoAndParty.get("taxGrandTotal");
+        adjustments = EntityUtil.filterByAnd(adjustments, UtilMisc.toList(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.NOT_EQUAL, "SALES_TAX")));
         BigDecimal total = getOrderItemsTotal(orderItems, adjustments);
         BigDecimal adj = getOrderAdjustmentsTotal(orderItems, adjustments);
+        total = total.add(taxGrandTotal).setScale(scale,rounding);
         return total.add(adj).setScale(scale,rounding);
     }
 
@@ -2832,5 +2836,45 @@ public class OrderReadHelper {
        newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
 
        return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
+   }
+
+   public static Map<String, Object> getOrderTaxByTaxAuthGeoAndParty(List orderAdjustments) {
+       BigDecimal taxGrandTotal = BigDecimal.ZERO;
+       List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
+       if (UtilValidate.isNotEmpty(orderAdjustments)) {
+           // get orderAdjustment where orderAdjustmentTypeId is SALES_TAX.
+           orderAdjustments = EntityUtil.filterByAnd(orderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId","SALES_TAX"));
+           orderAdjustments = EntityUtil.orderBy(orderAdjustments, UtilMisc.toList("taxAuthGeoId","taxAuthPartyId"));
+
+           // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeo and taxAuthPartyId in adjustments.
+           List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(orderAdjustments, "taxAuthGeoId", true);
+           List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(orderAdjustments, "taxAuthPartyId", true);
+
+           // For each taxAuthGeoId get and add amount from orderAdjustment
+           for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
+               for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
+                   //get all records for orderAdjustments filtered by taxAuthGeoId and taxAurhPartyId
+                   List<GenericValue> orderAdjByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(orderAdjustments, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
+                   if (UtilValidate.isNotEmpty(orderAdjByTaxAuthGeoAndPartyIds)) {
+                       BigDecimal totalAmount = BigDecimal.ZERO;
+                       //Now for each orderAdjustment record get and add amount.
+                       for (GenericValue orderAdjustment : orderAdjByTaxAuthGeoAndPartyIds) {
+                           BigDecimal amount = orderAdjustment.getBigDecimal("amount");
+                           if (amount == null) {
+                               amount = ZERO;
+                           }
+                           totalAmount = totalAmount.add(amount).setScale(UtilNumber.getBigDecimalScale("salestax.calc.decimals"), taxRounding);
+                       }
+                       totalAmount = totalAmount.setScale(UtilNumber.getBigDecimalScale("salestax.final.decimals"), UtilNumber.getBigDecimalRoundingMode("salestax.rounding"));
+                       taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
+                       taxGrandTotal = taxGrandTotal.add(totalAmount);
+                   }
+               }
+           }
+       }
+       Map result = FastMap.newInstance();
+       result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
+       result.put("taxGrandTotal", taxGrandTotal);
+       return result;
    }
 }

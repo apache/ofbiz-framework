@@ -1976,7 +1976,14 @@ under the License.
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <get-related-one value-field="invoice" relation-name="InvoiceType" to-value-field="invoiceType"/>
         <if-compare field="invoiceType.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
-            <get-related value-field="invoice" relation-name="InvoiceItem" list="invoiceItems"/>
+            <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
+                <condition-list>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PINV_SALES_TAX"/>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PITM_SALES_TAX"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
+                </condition-list>
+            </entity-condition>
+
             <iterate list="invoiceItems" entry="invoiceItem">
                 <set field="amountFromOrder" type="BigDecimal" value="0"/>
                 <set field="amountFromInvoice" type="BigDecimal" value="0"/>
@@ -2052,12 +2059,38 @@ under the License.
                 <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
+            <!-- debit entry for SALES_TAX-->
+            <call-class-method method-name="getInvoiceTaxByTaxAuthGeoAndParty" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                ret-field="invoiceTaxByTaxAuthGeoAndPartyResult">
+                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <set field="taxByTaxAuthGeoAndPartyList" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxByTaxAuthGeoAndPartyList"/>
+            <set field="invoiceTaxTotal" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxGrandTotal"/>
+            <iterate list="taxByTaxAuthGeoAndPartyList" entry="taxByTaxAuthGeoAndParty">
+                <clear-field field="creditEntry"/>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="D"/>
+                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                <set field="creditEntry.origAmount" from-field="taxByTaxAuthGeoAndParty.totalAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <if-not-empty field="taxByTaxAuthGeoAndParty.taxAuthPartyId">
+                    <set field="creditEntry.partyId" from-field="taxByTaxAuthGeoAndParty.taxAuthPartyId"/>
+                    <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </iterate>
 
             <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
             <set field="creditEntry.organizationPartyId" from-field="invoice.partyId"/>
             <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+            <calculate field="totalAmountFromInvoice" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="add">
+                    <calcop operator="get" field="totalAmountFromInvoice"/>
+                    <calcop operator="get" field="invoiceTaxTotal"/>
+                </calcop>
+            </calculate>
             <set field="creditEntry.origAmount" from-field="totalAmountFromInvoice"/>
             <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
             <set field="creditEntry.partyId" from-field="invoice.partyIdFrom"/>
@@ -2081,13 +2114,17 @@ under the License.
     <simple-method method-name="createAcctgTransForSalesInvoice" short-description="Create an accounting transaction for a sales invoice">
         <!-- retrieve ledger rounding properties -->
         <call-simple-method method-name="getGlArithmeticSettingsInline"/>
-        <set field="totalOrigAmount" value="0"/>
+        <set field="totalOrigAmount" type="BigDecimal" value="0"/>
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-compare field="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
-            <entity-and entity-name="InvoiceItem" list="invoiceItems">
-                <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
-            </entity-and>
+            <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
+                <condition-list>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="INV_SALES_TAX"/>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="ITM_SALES_TAX"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
+                </condition-list>
+            </entity-condition>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <!-- TODO: handle serialized inventory -->
                 <if-empty field="invoiceItem.quantity">
@@ -2121,11 +2158,38 @@ under the License.
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             </iterate>
 
+            <!-- credit entry for SALES_TAX-->
+            <call-class-method method-name="getInvoiceTaxByTaxAuthGeoAndParty" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                ret-field="invoiceTaxByTaxAuthGeoAndPartyResult">
+                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <set field="taxByTaxAuthGeoAndPartyList" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxByTaxAuthGeoAndPartyList"/>
+            <set field="invoiceTaxTotal" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxGrandTotal"/>
+            <iterate list="taxByTaxAuthGeoAndPartyList" entry="taxByTaxAuthGeoAndParty">
+                <clear-field field="creditEntry"/>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="C"/>
+                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                <set field="creditEntry.origAmount" from-field="taxByTaxAuthGeoAndParty.totalAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <if-not-empty field="taxByTaxAuthGeoAndParty.taxAuthPartyId">
+                    <set field="creditEntry.partyId" from-field="taxByTaxAuthGeoAndParty.taxAuthPartyId"/>
+                    <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </iterate>
+
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+            <calculate field="totalOrigAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="add">
+                    <calcop operator="get" field="totalOrigAmount"/>
+                    <calcop operator="get" field="invoiceTaxTotal"/>
+                </calcop>
+            </calculate>
             <set field="debitEntry.origAmount" from-field="totalOrigAmount"/>
             <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
             <set field="debitEntry.partyId" from-field="invoice.partyId"/>
