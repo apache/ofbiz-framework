@@ -90,7 +90,6 @@
     <ContentAssoc contentId="GENERAL" contentIdTo="FACT_4" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
     <ContentAssoc contentId="GENERAL" contentIdTo="FACT_5" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
 
-    <ContentAssoc contentId="STORE_POLICIES" contentIdTo="STORE_POLICIES" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
     <ContentAssoc contentId="STORE_POLICIES" contentIdTo="STORE_POLICIES2" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
 
 </entity-engine-xml>
