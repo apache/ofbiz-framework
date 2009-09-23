@@ -450,24 +450,25 @@ Date.parseFormattedString = function (string) {
     var str_date = arr_datetime[0];
     var str_time = arr_datetime[1];
 
-	var arr_date = str_date.split('-');
-	var dt_date = new Date();
-	dt_date.setDate(1);
-	dt_date.setMonth(arr_date[1]-1);
+    var arr_date = str_date.split('-');
+    var dt_date = new Date();
+    dt_date.setDate(1);
+    dt_date.setMonth(arr_date[1]-1);
     if (arr_date[0] < 100) arr_date[2] = Number(arr_date[0]) + (arr_date[0] < 40 ? 2000 : 1900);
     dt_date.setFullYear(arr_date[0]);
-	var dt_numdays = new Date(arr_date[0], arr_date[1], 0);
-	dt_date.setDate(arr_date[2]);
+    var dt_numdays = new Date(arr_date[0], arr_date[1], 0);
+    dt_date.setDate(arr_date[2]);
 
-	var arr_time = String(str_time ? str_time : '').split(':');
-    dt_date.setHours(arr_time[0]);
-    dt_date.setMinutes(arr_time[1]);
-    var arr_sec = String(arr_time[2] ? arr_time[2] : '').split('.');
-    dt_date.setSeconds(arr_sec[0]);
-	if (!arr_sec[1]) dt_date.setMilliseconds(0);
-	    dt_date.setMilliseconds(arr_sec[1]);
-
-	return dt_date;
+    var arr_time = String(str_time ? str_time : '').split(':');
+    if (arr_time.size() >= 1 && arr_time[0] != '') {
+      dt_date.setHours(arr_time[0]);
+      dt_date.setMinutes(arr_time[1]);
+      var arr_sec = String(arr_time[2] ? arr_time[2] : '').split('.');
+      dt_date.setSeconds(arr_sec[0]);
+      if (!arr_sec[1]) dt_date.setMilliseconds(0);
+      dt_date.setMilliseconds(arr_sec[1]);
+    }
+    return dt_date;
 };
 
 // OFBiz addition: functions to call the calendar
