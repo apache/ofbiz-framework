@@ -60,6 +60,9 @@ under the License.
           <input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" maxlength="16" />
         </div>
     </fieldset>
-    <div><a id="submitEditUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>
+    <div>
+      <a id="submitEditUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a>
+      <a id="cancelEditUserForm" href="<@ofbizUrl>viewprofile</@ofbizUrl>" class="button">${uiLabelMap.CommonCancel}</a>
+    </div>
   </form>
 </div>

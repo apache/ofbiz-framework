@@ -31,9 +31,9 @@ under the License.
       <div id="serverError_${emailContactMechId}" class="errorMessage"></div>
     </div>
     <#-- Manage Addresses -->
-    <h3>${uiLabelMap.EcommerceAddressBook}</h3>
     <div>
       <a class="button" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManageAddresses}</a>
+      <h3>${uiLabelMap.EcommerceAddressBook}</h3>
       <div class="left center">
         <h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3>
           <ul>
