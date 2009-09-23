@@ -237,9 +237,9 @@ under the License.
                   <td width="5%">&nbsp;</td>
                   <td valign="top" width="80%">
                     <select name="priority">
-                      <option value="1">${uiLabelMap.CommonHigh}</option>
-                      <option value="2"selected>${uiLabelMap.CommonNormal}</option>
-                      <option value="3">${uiLabelMap.CommonLow}</option>
+                      <option value="1" <#if (orderHeader.priority)?if_exists == "1">selected="selected" </#if>>${uiLabelMap.CommonHigh}</option>
+                      <option value="2" <#if (orderHeader.priority)?if_exists == "2">selected="selected" <#elseif !(orderHeader.priority)?has_content>selected="selected"</#if>>${uiLabelMap.CommonNormal}</option>
+                      <option value="3" <#if (orderHeader.priority)?if_exists == "3">selected="selected" </#if>>${uiLabelMap.CommonLow}</option>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
                   </td>
