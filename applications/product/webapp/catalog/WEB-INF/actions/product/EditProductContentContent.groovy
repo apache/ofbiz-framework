@@ -53,7 +53,7 @@ if (!productContent) {
     productContent.thruDate = parameters.thruDate;
     productContent.purchaseFromDate = parameters.purchaseFromDate;
     productContent.purchaseThruDate = parameters.purchaseThruDate;
-    productContent.useCountLimit = request.parameters.useCountLimit;
+    productContent.useCountLimit = parameters.useCountLimit;
     productContent.useTime = parameters.useTime;
     productContent.useTimeUomId = parameters.useTimeUomId;
     productContent.useRoleTypeId = parameters.useRoleTypeId;
