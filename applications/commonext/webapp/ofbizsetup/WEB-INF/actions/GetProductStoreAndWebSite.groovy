@@ -25,24 +25,24 @@
  
 productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId]));
 if(productStore){
-	productStoreId = productStore.productStoreId
+    productStoreId = productStore.productStoreId
 }
 context.productStoreId = productStoreId;
 context.productStore = productStore;
 
 if("website".equals(tabButtonItemTop)){
-	if(productStoreId != null){
-		webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId]));
-		context.showScreen = "origin";
-	}else{
-		request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!");
-		context.showScreen = "message";
+    if(productStoreId != null){
+        webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId]));
+        context.showScreen = "origin";
+    }else{
+        request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!");
+        context.showScreen = "message";
         return;
-	}
-	
-	if(webSite){
-		webSiteId = webSite.webSiteId;
-	}
-	context.webSiteId = webSiteId;
-	context.webSite = webSite;
+    }
+    
+    if(webSite){
+        webSiteId = webSite.webSiteId;
+    }
+    context.webSiteId = webSiteId;
+    context.webSite = webSite;
 }

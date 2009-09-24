@@ -18,20 +18,20 @@
   -->
 <div class="screenlet">
 <table cellspacing="0" width="100%">
-	<tr colspan="3">
-  	<td align="left">
+    <tr colspan="3">
+      <td align="left">
                     <#if (viewIndex > 0)>
-                    	<#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexFirst>
+                        <#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexFirst>
                         <a href="javascript:nextPrevDocumentList('${url}');" class="nav-next">${uiLabelMap.CommonFirst}</a>|
-                      	<#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexPrevious>
-						<a href="javascript:nextPrevDocumentList('${url}');" class="nav-previous">${uiLabelMap.CommonPrevious}</a>|
+                          <#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexPrevious>
+                        <a href="javascript:nextPrevDocumentList('${url}');" class="nav-previous">${uiLabelMap.CommonPrevious}</a>|
                     </#if>
                     <#if (arraySize > 0)>
-						${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${arraySize}
+                        ${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${arraySize}
                     </#if>
                     <#if (arraySize > highIndex)>
-                    	<#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexNext>|
-                    	<a href="javascript:nextPrevDocumentList('${url}');" class="nav-next">${uiLabelMap.CommonNext}</a>
+                        <#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexNext>|
+                        <a href="javascript:nextPrevDocumentList('${url}');" class="nav-next">${uiLabelMap.CommonNext}</a>
                         <#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexLast>|
                         <a href="javascript:nextPrevDocumentList('${url}');" class="nav-next">${uiLabelMap.CommonLast}</a>
                     </#if>

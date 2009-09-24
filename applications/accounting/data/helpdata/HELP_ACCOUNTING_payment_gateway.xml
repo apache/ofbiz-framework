@@ -14,9 +14,9 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
     <title>Accounting Payment Gateway.</title>
     
     <xi:include href="HELP_ACCOUNTING_FindGatewayResponses.xml" />

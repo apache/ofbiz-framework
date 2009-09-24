@@ -182,7 +182,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue content, Appendable out,
             Map<String,Object>templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         // if the content has a service attached run the service
-    	
+        
         String serviceName = content.getString("serviceName");
         if (dispatcher != null && UtilValidate.isNotEmpty(serviceName)) {
             DispatchContext dctx = dispatcher.getDispatchContext();
@@ -276,24 +276,24 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
                 // This part is using an xml file as the input data and an ftl or xsl file to present it.
                 if (UtilValidate.isNotEmpty(mimeType)) {
-                	if (mimeType.toLowerCase().indexOf("xml") >= 0) {
-                		GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-                		GenericValue templateDataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", templateDataResourceId));
-                		if ("FTL".equals(templateDataResource.getString("dataTemplateTypeId"))) {
-                			StringReader sr = new StringReader(textData);
-                			try {
-                				NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
-                				templateContext.put("doc", nodeModel) ;
-                			} catch (SAXException e) {
-                				throw new GeneralException(e.getMessage());
-                			} catch (ParserConfigurationException e2) {
-                				throw new GeneralException(e2.getMessage());
-                			}
-                		} else {
-                			templateContext.put("docFile", DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).getAbsoluteFile().toString());
-                		}
-                	} else {
-                		// must be text
+                    if (mimeType.toLowerCase().indexOf("xml") >= 0) {
+                        GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+                        GenericValue templateDataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", templateDataResourceId));
+                        if ("FTL".equals(templateDataResource.getString("dataTemplateTypeId"))) {
+                            StringReader sr = new StringReader(textData);
+                            try {
+                                NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
+                                templateContext.put("doc", nodeModel) ;
+                            } catch (SAXException e) {
+                                throw new GeneralException(e.getMessage());
+                            } catch (ParserConfigurationException e2) {
+                                throw new GeneralException(e2.getMessage());
+                            }
+                        } else {
+                            templateContext.put("docFile", DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).getAbsoluteFile().toString());
+                        }
+                    } else {
+                        // must be text
                         templateContext.put("textData", textData);
                     }
                 } else {

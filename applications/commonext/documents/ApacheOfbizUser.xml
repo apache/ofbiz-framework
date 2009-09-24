@@ -18,15 +18,15 @@
     under the License.
 -->
 <book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-	  xmlns:xl="http://www.w3.org/1999/xlink"
-	  xmlns:xi="http://www.w3.org/2001/XInclude"
-	  xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
-	  xmlns="http://docbook.org/ns/docbook">
+      xmlns:xl="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
 
-	<info>
-	    <title>Apache OFBiz User documentation</title>
+    <info>
+        <title>Apache OFBiz User documentation</title>
         <copyright><year>2009</year><holder>Apache Foundation</holder></copyright>
-	</info>	
+    </info>    
     
     <chapter>
         <title>Introduction</title>

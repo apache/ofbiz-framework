@@ -18,15 +18,15 @@
     under the License.
 -->
 <chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Product Catalog Component</title>
-	<section>
-		<title>Introduction Paragraph</title>
-		<para>
-			and a introduction paragraph 
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Product Catalog Component</title>
+    <section>
+        <title>Introduction Paragraph</title>
+        <para>
+            and a introduction paragraph 
         </para>
-	</section>
-	<xi:include href="../data/helpdata/HELP_PRODCATALOG_main.xml" />
+    </section>
+    <xi:include href="../data/helpdata/HELP_PRODCATALOG_main.xml" />
 </chapter>

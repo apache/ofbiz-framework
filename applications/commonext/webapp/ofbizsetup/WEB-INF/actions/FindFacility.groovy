@@ -37,11 +37,11 @@ partyPostalAddress = EntityUtil.getFirst(EntityUtil.filterByDate(listPartyPostal
 context.partyPostalAddress = partyPostalAddress;
 
 if("productstore".equals(tabButtonItemTop)){
-	if(findResultSize == 0){
-		request.setAttribute("_ERROR_MESSAGE_", "Facility not set!");
-		context.showScreen = "message";
+    if(findResultSize == 0){
+        request.setAttribute("_ERROR_MESSAGE_", "Facility not set!");
+        context.showScreen = "message";
         return;
-	}else{
-		context.showScreen = "origin";
-	}
+    }else{
+        context.showScreen = "origin";
+    }
 }

@@ -14,13 +14,13 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The View Gateway Response help screen</title>
-	<para>This screen shows details of an individual gateway transaction.
-		It displays specific information regarding the order and the payment.
-		The lower part of the screen shows the gateway response details
-		indicating the time and codes used to process the transaction through
-		the gateway.</para>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The View Gateway Response help screen</title>
+    <para>This screen shows details of an individual gateway transaction.
+        It displays specific information regarding the order and the payment.
+        The lower part of the screen shows the gateway response details
+        indicating the time and codes used to process the transaction through
+        the gateway.</para>
 </section>

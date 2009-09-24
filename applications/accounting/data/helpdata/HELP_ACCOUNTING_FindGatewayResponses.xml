@@ -14,17 +14,17 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Find Gateway Responses help screen</title>
-	<para>This is the default screen for the 'Transactions' sub menu. Press
-		the 'Lookup' button to display details of all transactions that have
-		been authorised, captured or manually entered.</para>
-	<section>
-		<title>How do I view all Gateway response transactions?</title>
-		<para>Press the 'Lookup' button</para>
-		<para>A list of all transactions that have been authorised, captured
-			or manually entered will be displayed.</para>
-	</section>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Find Gateway Responses help screen</title>
+    <para>This is the default screen for the 'Transactions' sub menu. Press
+        the 'Lookup' button to display details of all transactions that have
+        been authorised, captured or manually entered.</para>
+    <section>
+        <title>How do I view all Gateway response transactions?</title>
+        <para>Press the 'Lookup' button</para>
+        <para>A list of all transactions that have been authorised, captured
+            or manually entered will be displayed.</para>
+    </section>
 </section>
