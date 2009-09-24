@@ -116,8 +116,8 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
     context.downloadData = downloadData;
 } else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
     context.contentFormName = "EditProductContentExternal";
-} else if (productContentTypeId && productContentTypeId.indexOf("ADDITIONAL_IMAGE") > -1) {
-    context.contentFormName = "EditProductAdditionalImageContent";
+} else if (productContentTypeId && productContentTypeId.indexOf("_IMAGE") > -1) {
+    context.contentFormName = "EditProductContentImage";
 } else {
     //Assume it is a generic simple text content
     textData = [:];
