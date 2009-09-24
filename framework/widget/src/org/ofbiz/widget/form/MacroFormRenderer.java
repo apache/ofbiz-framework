@@ -2303,11 +2303,11 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(border);
         sr.append("\" width=\"");
         sr.append(width);
-        sr.append(" height=\"");
+        sr.append("\" height=\"");
         sr.append(height);
-        sr.append(" event=\"");
+        sr.append("\" event=\"");
         sr.append(event==null?"":event);
-        sr.append(" action=\"");
+        sr.append("\" action=\"");
         sr.append(action==null?"":action);
         sr.append("\" />");
         executeMacro(sr.toString());
