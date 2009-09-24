@@ -73,7 +73,19 @@ under the License.
     <ElectronicText dataResourceId="CMSS_DEMO_HOME">
         <textData><![CDATA[
             <div>
-              <h1>Welcome to the Home page.</h1>
+              <h1>Welcome to the CmsSite Home page.</h1>
+              <center><table width="350"><tr><td>
+              <p>
+              This is a site to demonstrate the CMS capabilities of OFBiz. Its basic function is the editing of website text
+              inside a browser. If you want to edit the text you are reading now, logon to the backend system, select the content component
+              click on 'cmssite' in the website list and ten click on the 'cms' button. There you see on the left hand side the tree of this website.
+              If you click on 'homepage' then you can edit the content of this page at the box in the r 
+              </p>
+              <p>
+              This is only the basic function of the CMS which is part of the content component. The content component is actually more than a 
+              CMS it can also handle documents pretty well. An example is the apache OFBiz document you can see when you click on the last option in the list below. 
+              <p>
+              </td></tr></table></center>
               <ul>
                 <li><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1 - Hard Coded Link</a></div>
                 <li><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></li>
