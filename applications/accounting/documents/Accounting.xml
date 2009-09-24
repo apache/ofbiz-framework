@@ -18,7 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Accounting Component.</title>
@@ -27,4 +28,6 @@ under the License.
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_invoices.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_payments.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_payment_gateway.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_payment_gateway_config.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_billing_accounts.xml" />
 </chapter>
