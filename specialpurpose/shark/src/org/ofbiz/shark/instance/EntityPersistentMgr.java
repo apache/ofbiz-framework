@@ -323,8 +323,8 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     public List getProcessMgrsWhere(SharkTransaction trans, String sqlWhere) throws PersistenceException {
         StringTokenizer st = null;
         StringTokenizer strtoc = null;
-        String pkgId = new String();
-        String Elem = new String();
+        String pkgId = "";
+        String Elem = "";
         List l = getAllProcessMgrs(trans);
         List returnList = new ArrayList();
         if (sqlWhere != null)
@@ -961,8 +961,8 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         StringTokenizer strtoc = null;
         List returnList = new ArrayList();
         List l = new ArrayList();
-        String prcsMngrName = new String();
-        String procState = new String();
+        String prcsMngrName = "";
+        String procState = "";
         String element = null;
         if (sqlWhere != null)
         {
@@ -993,7 +993,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             l = getAllProcessesForMgr(prcsMngrName, trans);
             for(int i = 0; i < l.size(); i ++)
             {
-                if (((Process)l.get(i)).getState().startsWith(new String(procState.substring(0, procState.length()-1))))
+                if (((Process)l.get(i)).getState().startsWith(procState.substring(0, procState.length()-1)))
                     returnList.add(l.get(i));
             }
         } else {
@@ -1025,12 +1025,12 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     public List getActivitiesWhere(SharkTransaction trans, String sqlWhere) throws PersistenceException {
         Debug.logInfo(">>>>>>>>>>>>>>>>>>>>>>> getActivitiesWhere(SharkTransaction trans, String sqlWhere)",module);
         Debug.logInfo(">>>>>>>>>>>>>>>>>>>>>>> sqlWhere = " + sqlWhere,module);
-        String ProcessId = new String();
+        String ProcessId = "";
         List act_list = new ArrayList();
         StringTokenizer st = null;
         StringTokenizer strtoc = null;
         List returnList = new ArrayList();
-        String element = new String();
+        String element = "";
         String state = null;
         String defId = null;
         if (sqlWhere != null)
@@ -1069,10 +1069,10 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                     if (((Activity)act_list.get(i)).getActivityDefinitionId().equalsIgnoreCase(defId))
                         returnList.add(act_list.get(i));
                 } else if ((state != null) && (defId  == null)) {
-                    if (((Activity)act_list.get(i)).getState().startsWith(new String(state.substring(0, state.length()-1))))
+                    if (((Activity)act_list.get(i)).getState().startsWith(state.substring(0, state.length()-1)))
                         returnList.add(act_list.get(i));
                 } else if ((state != null) && (defId  != null)) {
-                    if ((((Activity)act_list.get(i)).getState().startsWith(new String(state.substring(0, state.length()-1))))&&
+                    if ((((Activity)act_list.get(i)).getState().startsWith(state.substring(0, state.length()-1)))&&
                             (((Activity)act_list.get(i)).getActivityDefinitionId().equalsIgnoreCase(defId)))
                         returnList.add(act_list.get(i));
                 }

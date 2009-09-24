@@ -65,11 +65,11 @@ public class CCServicesTest extends OFBizTestCase {
     @Override
     protected void setUp() throws Exception {
         // populate test data
-        configFile = new String("paymentTest.properties");
+        configFile = "paymentTest.properties";
         creditAmount = new BigDecimal("234.00");
         emailAddr = delegator.makeValue("ContactMech", UtilMisc.toMap(
                 "infoString","test@hansbakker.com"));
-        orderId = new String("testOrder1000");
+        orderId = "testOrder1000";
         creditCard = delegator.makeValue("CreditCard", UtilMisc.toMap(
                 "cardType","VISA",
                 "expireDate","12/2008",  // mm/yyyy, gets converted to mm/yy

@@ -33,15 +33,15 @@ public class MsrKybService extends BaseService implements jpos.services.MSRServi
     public static final int JPOS_MSR_ACCT_ERR = 100;
     public static final int JPOS_MSR_EXPD_ERR = 101;
 
-    protected String title = new String();
-    protected String firstname = new String();
-    protected String middle = new String();
-    protected String surname = new String();
-    protected String suffix = new String();
+    protected String title = "";
+    protected String firstname = "";
+    protected String middle = "";
+    protected String surname = "";
+    protected String suffix = "";
 
     protected String[] accountNumber = new String[2];
     protected String[] expireDate = new String[2];
-    protected String serviceCode = new String();
+    protected String serviceCode = "";
 
     protected byte[] track1DiscretionaryData = new byte[0];
     protected byte[] track2DiscretionaryData = new byte[0];
@@ -176,11 +176,11 @@ public class MsrKybService extends BaseService implements jpos.services.MSRServi
 
     public void clearInput() throws JposException {
         this.title = null;
-        this.firstname = new String();
-        this.middle = new String();
-        this.surname = new String();
-        this.suffix = new String();
-        this.serviceCode = new String();
+        this.firstname = "";
+        this.middle = "";
+        this.surname = "";
+        this.suffix = "";
+        this.serviceCode = "";
         this.accountNumber = new String[2];
         this.expireDate = new String[2];
         this.track1Data = new byte[0];

@@ -246,7 +246,7 @@ public class IteratorTag extends BodyTagSupport {
                     Map.Entry entry = (Map.Entry) mapEntries.next();
                     Object value = entry.getValue();
 
-                    if (value == null) value = new String();
+                    if (value == null) value = "";
                     pageContext.setAttribute((String) entry.getKey(), value);
                 }
             }

@@ -47,7 +47,7 @@ public class RecordIterator {
     protected Record curRecord = null;
     protected String nextLine = null;
     protected Record nextRecord = null;
-    protected String eof = new String("\u001A"); // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in some DOS file, specifically file extracted from zip archives.
+    protected String eof = "\u001A"; // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in some DOS file, specifically file extracted from zip archives.
 
     public RecordIterator(URL fileUrl, ModelDataFile modelDataFile) throws DataFileException {
         this.modelDataFile = modelDataFile;
