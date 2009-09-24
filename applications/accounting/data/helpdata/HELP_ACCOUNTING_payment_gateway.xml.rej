@@ -1,0 +1,32 @@
+***************
+*** 17,29 ****
+      version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
+-     <title>Accounting Payment Gateway.</title>
+-     
+-     <xi:include href="HELP_ACCOUNTING_FindGatewayResponses.xml" />
+-     <xi:include href="HELP_ACCOUNTING_AuthorizeTransaction.xml" />
+-     <xi:include href="HELP_ACCOUNTING_CaptureTransaction.xml" />
+-     <xi:include href="HELP_ACCOUNTING_ViewGatewayResponse.xml" />
+-     <xi:include href="HELP_ACCOUNTING_ManualTransaction.xml" />
+-     
+  
+  </section>--- 17,33 ----
+      version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
++     <title>Accounting Payment Gateway Transactions.</title>
++     <para>The Payment Gateway is made up of a configurable interface that
++         processes payments.</para>
++     <para>Payment transactions can be authorised, captured and processed or
++         refunded via the selected mechanism. (eg Paypal, Authorise.net, etc)
++     </para>
++     <xi:include href="HELP_ACCOUNTING_FindGatewayResponses.xml" />
++     <xi:include href="HELP_ACCOUNTING_AuthorizeTransaction.xml" />
++     <xi:include href="HELP_ACCOUNTING_CaptureTransaction.xml" />
++     <xi:include href="HELP_ACCOUNTING_ViewGatewayResponse.xml" />
++     <xi:include href="HELP_ACCOUNTING_ManualTransaction.xml" />
+  
++ 
+  </section>
