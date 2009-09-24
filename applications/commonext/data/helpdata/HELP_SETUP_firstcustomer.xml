@@ -22,24 +22,18 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Main OFBiz Setup Overview</title>
-    <para>The main page on OFBiz Setup component including 2 sections, following this:</para>
+    <title>The OFBiz Setup Create First Customer help screen.</title>
+    <para>
+        The First Customer screen provides create/edit the first customer of your organization and also setup the "Shipping Destination Address"
+        , "General Correspondence Address", any telephone numbers, and email addresses you want for your first customer.
+    </para>
     <section>
-        <title>1. Available Internal Organizations Section</title>
-        <para>
-            This section shows list of organizations which store in the system. You be able to edit an information of your orgainzation via click setup then it will go to 
-            view profile screen, you will see other tab button including Facility, Product Store, Web Site, First Customer, and First Product where you would like to
-            edit an information.
-        </para>
-        <para>
-            When you created an information of your orgainzation and also created product. And the last step is click "Set to complete" button.
-        </para>
-    </section>
-    <section>
-        <title>2. Create New Organization Section</title>
-        <para>
-            This section provides a form for create a new an organization(the first step of setup organization) and also setup the "Billing (AP) Address"
-            , "Payment (AR) Address", "General Correspondence Address", any telephone numbers, and email addresses you want for your Company.
-        </para>
+        <title>How do I update the profile information of the first customer?</title>
+        <para>After the first customer is created the profile and contact information screen will be displayed</para>
+        <para>Select the 'Update' button on the top corner of the profile information and the screen will be displayed</para>
+        <para>Any existing information will be displayed in the box</para>
+        <para>Amend the details in the profile information that needs to be updated</para>
+        <para>Press the 'Save' button</para>
+        <para>Press the 'Cancel/Done' button for go back to the first customer screen</para>
     </section>
 </section>

@@ -27,10 +27,10 @@
         <set field="require_login" value="false"/>
         <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
         <set field="create_allow_password" value="true"/>
-        
+
         <set field="parameters.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
         <now-timestamp field="nowStamp"/>
-        
+
         <!-- Create the PartyGroup -->
         <call-map-processor in-map-name="parameters" out-map-name="partyGroupContext">
             <simple-map-processor name="newPartyGroup">
@@ -38,10 +38,10 @@
                 <process field="groupName"><copy to-field="groupName"/><not-empty><fail-message message="Organization name is missing"/></not-empty></process>
             </simple-map-processor>
         </call-map-processor>
-        
+
         <!-- Create the PartyRole -->
         <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
-        
+
         <!-- Create the Postal Address -->
         <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
             <!-- address not used, do nothing -->
@@ -148,14 +148,14 @@
         </if-compare>
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field="visit"/>
-        
+
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
         <check-errors/>
-        
+
         <call-service service-name="createPartyGroup" in-map-name="partyGroupContext">
             <result-to-field result-name="partyId" field="tempMap.partyId"/>
         </call-service>
-        
+
         <!-- now that we have the partyId, put it where it needs to go... -->
         <set field="userLoginContext.partyId" from-field="tempMap.partyId"/>
         <set field="partyGroupContext.partyId" from-field="tempMap.partyId"/>
@@ -235,10 +235,27 @@
             <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
         </if-not-empty>
-        
+
         <!-- General Ledger Setup for the new organization -->
-        <call-simple-method method-name="setupDefaultGeneralLedger"/>
+        <!--<call-simple-method method-name="setupDefaultGeneralLedger"/>-->
         
+        <!-- create CustomTimePeriod within one years -->
+        <now-timestamp field="nowTimestamp"/>
+        <set field="endMonth" value="12"/>
+        <set field="endDate" value="31"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="fromDateStamp">
+            <field field="nowTimestamp" type="java.sql.Timestamp"/>
+        </call-class-method>
+        <set field="curYearString" value="${str:toString(date:year(fromDateStamp, util:defaultTimeZone(), util:defaultLocale()))}"/>
+        <set field="customTimePeriodCtx.fromDate" from-field="fromDateStamp" type="Date"/>
+        <set field="customTimePeriodCtx.thruDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.toSqlDate(endMonth ,endDate , curYearString)}" type="Date"/>
+        <set field="customTimePeriodCtx.isClosed" value="N"/>
+        <set field="customTimePeriodCtx.organizationPartyId" from-field="tempMap.partyId"/>
+        <set field="customTimePeriodCtx.periodName" from-field="curYearString"/>
+        <set field="customTimePeriodCtx.periodNum" value="1" type="Long"/>
+        <set field="customTimePeriodCtx.periodTypeId" value="FISCAL_YEAR"/>
+        <call-service service-name="createCustomTimePeriod" in-map-name="customTimePeriodCtx"/>
+
         <!-- Create partyId for UserLogin -->
         <session-to-field field="userLoginCtx" session-name="userLogin"/>
         <if-empty field="userLoginCtx.partyId">
@@ -255,22 +272,23 @@
             <set field="userLoginCtx.partyId" from-field="userLoginCtx.userLoginId"/>
             <store-value value-field="userLoginCtx"/>
         </if-empty>
-        
+
         <!-- set the partyId in the request -->
         <field-to-request field="tempMap.partyId" request-name="partyId"/>
     </simple-method>
-    
+
     <simple-method method-name="setupDefaultGeneralLedger" short-description="General Ledger Setup for the new organization">
-        <set field="partyId" from-field="tempMap.partyId" default-value="${parameters.partyId}"/>
+        <set field="partyId" from-field="parameters.partyId"/>
         <!-- create GL journal for suspended transactions (failed post) -->
         <set field="createGlJournalCtx.organizationPartyId" from-field="partyId"/>
         <set field="createGlJournalCtx.glJournalName" value="Suspense transactions"/>
         <call-service service-name="createGlJournal" in-map-name="createGlJournalCtx">
             <result-to-field result-name="glJournalId" field="acctgPreferenceCtx.errorGlJournalId"/>
         </call-service>
-        
+
+        <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         <call-bsh><![CDATA[
-           groupName = parameters.get("groupName");
+           groupName = partyGroup.get("groupName");
            if(groupName != null){
               parameters.put("invoiceIdPrefix", groupName.toUpperCase().substring(0, 2)+"CI");
            }else{
@@ -298,7 +316,7 @@
             <call-service service-name="entityImport" in-map-name="importChartOfAccountCtx"/>
             <check-errors/>
         </if-empty>
-        
+
         <!-- create General Ledger Setup -->
         <set field="pathFileString" value="file:${sys:getProperty('ofbiz.home')}/applications/commonext/data/GlAccountData.xml"/>
         <set field="tempFileName" value="tempGlAccountData.xml"/>
@@ -308,9 +326,8 @@
         <set field="ORGPARTYID" from-field="partyId"/>
         <set field="FROMDATE" from-field="nowString"/>
         <call-simple-method method-name="importTempDataFile"/>
-
     </simple-method>
-    
+
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
         <set field="require_email" value="true"/>
         <set field="require_phone" value="false"/>
@@ -334,11 +351,17 @@
         <field-to-request field="organizationPartyId" request-name="partyId"/>
         <field-to-request field="tempMap.partyId" request-name="customerId"/>
     </simple-method>
-    
+
     <simple-method method-name="createFacilityAndContactMech" short-description="create Facility and ContactMech">
+        <if-empty field="parameters.facilityName">
+            <add-error><fail-message message="Facility Name is missing"/></add-error>
+        </if-empty>
+        <check-errors/>
+        
         <make-value value-field="newEntity" entity-name="Facility"/>
         <set field="defaultDaysToShip" from-field="parameters.defaultDaysToShip" type="Long"/>
         <clear-field field="parameters.defaultDaysToShip"/>
+        
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <set field="newEntity.defaultDaysToShip" from-field="defaultDaysToShip" type="Long"/>
 
@@ -354,11 +377,16 @@
         <field-to-request field="facilityId" request-name="facilityId"/>
         <create-value value-field="newEntity"/>
 
-        <set-service-fields service-name="createPostalAddress" map="parameters" to-map="addressContext"/>
+        <!-- create  Facility ContactMech-->
+        <entity-and entity-name="PartyAndPostalAddress" list="listPartyPostalAddress" filter-by-date="true">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+        </entity-and>
+        <first-from-list entry="partyPostalAddress" list="listPartyPostalAddress"/>
+        <set-service-fields service-name="createPostalAddress" map="partyPostalAddress" to-map="addressContext"/>
         <call-service service-name="createPostalAddress" in-map-name="addressContext">
             <result-to-field result-name="contactMechId" field="contactMechId"/>
         </call-service>
-        
+
         <set field="facilityContactMechCtx.contactMechId" from-field="contactMechId"/>
         <set field="facilityContactMechCtx.facilityId" from-field="facilityId"/>
         <call-service service-name="createFacilityContactMech" in-map-name="facilityContactMechCtx"/>
@@ -372,9 +400,11 @@
         <set field="addressPurposeContext.contactMechPurposeTypeId" value="SHIP_ORIG_LOCATION"/>
         <call-service service-name="createFacilityContactMechPurpose" in-map-name="addressPurposeContext"/>
     </simple-method>
-    
+
     <simple-method method-name="createProductStoreWithDefaultSetting" short-description="create ProductStore and setting default value for payment and shipping">
-        <!-- Create ProductStore -->
+        <if-empty field="parameters.storeName">
+            <add-error><fail-message message="Store Name is missing"/></add-error>
+        </if-empty>
         <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="parameters.vatTaxAuthGeoId">
                 <add-error><fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/></add-error>
@@ -382,8 +412,10 @@
             <if-empty field="parameters.vatTaxAuthPartyId">
                 <add-error><fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/></add-error>
             </if-empty>
-            <check-errors/>
         </if-compare>
+        <check-errors/>
+
+        <!-- Create ProductStore -->
         <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <set field="newEntity.storeCreditValidDays" value="90" type="Long"/>
@@ -400,7 +432,7 @@
         <set field="productStoreId" from-field="newEntity.productStoreId"/>
         <field-to-request field="productStoreId" request-name="productStoreId"/>
         <create-value value-field="newEntity"/>
-        
+
         <!-- create the ProductStoreFacility record -->
         <now-timestamp field="nowTimestamp"/>
         <if-not-empty field="newEntity.inventoryFacilityId">
@@ -423,7 +455,7 @@
             <call-service service-name="entityImport" in-map-name="importShippingCtx"/>
             <check-errors/>
         </if-empty>
-        
+
         <!-- Import Default ProductStore & Shipment data -->
         <set field="pathFileString" value="file:${sys:getProperty('ofbiz.home')}/applications/commonext/data/ProductStoreData.xml"/>
         <set field="tempFileName" value="tempProductStore.xml"/>
@@ -432,7 +464,7 @@
         <set field="PRODUCTSTOREID" from-field="productStoreId"/>
         <call-simple-method method-name="importTempDataFile"/>
     </simple-method>
-    
+
     <simple-method method-name="createProdCatalogAndProductStoreCatalog" short-description="create ProdCatalog And ProductStoreCatalog">
         <set-service-fields service-name="createProdCatalog" map="parameters" to-map="createProdCatalogCtx"/>
 

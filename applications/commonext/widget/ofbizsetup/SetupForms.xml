@@ -90,6 +90,26 @@
         <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
     </form>
     
+    <form name="EditFacility" type="single" target="UpdateFacility" default-map-name="facility"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="facility==null" target="CreateFacility"/>
+
+        <field use-when="facility!=null" name="facilityId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
+        <field use-when="facility==null" name="facilityId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+
+        <field name="facilityName" title="${uiLabelMap.ProductName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="description" title="${uiLabelMap.SetupFacilityDescription}"><text size="60" maxlength="250"/></field>
+        <field name="defaultDaysToShip" title="${uiLabelMap.ProductDefaultDaysToShip}"><text size="10" maxlength="20"/></field>
+        <field name="facilityTypeId"><hidden value="WAREHOUSE"/></field>
+        <field name="ownerPartyId"><hidden value="${partyId}"/></field>
+        <field name="defaultInventoryItemTypeId"><hidden value="NON_SERIAL_INV_ITEM"/></field>
+        <field name="defaultWeightUomId"><hidden value="WT_lb"/></field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="facility!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="facility==null" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productStore==null" target="createProductStore"/>
@@ -98,7 +118,7 @@
         <field use-when="productStore==null&amp;&amp;productStoreId==null" name="productStoreId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
         <field use-when="productStore==null&amp;&amp;productStoreId!=null" name="productStoreId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${productStoreId}]"><text size="20" maxlength="20"/></field>
         
-        <field name="storeName" title="${uiLabelMap.ProductStoreName}"><text size="30" maxlength="60"/></field>
+        <field name="storeName" title="${uiLabelMap.ProductStoreName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="companyName"><hidden value="${partyGroup.groupName}"/></field>
         <field name="primaryStoreGroupId"><hidden/></field>
         <field name="title"><hidden/></field>
@@ -175,7 +195,9 @@
     </form>
 
     <form name="EditWebSite" extends="EditWebSite" extends-resource="component://content/webapp/content/website/WebSiteForms.xml">
+        <actions><set field="webSiteId" from-field="webSite.webSiteId"/></actions>
         <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+        <field name="siteName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="httpHost"><hidden/></field>
         <field name="httpPort"><hidden/></field>
@@ -187,7 +209,6 @@
         <field name="cookieDomain"><hidden/></field>
         <field name="productStoreId"><hidden/></field>
         <field name="allowProductStoreChange"><hidden/></field>
-        <field name="siteName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
     </form>
     
     <form name="EditProdCatalog" extends="EditProdCatalog" extends-resource="component://product/webapp/catalog/catalog/ProdCatalogForms.xml">
@@ -252,29 +273,21 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="10">
         <row-actions>
             <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
-            <entity-condition entity-name="PartyRole" list="partyRoles">
-                <condition-list combine="and">
-                    <condition-expr field-name="partyId" operator="equals" from-field="partyId"/>
-                    <condition-expr field-name="roleTypeId" operator="equals" value="ORGANIZATION_ROLE"/>
-                </condition-list>
-            </entity-condition>
-            <set field="partyRole" from-field="partyRoles[0]"/>
+            <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         </row-actions>
-        <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
-        <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyAcctgPreference==null" widget-style="buttontext">
-            <hyperlink target="addGeneralLedger" description="${uiLabelMap.AccountingSetup}">
+        <field name="partyId" title="${uiLabelMap.AccountingCompanies}" use-when="partyAcctgPreference==null" widget-style="buttontext">
+            <hyperlink target="viewprofile" description="${partyGroup.groupName} [${partyId}]">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyAcctgPreference!=null" widget-style="buttontext">
-            <hyperlink target="viewprofile" description="${uiLabelMap.AccountingSetup}">
+        <field name="partyId" title="${uiLabelMap.AccountingCompanies}" use-when="partyAcctgPreference!=null" widget-style="buttontext">
+            <hyperlink target="showMessage" description="${partyGroup.groupName} [${partyId}]">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="setToComplete" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyRole==null" widget-style="buttontext">
+        <field name="setToComplete" title="${uiLabelMap.CommonEmptyHeader}" use-when="partyAcctgPreference==null" widget-style="buttontext">
             <hyperlink target="OrganizationToComplete" description="${uiLabelMap.SetupSetToComplete}">
                 <parameter param-name="partyId"/>
-                <parameter param-name="roleTypeId" value="ORGANIZATION_ROLE"/>
             </hyperlink>
         </field>
     </form>

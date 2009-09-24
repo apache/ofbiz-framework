@@ -22,27 +22,24 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The OFBiz Setup Edit First Product help screen.</title>
+    <title>The OFBiz Setup Edit First Product Category help screen.</title>
     <para>
-        The Edit First Product screen is used to manage the first product with related the first catalog and the first category.
+        The Edit First Product Category screen is used to manage the first category with related the first catalog.
     </para>
     <section>
-        <title>How do I create a Product?</title>
-        <para>Select the 'Product' sub menu and the screen will be displayed</para>
-        <para>Enter the 'Product Id' field (NOTE: If you do not enter the 'Product Id' field it will be used the default as 'Organization Party Id')</para>
-        <para>Enter the 'Internal Name' field </para>
-        <para>Enter the 'Product Name' field </para>
+        <title>How do I create a Category?</title>
+        <para>Select the 'Category' sub menu and the screen will be displayed</para>
+        <para>Enter the 'Product Category Id ' field (NOTE: If you do not enter the 'Product Category Id' field it will be used the default as 'Organization Party Id')</para>
+        <para>Enter the 'Category Name' field </para>
         <para>Enter a description describing what the category is</para>
-        <para>Enter a number in the 'Default Price' field</para>
-        <para>Enter a number in the 'Average Cost ' field</para>
         <para>Press the 'Update' button</para>
     </section>
     <section>
-        <title>How do I update a Product?</title>
-        <para>Not all the fields on the Product can be updated. For example Product Id  cannot be updated. If these fields need to be amended then the Product will need to be removed and then re-created.</para>
-        <para>Select the 'Product' sub menu and the screen will be displayed</para>
-        <para>Any existing Product will be displayed in the box</para>
-        <para>Amend the details in the line item that needs to be updated (eg Internal Name, Product Name, Short Description, Default Price, Average Cost)</para>
+        <title>How do I update a Category?</title>
+        <para>Not all the fields on the Category can be updated. For example Prod Catalog Id  cannot be updated. If these fields need to be amended then the Category will need to be removed and then re-created.</para>
+        <para>Select the 'Category' sub menu and the screen will be displayed</para>
+        <para>Any existing Category will be displayed in the box</para>
+        <para>Amend the details in the line item that needs to be updated (eg Category Name, Product Description )</para>
         <para>Press the 'Update' button displayed at the end of the line item that has been updated </para>
     </section>
 </section>

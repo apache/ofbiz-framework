@@ -51,6 +51,10 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewprofile" save-home-view="true"/>
     </request-map>
+    <request-map uri="showMessage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showMessage"/>
+    </request-map>
 
     <!-- Entity Export requests -->
     <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
@@ -89,17 +93,10 @@
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="initialsetup"/>
     </request-map>
-    
-    <request-map uri="addGeneralLedger">
-        <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="setupDefaultGeneralLedger"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="initialsetup"/>
-    </request-map>
-    
+
     <request-map uri="OrganizationToComplete">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createPartyRole"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="setupDefaultGeneralLedger"/>
         <response name="success" type="view" value="initialsetup"/>
         <response name="error" type="view" value="initialsetup"/>
     </request-map>
@@ -174,7 +171,7 @@
         <response name="success" type="view" value="EditCategory"/>
         <response name="error" type="view" value="EditCategory"/>
     </request-map>
-    <request-map uri="NewProduct">
+    <request-map uri="EditProduct">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProduct"/>
     </request-map>
@@ -209,6 +206,7 @@
     
     <!-- View Mappings -->
     <view-map name="initialsetup" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#InitialSetup"/>
+    <view-map name="showMessage" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#nopartyAcctgPreference"/>
     <view-map name="viewprofile" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#viewprofile"/>
     <view-map name="EditPerson" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#EditPerson"/>
     <view-map name="EditPartyGroup" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#EditPartyGroup"/>

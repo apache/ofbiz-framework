@@ -30,6 +30,13 @@
         </para>
     </section>
     <section>
+        <title>Why we have OFBiz Setup Application?</title>
+        <para>
+            If you are the company and also want to use OFBiz for running your business then you easily be able to setting your information for start running 
+            the system quickly via The OFBiz Setup Application.
+        </para>
+    </section>
+    <section>
         <title>How to get start :</title>
         <para>1. Open a new terminal.</para>
         <para>2. Go to your ofbiz directory.</para>
@@ -40,5 +47,12 @@
         <para>7. Connect to the OFBiz Setup application.</para>
     </section>
     <xi:include href="../data/helpdata/HELP_SETUP_initialsetup.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_editFacility.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_editProductStore.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_editWebSite.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_firstcustomer.xml"/>
+    <xi:include href="../data/helpdata/HELP_SETUP_firstProdCatalog.xml"/>
+    <xi:include href="../data/helpdata/HELP_SETUP_firstProductCategory.xml" />
     <xi:include href="../data/helpdata/HELP_SETUP_firstproduct.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_profileCompany.xml" />
 </chapter>

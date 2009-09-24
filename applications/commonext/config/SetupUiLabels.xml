@@ -121,4 +121,7 @@
     <property key="SetupInitialSetup">
         <value xml:lang="en">Initial Setup</value>
     </property>
+    <property key="SetupEventMessage">
+        <value xml:lang="en">Setup only works if there are no organizations defined yet</value>
+    </property>
 </resource>

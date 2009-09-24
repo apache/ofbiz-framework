@@ -39,10 +39,5 @@ if("website".equals(tabButtonItemTop)){
         context.showScreen = "message";
         return;
     }
-    
-    if(webSite){
-        webSiteId = webSite.webSiteId;
-    }
-    context.webSiteId = webSiteId;
-    context.webSite = webSite;
+	context.webSite = webSite;
 }

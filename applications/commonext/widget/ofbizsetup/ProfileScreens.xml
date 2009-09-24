@@ -84,7 +84,7 @@
                             </fail-widgets>
                         </section>
                     </decorator-section>
-                </decorator-screen>          
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -121,7 +121,7 @@
                         <include-screen name="Party"/>
                         <include-screen name="Contact"/>
                     </decorator-section>
-                </decorator-screen>          
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -239,7 +239,7 @@
                                         </widgets>
                                     </section>
                                 </screenlet>
-                            </fail-widgets>                            
+                            </fail-widgets>
                         </section>
                     </widgets>
                 </section>
@@ -250,16 +250,11 @@
     <screen name="Contact">
         <section>
             <actions>
-                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <set field="partyId" from-field="customerPartyId" default-value="${parameters.partyId}"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetContactMechs.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
-                <!--<platform-specific>
-                    <html>
-                        <html-template location="component://commonext/webapp/ofbizsetup/organization/viewcontact.ftl"/>
-                    </html>
-                    </platform-specific>-->
                 <platform-specific>
                     <html>
                         <html-template location="component://party/webapp/partymgr/party/profileblocks/Contact.ftl"/>

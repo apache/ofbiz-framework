@@ -53,7 +53,7 @@ under the License.
                 <#--li><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li-->
                 <#-- Show OFBiz Setup component menu bar when the system not have an organization -->
                 <#if thisApp.equals("/ofbizsetup")>
-                    <#if organizationList.size() == 0>
+                    <#if PartyAcctgPrefAndGroupList.size() == 0>
                         <li><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
                     </#if>
                 <#else>

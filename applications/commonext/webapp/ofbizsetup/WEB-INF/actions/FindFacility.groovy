@@ -18,12 +18,13 @@
  */
  import org.ofbiz.base.util.*
  import org.ofbiz.entity.util.EntityUtil;
- 
+
 findResult = delegator.findByAnd("Facility", [ownerPartyId: partyId]);
 findResultSize = findResult.size();
 if (findResultSize == 1) {
     context.showScreen = "one";
-    context.facility = findResult.get(0);
+    facility = findResult.get(0);
+    context.facility = facility;
     context.parameters.facilityId = context.facility.facilityId;
 }
 if ((findResultSize > 1 ) && (findResultSize <= 10)) {
@@ -44,4 +45,16 @@ if("productstore".equals(tabButtonItemTop)){
     }else{
         context.showScreen = "origin";
     }
+}else if("facility".equals(tabButtonItemTop)){
+    facilityId = parameters.facilityId;
+    if (!facilityId && request.getAttribute("facilityId")) {
+      facilityId = request.getAttribute("facilityId");
+    }
+    facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+    if(facility){
+        facilityType = facility.getRelatedOne("FacilityType");
+        context.facilityType = facilityType;
+    }
+    context.facility = facility;
+    context.facilityId = facilityId;
 }

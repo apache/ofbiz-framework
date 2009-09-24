@@ -29,5 +29,12 @@
     
     <xi:include href="../data/helpdata/HELP_SETUP.xml" />
     <xi:include href="../data/helpdata/HELP_SETUP_initialsetup.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_editFacility.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_editProductStore.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_editWebSite.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_firstcustomer.xml"/>
+    <xi:include href="../data/helpdata/HELP_SETUP_firstProdCatalog.xml"/>
+    <xi:include href="../data/helpdata/HELP_SETUP_firstProductCategory.xml" />
     <xi:include href="../data/helpdata/HELP_SETUP_firstproduct.xml" />
+    <xi:include href="../data/helpdata/HELP_SETUP_profileCompany.xml" />
 </chapter>
