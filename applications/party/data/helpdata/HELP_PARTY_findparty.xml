@@ -14,12 +14,12 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Party Find help screen.</title>
-	<para>The default screen is for the Party tab is 'Find Party'. It
-		is used to locate existing parties. Vrious serach criteria can be used, either based on the
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Party Find help screen.</title>
+    <para>The default screen is for the Party tab is 'Find Party'. It
+        is used to locate existing parties. Vrious serach criteria can be used, either based on the
         the general party data like name role and type but also on the postal address, telephone (Telecom) 
         and other like  email address.
     </para>

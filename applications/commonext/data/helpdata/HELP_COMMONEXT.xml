@@ -18,11 +18,11 @@
     under the License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-	xmlns:xl="http://www.w3.org/1999/xlink" 
-	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The  Application Common Component Main Help</title>
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The  Application Common Component Main Help</title>
     <para>
         The Application Common component stores items which either are used in many components but do not fit in the Framework or
         stores items which uses functions stored in many components.

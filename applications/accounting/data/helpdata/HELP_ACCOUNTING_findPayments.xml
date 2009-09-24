@@ -14,54 +14,54 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Find Payments help screen.</title>
-	<para>The default screen is 'Find Payment' which allows the user to
-		search for and view the details related to a payment transaction.
-		Specific search criteria can be entered as a filter to locate the
-		payment quickly. </para>
-	<para>
-		Payments can be incoming or outgoing and the demo data contains a
-		list of payment type descriptions that describe the reason for the
-		payment in more detail (eg Customer Deposit, Tax Payment, Commission
-		Payment etc).
-		</para>
-	<para>This screen is used to locate existing payments that have been
-		created
-		automatically by the system or manually by the user. There are
-		links
-		from this page that can be used to do the following: </para>
-	<para>Create a new incoming or outgoing payment
-	</para>
-	<para>Find Sales Invoices by due date 
-	</para>
-	<para>Find Purchase Invoices by due date </para>
-	<section>
-		<title>How do I view all payments?</title>
-		<para>Press the 'Search' button to view all payments</para>
-	</section>
-	<section>
-		<title>How do I locate an existing payment?</title>
-		<para>Enter the 'Payment ID' if known</para>
-		<para>Enter a word from the payments 'Comment'field if known</para>
-		<para>Enter the 'Payment Type Id' if known</para>
-		<para>Enter the 'From Party Id' if known (NOTE: In most cases for an
-			incoming payment this will be the customer party id)</para>
-		<para>Enter the payment amount in the 'Amount' field if known</para>
-		<para>Enter some details from the payment reference number in the
-			'Reference No' field if known
-		</para>
-		<para>Enter the status of the payment in the 'Status Id' field if
-			known</para>
-		<para>Enter the 'To Party Id' if known (NOTE: In most cases for an
-			incoming payment this will the the customer party id. For outgoing
-			payments this will be the supplier id, or customer id for a refund)
-		</para>
-		<para>Press the 'Search' button to view all payments</para>
-		<para>All payments that meet the search criteria will be displayed.
-		</para>
-	</section>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Accounting Find Payments help screen.</title>
+    <para>The default screen is 'Find Payment' which allows the user to
+        search for and view the details related to a payment transaction.
+        Specific search criteria can be entered as a filter to locate the
+        payment quickly. </para>
+    <para>
+        Payments can be incoming or outgoing and the demo data contains a
+        list of payment type descriptions that describe the reason for the
+        payment in more detail (eg Customer Deposit, Tax Payment, Commission
+        Payment etc).
+        </para>
+    <para>This screen is used to locate existing payments that have been
+        created
+        automatically by the system or manually by the user. There are
+        links
+        from this page that can be used to do the following: </para>
+    <para>Create a new incoming or outgoing payment
+    </para>
+    <para>Find Sales Invoices by due date 
+    </para>
+    <para>Find Purchase Invoices by due date </para>
+    <section>
+        <title>How do I view all payments?</title>
+        <para>Press the 'Search' button to view all payments</para>
+    </section>
+    <section>
+        <title>How do I locate an existing payment?</title>
+        <para>Enter the 'Payment ID' if known</para>
+        <para>Enter a word from the payments 'Comment'field if known</para>
+        <para>Enter the 'Payment Type Id' if known</para>
+        <para>Enter the 'From Party Id' if known (NOTE: In most cases for an
+            incoming payment this will be the customer party id)</para>
+        <para>Enter the payment amount in the 'Amount' field if known</para>
+        <para>Enter some details from the payment reference number in the
+            'Reference No' field if known
+        </para>
+        <para>Enter the status of the payment in the 'Status Id' field if
+            known</para>
+        <para>Enter the 'To Party Id' if known (NOTE: In most cases for an
+            incoming payment this will the the customer party id. For outgoing
+            payments this will be the supplier id, or customer id for a refund)
+        </para>
+        <para>Press the 'Search' button to view all payments</para>
+        <para>All payments that meet the search criteria will be displayed.
+        </para>
+    </section>
 
 </section>

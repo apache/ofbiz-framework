@@ -14,29 +14,29 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Send Per Email screen.</title>
-	<para>This is used to send a copy of the invoice details to one or more
-		email addresses. The invoice is included as an attachment and the user
-		can add a simple accompanying email message.</para>
-	<section>
-		<title>How do I send a copy of an invoice via email?</title>
-		<para>Select the 'Send per Email' sub menu</para>
-		<para>The 'Send per Email' default screen will be displayed</para>
-		<para>Enter the 'From Email Address' (NOTE TO CHECK: Shouldnt this be
-			defaulted from the user login.....????)</para>
-		<para>Leave the 'To Email Address' as it is as this will be defaulted
-			using the customer details from the invoice</para>
-		<para>If required enter the 'Copy Email address' for anyone that needs
-			to be copied on the email</para>
-		<para>Leave the 'Subject' as the default of 'Please find attached
-			invoice'</para>
-		<para>Leave the 'Other Currency' box blank (NOTE TO CHECK: Investigate
-			what effect this has on the email.....)</para>
-		<para>Enter a short email message in the 'Email Body' </para>
-		<para>Press the 'Submit' button </para>
-	</section>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Accounting Send Per Email screen.</title>
+    <para>This is used to send a copy of the invoice details to one or more
+        email addresses. The invoice is included as an attachment and the user
+        can add a simple accompanying email message.</para>
+    <section>
+        <title>How do I send a copy of an invoice via email?</title>
+        <para>Select the 'Send per Email' sub menu</para>
+        <para>The 'Send per Email' default screen will be displayed</para>
+        <para>Enter the 'From Email Address' (NOTE TO CHECK: Shouldnt this be
+            defaulted from the user login.....????)</para>
+        <para>Leave the 'To Email Address' as it is as this will be defaulted
+            using the customer details from the invoice</para>
+        <para>If required enter the 'Copy Email address' for anyone that needs
+            to be copied on the email</para>
+        <para>Leave the 'Subject' as the default of 'Please find attached
+            invoice'</para>
+        <para>Leave the 'Other Currency' box blank (NOTE TO CHECK: Investigate
+            what effect this has on the email.....)</para>
+        <para>Enter a short email message in the 'Email Body' </para>
+        <para>Press the 'Submit' button </para>
+    </section>
 </section>
 

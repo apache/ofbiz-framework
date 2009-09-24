@@ -83,29 +83,29 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>	
+    </screen>    
     <screen name="AssignAccountToMe">
-		<section>
-			<actions>
-				<set field="headerItem" value="Accounts" />
-				<set field="titleProperty" value="PageTitleCreateAccount" />
-				<set field="accountType" from-field="parameters.accountType" />
-				<property-to-field field="defaultCountryGeoId"
-					resource="general" property="country.geo.id.default" default="USA" />
-			</actions>
-			<widgets>
-				<decorator-screen name="main-decorator"
-					location="${parameters.mainDecoratorLocation}">
-					<decorator-section name="body">
-						<container style="no-clear">
-							<screenlet title="${uiLabelMap.PageTitleAssignAccountFromExisting}">
-								<include-form name="AssignAccountToMe"
-									location="component://marketing/widget/sfa/forms/AccountForms.xml" />
-							</screenlet>
-						</container>
-					</decorator-section>
-				</decorator-screen>
-			</widgets>
-		</section>
-	</screen>
+        <section>
+            <actions>
+                <set field="headerItem" value="Accounts" />
+                <set field="titleProperty" value="PageTitleCreateAccount" />
+                <set field="accountType" from-field="parameters.accountType" />
+                <property-to-field field="defaultCountryGeoId"
+                    resource="general" property="country.geo.id.default" default="USA" />
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"
+                    location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="no-clear">
+                            <screenlet title="${uiLabelMap.PageTitleAssignAccountFromExisting}">
+                                <include-form name="AssignAccountToMe"
+                                    location="component://marketing/widget/sfa/forms/AccountForms.xml" />
+                            </screenlet>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

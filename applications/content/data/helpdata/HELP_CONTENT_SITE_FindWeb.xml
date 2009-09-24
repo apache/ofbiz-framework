@@ -18,20 +18,20 @@
     under the License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-	xmlns:xl="http://www.w3.org/1999/xlink" 
-	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Main Content help screen</title>
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Main Content help screen</title>
     <para>Introductory text for the content component</para>
     <section>
         <title>subsection heading</title>
         <para>Subsection content</para>
     </section>
-	<section>
+    <section>
         <title>Subsection 2 title</title>
         <para>
-		for more info see the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> for more info.
+        for more info see the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> for more info.
         </para>
     </section>
 </section>

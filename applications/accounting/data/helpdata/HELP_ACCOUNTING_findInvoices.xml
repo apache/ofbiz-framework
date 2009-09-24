@@ -14,53 +14,53 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Find Invoices screen.</title>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Accounting Find Invoices screen.</title>
     <para>The default screen is for the Invoices tab is 'Find Invoices'. It
         is used to locate existing invoices that have been created
         automatically by the system or manually by the user. It can also be
         used to create a new Sales or Purchase Invoice. </para>
     <section>
-		<title>How do I view all invoices?</title>
-		<para>Press the 'Search' button to view all invoices</para>
-	</section>
-	<section>
-		<title>How do I locate an existing invoice?</title>
-		<para>Enter the 'Invoice ID' if known</para>
-		<para>Enter a word from the invoice description in the 'Description'
-			field if known</para>
-		<para>Enter the 'Invoice Type' if known</para>
-		<para>Enter the 'From Party Id' if known (NOTE: In most cases for a
-			Sales Invoices this will be Company. For Purchase Invoice it will be
-			the supplier party id)</para>
-		<para>Enter the 'Billing Account Id' if known</para>
-		<para>Enter the invoice status in the 'Status Id' field if known
-		</para>
-		<para>Enter the 'To Party Id' if known (NOTE: In most cases for a
-			Purchase Invoice this will be company. For Sales Invoices it will be
-			the customer party id)</para>
-		<para>Press the 'Search' button to view all invoices</para>
-		<para>All invoices that meet the search criteria will be displayed.
-		</para>
-	</section>
+        <title>How do I view all invoices?</title>
+        <para>Press the 'Search' button to view all invoices</para>
+    </section>
+    <section>
+        <title>How do I locate an existing invoice?</title>
+        <para>Enter the 'Invoice ID' if known</para>
+        <para>Enter a word from the invoice description in the 'Description'
+            field if known</para>
+        <para>Enter the 'Invoice Type' if known</para>
+        <para>Enter the 'From Party Id' if known (NOTE: In most cases for a
+            Sales Invoices this will be Company. For Purchase Invoice it will be
+            the supplier party id)</para>
+        <para>Enter the 'Billing Account Id' if known</para>
+        <para>Enter the invoice status in the 'Status Id' field if known
+        </para>
+        <para>Enter the 'To Party Id' if known (NOTE: In most cases for a
+            Purchase Invoice this will be company. For Sales Invoices it will be
+            the customer party id)</para>
+        <para>Press the 'Search' button to view all invoices</para>
+        <para>All invoices that meet the search criteria will be displayed.
+        </para>
+    </section>
 
-	<section>
-		<title>How do I update an invoice?</title>
-		<para>Locate the invoice using the 'Find Invoices' screen</para>
-		<para>Using the relevant sub menu make the required changes.</para>
-	</section>
-	<section>
-		<title>How do I delete an invoice?</title>
-		<para>Invoices cannot be deleted through the user interface. They can
-			only be cancelled (eg if they have been entered or created by
-			mistake).</para>
-		<para>NOTE: They can probably be deleted using Entity Data Maintenance
-			in the Webtools menu but this is not recommended for 2 reasons:
-		</para>
-		<para>1. it may cause data integrity problems.</para>
-		<para>2. In case of audit it would be a problem.
-		</para>
-	</section>
+    <section>
+        <title>How do I update an invoice?</title>
+        <para>Locate the invoice using the 'Find Invoices' screen</para>
+        <para>Using the relevant sub menu make the required changes.</para>
+    </section>
+    <section>
+        <title>How do I delete an invoice?</title>
+        <para>Invoices cannot be deleted through the user interface. They can
+            only be cancelled (eg if they have been entered or created by
+            mistake).</para>
+        <para>NOTE: They can probably be deleted using Entity Data Maintenance
+            in the Webtools menu but this is not recommended for 2 reasons:
+        </para>
+        <para>1. it may cause data integrity problems.</para>
+        <para>2. In case of audit it would be a problem.
+        </para>
+    </section>
 </section>

@@ -18,15 +18,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 <chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Party Component.</title>
-	<section>
-		<title>Introduction</title>
-		<para>
-			Please find here a general introduction to the party component (to be continued)
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Party Component.</title>
+    <section>
+        <title>Introduction</title>
+        <para>
+            Please find here a general introduction to the party component (to be continued)
         </para>
-	</section>
-	<xi:include href="../data/helpdata/HELP_PARTY_findparty.xml" />
+    </section>
+    <xi:include href="../data/helpdata/HELP_PARTY_findparty.xml" />
 </chapter>

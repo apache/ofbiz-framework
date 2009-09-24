@@ -18,10 +18,10 @@
     under the License.
 -->
 <book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-	  xmlns:xl="http://www.w3.org/1999/xlink"
-	  xmlns:xi="http://www.w3.org/2001/XInclude"
-	  xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
-	  xmlns="http://docbook.org/ns/docbook">
+      xmlns:xl="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
 
     <info>
         <title>Apache OFBiz Technical documentation.</title>
@@ -131,7 +131,7 @@
 
 
     <appendix>
-    	<title>The Apache OFBiz documentation system</title>
+        <title>The Apache OFBiz documentation system</title>
 
     <section>
         <title>Overview.</title>
@@ -145,14 +145,14 @@
             docbook schemas are stored in the applications/content/dtd
             directory and the stylesheets are
             stored in the applications/content/templates/docbook directory.  
-    	</para>
+        </para>
         <para>
             the definition of the content and dataresource records can be found in
             the application/content/data/ContentType.xml file at the
             bottom. They are in this file because the documentation and
             helpfile
             are considered 'seed' data: essential for the operation of OFBiz.
-    	</para>
+        </para>
         <para>
             If you are looking for docbook files format examples, please
             look at the following files:

@@ -27,23 +27,23 @@
  
  productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId]));
  if(productStore){
-	 context.productStoreId = productStore.productStoreId;
+     context.productStoreId = productStore.productStoreId;
  }
  if(UtilValidate.isEmpty(productStore)){
-	 errMsgList.add("Product Store not set!");
-	 showScreen = "message";
+     errMsgList.add("Product Store not set!");
+     showScreen = "message";
  }else{
-	 facility = delegator.findByPrimaryKey("Facility", [facilityId : productStore.inventoryFacilityId]);
-	 webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId]));
-	 
-	 if(UtilValidate.isEmpty(facility)){
-		 errMsgList.add("Facility not set!");
-		 showScreen = "message";
-	 }
-	 if(UtilValidate.isEmpty(webSite)){
-		 errMsgList.add("WebSite not set!");
-		 showScreen = "message";
-	 }
+     facility = delegator.findByPrimaryKey("Facility", [facilityId : productStore.inventoryFacilityId]);
+     webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId]));
+     
+     if(UtilValidate.isEmpty(facility)){
+         errMsgList.add("Facility not set!");
+         showScreen = "message";
+     }
+     if(UtilValidate.isEmpty(webSite)){
+         errMsgList.add("WebSite not set!");
+         showScreen = "message";
+     }
  }
  if (errMsgList) {
     request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
@@ -52,70 +52,70 @@
  
  productStoreCatalog = EntityUtil.getFirst(delegator.findByAnd("ProductStoreCatalog", [productStoreId: productStore.productStoreId]));
  if(productStoreCatalog){
-	 prodCatalog = productStoreCatalog.getRelatedOne("ProdCatalog");
-	 prodCatalogId = prodCatalog.prodCatalogId;
+     prodCatalog = productStoreCatalog.getRelatedOne("ProdCatalog");
+     prodCatalogId = prodCatalog.prodCatalogId;
  }
  context.prodCatalog = prodCatalog;
  context.prodCatalogId = prodCatalogId
  context.showScreen = showScreen;
 
  if(("productcategory".equals(tabButtonItem)) || ("product".equals(tabButtonItem))){
-	 productCategory = null;
-	 productCategoryId = parameters.productCategoryId;
-	 showErrorMsg = "N";
-	 
-	 if(UtilValidate.isEmpty(prodCatalogId)){
-		 errMsgList.add("Product Catalog not set!");
-		 showErrorMsg = "Y";
-	 }
+     productCategory = null;
+     productCategoryId = parameters.productCategoryId;
+     showErrorMsg = "N";
+     
+     if(UtilValidate.isEmpty(prodCatalogId)){
+         errMsgList.add("Product Catalog not set!");
+         showErrorMsg = "Y";
+     }
 
-	 prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId]));
-	 
-	 if(prodCatalogCategory){
-		 productCategory = prodCatalogCategory.getRelatedOne("ProductCategory");
-		 productCategoryId = productCategory.productCategoryId;
-		 
-	 }
-	 context.productCategoryId = productCategoryId;
-	 context.productCategory = productCategory;
-	 
-	 if("product".equals(tabButtonItem)){
-		 productId = parameters.productId;
-		 product = null;
-		 
-		 if(UtilValidate.isEmpty(productCategoryId)){
-			 errMsgList.add("Product Category not set!");
-			 showErrorMsg = "Y";
-		 }
-		 /**************** get product from ProductCategory ******************/
-		 productCategoryMember  = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryMember", [productCategoryId: productCategoryId]));
-		 if(productCategoryMember){
-			 product = productCategoryMember.getRelatedOne("Product");
-			 productId = product.productId;
-			 // Average cost
-			 averageCostValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "AVERAGE_COST"]);
-			 if(averageCostValues){
-				 averageCostValue = EntityUtil.getFirst(EntityUtil.filterByDate(averageCostValues));
-				 if (averageCostValue?.price != null) {
-					 context.averageCost = averageCostValue.price;
-				 }
-			 }
-			 //	Default cost
-			 defaultPriceValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "DEFAULT_PRICE"]);
-			 if(defaultPriceValues){
-				 defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues));
-				 if (defaultPrice?.price != null) {
-					 context.defaultPrice = defaultPrice.price;
-				 }
-			 }
-		 }
-		 context.productId = productId;
-		 context.product = product;
-	 }
-	 
-	 if (errMsgList) {
-	    request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
-	    return;
-	 }
-	 context.showErrorMsg = showErrorMsg;
+     prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId]));
+     
+     if(prodCatalogCategory){
+         productCategory = prodCatalogCategory.getRelatedOne("ProductCategory");
+         productCategoryId = productCategory.productCategoryId;
+         
+     }
+     context.productCategoryId = productCategoryId;
+     context.productCategory = productCategory;
+     
+     if("product".equals(tabButtonItem)){
+         productId = parameters.productId;
+         product = null;
+         
+         if(UtilValidate.isEmpty(productCategoryId)){
+             errMsgList.add("Product Category not set!");
+             showErrorMsg = "Y";
+         }
+         /**************** get product from ProductCategory ******************/
+         productCategoryMember  = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryMember", [productCategoryId: productCategoryId]));
+         if(productCategoryMember){
+             product = productCategoryMember.getRelatedOne("Product");
+             productId = product.productId;
+             // Average cost
+             averageCostValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "AVERAGE_COST"]);
+             if(averageCostValues){
+                 averageCostValue = EntityUtil.getFirst(EntityUtil.filterByDate(averageCostValues));
+                 if (averageCostValue?.price != null) {
+                     context.averageCost = averageCostValue.price;
+                 }
+             }
+             //    Default cost
+             defaultPriceValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "DEFAULT_PRICE"]);
+             if(defaultPriceValues){
+                 defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues));
+                 if (defaultPrice?.price != null) {
+                     context.defaultPrice = defaultPrice.price;
+                 }
+             }
+         }
+         context.productId = productId;
+         context.product = product;
+     }
+     
+     if (errMsgList) {
+        request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
+        return;
+     }
+     context.showErrorMsg = showErrorMsg;
  }

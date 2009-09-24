@@ -31,7 +31,7 @@ while (iter.hasNext()) {
    organizationRoles = delegator.findByAnd("PartyRole",[partyId : group.partyId, roleTypeId : "ORGANIZATION_ROLE"]);
    organizationRole = EntityUtil.getFirst(organizationRoles);
    if(organizationRole){
-	   organizationList.add(organizationRole);
+       organizationList.add(organizationRole);
    }
 }
 globalContext.PartyAcctgPrefAndGroupList = partyAcctgPrefAndGroupList;

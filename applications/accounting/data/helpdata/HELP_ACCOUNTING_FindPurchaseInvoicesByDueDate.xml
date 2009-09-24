@@ -14,34 +14,34 @@ the specific language governing permissions and limitations under the
 License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Accounting Find Purchase Invoices By Due Date help screen.
-	</title>
-	<para>This screen allows the user to search for and locate Purchase
-		Invoices based on their due date. The 'Due Date' can be defined as the
-		last possible date that payments can be received for the invoice
-		without triggering any late payment penalties. The 'Invoice Date' can
-		be defined as the date that the invoice was created and this is
-		normally based on when products were received or services were
-		provided.</para>
-	<para>NOTE TO CHECK: See if the same bug that exists with Sales
-		Invoices is here too.</para>
-	<para>A Purchase Invoice may be due to be paid immediately or you may
-		be given a 'grace period' after which the invoice is due.</para>
-	<section>
-		<title>How do I find Purchase Invoices by Due Date?</title>
-		<para>Press the 'Find Purchase Invoices by Due Date' button</para>
-		<para>The Find Purchase Invoices by Due Date screen is displayed
-		</para>
-		<para>Enter the 'Organization Party Id' (eg. Normally this will be
-			Company)</para>
-		<para>Enter the 'Party Id' that the Purchase Invoice (eg. Normally
-			this will be the Supplier Party Id)</para>
-		<para>Enter a number in the 'Days Offset' field that represents the
-			number of in which the invoice will become due (eg If an invoice is
-			due to be paid in 5 days then enter 5 or greater)</para>
-		<para>Press the 'Select' button</para>
-	</section>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Accounting Find Purchase Invoices By Due Date help screen.
+    </title>
+    <para>This screen allows the user to search for and locate Purchase
+        Invoices based on their due date. The 'Due Date' can be defined as the
+        last possible date that payments can be received for the invoice
+        without triggering any late payment penalties. The 'Invoice Date' can
+        be defined as the date that the invoice was created and this is
+        normally based on when products were received or services were
+        provided.</para>
+    <para>NOTE TO CHECK: See if the same bug that exists with Sales
+        Invoices is here too.</para>
+    <para>A Purchase Invoice may be due to be paid immediately or you may
+        be given a 'grace period' after which the invoice is due.</para>
+    <section>
+        <title>How do I find Purchase Invoices by Due Date?</title>
+        <para>Press the 'Find Purchase Invoices by Due Date' button</para>
+        <para>The Find Purchase Invoices by Due Date screen is displayed
+        </para>
+        <para>Enter the 'Organization Party Id' (eg. Normally this will be
+            Company)</para>
+        <para>Enter the 'Party Id' that the Purchase Invoice (eg. Normally
+            this will be the Supplier Party Id)</para>
+        <para>Enter a number in the 'Days Offset' field that represents the
+            number of in which the invoice will become due (eg If an invoice is
+            due to be paid in 5 days then enter 5 or greater)</para>
+        <para>Press the 'Select' button</para>
+    </section>
 </section>
