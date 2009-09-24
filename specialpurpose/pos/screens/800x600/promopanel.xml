@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<XPage class="org.ofbiz.pos.screen.PosScreen">
+    <Components>
+        <Panel name="mainPanel" x="0" y="0" w="800" h="600" style="input" border="0">
+            <Panel name="inputPanel" x="0" y="0" w="800" h="38" style="input" border="0">
+                <Include file="default/includes/posinput"/>
+            </Panel>
+            <Panel name="journalPanel" x="0" y="38" w="320" h="542" style="menu">
+                <Include file="default/includes/journal"/>
+            </Panel>
+            <Panel name="menuPanel" x="320" y="38" w="480" h="318" style="menu">
+                <Include file="default/menu/promomain"/>
+            </Panel>
+            <Panel name="numericPanel" x="320" y="356" w="480" h="220" style="menu">
+                <Include file="default/includes/numeric"/>
+            </Panel>
+        </Panel>
+    </Components>
+</XPage>
