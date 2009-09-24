@@ -17,30 +17,29 @@
  * under the License.
  */
 
-
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import java.sql.Timestamp;
 import org.ofbiz.base.util.ObjectType
 
-contentId = request.getParameter("contentId");
-if ("".equals(contentId)) {
+contentId = parameters.contentId;
+if (!contentId) {
     contentId = null;
 }
 
-productContentTypeId = request.getParameter("productContentTypeId");
+productContentTypeId = parameters.productContentTypeId;
 
-fromDate = request.getParameter("fromDate");
-if ("".equals(fromDate)) {
+fromDate = parameters.fromDate;
+if (!fromDate) {
     fromDate = null;
 } else {
     fromDate = ObjectType.simpleTypeConvert(fromDate, "Timestamp", null, null, false)
 }
 
 
-description = request.getParameter("description");
-if ("".equals(description)) {
+description = parameters.description;
+if (!description) {
     description = null;
 }
 
@@ -51,13 +50,13 @@ if (!productContent) {
     productContent.contentId = contentId;
     productContent.productContentTypeId = productContentTypeId;
     productContent.fromDate = fromDate;
-    productContent.thruDate = request.getParameter("thruDate");
-    productContent.purchaseFromDate = request.getParameter("purchaseFromDate");
-    productContent.purchaseThruDate = request.getParameter("purchaseThruDate");
-    productContent.useCountLimit = request.getParameter("useCountLimit");
-    productContent.useTime = request.getParameter("useTime");
-    productContent.useTimeUomId = request.getParameter("useTimeUomId");
-    productContent.useRoleTypeId = request.getParameter("useRoleTypeId");
+    productContent.thruDate = parameters.thruDate;
+    productContent.purchaseFromDate = parameters.purchaseFromDate;
+    productContent.purchaseThruDate = parameters.purchaseThruDate;
+    productContent.useCountLimit = request.parameters.useCountLimit;
+    productContent.useTime = parameters.useTime;
+    productContent.useTimeUomId = parameters.useTimeUomId;
+    productContent.useRoleTypeId = parameters.useRoleTypeId;
 }
 context.productContent = productContent;
 
@@ -70,7 +69,6 @@ if (contentId) {
     content = delegator.findOne("Content", [contentId : contentId], false);
     context.content = content;
 } else {
-    content = [:];
     if (description) {
         content.description = description;
     }
@@ -90,8 +88,7 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
         result = dispatcher.runSync("findAssocContent", serviceCtx);
         contentAssocs = result.get("contentAssocs");
         if (contentAssocs) {
-            for (contentAssocIter = contentAssocs.iterator(); contentAssocIter;) {
-                contentAssoc  = contentAssocIter.next();
+            contentAssocs.each { contentAssoc ->
                 bodyContent = contentAssoc.getRelatedOne("ToContent");
                 bodyDr = bodyContent.getRelatedOne("DataResource");
                 body = bodyDr.getRelatedOne("ElectronicText");
