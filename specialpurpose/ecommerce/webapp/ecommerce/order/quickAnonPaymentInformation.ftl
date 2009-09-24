@@ -103,7 +103,7 @@ function getPaymentInformation() {
    }
 }
 </script>
-<form id="setPaymentInformation" type="POST" action="<@ofbizUrl>quickAnonAddGiftCardToCart</@ofbizUrl>" name="setPaymentInformation">
+<form id="setPaymentInformation" method="post" action="<@ofbizUrl>quickAnonAddGiftCardToCart</@ofbizUrl>" name="setPaymentInformation">
 <div class="screenlet">
     <div class="screenlet-header">
         <div class='boxhead'>&nbsp;${uiLabelMap.AccountingPaymentInformation}</div>
