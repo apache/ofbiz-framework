@@ -34,4 +34,14 @@
         the system quickly via The OFBiz Setup Application.
         </para>
     </section>
+    <section>
+        <title>How to get start</title>
+        <para>1. Open a new terminal.</para>
+        <para>2. Go to your ofbiz directory.</para>
+        <para>3. Clean out all built classes with : ./ant clean-all </para>
+        <para>4. Load initialisation data with : ant run-install-extseed</para>
+        <para>5. Create the admin user with : ./ant create-admin-user-login , then enter a user login id that will be created for you (the initial temporary password is "ofbiz")</para>
+        <para>6. Start ofbiz with : ./startofbiz.sh </para>
+        <para>7. Connect to the OFBiz Setup application.</para>
+    </section>
 </section>
