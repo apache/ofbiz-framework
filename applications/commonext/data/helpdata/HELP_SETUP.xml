@@ -35,13 +35,22 @@
         </para>
     </section>
     <section>
-        <title>How to get start</title>
+        <title>How to get started.</title>
         <para>1. Open a new terminal.</para>
         <para>2. Go to your ofbiz directory.</para>
         <para>3. Clean out all built classes with : ./ant clean-all </para>
-        <para>4. Load initialisation data with : ant run-install-extseed</para>
+        <para>4. Load the seed data with : ant run-install-extseed</para>
         <para>5. Create the admin user with : ./ant create-admin-user-login , then enter a user login id that will be created for you (the initial temporary password is "ofbiz")</para>
         <para>6. Start ofbiz with : ./startofbiz.sh </para>
-        <para>7. Connect to the OFBiz Setup application.</para>
+        <para>7. Connect to the OFBiz Setup application with your browser at https://localhost:8443/ofbizsetup.</para>
     </section>
+    <xi:include href="HELP_SETUP_initialsetup.xml" />
+    <xi:include href="HELP_SETUP_editFacility.xml" />
+    <xi:include href="HELP_SETUP_editProductStore.xml" />
+    <xi:include href="HELP_SETUP_editWebSite.xml" />
+    <xi:include href="HELP_SETUP_firstcustomer.xml"/>
+    <xi:include href="HELP_SETUP_firstProdCatalog.xml"/>
+    <xi:include href="HELP_SETUP_firstProductCategory.xml" />
+    <xi:include href="HELP_SETUP_firstproduct.xml" />
+    <xi:include href="HELP_SETUP_profileCompany.xml" />
 </section>
