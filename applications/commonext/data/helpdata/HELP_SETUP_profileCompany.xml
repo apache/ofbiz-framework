@@ -22,16 +22,9 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The OFBiz Setup Component Overview</title>
-    <para> 
-        The OFBiz Setup Component is supporting for immediate setup your organization. For example, Product Store, WebSite , Facility , product catalog, category 
-        , product, and etc. and then be able to create orders from data that is created.
+    <title>The View Organization Profile help screen.</title>
+    <para>
+        This screen shows details of an individual profile. It displays specific information regarding the contact and profile information. 
+        The lower part of the screen shows the contact information details indicating the address , telephone number , or email used to communicate with your organization.
     </para>
-    <section>
-        <title>Why we have OFBiz Setup Application?</title>
-        <para>
-            If you are the company and also want to use OFBiz for running your business then you easily be able to setting your information for start running 
-        the system quickly via The OFBiz Setup Application.
-        </para>
-    </section>
 </section>

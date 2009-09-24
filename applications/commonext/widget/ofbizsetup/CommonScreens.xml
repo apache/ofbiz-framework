@@ -58,9 +58,6 @@
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
-                <entity-one entity-name="Facility" value-field="lookupFacility"/>
-                <entity-one entity-name="WebSite" value-field="lookupWebSite"/>
-                <entity-one entity-name="ProductStore" value-field="lookupProductStore"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -142,33 +139,6 @@
                                 </section>
                             </container>
                         </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="CommonMyCommunicationEventDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="mycomm"/>
-                <set field="my" value="My" global="true"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="MyCommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

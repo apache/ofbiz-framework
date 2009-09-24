@@ -96,13 +96,19 @@
                             </condition>
                             <widgets>
                                 <section>
-                                    <actions>
-                                        <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacility.groovy"/>
-                                    </actions>
+                                    <condition>
+                                        <not><if-empty field="facility"/></not>
+                                    </condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://commonext/webapp/ofbizsetup/organization/EditFacility.ftl"/></html>
-                                        </platform-specific>
+                                        <label style="h1" text="${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facility.facilityId}]"></label>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h1" text="${uiLabelMap.ProductNewFacility}"></label>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditFacility" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
                                     </widgets>
                                 </section>
                             </widgets>
@@ -121,7 +127,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductStore"/>
                 <set field="tabButtonItemTop" value="productstore"/>
-                <set field="labelTitleProperty" value="ProductStore"/>
+                <set field="labelTitleProperty" value="PageTitleEditProductStore"/>
                 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
@@ -141,7 +147,7 @@
                                     <condition><not><if-empty field="productStoreId"/></not></condition>
                                     <widgets>
                                         <container>
-                                            <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}] ${uiLabelMap.${extraFunctionName}}"/>
+                                            <label style="h1" text="${uiLabelMap.PageTitleEditProductStore} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -184,9 +190,7 @@
                 <set field="titleProperty" value="PageTitleEditWebSite"/>
                 <set field="tabButtonItemTop" value="website"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSite"/>
-                
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProductStoreAndWebSite.groovy"/>
             </actions>
             <widgets>
@@ -198,10 +202,10 @@
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field="webSiteId"/></not></condition>
+                                    <condition><not><if-empty field="webSite"/></not></condition>
                                     <widgets>
                                         <container>
-                                            <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                            <label style="h1" text="${uiLabelMap.PageTitleEditWebSite} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -376,6 +380,22 @@
                             </widgets>
                         </section>
                         <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="nopartyAcctgPreference">
+        <section>
+            <actions>
+                <set field="titleProperty" value="SetupCreateNewOrganization"/>
+                <set field="headerItem" value="init"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="errorMessage">${uiLabelMap.SetupEventMessage}</label>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

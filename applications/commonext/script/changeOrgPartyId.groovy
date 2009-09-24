@@ -18,21 +18,14 @@
  */
 
 import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtil;
+
 //partyAcctgPrefAndGroupList
 partyAcctgPrefAndGroupList = [];
-organizationList = [];
 partyAcctgPrefAndGroup = delegator.findAll("PartyAcctgPrefAndGroup");
 iter = partyAcctgPrefAndGroup.iterator();
 while (iter.hasNext()) {
    group = iter.next()
    partyAcctgPrefAndGroupList.add(["key":group.partyId,"value":group.groupName]);
-   // find organization which have ORGANIZATION_ROLE
-   organizationRoles = delegator.findByAnd("PartyRole",[partyId : group.partyId, roleTypeId : "ORGANIZATION_ROLE"]);
-   organizationRole = EntityUtil.getFirst(organizationRoles);
-   if(organizationRole){
-       organizationList.add(organizationRole);
-   }
 }
 globalContext.PartyAcctgPrefAndGroupList = partyAcctgPrefAndGroupList;
 //hiddenFileds
@@ -40,4 +33,3 @@ hiddenFields = [];
 hiddenFields.add([name : "userPrefTypeId", value : "ORGANIZATION_PARTY"]);
 hiddenFields.add([name : "userPrefGroupTypeId", value : "GLOBAL_PREFERENCES"]);
 globalContext.hiddenFields = hiddenFields;
-globalContext.organizationList = organizationList;

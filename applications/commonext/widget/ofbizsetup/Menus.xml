@@ -76,7 +76,7 @@
             </link>
         </menu-item>
         <menu-item name="product" title="${uiLabelMap.ProductProduct}">
-            <link target="NewProduct">
+            <link target="EditProduct">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
