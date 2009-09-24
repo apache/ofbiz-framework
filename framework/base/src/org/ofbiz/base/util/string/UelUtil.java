@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -139,57 +140,9 @@ public class UelUtil {
          */
         @Override
         public ValueExpression resolveVariable(String variable) {
-            Object obj = null;
-            String createObjectType = null;
-            String name = variable;
-            if (variable.contains("$")) {
-                if (variable.endsWith("$string")) {
-                    name = variable.substring(0, variable.length() - 7);
-                    createObjectType = "string";
-                } else if (variable.endsWith("$null")) {
-                    name = variable.substring(0, variable.length() - 5);
-                    createObjectType = "null";
-                } else if (variable.endsWith("$boolean")) {
-                    name = variable.substring(0, variable.length() - 8);
-                    createObjectType = "boolean";
-                } else if (variable.endsWith("$integer")) {
-                    name = variable.substring(0, variable.length() - 8);
-                    createObjectType = "integer";
-                } else if (variable.endsWith("$long")) {
-                    name = variable.substring(0, variable.length() - 5);
-                    createObjectType = "long";
-                } else if (variable.endsWith("$double")) {
-                    name = variable.substring(0, variable.length() - 7);
-                    createObjectType = "double";
-                }
-            }
-            if (this.variables instanceof LocalizedMap) {
-                Locale locale = UtilMisc.ensureLocale(this.variables.get("locale"));
-                Object localizedObj = ((LocalizedMap<?>) this.variables).get(name, locale);
-                if (localizedObj == null) {
-                    localizedObj = this.variables.get(name);
-                }
-                obj = localizedObj;
-            } else {
-                obj = this.variables.get(name);
-            }
+            Object obj = UelUtil.resolveVariable(variable, this.variables, null);
             if (obj != null) {
                 return new BasicValueExpression(obj);
-            }
-            if (createObjectType != null) {
-                if ("string".equals(createObjectType)) {
-                    return new BasicValueExpression("");
-                } else if ("null".equals(createObjectType)) {
-                    return new BasicValueExpression(null);
-                } else if ("boolean".equals(createObjectType)) {
-                    return new BasicValueExpression(Boolean.FALSE);
-                } else if ("integer".equals(createObjectType)) {
-                    return new BasicValueExpression(Integer.valueOf(0));
-                } else if ("long".equals(createObjectType)) {
-                    return new BasicValueExpression(Long.valueOf(0));
-                } else if ("double".equals(createObjectType)) {
-                    return new BasicValueExpression(Double.valueOf(0));
-                }
             }
             return null;
         }
@@ -327,7 +280,7 @@ public class UelUtil {
         }
     }
 
-    /** Custom <code>MapELResolver</code> class used to accomodate
+    /** Custom <code>MapELResolver</code> class used to accommodate
      * <code>LocalizedMap</code> instances.
      */
     protected static class ExtendedMapResolver extends MapELResolver {
@@ -365,7 +318,11 @@ public class UelUtil {
                     }
                     locale = Locale.getDefault();
                 }
-                return map.get(property.toString(), locale);
+                return resolveVariable(property.toString(), (Map) map, locale);
+            }
+            if (base != null && base instanceof Map && property instanceof String) {
+                context.setPropertyResolved(true);
+                return resolveVariable(property.toString(), (Map) base, null);
             }
             return super.getValue(context, base, property);
         }
@@ -413,4 +370,71 @@ public class UelUtil {
         }
         return result;
     }
+
+    @SuppressWarnings("unchecked")
+    public static Object resolveVariable(String variable, Map<String, Object> variables, Locale locale) {
+        Object obj = null;
+        String createObjectType = null;
+        String name = variable;
+        if (variable.contains("$")) {
+            if (variable.endsWith("$string")) {
+                name = variable.substring(0, variable.length() - 7);
+                createObjectType = "string";
+            } else if (variable.endsWith("$null")) {
+                name = variable.substring(0, variable.length() - 5);
+                createObjectType = "null";
+            } else if (variable.endsWith("$boolean")) {
+                name = variable.substring(0, variable.length() - 8);
+                createObjectType = "boolean";
+            } else if (variable.endsWith("$integer")) {
+                name = variable.substring(0, variable.length() - 8);
+                createObjectType = "integer";
+            } else if (variable.endsWith("$long")) {
+                name = variable.substring(0, variable.length() - 5);
+                createObjectType = "long";
+            } else if (variable.endsWith("$double")) {
+                name = variable.substring(0, variable.length() - 7);
+                createObjectType = "double";
+            } else if (variable.endsWith("$bigDecimal")) {
+                name = variable.substring(0, variable.length() - 11);
+                createObjectType = "bigDecimal";
+            }
+        }
+        if (variables instanceof LocalizedMap) {
+            if (locale == null) {
+                locale = (Locale) variables.get(localizedMapLocaleKey);
+                if (locale == null) {
+                    locale = (Locale) variables.get("locale");
+                    if (locale == null) {
+                        locale = Locale.getDefault();
+                    }
+                }
+            }
+            obj = ((LocalizedMap<?>) variables).get(name, locale);
+        } else {
+            obj = variables.get(name);
+        }
+        if (obj != null) {
+            return obj;
+        }
+        if (createObjectType != null) {
+            if ("string".equals(createObjectType)) {
+                return "";
+            } else if ("null".equals(createObjectType)) {
+                return null;
+            } else if ("boolean".equals(createObjectType)) {
+                return Boolean.FALSE;
+            } else if ("integer".equals(createObjectType)) {
+                return Integer.valueOf(0);
+            } else if ("long".equals(createObjectType)) {
+                return Long.valueOf(0);
+            } else if ("double".equals(createObjectType)) {
+                return Double.valueOf(0);
+            } else if ("bigDecimal".equals(createObjectType)) {
+                return BigDecimal.ZERO;
+            }
+        }
+        return null;
+    }
+
 }
