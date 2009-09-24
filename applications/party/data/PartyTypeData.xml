@@ -183,6 +183,7 @@ under the License.
     <RoleType description="Visitor" hasTable="N" parentTypeId="" roleTypeId="VISITOR"/>
     <RoleType description="Web Master" hasTable="N" parentTypeId="" roleTypeId="WEB_MASTER"/>
     <RoleType description="Workflow" hasTable="N" parentTypeId="" roleTypeId="WORKFLOW_ROLE"/>
+    <RoleType description="Accountant" hasTable="N" parentTypeId="" roleTypeId="ACCOUNTANT"/>
 
     <!-- second level role types -->
     <RoleType description="Account" hasTable="N" parentTypeId="SFA_ROLE" roleTypeId="ACCOUNT"/>
