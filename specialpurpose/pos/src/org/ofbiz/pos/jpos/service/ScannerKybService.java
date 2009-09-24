@@ -50,7 +50,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
 
     protected byte[] scannedDataLabel = new byte[0];
     protected byte[] scannedData = new byte[0];
-    protected String codeId = new String();
+    protected String codeId = "";
 
     protected boolean decodeData = true;
     protected boolean eventEnabled = true;
@@ -116,7 +116,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
     public void clearInput() throws JposException {
         this.scannedDataLabel = new byte[0];
         this.scannedData = new byte[0];
-        this.codeId = new String();
+        this.codeId = "";
     }
 
     // ScannerService13

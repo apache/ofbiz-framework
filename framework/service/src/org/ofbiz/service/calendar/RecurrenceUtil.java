@@ -33,7 +33,7 @@ public class RecurrenceUtil {
 
     /** Returns a Date object from a String. */
     public static Date parseDate(String dateStr) {
-        String formatString = new String();
+        String formatString = "";
 
         if (dateStr.length() == 16)
             dateStr = dateStr.substring(0, 14);
@@ -61,7 +61,7 @@ public class RecurrenceUtil {
 
     /** Returns a String from a Date object */
     public static String formatDate(Date date) {
-        String formatString = new String();
+        String formatString = "";
         Calendar cal = Calendar.getInstance();
 
         cal.setTime(date);

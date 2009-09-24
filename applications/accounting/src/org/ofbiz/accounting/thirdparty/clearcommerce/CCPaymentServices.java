@@ -61,7 +61,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, Object> context) {
         String ccAction = (String) context.get("ccAction");
-        if (ccAction == null) ccAction = new String("PreAuth");
+        if (ccAction == null) ccAction = "PreAuth";
         Document authRequestDoc = buildPrimaryTxRequest(context, ccAction, (BigDecimal) context.get("processAmount"),
                 (String) context.get("orderId"));
 
@@ -88,9 +88,9 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccCredit(DispatchContext dctx, Map<String, Object> context) {
-        String action = new String("Credit");
+        String action = "Credit";
         if (context.get("pbOrder") != null) {
-            action = new String("Auth");  // required for periodic billing....
+            action = "Auth";  // required for periodic billing....
         }
 
         Document creditRequestDoc = buildPrimaryTxRequest(context, action, (BigDecimal) context.get("creditAmount"),

@@ -241,7 +241,7 @@ public class XpdlReader {
     private boolean checkVersion(GenericValue valueObject, String prefix) {
         // Test if the object already exists. If so throw an exception.
         try {
-            String message = new String();
+            String message = "";
 
             if (prefix.equals("package")) {
                 GenericValue gvCheck = valueObject.getDelegator().findByPrimaryKey("WorkflowPackage",

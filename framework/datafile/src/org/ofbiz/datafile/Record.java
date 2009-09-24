@@ -395,7 +395,7 @@ public class Record implements Serializable {
 
                 for (int i = 0; i < modelField.length; i++)
                     sb.append(PAD_CHAR);
-                data = new String(sb);
+                data = sb.toString();
             }
 
             // Pad the record
