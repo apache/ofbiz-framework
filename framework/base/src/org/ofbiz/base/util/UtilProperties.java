@@ -360,7 +360,12 @@ public class UtilProperties implements java.io.Serializable {
             +"# under the License.                                                           \n"
             +"###############################################################################\n"
             +"#                                                                              \n"
-            +"#Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)");
+            +"# Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)\n"
+            +"#                                                                              \n"
+            +"# By default the screen is 1024x768 wide. If you want to use another screen size,\n"
+            +"# you must create a new directory under specialpurpose/pos/screens, like the 800x600.\n"
+            +"# You must also set the 3 related parameters (StartClass, ClientWidth, ClientHeight) accordingly.\n"
+            +"#");
 
             propFile.close();
         } catch (FileNotFoundException e) {
