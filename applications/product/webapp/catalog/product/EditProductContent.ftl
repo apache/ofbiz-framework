@@ -39,13 +39,13 @@ under the License.
     <br/>
     </#if>
     <form action="<@ofbizUrl>updateProductContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
+    <input type="hidden" name="productId" value="${productId?if_exists}"/>
     <table cellspacing="0" class="basic-table">
-    <input type="hidden" name="productId" value="${productId?if_exists}">
     <tr>
         <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductName}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <input type="text" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60">
+            <input type="text" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60"/>
         </td>
     </tr>
     <tr>
@@ -66,7 +66,7 @@ under the License.
         <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductDetailScreen}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <input type="text" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250">
+            <input type="text" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250"/>
             <br/><span class="tooltip">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
         </td>
     </tr>
@@ -74,12 +74,12 @@ under the License.
         <td width="20%" align="right" valign="top">
             <div><b>${uiLabelMap.ProductSmallImage}</b></div>
             <#if (product.smallImageUrl)?exists>
-                <a href="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"></a>
+                <a href="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"/></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" name="smallImageUrl" value="${(product.smallImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="smallImageUrl" value="${(product.smallImageUrl)?default('')}" size="60" maxlength="255"/>
         <#if productId?has_content>
             <div>
             <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -94,12 +94,12 @@ under the License.
         <td width="20%" align="right" valign="top">
             <div><b>${uiLabelMap.ProductMediumImage}</b></div>
             <#if (product.mediumImageUrl)?exists>
-                <a href="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Medium Image" src="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
+                <a href="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Medium Image" src="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" name="mediumImageUrl" value="${(product.mediumImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="mediumImageUrl" value="${(product.mediumImageUrl)?default('')}" size="60" maxlength="255"/>
         <#if productId?has_content>
             <div>
             <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -114,12 +114,12 @@ under the License.
         <td width="20%" align="right" valign="top">
             <div><b>${uiLabelMap.ProductLargeImage}</b></div>
             <#if (product.largeImageUrl)?exists>
-                <a href="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Large Image" src="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
+                <a href="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Large Image" src="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" name="largeImageUrl" value="${(product.largeImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="largeImageUrl" value="${(product.largeImageUrl)?default('')}" size="60" maxlength="255"/>
         <#if productId?has_content>
             <div>
             <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -134,12 +134,12 @@ under the License.
         <td width="20%" align="right" valign="top">
             <div><b>${uiLabelMap.ProductDetailImage}</b></div>
             <#if (product.detailImageUrl)?exists>
-                <a href="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Detail Image" src="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
+                <a href="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Detail Image" src="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" name="detailImageUrl" value="${(product.detailImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="detailImageUrl" value="${(product.detailImageUrl)?default('')}" size="60" maxlength="255"/>
         <#if productId?has_content>
             <div>
             <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -154,12 +154,12 @@ under the License.
         <td width="20%" align="right" valign="top">
             <div><b>${uiLabelMap.ProductOriginalImage}</b></div>
             <#if (product.originalImageUrl)?exists>
-                <a href="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Original Image" src="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
+                <a href="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Original Image" src="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" name="originalImageUrl" value="${(product.originalImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="originalImageUrl" value="${(product.originalImageUrl)?default('')}" size="60" maxlength="255"/>
         <#if productId?has_content>
             <div>
             <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -184,19 +184,20 @@ under the License.
         };
     </script>
     <h3>${uiLabelMap.ProductUploadImage}</h3>
-    <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=original</@ofbizUrl>" name="imageUploadForm">
+    <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&amp;upload_file_type=original</@ofbizUrl>" name="imageUploadForm">
         <table cellspacing="0" class="basic-table">
             <tr>
                 <td width="20%" align="right" valign="top">
-                    <input type="file" size="50" name="fname">
+                    <input type="file" size="50" name="fname"/>
+                </td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <input type="radio" name="upload_file_type_bogus" value="small" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>");'>${uiLabelMap.CommonSmall}
-                    <input type="radio" name="upload_file_type_bogus" value="medium" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=medium</@ofbizUrl>");'>${uiLabelMap.CommonMedium}
-                    <input type="radio" name="upload_file_type_bogus" value="large"onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=large</@ofbizUrl>");'>${uiLabelMap.CommonLarge}
-                    <input type="radio" name="upload_file_type_bogus" value="detail" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=detail</@ofbizUrl>");'>${uiLabelMap.CommonDetail}
-                    <input type="radio" name="upload_file_type_bogus" value="original" checked onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=original</@ofbizUrl>");'>${uiLabelMap.ProductOriginal}
-                    <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">
+                    <input type="radio" name="upload_file_type_bogus" value="small" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&amp;upload_file_type=small</@ofbizUrl>");'/>${uiLabelMap.CommonSmall}
+                    <input type="radio" name="upload_file_type_bogus" value="medium" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&amp;upload_file_type=medium</@ofbizUrl>");'/>${uiLabelMap.CommonMedium}
+                    <input type="radio" name="upload_file_type_bogus" value="large"onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&amp;upload_file_type=large</@ofbizUrl>");'/>${uiLabelMap.CommonLarge}
+                    <input type="radio" name="upload_file_type_bogus" value="detail" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&amp;upload_file_type=detail</@ofbizUrl>");'/>${uiLabelMap.CommonDetail}
+                    <input type="radio" name="upload_file_type_bogus" value="original" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&amp;upload_file_type=original</@ofbizUrl>");'/>${uiLabelMap.ProductOriginal}
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}"/>
                 </td>
             </tr>
         </table>
