@@ -249,7 +249,7 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyGroup}"/>
-                <set field="entityName" value="PartyGroup"/>
+                <set field="entityName" value="PartyAndGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
