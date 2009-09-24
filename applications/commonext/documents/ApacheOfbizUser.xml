@@ -35,7 +35,7 @@
             A project introduction can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBADMIN/Apache+OFBiz+Project+Overview">OFBiz documentation site</link>
         </para>
     </chapter>
-    <xi:include href="CommonExt.xml"/>
+    <xi:include href="Setup.xml"/>
     <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
     <xi:include href="../../../applications/party/documents/Party.xml"/>
     <xi:include href="../../../applications/product/documents/Product.xml"/>
