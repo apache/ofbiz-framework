@@ -23,27 +23,23 @@ under the License.
 <#-- looping macro -->
 <#macro categoryList parentCategory category>
   <#if parentCategory.productCategoryId != category.productCategoryId>
-    <#local pStr = "/~pcategory=" + parentCategory.productCategoryId>
+    <#assign categoryUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, parentCategory.productCategoryId) />
+  <#else>
+    <#assign categoryUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, "") />
   </#if>
 
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <li>
-    <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
-        <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
-            <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="buttontextdisabled">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}</a>
-        <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
-            <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="buttontextdisabled">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")}</a>
+    <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists>
+      <a href="${categoryUrl}" class="<#if curCategoryId?exists && curCategoryId == category.productCategoryId>buttontextdisabled<#else>linktext</#if>">
+        <#if catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
+          ${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}
+        <#elseif catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
+          ${catContentWrappers[category.productCategoryId].get("DESCRIPTION")}
         <#else>
-            <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="buttontextdisabled">${category.description?if_exists}</a>
+          ${category.description?if_exists}
         </#if>
-    <#else>
-        <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
-            <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="linktext">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}</a>
-        <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
-            <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="linktext">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")}</a>
-        <#else>
-            <a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="linktext">${category.description?if_exists}</a>
-        </#if>
+      </a>
     </#if>
     </li>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
