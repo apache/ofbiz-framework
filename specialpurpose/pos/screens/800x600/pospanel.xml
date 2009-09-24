@@ -21,16 +21,16 @@ under the License.
     <Components>
         <Panel name="mainPanel" x="0" y="0" w="800" h="600" style="input" border="0">
             <Panel name="inputPanel" x="0" y="0" w="800" h="38" style="input" border="0">
-                <Include file="default/includes/posinput"/>
+                <Include file="800x600/includes/posinput"/>
             </Panel>
             <Panel name="journalPanel" x="0" y="38" w="320" h="542" style="menu">
-                <Include file="default/includes/journal"/>
+                <Include file="800x600/includes/journal"/>
             </Panel>
             <Panel name="menuPanel" x="320" y="38" w="480" h="318" style="menu">
-                <Include file="default/menu/posmain"/>
+                <Include file="800x600/menu/posmain"/>
             </Panel>
             <Panel name="numericPanel" x="320" y="356" w="480" h="220" style="menu">
-                <Include file="default/includes/numeric"/>
+                <Include file="800x600/includes/numeric"/>
             </Panel>
         </Panel>
     </Components>
