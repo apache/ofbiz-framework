@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<XPage class="net.xoetrope.swing.XDialog">
+    <Components>
+        <Panel name="mainPanel" x="0" y="0" w="1024" h="768" style="menu" >
+        <!--  FIXME XUI dialog boxes are hardcoded to a 800*600 max ! https://issues.apache.org/jira/browse/OFBIZ-1606?focusedCommentId=12614469#action_12614469
+               actually maxi seem to be 808*628 certainly due to margins(?)
+        -->
+            <Panel name="inputAndDel" x="0" y="0" w="760" h="50" style="numButton">
+                <Edit name="keyboard_input" x="2" y="2" w="600" h="42" style="editAndList" border="1" alignment="Left"/>
+                <Button name="charDel" x="609" y="2" w="150" h="42" style="numButton" content="Backspace" alignment="Center"/>
+            </Panel>
+            <Panel name="alphaNum_keyboard" x="0" y="50" w="760" h="351" style="numButton">
+                <Button name="char1" x="0" y="0" w="75" h="68" style="numButton" content="1" alignment="Center"/>
+                <Button name="char2" x="76" y="0" w="75" h="68" style="numButton" content="2" alignment="Center"/>
+                <Button name="char3" x="152" y="0" w="75" h="68" style="numButton" content="3" alignment="Center"/>
+                <Button name="char4" x="228" y="0" w="75" h="68" style="numButton" content="4" alignment="Center"/>
+                <Button name="char5" x="304" y="0" w="75" h="68" style="numButton" content="5" alignment="Center"/>
+                <Button name="char6" x="380" y="0" w="75" h="68" style="numButton" content="6" alignment="Center"/>
+                <Button name="char7" x="456" y="0" w="75" h="68" style="numButton" content="7" alignment="Center"/>
+                <Button name="char8" x="532" y="0" w="75" h="68" style="numButton" content="8" alignment="Center"/>
+                <Button name="char9" x="608" y="0" w="75" h="68" style="numButton" content="9" alignment="Center"/>
+                <Button name="char0" x="684" y="0" w="75" h="68" style="numButton" content="0" alignment="Center"/>
+
+                <Button name="charQ" x="0" y="69" w="75" h="68" style="numButton" content="q" alignment="Center"/>
+                <Button name="charW" x="76" y="69" w="75" h="68" style="numButton" content="w" alignment="Center"/>
+                <Button name="charE" x="152" y="69" w="75" h="68" style="numButton" content="e" alignment="Center"/>
+                <Button name="charR" x="228" y="69" w="75" h="68" style="numButton" content="r" alignment="Center"/>
+                <Button name="charT" x="304" y="69" w="75" h="68" style="numButton" content="t" alignment="Center"/>
+                <Button name="charY" x="380" y="69" w="75" h="68" style="numButton" content="y" alignment="Center"/>
+                <Button name="charU" x="456" y="69" w="75" h="68" style="numButton" content="u" alignment="Center"/>
+                <Button name="charI" x="532" y="69" w="75" h="68" style="numButton" content="i" alignment="Center"/>
+                <Button name="charO" x="608" y="69" w="75" h="68" style="numButton" content="o" alignment="Center"/>
+                <Button name="charP" x="684" y="69" w="75" h="68" style="numButton" content="p" alignment="Center"/>
+
+                <Button name="charA" x="00" y="138" w="75" h="68" style="numButton" content="a" alignment="Center"/>
+                <Button name="charS" x="76" y="138" w="75" h="68" style="numButton" content="s" alignment="Center"/>
+                <Button name="charD" x="152" y="138" w="75" h="68" style="numButton" content="d" alignment="Center"/>
+                <Button name="charF" x="228" y="138" w="75" h="68" style="numButton" content="f" alignment="Center"/>
+                <Button name="charG" x="304" y="138" w="75" h="68" style="numButton" content="g" alignment="Center"/>
+                <Button name="charH" x="380" y="138" w="75" h="68" style="numButton" content="h" alignment="Center"/>
+                <Button name="charJ" x="456" y="138" w="75" h="68" style="numButton" content="j" alignment="Center"/>
+                <Button name="charK" x="532" y="138" w="75" h="68" style="numButton" content="k" alignment="Center"/>
+                <Button name="charL" x="608" y="138" w="75" h="68" style="numButton" content="l" alignment="Center"/>
+
+                <Button name="charZ" x="00" y="207" w="75" h="68" style="numButton" content="z" alignment="Center"/>
+                <Button name="charX" x="76" y="207" w="75" h="68" style="numButton" content="x" alignment="Center"/>
+                <Button name="charC" x="152" y="207" w="75" h="68" style="numButton" content="c" alignment="Center"/>
+                <Button name="charV" x="228" y="207" w="75" h="68" style="numButton" content="v" alignment="Center"/>
+                <Button name="charB" x="304" y="207" w="75" h="68" style="numButton" content="b" alignment="Center"/>
+                <Button name="charN" x="380" y="207" w="75" h="68" style="numButton" content="n" alignment="Center"/>
+                <Button name="charM" x="456" y="207" w="75" h="68" style="numButton" content="m" alignment="Center"/>
+                <Button name="charDot" x="532" y="207" w="75" h="68" style="numButton" content="." alignment="Center"/>
+                <Button name="charDash" x="608" y="207" w="75" h="68" style="numButton" content="-" alignment="Center"/>
+
+                <Button name="charEnter" x="694" y="206" w="65" h="138" style="numButton" content="Enter" alignment="Center"/>
+
+                <Button name="charClear" x="0" y="276" w="75" h="68" style="numButton" content="Clear" alignment="Center"/>
+                <Button name="charShift" x="76" y="276" w="75" h="68" style="numButton" content="Shift" alignment="Center"/>
+                <Button name="charShiftLock" x="152" y="276" w="75" h="68" style="numButton" content="Lock" alignment="Center"/>
+
+                <Button name="charSpace" x="228" y="276" w="300" h="68" style="numButton" content="Space Bar" alignment="Center"/>
+
+                <Button name="charCancel" x="585" y="276" w="100" h="68" style="numButton" content="Cancel" alignment="Center"/>
+            </Panel>
+
+            <!--  FIXME XUI dialog boxes are hardcoded to a 800*600 max ! https://issues.apache.org/jira/browse/OFBIZ-1606?focusedCommentId=12614469#action_12614469
+                actually maxi seem to be 808*628 certainly due to margins(?)
+            -->
+            <!--Panel name="num_keyboard" x="760" y="50" w="264" h="282" style="numButton">
+                <Button name="numSeven" x="0" y="0" w="70" h="68" style="numButton" content="7" alignment="Center"/>
+                <Button name="numEight" x="76" y="0" w="75" h="68" style="numButton" content="8" alignment="Center"/>
+                <Button name="numNine" x="152" y="0" w="75" h="68" style="numButton" content="9" alignment="Center"/>
+                <Button name="numPercent" x="228" y="0" w="75" h="68" style="numButton" content="%" alignment="Center"/>
+                <Button name="numFour" x="0" y="69" w="75" h="68" style="numButton" content="4" alignment="Center"/>
+                <Button name="numFive" x="76" y="69" w="75" h="68" style="numButton" content="5" alignment="Center"/>
+                <Button name="numSix" x="152" y="69" w="75" h="68" style="numButton" content="6" alignment="Center"/>
+                <Button name="numOne" x="0" y="138" w="75" h="68" style="numButton" content="1" alignment="Center"/>
+                <Button name="numTwo" x="76" y="138" w="75" h="68" style="numButton" content="2" alignment="Center"/>
+                <Button name="numThree" x="152" y="138" w="75" h="68" style="numButton" content="3" alignment="Center"/>
+                <Button name="numMinus" x="0" y="207" w="75" h="68" style="posButton" content="-" alignment="Center"/>
+                <Button name="numZero" x="76" y="207" w="75" h="68" style="numButton" content="0" alignment="Center"/>
+                <Button name="numDZero" x="152" y="207" w="75" h="68" style="numButton" content="00" alignment="Center"/>
+            </Panel-->
+        </Panel>
+    </Components>
+</XPage>
