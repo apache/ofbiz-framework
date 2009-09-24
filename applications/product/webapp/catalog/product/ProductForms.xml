@@ -764,7 +764,7 @@ under the License.
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditProductAdditionalImageContent" type="upload" target="addAdditionalImageContentForProduct" title="">
+    <form name="EditProductContentImage" type="upload" target="addAdditionalImageContentForProduct" title="">
         <auto-fields-entity entity-name="ProductContent" map-name="productContentData"/>
         <field name="productContentTypeId"><display-entity entity-name="ProductContentType" also-hidden="true"/></field>
         <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
