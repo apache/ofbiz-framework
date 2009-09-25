@@ -23,6 +23,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.InputStream;
+import java.util.Iterator;
+import javax.imageio.spi.ServiceRegistry;
 
 /**
  * UtilObject
@@ -170,5 +172,18 @@ public class UtilObject {
     public static int doHashCode(Object o1) {
         if (o1 == null) return 0;
         return o1.hashCode();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getObjectFromFactory(Class<T> factoryInterface, Object obj) throws ClassNotFoundException {
+        Iterator<Factory<T>> it = (Iterator<Factory<T>>) ServiceRegistry.lookupProviders(factoryInterface);
+        while (it.hasNext()) {
+            Factory<T> factory = it.next();
+            T instance = factory.getInstance(obj);
+            if (instance != null) {
+                return instance;
+            }
+        }
+        throw new ClassNotFoundException(factoryInterface.getClass().getName());
     }
 }
