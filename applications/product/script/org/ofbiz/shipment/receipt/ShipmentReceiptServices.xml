@@ -512,10 +512,12 @@ under the License.
             <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
                 <field-map field-name="orderId" from-field="orderItem.orderId"/>
             </entity-and>
-            <first-from-list list="orderItemBillings" entry="orderItemBilling"/>
-            <set field="invoiceStatusMap.invoiceId" from-field="orderItemBilling.invoiceId"/>
-            <set field="invoiceStatusMap.statusId" value="INVOICE_CANCELLED"/>
-            <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap"/>
+            <if-not-empty field="orderItemBillings">
+                <first-from-list list="orderItemBillings" entry="orderItemBilling"/>
+                <set field="invoiceStatusMap.invoiceId" from-field="orderItemBilling.invoiceId"/>
+                <set field="invoiceStatusMap.statusId" value="INVOICE_CANCELLED"/>
+                <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap"/>
+            </if-not-empty>
         </if-compare>
     </simple-method>
 </simple-methods>
