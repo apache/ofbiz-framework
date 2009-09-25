@@ -222,6 +222,30 @@
             </orderedlist>
         </para>
     </section>
+    <section>
+        <title><anchor id="helpInternationalization"/>Internationalization of the help system</title>
+        <para>
+            Because the help system is making use of the content component, internationalization of the help files is very easy because 
+            it is a basic function of the content component. If you want to make a translation of an existing help file, make a copy in the same directory 
+            and make it unique by attaching the "_languageCode" at he end.
+            Create, as also was done for the english version a dataresource and content record in the data/${componentName}HelpData.xml file.
+            Then create an ContentAssoc record in data/${componentName}HelpData.xml file to associate this new file with the english file with the type
+            ALTERNATE_LOCALE. Please find below an example from the ContentHelpData.xml for a Dutch version of the root help file.
+            <programlisting>
+    &lt;!-- how to create alternative locales --&gt;
+    &lt;DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" /&gt;
+    &lt;Content contentId="HELP_ROOT_NL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_ROOT_NL" localeString="nl" statusId="CTNT_IN_PROGRESS" 
+        contentName="Help system root in dutch" mimeTypeId="text/html"/&gt;
+    &lt;ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_NL" 
+        contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/&gt;
+            </programlisting> 
+            The switching between locales is from then on completely automatic.
+        </para>
+    </section>
+    
     </appendix>
     
     <appendix>

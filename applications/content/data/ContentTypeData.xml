@@ -265,7 +265,4 @@ under the License.
     <DataResource dataResourceId="DOCBOOK_HTML_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/docbook/html/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
     <DataResource dataResourceId="DOCBOOK_PDF_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/docbook/fo/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
 
-    <!-- localization example file -->
-    <DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
-   
 </entity-engine-xml>
