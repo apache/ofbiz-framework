@@ -183,14 +183,14 @@ public class EbayHelper {
     
     public static boolean createPaymentFromPaymentPreferences(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin,
             String orderId, String externalId, Timestamp orderDate, String partyIdFrom) {
-        List paymentPreferences = null;
+        List<GenericValue> paymentPreferences = null;
         try {
-            Map paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_RECEIVED",
+            Map<String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_RECEIVED",
                     "paymentMethodTypeId", "EXT_EBAY");
             paymentPreferences = delegator.findByAnd("OrderPaymentPreference", paymentFields);
 
             if (UtilValidate.isNotEmpty(paymentPreferences)) {
-                Iterator i = paymentPreferences.iterator();
+                Iterator<GenericValue> i = paymentPreferences.iterator();
                 while (i.hasNext()) {
                     GenericValue pref = (GenericValue) i.next();
                     boolean okay = createPayment(dispatcher, userLogin, pref, orderId, externalId, orderDate, partyIdFrom);
@@ -224,7 +224,7 @@ public class EbayHelper {
             delegator.createOrStore(response);
 
             // create the payment
-            Map results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
+            Map<String, Object> results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
                     "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "paymentFromId",
                     partyIdFrom, "paymentRefNum", externalId, "comments", "Payment receive via eBay"));
 
@@ -251,7 +251,7 @@ public class EbayHelper {
                 shipGroupSeqId = "_NA_";
             }
 
-            Map inputMap = UtilMisc.toMap("orderAdjustmentTypeId", orderAdjustmentTypeId, "orderId", orderId,
+            Map<String, Object> inputMap = UtilMisc.toMap("orderAdjustmentTypeId", orderAdjustmentTypeId, "orderId", orderId,
                     "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId, "amount",
                     new BigDecimal(amount));
             if (sourcePercentage != 0) {
@@ -283,7 +283,7 @@ public class EbayHelper {
                     lastName = name;
                 }
 
-                Map summaryResult = dispatcher.runSync("createPerson", UtilMisc.<String, Object> toMap("description",
+                Map<String, Object> summaryResult = dispatcher.runSync("createPerson", UtilMisc.<String, Object> toMap("description",
                         name, "firstName", firstName, "lastName", lastName, "userLogin", userLogin, "comments",
                         "Created via eBay"));
                 partyId = (String) summaryResult.get("partyId");
@@ -296,11 +296,11 @@ public class EbayHelper {
     }
 
     public static String createAddress(LocalDispatcher dispatcher, String partyId, GenericValue userLogin,
-            String contactMechPurposeTypeId, Map address) {
+            String contactMechPurposeTypeId, Map<String, Object> address) {
         Debug.logInfo("Creating postal address with input map: " + address, module);
         String contactMechId = null;
         try {
-            Map context = FastMap.newInstance();
+            Map<String, Object> context = FastMap.newInstance();
             context.put("partyId", partyId);
             context.put("toName", (String) address.get("buyerName"));
             context.put("address1", (String) address.get("shippingAddressStreet1"));
@@ -314,7 +314,7 @@ public class EbayHelper {
             String city = (String) address.get("shippingAddressCityName");
             correctCityStateCountry(dispatcher, context, city, state, country);
 
-            Map summaryResult = dispatcher.runSync("createPartyPostalAddress", context);
+            Map<String, Object> summaryResult = dispatcher.runSync("createPartyPostalAddress", context);
             contactMechId = (String) summaryResult.get("contactMechId");
             // Set also as a billing address
             context = FastMap.newInstance();
@@ -329,8 +329,7 @@ public class EbayHelper {
         return contactMechId;
     }
 
-    public static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state,
-            String country) {
+    public static void correctCityStateCountry(LocalDispatcher dispatcher, Map<String, Object> map, String city, String state, String country) {
         try {
             String geoCode = null;
             Debug.logInfo("correctCityStateCountry params: " + city + ", " + state + ", " + country, module);
@@ -345,7 +344,7 @@ public class EbayHelper {
                 geoCode = country;
             }
             Debug.logInfo("GeoCode: " + geoCode, module);
-            Map outMap = getCountryGeoId(dispatcher.getDelegator(), geoCode);
+            Map<String, Object> outMap = getCountryGeoId(dispatcher.getDelegator(), geoCode);
             String geoId = (String) outMap.get("geoId");
             if (UtilValidate.isEmpty(geoId)) {
                 geoId = "USA";
@@ -369,8 +368,8 @@ public class EbayHelper {
 
     public static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber,
             GenericValue userLogin) {
-        Map summaryResult = FastMap.newInstance();
-        Map context = FastMap.newInstance();
+        Map<String, Object> summaryResult = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
         String phoneContactMechId = null;
 
         try {
@@ -387,8 +386,8 @@ public class EbayHelper {
     }
 
     public static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin) {
-        Map context = FastMap.newInstance();
-        Map summaryResult = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> summaryResult = FastMap.newInstance();
         String emailContactMechId = null;
 
         try {
@@ -415,8 +414,8 @@ public class EbayHelper {
 
     public static void createEbayCustomer(LocalDispatcher dispatcher, String partyId, String ebayUserIdBuyer, String eias, 
             GenericValue userLogin) {
-        Map context = FastMap.newInstance();
-        Map summaryResult = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> summaryResult = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(eias)) {
             try {
                 context.put("partyId", partyId);
@@ -443,7 +442,7 @@ public class EbayHelper {
         }
     }
 
-    public static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
+    public static Map<String, Object> getCountryGeoId(GenericDelegator delegator, String geoCode) {
         GenericValue geo = null;
         try {
             Debug.logInfo("geocode: " + geoCode, module);
@@ -467,22 +466,22 @@ public class EbayHelper {
             return ServiceUtil.returnError(errMsg);
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("geoId", (String) geo.get("geoId"));
         return result;
     }
 
     public static String setShippingAddressContactMech(LocalDispatcher dispatcher, GenericDelegator delegator,
-            GenericValue party, GenericValue userLogin, Map context) {
+            GenericValue party, GenericValue userLogin, Map<String, Object> context) {
         String contactMechId = null;
         String partyId = (String) party.get("partyId");
 
         // find all contact mechs for this party with a shipping location
         // purpose.
-        Collection shippingLocations = ContactHelper.getContactMechByPurpose(party, "SHIPPING_LOCATION", false);
+        Collection<GenericValue> shippingLocations = ContactHelper.getContactMechByPurpose(party, "SHIPPING_LOCATION", false);
 
         // check them to see if one matches
-        Iterator shippingLocationsIterator = shippingLocations.iterator();
+        Iterator<GenericValue> shippingLocationsIterator = shippingLocations.iterator();
         while (shippingLocationsIterator.hasNext()) {
             GenericValue shippingLocation = (GenericValue) shippingLocationsIterator.next();
             contactMechId = shippingLocation.getString("contactMechId");
@@ -521,15 +520,15 @@ public class EbayHelper {
     }
 
     public static String setEmailContactMech(LocalDispatcher dispatcher, GenericDelegator delegator,
-            GenericValue party, GenericValue userLogin, Map context) {
+            GenericValue party, GenericValue userLogin, Map<String, Object> context) {
         String contactMechId = null;
         String partyId = (String) party.get("partyId");
 
         // find all contact mechs for this party with a email address purpose.
-        Collection emailAddressContactMechs = ContactHelper.getContactMechByPurpose(party, "OTHER_EMAIL", false);
+        Collection<GenericValue> emailAddressContactMechs = ContactHelper.getContactMechByPurpose(party, "OTHER_EMAIL", false);
 
         // check them to see if one matches
-        Iterator emailAddressesContactMechsIterator = emailAddressContactMechs.iterator();
+        Iterator<GenericValue> emailAddressesContactMechsIterator = emailAddressContactMechs.iterator();
         while (emailAddressesContactMechsIterator.hasNext()) {
             GenericValue emailAddressContactMech = (GenericValue) emailAddressesContactMechsIterator.next();
             contactMechId = emailAddressContactMech.getString("contactMechId");
@@ -546,15 +545,15 @@ public class EbayHelper {
     }
 
     public static String setPhoneContactMech(LocalDispatcher dispatcher, GenericDelegator delegator,
-            GenericValue party, GenericValue userLogin, Map context) {
+            GenericValue party, GenericValue userLogin, Map<String, Object> context) {
         String contactMechId = null;
         String partyId = (String) party.get("partyId");
 
         // find all contact mechs for this party with a telecom number purpose.
-        Collection phoneNumbers = ContactHelper.getContactMechByPurpose(party, "PHONE_SHIPPING", false);
+        Collection<GenericValue> phoneNumbers = ContactHelper.getContactMechByPurpose(party, "PHONE_SHIPPING", false);
 
         // check them to see if one matches
-        Iterator phoneNumbersIterator = phoneNumbers.iterator();
+        Iterator<GenericValue> phoneNumbersIterator = phoneNumbers.iterator();
         while (phoneNumbersIterator.hasNext()) {
             GenericValue phoneNumberContactMech = (GenericValue) phoneNumbersIterator.next();
             contactMechId = phoneNumberContactMech.getString("contactMechId");
@@ -584,7 +583,7 @@ public class EbayHelper {
         String productId = "";
         try {
             // First try to get an exact match: title == internalName
-            List products = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
+            List<GenericValue> products = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
             if (UtilValidate.isNotEmpty(products) && products.size() == 1) {
                 productId = (String) ((GenericValue)products.get(0)).get("productId");
             }
