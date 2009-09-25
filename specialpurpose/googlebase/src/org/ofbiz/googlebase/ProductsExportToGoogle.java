@@ -66,12 +66,12 @@ public class ProductsExportToGoogle {
     private static final String googleBaseAppUrl = "http://purl.org/atom/app#";
     private static final String configString = "googleBaseExport.properties";
 
-    public static Map exportToGoogle(DispatchContext dctx, Map context) {
+    public static Map<String, Object> exportToGoogle(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             Map<String, Object> googleBaseConfigResult = buildGoogleBaseConfig(context, delegator);
             StringBuffer dataItemsXml = new StringBuffer();
@@ -94,7 +94,7 @@ public class ProductsExportToGoogle {
         return result;
     }
 
-    public static Map exportProductCategoryToGoogle(DispatchContext dctx, Map context) {
+    public static Map<String, Object> exportProductCategoryToGoogle(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         String productCategoryId = (String) context.get("productCategoryId");
@@ -109,7 +109,7 @@ public class ProductsExportToGoogle {
         try {
             if (UtilValidate.isNotEmpty(productCategoryId)) {
                 List productsList = FastList.newInstance();
-                Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
+                Map<String, Object> result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
 
                 if (result.get("categoryMembers") != null) {
                     List productCategoryMembers = (List)result.get("categoryMembers");
@@ -137,7 +137,7 @@ public class ProductsExportToGoogle {
                 if (productsList.size() == 0) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.noProductsAvailableInProductCategory", locale));
                 } else {
-                    Map paramIn = FastMap.newInstance();
+                    Map<String, Object> paramIn = FastMap.newInstance();
                     paramIn.put("selectResult", productsList);
                     paramIn.put("webSiteUrl", webSiteUrl);
                     paramIn.put("imageUrl", imageUrl);
@@ -270,7 +270,7 @@ public class ProductsExportToGoogle {
 
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         String response = "";
         if (responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
@@ -296,10 +296,10 @@ public class ProductsExportToGoogle {
         return result;
     }
 
-    private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml) {
+    private static Map<String, Object> buildDataItemsXml(DispatchContext dctx, Map<String, Object> context, StringBuffer dataItemsXml) {
         Locale locale = (Locale)context.get("locale");
-        List newProductsInGoogle = FastList.newInstance();
-        List productsRemovedFromGoogle = FastList.newInstance();
+        List<Object> newProductsInGoogle = FastList.newInstance();
+        List<Object> productsRemovedFromGoogle = FastList.newInstance();
         try {
             GenericDelegator delegator = dctx.getDelegator();
             LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -338,7 +338,7 @@ public class ProductsExportToGoogle {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.invalidCountryCode", locale));
             }
             // Get the list of products to be exported to Google Base
-            List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
+            List<GenericValue> productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
 
             // Get the tracking code
             if (UtilValidate.isEmpty(trackingCodeId) || "_NA_".equals(trackingCodeId)) {
@@ -356,7 +356,7 @@ public class ProductsExportToGoogle {
             feedElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:app", googleBaseAppUrl);
 
             // Iterate the product list getting all the relevant data
-            Iterator productsListItr = productsList.iterator();
+            Iterator<GenericValue> productsListItr = productsList.iterator();
             int index = 0;
             String itemActionType = null;
             GenericValue googleProduct;
@@ -443,7 +443,7 @@ public class ProductsExportToGoogle {
                 
                 List<GenericValue> productCategoryMembers = delegator.findList("ProductCategoryMember", EntityCondition.makeCondition("productId", EntityOperator.EQUALS, prod.getString("productId")), null, UtilMisc.toList("productCategoryId"), null, false);
                 
-                Iterator productCategoryMembersIter = productCategoryMembers.iterator();
+                Iterator<GenericValue> productCategoryMembersIter = productCategoryMembers.iterator();
                 while (productCategoryMembersIter.hasNext()) {
                     GenericValue productCategoryMember = (GenericValue) productCategoryMembersIter.next();
                     GenericValue productCategory = productCategoryMember.getRelatedOne("ProductCategory");
@@ -508,7 +508,7 @@ public class ProductsExportToGoogle {
             return ServiceUtil.returnError("Unable to read from product entity: "  + e.toString());
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("newProductsInGoogle", newProductsInGoogle);
         result.put("productsRemovedFromGoogle", productsRemovedFromGoogle);
         Debug.log("======returning with result: " + result);
@@ -531,14 +531,14 @@ public class ProductsExportToGoogle {
         return priceString;
     }
 
-    private static Map readResponseFromGoogle(String msg, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator, Locale locale) {
+    private static Map<String, Object> readResponseFromGoogle(String msg, List<Object> newProductsInGoogle, List<Object> productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator, Locale locale) {
         List message = FastList.newInstance();
         // Debug.log("====get xml response from google: " + msg);
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
             Element elemResponse = docResponse.getDocumentElement();
-            List atomEntryList = UtilXml.childElementList(elemResponse, "atom:entry");
-            Iterator atomEntryElemIter = atomEntryList.iterator();
+            List<? extends Element> atomEntryList = UtilXml.childElementList(elemResponse, "atom:entry");
+            Iterator<? extends Element> atomEntryElemIter = atomEntryList.iterator();
             int index = 0;
             while (atomEntryElemIter.hasNext()) {
                 Element atomEntryElement = (Element)atomEntryElemIter.next();
@@ -564,8 +564,8 @@ public class ProductsExportToGoogle {
                     }
                 }
                 String title = "Google response: " + UtilXml.childElementValue(atomEntryElement, "atom:title", "");
-                List batchStatusList = UtilXml.childElementList(atomEntryElement, "batch:status");
-                Iterator batchStatusEntryElemIter = batchStatusList.iterator();
+                List<? extends Element> batchStatusList = UtilXml.childElementList(atomEntryElement, "batch:status");
+                Iterator<? extends Element> batchStatusEntryElemIter = batchStatusList.iterator();
                 while (batchStatusEntryElemIter.hasNext()) {
                     Element batchStatusEntryElement = (Element)batchStatusEntryElemIter.next();
                     if (UtilValidate.isNotEmpty(batchStatusEntryElement.getAttribute("reason"))) {
