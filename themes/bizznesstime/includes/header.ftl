@@ -109,9 +109,9 @@ under the License.
             <span id="prefBtn">
                 <a href="#" class="contracted">${uiLabelMap.CommonPreferences}</a>
                 <div id="preferences" style="display:none">
-                    <a href="#" rel="<@ofbizUrl>LookupLocales</@ofbizUrl>" id="language">${uiLabelMap.CommonLanguageTitle} - ${locale.getDisplayName(locale)}</a>
-                    <a href="#" rel="<@ofbizUrl>LookupTimezones</@ofbizUrl>" id="timezone">${nowTimestamp?datetime?string.short} - ${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
-                    <a href="#" rel="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>" id="theme">${uiLabelMap.CommonVisualThemes}</a>
+                    <a href="<@ofbizUrl>LookupLocales</@ofbizUrl>" id="language">${uiLabelMap.CommonLanguageTitle} - ${locale.getDisplayName(locale)}</a>
+                    <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>" id="timezone">${nowTimestamp?datetime?string.short} - ${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
+                    <a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>" id="theme">${uiLabelMap.CommonVisualThemes}</a>
                 </div>
             </span>
             <span>
