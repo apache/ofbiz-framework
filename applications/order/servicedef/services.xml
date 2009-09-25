@@ -1034,4 +1034,13 @@ under the License.
         </description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="productAvailabalityByFacility" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderServices.xml"
+            invoke="productAvailabalityByFacility" auth="true">
+        <description>
+            Calculate ATP and QOH According For each facility
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="ownerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="availabalityList" type="List" mode="OUT"/>
+    </service>
 </services>

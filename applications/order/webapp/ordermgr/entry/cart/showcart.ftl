@@ -23,28 +23,52 @@ under the License.
         document.qohAtpForm.submit();
     }
 </script>
-
+<#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+  <#assign target="productAvailabalityByFacility">
+<#else>
+  <#assign target="getProductInventoryAvailable">
+</#if>
 <div class="screenlet">
     <div class="screenlet-body">
-      <div>
-        <#if quantityOnHandTotal?exists && availableToPromiseTotal?exists && (productId)?exists>
-          <ul>
-            <li>
-              <label>${uiLabelMap.ProductQuantityOnHand}</label>: ${quantityOnHandTotal}
-            </li>
-            <li>
-              <label>${uiLabelMap.ProductAvailableToPromise}</label>: ${availableToPromiseTotal}
-            </li>
-          </ul>
+      <#if shoppingCart.getOrderType() == "SALES_ORDER">
+        <div>
+          <#if quantityOnHandTotal?exists && availableToPromiseTotal?exists && (productId)?exists>
+            <ul>
+              <li>
+                <label>${uiLabelMap.ProductQuantityOnHand}</label>: ${quantityOnHandTotal}
+              </li>
+              <li>
+                <label>${uiLabelMap.ProductAvailableToPromise}</label>: ${availableToPromiseTotal}
+              </li>
+            </ul>
+          </#if>
+        </div>
+      <#else>
+        <#if parameters.availabalityList?has_content>
+          <table>
+            <tr>
+              <td>${uiLabelMap.Facility}</td>
+              <td>${uiLabelMap.ProductQuantityOnHand}</td>
+              <td>${uiLabelMap.ProductAvailableToPromise}</td>
+            </tr>
+            <#list parameters.availabalityList as availabality>
+               <tr>
+                 <td>${availabality.facilityId}</td>
+                 <td>${availabality.quantityOnHandTotal}</td>
+                 <td>${availabality.availableToPromiseTotal}</td>
+               </tr>
+            </#list>
+          </table>
         </#if>
-      </div>
+      </#if>
       <table border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td>
-            <form name="qohAtpForm" method="post" action="<@ofbizUrl>getProductInventoryAvailable</@ofbizUrl>">
+            <form name="qohAtpForm" method="post" action="<@ofbizUrl>${target}</@ofbizUrl>">
               <fieldset>
                 <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                 <input type="hidden" name="productId"/>
+                <input type="hidden" id="ownerPartyId" name="ownerPartyId" value="${shoppingCart.getBillToCustomerPartyId()?if_exists}" />
               </fieldset>
             </form>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="quickaddform" style="margin: 0;">

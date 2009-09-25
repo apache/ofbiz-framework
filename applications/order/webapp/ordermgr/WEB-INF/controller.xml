@@ -1650,6 +1650,12 @@ under the License.
     </request-map>
 
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
+    <request-map uri="productAvailabalityByFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="productAvailabalityByFacility"/>
+        <response name="success" type="view" value="showcart"/>
+        <response name="error" type="view" value="showcart"/>
+    </request-map>
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the

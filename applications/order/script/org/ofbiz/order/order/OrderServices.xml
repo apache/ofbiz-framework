@@ -1351,4 +1351,22 @@ under the License.
         </else>
         </if-compare-field>
     </simple-method>
+    <simple-method method-name="productAvailabalityByFacility" short-description="Calculate ATP and Qoh According For each facility">
+        <set field="facilityMap.ownerPartyId" from-field="parameters.ownerPartyId"/>
+        <find-by-and map="facilityMap" list="facilityList" entity-name="Facility"/>
+        <iterate entry="facility" list="facilityList">
+            <set field="getInventoryAvailableByFacilityMap.facilityId" from-field="facility.facilityId"/>
+            <set field="getInventoryAvailableByFacilityMap.productId" from-field="parameters.productId"/>
+            <call-service service-name="getInventoryAvailableByFacility" in-map-name="getInventoryAvailableByFacilityMap">
+                <result-to-field result-name="quantityOnHandTotal"/>
+                <result-to-field result-name="availableToPromiseTotal"/>
+            </call-service>
+            <set field="availabalityMap.facilityId" from-field="facility.facilityId"/>
+            <set field="availabalityMap.quantityOnHandTotal" from-field="quantityOnHandTotal"/>
+            <set field="availabalityMap.availableToPromiseTotal" from-field="availableToPromiseTotal"/>
+            <field-to-list field="availabalityMap" list="availabalityList"/>
+            <clear-field field="availabalityMap"/>
+        </iterate>
+        <field-to-result field="availabalityList"/>
+    </simple-method>
 </simple-methods>
