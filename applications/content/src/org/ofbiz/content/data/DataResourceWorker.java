@@ -686,27 +686,27 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 }
 
             } else if ("XSLT".equals(dataTemplateTypeId)) {
-                 File sourceFileLocation = null;
-                 File targetFileLocation = new File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/docbook.css");
-                 if (templateContext.get("visualThemeId") != null){
-                     Map layoutSettings  = (Map) templateContext.get("layoutSettings");
-                     List<String> docbookStyleSheets = (List) layoutSettings.get("VT_DOCBOOKSTYLESHEET");
-                     String docbookStyleLocation = docbookStyleSheets.get(0);
-                     sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+docbookStyleLocation);
-                 }
-                 if(sourceFileLocation != null && sourceFileLocation.exists()){
-                         UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
-                 }
-                    // get the template data for rendering
-                    String templateLocation = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).toString();
-                    // render the XSLT template and file
-                    String outDoc = null;
-                    try {
-                        outDoc = XslTransform.renderTemplate(templateLocation, (String) templateContext.get("docFile"));
-                    } catch (TransformerException c) {
-                        Debug.logError("XSL TransformerException: " + c.getMessage(), module);
-                    }
-                    out.append(outDoc);
+                File sourceFileLocation = null;
+                File targetFileLocation = new File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/docbook.css");
+                if (templateContext.get("visualThemeId") != null) {
+                    Map layoutSettings  = (Map) templateContext.get("layoutSettings");
+                    List<String> docbookStyleSheets = (List) layoutSettings.get("VT_DOCBOOKSTYLESHEET");
+                    String docbookStyleLocation = docbookStyleSheets.get(0);
+                    sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+docbookStyleLocation);
+                }
+                if(sourceFileLocation != null && sourceFileLocation.exists()) {
+                    UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
+                }
+                // get the template data for rendering
+                String templateLocation = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).toString();
+                // render the XSLT template and file
+                String outDoc = null;
+                try {
+                    outDoc = XslTransform.renderTemplate(templateLocation, (String) templateContext.get("docFile"));
+                } catch (TransformerException c) {
+                    Debug.logError("XSL TransformerException: " + c.getMessage(), module);
+                }
+                out.append(outDoc);
 
             // Screen Widget template
             } else if ("SCREEN_COMBINED".equals(dataTemplateTypeId)) {
