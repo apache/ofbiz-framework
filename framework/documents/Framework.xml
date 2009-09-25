@@ -31,5 +31,6 @@
     <xi:include href="../base/documents/FrameworkBase.xml" />
     <xi:include href="../entity/documents/EntityEngine.xml" />
     <xi:include href="../service/documents/ServiceEngine.xml" />
+    <xi:include href="../webtools/documents/Webtools.xml" />
 
 </chapter>

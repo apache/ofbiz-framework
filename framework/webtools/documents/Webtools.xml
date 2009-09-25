@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -17,11 +17,14 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title><anchor id="componentSetup"/>The Setup Component</title>
-    <xi:include href="../data/helpdata/HELP_SETUP.xml" />
-</chapter>
+    <title>The Webtools, framework menus</title>
+    <para>
+       The Webtools option is the gateway to all the framework functions.
+    </para>
+    <xi:include href="../data/helpdata/HELP_WEBTOOLS.xml" />
+    
+</section>
