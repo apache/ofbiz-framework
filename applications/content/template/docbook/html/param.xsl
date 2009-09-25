@@ -208,7 +208,7 @@ set       toc,title
 <xsl:param name="html.head.legalnotice.link.multiple" select="1"/>
 <xsl:param name="html.longdesc" select="1"/>
 <xsl:param name="html.longdesc.link" select="$html.longdesc"/>
-<xsl:param name="html.stylesheet"/>
+<xsl:param name="html.stylesheet">/tempfiles/docbook.css</xsl:param>
 <xsl:param name="html.stylesheet.type">text/css</xsl:param>
 <xsl:param name="htmlhelp.alias.file">alias.h</xsl:param>
 <xsl:param name="htmlhelp.autolabel" select="0"/>

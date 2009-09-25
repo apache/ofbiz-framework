@@ -52,6 +52,11 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
+    <#if layoutSettings.VT_HELPSTYLESHEET?has_content && lookupType?has_content>
+        <#list layoutSettings.VT_HELPSTYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
     <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
         <#list layoutSettings.rtlStyleSheets as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
