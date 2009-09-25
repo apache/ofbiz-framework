@@ -694,7 +694,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                      String docbookStyleLocation = docbookStyleSheets.get(0);
                      sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+docbookStyleLocation);
                  }
-                 if(sourceFileLocation.exists()){
+                 if(sourceFileLocation != null && sourceFileLocation.exists()){
                          UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
                  }
                     // get the template data for rendering
