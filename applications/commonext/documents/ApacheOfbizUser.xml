@@ -32,8 +32,15 @@
         <title>Introduction</title>
         <para>
             Welcome to Apache OFBiz the ready to use open source ERP system.
+        </para>
+        <para>
             A project introduction can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBADMIN/Apache+OFBiz+Project+Overview">OFBiz documentation site</link>
         </para>
+        <para>
+            A general Business setup guide can be found at <link xl:href="http://docs.ofbiz.org/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide">OFBiz documentation site</link>
+            For a quick setup check the <link xl:href="#componentSetup">Setup component.</link>
+        </para>
+        
     </chapter>
     <xi:include href="Setup.xml"/>
     <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
