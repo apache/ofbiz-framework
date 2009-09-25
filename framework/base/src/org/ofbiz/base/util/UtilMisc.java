@@ -18,6 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -1006,6 +1012,25 @@ public class UtilMisc {
     protected static class UtilMiscWaiter {
         public synchronized void safeWait(long timeout) throws InterruptedException {
             this.wait(timeout);
+        }
+    }
+ public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
+        
+        if (sourceLocation.isDirectory()) {
+                throw new IOException("File is a directory, not a file, cannot copy") ;
+        } else {
+            
+        	 InputStream in = new FileInputStream(sourceLocation);
+             OutputStream out = new FileOutputStream(targetLocation);
+            
+            // Copy the bits from instream to outstream
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
         }
     }
 }

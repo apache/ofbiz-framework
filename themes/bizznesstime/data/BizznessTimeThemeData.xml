@@ -22,6 +22,8 @@ under the License.
     <VisualTheme visualThemeId="BIZZNESS_TIME" visualThemeSetId="BACKOFFICE" description="It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_NAME" resourceValue="BIZZNESS_TIME" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/bizznesstime/css/style.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/bizznesstime/css/help.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/bizznesstime/webapp/bizznesstime/css/docbook.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/bizznesstime/js/application.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>

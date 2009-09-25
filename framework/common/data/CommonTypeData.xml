@@ -107,6 +107,8 @@ under the License.
     <EnumerationType description="Visual Theme Resource Type (stylesheet, javascript file, etc)" enumTypeId="VT_RES_TYPE" hasTable="N"/>
     <Enumeration enumId="VT_NAME" description="Visual Theme name" enumTypeId="VT_RES_TYPE" sequenceId="00"/>
     <Enumeration enumId="VT_STYLESHEET" description="Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="01"/>
+    <Enumeration enumId="VT_HELPSTYLESHEET" description="Help Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="02"/>
+    <Enumeration enumId="VT_DOCBOOKSTYLESHEET" description="Docbook Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="02"/>
     <Enumeration enumId="VT_RTL_STYLESHEET" description="Right-to-Left (RTL) Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="02"/>
     <Enumeration enumId="VT_SHORTCUT_ICON" description="Shortcut Icon URL" enumTypeId="VT_RES_TYPE" sequenceId="03"/>
     <Enumeration enumId="VT_EXTRA_HEAD" description="Additional &lt;tt&gt;&lt;head&gt;&lt;/tt&gt; Element Markup" enumTypeId="VT_RES_TYPE" sequenceId="04"/>
