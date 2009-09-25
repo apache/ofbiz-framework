@@ -19,31 +19,33 @@
 import org.ofbiz.webapp.website.WebSiteWorker;
 
 webSite = WebSiteWorker.getWebSite(request);
-productStoreId = "9000"; // provide the default value
+productStoreId = null; 
 if (webSite) {
     productStoreId = webSite.productStoreId;
     context.productStoreId = productStoreId;
     eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
     context.customXml = eBayConfig.customXml;
-    context.webSiteUrl = webSite.getString("standardContentPrefix")?:"http://demo.ofbiz.org";
-}
-
-categoryCode = parameters.categoryCode;
-context.categoryCode = categoryCode; 
-userLogin = parameters.userLogin;
-
-results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
-
-if (results.categories) {
-    context.categories = results.categories;
-}
-
-if (categoryCode) {
-    if (!"Y".equals(categoryCode.substring(0, 1)) && !"".equals(categoryCode)) {
-        context.hideExportOptions = "Y";
+    context.webSiteUrl = webSite.getString("standardContentPrefix");
+    
+    categoryCode = parameters.categoryCode;
+    context.categoryCode = categoryCode; 
+    userLogin = parameters.userLogin;
+    
+    if (productStoreId) {
+        results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
+    }
+    
+    if (results.categories) {
+        context.categories = results.categories;
+    }
+    
+    if (categoryCode) {
+        if (!"Y".equals(categoryCode.substring(0, 1)) && !"".equals(categoryCode)) {
+            context.hideExportOptions = "Y";
+        } else {
+            context.hideExportOptions = "N";
+        }
     } else {
         context.hideExportOptions = "N";
-    }
-} else {
-    context.hideExportOptions = "N";
+    }    
 }
