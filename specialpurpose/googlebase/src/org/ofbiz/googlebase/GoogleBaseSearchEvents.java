@@ -94,7 +94,7 @@ public class GoogleBaseSearchEvents {
 
                 // Export all or selected products to Google Base
                 try {
-                    Map inMap = UtilMisc.toMap("selectResult", productExportList,
+                    Map<String, Object> inMap = UtilMisc.toMap("selectResult", productExportList,
                                                "webSiteUrl", webSiteUrl,
                                                "imageUrl", imageUrl,
                                                "actionType", actionType,
@@ -105,9 +105,9 @@ public class GoogleBaseSearchEvents {
                     inMap.put("trackingCodeId", trackingCodeId);
                     inMap.put("userLogin", userLogin);
                     inMap.put("productStoreId", productStoreId);
-                    Map exportResult = dispatcher.runSync("exportToGoogle", inMap);
+                    Map<String, Object> exportResult = dispatcher.runSync("exportToGoogle", inMap);
                     if (ServiceUtil.isError(exportResult)) {
-                        List errorMessages = (List)exportResult.get(ModelService.ERROR_MESSAGE_LIST);
+                        List errorMessages = (List) exportResult.get(ModelService.ERROR_MESSAGE_LIST);
                         if (UtilValidate.isNotEmpty(errorMessages)) {
                             request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessages);
                         } else {
@@ -115,7 +115,7 @@ public class GoogleBaseSearchEvents {
                         }
                         return "error";
                     } else if (ServiceUtil.isFailure(exportResult)) {
-                        List eventMessages = (List)exportResult.get(ModelService.ERROR_MESSAGE_LIST);
+                        List eventMessages = (List) exportResult.get(ModelService.ERROR_MESSAGE_LIST);
                         if (UtilValidate.isNotEmpty(eventMessages)) {
                             request.setAttribute("_EVENT_MESSAGE_LIST_", eventMessages);
                         } else {
