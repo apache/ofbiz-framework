@@ -1015,21 +1015,21 @@ public class UtilMisc {
         }
     }
     public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
-    	if (sourceLocation.isDirectory()) {
-    		throw new IOException("File is a directory, not a file, cannot copy") ;
-    	} else {
+        if (sourceLocation.isDirectory()) {
+            throw new IOException("File is a directory, not a file, cannot copy") ;
+        } else {
 
-    		InputStream in = new FileInputStream(sourceLocation);
-    		OutputStream out = new FileOutputStream(targetLocation);
+            InputStream in = new FileInputStream(sourceLocation);
+            OutputStream out = new FileOutputStream(targetLocation);
 
-    		// Copy the bits from instream to outstream
-    		byte[] buf = new byte[1024];
-    		int len;
-    		while ((len = in.read(buf)) > 0) {
-    			out.write(buf, 0, len);
-    		}
-    		in.close();
-    		out.close();
-    	}
+            // Copy the bits from instream to outstream
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        }
     }
 }
