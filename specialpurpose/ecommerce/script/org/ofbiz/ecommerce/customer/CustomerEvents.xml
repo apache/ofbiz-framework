@@ -1085,9 +1085,9 @@ under the License.
             <set field="shippingMethod" value="${carrierShipmentMethod.shipmentMethodTypeId}@${carrierShipmentMethod.partyId}"/>
 
             <if-compare-field field="shippingEst" operator="greater" to-field="negValue">
-                <set field="shippingDesc" value="${carrierShipmentMethod.partyId} ${carrierShipmentMethod.description} - $${shippingEst}"/>
+                <set field="shippingDesc" value="${carrierShipmentMethod.partyId} ${carrierShipmentMethod.description} - ${shippingEst?currency(${currency})}"/>
                 <else>
-                    <set field="shippingDesc" value="${carrierShipmentMethod.partyId} ${carrierShipmentMethod.description} - $${uiLabelMap.OrderCalculatedOffline}"/>
+                    <set field="shippingDesc" value="${carrierShipmentMethod.partyId} ${carrierShipmentMethod.description} - ${uiLabelMap.OrderCalculatedOffline}"/>
                 </else>
             </if-compare-field>
             <set field="shippingOptionMap.shippingMethod" from-field="shippingMethod"/>
