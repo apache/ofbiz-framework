@@ -80,7 +80,7 @@ under the License.
     <screen name="OrderReportPurchasesByProduct">
         <section>
             <widgets>
-                <screenlet title="${uiLabelMap.OrderReportPurchasesByOrganization}">
+                <screenlet title="${uiLabelMap.OrderReportPurchasesByProduct}">
                     <include-form name="OrderPurchaseProductOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
                 </screenlet>
             </widgets>
@@ -90,7 +90,7 @@ under the License.
     <screen name="OrderReportPurchasesByPaymentMethod">
         <section>
             <widgets>
-                <screenlet title="${uiLabelMap.OrderReportPurchasesByOrganization}">
+                <screenlet title="${uiLabelMap.OrderReportPurchasesByPaymentMethod}">
                     <include-form name="OrderPurchasePaymentOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
                 </screenlet>
             </widgets>
