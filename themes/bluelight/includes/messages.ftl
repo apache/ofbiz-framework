@@ -16,18 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    </div>
-  </div>
-  <div class="breadcrumbs-sep">
-    <#if titleProperty?exists>
-        ${uiLabelMap[titleProperty]}
-    </#if>
-  </div>
-  <div class="breadcrumbs-end">
-  </div>
-</div>
-<div class="clear">
-</div>
 
 <#if (errorMessage?has_content || errorMessageList?has_content || eventMessage?has_content || eventMessageList?has_content)>
 <div id="messages-container">
