@@ -71,6 +71,7 @@ under the License.
     <GeoType description="Country" geoTypeId="COUNTRY" hasTable="N" parentTypeId=""/>
     <GeoType description="County" geoTypeId="COUNTY" hasTable="N" parentTypeId=""/>
     <GeoType description="County-City" geoTypeId="COUNTY_CITY" hasTable="N" parentTypeId=""/>
+    <GeoType description="Municipality" geoTypeId="MUNICIPALITY" hasTable="N" parentTypeId=""/>
     <GeoType description="Province" geoTypeId="PROVINCE" hasTable="N" parentTypeId=""/>
     <GeoType description="Region" geoTypeId="REGION" hasTable="N" parentTypeId=""/>
     <GeoType description="Territory" geoTypeId="TERRITORY" hasTable="N" parentTypeId=""/>
