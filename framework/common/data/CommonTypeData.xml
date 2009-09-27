@@ -109,18 +109,20 @@ under the License.
     <Enumeration enumId="VT_NAME" description="Visual Theme name" enumTypeId="VT_RES_TYPE" sequenceId="00"/>
     <Enumeration enumId="VT_STYLESHEET" description="Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="01"/>
     <Enumeration enumId="VT_HELPSTYLESHEET" description="Help Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="02"/>
-    <Enumeration enumId="VT_DOCBOOKSTYLESHEET" description="Docbook Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="02"/>
-    <Enumeration enumId="VT_RTL_STYLESHEET" description="Right-to-Left (RTL) Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="02"/>
-    <Enumeration enumId="VT_SHORTCUT_ICON" description="Shortcut Icon URL" enumTypeId="VT_RES_TYPE" sequenceId="03"/>
-    <Enumeration enumId="VT_EXTRA_HEAD" description="Additional &lt;tt&gt;&lt;head&gt;&lt;/tt&gt; Element Markup" enumTypeId="VT_RES_TYPE" sequenceId="04"/>
-    <Enumeration enumId="VT_HDR_IMAGE_URL" description="Masthead/Branding Logo Image URL" enumTypeId="VT_RES_TYPE" sequenceId="05"/>
-    <Enumeration enumId="VT_HDR_TMPLT_LOC" description="Header Template Location" enumTypeId="VT_RES_TYPE" sequenceId="06"/>
-    <Enumeration enumId="VT_HDR_JAVASCRIPT" description="Header JavaScript File URL" enumTypeId="VT_RES_TYPE" sequenceId="07"/>
-    <Enumeration enumId="VT_FTR_TMPLT_LOC" description="Footer Template Location" enumTypeId="VT_RES_TYPE" sequenceId="08"/>
-    <Enumeration enumId="VT_FTR_JAVASCRIPT" description="Footer JavaScript File URL" enumTypeId="VT_RES_TYPE" sequenceId="09"/>
-    <Enumeration enumId="VT_NAV_TMPLT_LOC" description="Main Navigation Template Location" enumTypeId="VT_RES_TYPE" sequenceId="10"/>
-    <Enumeration enumId="VT_MSG_TMPLT_LOC" description="Main Messages Template Location" enumTypeId="VT_RES_TYPE" sequenceId="11"/>
-    <Enumeration enumId="VT_SCREENSHOT" description="Theme Preview Screenshot" enumTypeId="VT_RES_TYPE" sequenceId="12"/>
+    <Enumeration enumId="VT_DOCBOOKSTYLESHEET" description="Docbook Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="03"/>
+    <Enumeration enumId="VT_RTL_STYLESHEET" description="Right-to-Left (RTL) Style Sheet URL" enumTypeId="VT_RES_TYPE" sequenceId="04"/>
+    <Enumeration enumId="VT_SHORTCUT_ICON" description="Shortcut Icon URL" enumTypeId="VT_RES_TYPE" sequenceId="05"/>
+    <Enumeration enumId="VT_EXTRA_HEAD" description="Additional &lt;tt&gt;&lt;head&gt;&lt;/tt&gt; Element Markup" enumTypeId="VT_RES_TYPE" sequenceId="06"/>
+    <Enumeration enumId="VT_HDR_IMAGE_URL" description="Masthead/Branding Logo Image URL" enumTypeId="VT_RES_TYPE" sequenceId="07"/>
+    <Enumeration enumId="VT_HDR_TMPLT_LOC" description="Header Template Location" enumTypeId="VT_RES_TYPE" sequenceId="08"/>
+    <Enumeration enumId="VT_HDR_JAVASCRIPT" description="Header JavaScript File URL" enumTypeId="VT_RES_TYPE" sequenceId="09"/>
+    <Enumeration enumId="VT_FTR_TMPLT_LOC" description="Footer Template Location" enumTypeId="VT_RES_TYPE" sequenceId="10"/>
+    <Enumeration enumId="VT_FTR_JAVASCRIPT" description="Footer JavaScript File URL" enumTypeId="VT_RES_TYPE" sequenceId="11"/>
+    <Enumeration enumId="VT_NAV_TMPLT_LOC" description="Main Navigation Template Location" enumTypeId="VT_RES_TYPE" sequenceId="12"/>
+    <Enumeration enumId="VT_NAV_OPEN_TMPLT" description="Opening Navigation Template Location" enumTypeId="VT_RES_TYPE" sequenceId="13"/>
+    <Enumeration enumId="VT_NAV_CLOSE_TMPLT" description="Closing Navigation Template Location" enumTypeId="VT_RES_TYPE" sequenceId="14"/>
+    <Enumeration enumId="VT_MSG_TMPLT_LOC" description="Main Messages Template Location" enumTypeId="VT_RES_TYPE" sequenceId="15"/>
+    <Enumeration enumId="VT_SCREENSHOT" description="Theme Preview Screenshot" enumTypeId="VT_RES_TYPE" sequenceId="16"/>
 
     <VisualThemeSet visualThemeSetId="BACKOFFICE" description="Themes to be used for backoffice applications"/>
     <VisualThemeSet visualThemeSetId="ECOMMERCE"  description="Themes to be used for ECommerce applications"/>

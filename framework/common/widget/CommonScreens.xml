@@ -132,6 +132,8 @@ under the License.
                 <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]"/>
                 <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]"/>
                 <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]"/>
+                <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT[0]"/>
+                <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT[0]"/>
                 <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]"/>
                 <property-map resource="CommonHelpUrls" map-name="helpUrlsMap" global="true"/>
                 <script location="component://commonext/script/changeOrgPartyId.groovy"/>
@@ -139,8 +141,19 @@ under the License.
             <widgets>
                 <!-- render header -->
                 <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
-                <!-- render appbar -->
-                <platform-specific><html><html-template location="${appbarTemplateLocation}"/></html></platform-specific>
+
+                <!-- render appbar or its opening part -->
+                <section>
+                    <condition>
+                        <not><if-empty field="appbarOpenTemplateLocation"/></not>
+                    </condition>
+                    <widgets>
+                        <platform-specific><html><html-template location="${appbarOpenTemplateLocation}"/></html></platform-specific>
+                    </widgets>
+                    <fail-widgets>
+                        <platform-specific><html><html-template location="${appbarTemplateLocation}"/></html></platform-specific>
+                    </fail-widgets>
+                </section>
 
                 <!-- render appheader: both menu widget style and ftl template style menus are supported-->
                 <section>
@@ -156,7 +169,14 @@ under the License.
                                 <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <label style="apptitle">${parameters.applicationTitle}</label>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="parameters.applicationTitle"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="apptitle">${parameters.applicationTitle}</label>
+                                    </widgets>
+                                </section>
                                 <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/>
                             </fail-widgets>
                         </section>
@@ -166,6 +186,16 @@ under the License.
                     </fail-widgets>
                 </section>
 
+                <!-- render the appbar closing part -->
+                <section>
+                    <condition>
+                        <not><if-empty field="appbarCloseTemplateLocation"/></not>
+                    </condition>
+                    <widgets>
+                        <platform-specific><html><html-template location="${appbarCloseTemplateLocation}"/></html></platform-specific>
+                    </widgets>
+                </section>              
+                
                 <!-- render messages -->
                 <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
                 <container style="contentarea">

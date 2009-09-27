@@ -20,13 +20,17 @@ under the License.
 
 <entity-engine-xml>
     <VisualTheme visualThemeId="BLUELIGHT" visualThemeSetId="BACKOFFICE" description="BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAME" resourceValue="BLUELIGHT" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/bluelight/style.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/bluelight/help.css" sequenceId="01"/>    
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/bluelight/webapp/bluelight/docbook.css" sequenceId="01"/>    
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/bluelight/dropdown.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://bluelight/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://bluelight/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://bluelight/includes/appbar.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://bluelight/includes/appbarOpen.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://bluelight/includes/appbarClose.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bluelight/includes/messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/bluelight/screenshot.jpg" sequenceId="01"/>
 </entity-engine-xml>

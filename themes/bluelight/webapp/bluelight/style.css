@@ -38,7 +38,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
-    line-height: 1;
+    line-height: 1.5em;
     color: black;
     background: white;
 }/* reset line height and baseline colors*/ 
@@ -1123,7 +1123,7 @@ padding-bottom: 1em;
 #main-navigation ul li ul li a,
 #app-navigation ul li ul li a {
 display:block;
-height:1.3em;
+mheight:1.3em;
 padding:4px 16px 4px 16px;
 border: solid 1px #AFAFAF;
 border-top: none;
@@ -1305,7 +1305,7 @@ color:#999999;
     /* ===== Button Bar Navigation Styles ===== */
     /* ======================================== */
 .button-bar {
-margin: 0 1em 0 1em;
+margin: 0 1em 1em 0;
 }
 
 .button-bar ul {
@@ -1408,10 +1408,7 @@ the top of the main content area */
 
 .tab-bar ul li {
     background-color: #0366b0;
-    border-right: 0.1em solid #5f9fcf;
-    border-bottom: 0.1em solid #5f9fcf;
     margin: 0;
-    padding: 0;
 }
 
 .tab-bar ul a,.tab-bar ul a:visited {
