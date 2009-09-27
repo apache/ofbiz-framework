@@ -40,6 +40,8 @@ import java.io.StringReader;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 /**
  * Promotions Services
@@ -112,11 +114,13 @@ public class PromoServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         // check the uploaded file
-        byte[] wrapper = (byte[]) context.get("uploadedFile");
-        if (wrapper == null) {
+        ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
+        if (fileBytes == null) {
             return ServiceUtil.returnError("Uploaded file not valid or corrupted");
         }
 
+        String encoding = System.getProperty("file.encoding"); 
+        String file = Charset.forName(encoding).decode(fileBytes).toString();         
         // get the createProductPromoCode Model
         ModelService promoModel;
         try {
@@ -130,7 +134,7 @@ public class PromoServices {
         Map<String, Object> invokeCtx = promoModel.makeValid(context, ModelService.IN_PARAM);
 
         // read the bytes into a reader
-        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
+        BufferedReader reader = new BufferedReader(new StringReader(file));
         List<Object> errors = FastList.newInstance();
         int lines = 0;
         String line;
