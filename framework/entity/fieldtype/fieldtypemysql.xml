@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/fieldtypemodel.xsd">
   <!-- ===================== field-type-def ==================== -->
     <!-- General Types -->
-    <field-type-def type="blob" sql-type="BLOB" java-type="java.sql.Blob"></field-type-def>
+    <field-type-def type="blob" sql-type="LONGBLOB" java-type="java.sql.Blob"></field-type-def>
 
     <field-type-def type="date-time" sql-type="DATETIME" java-type="java.sql.Timestamp"></field-type-def>
     <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>
