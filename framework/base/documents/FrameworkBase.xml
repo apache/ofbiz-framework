@@ -17,23 +17,16 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>Framework Base components</title>
     <para>
         This part of the framework contain the basic components like the several different connectors, catalina(tomcat)
-        which are the base of the other framwork.
+        which are the base of the other framework.
     </para>
     
-    <section>
-        <title>Java Mail Listener</title>
-        <para>
-            The java mail listener will logon to the mailserver as defined in the config/ofbiz-containers.xml and will
-            receive the mail present in the POP/IMAP mail account. When mail is received it will trigger MCA rules.
-            Examples of MCA files can be found in the party and content component. 
-        </para>
-    </section>
-</section>
+    <xi:include href="ReceivingEmail.xml" />
+</chapter>
 
