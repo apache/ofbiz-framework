@@ -33,7 +33,7 @@ under the License.
               <#assign rowClass = "2">
               <#list storeWebSites as webSite>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                  <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName} [${webSite.webSiteId}]</a></td>
+                  <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName?if_exists} [${webSite.webSiteId}]</a></td>
                   <td>${webSite.httpHost?default('&nbsp;')}</td>
                   <td>${webSite.httpPort?default('&nbsp;')}</td>
                   <td align="center">
@@ -61,7 +61,7 @@ under the License.
             <input type="hidden" name="productStoreId" value="${productStoreId}">
             <select name="webSiteId">
               <#list webSites as webSite>
-                <option value="${webSite.webSiteId}">${webSite.siteName} [${webSite.webSiteId}]</option>
+                <option value="${webSite.webSiteId}">${webSite.siteName?if_exists} [${webSite.webSiteId}]</option>
               </#list>
             </select>
             <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}">
