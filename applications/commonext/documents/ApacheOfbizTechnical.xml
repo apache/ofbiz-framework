@@ -120,15 +120,13 @@
             </listitem>
             </orderedlist>
         </section>
-    
-
-        <xi:include href="../../../framework/documents/Framework.xml"/>
-    
-
     </chapter>
-    
-
-
+    <xi:include href="../../../framework/documents/Framework.xml"/>
+    <xi:include href="../../../framework/base/documents/FrameworkBase.xml" />
+    <xi:include href="../../../framework/common/documents/FrameworkCommon.xml" />
+    <xi:include href="../../../framework/entity/documents/EntityEngine.xml" />
+    <xi:include href="../../../framework/service/documents/ServiceEngine.xml" />
+    <xi:include href="../../../framework/webtools/documents/Webtools.xml" />
 
     <appendix>
         <title>The Apache OFBiz documentation system</title>
