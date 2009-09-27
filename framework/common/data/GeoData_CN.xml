@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!--
+        Based on: http://en.wikipedia.org/wiki/People%27s_Republic_of_China#Administrative_divisions
+        See also: http://en.wikipedia.org/wiki/Province_of_China
+                  http://en.wikipedia.org/wiki/ISO_3166-2:CN
+    -->
+	<Geo abbreviation="京" geoCode="11" geoId="CN-11" geoName="北京" geoTypeId="MUNICIPALITY"/>	
+	<Geo abbreviation="渝" geoCode="50" geoId="CN-50" geoName="重庆" geoTypeId="MUNICIPALITY"/>
+	<Geo abbreviation="沪" geoCode="31" geoId="CN-31" geoName="上海" geoTypeId="MUNICIPALITY"/>
+	<Geo abbreviation="津" geoCode="12" geoId="CN-12" geoName="天津" geoTypeId="MUNICIPALITY"/>
+    <Geo abbreviation="黑" geoCode="23" geoId="CN-23" geoName="黑龙江" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="吉" geoCode="22" geoId="CN-22" geoName="吉林" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="辽" geoCode="21" geoId="CN-21" geoName="辽宁" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="青" geoCode="63" geoId="CN-63" geoName="青海" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="甘" geoCode="62" geoId="CN-62" geoName="甘肃" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="陕" geoCode="61" geoId="CN-61" geoName="陕西" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="晋" geoCode="14" geoId="CN-14" geoName="山西" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="冀" geoCode="13" geoId="CN-13" geoName="河北" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="川" geoCode="51" geoId="CN-51" geoName="四川" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="鄂" geoCode="42" geoId="CN-42" geoName="湖北" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="豫" geoCode="41" geoId="CN-41" geoName="河南" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="鲁" geoCode="37" geoId="CN-37" geoName="山东" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="皖" geoCode="34" geoId="CN-34" geoName="安徽" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="苏" geoCode="32" geoId="CN-32" geoName="江苏" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="滇" geoCode="53" geoId="CN-53" geoName="云南" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="黔" geoCode="52" geoId="CN-52" geoName="贵州" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="湘" geoCode="43" geoId="CN-43" geoName="湖南" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="赣" geoCode="36" geoId="CN-36" geoName="江西" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="浙" geoCode="33" geoId="CN-33" geoName="浙江" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="琼" geoCode="46" geoId="CN-46" geoName="海南" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="粤" geoCode="44" geoId="CN-44" geoName="广东" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="闽" geoCode="35" geoId="CN-35" geoName="福建" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="台" geoCode="71" geoId="CN-71" geoName="台湾" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="桂" geoCode="45" geoId="CN-45" geoName="广西" geoTypeId="REGION"/>
+	<Geo abbreviation="内蒙古" geoCode="15" geoId="CN-15" geoName="内蒙古" geoTypeId="REGION"/>	
+	<Geo abbreviation="宁" geoCode="64" geoId="CN-64" geoName="宁夏" geoTypeId="REGION"/>
+	<Geo abbreviation="新" geoCode="65" geoId="CN-65" geoName="新疆" geoTypeId="REGION"/>
+	<Geo abbreviation="藏" geoCode="54" geoId="CN-54" geoName="西藏" geoTypeId="REGION"/>
+    <Geo abbreviation="香港" geoCode="91" geoId="CN-91" geoName="香港" geoTypeId="REGION"/>
+	<Geo abbreviation="澳门" geoCode="92" geoId="CN-92" geoName="澳门" geoTypeId="REGION"/>
+
+    <GeoAssoc geoId="CHN" geoIdTo="CN-11" geoAssocTypeId="REGIONS"/>	
+    <GeoAssoc geoId="CHN" geoIdTo="CN-50" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-31" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-12" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-23" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-22" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-21" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-63" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-62" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-61" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-14" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-13" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-51" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-42" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-41" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-37" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-34" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-32" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-53" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-52" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-43" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-36" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-33" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-46" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-44" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-35" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-71" geoAssocTypeId="REGIONS"/>
+	<GeoAssoc geoId="CHN" geoIdTo="CN-64" geoAssocTypeId="REGIONS"/>
+	<GeoAssoc geoId="CHN" geoIdTo="CN-65" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-54" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-91" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-92" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
