@@ -462,8 +462,9 @@ public class ProductWorker {
                     condList.add(EntityCondition.makeCondition("productFeatureApplTypeId", productFeatureApplTypeId));
                 }
                 EntityCondition cond = EntityCondition.makeCondition(condList);
-                productAppls = product.getDelegator().findList("ProductFeatureAppl", cond, null, UtilMisc.toList("description"), null, false);
+                productAppls = product.getDelegator().findList("ProductFeatureAppl", cond, null, null, null, false);
                 features = EntityUtil.getRelated("ProductFeature", productAppls);
+                features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
