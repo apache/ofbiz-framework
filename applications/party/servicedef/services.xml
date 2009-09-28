@@ -665,7 +665,7 @@ under the License.
         <description>create many identifications with format in map identifications : [partyType : TYPE, TYPE : value]</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" mode="IN" type="String"/>
-        <attribute name="indentifications" mode="IN" type="Map" />
+        <attribute name="identifications" mode="IN" type="Map" />
     </service>
     
 
