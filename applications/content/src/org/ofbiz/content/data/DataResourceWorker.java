@@ -694,8 +694,15 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     String docbookStyleLocation = docbookStyleSheets.get(0);
                     sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+docbookStyleLocation);
                 }
-                if(sourceFileLocation != null && sourceFileLocation.exists()) {
+                if (sourceFileLocation != null && sourceFileLocation.exists()) {
                     UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
+                } else {
+                    String defaultVisualThemeId = UtilProperties.getPropertyValue("general", "defaultVisualThemeId");
+                    if (defaultVisualThemeId != null) {
+                        GenericValue themeValue = delegator.findByPrimaryKeyCache("VisualThemeResource", UtilMisc.toMap("visualThemeId", defaultVisualThemeId,"resourceTypeEnumId","VT_DOCBOOKSTYLESHEET","sequenceId","01"));
+                        sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+themeValue.get("resourceValue"));
+                        UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
+                    }
                 }
                 // get the template data for rendering
                 String templateLocation = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).toString();
