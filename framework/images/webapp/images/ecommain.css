@@ -182,6 +182,7 @@ right:20px;
 text-align:right;
 top:0;
 width:290px;
+height: 75px;
 }
 
 #welcome-message {
@@ -1025,6 +1026,6 @@ display: inline;
 #microcart li#microCartPayPalCheckout img {
 width: 135px;
 }
-#microcart li#googleCheckoutEnabled img {
+#microcart li#googleCheckoutEnabled img, #microcart li#googleCheckoutDisabled img {
 width: 145px;
 }
