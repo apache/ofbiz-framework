@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.ofbiz.testtools.seleniumxml.util;
 
 import java.io.BufferedReader;
@@ -49,16 +50,16 @@ public class TestUtils {
     }
     
     static public String createRandomString(String prefix, int size) {
-        StringBuilder buff = new StringBuilder(size);
+        StringBuffer buff = new StringBuffer(size);
         int startIndx = 0;
     
-        if (prefix != null) {
+        if(prefix != null) {
             buff.append(prefix);
             startIndx = prefix.length();
         }
 
         Random rad = new Random();
-        for(int i=startIndx; i<size; i++) {
+        for(int i=startIndx; i<size; i++ ) {
             buff.append(charMap[rad.nextInt(charMap.length)]);
         }
         return buff.toString();

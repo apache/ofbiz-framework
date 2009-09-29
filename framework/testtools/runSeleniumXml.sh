@@ -10,6 +10,7 @@ export CP=$CP:$OFBIZ_HOME/framework/base/lib/junit.jar
 export CP=$CP:$OFBIZ_HOME/framework/base/lib/commons/commons-lang-2.3.jar
 export CP=$CP:$OFBIZ_HOME/framework/base/lib/log4j-1.2.15.jar
 export CP=$CP:$OFBIZ_HOME/framework/base/lib/javolution-5.2.3.jar
+export CP=$CP:$OFBIZ_HOME/framework/base/build/lib/ofbiz-base.jar
 
 echo $CP
 

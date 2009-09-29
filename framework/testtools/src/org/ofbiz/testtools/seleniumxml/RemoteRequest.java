@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.ofbiz.testtools.seleniumxml;
 
 import java.io.IOException;
@@ -28,19 +29,17 @@ import java.util.Set;
 
 import javolution.util.FastMap;
 
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -53,17 +52,11 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.message.BasicHttpRequest;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.jdom.Element;
-
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
 
 
 public class RemoteRequest {
@@ -92,6 +85,11 @@ public class RemoteRequest {
     private String requestUrl;
     private String host;
     private String responseHandlerMode;
+   
+    //Login-As parameters
+    private String loginAsUrl;
+    private String loginAsUserParam;
+    private String loginAsPasswordParam;
     
     private int currentRowIndx;
     
@@ -113,6 +111,19 @@ public class RemoteRequest {
         defaultParameters = params;
 
     }
+    public RemoteRequest(SeleniumXml parent, List<Element> children, List<Element> loginAs, String requestUrl, String hostString, String responseHandlerMode) {
+   
+        this(parent, children, requestUrl, hostString, responseHandlerMode);
+        if(loginAs != null && !loginAs.isEmpty()) {
+            Element elem = loginAs.get(0);
+            
+            this.loginAsUserParam = elem.getAttributeValue("username-param");
+            this.loginAsPasswordParam = elem.getAttributeValue("password-param");
+            this.loginAsUrl = elem.getAttributeValue("url");
+            
+        }
+    }
+    
     public RemoteRequest(SeleniumXml parent, List<Element> children, String requestUrl, String hostString, String responseHandlerMode) {
         super();
         this.parent = parent;
@@ -120,6 +131,8 @@ public class RemoteRequest {
         this.host = hostString;
         this.children = children;
         this.responseHandlerMode = (HttpHandleMode.equals(responseHandlerMode)) ? HttpHandleMode : JsonHandleMode;
+        System.out.println("RemoteRequest, requestUrl: " + this.requestUrl);
+        System.out.println("RemoteRequest, host: " + this.host);
         initData();
     }
 
@@ -133,6 +146,7 @@ public class RemoteRequest {
             if (nm.equals("param-in")) {
                 name = elem.getAttributeValue("name");
                 value = this.parent.replaceParam(elem.getAttributeValue("value")); 
+                System.out.println("RemoteRequest, param-in, name: " + name + ", value: " + value);
                 this.inMap.put(name, value);
             } else if (nm.equals("param-out")) {
                 name = elem.getAttributeValue("result-name");
@@ -155,8 +169,10 @@ public class RemoteRequest {
         DefaultHttpClient client = new DefaultHttpClient(ccm, defaultParameters);
         client.setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy());
 
-        //HttpContext clientContext = client.
-        //HttpHost target = new HttpHost(this.host, 80, "http");
+        //
+        // We first try to login with the loginAs to set the session.
+        // Then we call the remote service.
+        //
         HttpEntity entity = null;
         ResponseHandler <String> responseHandler = null;
         try {
@@ -164,50 +180,92 @@ public class RemoteRequest {
             // Create a local instance of cookie store
             CookieStore cookieStore = new BasicCookieStore();
             localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-            //this.login(client, localContext);
-            String paramString2 = "USERNAME=" + this.parent.getUserName()
-                               + "&PASSWORD=" + this.parent.getPassword();
-            String thisUri2 = this.host + "/eng/control/login?" + paramString2;
-            HttpGet req2 = new HttpGet (thisUri2);
-            req2.setHeader("Connection","Keep-Alive");
-            HttpResponse rsp = client.execute(req2, localContext);
-
-            Header sessionHeader = null;
-            Header[] headers = rsp.getAllHeaders();
-            for (int i=0; i<headers.length; i++) {
-                Header hdr = headers[i];
-                String headerValue = hdr.getValue();
-                if (headerValue.startsWith("JSESSIONID")) {
-                    sessionHeader = hdr;
-                }
-                System.out.println(headers[i]);
-                System.out.println(hdr.getName() + " : " + hdr.getValue());
-            }
             
-            List<Cookie> cookies = cookieStore.getCookies();
-            System.out.println("cookies.size(): " + cookies.size());
-            for (int i = 0; i < cookies.size(); i++) {
-                System.out.println("Local cookie(0): " + cookies.get(i));
-            }
+            Header sessionHeader = null;
+            
+            if(this.loginAsUrl != null ) {
+                
+                String loginAsUri = this.host + this.loginAsUrl;
+                String loginAsParamString = "?" + this.loginAsUserParam + "&" + this.loginAsPasswordParam;
+                
+                HttpGet req2 = new HttpGet ( loginAsUri + loginAsParamString );
+                System.out.println("loginAsUrl:" + loginAsUri + loginAsParamString);
+                
+                req2.setHeader("Connection","Keep-Alive");
+                HttpResponse rsp = client.execute(req2, localContext);
+
+                Header[] headers = rsp.getAllHeaders();
+                for (int i=0; i<headers.length; i++) {
+                    Header hdr = headers[i];
+                    String headerValue = hdr.getValue();
+                    if (headerValue.startsWith("JSESSIONID")) {
+                        sessionHeader = hdr;
+                    }
+                    System.out.println("login: " + hdr.getName() + " : " + hdr.getValue());
+                }
+                List<Cookie> cookies = cookieStore.getCookies();
+                System.out.println("cookies.size(): " + cookies.size());
+                for (int i = 0; i < cookies.size(); i++) {
+                    System.out.println("Local cookie(0): " + cookies.get(i));
+                }
+            } 
+            //String paramString2 = "USERNAME=" + this.parent.getUserName()
+            //                   + "&PASSWORD=" + this.parent.getPassword();
+            //String thisUri2 = this.host + "/eng/control/login?" + paramString2;
+            //HttpGet req2 = new HttpGet ( thisUri2 );
+            //req2.setHeader("Connection","Keep-Alive");
+            //HttpResponse rsp = client.execute(req2, localContext);
+
+            //Header sessionHeader = null;
+            //Header[] headers = rsp.getAllHeaders();
+            //for (int i=0; i<headers.length; i++) {
+            //    Header hdr = headers[i];
+            //    String headerValue = hdr.getValue();
+            //    if (headerValue.startsWith("JSESSIONID")) {
+            //        sessionHeader = hdr;
+            //    }
+            //    System.out.println(headers[i]);
+            //    System.out.println(hdr.getName() + " : " + hdr.getValue());
+            //}
+            
+            //List<Cookie> cookies = cookieStore.getCookies();
+            //System.out.println("cookies.size(): " + cookies.size());
+            //for (int i = 0; i < cookies.size(); i++) {
+            //    System.out.println("Local cookie(0): " + cookies.get(i));
+            //}
             if (HttpHandleMode.equals(this.responseHandlerMode)) {
                 
             } else {
                 responseHandler = new JsonResponseHandler(this);
             }
+            
             String paramString = urlEncodeArgs(this.inMap, false);
-            String sessionHeaderValue = sessionHeader.getValue();
-            int pos1 = sessionHeaderValue.indexOf("=");
-            int pos2 = sessionHeaderValue.indexOf(";");
-            String sessionId = sessionHeaderValue.substring(pos1 + 1, pos2);
-            System.out.println("sessionId: " + sessionId);
-            String thisUri = this.host + this.requestUrl + ";jsessionid=" + sessionId + "?"  + paramString;
+            
+            String thisUri = null;
+            if(sessionHeader != null) {
+                String sessionHeaderValue = sessionHeader.getValue();
+                int pos1 = sessionHeaderValue.indexOf("=");
+                int pos2 = sessionHeaderValue.indexOf(";");
+                String sessionId = sessionHeaderValue.substring(pos1 + 1, pos2);
+                thisUri = this.host + this.requestUrl + ";jsessionid=" + sessionId + "?"  + paramString;
+            } else {
+                thisUri = this.host + this.requestUrl + "?" + paramString;
+            }
+            //String sessionHeaderValue = sessionHeader.getValue();
+            //int pos1 = sessionHeaderValue.indexOf("=");
+            //int pos2 = sessionHeaderValue.indexOf(";");
+            //String sessionId = sessionHeaderValue.substring(pos1 + 1, pos2);
+            //System.out.println("sessionId: " + sessionId);
+            //String thisUri = this.host + this.requestUrl + ";jsessionid=" + sessionId + "?"  + paramString;
             //String thisUri = this.host + this.requestUrl + "?"  + paramString;
             System.out.println("thisUri: " + thisUri);
-            HttpGet req = new HttpGet (thisUri);
-            System.out.println("sessionHeader: " + sessionHeader);
-            req.setHeader(sessionHeader);
+            
+            HttpGet req = new HttpGet ( thisUri );
+            if(sessionHeader != null) {
+                req.setHeader(sessionHeader);
+            }
 
-            String responseBody = client.execute(req, responseHandler, localContext);
+            String responseBody = client.execute( req, responseHandler, localContext);
             /*
             entity = rsp.getEntity();
 
@@ -223,9 +281,9 @@ public class RemoteRequest {
                 System.out.println(EntityUtils.toString(rsp.getEntity()));
             }
             */
-        } catch (HttpResponseException e) {
+        } catch(HttpResponseException e) {
             System.out.println(e.getMessage());
-        } catch (IOException e) {
+        } catch(IOException e) {
             System.out.println(e.getMessage());
         } finally {
             // If we could be sure that the stream of the entity has been
@@ -236,7 +294,7 @@ public class RemoteRequest {
             try {
               if (entity != null)
                 entity.consumeContent(); // release connection gracefully
-            } catch (IOException e) {
+            } catch(IOException e) {
                 System.out.println("in 'finally'  " + e.getMessage());
             }
 
@@ -249,7 +307,7 @@ public class RemoteRequest {
         String paramString = "USERNAME=" + this.parent.getUserName()
                            + "&PASSWORD=" + this.parent.getPassword();
         String thisUri = this.host + "/eng/control/login?" + paramString;
-        HttpGet req = new HttpGet (thisUri);
+        HttpGet req = new HttpGet ( thisUri );
         req.setHeader("Connection","Keep-Alive");
         client.execute(req, localContext);
         
@@ -313,8 +371,8 @@ public class RemoteRequest {
             String bodyString = super.handleResponse(response);
             JSONObject jsonObject = null;
             try {
-                jsonObject = JSONObject.fromObject(bodyString);
-            } catch (JSONException e) {
+                jsonObject = JSONObject.fromObject( bodyString );
+            } catch(JSONException e) {
                 throw new HttpResponseException(0, e.getMessage());
             }
             Set<Map.Entry<String, String>> paramSet = this.parentRemoteRequest.outMap.entrySet();
@@ -324,6 +382,7 @@ public class RemoteRequest {
                 Map.Entry<String, String> paramPair = paramIter.next();
                 if (jsonObject.containsKey(paramPair.getKey())) {
                    Object obj = jsonObject.get(paramPair.getKey());
+                   System.out.println("RemoteRequest, param-out, name: " + paramPair.getKey() + ", value: " + obj);
                    parentDataMap.put(paramPair.getKey(), obj);
                 }
             }

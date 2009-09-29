@@ -6,6 +6,5 @@ else
   JAVA=java
 fi
 
-"$JAVA" -jar ../../framework/testtools/lib/selenium-server.jar  -singleWindow  -trustAllSSLCertificates -timeout 240
-exit 0
-
+#"$JAVA" -jar ../../framework/testtools/lib/selenium-server.jar -firefoxProfileTemplate ./config/firefox_profile -singleWindow  -trustAllSSLCertificates -timeout 240
+"$JAVA" -jar ../../framework/testtools/lib/selenium-server.jar -singleWindow -timeout 240

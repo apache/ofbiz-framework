@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.ofbiz.testtools.seleniumxml;
 
 import java.io.BufferedInputStream;
@@ -26,16 +27,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.reflect.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,26 +46,29 @@ import junit.framework.Assert;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.ofbiz.testtools.seleniumxml.util.TestUtils;
-
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.testtools.seleniumxml.DataLoader;
+import org.ofbiz.testtools.seleniumxml.DataLoop;
+import org.ofbiz.testtools.seleniumxml.GroovyRunner;
+import org.ofbiz.testtools.seleniumxml.JythonRunner;
+import org.ofbiz.testtools.seleniumxml.RemoteRequest;
 
 import com.thoughtworks.selenium.DefaultSelenium;
-//import com.thoughtworks.selenium.SeleniumException;
+import com.thoughtworks.selenium.SeleniumException;
 
 
 public class SeleniumXml {
-    
     //public static final String PROPS_NAME = "selenium.config";
     public static String PROPS_NAME = "selenium.config";
     Logger  logger = Logger.getLogger(SeleniumXml.class.getName());
@@ -77,9 +82,10 @@ public class SeleniumXml {
     private String testSourcePath;
     private String username;
     private String password;
+    private String testCaseDirectory;
     
-    public static void main(String[] args) throws JDOMException, IOException{
-        if (args.length == 0) {
+    public static void main(String[] args) throws JDOMException, IOException, TestCaseException{
+        if(args.length == 0) {
             System.out.println("Please include a path for the selenium XML test file.");
         } else {
             SeleniumXml sel = new SeleniumXml();
@@ -92,37 +98,70 @@ public class SeleniumXml {
                     sel.testSourcePath = arg;
                 }
             }
-            sel.runTest(args[0]);
+
+            File testFile = new File(args[0]);
+            if (testFile.exists()) {
+                System.err.println(" Argument : "+ args[0] );
+                System.err.println(" Full absolute path of file : "+ testFile.getAbsolutePath()  );
+                System.err.println(" Full canonical path of file : "+ testFile.getCanonicalPath() );
+                
+                sel.testCaseDirectory =  sel.getFileDirectory(testFile.getAbsolutePath());
+                System.err.println(" testCaseDirectory: "+ sel.testCaseDirectory );
+                 sel.runTest( testFile.getAbsolutePath() );
+            } else {
+                System.err.println("Test File is not exist :"+args[0]);
+            }
         }
     }
    
     /* call run test suite from webtool selenium */
     public static String runTestSuite(HttpServletRequest request, HttpServletResponse response){
-    	Map parameters = UtilHttp.getParameterMap(request);
-    	String para = (String)parameters.get("testSuitePath");
-    	if(para == null){
-    		System.out.println("Error message : Test suite Path  is null");
-    		return "success";
-    	}
-    	if(para.length()==0){
-    		System.out.println("Error message : Test suite Path  is null");
-    		return "success";
-    	}
-    	 try{
-    		 URL url = UtilURL.fromResource("seleniumXml.properties");
-    		 if (props == null) {
-	            props = new Properties();
-	            initConfig(url);
-    		 }
-    		 SeleniumXml sel = new SeleniumXml();
-    		 sel.runTest(para.trim());
+        Map parameters = UtilHttp.getParameterMap(request);
+        String para = (String)parameters.get("testSuitePath");
+        if(para == null){
+            System.out.println("Error message : Test suite Path  is null");
+            return "success";
+        }
+        if(para.length()==0){
+            System.out.println("Error message : Test suite Path  is null");
+            return "success";
+        }
+         try{
+             URL url = UtilURL.fromResource("seleniumXml.properties");
+             if (props == null) {
+                props = new Properties();
+                initConfig(url);
+             }
+             SeleniumXml sel = new SeleniumXml();
+             File testFile = new File(para.trim());
+             if (testFile.exists()) {
+                 System.err.println(" Argument : "+ para.trim() );
+                 System.err.println(" Full absolute path of file : "+ testFile.getAbsolutePath()  );
+                 System.err.println(" Full canonical path of file : "+ testFile.getCanonicalPath() );
+                 
+                 sel.testCaseDirectory =  sel.getFileDirectory(testFile.getAbsolutePath());
+                 System.err.println(" testCaseDirectory: "+ sel.testCaseDirectory );
+                  sel.runTest( testFile.getAbsolutePath() );
+             } else {
+                 System.err.println("Test File is not exist :"+para.trim());
+             }
+             //sel.runTest(para.trim());
         }catch(JDOMException jdome){
-    		 System.out.println(jdome.getMessage());
-    	 }catch(IOException ioe){
-    		 System.out.println("Error message : "+ioe.getMessage());
-    	 }finally{
-    		 return "success";
-    	 }
+             System.out.println(jdome.getMessage());
+         }catch(IOException ioe){
+             System.out.println("Error message : "+ioe.getMessage());
+         }finally{
+             return "success";
+         }
+    }
+    
+    private String getFileDirectory(String filePath){
+        String directory = null;
+        if (filePath.indexOf(File.separatorChar) != -1   ) {
+            int lastIndexOf = filePath.lastIndexOf(File.separatorChar);
+            directory = filePath.substring(0, (lastIndexOf+1));
+        }
+        return directory;
     }
     
     public SeleniumXml() throws IOException {
@@ -136,12 +175,9 @@ public class SeleniumXml {
 
     private static void initConfig() throws IOException {
         try {
-        	String configFile  = "";
-        	if(System.getProperty(PROPS_NAME)==null){
-        		configFile = PROPS_NAME;
-        	}else{
-        		configFile = System.getProperty(PROPS_NAME);
-        	}
+            String configFile = System.getProperty(PROPS_NAME);
+            //System.out.println("Looking for " + PROPS_NAME);
+            //System.out.println("Found following config file: " + configFile);
             if (configFile == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + PROPS_NAME + " is not set, cannot resolve location.";
                 throw new MalformedURLException(errMsg);
@@ -151,12 +187,12 @@ public class SeleniumXml {
             props.load(in);
             in.close();
 
-
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
     }
+    
     private static void initConfig(URL url) throws IOException {
         try {
             if (url == null) {
@@ -179,6 +215,7 @@ public class SeleniumXml {
     public SeleniumXml(SeleniumXml selenium) {
         this.sel = selenium.getSelenium();
         this.map = selenium.getParameterMap();
+        this.testCaseDirectory = selenium.testCaseDirectory;
     }
 
     public DefaultSelenium getSelenium() {
@@ -187,94 +224,113 @@ public class SeleniumXml {
     public Map <String, Object> getParameterMap() {
         return this.map;
     }
-    public void runTest(String fileName) throws JDOMException, IOException {
+    public void runTest(String fileName) throws JDOMException, IOException, TestCaseException {
         readFile(fileName);
         setupSelenium();
         runCommands();
     }
 
-    public void runCommands() {
+    public void runCommands() throws TestCaseException {
         Element root = this.doc.getRootElement();
         //List<Element> nodes = UtilGenerics.cast(root.getChildren());
         List<Element> nodes = root.getChildren();
         runCommands(nodes);
     }
     
-    public void runCommands(List<Element> nodes) {
+    public void runCommands(List<Element> nodes) throws TestCaseException{
         
         for(Element elem: nodes) {
-            if ("type" == elem.getName()) {
+            String thisName = elem.getName();
+            if("type" == elem.getName()) {
                 typeCmd(elem);
                 
-            } else if ("clickAt" == elem.getName()) {
+            } else if("setParam" == thisName) {
+                setParam(elem);
+            } else if("clickAt" == thisName) {
                 clickAt(elem);
-            } else if ("waitForValue" == elem.getName()) {
+            } else if("waitForValue" == thisName) {
                 waitForValue(elem);
-            } else if ("waitForCondition" == elem.getName()) {
+            } else if("waitForCondition" == thisName) {
                 waitForCondition(elem);
-            } else if ("loadData" == elem.getName()) {
+            } else if("loadData" == thisName) {
                 loadData(elem);
-            } else if ("loadData" == elem.getName()) {
-                loadData(elem);
-            } else if ("jythonRunner" == elem.getName()) {
+            } else if("jythonRunner" == thisName) {
                 jythonRunner(elem);
-            } else if ("groovyRunner" == elem.getName()) {
+            } else if("groovyRunner" == thisName) {
                 groovyRunner(elem);
-            } else if ("dataLoop" == elem.getName()) {
+            } else if("dataLoop" == thisName) {
                 dataLoop(elem);
-            } else if ("remoteRequest" == elem.getName()) {
+            } else if("remoteRequest" == thisName) {
                 remoteRequest(elem);
-            } else if ("selectPopup" == elem.getName()) {
+            } else if("selectPopup" == thisName) {
                 selectPopup(elem);
-            } else if ("getAllWindowIds" == elem.getName()) {
+            } else if("getAllWindowIds" == thisName) {
                 getAllWindowIds(elem);
-            } else if ("captureTextInPage" == elem.getName()) {
+            } else if("captureTextInPage" == thisName) {
                 captureTextInPageCmd(elem);
-            } else if ("getSelectedLabel" == elem.getName()) {
+            } else if("getSelectedLabel" == thisName) {
                 getSelectedLabel(elem);
-            } else if ("getSelectedValue" == elem.getName()) {
+            } else if("getSelectedValue" == thisName) {
                 getSelectedValue(elem);
-            } else if ("getSelectedId" == elem.getName()) {
+            } else if("getSelectedId" == thisName) {
                 getSelectedId(elem);
-            } else if ("testcase" == elem.getName()) {
+            } else if("testcase" == thisName) {
                 testcase(elem);
-            } else if ("assertContains" == elem.getName()) {
+            } else if("assertContains" == thisName) {
                 assertContains(elem);
-            } else if ("getHtmlSource" == elem.getName()) {
+            } else if("getHtmlSource" == thisName) {
                 getHtmlSource(elem);
-            } else if ("getBodyText" == elem.getName()) {
+            } else if("getBodyText" == thisName) {
                 getBodyText(elem);
-            } else if ("setup" == elem.getName()) {
+            } else if("setup" == thisName) {
                 continue; //setup is handled previously
-            } else if ("print" == elem.getName()) {
+            } else if("print" == thisName) {
                 printCmd(elem);
-            } else if ("waitForPageToLoad" == elem.getName()) {
+            } else if("waitForPageToLoad" == thisName) {
                 waitForPageToLoadCmd(elem);
-            } else if ("getSelectedIds" == elem.getName()) {
+            } else if("getSelectedIds" == thisName) {
                 getSelectedIdsCmd(elem);
-            } else if ("copy" == elem.getName()) {
+            } else if("copy" == thisName) {
                 copyCmd(elem);
-            } else if ("append" == elem.getName()) {
+            } else if("append" == thisName) {
                 appendCmd(elem);
-            } else if ("open" == elem.getName()) {
+            } else if("loadParameter" == thisName) {
+                loadParameter(elem);
+            }else if("partialRunDependency" == thisName) {
+                partialRunDependency(elem);
+            }else if("if" == thisName) {
+                ifCmd(elem);
+            }else if("open" == thisName) {
                 openCmd(elem);
-            } else if ("click" == elem.getName()) {
+            } else if("click" == thisName) {
                 clickCmd(elem);
-            } else if ("select" == elem.getName()) {
+            } else if("check" == thisName) {
+                checkCmd(elem);
+            } else if("uncheck" == thisName) {
+                uncheckCmd(elem);
+            } else if("getValue" == thisName) {
+                getValueCmd(elem);
+            } else if("select" == thisName) {
                 selectCmd(elem);
-            } else if ("uniqueId" == elem.getName()) {
+            } else if("uniqueId" == thisName) {
                 uniqueIdCmd(elem);
-            } else if ("randomAlphaString" == elem.getName()) {
+            } else if("randomAlphaString" == thisName) {
                 randomAlphaStringCmd(elem);
-            } else if ("randomString" == elem.getName()) {
+            } else if("randomString" == thisName) {
                 randomStringCmd(elem);
-            } else if ("setSpeed" == elem.getName()) {
+            } else if("setSpeed" == thisName) {
                 setSpeed(elem);
+            } else if("openWindow" == thisName) {
+                openWindow(elem);
+            } else if("selectWindow" == thisName) {
+                selectWindow(elem);
+            } else if("runScript" == thisName) {
+                runScript(elem);
              } else {
                 //logger.error("Unknown SeleniumXml command found:"+elem.getName());
                 //Use reflection with parameters using the naming convention param1, param2, and any return results stored 
                 //in map using "out"
-                logger.info("Undefined command calling by reflection for command: " + elem.getName());
+                logger.info("Undefined command calling by reflection for command: " + thisName);
                 callByReflection(elem);
             }
         }
@@ -290,12 +346,12 @@ public class SeleniumXml {
     
         Class[] paramTypes = null;
         Object[] args = null;
-        if ((param1 != null)  && (param2 != null)) {
+        if( (param1 != null)  && (param2 != null) ) {
             paramTypes = new Class[] {String.class, String.class};
-            args = new Object[] {param1, param2};
+            args = new Object[] {replaceParam(param1), replaceParam(param2)};
         } else if (param1 != null) {
             paramTypes = new Class[] {String.class};
-            args = new Object[] {param1};
+            args = new Object[] {replaceParam(param1)};
         } else {
             paramTypes = new Class[] {};
             args = new Object[] {};
@@ -310,7 +366,7 @@ public class SeleniumXml {
             Object results = m.invoke(this.sel, args);
             
             //Add output parameter to common map
-            if ((out != null) && (results != null)) {
+            if( (out != null) && (results != null)) {
                 addParam(out, results);
             }
         } catch (Exception e) {
@@ -318,13 +374,11 @@ public class SeleniumXml {
             logger.error("Exception occurred when Unknown SeleniumXml command found:"+elem.getName());
             e.printStackTrace();
         }
-        
-        
     }
     
     public void waitForValue(Element elem) {
         
-        String locator = elem.getAttributeValue("locator");
+        String locator = replaceParam(elem.getAttributeValue("locator"));
         String timeout = elem.getAttributeValue("timeout");
         String outParam = elem.getAttributeValue("out");
         
@@ -334,28 +388,48 @@ public class SeleniumXml {
         //this.sel.waitForCondition(script, timeout);
         String foundValue = null;
         for(int second=0;; second++) {
-            if (second >= maxSeconds) {
-//                throw new SeleniumException("waitForValue exceeded timeout: " + maxTime);
+            if(second >= maxSeconds) {
+                throw new SeleniumException("waitForValue exceeded timeout: " + maxTime);
             }
-            try { 
+            try{ 
                 //getValue throws an exception if it can't find locator
                 // - sleep for 1 sec and try again
                 // - otherwise break as we found the value
                 foundValue = sel.getValue(locator); 
-                if (outParam != null) {
+                if(outParam != null) {
                     this.addParam(outParam, foundValue);
                 }
                 break; //
-            } catch (Exception e) { 
+            } catch(Exception e) { 
                 //wait for 1 second and then resume
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException threadE) {
                     // TODO Auto-generated catch block
                     threadE.printStackTrace();
-                    
                 }
             }
+        }
+    }    
+    
+    public void setParam(Element elem) {
+        
+        String name = replaceParam(elem.getAttributeValue("name"));
+        String value = replaceParam(elem.getAttributeValue("value"));
+        
+        if( (name != null) && (value != null)) {
+            this.addParam(name, value);
+        }
+    }
+    public void getValueCmd(Element elem) {
+        
+        String locator = replaceParam(elem.getAttributeValue("locator"));
+        String outParam = elem.getAttributeValue("out");
+        
+        logger.debug("getValueCmd: locator=" + locator);
+        String foundValue = sel.getValue(locator); 
+        if(outParam != null) {
+            this.addParam(outParam, foundValue);
         }
     }    
     
@@ -368,7 +442,35 @@ public class SeleniumXml {
         this.sel.waitForCondition(script, timeout);
     }
     
-    public void loadData(Element elem) {
+    public void openWindow(Element elem) {
+        
+        String url = elem.getAttributeValue("url");
+        String windowId = replaceParam(elem.getAttributeValue("windowId"));
+        
+        logger.debug("openWindow: url=" + url + " windowId=" + windowId);
+        this.sel.openWindow(url, windowId);
+        return;
+    }
+    
+    public void selectWindow(Element elem) {
+        
+        String windowId = replaceParam(elem.getAttributeValue("windowId"));
+        
+        logger.debug("selectWindow:  windowId=" + windowId);
+        this.sel.selectWindow(windowId);
+        return;
+    }
+    
+    public void runScript(Element elem) {
+        
+        String script = replaceParam(elem.getAttributeValue("script"));
+        
+        logger.debug("runScript:  script=" + script);
+        this.sel.runScript(script);
+        return;
+    }
+    
+    public void loadData(Element elem) throws TestCaseException {
             
             String file = elem.getAttributeValue("file");
             String iterations = elem.getAttributeValue("iterations");
@@ -392,7 +494,7 @@ public class SeleniumXml {
         runner.runTest();
     }
 
-    public void dataLoop(Element elem) {
+    public void dataLoop(Element elem) throws TestCaseException {
         
         String dataListName = elem.getAttributeValue("dataListName");
         List<Element> children = UtilGenerics.cast(elem.getChildren());
@@ -410,11 +512,32 @@ public class SeleniumXml {
         }
         String responseHandlerMode = elem.getAttributeValue("responseHandlerMode");
         List <Element> children = UtilGenerics.cast(elem.getChildren());
-        
-        RemoteRequest loader = new RemoteRequest(this, children, requestUrl, host, responseHandlerMode);
+        List <Element> loginAs = UtilGenerics.cast(elem.getChildren("login-as"));
+        logger.info("remoteRequest: children=" + children + " loginAs="+loginAs);
+        RemoteRequest loader = new RemoteRequest( this, children, loginAs, requestUrl, host, responseHandlerMode);
         loader.runTest();
     }
+    
+    public void ifCmd(Element elem) throws TestCaseException {
+        String isRun = replaceParam(elem.getAttributeValue("condition"));
+        if (isRun != null && !isRun.equals("") && Boolean.valueOf(isRun)) {
+            List <Element> children = elem.getChildren();
+            this.runCommands(children);                
+        }else{
+            Element child = elem.getChild("else");
+            List <Element> children = child.getChildren();
+            this.runCommands(children);                
+        }
+    }
 
+    public void partialRunDependency(Element elem) throws TestCaseException {
+        String isRun = replaceParam(elem.getAttributeValue("isRun"));
+        if (isRun != null && Boolean.valueOf(isRun)) {
+            List <Element> children = elem.getChildren();
+            this.runCommands(children);                
+        }
+    }
+    
     public String getParamValue(String key) {
         return (String) this.map.get(key);
     }
@@ -424,29 +547,30 @@ public class SeleniumXml {
     }
     
     public void addParam(String name, String value) {
-        //logger.info("addParam: name=" + name + " value="+value);
+        logger.info("addParam: name=" + name + " value="+value);
         this.map.put(name, value);
     }
 
     public void addParam(String name, Object value) {
-        //logger.info("addParam: name=" + name + " value="+value);
+        logger.info("addParam: name=" + name + " value="+value);
         this.map.put(name, value);
     }
 
-    private void assertContains(Element elem) {
+    private void assertContains(Element elem) throws TestCaseException {
         String src = replaceParam(elem.getAttributeValue("src"));  
         String test = replaceParam(elem.getAttributeValue("test"));  
         int indxSearch = src.indexOf(test);
-        if (indxSearch == -1) {
+        if(indxSearch == -1) {
             logger.info("assertContains didn't find " + test + " in the src");
+            throw new TestCaseException("assertContains didn't find: " + test);
+            
         } else {
             logger.info("assertContains found " + test + " in the src");
         }
-        Assert.assertTrue(indxSearch != -1);
-        //String text = this.sel.getHtmlSource();  
-    }
+        //TODO: implement JUnit TestCase - Assert.assertTrue(indxSearch != -1);
+    }   
     
-    private void selectPopup(Element elem) {
+/*    private void selectPopup(Element elem) {
         String locator = elem.getAttributeValue("locator");  
 //        String winId = elem.getAttributeValue("windowId");  
         String timeout = elem.getAttributeValue("timeout");  
@@ -471,10 +595,33 @@ public class SeleniumXml {
         //this.sel.selectWindow("name=" + winNames[1]);
         //System.out.println("Did we select WindowName: " + winNames[1]);
     }
-
-    private void getWindowPopup(Element elem) {
+*/    
+    private void selectPopup(Element elem) {
+        String locator = elem.getAttributeValue("locator");  
+//        String winId = elem.getAttributeValue("windowId");  
+        String timeout = elem.getAttributeValue("timeout");  
         
+        //this.sel.waitForPopUp(winId, timeout);
+        this.sel.click(locator); 
+        
+        String[] winNames = this.sel.getAllWindowNames();
+        this.sel.selectWindow("name=" + winNames[1]);
     }
+    
+    private void getAllWindowIds(Element elem) {
+        String[] winIds = this.sel.getAllWindowIds();
+        for(int i=0; i<winIds.length; i++) {
+            logger.info("WindowId: " + winIds[i]);
+        }
+        String[] winNames = this.sel.getAllWindowNames();
+        for(int i=0; i<winIds.length; i++) {
+            logger.info("WindowName: " + winNames[i]);
+        }
+        
+        //this.sel.selectWindow("name=" + winNames[1]);
+        //System.out.println("Did we select WindowName: " + winNames[1]);
+    }
+    
     /**
      * Gets the hidden value of a list box
      * @param elem
@@ -507,30 +654,54 @@ public class SeleniumXml {
     private void getHtmlSource(Element elem) {
         String paramName = elem.getAttributeValue("out");  
         String text = this.sel.getHtmlSource();  
-        //logger.info("getHtmlsource: paramName=" + paramName + " text=" + text);
+        logger.info("getHtmlsource: paramName=" + paramName + " text=" + text);
         addParam(paramName, text);
     }
     
     private void getBodyText(Element elem) {
         String paramName = elem.getAttributeValue("out");  
         String text = this.sel.getBodyText();  
-        //logger.info("getBodyText: paramName=" + paramName + " text=" + text);
+//        logger.info("getBodyText: paramName=" + paramName + " text=" + text);
         addParam(paramName, text);
     }
     private void testcase(Element elem) {
         System.err.println("New testcase: " + elem.getAttributeValue("file"));
         String testFile = elem.getAttributeValue("file");
+        String isRun = replaceParam(elem.getAttributeValue("isRun"));
+        
+        
+        String absolutePath = getAbsolutePath(testFile);
+        String parentTestCase = new String(this.testCaseDirectory);
         SeleniumXml newTest = new SeleniumXml(this);
+        newTest.testCaseDirectory = getFileDirectoryForRelativePath(absolutePath);
         try {
-            newTest.runTest(testFile);
+            if (isRun == null || isRun.equals("") || Boolean.valueOf(isRun)) {
+                newTest.runTest(absolutePath);
+            }else{
+                System.err.println(" testFile :"+testFile+ "  isRun:"+isRun);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.fail("Testcase error for file: " + testFile);
+            Assert.fail("Testcase error for file: " + absolutePath);
         }
+        newTest.testCaseDirectory  = parentTestCase;
     }
+    
+    private String getFileDirectoryForRelativePath(String filePath){
+        String directory = null;
+        if (filePath.indexOf("/") != -1   ) {
+            int lastIndexOf = filePath.lastIndexOf("/");
+            directory = filePath.substring(0, (lastIndexOf+1));
+        }else  if(filePath.indexOf("\\") != -1   ) {
+            int lastIndexOf = filePath.lastIndexOf("\\");
+            directory = filePath.substring(0, (lastIndexOf+1));
+        }
+        return directory;
+    }    
     private void clickAt(Element elem) {
         logger.debug("clickAt: " + replaceParam(elem.getAttributeValue("locator")));
-        String locator = elem.getAttributeValue("locator");
+        String locator = replaceParam(elem.getAttributeValue("locator"));
         String coordString = elem.getAttributeValue("coordString");
         this.sel.clickAt(locator, coordString);
     }
@@ -543,9 +714,28 @@ public class SeleniumXml {
      * dom= <TBD>
      */
     private void clickCmd(Element elem) {
-        String locator = this.replaceParam(elem.getAttributeValue("locator"));
-        logger.info("clickCmd: " + locator);
-        this.sel.click(locator);
+        logger.info("clickCmd: " +  replaceParam(elem.getAttributeValue("locator")));
+        try {
+            this.sel.click(replaceParam(elem.getAttributeValue("locator")));  
+        } catch (SeleniumException e) {
+        
+            logger.info("caught SeleniumException Name:"+elem.getName()+"  , Value: "+elem.getAttributeValue("locator"));
+            
+            e.printStackTrace();
+        }
+    }
+    private void doubleClick(Element elem) {
+        logger.info("clickCmd: " +  replaceParam(elem.getAttributeValue("locator")));
+        this.sel.doubleClick((replaceParam(elem.getAttributeValue("locator"))));  
+    }
+    
+    private void checkCmd(Element elem) {
+        logger.info("checkCmd: " +  replaceParam(elem.getAttributeValue("locator")));
+        this.sel.check(replaceParam(elem.getAttributeValue("locator")));  
+    }
+    private void uncheckCmd(Element elem) {
+        logger.info("uncheckCmd: " +  replaceParam(elem.getAttributeValue("locator")));
+        this.sel.uncheck(replaceParam(elem.getAttributeValue("locator")));  
     }
     private void typeCmd(Element elem) {
         String name = elem.getAttributeValue("name");
@@ -617,7 +807,7 @@ public class SeleniumXml {
         // Find all the matches.
         if (matcher.find()) {
             String resultsValue = null;
-            if (group != null) {
+            if(group != null) {
                 resultsValue = matcher.group(Integer.parseInt(group));
             } else {
                 resultsValue = matcher.group();
@@ -647,16 +837,16 @@ public class SeleniumXml {
         int nPrefixSize = 0;
         String paramName = elem.getAttributeValue("out");  
         String size = elem.getAttributeValue("size");  
-        if (size != null) {
+        if(size != null) {
             nSize = Integer.parseInt(size);
         }
         String prefix = elem.getAttributeValue("prefix");  
-        if (prefix != null) {
+        if(prefix != null) {
             nPrefixSize = prefix.length();
         }
 
         String paramValue = null;
-        if (prefix != null) {
+        if(prefix != null) {
             paramValue = prefix + RandomStringUtils.randomAlphabetic(nSize - nPrefixSize);
         } else {
             paramValue = RandomStringUtils.randomAlphabetic(nSize);
@@ -699,7 +889,38 @@ public class SeleniumXml {
         addParam(elem.getAttributeValue("out"), newStr);
     }
 
+    private void loadParameter(Element elem) {
+        logger.info("loadParameter: fileName=" + elem.getAttributeValue("file") );
+        
+        String parameterFile = elem.getAttributeValue("file");
+        String absolutePath = getAbsolutePath(parameterFile);
+        BasicConfigurator.configure();
+        try {
+            InputStream in = new FileInputStream(absolutePath);
+            Properties parameter = new Properties();
+            parameter.load(in);
+            in.close();
+
+            Set<Entry<Object, Object>> entrySet = parameter.entrySet();
+            
+            for(Map.Entry entry : entrySet) {
+                String key = (String)entry.getKey();
+                String value = (String)entry.getValue();
+                System.out.println(key + " = " + value);
+                addParam(key, value);
+            }            
+        } catch (Exception e) {
+            logger.error("Can not load parameter . ");
+        }
+        
+        String newStr = replaceParam(elem.getAttributeValue("src1")) + replaceParam(elem.getAttributeValue("src2"));
+        addParam(elem.getAttributeValue("out"), newStr);
+    }
+
     public String replaceParam(String value) {
+        
+        if (value == null) { return value; }
+        
         StringBuilder buf = new StringBuilder();
         int end = 0;
         int start = 0;
@@ -722,10 +943,10 @@ public class SeleniumXml {
         return buf.toString();
     }
 
-    private boolean isParam(String value) {
+    private boolean isParam(String value ) {
 
-        if ((value.indexOf("${") != -1) &&
-            (value.indexOf("}", 1) != -1)) {
+        if( (value.indexOf("${") != -1) &&
+            (value.indexOf("}", 1) != -1) ) {
             return true;
         } 
         return false;
@@ -736,7 +957,7 @@ public class SeleniumXml {
         
         //return if Selenium has already been setup
         //e.g. nested selenium test cases.
-        if (this.sel != null) return;
+        if(this.sel != null) return;
         
         String serverHost = null;
         String serverPort = null;
@@ -744,11 +965,11 @@ public class SeleniumXml {
         String startUrl = null;
         
         //First initialize with property values
-        if (props != null) { //Get setup params from property value
+        if(props != null ) { //Get setup params from property value
             
             serverHost = props.getProperty("serverHost", "localhost");
             serverPort = props.getProperty("proxyPort", "4444");
-            browser = props.getProperty("browser", "*firefox");
+            browser = props.getProperty("browser", "*iexplore");
             startUrl = props.getProperty("startUrl", "http://localhost:8080");
         }
         
@@ -757,16 +978,16 @@ public class SeleniumXml {
         if (elem != null) { 
         
             //Override properties if specified
-            if (elem.getAttributeValue("serverHost") != null) {
+            if( elem.getAttributeValue("serverHost") != null ) {
                 serverHost = elem.getAttributeValue("serverHost");
             }
-            if (elem.getAttributeValue("serverPort") != null) {
+            if( elem.getAttributeValue("serverPort") != null ) {
                 serverPort = elem.getAttributeValue("serverPort");
             }
-            if (elem.getAttributeValue("browser") != null) {
+            if( elem.getAttributeValue("browser") != null ) {
                 browser = elem.getAttributeValue("browser");
             }
-            if (elem.getAttributeValue("startUrl") != null) {
+            if( elem.getAttributeValue("startUrl") != null ) {
                 startUrl = elem.getAttributeValue("startUrl");
             }
         }
@@ -777,14 +998,35 @@ public class SeleniumXml {
         this.sel = new DefaultSelenium(serverHost, Integer.parseInt(serverPort), browser, startUrl);
         this.sel.start();
     }
+    private String getAbsolutePath(String fileName){
+        logger.info("getAbsolutePath: fileName=" + fileName);
+        String fileAbsolutePath = fileName;
+        if (fileName.indexOf(File.separatorChar) == -1) {
+            if(this.testCaseDirectory != null) {
+                fileAbsolutePath = this.testCaseDirectory + fileName;
+            }
+        }
+        logger.info("getAbsolutePath: returning fileName=" + fileName);
+        return fileAbsolutePath;
+    }
     private void readFile(String fileName) throws JDOMException, IOException {
-        File xmlFile = new File(fileName);
+        String absolutePath = getAbsolutePath(fileName);
+        File xmlFile = new File(absolutePath);
+        
         SAXBuilder builder = new SAXBuilder();
         this.doc = builder.build(xmlFile);
     }
     
     public String getUserName() {
         return this.username;
+    }
+    
+    public void setUserName(String val) {
+        this.username = val;
+    }
+    
+    public void setPassword(String val) {
+        this.password = val;
     }
     
     public String getPassword() {

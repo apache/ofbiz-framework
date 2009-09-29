@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.ofbiz.testtools.seleniumxml;
 
 import java.util.List;
@@ -29,6 +30,8 @@ import org.python.core.PyDictionary;
 import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import org.ofbiz.testtools.seleniumxml.InitJython;
+import org.ofbiz.testtools.seleniumxml.SeleniumXml;
 
 public class DataLoader {
 
@@ -37,18 +40,15 @@ public class DataLoader {
     private SeleniumXml parent;
     private SeleniumXml currentTest;
     private List<Element> children;
-
+    
     private int currentRowIndx;
-
-
+    
+    
     //Objects initialized from csvreader script.
     private PyDictionary fieldNameMap;
     private PyList dataList;
     private PyList fieldNames;
-
-
-
-
+    
     public DataLoader(String file, String iterations, SeleniumXml parent, List<Element> children) {
         super();
         this.file = file;
@@ -66,6 +66,7 @@ public class DataLoader {
         Map<String, Object> map = FastMap.newInstance();
         map.put("file", this.file);
         interp.set("params", map);
+    
         interp.exec("from csvreader import CSVReader");
         String cmd = "reader = CSVReader('" + this.file + "')";
         interp.exec(cmd);
@@ -74,21 +75,21 @@ public class DataLoader {
         this.fieldNameMap = (PyDictionary) interp.eval("reader.fieldNameMap");
         //interp.execfile("c:/dev/ag/seleniumxml/plugins/csvreader.py");
         //interp.execfile("c:/dev/ag/seleniumxml/plugins/TestCSVReader.py");
-
+       
         //Now get output from script
         //this.dataList = (PyArray) map.get("dataList");
         //this.fieldNames = (PyDictionary) map.get("fieldNames");
-
+        
     }
-
+    
     private void next() {
         this.currentRowIndx = (this.currentRowIndx + 1) % this.dataList.__len__();
     }
-
+    
     private void loadData() {
 
         int size = this.fieldNames.__len__();
-        for(int i=0; i<size; i++) {
+        for(int i=0; i<size; i++ ) {
             PyObject name = this.fieldNames.__getitem__(i);
             PyObject valueList = this.dataList.__getitem__(this.currentRowIndx);
             PyObject columnIndx = this.fieldNameMap.__getitem__(name);
@@ -97,25 +98,25 @@ public class DataLoader {
             PyObject value = valueList.__getitem__(convIndx);
             this.currentTest.addParam((String) name.__tojava__(String.class), (String) value.__tojava__(String.class));
         }
-
+        
     }
-
-    public void runTest() {
+    
+    public void runTest() throws TestCaseException {
 
         //Depending on the iteration instruction repeat the following until complete
         int iter = Integer.parseInt(this.iterations);
 
         //Iterate through entire list of data
-        if (iter == -1) {
+        if(iter == -1) {
             iter = this.dataList.__len__();
         }
-
+    
         this.currentTest = new SeleniumXml(this.parent);
-        for(int i=0; i<iter; i++) {
+        for( int i=0; i<iter; i++) {
             loadData();
             currentTest.runCommands(this.children);
             next();
         }
-
+        
     }
 }

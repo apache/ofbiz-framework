@@ -1,14 +1,10 @@
 <?xml version="1.0"?>
 <testcase>
     <setSpeed value="500" />
-    
-    <!-- start from runSeleniumXml.sh -->
-    <!--testcase file="testdef/seleniumxml/example/example_login.xml"/>
-    <testcase file="testdef/seleniumxml/example/example_new.xml"/>
-    <testcase file="testdef/seleniumxml/example/example_search.xml"/-->
-    <!-- start from webtools/run selenium -->
-    <testcase file="framework/testtools/testdef/seleniumxml/example/example_login.xml"/>
-    <testcase file="framework/testtools/testdef/seleniumxml/example/example_new.xml"/>
-    <testcase file="framework/testtools/testdef/seleniumxml/example/example_search.xml"/>
+    <windowMaximize />
+    <testcase file="example_start.xml"/>
+    <testcase file="example_login.xml"/>
+    <testcase file="example_new.xml"/>
+    <testcase file="example_search.xml"/>
 </testcase>
 

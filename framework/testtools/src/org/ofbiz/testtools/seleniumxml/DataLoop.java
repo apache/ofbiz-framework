@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,6 +30,7 @@ import org.python.core.PyDictionary;
 import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import org.ofbiz.testtools.seleniumxml.SeleniumXml;
 
 import org.ofbiz.base.util.UtilGenerics;
 
@@ -42,29 +43,32 @@ public class DataLoop {
     
     private int currentRowIndx;
     
-    
-    
     public DataLoop(String dataListName, SeleniumXml parent, List<Element> children) {
         super();
         this.dataListName = dataListName;
         this.parent = parent;
         this.children = children;
     }
-
-    public void runTest() {
+    
+    public void runTest() throws TestCaseException {
 
         this.currentTest = new SeleniumXml(this.parent);
+        this.currentTest.setUserName(this.parent.getUserName());
+        this.currentTest.setPassword(this.parent.getPassword());
         Map<String, Object> dataMap = this.parent.getMap();
         List<Map<String, Object>> dataList = UtilGenerics.cast(dataMap.get(this.dataListName));
-        for (Map<String, Object> mp: dataList) {
+        //for (Map<String, Object> mp: dataList) {
             // TODO, WARNING - these name could collide with names already in the test context
-            for (Map.Entry<String, Object> entry: mp.entrySet()) {
-                    String name = entry.getKey();
-                    Object value = entry.getValue();
-                    dataMap.put(name, value);
-            }
-             currentTest.runCommands(this.children);
+        //for (Map.Entry<String, Object> entry: mp.entrySet()) {
+            //String name = entry.getKey();
+            //Set eSet = mp.entrySet();
+        Iterator iter2 = dataList.iterator();
+        while(iter2.hasNext()) {
+            Map.Entry entry = (Map.Entry)iter2.next();
+            String name = (String)entry.getKey();
+            Object value = entry.getValue();
+            dataMap.put(name, value);
         }
-        
+         currentTest.runCommands(this.children);
     }
 }
