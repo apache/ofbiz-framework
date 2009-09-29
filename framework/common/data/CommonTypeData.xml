@@ -102,7 +102,7 @@ under the License.
 
     <!-- User preferences seed data -->
     <UserPrefGroupType userPrefGroupTypeId="GLOBAL_PREFERENCES" description="Global preferences"/>
-    <UserPreference userLoginId="_NA_" userPrefTypeId="VISUAL_THEME" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefValue="BIZZNESS_TIME"/>
+    <!-- UserPreference userLoginId="_NA_" userPrefTypeId="VISUAL_THEME" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefValue="BIZZNESS_TIME" specified in general properties! -->
 
     <!-- Visual Themes seed data -->
     <EnumerationType description="Visual Theme Resource Type (stylesheet, javascript file, etc)" enumTypeId="VT_RES_TYPE" hasTable="N"/>
