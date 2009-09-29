@@ -29,6 +29,7 @@ under the License.
                 <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
                 <strong id="microCartTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></strong>
             </p>
+            <span id="microCartEmpty" style="display:none">${uiLabelMap.OrderShoppingCartEmpty}</span>
         <#else>
             <p>${uiLabelMap.OrderShoppingCartEmpty}</p>
         </#if>
@@ -40,7 +41,7 @@ under the License.
           <li id="onePageCheckoutEnabled"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>">[${uiLabelMap.EcommerceOnePageCheckout}]</a></li>
           <li id="onePageCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</li>
           <li id="googleCheckoutEnabled"><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>"><img src="https://checkout.google.com/buttons/checkout.gif?merchant_id=634321449957567&amp;w=160&amp;h=43&amp;style=white&amp;variant=text&amp;loc=en_US" alt="[${uiLabelMap.EcommerceCartToGoogleCheckout}]" /></a></li>
-          <li id="googleCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceCartToGoogleCheckout}]</li>
+          <li id="googleCheckoutDisabled" style="display:none" class="disabled"><img src="https://checkout.google.com/buttons/checkout.gif?merchant_id=634321449957567&amp;w=160&amp;h=43&amp;style=white&amp;variant=text&amp;loc=en_US" alt="[${uiLabelMap.EcommerceCartToGoogleCheckout}]" /></li>
           <#if shoppingCart?has_content && (shoppingCart.getGrandTotal() > 0)>
             <li id="microCartPayPalCheckout"><a href="<@ofbizUrl>setPayPalCheckout</@ofbizUrl>"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="[PayPal Express Checkout]" /></a></li>
           </#if>
