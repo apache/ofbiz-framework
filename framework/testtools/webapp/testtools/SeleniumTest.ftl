@@ -111,7 +111,5 @@ under the License.
                     }
             } );
         },1);
-       $('message').innerHTML = 'success';
-       $('message').style.color = "black";
     }
 </script>

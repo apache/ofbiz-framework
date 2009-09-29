@@ -16,13 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.ofbiz.testtools.seleniumxml;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,12 +31,9 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
-import org.jdom.Attribute;
-import org.jdom.filter.ElementFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-import org.jdom.xpath.XPath;
 import org.xml.sax.SAXException;
 
 import org.ofbiz.base.util.UtilGenerics;
@@ -49,18 +45,119 @@ public class SeleniumIDEConverter {
 
     private    Namespace ns = Namespace.getNamespace("http://www.w3.org/1999/xhtml");
     private Map root;
-
+    
     public void convert(String ideFile, String xmlFile) throws JDOMException, IOException, SAXException, ParserConfigurationException {
-
+    
         readInputFile(ideFile);
-
+    
         convertIDECommands();
-
+        
         createSeleniumXml(xmlFile);
     }
 
 
     private void readInputFile(String input) throws JDOMException, IOException, SAXException, ParserConfigurationException {
+        
+        File xmlFile = new File(input);
+        SAXBuilder builder = new SAXBuilder();
+        this.ideFile = builder.build(xmlFile);    
+        
+        //this.root = new HashMap();
+        //this.root.put("doc", freemarker.ext.dom.NodeModel.parse(xmlFile));
+    }
+
+    
+/*    private void convertIDECommands() throws JDOMException {
+        
+        //XPath path = XPath.newInstance("html/body/table/tbody");
+        Element root = this.ideFile.getRootElement();
+
+        this.xmlDestRoot = new Element("testcase");
+    
+        //TODO: there must be a better way to do this with JDom
+        Element e1 = root.getChild("body",ns);
+        Element e2 = e1.getChild("table",ns);
+        Element e3 = e2.getChild("tbody",ns);
+        List<Element> list = e3.getChildren("tr", ns);
+        List<Element> commands = root.getChild("body",ns).getChild("table",ns).getChild("tbody",ns).getChildren("tr", ns);
+        for(Element elem: commands) {
+            processIDECommand(elem);
+        }
+
+    }
+*/    
+/*    private void processIDECommand(Element elem) throws JDOMException {
+
+        
+        List<Element> cmd = elem.getChildren("td", ns);
+        Element cmdElem = cmd.get(0);
+    
+        String cmdToCompare = cmdElem.getValue();
+        System.out.println("Checking for cmd: " + cmdToCompare);
+        if("clickAndWait".compareTo(cmdElem.getValue()) == 0 ) {
+            System.out.println("Found clickAndWait");
+            this.xmlDestRoot.addContent( buildCommand("click", "locator", cmd.get(1).getValue(), null, null) );
+            this.xmlDestRoot.addContent( buildCommand("waitForPageToLoad", "value", "10000", null, null) );
+            
+        } else if("type".compareTo( cmdElem.getValue()) == 0  ) {
+            System.out.println("Found type");
+            this.xmlDestRoot.addContent ( buildCommand("type", "name", cmd.get(1).getValue(), "value", cmd.get(2).getValue()) );
+            
+        } else if("select".compareTo(cmdElem.getValue()) == 0 ) {
+            System.out.println("Found select");
+            this.xmlDestRoot.addContent( buildCommand("select", "locator", cmd.get(1).getValue(), "option", cmd.get(2).getValue()) );
+            
+        } else if("open".compareTo(cmdElem.getValue()) == 0 ) {
+            System.out.println("Found open");
+            this.xmlDestRoot.addContent( buildCommand("open", "value", cmd.get(1).getValue(), null, null) );
+            
+        } else if("click".compareTo(cmdElem.getValue()) == 0 ) {
+            Element newCmd = new Element("click");
+            newCmd.setAttribute("locator", cmd.get(1).getValue());
+            this.xmlDestRoot.addContent(newCmd); 
+            
+        } else if("doubleClick".compareTo(cmdElem.getValue()) == 0 ) {
+            Element newCmd = new Element("doubleClick");
+            newCmd.setAttribute("locator", cmd.get(1).getValue());
+            this.xmlDestRoot.addContent(newCmd); 
+            
+        } else {
+            System.out.println("WARNING: No definition for " + cmdElem.getValue());
+        }
+        
+    }
+*/    
+
+    private void createSeleniumXml(String outputFile) {
+        
+        try {
+              FileOutputStream out = new FileOutputStream(outputFile);
+              XMLOutputter serializer = new XMLOutputter( Format.getPrettyFormat());
+              serializer.output(this.xmlDestRoot, out);
+              out.flush();
+              out.close();
+        } catch (IOException e) {
+              System.err.println(e);
+        }
+    }
+    /**
+     * @param args
+     */
+/*    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        if(args.length != 2) {
+            System.out.println("Please include the source and destination file paths.");
+        } else {
+            SeleniumIDEConverter sel = new SeleniumIDEConverter();
+            try {
+                sel.convert(args[0], args[1]);
+                
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 
         File xmlFile = new File(input);
         SAXBuilder builder = new SAXBuilder();
@@ -69,7 +166,7 @@ public class SeleniumIDEConverter {
         //this.root = new HashMap();
         //this.root.put("doc", freemarker.ext.dom.NodeModel.parse(xmlFile));
     }
-
+*/
 
     private void convertIDECommands() throws JDOMException {
 
@@ -151,18 +248,7 @@ public class SeleniumIDEConverter {
         }
         return newCmd;
     }
-    private void createSeleniumXml(String outputFile) {
 
-        try {
-              FileOutputStream out = new FileOutputStream(outputFile);
-              XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-              serializer.output(this.xmlDestRoot, out);
-              out.flush();
-              out.close();
-        } catch (IOException e) {
-              System.err.println(e);
-        }
-    }
     /**
      * @param args
      */
@@ -181,5 +267,4 @@ public class SeleniumIDEConverter {
             }
         }
     }
-
 }

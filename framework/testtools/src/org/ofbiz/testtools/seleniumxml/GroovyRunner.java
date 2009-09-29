@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,6 +34,7 @@ import java.util.Map;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.jdom.Element;
 import org.ofbiz.testtools.seleniumxml.util.TestUtils;
+import org.ofbiz.testtools.seleniumxml.SeleniumXml;
 
 public class GroovyRunner {
 
@@ -63,9 +64,9 @@ public class GroovyRunner {
             binding.setVariable("context", map);
             binding.setVariable("seleniumXml", this.parent);
             InvokerHelper.createScript(scriptClass, binding).run();
-        } catch (MalformedURLException e) {
+        } catch(MalformedURLException e) {
             System.out.println("Scriptrunner, runTest, MalformedURLException error: " + e.getMessage());
-        } catch (IOException e) {
+        } catch(IOException e) {
             System.out.println("Scriptrunner, runTest, IOException error: " + e.getMessage());
         }
         
