@@ -166,10 +166,10 @@ public class InvoiceServices {
             }
 
             // get list of previous invoices for the order
-            List billedItems = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId));
+            List<GenericValue> billedItems = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId));
             if (billedItems.size() > 0) {
                 boolean nonDigitalInvoice = false;
-                Iterator bii = billedItems.iterator();
+                Iterator<GenericValue> bii = billedItems.iterator();
                 while (bii.hasNext() && !nonDigitalInvoice) {
                     GenericValue orderItemBilling = (GenericValue) bii.next();
                     GenericValue invoiceItem = orderItemBilling.getRelatedOne("InvoiceItem");

@@ -74,7 +74,7 @@ public class FinAccountServices {
         try {
             // find the most recent (active) service credit account for the specified party
             String partyId = (String) context.get("partyId");
-            Map lookupMap = UtilMisc.toMap("finAccountTypeId", finAccountTypeId, "ownerPartyId", partyId);
+            Map<String, String> lookupMap = UtilMisc.toMap("finAccountTypeId", finAccountTypeId, "ownerPartyId", partyId);
 
             // if a productStoreId is present, restrict the accounts returned using the store's payToPartyId
             String productStoreId = (String) context.get("productStoreId");
