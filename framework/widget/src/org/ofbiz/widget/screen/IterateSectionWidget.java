@@ -128,6 +128,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         int rowCount = 0;
         Iterator iter = theList.iterator();
         int itemIndex = -1;
+        int iterateIndex = 0;
         while (iter.hasNext()) {
             itemIndex++;
             if (itemIndex >= highIndex) {
@@ -138,13 +139,17 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 continue;
             }
             if (isEntrySet) {
-                contextMs.put(entryName, ((Map)item).get("value"));
+                contextMs.put(entryName, ((Map)item).get("value")); 
                 contextMs.put(keyName, ((Map)item).get("key"));
             } else {
                 contextMs.put(entryName, item);
             }
             contextMs.put("itemIndex", Integer.valueOf(itemIndex));
-
+            
+            if (iterateIndex < listSize) {
+            	contextMs.put("iterateId",String.valueOf(entryName+iterateIndex));
+            	iterateIndex++;
+            }
             rowCount++;
             for (ModelScreenWidget.Section section: this.sectionList) {
                 section.renderWidgetString(writer, contextMs, screenStringRenderer);
