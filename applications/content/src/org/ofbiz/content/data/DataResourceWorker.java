@@ -697,7 +697,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 if (sourceFileLocation != null && sourceFileLocation.exists()) {
                     UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
                 } else {
-                    String defaultVisualThemeId = UtilProperties.getPropertyValue("general", "defaultVisualThemeId");
+                    String defaultVisualThemeId = UtilProperties.getPropertyValue("general", "VISUAL_THEME");
                     if (defaultVisualThemeId != null) {
                         GenericValue themeValue = delegator.findByPrimaryKeyCache("VisualThemeResource", UtilMisc.toMap("visualThemeId", defaultVisualThemeId,"resourceTypeEnumId","VT_DOCBOOKSTYLESHEET","sequenceId","01"));
                         sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+themeValue.get("resourceValue"));

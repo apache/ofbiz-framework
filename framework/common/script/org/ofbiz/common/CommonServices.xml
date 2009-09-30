@@ -197,10 +197,6 @@ under the License.
 
     <simple-method method-name="getVisualThemeResources" short-description="Get visual theme resources" login-required="false">
         <set field="visualThemeId" from-field="parameters.visualThemeId"/>
-        <if-empty field="visualThemeId">
-            <add-error><fail-property property="CommonVisualThemeIdNotFound" resource="CommonUiLabels"/></add-error>
-            <check-errors/>
-        </if-empty>
         <set field="themeResources" from-field="parameters.themeResources"/>
         <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
             <condition-expr field-name="visualThemeId" from-field="visualThemeId"/>
