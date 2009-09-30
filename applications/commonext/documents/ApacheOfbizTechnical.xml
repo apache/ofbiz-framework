@@ -182,9 +182,17 @@
     <section>
         <title>Contributing a new help screen, a few steps.</title>
         <para>
-            So if you would like to create a new help menu for a certain
-            screen, you need to do the following:
-            <orderedlist>
+            There is a difference between portlets and 'normal' screens. If a 
+            page contains a portlet, the general help of the myportal component is shown with 
+            at the botton a list of the portlets used at that page. Help can be obtained by clicking on 
+            the relavant portlet.
+        </para>
+        <section>
+            <title>Normal pages.</title>
+            <para>
+                So if you would like to create a new help menu for a certain
+                screen, you need to do the following:
+                <orderedlist>
                 <listitem>
                     <para>In the helplink.ftl un-comment the
                         ${helpTopic} variable so it will appear at the
@@ -217,8 +225,20 @@
                         If the help text is usefull in the ofbiz document include it in the files in the document directory.
                     </para>
                 </listitem>
-            </orderedlist>
-        </para>
+                </orderedlist>
+            </para>
+            </section>
+        <section>
+            <title>Contributing a new Portlet) help screen.</title>
+            <para>
+                Portlets are normally defined and explained in the ${component name}PortletData.xml files. An example 
+                of an portlet with an existing help screen have a look at WorkEffortPortletData.xml 
+            </para>
+            <para>
+                The content records for the help file is defined together with the portlet definition and the axual help 
+                file is store in the related component /data/helpdata directory wit the nam HELP_PORTLET_${portletId}.xml. 
+            </para>
+        </section>
     </section>
     <section>
         <title><anchor id="helpInternationalization"/>Internationalization of the help system</title>
