@@ -158,7 +158,7 @@ under the License.
                 <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionRun.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonApInvoiceDecorator" location="component://accounting/widget/ap/CommonScreens.xml">
+                <decorator-screen name="CommonApInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>

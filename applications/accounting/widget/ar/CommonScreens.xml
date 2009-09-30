@@ -165,7 +165,7 @@ under the License.
                 <set field="headerItem" value="invoices"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameter.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
