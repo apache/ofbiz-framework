@@ -139,7 +139,18 @@ public class PreferenceServices {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
         }
-
+        // for the 'DEFAULT' values find the related values in general properties and if found use those.
+        Iterator it = userPrefMap.entrySet().iterator();
+        Map generalProperties = UtilProperties.getProperties("general");
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry) it.next();
+            if (pairs.getValue().equals("DEFAULT")) {
+                if (UtilValidate.isNotEmpty(generalProperties.get(pairs.getKey()))) {
+                    userPrefMap.put((String) pairs.getKey(), generalProperties.get(pairs.getKey()));
+                }
+            }
+        }
+        
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("userPrefMap", userPrefMap);
         return result;

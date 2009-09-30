@@ -410,7 +410,11 @@ under the License.
 
     <service name="getUserPreference" engine="java"
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
-        <description>Gets a single user preference.</description>
+        <description>
+            Gets a single user preference.
+            If not found for the specific userLogin, find it for the _NA_ userlogin. 
+            If the value is DEFAULT, find the value in general.properties file.
+        </description>
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefGroupTypeId" type="String" mode="IN" optional="true"/>
@@ -466,7 +470,7 @@ under the License.
             Map of Lists, where the resourceTypeEnumId is the key and the value
             is a List of resourceValue Strings for that resourceTypeEnumId.
         </description>
-        <attribute name="visualThemeId" type="String" mode="IN" optional="false"/>
+        <attribute name="visualThemeId" type="String" mode="IN" optional="true" default-value="BIZZNESS_TIME"/>
         <attribute name="themeResources" type="Map" mode="IN" optional="true"/>
         <attribute name="themeResources" type="Map" mode="OUT" optional="false"/>
     </service>
