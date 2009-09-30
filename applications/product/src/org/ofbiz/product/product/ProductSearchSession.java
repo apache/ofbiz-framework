@@ -767,7 +767,7 @@ public class ProductSearchSession {
         }
 
         // check the ProductStore to see if we should add the ExcludeVariantsConstraint
-        if (productStore != null && UtilValidate.isNotEmpty(productStore.getString("prodSearchExcludeVariants")) && !"N".equals(productStore.getString("prodSearchExcludeVariants"))) {
+        if (productStore != null && !"N".equals(productStore.getString("prodSearchExcludeVariants"))) {
             searchAddConstraint(new ProductSearch.ExcludeVariantsConstraint(), session);
             // not consider this a change for now, shouldn't change often: constraintsChanged = true;
         }
