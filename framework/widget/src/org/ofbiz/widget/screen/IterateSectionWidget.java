@@ -145,7 +145,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 contextMs.put(entryName, item);
             }
             contextMs.put("itemIndex", Integer.valueOf(itemIndex));
-            
+
             if (iterateIndex < listSize) {
                 contextMs.put("iterateId",String.valueOf(entryName+iterateIndex));
                 iterateIndex++;
@@ -254,7 +254,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public void getListLimits(Map<String, Object> context, List<?> items) {
         listSize = items.size();
 
-       if (paginate) {
+        if (paginate) {
             try {
                 Map params = (Map)context.get("parameters");
                 String viewIndexString = (String) params.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
@@ -326,7 +326,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             listSize = -1;
         }
 
-/*
+        /*
         int highIndex = -1;
         try {
             highIndex = modelForm.getHighIndex();
@@ -340,7 +340,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         } catch (Exception e) {
             lowIndex = 0;
         }
-*/
+         */
 
         int lowIndex = viewIndex * viewSize;
         int highIndex = (viewIndex + 1) * viewSize;
