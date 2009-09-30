@@ -1342,9 +1342,9 @@ public class PartyServices {
                     if (infoString != null && infoString.length() > 0) {
                         paramList = paramList + "&infoString=" + infoString;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER("%"+infoString+"%")));
+                        fieldsToSelect.add("infoString");
                     }
 
-                    fieldsToSelect.add("infoString");
                 }
 
                 // ----
