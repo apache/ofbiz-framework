@@ -1885,14 +1885,17 @@
         <value xml:lang="zh">评论</value>
     </property>
     <property key="AccountingCommissionAmount">
+        <value xml:lang="de">Provisionsbetrag</value>
         <value xml:lang="en">Commission Amount</value>
         <value xml:lang="hi_IN">दलाली राशी</value>
     </property>
     <property key="AccountingCommissionRun">
+        <value xml:lang="de">Provisionslauf</value>
         <value xml:lang="en">Commission Run</value>
         <value xml:lang="hi_IN">दलाली भुगतान</value>
     </property>
     <property key="AccountingCommissionReport">
+        <value xml:lang="de">Provisionsbericht</value>
         <value xml:lang="en">Commission Report</value>
         <value xml:lang="hi_IN">दलाली विवरण</value>
     </property>
@@ -2014,6 +2017,7 @@
         <value xml:lang="zh">比较资产负债表</value>
     </property>
     <property key="AccountingComparativeIncomeStatement">
+        <value xml:lang="de">Vergleichs-Ertragsrechnung</value>
         <value xml:lang="en">Comparative Income Statement</value>
         <value xml:lang="hi_IN">तुलनात्मक आय विवरण</value>
     </property>
@@ -2026,6 +2030,7 @@
         <value xml:lang="zh">完成交易数据项</value>
     </property>
     <property key="AccountingConsolidatedDataFromDivisions">
+        <value xml:lang="de">Zusammengeführte Daten der Abteilungen ${partyNameList}</value>
         <value xml:lang="en">Consolidated data from divisions ${partyNameList}</value>
         <value xml:lang="hi_IN">डिवीजनों ${partyNameList} से समेकित डेटा</value>
     </property>
@@ -2058,10 +2063,12 @@
         <value xml:lang="zh">没有在总账中找到相应的编号</value>
     </property>
     <property key="AccountingCreditDebitFlag">
+        <value xml:lang="de">S/H</value>
         <value xml:lang="en">Cr/Dr</value>
         <value xml:lang="hi_IN">जमा/नामे</value>
     </property>
     <property key="AccountingCreditFlag">
+        <value xml:lang="de">H</value>
         <value xml:lang="en">Cr</value>
         <value xml:lang="hi_IN">जमा</value>
     </property>
@@ -2234,6 +2241,7 @@
         <value xml:lang="zh">创建新电子资金转账</value>
     </property>
     <property key="AccountingCreateNewFinAccount">
+        <value xml:lang="de">Neues Finanzkonto erstellen</value>
         <value xml:lang="en">Create New Financial Account</value>
         <value xml:lang="hi_IN">नया  वित्तीय खाता बनाएँ</value>
     </property>
@@ -2333,6 +2341,7 @@
         <value xml:lang="zh">安全错误：要新建支付，你必须或者是支付方或接收方，或具有PAY_INFO_CREATE或PAY_INFO_ADMIN权限。</value>
     </property>
     <property key="AccountingCreditAmount">
+        <value xml:lang="en">Habenbetrag</value>
         <value xml:lang="en">Credit Amount</value>
         <value xml:lang="hi_IN">जमा राशि</value>
     </property>
@@ -2512,6 +2521,7 @@
         <value xml:lang="zh">客户</value>
     </property>
     <property key="AccountingCyberSourceApiVersion">
+        <value xml:lang="de">CyberSource API Version</value>
         <value xml:lang="en">CyberSource API Version</value>
         <value xml:lang="hi_IN">साइबरसोर्स एपीआई(API) संस्करण</value>
         <value xml:lang="it">Versione API CyberSource</value>
@@ -2606,6 +2616,7 @@
         <value xml:lang="zh">数据交换</value>
     </property>
     <property key="AccountingDebitAmount">
+        <value xml:lang="de">Sollbetrag</value>
         <value xml:lang="en">Debit Amount</value>
         <value xml:lang="hi_IN">नामे/उधार राशि</value>
     </property>
@@ -2630,10 +2641,12 @@
         <value xml:lang="zh">日期过滤器</value>
     </property>
     <property key="AccountingDebitFlag">
+        <value xml:lang="de">S</value>
         <value xml:lang="en">Dr</value>
         <value xml:lang="hi_IN">नामे</value>
     </property>
     <property key="AccountingDebitOrCreditOfBalance">
+        <value xml:lang="de">Soll oder Haben der Bilanz</value>
         <value xml:lang="en">Debit Or Credit Of The Balance</value>
         <value xml:lang="hi_IN">नामे/उधार या जमा की शेष राशि</value>
     </property>
@@ -5372,6 +5385,7 @@
         <value xml:lang="hi_IN">चेक रन प्रक्रिया के लिए सभी चालान READY स्थिति में होना चाहिए !</value>
     </property>
     <property key="AccountingIssueCheck">
+        <value xml:lang="de">Scheck ausstellen</value>
         <value xml:lang="en">Issue Check</value>
         <value xml:lang="hi_IN">चेक जारी करे</value>
     </property>
@@ -5559,6 +5573,7 @@
         <value xml:lang="zh">查找支付</value>
     </property>
     <property key="AccountingLicensedProduct">
+        <value xml:lang="de">Lizensiertes Produkt</value>
         <value xml:lang="en">Licensed Product</value>
         <value xml:lang="hi_IN">लाइसेंस उत्पाद</value>
     </property>
@@ -6037,6 +6052,7 @@
     </property>
     <property key="AccountingNoAmount">
         <value xml:lang="ar">المبلغ المطلوب للتطبيق صفر أو غير موفر: لا مبلغ مطبق</value>
+        <value xml:lang="de">Angeforderter Betrag ist Null oder wurde nicht vorhanden: es wurde kein Betrag zugewiesen</value>
         <value xml:lang="en">Amount requested to apply is zero or not provided: no amount applied/n</value>
         <value xml:lang="es">Cantidad requerida a aplicar es cero o no se proporciono: ninguna cantidad aplicada/n</value>
         <value xml:lang="fr">Le montant à allouer est zéro ou manquant: il n'a pas été appliqué de montant/n</value>
@@ -6310,6 +6326,7 @@
         <value xml:lang="hi_IN">लेखांकन गतिविधि नहीं मिली</value>
     </property>
     <property key="AccountingNoInvoicesReadyOrOutstandingAmountZero">
+        <value xml:lang="de">Es sind entweder keine der ausgewählten Rechnungen im Status 'erledigt' oder der Betrag beträgt Null.</value>
         <value xml:lang="en">Either no selected invoices in ready state or selected invoices outstanding amount equals to zero.</value>
         <value xml:lang="hi_IN">या तो चुने गए चालान तैयार की स्थिति में नहीं है या चयनित चालान बकाया राशि शून्य के बराबर है</value>
     </property>
@@ -6323,6 +6340,7 @@
         <value xml:lang="hi_IN">समायोजन वित्तीय गतिविधि खाता नहीं है</value>
     </property>
     <property key="AccountingNotAssigned">
+        <value xml:lang="de">Nicht zugewiesen</value>
         <value xml:lang="en">Not Assigned</value>
         <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
     </property>
@@ -6350,7 +6368,7 @@
     </property>
     <property key="AccountingNumber">
         <value xml:lang="cs">Číslo</value>
-        <value xml:lang="de">Nummer</value>
+        <value xml:lang="de">Anzahl</value>
         <value xml:lang="en">Number</value>
         <value xml:lang="es">Número</value>
         <value xml:lang="fr">N°</value>
@@ -6364,6 +6382,7 @@
         <value xml:lang="zh">数字</value>
     </property>
     <property key="AccountingNumberOfOrders">
+        <value xml:lang="en">Anzahl der Aufträge</value>
         <value xml:lang="en">Number of Orders</value>
         <value xml:lang="hi_IN">आदेशों की संख्या</value>
     </property>
@@ -6390,6 +6409,7 @@
         <value xml:lang="zh">离线支付</value>
     </property>
     <property key="AccountingOpeningBalance">
+        <value xml:lang="de">Eröffnungsbilanz</value>
         <value xml:lang="en">Opening Balance</value>
         <value xml:lang="hi_IN">प्रारंभिक शेष</value>
     </property>
@@ -6655,6 +6675,7 @@
         <value xml:lang="zh">收款会员</value>
     </property>
     <property key="AccountingPartyFixedAssetAssignments">
+        <value xml:lang="de">Zuweisungen</value>
         <value xml:lang="en">Assignments</value>
         <value xml:lang="fr">Affectation</value>
         <value xml:lang="hi_IN">नियत कार्य</value>
@@ -6664,6 +6685,7 @@
         <value xml:lang="zh">分配</value>
     </property>
     <property key="AccountingPartyGlAccounts">
+        <value xml:lang="de">Akteurs-Konten</value>
         <value xml:lang="en">Party Gl Accounts</value>
         <value xml:lang="fr">Comptes de tiers</value>
         <value xml:lang="hi_IN">पार्टी जीएल(Gl) खाता</value>
@@ -6701,6 +6723,7 @@
     </property>
     <property key="AccountingPartyMustBeInternalOrganization">
         <value xml:lang="ar">الطرف يجب أن يكون مؤسسة داخلية (تغيير دور الطرف)</value>
+        <value xml:lang="de">Akteur muss die Rolle 'Interne Organisation' besitzen</value>
         <value xml:lang="en">Party must be an Internal Organization (set in PartyRole)</value>
         <value xml:lang="es">Grupo debe ser una Organización Interna, (definida en RolGrupo)</value>
         <value xml:lang="fr">L'acteur doit être une organisation interne (défini dans les rôles d'acteurs)</value>
@@ -6714,6 +6737,7 @@
     </property>
     <property key="AccountingPartyRoleAdd">
         <value xml:lang="ar">اضافة دور الطرف جديد</value>
+        <value xml:lang="de">Neue Akteurs-Rolle hinzufügen</value>
         <value xml:lang="en">Add a new Party Role</value>
         <value xml:lang="es">Agregar un nuevo Rol de Grupo</value>
         <value xml:lang="fr">Ajouter un rôle d'acteur</value>
@@ -6727,6 +6751,7 @@
     </property>
     <property key="AccountingPartyRoleList">
         <value xml:lang="ar">قائمة أدوار الطرف</value>
+        <value xml:lang="de">Liste der Akteurs-Rollen</value>
         <value xml:lang="en">Party Role List</value>
         <value xml:lang="es">Lista Grupo de Rol</value>
         <value xml:lang="fr">Liste des rôles d'acteurs</value>
@@ -6739,12 +6764,14 @@
         <value xml:lang="zh">会员角色列表</value>
     </property>
     <property key="AccountingPayflowProLoggingOff">
+        <value xml:lang="de">Abmelden</value>
         <value xml:lang="en">Logging Off</value>
         <value xml:lang="hi_IN">लॉगिंग बंद करे</value>
         <value xml:lang="it">Log disabilitato</value>
         <value xml:lang="zh">关闭记录</value>
     </property>
     <property key="AccountingPayflowProLoggingSeverityFatal">
+        <value xml:lang="de">Logging Severity Fatal</value>
         <value xml:lang="en">Logging Severity Fatal</value>
         <value xml:lang="hi_IN">लॉगिंग गंभीर घातक</value>
         <value xml:lang="it">Log severità fatale</value>
@@ -6837,6 +6864,7 @@
         <value xml:lang="zh">支付</value>
     </property>
     <property key="AccountingPaymentAlreadyApplied">
+        <value xml:lang="de">Zahlung [${paymentId}] ist schon komplett zugewiesen</value>
         <value xml:lang="en">Payment [${paymentId}] is already fully applied</value>
         <value xml:lang="es">Pago [${paymentId}] esta completamente aplicado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] a déjà été entièrement alloué</value>
@@ -6849,12 +6877,13 @@
         <value xml:lang="zh">支付[${paymentId}]已完整应用</value>
     </property>
     <property key="AccountingPaymentAlreadyAssociatedToFinAccountError">
+        <value xml:lang="de">Zahlung [${paymentId}] ist schon einem anderen Finanzkonto zugeordnet.</value>
         <value xml:lang="en">Payment [${paymentId}] is already associated with other financial account.</value>
         <value xml:lang="hi_IN">भुगतान [${paymentId}] पहले से ही अन्य वित्तीय खाते के साथ जुड़ा हुआ है</value>
     </property>
     <property key="AccountingPaymentAlreadyReceived">
         <value xml:lang="ar">تسديد مستلم مسبقا</value>
-        <value xml:lang="de">Bezahlung bereits erhalten</value>
+        <value xml:lang="de">Zahlung bereits erhalten</value>
         <value xml:lang="en">Payment Already Received</value>
         <value xml:lang="es">El pago ya fue recibido</value>
         <value xml:lang="fr">Paiement déjà reçu</value>
@@ -6867,6 +6896,7 @@
         <value xml:lang="zh">已收到支付</value>
     </property>
     <property key="AccountingPaymentAmount">
+        <value xml:lang="de">Zahlungsbetrag</value>
         <value xml:lang="en">Payment Amount</value>
         <value xml:lang="fr">Montant du paiement</value>
         <value xml:lang="hi_IN">भुगतान की गई राशि</value>
@@ -6874,6 +6904,7 @@
         <value xml:lang="zh">支付金额</value>
     </property>
     <property key="AccountingPaymentApplRemoved">
+        <value xml:lang="de">Zahlung [${paymentApplication.paymentId}] mit Betrag ${paymentApplication.amountApplied?currency(${currencyUomId})} wurde entfernt</value>
         <value xml:lang="en">PaymentID [${paymentApplication.paymentId}] with amount ${paymentApplication.amountApplied?currency(${currencyUomId})} removed from</value>
         <value xml:lang="es">IdPago[${paymentApplication.paymentId}] con cantidad ${paymentApplication.amountApplied?currency(${currencyUomId})} suprimido de</value>
         <value xml:lang="fr">Le paiement [${paymentApplication.paymentId}] d'un montant de ${paymentApplication.amountApplied?currency(${currencyUomId})} a été retiré de</value>
@@ -6886,6 +6917,7 @@
         <value xml:lang="zh">把支付编号为[${paymentApplication.paymentId}]、金额为${paymentApplication.amountApplied?currency(${currencyUomId})}的支付删除出</value>
     </property>
     <property key="AccountingPaymentApplToBillingAccount">
+        <value xml:lang="de">Rechnungskonto [${paymentApplication.billingAccountId}]</value>
         <value xml:lang="en">Billing Account ID [${paymentApplication.billingAccountId}]</value>
         <value xml:lang="es">ID Cuenta de Facturación [${paymentApplication.billingAccountId}]</value>
         <value xml:lang="fr">Compte de facturation [${paymentApplication.billingAccountId}]</value>
@@ -6898,6 +6930,7 @@
         <value xml:lang="zh">账单账户标识[${paymentApplication.billingAccountId}]</value>
     </property>
     <property key="AccountingPaymentApplToInvoice">
+        <value xml:lang="de">Rechnung [${paymentApplication.invoiceId}]</value>
         <value xml:lang="en">invoiceID [${paymentApplication.invoiceId}]</value>
         <value xml:lang="es">IdFactura [${paymentApplication.invoiceId}]</value>
         <value xml:lang="fr">facture [${paymentApplication.invoiceId}]</value>
@@ -6910,6 +6943,7 @@
         <value xml:lang="zh">发票编号[${paymentApplication.invoiceId}]</value>
     </property>
     <property key="AccountingPaymentApplToPayment">
+        <value xml:lang="de">Andere Zahlung [${paymentApplication.toPaymentId}]</value>
         <value xml:lang="en">other paymentID [${paymentApplication.toPaymentId}]</value>
         <value xml:lang="es">Otro IdPago [${paymentApplication.toPaymentId}]</value>
         <value xml:lang="fr">autre paiement [${paymentApplication.toPaymentId}]</value>
@@ -6922,6 +6956,7 @@
         <value xml:lang="zh">其它支付编号[${paymentApplication.toPaymentId}]</value>
     </property>
     <property key="AccountingPaymentApplToTaxAuth">
+        <value xml:lang="de">Gebiet der Steuerbehörde [${paymentApplication.taxAuthGeoId}]</value>
         <value xml:lang="en">Tax Authority area [${paymentApplication.taxAuthGeoId}]</value>
         <value xml:lang="es">Área de autoridad fiscal [${paymentApplication.taxAuthGeoId}]</value>
         <value xml:lang="fr">Zone de taxation [${paymentApplication.taxAuthGeoId}]</value>
@@ -6934,6 +6969,7 @@
         <value xml:lang="zh">税务机关辖区 [${paymentApplication.taxAuthGeoId}]</value>
     </property>
     <property key="AccountingPaymentApplicationNotFound">
+        <value xml:lang="de">Zahlungs-Zuweisungs-Datensatz [${paymentApplicationId}] nicht gefunden</value>
         <value xml:lang="en">PaymentApplication record [${paymentApplicationId}] not found</value>
         <value xml:lang="es">Registro de Aplicación de Pago [${paymentApplicationId}] not found</value>
         <value xml:lang="fr">L'allocation du paiement  [${paymentApplicationId}] n'a pas été trouvée</value>
@@ -6946,6 +6982,7 @@
         <value xml:lang="zh">没有找到支付应用的记录[${paymentApplicationId}]</value>
     </property>
     <property key="AccountingPaymentApplicationParameterMissing">
+        <value xml:lang="de">Zahlungs-Zuweisung benötigt entweder eine Rechnungs-Nr, eine Rechnungskonto-Nr, eine Steuerbehörde oder ein Buchungskonto</value>
         <value xml:lang="en">Payment application requires either an invoiceId, a billingAccountId, a taxAuthGeoId or a glAccountId</value>
         <value xml:lang="es">Aplicación de pago requiere cualquiera de IdFactua, un IdCuentaFacturación, o un IdAreaAutoridadFiscal</value>
         <value xml:lang="fr">Pour allouer ce paiement, il faut ou bien une réf. de facture, un compte de facturation, une administration fiscale ou un compte comptable</value>
@@ -6966,6 +7003,7 @@
         <value xml:lang="hi_IN">FinAccountTrans के साथ जुड़े भुगतान अमान्य स्थिति में है</value>
     </property>
     <property key="AccountingPaymentCancelled">
+        <value xml:lang="de">Zahlung [${paymentId}] wurde annulliert und kann nicht zugewiesen werden</value>
         <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido concelado y no puede ser aplicado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est annullé est ne peut être alloué</value>
@@ -6979,6 +7017,7 @@
     </property>
     <property key="AccountingPaymentCheckMessage1">
         <value xml:lang="ar">آسف, لا تسديدات مختارة</value>
+        <value xml:lang="de">Es wurden keine Zahlungen ausgewählt.</value>
         <value xml:lang="en">Sorry, no payments were selected.</value>
         <value xml:lang="es">Disculpe, ninguna pago ha sido seleccionado.</value>
         <value xml:lang="fr">Désolé, aucun paiement n'a été sélectionné</value>
@@ -6991,6 +7030,7 @@
         <value xml:lang="zh">对不起，没有选择支付。</value>
     </property>
     <property key="AccountingPaymentConfirmed">
+        <value xml:lang="de">Zahlung [${paymentId}] ist bestätigt und kann nicht zugewiesen werden</value>
         <value xml:lang="en">Payment [${paymentId}] is confirmed and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido confirmado y no puede ser aplicado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est confirmé et ne peut pas être alloué</value>
@@ -7004,6 +7044,7 @@
     </property>
     <property key="AccountingPaymentDate">
         <value xml:lang="ar">تاريخ التسديد</value>
+        <value xml:lang="de">Zahlungsdatum</value>
         <value xml:lang="en">Payment Date</value>
         <value xml:lang="es">Fecha de pago</value>
         <value xml:lang="fr">Date de paiement</value>
@@ -7022,67 +7063,77 @@
         <value xml:lang="hi_IN">वित्तीय खाते द्वारा वापस भुगतान: ${finAccount.finAccountName}</value>
     </property>
     <property key="AccountingPaymentGatewayApprove">
+        <value xml:lang="de">Genehmigen</value>
         <value xml:lang="en">Approve</value>
         <value xml:lang="hi_IN">स्वीकृत</value>
         <value xml:lang="it">Approva</value>
         <value xml:lang="zh">批准</value>
     </property>
     <property key="AccountingPaymentGatewayConfigId">
+        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Id</value>
         <value xml:lang="en">Payment Gateway Config Id</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास क्रमांक</value>
         <value xml:lang="it">Codice configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置标识</value>
     </property>
     <property key="AccountingPaymentGatewayConfigDescription">
+        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Description</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास वर्णन</value>
         <value xml:lang="it">Descrizione configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置描述</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypeDescription">
+        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Type Description</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार वर्णन</value>
         <value xml:lang="it">Descrizione tipo configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置类型描述</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypeId">
+        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Nr.</value>
         <value xml:lang="en">Payment Gateway Config Type Id</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置类型标识</value>
     </property>
     <property key="AccountingPaymentGatewayConfig">
+        <value xml:lang="de">Zahlungs-Gateway-Konfiguration</value>
         <value xml:lang="en">Payment Gateway Config</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास(PaymentGatewayConfig)</value>
         <value xml:lang="it">Configurazioni gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypes">
+        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Arten</value>
         <value xml:lang="en">Payment Gateway Config Types</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार</value>
         <value xml:lang="it">Tipi configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置类型</value>
     </property>
     <property key="AccountingPaymentGatewayDecline">
+        <value xml:lang="de">Ablehnung</value>
         <value xml:lang="en">Decline</value>
         <value xml:lang="hi_IN">अस्वीकृत</value>
         <value xml:lang="it">Rifiutare</value>
         <value xml:lang="zh">否决</value>
     </property>
     <property key="AccountingPaymentGatewayProduction">
+        <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Production</value>
         <value xml:lang="hi_IN">उत्पादन</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="zh">生成</value>
     </property>
     <property key="AccountingPaymentGatewayRandom">
+        <value xml:lang="de">Zufall</value>
         <value xml:lang="en">Random</value>
         <value xml:lang="hi_IN">क्रमरहित</value>
         <value xml:lang="it">Casuale</value>
         <value xml:lang="zh">随机</value>
     </property>
     <property key="AccountingPaymentGatewayResponseId">
-        <value xml:lang="de">Bilanzierung der Zahlungsportalantworten</value>
+        <value xml:lang="de">Antwort-Id des Zahlungs-Gateways</value>
         <value xml:lang="en">Accounting Payment Gateway Response Id</value>
         <value xml:lang="es">Id Respuesta Puerta de Pago Contable</value>
         <value xml:lang="fr">Réf. de la réponse du terminal de paiement</value>
@@ -7095,10 +7146,12 @@
         <value xml:lang="zh">财务支付网关响应编号</value>
     </property>
     <property key="AccountingPaymentGroup">
+        <value xml:lang="de">Zahlungsgruppe</value>
         <value xml:lang="en">Payment Group</value>
         <value xml:lang="hi_IN">भुगतान समूह</value>
     </property>
     <property key="AccountingPaymentGroupId">
+        <value xml:lang="de">Zahlungsgruppen-Nr.</value>
         <value xml:lang="en">Payment Group Id</value>
         <value xml:lang="hi_IN">भुगतान समूह क्रमांक</value>
     </property>
@@ -7107,10 +7160,12 @@
         <value xml:lang="hi_IN">समूह सदस्य</value>
     </property>
     <property key="AccountingPaymentGroupName">
+        <value xml:lang="en">Name der Zahlungsgruppe</value>
         <value xml:lang="en">Payment Group Name</value>
         <value xml:lang="hi_IN">भुगतान समूह नाम</value>
     </property>
     <property key="AccountingPaymentGroupOverview">
+        <value xml:lang="de">Überblick Zahlungsgruppen</value>
         <value xml:lang="en">Payment Group Overview</value>
         <value xml:lang="hi_IN">भुगतान समूह विवरण</value>
     </property>
@@ -7120,6 +7175,7 @@
     </property>
     <property key="AccountingPaymentHeader">
         <value xml:lang="ar">رأسية التسديد</value>
+        <value xml:lang="de">Zahlungskopf</value>
         <value xml:lang="en">Payment Header</value>
         <value xml:lang="es">Cabecera de pago</value>
         <value xml:lang="fr">En-tête du paiement</value>
@@ -7132,6 +7188,7 @@
         <value xml:lang="zh">支付表头</value>
     </property>
     <property key="AccountingPaymentID">
+        <value xml:lang="de">Zahlungs-Id</value>
         <value xml:lang="en">PaymentID</value>
         <value xml:lang="es">IdPago</value>
         <value xml:lang="fr">Réf. paiement</value>
@@ -7144,6 +7201,7 @@
         <value xml:lang="zh">支付编号</value>
     </property>
     <property key="AccountingPaymentIdBlankNotSupplied">
+        <value xml:lang="de">Zahlungs-Id leer oder nicht übergeben</value>
         <value xml:lang="en">PaymentId blank or not supplied.... .....</value>
         <value xml:lang="es">IdPago en blanco o no proporcionado.... .....</value>
         <value xml:lang="fr">Vous n'avez pas fourni de réf. de paiement...</value>
@@ -7156,6 +7214,7 @@
         <value xml:lang="zh">支付编号空白或没有提供...</value>
     </property>
     <property key="AccountingPaymentIdTo">
+        <value xml:lang="de">Zahlungs-Id die zugewiesen werden soll</value>
         <value xml:lang="en">PaymentID to apply</value>
         <value xml:lang="es">IdPago a aplicar</value>
         <value xml:lang="fr">Réf. paiement à allouer</value>
@@ -7185,6 +7244,7 @@
         <value xml:lang="zh">支付信息</value>
     </property>
     <property key="AccountingPaymentLessRequested">
+        <value xml:lang="de">Zahlung [${paymentId}] hat  ${paymentApplyAvailable?currency(${isoCode})} zuzuweisen, aber ${amountApplied?currency(${isoCode})} wird gefordert</value>
         <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Pago [${paymentId}] tiene ${paymentApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est en ${paymentApplyAvailable?currency(${isoCode})}mais la monnaie requise est ${amountApplied?currency(${isoCode})}</value>
@@ -7209,6 +7269,7 @@
         <value xml:lang="zh">支付方式</value>
     </property>
     <property key="AccountingPaymentMethodAssignAccountType">
+        <value xml:lang="de">Kontenart für Zahlungsmethode</value>
         <value xml:lang="en">Payment Method Assign Account Type</value>
         <value xml:lang="fr">Assigner un méthode de paiement à un type de compte</value>
         <value xml:lang="hi_IN">भुगतान तरीका निरुपित खाता प्रकार</value>
@@ -7216,6 +7277,7 @@
         <value xml:lang="zh">支付方法指定账户类型</value>
     </property>
     <property key="AccountingPaymentMethodId">
+        <value xml:lang="de">Zahlungsmethode</value>
         <value xml:lang="en">Payment Method Id</value>
         <value xml:lang="es">Id Metodo de Pago</value>
         <value xml:lang="fr">Méthode de paiement</value>
@@ -7228,6 +7290,7 @@
         <value xml:lang="zh">支付方法标识</value>
     </property>
     <property key="AccountingPaymentMethodId........">
+        <value xml:lang="de">Zahlungsmethode..................</value>
         <value xml:lang="en">AccountingPaymentMethodId........</value>
         <value xml:lang="fr">Réf. de méthode de paiement      </value>
         <value xml:lang="hi_IN">लेखाभुगतानतरीकाक्रमांक........</value>
@@ -7238,6 +7301,7 @@
         <value xml:lang="zh">会计支付方法标识........</value>
     </property>
     <property key="AccountingPaymentMethodIdPaymentMethodTypeIdNullError">
+        <value xml:lang="de">Für 'paymentMethodId' und 'paymentMethodTypeId' wurden keine Werte übergeben. Es wird mindestens 'paymentMethodId' benötigt.</value>
         <value xml:lang="en">No values are passed for paymentMethodId or paymentMethodTypeId. At least pass paymentMethodId.</value>
         <value xml:lang="es">Ningun valor pasado para IdMetodoPago o IdTipoMetodoPago. Al menos pasar IdMetodoPago.</value>
         <value xml:lang="fr">Aucune méthode de paiement n'a été passée. Veuillez passer au moins une réf.</value>
@@ -7286,6 +7350,7 @@
     </property>
     <property key="AccountingPaymentOriginalAmount">
         <value xml:lang="ar">المبلغ الأصلي</value>
+        <value xml:lang="de">Ursprünglicher Betrag.</value>
         <value xml:lang="en">Original Amt.</value>
         <value xml:lang="es">Cant. Original</value>
         <value xml:lang="fr">Montant original</value>
@@ -7322,6 +7387,7 @@
         <value xml:lang="zh">支付参数</value>
     </property>
     <property key="AccountingPaymentReceiveViaPayPal">
+        <value xml:lang="de">Zahlung über PayPal erhalten</value>
         <value xml:lang="en">Payment receive via PayPal</value>
         <value xml:lang="fr">Paiement reçu par PayPal</value>
         <value xml:lang="hi_IN">भुगतान Paypal के माध्यम से प्राप्त</value>
@@ -7331,11 +7397,13 @@
         <value xml:lang="zh">通过贝宝收到的支付</value>
     </property>
     <property key="AccountingPaymentReceiveViaWorldPay">
+        <value xml:lang="de">Zahlung über WorldPay erhalten</value>
         <value xml:lang="en">Payment receive via WorldPay</value>
         <value xml:lang="hi_IN">भुगतान WorldPay के माध्यम से प्राप्त</value>
         <value xml:lang="it">Pagamento ricevuto da WorldPay</value>
     </property>
     <property key="AccountingPaymentRecordNotFound">
+        <value xml:lang="de">Datensatz zur Zahlung [${paymentId}] nicht gefunden....</value>
         <value xml:lang="en">Payment [${paymentId}] record not found....</value>
         <value xml:lang="es">Pago [${paymentId}] registro no encontrado....</value>
         <value xml:lang="fr">Pas trouvé de paiement [${paymentId}] </value>
@@ -7349,6 +7417,7 @@
     </property>
     <property key="AccountingPaymentSentForm">
         <value xml:lang="ar">مرسل من طرف</value>
+        <value xml:lang="de">übermittelt von</value>
         <value xml:lang="en">sent from</value>
         <value xml:lang="es">enviado desde</value>
         <value xml:lang="fr">envoyé par</value>
@@ -7362,6 +7431,7 @@
     </property>
     <property key="AccountingPaymentTabApplications">
         <value xml:lang="ar">التطبيقات</value>
+        <value xml:lang="de">Zuweisungen</value>
         <value xml:lang="en">Applications</value>
         <value xml:lang="es">Aplicaciones</value>
         <value xml:lang="fr">Allocations</value>
@@ -7375,6 +7445,7 @@
     </property>
     <property key="AccountingPaymentTabHeader">
         <value xml:lang="ar">الرأسية</value>
+        <value xml:lang="de">Kopf</value>
         <value xml:lang="en">Header</value>
         <value xml:lang="es">Cabecera</value>
         <value xml:lang="fr">En-tête</value>
@@ -7388,6 +7459,7 @@
     </property>
     <property key="AccountingPaymentTabOverview">
         <value xml:lang="ar">نبذة</value>
+        <value xml:lang="de">Überblick</value>
         <value xml:lang="en">Overview</value>
         <value xml:lang="es">Vista general</value>
         <value xml:lang="fr">Aperçu</value>
@@ -7401,6 +7473,7 @@
     </property>
     <property key="AccountingPaymentTabStatusToCancelled">
         <value xml:lang="ar">الوضعية إلى 'ملغي'</value>
+        <value xml:lang="de">Status auf 'Annulliert'</value>        
         <value xml:lang="en">Status to 'Cancelled'</value>
         <value xml:lang="es">Status a 'Cancelado'</value>
         <value xml:lang="fr">Statut à 'Annullé'</value>
@@ -7414,6 +7487,7 @@
     </property>
     <property key="AccountingPaymentTabStatusToConfirmed">
         <value xml:lang="ar">الوضعية إلى 'موفق'</value>
+        <value xml:lang="de">Status auf 'Bestätigt'</value>        
         <value xml:lang="en">Status to 'Confirmed'</value>
         <value xml:lang="es">Status a 'Confirmado'</value>
         <value xml:lang="fr">Statut à 'Confirmé'</value>
@@ -7427,6 +7501,7 @@
     </property>
     <property key="AccountingPaymentTabStatusToReceived">
         <value xml:lang="ar">الوضعية إلى 'مستلم'</value>
+        <value xml:lang="de">Status auf 'Erhalten'</value>        
         <value xml:lang="en">Status to 'Received'</value>
         <value xml:lang="es">Status a 'Recibido'</value>
         <value xml:lang="fr">Statut à 'Reçu'</value>
@@ -7440,6 +7515,7 @@
     </property>
     <property key="AccountingPaymentTabStatusToSent">
         <value xml:lang="ar">الوضعية إلى 'مرسل'</value>
+        <value xml:lang="de">Status auf 'Übermittelt'</value>        
         <value xml:lang="en">Status to 'Sent'</value>
         <value xml:lang="es">Status a 'Enviado'</value>
         <value xml:lang="fr">Statut à 'Envoyé'</value>
@@ -7452,11 +7528,13 @@
         <value xml:lang="zh">状态改为'已发送'</value>
     </property>
     <property key="AccountingPaymentTabStatusToVoid">
+        <value xml:lang="de">Status auf 'Ungültig'</value>        
         <value xml:lang="en"> Status to 'Void'</value>
         <value xml:lang="hi_IN">स्थिति 'रिक्त' करने के लिए</value>
     </property>
     <property key="AccountingPaymentType">
         <value xml:lang="ar">نوع التسديد</value>
+        <value xml:lang="en">Zahlungsart</value>
         <value xml:lang="en">Payment Type</value>
         <value xml:lang="es">Tipo de Pago</value>
         <value xml:lang="fr">Type de paiement</value>
@@ -7493,6 +7571,7 @@
     </property>
     <property key="AccountingPaymentsApplied">
         <value xml:lang="ar">التسديدات المطبقة</value>
+        <value xml:lang="de">Zahlung zugewiesen</value>
         <value xml:lang="en">Payments Applied</value>
         <value xml:lang="es">Pagos Aplicados</value>
         <value xml:lang="fr">Paiements alloués</value>
@@ -7505,6 +7584,7 @@
         <value xml:lang="zh">已应用的支付</value>
     </property>
     <property key="AccountingPaymentsFound">
+        <value xml:lang="de">Zahlung(en) gefunden</value>
         <value xml:lang="en">Payment(s) Found</value>
         <value xml:lang="es">Pago(s) Encontrado(s)</value>
         <value xml:lang="fr">Paiement(s) trouvé(s)</value>
@@ -7546,6 +7626,7 @@
     </property>
     <property key="AccountingPaymentsSend">
         <value xml:lang="ar">التسديدات المرسلة</value>
+        <value xml:lang="de">Zahlungen übermitteln</value>
         <value xml:lang="en">Payments send</value>
         <value xml:lang="es">Pagos enviados</value>
         <value xml:lang="fr">Paiements effectués</value>
@@ -7571,15 +7652,18 @@
         <value xml:lang="zh">已发送的支付</value>
     </property>
     <property key="AccountingPaymentStatus">
+        <value xml:lang="de">Status der Zahlung</value>
         <value xml:lang="en">Payment Status</value>
         <value xml:lang="hi_IN">भुगतान की स्थिति</value>
     </property>
     <property key="AccountingPaymentStatusIsNotReceivedOrSentError">
+        <value xml:lang="de">Zahlungsstatus muss 'erhalten' oder 'übermittelt' sein</value>
         <value xml:lang="en">Payment status must be received or sent</value>
         <value xml:lang="hi_IN">भुगतान की स्थिति 'प्राप्त' या 'भेजा दिया' होना चाहिए</value>
     </property>
     <property key="AccountingPermissionError">
         <value xml:lang="ar">لا رخصة لديكم لهذه العملية</value>
+        <value xml:lang="de">Sie haben keine Berechtigung für diese Funktion.</value>
         <value xml:lang="en">You do not have permission for this function.</value>
         <value xml:lang="es">No tiene permiso para esta función.</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation d'exécuter cette opération</value>
@@ -7592,6 +7676,7 @@
         <value xml:lang="zh">你没有执行这个功能的权限。</value>
     </property>
     <property key="AccountingPermissionPeriod">
+        <value xml:lang="de">Sie haben keine Berechtigung diese Seite zu nutzen (es wird PERIOD_MAINT benötigt)</value>
         <value xml:lang="en">You do not have permission to use this page (PERIOD_MAINT needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (PERIOD_MAINT est nécessaire)</value>
         <value xml:lang="hi_IN">आप को इस पृष्ठ का उपयोग करने के लिए नहीं है (PERIOD_MAINT आवश्यक)</value>
@@ -7608,11 +7693,13 @@
         <value xml:lang="zh">组织会员标识</value>
     </property>
     <property key="AccountingOriginalCurrency">
+        <value xml:lang="de">Ursprungswährung</value>
         <value xml:lang="en">Original Currency</value>
         <value xml:lang="hi_IN">मूल मुद्रा</value>
         <value xml:lang="it">Valuta originale</value>
     </property>
     <property key="AccountingChildPeriods">
+        <value xml:lang="de">Unter-Zeiträume</value>
         <value xml:lang="en">Child Periods</value>
         <value xml:lang="fr">Périodes enfants</value>
         <value xml:lang="hi_IN">उप समय अवधि</value>
@@ -7621,22 +7708,27 @@
         <value xml:lang="zh">子时间段</value>
     </property>
     <property key="AccountingPeriod1NetIncome">
+        <value xml:lang="de">Nettogewinn in Periode1</value>
         <value xml:lang="en">Period1 Net Income</value>
         <value xml:lang="hi_IN">अवधि 1 शुद्ध आय</value>
     </property>
     <property key="AccountingPeriod2NetIncome">
+        <value xml:lang="de">Nettogewinn in Periode2</value>
         <value xml:lang="en">Period2 Net Income</value>
         <value xml:lang="hi_IN">अवधि 2 शुद्ध आय</value>
     </property>
     <property key="AccountingPeriod1TotalAmount">
+        <value xml:lang="de">Gesamtbetrag in Periode1</value>
         <value xml:lang="en">Period1 Total Amount</value>
         <value xml:lang="hi_IN">अवधि 1 कुल राशि</value>
     </property>
     <property key="AccountingPeriod2TotalAmount">
+        <value xml:lang="de">Gesamtbetrag in Periode2</value>
         <value xml:lang="en">Period2 Total Amount</value>
         <value xml:lang="hi_IN">अवधि 2 कुल राशि</value>
     </property>
     <property key="AccountingPeriodName">
+        <value xml:lang="de">Name des Zeitraums</value>
         <value xml:lang="en">Period Name</value>
         <value xml:lang="fr">Nom de période</value>
         <value xml:lang="hi_IN">अवधि का नाम</value>
@@ -7645,6 +7737,7 @@
         <value xml:lang="zh">时间段名称</value>
     </property>
     <property key="AccountingPeriodNumber">
+        <value xml:lang="de">Zeitraum-Nr.</value>
         <value xml:lang="en">Period Number</value>
         <value xml:lang="fr">N° de période</value>
         <value xml:lang="hi_IN">अवधि नम्बर</value>
@@ -7653,6 +7746,7 @@
         <value xml:lang="zh">时间段序号</value>
     </property>
     <property key="AccountingPeriodType">
+        <value xml:lang="de">Zeitraum-Art</value>
         <value xml:lang="en">Period Type</value>
         <value xml:lang="fr">Type de période</value>
         <value xml:lang="hi_IN">अवधि प्रकार</value>
@@ -7703,6 +7797,7 @@
     </property>
     <property key="AccountingPostTransaction">
         <value xml:lang="ar">إرسل العملية</value>
+        <value xml:lang="de">Transaktion buchen</value>
         <value xml:lang="en">Post Transaction</value>
         <value xml:lang="es">Enviar Transacción</value>
         <value xml:lang="fr">Enregistrer une transaction</value>
@@ -7726,7 +7821,8 @@
     </property>
     <property key="AccountingPreference">
         <value xml:lang="ar">التخييرات المحاسبية للمؤسسة</value>
-        <value xml:lang="en">Accounting Preferences</value>
+        <value xml:lang="de">Buchhaltungseinstellungen</value>
+        <value xml:lang="de">Accounting Preferences</value>
         <value xml:lang="es">Preferencias de Organización Contable</value>
         <value xml:lang="fr">Paramètres comptables de l'organisation</value>
         <value xml:lang="hi_IN">लेखांकन वरीयताएँ</value>
@@ -7751,11 +7847,13 @@
         <value xml:lang="zh">卡上前缀</value>
     </property>
     <property key="AccountingPreviousGlReconciliation">
+        <value xml:lang="de">vorherige Kontenabstimmung</value>
         <value xml:lang="en">Previous Gl Reconciliation</value>
         <value xml:lang="hi_IN">पिछला  प्रधान खाता-बही  मिलाप</value>
     </property>
     <property key="AccountingPrintAsCheck">
         <value xml:lang="ar">إطبع ك صك</value>
+        <value xml:lang="de">Als Scheck drucken</value>
         <value xml:lang="en">Print As Check</value>
         <value xml:lang="es">Imprimir como cheque</value>
         <value xml:lang="fr">Imprimer sous forme de chèque</value>
@@ -7769,6 +7867,7 @@
     </property>
     <property key="AccountingPrintChecks">
         <value xml:lang="ar">الصكوك للطبع</value>
+        <value xml:lang="de">Zu druckende Schecks</value>
         <value xml:lang="en">Checks to Print</value>
         <value xml:lang="es">Cheques a imprimir</value>
         <value xml:lang="fr">Chèques à imprimer</value>
@@ -7781,6 +7880,7 @@
         <value xml:lang="zh">要打印的支票</value>
     </property>
     <property key="AccountingPrintChecksPermissionError">
+        <value xml:lang="de">Sicherheitsfehler: Um Schecks drucken zu können müssen Sie die ACCOUNTING_PRINT_CHECKS Berechtigung haben</value>
         <value xml:lang="en">Security Error: to print checks, you must have the ACCOUNTING_PRINT_CHECKS permission</value>
         <value xml:lang="es">Error de seguridad: para imprimir cheques, debe tener el permiso ACCOUNTING_PRINT_CHECKS</value>
         <value xml:lang="fr">Permission refusée: pour imprimer des chèques vous devez avoir l'autorisation ACCOUNTING_PRINT_CHECKS</value>
@@ -7798,6 +7898,7 @@
     </property>
     <property key="AccountingProblemChangingInvoiceStatusTo">
         <value xml:lang="ar">مشكل عند تغيير وضعية الفاتورة إلى  ${newStatus}</value>
+        <value xml:lang="de">Problem bei der Änderung des Rechnungsstatus auf ${newStatus}</value>
         <value xml:lang="en">Problem changing invoice status to ${newStatus}</value>
         <value xml:lang="es">Problema cambiando status de factura a ${newStatus}</value>
         <value xml:lang="fr">Erreur rencontrée en changeant le statut de la facture à ${newStatus}</value>
@@ -7873,6 +7974,7 @@
         <value xml:lang="zh">为${billFields}查找定单明细账单记录时出错</value>
     </property>
     <property key="AccountingProblemStoringOrderAdjustments">
+        <value xml:lang="de">Problem beim speichern von Auftragsanpassungen: ${orderAdjustments}</value>
         <value xml:lang="en">Problem storing OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="fr">Erreur en essayant d'enregistrer les ajustements de commande: ${orderAdjustments}</value>
         <value xml:lang="hi_IN">OrderAdjustments: ${orderAdjustments} के संचय में समस्या हो रही</value>
@@ -7884,6 +7986,7 @@
     </property>
     <property key="AccountingProduct">
         <value xml:lang="ar">سلعة</value>
+        <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Produit</value>
@@ -7896,6 +7999,7 @@
         <value xml:lang="zh">产品</value>
     </property>
     <property key="AccountingProductCategoryGlAccount">
+        <value xml:lang="de">Hauptkonto der Produktkategorie</value>
         <value xml:lang="en">Product Category Gl Account</value>
         <value xml:lang="fr">Compte de catégorie de produit</value>
         <value xml:lang="hi_IN">उत्पाद श्रेणी जीएल(Gl) खाता</value>
@@ -7905,6 +8009,7 @@
         <value xml:lang="zh">产品分类总账账户</value>
     </property>
     <property key="AccountingProductGlAccount">
+        <value xml:lang="de">Produkt-Hauptkonto</value>
         <value xml:lang="en">Product GL Accounts</value>
         <value xml:lang="fr">Comptes de produit</value>
         <value xml:lang="hi_IN">उत्पाद जीएल(Gl) खाता</value>
@@ -7928,6 +8033,7 @@
     </property>
     <property key="AccountingProductRates">
         <value xml:lang="ar">أسعار السلعة</value>
+        <value xml:lang="de">Produkt-Steuersätze</value>
         <value xml:lang="en">Product Rates</value>
         <value xml:lang="es">Tarífas de producto</value>
         <value xml:lang="fr">Taux applicables aux produits</value>
@@ -7940,10 +8046,12 @@
         <value xml:lang="zh">产品税率</value>
     </property>
     <property key="AccountingPurchaseInvoices">
+        <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoices</value>
         <value xml:lang="hi_IN">खरीद चालान</value>
     </property>
     <property key="AccountingPurchaseInvoiceToRevenue">
+        <value xml:lang="de">Zuweisungen von Einkaufsrechnungsarten zu Ertragskonten</value>
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="fr">Liste d'affectation du type facture d'achat au n° de compte de produit</value>
         <value xml:lang="hi_IN">खरीद चालान प्रकार में राजस्व जीएल(Gl) खाता नम्बर कार्य सूची</value>
@@ -7953,6 +8061,7 @@
         <value xml:lang="zh">购货发票类型到收入总账账户编号分配表</value>
     </property>
     <property key="AccountingQuantity">
+        <value xml:lang="de">Menge</value>
         <value xml:lang="en">Quantity</value>
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="hi_IN">मात्रा</value>
@@ -7962,10 +8071,12 @@
         <value xml:lang="zh">数量</value>
     </property>
     <property key="AccountingQuickSearch">
+        <value xml:lang="de">Schnelle Suche</value>
         <value xml:lang="en">Quick Search</value>
         <value xml:lang="hi_IN">शीघ्र खोज</value>
     </property>
     <property key="AccountingRateAmounts">
+        <value xml:lang="de">Tarife (Stundensätze)</value>
         <value xml:lang="en">Rate Amounts</value>
         <value xml:lang="fr">Valeurs de taux</value>
         <value xml:lang="hi_IN">दर राशियाँ</value>
@@ -7973,6 +8084,7 @@
         <value xml:lang="zh">税率金额</value>
     </property>
     <property key="AccountingRates">
+        <value xml:lang="de">Tarife</value>
         <value xml:lang="en">Rates</value>
         <value xml:lang="fr">Taux</value>
         <value xml:lang="hi_IN">मूल्य</value>
@@ -8002,6 +8114,7 @@
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] के लिए  वित्तीय लेखा गतिविधि का पुनर्मिलान</value>
     </property>
     <property key="AccountingReconciliation">
+        <value xml:lang="de">Kontenabstimmung</value>
         <value xml:lang="en">Reconciliation</value>
         <value xml:lang="hi_IN">मिलाप</value>
     </property>
@@ -8011,6 +8124,7 @@
     </property>
     <property key="AccountingReferenceNumber">
         <value xml:lang="ar">رقم المرجع</value>
+        <value xml:lang="de">Referenznummer</value>
         <value xml:lang="en">Reference Number</value>
         <value xml:lang="es">Número de Referencia</value>
         <value xml:lang="fr">Numéro de référence</value>
@@ -8023,6 +8137,7 @@
         <value xml:lang="zh">优先方法编号</value>
     </property>
     <property key="AccountingRemoveFromGlReconciliation">
+        <value xml:lang="de">Von der Kontenabstimmung entfernen</value>
         <value xml:lang="en">Remove From GlReconciliation</value>
         <value xml:lang="hi_IN">GlReconciliation से हटाये</value>
     </property>
@@ -8041,6 +8156,7 @@
         <value xml:lang="zh">报表</value>
     </property>
     <property key="AccountingRevertAccountingTransaction">
+        <value xml:lang="de">Kontenabstimmung rückgängig machen</value>
         <value xml:lang="en">Revert Accounting Transaction</value>
         <value xml:lang="fr">Reprendre la transaction comptable</value>
         <value xml:lang="hi_IN">लेखांकन गतिविधि उलटें</value>
@@ -8051,6 +8167,7 @@
     </property>
     <property key="AccountingRoleType">
         <value xml:lang="ar">نوع الدور</value>
+        <value xml:lang="de">Rollen-Art</value>
         <value xml:lang="en">Role Type</value>
         <value xml:lang="es">Tipo de rol</value>
         <value xml:lang="fr">Type de rôle</value>
@@ -8106,10 +8223,12 @@
         <value xml:lang="zh">路由号码</value>
     </property>
     <property key="AccountingRunningTotal">
+        <value xml:lang="de">Laufender Kontostand</value>
         <value xml:lang="en">Running Total</value>
         <value xml:lang="hi_IN">निरंतर कुल</value>
     </property>
     <property key="AccountingSalesInvoiceToRevenue">
+        <value xml:lang="de">Zuweisungen von Einkaufsrechnungsarten zu Ertragskonten</value>
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="es">Lista de asignación tipo de factura de venta a número de cuenta de LM</value>
         <value xml:lang="fr">Associations entre types de factures et comptes de ventes</value>
@@ -8122,10 +8241,12 @@
         <value xml:lang="zh">从销售发票类型到收入总账账户编号的指定列表</value>
     </property>
     <property key="AccountingSalesAgents">
+        <value xml:lang="de">Vertreter</value>
         <value xml:lang="en">Sales Agents</value>
         <value xml:lang="hi_IN">विक्रय दलाल</value>
     </property>
     <property key="AccountingSalesInvoices">
+        <value xml:lang="de">Verkaufsrechnungen</value>
         <value xml:lang="en">Sales Invoices</value>
         <value xml:lang="hi_IN">विक्रय चालान </value>
     </property>
