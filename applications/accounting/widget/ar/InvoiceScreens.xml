@@ -49,7 +49,7 @@ under the License.
                 <set field="titleProperty" value="AccountingFindArInvoices"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArInvoiceDecorator" location="component://accounting/widget/ar/CommonScreens.xml">
+                <decorator-screen name="CommonArInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>

@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="findPayments"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArPaymentDecorator" location="component://accounting/widget/ar/CommonScreens.xml">
+                <decorator-screen name="CommonArPaymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -70,7 +70,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArPaymentDecorator" location="component://accounting/widget/ar/CommonScreens.xml">
+                <decorator-screen name="CommonArPaymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
