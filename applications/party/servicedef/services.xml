@@ -196,6 +196,7 @@ under the License.
             location="org.ofbiz.party.party.PartyServices" invoke="createRoleType" auth="true">
         <description>Create a new role type</description>
         <attribute name="roleTypeId" type="String" mode="IN"/>
+        <attribute name="parentTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN"/>
         <attribute name="roleType" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
     </service>
