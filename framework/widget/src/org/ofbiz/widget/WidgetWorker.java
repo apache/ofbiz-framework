@@ -268,15 +268,19 @@ public class WidgetWorker {
         ModelForm modelForm = modelFormField.getModelForm();
         Integer itemIndex = (Integer) context.get("itemIndex");
         String iterateId = "";
+        String formUniqueId = "";
         String formName = (String) context.get("formName");
         if (UtilValidate.isEmpty(formName)) {
             formName = modelForm.getName();
         }
         if (UtilValidate.isNotEmpty(context.get("iterateId"))) {
-        	iterateId = (String) context.get("iterateId");
+            iterateId = (String) context.get("iterateId");
+        }
+        if (UtilValidate.isNotEmpty(context.get("formUniqueId"))) {
+            formUniqueId = (String) context.get("formUniqueId");
         }
         if (itemIndex != null) {
-            return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue() + iterateId + modelForm.getItemIndexSeparator() + modelFormField.getName();
+            return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue() + iterateId + formUniqueId + modelForm.getItemIndexSeparator() + modelFormField.getName();
         } else {
             return formName + modelForm.getItemIndexSeparator() + modelFormField.getName();
         }
