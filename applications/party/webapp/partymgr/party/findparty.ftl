@@ -244,6 +244,7 @@ under the License.
           <#if softIdentifier?default("") != "">
             <td>${uiLabelMap.ProductSoftIdentifier}</td>
           </#if>
+          <td>${uiLabelMap.RelatedCompany}</td>
           <td>${uiLabelMap.PartyType}</td>
           <td>${uiLabelMap.PartyMainRole}</td>
           <td>&nbsp;</td>
@@ -303,6 +304,19 @@ under the License.
             <#if softIdentifier?default("") != "">
               <td>${partyRow.softIdentifier?if_exists}</td>
             </#if>
+            <td>
+                <#if partyType.partyTypeId=="PERSON">
+                     <#assign partyRelateCom = delegator.findByAnd("PartyRelationship", {"partyIdTo", partyRow.partyId,"roleTypeIdFrom","ACCOUNT","roleTypeIdTo","CONTACT"})>
+                     <#if partyRelateCom?has_content>
+                        <#list partyRelateCom as partyRelationship>
+                            <#if partyRelationship.partyIdFrom?has_content>
+                                <#assign companyName=Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, partyRelationship.partyIdFrom, true)>
+                                ${companyName?if_exists}
+                            </#if>
+                        </#list>
+                     </#if>
+                </#if>
+            </td>
             <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
             <td>
               <#assign mainRole = dispatcher.runSync("getPartyMainRole", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRow.partyId, "userLogin", userLogin))/>
