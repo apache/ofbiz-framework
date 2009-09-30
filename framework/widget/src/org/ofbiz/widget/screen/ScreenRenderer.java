@@ -73,6 +73,7 @@ public class ScreenRenderer {
     protected Appendable writer;
     protected MapStack<String> context;
     protected ScreenStringRenderer screenStringRenderer;
+    protected int renderFormSeqNumber = 0;
 
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
@@ -129,9 +130,14 @@ public class ScreenRenderer {
                 writer.append(gwo.toString());
             }
         } else {
+            context.put("renderFormSeqNumber", String.valueOf(renderFormSeqNumber));
             modelScreen.renderScreenString(writer, context, screenStringRenderer);
         }
         return "";
+    }
+    
+    public void setRenderFormUniqueSeq (int renderFormSeqNumber) {
+        this.renderFormSeqNumber = renderFormSeqNumber;
     }
 
     public ScreenStringRenderer getScreenStringRenderer() {

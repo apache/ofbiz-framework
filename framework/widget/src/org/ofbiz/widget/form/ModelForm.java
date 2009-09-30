@@ -1423,6 +1423,10 @@ public class ModelForm extends ModelWidget {
                 ModelFormAction.runSubActions(this.rowActions, localContext);
 
                 localContext.put("itemIndex", Integer.valueOf(itemIndex - lowIndex));
+                if (UtilValidate.isNotEmpty(context.get("renderFormSeqNumber"))) {
+                    localContext.put("formUniqueId", "_"+context.get("renderFormSeqNumber"));
+                }
+                
                 this.resetBshInterpreter(localContext);
 
                 if (Debug.verboseOn()) Debug.logVerbose("In form got another row, context is: " + localContext, module);
