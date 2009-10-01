@@ -20,15 +20,12 @@ package org.ofbiz.accounting.payment;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.jsp.PageContext;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -39,9 +36,10 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 
 
 /**
@@ -53,30 +51,20 @@ public class PaymentWorker {
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-    /** @deprecated */
-    @Deprecated
-    public static void getPartyPaymentMethodValueMaps(PageContext pageContext, String partyId, Boolean showOld, String paymentMethodValueMapsAttr) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
-        List paymentMethodValueMaps = getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
-        pageContext.setAttribute(paymentMethodValueMapsAttr, paymentMethodValueMaps);
-    }
-
     // to be able to use in minilanguage where Boolean cannot be used
-    public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId) {
+    public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId) {
         return(getPartyPaymentMethodValueMaps(delegator, partyId, false));
     }
 
-    public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId, Boolean showOld) {
-        List paymentMethodValueMaps = new LinkedList();
+    public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId, Boolean showOld) {
+        List<Map<String, GenericValue>> paymentMethodValueMaps = FastList.newInstance();
         try {
-            List paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId));
+            List<GenericValue> paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId));
 
-            if (!showOld) paymentMethods = EntityUtil.filterByDate(paymentMethods, Boolean.TRUE);
-            Iterator pmIter = paymentMethods.iterator();
+            if (!showOld) paymentMethods = EntityUtil.filterByDate(paymentMethods, true);
 
-            while (pmIter.hasNext()) {
-                GenericValue paymentMethod = (GenericValue) pmIter.next();
-                Map valueMap = FastMap.newInstance();
+            for (GenericValue paymentMethod : paymentMethods) {
+                Map<String, GenericValue> valueMap = FastMap.newInstance();
 
                 paymentMethodValueMaps.add(valueMap);
                 valueMap.put("paymentMethod", paymentMethod);
@@ -97,30 +85,11 @@ public class PaymentWorker {
         return paymentMethodValueMaps;
     }
 
-    /** TODO: REMOVE (DEJ 20030301): This is the OLD style and should be removed when the eCommerce and party mgr JSPs are */
-    /** @deprecated */
-    @Deprecated
-    public static void getPaymentMethodAndRelated(PageContext pageContext, String partyId,
-            String paymentMethodAttr, String creditCardAttr, String eftAccountAttr, String paymentMethodIdAttr, String curContactMechIdAttr,
-            String donePageAttr, String tryEntityAttr) {
-
-        ServletRequest request = pageContext.getRequest();
-        Map results = getPaymentMethodAndRelated(request, partyId);
-
-        if (results.get("paymentMethod") != null) pageContext.setAttribute(paymentMethodAttr, results.get("paymentMethod"));
-        if (results.get("creditCard") != null) pageContext.setAttribute(creditCardAttr, results.get("creditCard"));
-        if (results.get("eftAccount") != null) pageContext.setAttribute(eftAccountAttr, results.get("eftAccount"));
-        if (results.get("paymentMethodId") != null) pageContext.setAttribute(paymentMethodIdAttr, results.get("paymentMethodId"));
-        if (results.get("curContactMechId") != null) pageContext.setAttribute(curContactMechIdAttr, results.get("curContactMechId"));
-        if (results.get("donePage") != null) pageContext.setAttribute(donePageAttr, results.get("donePage"));
-        if (results.get("tryEntity") != null) pageContext.setAttribute(tryEntityAttr, results.get("tryEntity"));
-    }
-
-    public static Map getPaymentMethodAndRelated(ServletRequest request, String partyId) {
+    public static Map<String, Object> getPaymentMethodAndRelated(ServletRequest request, String partyId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        Map results = new HashMap();
+        Map<String, Object> results = FastMap.newInstance();
 
-        Boolean tryEntity = Boolean.TRUE;
+        Boolean tryEntity = true;
         if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
 
         String donePage = request.getParameter("DONE_PAGE");
@@ -181,13 +150,13 @@ public class PaymentWorker {
             results.put("curContactMechId", curContactMechId);
         }
 
-        results.put("tryEntity", new Boolean(tryEntity));
+        results.put("tryEntity", tryEntity);
 
         return results;
     }
 
     public static GenericValue getPaymentAddress(GenericDelegator delegator, String partyId) {
-        List paymentAddresses = null;
+        List<GenericValue> paymentAddresses = null;
         try {
             paymentAddresses = delegator.findByAnd("PartyContactMechPurpose",
                 UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
@@ -218,15 +187,13 @@ public class PaymentWorker {
      * @return total payments as BigDecimal
      */
 
-    public static BigDecimal getPaymentsTotal(List payments) {
+    public static BigDecimal getPaymentsTotal(List<GenericValue> payments) {
         if (payments == null) {
             throw new IllegalArgumentException("Payment list cannot be null");
         }
 
         BigDecimal paymentsTotal = BigDecimal.ZERO;
-        Iterator i = payments.iterator();
-        while (i.hasNext()) {
-            GenericValue payment = (GenericValue) i.next();
+        for (GenericValue payment : payments) {
             paymentsTotal = paymentsTotal.add(payment.getBigDecimal("amount")).setScale(decimals, rounding);
         }
         return paymentsTotal;
@@ -302,18 +269,16 @@ public class PaymentWorker {
      */
     public static BigDecimal getPaymentApplied(GenericValue payment, Boolean actual) {
         BigDecimal paymentApplied = BigDecimal.ZERO;
-        List paymentApplications = null;
+        List<GenericValue> paymentApplications = null;
         try {
-            List cond = UtilMisc.toList(
+            List<EntityExpr> cond = UtilMisc.toList(
                     EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, payment.getString("paymentId")),
                     EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId"))
                    );
             EntityCondition partyCond = EntityCondition.makeCondition(cond, EntityOperator.OR);
             paymentApplications = payment.getDelegator().findList("PaymentApplication", partyCond, null, UtilMisc.toList("invoiceId", "billingAccountId"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {
-                Iterator p = paymentApplications.iterator();
-                while (p.hasNext()) {
-                    GenericValue paymentApplication = (GenericValue) p.next();
+                for (GenericValue paymentApplication : paymentApplications) {
                     BigDecimal amountApplied = paymentApplication.getBigDecimal("amountApplied");
                     // check currency invoice and if different convert amount applied for display
                     if (actual.equals(Boolean.FALSE) && paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
@@ -330,15 +295,18 @@ public class PaymentWorker {
         }
         return paymentApplied;
     }
+
     public static BigDecimal getPaymentNotApplied(GenericValue payment) {
         return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
+
     public static BigDecimal getPaymentNotApplied(GenericValue payment, Boolean actual) {
         if (actual.equals(Boolean.TRUE) && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
             return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(decimals,rounding);
         }
            return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
+
     public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId) {
         return getPaymentNotApplied(delegator,paymentId, false);
     }
