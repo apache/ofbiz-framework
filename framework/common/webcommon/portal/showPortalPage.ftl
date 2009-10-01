@@ -20,7 +20,6 @@ under the License.
 <#if portalPage?has_content>
 <table width="100%">
   <tr>
-    <#assign renderSeq = 0/>
     <#list portalPageColumns?if_exists as portalPageColumn>
       <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
       <#assign firstInColumn = true/>
@@ -32,9 +31,8 @@ under the License.
             ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
             ${setRequestAttribute("portletSeqId", portlet.portletSeqId)}
             ${screens.render(portlet.screenLocation, portlet.screenName)}
-            ${screens.setRenderFormUniqueSeq(renderSeq)}
+            ${screens.setRenderFormUniqueSeq(portlet_index)}
             </div>
-            <#assign renderSeq = renderSeq+1/>
           </#if>
           <#assign firstInColumn = false/>
         </#if>
