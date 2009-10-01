@@ -254,8 +254,8 @@ public class ImportOrdersFromEbay {
         String shipped = (String)context.get("shipped");
 
         try {
-            if (itemId == null || transactionId == null) {
-                Debug.logError("Cannot be retrieve itemId and transactionId from externalId", module);
+            if (itemId == null && transactionId == null) {
+                Debug.logError("Cannot retrieve itemId and transactionId from externalId", module);
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorDuringBuildItemAndTransactionIdFromExternalId", locale));
             }
 
@@ -292,7 +292,7 @@ public class ImportOrdersFromEbay {
                 UtilXml.addChildElementValue(transElem, "Shipped", shipped, transDoc);
             }
 
-            UtilXml.addChildElementValue(transElem, "TransactionID", transactionId, transDoc);
+            UtilXml.addChildElementValue(transElem, "TransactionID", (transactionId==null? "0": transactionId), transDoc);
 
             dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
         } catch (Exception e) {
