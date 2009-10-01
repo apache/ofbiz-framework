@@ -44,6 +44,10 @@ under the License.
   <xsl:attribute name="datasource-name"><xsl:value-of select="$datasource"/></xsl:attribute>
  </xsl:template>
 
+ <xsl:template match="delegator[@name='default-no-eca']/group-map/@datasource-name">
+  <xsl:attribute name="datasource-name"><xsl:value-of select="$datasource"/></xsl:attribute>
+ </xsl:template>
+
  <xsl:template match="datasource">
   <xsl:element name="{name()}"><xsl:apply-templates select="*|@*|text()|comment()"/></xsl:element>
  </xsl:template>
