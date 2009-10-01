@@ -250,4 +250,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonOpportunityDecorator">
+        <section>
+            <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

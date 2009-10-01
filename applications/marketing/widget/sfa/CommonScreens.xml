@@ -394,4 +394,47 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonCommunicationEventDecorator">
+        <section>
+            <condition>
+                <if-empty field="parameters.partyId"/>
+            </condition>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <widgets>
+                                        <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <section>
+                    <actions>
+                        <set field="headerItem" from-field="parameters.headerItem"/>
+                    </actions>
+                    <widgets>
+                        <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <container style="screenlet-body">          
+                                    <container style="no-clear">
+                                        <screenlet title="${uiLabelMap.PageTitleListCommunications}">
+                                            <decorator-section-include name="body"/>
+                                        </screenlet>
+                                    </container>
+                                </container>
+                            </decorator-section>
+                        </decorator-screen>                        
+                    </widgets>
+                </section>
+            </fail-widgets>
+        </section>
+    </screen>
 </screens>

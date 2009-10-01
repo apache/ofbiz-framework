@@ -10086,4 +10086,22 @@
         <value xml:lang="th">ไม่ได้ใส่รหัสไปรษณีย์/รหัสพื้นที่</value>
         <value xml:lang="zh">找不到邮政编码</value>
     </property>
+    <property key="RelatedCompany">
+        <value xml:lang="en">Related Company</value>
+    </property>
+    <property key="PartyIdFrom">
+        <value xml:lang="en">Party Id From</value>
+    </property>
+    <property key="PartyStatusId">
+        <value xml:lang="en">Status ID</value>
+    </property>
+    <property key="PartyDateCreated">
+        <value xml:lang="en">Created</value>
+    </property>
+    <property key="PartyDateSend">
+        <value xml:lang="en">Send</value>
+    </property>
+    <property key="PartyCreateSaleOpportunityFromCommEvent">
+        <value xml:lang="en">Create Opportunity</value>
+    </property>
 </resource>

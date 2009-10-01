@@ -193,8 +193,14 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                               <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
+                            <actions>
+                                <entity-condition entity-name="RoleType" list="parentRoleList">
+                                    <condition-expr field-name="parentTypeId" operator="equals" from-field="nullField"/>
+                                    <order-by field-name="description"/>
+                                </entity-condition>
+                            </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyNewRoleType}">
                                     <include-form name="AddRoleType" location="component://party/webapp/partymgr/party/PartyForms.xml"/>

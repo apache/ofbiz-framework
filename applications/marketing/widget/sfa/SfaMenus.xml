@@ -40,6 +40,11 @@ under the License.
                 <parameter param-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             </link>
         </menu-item>
+        <menu-item name="ViewOpportunityCommEvent" title="${uiLabelMap.PartyCommunications}">
+            <link target="ListPartyCommEvents">
+                <parameter param-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="AccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -56,6 +61,15 @@ under the License.
         </menu-item>
         <menu-item name="AssignAccountToMe" title="${uiLabelMap.PageTitleAssignAccountFromExisting}">
             <link target="AssignAccountToMe"/>
+        </menu-item>
+        <menu-item name="ViewSfaCommEvent" title="${uiLabelMap.PartyCommunications}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
+            <link target="ListPartyCommEvents">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="headerItem" value="Accounts"/>
+            </link>
         </menu-item>
     </menu>
 
@@ -97,6 +111,15 @@ under the License.
         <menu-item name="AssignLeadToMe" title="${uiLabelMap.PageTitleAssignLeadFromExisting}">
             <link target="AssignLeadToMe"/>
         </menu-item>
+        <menu-item name="ViewSfaCommEvent" title="${uiLabelMap.PartyCommunications}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
+            <link target="ListPartyCommEvents">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="headerItem" value="Leads"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="ContactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -116,6 +139,15 @@ under the License.
         </menu-item>
         <menu-item name="NewContactFromVCard" title="${uiLabelMap.SfaCreateContactFromVCard}">
             <link target="NewContactFromVCard"/>
+        </menu-item>
+        <menu-item name="ViewSfaCommEvent" title="${uiLabelMap.PartyCommunications}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
+            <link target="ListPartyCommEvents">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="headerItem" value="Contacts"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="SalesForecastTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

@@ -133,6 +133,12 @@ This file contains basic services for SalesOpportunity and SalesForecast.
             <if-not-empty field="lookedUpValue">
                 <remove-value value-field="lookedUpValue"/>
             </if-not-empty>
+            <!-- Check party role for create Account Role -->
+            <if-not-empty field="parameters.accountPartyId">
+                <set field="roleMap.roleTypeId" value="ACCOUNT"/>
+                <set field="roleMap.partyId" from-field="parameters.accountPartyId"/>
+                <call-service service-name="createPartyRole" in-map-name="roleMap"/>
+            </if-not-empty>
             <set field="salesOpportunityRole.roleTypeId" value="ACCOUNT"/>
             <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <set field="salesOpportunityRole.partyId" from-field="parameters.accountPartyId"/>
@@ -148,6 +154,12 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <if-compare-field operator="not-equals" field="lookedUpValue.partyId" to-field="parameters.leadPartyId">
             <if-not-empty field="lookedUpValue">
                 <remove-value value-field="lookedUpValue"/>
+            </if-not-empty>
+            <!-- Check party role for create Lead Role -->
+            <if-not-empty field="parameters.leadPartyId">
+                <set field="roleMap.roleTypeId" value="LEAD"/>
+                <set field="roleMap.partyId" from-field="parameters.leadPartyId"/>
+                <call-service service-name="createPartyRole" in-map-name="roleMap"/>
             </if-not-empty>
             <set field="salesOpportunityRole.roleTypeId" value="LEAD"/>
             <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
