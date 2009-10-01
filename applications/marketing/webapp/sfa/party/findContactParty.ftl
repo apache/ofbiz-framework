@@ -42,6 +42,7 @@ under the License.
         <input type="hidden" name="lookupFlag" value="Y"/>
         <input type="hidden" name="hideFields" value="Y"/>
         <input type="hidden" name="roleTypeId" value="${roleTypeId}"/>
+        <input type="hidden" name="partyRelationshipTypeId" value="${partyRelationshipTypeId?if_exists}"/>
         <table cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.PartyContactInformation}</td>

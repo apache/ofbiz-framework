@@ -72,7 +72,15 @@ under the License.
                 <set field="titleProperty" value="PageTitleListCommunications"/>
                 <set field="tabButtonItem" value="PartyCommEvents"/>
                 <set field="subTabButtonItem" value="CommunicationEvent"/>
-                <set field="partyId" value="${parameters.partyId}"/>
+                <service service-name="findPartyInSalesOpportunityRole" result-map="leadPartyResult">
+                    <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                    <field-map field-name="roleTypeId" value="LEAD"/>
+                </service>
+                <set field="partyId" from-field="leadPartyResult.partyId" default-value="${parameters.partyId}"/>
+                <entity-and entity-name="Party" list="partyperson">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                    <field-map field-name="partyTypeId" value="PERSON"/>
+                </entity-and>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
                     <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                     <order-by field-name="-entryDate"/>
@@ -98,7 +106,7 @@ under the License.
                                     <condition>
                                         <not><if-empty field="contacts"/></not>
                                     </condition>
-                                    <widgets>
+                                    <widgets> 
                                         <horizontal-separator></horizontal-separator>
                                         <container style="h1"><label text="${uiLabelMap.PageTitleListCommunicationsRelatedParties} ${partyId}"/></container>
                                         <iterate-section entry="contact" list="contacts">
@@ -118,6 +126,79 @@ under the License.
                                                 </widgets>
                                             </section>
                                         </iterate-section>
+                                    </widgets>
+                                </section>
+                                <!-- commevent list of partytypeId = PERSON -->
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="partyperson"/></not>
+                                    </condition>
+                                    <actions>
+                                        <entity-condition entity-name="PartyRelationship" list="accounts">
+                                            <condition-list>
+                                                <condition-expr field-name="partyIdTo" from-field="partyId"/>
+                                                <condition-expr field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                                                <condition-expr field-name="roleTypeIdTo" value="CONTACT"/>
+                                            </condition-list>
+                                            <select-field field-name="partyIdFrom"/>
+                                        </entity-condition>
+                                        <set field="partyIdFrom" from-field="accounts[0].partyIdFrom"/>
+                                        <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
+                                            <condition-expr field-name="partyId" operator="equals" from-field="partyIdFrom"/>
+                                            <order-by field-name="-entryDate"/>
+                                        </entity-condition>
+                                        <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
+                                            <field-map field-name="partyIdFrom" from-field="partyIdFrom"/>
+                                            <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                                            <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                                            <order-by field-name="partyIdTo"/>
+                                        </entity-and>    
+                                    </actions>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <or>
+                                                    <not><if-empty field="partyIdFrom"/></not>
+                                                    <not><if-empty field="contacts"/></not>
+                                                </or>
+                                            </condition>
+                                            <widgets>
+                                                <horizontal-separator></horizontal-separator>
+                                                <container style="h1"><label text="${uiLabelMap.PageTitleListCommunicationsRelatedParties} ${partyId}"/></container>
+                                                <container style="h2"><label text="${partyIdFrom}"/></container>       
+                                                <iterate-section entry="account" list="accounts">
+                                                    <section>
+                                                        <widgets>
+                                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                                        </widgets>
+                                                    </section>
+                                                </iterate-section>
+                                                <iterate-section entry="contact" list="contacts">
+                                                    <section>
+                                                        <condition>
+                                                            <not><if-empty field="contacts"/></not>
+                                                        </condition>
+                                                        <actions>
+                                                            <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
+                                                                <condition-expr field-name="partyId" operator="equals" value="${contact.partyIdTo}"/>
+                                                                <order-by field-name="-entryDate"/>
+                                                            </entity-condition>
+                                                        </actions>
+                                                        <widgets>
+                                                            <section>
+                                                                <condition>
+                                                                    <if-compare field="contact.partyIdTo" operator="not-equals" value="${partyId}"/>
+                                                                </condition>
+                                                                <widgets>
+                                                                    <container style="h2"><label text="${contact.partyIdTo}"/></container>
+                                                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                                                </widgets>
+                                                            </section>
+                                                        </widgets>
+                                                    </section>
+                                                </iterate-section>
+                                            </widgets>
+                                        </section>
                                     </widgets>
                                 </section>
                             </widgets>

@@ -23,6 +23,7 @@ under the License.
     <screen name="FindContacts">
         <section>
             <actions>
+                <set field="partyRelationshipTypeId" value="CONTACT_REL"/>
                 <set field="roleTypeId" value="CONTACT"/>
                 <set field="partyTypeId" value="PERSON"/>
                 <set field="headerItem" value="Contacts"/>

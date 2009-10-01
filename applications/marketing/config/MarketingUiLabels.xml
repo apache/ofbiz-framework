@@ -2000,4 +2000,7 @@
         <value xml:lang="fr">vCard</value>
         <value xml:lang="it">vCard</value>
     </property>
+    <property key="SfaOpportunityCommunications">
+        <value xml:lang="en">Opportunity Communications</value>
+    </property>
 </resource>

@@ -474,6 +474,18 @@
                 <parameter param-name="my" from-field="parameters.my"/>
             </link>
         </menu-item>
+        <menu-item name="createSalesOpportunity" title="${uiLabelMap.PartyCreateSaleOpportunityFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
+                </and>
+            </condition>
+            <link target="/sfa/control/EditSalesOpportunity" url-mode="inter-app">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </link>
+        </menu-item>
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
                 <and>
@@ -634,6 +646,18 @@
                 </and>
             </condition>
             <link target="editRequestFromCommEvent">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </link>
+        </menu-item>
+        <menu-item name="createSalesOpportunity" title="${uiLabelMap.PartyCreateSaleOpportunityFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
+                </and>
+            </condition>
+            <link target="/sfa/control/EditSalesOpportunity" url-mode="inter-app">
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
