@@ -47,14 +47,16 @@ under the License.
   </ul>
 </div>
 <br/>
-<div class="screenlet-title-bar">
-    <h3>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <div class="h3">
         ${uiLabelMap.CommonCreate}
         <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
             ${uiLabelMap.OrderPurchaseOrder}
         <#else>
             ${uiLabelMap.OrderSalesOrder}
         </#if>
-    </h3>
+    </div>
+  </div>
 </div>
 

@@ -20,8 +20,8 @@ under the License.
 <#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.OrderOrderShortcuts}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderOrderShortcuts}</div>
     </div>
     <div class="screenlet-body">
         <ul>

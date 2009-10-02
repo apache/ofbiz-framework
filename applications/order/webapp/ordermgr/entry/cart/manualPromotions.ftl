@@ -19,8 +19,8 @@ under the License.
 
 <#if allProductPromos?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderManualPromotions}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">&nbsp;${uiLabelMap.OrderManualPromotions}</div>
     </div>
     <div class="screenlet-body">
       <div>

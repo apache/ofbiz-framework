@@ -31,8 +31,8 @@ under the License.
 </#if>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.OrderOrderHeaderInfo}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderOrderHeaderInfo}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="2" cellspacing="0">

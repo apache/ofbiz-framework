@@ -18,7 +18,9 @@ under the License.
 -->
 
 <div id="keywordsearchbox" class="screenlet">
-  <h3>${uiLabelMap.ProductSearchCatalog}</h3>
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.ProductSearchCatalog}</h3>
+  </div>
   <div class="screenlet-body">
     <form name="keywordsearchform" id="keywordsearchbox_keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
       <fieldset>
