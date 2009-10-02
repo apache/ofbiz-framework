@@ -118,48 +118,15 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleWebSiteContent}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleCreateWebSiteContent}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAutoCreateContentPublishPoints}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="AutoCreateWebsiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleWebSiteContent}">
+                                    <include-form name="ListWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleCreateWebSiteContent}">
+                                    <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleAutoCreateContentPublishPoints}">
+                                    <include-form name="AutoCreateWebsiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -246,7 +213,12 @@ under the License.
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
-                <container style="screenlet">
+                <screenlet title="${uiLabelMap.PageTitleWebSiteCMSNav}">
+                    <platform-specific><html><html-template location="component://content/webapp/content/website/WebSiteCMSNav.ftl"/></html></platform-specific>
+                </screenlet>
+
+
+            <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
                             <label text="${uiLabelMap.PageTitleWebSiteCMSNav}"/>

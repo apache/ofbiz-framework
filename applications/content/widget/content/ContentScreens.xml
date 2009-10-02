@@ -96,12 +96,9 @@ under the License.
                                     </screenlet>
                                 </container>
                                 <container style="leftonly">
-                                    <container  style="screenlet-title-bar h3">
-                                        <label text="${uiLabelMap.ContentContent}"/>
-                                    </container>
-                                    <container id="Document" style="screenlet">
+                                    <screenlet title="${uiLabelMap.ContentContent}">
                                         <include-screen name="ListDocument"/>
-                                    </container>
+                                    </screenlet>
                                 </container>
                            </widgets>
                         </section>
