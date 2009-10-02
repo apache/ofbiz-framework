@@ -53,6 +53,7 @@ under the License.
             <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
                 <parameter param-name="partyIdTo" from-field="leadPartyResult.partyId"/>
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
