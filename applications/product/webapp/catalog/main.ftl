@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class='boxhead'>&nbsp;${uiLabelMap.ProductCatalogAdministrationMainPage}</div>
+    <div class="screenlet-title-bar">
+        <div class='h3'>${uiLabelMap.ProductCatalogAdministrationMainPage}</div>
     </div>
     <div class="screenlet-body">
         <#if !sessionAttributes.userLogin?exists>
