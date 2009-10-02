@@ -7534,7 +7534,7 @@
     </property>
     <property key="AccountingPaymentType">
         <value xml:lang="ar">نوع التسديد</value>
-        <value xml:lang="en">Zahlungsart</value>
+        <value xml:lang="de">Zahlungsart</value>
         <value xml:lang="en">Payment Type</value>
         <value xml:lang="es">Tipo de Pago</value>
         <value xml:lang="fr">Type de paiement</value>
