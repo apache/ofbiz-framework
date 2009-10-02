@@ -82,7 +82,7 @@ under the License.
     <entity entity-name="GoogleCoShippingMethod"
             package-name="org.ofbiz.googlecheckout.shipping"
             title="Google Shipping Method Config">
-        <field name="shipmentMethodName" type="id-ne"></field>
+        <field name="shipmentMethodName" type="id-long-ne"></field>
         <field name="productStoreId" type="id-ne"></field>
         <field name="amount" type="currency-amount"></field>
         <field name="additionalAmount" type="currency-amount"></field>
