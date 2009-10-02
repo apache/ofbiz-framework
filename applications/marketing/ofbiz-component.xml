@@ -31,6 +31,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/MarketingHelpData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/sfaDemoData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_opportunity.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
     <!-- test suite -->
