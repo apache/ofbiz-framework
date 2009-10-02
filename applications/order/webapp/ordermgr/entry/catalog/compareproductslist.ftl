@@ -17,37 +17,37 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div id="productcomparelist" class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductCompareProducts}</div>
-    </div>
-    <div class="screenlet-body">
+  <div class="screenlet-title-bar">
+    <div class="h3">${uiLabelMap.ProductCompareProducts}</div>
+  </div>
+  <div class="screenlet-body">
 <#assign productCompareList = Static["org.ofbiz.product.product.ProductEvents"].getProductCompareList(request)/>
 <#if productCompareList?has_content>
     <table>
     <#list productCompareList as product>
-        <tr>
-            <td>
-                ${Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", request)}
-            </td>
-            <td>
-                <form method="post" action="<@ofbizUrl>removeFromCompare</@ofbizUrl>" name="removeFromCompare${product_index}form">
-                    <input type="hidden" name="productId" value="${product.productId}"/>
-                </form>
-                <a href="javascript:document.removeFromCompare${product_index}form.submit()" class="buttontext">${uiLabelMap.CommonRemove}</a>
-            </td>
-        </tr>
+      <tr>
+        <td>
+          ${Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", request)}
+        </td>
+        <td>
+          <form method="post" action="<@ofbizUrl>removeFromCompare</@ofbizUrl>" name="removeFromCompare${product_index}form">
+            <input type="hidden" name="productId" value="${product.productId}"/>
+          </form>
+          <a href="javascript:document.removeFromCompare${product_index}form.submit()" class="buttontext">${uiLabelMap.CommonRemove}</a>
+        </td>
+      </tr>
     </#list>
-    </table>
-    <div>
-        <a href="<@ofbizUrl>clearCompareList</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
-    </div>
-    <div>
-        <a href="javascript:popUp('<@ofbizUrl secure="${request.isSecure()?string}">compareProducts</@ofbizUrl>', 'compareProducts', '650', '750')" class="buttontext">${uiLabelMap.ProductCompareProducts}</a>
-    </div>
+  </table>
+  <div>
+    <a href="<@ofbizUrl>clearCompareList</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
+  </div>
+  <div>
+    <a href="javascript:popUp('<@ofbizUrl secure="${request.isSecure()?string}">compareProducts</@ofbizUrl>', 'compareProducts', '650', '750')" class="buttontext">${uiLabelMap.ProductCompareProducts}</a>
+  </div>
 <#else/>
-        <div>
-            ${uiLabelMap.ProductNoProductsToCompare}
-        </div>
+  <div>
+    ${uiLabelMap.ProductNoProductsToCompare}
+  </div>
 </#if>
-    </div>
+  </div>
 </div>

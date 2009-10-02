@@ -19,8 +19,8 @@ under the License.
 
 <#if shoppingCart.getOrderType() == "SALES_ORDER">
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionCouponCodes}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">&nbsp;${uiLabelMap.OrderPromotionCouponCodes}</div>
     </div>
     <div class="screenlet-body">
       <div>

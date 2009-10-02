@@ -85,8 +85,8 @@ under the License.
 
 <#if topLevelList?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductBrowseCategories}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.ProductBrowseCategories}</div>
     </div>
     <div class="screenlet-body">
         <div class="browsecategorylist">

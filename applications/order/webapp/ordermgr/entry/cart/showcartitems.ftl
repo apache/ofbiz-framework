@@ -20,8 +20,8 @@ under the License.
 <#-- Continuation of showcart.ftl:  List of order items and forms to modify them. -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderItems}</div>
+    <div class="screenlet-title-bar">    
+        <div class='h3'>${uiLabelMap.OrderOrderItems}</div>
     </div>
     <div class="screenlet-body">
   <#if (shoppingCartSize > 0)>
