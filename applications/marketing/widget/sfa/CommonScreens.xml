@@ -407,6 +407,7 @@ under the License.
                                 <section>
                                     <widgets>
                                         <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                        <include-menu name="OpportunitySubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
