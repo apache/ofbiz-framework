@@ -23,7 +23,6 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
         <title>Marketing overview</title>
-    <section>
         <para>
             The overall purpose of the Marketing component is the support to select
             leads from parties obtained from a certain source or marketing
@@ -51,7 +50,7 @@
             Contact lists are currently email mailinglists, the OFBiz system could be
             extended to include the support of calling by telephone and entering
             the results. On the email sent via this lists tracking codes can be
-            used to measure the reponse when the readers of the email mailing
+            used to measure the response when the readers of the email mailing
             click on a link where a trackingcode is specified.
             For more info look at the program:
             applications/marketing/src/org/ofbiz/marketing/tracking/TrackingCodeEvents.java
@@ -61,7 +60,8 @@
             web application referring back to the marketing campaign.
     </para>
     
+    <xi:include href="HELP_MARKETING_main.xml" />
+    <xi:include href="HELP_MARKETING_ContactLists.xml" />
     
-    </section>
 </section>
 

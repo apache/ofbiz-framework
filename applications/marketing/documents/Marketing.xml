@@ -36,7 +36,7 @@
             It is very much based on the party component as its source.
             Records from the party component are selected with only one basic reason: a possible sale in the future.
             That also means that records in the party manager should be complete, especially the role is pretty important.
-            Not All roles, but at least 'lead' 'contact' and 'Account' should be defined 
+            Not All roles, but at least 'lead' 'contact' and 'Account' should be defined. 
         </para>
     
     </section>
