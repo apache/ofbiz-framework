@@ -720,7 +720,8 @@ DIV.simple-right-half {
 }
 
 DIV.screenlet {
-    background-color: #FFFFFF;
+    background: url("/bluelight/box-head-tr.gif") no-repeat top right;
+    background-color: #5CA3D7;
     height: auto !important;
     height: 1%;
     margin-bottom: 1em;
@@ -1149,7 +1150,6 @@ color:#999999;
 
 .screenlet-title-bar {
     background: url("/bluelight/box-head-tl.gif") no-repeat;
-    background-color: #5CA3D7;
     color: #ffffff;
     height: 1%; /* IE fix */
     min-height: 1.5em;
