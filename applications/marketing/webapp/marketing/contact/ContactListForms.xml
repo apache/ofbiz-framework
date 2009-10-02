@@ -154,7 +154,7 @@ under the License.
         <field use-when="fromDate!=null" name="fromDate" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
 
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down no-current-selected-key="CLPT_PENDING">
+            <drop-down no-current-selected-key="CLPT_ACCEPTED">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="CONTACTLST_PARTY" operator="equals"/>
                     <entity-order-by field-name="description"/>
