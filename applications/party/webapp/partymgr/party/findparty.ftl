@@ -244,7 +244,7 @@ under the License.
           <#if softIdentifier?default("") != "">
             <td>${uiLabelMap.ProductSoftIdentifier}</td>
           </#if>
-          <td>${uiLabelMap.RelatedCompany}</td>
+          <td>${uiLabelMap.PartyRelatedCompany}</td>
           <td>${uiLabelMap.PartyType}</td>
           <td>${uiLabelMap.PartyMainRole}</td>
           <td>&nbsp;</td>

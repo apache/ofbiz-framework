@@ -474,7 +474,7 @@
                 <parameter param-name="my" from-field="parameters.my"/>
             </link>
         </menu-item>
-        <menu-item name="createSalesOpportunity" title="${uiLabelMap.PartyCreateSaleOpportunityFromCommEvent}">
+        <menu-item name="createSalesOpportunity" title="${uiLabelMap.CommEventCreateOpportunity}">
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
@@ -649,7 +649,7 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
-        <menu-item name="createSalesOpportunity" title="${uiLabelMap.PartyCreateSaleOpportunityFromCommEvent}">
+        <menu-item name="createSalesOpportunity" title="${uiLabelMap.CommEventCreateOpportunity}">
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
