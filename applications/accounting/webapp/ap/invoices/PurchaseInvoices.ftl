@@ -146,8 +146,7 @@ function enableSubmitButton() {
     </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
-      <tr class="header-row-2">
-        <td width="8%"><input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/> ${uiLabelMap.CommonSelectAll}</td>
+      <tr class="header-row">
         <td width="10%">${uiLabelMap.FormFieldTitle_invoiceId}</td>
         <td width="15%">${uiLabelMap.AccountingVendorParty}</td>
         <td width="10%">${uiLabelMap.CommonStatus}</td>
@@ -157,6 +156,7 @@ function enableSubmitButton() {
         <td width="9%">${uiLabelMap.AccountingAmount}</td>
         <td width="9%">${uiLabelMap.FormFieldTitle_paidAmount}</td>
         <td width="9%">${uiLabelMap.FormFieldTitle_outstandingAmount}</td>
+        <td width="8%" align="right">${uiLabelMap.CommonSelectAll} <input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/></td>
       </tr>
       <#-- Header Ends-->
       <#assign alt_row = false>
@@ -166,7 +166,6 @@ function enableSubmitButton() {
         <#if invoicePaymentInfo.outstandingAmount != 0>
           <#assign statusItem = invoice.getRelatedOneCache("StatusItem")>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal();"/></td>
             <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
             <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</a></td>
             <td>${statusItem.get("description")?if_exists}</td>
@@ -176,6 +175,7 @@ function enableSubmitButton() {
             <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
+            <td align="right"><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal();"/></td>
           </tr>
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
