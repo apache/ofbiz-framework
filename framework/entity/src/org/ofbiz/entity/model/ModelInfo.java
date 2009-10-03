@@ -46,6 +46,9 @@ public class ModelInfo {
     /** The version for documentation purposes */
     protected String version = "";
 
+    /** The default-resource-name of the Entity, used with the getResource call to check for a value in a resource bundle */
+    protected String defaultResourceName = "";
+
     // ===== CONSTRUCTORS =====
 
     public ModelInfo() {
@@ -58,15 +61,17 @@ public class ModelInfo {
 
     public static final ModelInfo DEFAULT = new ModelInfo() {
         @Override
-        public String getTitle()        { return "None"; }
+        public String getTitle()                { return "None"; }
         @Override
-        public String getAuthor()       { return "None"; }
+        public String getAuthor()               { return "None"; }
         @Override
-        public String getCopyright()    { return "Copyright 2001-2009 The Apache Software Foundation"; }
+        public String getCopyright()            { return "Copyright 2001-2009 The Apache Software Foundation"; }
         @Override
-        public String getVersion()      { return "1.0"; }
+        public String getVersion()              { return "1.0"; }
         @Override
-        public String getDescription()  { return "None"; }
+        public String getDescription()          { return "None"; }
+        @Override
+        public String getDefaultResourceName()  { return ""; }
     };
 
     public void populateFromAttributes(Element element) {
@@ -75,6 +80,7 @@ public class ModelInfo {
         description = StringUtil.internString(UtilXml.childElementValue(element, "description"));
         title = element.getAttribute("title").intern();
         version = element.getAttribute("version").intern();
+        defaultResourceName = StringUtil.internString(element.getAttribute("default-resource-name"));
     }
 
     public void populateFromElements(Element element) {
@@ -83,6 +89,7 @@ public class ModelInfo {
         description = StringUtil.internString(UtilXml.childElementValue(element, "description"));
         title = StringUtil.internString(UtilXml.childElementValue(element, "title"));
         version = StringUtil.internString(UtilXml.childElementValue(element, "version"));
+        defaultResourceName = StringUtil.internString(UtilXml.childElementValue(element, "default-resource-name"));
     }
 
     // Strings to go in the comment header.
@@ -129,5 +136,14 @@ public class ModelInfo {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    /** The default-resource-name of the Entity */
+    public String getDefaultResourceName() {
+        return this.defaultResourceName != null ? this.defaultResourceName : def.getDefaultResourceName();
+    }
+
+    public void setDefaultResourceName(String defaultResourceName) {
+        this.defaultResourceName = defaultResourceName;
     }
 }
