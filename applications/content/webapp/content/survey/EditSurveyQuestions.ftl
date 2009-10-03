@@ -53,11 +53,12 @@ under the License.
           <#else/>
             <#assign currentSurveyMultiRespColumns = []/>
           </#if>
-          <form method="post" action="<@ofbizUrl>updateSurveyQuestionAppl</@ofbizUrl>">
-            <input type="hidden" name="surveyId" value="${surveyQuestionAndAppl.surveyId}">
-            <input type="hidden" name="surveyQuestionId" value="${surveyQuestionAndAppl.surveyQuestionId}">
-            <input type="hidden" name="fromDate" value="${surveyQuestionAndAppl.fromDate}">
+          
             <tr<#if alt_row> class="alternate-row"</#if>>
+            <form method="post" action="<@ofbizUrl>updateSurveyQuestionAppl</@ofbizUrl>">
+              <input type="hidden" name="surveyId" value="${surveyQuestionAndAppl.surveyId}" />
+              <input type="hidden" name="surveyQuestionId" value="${surveyQuestionAndAppl.surveyQuestionId}" />
+              <input type="hidden" name="fromDate" value="${surveyQuestionAndAppl.fromDate}" />
               <td>${surveyQuestionAndAppl.surveyQuestionId}</td>
               <td>${questionType.get("description",locale)}</td>
               <td>${(questionCat.description)?if_exists}</td>
@@ -116,9 +117,16 @@ under the License.
               <td><input type="text" name="withSurveyOptionSeqId" size="5" value="${surveyQuestionAndAppl.withSurveyOptionSeqId?if_exists}"/></td>
               <td><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></td>
               <td><a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&surveyQuestionId=${surveyQuestionAndAppl.surveyQuestionId}#edit</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ContentSurveyQuestion}</a></td>
-              <td><a href="<@ofbizUrl>removeSurveyQuestionAppl?surveyId=${surveyQuestionAndAppl.surveyId}&surveyQuestionId=${surveyQuestionAndAppl.surveyQuestionId}&fromDate=${surveyQuestionAndAppl.fromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
+              </form>
+              <td>
+                <form id="removeSurveyQuestion_${surveyQuestionAndAppl.surveyQuestionId}" action="<@ofbizUrl>removeSurveyQuestionAppl</@ofbizUrl>" method="post">
+                  <input type="hidden" name="surveyId" value="${surveyQuestionAndAppl.surveyId}" />
+                  <input type="hidden" name="surveyQuestionId" value="${surveyQuestionAndAppl.surveyQuestionId}" />
+                  <input type="hidden" name="fromDate" value="${surveyQuestionAndAppl.fromDate}" />
+                  <a href="javascript:$('removeSurveyQuestion_${surveyQuestionAndAppl.surveyQuestionId}').submit();"" class="buttontext">${uiLabelMap.CommonRemove}</a>
+                </form>
+              </td>
             </tr>
-          </form>
           <#assign alt_row = !alt_row>
         </#list>
       </table>
