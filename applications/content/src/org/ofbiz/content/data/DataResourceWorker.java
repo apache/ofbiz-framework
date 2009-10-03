@@ -376,10 +376,12 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
     /**
      * Returns the image type.
+     * @deprecated Use getMimeType(GenericValue) instead
      */
+    @Deprecated
     public static String getImageType(GenericDelegator delegator, String dataResourceId) throws GenericEntityException {
         GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-        String imageType = getImageType(delegator, dataResource);
+        String imageType = getMimeType(dataResource);
         return imageType;
     }
 
