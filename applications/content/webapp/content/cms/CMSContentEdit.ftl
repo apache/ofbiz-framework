@@ -212,7 +212,7 @@ ${menuWrapper.renderMenuString()}
     <#assign dataResourceId = currentValue.dataResourceId/>
     <#assign currentTextData = "" />
     <#if dataResourceId?has_content>
-        <#assign currentTextData=Static["org.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsTextCache(delegator, dataResourceId, (Map)null, (GenericValue)null, (Locale)null, (String)null) />
+        <#assign currentTextData=Static["org.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId, null, null, null, true) />
         <#if currentTextData?has_content>
             <@renderTextData contentId=contentId textData=currentTextData />
         </#if>
@@ -222,7 +222,7 @@ ${menuWrapper.renderMenuString()}
         <#assign contentId2 = contentAssocDataResourceView.contentId/>
         <#assign mapKey = contentAssocDataResourceView.mapKey/>
         <#assign dataResourceId2 = contentAssocDataResourceView.dataResourceId/>
-        <#assign currentTextData=Static["org.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsTextCache(delegator, dataResourceId2, null, null, null, null) />
+        <#assign currentTextData=Static["org.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId2, null, null, null, true) />
         <#if currentTextData?has_content>
             <@renderTextData contentId=contentId2 mapKey=mapKey textData=currentTextData />
         </#if>
