@@ -417,26 +417,6 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         return mimeTypeId;
     }
 
-    /** @deprecated */
-    @Deprecated
-    public static String getImageType(GenericDelegator delegator, GenericValue dataResource) {
-        String imageType = null;
-        if (dataResource != null) {
-            imageType = (String) dataResource.get("mimeTypeId");
-            if (UtilValidate.isEmpty(imageType)) {
-                String imageFileNameExt = null;
-                String imageFileName = (String)dataResource.get("objectInfo");
-                if (UtilValidate.isNotEmpty(imageFileName)) {
-                    int pos = imageFileName.lastIndexOf(".");
-                    if (pos >= 0)
-                        imageFileNameExt = imageFileName.substring(pos + 1);
-                }
-                imageType = "image/" + imageFileNameExt;
-            }
-        }
-        return imageType;
-    }
-
     public static String buildRequestPrefix(GenericDelegator delegator, Locale locale, String webSiteId, String https) {
         Map prefixValues = FastMap.newInstance();
         String prefix;
