@@ -84,16 +84,6 @@ public class PartyWorker {
         return result;
     }
 
-    /** @deprecated */
-    @Deprecated
-    public static void getPartyOtherValues(PageContext pageContext, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
-        Map<String, GenericValue> partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
-        for (Map.Entry<String, GenericValue> e: partyMap.entrySet()) {
-            pageContext.setAttribute(e.getKey(), e.getValue());
-
-        }
-    }
-
     /**
      * Generate a sequenced club id using the prefix passed and a sequence value + check digit
      * @param delegator used to obtain a sequenced value
