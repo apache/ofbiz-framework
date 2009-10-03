@@ -31,6 +31,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="copyright"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="author"/>
                 <xs:element minOccurs="0" ref="version"/>
+                <xs:element minOccurs="0" ref="default-resource-name"/>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
                     <xs:element ref="entity"/>
                     <xs:element ref="view-entity"/>
@@ -45,6 +46,7 @@ under the License.
     <xs:element name="copyright" type="xs:string"/>
     <xs:element name="author" type="xs:string"/>
     <xs:element name="version" type="xs:string"/>
+    <xs:element name="default-resource-name" type="xs:string"/>
     <!-- ================== entity ===================== -->
     <xs:element name="entity">
         <xs:complexType>
