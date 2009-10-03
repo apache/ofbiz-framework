@@ -17,17 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${title}</h1>
-<div class="button-bar">
-  <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
-  <#if facilityId?has_content>
-    <a href="/workeffort/control/calendar?period=month&facilityId=${facilityId}&externalLoginKey=${externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonViewCalendar}</a>
-    <a href="<@ofbizUrl>EditContactMech?facilityId=${facilityId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewContactMech}</a>
-  </#if>
-</div>
-
-<div class="screenlet">
-  <div class="screenlet-title-bar"><h3>${uiLabelMap.ProductContactTypeInformation}</h3></div>
+<div>
   <#if contactMeches?has_content>
     <table class="basic-table" cellspacing="0">
       <#list contactMeches as contactMechMap>

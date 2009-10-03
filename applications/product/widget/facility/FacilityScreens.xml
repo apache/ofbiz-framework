@@ -50,9 +50,26 @@ under the License.
                                             </condition>
                                             <widgets>
                                                 <include-menu name="FacilityTabBar" location="component://product/widget/facility/Menus.xml"/>
-                                                <platform-specific>
-                                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
-                                                </platform-specific>
+                                                <section>
+                                                    <condition>
+                                                        <not><if-empty field="facilityId"/></not>
+                                                    </condition>
+                                                    <widgets>
+                                                        <container style="button-bar">
+                                                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                                                            <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
+                                                                <parameter param-name="facilityId"/>
+                                                                <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
+                                                            </link>
+                                                        </container>
+                                                        <label style="h1">${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facilityId}]</label>
+                                                        <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <label style="h1">${uiLabelMap.ProductNewFacility}"</label>
+                                                        <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                                    </fail-widgets>
+                                                </section>
                                             </widgets>
                                             <fail-widgets>
                                                 <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
@@ -147,18 +164,50 @@ under the License.
                     <widgets>
                         <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                             <decorator-section name="body">
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field="facilityId"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar">
+                                                    <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                                                    <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
+                                                        <parameter param-name="facilityId"/>
+                                                        <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
+                                                    </link>
+                                                </container>
+                                                <label style="h1">${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facilityId}]</label>
+                                                <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                            </widgets>
+                                        </section>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                    </fail-widgets>
+                                </section>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
                         <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1">${uiLabelMap.ProductNewFacility}</label>
+                                        <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                    </fail-widgets>
+                                </section>
                             </decorator-section>
                         </decorator-screen>
                     </fail-widgets>
@@ -831,9 +880,28 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/ViewContactMechs.ftl"/></html>
-                        </platform-specific>
+                        <label style="h1">${title}</label>
+                        <container>
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="facilityId"/></not>
+                                </condition>
+                                <widgets>
+                                    <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
+                                        <parameter param-name="period" value="month"/>
+                                        <parameter param-name="facilityId"/>
+                                        <parameter param-name="externalLoginKey"/>
+                                    </link>
+                                    <link target="EditContactMech" text="${uiLabelMap.ProductNewContactMech}" style="buttontext">
+                                        <parameter param-name="facilityId"/>
+                                    </link>
+                                </widgets>
+                            </section>
+                        </container>
+                        <screenlet title="${uiLabelMap.PartyContactInformation}">
+                            <platform-specific><html><html-template location="component://product/webapp/facility/facility/ViewContactMechs.ftl"/></html></platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

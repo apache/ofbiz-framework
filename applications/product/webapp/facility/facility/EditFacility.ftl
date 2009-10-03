@@ -17,17 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
-<#if facilityId?has_content>
-  <h1>${uiLabelMap.ProductEditFacility} ${facility.facilityName?if_exists} [${facilityId?if_exists}]</h1>
-  <div class="button-bar">
-    <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" name="EditFacilityForm" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
-      <a href="/workeffort/control/calendar?facilityId=${facilityId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonViewCalendar}</a>
-  </div>
-<#else>
-  <h1>${uiLabelMap.ProductNewFacility}</h1>
-</#if>
-
 <#if facility?exists && facilityId?has_content>
   <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post">
   <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
@@ -133,9 +122,3 @@ under the License.
   </tr>
 </table>
 </form>
-
-<#else>
-  <h3>${uiLabelMap.ProductFacilityViewPermissionError}</h3>
-</#if>
-
-
