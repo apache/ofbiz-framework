@@ -71,7 +71,7 @@ if (dataResourceId) {
     SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
     templateRoot = [:];
     FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
-    txt = DataResourceWorker.getDataResourceTextCache(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator);
+    txt = DataResourceWorker.getDataResourceText(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator, true);
 
     if (txt) {
         textData = UtilFormatOut.encodeXmlValue(txt);
