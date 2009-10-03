@@ -20,15 +20,13 @@ package org.ofbiz.entity;
 
 import org.ofbiz.base.util.Debug;
 
+/** A <code>DelegatorFactory</code> implementation that returns an
+ * instance of <code>GenericDelegator</code>. */
 public class DelegatorFactoryImpl implements DelegatorFactory {
 
     public static final String module = DelegatorFactoryImpl.class.getName();
 
-    public Delegator getInstance(Object obj) {
-        String delegatorName = null;
-        try {
-            delegatorName = (String) obj; 
-        } catch (Exception e) {}
+    public Delegator getInstance(String delegatorName) {
         if (delegatorName == null) {
             delegatorName = "default";
             Debug.logWarning(new Exception("Location where getting delegator with null name"), "Got a getGenericDelegator call with a null delegatorName, assuming default for the name.", module);

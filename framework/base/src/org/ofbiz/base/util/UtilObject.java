@@ -174,12 +174,11 @@ public class UtilObject {
         return o1.hashCode();
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T getObjectFromFactory(Class<T> factoryInterface, Object obj) throws ClassNotFoundException {
-        Iterator<Factory<T>> it = (Iterator<Factory<T>>) ServiceRegistry.lookupProviders(factoryInterface);
+    public static <A, R> R getObjectFromFactory(Class<? extends Factory<R, A>> factoryInterface, A obj) throws ClassNotFoundException {
+        Iterator<? extends Factory<R, A>> it = ServiceRegistry.lookupProviders(factoryInterface);
         while (it.hasNext()) {
-            Factory<T> factory = it.next();
-            T instance = factory.getInstance(obj);
+            Factory<R, A> factory = it.next();
+            R instance = factory.getInstance(obj);
             if (instance != null) {
                 return instance;
             }

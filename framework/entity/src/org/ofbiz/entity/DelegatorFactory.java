@@ -20,4 +20,5 @@ package org.ofbiz.entity;
 
 import org.ofbiz.base.util.Factory;
 
-public interface DelegatorFactory extends Factory<Delegator> {}
+/** <code>Delegator</code> factory interface. */
+public interface DelegatorFactory extends Factory<Delegator, String> {}

@@ -123,7 +123,7 @@ public class GenericDelegator implements Delegator {
     
     private String originalDelegatorName = null;
 
-    /** @deprecated Use Delegator delegator = (Delegator) UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+    /** @deprecated Use Delegator delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
      * @param delegatorName
      * @return
      */
