@@ -62,7 +62,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="ownerPartyId" title="${uiLabelMap.MarketingContactListOwnerPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="ownerPartyId" title="${uiLabelMap.MarketingContactListOwnerPartyId}"><lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/></field>
 
         <field name="verifyEmailFrom" title="${uiLabelMap.MarketingContactListVerifyEmailFrom}"><text size="40"/></field>
         <field name="verifyEmailScreen" title="${uiLabelMap.MarketingContactListVerifyEmailScreen}"><text size="60"/></field>
