@@ -29,9 +29,9 @@ import org.ofbiz.entity.GenericDelegator;
  * ContentWorkerInterface
  */
 public interface DataResourceWorkerInterface {
-    public String renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Map templateContext,
+    public String renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 
-    public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Appendable out, Map templateContext,
+    public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Appendable out, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 }
