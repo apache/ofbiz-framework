@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.jsp.PageContext;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -46,16 +44,6 @@ import org.ofbiz.entity.util.EntityUtil;
 public class ContactMechWorker {
 
     public static final String module = ContactMechWorker.class.getName();
-
-    /** @deprecated */
-    @Deprecated
-    public static void getPartyContactMechValueMaps(PageContext pageContext, String partyId, boolean showOld, String partyContactMechValueMapsAttr) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
-        List<Map<String, Object>> partyContactMechValueMaps = getPartyContactMechValueMaps(delegator, partyId, showOld);
-        if (partyContactMechValueMaps.size() > 0) {
-            pageContext.setAttribute(partyContactMechValueMapsAttr, partyContactMechValueMaps);
-        }
-    }
 
     public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld) {
        return getPartyContactMechValueMaps(delegator, partyId, showOld, null);
@@ -204,15 +192,6 @@ public class ContactMechWorker {
     }
 
 
-    /** @deprecated */
-    @Deprecated
-    public static void getOrderContactMechValueMaps(PageContext pageContext, String orderId, String orderContactMechValueMapsAttr) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
-        List<Map<String, GenericValue>> maps = getOrderContactMechValueMaps(delegator, orderId);
-        if (UtilValidate.isNotEmpty(maps)) {
-            pageContext.setAttribute(orderContactMechValueMapsAttr, maps);
-        }
-    }
     public static List<Map<String, GenericValue>> getOrderContactMechValueMaps(GenericDelegator delegator, String orderId) {
         List<Map<String, GenericValue>> orderContactMechValueMaps = FastList.newInstance();
 
