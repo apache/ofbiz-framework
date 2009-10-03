@@ -1231,7 +1231,15 @@ public class ProductPromoWorker {
                         // check inventory on this product, make sure it is available before going on
                         //NOTE: even though the store may not require inventory for purchase, we will always require inventory for gifts
                         try {
-                            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", quantity));
+                            // get the quantity in cart for inventory check
+                            BigDecimal quantityAlreadyInCart = BigDecimal.ZERO;
+                            if (cart != null) {
+                                List<ShoppingCartItem> matchingItems = cart.findAllCartItems(productId);
+                                for (ShoppingCartItem item : matchingItems) {
+                                    quantityAlreadyInCart = quantityAlreadyInCart.add(item.getQuantity());
+                                }
+                            }
+                            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)));
                             if (ServiceUtil.isError(invReqResult)) {
                                 Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
@@ -1260,7 +1268,15 @@ public class ProductPromoWorker {
                     String optionProductId = (String) optionProductIdIter.next();
 
                     try {
-                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", quantity));
+                        // get the quantity in cart for inventory check
+                        BigDecimal quantityAlreadyInCart = BigDecimal.ZERO;
+                        if (cart != null) {
+                            List<ShoppingCartItem> matchingItems = cart.findAllCartItems(optionProductId);
+                            for (ShoppingCartItem item : matchingItems) {
+                                quantityAlreadyInCart = quantityAlreadyInCart.add(item.getQuantity());
+                            }
+                        }
+                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)));
                         if (ServiceUtil.isError(invReqResult)) {
                             Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                             throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
