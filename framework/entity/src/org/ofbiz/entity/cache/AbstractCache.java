@@ -30,6 +30,7 @@ public abstract class AbstractCache<K, V> {
         this.id = id;
     }
 
+    @SuppressWarnings("deprecation")
     public GenericDelegator getDelegator() {
         return GenericDelegator.getGenericDelegator(delegatorName);
     }

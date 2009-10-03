@@ -282,6 +282,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     /** Get the GenericDelegator instance that created this value object and that is responsible for it.
      *@return GenericDelegator object
      */
+    @SuppressWarnings("deprecation")
     public GenericDelegator getDelegator() {
         if (internalDelegator == null) {
             if (delegatorName == null) delegatorName = "default";
