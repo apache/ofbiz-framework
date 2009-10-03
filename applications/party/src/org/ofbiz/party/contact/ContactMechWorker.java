@@ -666,7 +666,7 @@ public class ContactMechWorker {
         target.put("tryEntity", Boolean.valueOf(tryEntity));
 
         try {
-            Collection contactMechTypes = delegator.findList("ContactMechType", null, null, null, null, true);
+            Collection<GenericValue> contactMechTypes = delegator.findList("ContactMechType", null, null, null, null, true);
 
             if (contactMechTypes != null) {
                 target.put("contactMechTypes", contactMechTypes);
