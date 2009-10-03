@@ -18,12 +18,6 @@ under the License.
 -->
 <#if shipmentPackageDatas?has_content>
 <div class="screenlet">
-    <div class="screenlet-title-bar">
-        <ul>
-            <li class="h3">${uiLabelMap.PageTitleViewShipmentPackageInfo}</li>
-        </ul>
-        <br class="clear"/>
-    </div>
     <div class="screenlet-body">
       <table cellspacing="0" cellpadding="2" class="basic-table">
         <tr class="header-row">

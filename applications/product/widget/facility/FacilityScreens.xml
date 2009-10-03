@@ -1008,7 +1008,7 @@ under the License.
                                 <not><if-empty field="inventoryItemId"/></not>
                             </condition>
                             <widgets>
-                                <screenlet id="inventory-item-reservations" title="${uiLabelMap.ProductInventoryItemReservations}" collapsible="true">
+                                <screenlet id="inventory-item-reservations" title="${uiLabelMap.ProductInventoryItemReservations}" initially-collapsed="true">
                                     <include-form name="InventoryItemReservations" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                                 </screenlet>
                             </widgets>
@@ -1021,7 +1021,7 @@ under the License.
                                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/PhysicalInventoryVariance.groovy"/>
                             </actions>
                             <widgets>
-                                <screenlet id="physical-inventory-variances" title="${uiLabelMap.ProductPhysicalInventoryVariances}" collapsible="true">
+                                <screenlet id="physical-inventory-variances" title="${uiLabelMap.ProductPhysicalInventoryVariances}" initially-collapsed="true">
                                     <include-form name="CreatePhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                                     <include-form name="ViewPhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                                 </screenlet>

@@ -98,15 +98,21 @@ under the License.
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
                                 </platform-specific>
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentItemInfo.ftl"/></html>
-                                </platform-specific>
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentPackageInfo.ftl"/></html>
-                                </platform-specific>
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
-                                </platform-specific>
+                                <screenlet id="shipmentItemPanel" title="${uiLabelMap.PageTitleViewShipmentItemInfo}" initially-collapsed="true">
+                                    <platform-specific>
+                                        <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentItemInfo.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                                <screenlet id="shipmentPackagePanel" title="${uiLabelMap.PageTitleViewShipmentPackageInfo}" initially-collapsed="true">
+                                    <platform-specific>
+                                        <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentPackageInfo.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                                <screenlet id="shipmentRoutePanel" title="${uiLabelMap.PageTitleViewShipmentRouteInfo}" initially-collapsed="true">
+                                    <platform-specific>
+                                        <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
