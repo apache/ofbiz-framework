@@ -115,6 +115,7 @@ public abstract class ListFinder extends Finder {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
         String useCacheStr = this.useCacheStrExdr.expandString(context);
