@@ -1208,10 +1208,6 @@ under the License.
         <response name="success" type="view" value="EditFeatureTypes"/>
         <response name="error" type="view" value="EditFeatureType"/>
     </request-map>
-    <request-map uri="EditFeatureCategories">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditFeatureCategories"/>
-    </request-map>
     <request-map uri="ListFeaturePrice">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFeature"/>
