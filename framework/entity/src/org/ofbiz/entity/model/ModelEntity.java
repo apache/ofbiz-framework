@@ -78,9 +78,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /** The package-name of the Entity */
     protected String packageName = "";
 
-    /** The default-resource-name of the Entity, used with the getResource call to check for a value in a resource bundle */
-    protected String defaultResourceName = "";
-
     /** The entity-name of the Entity that this Entity is dependent on, if empty then no dependency */
     protected String dependentOn = "";
 
@@ -238,7 +235,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.entityName = UtilXml.checkEmpty(entityElement.getAttribute("entity-name")).intern();
         this.tableName = UtilXml.checkEmpty(entityElement.getAttribute("table-name"), ModelUtil.javaNameToDbName(this.entityName)).intern();
         this.packageName = UtilXml.checkEmpty(entityElement.getAttribute("package-name")).intern();
-        this.defaultResourceName = UtilXml.checkEmpty(entityElement.getAttribute("default-resource-name")).intern();
         this.dependentOn = UtilXml.checkEmpty(entityElement.getAttribute("dependent-on")).intern();
         this.doLock = UtilXml.checkBoolean(entityElement.getAttribute("enable-lock"), false);
         this.noAutoStamp = UtilXml.checkBoolean(entityElement.getAttribute("no-auto-stamp"), false);
@@ -349,15 +345,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
-    }
-
-    /** The default-resource-name of the Entity */
-    public String getDefaultResourceName() {
-        return this.defaultResourceName;
-    }
-
-    public void setDefaultResourceName(String defaultResourceName) {
-        this.defaultResourceName = defaultResourceName;
     }
 
     /** The entity-name of the Entity that this Entity is dependent on, if empty then no dependency */
