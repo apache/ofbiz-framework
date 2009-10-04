@@ -83,20 +83,20 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
                                 </container>
                             </container>
-                            <container>
-                                <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
-                            </container>
-                            <container>
-                                <label style="label">${uiLabelMap.CommonView}</label>
-                                <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                                <link target="FindProductPromo" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
-                                    <parameter param-name="userEntered" value="Y"/>
-                                </link>
-                                <link target="FindProductPromo" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
-                                    <parameter param-name="userEntered" value="N"/>
-                                </link>
-                            </container>
                             <container style="screenlet-body">
+                                <container>
+                                    <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
+                                </container>
+                                <container>
+                                    <label style="label">${uiLabelMap.CommonView}</label>
+                                    <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                                    <link target="FindProductPromo" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
+                                        <parameter param-name="userEntered" value="Y"/>
+                                    </link>
+                                    <link target="FindProductPromo" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
+                                        <parameter param-name="userEntered" value="N"/>
+                                    </link>
+                                </container>
                                 <section>
                                     <widgets>
                                         <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
