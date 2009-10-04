@@ -16,7 +16,6 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<div class="screenlet">
 <table cellspacing="0" width="100%">
     <tr colspan="3">
       <td align="left">
@@ -100,4 +99,3 @@
       </#list>
 </#if>
 </table>
-</div>
