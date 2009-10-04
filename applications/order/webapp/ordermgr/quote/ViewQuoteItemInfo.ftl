@@ -17,13 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
             <#if maySelectItems?default("N") == "Y">
                 <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
             </#if>
         </div>
-        <div class="boxhead">&nbsp; ${uiLabelMap.OrderOrderQuoteItems}</div>
+        <div class="h3">${uiLabelMap.OrderOrderQuoteItems}</div>
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">

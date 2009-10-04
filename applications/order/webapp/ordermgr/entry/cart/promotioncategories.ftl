@@ -18,8 +18,8 @@ under the License.
 -->
 <#if productPromoCategoryIncludeList?has_content || productPromoCategoryExcludeList?has_content || productPromoCategoryAlwaysList?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionCategories}:</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderPromotionCategories}:</div>
     </div>
     <div class="screenlet-body">
         <#if productPromoCategoryIncludeList?has_content>

@@ -19,8 +19,8 @@ under the License.
 
 <#if paymentMethod?has_content || paymentMethodType?has_content || billingAccount?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.AccountingPaymentInformation}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.AccountingPaymentInformation}</div>
     </div>
     <div class="screenlet-body">
         <#-- order payment info -->

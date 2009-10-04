@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.PageTitleDigitalProductList}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.PageTitleDigitalProductList}</div>
     </div>
     <div class="screenlet-body">
        <div>&nbsp;<a href="<@ofbizUrl>digitalproductedit</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceDigitalNewProduct}</a></div>
@@ -60,8 +60,8 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.EcommerceDigitalProductPurchaseHistoryCommission}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.EcommerceDigitalProductPurchaseHistoryCommission}</div>
     </div>
     <div class="screenlet-body">
        <div>&nbsp;<a href="<@ofbizUrl>digitalproductedit</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceDigitalNewProduct}</a></div>

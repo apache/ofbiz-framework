@@ -81,11 +81,11 @@ function submitForm(form, mode, value) {
     <tr valign="top">
       <td height="100%">
         <div class="screenlet" style="height: 100%;">
-            <div class="screenlet-header">
+            <div class="screenlet-title-bar">
                 <#if shipping == true>
-                    <div class="boxhead">1)&nbsp;${uiLabelMap.OrderWhereShallWeShipIt}?</div>
+                    <div class="h3">1)&nbsp;${uiLabelMap.OrderWhereShallWeShipIt}?</div>
                 <#else>
-                    <div class="boxhead">1)&nbsp;${uiLabelMap.OrderInformationAboutYou}</div>
+                    <div class="h3">1)&nbsp;${uiLabelMap.OrderInformationAboutYou}</div>
                 </#if>
             </div>
             <div class="screenlet-body" style="height: 100%;">
@@ -158,11 +158,11 @@ function submitForm(form, mode, value) {
       <td bgcolor="white" width="1">&nbsp;&nbsp;</td>
       <td height="100%">
         <div class="screenlet" style="height: 100%;">
-            <div class="screenlet-header">
+            <div class="screenlet-title-bar">
                 <#if shipping == true>
-                    <div class="boxhead">2)&nbsp;${uiLabelMap.OrderHowShallWeShipIt}?</div>
+                    <div class="h3">2)&nbsp;${uiLabelMap.OrderHowShallWeShipIt}?</div>
                 <#else>
-                    <div class="boxhead">2)&nbsp;${uiLabelMap.OrderOptions}?</div>
+                    <div class="h3">2)&nbsp;${uiLabelMap.OrderOptions}?</div>
                 </#if>
             </div>
             <div class="screenlet-body" style="height: 100%;">
@@ -293,8 +293,8 @@ function submitForm(form, mode, value) {
           <#-- Payment Method Selection -->
 
         <div class="screenlet" style="height: 100%;">
-            <div class="screenlet-header">
-                <div class="boxhead">3)&nbsp;${uiLabelMap.OrderHowShallYouPay}?</div>
+            <div class="screenlet-title-bar">
+                <div class="h3">3)${uiLabelMap.OrderHowShallYouPay}?</div>
             </div>
             <div class="screenlet-body" style="height: 100%;">
                 <table width="100%" cellpadding="1" cellspacing="0" border="0">

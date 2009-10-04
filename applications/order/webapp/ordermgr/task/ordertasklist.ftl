@@ -41,8 +41,8 @@ under the License.
 <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session) || security.hasRolePermission("ORDERMGR_ROLE", "_VIEW", "", "", session)>
 <#assign tasksFound = false>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.OrderOrderNeedingAttention}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderOrderNeedingAttention}</div>
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">

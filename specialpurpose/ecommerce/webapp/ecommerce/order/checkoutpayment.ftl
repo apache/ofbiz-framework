@@ -64,8 +64,8 @@ function submitForm(form, mode, value) {
     <input type="hidden" name="BACK_PAGE" value="checkoutoptions"/>
 
     <div class="screenlet" style="height: 100%;">
-        <div class="screenlet-header">
-            <div class="boxhead">3)&nbsp;${uiLabelMap.OrderHowShallYouPay}?</div>
+        <div class="screenlet-title-bar">
+            <div class="h3">3)&nbsp;${uiLabelMap.OrderHowShallYouPay}?</div>
         </div>
         <div class="screenlet-body" style="height: 100%;">
             <#-- Payment Method Selection -->

@@ -23,8 +23,8 @@ under the License.
 
 <#if associatedProducts?has_content>
   <div class="screenlet">
-    <div class="screenlet-header">
-      <div class="boxhead">&nbsp;${uiLabelMap.OrderHelpAlsoInterestedIn}</div>
+    <div class="screenlet-title-bar">
+      <div class="h3">${uiLabelMap.OrderHelpAlsoInterestedIn}</div>
     </div>
     <div class="screenlet-body">
       <table cellspacing="0" cellpadding="1" border="0">

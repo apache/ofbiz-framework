@@ -727,14 +727,6 @@ DIV.screenlet {
     margin-bottom: 1em;
 }
 
-DIV.screenlet-header {
-    background: url("/bluelight/box-head-tl.gif") no-repeat;
-    background-color: #5CA3D7;
-    height: auto !important;
-    height: 1%;
-    padding: 0.1em 0.4em 0.3em 0.4em;
-}
-
 DIV.screenlet-body {
     background-color: #FFFFFF;
     height: auto !important;

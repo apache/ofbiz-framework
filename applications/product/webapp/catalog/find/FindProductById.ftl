@@ -19,8 +19,8 @@ under the License.
 
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductFindProductWithIdValue}</div>
+    <div class="screenlet-title-bar">
+      <div class="h3">${uiLabelMap.ProductFindProductWithIdValue}</div>
     </div>
     <div class="screenlet-body">
         <form name="idsearchform" method="post" action="<@ofbizUrl>FindProductById</@ofbizUrl>" style="margin: 0;">

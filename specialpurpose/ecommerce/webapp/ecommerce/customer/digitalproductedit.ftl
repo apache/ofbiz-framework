@@ -20,8 +20,8 @@ under the License.
 <#assign productPrice = productPriceList[0]?if_exists/>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.PageTitleDigitalProductEdit}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.PageTitleDigitalProductEdit}</div>
     </div>
     <div class="screenlet-body">
 <#if !supplierProduct?has_content && parameters.productId?has_content>
@@ -71,8 +71,8 @@ under the License.
 
 <#if supplierProduct?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.OrderDigitalProductFiles}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderDigitalProductFiles}</div>
     </div>
     <div class="screenlet-body">
         <#list productContentAndInfoList as productContentAndInfo>

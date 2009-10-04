@@ -19,8 +19,8 @@ under the License.
 
 <#if productIds?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderProductsForPromotion}:</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderProductsForPromotion}:</div>
     </div>
     <div class="screenlet-body">
         <#if (listSize > 0)>

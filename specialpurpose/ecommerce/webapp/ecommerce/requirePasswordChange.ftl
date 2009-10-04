@@ -28,8 +28,8 @@ under the License.
 <br/>
 
 <div style="float: center; width: 49%; margin-right: 5px; text-align: center;" class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.CommonPasswordChange}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.CommonPasswordChange}</div>
     </div>
     <div class="screenlet-body" style="text-align: center;">
       <form method="post" action="<@ofbizUrl>login${previousParams}</@ofbizUrl>" name="loginform">

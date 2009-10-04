@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductLoadingCatalogCaches}...</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.ProductLoadingCatalogCaches}...</div>
     </div>
     <div class="screenlet-body">
         <#list messageList as message>

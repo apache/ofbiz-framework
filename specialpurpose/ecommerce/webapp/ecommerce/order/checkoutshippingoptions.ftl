@@ -62,8 +62,8 @@ function submitForm(form, mode, value) {
     <input type="hidden" name="checkoutpage" value="shippingoptions"/>
 
     <div class="screenlet" style="height: 100%;">
-        <div class="screenlet-header">
-            <div class="boxhead">2)&nbsp;${uiLabelMap.OrderHowShallWeShipIt}?</div>
+        <div class="screenlet-title-bar">
+            <div class="h3">2)&nbsp;${uiLabelMap.OrderHowShallWeShipIt}?</div>
         </div>
         <div class="screenlet-body" style="height: 100%;">
             <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
