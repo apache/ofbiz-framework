@@ -73,6 +73,9 @@ public class ContentMapFacade implements Map {
     protected boolean isDecorated = false;
 
     // internal objects
+    private String sortOrder="-fromDate";
+    private String mapKeyFilter="";
+    private String statusFilter="";
     private DataResource dataResource;
     private SubContent subContent;
     private MetaData metaData;
@@ -177,7 +180,33 @@ public class ContentMapFacade implements Map {
         Debug.logWarning("This method [entrySet()] is not implemented in ContentMapFacade", module);
         return null;
     }
+    
+    public void setSortOrder(Object obj) {
+        if (!(obj instanceof String)) {
+            Debug.logWarning("sortOrder parameters must be a string", module);
+            return;
+        }
+        this.sortOrder=(String) obj;
+        this.subContent.setSortOrder(obj);
+    }
 
+    public void setMapKeyFilter(Object obj) {
+        if (!(obj instanceof String)) {
+            Debug.logWarning("mapKeyFilter parameters must be a string", module);
+            return;
+        }
+        this.mapKeyFilter=(String) obj;
+    }
+
+    public void setStatusFilter(Object obj) {
+        if (!(obj instanceof String)) {
+            Debug.logWarning("statusFilter parameters must be a string", module);
+            return;
+        }
+        this.statusFilter=(String) obj;
+        this.subContent.setStatusFilter(obj);
+    }        
+    
     // implemented get method
     public Object get(Object obj) {
         if (!(obj instanceof String)) {
@@ -225,10 +254,19 @@ public class ContentMapFacade implements Map {
             List<ContentMapFacade> subContent = FastList.newInstance();
             List<GenericValue> subs = null;
             try {
+                Map expressions = FastMap.newInstance();
+                expressions.put("contentIdStart", contentId);
+                if(!this.mapKeyFilter.equals("")) {
+                    expressions.put("caMapKey", this.mapKeyFilter);
+                }
+                if(!this.statusFilter.equals("")) {
+                    expressions.put("statusId", this.statusFilter);
+                }
+
                 if (cache) {
-                    subs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentId), UtilMisc.toList("-fromDate"));
+                		subs = delegator.findByAndCache("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
                 } else {
-                    subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId), UtilMisc.toList("-fromDate"));
+                		subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -237,7 +275,7 @@ public class ContentMapFacade implements Map {
                 subs = EntityUtil.filterByDate(subs);
 
                 for (GenericValue v: subs) {
-                    subContent.add(new ContentMapFacade(dispatcher, delegator, v.getString("contentIdTo"), context, locale, mimeType, cache));
+                    subContent.add(new ContentMapFacade(dispatcher, delegator, v.getString("contentId"), context, locale, mimeType, cache));
                 }
             }
             return subContent;
@@ -374,6 +412,8 @@ public class ContentMapFacade implements Map {
     }
 
     class SubContent extends AbstractInfo {
+    	private String sortOrder="-fromDate";
+    	private String statusFilter="";
         @Override
         public Object get(Object key) {
             if (!(key instanceof String)) {
@@ -388,10 +428,16 @@ public class ContentMapFacade implements Map {
             // key is the mapKey
             List subs = null;
             try {
+                Map expressions = FastMap.newInstance();
+                expressions.put("contentIdStart", contentId);
+                expressions.put("caMapKey", name);
+                if(!this.statusFilter.equals("")) {
+                    expressions.put("statusId", this.statusFilter);
+                }
                 if (cache) {
-                    subs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentId, "mapKey", name), UtilMisc.toList("-fromDate"));
+                    subs = delegator.findByAndCache("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
                 } else {
-                    subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "mapKey", name), UtilMisc.toList("-fromDate"));
+                    subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -400,12 +446,26 @@ public class ContentMapFacade implements Map {
                 subs = EntityUtil.filterByDate(subs);
                 GenericValue v = EntityUtil.getFirst(subs);
                 if (v != null) {
-                    return new ContentMapFacade(dispatcher, delegator, v.getString("contentIdTo"), context, locale, mimeType, cache);
+                    return new ContentMapFacade(dispatcher, delegator, v.getString("contentId"), context, locale, mimeType, cache);
                 }
             }
 
             return null;
         }
+        public void setSortOrder(Object obj) {
+            if (!(obj instanceof String)) {
+                Debug.logWarning("sortOrder parameters must be a string", module);
+                return;
+            }
+            this.sortOrder=(String) obj;
+        }
+        public void setStatusFilter(Object obj) {
+            if (!(obj instanceof String)) {
+                Debug.logWarning("statusFilter parameters must be a string", module);
+                return;
+            }
+            this.statusFilter=(String) obj;
+        }  
     }
 
     class MetaData extends AbstractInfo {
