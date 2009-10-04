@@ -62,8 +62,8 @@ under the License.
       <br class="clear"/>
     </#if>
   </div>
-
-    <div id="findPartyParameters" class="screenlet-body" <#if hideFields != "N"> style="display:none" </#if> >
+  <div class="screenlet-body">
+    <div id="findPartyParameters" <#if hideFields != "N"> style="display:none" </#if> >
       <h2>${uiLabelMap.CommonSearchOptions}</h2>
       <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to
           the viewprofile page when these are entered add the follow attribute to the form element:
@@ -212,12 +212,11 @@ under the License.
       document.lookupparty.partyId.focus();
     </script>
 
-
   <#if partyList?exists>
     <#if hideFields != "Y">
       <hr/>
     </#if>
-    <div id="findPartyResults" class="screenlet-body">
+    <div id="findPartyResults">
       <h2>${uiLabelMap.CommonSearchResults}</h2>
     </div>
     <#if partyList?has_content>
@@ -347,7 +346,7 @@ under the License.
         </#list>
       </table>
     <#else>
-      <div id="findPartyResults" class="screenlet-body">
+      <div id="findPartyResults">
         <h3>${uiLabelMap.PartyNoPartiesFound}</h3>
       </div>
     </#if>
@@ -356,3 +355,4 @@ under the License.
     </#if>
   </div>
 </#if>
+</div>
