@@ -87,8 +87,6 @@ under the License.
         <xs:attribute name="default-resource-name" type="xs:string"/>
         <xs:attribute name="dependent-on" type="xs:string"/>
         <xs:attribute name="sequence-bank-size" type="xs:string"/>
-        <xs:attribute name="extends-entity" type="xs:string"/>
-        <xs:attribute name="entity-type" type="xs:string"/>
         <xs:attribute name="enable-lock" default="false" type="boolean"/>
         <xs:attribute name="no-auto-stamp" default="false" type="boolean"/>
         <xs:attribute name="never-cache" default="false" type="boolean"/>
