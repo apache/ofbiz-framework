@@ -27,13 +27,13 @@ under the License.
     <td width="50%" valign="top">
 
     <div class="screenlet">
-        <div class="screenlet-header">
+        <div class="screenlet-title-bar">
             <div class="boxlink">
                 <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED">
                     <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
                 </#if>
             </div>
-            <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder}&nbsp;<#if orderHeader?has_content>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;</#if>${uiLabelMap.CommonInformation}</div>
+            <div class="h3">${uiLabelMap.OrderOrder}&nbsp;<#if orderHeader?has_content>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;</#if>${uiLabelMap.CommonInformation}</div>
         </div>
         <div class="screenlet-body">
             <table width="100%" border="0" cellpadding="1">
@@ -108,8 +108,8 @@ under the License.
       <#if orderItemShipGroups?has_content>
 
     <div class="screenlet">
-        <div class="screenlet-header">
-            <div class="boxhead">&nbsp;${uiLabelMap.OrderShippingInformation}</div>
+        <div class="screenlet-title-bar">
+            <div class="h3">${uiLabelMap.OrderShippingInformation}</div>
         </div>
         <div class="screenlet-body">
         <#-- shipping address -->

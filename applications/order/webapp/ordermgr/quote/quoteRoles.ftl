@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderQuoteRoles}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderOrderQuoteRoles}</div>
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">

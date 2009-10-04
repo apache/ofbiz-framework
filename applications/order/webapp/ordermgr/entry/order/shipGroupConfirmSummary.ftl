@@ -28,8 +28,8 @@ standard order confirmation page and to be re-usable by other screens.
 
 <#if cart?exists>
 <div class="screenlet">
-  <div class="screenlet-header">
-    <div class="boxhead">&nbsp;${uiLabelMap.OrderShippingInformation}</div>
+  <div class="screenlet-title-bar">
+    <div class="h3">${uiLabelMap.OrderShippingInformation}</div>
   </div>
   <div class="screenlet-body">
     <table width="100%">

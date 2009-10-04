@@ -18,14 +18,14 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
             <#if maySelectItems?default(false)>
                 <a href="javascript:document.addOrderToCartForm.add_all.value="true";document.addOrderToCartForm.submit()" class="lightbuttontext">${uiLabelMap.OrderAddAllToCart}</a>
                 <a href="javascript:document.addOrderToCartForm.add_all.value="false";document.addOrderToCartForm.submit()" class="lightbuttontext">${uiLabelMap.OrderAddCheckedToCart}</a>
             </#if>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderItems}</div>
+        <div class="h3">${uiLabelMap.OrderOrderItems}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0">

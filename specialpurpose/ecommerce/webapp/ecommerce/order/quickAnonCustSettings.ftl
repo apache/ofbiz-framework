@@ -40,8 +40,8 @@ under the License.
 </#macro>
 
 <div class="screenlet">
-  <div class="screenlet-header">
-     <div class="boxhead">&nbsp;${uiLabelMap.PartyBasicInformation}</div>
+  <div class="screenlet-title-bar">
+     <div class="h3">${uiLabelMap.PartyBasicInformation}</div>
   </div>
   <div class="screenlet-body">
   <form name="${parameters.formNameValue}" id="quickAnonProcessCustomer" method="post" action="<@ofbizUrl>quickAnonProcessCustomerSettings</@ofbizUrl>">

@@ -24,8 +24,8 @@ under the License.
 
       <#-- header box -->
         <div class="screenlet">
-            <div class="screenlet-header">
-                <div class="boxhead">&nbsp;PO For ${partyId?if_exists}</div>
+            <div class="screenlet-title-bar">
+                <div class="h3">PO For ${partyId?if_exists}</div>
             </div>
             <div class="screenlet-body">
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -37,8 +37,8 @@ under the License.
 
       <#-- payment box -->
         <div class="screenlet">
-            <div class="screenlet-header">
-                <div class="boxhead">&nbsp;Place Holder</div>
+            <div class="screenlet-title-bar">
+                <div class="h3">Place Holder</div>
             </div>
             <div class="screenlet-body">
                   <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -60,8 +60,8 @@ under the License.
 
       <#-- contact box -->
         <div class="screenlet">
-            <div class="screenlet-header">
-                <div class="boxhead">&nbsp;Place Holder</div>
+            <div class="screenlet-title-bar">
+                <div class="h3">Place Holder</div>
             </div>
             <div class="screenlet-body">
                   <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -73,8 +73,8 @@ under the License.
 
       <#-- shipping info box -->
         <div class="screenlet">
-            <div class="screenlet-header">
-                <div class="boxhead">&nbsp;Place Holder</div>
+            <div class="screenlet-title-bar">
+                <div class="h3">Place Holder</div>
             </div>
             <div class="screenlet-body">
                   <table width="100%" border="0" cellpadding="1" cellspacing="0">

@@ -21,8 +21,8 @@ under the License.
 
 <#if (shoppingLists?exists) && (shoppingCartSize > 0)>
   <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderAddOrderToShoppingList}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderAddOrderToShoppingList}</div>
     </div>
     <div class="screenlet-body">
       <table border="0" cellspacing="0" cellpadding="0">

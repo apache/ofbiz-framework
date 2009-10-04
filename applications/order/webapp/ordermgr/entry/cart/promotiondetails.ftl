@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionDetails}:</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.OrderPromotionDetails}:</div>
     </div>
     <div class="screenlet-body">
         <div>${StringUtil.wrapString(productPromo.promoText?if_exists)}</div>

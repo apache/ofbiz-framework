@@ -20,8 +20,8 @@ under the License.
 <#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
 <#if shipment?has_content>
   <div class="screenlet">
-    <div class="screenlet-header">
-      <div class="boxhead">${title?if_exists}<br/><br/></div>
+    <div class="screenlet-title-bar">
+      <div class="h3">${title?if_exists}<br/><br/></div>
     </div>
     <table border="0" cellpadding="0" cellspacing="0">
       <tbody>
@@ -39,8 +39,8 @@ under the License.
       </tbody>
     </table>
     <br/>
-    <div class="screenlet-header">
-      <div class="boxhead"><b>${uiLabelMap.EcommerceShipmentItems}</b></div>
+    <div class="screenlet-title-bar">
+      <div class="h3"><b>${uiLabelMap.EcommerceShipmentItems}</b></div>
     </div>
     <div class="screenlet-body">
       <table width="100%" border="0" cellpadding="0">

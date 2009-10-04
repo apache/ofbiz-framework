@@ -1199,13 +1199,6 @@ div.screenlet {
 	clear:both;
 }
 
-div.screenlet-header {
-	background-color: #1c334d;
-	height: auto !important;
-	height: 1%;
-	padding: 0.1em 0.4em 0.3em 0.4em;
-}
-
 div.screenlet-body {
 	background-color: #FFFFFF;
 	height: auto !important;

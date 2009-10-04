@@ -60,7 +60,7 @@ under the License.
     <#if canView>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
           <form name= "createCustRequestFromShoppingList" method= "post" action= "<@ofbizUrl>createCustRequestFromShoppingList</@ofbizUrl>">
             <input type= "hidden" name= "shoppingListId" value= "${shoppingList.shoppingListId}"/>
@@ -72,7 +72,7 @@ under the License.
           </form>
           <a href="javascript:document.updateList.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingListDetail} - ${shoppingList.listName}</div>
+        <div class="h3">${uiLabelMap.EcommerceShoppingListDetail} - ${shoppingList.listName}</div>
     </div>
     <div class="screenlet-body">
         <form name="updateList" method="post" action="<@ofbizUrl>updateShoppingList</@ofbizUrl>">
@@ -156,11 +156,11 @@ under the License.
 <#if shoppingListType?exists && shoppingListType.shoppingListTypeId == "SLT_AUTO_REODR">
   <#assign nowTimestamp = Static["org.ofbiz.base.util.UtilDateTime"].monthBegin()>
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
             <a href="javascript:document.reorderinfo.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
         </div>
-        <div class="boxhead">
+        <div class="h3">
             &nbsp;${uiLabelMap.EcommerceShoppingListReorder} - ${shoppingList.listName}
             <#if shoppingList.isActive?default("N") == "N">
                 <font color="yellow">${uiLabelMap.EcommerceOrderNotActive}</font>
@@ -321,11 +321,11 @@ under the License.
 
 <#if childShoppingListDatas?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
             <a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}&includeChild=yes</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceAddChildListsToCart}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceChildShoppingList} - ${shoppingList.listName}</div>
+        <div class="h3">&nbsp;${uiLabelMap.EcommerceChildShoppingList} - ${shoppingList.listName}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" cellspacing="0" cellpadding="1" border="0">
@@ -366,11 +366,11 @@ under the License.
 </#if>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
             <a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceAddListToCart}</a>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceListItems} - ${shoppingList.listName}</div>
+        <div class="h3">&nbsp;${uiLabelMap.EcommerceListItems} - ${shoppingList.listName}</div>
     </div>
     <div class="screenlet-body">
         <#if shoppingListItemDatas?has_content>
@@ -474,8 +474,8 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingListPriceTotals} - ${shoppingList.listName}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.EcommerceShoppingListPriceTotals} - ${shoppingList.listName}</div>
     </div>
     <div class="screenlet-body">
       <table width="100%" border="0" cellspacing="1" cellpadding="1">
@@ -511,8 +511,8 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.CommonQuickAddList}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.CommonQuickAddList}</div>
     </div>
     <div class="screenlet-body">
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">

@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${survey.surveyName}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${survey.surveyName}</div>
     </div>
     <div class="screenlet-body">
         <#-- Render the survey -->

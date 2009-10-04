@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div id="subscription-summary" class="screenlet">
-    <div class="screenlet-header">
-        <span class="boxhead">${uiLabelMap.ProductSubscriptions}</span>
+    <div class="screenlet-title-bar">
+        <span class="h3">${uiLabelMap.ProductSubscriptions}</span>
     </div>
     <div class="screenlet-body">
         <table width="100%" cellspacing="0" cellpadding="2">

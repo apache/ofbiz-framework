@@ -18,14 +18,14 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductCategoryWithNoParent}</div>
+    <div class="screenlet-title-bar">
+        <div class="h3">${uiLabelMap.ProductCategoryWithNoParent}</div>
     </div>
     <div class="screenlet-body">
         <#list noParentCategories as category>
             <div>
                 <a href="<@ofbizUrl>EditCategory?CATALOG_TOP_CATEGORY=${category.productCategoryId}&productCategoryId=${category.productCategoryId}</@ofbizUrl>" class="buttontext">
-                    ${category.description?if_exists} [${category.productCategoryId}]
+                ${category.description?if_exists} [${category.productCategoryId}]
                 </a>
             </div>
         </#list>

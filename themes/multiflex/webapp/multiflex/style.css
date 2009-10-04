@@ -964,7 +964,7 @@ font-weight:bold;
 font-size:150%;
 }
 
-.left .first .screenlet-header {
+.left .first .screenlet-title-bar{
 clear:both;
 margin:0px;
 padding:4px 20px 3px 20px;
@@ -974,9 +974,9 @@ font-weight:bold;
 font-size:150%;
 }
 
-.nocolumns .screenlet-header,
-.rightonly .screenlet-header,
-.leftonly .screenlet-header {
+.nocolumns .screenlet-title-bar,
+.rightonly .screenlet-title-bar,
+.leftonly .screenlet-title-bar {
 c_lear:both;
 margin:0px;
 padding:4px 20px 3px 20px;
@@ -995,7 +995,7 @@ font-family:"trebuchet ms",arial,sans-serif; color:rgb(255,255,255);
 font-weight:bold; font-size:150%;
 }
 
-.left .screenlet-header {
+.left .screenlet-title-bar {
 clear:both;
 margin:30px 0 20px 0;
 padding:4px 20px 3px 20px;
@@ -1353,7 +1353,7 @@ font-weight:bold;
 font-size:140%;
 }
 
-.right .screenlet-header {
+.right .screenlet-title-bar {
 clear:both;
 margin:0 0 10px 0;
 padding:4px 10px 3px 10px;

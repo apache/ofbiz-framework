@@ -30,8 +30,8 @@
     <h1>${title}</h1>
     <#-- custom logo or text can be inserted here -->
     <br/>
-    <div class="screenlet-header">
-      <div class="boxhead">${uiLabelMap.OagisInventoryDescription}<b></b></div>
+    <div class="screenlet-title-bar">
+      <div class="h3">${uiLabelMap.OagisInventoryDescription}<b></b></div>
     </div>
     <div class="screenlet-body">
       <table class="basic-table" cellspacing="0">

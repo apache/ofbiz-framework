@@ -18,13 +18,13 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-title-bar">
         <div class="boxlink">
           <#if maySelectItems?default(false)>
               <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.OrderAddAllToCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutextright">${uiLabelMap.OrderAddCheckedToCart}</a>
           </#if>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderReturnItems}</div>
+        <div class="h3">${uiLabelMap.OrderReturnItems}</div>
     </div>
     <div class="screenlet-body">
         <form name="selectAllForm" method="post" action="<@ofbizUrl>requestReturn</@ofbizUrl>">
