@@ -89,19 +89,21 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="left-border">
+                                <container style="left">
                                     <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
                                         <container id="EditDocumentTree"/>
                                         <include-screen name="navigateMenu"/>
                                     </screenlet>
                                 </container>
                                 <container style="leftonly">
-                                    <container  style="screenlet-title-bar h3">
-                                        <label text="${uiLabelMap.ContentContent}"/>
-                                    </container>
-                                    <container id="Document" style="screenlet">
-                                        <include-screen name="ListDocument"/>
-                                    </container>
+                                    <container  style="screenlet">
+                                        <container  style="screenlet-title-bar">
+                                            <label style="h3">${uiLabelMap.ContentContent}</label>
+                                        </container>
+                                        <container id="Document" style="screenlet-body">
+                                            <include-screen name="ListDocument"/>
+                                        </container>
+                                    </container>                                        
                                 </container>
                            </widgets>
                         </section>
