@@ -210,7 +210,7 @@ public class OrderListState {
     /**
      * Get the OrderHeaders corresponding to the state.
      */
-    public List getOrders(String facilityId, Timestamp filterDate, GenericDelegator delegator) throws GenericEntityException {
+    public List getOrders(String facilityId, Timestamp filterDate, Delegator delegator) throws GenericEntityException {
         List allConditions = new ArrayList();
 
         if (facilityId != null) {
