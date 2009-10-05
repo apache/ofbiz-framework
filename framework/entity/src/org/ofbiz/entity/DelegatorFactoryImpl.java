@@ -22,7 +22,7 @@ import org.ofbiz.base.util.Debug;
 
 /** A <code>DelegatorFactory</code> implementation that returns an
  * instance of <code>GenericDelegator</code>. */
-public class DelegatorFactoryImpl implements DelegatorFactory {
+public class DelegatorFactoryImpl extends DelegatorFactory {
 
     public static final String module = DelegatorFactoryImpl.class.getName();
 

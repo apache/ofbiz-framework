@@ -28,7 +28,6 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -139,11 +138,7 @@ public abstract class ListFinder extends Finder {
             resultSetType = ResultSet.TYPE_FORWARD_ONLY;
 
         if (delegatorName != null && delegatorName.length() > 0) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, AbstractCache.class.getName());
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
 
         EntityCondition whereEntityCondition = getWhereEntityCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));
